@@ -526,6 +526,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="VehiculoID" Type="int" Nullable="false" />
           <Property Name="ClienteID" Type="int" />
           <Property Name="TipoAvisoID" Type="int" />
+          <Property Name="Entidad" Type="int" Nullable="false" />
+          <Property Name="ProyectoNombrado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_FolioCuantificacion">
           <Key>
@@ -4043,6 +4045,30 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sam3_FolioAvisoLlegada_Sam3_Entidad">
+          <End Role="Sam3_Entidad" Type="Self.Sam3_Entidad" Multiplicity="1" />
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Entidad">
+              <PropertyRef Name="EntidadID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="Entidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto">
+          <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Proyecto">
+              <PropertyRef Name="ProyectoID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="ProyectoNombrado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sam3_ItemCode_Sam3_Colada">
           <End Role="Sam3_Colada" Type="Self.Sam3_Colada" Multiplicity="1" />
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="*" />
@@ -5061,6 +5087,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_RequisicionNumeroUnico" EntitySet="Sam3_RequisicionNumeroUnico" />
             <End Role="Sam3_RequisicionNumeroUnicoDetalle" EntitySet="Sam3_RequisicionNumeroUnicoDetalle" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sam3_FolioAvisoLlegada_Sam3_Entidad" Association="Self.FK_Sam3_FolioAvisoLlegada_Sam3_Entidad">
+            <End Role="Sam3_Entidad" EntitySet="Sam3_Entidad" />
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto" Association="Self.FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto">
+            <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sam3_ItemCode_Sam3_Colada" Association="Self.FK_Sam3_ItemCode_Sam3_Colada">
             <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
@@ -5283,6 +5317,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Entidad" FromRole="Sam3_Entidad" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Entidad" FromRole="Sam3_Entidad" ToRole="Sam3_FolioAvisoLlegada" />
         </EntityType>
         <EntityType Name="Sam3_EstatusOrden">
           <Key>
@@ -5397,6 +5432,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_TipoAviso" Relationship="ModelSam3.FK__Sam3_Foli__TipoA__17AD7836" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_TipoAviso" />
           <NavigationProperty Name="Sam3_Rel_Incidencia_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__170E59B8" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_Incidencia_FolioAvisoLlegada" />
           <NavigationProperty Name="Sam3_Rel_Incidencia_PaseSalida" Relationship="ModelSam3.FK__Sam3_Rel___Folio__2097C3F2" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_Incidencia_PaseSalida" />
+          <Property Name="Entidad" Type="Int32" Nullable="false" />
+          <Property Name="ProyectoNombrado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sam3_Entidad" Relationship="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Entidad" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Entidad" />
+          <NavigationProperty Name="Sam3_Proyecto" Relationship="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Proyecto" />
         </EntityType>
         <EntityType Name="Sam3_Incidencia">
           <Key>
@@ -5926,6 +5965,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Despacho" Relationship="ModelSam3.FK__Sam3_Desp__Proye__5FBE24CE" FromRole="Sam3_Proyecto" ToRole="Sam3_Despacho" />
           <NavigationProperty Name="Sam3_PreDespacho" Relationship="ModelSam3.FK__Sam3_PreD__Proye__1AA9E072" FromRole="Sam3_Proyecto" ToRole="Sam3_PreDespacho" />
           <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Proyecto" FromRole="Sam3_Proyecto" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto" FromRole="Sam3_Proyecto" ToRole="Sam3_FolioAvisoLlegada" />
         </EntityType>
         <EntityType Name="Sam3_Recepcion">
           <Key>
@@ -8311,6 +8351,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sam3_FolioAvisoLlegada_Sam3_Entidad" Association="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Entidad">
+            <End Role="Sam3_Entidad" EntitySet="Sam3_Entidad" />
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto" Association="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto">
+            <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -10586,6 +10634,30 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sam3_FolioAvisoLlegada_Sam3_Entidad">
+          <End Type="ModelSam3.Sam3_Entidad" Role="Sam3_Entidad" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Entidad">
+              <PropertyRef Name="EntidadID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="Entidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto">
+          <End Type="ModelSam3.Sam3_Proyecto" Role="Sam3_Proyecto" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Proyecto">
+              <PropertyRef Name="ProyectoID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="ProyectoNombrado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10819,6 +10891,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_FolioAvisoLlegada">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioAvisoLlegada">
               <MappingFragment StoreEntitySet="Sam3_FolioAvisoLlegada">
+                <ScalarProperty Name="ProyectoNombrado" ColumnName="ProyectoNombrado" />
+                <ScalarProperty Name="Entidad" ColumnName="Entidad" />
                 <ScalarProperty Name="TipoAvisoID" ColumnName="TipoAvisoID" />
                 <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
                 <ScalarProperty Name="VehiculoID" ColumnName="VehiculoID" />

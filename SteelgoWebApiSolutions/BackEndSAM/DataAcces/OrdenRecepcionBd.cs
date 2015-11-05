@@ -125,7 +125,8 @@ namespace BackEndSAM.DataAcces
                                               Descripcion = i.DescripcionEspanol,
                                               TipoMaterial = t.Nombre,
                                               FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                              RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString()
+                                              RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                              ItemCodeIDOriginal = i.ItemCodeID
                                           }).AsParallel().Distinct().ToList();
 
                         
@@ -152,7 +153,8 @@ namespace BackEndSAM.DataAcces
                                                      Descripcion = i.DescripcionEspanol,
                                                      TipoMaterial = t.Nombre,
                                                      FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                     RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString()
+                                                     RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                                     ItemCodeIDOriginal = i.ItemCodeID
                                                  }).AsParallel().Distinct().ToList();
 
                         
@@ -187,7 +189,8 @@ namespace BackEndSAM.DataAcces
                                                    Descripcion = i.DescripcionEspanol,
                                                    TipoMaterial = t.Nombre,
                                                    FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                   RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString()
+                                                   RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                                   ItemCodeIDOriginal = i.ItemCodeID
                                                }).AsParallel().Distinct().ToList();
 
                         
@@ -214,7 +217,8 @@ namespace BackEndSAM.DataAcces
                                                           Descripcion = i.DescripcionEspanol,
                                                           TipoMaterial = t.Nombre,
                                                           FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                          RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString()
+                                                          RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                                          ItemCodeIDOriginal = i.ItemCodeID
                                                       }).AsParallel().Distinct().ToList();
 
 
@@ -243,8 +247,8 @@ namespace BackEndSAM.DataAcces
 
                         if (itemCodeID > 0)
                         {
-                            elemento.Tubos = elemento.Tubos.Where(x => x.ItemCodeID == itemCodeID.ToString()).AsParallel().ToList();
-                            elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeID == itemCodeID.ToString()).AsParallel().ToList();
+                            elemento.Tubos = elemento.Tubos.Where(x => x.ItemCodeIDOriginal == itemCodeID).AsParallel().ToList();
+                            elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeIDOriginal == itemCodeID).AsParallel().ToList();
                         }
 
                         if (elemento.Tubos.Count > 0 || elemento.Accesorios.Count > 0)
