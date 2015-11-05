@@ -1477,6 +1477,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="usuario">usuario actual</param>
         public void InsertarRelacionFolioCuantificacion_IC(int FolioCuantificacion, CuantificacionListado IC, Sam3_Usuario usuario, out string RelID)
         {
+            RelID = "";
             try
             {
                 Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
@@ -1499,6 +1500,7 @@ namespace BackEndSAM.DataAcces
                         ctx.SaveChanges();
                     //}
                 }
+                
                 RelID = relIC.Rel_FolioCuantificacion_ItemCode_ID.ToString();
             }
             catch (Exception ex)
@@ -1582,8 +1584,9 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="item">Datos capturados en el grid</param>
         /// <param name="usuario">usuario actual</param>
-        public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario, string RelID)
+        public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario, out string RelID)
         {
+            RelID = "";
             try
             {
                 Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
