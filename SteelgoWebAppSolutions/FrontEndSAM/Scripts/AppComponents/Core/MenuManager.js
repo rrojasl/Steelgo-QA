@@ -265,7 +265,7 @@ function generateQuickLinks(data) {
     //    htmlToAppend = htmlToAppend + "<li><a href='#' onclick='removeUserSession()'><span id='quickLabel9003'>QuickLink1</span></a></li>";
     //}
     data.forEach(function (d) {
-        htmlToAppend += "<li><a href='/" + d.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + d.texto + "'></span></a></li>";
+        htmlToAppend += "<li><a href='"+window.location.origin + d.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + d.texto + "'></span></a></li>";
     })
     //Add closure elements of the basic structure
     htmlToAppend = htmlToAppend + "</ul></li>";
