@@ -297,9 +297,7 @@ namespace BackEndSAM.DataAcces
                     int ic = Convert.ToInt32(itemCodeID);
                     int ics = Convert.ToInt32(itemCodeSteelgoID);
 
-                    bool existe = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                   where rics.Activo && rics.ItemCodeID.ToString() == itemCodeID
-                                   select rics.ItemCodeID).Any();
+                   
 
                     int relIC_Diam = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
                                       where ricd.Activo && ricd.Diametro1ID.ToString() == diametro1 &&
@@ -312,6 +310,11 @@ namespace BackEndSAM.DataAcces
                                        ricsd.Diametro2ID.ToString() == diametro2 &&
                                        ricsd.ItemCodeSteelgoID.ToString() == itemCodeSteelgoID
                                        select ricsd.Rel_ItemCodeSteelgo_Diametro_ID).AsParallel().SingleOrDefault();
+
+                    bool existe = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                   where rics.Activo && rics.ItemCodeID.ToString() == itemCodeID ||
+                                   (rics.Rel_ItemCode_Diametro_ID == relIC_Diam || rics.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam)
+                                   select rics.ItemCodeID).Any();
 
                     if (existe) //update
                     {
