@@ -100,6 +100,8 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     nuevoAvisoLlegada.VehiculoID = avisoJson.Tracto.VehiculoID != null ? Convert.ToInt32(avisoJson.Tracto.VehiculoID) : 0;
+                    nuevoAvisoLlegada.Entidad = 1;
+                    nuevoAvisoLlegada.ProyectoNombrado = 1;
                     //los datos de entrada traen el id del cliente en sam2
                     int sam2ClienteID = avisoJson.Cliente.ClienteID != string.Empty || avisoJson.Cliente.ClienteID != "-1"
                         ? Convert.ToInt32(avisoJson.Cliente.ClienteID) : 0;
