@@ -10,22 +10,36 @@ function SuscribirEventos() {
 
 function suscribirEventoGuardar() {
     $('#btnGuardar').click(function (e) {
-        alert('saber el ds')
         var ds = $("#grid").data("kendoGrid").dataSource;
-        alert(ds);
         console.log(JSON.stringify(ds._data));
+        AjaxGuardarCaptura(ds._data);
+    });
+    $('#btnGuardarYNuevo').click(function (e) {
+
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data);
+        Limpiar();
     });
 }
 
 function suscribirEventoCancelar() {
     $('#btnCancelar').click(function (e) {
-        alert('se cancela todo y que pagina tiene que abrir');
+        Limpiar();
     });
 }
 
 function suscribirEventoAgregar() {
     $('#ButtonAgregar').click(function (e) {
+        loadingStart();
         ObtenerJSonGridSoldadura();
+        loadingStop();
+    });
+}
+function SuscribirEventoFecha() {
+    $('#FechaSoldadura').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            PlanchaFecha();
+        }
     });
 }
 
@@ -37,7 +51,11 @@ function SuscribirEventoTaller() {
         filter: "contains",
         index: 3
     });
-
+    $('#inputTaller').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            PlanchaTaller();
+        }
+    });
 }
 
 function SuscribirEventosJunta() {
@@ -68,7 +86,6 @@ function SuscribirEventoEliminar(idtable) {
     $("#" + idtable + " .deleteRow").on("click", function () {
         var td = $(this).parent();
         var tr = td.parent();
-        //change the background color to red before removing
         tr.css("background-color", "#FF3700");
 
         tr.fadeOut(400, function () {
@@ -87,13 +104,7 @@ function SuscribirEventoSpoolID() {
         index: 3,
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
-            //if (dataItem.ProveedorID == 0) {
-            //    VentanaModal(2);
-            //    e.preventDefault();
-            //}
-            //CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-            //alert('se selecciono un ID con el status' + dataItem.Status);
-
+            
             if (dataItem.Status != "1") {
                 e.preventDefault();
                 $("#InputID").val("");
@@ -119,14 +130,6 @@ function SuscribirEventoSpoolID() {
             }
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '')
                 AjaxJunta($("#InputID").val())
-            //e.select = true;
-            //var value = this.value();
-            //$("#InputID").val(e.)
-            ////if (!value) {
-            ////    Proveedor = {};
-            ////};
-            //alert('evento change ID con el status' + value);
-            // $("#InputID").data("kendoComboBox").select(1)
         }
     });
 
@@ -153,7 +156,6 @@ function SuscribirEventoSpoolID() {
         }
     });
 
-
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
@@ -171,17 +173,6 @@ function SuscribirEventoSpoolID() {
         else if (e.keyCode == 40)
             $("#InputID").data("kendoComboBox").select();
     });
-
-
-    //$("#InputID").blur(function () {
-
-    //    if ($("#InputID").val().length == 1) {
-    //        $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
-    //    }
-    //    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '')
-    //        AjaxJunta($("#InputID").val())
-
-    //});
 };
 
 $(document.body).keydown(function (e) {
@@ -194,3 +185,34 @@ $(document.body).keydown(function (e) {
         }
     }
 });
+
+
+
+function Limpiar() {
+
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#Junta").data("kendoComboBox").value("");
+
+    var radioButtons = document.getElementsByName('Muestra');
+    for (var x = 0; x < radioButtons.length; x++) {
+        if (radioButtons[x].checked) {
+            radioButtons[x].checked = false;
+        }
+    }
+
+    $("#FechaSoldadura").data("kendoDatePicker").value("");
+    $("#inputTaller").data("kendoComboBox").value("");
+
+    var radioButtonsLLena = document.getElementsByName('LLena');
+
+    for (var x = 0; x < radioButtonsLLena.length; x++) {
+        if (radioButtonsLLena[x].checked) {
+            radioButtonsLLena[x].checked = false;
+        }
+    }
+
+
+
+    $("#grid").data('kendoGrid').dataSource.data([]);
+}
