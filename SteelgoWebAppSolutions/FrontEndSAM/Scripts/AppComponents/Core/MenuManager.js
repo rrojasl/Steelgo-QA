@@ -325,7 +325,7 @@ function generateSideMenuDOMElements(idPadre, nivel, appendingTarget) {
                 case 2: newAppendingTarget = generateSideMenuDOMElementsLevel2($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
                 case 3: newAppendingTarget = generateSideMenuDOMElementsLevel3($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
             }
-            if ($sideMenuLayout[nivel][idPadre][key].liga == $currentUrl) {
+            if ($sideMenuLayout[nivel][idPadre][key].liga.replace("/", "").toLowerCase() == $currentUrl.split("?")[0].replace("/", "").toLowerCase()) {
                 $currentPageOnMenu = true;
             }
             generateSideMenuDOMElements(key, nivel + 1, newAppendingTarget);
