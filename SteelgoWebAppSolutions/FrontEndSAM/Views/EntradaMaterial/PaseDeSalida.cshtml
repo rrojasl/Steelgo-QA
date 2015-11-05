@@ -198,7 +198,7 @@
     function CargaInicial() {
         $("#IrIncidencia").click(function () { Incidencias(); });
         $("#Cancelar").click(function () {
-            Folio = {};
+            FolioPaseSalida = {};
             $('#ListaIncidencias tbody').empty();
             $("#listaArchivosPaseSalida tbody").empty();
             habilitarControles();
@@ -222,7 +222,7 @@
         });
 
         $("#ImprimirPaseSalida").click(function () {
-            window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+            window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
 
         if ($('#ListaIncidencias > tbody  > tr').length == 0) {
@@ -256,7 +256,7 @@
                 strincidencias = strALLincidencias;
             }
 
-            window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Incidencias&rs:Command=Render" + "&FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID + "&cadena=" + strincidencias + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+            window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Incidencias&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&cadena=" + strincidencias + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
 
         $("#FolioAvisoLlegadaID").kendoComboBox({
@@ -308,7 +308,7 @@
 
         $('#PackingList').kendoUpload({
             async: {
-                saveUrl: $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.TipoArchivoID + "&token=" + Cookies.get("token"),
+                saveUrl: $DocumentoPaseSalidaUploadFiles + FolioPaseSalida.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.TipoArchivoID + "&token=" + Cookies.get("token"),
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -326,7 +326,7 @@
     function GenerarPaseSalida() {
         loadingStart();
 
-        $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 loadingStop();
                 //DesahabilitarControles();
@@ -338,7 +338,7 @@
     };
 
     function limpiarUploadFiles() {
-        Folio = {};
+        FolioPaseSalida = {};
         TipoArchivo = {};
 
         habilitarControles();
@@ -365,8 +365,8 @@
     }
 
     function CargarFolio(id) {
-        Folio = {};
-        Folio = { FolioAvisoLlegadaID: id };
+        FolioPaseSalida = {};
+        FolioPaseSalida = { FolioAvisoLlegadaID: id };
     };
 
     function CargarTipoArchivo(id, value) {
@@ -377,10 +377,10 @@
     function ObtenerFoliosAvisoLlegada() {
         $folioEntradaMaterial.Listado.read({ tipoListado: 6, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
             ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
-            var folio = getUrlParameter("folioAvisoLlegadaID", "-1");
-            if (folio != -1) {
-                $("#FolioAvisoLlegadaID").data("kendoComboBox").value(folio);
-                CargarFolio(folio);
+            var FolioPaseSalida = getUrlParameter("folioAvisoLlegadaID", "-1");
+            if (FolioPaseSalida != -1) {
+                $("#FolioAvisoLlegadaID").data("kendoComboBox").value(FolioPaseSalida);
+                CargarFolio(FolioPaseSalida);
                 ObtenerDocumentosPaseSalida();
             }
 
@@ -429,12 +429,12 @@
             }
         }
 
-        $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
+        $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + FolioPaseSalida.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
     };
 
     function ObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
-        $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 var contador = 0;
@@ -452,7 +452,7 @@
 
     function DeshabilitarObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
-        $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 var contador = 0;
@@ -469,7 +469,7 @@
     };
 
     function HabilitarObtenerDocumentosPaseSalidaUploadFile() {
-        $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 var contador = 0;
@@ -517,7 +517,7 @@
 
     function ChecarPaseSalidaEnviadoUploadFile() {
         loadingStart();
-        $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if (result) {
                     //DesahabilitarControles();
@@ -537,7 +537,7 @@
 
     function ChecarPaseSalidaEnviado() {
         loadingStart();
-        $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if (result) {
                     //DesahabilitarControles();
@@ -565,7 +565,7 @@
     }
 
     function Incidencias() {
-        var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+        var folio = FolioPaseSalida.FolioAvisoLlegadaID ? FolioPaseSalida.FolioAvisoLlegadaID : "-1";
         window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + folio + "&TipoIncidencia=1&Clasificacion=1");
     };
 
