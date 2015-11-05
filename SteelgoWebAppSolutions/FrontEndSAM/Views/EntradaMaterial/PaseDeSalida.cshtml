@@ -380,6 +380,8 @@
             var folio = getUrlParameter("folioAvisoLlegadaID", "-1");
             if (folio != -1) {
                 $("#FolioAvisoLlegadaID").data("kendoComboBox").value(folio);
+                CargarFolio(folio);
+                ObtenerDocumentosPaseSalida();
             }
 
         });
