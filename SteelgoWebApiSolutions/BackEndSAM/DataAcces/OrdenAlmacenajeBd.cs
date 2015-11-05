@@ -187,48 +187,24 @@ namespace BackEndSAM.DataAcces
                     if (proyectoID > 0)
                     {
                         registros = (from fc in ctx.Sam3_FolioCuantificacion
-                                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     join p in ctx.Sam3_Proyecto on fc.ProyectoID equals p.ProyectoID
                                      join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                     join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                     join ic in ctx.Sam3_ItemCode on rid.ItemCodeID equals ic.ItemCodeID
-                                     join nu in ctx.Sam3_NumeroUnico on rfc.ItemCodeID equals nu.ItemCodeID
-                                     where fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo && rfc.Activo && ic.Activo && nu.Activo
-                                     && (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                         where roi.Activo
-                                         select roi.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
-                                     && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                          where roa.Activo
-                                          select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                                     where fc.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
-                                     && p.ProyectoID == proyectoID
-                                     select fc).AsParallel().Distinct().ToList();
+                                     && fc.ProyectoID == proyectoID
+                                     select fc).AsParallel().ToList();
 
                     }
                     else
                     {
                         registros = (from fc in ctx.Sam3_FolioCuantificacion
-                                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     join p in ctx.Sam3_Proyecto on fc.ProyectoID equals p.ProyectoID
                                      join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                     join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                     join ic in ctx.Sam3_ItemCode on rid.ItemCodeID equals ic.ItemCodeID
-                                     join nu in ctx.Sam3_NumeroUnico on rfc.ItemCodeID equals nu.ItemCodeID
-                                     where fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo && rfc.Activo && ic.Activo && nu.Activo
-                                     && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                         where ror.Activo
-                                         select ror.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
-                                     && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                          where roa.Activo
-                                          select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                                     where fc.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
-                                     select fc).AsParallel().Distinct().ToList();
+                                     select fc).AsParallel().ToList();
                     }
 
                     //Que sea igual al folio cuantificacion seleccionado 
@@ -237,6 +213,8 @@ namespace BackEndSAM.DataAcces
                         registros = registros.Where(x => x.FolioCuantificacionID == folioCuantificacionID && x.Activo).AsParallel().ToList();
 
                     }
+
+                    registros = registros.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
 
                     List<ListadoGenerarOrdenAlmacenaje> listado = new List<ListadoGenerarOrdenAlmacenaje>();
 
