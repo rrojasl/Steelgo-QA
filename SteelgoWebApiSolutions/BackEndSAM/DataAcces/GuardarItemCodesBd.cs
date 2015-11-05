@@ -1527,6 +1527,7 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = IC.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
+                        registroBd.MM = IC.MM;
 
                         ctx.SaveChanges();
 
@@ -1638,6 +1639,7 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = item.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
+                        registroBd.MM = item.MM;
 
                         ctx.SaveChanges();
 

@@ -1139,6 +1139,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="Cantidad" Type="int" />
           <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
+          <Property Name="MM" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Catalogos_Documento">
           <Key>
@@ -1270,6 +1271,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="Cantidad" Type="int" />
           <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
+          <Property Name="MM" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Incidencia_ComplementoRecepcion">
           <Key>
@@ -8986,6 +8988,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Cantidad" Type="Int32" />
           <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326" FromRole="Sam3_Rel_Bulto_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
+          <Property Name="MM" Type="Int32" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioCuantificacion_ItemCode">
           <Key>
@@ -9002,6 +9005,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Cantidad" Type="Int32" />
           <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED" FromRole="Sam3_Rel_FolioCuantificacion_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
+          <Property Name="MM" Type="Int32" />
         </EntityType>
         <EntityType Name="Sam3_TipoUso">
           <Key>
@@ -11971,6 +11975,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_Bulto_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_Bulto_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_Bulto_ItemCode">
+                <ScalarProperty Name="MM" ColumnName="MM" />
                 <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
@@ -11986,6 +11991,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_FolioCuantificacion_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_FolioCuantificacion_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_FolioCuantificacion_ItemCode">
+                <ScalarProperty Name="MM" ColumnName="MM" />
                 <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
