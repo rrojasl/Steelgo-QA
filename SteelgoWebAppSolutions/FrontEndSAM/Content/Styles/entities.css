@@ -797,7 +797,7 @@ header .menu > div {
 **********************************************************************************/
 .breadcrumb {
     background-color: #F1F1F1;
-    background-image: url("/Content/images/SAMC_HeaderBanner.png");
+    background-image: url("/Content/images/SAMC_HeaderBanner.jpg");
     background-repeat: no-repeat;
     background-position: right top;
     background-size: auto;
@@ -1569,8 +1569,7 @@ header .menu > div {
     .breadcrumb {
         padding: 12px 15px;
         margin-bottom: 15px;
-        max-height: none;
-        background-repeat: repeat-y;
+        max-height: none;        
     }
 
         .breadcrumb li {
