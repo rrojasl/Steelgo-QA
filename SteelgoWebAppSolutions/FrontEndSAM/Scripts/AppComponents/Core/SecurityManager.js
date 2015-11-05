@@ -46,7 +46,7 @@ function applySecurityPolicy(loadMenu) {
 
                 //Generate Side Menu
                 generateSideMenuDOMElements(0, 0, $(".main-menu"));
-                if (!$currentPageOnMenu && !window.opener) {
+                if (!$currentPageOnMenu && !window.opener && $errorURI != $currentUrl) {
                     document.location.href = $errorURI;
                 }
 
