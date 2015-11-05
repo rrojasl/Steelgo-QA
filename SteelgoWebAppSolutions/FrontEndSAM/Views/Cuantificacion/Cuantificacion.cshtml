@@ -2396,7 +2396,7 @@
         function cargarGridErrores(incompletos) {
             if (incompletos) {
                 var item =
-                       { ItemCode: incompletos.ItemCode, BultoID: incompletos.BultoID, Descripcion: incompletos.Descripcion, D1: incompletos.D1, D2: incompletos.D2, ItemCodeSteelgo: incompletos.ItemCodeSteelgo, Familia: incompletos.Familia, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, Colada: incompletos.Colada, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Detallar: incompletos.Detallar, TieneNU: incompletos.TieneNU, TieneError: true, RelFCId: dataJson[key].RelFCId, RelBID: dataJson[key].RelBID, ItemCodeID: dataJson[key].ItemCodeID, ItemCodeSteelgoID: dataJson[key].ItemCodeSteelgoID };
+                       { ItemCode: incompletos.ItemCode, BultoID: incompletos.BultoID, Descripcion: incompletos.Descripcion, D1: incompletos.D1, D2: incompletos.D2, ItemCodeSteelgo: incompletos.ItemCodeSteelgo, Familia: incompletos.Familia, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, Colada: incompletos.Colada, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Detallar: incompletos.Detallar, TieneNU: incompletos.TieneNU, TieneError: true, RelFCId: incompletos.RelFCId, RelBID: incompletos.RelBID, ItemCodeID: incompletos.ItemCodeID, ItemCodeSteelgoID: incompletos.ItemCodeSteelgoID };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
             }
         };
