@@ -135,9 +135,6 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
-                                //$('#grid').data('kendoGrid').refresh();
-                            },
-                            close: function (e) {
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro1 = data.nombre;
@@ -146,8 +143,6 @@
                             dataTextField: "value",
                             dataValueField: "id"
                         });
-                 
-                        //$('#grid').data('kendoGrid').refresh();
                     }
                 },
                 { field: "Diametro2ID", title: "d2id", width: "150px", hidden: true },
@@ -168,9 +163,7 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
-                                //$('#grid').data('kendoGrid').refresh();
-                            },
-                            close: function (e) {
+
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = data.nombre;
