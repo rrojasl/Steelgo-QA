@@ -6,17 +6,18 @@ var CampoResultadoPredetrminado = 25;
 var CampoLlenadoPredeterminado = 26;
 
 function AjaxObtenerListaInspector() {
+    loadingStart();
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
-        loadingStart();
+       
         $("#inputInspector").data("kendoComboBox").value("");
         $("#inputInspector").data("kendoComboBox").dataSource.data(data)
         loadingStop();
     });
 }
 function AjaxObtenerListaDefectos() {
-
+    loadingStart();
     $Defectos.Defectos.read({ lenguaje: $("#language").val(), TipoPrueba: TipoPrueba, token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
+      
         $("#inputDefecto").data("kendoComboBox").value("");
         $("#inputDefecto").data("kendoComboBox").dataSource.data(data)
         loadingStop();

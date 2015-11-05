@@ -13,10 +13,10 @@ function CargarGrid() {
         autoBind: true,
         dataSource: {
             data: [
-                     { TipoPrueba: "Durezas", Prioridad: "Prioridad 1", Cuadrante: "Cuadrante 1", Proyecto: "ETILENO XXI", Requisicion: "Requisicion 1", SpoolID: "003", Junta: "4" },
-                     { TipoPrueba: "Inspección dimensional", Prioridad: "Prioridad 2", Cuadrante: "Cuadrante 2", Proyecto: "CROSSOVER PIPING", Requisicion: "Requisicion 2", SpoolID: "004", Junta: "5" },
-                     { TipoPrueba: "Inspección Visual", Prioridad: "Prioridad 3", Cuadrante: "Cuadrante 3", Proyecto: "DUPONT ALTAMIRA2", Requisicion: "Requisicion 3", SpoolID: "005", Junta: "6" },
-                     { TipoPrueba: "Neumática", Prioridad: "Prioridad 4", Cuadrante: "Cuadrante 4", Proyecto: "CB LITORAL", Requisicion: "Requisicion 4", SpoolID: "006", Junta: "7" }
+                     { TipoPrueba: "Durezas", Prioridad: "Prioridad 1", Cuadrante: "Cuadrante 1", Proyecto: "ETILENO XXI", Requisicion: "Requisicion 1", SpoolID: "003", Junta: "4", Agregar:true },
+                     { TipoPrueba: "Inspección dimensional", Prioridad: "Prioridad 2", Cuadrante: "Cuadrante 2", Proyecto: "CROSSOVER PIPING", Requisicion: "Requisicion 2", SpoolID: "004", Junta: "5", Agregar: false },
+                     { TipoPrueba: "Inspección Visual", Prioridad: "Prioridad 3", Cuadrante: "Cuadrante 3", Proyecto: "DUPONT ALTAMIRA2", Requisicion: "Requisicion 3", SpoolID: "005", Junta: "6", Agregar: false },
+                     { TipoPrueba: "Neumática", Prioridad: "Prioridad 4", Cuadrante: "Cuadrante 4", Proyecto: "CB LITORAL", Requisicion: "Requisicion 4", SpoolID: "006", Junta: "7", Agregar: false }
             ],
             schema: {
                 model: {
@@ -27,7 +27,8 @@ function CargarGrid() {
                         Proyecto: { type: "string", editable: false },
                         Requisicion: { type: "string", editable: false },
                         SpoolID: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false }
+                        Junta: { type: "string", editable: false },
+                        Agregar:{ type: "bool", editable: true }
                     }
                 }
             },
@@ -40,6 +41,7 @@ function CargarGrid() {
         filterable: {
             extra: false
         },
+        editable:true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
@@ -58,7 +60,8 @@ function CargarGrid() {
             { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
             { field: "SpoolID", title: _dictionary.ServiciosTecnicosSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
             { field: "Junta", title: _dictionary.ServiciosTecnicosJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
-            { command: { text: _dictionary.botonAgregar[$("#language").data("kendoDropDownList").value()], click: AgregarCaptura }, title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], width: "99px" },
+             { field: "Agregar", title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px", template: '<input type="checkbox" #= Agregar ? "checked=checked" : "" # disabled="disabled" ></input>' },
+            
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.ServiciosTecnicosEliminar[$("#language").data("kendoDropDownList").value()], width: "99px" }
 
         ]

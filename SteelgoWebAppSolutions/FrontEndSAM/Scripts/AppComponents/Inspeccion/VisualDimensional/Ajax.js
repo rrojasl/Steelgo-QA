@@ -53,10 +53,12 @@ function AjaxObtenerListaDefectosVisuales() {
 }
 
 function AjaxCargaCamposPredeterminados() {
+   
     $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaDimensionalPredeterminada }).done(function (data) {
         var NewDate = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         endRangeDate.val(NewDate);
     });
+
     $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaVisualPredeterminada }).done(function (data) {
         var NewDate2 = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         endRangeDateV.val(NewDate2);
@@ -112,7 +114,7 @@ function AjaxCargaCamposPredeterminados() {
         }
 
     });
-    loadingStop();
+   
 }
 function AjaxObtenerSpoolID() {
     try {

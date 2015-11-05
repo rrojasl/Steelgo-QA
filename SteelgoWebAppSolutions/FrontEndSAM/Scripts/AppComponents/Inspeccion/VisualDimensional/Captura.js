@@ -10,6 +10,9 @@ function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
+    endRangeDateV.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
     AjaxObtenerListaDefectosDimensionales();
     AjaxObtenerListaDefectosVisuales();
     CargarGrid();
@@ -27,10 +30,12 @@ function asignarProyecto() {
 function CargarFecha() {
     endRangeDate = $("#FechaInspeccion").kendoDatePicker({
         max: new Date()
-    })
+       
+    });
     endRangeDateV = $("#inputFechaVisual").kendoDatePicker({
         max: new Date()
-    })
+       
+    });
 };
 function ExisteJunta() {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;

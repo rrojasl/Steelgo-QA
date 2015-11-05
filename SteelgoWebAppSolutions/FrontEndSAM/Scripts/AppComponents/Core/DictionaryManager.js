@@ -4148,4 +4148,44 @@ _dictionary = {
     },
     
     //#endregion
+
+    //#region ServiciosTecnicos
+    "ServiciosTecnicosTipoPrueba": {
+        "es-MX": "Tipo Prueba",
+        "en-US": "Test Type"
+    },
+    "ServiciosTecnicosPrioridad": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "ServiciosTecnicosCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
+    "ServiciosTecnicosProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "ServiciosTecnicosRequisicion": {
+        "es-MX": "Requisicion",
+        "en-US": "Requisition"
+    },
+    "ServiciosTecnicosSpoolID": {
+        "es-MX": "SpoolID",
+        "en-US": "SpoolID"
+    },
+    "ServiciosTecnicosJunta": {
+        "es-MX": "Junta",
+        "en-US": "Board"
+    },
+    "ServiciosTecnicosAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    "ServiciosTecnicosEliminar": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    }
+
+    //#endregion
 };
