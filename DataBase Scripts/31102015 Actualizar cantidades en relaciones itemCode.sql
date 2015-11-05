@@ -45,7 +45,7 @@ BEGIN
 
 			update Sam3_Rel_Bulto_ItemCode set
 				Cantidad = @cantidad
-			where Rel_Bulto_ItemCode_ID = @relID
+			where Rel_Bulto_ItemCode_ID = @relBultoID
 			and ItemCodeID = @id
 
 		FETCH NEXT FROM ActualizarRelbulto INTO @relBultoID
