@@ -23,6 +23,7 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> Cantidad { get; set; }
         public Nullable<int> Rel_ItemCode_Diametro_ID { get; set; }
+        public Nullable<int> MM { get; set; }
     
         public virtual Sam3_Bulto Sam3_Bulto { get; set; }
         public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
