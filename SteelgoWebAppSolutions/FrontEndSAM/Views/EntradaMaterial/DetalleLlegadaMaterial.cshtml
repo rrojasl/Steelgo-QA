@@ -1000,7 +1000,7 @@
             FolioLlegada.FolioAvisollegadaId = folioAvisoLlegada != -1 ? folioAvisoLlegada : Folio.FolioAvisoLlegadaID;
             FolioLlegada.ClienteId = Cliente.ClienteID;
             FolioLlegada.Proyectos = ProyectoIDs;
-            FolioLlegada.ProveedorID = Proveedor.ProveedorID;
+            FolioLlegada.ProveedorID = $("#ProveedorID").data("kendoComboBox").value();
             FolioLlegada.OrdenCompra = $("#OrdenDeCompra").val();
             FolioLlegada.Factura = $("#Factura").val();
             FolioLlegada.Estatus = $("#hdnOrdenDescargada").val() == "true" ? Estatus.Nombre == _estatusCierreDevolucion ? _estatusCierreDevolucion : _estatusDescargada : Estatus.Nombre;
