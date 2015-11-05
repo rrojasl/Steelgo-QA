@@ -174,7 +174,7 @@ namespace BackEndSAM.DataAcces
 
 
                                     datosItemCode.D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                         where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                         select d2.Valor).AsParallel().SingleOrDefault();
 
@@ -239,7 +239,7 @@ namespace BackEndSAM.DataAcces
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d1.Valor).AsParallel().SingleOrDefault(),
                                         D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                              join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                              join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d2.Valor).AsParallel().SingleOrDefault(),
                                         Familia = datosItemCode.Familia,
@@ -303,7 +303,7 @@ namespace BackEndSAM.DataAcces
                                                   where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                   select d1.Valor).AsParallel().SingleOrDefault(),
                                             D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                  join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                  join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                   where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                   select d2.Valor).AsParallel().SingleOrDefault(),
                                             Familia = datosItemCode.Familia,
@@ -411,7 +411,7 @@ namespace BackEndSAM.DataAcces
 
 
                                     datosItemCode.D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                         where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                         select d2.Valor).AsParallel().SingleOrDefault();
 
@@ -473,7 +473,7 @@ namespace BackEndSAM.DataAcces
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d1.Valor).AsParallel().SingleOrDefault(),
                                         D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                              join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                              join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d2.Valor).AsParallel().SingleOrDefault(),
                                         Familia = datosItemCode.Familia,
@@ -529,7 +529,7 @@ namespace BackEndSAM.DataAcces
                                                   where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                   select d1.Valor).AsParallel().SingleOrDefault(),
                                             D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                  join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                  join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                   where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                   select d2.Valor).AsParallel().SingleOrDefault(),
                                             Familia = datosItemCode.Familia,
@@ -645,7 +645,7 @@ namespace BackEndSAM.DataAcces
 
 
                                     datosItemCode.D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                         where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                         select d2.Valor).AsParallel().SingleOrDefault();
 
@@ -712,7 +712,7 @@ namespace BackEndSAM.DataAcces
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d1.Valor).AsParallel().SingleOrDefault(),
                                         D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                              join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                              join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d2.Valor).AsParallel().SingleOrDefault(),
                                         Familia = datosItemCode.Familia,
@@ -824,7 +824,7 @@ namespace BackEndSAM.DataAcces
 
                                     //si el diametro2 es nulo, es por que el Itemcode no tiene asociado un ItemCode Steelgo. Asi que asignamos los diametros del Itemcode
                                     datosItemCode.D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                         where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                         select d2.Valor).AsParallel().SingleOrDefault();
 
@@ -890,7 +890,7 @@ namespace BackEndSAM.DataAcces
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d1.Valor).AsParallel().SingleOrDefault(),
                                         D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                              join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                              join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d2.Valor).AsParallel().SingleOrDefault(),
                                         Familia = datosItemCode.Familia,
@@ -1044,7 +1044,7 @@ namespace BackEndSAM.DataAcces
                                     //if (datosItemCode.D2 <= 0)
                                     //{
                                     datosItemCode.D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                         where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                                         select d2.Valor).AsParallel().SingleOrDefault();
                                     //}
@@ -1110,7 +1110,7 @@ namespace BackEndSAM.DataAcces
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d1.Valor).AsParallel().SingleOrDefault(),
                                         D2 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
-                                              join d2 in ctx.Sam3_Diametro on rid.Diametro1ID equals d2.DiametroID
+                                              join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                               where rid.Activo && rid.Rel_ItemCode_Diametro_ID.ToString() == datosItemCode.ItemCodeID
                                               select d2.Valor).AsParallel().SingleOrDefault(),
                                         Familia = datosItemCode.Familia,
