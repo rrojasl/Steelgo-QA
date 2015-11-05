@@ -711,28 +711,21 @@ namespace BackEndSAM.DataAcces
 
                             folio = consecutivos.ConsecutivoNumerounico;
 
-                            Sam3_FolioAvisoEntrada folioEntrada = (from i in ctx.Sam3_ItemCode
-                                                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                                                                   join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
-                                                                   join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
+                            Sam3_FolioAvisoEntrada folioEntrada = (from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                                   join fc in ctx.Sam3_FolioCuantificacion on rfc.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                   join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                                                   where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
-                                                                   && rfi.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID
-                                                                   select fe).AsParallel().FirstOrDefault();
+                                                                   where rfc.Activo
+                                                                   && rfc.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID
+                                                                   select fe).AsParallel().SingleOrDefault();
 
                             if (folioEntrada == null)
                             {
-                                folioEntrada = (from i in ctx.Sam3_ItemCode
-                                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                                                join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                folioEntrada = (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
                                                 join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                 join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                 join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                                where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
-                                                && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
-                                                select fe).AsParallel().FirstOrDefault();
+                                                where rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
+                                                select fe).AsParallel().SingleOrDefault();
                             }
 
                             Sam3_ItemCode itemCodeBase = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
