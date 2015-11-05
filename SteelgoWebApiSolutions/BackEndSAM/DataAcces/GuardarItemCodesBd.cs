@@ -87,7 +87,7 @@ namespace BackEndSAM.DataAcces
                         datosItemCode.ItemCodeSteelgoID = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgoID) || datosItemCode.ItemCodeSteelgoID == "0" ? "1" : datosItemCode.ItemCodeSteelgoID;
                         datosItemCode.Familia = string.IsNullOrEmpty(datosItemCode.Familia) ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
                         datosItemCode.TipoAcero = string.IsNullOrEmpty(datosItemCode.TipoAcero) ? datosItemCode.TipoAcero = "Familia Material Default" : datosItemCode.TipoAcero;
-
+                        
                         switch (tipoGuardado)
                         {
                             case 1: //Terminar y Nuevo
@@ -199,6 +199,14 @@ namespace BackEndSAM.DataAcces
                                     {
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
+
+                                    datosItemCode.Cedula = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                            join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                                            join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                            join rics in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                                            where ics.Activo && c.Activo && d.Activo && rics.Activo
+                                                            && ics.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                            select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).AsParallel().SingleOrDefault();
 
                                     //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
                                     //{
@@ -444,6 +452,14 @@ namespace BackEndSAM.DataAcces
                                     //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
                                     //}
 
+                                    datosItemCode.Cedula = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                            join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                                            join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                            join rics in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                                            where ics.Activo && c.Activo && d.Activo && rics.Activo
+                                                            && ics.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                            select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).AsParallel().SingleOrDefault();
+
                                     #region rel folio itemcode
                                     int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
                                     if (relFolioCItemCodeID > 0)
@@ -681,6 +697,14 @@ namespace BackEndSAM.DataAcces
                                     //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
                                     //}
 
+                                    datosItemCode.Cedula = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                            join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                                            join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                            join rics in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                                            where ics.Activo && c.Activo && d.Activo && rics.Activo
+                                                            && ics.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                            select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).AsParallel().SingleOrDefault();
+
                                     #region rel folioc itemcode
                                     int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
                                     if (relFolioCItemCodeID > 0)
@@ -852,6 +876,14 @@ namespace BackEndSAM.DataAcces
                                     {
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
+
+                                    datosItemCode.Cedula = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                            join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                                            join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                            join rics in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                                            where ics.Activo && c.Activo && d.Activo && rics.Activo
+                                                            && ics.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                            select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).AsParallel().SingleOrDefault();
 
                                     //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
                                     //{
@@ -1079,6 +1111,14 @@ namespace BackEndSAM.DataAcces
                                     //{
                                     //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
                                     //}
+
+                                    datosItemCode.Cedula = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                            join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                                            join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                            join rics in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                                            where ics.Activo && c.Activo && d.Activo && rics.Activo
+                                                            && ics.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                            select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).AsParallel().SingleOrDefault();
 
                                     #region rel bulto itemcode
                                     int relBultoItemCodeID = datosItemCode.RelBID != null && datosItemCode.RelBID != "" ? Convert.ToInt32(datosItemCode.RelBID) : 0;

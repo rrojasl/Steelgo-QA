@@ -175,7 +175,7 @@ namespace BackEndSAM.DataAcces
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
                                                   select fa.Nombre).FirstOrDefault(),
 
-                                       Cedula = c.CedulaA,
+                                       Cedula = d1.Valor.ToString() + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC,
 
                                        Colada = (from co in ctx.Sam3_Colada
                                                  where co.ColadaID == ic.ColadaID && co.Activo && ic.Activo
