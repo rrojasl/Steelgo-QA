@@ -113,9 +113,9 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int itemCodeID = Convert.ToInt32(ItemCode);
-
-                    if (ItemCode.Contains("Bulto"))
+                    int itemCodeID = ItemCode != null ? Convert.ToInt32(ItemCode) : 0;
+                    string strItemCode = string.IsNullOrEmpty(ItemCode) ? "" : ItemCode;
+                    if (strItemCode.Contains("Bulto"))
                     {
                         //Elimino de Rel Bulto
                         Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID.ToString() == BultoID && x.Activo).AsParallel().SingleOrDefault();

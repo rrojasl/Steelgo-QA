@@ -1103,8 +1103,8 @@
                         };
 
                         if (typeof (filaseleccionada) != undefined) {
-                            var valor = filaseleccionada.RelBID;
-                            var ItemCode = filaseleccionada.RelFCId;
+                            var valor = filaseleccionada.BultoID;
+                            var ItemCode = filaseleccionada.ItemCode;
 
 
 
@@ -1175,6 +1175,8 @@
                 var folioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID;
                 var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
                 var validarBulto = "-1";
+                var relBID=dataItem.RelBID;
+                var relFCID = dataItem.RelFCId;
 
                 if (folioCuantificacionID == "-1" || !ItemCode ) {
                     var grid = $("#grid").data("kendoGrid");
@@ -1185,7 +1187,7 @@
                 } 
 
                 if (_detalleBulto != "-1") {
-                    validarBulto = _bultoID
+                    validarBulto = relBID
                 } else {
                     validarBulto = bultoID
                 }
@@ -1193,7 +1195,7 @@
                 $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, bultoID: validarBulto, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
                     if (!data) {
                         if (confirm("Estas seguro de cancelar el Item Code?")) {
-                            $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: validarBulto, ItemCode: ItemCode,detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
+                            $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: validarBulto, ItemCode: relFCID, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
                                 var grid = $("#grid").data("kendoGrid");
                                 var tr = $(e.currentTarget).closest("tr");
                                 grid.removeRow(tr);
