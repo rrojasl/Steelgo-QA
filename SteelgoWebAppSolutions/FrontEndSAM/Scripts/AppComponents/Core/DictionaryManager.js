@@ -3280,6 +3280,10 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
+    "GenerarOrdenAlmacenaje0028": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
 //Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
         "es-MX": "Inicio",
