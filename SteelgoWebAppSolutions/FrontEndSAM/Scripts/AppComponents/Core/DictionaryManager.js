@@ -2990,8 +2990,8 @@ _dictionary = {
         "en-US": "Labels"
     },
     "DetalleOrdenRecepcion0023": {
-        "es-MX": "Generar Orden Almacenaje",
-        "en-US": "Generate Storage Order"
+        "es-MX": "Complemento Recepción",
+        "en-US": "Reception Complement"
     },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
