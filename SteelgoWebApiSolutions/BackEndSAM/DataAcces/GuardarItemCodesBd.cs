@@ -1607,6 +1607,7 @@ namespace BackEndSAM.DataAcces
                         bic.UsuarioModificacion = usuario.UsuarioID;
                         bic.Activo = true;
                         bic.Cantidad = item.Cantidad;
+                        bic.MM = item.MM;
                         ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
                         ctx.SaveChanges();
 
