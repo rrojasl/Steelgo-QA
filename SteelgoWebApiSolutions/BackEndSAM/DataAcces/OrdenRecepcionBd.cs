@@ -854,6 +854,16 @@ namespace BackEndSAM.DataAcces
                                     actualizarRelacion.TieneNumerosUnicos = true;
                                     actualizarRelacion.FechaModificacion = DateTime.Now;
                                     actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+
+                                    Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
+                                    relNumero.Activo = true;
+                                    relNumero.FechaModificacion = DateTime.Now;
+                                    relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                    relNumero.Rel_FolioCuantificacion_ItemCode_ID = actualizarRelacion.Rel_FolioCuantificacion_ItemCode_ID;
+                                    relNumero.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+
                                 }
 
                                 if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).Any())
@@ -864,7 +874,20 @@ namespace BackEndSAM.DataAcces
                                     relacion.FechaModificacion = DateTime.Now;
                                     relacion.UsuarioModificacion = usuario.UsuarioID;
 
+                                    Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
+                                    relNumero.Activo = true;
+                                    relNumero.FechaModificacion = DateTime.Now;
+                                    relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                    relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
+                                    relNumero.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+
                                 }
+
+
+
+
                                 ctx.SaveChanges();
 
                             }
@@ -933,27 +956,57 @@ namespace BackEndSAM.DataAcces
 
                                     ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
                                     ctx.SaveChanges();
+
+                                    Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).AsParallel().Distinct().SingleOrDefault();
+
+                                    Sam3_Rel_Bulto_ItemCode relacion = ctx.Sam3_Rel_Bulto_ItemCode
+                                        .Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).AsParallel().Distinct().SingleOrDefault();
+
+                                    if (actualizarRelacion != null)
+                                    {
+                                        Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
+                                        relNumero.Activo = true;
+                                        relNumero.FechaModificacion = DateTime.Now;
+                                        relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                        relNumero.Rel_FolioCuantificacion_ItemCode_ID = actualizarRelacion.Rel_FolioCuantificacion_ItemCode_ID;
+                                        relNumero.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+                                    }
+
+                                    if (relacion != null)
+                                    {
+                                        Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
+                                        relNumero.Activo = true;
+                                        relNumero.FechaModificacion = DateTime.Now;
+                                        relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                        relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
+                                        relNumero.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+                                    }
+
                                 }// fin for
                                 consecutivos.ConsecutivoNumerounico = folio;
 
                                 //Actualizar el ItemCode para indicar que ya tiene un numero unico
                                 if (ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).Any())
                                 {
-                                    List<Sam3_Rel_FolioCuantificacion_ItemCode> actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).AsParallel().Distinct().ToList();
-                                    actualizarRelacion.ForEach(x => x.TieneNumerosUnicos = true);
-                                    actualizarRelacion.ForEach(x => x.FechaModificacion = DateTime.Now);
-                                    actualizarRelacion.ForEach(x => x.UsuarioModificacion = usuario.UsuarioID);
+                                    Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).AsParallel().Distinct().SingleOrDefault();
+                                    actualizarRelacion.TieneNumerosUnicos = true;
+                                    actualizarRelacion.FechaModificacion = DateTime.Now;
+                                    actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
                                 }
 
                                 if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).Any())
                                 {
-                                    List<Sam3_Rel_Bulto_ItemCode> relacion = ctx.Sam3_Rel_Bulto_ItemCode
-                                        .Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).AsParallel().Distinct().ToList();
-                                    relacion.ForEach(x => x.TieneNumerosUnicos = true);
-                                    relacion.ForEach(x => x.FechaModificacion = DateTime.Now);
-                                    relacion.ForEach(x => x.UsuarioModificacion = usuario.UsuarioID);
-
+                                    Sam3_Rel_Bulto_ItemCode relacion = ctx.Sam3_Rel_Bulto_ItemCode
+                                        .Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).AsParallel().Distinct().SingleOrDefault();
+                                    relacion.TieneNumerosUnicos = true;
+                                    relacion.FechaModificacion = DateTime.Now;
+                                    relacion.UsuarioModificacion = usuario.UsuarioID;
                                 }
                                 ctx.SaveChanges();
                             }// else

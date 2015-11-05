@@ -14,6 +14,11 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Rel_FolioCuantificacion_ItemCode
     {
+        public Sam3_Rel_FolioCuantificacion_ItemCode()
+        {
+            this.Sam3_Rel_NumeroUnico_RelFC_RelB = new HashSet<Sam3_Rel_NumeroUnico_RelFC_RelB>();
+        }
+    
         public int Rel_FolioCuantificacion_ItemCode_ID { get; set; }
         public int FolioCuantificacionID { get; set; }
         public Nullable<int> ItemCodeID { get; set; }
@@ -27,5 +32,6 @@ namespace DatabaseManager.Sam3
     
         public virtual Sam3_FolioCuantificacion Sam3_FolioCuantificacion { get; set; }
         public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
+        public virtual ICollection<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
     }
 }

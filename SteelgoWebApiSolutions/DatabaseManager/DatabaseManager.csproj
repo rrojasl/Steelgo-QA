@@ -1223,6 +1223,9 @@
     <Compile Include="Sam3\Sam3_Rel_ItemCode_ItemCodeSteelgo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_NumeroUnico_RelFC_RelB.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_OrdenAlmacenaje_NumeroUnico.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
