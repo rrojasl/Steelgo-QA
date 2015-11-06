@@ -1104,7 +1104,20 @@
                             return;
                         }
                         if (e.item.id == "NuevaColada") {
-                            VentanaModal(3);
+                            if (typeof (filaseleccionada) != undefined) {
+                                if (!filaseleccionada) {
+                                    displayMessage("notificationslabel0086", "", '1');
+                                    return;
+                                };
+                                if (!filaseleccionada.ItemCodeID) {
+                                    displayMessage("notificationslabel0086", "", '1');
+                                    return;
+                                };
+                                VentanaModal(3);
+                                
+                            } else {
+                                displayMessage("notificationslabel0086", "", '1');
+                            };
                             return;
                         };
 

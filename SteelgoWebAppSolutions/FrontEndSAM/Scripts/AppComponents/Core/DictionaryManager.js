@@ -5974,6 +5974,10 @@ _dictionary = {
         "es-MX": "Permiso Autorizado correctamente",
         "en-US": "Permit Authorized successfully."
     },
+    "notificationslabel0086": {
+        "es-MX": "Favor de seleccionar un item code.",
+        "en-US": "Please select an item code."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
