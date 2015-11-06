@@ -2641,6 +2641,10 @@ _dictionary = {
         "es-MX": "Imprimir Pase de Salida",
         "en-US": "Print Departure Pass"
     },
+    "PaseDeSalida0019": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Arrival Material Dashboard"
+    },
     //
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
