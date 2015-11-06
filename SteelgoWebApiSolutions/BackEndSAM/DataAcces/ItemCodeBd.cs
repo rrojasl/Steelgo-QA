@@ -324,7 +324,8 @@ namespace BackEndSAM.DataAcces
                                                     where rics.Activo && itcs.Activo && it.Activo
                                                     && rics.ItemCodeID == r.ItemCodeID
                                                     select fm.Nombre).FirstOrDefault(),
-                                       //ColadaID = r.ColadaID
+                                       //ColadaID = r.ColadaID,
+                                       ItemCodeOrigenID = r.ItemCodeID
                                    }).AsParallel().SingleOrDefault();
                     }
                     else
@@ -345,6 +346,7 @@ namespace BackEndSAM.DataAcces
                                        //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        //Cantidad = r.Cantidad,
                                        //MM = r.MM
+                                       ItemCodeOrigenID = r.ItemCodeID
                                    }).AsParallel().SingleOrDefault();
                     }
                     return detalle;

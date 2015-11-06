@@ -263,7 +263,8 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU,
                                         Detallar = "No",
                                         RelBID = datosItemCode.RelBID,
-                                        RelFCId = datosItemCode.RelFCId
+                                        RelFCId = datosItemCode.RelFCId,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                     //}
                                 }
@@ -328,7 +329,8 @@ namespace BackEndSAM.DataAcces
                                             TieneNU = datosItemCode.TieneNU,
                                             Detallar = "No",
                                             RelBID = datosItemCode.RelBID,
-                                            RelFCId = datosItemCode.RelFCId
+                                            RelFCId = datosItemCode.RelFCId,
+                                            ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                         });
                                     }
                                 }
@@ -509,7 +511,8 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU,
                                         Detallar = "No",
                                         RelBID = datosItemCode.RelBID,
-                                        RelFCId = datosItemCode.RelFCId
+                                        RelFCId = datosItemCode.RelFCId,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                     //}
                                 }
@@ -566,7 +569,8 @@ namespace BackEndSAM.DataAcces
                                             TieneNU = datosItemCode.TieneNU,
                                             Detallar = "No",
                                             RelBID = datosItemCode.RelBID,
-                                            RelFCId = datosItemCode.RelFCId
+                                            RelFCId = datosItemCode.RelFCId,
+                                            ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                         });
                                     }
                                 }
@@ -760,7 +764,8 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU,
                                         Detallar="No",
                                         RelBID = datosItemCode.RelBID,
-                                        RelFCId = datosItemCode.RelFCId
+                                        RelFCId = datosItemCode.RelFCId,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                     //}
                                 }
@@ -801,6 +806,7 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                 }
                                 else
@@ -949,7 +955,8 @@ namespace BackEndSAM.DataAcces
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
                                         RelBID = datosItemCode.RelBID,
-                                        RelFCId = datosItemCode.RelFCId
+                                        RelFCId = datosItemCode.RelFCId,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                     //}
                                 }
@@ -988,7 +995,8 @@ namespace BackEndSAM.DataAcces
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
                                         RelBID = datosItemCode.RelBID,
-                                        RelFCId = datosItemCode.RelFCId
+                                        RelFCId = datosItemCode.RelFCId,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
 
                                 }
@@ -1029,7 +1037,8 @@ namespace BackEndSAM.DataAcces
                                         ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                 }
                                 else
@@ -1182,7 +1191,8 @@ namespace BackEndSAM.DataAcces
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
                                         RelBID = datosItemCode.RelBID,
-                                        RelFCId = datosItemCode.RelFCId
+                                        RelFCId = datosItemCode.RelFCId,
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                     //}
                                    
