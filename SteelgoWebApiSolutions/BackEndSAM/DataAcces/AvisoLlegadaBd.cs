@@ -803,12 +803,15 @@ namespace BackEndSAM.DataAcces
 
                     foreach (ListaCombos lst in lstFolios)
                     {
-                        string[] elemntos = lst.value.Split(',').ToArray();
-                        int digitos = Convert.ToInt32(elemntos[1]);
-                        int consecutivo = Convert.ToInt32(elemntos[2]);
-                        string formato = "D" + digitos.ToString();
+                        if (lst.value != null)
+                        {
+                            string[] elemntos = lst.value.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
 
-                        lst.value = elemntos[0].Trim() + consecutivo.ToString(formato) + elemntos[3];
+                            lst.value = elemntos[0].Trim() + consecutivo.ToString(formato) + elemntos[3];
+                        }
 
                     }
 

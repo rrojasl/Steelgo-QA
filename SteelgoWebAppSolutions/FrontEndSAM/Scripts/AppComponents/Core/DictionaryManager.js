@@ -3037,6 +3037,10 @@ _dictionary = {
         "es-MX": "Complemento Recepción",
         "en-US": "Reception Complement"
     },
+    "DetalleOrdenRecepcion0024": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Folio Orden de Almacenaje: ",
@@ -4051,6 +4055,34 @@ _dictionary = {
     "ComplementoRecepcion0069": {
         "es-MX": "ItemCodeID",
         "en-US": "ItemCodeID"
+    },
+    "ComplementoRecepcion0070": {
+        "es-MX": "RelFCID",
+        "en-US": "RelFCID"
+    },
+    "ComplementoRecepcion0071": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "ComplementoRecepcion0072": {
+        "es-MX": "RelNUFCBID",
+        "en-US": "RelNUFCBID"
+    },
+    "ComplementoRecepcion0073": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0074": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0075": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "ComplementoRecepcion0076": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
     },
     // Lista Materiales
     "ListaMateriales0001": {

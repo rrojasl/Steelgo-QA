@@ -207,7 +207,7 @@ namespace BackEndSAM.DataAcces
                                                          pc.ProyectoID == ic.ProyectoID
                                                          select pc.ToleranciaCortes).FirstOrDefault().ToString(),
                                  Cantidad = ic.Cantidad.ToString(),
-                                 Colada = ic.ColadaID.ToString(),
+                                 //Colada = ic.ColadaID.ToString(),
                                  EstatusFisico = ic.EstatusFisico,
                                  EstatusDocumental = ic.EstatusDocumental,
                                  AlmacenVirtual = "X"

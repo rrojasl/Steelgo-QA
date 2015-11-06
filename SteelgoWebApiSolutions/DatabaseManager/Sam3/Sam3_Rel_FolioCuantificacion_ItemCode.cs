@@ -29,6 +29,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> Cantidad { get; set; }
         public Nullable<int> Rel_ItemCode_Diametro_ID { get; set; }
         public Nullable<int> MM { get; set; }
+        public int ColadaID { get; set; }
     
         public virtual Sam3_FolioCuantificacion Sam3_FolioCuantificacion { get; set; }
         public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
