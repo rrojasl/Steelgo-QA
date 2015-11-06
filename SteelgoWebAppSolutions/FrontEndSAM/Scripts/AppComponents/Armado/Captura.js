@@ -4,7 +4,6 @@ var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
 var ItemSeleccionado;
 IniciarCapturaArmado();
-
 function IniciarCapturaArmado() {
   
     AltaFecha();
@@ -300,6 +299,9 @@ function eliminarCaptura(e) {
     }
 };
 function changeLanguageCall() {
+    endRangeDate.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
     AjaxCargarCamposPredeterminados();
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
