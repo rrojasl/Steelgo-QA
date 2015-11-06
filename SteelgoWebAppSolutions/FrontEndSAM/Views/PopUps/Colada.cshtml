@@ -6,6 +6,10 @@
 <div id="modalColada" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="row">
+             <div id="ItemCode_ColadaDiv" class="form-group">
+                <label id="Cuantificacion0096"></label>
+                <input id="ItemCode_Colada" class="" disabled />
+            </div>
             <div id="Fabricante_ColadaDiv" class="form-group">
                 <label id="Cuantificacion0061"></label>
                 <input id="Fabricante_Colada" class="" />
@@ -83,6 +87,11 @@
                 visible: "#HoldCalidad_ColadaDiv",
                 editable: "#HoldCalidad_Colada",
                 required: "#HoldCalidad_Colada"
+            },
+            itemcode: {
+                visible: "#ItemCode_ColadaDiv",
+                editable: "#ItemCode_Colada",
+                required: "#ItemCode_Colada"
             }
         }
     };
@@ -91,7 +100,7 @@
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
         hideElementsColada();
-
+        $("ItemCode_Colada").val(window.parent.$("#ItemCodeSeleccionado").val());
         window.parent.$(".k-i-close").click(function (e) {
             CancelarColada();
         });
@@ -263,7 +272,8 @@
     };
 
     function GuardarColada() {
-        ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
+        ColadaModal = { ItemCodeID: "", FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
+        ColadaModal.ItemCodeID = window.parent.$("#ItemCodeIDSeleccionado").val();
         ColadaModal.FabricanteID = FabricanteColada.FabricanteID;
         ColadaModal.AceroID = AceroColada.AceroID;
         ColadaModal.ProyectoID = ProyectoColada.ProyectoID;

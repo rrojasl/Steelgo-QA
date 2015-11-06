@@ -2262,6 +2262,10 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "Cuantificacion0096": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

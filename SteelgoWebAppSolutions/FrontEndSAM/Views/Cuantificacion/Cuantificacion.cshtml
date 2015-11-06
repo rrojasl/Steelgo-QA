@@ -173,6 +173,8 @@
 <div id="window">
 </div>
 <input id="hdnNavegacion" type="hidden" value="" />
+<input id="ItemCodeIDSeleccionado" type="hidden" />
+<input id="ItemCodeSeleccionado" type="hidden" />
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -1113,6 +1115,8 @@
                                     displayMessage("notificationslabel0086", "", '1');
                                     return;
                                 };
+                                $("#ItemCodeIDSeleccionado").val(filaseleccionada.ItemCodeID);
+                                $("#ItemCodeSeleccionado").val(filaseleccionada.ItemCode);
                                 VentanaModal(3);
                                 
                             } else {
