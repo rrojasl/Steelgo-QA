@@ -4273,4 +4273,101 @@ _dictionary = {
 
     //#endregion
 
+    //#region Soldadura
+    "CapturaSoldaduraSoldaduraSpool": {
+        "es-MX": "Soldadura de Spool",
+        "en-US": "Spool Welding"
+    },
+    "CapturaSoldaduraTipoJunta": {
+        "es-MX": "Tipo Junta",
+        "en-US": "Joint type"
+    },
+    "CapturaSoldaduraJunta": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "CapturaSoldaduraCedula": {
+        "es-MX": "Cedula",
+        "en-US": "Cedule"
+    },
+    "CapturaSoldaduraHeaderFechaSoldadura": {
+        "es-MX": "Fecha Soldadura",
+        "en-US": "Welling Date"
+    },
+    "CapturaSoldaduraHeaderTaller": {
+        "es-MX": "Taller",
+        "en-US": "WorkShop"
+    },
+
+    "CapturaSoldaduraHeaderLocalizacion": {
+        "es-MX": "Localización",
+        "en-US": "Location"
+    },
+    "CapturaSoldaduraHeaderAdicionales": {
+        "es-MX": "Trabajos Adicionales",
+        "en-US": "Additional Work"
+    },
+    "CapturaRaizHeaderAdicionales": {
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Root Welders"
+    },
+    "CapturaRellenoHeaderAdicionales": {
+        "es-MX": "Soldadores Relleno",
+        "en-US": "Fill Welders"
+    },
+    "CapturaSoldaduraDetalleJunta": {
+        "es-MX": "Detalle Junta",
+        "en-US": "Joint Detail"
+    },
+    "CapturaSoldaduraMensajeOrdenTrabajo": {
+        "es-MX": "La Orden de trabajo no es valida.",
+        "en-US": "The work order is not valid."
+    },
+    "CapturaSoldaduraMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaSoldaduraMensajeSoldadorExistente": {
+        "es-MX": "El soldador ya existe",
+        "en-US": "welder existent"
+    },
+    "CapturaSoldaduraProcesoRaiz": {
+        "es-MX": "Proceso Raiz",
+        "en-US": "Root process"
+    },
+    "CapturaSoldaduraProcesoRelleno": {
+        "es-MX": "Proceso Relleno",
+        "en-US": "Fill process"
+    },
+    "CapturaSoldaduraMensajeCambioLongitud": {
+        "es-MX": "Ahora tienes ",
+        "en-US": "Now you have "
+    },
+    "CapturaSoldaduraMensajeCambioTrabajosAdicionales": {
+        "es-MX": " trabajos adicionales",
+        "en-US": " additional work"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRelleno": {
+        "es-MX": " soldadores relleno",
+        "en-US": " fill welders"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRaiz": {
+        "es-MX": " soldadores raiz",
+        "en-US": " root welders"
+    },
+    "CapturaSoldaduraHeaderSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+    "CapturaSoldaduraHeaderObservacion": {
+        "es-MX": "Observación",
+        "en-US": "Observation"
+    },
+    "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
+        "es-MX": "Trabajo",
+        "en-US": "Work"
+    },
+
+    //#endregion
+
 };
