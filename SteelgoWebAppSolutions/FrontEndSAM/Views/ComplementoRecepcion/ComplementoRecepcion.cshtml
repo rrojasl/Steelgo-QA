@@ -761,7 +761,7 @@
                                 TipoAcero: { type: "string", editable: false },
                                 D1: { type: "string", editable: false },
                                 D2: { type: "string", editable: false },
-                                Cantidad: { type: "number", editable: true },
+                                Cantidad: { type: "number", editable: false },
                                 MM: { type: "string", editable: true },
                                 Colada: { type: "string", editable: false },
                                 EstatusFisico: { type: "string", editable: true },
@@ -964,10 +964,14 @@
             var content = "";
             var window = $("#window");
             var height = "";
-
+            var mostrarpopup = true;
             switch (id) {
                 case 1:
                     modalTitle = "Colada";
+                    if (!validarRequeridosFormaComplementoRecepcion()) {
+                        mostrarpopup = false;
+                        displayMessage("notificationslabel0031", "", '1');
+                    }
                     content = "@Url.Action("Colada", "PopUps")";
                     height = "30%";
                     break;
@@ -977,33 +981,34 @@
                     height = "170px";
                     break;
             };
+            if (mostrarpopup) {
+                window.kendoWindow({
+                    actions: false,
+                    content: content,
+                    modal: true,
+                    title: modalTitle,
+                    resizable: true,
+                    actions: ["Close"],
+                    visible: false,
+                    width: "32.6%",
+                    minWidth: 660,
+                    height: height,
+                    iframe: true,
+                    position: {
+                        top: "10%",
+                        left: "20%"
+                    }
+                }).data("kendoWindow");
 
-            window.kendoWindow({
-                actions: false,
-                content: content,
-                modal: true,
-                title: modalTitle,
-                resizable: true,
-                actions: ["Close"],
-                visible: false,
-                width: "32.6%",
-                minWidth: 660,
-                height: height,
-                iframe: true,
-                position: {
-                    top: "10%",
-                    left: "20%"
-                }
-            }).data("kendoWindow");
+                //Se actualiza el tamaño
+                $("#window").data("kendoWindow").setOptions({
+                    width: "32.6%",
+                    height: height,
+                });
 
-            //Se actualiza el tamaño
-            $("#window").data("kendoWindow").setOptions({
-                width: "32.6%",
-                height: height,
-            });
-
-            window.data("kendoWindow").title(modalTitle);
-            window.data("kendoWindow").center().open();
+                window.data("kendoWindow").title(modalTitle);
+                window.data("kendoWindow").center().open();
+            }
         };
 
         function DeshabilitarControlesDetalleBulto() {

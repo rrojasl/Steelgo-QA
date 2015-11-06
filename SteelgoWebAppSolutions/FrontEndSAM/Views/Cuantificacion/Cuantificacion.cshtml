@@ -966,7 +966,8 @@
                                 RelFCId: { type: "string",defaultValue:"", editable: false },
                                 RelBID: { type: "string", defaultValue: "", editable: false },
                                 ItemCodeID: { type: "string", defaultValue: "", editable: false },
-                                ItemCodeSteelgoID: { type: "string", defaultValue: "", editable: false }
+                                ItemCodeSteelgoID: { type: "string", defaultValue: "", editable: false },
+                                ItemCodeOrigenID: { type: "string", defaultValue: "", editable: false }
                             }
                         }
                     },
@@ -1034,7 +1035,8 @@
                     { field: "RelFCId", title: _dictionary.Cuantificacion0091[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },
                     { field: "RelBID", title: _dictionary.Cuantificacion0092[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },
                     { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },//es la rel_itemcode
-                    { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false } //es la rel_itemcodesteelgo
+                    { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false }, //es la rel_itemcodesteelgo
+                    { field: "ItemCodeOrigenID", title: _dictionary.Cuantificacion0097[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false } //es la rel_itemcodesteelgo
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
@@ -1125,7 +1127,7 @@
                                     displayMessage("notificationslabel0086", "", '1');
                                     return;
                                 };
-                                $("#hdnItemCodeIDSeleccionado").val(filaseleccionada.ItemCodeID);
+                                $("#hdnItemCodeIDSeleccionado").val(filaseleccionada.ItemCodeOrigenID);
                                 $("#hdnItemCodeSeleccionado").val(filaseleccionada.ItemCode);
                                 VentanaModal(3);
                                 

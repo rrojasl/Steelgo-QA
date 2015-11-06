@@ -2266,6 +2266,10 @@ _dictionary = {
         "es-MX": "Item Code",
         "en-US": "Item Code"
     },
+    "Cuantificacion0097": {
+        "es-MX": "ItemCodeOrigenID",
+        "en-US": "ItemCodeOrigenID"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
