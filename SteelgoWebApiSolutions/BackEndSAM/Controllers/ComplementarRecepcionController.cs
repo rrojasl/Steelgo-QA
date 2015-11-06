@@ -85,7 +85,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(int tipoGuardado, ItemCodeComplemento complemento, string token)
+        public object Put(string tipoGuardado, string complemento, string token)
         {
             string payload = "";
             string newToken = "";
@@ -94,7 +94,8 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ComplementoRecepcionBd.Instance.GuardarComplemento(tipoGuardado, complemento, usuario);
+                ItemCodeComplemento comp = serializer.Deserialize<ItemCodeComplemento>(complemento);
+                return ComplementoRecepcionBd.Instance.GuardarComplemento(Convert.ToInt32(tipoGuardado), comp, usuario);
             }
             else
             {

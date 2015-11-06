@@ -73,7 +73,9 @@ namespace BackEndSAM.DataAcces
                                           D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = it.Cantidad,
+                                          Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                      where nui.NumeroUnicoID == nu.NumeroUnicoID
+                                                      select nui.CantidadRecibida).FirstOrDefault(),
                                           MM = it.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
                                           EstatusDocumental = it.EstatusDocumental,
@@ -111,7 +113,9 @@ namespace BackEndSAM.DataAcces
                                           D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = it.Cantidad,
+                                          Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                      where nui.NumeroUnicoID == nu.NumeroUnicoID
+                                                      select nui.CantidadRecibida).FirstOrDefault(),
                                           MM = it.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada, 
                                           EstatusDocumental = it.EstatusDocumental, 
@@ -307,7 +311,7 @@ namespace BackEndSAM.DataAcces
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
                             .Where(x => x.NumeroUnicoID.ToString() == itemCodeJson.NumeroUnicoID).SingleOrDefault();
 
-                        if (itemCodeJson.Titulo != "")
+                        if (itemCodeJson.Titulo != "" && itemCodeJson.Titulo != null)
                         {
                             Sam3_Incidencia incidencia = new Sam3_Incidencia();
                             incidencia.Activo = true;
