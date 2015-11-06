@@ -4084,6 +4084,10 @@ _dictionary = {
         "es-MX": "Descripción",
         "en-US": "Description"
     },
+    "ComplementoRecepcion0077": {
+        "es-MX": "ColadaID",
+        "en-US": "ColadaID"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
