@@ -8,7 +8,7 @@
         <div class="row">
              <div id="ItemCode_ColadaDiv" class="form-group">
                 <label id="Cuantificacion0096"></label>
-                <input id="ItemCode_Colada" class="" disabled />
+                <input id="ItemCode_Colada" class="general-input" disabled />
             </div>
             <div id="Fabricante_ColadaDiv" class="form-group">
                 <label id="Cuantificacion0061"></label>
@@ -100,7 +100,7 @@
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
         hideElementsColada();
-        $("ItemCode_Colada").val(window.parent.$("#ItemCodeSeleccionado").val());
+        $("#ItemCode_Colada").val(window.parent.$("#hdnItemCodeSeleccionado").val());
         window.parent.$(".k-i-close").click(function (e) {
             CancelarColada();
         });
@@ -273,7 +273,7 @@
 
     function GuardarColada() {
         ColadaModal = { ItemCodeID: "", FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
-        ColadaModal.ItemCodeID = window.parent.$("#ItemCodeIDSeleccionado").val();
+        ColadaModal.ItemCodeID = window.parent.$("#hdnItemCodeIDSeleccionado").val();
         ColadaModal.FabricanteID = FabricanteColada.FabricanteID;
         ColadaModal.AceroID = AceroColada.AceroID;
         ColadaModal.ProyectoID = ProyectoColada.ProyectoID;
