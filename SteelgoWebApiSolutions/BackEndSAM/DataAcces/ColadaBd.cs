@@ -248,35 +248,18 @@ namespace BackEndSAM.DataAcces
                         }
                     }
 
-                    int familiaAceroId = (from it in ctx.Sam3_ItemCode
-                                          where it.Activo
-                                          && it.Codigo == itemCodeID
-                                          select it.FamiliaAceroID.Value).AsParallel().SingleOrDefault();
 
-                    List<Coladas> coladas = new List<Coladas>();
+                    List<Coladas> coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                             join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                             join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
+                                             where ric.Activo && c.Activo && it.Activo
+                                             && ric.ItemCodeID == id
+                                             select new Coladas
+                                             {
+                                                 ColadaID = c.ColadaID,
+                                                 Nombre = c.NumeroColada
+                                             }).AsParallel().Distinct().ToList();
 
-                    if (familiaAceroId > 0)
-                    {
-                        coladas = (from c in ctx.Sam3_Colada
-                                   join ac in ctx.Sam3_Acero on c.AceroID equals ac.AceroID
-                                   where c.Activo && ac.Activo
-                                   && ac.FamiliaAceroID == familiaAceroId
-                                   select new Coladas
-                                   {
-                                       ColadaID = c.ColadaID,
-                                       Nombre = c.NumeroColada
-                                   }).AsParallel().ToList();
-                    }
-                    else
-                    {
-                        coladas = (from c in ctx.Sam3_Colada
-                                   where c.Activo
-                                   select new Coladas
-                                   {
-                                       ColadaID = c.ColadaID,
-                                       Nombre = c.NumeroColada
-                                   }).AsParallel().ToList();
-                    }
 
                     listColada.AddRange(coladas);
 
