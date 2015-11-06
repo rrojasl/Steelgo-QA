@@ -721,8 +721,17 @@
             //Por default tubos
            // CargarTipoPackingList(1, "");
            //$("#TipoPackingListID").data("kendoComboBox").value(1);
-
-            
+            $(document).bind("contextmenu", function (e) {
+                return false;
+            });
+            $('#Colada').mousedown(function (e) {
+                if(e.which == 3){
+                    $("#hdnItemCodeIDSeleccionado").val("");
+                    $("#hdnItemCodeSeleccionado").val("");
+                    VentanaModal(3);
+                    e.preventDefault();
+                }
+            });
         };
        
         function Cancelar() {
@@ -1024,8 +1033,8 @@
                     { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
                     { field: "RelFCId", title: _dictionary.Cuantificacion0091[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },
                     { field: "RelBID", title: _dictionary.Cuantificacion0092[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },
-                    { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },//Solo se utiliza para obtener el detalle
-                    { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false }
+                    { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false },//es la rel_itemcode
+                    { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: false } //es la rel_itemcodesteelgo
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
