@@ -919,11 +919,11 @@
                         return;
                     };
 
-                    //if (data.Colada != sinColadaPL) {
+                    if (data.Colada != sinColadaPL) {
                         $("#IncidenciaDiv").removeClass("hidden");
-                    //} else {
-                    //    $("#IncidenciaDiv").addClass("hidden");
-                    //}
+                    } else {
+                        $("#IncidenciaDiv").addClass("hidden");
+                    }
 
                     rowselected = data;
                     $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
