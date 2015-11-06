@@ -2262,6 +2262,10 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "Cuantificacion0096": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -2640,6 +2644,10 @@ _dictionary = {
     "PaseDeSalida0018": {
         "es-MX": "Imprimir Pase de Salida",
         "en-US": "Print Departure Pass"
+    },
+    "PaseDeSalida0019": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Arrival Material Dashboard"
     },
     //
     "FormatoIncicencias0001": {
@@ -5969,6 +5977,10 @@ _dictionary = {
     "notificationslabel0085": {
         "es-MX": "Permiso Autorizado correctamente",
         "en-US": "Permit Authorized successfully."
+    },
+    "notificationslabel0086": {
+        "es-MX": "Favor de seleccionar un item code.",
+        "en-US": "Please select an item code."
     },
     //Default to copy
     "label9999": {

@@ -173,6 +173,8 @@
 <div id="window">
 </div>
 <input id="hdnNavegacion" type="hidden" value="" />
+<input id="hdnItemCodeIDSeleccionado" type="hidden" />
+<input id="hdnItemCodeSeleccionado" type="hidden" />
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -1098,13 +1100,29 @@
                     select: function (e) {
                         var grid = $('#grid').data("kendoGrid");
                         var filaseleccionada = grid.dataItem($('.k-grid').find("tr.k-state-selected"));
-
+                        $("#hdnItemCodeIDSeleccionado").val("");
+                        $("#hdnItemCodeSeleccionado").val("");
                         if (e.item.id == "NuevoItemCode") {
                             VentanaModal(1);
                             return;
                         }
                         if (e.item.id == "NuevaColada") {
-                            VentanaModal(3);
+                            if (typeof (filaseleccionada) != undefined) {
+                                if (!filaseleccionada) {
+                                    displayMessage("notificationslabel0086", "", '1');
+                                    return;
+                                };
+                                if (!filaseleccionada.ItemCodeID) {
+                                    displayMessage("notificationslabel0086", "", '1');
+                                    return;
+                                };
+                                $("#hdnItemCodeIDSeleccionado").val(filaseleccionada.ItemCodeID);
+                                $("#hdnItemCodeSeleccionado").val(filaseleccionada.ItemCode);
+                                VentanaModal(3);
+                                
+                            } else {
+                                displayMessage("notificationslabel0086", "", '1');
+                            };
                             return;
                         };
 
