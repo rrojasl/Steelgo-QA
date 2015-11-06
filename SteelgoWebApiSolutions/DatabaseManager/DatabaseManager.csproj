@@ -1217,6 +1217,9 @@
     <Compile Include="Sam3\Sam3_Rel_ItemCodeSteelgo_Diametro.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Itemcode_Colada.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_ItemCode_Diametro.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>

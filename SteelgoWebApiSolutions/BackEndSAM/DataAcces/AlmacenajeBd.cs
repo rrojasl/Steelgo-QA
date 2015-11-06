@@ -74,21 +74,7 @@ namespace BackEndSAM.DataAcces
                                         select p.PatioID).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
 
 
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                            join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-                                                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
-                                                                            join nu in ctx.Sam3_NumeroUnico on rfc.ItemCodeID equals nu.ItemCodeID
-                                                                            join pr in ctx.Sam3_Proyecto on rfp.ProyectoID equals pr.ProyectoID
-                                                                            join ora in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ora.NumeroUnicoID
-                                                                            join oa in ctx.Sam3_OrdenAlmacenaje on ora.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
-                                                                            where proyectos.Contains(fc.ProyectoID) && patios.Contains(pr.PatioID)
-                                                                                  && fc.Activo && fe.Activo && rfp.Activo
-                                                                                  && rfc.Activo && ic.Activo && nu.Activo
-                                                                                  && pr.Activo && ora.Activo && oa.Activo
-                                                                                  && fc.ProyectoID == ProyectoID
-                                                                            select ora).AsParallel().ToList();
+                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = null;
 
                     List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> agruparOrdenesAlmacenaje = lstRelONU.GroupBy(x => x.OrdenAlmacenajeID).Select(x => x.First()).OrderBy(x => x.OrdenAlmacenajeID).AsParallel().ToList();
 

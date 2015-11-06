@@ -257,6 +257,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                         MM = IC.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -321,6 +322,7 @@ namespace BackEndSAM.DataAcces
                                             Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                             MM = IC.MM,
                                             Colada = datosItemCode.Colada,
+                                            ColadaID = datosItemCode.ColadaID,
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU,
@@ -501,6 +503,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                         MM = IC.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -557,6 +560,7 @@ namespace BackEndSAM.DataAcces
                                             Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                             MM = IC.MM,
                                             Colada = datosItemCode.Colada,
+                                            ColadaID = datosItemCode.ColadaID,
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU,
@@ -750,6 +754,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                         MM = IC.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -792,6 +797,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,
                                         MM = datosItemCode.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -938,6 +944,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                         MM = IC.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -976,6 +983,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,
                                         MM = datosItemCode.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -1018,6 +1026,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,
                                         MM = datosItemCode.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU
@@ -1168,6 +1177,7 @@ namespace BackEndSAM.DataAcces
                                         Cantidad = datosItemCode.Cantidad,//IC.Cantidad,
                                         MM = IC.MM,
                                         Colada = datosItemCode.Colada,
+                                        ColadaID = datosItemCode.ColadaID,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
@@ -1302,28 +1312,19 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //Update IC
+
                     IC = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
                           join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
                           where rid.Activo && it.Activo
                           && rid.Rel_ItemCode_Diametro_ID.ToString() == item.ItemCodeID
                           select it).AsParallel().SingleOrDefault();
-                    //ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
 
                     IC.TipoMaterialID = item.TipoMaterial;
                     IC.Activo = true;
                     IC.UsuarioModificacion = usuario.UsuarioID;
                     IC.FechaModificacion = DateTime.Now;
-                    //IC.Cantidad = item.Cantidad;
                     IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
-                    IC.ColadaID = item.ColadaID;
-                    //IC.Diametro1 = item.D1;
-                    //IC.Diametro2 = item.D2;
-                    //IC.DescripcionEspanol = item.Descripcion;
-                    //IC.DescripcionIngles = item.Descripcion;
                     IC.FamiliaAceroID = Convert.ToInt32(item.FamiliaMaterial);
-
-
                     ctx.SaveChanges();
 
                     return IC;
@@ -1419,7 +1420,7 @@ namespace BackEndSAM.DataAcces
                            && rid.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == item.ItemCodeSteelgoID
                            select ics).AsParallel().SingleOrDefault();
 
-                    //ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
+                    
                     string[] splitCedulas;
                     int cedulaID = 0;
 
@@ -1441,9 +1442,6 @@ namespace BackEndSAM.DataAcces
 
                     ICS.DescripcionEspanol = item.Descripcion;
                     ICS.DescripcionIngles = item.Descripcion;
-                    //ICS.Peso = item.Peso;
-                    //ICS.Diametro1 = item.D1;
-                    //ICS.Diametro2 = item.D2;
                     ICS.FamiliaAceroID = Int32.Parse(item.FamiliaMaterial);
                     if (cedulaID > 0)
                     {
@@ -1496,6 +1494,8 @@ namespace BackEndSAM.DataAcces
                         relIC.UsuarioModificacion = usuario.UsuarioID;
                         relIC.Activo = true;
                         relIC.Cantidad = IC.Cantidad;
+                        relIC.MM = IC.MM;
+                        relIC.ColadaID = IC.ColadaID;
                         ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
                         ctx.SaveChanges();
                     //}
@@ -1528,6 +1528,7 @@ namespace BackEndSAM.DataAcces
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
                         registroBd.MM = IC.MM;
+                        registroBd.ColadaID = IC.ColadaID;
 
                         ctx.SaveChanges();
 
@@ -1608,6 +1609,7 @@ namespace BackEndSAM.DataAcces
                         bic.Activo = true;
                         bic.Cantidad = item.Cantidad;
                         bic.MM = item.MM;
+                        bic.ColadaID = item.ColadaID;
                         ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
                         ctx.SaveChanges();
 
@@ -1641,6 +1643,7 @@ namespace BackEndSAM.DataAcces
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
                         registroBd.MM = item.MM;
+                        registroBd.ColadaID = item.ColadaID;
 
                         ctx.SaveChanges();
 

@@ -150,9 +150,7 @@ namespace BackEndSAM.DataAcces
                                     itemS2.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
                                     itemS2.DescripcionEspanol = DatosItemCode.Descripcion;
                                     itemS2.DescripcionIngles = DatosItemCode.DescripcionIngles;
-                                    //itemS2.UsuarioModifica = Guid.Parse("42AF3D10-B17A-4776-BD9A-96E9D0F0DCF6");
                                     itemS2.FechaModificacion = DateTime.Now;
-                                    //nuevoIC.VersionRegistro
                                     itemS2.Peso = DatosItemCode.Peso;
                                     itemS2.DescripcionInterna = DatosItemCode.DescripcionInterna;
                                     itemS2.Diametro1 = DatosItemCode.Diametro1;
@@ -185,18 +183,10 @@ namespace BackEndSAM.DataAcces
                                     itemS3.Codigo = DatosItemCode.ItemCode;//
                                     itemS3.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
                                     itemS3.DescripcionEspanol = DatosItemCode.Descripcion;//
-                                    //itemS3.DescripcionIngles = DatosItemCode.Descripcion;
-                                    //itemS3.DescripcionInterna = DatosItemCode.Descripcion;
-                                    //itemS3.Peso = DatosItemCode.Peso;
-                                    //itemS3.Diametro1 = DatosItemCode.Diametro1;
-                                    //itemS3.Diametro2 = DatosItemCode.Diametro2;
                                     itemS3.FamiliaAceroID = DatosItemCode.FamiliaID;//
                                     itemS3.Activo = true;
                                     itemS3.UsuarioModificacion = usuario.UsuarioID;
                                     itemS3.FechaModificacion = DateTime.Now;
-                                    //itemS3.Cantidad = DatosItemCode.Cantidad;
-                                    //itemS3.MM = DatosItemCode.MM;
-                                    itemS3.ColadaID = DatosItemCode.ColadaID;//
                                     itemS3.TipoUsoID = Convert.ToInt32(DatosItemCode.TipoUsoID) == -1 ? 1 : Convert.ToInt32(DatosItemCode.TipoUsoID);
                                     ctx.Sam3_ItemCode.Add(itemS3);
                                     ctx.SaveChanges();
@@ -313,7 +303,7 @@ namespace BackEndSAM.DataAcces
                                    {
                                        ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
                                        ItemCode = r.Codigo,
-                                       ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
+                                       //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        //Cantidad = r.Cantidad,
                                        //MM = r.MM, 
                                        Descripcion = r.DescripcionEspanol,
@@ -334,7 +324,7 @@ namespace BackEndSAM.DataAcces
                                                     where rics.Activo && itcs.Activo && it.Activo
                                                     && rics.ItemCodeID == r.ItemCodeID
                                                     select fm.Nombre).FirstOrDefault(),
-                                       ColadaID = r.ColadaID
+                                       //ColadaID = r.ColadaID
                                    }).AsParallel().SingleOrDefault();
                     }
                     else
@@ -352,7 +342,7 @@ namespace BackEndSAM.DataAcces
                                        Descripcion=r.DescripcionEspanol,
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor, 
-                                       ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
+                                       //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        //Cantidad = r.Cantidad,
                                        //MM = r.MM
                                    }).AsParallel().SingleOrDefault();

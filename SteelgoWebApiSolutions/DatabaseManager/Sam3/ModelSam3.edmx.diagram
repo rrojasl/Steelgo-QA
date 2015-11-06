@@ -339,6 +339,9 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Numer__1D5142F3" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_B__1F398B65" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_F__1E45672C" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Itemcode_Colada" Width="1.5" PointX="25.75" PointY="27.375" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Colad__2E7BCEF5" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__2D87AABC" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

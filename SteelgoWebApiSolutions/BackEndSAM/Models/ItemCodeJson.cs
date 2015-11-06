@@ -56,6 +56,10 @@ namespace BackEndSAM.Models
         public string TipoUso { get; set; }
         public int ProyectoID { get; set; }
         public bool TieneError { get; set; }
+        public string RelFCID { get; set; }
+        public string RelBID { get; set; }
+        public string RelNUFCBID { get; set; }
+        public int ColadaID { get; set; }
     }
 
 
