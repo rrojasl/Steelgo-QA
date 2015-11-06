@@ -266,6 +266,7 @@ namespace BackEndSAM.DataAcces
                                                 && rics.Rel_ItemCode_ItemCodeSteelgo == riit.Rel_ItemCode_ItemCodeSteelgo
                                                 select fm.Nombre).FirstOrDefault(),
                                    //ColadaID = r.ColadaID
+                                   ItemCodeOrigenID = r.ItemCodeID
                                }).AsParallel().SingleOrDefault();
                     
 
