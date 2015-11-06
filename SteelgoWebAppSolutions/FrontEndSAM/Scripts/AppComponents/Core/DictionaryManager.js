@@ -5515,6 +5515,22 @@ _dictionary = {
         "es-MX": "Responder",
         "en-US": "Answer"
     },
+    "Incidencias0038": {
+        "es-MX": "Nueva Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0039": {
+        "es-MX": "Resolver Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0040": {
+        "es-MX": "Responder Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0041": {
+        "es-MX": "Cancelar Incidencia",
+        "en-US": "Incidence"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
