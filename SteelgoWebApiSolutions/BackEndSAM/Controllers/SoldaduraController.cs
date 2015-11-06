@@ -136,6 +136,8 @@ namespace BackEndSAM.Controllers
 
                 string llena = (string)CapturaSoldaduraBD.Instance.ObtenerValorFecha(usuario, lenguaje, 15);
 
+                string tipoCaptura = (string)CapturaSoldaduraBD.Instance.ObtenerValorFecha(usuario, lenguaje, 28);
+
                 CamposPredeterminados armadoCamposPredeterminados = new CamposPredeterminados();
 
                 armadoCamposPredeterminados = new CamposPredeterminados
@@ -143,7 +145,8 @@ namespace BackEndSAM.Controllers
                     FechaSoldadura = fecha,
                     Muestra = muestra,
                     Llena = llena,
-                    FormatoFecha = lenguaje == "es-MX" ? "dd/MM/yyyy" : "MM-dd-yyyy"
+                    FormatoFecha = lenguaje == "es-MX" ? "dd/MM/yyyy" : "MM-dd-yyyy",
+                    TipoCaptura = tipoCaptura
                 };
 
                 return armadoCamposPredeterminados;
@@ -191,6 +194,7 @@ namespace BackEndSAM.Controllers
                     {
                         DetalleDatosJsonSoldadura detalleDatos = new DetalleDatosJsonSoldadura
                         {
+                            DetalleJunta = "Tipo Junta: " + item.TipoJunta + " - " +  "Cedula: " + item.Cedula + " - " + "Localización: " + item.Localizacion,
                             EtiquetaMaterial1 = item.EtiquetaMaterial1,
                             EtiquetaMaterial2 = item.EtiquetaMaterial2,
                             Etiqueta = item.Etiqueta,
@@ -273,6 +277,7 @@ namespace BackEndSAM.Controllers
                 {
                     DetalleDatosJsonSoldadura detalleDatos = new DetalleDatosJsonSoldadura
                     {
+                        DetalleJunta = "Tipo Junta: " + item.TipoJunta + " - " + "Cedula: " + item.Cedula + " - " + "Localización: " + item.Localizacion,
                         EtiquetaMaterial1 = item.EtiquetaMaterial1,
                         EtiquetaMaterial2 = item.EtiquetaMaterial2,
                         Etiqueta = item.Etiqueta,
@@ -311,7 +316,7 @@ namespace BackEndSAM.Controllers
                         Relleno = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRellenoAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                         listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)CapturaSoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                         ListadoRaiz = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRaiz(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString())),
-                        ListadoRelleno = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRaiz(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString())),
+                        ListadoRelleno = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRelleno(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString())),
                         ListadoSoldadoresTrabajos = (List<ObreroSoldador>)CapturaSoldaduraBD.Instance.ObtenerListadoSoldaduresTrabajo(),
                         ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)CapturaSoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
                         ListadoProcesoSoldadura = (List<ProcesoSoldadura>)CapturaSoldaduraBD.Instance.ObtenerProcesosSoldadura()

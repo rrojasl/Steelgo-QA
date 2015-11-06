@@ -9,10 +9,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoLlegadaMaterial0020"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("DashboardLlegadaMaterial", "EntradaMaterial")"><span id="CapturaArmadoArmadoSpool"></span></a>
+        <a href="@Url.Action("Soldadura", "capturaSoldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Soldadura", "capturaSoldadura")"><span id="CapturaArmadoCapturaArmado"></span></a>
+        <a href="@Url.Action("Soldadura", "capturaSoldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
     </li>
 }
 
@@ -51,87 +51,71 @@
         </div>
     </div>
     <hr />
-    <div class="clearfix">
-        <div class="row">
-            <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <label id="">Spool ID</label>
-                        <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <label id="CapturaArmadoHeaderJunta">Junta</label>
-                        <input id="Junta" class="" />
-                    </div>
-                    <div class="col-sm-3 col-md-3 col-lg-3">
-                        <label id="CapturaArmadoHeaderMostrar"></label>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" id="styleSinCaptura">
-                                <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
-                            </label>
-                            <label class="btn btn-default" id="styleTodos">
-                                <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <label id="">&nbsp;</label>
-                        <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="CapturaArmadoAgregarArmado">Agregar</span></button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr />
-    <div class="formNav filtersFields clearfix">
-        <div class="row">
-            <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <label id="CapturaSoldaduraHeaderFechaSoldadura">Fecha Armado</label>
-                        <input id="FechaSoldadura" placeholder="2015-10-10" />
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <label id="CapturaArmadoHeaderTaller">Taller</label>
-                        <input id="inputTaller" class="" />
-                    </div>
-                    <div class="col-sm-3 col-md-3 col-lg-3">
-                        <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" id="StylePlanchaTodos">
-                                <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
-                            </label>
-                            <label class="btn btn-default" id="StylePlanchaVacios">
-                                <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
-                            </label>
-
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="ContenedorGrid" class="row" style="overflow-x:scroll">
-                <div id="grid" data-role="grid" class="k-grid k-widget" style="width:2129px;">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+            <label id="CapturaArmadoHeaderSpoolID"></label>
+            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="CapturaArmadoHeaderJunta"></label>
+            <input id="Junta" class="" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label id="CapturaArmadoHeaderMostrar"></label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default" id="styleSinCaptura">
+                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
+                </label>
+                <label class="btn btn-default" id="styleTodos">
+                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <label id="">&nbsp;</label>
+            <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="CapturaArmadoAgregarArmado">Agregar</span></button>
+        </div>
+    </div>
 
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="CapturaSoldaduraHeaderFechaSoldadura"></label>
+                    <input id="FechaSoldadura" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="CapturaArmadoHeaderTaller">Taller</label>
+                    <input id="inputTaller" class="" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" id="StylePlanchaTodos">
+                            <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+                        </label>
+                        <label class="btn btn-default" id="StylePlanchaVacios">
+                            <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="ContenedorGrid" class="row">
+                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <input id="hdAccionFiltrado" type="hidden" />
 </div>
 
 
-        </div>
 
-<input id="hdAccionFiltrado" type="hidden" />
-
-    </div>
 
 
 @*<script src="~/Scripts/Soldadura/CapturaSoldadura.js" type="text/javascript"> </script>*@

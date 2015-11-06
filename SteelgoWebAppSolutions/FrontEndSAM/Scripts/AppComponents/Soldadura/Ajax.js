@@ -1,8 +1,7 @@
 ﻿
 function AjaxJunta(spoolID) {
-
+    loadingStart();
     $CapturasRapidas.CapturasRapidas.read({ id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
         console.log("fecha nueva" + data.FechaSoldadura);
         $("#Junta").data("kendoComboBox").value("");
         $("#Junta").data("kendoComboBox").dataSource.data(data)
@@ -11,8 +10,8 @@ function AjaxJunta(spoolID) {
 }
 
 function AjaxObtenerListaTaller() {
+    loadingStart();
     $Taller.Taller.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
         $("#inputTaller").data("kendoComboBox").value("");
         $("#inputTaller").data("kendoComboBox").dataSource.data(data);
         loadingStop();
@@ -21,7 +20,7 @@ function AjaxObtenerListaTaller() {
 
 
 function ObtenerJSonGridSoldadura() {
-    loadingStart();
+    
     if (ExisteJunta()) {
         try {
             getGridSoldadura();
@@ -33,19 +32,21 @@ function ObtenerJSonGridSoldadura() {
     else
         alert('La junta ya se agregó')
 
-    loadingStop();
+    
 
 }
 
 
 function getGridSoldadura()
 {
+    loadingStart();
     $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = JSON.parse(data);
         for (var i = 0; i < array.length; i++) {
             ds.add(array[i]);
         }
+        loadingStop();
     });
 }
 
@@ -108,31 +109,31 @@ function AjaxGuardarCaptura(arregloCaptura) {
             for (j = 0; j < arregloCaptura[index].Raiz.length; j++) {
 
                 ListaRaizEditados[j] = {
-                    Accion: "", JuntaID: "",
+                    Accion: "", JuntaSpoolID: "",
                     SoldaduraTrabajoAdicionalID: "", JuntaSoldaduraID: "",
                     TipoSoldaduraID: "", ObreroID: ""
                 };
                 ListaRaizEditados[j].Accion = arregloCaptura[index].Raiz[j].Accion;
-                ListaRaizEditados[j].JuntaID = arregloCaptura[index].Raiz[j].JuntaID;
-                ListaRaizEditados[j].SoldaduraTrabajoAdicionalID = arregloCaptura[index].Raiz[j].SoldaduraTrabajoAdicionalID;
+                ListaRaizEditados[j].JuntaSoldaduraSoldadoID = arregloCaptura[index].Raiz[j].JuntaSoldaduraSoldadoID;
                 ListaRaizEditados[j].JuntaSoldaduraID = arregloCaptura[index].Raiz[j].JuntaSoldaduraID;
-                ListaRaizEditados[j].TipoSoldaduraID = arregloCaptura[index].Raiz[j].TipoSoldaduraID;
+                ListaRaizEditados[j].TipoSoldaduraID = arregloCaptura[index].procesoSoldaduraRaizID;
                 ListaRaizEditados[j].ObreroID = arregloCaptura[index].Raiz[j].ObreroID;
+                ListaRaizEditados[j].JuntaSpoolID = arregloCaptura[index].JuntaID;
             }
 
             ListaRellenoEditados = [];
             for (j = 0; j < arregloCaptura[index].Relleno.length; j++) {
 
                 ListaRellenoEditados[j] = {
-                    Accion: "", JuntaID: "", SoldaduraTrabajoAdicionalID: "",
+                    Accion: "", JuntaSpoolID: "", SoldaduraTrabajoAdicionalID: "",
                     JuntaSoldaduraID: "", ObreroID: "", TipoSoldaduraID: "", 
                 };
                 ListaRellenoEditados[j].Accion = arregloCaptura[index].Relleno[j].Accion;
-                ListaRellenoEditados[j].JuntaID = arregloCaptura[index].Relleno[j].JuntaID;
-                ListaRellenoEditados[j].SoldaduraTrabajoAdicionalID = arregloCaptura[index].Relleno[j].SoldaduraTrabajoAdicionalID;
+                ListaRellenoEditados[j].JuntaSoldaduraSoldadoID = arregloCaptura[index].Relleno[j].JuntaSoldaduraSoldadoID;
                 ListaRellenoEditados[j].JuntaSoldaduraID = arregloCaptura[index].Relleno[j].JuntaSoldaduraID;
-                ListaRellenoEditados[j].TipoSoldaduraID = arregloCaptura[index].Relleno[j].TipoSoldaduraID;
+                ListaRellenoEditados[j].TipoSoldaduraID = arregloCaptura[index].procesoSoldaduraRellenoID;
                 ListaRellenoEditados[j].ObreroID = arregloCaptura[index].Relleno[j].ObreroID;
+                ListaRellenoEditados[j].JuntaSpoolID = arregloCaptura[index].JuntaID;
             }
 
             ListaDetalles[index].ListaSoldaduraRelleno = ListaRellenoEditados;
@@ -141,7 +142,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         }
 
         Captura[0].Detalles = ListaDetalles;
-
+        loadingStart();
         $CapturaSoldadura.Soldadura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(ArregloListadoSpoolID()), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (result) {
                 $("#grid").data('kendoGrid').dataSource.data([]);
@@ -150,20 +151,21 @@ function AjaxGuardarCaptura(arregloCaptura) {
                 for (var i = 0; i < array.length; i++) {
                     ds.add(array[i]);
                 }
+                loadingStop();
             });
         });
 
         
-        alert('finalizo el guardado de datos');
+        displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", '1');
     } catch (e) {
-        alert('error al guardar datos ' + e.message);
+        displayMessage("Mensajes_error", e.message, '0');
     }
 
 };
 
 function AjaxCargarCamposPredeterminados() {
 
-
+    loadingStart();
     $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
         var NewDate = kendo.toString(data.FechaSoldadura, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
@@ -173,20 +175,41 @@ function AjaxCargarCamposPredeterminados() {
         if (data.Muestra == "Sincaptura") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
+            $("#styleSinCaptura").addClass("active");
+            $("#styleTodos").removeClass("active");
         }
         else if (data.Muestra == "Todos") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
+            $("#styleTodos").addClass("active");
+            $("#styleSinCaptura").removeClass("active");
         }
 
         if (data.Llena == "Todos") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
             $('input:radio[name=LLena]:nth(1)').attr('checked', false);
+            $("#StylePlanchaTodos").addClass("active");
+            $("#StylePlanchaVacios").removeClass("active");
         }
         else if (data.Llena == "Vacios") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
+            $("#StylePlanchaVacios").addClass("active");
+            $("#StylePlanchaTodos").removeClass("active");
         }
+        if (data.TipoCaptura == "Reporte") {
+            $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', true);
+            $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', false);
+            $("#styleReporte").addClass("active");
+            $("#styleListado").removeClass("active");
+        }
+        else if (data.TipoCaptura == "Lista") {
+            $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', false);
+            $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', true);
+            $("#styleListado").addClass("active");
+            $("#styleReporte").removeClass("active");
+        }
+        loadingStop();
     });
 
 };

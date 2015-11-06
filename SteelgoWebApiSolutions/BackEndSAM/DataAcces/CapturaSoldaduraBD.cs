@@ -49,6 +49,7 @@ namespace BackEndSAM.DataAcces
                         {
                             TrabajoAdicionalID = item.TrabajoAdicionalID,
                             TrabajoAdicional = item.NombreCorto,
+                            SignoInformativo = item.SignoInformativo
                         });
                     }
 
@@ -109,15 +110,14 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_SoldadorCertificacion_Result> result = ctx.Sam3_Soldadura_SoldadorCertificacion(1, null, null, null, null, null, null, null, null, null, null, null, null).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
 
-                    foreach (Sam3_Soldadura_SoldadorCertificacion_Result item in result)
+                    foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
                         listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
                         {
-                            ObreroID = item.OBREROID,
-                            Soldador = item.CodigoObrero,
-                            PQRID = item.PQRID
+                            ObreroID = item.ObreroID,
+                            Soldador = item.Codigo
                         });
                     }
                     if (listaTrabajosAdicionalesSoldadura.Count == 0)
@@ -195,6 +195,9 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+
+
         public object ObtenerListadoSoldaduresTrabajo()
         {
             try
@@ -385,7 +388,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Soldadura_Get_DetalleSoldadorProceso(juntaSpoolID, "Raíz").ToList();
+                    List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Soldadura_Get_DetalleSoldadorProceso(juntaSpoolID, "Relleno").ToList();
                     return listaDetallaTrabajoAdicionalJson;
                 }
             }
