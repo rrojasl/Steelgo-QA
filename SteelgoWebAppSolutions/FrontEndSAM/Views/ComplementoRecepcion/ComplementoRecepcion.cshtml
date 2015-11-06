@@ -142,11 +142,26 @@
             <label id="ComplementoRecepcion0064"></label>
             <input id="EdicionColada" class="" />
         </div>
-         <div class="buttonSave">
-           <a id="CerrarEdicionColada" href="#" class="btn btn-primary">
-                <span id="ComplementoRecepcion0065"></span>
+
+        <div id="IncidenciaDiv" class="hidden">
+           <div id="TituloDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                <label id="Incidencias0006"></label>
+                <input id="Titulo" class="general-input" disabled/>
+            </div>
+            <div id="DescripcionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                <label id="Incidencias0007"></label>
+                <textarea id="DescripcionIncidencia" rows="4" cols="50"></textarea>
+            </div>
+        </div>
+
+        <div class="buttonSave">
+            <a id="GuardarColada" href="#" class="btn btn-primary">
+                <span id="ComplementoRecepcion0073"></span>
             </a>
-         </div>
+            <a id="CancelarColada" href="#" class="btn btn-primary">
+                <span id="ComplementoRecepcion0074"></span>
+            </a>
+        </div>
      </div>
 </div>
 <div id="window">
@@ -307,7 +322,8 @@
             IrListado();
         });
         $("#IrIncidencia").click(function () { Incidencias(); });
-
+        $("#GuardarColada").click(function () { GuardarColada(); });
+        $("#CancelarColada").click(function () { CancelarColada() });
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
@@ -479,9 +495,6 @@
                     this.value("");
                 };
 
-                rowselected.Colada = $("#EdicionColada").data("kendoAutoComplete").value();
-                $('#grid').data('kendoGrid').refresh();
-                //changeValueColumnColada($("#EdicionColada").data("kendoAutoComplete").value());
             },
 
             filter: "contains",
@@ -511,7 +524,7 @@
         //});
         
 
-        $("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada(); });
+        //$("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada(); });
         $(document).bind("contextmenu", function (e) {
             return false;
         });
@@ -689,6 +702,9 @@
     function LimpiarModalEdicionColada() {
         $("#EdicionColada").data("kendoAutoComplete").value("");
         $("#windowColada").data("kendoWindow").close();
+        $("#Titulo").val("");
+        $("#Descripcion").val("");
+        $("#IncidenciaDiv").addClass("hidden");
     };
 
     function cerrarVentanaModal() {
@@ -771,7 +787,9 @@
                                 ItemCodeID: { type: "string", editable: false },
                                 RelFCID: { type: "string", editable: false },
                                 RelBID: { type: "string", editable: false },
-                                RelNUFCBID: { type: "string", editable: false }
+                                RelNUFCBID: { type: "string", editable: false },
+                                Titulo: { type: "string", editable: false },
+                                DescripcionIncidencia: { type: "string", editable: false }
                             }
                         }
                     },
@@ -816,6 +834,8 @@
                     { field: "RelFCID", title: _dictionary.ComplementoRecepcion0070[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
                     { field: "RelBID", title: _dictionary.ComplementoRecepcion0071[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
                     { field: "RelNUFCBID", title: _dictionary.ComplementoRecepcion0072[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
+                    { field: "Titulo", title: _dictionary.ComplementoRecepcion0075[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
+                    { field: "DescripcionIncidencia", title: _dictionary.ComplementoRecepcion0076[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
@@ -894,14 +914,19 @@
                         return;
                     };
 
-                    //if (data.Colada != sinColadaPL) {
-                        rowselected = data;
-                        $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
-                        $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
-                        $("#EdicionColada").data("kendoAutoComplete").value(rowselected.Colada);
-                        VentanaEdicionColada(3);
-                        e.preventDefault();
-                    //};
+                    if (data.Colada != sinColadaPL) {
+                        $("#IncidenciaDiv").removeClass("hidden");
+                    } else {
+                        $("#IncidenciaDiv").addClass("hidden");
+                    }
+
+                    rowselected = data;
+                    $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
+                    $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
+                    $("#EdicionColada").data("kendoAutoComplete").value(rowselected.Colada);
+                    VentanaEdicionColada(3);
+                    e.preventDefault();
+                    
                 }
             });
 
@@ -1546,6 +1571,15 @@
 
         function ActualizarCookie() {
             Cookies.set("navegacion", $("#hdnNavegacion").val(), { path: '/' });
+        };
+
+        function GuardarColada() {
+            rowselected.Colada = $("#EdicionColada").data("kendoAutoComplete").value();
+            $('#grid').data('kendoGrid').refresh();
+            LimpiarModalEdicionColada();
+        };
+        function CancelarColada() {
+            LimpiarModalEdicionColada();
         };
 
         function ErrorBool(data) {

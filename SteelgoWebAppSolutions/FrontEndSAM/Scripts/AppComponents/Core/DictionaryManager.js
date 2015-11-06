@@ -4068,6 +4068,22 @@ _dictionary = {
         "es-MX": "RelNUFCBID",
         "en-US": "RelNUFCBID"
     },
+    "ComplementoRecepcion0073": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0074": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0075": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "ComplementoRecepcion0076": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",

@@ -234,6 +234,7 @@ namespace BackEndSAM.DataAcces
             try
             {
                 List<Coladas> listColada = new List<Coladas>();
+                int itemID = string.IsNullOrEmpty(itemCodeID) ? 0 : Convert.ToInt32(itemCodeID);
                 using (SamContext ctx = new SamContext())
                 {
                     if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
@@ -253,7 +254,7 @@ namespace BackEndSAM.DataAcces
                                              join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
                                              join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
                                              where ric.Activo && c.Activo && it.Activo
-                                             && ric.ItemCodeID == id
+                                             && ric.ItemCodeID == itemID
                                              select new Coladas
                                              {
                                                  ColadaID = c.ColadaID,
