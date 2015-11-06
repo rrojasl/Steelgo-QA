@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
+                            <div class="btn-group editar">
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenAlmacenaje0002"></span></button>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenAlmacenaje0003"></span></a>
@@ -101,7 +101,7 @@
         listContainer: {
             create: ".save-group",
             list: ".listado",
-            detail: ".editButtonSection",
+            detail: ".editar",
             destroy: ".k-grid-Cancelar",
             createIncidence: ".incidencia"
         },
@@ -451,6 +451,7 @@
                 $(".detailLink").addClass("hidden");
                 $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
             }
+            applySecurityPolicy(false);
         }
     }
 

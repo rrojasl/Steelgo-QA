@@ -244,7 +244,7 @@ namespace BackEndSAM.DataAcces
                                {
                                    ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
                                    ItemCode = r.Codigo,
-                                   ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
+                                   //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                    Cantidad = r.Cantidad,
                                    MM = r.MM,
                                    Descripcion = r.DescripcionEspanol,
@@ -265,7 +265,8 @@ namespace BackEndSAM.DataAcces
                                                 where rics.Activo && itcs.Activo
                                                 && rics.Rel_ItemCode_ItemCodeSteelgo == riit.Rel_ItemCode_ItemCodeSteelgo
                                                 select fm.Nombre).FirstOrDefault(),
-                                   ColadaID = r.ColadaID
+                                   //ColadaID = r.ColadaID
+                                   ItemCodeOrigenID = r.ItemCodeID
                                }).AsParallel().SingleOrDefault();
                     
 
@@ -288,7 +289,7 @@ namespace BackEndSAM.DataAcces
                                        ItemCode = r.Codigo + "(" + d1.Valor + ", " + d2.Valor + ")",
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor,
-                                       ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
+                                       //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
                                        MM = r.MM
                                    }).AsParallel().SingleOrDefault();

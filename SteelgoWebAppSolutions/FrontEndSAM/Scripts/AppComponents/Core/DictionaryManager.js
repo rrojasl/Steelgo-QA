@@ -2262,6 +2262,14 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "Cuantificacion0096": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Cuantificacion0097": {
+        "es-MX": "ItemCodeOrigenID",
+        "en-US": "ItemCodeOrigenID"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -2640,6 +2648,10 @@ _dictionary = {
     "PaseDeSalida0018": {
         "es-MX": "Imprimir Pase de Salida",
         "en-US": "Print Departure Pass"
+    },
+    "PaseDeSalida0019": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Arrival Material Dashboard"
     },
     //
     "FormatoIncicencias0001": {
@@ -3024,6 +3036,10 @@ _dictionary = {
     "DetalleOrdenRecepcion0023": {
         "es-MX": "Complemento Recepción",
         "en-US": "Reception Complement"
+    },
+    "DetalleOrdenRecepcion0024": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
@@ -4035,6 +4051,38 @@ _dictionary = {
     "ComplementoRecepcion0068": {
         "es-MX": "Materiales",
         "en-US": "Materials"
+    },
+    "ComplementoRecepcion0069": {
+        "es-MX": "ItemCodeID",
+        "en-US": "ItemCodeID"
+    },
+    "ComplementoRecepcion0070": {
+        "es-MX": "RelFCID",
+        "en-US": "RelFCID"
+    },
+    "ComplementoRecepcion0071": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "ComplementoRecepcion0072": {
+        "es-MX": "RelNUFCBID",
+        "en-US": "RelNUFCBID"
+    },
+    "ComplementoRecepcion0073": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0074": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0075": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "ComplementoRecepcion0076": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
     },
     // Lista Materiales
     "ListaMateriales0001": {
@@ -5499,6 +5547,22 @@ _dictionary = {
         "es-MX": "Responder",
         "en-US": "Answer"
     },
+    "Incidencias0038": {
+        "es-MX": "Nueva Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0039": {
+        "es-MX": "Resolver Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0040": {
+        "es-MX": "Responder Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0041": {
+        "es-MX": "Cancelar Incidencia",
+        "en-US": "Incidence"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
@@ -5969,6 +6033,10 @@ _dictionary = {
     "notificationslabel0085": {
         "es-MX": "Permiso Autorizado correctamente",
         "en-US": "Permit Authorized successfully."
+    },
+    "notificationslabel0086": {
+        "es-MX": "Favor de seleccionar un item code.",
+        "en-US": "Please select an item code."
     },
     //Default to copy
     "label9999": {

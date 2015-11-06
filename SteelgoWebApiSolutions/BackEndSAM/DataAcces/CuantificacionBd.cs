@@ -68,18 +68,14 @@ namespace BackEndSAM.DataAcces
                                    {
                                        ItemCode = ic.Codigo,
                                        ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),//ic.ItemCodeID.ToString(),
-
                                        Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ? "Si" : "No",
-
                                        BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ?
-                                        ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
-
+                                            ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
                                        Descripcion = ic.DescripcionEspanol,
                                        D1 = d1.Valor,
                                        D2 = d2.Valor,
                                        Cantidad = fc.Cantidad,
                                        MM = fc.MM,
-
                                        ItemCodeSteelgo = (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                                           join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
@@ -110,11 +106,20 @@ namespace BackEndSAM.DataAcces
                                                  join d in ctx.Sam3_Diametro on rids.Diametro1ID equals d.DiametroID
                                                  where rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
                                                  select d1.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault().ToString(),
-                                       //select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
 
-                                       Colada = (from c in ctx.Sam3_Colada
-                                                 where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
+                                       Colada = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                                 join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                                 where ric.Activo 
+                                                 && ric.ColadaID == fc.ColadaID 
+                                                 && ric.ItemCodeID == ic.ItemCodeID
                                                  select c.NumeroColada).FirstOrDefault(),
+
+                                       ColadaID = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                                 join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                                 where ric.Activo
+                                                 && ric.ColadaID == fc.ColadaID
+                                                 && ric.ItemCodeID == ic.ItemCodeID
+                                                 select c.ColadaID).FirstOrDefault(),
 
                                        TipoAcero = (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
                                                     join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
@@ -127,8 +132,8 @@ namespace BackEndSAM.DataAcces
 
                                        TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
                                             ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
-                                            RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString()
-
+                                       RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                       ItemCodeOrigenID = ic.ItemCodeID.ToString()
                                    }).AsParallel().ToList();
 
                         listadoBultos = (from b in ctx.Sam3_Bulto
@@ -177,9 +182,19 @@ namespace BackEndSAM.DataAcces
 
                                        Cedula = d1.Valor.ToString() + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC,
 
-                                       Colada = (from co in ctx.Sam3_Colada
-                                                 where co.ColadaID == ic.ColadaID && co.Activo && ic.Activo
+                                       Colada = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                                 join co in ctx.Sam3_Colada on ric.ColadaID equals co.ColadaID
+                                                 where ric.Activo 
+                                                 && ric.ItemCodeID == rbic.ColadaID
+                                                 && ric.ItemCodeID == ic.ItemCodeID
                                                  select co.NumeroColada).FirstOrDefault(),
+
+                                       ColadaID = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                                   join co in ctx.Sam3_Colada on ric.ColadaID equals co.ColadaID
+                                                   where ric.Activo
+                                                   && ric.ColadaID == rbic.ColadaID
+                                                   && ric.ItemCodeID == ic.ItemCodeID
+                                                   select co.ColadaID).FirstOrDefault(),
 
                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
@@ -188,7 +203,8 @@ namespace BackEndSAM.DataAcces
 
                                        TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
                                             ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
-                                       RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString()
+                                       RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString(),
+                                       ItemCodeOrigenID = ic.ItemCodeID.ToString()
                                    }).AsParallel().ToList();
                     }
                 }
