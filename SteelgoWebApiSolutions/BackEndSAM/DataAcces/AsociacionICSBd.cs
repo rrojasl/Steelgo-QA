@@ -313,7 +313,7 @@ namespace BackEndSAM.DataAcces
 
                     bool existe = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                    where rics.Activo && rics.ItemCodeID.ToString() == itemCodeID ||
-                                   (rics.Rel_ItemCode_Diametro_ID == relIC_Diam || rics.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam)
+                                   (rics.Rel_ItemCode_Diametro_ID == relIC_Diam && rics.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam)
                                    select rics.ItemCodeID).Any();
 
                     if (existe) //update
