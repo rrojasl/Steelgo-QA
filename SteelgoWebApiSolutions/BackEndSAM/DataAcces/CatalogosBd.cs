@@ -1945,8 +1945,14 @@ namespace BackEndSAM.DataAcces
                         DescripcionLargaIngles = ics.DescripcionLargaIngles,
                         Diametro1ID = icsDiam.Diametro1ID.ToString(),
                         Diametro2ID = icsDiam.Diametro2ID.ToString(),
-                        Diametro1 = datos.Diametro1,
-                        Diametro2 = datos.Diametro2,
+                        Diametro1 = (from d in ctx.Sam3_Diametro 
+                                     where d.Activo 
+                                     && d.DiametroID.ToString() == datos.Diametro1ID 
+                                     select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                        Diametro2 = (from d in ctx.Sam3_Diametro 
+                                     where d.Activo 
+                                     && d.DiametroID.ToString() == datos.Diametro2ID 
+                                     select d.Valor.ToString()).AsParallel().SingleOrDefault(),
                         Rel_ICS_DiametroID = icsDiam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                         GrupoID = ics.GrupoID.ToString(),
                         Grupo = datos.Grupo,
