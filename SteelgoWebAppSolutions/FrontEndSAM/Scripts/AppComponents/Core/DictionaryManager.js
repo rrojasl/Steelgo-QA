@@ -3955,7 +3955,7 @@ _dictionary = {
     "lblValidaNombre": {
         "es-MX": "El nombre del PQR ya existe. No se puede agregar",
         "en-US": "PQR name already exists. You can not add"
-    },  
+    },
     //#endregion
     //#endregion
     //#region Armado  
@@ -4047,7 +4047,7 @@ _dictionary = {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
     },
-   
+
     //#endregion
     //#region Inspeccion
     "DimensionalVisualHeaderSpoolID": {
@@ -4146,7 +4146,7 @@ _dictionary = {
         "es-MX": "Inspeccion Dimensional",
         "en-US": "Dimensional inspection"
     },
-    
+
     //#endregion
 
     //#region ServiciosTecnicos
@@ -4185,7 +4185,92 @@ _dictionary = {
     "ServiciosTecnicosEliminar": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
-    }
+    },
 
     //#endregion
+
+
+    //#region  SoldadorCertificacion
+    "SoldadorCertificacionID": {
+        "es-MX": "SoldadorCertificacionID",
+        "en-US": "SoldadorCertificacionID"
+    },
+
+    "SoldadorCertificacionObreroID": {
+        "es-MX": "Obrero ID",
+        "en-US": "Obrero ID"
+    },
+
+    "SoldadorCertificacionCodigoObrero": {
+        "es-MX": "Código Obrero",
+        "en-US": "Workman code"
+    },
+
+    "SoldadorCertificacionPQRID": {
+        "es-MX": "PQR ID",
+        "en-US": "PQR ID"
+    },
+
+    "SoldadorCertificacionNombrePQR": {
+        "es-MX": "Nombre PQR",
+        "en-US": "PQR name"
+    },
+
+    "SoldadorCertificacionFechaInicioCertificado": {
+        "es-MX": "Fecha inicio de certificado",
+        "en-US": "Start date of certificate"
+    },
+
+    "SoldadorCertificacionFechaFinCertificado": {
+        "es-MX": "Fecha fin de certificado",
+        "en-US": "End date of certificate"
+    },
+
+    "SoldadorCertificacionEspesorMinimo": {
+        "es-MX": "Espesor mínimo",
+        "en-US": "Minimum thickness"
+    },
+
+    "SoldadorCertificacionEspesorMaximo": {
+        "es-MX": "Espesor máximo",
+        "en-US": "Maximum thickness"
+    },
+
+    "SoldadorCertificacionPorcentajeJuntasRequiere": {
+        "es-MX": "Porcentaje de juntas que requiere",
+        "en-US": "Percentage of joints requiring"
+    },
+
+    "SoldadorCertificacionCertificadoActivo": {
+        "es-MX": "¿Certificado activo?",
+        "en-US": "Active certificate?"
+    },
+
+    "lblValidaEspesorMaximoSoldadorCertificación": {
+        "es-MX": "El Campo 'ESPESOR MÁXIMO', solo acepta valores numéricos'",
+        "en-US": "The Field 'MAXIUM THICKNESS', accepts only numeric values"
+    },
+
+    "lblValidaEspesorMinimoSoldadorCertificación": {
+        "es-MX": "El Campo 'ESPESOR MINIMO', solo acepta valores numéricos'",
+        "en-US": "The Field 'MINIMUM THICKNESS', accepts only numeric values"
+    },
+
+    "lblValidaPorcentajeJuntasSoldadorCertificación": {
+        "es-MX": "El Campo 'PORCENTAJE DE JUNTAS QUE REQUIERE', solo acepta valores numéricos'",
+        "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
+    },
+
+    "lblValidaFechasInicioSoldadorCertificacion": {
+        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
+        "en-US": "The field ' DATE START ' , does not have the correct format"
+    },
+
+    "lblValidaFechasFinSoldadorCertificacion": {
+        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
+        "en-US": "The field ' DATE END ' , does not have the correct format"
+    },
+
+    //#endregion
+
 };

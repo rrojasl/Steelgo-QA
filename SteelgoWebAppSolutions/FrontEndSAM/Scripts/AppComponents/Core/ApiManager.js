@@ -100,6 +100,7 @@ var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backends
 var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $SoldadorCertificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -122,6 +123,7 @@ $SecurityManager.add('authentication');
 $BackEndSAM.add('TipoJunta');
 $BackEndSAM.add('ListadoCamposPredeterminados');
 $BackEndSAM.add('PQR');
+$BackEndSAM.add('SoldadorCertificacion');
 
 
 //captura armado
@@ -187,6 +189,7 @@ $DummyAlmacenajeRack.add("DummyAlmacenajeRack");
 
 $TipoJunta.add("TipoJunta");
 $PQR.add("PQR");
+$SoldadorCertificacion.add("SoldadorCertificacion");
 
 //#region Declaracion
 //#region Catalogos
@@ -198,6 +201,7 @@ var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //#endregion
 //#region Capturas rapidas
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
