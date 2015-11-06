@@ -4044,6 +4044,10 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "ComplementoRecepcion0069": {
+        "es-MX": "ItemCodeID",
+        "en-US": "ItemCodeID"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",

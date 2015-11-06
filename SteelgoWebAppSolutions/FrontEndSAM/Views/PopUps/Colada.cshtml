@@ -296,7 +296,9 @@
         LimpiarModalColada();
         cerrarVentanaModal();
         cancelarvalidacionRequeridosModalColada();
-        window.parent.CancelarPadre();
+        if(window.parent.$("#hdnItemCodeIDSeleccionado").val()){
+            window.parent.CancelarPadre(1);
+        }
     };
 
     function cerrarVentanaModal() {

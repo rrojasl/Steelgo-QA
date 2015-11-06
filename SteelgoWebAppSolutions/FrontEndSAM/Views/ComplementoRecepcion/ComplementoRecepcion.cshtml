@@ -153,6 +153,8 @@
 
 </div>
 <input id="hdnNavegacion" type="hidden" value="" />
+<input id="hdnItemCodeIDSeleccionado" type="hidden" />
+<input id="hdnItemCodeSeleccionado" type="hidden" />
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -455,6 +457,17 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 if (dataItem.ColadaID == "0") {
+                    if (!rowselected) {
+                        displayMessage("notificationslabel0086", "", '1');
+                        return;
+                    };
+                    if (!rowselected.ItemCodeID) {
+                        displayMessage("notificationslabel0086", "", '1');
+                        return;
+                    };
+
+                    $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
+                    $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
                     VentanaModal(1);
                     e.preventDefault();
                 }
@@ -498,7 +511,18 @@
         //});
         
 
-        $("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada();});
+        $("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada(); });
+        $(document).bind("contextmenu", function (e) {
+            return false;
+        });
+        $('#Colada').mousedown(function (e) {
+            if (e.which == 3) {
+                $("#hdnItemCodeIDSeleccionado").val("");
+                $("#hdnItemCodeSeleccionado").val("");
+                VentanaModal(1);
+                e.preventDefault();
+            }
+        });
         
     };
 
@@ -783,7 +807,8 @@
                     { field: "EstatusFisico", title: _dictionary.ComplementoRecepcion0034[$("#language").data("kendoDropDownList").value()], editor: EstatusFisicoAutocomplete, filterable: true, width: 160},
                     { field: "EstatusDocumental", title: _dictionary.ComplementoRecepcion0035[$("#language").data("kendoDropDownList").value()], editor: EstatusDepartamentalAutocomplete, filterable: true, width: 200 },
                     { field: "TipoUso", title: _dictionary.ComplementoRecepcion0036[$("#language").data("kendoDropDownList").value()], editor:TipoUsoAutocomplete, filterable: true, width: 145 },
-                    { field: "TieneError", title: _dictionary.ComplementoRecepcion0037[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true, width: 120 },
+                    { field: "TieneError", title: _dictionary.ComplementoRecepcion0037[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true, width: 120 },
+                    { field: "ItemCodeID", title: _dictionary.ComplementoRecepcion0069[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125 },
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
@@ -855,6 +880,8 @@
                     var select = grid.select();
                     var data = grid.dataItem(select);
 
+                    $("#hdnItemCodeIDSeleccionado").val("");
+                    $("#hdnItemCodeSeleccionado").val("");
                     if (e.item.id == "Incidencia") {
                         window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
                         return;
@@ -862,7 +889,9 @@
 
                     if (data.Colada != sinColadaPL) {
                         rowselected = data;
-                        $("#EdicionColada").data("kendoAutoComplete").value(data.Colada);
+                        $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
+                        $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
+                        $("#EdicionColada").data("kendoAutoComplete").value(rowselected.Colada);
                         VentanaEdicionColada(3);
                         e.preventDefault();
                     };
