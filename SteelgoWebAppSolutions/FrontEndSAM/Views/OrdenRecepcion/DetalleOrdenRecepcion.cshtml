@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
+                            <div class="btn-group complementorecepcion">
                                 <button id="ComplementoRecepcion" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenRecepcion0023"></span></button>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenRecepcion0001"></span></a>
@@ -46,6 +46,7 @@
                                     <li><a id="RedirectListado" href="#"><span id="DetalleOrdenRecepcion0003"></span></a></li>
                                     <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
                                     <li class="save-group"><a id="NuevaCaptura" href="#"><span id="DetalleOrdenRecepcion0014"></span></a></li>
+                                    <li class="cancelarorden"><a id="CancelarOrden" href="#"><span id="DetalleOrdenRecepcion0024"></span></a></li>
                                     @*<li><a id="Etiquetas" href="#"><span id="DetalleOrdenRecepcion0022"></span></a></li>
                                     *@
                                 </ul>
@@ -104,9 +105,25 @@
         listContainer: {
             create: ".save-group",
             list: ".listado",
-            detail: ".editButtonSection",
-            destroy: ".k-grid-Cancelar",
+            detail: "",
+            destroy: ".cancelarorden",
             createIncidence: ".incidencia"
+        },
+        properties: {
+            username: {
+                visible: "",
+                editable: "",
+                required: ""
+            }
+        }
+    };
+    var $ComplementoRecepcionModel = {
+        listContainer: {
+            create: ".complementorecepcion",
+            list: "",
+            detail: "",
+            destroy: "",
+            createIncidence: ""
         },
         properties: {
             username: {
@@ -461,6 +478,8 @@
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Orden Recepcion"] = $GenerarOrdenRecepcionModel;
+    $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
+    
     CargaInicial();
 
     }

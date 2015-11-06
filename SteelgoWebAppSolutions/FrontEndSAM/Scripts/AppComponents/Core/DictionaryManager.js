@@ -3037,6 +3037,10 @@ _dictionary = {
         "es-MX": "Complemento Recepción",
         "en-US": "Reception Complement"
     },
+    "DetalleOrdenRecepcion0024": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Folio Orden de Almacenaje: ",
