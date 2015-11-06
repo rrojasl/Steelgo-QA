@@ -767,7 +767,11 @@
                                 EstatusFisico: { type: "string", editable: true },
                                 EstatusDocumental: { type: "string", editable: true },
                                 TipoUso: { type: "string", editable: true },
-                                TieneError: { type: "boolean", defaultValue: false, editable: true }
+                                TieneError: { type: "boolean", defaultValue: false, editable: true },
+                                ItemCodeID: { type: "string", editable: false },
+                                RelFCID: { type: "string", editable: false },
+                                RelBID: { type: "string", editable: false },
+                                RelNUFCBID: { type: "string", editable: false }
                             }
                         }
                     },
@@ -808,7 +812,10 @@
                     { field: "EstatusDocumental", title: _dictionary.ComplementoRecepcion0035[$("#language").data("kendoDropDownList").value()], editor: EstatusDepartamentalAutocomplete, filterable: true, width: 200 },
                     { field: "TipoUso", title: _dictionary.ComplementoRecepcion0036[$("#language").data("kendoDropDownList").value()], editor:TipoUsoAutocomplete, filterable: true, width: 145 },
                     { field: "TieneError", title: _dictionary.ComplementoRecepcion0037[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true, width: 120 },
-                    { field: "ItemCodeID", title: _dictionary.ComplementoRecepcion0069[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125 },
+                    { field: "ItemCodeID", title: _dictionary.ComplementoRecepcion0069[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
+                    { field: "RelFCID", title: _dictionary.ComplementoRecepcion0070[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
+                    { field: "RelBID", title: _dictionary.ComplementoRecepcion0071[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
+                    { field: "RelNUFCBID", title: _dictionary.ComplementoRecepcion0072[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: false },
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
@@ -1302,14 +1309,15 @@
         function cargarGridcompletos(dataJson) {
             if (dataJson) {
                 var item =
-                        { NumeroUnico: dataJson.NumeroUnico, NumeroUnicoCliente: dataJson.NumeroUnicoCliente, ItemCode: dataJson.ItemCode, Descripcion: dataJson.Descripcion, Cedula: dataJson.Cedula, TipoAcero: dataJson.TipoAcero, D1: dataJson.D1, D2: dataJson.D2, Cantidad: dataJson.Cantidad, MM: dataJson.MM, Colada: dataJson.Colada, EstatusFisico: dataJson.EstatusFisico, EstatusDocumental: dataJson.EstatusDocumental, TipoUso: dataJson.TipoUso, TieneError: dataJson.TieneError };
+                        {
+                            NumeroUnico: dataJson.NumeroUnico, NumeroUnicoCliente: dataJson.NumeroUnicoCliente, ItemCode: dataJson.ItemCode, Descripcion: dataJson.Descripcion, Cedula: dataJson.Cedula, TipoAcero: dataJson.TipoAcero, D1: dataJson.D1, D2: dataJson.D2, Cantidad: dataJson.Cantidad, MM: dataJson.MM, Colada: dataJson.Colada, EstatusFisico: dataJson.EstatusFisico, EstatusDocumental: dataJson.EstatusDocumental, TipoUso: dataJson.TipoUso, TieneError: dataJson.TieneError, ItemCodeID: dataJson.ItemCodeID, RelFCID: dataJson.RelFCID, RelBID: dataJson.RelBID, RelNUFCBID: dataJson.RelNUFCBID };
                 $("#grid").data("kendoGrid").dataSource.insert(item);
             }
         };
         function cargarGridErrores(incompletos) {
             if (incompletos) {
                 var item =
-                       { ItemCode: incompletos.NumeroUnico, NumeroUnicoCliente: incompletos.NumeroUnicoCliente, ItemCode: incompletos.ItemCode, Descripcion: incompletos.Descripcion, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, D1: incompletos.D1, D2: incompletos.D2, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Colada: incompletos.Colada, EstatusFisico: incompletos.EstatusFisico, EstatusDocumental: incompletos.EstatusDocumental, TipoUso: incompletos.TipoUso, TieneError: true };
+                       { ItemCode: incompletos.NumeroUnico, NumeroUnicoCliente: incompletos.NumeroUnicoCliente, ItemCode: incompletos.ItemCode, Descripcion: incompletos.Descripcion, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, D1: incompletos.D1, D2: incompletos.D2, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Colada: incompletos.Colada, EstatusFisico: incompletos.EstatusFisico, EstatusDocumental: incompletos.EstatusDocumental, TipoUso: incompletos.TipoUso, TieneError: true, ItemCodeID: incompletos.ItemCodeID, RelFCID: incompletos.RelFCID, RelBID: incompletos.RelBID, RelNUFCBID: incompletos.RelNUFCBID };
                 $("#grid").data("kendoGrid").dataSource.insert(item);
             }
         };
@@ -1319,14 +1327,14 @@
             if (dataJson) {
                 $.each(dataJson, function (key) {
                     var item =
-                          { NumeroUnico: dataJson[key].NumeroUnico, NumeroUnicoCliente: dataJson[key].NumeroUnicoCliente, ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, D1: dataJson[key].D1, D2: dataJson[key].D2, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Colada: dataJson[key].Colada, EstatusFisico: dataJson[key].EstatusFisico, EstatusDocumental: dataJson[key].EstatusDocumental, TipoUso: dataJson[key].TipoUso, TieneError: dataJson[key].TieneError };
+                          { NumeroUnico: dataJson[key].NumeroUnico, NumeroUnicoCliente: dataJson[key].NumeroUnicoCliente, ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, D1: dataJson[key].D1, D2: dataJson[key].D2, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Colada: dataJson[key].Colada, EstatusFisico: dataJson[key].EstatusFisico, EstatusDocumental: dataJson[key].EstatusDocumental, TipoUso: dataJson[key].TipoUso, TieneError: dataJson[key].TieneError, ItemCodeID: dataJson[key].ItemCodeID, RelFCID: dataJson[key].RelFCID, RelBID: dataJson[key].RelBID, RelNUFCBID: dataJson[key].RelNUFCBID };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
                 });
             };
             if (incompletos) {
                 $.each(incompletos, function (key) {
                     var item =
-                           { NumeroUnico: incompletos[key].NumeroUnico, NumeroUnicoCliente: incompletos[key].NumeroUnicoCliente, ItemCode: incompletos[key].ItemCode, Descripcion: incompletos[key].Descripcion, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, D1: incompletos[key].D1, D2: incompletos[key].D2, Cantidad: incompletos[key].Cantidad, MM: incompletos[key].MM, Colada: incompletos[key].Colada, EstatusFisico: incompletos[key].EstatusFisico, EstatusDocumental: incompletos[key].EstatusDocumental, TipoUso: incompletos[key].TipoUso, TieneError: incompletos[key].TieneError };
+                           { NumeroUnico: incompletos[key].NumeroUnico, NumeroUnicoCliente: incompletos[key].NumeroUnicoCliente, ItemCode: incompletos[key].ItemCode, Descripcion: incompletos[key].Descripcion, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, D1: incompletos[key].D1, D2: incompletos[key].D2, Cantidad: incompletos[key].Cantidad, MM: incompletos[key].MM, Colada: incompletos[key].Colada, EstatusFisico: incompletos[key].EstatusFisico, EstatusDocumental: incompletos[key].EstatusDocumental, TipoUso: incompletos[key].TipoUso, TieneError: incompletos[key].TieneError, ItemCodeID: incompletos[key].ItemCodeID, RelFCID: incompletos[key].RelFCID, RelBID: incompletos[key].RelBID, RelNUFCBID: incompletos[key].RelNUFCBID };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
                 });
             }
@@ -1610,6 +1618,10 @@
             var EstatusDocumental = datasource[i].EstatusDocumental;
             var TipoUso = datasource[i].TipoUso;
             var TieneError = datasource[i].TieneError;
+            var ItemCodeID = datasource[i].ItemCodeID;
+            var RelFCID = datasource[i].RelFCID;
+            var RelBID = datasource[i].RelBID;
+            var RelNUFCBID = datasource[i].RelNUFCBID;
 
             if (!NumeroUnico) {
                 datasource[i].TieneError = true;
@@ -1617,7 +1629,8 @@
                     NumeroUnico: NumeroUnico, NumeroUnicoCliente: NumeroUnicoCliente, ItemCode: ItemCode,
                     Descripcion: Descripcion, Cedula: Cedula, TipoAcero: TipoAcero, D1: D1, D2: D2,
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
-                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: true
+                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: true,
+                    ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID
                 };
                 z++;
             } else { // informacion completa
@@ -1625,7 +1638,8 @@
                     NumeroUnico: NumeroUnico, NumeroUnicoCliente: NumeroUnicoCliente, ItemCode: ItemCode,
                     Descripcion: Descripcion, Cedula: Cedula, TipoAcero: TipoAcero, D1: D1, D2: D2,
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
-                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: TieneError
+                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: TieneError,
+                    ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID
                 };
                 j++;
             }
@@ -1677,6 +1691,10 @@
             var EstatusDocumental = datasource[i].EstatusDocumental;
             var TipoUso = datasource[i].TipoUso;
             var TieneError = datasource[i].TieneError;
+            var ItemCodeID = datasource[i].ItemCodeID;
+            var RelFCID = datasource[i].RelFCID;
+            var RelBID = datasource[i].RelBID;
+            var RelNUFCBID = datasource[i].RelNUFCBID;
 
             if (!NumeroUnico || (!MM && MM < 0) || !EstatusFisico || !Colada || !EstatusDocumental || !TipoUso) {
                 datasource[i].TieneError = true;
@@ -1684,7 +1702,8 @@
                     NumeroUnico: NumeroUnico, NumeroUnicoCliente: NumeroUnicoCliente, ItemCode: ItemCode,
                     Descripcion: Descripcion, Cedula: Cedula, TipoAcero: TipoAcero, D1: D1, D2: D2,
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
-                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: true
+                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: true,
+                    ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID
                 };
                 z++;
             } else { // informacion completa
@@ -1692,7 +1711,8 @@
                     NumeroUnico: NumeroUnico, NumeroUnicoCliente: NumeroUnicoCliente, ItemCode: ItemCode,
                     Descripcion: Descripcion, Cedula: Cedula, TipoAcero: TipoAcero, D1: D1, D2: D2,
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
-                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: TieneError
+                    EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: TieneError,
+                    ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID
                 };
                 j++;
             }

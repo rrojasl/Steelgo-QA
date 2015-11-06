@@ -4056,6 +4056,18 @@ _dictionary = {
         "es-MX": "ItemCodeID",
         "en-US": "ItemCodeID"
     },
+    "ComplementoRecepcion0070": {
+        "es-MX": "RelFCID",
+        "en-US": "RelFCID"
+    },
+    "ComplementoRecepcion0071": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "ComplementoRecepcion0072": {
+        "es-MX": "RelNUFCBID",
+        "en-US": "RelNUFCBID"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
