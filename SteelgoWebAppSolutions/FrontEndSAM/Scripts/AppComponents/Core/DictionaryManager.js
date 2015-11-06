@@ -3319,7 +3319,7 @@ _dictionary = {
     "GenerarOrdenAlmacenaje0029":{
         "es-MX": "Materiales",
         "en-US": "Materials"
-    }
+    },
 //Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
         "es-MX":"Transacciones",
