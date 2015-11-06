@@ -61,6 +61,8 @@ namespace BackEndSAM.Models
         public string RelBID { get; set; }
         public string RelNUFCBID { get; set; }
         public int ColadaID { get; set; }
+        public string Titulo { get; set; }
+        public string DescripcionIncidencia { get; set; }
     }
 
 

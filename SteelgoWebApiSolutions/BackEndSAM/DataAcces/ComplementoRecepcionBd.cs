@@ -298,18 +298,48 @@ namespace BackEndSAM.DataAcces
                     using (SamContext ctx = new SamContext())
                     {
                         Sam3_ItemCode actualizaItem = ctx.Sam3_ItemCode
-                                    .Where(x => x.Codigo == itemCodeJson.ItemCode && x.Activo).SingleOrDefault();
+                                    .Where(x => x.ItemCodeID.ToString() == itemCodeJson.ItemCode && x.Activo).SingleOrDefault();
 
                         string[] elementos = itemCodeJson.NumeroUnico.Split('-').ToArray();
                         int temp = Convert.ToInt32(elementos[1]);
                         string prefijo = elementos[0];
 
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
-                            .Where(x => x.ItemCodeID == actualizaItem.ItemCodeID
-                                && x.Prefijo == prefijo 
-                                && x.Consecutivo == temp 
-                                && x.ProyectoID == actualizaItem.ProyectoID 
-                                && x.Activo).SingleOrDefault();
+                            .Where(x => x.NumeroUnicoID.ToString() == itemCodeJson.NumeroUnicoID).SingleOrDefault();
+
+                        if (itemCodeJson.Titulo != "")
+                        {
+                            Sam3_Incidencia incidencia = new Sam3_Incidencia();
+                            incidencia.Activo = true;
+                            incidencia.ClasificacionID = (from c in ctx.Sam3_ClasificacionIncidencia
+                                                          where c.Activo && c.Nombre == "Materiales"
+                                                          select c.ClasificacionIncidenciaID).AsParallel().SingleOrDefault();
+                            incidencia.Descripcion = itemCodeJson.DescripcionIncidencia;
+                            incidencia.Estatus = "Abierta";
+                            incidencia.FechaCreacion = DateTime.Now;
+                            incidencia.FechaModificacion = DateTime.Now;
+                            incidencia.TipoIncidenciaID = (from tp in ctx.Sam3_TipoIncidencia
+                                                           where tp.Activo && tp.Nombre == "Número único"
+                                                           select tp.TipoIncidenciaID).AsParallel().SingleOrDefault();
+                            incidencia.Titulo = itemCodeJson.Titulo;
+                            incidencia.UsuarioID = usuario.UsuarioID;
+                            incidencia.Version = 1;
+
+                            ctx.Sam3_Incidencia.Add(incidencia);
+                            ctx.SaveChanges();
+
+                            int nu = Convert.ToInt32(itemCodeJson.NumeroUnicoID);
+
+                            Sam3_Rel_Incidencia_NumeroUnico nuevaRelIncidencia = new Sam3_Rel_Incidencia_NumeroUnico();
+                            nuevaRelIncidencia.Activo = true;
+                            nuevaRelIncidencia.FechaModificacion = DateTime.Now;
+                            nuevaRelIncidencia.IncidenciaID = incidencia.IncidenciaID;
+                            nuevaRelIncidencia.NumeroUnicoID = nu;
+                            nuevaRelIncidencia.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelIncidencia);
+                            ctx.SaveChanges();
+                        }
 
                         switch (tipoGuardadoID)
                         {
@@ -321,6 +351,7 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
+                                    actualizaNU.ColadaID = itemCodeJson.ColadaID;
                                 }
                                 else
                                 {
@@ -359,6 +390,7 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
+                                    actualizaNU.ColadaID = itemCodeJson.ColadaID;
                                 }
                                 else
                                 {
