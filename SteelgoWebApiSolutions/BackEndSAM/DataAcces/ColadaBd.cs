@@ -49,10 +49,11 @@ namespace BackEndSAM.DataAcces
         /// <param name="DatosColada">datos capturados en el modal</param>
         /// <param name="usuario">usuario registrado</param>
         /// <returns>status exito o error</returns>
-        public object GuardarColadaPopUp(Sam3_Colada DatosColada, Sam3_Usuario usuario)
+        public object GuardarColadaPopUp(ColadaJson DatosColada, Sam3_Usuario usuario)
         {
             try
             {
+                string error = "";
                 TransactionalInformation result = new TransactionalInformation();
 
                 using (SamContext ctx = new SamContext())
@@ -63,7 +64,9 @@ namespace BackEndSAM.DataAcces
                         {
                             using (var sam2_tran = ctx2.Database.BeginTransaction())
                             {
-                                if (!ctx.Sam3_Colada.Where(c => c.NumeroColada == DatosColada.NumeroColada && c.Activo).AsParallel().Any())
+                                if (!ctx.Sam3_Colada.Where(c => c.NumeroColada == DatosColada.NumeroColada 
+                                        && c.ProyectoID == DatosColada.ProyectoID 
+                                        && c.Activo).AsParallel().Any())
                                 {
                                     Colada Sam2Colada = new Colada();
                                     Sam2Colada.FabricanteID = (from eq in ctx.Sam3_EquivalenciaFabricante
@@ -114,21 +117,79 @@ namespace BackEndSAM.DataAcces
 
                                     sam2_tran.Commit();
 
+                                    if (DatosColada.ItemCodeID != null && DatosColada.ItemCodeID > 0)
+                                    {
+                                        Sam3_Rel_Itemcode_Colada nuevaRel = new Sam3_Rel_Itemcode_Colada();
+                                        nuevaRel.Activo = true;
+                                        nuevaRel.ColadaID = colada.ColadaID;
+                                        nuevaRel.FechaModificacion = DateTime.Now;
+                                        nuevaRel.ItemCodeID = DatosColada.ItemCodeID;
+                                        nuevaRel.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_Itemcode_Colada.Add(nuevaRel);
+                                        ctx.SaveChanges();
+                                    }
+
                                     result.ReturnMessage.Add(colada.ColadaID.ToString());
                                     result.ReturnMessage.Add("Ok");
                                     result.ReturnCode = 200;
-                                    result.ReturnStatus = false;
+                                    result.ReturnStatus = true;
                                     result.IsAuthenicated = true;
                                 }
                                 else
                                 {
-                                    throw new Exception("Colada existente");
+                                    error += "Lo numero de colada ya existe.";
+                                    Sam3_Colada registroBd = ctx.Sam3_Colada.Where(c => c.NumeroColada == DatosColada.NumeroColada 
+                                        && c.ProyectoID == DatosColada.ProyectoID 
+                                        && c.Activo).AsParallel().SingleOrDefault();
+
+                                    if (DatosColada.ItemCodeID != null && DatosColada.ItemCodeID > 0 )
+                                    {
+                                        string codigo = (from it in ctx.Sam3_ItemCode
+                                                             where it.ItemCodeID == DatosColada.ItemCodeID
+                                                             select it.Codigo).AsParallel().SingleOrDefault();
+
+                                        if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == registroBd.ColadaID
+                                                && x.ItemCodeID == DatosColada.ItemCodeID).Any())
+                                        {
+                                            Sam3_Rel_Itemcode_Colada nuevaRel = new Sam3_Rel_Itemcode_Colada();
+                                            nuevaRel.Activo = true;
+                                            nuevaRel.ColadaID = registroBd.ColadaID;
+                                            nuevaRel.FechaModificacion = DateTime.Now;
+                                            nuevaRel.ItemCodeID = DatosColada.ItemCodeID;
+                                            nuevaRel.UsuarioModificacion = usuario.UsuarioID;
+
+                                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevaRel);
+                                            ctx.SaveChanges();
+
+                                            
+
+                                            error += string.Format(" Se genero la relacion entre la colada No. {0} y el ItemCode {1}", registroBd.NumeroColada, codigo);
+                                        }
+                                        else
+                                        {
+                                            error += string.Format(" Ya existe la relacion entre la colada No. {0} y el ItemCode {1}", registroBd.NumeroColada, codigo);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        error += "El parametro ItemCodeID no puede ser nulo";
+                                    }
                                 }
                             } // tran sam2
                         } //using ctx2
                         sam3_tran.Commit();
                     }// tran sam3
                 }// using ctx
+
+                if (error != "")
+                {
+                    result.ReturnMessage.Add(error);
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+                }
+
                 return result;
             }
             catch (Exception ex)

@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
@@ -117,7 +118,7 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Colada DatosColada = serializer.Deserialize<Sam3_Colada>(data);
+                ColadaJson DatosColada = serializer.Deserialize<ColadaJson>(data);
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 return ColadaBd.Instance.GuardarColadaPopUp(DatosColada, usuario);
             }

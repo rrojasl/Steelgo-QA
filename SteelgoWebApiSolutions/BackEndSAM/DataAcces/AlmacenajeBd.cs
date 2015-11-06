@@ -89,34 +89,6 @@ namespace BackEndSAM.DataAcces
 
                     List<ListaCombos> OrdenarAlmacenaje = ordenesAlmacenaje.GroupBy(x => x.id).Select(x => x.First()).OrderBy(x => x.id).AsParallel().ToList();
 
-                    //List<ListadoAlmacenaje> ListadoAlmacenaje = (from roa in agruparOrdenesAlmacenaje
-                    //                                             join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
-                    //                                             select new ListadoAlmacenaje
-                    //                                             {
-                    //                                                 NumeroUnicoID = roa.NumeroUnicoID.ToString(),
-                    //                                                 NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                    //                                                 Rack = nu.Rack == null ? string.Empty : nu.Rack
-                    //                                             }).AsParallel().ToList();
-
-
-
-                    //foreach (var item in ListadoAlmacenaje)
-                    //{
-                    //    int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == ProyectoID)
-                    //        .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
-
-                    //    string formato = "D" + numeroDigitos.ToString();
-
-                    //    string[] elementos = item.NumeroUnico.Split('-').ToArray();
-
-                    //    int temp = Convert.ToInt32(elementos[1]);
-
-                    //    item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
-                    //}
-
-                    //lstAlmacenaje.ListadoItemCode = ordenesAlmacenaje;
-                    //lstAlmacenaje.ListadoAlmacenaje = ListadoAlmacenaje;
-
                     return OrdenarAlmacenaje;
                 }
             }
