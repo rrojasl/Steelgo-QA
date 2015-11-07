@@ -13,6 +13,7 @@
 //Add all global variables for your partial view here
 var $currentPageOnMenu = false;
 var $currentUrl = window.location.href.toString().split(window.location.host)[1].toString().split('?')[0];
+var $MenuData = {};
 
 /****************************/
 /*    Document Ready        */
@@ -325,9 +326,6 @@ function generateSideMenuDOMElements(idPadre, nivel, appendingTarget) {
                 case 2: newAppendingTarget = generateSideMenuDOMElementsLevel2($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
                 case 3: newAppendingTarget = generateSideMenuDOMElementsLevel3($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
             }
-            if ($sideMenuLayout[nivel][idPadre][key].liga.replace("/", "").toLowerCase() == $currentUrl.split("?")[0].replace("/", "").toLowerCase()) {
-                $currentPageOnMenu = true;
-            }
             generateSideMenuDOMElements(key, nivel + 1, newAppendingTarget);
         }
     }
@@ -340,6 +338,8 @@ function generateSideMenu(data) {
     if (typeof (data.layout) != null && typeof (data.layout.navigation) != null && data.layout.navigation[0].type == "sidemenu") {
         for (key in data.layout.navigation[0].elements) {
             var element = data.layout.navigation[0].elements[key];
+
+            $MenuData[element.liga.split("?")[0].replace("/", "").toLowerCase()] = 1;
 
             if ($sideMenuLayout[element.nivel] == undefined) {
                 $sideMenuLayout[element.nivel] = {};
