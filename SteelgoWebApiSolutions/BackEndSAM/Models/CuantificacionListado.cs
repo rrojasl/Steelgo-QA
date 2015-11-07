@@ -34,5 +34,6 @@ namespace BackEndSAM.Models
         public string RelFCId { get; set; }
         public string RelBID { get; set; }
         public string ItemCodeOrigenID { get; set; }
+        public string ProyectoID { get; set; }
     }
 }
