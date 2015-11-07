@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Listado Requisición";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Listado Requisicion</span></a>
+    </li>
+}
+
+<div></div>
+
+
+<div id="FormListadoRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="button-section editButtonSection">
+                <a id="btnCancelar" class="btn btn-yellow"><span id="">Agregar Requisicion</span></a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="ContenedorGrid" class="row">
+                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="hdAccionFiltrado" type="hidden" />
+    <div id="window">
+    </div>
+</div>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ListadoRequisicion/Captura.js"> </script>
