@@ -604,6 +604,11 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
+                        foreach (ListadoMaterialesSinCuantificar lst in listado)
+                        {
+                            DateTime temp = Convert.ToDateTime(lst.FechaDescarga);
+                            lst.FechaDescarga = temp.ToString("dd/MM/yyyy");
+                        }
                         return listado;
                     }
                 }
@@ -731,6 +736,12 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
+                        foreach (ListadoPLporCuantificar lst in listado)
+                        {
+                            DateTime temp = Convert.ToDateTime(lst.FechaDescarga);
+                            lst.FechaDescarga = temp.ToString("dd/MM/yyyy");
+                        }
+
                         return listado;
                     }
                 }
