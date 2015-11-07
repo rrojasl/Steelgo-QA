@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
         /// 5: Guardar Parcial cuando se encuentra en la pantalla de bulto
         /// </param>
         /// <returns></returns>
-        public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion,
+        public object GuardadoInformacionItemCodes(int ProyectoID, bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion,
             CuantificacionListado datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
         {
             try
@@ -143,7 +143,7 @@ namespace BackEndSAM.DataAcces
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
                                                               where c.NumeroColada == datosItemCode.Colada
-                                                              && c.ProyectoID.ToString() == datosItemCode.ProyectoID
+                                                              && c.ProyectoID == ProyectoID
                                                               && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
@@ -395,7 +395,7 @@ namespace BackEndSAM.DataAcces
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
                                                               where c.NumeroColada == datosItemCode.Colada
-                                                              && c.ProyectoID.ToString() == datosItemCode.ProyectoID
+                                                              && c.ProyectoID == ProyectoID
                                                               && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
@@ -638,7 +638,7 @@ namespace BackEndSAM.DataAcces
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
                                                               where c.NumeroColada == datosItemCode.Colada
-                                                              && c.ProyectoID.ToString() == datosItemCode.ProyectoID
+                                                              && c.ProyectoID == ProyectoID
                                                               && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
@@ -841,7 +841,7 @@ namespace BackEndSAM.DataAcces
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
                                                               where c.NumeroColada == datosItemCode.Colada
-                                                              && c.ProyectoID.ToString() == datosItemCode.ProyectoID
+                                                              && c.ProyectoID == ProyectoID
                                                               && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
@@ -1074,7 +1074,7 @@ namespace BackEndSAM.DataAcces
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
                                                               where c.NumeroColada == datosItemCode.Colada
-                                                              && c.ProyectoID.ToString() == datosItemCode.ProyectoID
+                                                              && c.ProyectoID == ProyectoID
                                                               && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
