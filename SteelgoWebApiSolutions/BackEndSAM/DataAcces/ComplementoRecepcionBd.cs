@@ -355,7 +355,10 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
-                                    actualizaNU.ColadaID = itemCodeJson.ColadaID;
+                                    actualizaNU.ColadaID = (from c in ctx.Sam3_Colada
+                                                            where c.NumeroColada == itemCodeJson.Colada
+                                                            && c.ProyectoID == itemCodeJson.ProyectoID
+                                                            select c.ColadaID).AsParallel().SingleOrDefault();
                                 }
                                 else
                                 {
@@ -394,7 +397,10 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
-                                    actualizaNU.ColadaID = itemCodeJson.ColadaID;
+                                    actualizaNU.ColadaID = (from c in ctx.Sam3_Colada
+                                                            where c.NumeroColada == itemCodeJson.Colada
+                                                            && c.ProyectoID == itemCodeJson.ProyectoID
+                                                            select c.ColadaID).AsParallel().SingleOrDefault();
                                 }
                                 else
                                 {
