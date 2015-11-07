@@ -3955,7 +3955,7 @@ _dictionary = {
     "lblValidaNombre": {
         "es-MX": "El nombre del PQR ya existe. No se puede agregar",
         "en-US": "PQR name already exists. You can not add"
-    },  
+    },
     //#endregion
     //#endregion
     //#region Armado  
@@ -4047,7 +4047,7 @@ _dictionary = {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
     },
-   
+
     //#endregion
     //#region Inspeccion
     "DimensionalVisualHeaderSpoolID": {
@@ -4146,7 +4146,7 @@ _dictionary = {
         "es-MX": "Inspeccion Dimensional",
         "en-US": "Dimensional inspection"
     },
-    
+
     //#endregion
 
     //#region ServiciosTecnicos
@@ -4185,7 +4185,189 @@ _dictionary = {
     "ServiciosTecnicosEliminar": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
-    }
+    },
 
     //#endregion
+
+
+    //#region  SoldadorCertificacion
+    "SoldadorCertificacionID": {
+        "es-MX": "SoldadorCertificacionID",
+        "en-US": "SoldadorCertificacionID"
+    },
+
+    "SoldadorCertificacionObreroID": {
+        "es-MX": "Obrero ID",
+        "en-US": "Obrero ID"
+    },
+
+    "SoldadorCertificacionCodigoObrero": {
+        "es-MX": "Código Obrero",
+        "en-US": "Workman code"
+    },
+
+    "SoldadorCertificacionPQRID": {
+        "es-MX": "PQR ID",
+        "en-US": "PQR ID"
+    },
+
+    "SoldadorCertificacionNombrePQR": {
+        "es-MX": "Nombre PQR",
+        "en-US": "PQR name"
+    },
+
+    "SoldadorCertificacionFechaInicioCertificado": {
+        "es-MX": "Fecha inicio de certificado",
+        "en-US": "Start date of certificate"
+    },
+
+    "SoldadorCertificacionFechaFinCertificado": {
+        "es-MX": "Fecha fin de certificado",
+        "en-US": "End date of certificate"
+    },
+
+    "SoldadorCertificacionEspesorMinimo": {
+        "es-MX": "Espesor mínimo",
+        "en-US": "Minimum thickness"
+    },
+
+    "SoldadorCertificacionEspesorMaximo": {
+        "es-MX": "Espesor máximo",
+        "en-US": "Maximum thickness"
+    },
+
+    "SoldadorCertificacionPorcentajeJuntasRequiere": {
+        "es-MX": "Porcentaje de juntas que requiere",
+        "en-US": "Percentage of joints requiring"
+    },
+
+    "SoldadorCertificacionCertificadoActivo": {
+        "es-MX": "¿Certificado activo?",
+        "en-US": "Active certificate?"
+    },
+
+    "lblValidaEspesorMaximoSoldadorCertificación": {
+        "es-MX": "El Campo 'ESPESOR MÁXIMO', solo acepta valores numéricos'",
+        "en-US": "The Field 'MAXIUM THICKNESS', accepts only numeric values"
+    },
+
+    "lblValidaEspesorMinimoSoldadorCertificación": {
+        "es-MX": "El Campo 'ESPESOR MINIMO', solo acepta valores numéricos'",
+        "en-US": "The Field 'MINIMUM THICKNESS', accepts only numeric values"
+    },
+
+    "lblValidaPorcentajeJuntasSoldadorCertificación": {
+        "es-MX": "El Campo 'PORCENTAJE DE JUNTAS QUE REQUIERE', solo acepta valores numéricos'",
+        "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
+    },
+
+    "lblValidaFechasInicioSoldadorCertificacion": {
+        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
+        "en-US": "The field ' DATE START ' , does not have the correct format"
+    },
+
+    "lblValidaFechasFinSoldadorCertificacion": {
+        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
+        "en-US": "The field ' DATE END ' , does not have the correct format"
+    },
+
+    //#endregion
+
+    //#region Soldadura
+    "CapturaSoldaduraSoldaduraSpool": {
+        "es-MX": "Soldadura de Spool",
+        "en-US": "Spool Welding"
+    },
+    "CapturaSoldaduraTipoJunta": {
+        "es-MX": "Tipo Junta",
+        "en-US": "Joint type"
+    },
+    "CapturaSoldaduraJunta": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "CapturaSoldaduraCedula": {
+        "es-MX": "Cedula",
+        "en-US": "Cedule"
+    },
+    "CapturaSoldaduraHeaderFechaSoldadura": {
+        "es-MX": "Fecha Soldadura",
+        "en-US": "Welling Date"
+    },
+    "CapturaSoldaduraHeaderTaller": {
+        "es-MX": "Taller",
+        "en-US": "WorkShop"
+    },
+
+    "CapturaSoldaduraHeaderLocalizacion": {
+        "es-MX": "Localización",
+        "en-US": "Location"
+    },
+    "CapturaSoldaduraHeaderAdicionales": {
+        "es-MX": "Trabajos Adicionales",
+        "en-US": "Additional Work"
+    },
+    "CapturaRaizHeaderAdicionales": {
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Root Welders"
+    },
+    "CapturaRellenoHeaderAdicionales": {
+        "es-MX": "Soldadores Relleno",
+        "en-US": "Fill Welders"
+    },
+    "CapturaSoldaduraDetalleJunta": {
+        "es-MX": "Detalle Junta",
+        "en-US": "Joint Detail"
+    },
+    "CapturaSoldaduraMensajeOrdenTrabajo": {
+        "es-MX": "La Orden de trabajo no es valida.",
+        "en-US": "The work order is not valid."
+    },
+    "CapturaSoldaduraMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaSoldaduraMensajeSoldadorExistente": {
+        "es-MX": "El soldador ya existe",
+        "en-US": "welder existent"
+    },
+    "CapturaSoldaduraProcesoRaiz": {
+        "es-MX": "Proceso Raiz",
+        "en-US": "Root process"
+    },
+    "CapturaSoldaduraProcesoRelleno": {
+        "es-MX": "Proceso Relleno",
+        "en-US": "Fill process"
+    },
+    "CapturaSoldaduraMensajeCambioLongitud": {
+        "es-MX": "Ahora tienes ",
+        "en-US": "Now you have "
+    },
+    "CapturaSoldaduraMensajeCambioTrabajosAdicionales": {
+        "es-MX": " trabajos adicionales",
+        "en-US": " additional work"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRelleno": {
+        "es-MX": " soldadores relleno",
+        "en-US": " fill welders"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRaiz": {
+        "es-MX": " soldadores raiz",
+        "en-US": " root welders"
+    },
+    "CapturaSoldaduraHeaderSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+    "CapturaSoldaduraHeaderObservacion": {
+        "es-MX": "Observación",
+        "en-US": "Observation"
+    },
+    "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
+        "es-MX": "Trabajo",
+        "en-US": "Work"
+    },
+
+    //#endregion
+
 };

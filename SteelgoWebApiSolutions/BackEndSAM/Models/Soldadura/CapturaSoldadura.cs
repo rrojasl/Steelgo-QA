@@ -26,6 +26,7 @@ namespace BackEndSAM.Models.Soldadura
         public int ObreroID { get; set; }
         public string Soldador { get; set; }
         public string Observacion { get; set; }
+        public string SignoInformativo { get; set; }
     }
 
 
@@ -74,7 +75,7 @@ namespace BackEndSAM.Models.Soldadura
         public string TrabajosAdicionales { get; set; }
         public string SoldadoresRelleno { get; set; }
         public List<Taller> ListaTaller { get; set; }
-
+        public string DetalleJunta { get; set; }
     }
 
     public class Taller
@@ -133,6 +134,7 @@ namespace BackEndSAM.Models.Soldadura
         public string Muestra { get; set; }
         public string Llena { get; set; }
         public string FormatoFecha { get; set; }
+        public string TipoCaptura { get; set; }
     }
 
     public class IdOrdenTrabajo

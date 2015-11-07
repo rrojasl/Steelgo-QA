@@ -25,10 +25,14 @@ function SuscribeEventosTipoCaptura() {
 }
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        AjaxJunta($("#InputID").val());
+        if ($("#InputID").data("kendoComboBox").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
+            AjaxJunta($("#InputID").val());
+        }
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        AjaxJunta($("#InputID").val());
+        if ($("#InputID").data("kendoComboBox").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
+            AjaxJunta($("#InputID").val());
+        }
     });
 
 }
@@ -194,7 +198,7 @@ function habilitaSpool() {
 
 
 function SuscribirEventoSpoolID() {
-
+    var dataItem;
     $("#InputID").kendoComboBox({
         dataTextField: "IDValido",
         dataValueField: "Valor",
@@ -203,7 +207,7 @@ function SuscribirEventoSpoolID() {
         index: 3,
         select: function (e) {
 
-            var dataItem = this.dataItem(e.item.index());
+            dataItem = this.dataItem(e.item.index());
 
             if (dataItem.Status != "1") {
                 e.preventDefault();
@@ -224,11 +228,13 @@ function SuscribirEventoSpoolID() {
         }
         ,
         change: function (e) {
-
+            dataItem = this.dataItem(e.sender.selectedIndex);
             if ($("#InputID").val().length == 1) {
                 $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
             }
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                $("#LabelProyecto").text(dataItem.Proyecto);
                 AjaxJunta($("#InputID").val());
             }
 

@@ -14,54 +14,77 @@
                       juntaSpoolID: { type: "int", editable: true },
                       juntaSoldaduraID: { type: "int", editable: true },
                       TrabajoAdicional: { type: "string", editable: true },
-                      ObreroID: {type: "int", editable: true},
+                      ObreroID: { type: "int", editable: true },
                       Soldador: { type: "string", editable: true },
                       Observacion: { type: "string", editable: true }
                   }
               }
+          }, filter: {
+              logic: "or",
+              filters: [
+                { field: "Accion", operator: "eq", value: 1 },
+                { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: undefined }
+              ]
           }
       },
+      selectable: true,
+      dataBinding: function (e) {
+          console.log("dataBinding");
+      },
+      change: function (e) {
+
+          ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+
+          var dataSource = this.dataSource;
+          var filters = dataSource.filter();
+          var allData = dataSource.data();
+          var query = new kendo.data.Query(allData);
+          var data = query.filter(filters).data;
+
+
+          actuallongitudTrabajosAdicionales = data.length;;
+          options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+          if (ItemSeleccionado.JuntaArmadoID != 0)
+              ItemSeleccionado.Accion = 2;
+
+      },
       columns: [
-        { field: "TrabajoAdicional", title: 'Trabajo', filterable: true, width: "100px", editor: RenderComboBoxTrabajos },
-        { field: "Soldador", title: 'Soldador', filterable: true, width: "100px", editor: RenderComboBoxSoldadorTrabajos },
-        { field: "Observación", title: 'Observacion', filterable: true, width: "100px" },
-        
+        { field: "TrabajoAdicional", title: _dictionary.CapturaSoldaduraHeaderTrabajosAdicionalesAnidado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxTrabajos },
+        { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxSoldadorTrabajos },
+        { field: "Observacion", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+
        {
-           command: [{
-               name: "Eliminar",
-               text: "-",
+           command: {
+               name: "",
+               title: "",
+               text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                click: function (e) {
                    e.preventDefault();
-                   var dataItem = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                   dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-                       if (dataItem.JuntaSoldaduraID == 1)
+                       if (dataItem.JuntaSoldaduraID == 0)
                            dataSource.remove(dataItem);
 
                        dataItem.Accion = 3;
+                       options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
                    }
+                   this.dataSource.sync();
                }
-           }], width: "100px"
+           }, width: "100px"
        }],
-      logic: "or",
-      filters: [
-        { field: "Accion", operator: "eq", value: 1 },
-        { field: "Accion", operator: "eq", value: 2 }
-      ],
-      //change: function (e) {
-      //    if (ItemSeleccionado.JuntaSoldaduraID != 0)
-      //        ItemSeleccionado.Accion = 2;
-      //},
       editable: true,
       navigatable: true,
-      toolbar: [{name: "create",}]
+      toolbar: [{ name: "create", }]
   });
-    $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource.sync();
+
 };
 
 function RenderGridRelleno(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
-    $('<div id=' + options.model.SpoolID + '' + options.model.Junta + '/>')
+    $('<div id=' + options.model.SpoolID + 'Relleno' + options.model.Junta + '/>')
   .appendTo(container)
   .kendoGrid({
       dataSource: {
@@ -78,48 +101,69 @@ function RenderGridRelleno(container, options) {
                       WPS: { type: "string", editable: false },
                   }
               }
+          }, filter: {
+              logic: "or",
+              filters: [
+                { field: "Accion", operator: "eq", value: 1 },
+                { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: undefined }
+              ]
           }
       },
+      selectable: true,
+      dataBinding: function (e) {
+          console.log("dataBinding");
+      },
+      change: function (e) {
+
+          ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+
+          var dataSource = this.dataSource;
+          var filters = dataSource.filter();
+          var allData = dataSource.data();
+          var query = new kendo.data.Query(allData);
+          var data = query.filter(filters).data;
+
+
+          longitudSoldadoresRelleno = data.length;;
+          options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+          if (ItemSeleccionado.JuntaArmadoID != 0)
+              ItemSeleccionado.Accion = 2;
+
+      },
       columns: [
-        { field: "Soldador", title: 'Soldador', filterable: true, width: "100px", editor: RenderComboBoxSoldadorRelleno },
-        { field: "ObreroID", title: '', filterable: true, width: "100px", hidden: true },
-        { field: "WPS", title: 'WPS', filterable: true, width: "100px" },
+        { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxSoldadorRelleno },
        {
-           command: [{
-               name: "Eliminar",
-               text: "-",
+           command: {
+               name: "",
+               title: "",
+               text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                click: function (e) {
                    e.preventDefault();
-                   var dataItem = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                   var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-                       if (dataItem.JuntaSoldaduraID == 1)
+                       if (dataItem.JuntaSoldaduraID == 0)
                            dataSource.remove(dataItem);
                        dataItem.Accion = 3;
+                       options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
                    }
+                   this.dataSource.sync();
                }
-           }], width: "90px"
+           }, width: "90px"
        }],
-      logic: "or",
-      filters: [
-        { field: "Accion", operator: "eq", value: 1 },
-        { field: "Accion", operator: "eq", value: 2 }
-      ],
-      //change: function (e) {
-      //    if (ItemSeleccionado.JuntaSoldaduraID != 0)
-      //        ItemSeleccionado.Accion = 2;
-      //},
       editable: true,
       navigatable: true,
       toolbar: [{ name: "create", }]
   });
 
-    $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource.sync();
+
 };
 
 function RenderGridRaiz(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
-    $('<div id=' + options.model.SpoolID + '' + options.model.Junta + '/>')
+    $('<div id=' + options.model.SpoolID + 'Raiz' + options.model.Junta + '/>')
   .appendTo(container)
   .kendoGrid({
       dataSource: {
@@ -129,47 +173,67 @@ function RenderGridRaiz(container, options) {
                   fields: {
                       JuntaSoldaduraSoldadoID: { type: "int", editable: true },
                       Accion: { type: "string", editable: true },
-                      ObreroID: {type: "int", editable: true},
+                      ObreroID: { type: "int", editable: true },
                       Soldador: { type: "string", editable: true },
                       WPS: { type: "string", editable: false },
                   }
               }
+          }, filter: {
+              logic: "or",
+              filters: [
+                { field: "Accion", operator: "eq", value: 1 },
+                { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: undefined }
+              ]
           }
       },
+      selectable: true,
+      dataBinding: function (e) {
+          console.log("dataBinding");
+      },
+      change: function (e) {
+
+          ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+
+          var dataSource = this.dataSource;
+          var filters = dataSource.filter();
+          var allData = dataSource.data();
+          var query = new kendo.data.Query(allData);
+          var data = query.filter(filters).data;
+
+
+          longitudSoldadoresRaiz = data.length;;
+          options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+          if (ItemSeleccionado.JuntaArmadoID != 0)
+              ItemSeleccionado.Accion = 2;
+
+      },
       columns: [
-        { field: "Soldador", title: 'Soldador', filterable: true, width: "100px", editor: RenderComboBoxSoldador },
-        { field: "ObreroID", title: '', filterable: true, width: "100px" , hidden: true},
-        { field: "WPS", title: 'WPS', filterable: true, width: "100px" },
+        { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxSoldador },
        {
-           command: [{
-               name: "Eliminar",
-               text: "-",
+           command: {
+               name: "",
+               title: "",
+               text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                click: function (e) {
                    e.preventDefault();
-                   var dataItem = $("#" + options.model.SpoolID + 'Raiz' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                   var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-                       if (dataItem.JuntaSoldaduraID == 1)
+                       if (dataItem.JuntaSoldaduraID == 0)
                            dataSource.remove(dataItem);
                        dataItem.Accion = 3;
-                       //options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+                       options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
                    }
+                   this.dataSource.sync();
                }
-           }], width: "60px"
+           }, width: "60px"
        }],
-      logic: "or",
-      filters: [
-        { field: "Accion", operator: "eq", value: 1 },
-        { field: "Accion", operator: "eq", value: 2 }
-      ],
-      //change: function (e) {
-      //    if (ItemSeleccionado.JuntaSoldaduraID != 0)
-      //        ItemSeleccionado.Accion = 2;
-      //},
       editable: true,
       navigatable: true,
       toolbar: [{ name: "create", }]
   });
-    $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource.sync();
+
 };
 
 function RenderComboBoxSoldador(container, options) {
@@ -182,22 +246,48 @@ function RenderComboBoxSoldador(container, options) {
             dataSource: ItemSeleccionado.ListadoRaiz,
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
             select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                options.model.Soldador = dataItem.Soldador;
-                options.model.ObreroID = dataItem.ObreroID;
-                options.model.WPS = options.model.WPS;
+                //dataItem = this.dataItem(e.item.index());
+                //var existe = false;
+                //for (var i = 0 ; i < ItemSeleccionado.ListadoRaiz.length ; i++) {
+                //    if (dataItem.ObreroID == ItemSeleccionado.ListadoRaiz[i].ObreroID) {
+                //        existe = true;
+                //        break;
+                //    }
+                //}
+                //if (!existe) {
+                //    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                //    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                //    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                //    options.model.Soldador = dataItem.Soldador;
+                //    options.model.ObreroID = dataItem.ObreroID;
+                //}
+                //else {
+                //    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                //    options.model.Soldador = "";
+                //    options.model.ObreroID = "";
+                //}
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                options.model.Soldador = dataItem.Soldador;
-                options.model.ObreroID = dataItem.ObreroID;
-                options.model.WPS = options.model.WPS;
+                var existe = false;
+                for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
+                    if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
+                        existe = true;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                    options.model.Soldador = dataItem.Soldador;
+                    options.model.ObreroID = dataItem.ObreroID;
+                }
+                else {
+                    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                    options.model.Soldador = "";
+                    options.model.ObreroID = "";
+                }
             }
         }
         );
@@ -208,6 +298,8 @@ function RenderComboBoxSoldador(container, options) {
 function RenderComboBoxSoldadorRelleno(container, options) {
     loadingStart();
     var dataItem;
+    listaRellenoFiltro = ItemSeleccionado.ListadoRelleno;
+    listaRellenoFiltro = aplicarFiltro(listaRellenoFiltro, ItemSeleccionado.Relleno);
     $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -216,21 +308,48 @@ function RenderComboBoxSoldadorRelleno(container, options) {
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                options.model.Soldador = dataItem.Soldador;
-                options.model.ObreroID = dataItem.ObreroID;
-                options.model.WPS = options.model.WPS;
+
+                //var existe = false;
+                //for (var i = 0 ; i < ItemSeleccionado.ListadoRelleno.length ; i++) {
+                //    if (dataItem.ObreroID == ItemSeleccionado.ListadoRelleno[i].ObreroID) {
+                //        existe = true;
+                //        break;
+                //    }
+                //}
+                //if (!existe) {
+                //    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                //    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                //    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                //    options.model.Soldador = dataItem.Soldador;
+                //    options.model.ObreroID = dataItem.ObreroID;
+                //}
+                //else {
+                //    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                //    options.model.Soldador = "";
+                //    options.model.ObreroID = "";
+                //}
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                options.model.Soldador = dataItem.Soldador;
-                options.model.ObreroID = dataItem.ObreroID;
-                options.model.WPS = options.model.WPS;
+                var existe = false;
+                for (var i = 0 ; i < ItemSeleccionado.Relleno.length ; i++) {
+                    if (dataItem.ObreroID == ItemSeleccionado.Relleno[i].ObreroID) {
+                        existe = true;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                    options.model.Soldador = dataItem.Soldador;
+                    options.model.ObreroID = dataItem.ObreroID;
+                }
+                else {
+                    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                    options.model.Soldador = "";
+                    options.model.ObreroID = "";
+                }
             }
         }
         );
@@ -247,22 +366,52 @@ function RenderComboBoxSoldadorTrabajos(container, options) {
             dataSource: ItemSeleccionado.ListadoSoldadoresTrabajos,
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
             select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                options.model.Soldador = dataItem.Soldador;
-                options.model.ObreroID = dataItem.ObreroID;
-                options.model.Observacion = options.model.Observacion;
+
+                //dataItem = this.dataItem(e.item.index());
+                //var existe = false;
+                //for (var i = 0 ; i < ItemSeleccionado.DetalleAdicional.length ; i++) {
+                //    if (dataItem.ObreroID == ItemSeleccionado.DetalleAdicional[i].ObreroID) {
+                //        existe = true;
+                //        break;
+                //    }
+                //}
+                //if (!existe) {
+                //    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                //    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                //    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                //    options.model.Soldador = dataItem.Soldador;
+                //    options.model.ObreroID = dataItem.ObreroID;
+                //    //options.model.Observacion = options.model.Observacion;
+                //}
+                //else {
+                //    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                //    options.model.Soldador = "";
+                //    options.model.ObreroID = "";
+                //}
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                options.model.Soldador = options.model.Soldador;
-                options.model.ObreroID = options.model.ObreroID;
-                options.model.Observacion = options.model.Observacion;
+                var existe = false;
+                for (var i = 0 ; i < ItemSeleccionado.DetalleAdicional.length ; i++) {
+                    if (dataItem.ObreroID == ItemSeleccionado.DetalleAdicional[i].ObreroID) {
+                        existe = true;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                    options.model.Soldador = options.model.Soldador;
+                    options.model.ObreroID = options.model.ObreroID;
+                    //options.model.Observacion = options.model.Observacion;
+                }
+                else {
+                    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                    options.model.Soldador = "";
+                    options.model.ObreroID = "";
+                }
+
             }
         }
         );
@@ -270,20 +419,20 @@ function RenderComboBoxSoldadorTrabajos(container, options) {
 }
 
 function RenderComboBoxTrabajos(container, options) {
-        loadingStart();
-        var dataItem;
+    loadingStart();
+    var dataItem;
     $('<input required data-text-field="TrabajoAdicional" data-value-field="TrabajoAdicional" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoComboBox({
                 autoBind: false,
                 dataSource: ItemSeleccionado.listaTrabajosAdicionalesSoldadura,
-                template: '<span class="#: data.TrabajoAdicional #">#: data.TrabajoAdicional #</span> ',
+                template: '<span class="#: data.SignoInformativo #">#: data.TrabajoAdicional #</span> ',
                 select: function (e) {
                     dataItem = this.dataItem(e.item.index());
                     options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
                     options.model.TrabajoAdicional = dataItem.TrabajoAdicional;
                     options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                    options.model.Observacion = options.model.Observacion;
+                    //options.model.Observacion = options.model.Observacion;
                     options.model.Soldador = options.model.Soldador;
                     options.model.ObreroID = options.model.ObreroID;
                 },
@@ -292,40 +441,40 @@ function RenderComboBoxTrabajos(container, options) {
                     options.model.Accion = options.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
                     options.model.TrabajoAdicional = dataItem.TrabajoAdicional;
                     options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                    options.model.Observacion = options.model.Observacion;
+                    //options.model.Observacion = options.model.Observacion;
                     options.model.Soldador = options.model.Soldador;
                     options.model.ObreroID = options.model.ObreroID;
                 }
             }
             );
-        loadingStop();
+    loadingStop();
 }
 
 function RenderComboBoxTaller(container, options) {
-        loadingStart();
-        var dataItem;
-        $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
-            .appendTo(container)
-            .kendoComboBox({
-                autoBind: false,
-                dataSource: ItemSeleccionado.ListaTaller,
-                template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
-                select: function (e)  {
-                    
-                    dataItem = this.dataItem(e.item.index());
-                    options.model.Taller = dataItem.Nombre;
-                    options.model.TallerID = dataItem.TallerID;
-                    options.model.tallerID = dataItem.TallerID;
-                },
-                change: function (e) {
-                    dataItem = this.dataItem(e.sender.selectedIndex);
-                    options.model.Taller = dataItem.Nombre;
-                    options.model.TallerID = dataItem.TallerID;
-                    options.model.tallerID = dataItem.TallerID;
-                }
+    loadingStart();
+    var dataItem;
+    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: ItemSeleccionado.ListaTaller,
+            template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
+            select: function (e) {
+
+                dataItem = this.dataItem(e.item.index());
+                options.model.Taller = dataItem.Nombre;
+                options.model.TallerID = dataItem.TallerID;
+                options.model.tallerID = dataItem.TallerID;
+            },
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                options.model.Taller = dataItem.Nombre;
+                options.model.TallerID = dataItem.TallerID;
+                options.model.tallerID = dataItem.TallerID;
             }
-            );
-        loadingStop();
+        }
+        );
+    loadingStop();
 }
 
 

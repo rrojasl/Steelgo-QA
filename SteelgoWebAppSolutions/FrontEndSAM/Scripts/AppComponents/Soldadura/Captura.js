@@ -3,6 +3,10 @@ var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
 var ItemSeleccionado;
+var longitudSoldadoresRaiz;
+var longitudSoldadoresRelleno;
+var listaRaizFiltro;
+var listaRellenoFiltro;
 
 IniciarCapturaSoldadura();
 
@@ -13,8 +17,16 @@ function IniciarCapturaSoldadura() {
     SuscribirEventos();
 };
 
+function aplicarFiltro(listaRespaldo, listaConFiltro) {
+    for (var i = 0; i < listaRespaldo.length ; i++) {
+        for (var j = 0 ; j < listaConFiltro.length; j++) {
+            
+        }
+    }
+}
+
 function asignarProyecto() {
-    $("#InputOrdenTrabajo").val(Cookies.get('Proyecto') == undefined ? '' : 'R');
+    $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 
@@ -111,7 +123,8 @@ function CargarGridSoldadura() {
                         TallerID: { type: "string", editable: true },
                         Taller: { type: "string", editable: true },
                         Localizacion: { type: "string", editable: false },
-                        juntaSpoolID: {type: "int", editable: true},
+                        juntaSpoolID: { type: "int", editable: true },
+                        DetalleJunta: { type: "string", editable: false },
                     }
                 }
             },
@@ -134,7 +147,7 @@ function CargarGridSoldadura() {
         },
         autoHeight: true,
         sortable: true,
-        scrollable: false,
+        scrollable: true,
         selectable: true,
         pageable: {
             refresh: false,
@@ -144,30 +157,20 @@ function CargarGridSoldadura() {
             numeric: true,
         },
         columns: [
-            { field: "Proyecto", title: "", filterable: true, width: "150px", hidden: true },
-            { field: "procesoSoldaduraRaizID", title: "Raiz", filterable: true, width: "150px", hidden: true },
-            { field: "procesoSoldaduraRellenoID", title: "Relleno", filterable: true, width: "150px", hidden: true },
-            { field: "Proyecto", title: "", filterable: true, width: "150px", hidden: true },
-            { field: "IdOrdenTrabajo", title: "", filterable: true, width: "150px", hidden: true },
-            { field: "OrdenTrabajo", title: "", filterable: true, width: "110px", hidden: true },
-            { field: "idVal", title: "", filterable: true, width: "110px", hidden: true },
-            { field: "idText", title: "", filterable: true, width: "110px", hidden: true },
+            
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
             { field: "JuntaID", title: "", filterable: true, width: "110px", hidden: true },
             { field: "Junta", title: _dictionary.CapturaSoldaduraJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
-            { field: "TipoJunta", title: _dictionary.CapturaSoldaduraTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-            { field: "Cedula", title: _dictionary.CapturaSoldaduraCedula[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "FechaSoldadura", title: _dictionary.CapturaSoldaduraHeaderFechaSoldadura[$("#language").data("kendoDropDownList").value()], filterable: true, width: "160px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "TallerID", title: "", filterable: true, width: "130px", hidden: true },
+            { field: "DetalleJunta", title: _dictionary.CapturaSoldaduraDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
+            { field: "FechaSoldadura", title: _dictionary.CapturaSoldaduraHeaderFechaSoldadura[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Taller", title: _dictionary.CapturaSoldaduraHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "130px" },
-            { field: "Localizacion", title: _dictionary.CapturaSoldaduraHeaderLocalizacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-            { field: "procesoSoldaduraRaiz", title: "Soldadura Raiz", filterable: true, width: "150px", editor: RenderComboBoxProcesoSoldaduraRaiz },
-            { field: "procesoSoldaduraRelleno", title: "Soldadura Relleno", filterable: true, width: "150px", editor: RenderComboBoxProcesoSoldaduraRelleno },
-            { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "300px", template: "#:SoldadoresRaiz#", editor: RenderGridRaiz },
-            { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "300px", template: "#:SoldadoresRelleno#", editor: RenderGridRelleno },
-            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "350px", editor: RenderGridDetalle, template: "#:TrabajosAdicionales#" },
+            { field: "procesoSoldaduraRaiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", editor: RenderComboBoxProcesoSoldaduraRaiz },
+            { field: "procesoSoldaduraRelleno", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", editor: RenderComboBoxProcesoSoldaduraRelleno },
+            { field: "Raiz", title: _dictionary.CapturaSoldaduraProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px", template: "#:SoldadoresRaiz#", editor: RenderGridRaiz },
+            { field: "Relleno", title: _dictionary.CapturaSoldaduraProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px", template: "#:SoldadoresRelleno#", editor: RenderGridRelleno },
+            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "500px", editor: RenderGridDetalle, template: "#:TrabajosAdicionales#" },
             { field: "juntaSpoolID", title: "", filterable: true, width: "150px", hidden: true },
-            { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
         dataBound: function (e) {
             $(".k-grid input.k-textbox").prop('readonly', true);
