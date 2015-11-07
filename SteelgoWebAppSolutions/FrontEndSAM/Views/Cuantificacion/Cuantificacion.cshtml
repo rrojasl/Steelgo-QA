@@ -1479,7 +1479,7 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if(!this.get("Colada")){
+                    if (!this.get("Colada") || this.get("Colada")=="Sin Colada PL") {
                         this.set("Colada", value);
                     }
                 }else{
