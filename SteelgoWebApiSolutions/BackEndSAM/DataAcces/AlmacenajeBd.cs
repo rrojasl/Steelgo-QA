@@ -24,7 +24,7 @@ namespace BackEndSAM.DataAcces
     {
         private static readonly object _mutex = new object();
         private static AlmacenajeBd _instance;
-        
+
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
@@ -64,7 +64,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Almacenaje lstAlmacenaje = new Almacenaje();
-                    
+
                     //Patios y proyectos del usuario
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -120,9 +120,9 @@ namespace BackEndSAM.DataAcces
         //        using (SamContext ctx = new SamContext())
         //        {
         //            int ordenAlmacenajeID = ordenAlmacenaje != "" ? Convert.ToInt32(ordenAlmacenaje) : 0;
-                   
 
-                   
+
+
         //            ////Patios y proyectos del usuario
         //            List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -270,7 +270,7 @@ namespace BackEndSAM.DataAcces
                                                                  join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
                                                                  select new ListadoAlmacenaje
                                                                  {
-                                                                     ItemCodeID=nu.ItemCodeID.ToString(),
+                                                                     ItemCodeID = nu.ItemCodeID.ToString(),
                                                                      NumeroUnicoID = roa.NumeroUnicoID.ToString(),
                                                                      NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
                                                                      Rack = nu.Rack == null ? string.Empty : nu.Rack
@@ -381,10 +381,10 @@ namespace BackEndSAM.DataAcces
                                                            join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                                            join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
                                                            where ic.ItemCodeID == itemCodeID
-                                                           select new ItemCodeSteelgoJson 
-                                                           { 
-                                                                Diametro1 = d1.Valor,
-                                                                Diametro2 = d2.Valor
+                                                           select new ItemCodeSteelgoJson
+                                                           {
+                                                               Diametro1 = d1.Valor,
+                                                               Diametro2 = d2.Valor
                                                            }).AsParallel().FirstOrDefault();
 
                     return itemCodeSteelgo;
@@ -410,40 +410,44 @@ namespace BackEndSAM.DataAcces
             try
             {
                 List<ListaNumerosUnicos> ids = listados.NumerosUnicos.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).OrderBy(x => x.NumeroUnicoID).AsParallel().ToList();
-                using (TransactionScope scope = new TransactionScope())
+                List<int> nuids = new List<int>();
+
+                foreach(var i in ids)
                 {
-                    using (SamContext ctx = new SamContext())
-                    {
-                        foreach (var row in ids)
-                        {
-                            int NumeroUnicoID = row.NumeroUnicoID != "" ? Convert.ToInt32(row.NumeroUnicoID) : 0;
-                            Sam3_NumeroUnico numeroUnicoBd = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == NumeroUnicoID)
-                                    .AsParallel().SingleOrDefault();
-
-                            numeroUnicoBd.Rack = row.Rack;
-                            numeroUnicoBd.UsuarioModificacion = usuario.UsuarioID;
-                            numeroUnicoBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-                        };
-
-                        if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
-                                                        string.Format("Se guardaron los almacenajes del  orden de almacenaje Folio: {0}",
-                                                        listados.OrdenAlmacenajeID), usuario))
-                        {
-                            //Agregar error a la bitacora  PENDIENTE
-                        }
-                    }
-                    scope.Complete();
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-                    return result;
+                    nuids.Add(Convert.ToInt32(i.NumeroUnicoID));
                 }
 
+                string rack = ids.Select(x => x.Rack).FirstOrDefault();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+
+                        List<Sam3_NumeroUnico> list = (from nu in ctx.Sam3_NumeroUnico
+                                                       where nu.Activo
+                                                       && nuids.Contains(nu.NumeroUnicoID)
+                                                       select nu).AsParallel().ToList();
+
+                        list.ForEach(x => x.Rack = rack);
+
+                        ctx.SaveChanges();
+                        ctx_tran.Commit();
+                    }
+                }
+
+                //if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                //                                    string.Format("Se guardaron los almacenajes del  orden de almacenaje Folio: {0}",
+                //                                    listados.OrdenAlmacenajeID), usuario))
+                //{
+                //    //Agregar error a la bitacora  PENDIENTE
+                //}
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+                return result;
             }
             catch (Exception ex)
             {
