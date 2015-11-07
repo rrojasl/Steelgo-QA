@@ -6,6 +6,7 @@ function SuscribirEventos() {
     SuscribirEventoTaller();
     SuscribirEventosJunta();
     SuscribirEventoSpoolID();
+    suscribirEventoChangeRadio();
 };
 
 function suscribirEventoGuardar() {
@@ -147,12 +148,13 @@ function SuscribirEventoSpoolID() {
         }
     });
 
+
     $("#InputOrdenTrabajo").blur(function (e) {
 
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
                 loadingStart();
-                $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
+                $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
                     $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                     $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
                     Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
@@ -199,7 +201,20 @@ $(document.body).keydown(function (e) {
     }
 });
 
+function suscribirEventoChangeRadio() {
+    $('input:radio[name=Muestra]:nth(0)').change(function () {
+        if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
+             AjaxJunta($("#InputID").val());   
+        }
+        
+    });
+    $('input:radio[name=Muestra]:nth(1)').change(function () {
+        if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
+            AjaxJunta($("#InputID").val());
+        }
+    });
 
+}
 
 function Limpiar() {
 

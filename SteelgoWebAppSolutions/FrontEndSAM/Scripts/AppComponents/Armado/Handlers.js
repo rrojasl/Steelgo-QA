@@ -25,10 +25,14 @@ function SuscribeEventosTipoCaptura() {
 }
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        AjaxJunta($("#InputID").val());
+        if ($("#InputID").data("kendoComboBox").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
+            AjaxJunta($("#InputID").val());
+        }
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        AjaxJunta($("#InputID").val());
+        if ($("#InputID").data("kendoComboBox").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
+            AjaxJunta($("#InputID").val());
+        }
     });
 
 }
