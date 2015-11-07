@@ -5548,20 +5548,92 @@ _dictionary = {
         "en-US": "Answer"
     },
     "Incidencias0038": {
-        "es-MX": "Nueva Incidencia",
+        "es-MX": "Incidencia",
         "en-US": "Incidence"
     },
     "Incidencias0039": {
-        "es-MX": "Resolver Incidencia",
+        "es-MX": "Resolver",
         "en-US": "Incidence"
     },
     "Incidencias0040": {
-        "es-MX": "Responder Incidencia",
+        "es-MX": "Responder",
         "en-US": "Incidence"
     },
     "Incidencias0041": {
-        "es-MX": "Cancelar Incidencia",
+        "es-MX": "Cancelar",
         "en-US": "Incidence"
+    },
+    "Incidencias0042": {
+        "es-MX": "Resolver",
+        "en-US": "Incidence"
+    },
+    "Incidencias0043": {
+        "es-MX": "Responder",
+        "en-US": "Incidence"
+    },
+    "Incidencias0044": {
+        "es-MX": "Cancelar",
+        "en-US": "Incidence"
+    },
+    "Incidencias0045": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0046": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0047": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0048": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0049": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "Incidencias0050": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0051": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0052": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0053": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0054": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "Incidencias0055": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0056": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0057": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0058": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0059": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
     },
     //Listado Incidencias
     "ListadoIncidencias0001": {
