@@ -302,7 +302,7 @@ namespace BackEndSAM.DataAcces
                     using (SamContext ctx = new SamContext())
                     {
                         Sam3_ItemCode actualizaItem = ctx.Sam3_ItemCode
-                                    .Where(x => x.ItemCodeID.ToString() == itemCodeJson.ItemCode && x.Activo).SingleOrDefault();
+                                    .Where(x => x.ItemCodeID == itemCodeJson.ItemCodeID && x.Activo).SingleOrDefault();
 
                         string[] elementos = itemCodeJson.NumeroUnico.Split('-').ToArray();
                         int temp = Convert.ToInt32(elementos[1]);
