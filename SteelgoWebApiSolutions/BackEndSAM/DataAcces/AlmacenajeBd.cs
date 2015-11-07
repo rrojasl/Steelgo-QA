@@ -427,14 +427,16 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
                         };
 
-                        if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
-                                                        string.Format("Se guardaron los almacenajes del  orden de almacenaje Folio: {0}",
-                                                        listados.OrdenAlmacenajeID), usuario))
-                        {
-                            //Agregar error a la bitacora  PENDIENTE
-                        }
+                        
                     }
                     scope.Complete();
+
+                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                                                        string.Format("Se guardaron los almacenajes del  orden de almacenaje Folio: {0}",
+                                                        listados.OrdenAlmacenajeID), usuario))
+                    {
+                        //Agregar error a la bitacora  PENDIENTE
+                    }
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
