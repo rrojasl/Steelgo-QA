@@ -91,7 +91,8 @@ namespace BackEndSAM.DataAcces
                                           EstatusFisico = it.EstatusFisico,
                                           TipoUso = it.Sam3_TipoUso.Nombre,
                                           RelFCID = rel.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
-                                          RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString()
+                                          RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
+                                          ColadaOriginal = nu.Sam3_Colada.NumeroColada,
                                       }).AsParallel().Distinct().ToList());
 
                     //agregar items en bulto
@@ -140,7 +141,8 @@ namespace BackEndSAM.DataAcces
                                           EstatusFisico = it.EstatusFisico, 
                                           TipoUso = it.Sam3_TipoUso.Nombre,
                                           RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
-                                          RelBID = rel.Rel_Bulto_ItemCode_ID.ToString()
+                                          RelBID = rel.Rel_Bulto_ItemCode_ID.ToString(),
+                                          ColadaOriginal = nu.Sam3_Colada.NumeroColada,
                                       }
                         ).AsParallel().Distinct().ToList());
 
@@ -247,7 +249,10 @@ namespace BackEndSAM.DataAcces
                                     RelFCID = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                     RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                     Titulo =  "",
-                                    DescripcionIncidencia = ""
+                                    DescripcionIncidencia = "",
+                                    ColadaOriginal = (from c in ctx.Sam3_Colada
+                                                      where c.ColadaID == rfi.ColadaID
+                                                      select c.NumeroColada).FirstOrDefault(),
                                 }).AsParallel().SingleOrDefault();
                     }
 
@@ -300,7 +305,10 @@ namespace BackEndSAM.DataAcces
                                     RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
                                     RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                     Titulo =  "",
-                                    DescripcionIncidencia = ""
+                                    DescripcionIncidencia = "",
+                                    ColadaOriginal = (from c in ctx.Sam3_Colada
+                                                      where c.ColadaID == rbi.ColadaID
+                                                      select c.NumeroColada).FirstOrDefault(),
                                 }).AsParallel().SingleOrDefault();
                     }
 

@@ -63,6 +63,8 @@ namespace BackEndSAM.Models
         public int ColadaID { get; set; }
         public string Titulo { get; set; }
         public string DescripcionIncidencia { get; set; }
+        public string ColadaOriginal { get; set; }
+
     }
 
 

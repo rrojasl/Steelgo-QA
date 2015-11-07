@@ -4088,6 +4088,10 @@ _dictionary = {
         "es-MX": "ColadaID",
         "en-US": "ColadaID"
     },
+    "ComplementoRecepcion0078": {
+        "es-MX": "Al cambiar la colada se generara una incidencia.",
+        "en-US": "By changing the casting an incidence will be generated."
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
