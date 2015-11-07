@@ -64,7 +64,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Almacenaje lstAlmacenaje = new Almacenaje();
-                    List<ListaCombos> ordenesAlmacenaje = new List<ListaCombos>();
+                    
                     //Patios y proyectos del usuario
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -73,51 +73,22 @@ namespace BackEndSAM.DataAcces
                                         where r.Activo && proyectos.Contains(r.ProyectoID)
                                         select p.PatioID).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
 
+                    List<ListaCombos> ordenesAlmacenaje = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                                           join roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals roa.OrdenAlmacenajeID
+                                                           join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
+                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                           where oa.Activo && roa.Activo && nu.Activo && p.Activo && pa.Activo
+                                                           && nu.ProyectoID == ProyectoID
+                                                           && proyectos.Contains(p.ProyectoID)
+                                                           && patios.Contains(pa.PatioID)
+                                                           select new ListaCombos
+                                                           {
+                                                               id = oa.Folio.ToString(),
+                                                               value = oa.Folio.ToString()
+                                                           }).AsParallel().GroupBy(x => x.id).Select(x => x.First()).ToList();
 
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = null;
-
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> agruparOrdenesAlmacenaje = lstRelONU.GroupBy(x => x.OrdenAlmacenajeID).Select(x => x.First()).OrderBy(x => x.OrdenAlmacenajeID).AsParallel().ToList();
-
-                    ordenesAlmacenaje = (from roa in agruparOrdenesAlmacenaje
-                                         join oa in ctx.Sam3_OrdenAlmacenaje on roa.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
-                                             select new ListaCombos 
-                                             {
-                                                 id = oa.Folio.ToString(),
-                                                 value = oa.Folio.ToString()
-                                             }
-                                        ).AsParallel().Distinct().ToList();
-
-                    List<ListaCombos> OrdenarAlmacenaje = ordenesAlmacenaje.GroupBy(x => x.id).Select(x => x.First()).OrderBy(x => x.id).AsParallel().ToList();
-
-                    //List<ListadoAlmacenaje> ListadoAlmacenaje = (from roa in agruparOrdenesAlmacenaje
-                    //                                             join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
-                    //                                             select new ListadoAlmacenaje
-                    //                                             {
-                    //                                                 NumeroUnicoID = roa.NumeroUnicoID.ToString(),
-                    //                                                 NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                    //                                                 Rack = nu.Rack == null ? string.Empty : nu.Rack
-                    //                                             }).AsParallel().ToList();
-
-
-
-                    //foreach (var item in ListadoAlmacenaje)
-                    //{
-                    //    int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == ProyectoID)
-                    //        .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
-
-                    //    string formato = "D" + numeroDigitos.ToString();
-
-                    //    string[] elementos = item.NumeroUnico.Split('-').ToArray();
-
-                    //    int temp = Convert.ToInt32(elementos[1]);
-
-                    //    item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
-                    //}
-
-                    //lstAlmacenaje.ListadoItemCode = ordenesAlmacenaje;
-                    //lstAlmacenaje.ListadoAlmacenaje = ListadoAlmacenaje;
-
-                    return OrdenarAlmacenaje;
+                    return ordenesAlmacenaje.OrderBy(x => x.value).ToList();
                 }
             }
             catch (Exception ex)
@@ -260,7 +231,7 @@ namespace BackEndSAM.DataAcces
                     Almacenaje lstAlmacenaje = new Almacenaje();
                     List<ListaCombos> ordenesAlmacenaje = new List<ListaCombos>();
                     int ProyectoID = Proyecto != "" ? Convert.ToInt32(Proyecto) : 0;
-                    int ordenAlmacenajeID = ordenAlmacenaje != "" ? Convert.ToInt32(ordenAlmacenaje) : 0;
+                    int folio = ordenAlmacenaje != "" ? Convert.ToInt32(ordenAlmacenaje) : 0;
                     //Patios y proyectos del usuario
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -270,22 +241,17 @@ namespace BackEndSAM.DataAcces
                                         select p.PatioID).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
 
 
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                            join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-                                                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
-                                                                            join nu in ctx.Sam3_NumeroUnico on rfc.ItemCodeID equals nu.ItemCodeID
-                                                                            join pr in ctx.Sam3_Proyecto on rfp.ProyectoID equals pr.ProyectoID
-                                                                            join ora in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ora.NumeroUnicoID
-                                                                            join oa in ctx.Sam3_OrdenAlmacenaje on ora.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
-                                                                            where proyectos.Contains(fc.ProyectoID) && patios.Contains(pr.PatioID)
-                                                                                  && fc.Activo && fe.Activo && rfp.Activo
-                                                                                  && rfc.Activo && ic.Activo && nu.Activo
-                                                                                  && pr.Activo && ora.Activo && oa.Activo
-                                                                                  && fc.ProyectoID == ProyectoID
-                                                                                  && oa.Folio == ordenAlmacenajeID
-                                                                            select ora).AsParallel().ToList();
+                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                                                            join roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals roa.OrdenAlmacenajeID
+                                                                            join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
+                                                                            join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                            join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                            where oa.Activo && roa.Activo && nu.Activo && p.Activo && pa.Activo
+                                                                            && oa.Folio == folio
+                                                                            && proyectos.Contains(p.ProyectoID)
+                                                                            && patios.Contains(pa.PatioID)
+                                                                            && p.ProyectoID == ProyectoID
+                                                                            select roa).AsParallel().ToList();
 
                     List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> agruparNumerosUnicos = lstRelONU.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).OrderBy(x => x.NumeroUnicoID).AsParallel().ToList();
 
