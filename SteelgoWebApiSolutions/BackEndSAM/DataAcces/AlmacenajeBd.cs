@@ -411,9 +411,10 @@ namespace BackEndSAM.DataAcces
             {
                 List<ListaNumerosUnicos> ids = listados.NumerosUnicos.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).OrderBy(x => x.NumeroUnicoID).AsParallel().ToList();
                 List<int> nuids = new List<int>();
-                foreach(string i in ids)
+
+                foreach(var i in ids)
                 {
-                    nuids.Add(Convert.ToInt32(i));
+                    nuids.Add(Convert.ToInt32(i.NumeroUnicoID));
                 }
 
                 string rack = ids.Select(x => x.Rack).FirstOrDefault();

@@ -141,9 +141,9 @@ namespace BackEndSAM.DataAcces
                                                                  where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                              select c.ColadaID).AsParallel().FirstOrDefault();
+                                    //datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                    //                          where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                    //                          select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode
@@ -391,9 +391,9 @@ namespace BackEndSAM.DataAcces
                                                                  where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                              select c.ColadaID).AsParallel().FirstOrDefault();
+                                    //datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                    //                          where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                    //                          select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode
@@ -632,9 +632,9 @@ namespace BackEndSAM.DataAcces
                                                                  where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                              select c.ColadaID).AsParallel().FirstOrDefault();
+                                    //datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                    //                          where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                    //                          select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
                                     //datosItemCode.ItemCodeID = 
@@ -833,9 +833,9 @@ namespace BackEndSAM.DataAcces
                                                                  where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                              select c.ColadaID).AsParallel().FirstOrDefault();
+                                    //datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                    //                          where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                    //                          select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode
@@ -1064,9 +1064,9 @@ namespace BackEndSAM.DataAcces
                                                                  where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                              select c.ColadaID).AsParallel().FirstOrDefault();
+                                    //datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                    //                          where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                    //                          select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode
@@ -1508,6 +1508,22 @@ namespace BackEndSAM.DataAcces
                         relIC.ColadaID = IC.ColadaID;
                         ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
                         ctx.SaveChanges();
+
+                    int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == relItemDiametroID)
+                        .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                    if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == IC.ColadaID && x.ItemCodeID == itemCodeID).Any())
+                    {
+                        Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                        nuevarel.Activo = true;
+                        nuevarel.ColadaID = IC.ColadaID;
+                        nuevarel.FechaModificacion = DateTime.Now;
+                        nuevarel.ItemCodeID = itemCodeID;
+                        nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                        ctx.SaveChanges();
+                    }
                     //}
                 }
                 
@@ -1541,6 +1557,22 @@ namespace BackEndSAM.DataAcces
                         registroBd.ColadaID = IC.ColadaID;
 
                         ctx.SaveChanges();
+
+                        int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == registroBd.Rel_ItemCode_Diametro_ID)
+                            .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                        if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == IC.ColadaID && x.ItemCodeID == itemCodeID).Any())
+                        {
+                            Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                            nuevarel.Activo = true;
+                            nuevarel.ColadaID = IC.ColadaID;
+                            nuevarel.FechaModificacion = DateTime.Now;
+                            nuevarel.ItemCodeID = itemCodeID;
+                            nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                            ctx.SaveChanges();
+                        }
 
                         ctx_tran.Commit();
                     }
@@ -1623,6 +1655,21 @@ namespace BackEndSAM.DataAcces
                         ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
                         ctx.SaveChanges();
 
+                        int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == relItemDiametroID)
+                            .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                        if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == item.ColadaID && x.ItemCodeID == itemCodeID).Any())
+                        {
+                            Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                            nuevarel.Activo = true;
+                            nuevarel.ColadaID = item.ColadaID;
+                            nuevarel.FechaModificacion = DateTime.Now;
+                            nuevarel.ItemCodeID = itemCodeID;
+                            nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                            ctx.SaveChanges();
+                        }
                         
                     //}
                 }
@@ -1656,6 +1703,23 @@ namespace BackEndSAM.DataAcces
                         registroBd.ColadaID = item.ColadaID;
 
                         ctx.SaveChanges();
+
+                        int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == registroBd.Rel_ItemCode_Diametro_ID)
+                            .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                        if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == item.ColadaID && x.ItemCodeID == itemCodeID).Any())
+                        {
+                            Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                            nuevarel.Activo = true;
+                            nuevarel.ColadaID = item.ColadaID;
+                            nuevarel.FechaModificacion = DateTime.Now;
+                            nuevarel.ItemCodeID = itemCodeID;
+                            nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                            ctx.SaveChanges();
+                        }
+
 
                         ctx_tran.Commit();
                     }

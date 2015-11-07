@@ -369,6 +369,11 @@ namespace BackEndSAM.DataAcces
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
                             .Where(x => x.NumeroUnicoID.ToString() == itemCodeJson.NumeroUnicoID).SingleOrDefault();
 
+                        int coladaID = (from c in ctx.Sam3_Colada
+                                        where c.NumeroColada == itemCodeJson.Colada
+                                        && c.ProyectoID == itemCodeJson.ProyectoID
+                                        select c.ColadaID).AsParallel().SingleOrDefault();
+
                         if (itemCodeJson.Titulo != "" && itemCodeJson.Titulo != null)
                         {
                             Sam3_Incidencia incidencia = new Sam3_Incidencia();
@@ -412,10 +417,7 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
-                                    actualizaNU.ColadaID = (from c in ctx.Sam3_Colada
-                                                            where c.NumeroColada == itemCodeJson.Colada
-                                                            && c.ProyectoID == itemCodeJson.ProyectoID
-                                                            select c.ColadaID).AsParallel().SingleOrDefault();
+                                    actualizaNU.ColadaID = coladaID;
                                 }
                                 else
                                 {
@@ -440,6 +442,19 @@ namespace BackEndSAM.DataAcces
                                     throw new Exception(string.Format("Error al actualizar La informacion del ItemCode {}", itemCodeJson.ItemCode));
                                 }
 
+                                if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == coladaID && x.ItemCodeID == actualizaItem.ItemCodeID).Any())
+                                {
+                                    Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                                    nuevarel.Activo = true;
+                                    nuevarel.ColadaID = coladaID;
+                                    nuevarel.FechaModificacion = DateTime.Now;
+                                    nuevarel.ItemCodeID = actualizaItem.ItemCodeID;
+                                    nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                                    ctx.SaveChanges();
+                                }
+
                                 ctx.SaveChanges();
 
                                 itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
@@ -454,10 +469,7 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
-                                    actualizaNU.ColadaID = (from c in ctx.Sam3_Colada
-                                                            where c.NumeroColada == itemCodeJson.Colada
-                                                            && c.ProyectoID == itemCodeJson.ProyectoID
-                                                            select c.ColadaID).AsParallel().SingleOrDefault();
+                                    actualizaNU.ColadaID = coladaID;
                                 }
                                 else
                                 {
@@ -489,6 +501,19 @@ namespace BackEndSAM.DataAcces
                                 }
 
                                 ctx.SaveChanges();
+
+                                if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == coladaID && x.ItemCodeID == actualizaItem.ItemCodeID).Any())
+                                {
+                                    Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                                    nuevarel.Activo = true;
+                                    nuevarel.ColadaID = coladaID;
+                                    nuevarel.FechaModificacion = DateTime.Now;
+                                    nuevarel.ItemCodeID = actualizaItem.ItemCodeID;
+                                    nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                                    ctx.SaveChanges();
+                                }
 
                                 itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
                                 itemCodeJson.TieneError = false;
