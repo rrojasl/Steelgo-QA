@@ -1683,6 +1683,7 @@
             var RelNUFCBID = datasource[i].RelNUFCBID;
             var Titulo = datasource[i].Titulo;
             var DescripcionIncidencia = datasource[i].DescripcionIncidencia;
+            var ProyectoID = Proyecto.ProyectoID;
 
             if (!NumeroUnico) {
                 datasource[i].TieneError = true;
@@ -1692,7 +1693,8 @@
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
                     EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: true,
                     ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID,
-                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID
+                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID,
+                    ProyectoID: ProyectoID
                 };
                 z++;
             } else { // informacion completa
@@ -1702,7 +1704,8 @@
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
                     EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: TieneError,
                     ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID,
-                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID
+                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID,
+                    ProyectoID: ProyectoID
                 };
                 j++;
             }
@@ -1761,6 +1764,7 @@
             var RelNUFCBID = datasource[i].RelNUFCBID;
             var Titulo = datasource[i].Titulo;
             var DescripcionIncidencia = datasource[i].DescripcionIncidencia;
+            var ProyectoID = Proyecto.ProyectoID;
 
             if (!NumeroUnico || (!MM && MM < 0) || !EstatusFisico || !Colada || !EstatusDocumental || !TipoUso) {
                 datasource[i].TieneError = true;
@@ -1770,7 +1774,8 @@
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
                     EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: true,
                     ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID,
-                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID
+                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID,
+                    ProyectoID: ProyectoID
                 };
                 z++;
             } else { // informacion completa
@@ -1780,7 +1785,8 @@
                     Cantidad: Cantidad, MM: MM, Colada: Colada, EstatusFisico: EstatusFisico,
                     EstatusDocumental: EstatusDocumental, TipoUso: TipoUso, TieneError: TieneError,
                     ItemCodeID: ItemCodeID, RelFCID: RelFCID, RelBID: RelBID, RelNUFCBID: RelNUFCBID,
-                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID
+                    Titulo: Titulo, DescripcionIncidencia: DescripcionIncidencia, NumeroUnicoID: NumeroUnicoID,
+                    ProyectoID: ProyectoID
                 };
                 j++;
             }
