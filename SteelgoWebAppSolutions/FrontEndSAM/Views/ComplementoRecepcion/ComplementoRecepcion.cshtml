@@ -624,6 +624,7 @@
             loadingStop();
             Error(data);
             CargarLabelEstatus(estatus);
+            ObtenerDatosDelFolioCuantificacion();
         });
     };
     function deshabilitarControles() {
@@ -1262,6 +1263,7 @@
                     }
                     i++;
                     CicloTerminaryNuevo(incompletos, ListadoCuantificacion, i, error);
+                    //ObtenerDatosDelFolioCuantificacion();
                 });
             } else {
                 loadingStop();
@@ -1323,6 +1325,7 @@
                 };
                 i++;
                 cicloGuardadoParcial(ListadoCuantificacion, i, idGuardado, error);
+                ObtenerDatosDelFolioCuantificacion();
             });
 
         };
@@ -1338,6 +1341,7 @@
                     };
                     i++;
                     cicloGuardadoParcial(ListadoCuantificacion, i, idGuardado, error);
+                    //ObtenerDatosDelFolioCuantificacion();
                 });
             } else {
                 loadingStop();
@@ -1835,6 +1839,7 @@
             };
             i++;
             CicloTerminaryNuevo(incompletos, ListadoCuantificacion, i, error);
+            ObtenerDatosDelFolioCuantificacion();
         });
     };
 

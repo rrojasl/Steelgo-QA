@@ -1019,7 +1019,7 @@
                 BotonEdicion();
                 $FolioAvisoEntrada.FolioAvisoEntrada.update(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
                     //console.log("$FolioAvisoEntrada.FolioAvisoEntrada.update");
-                    Error(data);
+                    //Error(data);
                     loadingStop();
                     BotonAlta();
                     actualizarTitulos(FolioLlegada);
