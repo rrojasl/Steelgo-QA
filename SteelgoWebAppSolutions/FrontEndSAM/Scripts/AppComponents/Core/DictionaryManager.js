@@ -3126,6 +3126,18 @@ _dictionary = {
         "es-MX": "Detalle Orden de Almacenaje",
         "en-US": "Order Storage Detail"
     },
+    "DetalleOrdenAlmacenaje0022": {
+        "es-MX": "Cancelar Orden Almacenaje",
+        "en-US": "Cancel Order Storage"
+    },
+    "DetalleOrdenAlmacenaje0023": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "DetalleOrdenAlmacenaje0024": {
+        "es-MX": "Cancelado",
+        "en-US": "Canceled"
+    },
 //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
         "es-MX": "Listados",
