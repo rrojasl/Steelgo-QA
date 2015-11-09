@@ -812,15 +812,17 @@ namespace BackEndSAM.DataAcces
                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                     join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                    join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
-                                    where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo
+                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                    join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                    where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo && rid.Activo
                                     && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                           where its.Activo
-                                          select its.ItemCodeID).Contains(i.ItemCodeID)
+                                          select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                         ||
                                         (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                         where its.Activo && its.ItemCodeSteelgoID == 1
-                                         select its.ItemCodeID).Contains(i.ItemCodeID)
+                                         join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                         where its.Activo && ics.ItemCodeSteelgoID == 1
+                                         select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                         )
                                     && proyectos.Contains(p.ProyectoID)
                                     && patios.Contains(p.PatioID)
@@ -834,15 +836,17 @@ namespace BackEndSAM.DataAcces
                                            join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                            join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                           join i in ctx.Sam3_ItemCode on rbi.ItemCodeID equals i.ItemCodeID
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                           join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
                                            where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rbi.Activo && i.Activo
                                            && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                  where its.Activo
-                                                 select its.ItemCodeID).Contains(i.ItemCodeID)
+                                                 select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                ||
                                                (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                where its.Activo && its.ItemCodeSteelgoID == 1
-                                                select its.ItemCodeID).Contains(i.ItemCodeID)
+                                                join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                )
                                            && proyectos.Contains(p.ProyectoID)
                                            && patios.Contains(p.PatioID)
@@ -857,15 +861,17 @@ namespace BackEndSAM.DataAcces
                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                     join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                    join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
-                                    where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo
+                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                    join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                    where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo && rid.Activo
                                     && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                           where its.Activo
-                                          select its.ItemCodeID).Contains(i.ItemCodeID)
+                                          select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                         ||
                                         (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                         where its.Activo && its.ItemCodeSteelgoID == 1
-                                         select its.ItemCodeID).Contains(i.ItemCodeID)
+                                         join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                         where its.Activo && ics.ItemCodeSteelgoID == 1
+                                         select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                         )
                                     && proyectos.Contains(p.ProyectoID)
                                     && patios.Contains(p.PatioID)
@@ -878,15 +884,17 @@ namespace BackEndSAM.DataAcces
                                            join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                            join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                           join i in ctx.Sam3_ItemCode on rbi.ItemCodeID equals i.ItemCodeID
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                           join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
                                            where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rbi.Activo && i.Activo
                                            && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                  where its.Activo
-                                                 select its.ItemCodeID).Contains(i.ItemCodeID)
+                                                 select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                ||
                                                (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                where its.Activo && its.ItemCodeSteelgoID == 1
-                                                select its.ItemCodeID).Contains(i.ItemCodeID)
+                                                join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                )
                                            && proyectos.Contains(p.ProyectoID)
                                            && patios.Contains(p.PatioID)
@@ -937,27 +945,39 @@ namespace BackEndSAM.DataAcces
                         {
                             ListadoMTLSinICS elemento = new ListadoMTLSinICS();
                             elemento.FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
-                            elemento.PackingList = fc.PackingList;
+                            elemento.PackingList = fc.PackingList + "(" + fc.FolioCuantificacionID.ToString() +")";
                             elemento.Proyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == fc.ProyectoID).Select(x => x.Nombre).SingleOrDefault();
                             elemento.FolioCuantificacionID = fc.FolioCuantificacionID.ToString();
                             elemento.CantidadSinICS = (from f in ctx.Sam3_FolioCuantificacion
                                                        join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                       join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
-                                                       where f.Activo && rfi.Activo && it.Activo
+                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                       join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                                       where f.Activo && rfi.Activo && it.Activo && rid.Activo
                                                        && it.TipoMaterialID == tipoMaterialID
                                                        && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                              where its.Activo
-                                                             select its.ItemCodeID).Contains(it.ItemCodeID)
+                                                             select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                         ||
                                                             (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                             where its.Activo && its.ItemCodeSteelgoID == 1
-                                                             select its.ItemCodeID).Contains(it.ItemCodeID))
+                                                             join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                             where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                             select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
                                                        select it.ItemCodeID).AsParallel().Count().ToString();
 
                             elemento.CantidadTotalItems = (from f in ctx.Sam3_FolioCuantificacion
                                                            join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                           join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
-                                                           where f.Activo && rfi.Activo && it.Activo
+                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                           join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                                           where f.Activo && rfi.Activo && it.Activo && rid.Activo
+                                                           && it.TipoMaterialID == tipoMaterialID
+                                                           select it.ItemCodeID).AsParallel().Count().ToString();
+
+                            elemento.CantidadTotalItems += (from f in ctx.Sam3_FolioCuantificacion
+                                                            join b in ctx.Sam3_Bulto on f.FolioCuantificacionID equals b.FolioCuantificacionID
+                                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                           join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                                           where f.Activo && rbi.Activo && it.Activo && rid.Activo && b.Activo
                                                            && it.TipoMaterialID == tipoMaterialID
                                                            select it.ItemCodeID).AsParallel().Count().ToString();
 
