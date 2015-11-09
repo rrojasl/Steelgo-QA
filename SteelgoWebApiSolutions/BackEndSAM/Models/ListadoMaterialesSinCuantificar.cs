@@ -22,6 +22,7 @@ namespace BackEndSAM.Models
         public string FechaDescarga { get; set; }
         public string FechaCreacionPackingList { get; set; }
         public string PackingList { get; set; }
+        public string FolioCuantificacionID { get; set; }
     }
 
     /// <summary>
@@ -34,6 +35,7 @@ namespace BackEndSAM.Models
         public string PackingList { get; set; }
         public string CantidadTotalItems { get; set; }
         public string CantidadSinICS { get; set; }
+        public string FolioCuantificacionID { get; set; }
     }
 
     /// <summary>
@@ -45,6 +47,7 @@ namespace BackEndSAM.Models
         public string OrdenRecepcion { get; set; }
         public string CantidadNUEnOrdenRecepcion { get; set; }
         public string CantidadNUSinComplemento { get; set; }
+        public string Folio { get; set; }
     }
 
     /// <summary>
@@ -60,6 +63,7 @@ namespace BackEndSAM.Models
 
     public class ListadoIncidenciasAbiertas
     {
+        public string NumeroUnicoID { get; set; }
         public string NumeroUnico { get; set; }
         public string CantidadIncidencias { get; set; }
     }

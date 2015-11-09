@@ -8,6 +8,9 @@
         <a href="@Url.Action("landing", "Home")"><span id="Despacho0001"></span></a>
     </li>
     <li>
+        <a href="@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")"><span id="Despacho0027"></span></a>
+    </li>
+    <li>
         <a href="@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")"><span id="Despacho0025"></span></a>
     </li>
     <li class="active">
@@ -21,7 +24,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Despacho0003"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +33,7 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Despacho0004"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="Despacho0005"></span>
@@ -38,7 +41,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado" href="#"><span id="Despacho0006"></span></a></li>
-                                    <li><a id="IrIncidencia" href="#"><span id="Despacho0007"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="Despacho0007"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -72,11 +75,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid" class="gridWithInputsStorage"></div>
-        </div>
+            <div class="row listado">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="grid" class="gridWithInputsStorage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
 </div>
 <input type="hidden" id="ChecksAlmacenaje" value="1"/>@*1 todos 2 sin localizacion*@ 
@@ -89,19 +97,23 @@
 
     @section JavascriptGlobalVariables {
     var resultadoJson, NumeroControl = {}, lastEditedCellID = "",
-        Proyecto = {}, lastEditedBastonCellID = "", x = 1;
+        Proyecto = {}, lastEditedBastonCellID = "", x = 1, _DespachoID = "-1";
 
     var _spoolID = getUrlParameter("SpoolID", "-1"),
-        _proyectoID = getUrlParameter("ProyectoID", "-1");
+        _proyectoID = getUrlParameter("ProyectoID", "-1"),
+        _NumeroControl = getUrlParameter("NumeroControl", "-1").replace(/%20/g, " ");
+    
     var _DashboardDespacho = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+    var _DespachoURL = "@Url.Action("Despacho", "Despacho")";
 
     var $DespachoModel = {
         listContainer: {
-            create: ".button-section",
-            list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            create: ".save-group",
+            list: ".listado",
+            detail: ".editButtonSection",
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
         properties: {
             proyecto: {
@@ -130,12 +142,15 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-        CargarGridDespacho();
-    };
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargarGridDespacho();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        };
 
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
+        $("#Cancelar").click(function () { Cancelar(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
         $("#IrIncidencia").click(function () { Incidencias(); });
 
@@ -149,9 +164,12 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
+                    this.value("");
                 }
+                _DespachoID == "-1";
             },
             filter: "contains",
         });
@@ -183,9 +201,11 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || !e.sender.current()) {
                     NumeroControl = {};
+                    this.value("");
                 }
+                _DespachoID == "-1";
                 ObtenerDatosGrid();
             },
             filter: "contains",
@@ -202,10 +222,11 @@
         });
     };
     function CargaInicialEdicion() {
-        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
-        $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
-        CargarNumeroControl(_spoolID);
+        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+        $("#SpoolID").data("kendoAutoComplete").value(_NumeroControl);
+
+        CargarNumeroControl(_spoolID, _NumeroControl);
         CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
         ObtenerDatosGrid();
     };
@@ -250,6 +271,7 @@
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             columns: [
                 { field: "NumeroControl", title: _dictionary.Despacho0012[$("#language").data("kendoDropDownList").value()] },
@@ -296,26 +318,26 @@
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     function ObtenerDatosGrid() {
-        if(NumeroControl.NumeroControlID){
-            loadingStart();
-            $Despacho.Despacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
-                if (Error(result)) {
-                    resultadoJson = result;
-                    if ($("#grid").data("kendoGrid")) {
-                        if (resultadoJson.length > 0) {
-                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                            $("#grid").data("kendoGrid").dataSource.page(1);
-                        } else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                            $("#grid").data("kendoGrid").dataSource.page(0);
-                        };
+        loadingStart();
+        var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : "";
+        
+        $Despacho.Despacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                resultadoJson = result;
+                if ($("#grid").data("kendoGrid")) {
+                    if (resultadoJson.length > 0) {
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        $("#grid").data("kendoGrid").dataSource.page(1);
+                    } else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#grid").data("kendoGrid").dataSource.page(0);
                     };
-                    applySecurityPolicy(false);
-                    FiltrarDatos();
-                }
-                loadingStop();
-            });
-        }
+                };
+                applySecurityPolicy(false);
+                FiltrarDatos();
+            }
+            loadingStop();
+        });
     };
 
     function FiltrarDatos() {
@@ -346,7 +368,7 @@
                            dataSource: {
                                type: "json",
                                transport: {
-                                   read: $UrlNumerosUnicos + "&numeroControl=" + container.parent().children()[0].innerText + "&etiqueta=" + container.parent().children()[1].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&proyectoID=" + container.parent().children()[7].innerText + "&token=" + Cookies.get("token")
+                                   read: $UrlNumerosUnicosDespacho + "&numeroControl=" + container.parent().children()[0].innerText + "&etiqueta=" + container.parent().children()[1].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&proyectoID=" + container.parent().children()[7].innerText + "&token=" + Cookies.get("token")
                                }
                            },
                            select: function (e) {
@@ -415,7 +437,12 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        var DespachoID = _DespachoID ? _DespachoID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + DespachoID + "&TipoIncidencia=10&Clasificacion=1");
+    };
+
+    function Cancelar() {
+        window.location.href = _DespachoURL + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
 
     function Guardar() {
@@ -436,7 +463,8 @@
             };
 
             $Despacho.Despacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
-                if(Error(result)){
+                if (Error(result)) {
+                    _DespachoID = result.ReturnMessage[1];
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
                 }

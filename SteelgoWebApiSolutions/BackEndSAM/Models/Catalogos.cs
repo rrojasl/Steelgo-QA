@@ -134,7 +134,8 @@ namespace BackEndSAM.Models
     public class CatalogoCedulas
     {
         public string CedulaID { get; set; }
-        public string Diametro { get; set; }
+        public string Diametro1ID { get; set; }
+        public string Diametro1 { get; set; }
         public string CedulaA { get; set; }
         public string CedulaB { get; set; }
         public string CedulaC { get; set; }
@@ -143,5 +144,18 @@ namespace BackEndSAM.Models
         public string Espesor { get; set; }
         public bool EstatusCorrecto { get; set; }
         public string FactorConversion { get; set; }
+    }
+
+    public class ValidarCedulas
+    {
+        public bool HayConflictos { get; set; }
+        public List<CatalogoCedulas> CedulasNuevas { get; set; }
+        public List<CatalogoCedulas> CedulasExistentes { get; set; }
+
+        public ValidarCedulas()
+        {
+            CedulasNuevas = new List<CatalogoCedulas>();
+            CedulasExistentes = new List<CatalogoCedulas>();
+        }
     }
 }

@@ -217,7 +217,7 @@ namespace MessagesManager.Controllers
                         //Enviar Mail
                         if (!String.IsNullOrEmpty(item.Email))
                         {
-                            var path = ConfigurationManager.AppSettings["urlTemplates"] + item.Plantilla;
+                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlTemplates"] + item.Plantilla);
 
                             string contenido = "";
                             StringBuilder body = new StringBuilder();

@@ -79,9 +79,9 @@ namespace BackEndSAM.Controllers
             return lstDespacho;
         }
 
-        public IEnumerable<DummyNumeroControl> Get(string id, string texto, string token)
+        public IEnumerable<ComboNumeroControl> Get(string id, string texto, string token)
         {
-            List<DummyNumeroControl> lstNumeroUnico = new List<DummyNumeroControl>();
+            List<ComboNumeroControl> lstNumeroUnico = new List<ComboNumeroControl>();
             //DummyNumeroControl numerounico1 = new DummyNumeroControl();
             //DummyNumeroControl numerounico2 = new DummyNumeroControl();
             //DummyNumeroControl numerounico3 = new DummyNumeroControl();
@@ -105,7 +105,7 @@ namespace BackEndSAM.Controllers
 
             foreach(ListaCombos lst in listado)
             {
-                DummyNumeroControl nuevo = new DummyNumeroControl
+                ComboNumeroControl nuevo = new ComboNumeroControl
                 {
                     NumeroControl = lst.value,
                     NumeroControlID = lst.id.ToString()

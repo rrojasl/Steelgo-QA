@@ -8,6 +8,7 @@ namespace BackEndSAM.Models
     public class ListadoDetalleOrdenAlmacenaje
     {
         public int ProyectoID { get; set; }
+        public bool Activo { get; set; }
         public List<ListadoGenerarOrdenAlmacenaje> ListadoGenerarOrdenAlmacenaje { get; set; }
 
     }

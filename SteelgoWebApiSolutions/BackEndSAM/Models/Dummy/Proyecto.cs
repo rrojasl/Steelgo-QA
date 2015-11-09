@@ -9,5 +9,6 @@ namespace BackEndSAM.Models
     {
         public string ProyectoID { get; set; }
         public string Nombre { get; set; }
+        public string ClienteID { get; set; }
     }
 }

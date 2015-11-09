@@ -17,21 +17,17 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ItemCodeController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/<controller>/5
-        public object Get(int TipoPackingListID, string token)
+        public object Get(int TipoPackingListID, string token, int paginaID, string idioma, int proyectoID)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID, usuario, paginaID, idioma, proyectoID);
             }
             else
             {

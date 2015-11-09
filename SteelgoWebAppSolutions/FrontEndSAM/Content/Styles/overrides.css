@@ -62,7 +62,7 @@
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
 .form-group {
-    margin-bottom: 31px;
+    margin-bottom: 29px;
 }
 
 .k-widget {
@@ -114,14 +114,15 @@
     height: inherit;
 }
 
-.k-dropdown.fullWidth {
+.k-multiselect, .k-combobox,
+.k-autocomplete, .k-dropdown.fullWidth,
+.k-numerictextbox {
     width: 100%;
 }
 
-.k-multiselect, .k-combobox,
-.k-autocomplete {
-    width: 100%;
-}
+    .k-numerictextbox .k-numeric-wrap .k-link {
+        height: 1.4em;
+    }
 
 .k-multiselect-wrap {
     color: #000000;
@@ -282,6 +283,10 @@
     background-repeat: no-repeat;
 }
 
+.k-icon.k-i-close.k-delete {
+    background-image:url("/Content/images/SAMC_Delete.png") !important;
+}
+
 .k-list-container {
     color: #000000;
     background-color: white;
@@ -309,6 +314,13 @@
             background-color: white;
         }
 
+        .k-list-container .k-list .k-item.k-state-focused {
+            font-weight: 600;
+            color: #000000;
+            background: none;
+            background-color: #FCEED9;
+        }
+
 .k-state-hover, .k-state-focused.k-state-border-down {
     background: red;
 }
@@ -317,6 +329,9 @@
     background-color: #F5F5F5;
 }
 
+.popup .k-dropdown {
+    width: 30%;
+}
 
 /**********************************************************************************/
 
@@ -400,6 +415,24 @@
                 vertical-align: middle;
             }
 
+        .k-grid .k-grid-header tr.k-filter-row th {
+            border-bottom: 1px solid #CCCCCC;
+            border-top: none;
+        }
+
+        .k-grid .k-grid-header tr th .k-grid-filter{
+            background-color: transparent;
+        }
+
+        .k-grid .k-grid-header tr th .k-grid-filter.k-state-active {
+            background-color: #F35800;
+        }
+
+        .k-grid .k-grid-header tr th > input {
+            width: 95%;
+            box-shadow: none!important;                      
+        }
+
     .k-grid tbody tr td a.k-button {
         color: transparent !important;
         height: 27px;
@@ -430,6 +463,10 @@
             color: #1B3F70;
     }
 
+    .k-grid tbody tr td.k-state-selected {
+        background-color: transparent;
+    }
+
     .k-grid.entradaMaterial tbody tr td a.k-button {
         margin: 0 -25px;
     }
@@ -451,7 +488,9 @@
     }
 
     .k-grid tbody tr td a.k-button.k-grid-Detalle,
-    .k-grid tbody tr td a.k-button.k-grid-Detail {
+    .k-grid tbody tr td a.k-button.k-grid-Detail,
+    .k-grid tbody tr td a.k-button.k-grid-Archivos,
+    .k-grid tbody tr td a.k-button.k-grid-Files {
         background-image: url("/Content/images/SAMC_DetailIcon.png");
     }
 
@@ -573,6 +612,7 @@
             font-size: 14px;
             padding: 5px;
             letter-spacing: normal;
+            line-height: 1.7;
         }
 
         .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
@@ -762,6 +802,7 @@
     /*$_k-widget*/
     .k-widget.k-window {
         min-width: 100%!important;
+        left: 0!important;        
     }
 
     .form-group {
@@ -771,6 +812,107 @@
     .k-upload > .k-upload-button {
         margin-top: 5px;
     }
+
+    /*$_k-grid*/
+    .k-grid {
+        overflow: hidden;
+        overflow-x: auto;
+    }       
+
+        .k-grid > table {
+            table-layout: auto;
+            margin-left: -1px;
+        }
+
+        .k-grid .k-grid-footer {
+            border-top: none;
+        }
+
+        .k-grid tbody tr td a.k-button {
+            max-width: 100%;
+        }
+
+        .k-grid tbody tr:last-child td {
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        .k-grid tbody tr.k-footer-template {
+            border: none;
+        }
+
+            .k-grid tbody tr.k-footer-template td {
+                border-bottom: none;
+                border-left: none;
+            }
+
+    .k-grid-pager {
+        border-top: none;
+    }
+
+        .k-grid-pager .k-pager-sizes {
+            letter-spacing: 0;
+            max-width: 120px;
+            white-space: normal;
+            line-height: normal;
+        }
+
+            .k-grid-pager .k-pager-sizes .k-dropdown {
+                margin-left: 5px;
+            }
+
+            .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
+                line-height: 1.7;
+            }
+
+    .k-grid .k-grouping-header,
+    .k-grid .k-grid-toolbar {
+        border: none;
+    }
+
+        .k-grid .k-grouping-header + table .k-grid-header tr th.k-header,
+        .k-grid .k-grouping-header + .k-grid-header tr th.k-header,
+        .k-grid .k-grid-toolbar + .k-grouping-header,
+        .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header,
+        .k-grid .k-grid-toolbar + .k-grid-header {
+            border-top: 1px solid #CCCCCC;
+        }
+
+    /*.k-grid .k-grid-header > tr:first-child th {
+        border-bottom: none;
+    }*/
+
+    .k-grid .k-grid-header > tr:last-child th {
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
+        min-width: 641px;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"],
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"] {
+        width: auto;
+        margin-left: 30%;
+    }
+
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid th input[type="checkbox"] {
+        margin-left: 40%;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td {
+        border-bottom: none;
+    }
+
+    .popup .k-grid > table {
+        table-layout: fixed;
+    }
+
+    .popup .k-dropdown {
+        width: 100%;
+    }
+
 }
 
 /* sm viewport */
@@ -795,6 +937,64 @@
         .form .input-group > .input-group-btn {
             display: none;
         }
+
+    /*$_k-grid*/
+    .k-grid {
+        overflow: hidden;
+        overflow-x: auto;
+    }
+
+        .k-grid > table {
+            table-layout: auto;
+            margin-left: -1px;
+        }
+
+        .k-grid tbody tr td a.k-button {
+            max-width: 100%;
+        }
+
+        .k-grid tr:last-child td {
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        .k-grid .k-grouping-header,
+        .k-grid .k-grid-toolbar {
+            border: none;
+        }
+
+            .k-grid .k-grouping-header + table .k-grid-header tr th.k-header,
+            .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header,
+            .k-grid .k-grid-toolbar + .k-grid-header {
+                border-top: 1px solid #CCCCCC;
+            }
+
+        .k-grid .k-grid-header > tr:first-child th {
+            //border-bottom: none;
+        }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
+        min-width: 641px;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"],
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"] {
+        width: auto;
+        margin-left: 30%;
+    }
+
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid th input[type="checkbox"] {
+        margin-left: 40%;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td {
+        border-bottom: none;
+    }
+
+    .k-grid-pager {
+        border-top: none;
+    }
 }
 
 /* md viewport */

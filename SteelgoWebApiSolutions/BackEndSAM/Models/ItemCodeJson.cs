@@ -26,10 +26,20 @@ namespace BackEndSAM.Models
         public Nullable<int> MM { get; set; }
         public int ColadaID { get; set; }
         public string ColadaNombre { get; set; }
+        public string TipoUsoID { get; set; }
+        public string ItemCodeSteelgo { get; set; }
+        public string ItemCodeSteelgoID { get; set; }
+        public string Cedula { get; set; }
+        public string TipoAcero { get; set; }
+        public string FamiliaAcero { get; set; }
+        public int Diametro1ID { get; set; }
+        public int Diametro2ID { get; set; }
+        public int ItemCodeOrigenID { get; set; }
     }
 
     public class ItemCodeComplemento
     {
+        public string NumeroUnicoID { get; set; }
         public string NumeroUnico { get; set; }
         public string NumeroUnicoCliente { get; set; }
         public string ItemCode { get; set; }
@@ -47,6 +57,14 @@ namespace BackEndSAM.Models
         public string TipoUso { get; set; }
         public int ProyectoID { get; set; }
         public bool TieneError { get; set; }
+        public string RelFCID { get; set; }
+        public string RelBID { get; set; }
+        public string RelNUFCBID { get; set; }
+        public int ColadaID { get; set; }
+        public string Titulo { get; set; }
+        public string DescripcionIncidencia { get; set; }
+        public string ColadaOriginal { get; set; }
+
     }
 
 

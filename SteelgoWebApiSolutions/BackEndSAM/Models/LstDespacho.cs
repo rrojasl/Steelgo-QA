@@ -28,8 +28,21 @@ namespace BackEndSAM.Models
         public bool Hold { get; set; }
     }
 
+    public class lstPredespachos
+    {
+        public string NumeroControl { get; set; }
+        public int MaterialSpoolID { get; set; }
+        public int NumeroUnicoID { get; set; }
+        public string ItemCode { get; set; }
+        public int OdtSpoolID { get; set; }
+        public string NumeroUnico { get; set; }
+        public string Etiqueta { get; set; }
+        public int ProyectoID { get; set; }
+    }
+
     public class GuardarCorte
     {
+        public string CorteID { get; set; }
         public string Maquina { get; set; }
         public string Operador { get; set; }
         public string NumeroUnico { get; set; }
@@ -69,4 +82,30 @@ namespace BackEndSAM.Models
         public string CantidadIngenieria { get; set; }
     }
 
+    public class MaterialPendiente 
+    {
+        public string SpoolID { get; set; }
+        public string ProyectoID { get; set; }
+        public string ItemCodeSteelgo { get; set; }
+        public string token { get; set; }
+    }
+
+    public class EdicionCorte
+    {
+        public Maquina Maquina { get; set; }
+        public Operador Operador { get; set; }
+        public string ProyectoID { get; set; }
+        public string NumeroControl { get; set; }
+        public string NumeroControlID { get; set; }
+        public string SpoolID { get; set; }//odts -- Nota estos datos  spoolid, cantidadm cantidad ingenieria y etiqueta los necesito para generar el registro con esos nombres
+        public decimal Cantidad { get; set; }
+        public decimal CantidadIngenieria { get; set; }
+        public string ItemCode { get; set; }
+        public decimal Diametro1 { get; set; }
+        public string OrdenTrabajo { get; set; }// E9
+        public string Consecutivo { get; set; }// 1 -numero
+        public string Etiqueta { get; set; }
+        public int MermaTeorica { get; set; }// viene de la maquina
+        public int Tolerancia { get; set; } // viene del detalle del numero unico
+    }
 }

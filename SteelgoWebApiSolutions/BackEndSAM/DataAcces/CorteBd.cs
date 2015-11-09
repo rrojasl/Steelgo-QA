@@ -119,6 +119,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -363,6 +366,19 @@ namespace BackEndSAM.DataAcces
                                         ctx.Sam3_Despacho.Add(nuevoDespacho);
                                         ctx.SaveChanges();
 
+                                        #region Generar Picking Ticket
+
+                                        Sam3_FolioPickingTicket nuevoPickingTicket = new Sam3_FolioPickingTicket();
+                                        nuevoPickingTicket.Activo = true;
+                                        nuevoPickingTicket.DespachoID = nuevoDespacho.DespachoID;
+                                        nuevoPickingTicket.FechaModificacion = DateTime.Now;
+                                        nuevoPickingTicket.TipoMaterialID = 1; // tubo
+                                        nuevoPickingTicket.usuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_FolioPickingTicket.Add(nuevoPickingTicket);
+                                        ctx.SaveChanges();
+                                        #endregion
+
                                         odtsMaterial.TieneCorte = true;
                                         odtsMaterial.TieneDespacho = true;
                                         odtsMaterial.CorteDetalleID = nuevoDetalle.CorteDetalleID;
@@ -425,10 +441,14 @@ namespace BackEndSAM.DataAcces
                         }// tran sam3
                     }// using ctx
 
+                corte.CorteID = nuevoCorte.CorteID.ToString();
                 return corte;
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -439,22 +459,200 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
-            DateTime fechaInicial, DateTime fechaFinal)
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs)
         {
             try
             {
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_Corte> registros = new List<Sam3_Corte>();
+
+                    if (proyectoID > 0)
+                    {
+                        registros = (from c in ctx.Sam3_Corte
+                                     join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && p.ProyectoID == proyectoID
+                                     && IDs.Contains(c.CorteID)
+                                     select c).AsParallel().Distinct().ToList();
+                    }
+                    else
+                    {
+                        registros = (from c in ctx.Sam3_Corte
+                                     join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && IDs.Contains(c.CorteID)
+                                     select c).AsParallel().Distinct().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = (from r in registros
+                                     join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                     where p.ClienteID == sam3Cliente
+                                     select r).AsParallel().Distinct().ToList();
+                    }
+
+                    listado = (from r in registros
+                               join ric in ctx.Sam3_Rel_Incidencia_Corte on r.CorteID equals ric.CorteID
+                               join inc in ctx.Sam3_Incidencia on ric.IncidenciaID equals inc.IncidenciaID
+                               join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
+                               join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               where ric.Activo && inc.Activo && c.Activo && tpi.Activo
+                               select new ListadoIncidencias
+                               {
+                                   Clasificacion = c.Nombre,
+                                   Estatus = inc.Estatus,
+                                   TipoIncidencia = tpi.Nombre,
+                                   RegistradoPor = (from us in ctx.Sam3_Usuario
+                                                    where us.Activo && us.UsuarioID == inc.UsuarioID
+                                                    select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
+                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   FechaRegistro = inc.FechaCreacion.ToString()
+                               }).AsParallel().Distinct().ToList();
 
                 }
-                return null;
+                return listado;
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
             }
         }
+
+        public object ListadoCorteDesdeImpresion(int materialSpoolID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<object> resultado = new List<object>();
+               
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+
+                        //buscamos su equivalente en SAM 2
+                        int sam2_numeroUnicoID = (from ms in ctx2.MaterialSpool
+                                                  join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                                  join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                  where ms.MaterialSpoolID == materialSpoolID
+                                                  select nu.NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                        int sam3_numeroUnicoID = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                  where eq.Activo
+                                                  && eq.Sam2_NumeroUnicoID == sam2_numeroUnicoID
+                                                  select eq.Sam3_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                        resultado.Add((from nu in ctx.Sam3_NumeroUnico
+                                       join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                       where nu.Activo
+                                       && nu.NumeroUnicoID == sam3_numeroUnicoID
+                                       select new ListaCombos
+                                       {
+                                           id = p.ProyectoID.ToString(),
+                                           value = p.Nombre
+                                       }).AsParallel().SingleOrDefault());
+
+                        resultado.Add((from ms in ctx2.MaterialSpool
+                                       join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                       join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                       join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                       join p in ctx2.ProyectoConfiguracion on it.ProyectoID equals p.ProyectoID
+                                       where ms.MaterialSpoolID == materialSpoolID
+                                       select new DetalleNumeroUnicoCorte
+                                       {
+                                           Cantidad = odtm.CantidadCongelada.ToString(),
+                                           D1 = nu.Diametro1.ToString(),
+                                           ItemCode = it.Codigo,
+                                           Tolerancia = p.ToleranciaCortes.Value.ToString()
+                                       }).AsParallel().SingleOrDefault());
+
+                        resultado.Add((from ms in ctx2.MaterialSpool
+                                       join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                       join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                       where ms.MaterialSpoolID == materialSpoolID
+                                       select new DetalleOdtsCorte
+                                       {
+                                           Consecutivo = odts.NumeroControl,
+                                           Etiqueta = ms.Etiqueta,
+                                           NumeroControl = odts.NumeroControl
+                                       }).AsParallel().SingleOrDefault());
+
+                        string[] temp = (resultado[2] as DetalleOdtsCorte).Consecutivo.Split('-').ToArray();
+                        (resultado[2] as DetalleOdtsCorte).Consecutivo = temp[1];
+                        (resultado[2] as DetalleOdtsCorte).NumeroControl = temp[0];
+
+                        resultado.Add((from nu in ctx.Sam3_NumeroUnico
+                                       where nu.Activo
+                                       && nu.NumeroUnicoID == sam3_numeroUnicoID
+                                       select new ListaCombos
+                                       {
+                                           id = nu.NumeroUnicoID.ToString(),
+                                           value = nu.Prefijo + "-" + nu.Consecutivo
+                                       }).AsParallel().SingleOrDefault());
+
+                        int numeroDigitos = (from nu in ctx.Sam3_NumeroUnico
+                                             join p in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals p.ProyectoID
+                                             where nu.NumeroUnicoID == sam3_numeroUnicoID
+                                             select p.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                        string formato = "D" + numeroDigitos.ToString();
+
+                        temp = (resultado[3] as ListaCombos).value.Split('-').ToArray();
+                        int consecutivo = Convert.ToInt32(temp[1]);
+                        (resultado[3] as ListaCombos).value = temp[0] + "-" + consecutivo.ToString(formato);
+
+                        resultado.Add((from odtm in ctx2.OrdenTrabajoMaterial
+                                   join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                   join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                   join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                   join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                   where ms.MaterialSpoolID == materialSpoolID
+                                   && it.TipoMaterialID == 1
+                                   select new DatosBusquedaODT
+                                   {
+                                       Cantidad = odtm.CantidadCongelada.Value,
+                                       CantidadIngenieria = odtm.CantidadCongelada.Value,
+                                       SpoolID = odts.NumeroControl,
+                                       Etiqueta = ms.Etiqueta
+                                   }).Distinct().AsParallel().SingleOrDefault());
+
+#if DEBUG
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        string json = serializer.Serialize(resultado);
+#endif
+
+                    }// fin sam2
+                }
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

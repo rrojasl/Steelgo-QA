@@ -2,10 +2,10 @@
     ViewBag.Title = "Item Code";
 }
 
- <div id="modalItemCode" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
-     <div class="col-sm-12 col-md-12 col-lg-12">
-          <div class="row">
-                <div id="Proyecto_ItemCodeDiv" class="form-group">
+<div id="modalItemCode" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            @* <div id="Proyecto_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0055"></label>
                     <input id="Proyecto_ItemCode" class="" />
                 </div>
@@ -16,38 +16,53 @@
                 <div id="Colada_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0057"></label>
                     <input id="Colada_ItemCode" />
-                </div>
-                <div id="ItemCode_ItemCodeDiv" class="form-group">
-                    <label id="Cuantificacion0045"></label>
-                    <input id="ItemCode_ItemCode" class="general-input"  />
-                </div>
-                <div id="Descripcion_ItemCodeDiv" class="form-group">
-                    <label id="Cuantificacion0046"></label>
-                    <input id="Descripcion_ItemCode" class="general-input"  />
-                </div>
-                <div id="Familia_ItemCodeDiv" class="form-group">
-                    <label id="Cuantificacion0047"></label>
-                    <input id="Familia_ItemCode" class="" />
-                </div>
-                <div class="buttonSave">
-                    <a id="GuardarItemCode" href="#" class="btn btn-primary">
-                        <span id="Cuantificacion0048"></span>
-                    </a>
-                    <a id="CancelarItemCode" href="#" class="btn btn-primary">
-                        <span id="Cuantificacion0049"></span>
-                    </a>
-                </div>
+                </div>*@
+            <div id="ItemCode_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0045"></label>
+                <input id="ItemCode_ItemCode" class="general-input" />
+            </div>
+            <div id="Descripcion_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0046"></label>
+                <input id="Descripcion_ItemCode" class="general-input" />
+            </div>
+            <div id="Familia_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0047"></label>
+                <input id="Familia_ItemCode" class="" />
+            </div>
+
+
+
+            <div id="D1_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0030"></label>
+                <input id="D1_ItemCode" class="" />
+            </div>
+            <div id="D2_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0031"></label>
+                <input id="D2_ItemCode" class="" />
+            </div>
+
+
+
+
+            <div class="buttonSave">
+                <a id="GuardarItemCode" href="#" class="btn btn-primary">
+                    <span id="Cuantificacion0048"></span>
+                </a>
+                <a id="CancelarItemCode" href="#" class="btn btn-primary">
+                    <span id="Cuantificacion0049"></span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
 <script>
     @section JavascriptGlobalVariables {
     var ProyectoItemCode = {}, TipoPackingListItemCode = {}, ColadaItemCode = {},
-        familiaItemCode = {};
+        familiaItemCode = {}, D1_ItemCode = {}, D2_ItemCode = {};
 
     var $ItemCodeModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarItemCode",
             list: "",
             detail: "",
             destroy: ""
@@ -82,64 +97,121 @@
                 visible: "#Familia_ItemCodeDiv",
                 editable: "#Familia_ItemCode",
                 required: "#Familia_ItemCode"
-            }
+            },
+            diametro1: {
+                visible: "#D1_ItemCodeDiv",
+                editable: "#D1_ItemCode",
+                required: "#D1_ItemCode"
+            },
+            diametro2:{
+                visible: "#D2_ItemCodeDiv",
+                editable: "#D2_ItemCode",
+                required: "#D2_ItemCode"
+            },
         }
     };
     }
     @section JavascriptGlobalFunctions {
-
+    function changeLanguageCall() {
+    }
     function CargaInicial() {
         hideElementsItemCode();
-        $("#Proyecto_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ProyectoID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyectoItemCode(dataItem.ProyectoID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    ProyectoItemCode = {};
-                }
-            },
-            filter: "contains",
-        });
-        ObtenerProyecto("Proyecto_ItemCode");
 
-        $("#TipoMaterial_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarModalItemCode()
+        });
+
+        //$("#Proyecto_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ProyectoID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarProyectoItemCode(dataItem.ProyectoID, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            ProyectoItemCode = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerProyecto("Proyecto_ItemCode");
+
+        //$("#TipoMaterial_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "id",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            TipoPackingListItemCode = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //obtenerTipoPackingList("TipoMaterial_ItemCode");
+
+        //$("#Colada_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ColadaID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarColadaItemCode(dataItem.ColadaID, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            ColadaItemCode = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerColada("Colada_ItemCode", 0, 0);
+
+        $("#D1_ItemCode").kendoComboBox({
+            dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
+                CargarDiametro1(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
-                    TipoPackingListItemCode = {};
-                }
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    D1_ItemCode = {};
+                    this.value("");
+                };
             },
             filter: "contains",
         });
-        obtenerTipoPackingList("TipoMaterial_ItemCode");
+        ObtenerDiametros("D1_ItemCode");
 
-        $("#Colada_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ColadaID",
+        $("#D2_ItemCode").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarColadaItemCode(dataItem.ColadaID, dataItem.Nombre);
+                CargarDiametro2(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
-                    ColadaItemCode = {};
-                }
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    D2_ItemCode = {};
+                    this.value("");
+                };
             },
             filter: "contains",
         });
-        ObtenerColada("Colada_ItemCode", 0, 0);
+        ObtenerDiametros("D2_ItemCode");
 
         $("#Familia_ItemCode").kendoComboBox({
             dataTextField: "Nombre",
@@ -150,8 +222,10 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     familiaItemCode = {};
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -196,6 +270,16 @@
         ColadaItemCode = { ColadaID: id, Nombre: value };
     };
 
+    function CargarDiametro1(id, value) {
+        D1_ItemCode = {};
+        D1_ItemCode = { Diametro1ID: id, Valor: value };
+    };
+
+    function CargarDiametro2(id,value) {
+        D2_ItemCode = {};
+        D2_ItemCode = { Diametro2ID: id, Valor: value };
+    };
+
     function CargarFamiliaItemCode(id) {
         familiaItemCode = {};
         familiaItemCode = { FamiliaID: id };
@@ -224,7 +308,11 @@
             ControlErroresObjetosComboBox("Familia_ItemCode", result);
         });
     };
-
+    function ObtenerDiametros(id) {
+        $Diametros.Diametros.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox(id, result);
+        });
+    };
     function validarRequeridosModalItemCode() {
         var bool = true;
         $("#modalItemCode .security_required").each(function (i, elem) {
@@ -244,31 +332,42 @@
 
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
+        cleanDisplayMessage();
     };
 
     function LimpiarModalItemCode() {
         $("#ItemCode_ItemCode").val("");
         $("#Descripcion_ItemCode").val("");
         $("#Familia_ItemCode").data("kendoComboBox").value("");
-        $("#Proyecto_ItemCode").data("kendoComboBox").value("");
-        $("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
-        $("#Colada_ItemCode").data("kendoComboBox").value("");
+        $("#D1_ItemCode").data("kendoComboBox").value("");
+        $("#D2_ItemCode").data("kendoComboBox").value("");
+        //$("#Proyecto_ItemCode").data("kendoComboBox").value("");
+        //$("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
+        //$("#Colada_ItemCode").data("kendoComboBox").value("");
 
         familiaItemCode = {};
         ProyectoItemCode = {};
         TipoPackingListItemCode = {};
         ColadaItemCode = {};
+        D1_ItemCode = {};
+        D2_ItemCode = {};
     };
 
     function GuardarItemCode() {
-        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "" };
-        ItemCode.ProyectoID = ProyectoItemCode.ProyectoID;
-        ItemCode.TipoPackingList = TipoPackingListItemCode.TipoPackingListID;
-        ItemCode.ColadaID = ColadaItemCode.ColadaID;
+        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
+        ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
+        ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
+        ItemCode.ColadaID = 1;
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
+        ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
+        ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID;
+        ItemCode.Diametro2ID = D2_ItemCode.Diametro2ID;
+        ItemCode.Diametro1 = D1_ItemCode.Valor;
+        ItemCode.Diametro2 = D2_ItemCode.Valor;
 
+        //console.log(JSON.stringify(ItemCode))
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();
             if (Error(data)) {
@@ -322,9 +421,13 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Item Code"] = $ItemCodeModel;
     CargaInicial();
+
+    $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
+    $("#language").data("kendoDropDownList").trigger("change");
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "35", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "35", { path: '/' });
     }
 </script>

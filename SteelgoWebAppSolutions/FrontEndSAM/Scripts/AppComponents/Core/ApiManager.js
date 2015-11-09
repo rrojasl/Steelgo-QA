@@ -12,11 +12,11 @@
 
 //LOCALHOST BASE URL's
 
-var $BackEndSAMUri = 'http://localhost:60960';
-var $SecuritySAMUri = 'http://localhost:60921';
-var $MessagesSAMUri = 'http://localhost:60966';
-var $SearchSAMUri = 'http://localhost:60921';
-var $FilesSAMUri = 'http://localhost:60921'; 
+//var $BackEndSAMUri = 'http://10.15.2.12:8080';
+//var $SecuritySAMUri = 'http://10.15.2.12:8081';
+//var $MessagesSAMUri = 'http://10.15.2.12:8082';
+//var $SearchSAMUri = 'http://192.168.1.7:60921';
+//var $FilesSAMUri = 'http://192.168.1.7:60921';
 
 //DEVELOPMENT Steelgo BASE URL's
 //var $BackEndSAMUri = 'http://192.168.1.7:60960';
@@ -25,25 +25,40 @@ var $FilesSAMUri = 'http://localhost:60921';
 //var $SearchSAMUri = 'http://192.168.1.7:60921';
 //var $FilesSAMUri = 'http://192.168.1.7:60921';
 
+//Local host
+var $BackEndSAMUri = 'http://localhost:60960';
+var $SecuritySAMUri = 'http://localhost:60921';
+var $MessagesSAMUri = 'http://localhost:60966';
+var $SearchSAMUri = 'http://localhost:60921';
+var $SearchSAMUri2 = 'http://10.15.2.12:8089';
+var $FilesSAMUri = 'http://localhost:60921';
+
 //Combos Base URL
 var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
-var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?folioIncidenciaID=";
+var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?incidenciaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
 var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
-var $UrlDummyNumerosUnicos = $BackEndSAMUri + '/backendsam/api/DummyNumerosUnicos?';
-var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
-
+var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumerosUnicos?';
+var $UrlNumerosUnicosDespacho = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
+var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumental?';
+var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
+var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
+var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
+var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
+var $UrlOrdenTrabajoSpool = $BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?';
+var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho?';
+var $DiametrosCatalogos = $BackEndSAMUri + '/backendsam/api/Diametros?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
+//var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
 var $MessagesManager = new $.RestClient($MessagesSAMUri + '/messagesmanager/api/');
-var $SearchManager = new $.RestClient($SearchSAMUri + '/searchmanager/api/');
+//var $SearchManager = new $.RestClient($SearchSAMUri + '/searchmanager/api/');
 var $SecurityManager = new $.RestClient($SecuritySAMUri + '/securitymanager/api/');
 //DetalleAvisoLlegada
 var $Plana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -106,7 +121,7 @@ var $ListadoMaterialesPorItemCode = new $.RestClient($BackEndSAMUri + '/backends
 var $Despacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Maquina = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cortador = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $NumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -117,6 +132,18 @@ var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $MaterialPendiente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $NotificacionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Usuario = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $RevisionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $IncidenciaPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Busqueda = new $.RestClient($SearchSAMUri2 + '/solr/Steelgo_Search/');
+var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Diametros = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -196,7 +223,7 @@ $ListadoMaterialesPorItemCode.add("ListadoMaterialesPorItemCode");
 $Despacho.add("Despacho");
 $Maquina.add("Maquina");
 $Cortador.add("Cortador");
-$DummyNumerosUnicos.add("DummyNumerosUnicos");
+$NumerosUnicos.add("NumerosUnicos");
 $Catalogos.add("AdministracionCatalogos");
 $Corte.add("Corte")
 $AsociacionICS.add("AsociacionICS");
@@ -207,3 +234,15 @@ $CatalogoICSteelgo.add("CatalogoICSteelgo");
 $Incidencia.add("Incidencia");
 $DocumentoIncidencia.add("DocumentoIncidencia");
 $DocumentosCatalogos.add("DocumentosCatalogos");
+$ImpresionDocumental.add("ImpresionDocumental");
+$Grupo.add("Grupo");
+$MaterialPendiente.add("MaterialPendiente");
+$Entrega.add("Entrega");
+$NotificacionDeficit.add("NotificacionDeficit");
+$Usuario.add("Usuario");
+$RevisionDeficit.add("RevisionDeficit");
+$IncidenciaPaseSalida.add("IncidenciaPaseSalida");
+$Busqueda.add("select");
+$PreDespacho.add("PreDespacho");
+$GuardarPermisoAduana.add("DocumentoPermisoAduana");
+$Diametros.add("Diametros");

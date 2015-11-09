@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
         /// <param name="token">credenciales del usuario</param>
         /// <param name="parametroBusqueda">cadena de busqueda</param>
         /// <returns>Devuelve el listado aporpiado de acuerdo al tipo solicitado</returns>
-        public object Get(int tipoListado, string token, string parametroBusqueda = "")
+        public object Get(int tipoListado, string token, string idioma = "", int paginaID = 0, string parametroBusqueda = "")
         {
             string payload = "";
             string newToken = "";
@@ -42,7 +42,7 @@ namespace BackEndSAM.Controllers
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
                     case 3: // listado de choferes por transportista
-                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), usuario);
+                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), paginaID, idioma, usuario);
                     case 4: //Obtener cantidades para dashboard
                         TransactionalInformation rest = new TransactionalInformation();
                         rest.ReturnMessage.Add("El listado de cantidades de Dashboard requiere de parametros de filtrado");
@@ -50,6 +50,8 @@ namespace BackEndSAM.Controllers
                         rest.ReturnStatus = false;
                         rest.IsAuthenicated = false;
                         return rest;
+                    case 5:
+                        return AvisoLlegadaBd.Instance.ObtenerFoliosAvisoLlegadaSinEntrada();
                     case 6: //Obtener listado de folios que ya tienen llegada de material
                         return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida();
                     case 18: // Listado para combo de packing list
@@ -100,7 +102,8 @@ namespace BackEndSAM.Controllers
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
                     case 3: // listado de choferes por transportista
-                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), usuario);
+                        int temp = filtros.PaginaID != null && filtros.PaginaID != "" ? Convert.ToInt32(filtros.PaginaID) : 0;
+                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), temp, filtros.Idioma, usuario);
                     case 4: //Obtener cantidades para dashboard
                         return ListadoBd.Instance.ObtenerCantidadesDashboard(filtros, usuario);
                     case 5: //Obtener cantidades de Dashboard para aviso de entrada
@@ -151,8 +154,14 @@ namespace BackEndSAM.Controllers
                          return ListadoBd.Instance.ListadoOrdenesDeTrabajo(filtros, usuario); 
                     case 26: // Conteos de dashboard de Despachos
                          return ListadoBd.Instance.ConteoDashBoardDespachos(filtros, usuario);
-                    case 27:
+                    case 27: // listado Incidencias
                          return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);
+                    case 28://Pre-Despachar por unidad de medina
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);//solo lo puse para ver las columnas, reemplazarlo con el servicio que debe ser. 
+                    case 29://Por Despachar por unidad de medina
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);//solo lo puse para ver las columnas, reemplazarlo con el servicio que debe ser. 
+                    case 30://Entregar por unidad de medina
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);//solo lo puse para ver las columnas, reemplazarlo con el servicio que debe ser. 
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

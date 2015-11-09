@@ -11,6 +11,7 @@ using DatabaseManager.EntidadesPersonalizadas;
 using SecurityManager.TokenHandler;
 using SecurityManager.Api.Models;
 using BackEndSAM.DataAcces;
+using DatabaseManager.Sam3;
 
 namespace BackEndSAM.Controllers
 {
@@ -32,7 +33,8 @@ namespace BackEndSAM.Controllers
             {
                 dynamic obj = serializer.DeserializeObject(payload);
                 int perfilId = Convert.ToInt32(obj["PerfilID"].ToString());
-                perfil = PerfilBd.Instance.ObtenerPerfilJsonPorID(perfilId, paginaID);
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                perfil = PerfilBd.Instance.ObtenerPerfilJsonPorID(perfilId, paginaID, usuario);
                 perfil.token = newToken;
                 return perfil;
             }

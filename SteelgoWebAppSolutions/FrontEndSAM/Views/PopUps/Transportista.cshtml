@@ -39,9 +39,10 @@
 </div>
 <script>
     @section JavascriptGlobalVariables {
+    var Contacto = {};
     var $TransportistaModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarTransportista",
             list: "",
             detail: "",
             destroy: ""
@@ -94,6 +95,11 @@
 
     function CargaInicial() {
         hideElementsTransportista();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarTransportista();
+        });
+
         $("#GuardarTransportista").click(function (e) {
             if (validarRequeridosModalTransportista()) {
                 GuardarTransportista();
@@ -113,17 +119,22 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarContacto(dataItem.ContactoID, dataItem.Nombre);
             },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    Contacto = {};
+                    this.value("");
+                };
+            },
             filter: "contains",
         });
         ObtenerContacto();
-        
-    }
+    };
+
     function CargarContacto(id, value) {
-        Contacto = [];
-        _contacto = {};
-        _contacto["ContactoID"] = id;
-        _contacto["Nombre"] = value;
-        Contacto.push(_contacto);
+        Contacto = {};
+        Contacto = { ContactoID: id, Nombre: value };
     };
 
 
@@ -162,6 +173,7 @@
 
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
+        cleanDisplayMessage();
     };
 
     function CancelarTransportista() {
@@ -179,24 +191,28 @@
         });
     };
     
-    
+    window.parent.$("#close").click(function (e) {
+        CancelarTransportista();
+        cerrarVentanaModal();
+    });
+
+
     function GuardarTransportista() {
 
         TransportistaModal = [];
         TransportistaModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-        TransportistaModal[0].ContactoID = Contacto[0].ContactoID;
+        TransportistaModal[0].ContactoID = Contacto.ContactoID;
         TransportistaModal[0].Nombre = $("#Nombre_Transportista").val();
         TransportistaModal[0].Descripcion = $("#Descripcion_Transportista").val();
         TransportistaModal[0].Direccion = $("#Direccion_Transportista").val();
         TransportistaModal[0].Telefono = $("#Telefono_Transportista").val();
 
-        console.log(TransportistaModal[0]);
+        //console.log(TransportistaModal[0]);
 
         $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
             LimpiarModalTransportista();
             if (Error(data)) {
                 window.parent.ObtenerTransportista();
-                window.parent.ObtenerTransportistaCamion();
                 cerrarVentanaModal();
             };
         });
@@ -231,11 +247,13 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Transportista"] = $TransportistaModel;
     CargaInicial();
-   
+    $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
+    $("#language").data("kendoDropDownList").trigger("change");
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "30", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "30", { path: '/' });
     }
    
 </script>

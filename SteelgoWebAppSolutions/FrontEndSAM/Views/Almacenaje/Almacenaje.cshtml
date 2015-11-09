@@ -7,6 +7,9 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="Almacenaje0001"></span></a>
     </li>
+    <li>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="Almacenaje0024"></span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("Almacenaje", "Almacenaje")"><span id="Almacenaje0002"></span></a>
     </li>
@@ -21,7 +24,7 @@
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Almacenaje0003"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="Almacenaje0004"></span></button>
+                                @*<button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="Almacenaje0004"></span></button>*@
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
@@ -35,10 +38,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*
-                            <li><a id="irListado" href="#"><span id="Almacenaje0007"></span></a></li>
-                                    *@
-                                    <li><a id="IrIncidencia" href="#"><span id="Almacenaje0008"></span></a></li>
+                                    @*<li><a id="irListado" href="#"><span id="Almacenaje0007"></span></a></li>*@
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="Almacenaje0008"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,35 +75,49 @@
                                 <div id="Diametro2Div" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                     <label id="Almacenaje0014"></label>
                                     <input id="Diametro2" class="general-input" disabled />
+                                </div>                                
+                            </div>
+
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                        <div id="RackDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <label id="Almacenaje0015"></label>
+                            <input id="Rack" class="general-input" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="row">
+                                <div id="todosDiv" class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <label id="Almacenaje0016" class="centered"></label>
+                                    <input id="todos" class="" type="radio" name="radio" checked value="1">
                                 </div>
-                                <div id="RackDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                    <label id="Almacenaje0015"></label>
-                                    <input id="Rack" class="general-input" />
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                                    <div class="row">
-                                        <div id="todosDiv" class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                            <label id="Almacenaje0016" class="centered"></label>
-                                            <input id="todos" class="" type="radio" name="radio" checked value="1">
-                                        </div>
-                                        <div id="SinLocalizacionDiv" class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
-                                            <label id="Almacenaje0017" class="centered"></label>
-                                            <input id="SinLocalizacion" class="" type="radio" name="radio" value="2" />
-                                        </div>
-                                    </div>
+                                <div id="SinLocalizacionDiv" class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
+                                    <label id="Almacenaje0017" class="centered"></label>
+                                    <input id="SinLocalizacion" class="" type="radio" name="radio" value="2" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="grid"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid"></div>
-        </div>
         <input type="hidden" id="ChecksAlmacenaje" value="1" />@*1 todos 2 sin localizacion*@ 
     </div>
+
+    <ul id="menu" class="incidencia">
+        <li><span id="Almacenaje0023"></span>
+        </li>
+    </ul>
 
 </div>
 
@@ -121,10 +136,11 @@
 
     var $AlmacenajeModel = {
         listContainer: {
-            create: ".editButtonSection",
+            create: ".save-group",
             list: "#grid",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
         properties: {
             proyecto: {
@@ -178,7 +194,9 @@
 
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         CargarGridAlmacenaje();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
     function CargaInicial() {
@@ -196,8 +214,10 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
+                    this.value("");
                 } else {
                     ObtenerOrdenesAlmacenaje();
                 };
@@ -217,8 +237,10 @@
                 var value = this.value();
                 LimpiarCamposOrdenAlmacenaje();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     OrdenAlmacenaje = {};
+                    this.value("");
                 } else {
                     ObtenerItemCodes();
                 };
@@ -237,8 +259,10 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposItemCode();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     ItemCode = {};
+                    this.value("");
                 } else {
                     ObtenerDiametros();
                     ObtenerNumerosUnicos();
@@ -257,8 +281,10 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     NumeroUnico = {};
+                    this.value("");
                 }
                 FiltrarDatos();
             },
@@ -281,6 +307,7 @@
                 FiltrarDatos();
             }
         });
+
     };
 
     function CargarProyecto(id, value) {
@@ -453,10 +480,10 @@
                 schema: {
                     model: {
                         fields: {
-                            ItemCodeID: { type: "string" },
-                            NumeroUnicoID: { type: "string" },
-                            NumeroUnico: { type: "string" },
-                            Rack: { type: "string" }
+                            ItemCodeID: { type: "string", editable: false },
+                            NumeroUnicoID: { type: "string", editable: false },
+                            NumeroUnico: { type: "string", editable: false },
+                            Rack: { type: "string", editable: true }
                         }
                     }
                 },
@@ -468,12 +495,18 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            selectable: true,
+            editable: {
+                mode: "incell",
+                confirmation: false
+            },
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             columns: [
                 { field: "ItemCodeID", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], hidden: true },
@@ -487,8 +520,26 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
-    };
 
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
+        });
+    };
        
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
@@ -537,7 +588,8 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        var OrdenAlmacenajeID = OrdenAlmacenaje.OrdenAlmacenajeID ? OrdenAlmacenaje.OrdenAlmacenajeID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + OrdenAlmacenajeID + "&TipoIncidencia=8&Clasificacion=1");
     };
 
     function Error(data) {

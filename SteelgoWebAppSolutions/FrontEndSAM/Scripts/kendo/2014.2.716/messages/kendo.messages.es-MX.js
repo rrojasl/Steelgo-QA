@@ -3,8 +3,8 @@
 if (kendo.ui.FlatColorPicker) {
     kendo.ui.FlatColorPicker.prototype.options.messages =
     $.extend(true, kendo.ui.FlatColorPicker.prototype.options.messages, {
-        "apply": "Apply",
-        "cancel": "Cancel"
+        "apply": "Aplicar",
+        "cancel": "Cancelar"
     });
 }
 
@@ -13,8 +13,8 @@ if (kendo.ui.FlatColorPicker) {
 if (kendo.ui.ColorPicker) {
     kendo.ui.ColorPicker.prototype.options.messages =
     $.extend(true, kendo.ui.ColorPicker.prototype.options.messages, {
-        "apply": "Apply",
-        "cancel": "Cancel"
+        "apply": "Aplicar",
+        "cancel": "Cancelar"
     });
 }
 
@@ -23,14 +23,14 @@ if (kendo.ui.ColorPicker) {
 if (kendo.ui.ColumnMenu) {
     kendo.ui.ColumnMenu.prototype.options.messages =
     $.extend(true, kendo.ui.ColumnMenu.prototype.options.messages, {
-        "sortAscending": "Sort Ascending",
-        "sortDescending": "Sort Descending",
-        "filter": "Filter",
-        "columns": "Columns",
-        "done": "Done",
-        "settings": "Column Settings",
-        "lock": "Lock",
-        "unlock": "Unlock"
+        "sortAscending": "Ordenar ascendente",
+        "sortDescending": "Ordenar descendiente",
+        "filter": "Filtro",
+        "columns": "Columnas",
+        "done": "Hecho",
+        "settings": "Ajustes de columna",
+        "lock": "Bloquear",
+        "unlock": "Desbloquear"
     });
 }
 
@@ -39,65 +39,65 @@ if (kendo.ui.ColumnMenu) {
 if (kendo.ui.Editor) {
     kendo.ui.Editor.prototype.options.messages =
     $.extend(true, kendo.ui.Editor.prototype.options.messages, {
-        "bold": "Bold",
-        "italic": "Italic",
-        "underline": "Underline",
-        "strikethrough": "Strikethrough",
-        "superscript": "Superscript",
-        "subscript": "Subscript",
-        "justifyCenter": "Center text",
-        "justifyLeft": "Align text left",
-        "justifyRight": "Align text right",
-        "justifyFull": "Justify",
-        "insertUnorderedList": "Insert unordered list",
-        "insertOrderedList": "Insert ordered list",
-        "indent": "Indent",
-        "outdent": "Outdent",
-        "createLink": "Insert hyperlink",
-        "unlink": "Remove hyperlink",
-        "insertImage": "Insert image",
-        "insertFile": "Insert file",
-        "insertHtml": "Insert HTML",
-        "viewHtml": "View HTML",
-        "fontName": "Select font family",
-        "fontNameInherit": "(inherited font)",
-        "fontSize": "Select font size",
-        "fontSizeInherit": "(inherited size)",
-        "formatBlock": "Format",
-        "formatting": "Format",
+        "bold": "Negritas",
+        "italic": "Cursiva",
+        "underline": "Subrayado",
+        "strikethrough": "Tachado",
+        "superscript": "Superíndice",
+        "subscript": "Subíndice",
+        "justifyCenter": "Centrar",
+        "justifyLeft": "Alinear a la izquierda",
+        "justifyRight": "Alinear a la derecha",
+        "justifyFull": "Justificar",
+        "insertUnorderedList": "Insertar lista desordenada",
+        "insertOrderedList": "Insertar lista ordenada",
+        "indent": "Sangría",
+        "outdent": "Quitar sangría",
+        "createLink": "Insertar hipervínculo",
+        "unlink": "Quitar hipervínculo",
+        "insertImage": "Insertar imagen",
+        "insertFile": "Insertar archivo",
+        "insertHtml": "Insertar HTML",
+        "viewHtml": "Ver HTML",
+        "fontName": "Seleccionar fuente",
+        "fontNameInherit": "(fuente heredada)",
+        "fontSize": "Seleccionar tamaño de fuente",
+        "fontSizeInherit": "(tamaño heredado)",
+        "formatBlock": "Formato",
+        "formatting": "Formato",
         "foreColor": "Color",
-        "backColor": "Background color",
-        "style": "Styles",
-        "emptyFolder": "Empty Folder",
-        "uploadFile": "Upload",
-        "orderBy": "Arrange by:",
-        "orderBySize": "Size",
-        "orderByName": "Name",
-        "invalidFileType": "The selected file \"{0}\" is not valid. Supported file types are {1}.",
-        "deleteFile": 'Are you sure you want to delete "{0}"?',
-        "overwriteFile": 'A file with name "{0}" already exists in the current directory. Do you want to overwrite it?',
-        "directoryNotFound": "A directory with this name was not found.",
-        "imageWebAddress": "Web address",
-        "imageAltText": "Alternate text",
-        "imageWidth": "Width (px)",
-        "imageHeight": "Height (px)",
-        "fileWebAddress": "Web address",
-        "fileTitle": "Title",
-        "linkWebAddress": "Web address",
-        "linkText": "Text",
-        "linkToolTip": "ToolTip",
-        "linkOpenInNewWindow": "Open link in new window",
-        "dialogUpdate": "Update",
-        "dialogInsert": "Insert",
-        "dialogButtonSeparator": "or",
-        "dialogCancel": "Cancel",
-        "createTable": "Create table",
-        "addColumnLeft": "Add column on the left",
-        "addColumnRight": "Add column on the right",
-        "addRowAbove": "Add row above",
-        "addRowBelow": "Add row below",
-        "deleteRow": "Delete row",
-        "deleteColumn": "Delete column"
+        "backColor": "Color de fondo",
+        "style": "Estilos",
+        "emptyFolder": "Carpeta vacía",
+        "uploadFile": "Cargar",
+        "orderBy": "Ordenar por:",
+        "orderBySize": "Tamaño",
+        "orderByName": "Nombre",
+        "invalidFileType": "El archivo seleccionado\"{0}\" no es válido. Los archivos soportados son {1}.",
+        "deleteFile": '¿Estás seguro de que quieres eliminar "{0}"?',
+        "overwriteFile": 'Un archivo con el nombre "{0}" ya existe en la carpeta actual. ¿Quieres sobreescribirlo?',
+        "directoryNotFound": "No se encontro un directorio con ese nombre.",
+        "imageWebAddress": "Dirección web",
+        "imageAltText": "Texto alternativo",
+        "imageWidth": "Ancho (px)",
+        "imageHeight": "Alto (px)",
+        "fileWebAddress": "Dirección web",
+        "fileTitle": "Título",
+        "linkWebAddress": "Dirección web",
+        "linkText": "Texto",
+        "linkToolTip": "Consejo",
+        "linkOpenInNewWindow": "Abrir en una nueva ventana",
+        "dialogUpdate": "Actualizar",
+        "dialogInsert": "Insertar",
+        "dialogButtonSeparator": "ó",
+        "dialogCancel": "Cancela",
+        "createTable": "Crear tabla",
+        "addColumnLeft": "Añadir columna a la izquierda",
+        "addColumnRight": "Añadir columna a la derecha",
+        "addRowAbove": "Añadir fila arriba",
+        "addRowBelow": "Añadir fila abajo",
+        "deleteRow": "Eliminar fila",
+        "deleteColumn": "Eliminar columna"
     });
 }
 
@@ -106,17 +106,17 @@ if (kendo.ui.Editor) {
 if (kendo.ui.FileBrowser) {
     kendo.ui.FileBrowser.prototype.options.messages =
     $.extend(true, kendo.ui.FileBrowser.prototype.options.messages, {
-        "uploadFile": "Upload",
-        "orderBy": "Arrange by",
-        "orderByName": "Name",
-        "orderBySize": "Size",
-        "directoryNotFound": "A directory with this name was not found.",
-        "emptyFolder": "Empty Folder",
-        "deleteFile": 'Are you sure you want to delete "{0}"?',
-        "invalidFileType": "The selected file \"{0}\" is not valid. Supported file types are {1}.",
-        "overwriteFile": "A file with name \"{0}\" already exists in the current directory. Do you want to overwrite it?",
-        "dropFilesHere": "drop file here to upload",
-        "search": "Search"
+        "uploadFile": "Subir",
+        "orderBy": "Ordenar por",
+        "orderByName": "Nombre",
+        "orderBySize": "Tamaño",
+        "directoryNotFound": "No se encontró un directorio con ese nombre.",
+        "emptyFolder": "Carpeta vacía",
+        "deleteFile": '¿Estás seguro que quieres eliminar "{0}"?',
+        "invalidFileType": "El archivo seleccionado\"{0}\" no es válido. Los archivos soportados son {1}.",
+        "overwriteFile": 'Un archivo con el nombre "{0}" ya existe en la carpeta actual. ¿Quieres sobreescribirlo?',
+        "dropFilesHere": "Arrastra un archivo aqui para subirlo",
+        "search": "Buscar"
     });
 }
 
@@ -181,15 +181,15 @@ if (kendo.ui.Gantt) {
     kendo.ui.Gantt.prototype.options.messages =
     $.extend(true, kendo.ui.Gantt.prototype.options.messages, {
         "views": {
-            "day": "Day",
-            "week": "Week",
-            "month": "Month"
+            "day": "Día",
+            "week": "Semana",
+            "month": "Mes"
         },
         "actions": {
-            "append": "Add Task",
-            "addChild": "Add Child",
-            "insertBefore": "Add Above",
-            "insertAfter": "Add Below"
+            "append": "Añadir tarea",
+            "addChild": "Añadir hijo",
+            "insertBefore": "Añadir arriba",
+            "insertAfter": "Añadir abajo"
         }
     });
 }
@@ -222,7 +222,7 @@ if (kendo.ui.Grid) {
 if (kendo.ui.Groupable) {
     kendo.ui.Groupable.prototype.options.messages =
     $.extend(true, kendo.ui.Groupable.prototype.options.messages, {
-        "empty": "Drag a column header and drop it here to group by that column"
+        "empty": "Arrastra un encabezado de columna y sueltalo aquí para agrupar por esa columna"
     });
 }
 
@@ -231,8 +231,8 @@ if (kendo.ui.Groupable) {
 if (kendo.ui.NumericTextBox) {
     kendo.ui.NumericTextBox.prototype.options =
     $.extend(true, kendo.ui.NumericTextBox.prototype.options, {
-        "upArrowText": "Increase value",
-        "downArrowText": "Decreate value"
+        "upArrowText": "Aumentar valor",
+        "downArrowText": "Disminuir valor"
     });
 }
 
@@ -260,9 +260,9 @@ if (kendo.ui.Pager) {
 if (kendo.ui.PivotGrid) {
     kendo.ui.PivotGrid.prototype.options.messages =
     $.extend(true, kendo.ui.PivotGrid.prototype.options.messages, {
-        "measureFields": "Drop Data Fields Here",
-        "columnFields": "Drop Column Fields Here",
-        "rowFields": "Drop Rows Fields Here"
+        "measureFields": "Suelta campos aquí",
+        "columnFields": "Suelta columnas aquí",
+        "rowFields": "Suelta columnas aquí"
     });
 }
 
@@ -271,12 +271,12 @@ if (kendo.ui.PivotGrid) {
 if (kendo.ui.PivotFieldMenu) {
     kendo.ui.PivotGrid.prototype.options.operators =
     $.extend(true, kendo.ui.PivotGrid.prototype.options.operators, {
-        "contains": "Contains",
-        "doesnotcontain": "Does not contain",
-        "startswith": "Starts with",
-        "endswith": "Ends with",
-        "eq": "Is equal to",
-        "neq": "Is not equal to"
+        "contains": "Contiene",
+        "doesnotcontain": "No contiene",
+        "startswith": "Empieza con",
+        "endswith": "Termina con",
+        "eq": "Es igual a",
+        "neq": "No es igual a"
     });
 }
 
@@ -302,57 +302,57 @@ if (kendo.ui.RecurrenceEditor) {
     kendo.ui.RecurrenceEditor.prototype.options.messages =
     $.extend(true, kendo.ui.RecurrenceEditor.prototype.options.messages, {
         "frequencies": {
-            "never": "Never",
-            "hourly": "Hourly",
-            "daily": "Daily",
-            "weekly": "Weekly",
-            "monthly": "Monthly",
-            "yearly": "Yearly"
+            "never": "Nunca",
+            "hourly": "Cada hora",
+            "daily": "Diariamente",
+            "weekly": "Semanalmente",
+            "monthly": "Mensualmente",
+            "yearly": "Anualmente"
         },
         "hourly": {
-            "repeatEvery": "Repeat every: ",
-            "interval": " hour(s)"
+            "repeatEvery": "Repetir cada: ",
+            "interval": " hora(s)"
         },
         "daily": {
-            "repeatEvery": "Repeat every: ",
-            "interval": " day(s)"
+            "repeatEvery": "Repetir cada: ",
+            "interval": " día(s)"
         },
         "weekly": {
-            "interval": " week(s)",
-            "repeatEvery": "Repeat every: ",
-            "repeatOn": "Repeat on: "
+            "interval": " semana(s)",
+            "repeatEvery": "Repetir cada: ",
+            "repeatOn": "Repetir los: "
         },
         "monthly": {
-            "repeatEvery": "Repeat every: ",
-            "repeatOn": "Repeat on: ",
-            "interval": " month(s)",
-            "day": "Day "
+            "repeatEvery": "Repetir cada: ",
+            "repeatOn": "Repetir los: ",
+            "interval": " mes(es)",
+            "day": "día(s) "
         },
         "yearly": {
-            "repeatEvery": "Repeat every: ",
-            "repeatOn": "Repeat on: ",
-            "interval": " year(s)",
-            "of": " of "
+            "repeatEvery": "Repetir cada: ",
+            "repeatOn": "Repetir los : ",
+            "interval": " año(s)",
+            "of": " de "
         },
         "end": {
-            "label": "End:",
-            "mobileLabel": "Ends",
-            "never": "Never",
-            "after": "After ",
-            "occurrence": " occurrence(s)",
-            "on": "On "
+            "label": "Fin:",
+            "mobileLabel": "Finaliza",
+            "never": "Nunca",
+            "after": "Después ",
+            "occurrence": " ocurrencia(s)",
+            "on": "Los "
         },
         "offsetPositions": {
-            "first": "first",
-            "second": "second",
-            "third": "third",
-            "fourth": "fourth",
-            "last": "last"
+            "first": "Primero",
+            "second": "Segundo",
+            "third": "Tercero",
+            "fourth": "Cuarto",
+            "last": "Último"
         },
         "weekdays": {
-            "day": "day",
-            "weekday": "weekday",
-            "weekend": "weekend day"
+            "day": "Día",
+            "weekday": "Semana",
+            "weekend": "Día de fin de semana"
         }
     });
 }
@@ -362,53 +362,53 @@ if (kendo.ui.RecurrenceEditor) {
 if (kendo.ui.Scheduler) {
     kendo.ui.Scheduler.prototype.options.messages =
     $.extend(true, kendo.ui.Scheduler.prototype.options.messages, {
-        "allDay": "all day",
-        "date": "Date",
-        "event": "Event",
-        "time": "Time",
-        "showFullDay": "Show full day",
-        "showWorkDay": "Show business hours",
-        "today": "Today",
-        "save": "Save",
-        "cancel": "Cancel",
-        "destroy": "Delete",
-        "deleteWindowTitle": "Delete event",
-        "ariaSlotLabel": "Selected from {0:t} to {1:t}",
-        "ariaEventLabel": "{0} on {1:D} at {2:t}",
-        "confirmation": "Are you sure you want to delete this event?",
+        "allDay": "todo el día",
+        "date": "Fecha",
+        "event": "Evento",
+        "time": "Tiempo",
+        "showFullDay": "Mostrar todo el día",
+        "showWorkDay": "Mostrar horario de trabajo",
+        "today": "Hoy",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "destroy": "Borrar",
+        "deleteWindowTitle": "Eliminar evento",
+        "ariaSlotLabel": "Seleccionado de {0:t} a {1:t}",
+        "ariaEventLabel": "{0} los {1:D} a las {2:t}",
+        "confirmation": "¿Estás seguro de que quieres eliminar este evento?",
         "views": {
-            "day": "Day",
-            "week": "Week",
-            "workWeek": "Work Week",
+            "day": "Día",
+            "week": "Semana",
+            "workWeek": "Semana laboral",
             "agenda": "Agenda",
-            "month": "Month"
+            "month": "Mes"
         },
         "recurrenceMessages": {
-            "deleteWindowTitle": "Delete Recurring Item",
-            "deleteWindowOccurrence": "Delete current occurrence",
-            "deleteWindowSeries": "Delete the series",
-            "editWindowTitle": "Edit Recurring Item",
-            "editWindowOccurrence": "Edit current occurrence",
-            "editWindowSeries": "Edit the series",
-            "deleteRecurring": "Do you want to delete only this event occurrence or the whole series?",
-            "editRecurring": "Do you want to edit only this event occurrence or the whole series?"
+            "deleteWindowTitle": "Eliminar item recurrente",
+            "deleteWindowOccurrence": "Eliminar ocurrencia actual",
+            "deleteWindowSeries": "Borrar las series",
+            "editWindowTitle": "Editar item recurrente",
+            "editWindowOccurrence": "Editar concurrencia actual",
+            "editWindowSeries": "Editar las series",
+            "deleteRecurring": "¿Quieres borrar sólo esta ocurrencia de evento o la serie completa?",
+            "editRecurring": "¿Quieres editar sólo esta ocurrencia de evento o la serie completa??"
         },
         "editor": {
-            "title": "Title",
-            "start": "Start",
-            "end": "End",
-            "allDayEvent": "All day event",
-            "description": "Description",
-            "repeat": "Repeat",
-            "timezone": " ",
-            "startTimezone": "Start timezone",
-            "endTimezone": "End timezone",
-            "separateTimezones": "Use separate start and end time zones",
-            "timezoneEditorTitle": "Timezones",
-            "timezoneEditorButton": "Time zone",
-            "timezoneTitle": "Time zones",
-            "noTimezone": "No timezone",
-            "editorTitle": "Event"
+            "title": "Título",
+            "start": "Inicio",
+            "end": "Fin",
+            "allDayEvent": "Evento de todo el día",
+            "description": "Descripción",
+            "repeat": "Repetir",
+            "timezone": "Zona horaria",
+            "startTimezone": "Zona horaria inicial",
+            "endTimezone": "Zona horaria final",
+            "separateTimezones": "Usar zonas horarias inicial y final separadas",
+            "timezoneEditorTitle": "Zonas horarias",
+            "timezoneEditorButton": "Zona horaria",
+            "timezoneTitle": "Zonas horarias",
+            "noTimezone": "Sin zona horaria",
+            "editorTitle": "Evento"
         }
     });
 }
@@ -418,8 +418,8 @@ if (kendo.ui.Scheduler) {
 if (kendo.ui.Slider) {
     kendo.ui.Slider.prototype.options =
     $.extend(true, kendo.ui.Slider.prototype.options, {
-        "increaseButtonTitle": "Increase",
-        "decreaseButtonTitle": "Decrease"
+        "increaseButtonTitle": "Incrementar",
+        "decreaseButtonTitle": "Disminuir"
     });
 }
 
@@ -428,9 +428,9 @@ if (kendo.ui.Slider) {
 if (kendo.ui.TreeView) {
     kendo.ui.TreeView.prototype.options.messages =
     $.extend(true, kendo.ui.TreeView.prototype.options.messages, {
-        "loading": "Loading...",
-        "requestFailed": "Request failed.",
-        "retry": "Retry"
+        "loading": "Cargando...",
+        "requestFailed": "Solicitud fallida.",
+        "retry": "Reintentar"
     });
 }
 
@@ -439,18 +439,18 @@ if (kendo.ui.TreeView) {
 if (kendo.ui.Upload) {
     kendo.ui.Upload.prototype.options.localization =
     $.extend(true, kendo.ui.Upload.prototype.options.localization, {
-        "select": "Select files...",
-        "cancel": "Cancel",
-        "retry": "Retry",
-        "remove": "Remove",
-        "uploadSelectedFiles": "Upload files",
-        "dropFilesHere": "drop files here to upload",
-        "statusUploading": "uploading",
-        "statusUploaded": "uploaded",
-        "statusWarning": "warning",
-        "statusFailed": "failed",
-        "headerStatusUploading": "Uploading...",
-        "headerStatusUploaded": "Done"
+        "select": "Seleccionar Archivo...",
+        "cancel": "Cancelar",
+        "retry": "Reintentar",
+        "remove": "Remover",
+        "uploadSelectedFiles": "Cargar Archivos",
+        "dropFilesHere": "Suelte archivos aquí para cargarlos",
+        "statusUploading": "cargando",
+        "statusUploaded": "cargado",
+        "statusWarning": "peligro",
+        "statusFailed": "fallo",
+        "headerStatusUploading": "Cargando...",
+        "headerStatusUploaded": "Listo"
     });
 }
 
@@ -459,13 +459,13 @@ if (kendo.ui.Upload) {
 if (kendo.ui.Validator) {
     kendo.ui.Validator.prototype.options.messages =
     $.extend(true, kendo.ui.Validator.prototype.options.messages, {
-        "required": "{0} is required",
-        "pattern": "{0} is not valid",
-        "min": "{0} should be greater than or equal to {1}",
-        "max": "{0} should be smaller than or equal to {1}",
-        "step": "{0} is not valid",
-        "email": "{0} is not valid email",
-        "url": "{0} is not valid URL",
-        "date": "{0} is not valid date"
+        "required": "{0} es requerido",
+        "pattern": "{0} no es válido",
+        "min": "{0} debe ser mayor o igual que {1}",
+        "max": "{0} debe ser menor o igual que {1}",
+        "step": "{0} no es válido",
+        "email": "{0} no es un correo válido",
+        "url": "{0} no es una URL válida",
+        "date": "{0} no es una fecha válida"
     });
 }

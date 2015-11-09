@@ -49,16 +49,23 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="esAvisoEntrada"></param>
         /// <returns>JSON {"Nombre" : "xxxx", "ChoferID": "000"}</returns>
-        public object ObtenerListadoChoferes(string esAvisoEntrada)
+        public object ObtenerListadoChoferes(string esAvisoEntrada, int paginaID, string idioma, Sam3_Usuario usuario)
         {
             try
             {
                 List<Chofer> lstChoferes = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (int.Parse(esAvisoEntrada) == 1)
+                    if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Chofer", paginaID))
                     {
-                        lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        if (idioma == "en-US")
+                        {
+                            lstChoferes.Add(new Chofer { Nombre = "Add new", ChoferID = "0" });
+                        }
+                        else
+                        {
+                            lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        }
                     }
 
                     List<Chofer> result = (from r in ctx.Sam3_Chofer
@@ -77,6 +84,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -99,21 +109,31 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //Sam3_Chofer nuevoChofer = new Sam3_Chofer();
-                    chofer.Activo = true;
-                    chofer.FechaModificacion = DateTime.Now;
-                    //nuevoChofer.Nombre = chofer.Nombre;
-                    chofer.UsuarioModificacion = usuario.UsuarioID;
-                    //chofer.TransportistaID = chofer.TransportistaID;
+                    if (!ctx.Sam3_Chofer.Where(x => x.Nombre == chofer.Nombre && x.Activo).AsParallel().Any())
+                    {
+                        //Sam3_Chofer nuevoChofer = new Sam3_Chofer();
+                        chofer.Activo = true;
+                        chofer.FechaModificacion = DateTime.Now;
+                        //nuevoChofer.Nombre = chofer.Nombre;
+                        chofer.UsuarioModificacion = usuario.UsuarioID;
+                        //chofer.TransportistaID = chofer.TransportistaID;
 
-                    ctx.Sam3_Chofer.Add(chofer);
-                    ctx.SaveChanges();
+                        ctx.Sam3_Chofer.Add(chofer);
+                        ctx.SaveChanges();
 
-                    return new Chofer { Nombre = chofer.Nombre, ChoferID = chofer.ChoferID.ToString() };
+                        return new Chofer { Nombre = chofer.Nombre, ChoferID = chofer.ChoferID.ToString() };
+                    }
+                    else
+                    {
+                        throw new Exception("Chofer existente");
+                    }
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -136,33 +156,43 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
-                    choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
-                        chofer.Activo : choferEnBd.Activo;
+                    if (!ctx.Sam3_Chofer.Where(x => x.Nombre == chofer.Nombre && x.Activo).AsParallel().Any())
+                    {
+                        Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+                        choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                            chofer.Activo : choferEnBd.Activo;
 
-                    choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ? 
-                        chofer.Nombre : choferEnBd.Nombre;
+                        choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
+                            chofer.Nombre : choferEnBd.Nombre;
 
-                    choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ? 
-                        chofer.TransportistaID : choferEnBd.TransportistaID;
+                        choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ?
+                            chofer.TransportistaID : choferEnBd.TransportistaID;
 
-                    choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+                        choferEnBd.UsuarioModificacion = usuario.UsuarioID;
 
-                    choferEnBd.FechaModificacion = DateTime.Now;
+                        choferEnBd.FechaModificacion = DateTime.Now;
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("OK");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
 
-                    return result;
+                        return result;
+                    }
+                    else
+                    {
+                        throw new Exception("Chofer existente");
+                    }
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -204,6 +234,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -220,14 +253,24 @@ namespace BackEndSAM.DataAcces
         /// <param name="transportistaID"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerChoferesProTransportista(int transportistaID, Sam3_Usuario usuario)
+        public object ObtenerChoferesProTransportista(int transportistaID, int paginaID, string idioma, Sam3_Usuario usuario)
         {
             try
             {
                 List<Chofer> lstChofTrans = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
-                    lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                    if (paginaID > 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Chofer", paginaID))
+                    {
+                        if (idioma == "en-US")
+                        {
+                            lstChofTrans.Add(new Chofer { Nombre = "Add new", ChoferID = "0" });
+                        }
+                        else
+                        {
+                            lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        }
+                    }
 
                     List<Chofer> lstChoferes = (from r in ctx.Sam3_Chofer
                                                 where r.Activo && r.TransportistaID == transportistaID
@@ -246,6 +289,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

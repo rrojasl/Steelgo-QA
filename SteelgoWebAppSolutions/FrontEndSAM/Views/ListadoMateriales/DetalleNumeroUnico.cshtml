@@ -25,51 +25,51 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0002"></label>
-                                <input id="numerounico" class="" disabled />
+                                <input id="numerounico" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0003"></label>
-                                <input id="d1" class="" disabled />
+                                <input id="d1" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0004"></label>
-                                <input id="d2" class="" disabled />
+                                <input id="d2" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0005"></label>
-                                <input id="cedula" class="" disabled />
+                                <input id="cedula" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0006"></label>
-                                <input id="totalrecibido" class="" disabled />
+                                <input id="totalrecibido" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0007"></label>
-                                <input id="totaldañado" class="" disabled />
+                                <input id="totaldañado" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0008"></label>
-                                <input id="itemcode" class="" disabled />
+                                <input id="itemcode" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0009"></label>
-                                <input id="profile1" class="" disabled />
+                                <input id="profile1" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0010"></label>
-                                <input id="profile2" class="" disabled />
+                                <input id="profile2" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0011"></label>
-                                <input id="totalentradas" class="" disabled />
+                                <input id="totalentradas" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0031"></label>
-                                <input id="totalsalidas" class="" disabled />
+                                <input id="totalsalidas" class="general-input" disabled />
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0012"></label>
-                                <input id="saldoactual" class="" disabled />
+                                <input id="saldoactual" class="general-input" disabled />
                             </div>
                         </div>
                     </div>
@@ -81,8 +81,14 @@
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="gridSegmentos"></div>
                 </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="gridMovimientosInventario"></div>
+            </div>
+            <div class="row">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="gridMovimientosInventario"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,10 +105,14 @@
     }
     @section JavascriptGlobalFunctions 
     {
-    function changeLanguageCall() {
-        CargarGridSegmentos();
-        CargarGridMovimientosInventario();
-    };
+        function changeLanguageCall() {
+            var tmpS = removeGrid($("#gridSegmentos"));
+            var tmpM = removeGrid($("#gridMovimientosInventario"));
+            CargarGridSegmentos();
+            CargarGridMovimientosInventario();
+            $("#gridSegmentos").data("kendoGrid").dataSource.data(tmpS);
+            $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(tmpM);
+        };
 
     function CargarGridSegmentos() {
         $("#gridSegmentos").kendoGrid({
@@ -129,16 +139,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -196,16 +197,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],

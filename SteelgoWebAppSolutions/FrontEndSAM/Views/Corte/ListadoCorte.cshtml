@@ -13,29 +13,29 @@
 
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
                 <div class="row">
-                    <div class="col-sm-2 col-md-2 col-lg-1">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
                         <div class="button-section">
                             <button id="Nuevo" type="button" class="btn btn-yellow"><span id="ListadoCorte0003"></span></button>
                         </div>
                     </div>
-                    <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
+                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-9 filter-section">
                         <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoCorte0004"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoCorte0005"></label>
                                 <input id="FechaInicial" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoCorte0006"></label>
                                 <input id="FechaFinal" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoCorte0007"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
@@ -100,7 +100,9 @@
     //Parametros: N/A
     //Return:     N/A
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         CargarGrid();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
         CrearPeriodoTiempo();
     }
 
@@ -135,10 +137,16 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInicial").bind("change", function () {
+            if (!$("#FechaInicial").val()) {
+                $("#FechaInicial").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
+            if (!$("#FechaFinal").val()) {
+                $("#FechaFinal").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 
@@ -171,22 +179,14 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             columns: [
                 { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()] },
@@ -268,11 +268,20 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
+
+        if (d.getFullYear() == "1969") {
+            d = new Date();
+            d.setDate(d.getDate() - 30);
+        }
+        if (d1.getFullYear() == "1969") {
+            d1 = new Date();
+        }
+
         Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         Listado.FechaInicial = obtenerFormatoFecha(d);
         Listado.FechaFinal = obtenerFormatoFecha(d1);
         Listado.token = Cookies.get("token");
-        console.log(JSON.stringify(Listado));
+        //console.log(JSON.stringify(Listado));
         return Listado;
     };
 
@@ -312,7 +321,7 @@
     function Filtros() {
         var Listado;
         var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
-        console.log(accion);
+        //console.log(accion);
         AccionesListado(accion);
     };
 
@@ -374,6 +383,28 @@
             format = "MM/dd/yyyy";
         }
 
+        if (!fechaInicio) {
+            var todayInicio = new Date();
+            var curr_dateInicio = todayInicio.getDate();
+            var curr_monthInicio = todayInicio.getMonth() + 1;
+            var curr_yearInicio = todayInicio.getFullYear();
+
+            var todayInicial = new Date(curr_yearInicio, curr_monthInicio - 1, curr_dateInicio);
+            fechaInicio = kendo.parseDate(todayInicial, format);
+        }
+
+        if (!fechaFin) {
+            var todayFinal = new Date();
+            var curr_dateFinal = todayFinal.getDate();
+            var curr_monthFinal = todayFinal.getMonth() + 1;
+            var curr_yearFinal = todayFinal.getFullYear();
+
+            var todayFinal = new Date(curr_yearFinal, curr_monthFinal - 1, curr_dateFinal);
+            fechaFin = kendo.parseDate(todayFinal, format);
+        }
+
+        
+
         var curr_date = fechaFin.getDate();
         var curr_month = fechaFin.getMonth() + 1;
         var curr_year = fechaFin.getFullYear();
@@ -396,6 +427,9 @@
                 break;
             case 5: //Año
                 fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
+                break;
+            default:
+                fechaInicio.setDate(fechaInicio.getDate() - 7);
                 break;
         }
 

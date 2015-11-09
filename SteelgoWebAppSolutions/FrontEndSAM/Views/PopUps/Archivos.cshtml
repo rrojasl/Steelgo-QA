@@ -2,49 +2,143 @@
     ViewBag.Title = "Archivos";
 }
 
-<div id="modalTransportista" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="modalArchivo" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="row">
             <div id="Tipo_ArchivoDiv" class="form-group">
                 <label id="ListadoCatalogos0014"></label>
                 <input id="Tipo_Archivo" class="" />
             </div>
-            <div id="Input_ArchivoDiv" class="form-group">
+            <div id="seleccionarArchivoDiv" class="form-group">
                 <label id="ListadoCatalogos0015"></label>
-                <input id="Input_Archivo" class="general-input" type="file"/>
+                <input id="seleccionarArchivo"  type="file" />
             </div>
-            <div id="grid"></div>
-            <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div id="grid"></div>
+                </div>
+            </div>
+            <div class="buttonSave">
+                <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
+
 <script>
     @section JavascriptGlobalVariables {
-    }
-    @section JavascriptGlobalFunctions {
-        $("#close").on("click",function(){
-            window.parent.$("#window").data("kendoWindow").close();
-        })
-        $("#Input_Archivo").kendoUpload({
-            async: {
-                saveUrl: "save",
-                autoUpload: true
+        var $ArchivosModel = {
+            listContainer: {
+                create: "",
+                list: "#grid",
+                detail: ".detailLink",
+                destroy: ".k-grid-delete"
             },
-            complete:function(e){
-                var options = $("#grid").data("kendoGrid").options;
-                $("#grid").data("kendoGrid").destroy();
-                $("#grid").empty().kendoGrid(options);
+            properties: {
+                tipoarchivo: {
+                    visible: "#Tipo_ArchivoDiv",
+                    editable: "#Tipo_Archivo",
+                    required: "#Tipo_Archivo"
+                },
+                seleccionararchivo: {
+                    visible: "#seleccionarArchivoDiv",
+                    editable: "#seleccionarArchivo",
+                    required: "#seleccionarArchivo"
+                }
             }
+        };
+    }
+
+    @section JavascriptGlobalFunctions {
+    function changeLanguageCall() {
+        CargarGrid();
+        //$("#language").data("kendoDropDownList").value()
+    }
+
+    function CargaInicial() {
+        hideElementsArchivos();
+        $("#close").on("click", function () {
+            window.parent.$("#window").data("kendoWindow").close();
         });
 
+        $('#seleccionarArchivo').kendoUpload({
+            async: {
+                saveUrl: $DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?CatalogoID=" + window.parent.datosRegistro.catalogo + "&elementoCatalogoID=" + window.parent.datosRegistro.id + "&token=" + Cookies.get("token"),
+                autoUpload: false,
+                withCredentials: false,
+                batch: false
+            },
+            enabled: false,
+            success: function (data) {
+                regenerarGrid();
+            },
+            localization: getKendoUploadLocalization(window.parent.$("#language").data("kendoDropDownList").value()),
+            error: function (data) { },
+        });
+
+        $("#Tipo_Archivo").kendoDropDownList({
+            dataTextField: "Nombre",
+            dataValueField: "TipoArchivoID",
+            optionLabel: "Selecciona un tipo de archivo",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: $TipoArchivo.TipoArchivo.urlNoId + "?catalogoID=" + window.parent.datosRegistro.catalogo + "&token=" + Cookies.get("token")
+                    }
+                }
+            },
+            change: function (e) {
+                if ($("#Tipo_Archivo").data("kendoDropDownList").value()) {
+                    $("#seleccionarArchivo").data("kendoUpload").options.async.saveUrl = $DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?CatalogoID=" + window.parent.datosRegistro.catalogo + "&elementoCatalogoID=" + window.parent.datosRegistro.id + "&token=" + Cookies.get("token") + "&tipoArchivoID=" + $("#Tipo_Archivo").data("kendoDropDownList").value();
+                    $("#seleccionarArchivo").data("kendoUpload").enable();
+                } else {
+                    $("#seleccionarArchivo").data("kendoUpload").disable();
+                }
+            }
+        });
+    };
+        
+
+    function CargarGrid() {
         $("#grid").kendoGrid({
             columns: [
-                { field: "Nombre",title:"Nombre",template: "<a href='#: Url #'>#: Nombre # </a>" },
-                { field: "Extencion",title:"Extensión" },
-                { field: "TipoArchivo",title:"Tipo de Archivo" },
+                { field: "Nombre", title: "Nombre", template: "<a href='#: Url #'>#: Nombre # </a>"},
+                { field: "Extencion", title: "Extensión"},
+                { field: "TipoArchivo", title: "Tipo de Archivo"},
                 { command: "destroy", title: "Borrar", width: "91px" }
             ],
-            dataSource: {
+            dataSource: getDataSource(),
+            autoHeight: true,
+            sortable: false,
+            scrollable: false,
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+                buttonCount: 2
+            },
+            remove: function (e) {
+                if (e.model.id !== null && e.model.id !== "") {
+                    $DocumentosCatalogos.DocumentosCatalogos.destroy({}, { token: Cookies.get("token"), documentoID: e.model.id }).done(regenerarGrid);
+                } else {
+                    displayMessage("ListadoCatalogos0009", "", '2');
+                }
+            },
+            editable: true,
+        })
+    };
+        function regenerarGrid(){
+            var options = $("#grid").data("kendoGrid").options;
+            $("#grid").data("kendoGrid").destroy();
+            $("#grid").empty().kendoGrid(options);
+        }
+
+        function getDataSource(){
+            return new kendo.data.DataSource({
                 data: [],
                 schema: {
                     model: {
@@ -67,13 +161,12 @@
                 serverSorting: false,
                 transport:{
                     read:{
-                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalago+"&elementoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
+                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId+ "?catalogoID="+window.parent.datosRegistro.catalogo+"&elementoCatalogoID="+window.parent.datosRegistro.id+"&token="+Cookies.get("token"),
                         dataType:"json",
                         type:"GET",
                         cache: false
                     },
-                    read:{
-                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalago+"&elementoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
+                    destroy:{
                         dataType:"json",
                         type:"DELETE",
                         cache: false
@@ -83,62 +176,34 @@
                             return {models: kendo.stringify(options.models)};
                         }
                     }
-                },
-                autoHeight: true,
-                sortable: false,
-                scrollable: false,
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            startswith: "Starts with",
-                            eq: "Is equal to",
-                            neq: "Is not equal to"
-                        }
-                    }
-                },
-                pageable: {
-                    refresh: false,
-                    pageSizes: [10, 15, 20],
-                    info: false,
-                    input: false,
-                    numeric: true,
-                },
-                toolbar: ["create"],
-                save: function(e) {
-                    console.log(e);
-                },
-                remove: function (e) {
-                    if(e.model.id!==null && e.model.id!==""){
-                        var direccion=grid.options.dataSource.options.transport.destroy.url+"&DocumentoID="+e.model.id;
-                        grid.options.dataSource.options.transport.destroy.url=direccion;
-                    }else{
-                        alert(_dictionary.ListadoCatalogos0009[$("#language").data("kendoDropDownList").value()]);
-                    }
-                },
-                dataBound: function(e) {
-                    console.log(e);
-                }
-            }
-        })
+                },                    
+            })
+        }
+
+        function hideElementsArchivos() {
+            $(".sidebar").hide();
+            $(".logo").hide();
+            $(".search-bar").hide();
+            $(".notifications").hide();
+            $(".logged-user").hide();
+            $(".content-container").removeClass("topbar").addClass("printView");
+            $(".breadcrumb-container").hide();
+            $(".languageSelector").hide();
+            $(".pull-right").hide();
+            $("header").hide();
+            $(".content-frame").removeClass("content-frame");
+            $("body").css("background", "#FFFFFF");
+        };
+
     }
     @section JavascriptDocumentReadyFunctions {
-        $(".sidebar").hide();
-        $(".logo").hide();
-        $(".search-bar").hide();
-        $(".notifications").hide();
-        $(".logged-user").hide();
-        $(".content-container").removeClass("topbar").addClass("printView");
-        $(".breadcrumb-container").hide();
-        $(".languageSelector").hide();
-        $(".pull-right").hide();
-        $("header").hide();
-        $(".content-frame").removeClass("content-frame");
-        $("body").css("background", "#FFFFFF");
+        $authorizationModel["Archivos"] = $ArchivosModel;
+        CargaInicial();
     }
+
     @section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "30", { path: '/' });
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "41", { path: '/' });
     }
    
 </script>

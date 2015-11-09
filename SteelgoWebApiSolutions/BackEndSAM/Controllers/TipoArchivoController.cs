@@ -55,6 +55,41 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(int catalogoID, string token)
+        {
+            try
+            {
+                string newToken = "";
+                string payload = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (tokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return TipoArchivoBd.Instance.obtenerListadoTipoArchivosPorCatalogoID(catalogoID);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.ReturnMessage.Add(payload);
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.ReturnMessage.Add(ex.Message);
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         // POST api/TipoArchivo
         public object Post(Sam3_TipoArchivo tipoArchivo, string token)
         {

@@ -4,49 +4,130 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoCatalogos0040"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
-    </li>
-    <li class="active">
         <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
     </li>
+    <li class="active">
+        <a href="@Url.Action("AsociacionItemCodes", "Catalogos")"><span id="AsociacionICS0004"></span></a>
+    </li>
 }
-<h3>Item Code Steelgo - Item Codes</h3>
-<div class="formNav clearfix">
+
+<div id="formAsociacionItemCodes" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="button-section">
-                <div class="btn-group save-group">
-                    <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+                                <button id="EditarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0064"></span></button>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
+                        </div>
+                    </div>
                 </div>
-                <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="icinput" id="AsociacionICS0001"></label>
+                            <input id="icinput" type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="D1">D1</label>
+                            <input id="D1" type="number" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="D2">D2</label>
+                            <input id="D2" type="number" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="descripcionIC" id="AsociacionICS0002"></label>
+                            <input id="descripcionIC" class="general-input" readonly disabled type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="icsasociado" id="AsociacionICS0003"></label>
+                            <input id="icsasociado" class="general-input" readonly disabled type="text" />
+                            <input type="number" hidden id="idICS" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="grid"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <ul id="context-menu">
+            <li>Seleccionar Item Code Steelgo</li>
+        </ul>
     </div>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="icinput" id="AsociacionICS0001"></label>
-    <input id="icinput" />
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="D1">D1</label>
-    <input id="D1" />
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="D2">D2</label>
-    <input id="D2" />
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="descripcionIC" id="AsociacionICS0002"></label>
-    <input id="descripcionIC" />
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="icsasociado" id="AsociacionICS0003"></label>
-    <input id="icsasociado" />
-</div>
+
 <script>
+@section JavascriptGlobalVariables {
+    once=true;
+    editado=false;
+    itemActual={};
+    var $AsociacionItemCodesModel = {
+        listContainer: {
+            create: "",
+            list: ["#grid","#icinput"],
+            detail: "",
+            destroy: ""
+        },
+        properties:{
+            icinput:{
+                visible: ".form-group:first",
+                editable: "#icinput",
+                required: "#icinput"
+            },
+            guardarics:{
+                visible: ".save-group",
+                editable: "#GuardarICS",
+                required: "#GuardarICS"
+            }
+        }
+    };
+}
+
+@section JavascriptGlobalFunctions {
+    function changeLanguageCall() {
+        tmp=removeGrid($("#grid"));
+        cargarInicialGrid();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
+    };
+    
+    function regenerarCombo(combo){
+        var options = combo.data("kendoComboBox").options;
+        combo.data("kendoComboBox").destroy();
+        combo.empty().kendoComboBox(options);
+    }
+
+    function limpiarDatos(){
+        $("#descripcionIC").val("");
+        $("#icsasociado").val("");
+    }
+
+    $("#Cancelar").on("click",function(){
+        regenerarCombo($("#icinput"));
+        regenerarCombo($("#D1"));
+        regenerarCombo($("#D2"));
+        $("#descripcionIC").val(null);
+        $("#icsasociado").val(null);
+        itemActual=[];
+        editado=false;
+    })
+
     $("#icinput").kendoComboBox({
         dataSource: {
             transport: {
@@ -57,82 +138,151 @@
                 }
             }
         },
+        change:function(e){
+            botonDefault()
+            itemActual={};
+            itemActual["ItemCodeID"]=e.sender._old;
+            $("#D1").data("kendoComboBox").enable(false);
+            $("#D2").data("kendoComboBox").enable(false);
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), token:Cookies.get("token")}).done(function(data){
+                regenerarCombo($("#D1"));
+                regenerarCombo($("#D2"));
+                limpiarDatos();
+                $("#D1").data("kendoComboBox").dataSource.data(data);
+                $("#D1").data("kendoComboBox").enable(true);
+            })
+        },
         dataTextField: "value",
         dataValueField: "id"
     });
-</script>
-<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="grid"></div>
-</div>
 
-<script>
-@section JavascriptGlobalVariables {
-}
-
-@section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-    };
-
-    function cargarInicialGrid(val) {
-    };
-    
-    $("#grid").kendoGrid({
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    id:"ItemCodeSteelgoID",
-                    fields: {
-                        ItemCodeSteelgoID: { editable: false, nullable: true },
-                        DescripcionEspanol: { type:"string",validation: { required: false } },
-                        DescripcionIngles: { type:"string",validation: { required: false } },
-                        Peso: { type:"number", validation: { required: true } },
-                        Diametro1: { type:"number", validation: { required: false } },
-                        Diametro2: { type:"number", validation: { required: false } },
-                        FamiliaAceroID: { type:"number", validation: { required: true } },
-                        Area: { type:"number", validation: { required: false } },
-                        Cedula: { type:"string",validation: { required: false } },
-                        Codigo: { type:"string",validation: { required: false } },
-                    }
+    $("#D1").kendoComboBox({
+        change:function(e){
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            itemActual["D1"]=e.sender._old;
+            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
+                if (data.length>0) {
+                    $("#Guardar span").attr("id","LlegadaMaterial0011");
+                    limpiarDatos();
+                    regenerarCombo($("#D2"));
+                    $("#D2").data("kendoComboBox").dataSource.data(data);
+                    $("#D2").data("kendoComboBox").enable(true);
                 }
-            },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            transport:{
-                read:{
-                    url:"",
-                    dataType:"json",
-                    type:"GET",
-                    cache: false
-                },
-                create:{
-                    url:"",
-                    dataType:"json",
-                    type:"POST",
-                    cache: false
-                },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
-                    }
+            })
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+
+    $("#D2").kendoComboBox({
+        change:function(e){
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            limpiarDatos();
+            $("#grid").data("kendoGrid").dataSource.filter([]);
+            itemActual["D2"]=e.sender._old;
+            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
+                $("#descripcionIC").val(data.Descripcion);
+                $("#icsasociado").val(data.ItemCodeSteelgo);
+                $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
+                $("#grid").data("kendoGrid").dataSource.read();
+                $("#grid").data("kendoGrid").refresh();
+                0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
+                if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
+                    $("#GuardarICS").hide();
+                    $("#EditarICS").show();
                 }
+            })
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+
+    function cargarInicialGrid(){
+        $("#grid").kendoGrid({
+            columns: [
+                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], filterable: { 
+                    cell: { 
+                        showOperators: false,
+                        operator: "contains",
+                        delay: 10,
+                        dataTextField: "Codigo"
+                    } 
+                }, width: "120px" },
+                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "Descripcion"} }, width: "120px" },
+                //{ field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], hidden: true, filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                //{ field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], hidden: true, filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                //{ field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], hidden: true, filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Acero", title: _dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "CedulaB", title: _dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Libra", title: _dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Inch", title: _dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "MM", title: "MM", filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Espesor", title: _dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Peso", title: _dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Area", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id:"ItemCodeSteelgoID",
+                        fields: {
+                            ItemCodeSteelgoID: { editable: false, nullable: true },
+                            Codigo: { type:"string",validation: { required: false } },
+                            Descripcion: { type:"string",validation: { required: false } },
+                            //DescripcionLarga: { type:"string",validation: { required: false } },
+                            //DescripcionIngles: { type:"string",validation: { required: false } },
+                            //DescripcionLargaIngles: { type:"string",validation: { required: false } },
+                            Diametro1: { type:"string", validation: { required: false } },
+                            Diametro2: { type:"string", validation: { required: false } },
+                            Grupo: { type:"string",validation: { required: false } },
+                            GrupoID: { editable: false, nullable: true },
+                            Acero: { type:"string",validation: { required: false } },
+                            AceroID: { editable: false, nullable: true },
+                            CedulaID: { editable: false, nullable: true },
+                            CedulaA: { type:"string",validation: { required: false }},
+                            CedulaB: { type:"string",validation: { required: false }},
+                            Libra: { type:"string",validation: { required: false }},
+                            Inch: { type: "string", validation: { required: false }, editable: false },
+                            MM: { type: "string", validation: { required: false }, editable: false },
+                            Espesor: { type: "string", validation: { required: false }, editable: false },
+                            Peso: { type: "string", validation: { required: true }, editable: false },
+                            Area: { type: "string", validation: { required: false }, editable: false },
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                transport:{
+                    read:{
+                        url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
+                        dataType:"json",
+                        type:"GET",
+                        cache: false
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
             },
             autoHeight: true,
-            sortable: true,
+            sortable: false,
             scrollable: false,
-            filterable: {
+            filterable:{
                 extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
+                mode: "row",
+                cell: {
+                    showOperators: false,
+                    operator: "contains"
                 }
             },
             pageable: {
@@ -141,28 +291,72 @@
                 info: false,
                 input: false,
                 numeric: true,
-            },
-            toolbar: ["create"],
-            save: function(e) {
-                console.log(e);
-            },
-            remove: function(e) {
-                console.log(e);
+                buttonCount: 2
             },
             dataBound: function(e) {
-                console.log(e);
-            }
+                if(once){
+                    once=false;
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                }
+                $("#context-menu").kendoContextMenu({
+                    //target: "#grid tr td:first-child",
+                    target: "#grid",
+                    filter: "td",
+                    alignToAnchor: true,
+                    select:function(e){
+                        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr"));
+                        $("#icsasociado").val(dataItem.Codigo);
+                        itemActual["ItemCodeSteelgoIDNuevo"]=dataItem.ItemCodeSteelgoID;
+                        editado=true;
+                        this.close();
+                    },
+                    open:function(e){
+                        if(!$("#GuardarICS").is(":visible")){
+                            e.preventDefault();
+                        }
+                    },
+                })
+                if(!$("#grid").data("kendoGrid").dataSource.filter()){
+                    $("#grid").data("kendoGrid").tbody.hide();
+                }else{
+                    $("#grid").data("kendoGrid").tbody.show()
+                }
+            },
+        });
+    }
+
+    $("#GuardarICS").on("click",function(){
+        if (itemActual["ItemCodeSteelgoIDNuevo"]) {
+            $AsociacionICS.AsociacionICS.create({},{itemCode:itemActual["ItemCodeID"],itemCodeSteelgo:itemActual["ItemCodeSteelgoIDNuevo"],diametro1ID:itemActual["D1"],diametro2ID:itemActual["D2"], token:Cookies.get("token")}).done(function(data){
+                if(data.ReturnMessage[0]=="OK"){
+                    displayMessage("AsociacionICS0005", "", '0');
+                }else{
+                    displayMessage("",data.ReturnMessage[0], '2');
+                }
+            });
+        }else{
+            displayMessage("AsociacionICS0006", "", '1');
         }
-    });
-    loadingStop();
+    })
+
+    $("#EditarICS").on("click",botonDefault);
+
+    function botonDefault(){
+        $("#EditarICS").hide();
+        $("#GuardarICS").show();
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
+    $("#EditarICS").hide();
+    $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
+    $("#D1").data("kendoComboBox").enable(false);
+    $("#D2").data("kendoComboBox").enable(false);
 };
     
 @section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "7", { path: '/' });
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "46", { path: '/' });
 };
 
 </script>

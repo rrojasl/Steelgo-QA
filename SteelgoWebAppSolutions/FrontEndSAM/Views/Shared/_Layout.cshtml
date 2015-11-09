@@ -61,7 +61,7 @@
                             <div class="input-group">
                                 <input id="layoutLabel0001" type="text" class="form-control" placeholder="Buscar en todo el sitio...">
                                 <span class="input-group-btn">
-                                    <button class="btn spyglass btn-blue" type="button"></button>
+                                    <button class="btn spyglass btn-blue" type="button" id="globalSearch"></button>
                                 </span>
                             </div>
                         </div>
@@ -157,10 +157,10 @@
                         <i class="icn right minify"></i>
                         <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <ul>
-                            <li><a href="#"><span id="layoutLabel0015"></span></a></li>
-                            <li><a href="#"><span id="layoutLabel0016"></span></a></li>
-                            <li><a href="#"><span id="layoutLabel0017"></span></a></li>
-                            <li><a href="#"><span id="layoutLabel0018"></span></a></li>
+                            <li><a href="http://www.steelgo.com"><span id="layoutLabel0015"></span></a></li>
+                            <li><a href="http://www.steelgo.com"><span id="layoutLabel0016"></span></a></li>
+                            <li><a href="http://www.steelgo.com"><span id="layoutLabel0017"></span></a></li>
+                            <li><a href="http://www.steelgo.com"><span id="layoutLabel0018"></span></a></li>
                         </ul>
                     </div>
 
@@ -217,6 +217,7 @@
         /****************************/
         var $body = $("body");
         var $homeURI = '@Url.Action("Landing", "Home")';
+        var $errorURI = '@Url.Action("accessdenied", "Errors")';
         var $contextMenu = {};
         var $sideMenu = {};
         var $sideMenuLayout = { 0: {}, 1: {}, 2: {}, 3: {} };
@@ -329,9 +330,8 @@
             });
 
             //Add the language parameter to all url invoked by the <a> tag
-            $("a").click(function (event) {
-                event.preventDefault();
-                window.location.href = this.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+            $("a:not([data-login='password'])").click(function (event) {
+                redirectToLanguage(event,this);
             });
 
             //Language dropdownlist inicialization method
@@ -417,6 +417,29 @@
                 $("#sidebar").removeClass("minified");                
                 $("#sidebar").toggleClass("open");
             });
+
+            //$("input").each(function () {
+            //    var cb = $(this).data("kendoComboBox");
+            //    var ka = $(this).data("kendoAutoComplete")
+            //    if (cb) {
+            //        $(this).focusout(function () {
+            //            if (!$(this).data("kendoComboBox").dataItem()) {
+            //                cb.value("");
+            //                cb.trigger("change");
+            //            }
+            //        });
+            //    };
+
+            //    if (ka) {
+            //        $(this).focusout(function () {
+            //            if (!$(this).data("kendoAutoComplete").dataItem()) {
+            //                ka.value("");
+            //                ka.trigger("change");
+            //            }
+            //        });
+            //    };
+            //});
+
 
         });
        
@@ -544,6 +567,11 @@
                     return true;
                 }
         };
+
+        //Search
+        $("#globalSearch[type=button].btn.spyglass.btn-blue").on("click",function(){
+            window.location.href=window.location.origin+"/Busqueda/Busqueda?q="+document.getElementById("layoutLabel0001").value.split(" ").join("+");
+        });
     </script>
 </body>
 </html>

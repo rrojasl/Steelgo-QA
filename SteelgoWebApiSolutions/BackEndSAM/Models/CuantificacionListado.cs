@@ -16,7 +16,6 @@ namespace BackEndSAM.Models
         public string ItemCodeSteelgo { get; set; }
         public string ItemCodeSteelgoID { get; set; }
         public string Familia { get; set; }
-        //public int FamiliaID { get; set; }
         public string FamiliaMaterial { get; set; }
         public string Cedula { get; set; }
         public string TipoAcero { get; set; }
@@ -31,5 +30,10 @@ namespace BackEndSAM.Models
         public string TieneNU { get; set; }
         public bool TieneError { get; set; }
         public string Estatus { get; set; }
+        public string TipoUsoID { get; set; }
+        public string RelFCId { get; set; }
+        public string RelBID { get; set; }
+        public string ItemCodeOrigenID { get; set; }
+        public string ProyectoID { get; set; }
     }
 }

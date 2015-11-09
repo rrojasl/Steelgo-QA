@@ -46,6 +46,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\Dlls\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -148,6 +151,7 @@
     <Compile Include="Controllers\CorteController.cs" />
     <Compile Include="Controllers\DespachoController.cs" />
     <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
+    <Compile Include="Controllers\DiametrosController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\DocumentoFolioAvisoEntradaController.cs" />
@@ -165,7 +169,11 @@
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyMaquinaController.cs" />
-    <Compile Include="Controllers\DummyNumerosUnicosController.cs" />
+    <Compile Include="Controllers\EntregaController.cs" />
+    <Compile Include="Controllers\IncidenciaPaseSalidaController.cs" />
+    <Compile Include="Controllers\MaterialPendienteController.cs" />
+    <Compile Include="Controllers\NotificacionDeficitController.cs" />
+    <Compile Include="Controllers\NumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyOperadorController.cs" />
@@ -187,6 +195,7 @@
     <Compile Include="Controllers\GenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
+    <Compile Include="Controllers\ImpresionDocumentalController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
@@ -204,7 +213,10 @@
     <Compile Include="Controllers\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\OrdenTrabajoSpoolController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
+    <Compile Include="Controllers\PickingTicketController.cs" />
+    <Compile Include="Controllers\PreDespachoController.cs" />
     <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
+    <Compile Include="Controllers\RevisionDeficitController.cs" />
     <Compile Include="Controllers\TipoAceroController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
@@ -260,6 +272,7 @@
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValidacionesFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
     <Compile Include="Controllers\ValidarItemCodeNuCuantificacionController.cs" />
@@ -274,9 +287,11 @@
     <Compile Include="DataAcces\CortadorBd.cs" />
     <Compile Include="DataAcces\CorteBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
+    <Compile Include="DataAcces\DeficitBd.cs" />
     <Compile Include="DataAcces\DespachoBd.cs" />
     <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
+    <Compile Include="DataAcces\EntregaBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
     <Compile Include="DataAcces\FabricantesBd.cs" />
@@ -285,6 +300,7 @@
     <Compile Include="DataAcces\GrupoBd.cs" />
     <Compile Include="DataAcces\GuardarFolioLlegadaCuantificacionBd.cs" />
     <Compile Include="DataAcces\GuardarItemCodesBd.cs" />
+    <Compile Include="DataAcces\ImpresionDocumentalBd.cs" />
     <Compile Include="DataAcces\IncidenciaBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
     <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
@@ -292,12 +308,15 @@
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesPorItemCodeBd.cs" />
+    <Compile Include="DataAcces\LoggerBd.cs" />
     <Compile Include="DataAcces\MaquinaBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
     <Compile Include="DataAcces\OrdenTrabajoSpoolBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
+    <Compile Include="DataAcces\PickingTicketBd.cs" />
+    <Compile Include="DataAcces\PreDespachoBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
@@ -324,7 +343,9 @@
     <Compile Include="Models\CuantificacionListado.cs" />
     <Compile Include="Models\DashBoardDespacho.cs" />
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
+    <Compile Include="Models\Deficit.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
+    <Compile Include="Models\DocumentosEnCatalogos.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />
     <Compile Include="Models\Dummy\AlmacenajeRack.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
@@ -343,6 +364,7 @@
     <Compile Include="Models\Dummy\EdicionCuantificacion.cs" />
     <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />
+    <Compile Include="Models\Dummy\Entrega.cs" />
     <Compile Include="Models\Dummy\Estatus.cs" />
     <Compile Include="Models\Dummy\Familia.cs" />
     <Compile Include="Models\Dummy\FamiliaAcero.cs" />
@@ -354,6 +376,8 @@
     <Compile Include="Models\Dummy\FormatoIncidencias.cs" />
     <Compile Include="Models\Dummy\FormatoPaseSalida.cs" />
     <Compile Include="Models\Dummy\GridCuantificacion.cs" />
+    <Compile Include="Models\Dummy\ImpresionDocumental.cs" />
+    <Compile Include="Models\Dummy\ListadoImpresionDocumental.cs" />
     <Compile Include="Models\Incidencia.cs" />
     <Compile Include="Models\Dummy\ItemCode.cs" />
     <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
@@ -361,7 +385,7 @@
     <Compile Include="Models\ListadoIncidencias.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
-    <Compile Include="Models\Dummy\DummyNumeroControl.cs" />
+    <Compile Include="Models\Dummy\NumeroControl.cs" />
     <Compile Include="Models\Dummy\Maquina.cs" />
     <Compile Include="Models\Dummy\NumerosUnicos.cs" />
     <Compile Include="Models\Dummy\Operador.cs" />
@@ -401,6 +425,7 @@
     <Compile Include="Models\ListadoMaterialesSinCuantificar.cs" />
     <Compile Include="Models\GridGeneracionOrdenAlmacenaje.cs" />
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
+    <Compile Include="Models\ListadosPreDespacho.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\ListadoMaterialesPorItemCode.cs" />
@@ -408,6 +433,7 @@
     <Compile Include="Models\LstDespacho.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
+    <Compile Include="Models\PreDespacho.cs" />
     <Compile Include="Models\TipoArchivo.cs" />
     <Compile Include="Models\VehiculoJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -417,6 +443,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\BackEnd.pubxml" />
     <None Include="Properties\PublishProfiles\backendSAM.pubxml" />
+    <None Include="Properties\PublishProfiles\samBE.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -425,6 +452,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\templates\" />
     <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>

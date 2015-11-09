@@ -85,6 +85,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -110,34 +113,40 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().SingleOrDefault();
-
-                    if (ItemCode.Contains("Bulto"))
+                    int itemCodeID = ItemCode != null ? Convert.ToInt32(ItemCode) : 0;
+                    string strItemCode = string.IsNullOrEmpty(ItemCode) ? "" : ItemCode;
+                    if (strItemCode.Contains("Bulto"))
                     {
                         //Elimino de Rel Bulto
-                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == BultoID && x.Activo).AsParallel().SingleOrDefault();
-                        if (bulto != null)
+                        Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID.ToString() == BultoID && x.Activo).AsParallel().SingleOrDefault();
+                        if (relBulto != null)
                         {
-                            bulto.Activo = false;
-                            bulto.UsuarioModificacion = usuario.UsuarioID;
-                            bulto.FechaModificacion = DateTime.Now;
+                            relBulto.Activo = false;
+                            relBulto.UsuarioModificacion = usuario.UsuarioID;
+                            relBulto.FechaModificacion = DateTime.Now;
 
                             ctx.SaveChanges();
                         }
                         //Elimino de bulto 
-                        Sam3_Bulto b = ctx.Sam3_Bulto
-                            .Where(x => x.BultoID.ToString() == BultoID && x.FolioCuantificacionID.ToString() == folioCuantificacionID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Bulto bulto = (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                        join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                        where rbi.Rel_Bulto_ItemCode_ID.ToString() == BultoID
+                                        && b.FolioCuantificacionID.ToString() == folioCuantificacionID
+                                        select b).AsParallel().SingleOrDefault();
+                            //ctx.Sam3_Bulto
+                            //.Where(x => x.BultoID.ToString() == BultoID && x.FolioCuantificacionID.ToString() == folioCuantificacionID && x.Activo).AsParallel().SingleOrDefault();
 
-                        b.Activo = false;
-                        b.UsuarioModificacion = usuario.UsuarioID;
-                        b.FechaModificacion = DateTime.Now;
+                        bulto.Activo = false;
+                        bulto.UsuarioModificacion = usuario.UsuarioID;
+                        bulto.FechaModificacion = DateTime.Now;
 
                         ctx.SaveChanges();
                     }
                     else if(detalleBulto == "1") //esta en el detalle bulto
                     {
                         //Elimino de Rel Bulto
-                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == BultoID && x.ItemCodeID == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode
+                            .Where(x => x.Rel_Bulto_ItemCode_ID.ToString() == BultoID && x.Activo).AsParallel().SingleOrDefault();
                         bulto.Activo = false;
                         bulto.UsuarioModificacion = usuario.UsuarioID;
                         bulto.FechaModificacion = DateTime.Now;
@@ -148,9 +157,8 @@ namespace BackEndSAM.DataAcces
                     {
                         //Elimino de Rel FolioCuantificacion_ItemCode
                         Sam3_Rel_FolioCuantificacion_ItemCode itemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                            .Where(x => x.ItemCodeID == itemCodeID 
-                                && x.FolioCuantificacionID.ToString() == folioCuantificacionID 
-                                && x.Activo).AsParallel().SingleOrDefault();
+                            .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == itemCodeID && x.FolioCuantificacionID.ToString() == folioCuantificacionID)
+                            .AsParallel().SingleOrDefault();
 
                         itemCode.Activo = false;
                         itemCode.UsuarioModificacion = usuario.UsuarioID;
@@ -171,6 +179,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

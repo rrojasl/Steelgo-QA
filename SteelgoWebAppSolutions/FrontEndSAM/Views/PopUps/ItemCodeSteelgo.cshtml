@@ -107,6 +107,10 @@
     @section JavascriptGlobalFunctions {
     function CargarInicial() {
         hideElementsItemCodeSteelgo();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarItemCodeSteelgo();
+        });
         $("#Familia_ItemCodeSteelgo").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "FamiliaAceroID",
@@ -116,8 +120,10 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     familiaItemCodeSteelgo = {};
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -133,8 +139,10 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     cedulasItemCodeSteelgo = {};
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -219,6 +227,7 @@
 
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
+        cleanDisplayMessage();
     };
 
     function GuardarItemCodeSteelgo() {
@@ -254,6 +263,7 @@
         LimpiarModalItemCodeSteelgo();
         cerrarVentanaModal();
         cancelarvalidacionRequeridosModalItemCodeSteelgo();
+        window.parent.ActualizarCookie();
     };
 
     function ControlErroresObjetosComboBox(control, result) {

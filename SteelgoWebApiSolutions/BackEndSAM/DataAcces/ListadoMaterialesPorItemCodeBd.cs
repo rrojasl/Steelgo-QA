@@ -61,8 +61,8 @@ namespace BackEndSAM.DataAcces
                                    ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    Descripcion = ics.DescripcionEspanol,
-                                   D1 = ics.Diametro1.ToString(),
-                                   D2 = ics.Diametro2.ToString(),
+                                   //D1 = ics.Diametro1.ToString(),
+                                   //D2 = ics.Diametro2.ToString(),
                                    TipoMaterial = tm.Nombre,
 
                                    TotalRecibido = (from nui in ctx.Sam3_NumeroUnicoInventario
@@ -246,6 +246,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

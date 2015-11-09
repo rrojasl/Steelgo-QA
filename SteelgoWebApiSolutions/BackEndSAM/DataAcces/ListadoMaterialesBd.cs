@@ -67,6 +67,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -106,6 +109,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -144,6 +150,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -187,8 +196,8 @@ namespace BackEndSAM.DataAcces
                                  Descripcion = ics.DescripcionEspanol,
                                  Cedula = c.CedulaA,
                                  TipoAcero = fm.Nombre,
-                                 D1 = ics.Diametro1.ToString(),
-                                 D2 = ics.Diametro2.ToString(),
+                                 //D1 = ics.Diametro1.ToString(),
+                                 //D2 = ics.Diametro2.ToString(),
                                  RangoInferior = (from pc in ctx.Sam3_ProyectoConfiguracion
                                                       where pc.Activo &&
                                                       pc.ProyectoID == ic.ProyectoID
@@ -198,7 +207,7 @@ namespace BackEndSAM.DataAcces
                                                          pc.ProyectoID == ic.ProyectoID
                                                          select pc.ToleranciaCortes).FirstOrDefault().ToString(),
                                  Cantidad = ic.Cantidad.ToString(),
-                                 Colada = ic.ColadaID.ToString(),
+                                 //Colada = ic.ColadaID.ToString(),
                                  EstatusFisico = ic.EstatusFisico,
                                  EstatusDocumental = ic.EstatusDocumental,
                                  AlmacenVirtual = "X"
@@ -223,6 +232,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

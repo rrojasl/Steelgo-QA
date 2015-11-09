@@ -48,63 +48,101 @@ namespace BackEndSAM.DataAcces
                     List<ItemCodeComplemento> listado = new List<ItemCodeComplemento>();
                     //Agregamos items con relacion con Folio Cuantificacion
                     listado.AddRange((from fc in ctx.Sam3_FolioCuantificacion
-                                     join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                     join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
-                                     join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                     where fc.Activo && rfi.Activo && it.Activo && nu.Activo
-                                     && fc.FolioCuantificacionID == folioCuantificacionID
-                                     && !it.TieneComplementoRecepcion
-                                     select new ItemCodeComplemento
-                                     {
-                                         NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                                         ItemCode = it.Codigo,
-                                         NumeroUnicoCliente = nu.NumeroUnicoCliente,
-                                         Descripcion = it.DescripcionEspanol,
-                                         Cedula = nu.Cedula,
-                                         TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                      where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
-                                                      select fa.Nombre).FirstOrDefault(),
-                                         D1 = it.Diametro1.ToString(),
-                                         D2 = it.Diametro2.ToString(),
-                                         ItemCodeID = it.ItemCodeID,
-                                         ProyectoID = it.ProyectoID,
-                                         Cantidad = it.Cantidad,
-                                         MM = it.MM.ToString(),
-                                         Colada = nu.Sam3_Colada.NumeroColada,
-                                         EstatusDocumental = it.EstatusDocumental,
-                                         EstatusFisico = it.EstatusFisico,
-                                         TipoUso = it.Sam3_TipoUso.Nombre
-                                     }).AsParallel().Distinct().ToList());
+                                      join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                      join rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals rel.Rel_FolioCuantificacion_ItemCode_ID
+                                      join nu in ctx.Sam3_NumeroUnico on rel.NumeroUnicoID equals nu.NumeroUnicoID
+                                      join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                      join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                      where fc.Activo && rfi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo
+                                      && fc.FolioCuantificacionID == folioCuantificacionID
+                                      && !it.TieneComplementoRecepcion
+                                      select new ItemCodeComplemento
+                                      {
+                                          NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                          NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                          ItemCode = it.Codigo,
+                                          NumeroUnicoCliente = nu.NumeroUnicoCliente,
+                                          Descripcion = it.DescripcionEspanol,
+                                          Cedula = (from rfii in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                    join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                    join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                                    join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                    join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                    join ced in ctx.Sam3_Cedula on ics.CedulaID equals ced.CedulaID
+                                                    join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                                    where riit.Activo && rids.Activo && ics.Activo && ced.Activo
+                                                    && rfii.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                    select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
+                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                                       select fa.Nombre).FirstOrDefault(),
+                                          D1 = d1.Valor.ToString(),
+                                          D2 = d2.Valor.ToString(),
+                                          ItemCodeID = it.ItemCodeID,
+                                          ProyectoID = it.ProyectoID,
+                                          Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                      where nui.NumeroUnicoID == nu.NumeroUnicoID
+                                                      select nui.CantidadRecibida).FirstOrDefault(),
+                                          MM = it.MM.ToString(),
+                                          Colada = nu.Sam3_Colada.NumeroColada,
+                                          EstatusDocumental = it.EstatusDocumental,
+                                          EstatusFisico = it.EstatusFisico,
+                                          TipoUso = it.Sam3_TipoUso.Nombre,
+                                          RelFCID = rel.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                          RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
+                                          ColadaOriginal = nu.Sam3_Colada.NumeroColada,
+                                      }).AsParallel().Distinct().ToList());
 
                     //agregar items en bulto
                     listado.AddRange((from fc in ctx.Sam3_FolioCuantificacion
                                       join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
                                       join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                      join it in ctx.Sam3_ItemCode on rbi.ItemCodeID equals it.ItemCodeID
-                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                      where fc.Activo && b.Activo && rbi.Activo && it.Activo && nu.Activo
+                                      join rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals rel.Rel_Bulto_ItemCode_ID
+                                      join nu in ctx.Sam3_NumeroUnico on rel.NumeroUnicoID equals nu.NumeroUnicoID
+                                      join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                      join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                      where fc.Activo && b.Activo && rbi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo 
                                       && fc.FolioCuantificacionID == folioCuantificacionID
                                       && !it.TieneComplementoRecepcion
                                       select new ItemCodeComplemento
                                       {
+                                          NumeroUnicoID = nu.NumeroUnicoID.ToString(),
                                           NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
                                           ItemCode = it.Codigo,
                                           NumeroUnicoCliente = nu.NumeroUnicoCliente,
                                           Descripcion = it.DescripcionEspanol,
-                                          Cedula = nu.Cedula,
+                                          Cedula = (from rbii in ctx.Sam3_Rel_Bulto_ItemCode
+                                           join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rbii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                           join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                           join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                           join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                           join ced in ctx.Sam3_Cedula on ics.CedulaID equals ced.CedulaID
+                                           join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                           where riit.Activo && rids.Activo && ics.Activo && ced.Activo
+                                           && rbii.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
+                                           select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
                                           TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
                                                        where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
                                                        select fa.Nombre).FirstOrDefault(),
-                                          D1 = it.Diametro1.ToString(),
-                                          D2 = it.Diametro2.ToString(),
+                                          D1 = d1.Valor.ToString(),
+                                          D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = it.Cantidad,
+                                          Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                      where nui.NumeroUnicoID == nu.NumeroUnicoID
+                                                      select nui.CantidadRecibida).FirstOrDefault(),
                                           MM = it.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada, 
                                           EstatusDocumental = it.EstatusDocumental, 
                                           EstatusFisico = it.EstatusFisico, 
-                                          TipoUso = it.Sam3_TipoUso.Nombre
+                                          TipoUso = it.Sam3_TipoUso.Nombre,
+                                          RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
+                                          RelBID = rel.Rel_Bulto_ItemCode_ID.ToString(),
+                                          ColadaOriginal = nu.Sam3_Colada.NumeroColada,
                                       }
                         ).AsParallel().Distinct().ToList());
 
@@ -141,6 +179,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -151,7 +192,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        private ItemCodeComplemento ObtenerPropiedadesJson(int itemCodeID)
+        private ItemCodeComplemento ObtenerPropiedadesJson(int relFCID = 0,  int RelBID = 0, int RelNUFCBID = 0)
         {
             try
             {
@@ -159,43 +200,134 @@ namespace BackEndSAM.DataAcces
                 {
                     ItemCodeComplemento item = new ItemCodeComplemento();
                     //Agregamos items con relacion con Folio Cuantificacion
-                    item = (from it in ctx.Sam3_ItemCode
-                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                      where it.Activo && nu.Activo
-                                      && it.ItemCodeID == itemCodeID
-                                      select new ItemCodeComplemento
-                                      {
-                                          NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                                          ItemCode = it.Codigo,
-                                          NumeroUnicoCliente = nu.NumeroUnicoCliente,
-                                          Descripcion = it.DescripcionEspanol,
-                                          Cedula = nu.Cedula,
-                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
-                                                       select fa.Nombre).FirstOrDefault(),
-                                          D1 = it.Diametro1.ToString(),
-                                          D2 = it.Diametro2.ToString(),
-                                          ItemCodeID = it.ItemCodeID,
-                                          ProyectoID = it.ProyectoID,
-                                          Cantidad = it.Cantidad,
-                                          MM = it.MM.ToString(),
-                                          Colada = nu.Sam3_Colada.NumeroColada,
-                                          EstatusDocumental = it.EstatusDocumental,
-                                          EstatusFisico = it.EstatusFisico,
-                                          TipoUso = it.Sam3_TipoUso.Nombre
-                                      }).AsParallel().SingleOrDefault();
+                    if (relFCID > 0)
+                    {
+                        item = (from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                join nu in ctx.Sam3_NumeroUnico on rel.NumeroUnicoID equals nu.NumeroUnicoID
+                                join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rel.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                where it.Activo && nu.Activo && rel.Activo && rfi.Activo && rid.Activo
+                                && rel.Rel_NumeroUnico_RelFC_RelB_ID == RelNUFCBID
+                                select new ItemCodeComplemento
+                                {
+                                    NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                    NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                    ItemCode = it.Codigo,
+                                    NumeroUnicoCliente = nu.NumeroUnicoCliente,
+                                    Descripcion = it.DescripcionEspanol,
+                                    Cedula = (from rfii in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                              join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                              join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                              join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                              join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                              join ced in ctx.Sam3_Cedula on ics.CedulaID equals ced.CedulaID
+                                              join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                              where riit.Activo && rids.Activo && ics.Activo && ced.Activo
+                                              && rfii.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                              select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
+                                    TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                 where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                                 select fa.Nombre).FirstOrDefault(),
+                                    D1 = d1.Valor.ToString(),
+                                    D2 = d2.Valor.ToString(),
+                                    ItemCodeID = it.ItemCodeID,
+                                    ProyectoID = it.ProyectoID,
+                                    Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                where nui.NumeroUnicoID == nu.NumeroUnicoID
+                                                select nui.CantidadRecibida).FirstOrDefault(),
+                                    MM = it.MM.ToString(),
+                                    Colada = (from c in ctx.Sam3_Colada
+                                              where c.ColadaID == rfi.ColadaID
+                                              select c.NumeroColada).FirstOrDefault(),
+                                    EstatusDocumental = it.EstatusDocumental,
+                                    EstatusFisico = it.EstatusFisico,
+                                    TipoUso = it.Sam3_TipoUso.Nombre,
+                                    ColadaID = rfi.ColadaID,
+                                    RelFCID = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                    RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
+                                    Titulo =  "",
+                                    DescripcionIncidencia = "",
+                                    ColadaOriginal = (from c in ctx.Sam3_Colada
+                                                      where c.ColadaID == rfi.ColadaID
+                                                      select c.NumeroColada).FirstOrDefault(),
+                                }).AsParallel().SingleOrDefault();
+                    }
+
+                    if (RelBID > 0)
+                    {
+                        item = (from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                join nu in ctx.Sam3_NumeroUnico on rel.NumeroUnicoID equals nu.NumeroUnicoID
+                                join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rel.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                where it.Activo && nu.Activo && rel.Activo && rbi.Activo && rid.Activo
+                                && rel.Rel_NumeroUnico_RelFC_RelB_ID == RelNUFCBID
+                                select new ItemCodeComplemento
+                                {
+                                    NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                    NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                    ItemCode = it.Codigo,
+                                    NumeroUnicoCliente = nu.NumeroUnicoCliente,
+                                    Descripcion = it.DescripcionEspanol,
+                                    Cedula = (from rbii in ctx.Sam3_Rel_Bulto_ItemCode
+                                              join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rbii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                              join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                              join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                              join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                              join ced in ctx.Sam3_Cedula on ics.CedulaID equals ced.CedulaID
+                                              join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                              where riit.Activo && rids.Activo && ics.Activo && ced.Activo
+                                              && rbii.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
+                                              select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
+                                    TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                 where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                                 select fa.Nombre).FirstOrDefault(),
+                                    D1 = d1.Valor.ToString(),
+                                    D2 = d2.Valor.ToString(),
+                                    ItemCodeID = it.ItemCodeID,
+                                    ProyectoID = it.ProyectoID,
+                                    Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                           where nui.NumeroUnicoID == nu.NumeroUnicoID
+                                                           select nui.CantidadRecibida).FirstOrDefault(),
+                                    MM = it.MM.ToString(),
+                                    Colada = (from c in ctx.Sam3_Colada
+                                              where c.ColadaID == rbi.ColadaID
+                                              select c.NumeroColada).FirstOrDefault(),
+                                    EstatusDocumental = it.EstatusDocumental,
+                                    EstatusFisico = it.EstatusFisico,
+                                    TipoUso = it.Sam3_TipoUso.Nombre,
+                                    ColadaID = rbi.ColadaID,
+                                    RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                    RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
+                                    Titulo =  "",
+                                    DescripcionIncidencia = "",
+                                    ColadaOriginal = (from c in ctx.Sam3_Colada
+                                                      where c.ColadaID == rbi.ColadaID
+                                                      select c.NumeroColada).FirstOrDefault(),
+                                }).AsParallel().SingleOrDefault();
+                    }
+
+                    if (item == null)
+                    {
+                        throw new Exception("Error al obtener las propiedades del Número único");
+                    }
 
 
-                        int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
-                            .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+                    int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
+                        .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
 
-                        string formato = "D" + numeroDigitos.ToString();
+                    string formato = "D" + numeroDigitos.ToString();
 
-                        string[] elementos = item.NumeroUnico.Split('-').ToArray();
+                    string[] elementos = item.NumeroUnico.Split('-').ToArray();
 
-                        int temp = Convert.ToInt32(elementos[1]);
+                    int temp = Convert.ToInt32(elementos[1]);
 
-                        item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
+                    item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
 
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -207,6 +339,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
             }
         }
@@ -215,21 +350,62 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                int relFcId = itemCodeJson.RelFCID != null && itemCodeJson.RelFCID != "" ? Convert.ToInt32(itemCodeJson.RelFCID) : 0;
+                int relBId = itemCodeJson.RelBID != null && itemCodeJson.RelBID != "" ? Convert.ToInt32(itemCodeJson.RelBID) : 0;
+                int relNuId = itemCodeJson.RelNUFCBID != null && itemCodeJson.RelNUFCBID != "" ? Convert.ToInt32(itemCodeJson.RelNUFCBID) : 0;
+
                 TransactionalInformation result = new TransactionalInformation();
                 using (TransactionScope scope = new TransactionScope())
                 {
                     using (SamContext ctx = new SamContext())
                     {
                         Sam3_ItemCode actualizaItem = ctx.Sam3_ItemCode
-                                    .Where(x => x.Codigo == itemCodeJson.ItemCode).SingleOrDefault();
+                                    .Where(x => x.ItemCodeID == itemCodeJson.ItemCodeID && x.Activo).SingleOrDefault();
 
                         string[] elementos = itemCodeJson.NumeroUnico.Split('-').ToArray();
                         int temp = Convert.ToInt32(elementos[1]);
                         string prefijo = elementos[0];
 
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
-                            .Where(x => x.ItemCodeID == actualizaItem.ItemCodeID
-                                && x.Prefijo == prefijo && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID).SingleOrDefault();
+                            .Where(x => x.NumeroUnicoID.ToString() == itemCodeJson.NumeroUnicoID).SingleOrDefault();
+
+                        int coladaID = (from c in ctx.Sam3_Colada
+                                        where c.NumeroColada == itemCodeJson.Colada
+                                        && c.ProyectoID == itemCodeJson.ProyectoID
+                                        select c.ColadaID).AsParallel().SingleOrDefault();
+
+                        if (itemCodeJson.Titulo != "" && itemCodeJson.Titulo != null)
+                        {
+                            Sam3_Incidencia incidencia = new Sam3_Incidencia();
+                            incidencia.Activo = true;
+                            incidencia.ClasificacionID = (from c in ctx.Sam3_ClasificacionIncidencia
+                                                          where c.Activo && c.Nombre == "Materiales"
+                                                          select c.ClasificacionIncidenciaID).AsParallel().SingleOrDefault();
+                            incidencia.Descripcion = itemCodeJson.DescripcionIncidencia;
+                            incidencia.Estatus = "Abierta";
+                            incidencia.FechaCreacion = DateTime.Now;
+                            incidencia.FechaModificacion = DateTime.Now;
+                            incidencia.TipoIncidenciaID = (from tp in ctx.Sam3_TipoIncidencia
+                                                           where tp.Activo && tp.Nombre == "Número único"
+                                                           select tp.TipoIncidenciaID).AsParallel().SingleOrDefault();
+                            incidencia.Titulo = itemCodeJson.Titulo;
+                            incidencia.UsuarioID = usuario.UsuarioID;
+                            incidencia.Version = 1;
+
+                            ctx.Sam3_Incidencia.Add(incidencia);
+                            ctx.SaveChanges();
+
+
+                            Sam3_Rel_Incidencia_NumeroUnico nuevaRelIncidencia = new Sam3_Rel_Incidencia_NumeroUnico();
+                            nuevaRelIncidencia.Activo = true;
+                            nuevaRelIncidencia.FechaModificacion = DateTime.Now;
+                            nuevaRelIncidencia.IncidenciaID = incidencia.IncidenciaID;
+                            nuevaRelIncidencia.NumeroUnicoID = actualizaNU.NumeroUnicoID;
+                            nuevaRelIncidencia.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelIncidencia);
+                            ctx.SaveChanges();
+                        }
 
                         switch (tipoGuardadoID)
                         {
@@ -241,6 +417,7 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
+                                    actualizaNU.ColadaID = coladaID;
                                 }
                                 else
                                 {
@@ -250,12 +427,6 @@ namespace BackEndSAM.DataAcces
                                 if (actualizaItem != null)
                                 {
                                     actualizaItem.MM = itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                    actualizaItem.ColadaID = itemCodeJson.Colada != "" && itemCodeJson.Colada != null ?
-                                        (from co in ctx.Sam3_Colada
-                                         where co.Activo && co.NumeroColada == itemCodeJson.Colada
-                                         select co.ColadaID
-                                        ).SingleOrDefault()
-                                        : 1;
                                     actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
                                     actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
                                     actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
@@ -271,9 +442,22 @@ namespace BackEndSAM.DataAcces
                                     throw new Exception(string.Format("Error al actualizar La informacion del ItemCode {}", itemCodeJson.ItemCode));
                                 }
 
+                                if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == coladaID && x.ItemCodeID == actualizaItem.ItemCodeID).Any())
+                                {
+                                    Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                                    nuevarel.Activo = true;
+                                    nuevarel.ColadaID = coladaID;
+                                    nuevarel.FechaModificacion = DateTime.Now;
+                                    nuevarel.ItemCodeID = actualizaItem.ItemCodeID;
+                                    nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                                    ctx.SaveChanges();
+                                }
+
                                 ctx.SaveChanges();
 
-                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID);
+                                itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
                                 itemCodeJson.TieneError = false;
 
                                 break;
@@ -285,6 +469,7 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
+                                    actualizaNU.ColadaID = coladaID;
                                 }
                                 else
                                 {
@@ -300,12 +485,6 @@ namespace BackEndSAM.DataAcces
                                     }
 
                                     actualizaItem.MM = itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                    actualizaItem.ColadaID = itemCodeJson.Colada != "" && itemCodeJson.Colada != null ?
-                                        (from co in ctx.Sam3_Colada
-                                         where co.Activo && co.NumeroColada == itemCodeJson.Colada
-                                         select co.ColadaID
-                                        ).SingleOrDefault()
-                                        : 1;
                                     actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
                                     actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
                                     actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
@@ -323,7 +502,20 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.SaveChanges();
 
-                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID);
+                                if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == coladaID && x.ItemCodeID == actualizaItem.ItemCodeID).Any())
+                                {
+                                    Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                                    nuevarel.Activo = true;
+                                    nuevarel.ColadaID = coladaID;
+                                    nuevarel.FechaModificacion = DateTime.Now;
+                                    nuevarel.ItemCodeID = actualizaItem.ItemCodeID;
+                                    nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                                    ctx.SaveChanges();
+                                }
+
+                                itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
                                 itemCodeJson.TieneError = false;
 
                                 break;
@@ -345,6 +537,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 itemCodeJson.TieneError = true;
                 return itemCodeJson;
             }

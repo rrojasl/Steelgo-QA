@@ -4,135 +4,432 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
-    </li>
-    <li>
-        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoCatalogos0040"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
     </li>
 }
-<h3>Item Code Steelgo</h3>
-<div class="formNav clearfix">
+
+<div id="formItemCodeSteelgo" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="button-section">
-                <div class="btn-group save-group">
-                    <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
-                    <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="LlegadaMaterial0044"></span></button>
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        @*<div class="button-section">
+                            @*<div class="btn-group save-group">
+                                <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="LlegadaMaterial0044"></span></button>
+                            </div>*@
+                        @*<a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>*@
+                        @*</div>*@
+                        <div class="button-section">
+                            <a href="@Url.Action("AsociacionItemCodes", "Catalogos")" class="btn btn-primary"><span id="ItemCodeSteelGo0004"></span></a>
+                        </div>
+                    </div>
                 </div>
-                <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
             </div>
-            <div class="button-section">
-                <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="ItemCodeSteelGo0004"></span></a>
-            </div>
-            <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
         </div>
     </div>
 </div>
+
 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div id="grid"></div>
 </div>
 
 <script>
 @section JavascriptGlobalVariables {
-}
+    editado = false;
+    var idDiam1 = 0;
+    var valDiam1 = "";
+    var valDiam2 = "";
+    var idDiam2 = 0;
+    var $ItemCodeSteelGoModel = {
+        listContainer: {
+            create: ".k-grid-add",
+            list: ["#grid", ".k-combobox"],
+            detail: "",
+            destroy: ".k-grid-delete"
+        },
+        properties: {}
+    };
+    }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
+        cargarInicialGrid();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
-    function cargarInicialGrid(val) {
-    };
-    
-    $("#grid").kendoGrid({
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    id:"ItemCodeSteelgoID",
-                    fields: {
-                        ItemCodeSteelgoID: { editable: false, nullable: true },
-                        DescripcionEspanol: { type:"string",validation: { required: false } },
-                        DescripcionIngles: { type:"string",validation: { required: false } },
-                        Peso: { type:"number", validation: { required: true } },
-                        Diametro1: { type:"number", validation: { required: false } },
-                        Diametro2: { type:"number", validation: { required: false } },
-                        FamiliaAceroID: { type:"number", validation: { required: true } },
-                        Area: { type:"number", validation: { required: false } },
-                        Cedula: { type:"string",validation: { required: false } },
-                        Codigo: { type:"string",validation: { required: false } },
+    function getDropData(e) {
+        var id = e.sender._old;
+        var nombre = e.sender._prev;
+        var grid = $("#grid").data("kendoGrid");
+        var dirty = $.map(grid._data, function (obj, index) {
+            if (obj.dirty == true) {
+                return index;
+            }
+        });
+        return { id: id, nombre: nombre, posicion: dirty[dirty.length - 1] }
+    }
+
+    //$("#Cancelar").on("click",function(){
+    //    var options = $("#grid").data("kendoGrid").options;
+    //    $("#grid").data("kendoGrid").destroy();
+    //    $("#grid").empty().kendoGrid(options);
+    //})
+
+    function ObtenerDiametros(container, options) {
+        $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+               .appendTo(container)
+               .kendoComboBox({
+                   autoBind: false,
+                   dataSource: {
+                       type: "json",
+                       serverFiltering: true,
+                       transport: {
+                           read: $DiametrosCatalogos + "token=" + Cookies.get("token")
+                       }
+                   },
+                   select: function (e) {
+                       var dataItem = this.dataItem(e.item.index());
+                   },
+                   change: function (e) {
+                       var value = this.text();
+                       if (this.selectedIndex == -1) {
+                           messageindexKendoCombobox(this);
+                           this.value("");
+                       }
+                       //$('#grid').data('kendoGrid').refresh();
+                   },
+                   filter: "contains",
+               });
+    }
+
+    function cargarInicialGrid() {
+        $("#grid").kendoGrid({
+            columns: [
+                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "Rel_ICS_DiametroID", title: "rel", width: "150px", hidden: true },
+                { field: "Diametro1ID", title: "d1 id", width: "150px", hidden: true },
+                {
+                    field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $DiametrosCatalogos + "token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            change: function (e) {
+                                var value = this.text();
+                                if (this.selectedIndex == -1) {
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro1 = data.nombre;
+                            },
+                            filter: "contains",
+                            dataTextField: "value",
+                            dataValueField: "id"
+                        });
                     }
-                }
-            },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            transport:{
-                read:{
-                    url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
-                    dataType:"json",
-                    type:"GET",
-                    cache: false
                 },
-                create:{
-                    url:"",
-                    dataType:"json",
-                    type:"POST",
-                    cache: false
-                },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
+                { field: "Diametro2ID", title: "d2id", width: "150px", hidden: true },
+                {
+                    field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $DiametrosCatalogos + "token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            change: function (e) {
+                                var value = this.text();
+                                if (this.selectedIndex == -1) {
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
+
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = data.nombre;
+                            },
+                            filter: "contains",
+                            dataTextField: "value",
+                            dataValueField: "id"
+                        });
+
+                        //$('#grid').data('kendoGrid').refresh();
                     }
-                }
+                },
+                {
+                    field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Grupo.Grupo.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].GrupoID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Grupo = data.nombre;
+                            },
+                            dataTextField: "value",
+                            dataValueField: "id"
+                        });
+                    }
+                },
+                {
+                    field: "Acero", title: _dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Familia.Familia.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].AceroID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Acero = data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "FamiliaAceroID"
+                        });
+                    }
+                },
+                { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "CedulaB", title: _dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "Libra", title: _dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()], width: "165px" },
+                { field: "Inch", title: _dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "MM", title: "MM", width: "150px" },
+                { field: "Espesor", title: _dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "Peso", title: _dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "Area", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { command: "edit", title: "Editar", width: "91px" },
+                { command: "destroy", title: "Borrar", width: "91px" }
+
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id: "ItemCodeSteelgoID",
+                        fields: {
+                            ItemCodeSteelgoID: { editable: false, nullable: true },
+                            Codigo: { type: "string", validation: { required: true } },
+                            Descripcion: { type: "string", validation: { required: false } },
+                            DescripcionLarga: { type: "string", validation: { required: false } },
+                            DescripcionIngles: { type: "string", validation: { required: false } },
+                            DescripcionLargaIngles: { type: "string", validation: { required: false } },
+                            Rel_ICS_DiametroID: { editable: false, nullable: true },
+                            Diametro1ID: { editable: false, nullable: true },
+                            Diametro1: { type: "string", validation: { required: true } },
+                            Diametro2ID: { editable: false, nullable: true },
+                            Diametro2: { type: "string", validation: { required: true } },
+                            Grupo: { type: "string", validation: { required: false } },
+                            GrupoID: { editable: false, nullable: true },
+                            Acero: { type: "string", validation: { required: false } },
+                            AceroID: { editable: false, nullable: true },
+                            CedulaID: { editable: false, nullable: true },
+                            CedulaA: { type: "string", validation: { required: false } },
+                            CedulaB: { type: "string", validation: { required: false } },
+                            Libra: { type: "string", validation: { required: false } },
+                            Inch: { type: "number", validation: { required: false }, editable: false },
+                            MM: { type: "number", validation: { required: false }, editable: false },
+                            Espesor: { type: "number", validation: { required: true }, editable: false },
+                            Peso: { type: "decimal", validation: { required: false }, editable: true },
+                            Area: { type: "number", validation: { required: false }, editable: true },
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                transport: {
+                    read: {
+                        url: $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token"),
+                        dataType: "json",
+                        type: "GET",
+                        cache: false
+                    },
+                    create: {
+                        url: "save",
+                        dataType: "json",
+                        type: "POST",
+                        cache: false
+                    },
+                    update: {
+                        url: "update",
+                        dataType: "json",
+                        type: "PUT",
+                        cache: false
+                    },
+                    destroy: {
+                        url: "destroy",
+                        dataType: "json",
+                        type: "DELETE",
+                        cache: false
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
             },
             autoHeight: true,
             sortable: true,
-            scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            scrollable: true,
+            //filterable: {
+            //    extra: false,
+            //    operators: {
+            //        string: {
+            //            startswith: "Starts with",
+            //            eq: "Is equal to",
+            //            neq: "Is not equal to"
+            //        }
+            //    }
+            //},
+            filterable: { extra: false },
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             toolbar: ["create"],
-            save: function(e) {
-                console.log(e);
+            editable: "inline",
+            save: function (e) {
+                if ((e.model.id === null || e.model.id === "") && (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))) {
+                    var grid = $("#grid").data("kendoGrid");
+                    var data = {};
+                    for (f in grid.options.dataSource.schema.model.fields) {
+                        data[f] = e.model[f];
+                    }
+                    grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
+                    editado = false;
+                } else if ((e.model.id !== null && e.model.id !== "") && (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))) {
+                    var grid = $("#grid").data("kendoGrid");
+                    var data = {};
+                    for (f in grid.options.dataSource.schema.model.fields) {
+                        data[f] = e.model[f];
+                    }
+                    grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
+                    editado = false;
+                } else {
+                    grid.options.dataSource.transport.create.url = "save";
+                    grid.options.dataSource.transport.update.url = "update";
+                    displayMessage("ItemCodeSteelGo0020", "", '1');
+                }
             },
-            remove: function(e) {
-                console.log(e);
+            edit: function (e) {
+                if (e.model.id) {
+                    $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change", function () {
+                        if (editado == false) {
+                            var input = this;
+                            $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']").each(function () {
+                                if (this !== input) {
+                                    e.model[this.name] = null;
+                                }
+                            })
+                            e.model[this.name] = this.value.toString();
+                            e.model.Inch = 0;
+                            e.model.MM = 0;
+                            e.model.Espesor = 0;
+                            //e.model.Peso=0;
+                            //e.model.Area=0;
+                            $("#grid").data("kendoGrid").refresh();
+                            $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
+                            editado = true;
+                        }
+                    })
+                }
+                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).blur(function () {
+                    var data = {};
+                    var i = $(this);
+                    if (e.model.Diametro1 !== null && e.model.Diametro1 !== "") {
+                        data['CedulaA'] = e.model.CedulaA;
+                        data['CedulaB'] = e.model.CedulaB;
+                        data['Libra'] = e.model.Libra;
+                        data["Diametro1"] = e.model.Diametro1;
+                        data["Diametro1ID"] = e.model.Diametro1ID;
+                        data["Diametro2ID"] = e.model.Diametro2ID;
+                        data["Diametro2"] = e.model.Diametro2;
+                       
+                        $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
+                            if (data === null) {
+                                displayMessage("ItemCodeSteelGo0021", "", '2');
+                            } else {
+                                e.model.CedulaID = data.CedulaID;
+                                e.model.CedulaA = data.CedulaA;
+                                e.model.CedulaB = data.CedulaB;
+                                e.model.Libra = data.CedulaC;
+                                e.model.Inch = data.CedulaIn;
+                                e.model.MM = data.CedulaMM;
+                                e.model.Espesor = data.Espesor;
+                                //e.model.Peso=data.Peso;
+                                //e.model.Area=data.Area;
+                                $("#grid").data("kendoGrid").refresh();
+                                $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
+                            }
+                        });
+                    } else {
+                        displayMessage("ItemCodeSteelGo0022", "", '1');
+                    }
+                });
             },
-            dataBound: function(e) {
-                console.log(e);
-            }
-        }
-    });
-    loadingStop();
-};
+            cancel: function (e) {
+                editado = false;
+            },
+            remove: function (e) {
+                if (e.model.id !== null && e.model.id !== "") {
+                    $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&id=" + e.model.id + "&diametrosICS=" + e.model.Rel_ICS_DiametroID;
+                } else {
+                    $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = "delete";
+                    displayMessage("ItemCodeSteelGo0023", "", '2');
+                }
+            },
+            dataBound: function (e) {
+                ////console.log(e);
+            },
+        });
+    };
+    };
 
-@section JavascriptDocumentReadyFunctions {
-};
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["ItemCodeSteelGo"] = $ItemCodeSteelGoModel;
+    };
     
-@section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "7", { path: '/' });
-};
+    @section JavascriptDocumentReadyHomeCookie {
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "44", { path: '/' });
+    };
 
 </script>

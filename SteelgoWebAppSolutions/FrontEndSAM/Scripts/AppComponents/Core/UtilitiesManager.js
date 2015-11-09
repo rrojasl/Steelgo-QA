@@ -83,3 +83,172 @@ function toggleSideMenu() {
         $(".content-container").toggleClass("expanded");
     }
 }
+
+//Function to redirect properly with the specified language
+function redirectToLanguage(event,link) {
+    event.preventDefault();
+    window.location.href = link.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+}
+
+//Function to remove any grid
+function removeGrid(grid) {
+    var tmp = [];
+    try {
+        tmp = grid.data("kendoGrid").dataSource.data() || grid.data("kendoGrid").options.dataSource.data()
+    } catch (e) { }
+    var contenedor = grid.parent();
+    grid.remove();
+    contenedor.append("<div id='" + grid.attr("id") + "' class='" + grid.attr("class") + "'></div>");
+    return tmp;
+}
+
+function messageindexKendoCombobox(obj) {
+    if (obj.selectedIndex == -1) {
+        var elemento = obj.list.attr("id");
+        var index = elemento.indexOf("-");
+        var valor = elemento.substring(0, index);
+
+        displayMessage("notificationslabel0083", $("#" + valor).closest("div").find("label").text(), '1');
+    };
+};
+
+function modificarResultTextoKendoCombobox(id, result, lng) {
+    if (result.length > 0) {
+        if (result[0].Placas == "Agregar nuevo" || result[0].Placas == "Add new") {
+            switch (id) {
+                case "Tracto":
+                    if (lng == "es-MX") {
+                        result[0].Placas = "Agregar nuevo";
+                    } else {
+                        result[0].Placas = "Add new";
+                    }
+                    break;
+                default:
+                    if (lng == "es-MX") {
+                        result[0].Nombre = "Agregar nuevo";
+                    } else {
+                        result[0].Nombre = "Add new";
+                    }
+                    break;
+            }
+        }
+    };
+    return result;
+};
+function modificartextoKendoCombobox(controls, lng) {
+    $(controls).each(function (i, obj) {
+        switch ($(obj).attr("id")) {
+            case "Tracto":
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if ($(obj).data("kendoComboBox").dataSource.data()[0].Placas == "Agregar nuevo"
+                        || $(obj).data("kendoComboBox").dataSource.data()[0].Placas == "Add new")
+                    {
+                        if (lng == "es-MX") {
+                            $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Agregar nuevo";
+                        } else {
+                            $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Add new";
+                        }
+                    }
+                    $(obj).data("kendoComboBox").refresh();
+                }
+                break;
+            case "PlanaID":
+                if ($(obj).data("kendoMultiSelect").dataSource.data().length) {
+                    if ($(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre == "Agregar nuevo"
+                        || $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre == "Add new")
+                    {
+                        if (lng == "es-MX") {
+                            $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Agregar nuevo";
+                        } else {
+                            $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Add new";
+                        }
+                    }
+                    $(obj).data("kendoMultiSelect").refresh();
+                }
+                break;
+            default:
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if ($(obj).data("kendoComboBox").dataSource.data()[0].Nombre == "Agregar nuevo"
+                            || $(obj).data("kendoComboBox").dataSource.data()[0].Nombre == "Add new") {
+                        if (lng == "es-MX") {
+                            $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Agregar nuevo";
+                        } else {
+                            $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Add new";
+                        }
+                        $(obj).data("kendoComboBox").refresh();
+                    }
+                };
+                break;
+
+        };
+
+    });
+};
+
+function esNumero(n) {
+    var patron = /^\d*$/;
+    return patron.test(n);
+}
+
+//Ajusta el tamaño de los filtros rápidos a las columnas del grid
+//Funcion: resizeFilters
+//Parametros: N/A
+//Return:     N/A
+/*function resizeFilters() {   
+    $("#grid .k-grid-header tr th:visible").each(function (i, obj) {
+        var wd = 0;
+        wd = $(this).outerWidth(true);
+        //console.log("th: "+i+" width: "+$(this).outerWidth(true));
+        $("#filterContainer > div").find("input").each(function (index, event) {
+            if (i == index) {
+                $(this).outerWidth(wd + 1.4);
+                //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+            }
+        });
+    });
+    $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth() + 0.6);
+
+    $(window).resize(function () {
+        $("#grid .k-grid-header tr th").each(function (i, obj) {
+            var wd = 0
+            wd = $(this).outerWidth(true);
+            //console.log("th: "+i+" width: "+$(this).outerWidth(true));
+            $("#filterContainer > div").find("input").each(function (index, event) {
+                if (i == index) {
+                    $(this).outerWidth(wd + 1.4);
+                    //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+                }
+            });
+        });
+        $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth() + 0.6);
+    });
+}*/
+
+//function niceDeleteTemplate() {
+//    return { command: [
+//            {
+//                name: _dictionary["KendoDeleteTxt0003"][$("#language").data("kendoDropDownList").value()],
+//                click: function(e){
+//                    var window = $("#window").kendoWindow({
+//                        title: _dictionary["KendoDeleteTxt0003"][$("#language").data("kendoDropDownList").value()],
+//                        visible: false, //the window will not appear before its .open method is called
+//                        width: "400px",
+//                        height: "200px",
+//                    }).data("kendoWindow");
+//                    var tr = $(e.target).closest("tr");
+//                    var data = this.dataItem(tr);
+//                    window.content('<div id="windowTemplate"><p>' + _dictionary.KendoDeleteTxt0001[$("#language").data("kendoDropDownList").value()] + '</p><button class="k-button" id="yesButton">' + _dictionary.KendoDeleteTxt0002[$("#language").data("kendoDropDownList").value()] + '</button> <button class="k-button" id="noButton">No</button></div>');
+//                    window.open().center();  
+
+//                    $("#KendoDeleteTxt0002").click(function(){
+//                        grid.dataSource.remove(data)
+//                        grid.dataSource.sync()
+//                        window.close();
+//                    })
+//                    $("#noButton").click(function(){
+//                        window.close();
+//                    })
+//                }                              
+//            }
+//    ]}
+//}

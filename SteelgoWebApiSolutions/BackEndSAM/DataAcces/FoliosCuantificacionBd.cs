@@ -52,6 +52,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -61,6 +64,7 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
         public object CambiarEstatus(int folioCuantificacionID, Sam3_Usuario usuario)
         {
             try
@@ -87,6 +91,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -121,6 +128,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -149,6 +159,7 @@ namespace BackEndSAM.DataAcces
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
                                  join e in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoLlegadaID equals e.FolioAvisoLlegadaID
                                  where t.FolioAvisoLlegadaID == folioAvisoLlegadaID && t.Activo && p.Activo && e.Activo
+                                 && p.ProyectoID != 1
                                  select new Proyecto
                                  {
                                      ProyectoID = p.ProyectoID.ToString(),
@@ -175,6 +186,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -223,6 +237,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -283,6 +300,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -308,17 +328,27 @@ namespace BackEndSAM.DataAcces
 
                     List<int> idItemCodeBulto = null;
 
-                    //Obtengo los item codes que tienen los bultos
+                    //Obtengo los id de las relaciones con Itemcode
                     foreach (int bulto in idBulto)
                     {
-                        idItemCodeBulto.AddRange(ctx.Sam3_Rel_Bulto_ItemCode
-                        .Where(x => x.BultoID == bulto && x.Activo)
-                        .Select(b => b.ItemCodeID).AsParallel().ToList());
+                        idItemCodeBulto.AddRange((from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                  join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                  where rbi.BultoID == bulto
+                                                  select rid.Rel_ItemCode_Diametro_ID).AsParallel().ToList());
+                            
+                         //ctx.Sam3_Rel_Bulto_ItemCode
+                        //.Where(x => x.BultoID == bulto && x.Activo)
+                        //.Select(b => b.ItemCodeID).AsParallel().ToList());
                     }
 
-                    List<int> idItemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                        .Where(x => x.FolioCuantificacionID == folioCuant)
-                        .Select(i => i.ItemCodeID).AsParallel().ToList();
+                    //obtengo los id de las relaciones con itemcode
+                    List<int> idItemCode = (from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                            where rfi.FolioCuantificacionID == folioCuant
+                                            select rid.Rel_ItemCode_Diametro_ID).AsParallel().ToList();
+                        //ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                        //.Where(x => x.FolioCuantificacionID == folioCuant)
+                        //.Select(i => i.ItemCodeID).AsParallel().ToList();
 
                     List<bool> tieneNU = null;
 
@@ -352,7 +382,7 @@ namespace BackEndSAM.DataAcces
                             foreach (int icid in idItemCodeBulto)
                             {
                                 Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode
-                               .Where(x => x.BultoID == id && x.ItemCodeID == icid && x.Activo).AsParallel().SingleOrDefault();
+                               .Where(x => x.BultoID == id && x.Rel_ItemCode_Diametro_ID == icid && x.Activo).AsParallel().SingleOrDefault();
                                 relBulto.Activo = false;
                                 relBulto.UsuarioModificacion = usuario.UsuarioID;
                                 relBulto.FechaModificacion = DateTime.Now;
@@ -364,13 +394,13 @@ namespace BackEndSAM.DataAcces
                         {
                             //
                             Sam3_Rel_FolioCuantificacion_ItemCode folio = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                .Where(x => x.ItemCodeID == id && x.FolioCuantificacionID == folioCuant && x.Activo).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_ItemCode_Diametro_ID == id && x.FolioCuantificacionID == folioCuant && x.Activo).AsParallel().SingleOrDefault();
                             folio.Activo = false;
                             folio.UsuarioModificacion = usuario.UsuarioID;
                             folio.FechaModificacion = DateTime.Now;
 
                             Sam3_Rel_ItemCode_ItemCodeSteelgo rics = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                               .Where(x => x.ItemCodeID == id).AsParallel().SingleOrDefault();
+                               .Where(x => x.Rel_ItemCode_Diametro_ID == id).AsParallel().SingleOrDefault();
 
                             rics.Activo = false;
                             rics.UsuarioModificacion = usuario.UsuarioID;
@@ -382,7 +412,7 @@ namespace BackEndSAM.DataAcces
                         foreach (int item in idItemCodeBulto)
                         {
                             Sam3_Rel_ItemCode_ItemCodeSteelgo rics = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                .Where(x => x.ItemCodeID == item).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_ItemCode_Diametro_ID == item).AsParallel().SingleOrDefault();
 
                             rics.Activo = false;
                             rics.UsuarioModificacion = usuario.UsuarioID;
@@ -409,6 +439,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -438,6 +471,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -472,6 +508,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -482,21 +521,160 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
-            DateTime fechaInicial, DateTime fechaFinal)
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios,
+            List<int> foliosCuantificacionIDs, DateTime fechaInicial, DateTime fechaFinal)
         {
             try
             {
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_FolioCuantificacion> registros = new List<Sam3_FolioCuantificacion>();
+                    if (proyectoID > 0)
+                    {
+                        registros = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                                    join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                                                    join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                    where fc.Activo && fc.Activo
+                                                                    && proyectos.Contains(p.ProyectoID)
+                                                                    && patios.Contains(pa.PatioID)
+                                                                    && p.ProyectoID == proyectoID
+                                                                    && foliosCuantificacionIDs.Contains(fc.FolioCuantificacionID)
+                                                                    select fc).AsParallel().Distinct().ToList();
+                    }
+                    else
+                    {
+                        registros = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where fc.Activo && fc.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && foliosCuantificacionIDs.Contains(fc.FolioCuantificacionID)
+                                     select fc).AsParallel().Distinct().ToList();
+                    }
 
+                    if (clienteID > 0)
+                    {
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = (from r in registros
+                                     join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                     where fe.Activo && fe.ClienteID == sam3Cliente
+                                     select r).AsParallel().Distinct().ToList();
+                    }
+
+                    listado = (from r in registros
+                               join rfi in ctx.Sam3_Rel_Incidencia_FolioCuantificacion on r.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                               join inc in ctx.Sam3_Incidencia on rfi.IncidenciaID equals inc.IncidenciaID
+                               join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
+                               join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               where rfi.Activo && inc.Activo
+                               select new ListadoIncidencias
+                               {
+                                   Clasificacion = c.Nombre,
+                                   Estatus = inc.Estatus,
+                                   FechaRegistro = inc.FechaCreacion.ToString(),
+                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   RegistradoPor = (from us in ctx.Sam3_Usuario
+                                                    where us.Activo
+                                                    && us.UsuarioID == inc.UsuarioID
+                                                    select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
+                                   TipoIncidencia = tpi.Nombre
+                               }).AsParallel().Distinct().ToList();
+                               
                 }
-                return null;
+                return listado;
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para obtener los proyectos para el combo Proyecto de cuantificacion
+        /// sin incluir el Proyecto Default
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object ObtenerListadoProyectosCuantificacion(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> patios;
+                    List<int> proyectos;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
+                    List<Proyecto> lstProyectos = (from r in ctx.Sam3_Proyecto
+                                                   join c in ctx.Sam3_Cliente on r.ClienteID equals c.ClienteID
+                                                   where r.Activo && proyectos.Contains(r.ProyectoID) && r.ProyectoID != 1
+                                                   select new Proyecto
+                                                   {
+                                                       Nombre = r.Nombre,
+                                                       ProyectoID = r.ProyectoID.ToString(),
+                                                       ClienteID = c.Sam2ClienteID.ToString()
+                                                   }).AsParallel().ToList();
+
+                    lstProyectos = lstProyectos.GroupBy(x => x.ProyectoID).Select(x => x.First()).ToList();
+                    return lstProyectos;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerTipoUsoPorProyecto(int proyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
+                                       join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
+                                       where pc.ProyectoID == proyectoID && pc.Activo && tu.Activo
+                                       select new TipoUso
+                                       {
+                                           id = tu.TipoUsoID.ToString(),
+                                           Nombre = tu.Nombre
+                                       }).AsParallel().SingleOrDefault();
+
+                    return tipoUso;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 

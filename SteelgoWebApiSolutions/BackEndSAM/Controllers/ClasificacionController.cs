@@ -18,20 +18,26 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ClasificacionController : ApiController
     {
-        public IEnumerable<Clasificacion> Get(string token)
+        public object Get(string token)
         {
-            List<Clasificacion> LstClasificacion = new List<Clasificacion>();
-            Clasificacion clasificacion1 = new Clasificacion();
-            clasificacion1.ClasificacionID = "1001";
-            clasificacion1.Nombre = "Clasificacion 1";
-            LstClasificacion.Add(clasificacion1);
-
-            Clasificacion clasificacion2 = new Clasificacion();
-            clasificacion2.ClasificacionID = "1002";
-            clasificacion2.Nombre = "Clasificacion 2";
-            LstClasificacion.Add(clasificacion2);
-
-            return LstClasificacion.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return IncidenciaBd.Instance.Clasificaciones(usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }

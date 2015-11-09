@@ -192,7 +192,8 @@ label {
     }
 
     #window label.checkLabel,
-    .popup label.checkLabel {
+    .popup label.checkLabel,
+    .form label.checkLabel {
         display: inline-block;
     }
 
@@ -254,7 +255,7 @@ input {
     outline: none;
     box-shadow: none;
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }    
 
     input:focus {
@@ -305,6 +306,7 @@ input {
     font-size: 14px;
     padding: 0 5px;
     z-index: 1;
+    -webkit-appearance: none;
 }
 
     .content-container .form input.general-input:focus {
@@ -323,11 +325,12 @@ input {
     margin: 4px auto 0;
     outline: none;
     border: none;
-    box-shadow: none !important;    
+    box-shadow: none !important;        
 }
 
 #window input[type="checkbox"], 
-.popup input[type="checkbox"] {
+.popup input[type="checkbox"],
+#formBusqueda input[type="checkbox"] {
     width: auto!important;
     position: relative;
     top: 2px; 
@@ -335,36 +338,37 @@ input {
 
 input.quickFilters {
     position: relative;
-    width: 31.34%;
+    //width: 31.34%;
+    width: auto;
     margin: 0 -5px -1px 0;
 }
 
-    input.quickFilters:first-of-type {
-        width: 31.33%;
+    input.quickFilters[disabled] {
+        background: #FFFFFF;
+        opacity: 1!important;
+        max-width: 100px;
+        //min-width: 100px;
+        width: 100px;
     }
 
-    input.quickFilters:last-of-type {
-        width: 6.2%;
-    }
-
-        input.quickFilters:last-of-type[disabled] {
-            background: #FFFFFF;
-            opacity:1!important;
+        input.quickFilters[disabled]:last-of-type.scroll {
+            max-width: 17px;
+            min-width: 17px;
         }
 
-.expanded input.quickFilters {
+/*.expanded input.quickFilters {
     width: 31.54%;
 }
 
     .expanded input.quickFilters:first-of-type {
-        width: 31.55%;
-    }
+        width: 31.55%;        
+    }*/
 
-    .expanded input.quickFilters:last-of-type {
+/*.expanded input.quickFilters.button-input {
         width: 5.54%;
-    }
+    }*/
 
-input.quickFilters.arrivalMaterial {
+/*input.quickFilters.arrivalMaterial {
     width: 18.57%;
 }
 
@@ -386,7 +390,7 @@ input.quickFilters.arrivalMaterial {
 
     .expanded input.quickFilters.arrivalMaterial:last-of-type {
         width: 6.7%;
-    }
+    }*/
 
 .content-container .input-group .input-group-btn a {
     padding: 19px 18px;
@@ -397,6 +401,14 @@ input.quickFilters.arrivalMaterial {
     background-repeat: no-repeat;
 }
 
+.content-container .form textarea {
+    width: 100%;
+    border: 1px solid #CCCCCC!important;
+    resize:none;
+    overflow:auto;
+    border-radius: 0!important;
+    -webkit-appearance: none;
+}
 /**********************************************************************************/
 
 
@@ -519,6 +531,10 @@ input.quickFilters.arrivalMaterial {
     font-size: 14px;
     margin: 6px 0px 3px 0;
     white-space: normal;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 0;
 }
 
 .btn-tab.Accesorios label,
@@ -527,6 +543,11 @@ input.quickFilters.arrivalMaterial {
 }
 
 .btn-tab span {
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    right: 0;
+    width: 100%;
     color: #305E8D;
     font-size: 50px;
     letter-spacing: 1.1px;
@@ -722,6 +743,16 @@ input.quickFilters.arrivalMaterial {
 #massiveUpload.btn {
     margin-bottom: 3px;
 }
+
+/*Form button without label*/
+.standalone {
+    margin-top: 24px;
+}
+
+    .standalone > .btn {
+        position: relative;
+        top: -5px;
+    }
 /**********************************************************************************/
 
 
@@ -827,7 +858,8 @@ h2 {
         margin-left: -1px!important;
     }
 
-    .btn.btn-tabList {
+    .btn.btn-tabList,
+    .btn.btn-tabList:hover {
         height: 50px;
         white-space: normal;
         padding: 4px;
@@ -843,14 +875,29 @@ h2 {
         letter-spacing: 0;
     }
 
-    /*input*/
+    .standalone {
+    margin-top: 0;
+}
+
+    .standalone > .btn,
+    #selectFiles, #fcarga {
+        width: 100%;
+    }
+
+    /*$_input*/
+    .content-container .form input[type="radio"] {
+        width: auto;
+        text-align: center;
+        margin: 4px 45% 0;        
+    }
+
     input.quickFilters,
     .expanded input.quickFilters {
-        width: 25%;
+        //width: 25%;
         -webkit-appearance: none;
     }
 
-        input.quickFilters:first-of-type,
+        /*input.quickFilters:first-of-type,
         .expanded input.quickFilters:first-of-type {
             width: 24.9%;
         }
@@ -858,7 +905,7 @@ h2 {
         input.quickFilters:last-of-type,
         .expanded input.quickFilters:last-of-type {
             width: 25.96%;
-        }
+        }*/
 
     /*$_dropdown*/
     .dropdown-menu > li > a {
@@ -890,8 +937,13 @@ h2 {
         width: 14.41%;
     }
 
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
+    }    
+
     /*input*/
-    input.quickFilters {
+    /*input.quickFilters {
         width: 27.1%;
     }
 
@@ -937,7 +989,16 @@ h2 {
 
         .expanded input.quickFilters.arrivalMaterial:last-of-type {
             width: 18.6%;
-        }
+        }*/
+
+    .content-container .form input[type="radio"] {
+        width: auto;
+        margin: 4px 48% 0;
+    }
+
+    .content-container #formDespacho.form input[type="radio"] {
+        margin: 4px 38% 0;
+    }
 }
 
 /* tablet viewport*/
@@ -953,9 +1014,13 @@ h2 {
         margin-top: 21px;
     }
 
+    .standalone > .btn {
+        width: 100%;
+    }
+
     /*.formButtons {
         margin-top: 25px;
-    }*/
+    }*/    
 }
 
 @media (max-width: 1199px) {
@@ -966,7 +1031,7 @@ h2 {
     }
 
     .btn-tab span {
-        font-size: 36px;
+        font-size: 46px;        
     }
 }
 
@@ -979,7 +1044,7 @@ h2 {
     }
 
     /*input*/
-    input.quickFilters {
+    /*input.quickFilters {
         width: 28.83%;
     }
 
@@ -1025,7 +1090,13 @@ h2 {
 
         .expanded input.quickFilters.arrivalMaterial:last-of-type {
             width: 13.4%;
-        }
+        }*/
+
+    .content-container .form input[type="radio"] {
+        width: auto;
+        margin: 4px 45% 0;
+    }
+   
 }
 
 /* lg viewport */

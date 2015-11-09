@@ -29,5 +29,8 @@ namespace BackEndSAM.Models
         public string TipoMaterialID { get; set; }
         public string ItemCodeID { get; set; }
         public string FolioCuantificacionID { get; set; }
+        public string PaginaID { get; set; }
+        public string Idioma { get; set; }
+        public string UnidadDeMedida { get; set; }
     }
 }

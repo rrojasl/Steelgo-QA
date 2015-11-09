@@ -40,7 +40,7 @@ namespace BackEndSAM.DataAcces
         }
 
 
-        public PerfilJson ObtenerPerfilJsonPorID(int perfilID, int paginaID)
+        public PerfilJson ObtenerPerfilJsonPorID(int perfilID, int paginaID, Sam3_Usuario usuario)
         {
             PerfilJson perfil;
             using (SamContext ctx = new SamContext())
@@ -64,6 +64,8 @@ namespace BackEndSAM.DataAcces
                 perfil.layout.destroy = perfil_entidad.PermisoEliminacion;
                 perfil.layout.detail = perfil_entidad.PermisoDetalle;
                 perfil.layout.list = perfil_entidad.PermisoListado;
+                perfil.layout.createIncidence = perfil_entidad.PermisoCapturaIncidencia;
+                perfil.layout.solutionincidence = perfil_entidad.PermisoSolucionIncidencia;
 
                 //obtenemos la lista de propiedades por perfil y entidad
                 List<Properties> lstProperties = (from p in ctx.Sam3_Rel_Perfil_Propiedad_Pagina
@@ -126,9 +128,16 @@ namespace BackEndSAM.DataAcces
                 quickLinks.editable = false;
                 quickLinks.visible = true;
                 quickLinks.type = "quicklinks";
-                quickLinks.elements.Add(new QuickLinksElement{ liga = "Home/Index.cshtml", texto = "Link rapido 1"});
-                quickLinks.elements.Add(new QuickLinksElement{ liga = "Home/Index.cshtml", texto = "Link rapido 2"});
 
+                quickLinks.elements.AddRange(from relup in ctx.Sam3_Rel_Usuario_Preferencia
+                                             join pref in ctx.Sam3_Preferencia on relup.PreferenciaID equals pref.PreferenciaId
+                                             where relup.Activo && pref.Activo 
+                                             && relup.UsuarioID == usuario.UsuarioID
+                                             select new QuickLinksElement
+                                             {
+                                                 liga = relup.ValorPreferencia,
+                                                 texto = pref.Nombre
+                                             });
 
                 //agregamos los elementos de menu
                 perfil.layout.navigation.Add(objsidemenu);
@@ -147,7 +156,9 @@ namespace BackEndSAM.DataAcces
                                                   create = lst.PermisoCreacion,
                                                   destroy = lst.PermisoEliminacion,
                                                   detail = lst.PermisoDetalle,
-                                                  list = lst.PermisoListado
+                                                  list = lst.PermisoListado,
+                                                  createIncidence = lst.PermisoCapturaIncidencia,
+                                                  solutionincidence = lst.PermisoSolucionIncidencia
                                               }).ToList();
 
                 lstEntidades = lstEntidades.GroupBy(x => x.entityName).Select(x => x.First()).ToList();
@@ -185,6 +196,32 @@ namespace BackEndSAM.DataAcces
             //JavaScriptSerializer serializer = new JavaScriptSerializer();
             //string json = serializer.Serialize(perfil);
             return perfil;
+        }
+
+        public object VerificarPermisoCreacion(int perfilID, string entidad, int paginaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    bool tienePermiso = (from rep in ctx.Sam3_Rel_Perfil_Entidad_Pagina
+                                         join ent in ctx.Sam3_Entidad on rep.EntidadID equals ent.EntidadID
+                                         where rep.Activo
+                                         && rep.PerfilID == perfilID
+                                         && ent.Nombre == entidad
+                                         && rep.PaginaID == paginaID
+                                         select rep.PermisoCreacion).AsParallel().SingleOrDefault();
+
+                    return tienePermiso;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                return false;
+            }
         }
     }
 }

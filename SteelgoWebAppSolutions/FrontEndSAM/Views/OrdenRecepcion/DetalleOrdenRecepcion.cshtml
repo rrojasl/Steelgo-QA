@@ -30,18 +30,13 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
-                            @*<div class="btn-group save-group">
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenAlmacenaje0002"></span></button>
+                        <div class="button-section editButtonSection">
+                            <div class="btn-group complementorecepcion">
+                                <button id="ComplementoRecepcion" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenRecepcion0023"></span></button>
                             </div>
-                            *@
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenRecepcion0001"></span></a>
-
                         </div>
-                        <div class="button-section">
-                            <a id="GenerarOrdenAlmacenaje" href="#" class="btn btn-black"><span id="DetalleOrdenRecepcion0023"></span></a>
-                        </div>
-                        <div class="button-section">
+                        <div class="button-section listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleOrdenRecepcion0002"></span>
@@ -49,8 +44,9 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado" href="#"><span id="DetalleOrdenRecepcion0003"></span></a></li>
-                                    <li><a id="IrIncidencia" href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
-                                    <li><a id="NuevaCaptura" href="#"><span id="DetalleOrdenRecepcion0014"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
+                                    <li class="save-group"><a id="NuevaCaptura" href="#"><span id="DetalleOrdenRecepcion0014"></span></a></li>
+                                    @*<li class="cancelarorden"><a id="CancelarOrden" href="#"><span id="DetalleOrdenRecepcion0024"></span></a></li>*@
                                     @*<li><a id="Etiquetas" href="#"><span id="DetalleOrdenRecepcion0022"></span></a></li>
                                     *@
                                 </ul>
@@ -77,10 +73,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid"></div>
+            <div class="row listado">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -91,18 +92,38 @@
     var _resultadoJson, Proyecto = {}, FolioAvisoEntrada = {}, ItemCode = {}, _esFiltros = false;
     var _ordenRecepcionID = getUrlParameter("OrdenRecepcionID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
+    var _imprimirFormatos = getUrlParameter("ImprimirFormatos", "-1");
+
+    var _UrlReporte = $UrlReportingServices;
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
     var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
-    var _GenerarOrdenAlmacenajeUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
+    var _ComplementoRecepcionUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
     var $GenerarOrdenRecepcionModel = {
         listContainer: {
-            create: "#Guardar",
-            list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            create: ".save-group",
+            list: ".listado",
+            detail: "",
+            destroy: ".cancelarorden",
+            createIncidence: ".incidencia"
+        },
+        properties: {
+            username: {
+                visible: "",
+                editable: "",
+                required: ""
+            }
+        }
+    };
+    var $ComplementoRecepcionModel = {
+        listContainer: {
+            create: ".complementorecepcion",
+            list: "",
+            detail: "",
+            destroy: "",
+            createIncidence: ""
         },
         properties: {
             username: {
@@ -115,9 +136,11 @@
     }
     @section JavascriptGlobalFunctions 
     {
-    function changeLanguageCall() {
-        CargaInicialGrid();
-    };
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargaInicialGrid();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        };
 
     function CargaInicial() {
         $("#spanOrdenRecepcion").html(_ordenRecepcionID);
@@ -134,8 +157,10 @@
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
+                    this.value("");
                 } else {
                     ObtenerFoliosAvisoEntrada();
                 }
@@ -158,8 +183,10 @@
                 var value = this.value();
                 limpiarFiltroItemCode();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioAvisoEntrada = {};
+                    this.value("");
                 } else {
                     ObtenerItemCodes();
                 };
@@ -178,8 +205,10 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     ItemCode = {};
+                    this.value("");
                 }
                 Filtros();
             },
@@ -188,8 +217,8 @@
         $("#Cancelar").click(function () {
             window.location.href = _listadoOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-        $("#GenerarOrdenAlmacenaje").click(function () {
-            window.location.href = _GenerarOrdenAlmacenajeUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        $("#ComplementoRecepcion").click(function () {
+            window.location.href = _ComplementoRecepcionUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
         
         $("#RedirectListado").click(function () {
@@ -203,6 +232,11 @@
         $("#FolioAvisoEntradaID").data("kendoComboBox").enable(false);
         $("#ItemCode").data("kendoComboBox").enable(false);
         CargarDatosGridInicial();
+
+        if (_imprimirFormatos != "-1") {
+            window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + _ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+            alert("Pendiente formato de impresion de Orden Recepcion Reporting Services");
+        };
     };
 
     function ControlErroresObjetosComboBox(control, result) {
@@ -277,6 +311,7 @@
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             detailInit: detailInit,
             scrollable: false,
@@ -418,7 +453,8 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        var OrdenRecepcionID = _ordenRecepcionID ? _ordenRecepcionID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + OrdenRecepcionID + "&TipoIncidencia=5&Clasificacion=1");
     };
 
     function Error(data) {
@@ -442,6 +478,8 @@
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Orden Recepcion"] = $GenerarOrdenRecepcionModel;
+    $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
+    
     CargaInicial();
 
     }

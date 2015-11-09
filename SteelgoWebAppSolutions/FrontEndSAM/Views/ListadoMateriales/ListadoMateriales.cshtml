@@ -44,9 +44,30 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
+            <div class="row listado">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="grid" style="width:100%"></div>
+                    <div class="row">
+                        <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="clearfix" id="filtrorapidoscroll">
+                                <input id="NumeroUnico" class="quickFilters general-input" />
+                                <input id="ItemCode" class="quickFilters general-input" />
+                                <input id="ItemCodeSteelgo" class="quickFilters general-input" />
+                                <input id="Descripcion" class="quickFilters general-input" />
+                                <input id="Cedula" class="quickFilters general-input" />
+                                <input id="TipoAcero" class="quickFilters general-input" />
+                                <input id="Diametro1" class="quickFilters general-input" />
+                                <input id="Diametro2" class="quickFilters general-input" />
+                                <input id="RangoInf" class="quickFilters general-input" />
+                                <input id="RangoSup" class="quickFilters general-input" />
+                                <input id="Cantidad" class="quickFilters general-input" />
+                                <input id="Colada" class="quickFilters general-input" />
+                                <input id="EstatusF" class="quickFilters general-input" />
+                                <input id="EstatusD" class="quickFilters general-input" />
+                                <input id="AlmacenVirtual" class="quickFilters general-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="grid"></div>
                 </div>
             </div>
         </div>
@@ -56,8 +77,8 @@
 <script>
 
     @section JavascriptDocumentReadyHomeCookie {
-        Cookies.set("home", true, { path: '/' });
-        Cookies.set("navegacion", "21", { path: '/' });
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "21", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
@@ -68,7 +89,7 @@
     var $ListadoMaterialesModel = {
         listContainer: {
             create: "",
-            list: "#grid",
+            list: ".listado",
             detail: ".detailLink",
             destroy: ".k-grid-Cancelar"
         },
@@ -98,8 +119,6 @@
                 editable: "#Mostrar",
                 required: "#Mostrar"
             }
-            
-
         }
     };
     }
@@ -110,15 +129,229 @@
     //Funcion: changeLanguageCall
     //Parametros: N/A
     //Return:     N/A
-    function changeLanguageCall() {
-        CargarGridNumeroUnico();
-    }
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargarGridNumeroUnico();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        }
 
     //Es la carga inicial de los controles
     //Funcion: cargaInicial
     //Parametros: N/A
     //Return:     N/A
     function cargaInicial() {
+
+        $("#NumeroUnico").val("");
+        $("#ItemCode").val("");
+        $("#ItemCodeSteelgo").val("");
+        $("#Descripcion").val("");
+        $("#Cedula").val("");
+        $("#TipoAcero").val("");
+        $("#Diametro1").val("");
+        $("#Diametro2").val("");
+        $("#RangoInf").val("");
+        $("#RangoSup").val("");
+        $("#Cantidad").val("");
+        $("#Colada").val("");
+        $("#EstatusF").val("");
+        $("#EstatusD").val("");
+        $("#AlmacenVirtual").val("");
+
+        $("#NumeroUnico").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "NumeroUnico",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#NumeroUnico").val().length){ $("#NumeroUnico").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#NumeroUnico").focus();
+        });
+
+        $("#ItemCode").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "ItemCode",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#ItemCode").val().length){ $("#ItemCode").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#ItemCode").focus();
+        });
+
+        $("#ItemCodeSteelgo").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "ItemCodeSteelgo",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#ItemCodeSteelgo").val().length){ $("#ItemCodeSteelgo").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#ItemCodeSteelgo").focus();
+        });
+
+        $("#Descripcion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Descripcion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#Descripcion").val().length){ $("#Descripcion").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Descripcion").focus();
+        });
+
+        $("#Cedula").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Cedula",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#Cedula").val().length){ $("#Cedula").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Cedula").focus();
+        });
+
+        $("#TipoAcero").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "TipoAcero",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#TipoAcero").val().length){ $("#TipoAcero").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#TipoAcero").focus();
+        });
+
+        $("#Diametro1").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "D1",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#Diametro1").val().length){ $("#Diametro1").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Diametro1").focus();
+        });
+
+        $("#Diametro2").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "D2",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#Diametro2").val().length){ $("#Diametro2").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Diametro2").focus();
+        });
+
+        $("#RangoInf").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "RangoInferior",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#RangoInf").val().length){ $("#RangoInf").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#RangoInf").focus();
+        });
+
+        $("#RangoSup").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "RangoSuperior",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#RangoSup").val().length){ $("#RangoSup").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#RangoSup").focus();
+        });
+
+        $("#Cantidad").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Cantidad",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#Cantidad").val().length){ $("#Cantidad").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Cantidad").focus();
+        });
+
+        $("#Colada").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Colada",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#Colada").val().length){ $("#Colada").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Colada").focus();
+        });
+
+        $("#EstatusF").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "EstatusFisico",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#EstatusF").val().length){ $("#EstatusF").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#EstatusF").focus();
+        });
+
+        $("#EstatusD").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "EstatusDocumental",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#EstatusD").val().length){ $("#EstatusD").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#EstatusD").focus();
+        });
+
+        $("#AlmacenVirtual").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "AlmacenVirtual",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+			if(!$("#AlmacenVirtual").val().length){ $("#AlmacenVirtual").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#AlmacenVirtual").focus();
+        });
+
 
         $("#Mostrar").click(function () { Filtros(); });
 
@@ -132,8 +365,10 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposPatio();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Patio = {};
+                    this.value("");
                 } else {
                     ObtenerLosProyectos();
                 }
@@ -152,8 +387,10 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
+                    this.value("");
                 } else {
                     ObtenerLosFolioAvisoLlegada();
                 };
@@ -171,8 +408,10 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposFolioLlegada();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioAvisoLlegada = {};
+                    this.value("");
                 } else {
                     ObtenerLosFolioPackingList();
                 };
@@ -190,14 +429,16 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposFolioPackingList();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioPackingList = {};
-                } else {
-
-                };
+                    this.value("");
+                }
             },
             filter: "contains",
         });
+
+       
     };
     function LimpiarCamposPatio() {
         Proyecto = {};
@@ -299,28 +540,20 @@
             autoHeight: true,
             sortable: true,
             scrollable: true,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             columns: [
-                { field: "NumeroUnicoID", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:NumeroUnicoID#)'>#:NumeroUnicoID#</a>", filterable: true, width: "150px" },
-                { field: "NumeroUnico", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+                { field: "NumeroUnicoID", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px", hidden: true },
+                { field: "NumeroUnico", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:NumeroUnicoID#)'>#:NumeroUnico#</a>", filterable: true, width: "150px" },
                 { field: "ItemCode", title: _dictionary.ListaMateriales0008[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-                { field: "ItemCodeSteelgo", title: _dictionary.ListaMateriales0022[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+                { field: "ItemCodeSteelgo", title: _dictionary.ListaMateriales0022[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
                 { field: "Descripcion", title: _dictionary.ListaMateriales0009[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "Cedula", title: _dictionary.ListaMateriales0010[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "TipoAcero", title: _dictionary.ListaMateriales0011[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
@@ -338,16 +571,57 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+				
+				 $("th[data-field='NumeroUnico']").append($("#NumeroUnico"));
+				 $("th[data-field='ItemCode']").append($("#ItemCode"));
+				 $("th[data-field='ItemCodeSteelgo']").append($("#ItemCodeSteelgo"));
+				 $("th[data-field='Descripcion']").append($("#Descripcion"));
+				 $("th[data-field='Cedula']").append($("#Cedula"));
+				 $("th[data-field='TipoAcero']").append($("#TipoAcero"));
+				 $("th[data-field='D1']").append($("#Diametro1"));
+				 $("th[data-field='D2']").append($("#Diametro2"));
+				 $("th[data-field='RangoInferior']").append($("#RangoInf"));
+				 $("th[data-field='RangoSuperior']").append($("#RangoSup"));
+				 $("th[data-field='Cantidad']").append($("#Cantidad"));
+				 $("th[data-field='Colada']").append($("#Colada"));
+				 $("th[data-field='EstatusFisico']").append($("#EstatusF"));
+				 $("th[data-field='EstatusDocumental']").append($("#EstatusD"));
+				 $("th[data-field='AlmacenVirtual']").append($("#AlmacenVirtual"));
+
+                $("#NumeroUnico").click(function( event ) {event.stopPropagation();});
+				$("#ItemCode").click(function( event ) {event.stopPropagation();});
+				$("#ItemCodeSteelgo").click(function( event ) {event.stopPropagation();});
+				$("#Descripcion").click(function( event ) {event.stopPropagation();});
+				$("#Cedula").click(function( event ) {event.stopPropagation();});
+				$("#TipoAcero").click(function( event ) {event.stopPropagation();});
+				$("#Diametro1").click(function( event ) {event.stopPropagation();});
+				$("#Diametro2").click(function( event ) {event.stopPropagation();});
+				$("#RangoInf").click(function( event ) {event.stopPropagation();});
+				$("#RangoSup").click(function( event ) {event.stopPropagation();});
+				$("#Cantidad").click(function( event ) {event.stopPropagation();});
+				$("#Colada").click(function( event ) {event.stopPropagation();});
+				$("#EstatusF").click(function( event ) {event.stopPropagation();});
+				$("#EstatusD").click(function( event ) {event.stopPropagation();});
+				$("#AlmacenVirtual").click(function( event ) {event.stopPropagation();});
             }
+        });
+
+        $(".k-grid-content").scroll(function () {
+            $("#filtrorapidoscroll").scrollLeft($(".k-grid-content").scrollLeft());
+        });
+        $("#filtrorapidoscroll").scroll(function () {
+            $(".k-grid-content").scrollLeft($("#filtrorapidoscroll").scrollLeft());
         });
     }
     //Redirecciona a la pagina de detalle de un numero unico
     //Funcion: CargarGridNumeroUnico
     //Parametros: numerounico
     //Return:     N/A
-         function mostrarDetalle(numerounico) {
-             window.location.href = _detalleNumeroUnico + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroUnico=" + numerounico;
+    function mostrarDetalle(numerounico) {
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Listado Materiales"] != 'undefined') && (typeof returnOfSecurityCheck["Listado Materiales"]["detail"] != 'undefined') && returnOfSecurityCheck["Listado Materiales"]["detail"]) {
+            window.location.href = _detalleNumeroUnico + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroUnico=" + numerounico;
         }
+    }
 
     //Se carga el Patio
     //Funcion: CargarPatio
@@ -367,12 +641,12 @@
         FolioAvisoLlegada = {};
         FolioAvisoLlegada = { FolioAvisoLlegadaID: id, Nombre: value };
     };
-    
+
     function CargarFolioPackingList(id, value) {
         FolioPackingList = {};
         FolioPackingList = { FolioPackingListID: id, Nombre: value };
     };
-    
+
 
     function ObtenerPatio() {
         var Listado = ArregloListado();
@@ -384,104 +658,104 @@
     };
 
 
-        function ArregloListado() {
-            var Listado = { PatioID: "", ProyectoID: "", FolioAvisoLlegadaID: "", FolioPackingListID: "", TipoListado: "" };
+    function ArregloListado() {
+        var Listado = { PatioID: "", ProyectoID: "", FolioAvisoLlegadaID: "", FolioPackingListID: "", TipoListado: "" };
 
-            Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
-            Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : -1;
-            Listado.FolioAvisoLlegadaID = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : -1;
-            Listado.FolioPackingListID = FolioPackingList.FolioPackingListID ? FolioPackingList.FolioPackingListID : -1;
-            Listado.token = Cookies.get("token");
-            
-            return Listado;
-        };
+        Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
+        Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : -1;
+        Listado.FolioAvisoLlegadaID = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : -1;
+        Listado.FolioPackingListID = FolioPackingList.FolioPackingListID ? FolioPackingList.FolioPackingListID : -1;
+        Listado.token = Cookies.get("token");
 
-        function AccionesListado() {
-            loadingStart();
-            var Listado = ArregloListado();
+        return Listado;
+    };
 
-            $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioPackingListID, token: Cookies.get("token") }).done(function (data) {
-                if (Error(data)) {
-                    if (!data.length) {
-                        displayMessage("notificationslabel0055", "", '1');
-                        loadingStop();
-                        return;
-                    };
+    function AccionesListado() {
+        loadingStart();
+        var Listado = ArregloListado();
 
-                    if ($("#grid").data("kendoGrid")) {
-                        if (data.length > 0) {
-                            $("#grid").data("kendoGrid").dataSource.data(data);
-                            $("#grid").data("kendoGrid").dataSource.page(1);
-                        } else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                            $("#grid").data("kendoGrid").dataSource.page(0);
-                        };
-                       applySecurityPolicy(false);
-                    };
+        $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioPackingListID, token: Cookies.get("token") }).done(function (data) {
+            if (Error(data)) {
+                if (!data.length) {
+                    displayMessage("notificationslabel0055", "", '1');
+                    loadingStop();
+                    return;
                 };
-                loadingStop();
-            });
-        };
 
-        //Se envia la accion a la funcion de acconeslistado donde se forma el objeto con todos los filtros
-        //Funcion: Filtros
-        //Parametros: N/A
-        //Return:    N/A
-        function Filtros() {
-            if(validarRequeridosFormaListadoMateriales()){
-                AccionesListado();
-            } else {
-                displayMessage("notificationslabel0031", "", '1');
-            }
-        };
-
-        function validarRequeridosFormaListadoMateriales() {
-            var bool = true;
-            $("#formaListadoMateriales .security_required").each(function (i, elem) {
-                if (elem.tagName.toLowerCase() != 'label') {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
+                if ($("#grid").data("kendoGrid")) {
+                    if (data.length > 0) {
+                        $("#grid").data("kendoGrid").dataSource.data(data);
+                        $("#grid").data("kendoGrid").dataSource.page(1);
                     } else {
-                        $(this).closest("div").find("label").removeClass("error");
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#grid").data("kendoGrid").dataSource.page(0);
                     };
+                    applySecurityPolicy(false);
                 };
-            });
-            return bool;
-        };
+            };
+            loadingStop();
+        });
+    };
 
-        function Error(data) {
-            if (data.ReturnCode) {
-                if (data.ReturnCode != 200) {
-                    if (data.ReturnCode == 401) {
-                        removeUserSession();
-                        return true;
-                    } else {
-                        displayMessage("notificationslabel0008", data.ReturnMessage, '2');
-                        return false;
-                    }
+    //Se envia la accion a la funcion de acconeslistado donde se forma el objeto con todos los filtros
+    //Funcion: Filtros
+    //Parametros: N/A
+    //Return:    N/A
+    function Filtros() {
+        if (validarRequeridosFormaListadoMateriales()) {
+            AccionesListado();
+        } else {
+            displayMessage("notificationslabel0031", "", '1');
+        }
+    };
+
+    function validarRequeridosFormaListadoMateriales() {
+        var bool = true;
+        $("#formaListadoMateriales .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if (!$(this).val()) {
+                    bool = false;
+                    $(this).closest("div").find("label").addClass("error");
                 } else {
+                    $(this).closest("div").find("label").removeClass("error");
+                };
+            };
+        });
+        return bool;
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
                     return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
                 }
             } else {
                 return true;
             }
-        };
+        } else {
+            return true;
+        }
+    };
 
 
-        function ControlErroresObjetosComboBox(control, result) {
-            if (Error(result)) {
-                $("#" + control).data("kendoComboBox").dataSource.data(result);
-            } else {
-                $("#" + control).data("kendoComboBox").dataSource.data([]);
-            };
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
         };
+    };
     }
 
     @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["Listado Materiales"] = $ListadoMaterialesModel;
-        cargaInicial();
-        //applySecurity();
+    $authorizationModel["Listado Materiales"] = $ListadoMaterialesModel;
+    cargaInicial();
+    //applySecurity();
     }
 
 </script>

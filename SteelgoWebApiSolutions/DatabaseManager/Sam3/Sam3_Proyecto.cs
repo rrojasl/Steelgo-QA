@@ -32,6 +32,8 @@ namespace DatabaseManager.Sam3
             this.Sam3_Spool = new HashSet<Sam3_Spool>();
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
             this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
+            this.Sam3_PreDespacho = new HashSet<Sam3_PreDespacho>();
+            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
         }
     
         public int ProyectoID { get; set; }
@@ -67,5 +69,8 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_ProyectoConsecutivo Sam3_ProyectoConsecutivo { get; set; }
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
         public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
+        public virtual ICollection<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
+        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
     }
 }

@@ -19,26 +19,118 @@ namespace BackEndSAM.Controllers
     public class TipoIncidenciaController : ApiController
     {
         // GET api/tipoincidencia
-        public IEnumerable<TipoIncidencia> Get(string token)
+        public object Get(string token)
         {
-            List<TipoIncidencia> LstTipoIncidencia = new List<TipoIncidencia>();
-            TipoIncidencia incidencia1 = new TipoIncidencia();
-            incidencia1.TipoIncidenciaID = "2001";
-            incidencia1.Nombre = "TipoIncidencia 1";
-            LstTipoIncidencia.Add(incidencia1);
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return IncidenciaBd.Instance.TiposIncidencias(usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
-            TipoIncidencia incidencia2 = new TipoIncidencia();
-            incidencia2.TipoIncidenciaID = "2002";
-            incidencia2.Nombre = "TipoIncidencia 2";
-            LstTipoIncidencia.Add(incidencia2);
+        public object Get(string tipoIncidencia, string busqueda, string levantarincidencia, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-            return LstTipoIncidencia.AsEnumerable();
+                int tipoIncidenciaID = tipoIncidencia != "" ? Convert.ToInt32(tipoIncidencia) : 0;
+                return ListadoBd.Instance.ObtenerEntidadComboIncidencia(tipoIncidenciaID, busqueda);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(string tipoIncidencia, string busqueda, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                int tipoIncidenciaID = tipoIncidencia != "" ? Convert.ToInt32(tipoIncidencia) : 0;
+                return ListadoBd.Instance.ListaComboIncidencia(tipoIncidenciaID, busqueda);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // GET api/tipoincidencia/5
-        public string Get(int id)
+        public IEnumerable<ListaCombos> Get(int tipoIncidenciaID, string token)
         {
-            return "value";
+            List<ListaCombos> lstCombo = new List<ListaCombos>();
+            ListaCombos combo1 = new ListaCombos();
+            ListaCombos combo2 = new ListaCombos();
+            ListaCombos combo3 = new ListaCombos();
+
+            if (tipoIncidenciaID == 1)
+            {
+                combo1.id = "1";
+                combo1.value = "Packing List 1";
+                lstCombo.Add(combo1);
+
+                combo2.id = "2";
+                combo2.value = "Packing List 2";
+                lstCombo.Add(combo2);
+            }
+
+            if (tipoIncidenciaID == 2)
+            {
+                combo1.id = "1";
+                combo1.value = "Numero Unico 1";
+                lstCombo.Add(combo1);
+
+                combo2.id = "2";
+                combo2.value = "Numero Unico 2";
+                lstCombo.Add(combo2);
+            }
+
+            if (tipoIncidenciaID == 3)
+            {
+                combo1.id = "1";
+                combo1.value = "ItemCode 1";
+                lstCombo.Add(combo1);
+
+                combo2.id = "2";
+                combo2.value = "ItemCode 2";
+                lstCombo.Add(combo2);
+            }
+
+            return lstCombo.AsEnumerable();
         }
 
         // POST api/tipoincidencia

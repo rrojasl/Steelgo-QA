@@ -41,30 +41,30 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerlistadoPatios(string esAvisoEntrada, Sam3_Usuario usuario)
+        public object ObtenerlistadoPatios(string esAvisoEntrada, Sam3_Usuario usuario, int paginaID)
         {
             try
             {
                 List<Patio> lstPatios = new List<Patio>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (int.Parse(esAvisoEntrada) == 1)
+                    if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Patio", paginaID))
                     {
                         lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
                     }
 
-                    //List<int> patios;
-                    //List<int> proyectos;
-                    //UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+                    List<int> patios;
+                    List<int> proyectos;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Patio> result = (from p in ctx.Sam3_Patio
-                                          where p.Activo
+                                          where p.Activo && patios.Contains(p.PatioID)
                                           select new Patio
                                           {
                                               Nombre = p.Nombre,
                                               PatioID = p.PatioID.ToString()
                                           }).AsParallel().ToList();
-                    
+
                     lstPatios.AddRange(result);
 
                     return lstPatios;
@@ -72,6 +72,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -98,6 +101,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -114,18 +120,28 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    cambios.Activo = true;
-                    cambios.UsuarioModificacion = usuario.UsuarioID;
-                    cambios.FechaModificacion = DateTime.Now;
+                    if (!ctx.Sam3_Patio.Where(x => x.Nombre == cambios.Nombre && x.Activo).AsParallel().Any())
+                    {
+                        cambios.Activo = true;
+                        cambios.UsuarioModificacion = usuario.UsuarioID;
+                        cambios.FechaModificacion = DateTime.Now;
+                         
+                        ctx.Sam3_Patio.Add(cambios);
+                        ctx.SaveChanges();
 
-                    ctx.Sam3_Patio.Add(cambios);
-                    ctx.SaveChanges();
-
-                    return new Patio { Nombre = cambios.Nombre, PatioID = cambios.PatioID.ToString() };
+                        return new Patio { Nombre = cambios.Nombre, PatioID = cambios.PatioID.ToString() };
+                    }
+                    else
+                    {
+                        throw new Exception("Patio existente");
+                    }
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -142,33 +158,43 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == cambios.PatioID && x.Activo).AsParallel().SingleOrDefault();
-                    patioEnBd.Activo = cambios.Activo != null && cambios.Activo != patioEnBd.Activo ?
-                        cambios.Activo : patioEnBd.Activo;
-                    patioEnBd.Descripcion = cambios.Descripcion != null && cambios.Descripcion != patioEnBd.Descripcion ?
-                        cambios.Descripcion : patioEnBd.Descripcion;
-                    patioEnBd.Nombre = cambios.Nombre != null && cambios.Nombre != patioEnBd.Nombre ?
-                        cambios.Nombre : patioEnBd.Nombre;
-                    patioEnBd.Propietario = cambios.Propietario != null && cambios.Propietario != patioEnBd.Propietario ?
-                        cambios.Propietario : patioEnBd.Propietario;
-                    patioEnBd.RequierePermisoAduana = cambios.RequierePermisoAduana != null && cambios.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
-                        cambios.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
-                    patioEnBd.UsuarioModificacion = Usuario.UsuarioID;
-                    patioEnBd.FechaModificacion = DateTime.Now;
+                    if(!ctx.Sam3_Patio.Where(x=> x.Nombre == cambios.Nombre && x.Activo).AsParallel().Any())
+                    {
+                        Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == cambios.PatioID && x.Activo).AsParallel().SingleOrDefault();
+                        patioEnBd.Activo = cambios.Activo != null && cambios.Activo != patioEnBd.Activo ?
+                            cambios.Activo : patioEnBd.Activo;
+                        patioEnBd.Descripcion = cambios.Descripcion != null && cambios.Descripcion != patioEnBd.Descripcion ?
+                            cambios.Descripcion : patioEnBd.Descripcion;
+                        patioEnBd.Nombre = cambios.Nombre != null && cambios.Nombre != patioEnBd.Nombre ?
+                            cambios.Nombre : patioEnBd.Nombre;
+                        patioEnBd.Propietario = cambios.Propietario != null && cambios.Propietario != patioEnBd.Propietario ?
+                            cambios.Propietario : patioEnBd.Propietario;
+                        patioEnBd.RequierePermisoAduana = cambios.RequierePermisoAduana != null && cambios.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
+                            cambios.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
+                        patioEnBd.UsuarioModificacion = Usuario.UsuarioID;
+                        patioEnBd.FechaModificacion = DateTime.Now;
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("OK");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
 
-                    return result;
+                        return result;
+                    }
+                    else
+                    {
+                        throw new Exception("Patio existente");
+                    }
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -203,6 +229,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

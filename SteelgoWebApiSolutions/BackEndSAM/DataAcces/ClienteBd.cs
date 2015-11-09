@@ -50,23 +50,102 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerListadoClientes(Sam3_Usuario usuario)
+        public object ObtenerListadoClientes(Sam3_Usuario usuario, int patioID)
         {
             try
             {
-                using (Sam2Context ctx = new Sam2Context())
+                using (Sam2Context ctx2 = new Sam2Context())
                 {
-                    List<Models.Cliente> cliente = (from r in ctx.Cliente
-                                                    select new Models.Cliente
-                                                    {
-                                                        Nombre = r.Nombre,
-                                                        ClienteID = r.ClienteID.ToString()
-                                                    }).AsParallel().ToList();
-                    return cliente;
+                    using (SamContext ctx = new SamContext())
+                    {
+
+                        List<Models.Cliente> cliente = new List<Models.Cliente>();
+
+                        if (patioID > 0)
+                        {
+                            int patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                              where eq.Activo
+                                              && eq.Sam3_PatioID == patioID
+                                              select eq.Sam2_PatioID).AsParallel().SingleOrDefault();
+
+                            cliente = (from r in ctx2.Cliente
+                                       join p in ctx2.Proyecto on r.ClienteID equals p.ClienteID
+                                       join pa in ctx2.Patio on p.PatioID equals pa.PatioID
+                                       where pa.PatioID == patiosSam2
+                                       select new Models.Cliente
+                                       {
+                                           Nombre = r.Nombre,
+                                           ClienteID = r.ClienteID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                        }
+
+                        cliente = cliente.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+
+                        return cliente;
+                    }
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Genera un listado de clientes para mostrarse en un combo box
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object ObtenerListadoClientes(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    using (SamContext ctx = new SamContext())
+                    {
+                        List<int> patios = new List<int>();
+                        List<int> proyectos = new List<int>();
+
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out  patios);
+
+                        List<int> sam2Patios = (from eq in ctx.Sam3_EquivalenciaPatio
+                                                where eq.Activo
+                                                && patios.Contains(eq.Sam3_PatioID)
+                                                select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
+
+                        List<Models.Cliente> cliente = new List<Models.Cliente>();
+
+                        cliente = (from r in ctx2.Cliente
+                                   join p in ctx2.Proyecto on r.ClienteID equals p.ClienteID
+                                   join pa in ctx2.Patio on p.PatioID equals pa.PatioID
+                                   where sam2Patios.Contains(pa.PatioID)
+                                   select new Models.Cliente
+                                   {
+                                       Nombre = r.Nombre,
+                                       ClienteID = r.ClienteID.ToString()
+                                   }).AsParallel().Distinct().ToList();
+
+                        cliente = cliente.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+
+                        return cliente;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -100,6 +179,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return ex.Message;
             }
         }

@@ -151,5 +151,16 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Catalogos> Sam3_Catalogos { get; set; }
         public virtual DbSet<Sam3_Rel_Catalogos_Documento> Sam3_Rel_Catalogos_Documento { get; set; }
         public virtual DbSet<Sam3_TipoArchivo_Catalogo> Sam3_TipoArchivo_Catalogo { get; set; }
+        public virtual DbSet<Sam3_DeficitMateriales> Sam3_DeficitMateriales { get; set; }
+        public virtual DbSet<Sam3_Entrega> Sam3_Entrega { get; set; }
+        public virtual DbSet<Sam3_FolioImpresionDocumental> Sam3_FolioImpresionDocumental { get; set; }
+        public virtual DbSet<Sam3_FolioPickingTicket> Sam3_FolioPickingTicket { get; set; }
+        public virtual DbSet<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaDiametro> Sam3_EquivalenciaDiametro { get; set; }
+        public virtual DbSet<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
+        public virtual DbSet<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
+        public virtual DbSet<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        public virtual DbSet<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
+        public virtual DbSet<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
     }
 }

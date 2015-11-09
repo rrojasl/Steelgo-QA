@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PatioController : ApiController
     {
-        public object Get(string esAvisoEntrada, string token)
+        public object Get(string esAvisoEntrada, int paginaID, string token,string idioma="")
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +27,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PatioBd.Instance.ObtenerlistadoPatios(esAvisoEntrada,usuario);
+                return PatioBd.Instance.ObtenerlistadoPatios(esAvisoEntrada,usuario, paginaID);
             }
             else
             {

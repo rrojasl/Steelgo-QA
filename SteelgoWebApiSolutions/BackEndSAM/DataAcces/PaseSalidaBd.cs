@@ -116,6 +116,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -164,6 +167,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -186,6 +192,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -237,16 +246,19 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     listado = (from r in registros
-                               join rip in ctx.Sam3_Rel_Incidencia_PaseSalida on r.FolioAvisoLlegadaID equals rip.FolioAvisoLlegadaID
-                               join inc in ctx.Sam3_Incidencia on rip.IncidenciaID equals inc.IncidenciaID
+                               join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals rif.FolioAvisoLlegadaID
+                               join inc in ctx.Sam3_Incidencia on rif.IncidenciaID equals inc.IncidenciaID
                                join clas in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals clas.ClasificacionIncidenciaID
                                join ti in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals ti.TipoIncidenciaID
                                join us in ctx.Sam3_Usuario on inc.UsuarioID equals us.UsuarioID
-                               where rip.Activo && inc.Activo && clas.Activo && ti.Activo
+                               where rif.Activo && inc.Activo && clas.Activo && ti.Activo
                                && incidenciaIDs.Contains(inc.IncidenciaID)
                                select new ListadoIncidencias
                                {
@@ -258,12 +270,90 @@ namespace BackEndSAM.DataAcces
                                    TipoIncidencia = ti.Nombre
                                }).AsParallel().Distinct().ToList();
 
+                    listado.AddRange((from r in registros
+                                      join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                      join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada on fe.FolioAvisoEntradaID equals rif.FolioAvisoEntradaID
+                                      join inc in ctx.Sam3_Incidencia on rif.IncidenciaID equals inc.IncidenciaID
+                                      join clas in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals clas.ClasificacionIncidenciaID
+                                      join ti in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals ti.TipoIncidenciaID
+                                      join us in ctx.Sam3_Usuario on inc.UsuarioID equals us.UsuarioID
+                                      where rif.Activo && inc.Activo && clas.Activo && ti.Activo
+                                      && incidenciaIDs.Contains(inc.IncidenciaID)
+                                      select new ListadoIncidencias
+                                      {
+                                          Clasificacion = clas.Nombre,
+                                          Estatus = inc.Estatus,
+                                          FechaRegistro = inc.FechaCreacion.ToString(),
+                                          FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                          RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
+                                          TipoIncidencia = ti.Nombre
+                                      }).AsParallel().Distinct().ToList());
+
 
                 }
+
+                listado = listado.GroupBy(x => x.FolioIncidenciaID).Select(x => x.First()).OrderBy(x => x.FolioIncidenciaID).ToList();
+
                 return listado;
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                return null;
+            }
+        }
+
+        public List<Incidencia> ListadoIncidenciasPorFolio(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<Incidencia> listado;
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_FolioAvisoLlegada> registros = new List<Sam3_FolioAvisoLlegada>();
+
+                    listado = (from r in ctx.Sam3_FolioAvisoLlegada
+                               join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals rif.FolioAvisoLlegadaID
+                               join inc in ctx.Sam3_Incidencia on rif.IncidenciaID equals inc.IncidenciaID
+                               join clas in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals clas.ClasificacionIncidenciaID
+                               join ti in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals ti.TipoIncidenciaID
+                               join us in ctx.Sam3_Usuario on inc.UsuarioID equals us.UsuarioID
+                               where rif.Activo && inc.Activo && clas.Activo && ti.Activo
+                               && r.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                               select new Incidencia
+                               {
+                                   FolioIncidenciaID = inc.IncidenciaID, Descripcion = inc.Descripcion
+                               }).AsParallel().Distinct().ToList();
+
+                    listado.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
+                                      join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                      join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada on fe.FolioAvisoEntradaID equals rif.FolioAvisoEntradaID
+                                      join inc in ctx.Sam3_Incidencia on rif.IncidenciaID equals inc.IncidenciaID
+                                      join clas in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals clas.ClasificacionIncidenciaID
+                                      join ti in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals ti.TipoIncidenciaID
+                                      join us in ctx.Sam3_Usuario on inc.UsuarioID equals us.UsuarioID
+                                      where rif.Activo && inc.Activo && clas.Activo && ti.Activo
+                                      && r.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                      select new Incidencia
+                                      {
+                                          FolioIncidenciaID = inc.IncidenciaID,
+                                          Descripcion = inc.Descripcion
+                                      }).AsParallel().Distinct().ToList());
+
+
+                }
+
+                listado = listado.GroupBy(x => x.FolioIncidenciaID).Select(x => x.First()).OrderBy(x => x.FolioIncidenciaID).ToList();
+
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
             }
         }

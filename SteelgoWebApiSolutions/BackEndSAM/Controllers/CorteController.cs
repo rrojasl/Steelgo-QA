@@ -43,6 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        
         public object Post(GuardarCorte cortes, string token)
         {
             string payload = "";
@@ -65,6 +66,27 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(int materialSpoolID, string token)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
 
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CorteBd.Instance.ListadoCorteDesdeImpresion(materialSpoolID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }

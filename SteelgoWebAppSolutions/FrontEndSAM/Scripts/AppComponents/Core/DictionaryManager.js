@@ -152,36 +152,36 @@ _dictionary = {
         "en-US": "Materials"
     },
     "menuLabel0007": {
-        "es-MX": "Dashboard de Avisos de Entrada",
+        "es-MX": "Dashboard de Aviso de Entrada",
         "en-US": "Dashboard Notice of Entry"
     },
     "menuLabel0008": {
-        "es-MX": "Avisos de Entrada",
-        "en-US": "Entry Notices"
+        "es-MX": "Listado de Aviso de Entrada",
+        "en-US": "Listing Entry Notices"
     },
     "menuLabel0010": {
-        "es-MX": "Generación de Aviso de Entrada",
-        "en-US": "Entry Notice generation"
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Entry Notice"
     },
     "menuLabel0011": {
         "es-MX": "Autorización de Aviso de Entrada",
         "en-US": "Authorization Notice of Entry"
     },
     "menuLabel0013": {
-        "es-MX": "Dashboard de Llegada de Material",
+        "es-MX": "Dashboard Llegada de Material",
         "en-US": "Dashboard Arrival of Material"
     },
     "menuLabel0014": {
-        "es-MX": "Llegadas de Material",
-        "en-US": "Material Arrivals"
+        "es-MX": "Listado Folio Llegadas de Materiales",
+        "en-US": "Listing Material Arrivals"
     },
     "menuLabel0016": {
-        "es-MX": "Generación de Llegada de Material",
-        "en-US": "Generation of Arrival of Material"
+        "es-MX": "Llegada de Materiales",
+        "en-US": "Arrival of Materials"
     },
     "menuLabel0017": {
-        "es-MX": "Generación de Pase de Salida",
-        "en-US": "Generation Pass Out"
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
     },
     "menuLabel0018": {
         "es-MX": "Dashboard de Despacho de Material",
@@ -200,16 +200,16 @@ _dictionary = {
         "en-US": "Reception Complement"
     },
     "menuLabel0022": {
-        "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard of Receiving and Warehousing"
+        "es-MX": "Dashboard recepción y almacenaje",
+        "en-US": "Dashboard of receiving and warehousing"
     },
     "menuLabel0023": {
         "es-MX": "Listado Recepción y Almacenaje",
         "en-US": "Listing Receiving and Warehousing"
     },
     "menuLabel0025": {
-        "es-MX": "Listado Packing List",
-        "en-US": "Listing Packing List"
+        "es-MX": "Listado de Packing List",
+        "en-US": "Listing of Packing List"
     },
     "menuLabel0026": {
         "es-MX": "Cuantificación",
@@ -220,36 +220,36 @@ _dictionary = {
         "en-US": "Consult and Edit Quantification"
     },
     "menuLabel0028": {
-        "es-MX": "Listado Orden de Recepción",
+        "es-MX": "Listado de Orden de Recepción",
         "en-US": "Listing Receiving Order"
     },
     "menuLabel0029": {
-        "es-MX": "Generar Orden de Recepción",
-        "en-US": "Generation Receiving Order"
+        "es-MX": "Orden de Recepción",
+        "en-US": "Receiving Order"
     },
     "menuLabel0030": {
         "es-MX": "Detalle de Orden de Recepción",
         "en-US": "Detail Receiving Order"
     },
     "menuLabel0031": {
-        "es-MX": "Complementar Recepción",
-        "en-US": "Complement Reception"
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Complement of Reception"
     },
     "menuLabel0032": {
-        "es-MX": "Listado Orden Almacenaje",
+        "es-MX": "Listado de Orden Almacenaje",
         "en-US": "Listing Storage Order"
     },
     "menuLabel0033": {
-        "es-MX": "Generar Orden Almacenaje",
-        "en-US": "Generate Storage Order"
+        "es-MX": "Orden Almacenaje",
+        "en-US": "Storage Order"
     },
     "menuLabel0034": {
         "es-MX": "Detalle de Orden de Almacenaje",
         "en-US": "Detail Storage Order"
     },
     "menuLabel0040": {
-        "es-MX": "Dashboard de Despacho y Corte",
-        "en-US": "Dashboard Dispatch and Cut"
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
     },
     "menuLabel0041": {
         "es-MX": "Listado de Despacho y Corte",
@@ -268,8 +268,8 @@ _dictionary = {
         "en-US": "Storage"
     },
     "menuLabel0045": {
-        "es-MX": "Administración de Catálogos",
-        "en-US": "Catalog Management"
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
     },
     "menuLabel0046": {
         "es-MX": "Listado de Materiales",
@@ -278,6 +278,291 @@ _dictionary = {
     "menuLabel0047": {
         "es-MX": "Listado de Materiales por ItemCode",
         "en-US": "List Materials by Item Code"
+    },
+    "menuLabel1040": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
+    "menuLabel1041": {
+        "es-MX": "Entrega",
+        "en-US": "Delivery"
+    },
+    "menuLabel1042": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "menuLabel1044": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "menuLabel1045": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidences"
+    },
+    "menuLabel1046": {
+        "es-MX": "Listado de Incidencias",
+        "en-US": "List of Incidences"
+    },
+    "menuLabel1047": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "menuLabel1049": {
+        "es-MX": "Catálogo ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo Catalog"
+    },
+    "menuLabel1053": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "menuLabel1054": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "menuLabel1056": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
+    "menuLabel1057": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "menuLabel1058": {
+        "es-MX": "Configuraciones",
+        "en-US": "Configurations"
+    },
+    "menuLabel1059": {
+        "es-MX": "Soporte",
+        "en-US": "Catalog Item Code Steelgo"
+    },
+    "menuLabel1060": {
+        "es-MX": "Kpi's",
+        "en-US": "Kpi's"
+    },
+    "menuLabel1061": {
+        "es-MX": "Comunicación",
+        "en-US": "Communication"
+    },
+    "menuLabel1067": {
+        "es-MX": "Pre Despacho",
+        "en-US": "Pre Dispatch"
+    },
+    //QuickLinks Defaults
+    "quickLabel0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "quickLabel0002": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "quickLabel0005": {
+        "es-MX": "Administración",
+        "en-US": "Administration"
+    },
+    "quickLabel0006": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "quickLabel0007": {
+        "es-MX": "Dashboard de Aviso de Entrada",
+        "en-US": "Dashboard Notice of Entry"
+    },
+    "quickLabel0008": {
+        "es-MX": "Listado de Aviso de Entrada",
+        "en-US": "Listing Entry Notices"
+    },
+    "quickLabel0010": {
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Entry Notice"
+    },
+    "quickLabel0011": {
+        "es-MX": "Autorización de Aviso de Entrada",
+        "en-US": "Authorization Notice of Entry"
+    },
+    "quickLabel0013": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Dashboard Arrival of Material"
+    },
+    "quickLabel0014": {
+        "es-MX": "Listado Folio Llegadas de Materiales",
+        "en-US": "Listing Material Arrivals"
+    },
+    "quickLabel0016": {
+        "es-MX": "Llegada de Materiales",
+        "en-US": "Arrival of Materials"
+    },
+    "quickLabel0017": {
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
+    },
+    "quickLabel0018": {
+        "es-MX": "Dashboard de Despacho de Material",
+        "en-US": "Dashboard Material Dispatch"
+    },
+    "quickLabel0019": {
+        "es-MX": "Despachos de Materiales",
+        "en-US": "Dispatches of Material"
+    },
+    "quickLabel0020": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "quickLabel0021": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
+    "quickLabel0022": {
+        "es-MX": "Dashboard recepción y almacenaje",
+        "en-US": "Dashboard of receiving and warehousing"
+    },
+    "quickLabel0023": {
+        "es-MX": "Listado Recepción y Almacenaje",
+        "en-US": "Listing Receiving and Warehousing"
+    },
+    "quickLabel0025": {
+        "es-MX": "Listado de Packing List",
+        "en-US": "Listing of Packing List"
+    },
+    "quickLabel0026": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "quickLabel0027": {
+        "es-MX": "Consulta y Edición de Cuantificacion",
+        "en-US": "Consult and Edit Quantification"
+    },
+    "quickLabel0028": {
+        "es-MX": "Listado de Orden de Recepción",
+        "en-US": "Listing Receiving Order"
+    },
+    "quickLabel0029": {
+        "es-MX": "Generar Orden de Recepción",
+        "en-US": "Generation Receiving Order"
+    },
+    "quickLabel0030": {
+        "es-MX": "Detalle de Orden de Recepción",
+        "en-US": "Detail Receiving Order"
+    },
+    "quickLabel0031": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Complement of Reception"
+    },
+    "quickLabel0032": {
+        "es-MX": "Listado de Orden Almacenaje",
+        "en-US": "Listing Storage Order"
+    },
+    "quickLabel0033": {
+        "es-MX": "Orden Almacenaje",
+        "en-US": "Storage Order"
+    },
+    "quickLabel0034": {
+        "es-MX": "Detalle de Orden de Almacenaje",
+        "en-US": "Detail Storage Order"
+    },
+    "quickLabel0040": {
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
+    },
+    "quickLabel0041": {
+        "es-MX": "Listado de Despacho y Corte",
+        "en-US": "Listing Dispatch and Cut"
+    },
+    "quickLabel0042": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "quickLabel0043": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "quickLabel0044": {
+        "es-MX": "Almacenaje",
+        "en-US": "Storage"
+    },
+    "quickLabel0045": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "quickLabel0046": {
+        "es-MX": "Listado de Materiales",
+        "en-US": "List Materials"
+    },
+    "quickLabel0047": {
+        "es-MX": "Listado de Materiales por ItemCode",
+        "en-US": "List Materials by Item Code"
+    },
+    "quickLabel1040": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
+    "quickLabel1041": {
+        "es-MX": "Entrega",
+        "en-US": "Delivery"
+    },
+    "quickLabel1042": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "quickLabel1044": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "quickLabel1045": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidences"
+    },
+    "quickLabel1046": {
+        "es-MX": "Listado de Incidencias",
+        "en-US": "List of Incidences"
+    },
+    "quickLabel1047": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "quickLabel1053": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "quickLabel1054": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "quickLabel1056": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
+    "quickLabel1057": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "quickLabel1058": {
+        "es-MX": "Configuraciones",
+        "en-US": "Configurations"
+    },
+    "quickLabel1059": {
+        "es-MX": "Soporte",
+        "en-US": "Catalog Item Code Steelgo"
+    },
+    "quickLabel1060": {
+        "es-MX": "Kpi's",
+        "en-US": "Kpi's"
+    },
+    "quickLabel1061": {
+        "es-MX": "Comunicación",
+        "en-US": "Communication"
+    },
+    "quickLabel9001": {
+        "es-MX": "Início",
+        "en-US": "Home"
+    },
+    "quickLabel9002": {
+        "es-MX": "Búsqueda",
+        "en-US": "Search"
+    },
+    "quickLabel9003": {
+        "es-MX": "Cerrar Sesión",
+        "en-US": "Logout"
     },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
@@ -310,7 +595,7 @@ _dictionary = {
     },
     "ListadoAvisoLlegada0008": {
         "es-MX": "Folio",
-        "en-US": "Folio Arrival Notice"
+        "en-US": "Folio"
     },
     "ListadoAvisoLlegada0009": {
         "es-MX": "Patio",
@@ -357,8 +642,8 @@ _dictionary = {
         "en-US": "Page Size"
     },
     "ListadoAvisoLlegada0020": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoAvisoLlegada0021": {
         "es-MX": "Listado de Avisos de Entrada",
@@ -394,12 +679,16 @@ _dictionary = {
     },
     "ListadoAvisoLlegada0029": {
         "es-MX": "Dashboard Aviso Llegada",
-        "en-US": "Dashboard Aviso Llegada"
+        "en-US": "Arrival Notice Dashboard"
+    },
+    "ListadoAvisoLlegada0030": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",
-        "en-US": "Proyect"
+        "en-US": "Project"
     },
     "DetalleAvisoLlegada0002": {
         "es-MX": "Factura",
@@ -419,7 +708,7 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0006": {
         "es-MX": "Plana",
-        "en-US": "Plana"
+        "en-US": "Platform"
     },
     "DetalleAvisoLlegada0007": {
         "es-MX": "Orden de Compra",
@@ -467,7 +756,7 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0018": {
         "es-MX": "Cancelar",
-        "en-US": "cancel"
+        "en-US": "Cancel"
     },
     "DetalleAvisoLlegada0019": {
         "es-MX": "Guardar",
@@ -555,7 +844,7 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0040": {
         "es-MX": "Packing List Firmado",
-        "en-US": "Packing List Signed"
+        "en-US": "Signed Packing List"
     },
     "DetalleAvisoLlegada0041": {
         "es-MX": "Aviso de Entrada",
@@ -563,7 +852,7 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0042": {
         "es-MX": "Folio ",
-        "en-US": "Folio "
+        "en-US": "Folio"
     },
     "DetalleAvisoLlegada0043": {
         "es-MX": "Imprimir Pase",
@@ -594,16 +883,16 @@ _dictionary = {
         "en-US": "Remove"
     },
     "DetalleAvisoLlegada0050": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "DetalleAvisoLlegada0051": {
         "es-MX": "Listado de Avisos de Entrada",
-        "en-US": "List Input Material"
+        "en-US": "Entry Notices List"
     },
     "DetalleAvisoLlegada0052": {
         "es-MX": "Detalle de Avisos de Entrada",
-        "en-US": "Detail Input Material"
+        "en-US": "Entry Notices Detail"
     },
     "DetalleAvisoLlegada0053": {
         "es-MX": "Estatus",
@@ -743,7 +1032,7 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0087": {
         "es-MX": "Dashboard Aviso Llegada",
-        "en-US": "Dashboard Aviso Llegada"
+        "en-US": "Arrival Notice Dashboard"
     },
     "DetalleAvisoLlegada0088": {
         "es-MX": "Creado",
@@ -756,6 +1045,10 @@ _dictionary = {
     "DetalleAvisoLlegada0090": {
         "es-MX": "Folio creado",
         "en-US": "Folio Created"
+    },
+    "DetalleAvisoLlegada0091": {
+        "es-MX": "Administración",
+        "en-US": "Administration"
     },
     //Listado Catalogos Partial view Labels
     "ListadoCatalogos0001": {
@@ -822,9 +1115,110 @@ _dictionary = {
         "es-MX": "Subir",
         "en-US": "Upload"
     },
+    "ListadoCatalogos0017": {
+        "es-MX": "Las filas en amarillo muestran datos que serán sobreescritos",
+        "en-US": "Yellow rows shows data which will be overwritten"
+    },
+    "ListadoCatalogos0018": {
+        "es-MX": "El catálogo de cédulas ha sido actualizado",
+        "en-US": "The documents catalog has been updated"
+    },
+    "ListadoCatalogos0019": {
+        "es-MX": "Las filas en color amarillo muestran conflictos con las filas color rojo, corrige el archivo CSV e inténtalo nuevamente",
+        "en-US": "The yellow  rows shows conflicts with the red rows, correct the CSV file and try it again"
+    },
+    "ListadoCatalogos0020": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "ListadoCatalogos0021": {
+        "es-MX": "Propietario",
+        "en-US": "Owner"
+    },
+    "ListadoCatalogos0022": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ListadoCatalogos0023": {
+        "es-MX": "Requiere permiso aduana",
+        "en-US": "Require customs permission"
+    },
+    "ListadoCatalogos0024": {
+        "es-MX": "Nombre Transportista",
+        "en-US": "Carrier Name"
+    },
+    "ListadoCatalogos0025": {
+        "es-MX": "Contacto",
+        "en-US": "Contact"
+    },
+    "ListadoCatalogos0026": {
+        "es-MX": "Dirección",
+        "en-US": "Address"
+    },
+    "ListadoCatalogos0027": {
+        "es-MX": "Teléfono",
+        "en-US": "Phone"
+    },
+    "ListadoCatalogos0028": {
+        "es-MX": "Placas",
+        "en-US": "Plates"
+    },
+    "ListadoCatalogos0029": {
+        "es-MX": "Tarjeta de circulación",
+        "en-US": "Circulation card"
+    },
+    "ListadoCatalogos0030": {
+        "es-MX": "Póliza de seguro",
+        "en-US": "Insurance Policy"
+    },
+    "ListadoCatalogos0031": {
+        "es-MX": "Nombre Chofer",
+        "en-US": "Driver Name"
+    },
+    "ListadoCatalogos0032": {
+        "es-MX": "Unidad",
+        "en-US": "Unit"
+    },
+    "ListadoCatalogos0033":{
+        "es-MX": "Modelo",
+        "en-US": "Model"
+    },
+    "ListadoCatalogos0034": {
+        "es-MX": "Diametro",
+        "en-US": "Diameter"
+    },
+    "ListadoCatalogos0035": {
+        "es-MX": "Cedula A",
+        "en-US": "Chart A"
+    },
+    "ListadoCatalogos0036": {
+        "es-MX": "Cedula B",
+        "en-US": "Chart B"
+    },
+    "ListadoCatalogos0037": {
+        "es-MX": "Cedula C",
+        "en-US": "Chart C"
+    },
+    "ListadoCatalogos0038": {
+        "es-MX": "Cedula In",
+        "en-US": "Chart In"
+    },
+    "ListadoCatalogos0039": {
+        "es-MX": "Cedula MM",
+        "en-US": "Chart MM"
+    },
+    "ListadoCatalogos0040": {
+        "es-MX": "Espesor",
+        "en-US": "Thickness"
+    },
+    "ListadoCatalogos0040": {
+        "es-MX": "Configuración",
+        "en-US": "Settings"
+    },
+    //CatálogosICS
     "ItemCodeSteelGo0001": {
-        "es-MX": "Item Code SteelGo",
-        "en-US": "Item Code SteelGo"
+        "es-MX": "IC Steelgo",
+        "en-US": "IC Steelgo"
     },
     "ItemCodeSteelGo0002": {
         "es-MX": "Guardar",
@@ -835,8 +1229,84 @@ _dictionary = {
         "en-US": "Cancel"
     },
     "ItemCodeSteelGo0004": {
-        "es-MX": "Asociar Item Code Steel Go",
-        "en-US": "Set Item Code Steel Go"
+        "es-MX": "Asociar Item Codes",
+        "en-US": "Associate Item Codes"
+    },
+    "ItemCodeSteelGo0005": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ItemCodeSteelGo0006": {
+        "es-MX": "Descripción Larga",
+        "en-US": "Large Description"
+    },
+    "ItemCodeSteelGo0007": {
+        "es-MX": "Descripción Inglés",
+        "en-US": "English Description"
+    },
+    "ItemCodeSteelGo0008": {
+        "es-MX": "Descripción Inglés Larga",
+        "en-US": "Large English Description"
+    },
+    "ItemCodeSteelGo0009": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "ItemCodeSteelGo0010": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "ItemCodeSteelGo0011": {
+        "es-MX": "Grupo",
+        "en-US": "Group"
+    },
+    "ItemCodeSteelGo0012": {
+        "es-MX": "Acero",
+        "en-US": "Steel"
+    },
+    "ItemCodeSteelGo0013": {
+        "es-MX": "Cédula A",
+        "en-US": "Document A"
+    },
+    "ItemCodeSteelGo0014": {
+        "es-MX": "Cédula B",
+        "en-US": "Document B"
+    },
+    "ItemCodeSteelGo0015": {
+        "es-MX": "Cédula C(Libra)",
+        "en-US": "Document C(Pound)"
+    },
+    "ItemCodeSteelGo0016": {
+        "es-MX": "Pulgadas",
+        "en-US": "Inchs"
+    },
+    "ItemCodeSteelGo0017": {
+        "es-MX": "Espesor",
+        "en-US": "Thickness"
+    },
+    "ItemCodeSteelGo0018": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
+    "ItemCodeSteelGo0019": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "ItemCodeSteelGo0020": {
+        "es-MX": "Debes hacer un registro válido",
+        "en-US": "You must make a valid registration"
+    },
+    "ItemCodeSteelGo0021": {
+        "es-MX": "No hay datos",
+        "en-US": "There is no data"
+    },
+    "ItemCodeSteelGo0022": {
+        "es-MX": "Necesitas ingresar un diametro",
+        "en-US": "You should type a diameter"
+    },
+    "ItemCodeSteelGo0023": {
+        "es-MX": "Este elemento aún no existe en la BD",
+        "en-US": "This element doesnt exist yet in the database"
     },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
@@ -849,6 +1319,209 @@ _dictionary = {
     "AsociacionICS0003": {
         "es-MX": "ICS Asociado",
         "en-US": "Associated ICS"
+    },
+    "AsociacionICS0004": {
+        "es-MX": "Asociación Item Code Steelgo",
+        "en-US": "Associated Item Code Steelgo"
+    },
+    "AsociacionICS0005": {
+        "es-MX": "Se ha creado la asociación",
+        "en-US": "The association has been created"
+    },
+    "AsociacionICS0006": {
+        "es-MX": "No ha habido modificaciones",
+        "en-US": "There has not been modifications"
+    },
+    "AsociacionICS0007": {
+        "es-MX": "No hay datos con esos diametros",
+        "en-US": "There are no data with that diameters"
+    },
+    //Notificacion Deficit
+    "NotificacionDeficit0001": {
+        "es-MX": "Orden de trabajo",
+        "en-US": "Work order"
+    },
+    "NotificacionDeficit0002": {
+        "es-MX": "Seleccionar spool",
+        "en-US": "Select spool"
+    },
+    "NotificacionDeficit0003": {
+        "es-MX": "Notificación de Déficit",
+        "en-US": "Deficit notification"
+    },
+    "NotificacionDeficit0004": {
+        "es-MX": "El item code no tiene spools",
+        "en-US": "The item code does not have spools"
+    },
+    "NotificacionDeficit0005": {
+        "es-MX": "El deficit no puede ser menor que la cantidad",
+        "en-US": "Deficit can not be less than quantity"
+    },
+    "NotificacionDeficit0006": {
+        "es-MX": "Se ha registrado exitosamente",
+        "en-US": "Succesfully registered"
+    },
+    "NotificacionDeficit0007": {
+        "es-MX": "Se ha registrado exitosamente",
+        "en-US": "Succesfully registered"
+    },
+    "NotificacionDeficit0008": {
+        "es-MX": "Notificar",
+        "en-US": "Notify"
+    },
+    "NotificacionDeficit0009": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "NotificacionDeficit0010": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "NotificacionDeficit0011": {
+        "es-MX": "Ir a revision",
+        "en-US": "Go to review"
+    },
+    "NotificacionDeficit0012": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "NotificacionDeficit0013": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "NotificacionDeficit0014": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "NotificacionDeficit0015": {
+        "es-MX": "Déficit total",
+        "en-US": "Total Deficit"
+    },
+    "NotificacionDeficit0016": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "NotificacionDeficit0017": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
+    "NotificacionDeficit0018": {
+        "es-MX": "Debes seleccionar Orden de Trabajo y Item Code",
+        "en-US": "You must select a Work Order and an Item Code"
+    },
+    "NotificacionDeficit0019": {
+        "es-MX": "Debes ingresar un deficit para algun elemento del listado",
+        "en-US": "You must type a deficit for one of the listed elements"
+    },
+    //Revisión de deficit
+    "RevisionDeficit0001": {
+        "es-MX": "Revisión de Déficit",
+        "en-US": "Deficit review"
+    },
+    "RevisionDeficit0002": {
+        "es-MX": "El deficit no puede ser mayor que la cantidad",
+        "en-US": "Deficit can not be greater than quantity"
+    },
+    "RevisionDeficit0003": {
+        "es-MX": "Se ha registrado exitosamente",
+        "en-US": "Succesfully registered"
+    },
+    "RevisionDeficit0004": {
+        "es-MX": "Necesitas cubrir todos los déficit listados",
+        "en-US": "You need to cover all the listed deficit"
+    },
+    "RevisionDeficit0005": {
+        "es-MX": "Orden de trabajo",
+        "en-US": "Work order"
+    },
+    "RevisionDeficit0006": {
+        "es-MX": "Solucionar",
+        "en-US": "Solve"
+    },
+    "RevisionDeficit0007": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "RevisionDeficit0008": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "RevisionDeficit0009": {
+        "es-MX": "Ir a listado",
+        "en-US": "Go to list"
+    },
+    "RevisionDeficit0010": {
+        "es-MX": "No hay deficit en la orden de trabajo espeficicada",
+        "en-US": "There is no deficit in the specified work order"
+    },
+    "RevisionDeficit0011": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "RevisionDeficit0012": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "RevisionDeficit0013": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "RevisionDeficit0014": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "RevisionDeficit0015": {
+        "es-MX": "Déficit",
+        "en-US": "Deficit"
+    },
+    "RevisionDeficit0016": {
+        "es-MX": "Por Cubrir",
+        "en-US": "To Cover"
+    },
+    "RevisionDeficit0017": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "RevisionDeficit0018": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
+    //Búsqueda
+    "Busqueda0001": {
+        "es-MX": "Resultados de Búsqueda",
+        "en-US": "Search results"
+    },
+    "Busqueda0002": {
+        "es-MX": "Proyectos",
+        "en-US": "Projects"
+    },
+    "Busqueda0003": {
+        "es-MX": "Tipo",
+        "en-US": "Type"
+    },
+    "Busqueda0004": {
+        "es-MX": "Aviso entrada",
+        "en-US": "Arrival notice"
+    },
+    "Busqueda0005": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "Busqueda0006": {
+        "es-MX": "Número único",
+        "en-US": "Unique Number"
+    },
+    "Busqueda0007": {
+        "es-MX": "Anteriores",
+        "en-US": "Previous"
+    },
+    "Busqueda0008": {
+        "es-MX": "Siguientes",
+        "en-US": "Next"
+    },
+    "Busqueda0009": {
+        "es-MX": "de",
+        "en-US": "of"
     },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
@@ -936,16 +1609,16 @@ _dictionary = {
         "en-US": "Project"
     },
     "LlegadaMaterial0022": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
     },
     "LlegadaMaterial0023": {
         "es-MX": "Listado Folios Llegada de Material",
-        "en-US": "List Arrival sheets Material"
+        "en-US": "Arrival Material Folios List"
     },
     "LlegadaMaterial0024": {
         "es-MX": "Llegada de Material",
-        "en-US": "Material's Arrival"
+        "en-US": "Material Arrival"
     },
     "LlegadaMaterial0025": {
         "es-MX": "Pase de Salida",
@@ -953,7 +1626,7 @@ _dictionary = {
     },
     "LlegadaMaterial0026": {
         "es-MX": "Packing List Firmado",
-        "en-US": "Packing List Signed"
+        "en-US": "Signed Packing List"
     },
     "LlegadaMaterial0027": {
         "es-MX": "Imprimir Pase",
@@ -993,7 +1666,7 @@ _dictionary = {
     },
     "LlegadaMaterial0036": {
         "es-MX": "Dashboard Llegada de Material",
-        "en-US": "Dashboard Llegada de Material"
+        "en-US": "Arrival Material Dashboard"
     },
     "LlegadaMaterial0037": {
         "es-MX": "Guardar y Nuevo",
@@ -1013,7 +1686,7 @@ _dictionary = {
     },
     "LlegadaMaterial0041": {
         "es-MX": "Ir a Listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "LlegadaMaterial0042": {
         "es-MX": "Levantar Incidencia",
@@ -1097,11 +1770,19 @@ _dictionary = {
     },
     "LlegadaMaterial0062": {
         "es-MX": "Cierre de Folio Por Devolución",
-        "en-US": "By closing Folio Return"
+        "en-US": "Closing Folio By Return"
     },
     "LlegadaMaterial0063": {
         "es-MX": "Orden de Descarga Generada",
-        "en-US": "Download Order Generation"
+        "en-US": "Generated Download Order"
+    },
+    "LlegadaMaterial0064": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "LlegadaMaterial0065": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
     },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
@@ -1178,28 +1859,32 @@ _dictionary = {
     },
     "ListadoLlegadaMaterial0019": {
         "es-MX": "Dashboard Llegada de Material",
-        "en-US": "Dashboard Llegada de Material"
+        "en-US": "Material Arrival Dashboard"
     },
     "ListadoLlegadaMaterial0020": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoLlegadaMaterial0021": {
         "es-MX": "Listado Folios Llegada de Material",
-        "en-US": "List Arrival sheets Material"
+        "en-US": "Arrival Material Folios List"
     },
     "ListadoLlegadaMaterial0022": {
         "es-MX": "¿Está seguro de cancelar el Folio de Llegada?",
-        "en-US": "Are you sure you want to cancel the Arriving Folio?"
+        "en-US": "Are you sure you want to cancel the Arrival Folio?"
     },
     "ListadoLlegadaMaterial0023": {
         "es-MX": "Registrar Incidencia",
         "en-US": "Register Incidence"
     },
+    "ListadoLlegadaMaterial0024": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Cuantificacion
     "Cuantificacion0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "Cuantificacion0002": {
         "es-MX": "Cuantificacion",
@@ -1251,11 +1936,11 @@ _dictionary = {
     },
     "Cuantificacion0014": {
         "es-MX": "Folio Llegada",
-        "en-US": "Folio Llegada"
+        "en-US": "Arrival Folio"
     },
     "Cuantificacion0015": {
         "es-MX": "Bulto",
-        "en-US": "Bulto"
+        "en-US": "Pack"
     },
     "Cuantificacion0016": {
         "es-MX": "Packing List",
@@ -1263,11 +1948,11 @@ _dictionary = {
     },
     "Cuantificacion0017": {
         "es-MX": "Tipo Packing List",
-        "en-US": "Tipo Packing List"
+        "en-US": "Packing List Type"
     },
     "Cuantificacion0018": {
         "es-MX": "Tipo Uso",
-        "en-US": "Type Use"
+        "en-US": "Use Type"
     },
     "Cuantificacion0019": {
         "es-MX": "Carga Masiva",
@@ -1294,8 +1979,8 @@ _dictionary = {
         "en-US": "MM"
     },
     "Cuantificacion0025": {
-        "es-MX": "Planchar",
-        "en-US": "Planchar"
+        "es-MX": "Llenado Masivo:",
+        "en-US": "filling Mass:"
     },
     "Cuantificacion0026": {
         "es-MX": "Todos",
@@ -1327,11 +2012,11 @@ _dictionary = {
     },
     "Cuantificacion0033": {
         "es-MX": "Familia",
-        "en-US": "Familia"
+        "en-US": "Family"
     },
     "Cuantificacion0034": {
         "es-MX": "Cédula",
-        "en-US": "Cédula"
+        "en-US": "Charter"
     },
     "Cuantificacion0035": {
         "es-MX": "Tipo Acero",
@@ -1419,11 +2104,11 @@ _dictionary = {
     },
     "Cuantificacion0056": {
         "es-MX": "Tipo de Material",
-        "en-US": "type of material"
+        "en-US": "Material Type"
     },
     "Cuantificacion0057": {
         "es-MX": "Colada",
-        "en-US": "Colada"
+        "en-US": "Wash"
     },
     "Cuantificacion0058": {
         "es-MX": "Proyecto",
@@ -1431,11 +2116,11 @@ _dictionary = {
     },
     "Cuantificacion0059": {
         "es-MX": "Tipo de Material",
-        "en-US": "type of material"
+        "en-US": "Material Type"
     },
     "Cuantificacion0060": {
         "es-MX": "Colada",
-        "en-US": "Colada"
+        "en-US": "Wash"
     },
     "Cuantificacion0061": {
         "es-MX": "Fabricante",
@@ -1459,15 +2144,15 @@ _dictionary = {
     },
     "Cuantificacion0066": {
         "es-MX": "Número Colada",
-        "en-US": "# Colada"
+        "en-US": "Wash Number"
     },
     "Cuantificacion0067": {
         "es-MX": "Número Certificado",
-        "en-US": "# Certificado"
+        "en-US": "Certificate Number"
     },
     "Cuantificacion0068": {
         "es-MX": "Hold Calidad",
-        "en-US": "Hold Calidad"
+        "en-US": "Quality Hold"
     },
     "Cuantificacion0069": {
         "es-MX": "Peso",
@@ -1531,7 +2216,7 @@ _dictionary = {
     },
     "Cuantificacion0084": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "Cuantificacion0085": {
         "es-MX": "Regresar al Listado",
@@ -1540,6 +2225,50 @@ _dictionary = {
     "Cuantificacion0086": {
         "es-MX": "Recepción Terminada",
         "en-US": "Reception Finished"
+    },
+    "Cuantificacion0087": {
+        "es-MX": "Detallar",
+        "en-US": "Detail"
+    },
+    "Cuantificacion0088": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Cuantificacion0089": {
+        "es-MX": "Nuevo Item Code",
+        "en-US": "New Item Code"
+    },
+    "Cuantificacion0090": {
+        "es-MX": "Nueva Colada",
+        "en-US": "New Wash"
+    },
+    "Cuantificacion0091": {
+        "es-MX": "RelFCId",
+        "en-US": "RelFCId"
+    },
+    "Cuantificacion0092": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "Cuantificacion0093": {
+        "es-MX": "ItemCodeID",
+        "en-US": "ItemCodeID"
+    },
+    "Cuantificacion0094": {
+        "es-MX": "ItemCodeSteelgoID",
+        "en-US": "ItemCodeSteelgoID"
+    },
+    "Cuantificacion0095": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "Cuantificacion0096": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Cuantificacion0097": {
+        "es-MX": "ItemCodeOrigenID",
+        "en-US": "ItemCodeOrigenID"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
@@ -1564,7 +2293,7 @@ _dictionary = {
     },
     "FormatoEtiquetas0006": {
         "es-MX": "Colada: ",
-        "en-US": "Colada: "
+        "en-US": "Wash: "
     },
     "FormatoEtiquetas0007": {
         "es-MX": "Certificado: ",
@@ -1576,7 +2305,7 @@ _dictionary = {
     },
     "FormatoEtiquetas0009": {
         "es-MX": "Cédula: ",
-        "en-US": "Cedula: "
+        "en-US": "Chart: "
     },
     "FormatoEtiquetas0010": {
         "es-MX": "Descripción: ",
@@ -1605,11 +2334,11 @@ _dictionary = {
     },
     "FormatoPaseSalida0005": {
         "es-MX": "No. Plana",
-        "en-US": "No. Plana"
+        "en-US": "Platform Num."
     },
     "FormatoPaseSalida0006": {
         "es-MX": "Placa Tracto",
-        "en-US": "Placa Tracto"
+        "en-US": "Tractor Plate"
     },
     "FormatoPaseSalida0007": {
         "es-MX": "Documentos",
@@ -1625,7 +2354,7 @@ _dictionary = {
     },
     "FormatoPaseSalida0010": {
         "es-MX": "Remisión",
-        "en-US": "Remisión"
+        "en-US": "Remision"
     },
     "FormatoPaseSalida0011": {
         "es-MX": "Registros de Tiempos",
@@ -1633,7 +2362,7 @@ _dictionary = {
     },
     "FormatoPaseSalida0012": {
         "es-MX": "Hora de llegada unidad",
-        "en-US": "Check unit"
+        "en-US": "Arrival Unit Time"
     },
     "FormatoPaseSalida0013": {
         "es-MX": "Hora inicio descarga",
@@ -1665,8 +2394,8 @@ _dictionary = {
         "en-US": "Folio Arrival Notice"
     },
     "AutorizarPermiso0002": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "AutorizarPermiso0003": {
         "es-MX": "Autorizar Permiso",
@@ -1682,24 +2411,44 @@ _dictionary = {
     },
     "AutorizarPermiso0006": {
         "es-MX": "Permiso Autorizado",
-        "en-US": "Permit Authorized"
+        "en-US": "Authorized permit"
     },
     "AutorizarPermiso0007": {
         "es-MX": "Dashboard Aviso Llegada",
-        "en-US": "Dashboard Aviso Llegada"
+        "en-US": "Notice Arrival Dashboard"
     },
     "AutorizarPermiso0008": {
         "es-MX": "Listado de Avisos de Entrada",
-        "en-US": "List Input Material"
+        "en-US": "Entry Notices List"
+    },
+    "AutorizarPermiso0009": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Add Files"
+    },
+    "AutorizarPermiso0010": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "AutorizarPermiso0011": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File type"
+    },
+    "AutorizarPermiso0012": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "AutorizarPermiso0013": {
+        "es-MX": "Administración",
+        "en-US": "Administration"
     },
     //Dashboard Aviso Legada
     "DashboardAvisoLlegada0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "DashboardAvisoLlegada0002": {
         "es-MX": "Dashboard Aviso Llegada",
-        "en-US": "Dashboard Aviso Llegada"
+        "en-US": "Notice Arrival Dashboard"
     },
     "DashboardAvisoLlegada0003": {
         "es-MX": "Nuevo",
@@ -1733,14 +2482,18 @@ _dictionary = {
         "es-MX": "Sin Permiso",
         "en-US": "No permission"
     },
+    "DashboardAvisoLlegada0011": {
+        "es-MX": "Administración",
+        "en-US": "Administration"
+    },
     //Dashboard Llegada Material
     "DashboardLlegadaMaterial0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "DashboardLlegadaMaterial0002": {
         "es-MX": "Dashboard Llegada de Material",
-        "en-US": "Dashboard Llegada de Material"
+        "en-US": "Arrival Material Dashboard"
     },
     "DashboardLlegadaMaterial0003": {
         "es-MX": "Cliente",
@@ -1764,7 +2517,7 @@ _dictionary = {
     },
     "DashboardLlegadaMaterial0008": {
         "es-MX": "Por Descargar",
-        "en-US": "For Downloading"
+        "en-US": "To Download"
     },
     "DashboardLlegadaMaterial0009": {
         "es-MX": "Por Salir ",
@@ -1814,6 +2567,10 @@ _dictionary = {
         "es-MX": "Año",
         "en-US": "Year"
     },
+    "DashboardLlegadaMaterial0021": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
@@ -1829,8 +2586,8 @@ _dictionary = {
         "en-US": "Materials"
     },
     "PaseDeSalida0003": {
-        "es-MX": "Llegada Material",
-        "en-US": "Arrival Material"
+        "es-MX": "Listado Llegada Material",
+        "en-US": "Arrival Material List"
     },
     "PaseDeSalida0004": {
         "es-MX": "Pase de Salida",
@@ -1850,7 +2607,7 @@ _dictionary = {
     },
     "PaseDeSalida0008": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Notice Folio Entry"
+        "en-US": "Notice Entry Folio"
     },
     "PaseDeSalida0009": {
         "es-MX": "Incidencias",
@@ -1890,7 +2647,11 @@ _dictionary = {
     },
     "PaseDeSalida0018": {
         "es-MX": "Imprimir Pase de Salida",
-        "en-US": "Print Pass Out"
+        "en-US": "Print Departure Pass"
+    },
+    "PaseDeSalida0019": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Arrival Material Dashboard"
     },
     //
     "FormatoIncicencias0001": {
@@ -1964,7 +2725,7 @@ _dictionary = {
     },
     "GenerarOrdenRecepcion0004": {
         "es-MX": "Ir a Listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "GenerarOrdenRecepcion0005": {
         "es-MX": "Levantar Incidencia",
@@ -1976,7 +2737,7 @@ _dictionary = {
     },
     "GenerarOrdenRecepcion0007": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "GenerarOrdenRecepcion0008": {
         "es-MX": "Item Code",
@@ -1984,7 +2745,7 @@ _dictionary = {
     },
     "GenerarOrdenRecepcion0009": {
         "es-MX": "Aviso Entrada",
-        "en-US": "Aviso Entrada"
+        "en-US": "Notice Entry"
     },
     "GenerarOrdenRecepcion0010": {
         "es-MX": "Item Code ID",
@@ -2016,40 +2777,56 @@ _dictionary = {
     },
     "GenerarOrdenRecepcion0017": {
         "es-MX": "Generar Orden de Recepcion y Nuevo",
-        "en-US": "Generate order of receipt and New"
+        "en-US": "Generate order reception and New"
     },
     "GenerarOrdenRecepcion0018": {
         "es-MX": "Generar Orden de Recepcion e Imprimir Formato",
-        "en-US": "Generate order of receipt and print fomat"
+        "en-US": "Generate order reception and print format"
     },
     "GenerarOrdenRecepcion0019": {
         "es-MX": "Generar Orden de Recepcion, Imprimir Formato y etiquetas de numeros unicos",
-        "en-US": "Generate order of receipt, print fomat and tags unique numbers"
+        "en-US": "Generate order reception, print format and unique numbers tags"
     },
     "GenerarOrdenRecepcion0020": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
     },
     "GenerarOrdenRecepcion0021": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "GenerarOrdenRecepcion0022": {
         "es-MX": "Listado Orden de Recepción",
-        "en-US": "Listed in order of receipt"
+        "en-US": "Order Reception List"
     },
     "GenerarOrdenRecepcion0023": {
         "es-MX": "Generar Orden de Recepción",
-        "en-US": "Generate Order Reception"
+        "en-US": "Generate Reception Order"
     },
     "GenerarOrdenRecepcion0024": {
         "es-MX": "Aviso Llegada ID",
-        "en-US": "Aviso Llegada ID"
+        "en-US": "Notice Entry ID"
+    },
+    "GenerarOrdenRecepcion0025": {
+        "es-MX": "RelFCId",
+        "en-US": "RelFCId"
+    },
+    "GenerarOrdenRecepcion0026": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "GenerarOrdenRecepcion0027": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "GenerarOrdenRecepcion0028": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
     },
     //Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {
         "es-MX": "Generar Orden de Recepcion",
-        "en-US": "Generate order of receipt"
+        "en-US": "Generate Reception Order"
     },
     "ListadoOrdenRecepcion0002": {
         "es-MX": "Cliente",
@@ -2061,7 +2838,7 @@ _dictionary = {
     },
     "ListadoOrdenRecepcion0004": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "ListadoOrdenRecepcion0005": {
         "es-MX": "Fecha Inicial",
@@ -2081,7 +2858,7 @@ _dictionary = {
     },
     "ListadoOrdenRecepcion0009": {
         "es-MX": "Orden de Recepcion",
-        "en-US": "Order of receipt"
+        "en-US": "Reception Order"
     },
     "ListadoOrdenRecepcion0010": {
         "es-MX": "Imprimir",
@@ -2141,19 +2918,19 @@ _dictionary = {
     },
     "ListadoOrdenRecepcion0024": {
         "es-MX": "Aviso de Entrada",
-        "en-US": "Aviso de Entrada"
+        "en-US": "Notice Entry"
     },
     "ListadoOrdenRecepcion0025": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoOrdenRecepcion0026": {
         "es-MX": "Listado Orden de Recepción",
-        "en-US": "Listed in order of receipt"
+        "en-US": "Order Reception List"
     },
     "ListadoOrdenRecepcion0027": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "ListadoOrdenRecepcion0028": {
         "es-MX": "Cancelar",
@@ -2163,7 +2940,10 @@ _dictionary = {
         "es-MX": "Imprimir Etiquetas",
         "en-US": "Print Labels"
     },
-   
+    "ListadoOrdenRecepcion0030": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
         "es-MX": "Cancelar",
@@ -2175,7 +2955,7 @@ _dictionary = {
     },
     "DetalleOrdenRecepcion0003": {
         "es-MX": "Ir a Listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "DetalleOrdenRecepcion0004": {
         "es-MX": "Levantar Incidencia",
@@ -2215,7 +2995,7 @@ _dictionary = {
     },
     "DetalleOrdenRecepcion0013": {
         "es-MX": "Folio Orden de Recepción: ",
-        "en-US": "Folio Order Reception: "
+        "en-US": "Order Reception Folio: "
     },
     "DetalleOrdenRecepcion0014": {
         "es-MX": "Nueva captura",
@@ -2227,7 +3007,7 @@ _dictionary = {
     },
     "DetalleOrdenRecepcion0016": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "DetalleOrdenRecepcion0017": {
         "es-MX": "Item Code",
@@ -2239,11 +3019,11 @@ _dictionary = {
     },
     "DetalleOrdenRecepcion0019": {
         "es-MX": "Listado Orden de Recepción",
-        "en-US": "Listed in order of receipt"
+        "en-US": "Order Reception List"
     },
     "DetalleOrdenRecepcion0020": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "DetalleOrdenRecepcion0021": {
         "es-MX": "Inicio",
@@ -2254,13 +3034,17 @@ _dictionary = {
         "en-US": "Labels"
     },
     "DetalleOrdenRecepcion0023": {
-        "es-MX": "Generar Orden Almacenaje",
-        "en-US": "Generate Storage Order"
+        "es-MX": "Complemento Recepción",
+        "en-US": "Reception Complement"
+    },
+    "DetalleOrdenRecepcion0024": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Folio Orden de Almacenaje: ",
-        "en-US": "Order storage: "
+        "en-US": "Order storage Folio: "
     },
     "DetalleOrdenAlmacenaje0002": {
         "es-MX": "Editar",
@@ -2276,7 +3060,7 @@ _dictionary = {
     },
     "DetalleOrdenAlmacenaje0005": {
         "es-MX": "Ir a Listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "DetalleOrdenAlmacenaje0006": {
         "es-MX": "Levantar Incidencia",
@@ -2292,7 +3076,7 @@ _dictionary = {
     },
     "DetalleOrdenAlmacenaje0009": {
         "es-MX": "Folio de Llegada",
-        "en-US": "Folio de Llegada"
+        "en-US": "Arrival Folio"
     },
     "DetalleOrdenAlmacenaje0010": {
         "es-MX": "Item Code ID",
@@ -2332,32 +3116,44 @@ _dictionary = {
     },
     "DetalleOrdenAlmacenaje0019": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "DetalleOrdenAlmacenaje0020": {
         "es-MX": "Listado Orden de Almacenaje",
-        "en-US": "Listed in order of storage"
+        "en-US": "Order Storage List"
     },
     "DetalleOrdenAlmacenaje0021": {
         "es-MX": "Detalle Orden de Almacenaje",
-        "en-US": "Detail Order Storage"
+        "en-US": "Order Storage Detail"
+    },
+    "DetalleOrdenAlmacenaje0022": {
+        "es-MX": "Cancelar Orden Almacenaje",
+        "en-US": "Cancel Order Storage"
+    },
+    "DetalleOrdenAlmacenaje0023": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "DetalleOrdenAlmacenaje0024": {
+        "es-MX": "Cancelado",
+        "en-US": "Canceled"
     },
 //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoOrdenAlmacenaje0002": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "ListadoOrdenAlmacenaje0003": {
         "es-MX": "Listado Orden de Almacenaje",
-        "en-US": "Listed in order of storage"
+        "en-US": "Order Storage List"
     },
     "ListadoOrdenAlmacenaje0004": {
         "es-MX": "Generar Orden de Almacenaje",
-        "en-US": "Generate order of storage"
+        "en-US": "Generate Order Storage"
     },
     "ListadoOrdenAlmacenaje0005": {
         "es-MX": "Cliente",
@@ -2369,7 +3165,7 @@ _dictionary = {
     },
     "ListadoOrdenAlmacenaje0007": {
         "es-MX": "Folio Cuantificacion",
-        "en-US": "Folio Cuantificacion"
+        "en-US": "Quantification Folio"
     },
     "ListadoOrdenAlmacenaje0008": {
         "es-MX": "Fecha Inicial",
@@ -2405,7 +3201,7 @@ _dictionary = {
     },
     "ListadoOrdenAlmacenaje0016": {
         "es-MX": "Fecha Orden de Almacenaje",
-        "en-US": "Date Order Storage"
+        "en-US": "Order Storage Date"
     },
     "ListadoOrdenAlmacenaje0017": {
         "es-MX": "Orden de Almacenaje",
@@ -2421,7 +3217,7 @@ _dictionary = {
     },
     "ListadoOrdenAlmacenaje0020": {
         "es-MX": "Folio Cuantificacion",
-        "en-US": "Folio Cuantificacion"
+        "en-US": "Quantification Folio"
     },
     "ListadoOrdenAlmacenaje0021": {
         "es-MX": "Item Code",
@@ -2431,18 +3227,22 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
+    "ListadoOrdenAlmacenaje0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Generar Orden Almacenaje
     "GenerarOrdenAlmacenaje0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
     },
     "GenerarOrdenAlmacenaje0002": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "GenerarOrdenAlmacenaje0003": {
         "es-MX": "Listado Orden de Almacenaje",
-        "en-US": "Listed in order of storage"
+        "en-US": "Order Storage List"
     },
     "GenerarOrdenAlmacenaje0004": {
         "es-MX": "Generar Orden de Almacenaje",
@@ -2458,7 +3258,7 @@ _dictionary = {
     },
     "GenerarOrdenAlmacenaje0007": {
         "es-MX": "Generar Orden de Almacenaje e Imprimir Formato",
-        "en-US": "Generate Order Storage, print format"
+        "en-US": "Generate Order Storage and print format"
     },
     "GenerarOrdenAlmacenaje0008": {
         "es-MX": "Cancelar",
@@ -2470,7 +3270,7 @@ _dictionary = {
     },
     "GenerarOrdenAlmacenaje0010": {
         "es-MX": "Ir a Listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "GenerarOrdenAlmacenaje0011": {
         "es-MX": "Levantar Incidencia",
@@ -2482,7 +3282,7 @@ _dictionary = {
     },
     "GenerarOrdenAlmacenaje0013": {
         "es-MX": "Folio Cuantificación",
-        "en-US": "Folio Cuantificación"
+        "en-US": "Quantification Folio"
     },
     "GenerarOrdenAlmacenaje0014": {
         "es-MX": "Item Code",
@@ -2494,11 +3294,11 @@ _dictionary = {
     },
     "GenerarOrdenAlmacenaje0016": {
         "es-MX": "Folio de Llegada",
-        "en-US": "Folio de Llegada"
+        "en-US": "Arrival Folio"
     },
     "GenerarOrdenAlmacenaje0017": {
         "es-MX": "Folio Cuantificacion ID",
-        "en-US": "Folio Cuantificacion ID"
+        "en-US": "Quantification Folio ID"
     },
     "GenerarOrdenAlmacenaje0018": {
         "es-MX": "Item Code ID",
@@ -2526,7 +3326,7 @@ _dictionary = {
     },
     "GenerarOrdenAlmacenaje0024": {
         "es-MX": "Folio Cuantificacion ID",
-        "en-US": "Folio Cuantificacion ID"
+        "en-US": "Quantification Folio ID"
     },
     "GenerarOrdenAlmacenaje0025": {
         "es-MX": "Item Code ID",
@@ -2540,14 +3340,22 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
+    "GenerarOrdenAlmacenaje0028": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "GenerarOrdenAlmacenaje0029":{
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
 //Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX":"Transacciones",
+        "en-US": "Dealings"
     },
     "DashboardRecepcionAlmacenaje0002": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "DashboardRecepcionAlmacenaje0003": {
         "es-MX": "Cliente",
@@ -2559,7 +3367,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0005": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "DashboardRecepcionAlmacenaje0006": {
         "es-MX": "Packing List",
@@ -2599,19 +3407,19 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0015": {
         "es-MX": "MTL sin Orden de Recepción",
-        "en-US": "MTL without Receiving Order"
+        "en-US": "MTL without Reception Order"
     },
     "DashboardRecepcionAlmacenaje0016": {
         "es-MX": "NU por recepcionar",
-        "en-US": "NU por recepcionar"
+        "en-US": "To receive NU"
     },
     "DashboardRecepcionAlmacenaje0017": {
         "es-MX": "NU sin Orden de Almacenaje",
-        "en-US": "NU without Order Storage"
+        "en-US": "Without Nu Order Storage"
     },
     "DashboardRecepcionAlmacenaje0018": {
         "es-MX": "NU sin almacenar",
-        "en-US": "NU without storing"
+        "en-US": "Not Stored Nu"
     },
     "DashboardRecepcionAlmacenaje0019": {
         "es-MX": "Incidencias abiertas",
@@ -2627,7 +3435,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0022": {
         "es-MX": "PL por cuantificar",
-        "en-US": "PL quantify "
+        "en-US": "To quantify PL"
     },
     "DashboardRecepcionAlmacenaje0023": {
         "es-MX": "MTL sin ICS",
@@ -2639,11 +3447,11 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0025": {
         "es-MX": "NU por recepcionar",
-        "en-US": "NU por recepcionar"
+        "en-US": "To receive NU"
     },
     "DashboardRecepcionAlmacenaje0026": {
         "es-MX": "NU sin Orden de Almacenaje",
-        "en-US": "NU without Order Storage"
+        "en-US": "NU Without Order Storage"
     },
     "DashboardRecepcionAlmacenaje0027": {
         "es-MX": "NU sin almacenar",
@@ -2655,7 +3463,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0029": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "DashboardRecepcionAlmacenaje0030": {
         "es-MX": "Fecha de descarga",
@@ -2675,15 +3483,15 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0034": {
         "es-MX": "Folio aviso entrada",
-        "en-US": "Folio aviso entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "DashboardRecepcionAlmacenaje0035": {
         "es-MX": "Fecha de descarga",
-        "en-US": "Date of download"
+        "en-US": "Download Date"
     },
     "DashboardRecepcionAlmacenaje0036": {
         "es-MX": "Fecha creación Packing List",
-        "en-US": "Create Date Packing List"
+        "en-US": "Packing List Create Date"
     },
     "DashboardRecepcionAlmacenaje0037": {
         "es-MX": "Packing List",
@@ -2725,6 +3533,58 @@ _dictionary = {
         "es-MX": "Cantidad de incidencias",
         "en-US": "Number of Incidences"
     },
+    "DashboardRecepcionAlmacenaje0047": {
+        "es-MX": "Levantar Incidencia Aviso Entrada",
+        "en-US": "Fill Notice Entry Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0048": {
+        "es-MX": "Levantar Incidencia Packing List",
+        "en-US": "Fill Packing List Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0049": {
+        "es-MX": "FolioCuantificacionID",
+        "en-US": "QuatificationFolioID"
+    },
+    "DashboardRecepcionAlmacenaje0050": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "DashboardRecepcionAlmacenaje0051": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0052": {
+        "es-MX": "Folio Orden Recepción",
+        "en-US": "Reception Folio Order"
+    },
+    "DashboardRecepcionAlmacenaje0053": {
+        "es-MX": "NumeroUnicoID",
+        "en-US": "NumeroUnicoID"
+    },
+    "DashboardRecepcionAlmacenaje0054": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0055": {
+        "es-MX": "Levantar Incidencia Aviso Entrada",
+        "en-US": "Fill Notice Entry Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0056": {
+        "es-MX": "Levantar Incidencia Packing List",
+        "en-US": "Fill Packing List Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0057": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0058": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0059": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
@@ -2736,7 +3596,7 @@ _dictionary = {
     },
     "ListadoRecepcionAlmacenajeTuberia0003": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "ListadoRecepcionAlmacenajeTuberia0004": {
         "es-MX": "Packing List",
@@ -2816,11 +3676,11 @@ _dictionary = {
     },
     "ListadoRecepcionAlmacenajeTuberia0023": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "ListadoRecepcionAlmacenajeTuberia0024": {
         "es-MX": "Listado Recepción y Almacenaje",
-        "en-US": "List Receipt and Storage"
+        "en-US": "Reception & Storage List"
     },
     "ListadoRecepcionAlmacenajeTuberia0025": {
         "es-MX": "Cuantificación",
@@ -2828,11 +3688,11 @@ _dictionary = {
     },
     "ListadoRecepcionAlmacenajeTuberia0026": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "ListadoRecepcionAlmacenajeTuberia0027": {
         "es-MX": "Fecha de descarga",
-        "en-US": "Date of download"
+        "en-US": "Download Date"
     },
     "ListadoRecepcionAlmacenajeTuberia0028": {
         "es-MX": "Cliente",
@@ -2849,7 +3709,7 @@ _dictionary = {
     },
     "ListadoPackingList0003": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Notice Entry Folio"
     },
     "ListadoPackingList0004": {
         "es-MX": "Fecha Inicial",
@@ -2869,11 +3729,11 @@ _dictionary = {
     },
     "ListadoPackingList0008": {
         "es-MX": "Fecha Aviso de Llegada",
-        "en-US": "Fecha Aviso de Llegada"
+        "en-US": "Arrival Notice Date"
     },
     "ListadoPackingList0009": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "ListadoPackingList0010": {
         "es-MX": "Packing List",
@@ -2881,15 +3741,15 @@ _dictionary = {
     },
     "ListadoPackingList0011": {
         "es-MX": "Folio Llegada",
-        "en-US": "Folio Llegada"
+        "en-US": "Arrival Folio"
     },
     "ListadoPackingList0012": {
         "es-MX": "Tipo Packing List",
-        "en-US": "Type Packing List"
+        "en-US": "Packing List Type"
     },
     "ListadoPackingList0013": {
         "es-MX": "Tipo Uso",
-        "en-US": "type Use"
+        "en-US": "Use Type"
     },
     "ListadoPackingList0014": {
         "es-MX": "Estatus",
@@ -2920,21 +3780,25 @@ _dictionary = {
         "en-US": "List Packing List"
     },
     "ListadoPackingList0021": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoPackingList0022": {
         "es-MX": "Dashboard Recepcion y Almacenaje",
-        "en-US": "Dashboard Recepcion y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
+    },
+    "ListadoPackingList0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     //Complemento Recepcion
     "ComplementoRecepcion0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "ComplementoRecepcion0002": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Reception & Storage Dashboard"
     },
     "ComplementoRecepcion0003": {
         "es-MX": "Complemento Recepción",
@@ -2946,7 +3810,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0005": {
         "es-MX": "Terminar y Nuevo",
-        "en-US": "End and New"
+        "en-US": "Finish and New"
     },
     "ComplementoRecepcion0006": {
         "es-MX": "Guardar e Imprimir",
@@ -2970,7 +3834,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0011": {
         "es-MX": "Ir a Listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "ComplementoRecepcion0012": {
         "es-MX": "Levantar Incidencia",
@@ -2982,7 +3846,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0014": {
         "es-MX": "Folio de Llegada",
-        "en-US": "Folio de Llegada"
+        "en-US": "Arrival Folio"
     },
     "ComplementoRecepcion0015": {
         "es-MX": "Mostrar",
@@ -2990,7 +3854,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0016": {
         "es-MX": "Llenado Masivo: ",
-        "en-US": "Filling Mass: "
+        "en-US": "Bulk Filling: "
     },
     "ComplementoRecepcion0017": {
         "es-MX": "Todos",
@@ -3002,7 +3866,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0019": {
         "es-MX": "Estatus Físico",
-        "en-US": "Status Physical"
+        "en-US": "Physical Status"
     },
     "ComplementoRecepcion0020": {
         "es-MX": "Estatus Documental",
@@ -3018,7 +3882,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0023": {
         "es-MX": "Número Único Cliente",
-        "en-US": "Unique Number Client"
+        "en-US": "Client Unique Number"
     },
     "ComplementoRecepcion0024": {
         "es-MX": "Item Code",
@@ -3030,7 +3894,7 @@ _dictionary = {
     },
     "ComplementoRecepcion0026": {
         "es-MX": "Cédula",
-        "en-US": "Cédula"
+        "en-US": "Chart"
     },
     "ComplementoRecepcion0027": {
         "es-MX": "Tipo Acero",
@@ -3114,15 +3978,15 @@ _dictionary = {
     },
     "ComplementoRecepcion0047": {
         "es-MX": "Número Colada",
-        "en-US": "# Colada"
+        "en-US": "Wash Number"
     },
     "ComplementoRecepcion0048": {
         "es-MX": "Número Certificado",
-        "en-US": "# Certificado"
+        "en-US": "Certificate Number"
     },
     "ComplementoRecepcion0049": {
         "es-MX": "Hold Calidad",
-        "en-US": "Hold Calidad"
+        "en-US": "Hold Quality"
     },
     "ComplementoRecepcion0050": {
         "es-MX": "Guardar",
@@ -3188,10 +4052,62 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    "ComplementoRecepcion0066": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "ComplementoRecepcion0067": {
+        "es-MX": "NumeroUnicoID",
+        "en-US": "NumeroUnicoID"
+    },
+    "ComplementoRecepcion0068": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "ComplementoRecepcion0069": {
+        "es-MX": "ItemCodeID",
+        "en-US": "ItemCodeID"
+    },
+    "ComplementoRecepcion0070": {
+        "es-MX": "RelFCID",
+        "en-US": "RelFCID"
+    },
+    "ComplementoRecepcion0071": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "ComplementoRecepcion0072": {
+        "es-MX": "RelNUFCBID",
+        "en-US": "RelNUFCBID"
+    },
+    "ComplementoRecepcion0073": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0074": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0075": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "ComplementoRecepcion0076": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ComplementoRecepcion0077": {
+        "es-MX": "ColadaID",
+        "en-US": "ColadaID"
+    },
+    "ComplementoRecepcion0078": {
+        "es-MX": "Al cambiar la colada se generara una incidencia.",
+        "en-US": "By changing the casting an incidence will be generated."
+    },
     // Lista Materiales
     "ListaMateriales0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListaMateriales0002": {
         "es-MX": "Patio",
@@ -3203,11 +4119,11 @@ _dictionary = {
     },
     "ListaMateriales0004": {
         "es-MX": "Folio Llegada",
-        "en-US": "Folio Llegada"
+        "en-US": "Arrival Folio"
     },
     "ListaMateriales0005": {
         "es-MX": "Folio Packing List",
-        "en-US": "Folio Packing List"
+        "en-US": "Packing List Folio"
     },
     "ListaMateriales0006": {
         "es-MX": "Mostrar",
@@ -3227,7 +4143,7 @@ _dictionary = {
     },
     "ListaMateriales0010": {
         "es-MX": "Cedula",
-        "en-US": "Cedula"
+        "en-US": "Chart"
     },
     "ListaMateriales0011": {
         "es-MX": "Tipo Acero",
@@ -3243,11 +4159,11 @@ _dictionary = {
     },
     "ListaMateriales0014": {
         "es-MX": "Rango Inf.",
-        "en-US": "Rango Inf."
+        "en-US": "Inf. Range"
     },
     "ListaMateriales0015": {
         "es-MX": "Rango Sup.",
-        "en-US": "Rango Sup."
+        "en-US": "Sup. Range"
     },
     "ListaMateriales0016": {
         "es-MX": "Cantidad",
@@ -3300,11 +4216,11 @@ _dictionary = {
     },
     "DetalleNumeroUnico0006": {
         "es-MX": "Total Recibido: ",
-        "en-US": "Total Received: "
+        "en-US": "Received Total: "
     },
     "DetalleNumeroUnico0007": {
         "es-MX": "Total Dañado: ",
-        "en-US": "Total Damaged: "
+        "en-US": "Damaged Total: "
     },
     "DetalleNumeroUnico0008": {
         "es-MX": "Item Code: ",
@@ -3320,7 +4236,7 @@ _dictionary = {
     },
     "DetalleNumeroUnico0011": {
         "es-MX": "Total Entradas: ",
-        "en-US": "Total Entradas: "
+        "en-US": "Entries Total: "
     },
     "DetalleNumeroUnico0012": {
         "es-MX": "Saldo Actual: ",
@@ -3328,7 +4244,7 @@ _dictionary = {
     },
     "DetalleNumeroUnico0013": {
         "es-MX": "Segmento",
-        "en-US": "segment"
+        "en-US": "Segment"
     },
     "DetalleNumeroUnico0014": {
         "es-MX": "Rack",
@@ -3336,19 +4252,19 @@ _dictionary = {
     },
     "DetalleNumeroUnico0015": {
         "es-MX": "Total Recibido",
-        "en-US": "Total Received"
+        "en-US": "Received Total"
     },
     "DetalleNumeroUnico0016": {
         "es-MX": "Total Dañado",
-        "en-US": "Total Damaged"
+        "en-US": "Damaged Total"
     },
     "DetalleNumeroUnico0017": {
         "es-MX": "Total Entradas",
-        "en-US": "Total Entradas"
+        "en-US": "Entries Total"
     },
     "DetalleNumeroUnico0018": {
         "es-MX": "Total Salidas",
-        "en-US": "Total Outputs"
+        "en-US": "Outputs Total"
     },
     "DetalleNumeroUnico0019": {
         "es-MX": "Salidas Temporales",
@@ -3368,11 +4284,11 @@ _dictionary = {
     },
     "DetalleNumeroUnico0023": {
         "es-MX": "Segmento",
-        "en-US": "segment"
+        "en-US": "Segment"
     },
     "DetalleNumeroUnico0024": {
         "es-MX": "Entrada (mm)",
-        "en-US": "Entrada (mm)"
+        "en-US": "Entries (mm)"
     },
     "DetalleNumeroUnico0025": {
         "es-MX": "Salida (mm)",
@@ -3412,7 +4328,7 @@ _dictionary = {
     },
     "DetalleNumeroUnico0034": {
         "es-MX": "Detalle Número Único",
-        "en-US": "Detail Unique Number"
+        "en-US": "Unique Number Detail"
     },
     //Listado Materiales Item Code
     "ListadoMaterialesItemCode0001": {
@@ -3449,7 +4365,7 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0009": {
         "es-MX": "Total Recibido",
-        "en-US": "Total Received "
+        "en-US": "Received Total "
     },
     "ListadoMaterialesItemCode0010": {
         "es-MX": "Otras Entradas",
@@ -3457,19 +4373,19 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0011": {
         "es-MX": "Total Condicionado",
-        "en-US": "Total Conditioning"
+        "en-US": "Conditionated Total"
     },
     "ListadoMaterialesItemCode0012": {
         "es-MX": "Total Rechazado",
-        "en-US": "Total Rejected"
+        "en-US": "Rejected Total"
     },
     "ListadoMaterialesItemCode0013": {
         "es-MX": "Recibido Neto",
-        "en-US": "Neto Received"
+        "en-US": "Net Received"
     },
     "ListadoMaterialesItemCode0014": {
         "es-MX": "Entradas desde IC Equivalente",
-        "en-US": "Tickets from IC Equivalent"
+        "en-US": "Entries from IC Equivalent"
     },
     "ListadoMaterialesItemCode0015": {
         "es-MX": "Salidas Temporales",
@@ -3481,11 +4397,11 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0017": {
         "es-MX": "Listado Materiales por Item Code",
-        "en-US": "List Materials by Item Code"
+        "en-US": "Materials List by Item Code"
     },
     "ListadoMaterialesItemCode0018": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Listas"
     },
     "ListadoMaterialesItemCode0019": {
         "es-MX": "Total Ingeniería",
@@ -3497,15 +4413,15 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0021": {
         "es-MX": "Entradas desde IC Equivalente",
-        "en-US": "Tickets from IC Equivalent"
+        "en-US": "Entries from IC Equivalent"
     },
     "ListadoMaterialesItemCode0022": {
         "es-MX": "Total Mermas",
-        "en-US": "Total Losses"
+        "en-US": "Losses Total"
     },
     "ListadoMaterialesItemCode0023": {
         "es-MX": "Total Orden Trabajo",
-        "en-US": "Total Work Order"
+        "en-US": "Work Order Total"
     },
     "ListadoMaterialesItemCode0024": {
         "es-MX": "Despachado por cortar IC equivalente",
@@ -3513,7 +4429,7 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0025": {
         "es-MX": "Cortado para IC equivalente",
-        "en-US": "Cut equivalent to IC"
+        "en-US": "Cut to equivalent IC"
     },
     "ListadoMaterialesItemCode0026": {
         "es-MX": "Total Despachado  por cortar",
@@ -3525,7 +4441,7 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0028": {
         "es-MX": "Despachado desde IC equivalente",
-        "en-US": "Dispatched from  IC equivalent"
+        "en-US": "Dispatched from equivalent IC"
     },
     "ListadoMaterialesItemCode0029": {
         "es-MX": "Despachado a Producción",
@@ -3541,19 +4457,19 @@ _dictionary = {
     },
     "ListadoMaterialesItemCode0032": {
         "es-MX": "Total Físico en Almacén",
-        "en-US": "Total Physical in Stock"
+        "en-US": "Physical Total in Stock"
     },
     "ListadoMaterialesItemCode0033": {
         "es-MX": "Asignado para IC Equivalente",
-        "en-US": "Assigned to IC Equivalent"
+        "en-US": "Assigned to Equivalent IC"
     },
     "ListadoMaterialesItemCode0034": {
         "es-MX": "Total Congelado",
-        "en-US": "Total Frozen"
+        "en-US": "Frozen Total"
     },
     "ListadoMaterialesItemCode0035": {
         "es-MX": "Inventario Disponible Cruce",
-        "en-US": "Available inventory Crossing"
+        "en-US": "Available Inventory Crossing"
     },
     "ListadoMaterialesItemCode0036": {
         "es-MX": "Disponible IC Equivalente",
@@ -3565,8 +4481,8 @@ _dictionary = {
     },
     //Almacenaje
     "Almacenaje0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "Almacenaje0002": {
         "es-MX": "Almacenaje",
@@ -3590,7 +4506,7 @@ _dictionary = {
     },
     "Almacenaje0007": {
         "es-MX": "Ir a listado",
-        "en-US": "Go to List Input"
+        "en-US": "Go to List"
     },
     "Almacenaje0008": {
         "es-MX": "Levantar Incidencia",
@@ -3646,16 +4562,24 @@ _dictionary = {
     },
     "Almacenaje0021": {
         "es-MX": "NumeroUnicoID",
-        "en-US": "NumeroUnicoID"
+        "en-US": "UniqueNumberID"
     },
     "Almacenaje0022": {
         "es-MX": "TieneLocalizacion",
-        "en-US": "TieneLocalizacion"
+        "en-US": "HasLocalization"
+    },
+    "Almacenaje0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Almacenaje0024": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
     },
     //Despacho
     "Despacho0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "Despacho0002": {
         "es-MX": "Despacho",
@@ -3723,7 +4647,7 @@ _dictionary = {
     },
     "Despacho0018": {
         "es-MX": "Tiene Despacho",
-        "en-US": "Tiene Despacho"
+        "en-US": "Has dispatch"
     },
     "Despacho0019": {
         "es-MX": "Estatus",
@@ -3751,16 +4675,113 @@ _dictionary = {
     },
     "Despacho0025": {
         "es-MX": "Dashboard Despacho y Corte",
-        "en-US": "Dashboard Dispatch and Cut"
+        "en-US": "Dispatch & Cut Dashboard"
     },
     "Despacho0026": {
         "es-MX": "ProyectoID",
         "en-US": "ProyectoID"
     },
+    "Despacho0027": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    //PreDespacho
+    "Predespacho0001": {
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
+    },
+    "Predespacho0002": {
+        "es-MX": "Pre-Despacho",
+        "en-US": "Pre-Dispatch"
+    },
+    "Predespacho0003": {
+        "es-MX": "Pre-Despachar",
+        "en-US": "Pre-Dispatch"
+    },
+    "Predespacho0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Predespacho0005": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Predespacho0006": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "Predespacho0007": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0008": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "Predespacho0009": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "Predespacho0010": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "Predespacho0011": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Predespacho0012": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
+    "Predespacho0013": {
+        "es-MX": "Número de control",
+        "en-US": "Control number"
+    },
+    "Predespacho0014": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Predespacho0015": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Predespacho0016": {
+        "es-MX": "Número único",
+        "en-US": "Unique number"
+    },
+    "Predespacho0017": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0018": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0019": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0020": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0021": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0022": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0023": {
+        "es-MX": "Materiales",
+        "en-US": "Mterials"
+    },
     //Corte
     "Corte0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "Corte0002": {
         "es-MX": "Corte",
@@ -3868,11 +4889,11 @@ _dictionary = {
     },
     "Corte0028": {
         "es-MX": "MermaTeorica",
-        "en-US": "MermaTeorica"
+        "en-US": "Theoric Scrap"
     },
     "Corte0029": {
         "es-MX": "EsTramoCompleto",
-        "en-US": "EsTramoCompleto"
+        "en-US": "ISCompleteStretch"
     },
     "Corte0030": {
         "es-MX": "Cancelar",
@@ -3880,11 +4901,11 @@ _dictionary = {
     },
     "Corte0031": {
         "es-MX": "Cantidad Ingenieria",
-        "en-US": "Cantidad Ingenieria"
+        "en-US": "EngineeringQuantity"
     },
     "Corte0032": {
         "es-MX": "Cantidad fuera de tolerancia. Favor de corregir la cantidad.",
-        "en-US": "Number out of tolerance. Please correct the amount."
+        "en-US": "Quantity out of tolerance. Please correct the amount."
     },
     "Corte0033": {
         "es-MX": "Corregir.",
@@ -3892,7 +4913,7 @@ _dictionary = {
     },
     "Corte0034": {
         "es-MX": "Existen incongruencias en el Sobrante. Favor de corregir el Sobrante.",
-        "en-US": "There are inconsistencies in the result of the Remnant. Please correct the amount."
+        "en-US": "There are incongruences in the Remnant. Please correct the amount."
     },
     "Corte0035": {
         "es-MX": "Corregir.",
@@ -3900,7 +4921,7 @@ _dictionary = {
     },
     "Corte0036": {
         "es-MX": "Existen incongruencias en el resultado de la merma. Favor de corregir la cantidad.",
-        "en-US": "There are inconsistencies in the result of the scrap. Please correct the amount."
+        "en-US": "There are incongruences in the result of the scrap. Please correct the amount."
     },
     "Corte0037": {
         "es-MX": "Corregir.",
@@ -3908,11 +4929,11 @@ _dictionary = {
     },
     "Corte0038": {
         "es-MX": "Existen incongruencias en el resultado de la merma.",
-        "en-US": "There are inconsistencies in the result of the scrap."
+        "en-US": "There are incongruences in the result of the scrap."
     },
     "Corte0039": {
         "es-MX": "Asumir incongruencia.",
-        "en-US": "Assume inconsistency."
+        "en-US": "Assume incongruence."
     },
     "Corte0040": {
         "es-MX": "Listado Corte",
@@ -3922,10 +4943,18 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
+    "Corte0042": {
+        "es-MX": "Imprimir Picking Ticket",
+        "en-US": "Print Picking Ticket"
+    },
+    "Corte0043": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
     //DashboardDespachoCorte
     "DashboardDespachoCorte0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "DashboardDespachoCorte0002": {
         "es-MX": "Despachar",
@@ -3989,7 +5018,7 @@ _dictionary = {
     },
     "DashboardDespachoCorte0017": {
         "es-MX": "Traveler Pendiente",
-        "en-US": "Traveler Pending"
+        "en-US": "Pending Traveler"
     },
     "DashboardDespachoCorte0018": {
         "es-MX": "Despacho",
@@ -4025,7 +5054,7 @@ _dictionary = {
     },
     "DashboardDespachoCorte0026": {
         "es-MX": "Traveler Pendiente",
-        "en-US": "Traveler Pending"
+        "en-US": "Pending Traveler"
     },
     "DashboardDespachoCorte0027": {
         "es-MX": "Despacho",
@@ -4037,7 +5066,7 @@ _dictionary = {
     },
     "DashboardDespachoCorte0029": {
         "es-MX": "Dashboard Despacho y Corte",
-        "en-US": "Dashboard Dispatch and Cut"
+        "en-US": "Dispatch & Cut Dashboard"
     },
     "DashboardDespachoCorte0030": {
         "es-MX": "Spool ID",
@@ -4073,11 +5102,11 @@ _dictionary = {
     },
     "DashboardDespachoCorte0038": {
         "es-MX": "Cantidad Material",
-        "en-US": "Amount of material"
+        "en-US": "Material Amount"
     },
     "DashboardDespachoCorte0039": {
         "es-MX": "Cantidad Despachados",
-        "en-US": "Amount of Dispatched"
+        "en-US": "Dispatched Amount"
     },
     "DashboardDespachoCorte0040": {
         "es-MX": "Faltantes por Despachar",
@@ -4139,6 +5168,154 @@ _dictionary = {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
     },
+    "DashboardDespachoCorte0055": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "DashboardDespachoCorte0056": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0057": {
+        "es-MX": "Cantidad Pre-despachada",
+        "en-US": "Pre-dispatched amount"
+    },
+    "DashboardDespachoCorte0058": {
+        "es-MX": "Cantidad por Pre-despachar",
+        "en-US": "Amount per Pre-dispatching"
+    },
+    "DashboardDespachoCorte0059": {
+        "es-MX": "IC",
+        "en-US": "IC"
+    },
+    "DashboardDespachoCorte0060": {
+        "es-MX": "Descripcion IC",
+        "en-US": "Description IC"
+    },
+    "DashboardDespachoCorte0061": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DashboardDespachoCorte0062": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DashboardDespachoCorte0063": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "DashboardDespachoCorte0064": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0065": {
+        "es-MX": "Cantidad Pre-despachada",
+        "en-US": "Pre-dispatched amount"
+    },
+    "DashboardDespachoCorte0066": {
+        "es-MX": "Cantidad por Pre-despachar",
+        "en-US": "Amount per Pre-dispatching"
+    },
+    "DashboardDespachoCorte0067": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "DashboardDespachoCorte0068": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0069": {
+        "es-MX": "Cantidad Despachada",
+        "en-US": "Dispatched amount"
+    },
+    "DashboardDespachoCorte0070": {
+        "es-MX": "Cantidad Por Despachar",
+        "en-US": "Amount Per Dispatch"
+    },
+    "DashboardDespachoCorte0071": {
+        "es-MX": "IC",
+        "en-US": "IC"
+    },
+    "DashboardDespachoCorte0072": {
+        "es-MX": "Descripcion IC",
+        "en-US": "Description IC"
+    },
+    "DashboardDespachoCorte0073": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DashboardDespachoCorte0074": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DashboardDespachoCorte0075": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "DashboardDespachoCorte0076": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0077": {
+        "es-MX": "Cantidad Despachada",
+        "en-US": "Dispatched amount"
+    },
+    "DashboardDespachoCorte0078": {
+        "es-MX": "Cantidad por despachar",
+        "en-US": "Amount per dispatch"
+    },
+    "DashboardDespachoCorte0079": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "DashboardDespachoCorte0080": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0081": {
+        "es-MX": "Cantidad Entregada",
+        "en-US": "Quantity delivered"
+    },
+    "DashboardDespachoCorte0082": {
+        "es-MX": "Cantidad Por Entregar",
+        "en-US": "Amount Per Deliver"
+    },
+    "DashboardDespachoCorte0083": {
+        "es-MX": "IC",
+        "en-US": "IC"
+    },
+    "DashboardDespachoCorte0084": {
+        "es-MX": "Descripcion IC",
+        "en-US": "Description IC"
+    },
+    "DashboardDespachoCorte0085": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DashboardDespachoCorte0086": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DashboardDespachoCorte0087": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "DashboardDespachoCorte0088": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0089": {
+        "es-MX": "Cantidad Entregada",
+        "en-US": "Quantity delivered"
+    },
+    "DashboardDespachoCorte0090": {
+        "es-MX": "Cantidad Por Entregar",
+        "en-US": "Amount Per Deliver"
+    },
+    "DashboardDespachoCorte0091": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
     //Listado Corte
     "ListadoCorte0001": {
         "es-MX": "Inicio",
@@ -4190,25 +5367,61 @@ _dictionary = {
     },
     //Impresion Documental
     "ImpresionDocumental0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "ImpresionDocumental0002": {
         "es-MX": "Impresión Documental",
-        "en-US": "Printing Documentary"
+        "en-US": "Documentary Printing"
     },
     "ImpresionDocumental0003": {
         "es-MX": "Impresión Documental",
-        "en-US": "Printing Documentary"
+        "en-US": "Documentary Printing"
     },
     "ImpresionDocumental0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ImpresionDocumental0005": {
         "es-MX": "Spool ID",
         "en-US": "Spool ID"
     },
+    "ImpresionDocumental0006": {
+        "es-MX": "Tipo de Material",
+        "en-US": "Material Type"
+    },
+    "ImpresionDocumental0007": {
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
+    },
+    "ImpresionDocumental0008": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "ImpresionDocumental0009": {
+        "es-MX": "Imprimir Picking Ticket",
+        "en-US": "Print Picking Ticket"
+    },
+    "ImpresionDocumental0010": {
+        "es-MX": "Imprimir Traveler",
+        "en-US": "Print Traveler"
+    },
+    "ImpresionDocumental0011": {
+        "es-MX": "MaterialSpoolID",
+        "en-US": "MaterialSpoolID"
+    },
+    "ImpresionDocumental0012": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "ImpresionDocumental0013": {
+        "es-MX": "Listado Corte",
+        "en-US": "Cut's list"
+    },
     //Incidencias
     "Incidencias0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
     },
     "Incidencias0002": {
         "es-MX": "Incidencias",
@@ -4346,11 +5559,106 @@ _dictionary = {
         "es-MX": "Incidencia - Folio ",
         "en-US": "Incidence - Folio "
     },
-
+    "Incidencias0036": {
+        "es-MX": "Registro",
+        "en-US": "Record"
+    },
+    "Incidencias0037": {
+        "es-MX": "Responder",
+        "en-US": "Answer"
+    },
+    "Incidencias0038": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0039": {
+        "es-MX": "Resolver",
+        "en-US": "Incidence"
+    },
+    "Incidencias0040": {
+        "es-MX": "Responder",
+        "en-US": "Incidence"
+    },
+    "Incidencias0041": {
+        "es-MX": "Cancelar",
+        "en-US": "Incidence"
+    },
+    "Incidencias0042": {
+        "es-MX": "Resolver",
+        "en-US": "Incidence"
+    },
+    "Incidencias0043": {
+        "es-MX": "Responder",
+        "en-US": "Incidence"
+    },
+    "Incidencias0044": {
+        "es-MX": "Cancelar",
+        "en-US": "Incidence"
+    },
+    "Incidencias0045": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0046": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0047": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0048": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0049": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "Incidencias0050": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0051": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0052": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0053": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0054": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "Incidencias0055": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0056": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0057": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0058": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0059": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoIncidencias0002": {
         "es-MX": "Listado de Incidencias",
@@ -4400,78 +5708,155 @@ _dictionary = {
         "es-MX": "Fecha Registro",
         "en-US": "Registration date"
     },
+    "ListadoIncidencias0014": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoIncidencias0015": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoIncidencias0016": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoIncidencias0017": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoIncidencias0018": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoIncidencias0019": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    //Entrega
+    "Entrega0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Entrega0002": {
+        "es-MX": "Entrega",
+        "en-US": "Delivery"
+    },
+    "Entrega0003": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Entrega0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Entrega0005": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Entrega0006": {
+        "es-MX": "Masivo",
+        "en-US": "Massive"
+    },
+    "Entrega0007": {
+        "es-MX": "1 A 1",
+        "en-US": "1 to 1"
+    },
+    "Entrega0008": {
+        "es-MX": "Fecha de Entrega",
+        "en-US": "Delivery Date"
+    },
+    "Entrega0009": {
+        "es-MX": "Empleado Entrega",
+        "en-US": "Delivery Employee"
+    },
+    "Entrega0010": {
+        "es-MX": "No. Picking Ticket",
+        "en-US": "Picking Ticket Num."
+    },
+    "Entrega0011": {
+        "es-MX": "No. Empleado entrega",
+        "en-US": "Delivery Employee Num."
+    },
+    "Entrega0012": {
+        "es-MX": "No. Empleado recibe",
+        "en-US": "Employee receives Num."
+    },
+    "Entrega0013": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Default to copy
     "notificationslabel0001": {
-        "es-MX": "Se redireccona a home por error de credenciales",
-        "en-US": ""
+        "es-MX": "Se redirecciona a home por error de credenciales",
+        "en-US": "It redirects to home because credentials error"
     },
     "notificationslabel0002": {
-        "es-MX": "Se redireccona a home por error en la llamada",
-        "en-US": ""
+        "es-MX": "Se redirecciona a home por error en la llamada",
+        "en-US": "It redirects to home because error in the call"
     },
     "notificationslabel0003": {
-        "es-MX": "Se redireccona a home por fallo en la llamada",
-        "en-US": ""
+        "es-MX": "Se redirecciona a home por fallo en la llamada",
+        "en-US": "It redirects to home because call failed"
     },
     "notificationslabel0004": {
-        "es-MX": "Se redireccona a home por error inesperado",
-        "en-US": ""
+        "es-MX": "Se redirecciona a home por error inesperado",
+        "en-US": "It redirects to home because unexpected error"
     },
     "notificationslabel0005": {
-        "es-MX": "Se redireccona a home por que hice logout",
-        "en-US": ""
+        "es-MX": "Se redirecciona a home por que hice logout",
+        "en-US": "It redirects to home because logout done"
     },
     "notificationslabel0006": {
         "es-MX": "Por favor, seleccionar el numero de permiso",
-        "en-US": ""
+        "en-US": "Please, select the permission number"
     },
     "notificationslabel0007": {
         "es-MX": "Por favor, seleccionar un folio",
-        "en-US": ""
+        "en-US": "Please, select a folio"
     },
     "notificationslabel0008": {
         "es-MX": "Mensaje de error: ",
-        "en-US": ""
+        "en-US": "Error messsage:"
     },
     "notificationslabel0009": {
         "es-MX": "Mensaje de error: ",
-        "en-US": ""
+        "en-US": "Error messsage:"
     },
     "notificationslabel0010": {
         "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida",
-        "en-US": ""
+        "en-US": "At least a signed packing list must be attached to print the departure pass"
     },
     "notificationslabel0011": {
         "es-MX": "Por favor, seleccionar el numero de permiso",
-        "en-US": ""
+        "en-US": "Please, select the permission number"
     },
     "notificationslabel0012": {
         "es-MX": "Por favor, seleccionar el tipo de archivo",
-        "en-US": ""
+        "en-US": "Please, select the type of file"
     },
     "notificationslabel0013": {
         "es-MX": "Fue creado exitosamente el folio #",
-        "en-US": ""
+        "en-US": "Succesfully created the folio "
     },
     "notificationslabel0014": {
         "es-MX": "Favor de guardar el aviso de llegada, antes de enviar el permiso",
-        "en-US": ""
+        "en-US": "Please save the arrival notice before to send the permission"
     },
     "notificationslabel0015": {
         "es-MX": "Favor de guardar el aviso de llegada, para poder realizar la siguiente acción",
-        "en-US": ""
+        "en-US": "Please, save the arrival notice to make the next action"
     },
     "notificationslabel0016": {
-        "es-MX": "El folio cuenta con permiso de auduana autorizado",
-        "en-US": ""
+        "es-MX": "El folio cuenta con permiso de aduana autorizado",
+        "en-US": "The folio has authorized customs permission"
     },
     "notificationslabel0017": {
         "es-MX": "Se termino el proceso de cuantificación",
-        "en-US": ""
+        "en-US": "The quantification process finished"
     },
     "notificationslabel0018": {
-        "es-MX": "You must select an csv file only",
-        "en-US": ""
+        "es-MX": "Debes seleccionar sólo un archivo CSV",
+        "en-US": "You must select an csv file only"
     },
     "notificationslabel0019": {
         "es-MX": "El browser que maneja no tiene compatibilidad con las funcionalidad de archivos",
@@ -4487,11 +5872,11 @@ _dictionary = {
     },
     "notificationslabel0022": {
         "es-MX": "Los item codes no tienen asignado un numero unico",
-        "en-US": ""
+        "en-US": "The item codes does not have an assigned unique number"
     },
     "notificationslabel0023": {
         "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida",
-        "en-US": ""
+        "en-US": "At least a signed packing list must be attached to print the departure pass"
     },
     "notificationslabel0024": {
         "es-MX": "Por favor, seleccionar el tipo de archivo",
@@ -4503,27 +5888,27 @@ _dictionary = {
     },
     "notificationslabel0026": {
         "es-MX": "Folio de Entrada / Folio de Llegada: ",
-        "en-US": ""
+        "en-US": "Entry folio / Arrival folio"
     },
     "notificationslabel0027": {
         "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder generar el pase de salida",
-        "en-US": ""
+        "en-US": "At least a signed packing list should be attached to generate the departure pass"
     },
     "notificationslabel0028": {
         "es-MX": "complemento",
-        "en-US": ""
+        "en-US": "Complement"
     },
     "notificationslabel0029": {
         "es-MX": "Favor de validar los campos requeridos de la forma",
-        "en-US": "Required for validating the fields of the form"
+        "en-US": "Please validate the required fields of the form"
     },
     "notificationslabel0030": {
         "es-MX": "Favor de validar los campos requeridos",
-        "en-US": "Please validate required fields"
+        "en-US": "Please validate the required fields"
     },
     "notificationslabel0031": {
         "es-MX": "Favor de validar los campos requeridos",
-        "en-US": "Please validate required fields"
+        "en-US": "Please validate the required fields"
     },
     "notificationslabel0032": {
         "es-MX": "El folio ha sido cancelado.",
@@ -4531,7 +5916,7 @@ _dictionary = {
     },
     "notificationslabel0033": {
         "es-MX": "El folio no tiene incidencias",
-        "en-US": "Folio no incidents"
+        "en-US": "Folio has no incidents"
     },
     "notificationslabel0034": {
         "es-MX": "Favor de seleccionar un folio",
@@ -4543,7 +5928,7 @@ _dictionary = {
     },
     "notificationslabel0036": {
         "es-MX": "Favor de guardar la llegada de material, para poder realizar la siguiente acción",
-        "en-US": ""
+        "en-US": "Please save the Material Arrival to make the next action"
     },
     "notificationslabel0037": {
         "es-MX": "Favor de validar los item codes",
@@ -4551,27 +5936,27 @@ _dictionary = {
     },
     "notificationslabel0038": {
         "es-MX": "Se han guardado los item codes",
-        "en-US": "They have saved the item codes"
+        "en-US": "The item codes has been saved"
     },
     "notificationslabel0039": {
         "es-MX": "El item code no se puede cancelar",
-        "en-US": ""
+        "en-US": "The item code can not be cancelled"
     },
     "notificationslabel0040": {
         "es-MX": "Favor de guardar los datos, antes de realizar la siguiente acción.",
-        "en-US": ""
+        "en-US": "Please save the sata before to make the next action"
     },
     "notificationslabel0041": {
         "es-MX": "El itemcode tiene numeros unico, no se puede realizar la siguiente acción.",
-        "en-US": ""
+        "en-US": "The item code has unique number, can not make the next action"
     },
     "notificationslabel0042": {
         "es-MX": "Solo se puede detallar un Bulto.",
-        "en-US": ""
+        "en-US": "You can only detail a Lump"
     },
     "notificationslabel0043": {
         "es-MX": "No se puede detallar un bulto dentro de otro.",
-        "en-US": ""
+        "en-US": "You can not detail a lump inside another."
     },
     "notificationslabel0044": {
         "es-MX": "Favor de seleccionar Item Codes",
@@ -4587,11 +5972,11 @@ _dictionary = {
     },
     "notificationslabel0047": {
         "es-MX": "Fallaron los siguientes item Codes: ",
-        "en-US": ""
+        "en-US": "The next item codes failed"
     },
     "notificationslabel0048": {
         "es-MX": "No se puede generar etiquetas de la orden de recepción. ",
-        "en-US": ""
+        "en-US": "Can not generate order reception labels"
     },
     "notificationslabel0049": {
         "es-MX": "Se encontraron registros duplicados. Se obtuvo el registro mas reciente y se sumo la cantidad.",
@@ -4599,7 +5984,7 @@ _dictionary = {
     },
     "notificationslabel0050": {
         "es-MX": "Favor de verificar los siguientes registros: ",
-        "en-US": ""
+        "en-US": "PLease validate the next records: "
     },
     "notificationslabel0051": {
         "es-MX": "Favor de validar los item codes marcados en rojo.",
@@ -4615,7 +6000,7 @@ _dictionary = {
     }, 
     "notificationslabel0054": {
         "es-MX": "Favor de seleccionar un Folio de llegada.",
-        "en-US": ""
+        "en-US": "Please select a Arrival Folio"
     },
     "notificationslabel0055": {
         "es-MX": "No se encontraron datos.",
@@ -4681,9 +6066,140 @@ _dictionary = {
         "es-MX": "Favor de ingresar el detalle de resolución.",
         "en-US": "Please enter the detail resolution."
     },
+    "notificationslabel0071": {
+        "es-MX": "Favor de guardar el aviso de llegada, antes de levantar una incidencia",
+        "en-US": "Please save the arrival notice before to make a incidence"
+    },
+    "notificationslabel0072": {
+        "es-MX": "No se puede levantar una incidencia, favor de guardar la informacion",
+        "en-US": "You can not raise an issue, please save information"
+    },
+    "notificationslabel0073": {
+        "es-MX": "El Spool ID tiene materiales pendientes.",
+        "en-US": "The Spool ID has outstanding materials."
+    },
+    "notificationslabel0074": {
+        "es-MX": "El Spool seleccionado no cuenta con todos sus materiales cortados y/o despachados. A continuación se muestra un listado de estados materiales faltantes.",
+        "en-US": "The selected Spool has not cut all materials and / or shipped. Here is a list of missing material states is shown."
+    },
+    "notificationslabel0075": {
+        "es-MX": "Favor de verificar que la informacion este completa.",
+        "en-US": "Please Verify that the information is complete."
+    },
+    "notificationslabel0076": {
+        "es-MX": "No se puede levantar una incidencia de un bulto.",
+        "en-US": "You can not fill an incidence of a lump"
+    },
+    "notificationslabel0077": {
+        "es-MX": "No se puede realizar la siguiente accion 1 a 1.",
+        "en-US": "You can not perform the next action 1 a 1"
+    },
+    "notificationslabel0078": {
+        "es-MX": "Favor de guardar la incidencia antes de adjuntar archivos.",
+        "en-US": "Please keep the incidence before attaching files."
+    },
+    "notificationslabel0079": {
+        "es-MX": "Favor de validar los campos requeridos. Se debe guardar el folio antes de adjuntar archivos.",
+        "en-US": "Please validate required fields. You must save the folio before attaching files."
+    },
+    "notificationslabel0080": {
+        "es-MX": "El folio cuenta con pase de salida",
+        "en-US": "The folio has Pass Out"
+    },
+    "notificationslabel0081": {
+        "es-MX": "Los siguientes item codes no se pueden guardar: ",
+        "en-US": "The following item codes can not be saved: "
+    },
+    "notificationslabel0082": {
+        "es-MX": "Favor de ingresar una fecha valida.",
+        "en-US": "Please enter a valid date."
+    },
+    "notificationslabel0083": {
+        "es-MX": "El valor seleccionado no es válido en el campo ",
+        "en-US": "The value selected is invalid in the field "
+    },
+    "notificationslabel0084": {
+        "es-MX": "Ocurrio un error al cargar el archivo.",
+        "en-US": "An error occurred loading file."
+    },
+    "notificationslabel0085": {
+        "es-MX": "Permiso Autorizado correctamente",
+        "en-US": "Permit Authorized successfully."
+    },
+    "notificationslabel0086": {
+        "es-MX": "Favor de seleccionar un item code.",
+        "en-US": "Please select an item code."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
         "en-US": ""
+    },
+    //KendoUploadLocalization
+    "KendoUploadTxt0001": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "KendoUploadTxt0002": {
+        "es-MX": "Arrastra tus archivos aquí",
+        "en-US": "Drop your files here"
+    },
+    "KendoUploadTxt0003": {
+        "es-MX": "Terminado",
+        "en-US": "Done"
+    },
+    "KendoUploadTxt0004": {
+        "es-MX": "Subiendo...",
+        "en-US": "Uploadind..."
+    },
+    "KendoUploadTxt0005": {
+        "es-MX": "Quitar",
+        "en-US": "Remove"
+    },
+    "KendoUploadTxt0006": {
+        "es-MX": "Reintentar",
+        "en-US": "Retry"
+    },
+    "KendoUploadTxt0007": {
+        "es-MX": "Selecciona archivo",
+        "en-US": "Select file"
+    },
+    "KendoUploadTxt0008": {
+        "es-MX": "Subida de archivo fallida",
+        "en-US": "File upload failed"
+    },
+    "KendoUploadTxt0009": {
+        "es-MX": "Archivo subido",
+        "en-US": "File uploaded"
+    },
+    "KendoUploadTxt0010": {
+        "es-MX": "Subiendo archivo",
+        "en-US": "Uploading file"
+    },
+    //KendoGridFilterableLocalization
+    "KendoGridFilterable0001": {
+        "es-MX": "Empieza con",
+        "en-US": "Starts with"
+    },
+    "KendoGridFilterable0002": {
+        "es-MX": "Es igual a",
+        "en-US": "Is equal to"
+    },
+    "KendoGridFilterable0003": {
+        "es-MX": "No es igual a",
+        "en-US": "Is not equal to"
+    },
+    //KendoDelete
+    "KendoDeleteTxt0001": {
+        "es-MX": "¿Estás seguro que quieres eliminar este elemento?",
+        "en-US": "Are you sure you want to delete this item?"
+    },
+    "KendoDeleteTxt0002": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "KendoDeleteTxt0003": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
     },
 };

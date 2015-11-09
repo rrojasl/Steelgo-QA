@@ -37,7 +37,7 @@
     @section JavascriptGlobalVariables {
     var $PatioModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarPatio",
             list: "",
             detail: "",
             destroy: ""
@@ -69,6 +69,11 @@
     @section JavascriptGlobalFunctions {
     function CargarIncial() {
         hideElementsPatio();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarPatio();
+        });
+
         $("#GuardarPatio").click(function (e) {
             if (validarRequeridosModalPatio()) {
                 GuardarPatio();
@@ -131,6 +136,7 @@
 
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
+        cleanDisplayMessage();
     };
 
     function CancelarPatio() {
@@ -146,7 +152,7 @@
         PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
         PatioModal[0].RequierePermisoAduana = $("#RequierePermisoAduana_Patio").is(":checked");
 
-        console.log(PatioModal[0]);
+        //console.log(PatioModal[0]);
 
         $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
             LimpiarModalPatio();
@@ -187,9 +193,12 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Patio"] = $PatioModel;
     CargarIncial();
+    $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
+    $("#language").data("kendoDropDownList").trigger("change");
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "31", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "31", { path: '/' });
     }
 </script>

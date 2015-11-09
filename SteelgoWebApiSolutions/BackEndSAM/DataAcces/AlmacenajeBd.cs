@@ -25,6 +25,7 @@ namespace BackEndSAM.DataAcces
         private static readonly object _mutex = new object();
         private static AlmacenajeBd _instance;
 
+
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
@@ -63,7 +64,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Almacenaje lstAlmacenaje = new Almacenaje();
-                    List<ListaCombos> ordenesAlmacenaje = new List<ListaCombos>();
+
                     //Patios y proyectos del usuario
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -72,69 +73,30 @@ namespace BackEndSAM.DataAcces
                                         where r.Activo && proyectos.Contains(r.ProyectoID)
                                         select p.PatioID).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
 
+                    List<ListaCombos> ordenesAlmacenaje = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                                           join roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals roa.OrdenAlmacenajeID
+                                                           join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
+                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                           where oa.Activo && roa.Activo && nu.Activo && p.Activo && pa.Activo
+                                                           && nu.ProyectoID == ProyectoID
+                                                           && proyectos.Contains(p.ProyectoID)
+                                                           && patios.Contains(pa.PatioID)
+                                                           select new ListaCombos
+                                                           {
+                                                               id = oa.Folio.ToString(),
+                                                               value = oa.Folio.ToString()
+                                                           }).AsParallel().GroupBy(x => x.id).Select(x => x.First()).ToList();
 
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                            join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-                                                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
-                                                                            join nu in ctx.Sam3_NumeroUnico on rfc.ItemCodeID equals nu.ItemCodeID
-                                                                            join pr in ctx.Sam3_Proyecto on rfp.ProyectoID equals pr.ProyectoID
-                                                                            join ora in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ora.NumeroUnicoID
-                                                                            join oa in ctx.Sam3_OrdenAlmacenaje on ora.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
-                                                                            where proyectos.Contains(fc.ProyectoID) && patios.Contains(pr.PatioID)
-                                                                                  && fc.Activo && fe.Activo && rfp.Activo
-                                                                                  && rfc.Activo && ic.Activo && nu.Activo
-                                                                                  && pr.Activo && ora.Activo && oa.Activo
-                                                                                  && fc.ProyectoID == ProyectoID
-                                                                            select ora).AsParallel().ToList();
-
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> agruparOrdenesAlmacenaje = lstRelONU.GroupBy(x => x.OrdenAlmacenajeID).Select(x => x.First()).OrderBy(x => x.OrdenAlmacenajeID).AsParallel().ToList();
-
-                    ordenesAlmacenaje = (from roa in agruparOrdenesAlmacenaje
-                                         join oa in ctx.Sam3_OrdenAlmacenaje on roa.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
-                                             select new ListaCombos 
-                                             {
-                                                 id = oa.Folio.ToString(),
-                                                 value = oa.Folio.ToString()
-                                             }
-                                        ).AsParallel().Distinct().ToList();
-
-                    List<ListaCombos> OrdenarAlmacenaje = ordenesAlmacenaje.GroupBy(x => x.id).Select(x => x.First()).OrderBy(x => x.id).AsParallel().ToList();
-
-                    //List<ListadoAlmacenaje> ListadoAlmacenaje = (from roa in agruparOrdenesAlmacenaje
-                    //                                             join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
-                    //                                             select new ListadoAlmacenaje
-                    //                                             {
-                    //                                                 NumeroUnicoID = roa.NumeroUnicoID.ToString(),
-                    //                                                 NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                    //                                                 Rack = nu.Rack == null ? string.Empty : nu.Rack
-                    //                                             }).AsParallel().ToList();
-
-
-
-                    //foreach (var item in ListadoAlmacenaje)
-                    //{
-                    //    int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == ProyectoID)
-                    //        .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
-
-                    //    string formato = "D" + numeroDigitos.ToString();
-
-                    //    string[] elementos = item.NumeroUnico.Split('-').ToArray();
-
-                    //    int temp = Convert.ToInt32(elementos[1]);
-
-                    //    item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
-                    //}
-
-                    //lstAlmacenaje.ListadoItemCode = ordenesAlmacenaje;
-                    //lstAlmacenaje.ListadoAlmacenaje = ListadoAlmacenaje;
-
-                    return OrdenarAlmacenaje;
+                    return ordenesAlmacenaje.OrderBy(x => x.value).ToList();
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -158,9 +120,9 @@ namespace BackEndSAM.DataAcces
         //        using (SamContext ctx = new SamContext())
         //        {
         //            int ordenAlmacenajeID = ordenAlmacenaje != "" ? Convert.ToInt32(ordenAlmacenaje) : 0;
-                   
 
-                   
+
+
         //            ////Patios y proyectos del usuario
         //            List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -269,7 +231,7 @@ namespace BackEndSAM.DataAcces
                     Almacenaje lstAlmacenaje = new Almacenaje();
                     List<ListaCombos> ordenesAlmacenaje = new List<ListaCombos>();
                     int ProyectoID = Proyecto != "" ? Convert.ToInt32(Proyecto) : 0;
-                    int ordenAlmacenajeID = ordenAlmacenaje != "" ? Convert.ToInt32(ordenAlmacenaje) : 0;
+                    int folio = ordenAlmacenaje != "" ? Convert.ToInt32(ordenAlmacenaje) : 0;
                     //Patios y proyectos del usuario
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -279,22 +241,17 @@ namespace BackEndSAM.DataAcces
                                         select p.PatioID).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
 
 
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                            join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-                                                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
-                                                                            join nu in ctx.Sam3_NumeroUnico on rfc.ItemCodeID equals nu.ItemCodeID
-                                                                            join pr in ctx.Sam3_Proyecto on rfp.ProyectoID equals pr.ProyectoID
-                                                                            join ora in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ora.NumeroUnicoID
-                                                                            join oa in ctx.Sam3_OrdenAlmacenaje on ora.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
-                                                                            where proyectos.Contains(fc.ProyectoID) && patios.Contains(pr.PatioID)
-                                                                                  && fc.Activo && fe.Activo && rfp.Activo
-                                                                                  && rfc.Activo && ic.Activo && nu.Activo
-                                                                                  && pr.Activo && ora.Activo && oa.Activo
-                                                                                  && fc.ProyectoID == ProyectoID
-                                                                                  && oa.Folio == ordenAlmacenajeID
-                                                                            select ora).AsParallel().ToList();
+                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> lstRelONU = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                                                            join roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals roa.OrdenAlmacenajeID
+                                                                            join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
+                                                                            join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                            join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                            where oa.Activo && roa.Activo && nu.Activo && p.Activo && pa.Activo
+                                                                            && oa.Folio == folio
+                                                                            && proyectos.Contains(p.ProyectoID)
+                                                                            && patios.Contains(pa.PatioID)
+                                                                            && p.ProyectoID == ProyectoID
+                                                                            select roa).AsParallel().ToList();
 
                     List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> agruparNumerosUnicos = lstRelONU.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).OrderBy(x => x.NumeroUnicoID).AsParallel().ToList();
 
@@ -313,7 +270,7 @@ namespace BackEndSAM.DataAcces
                                                                  join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
                                                                  select new ListadoAlmacenaje
                                                                  {
-                                                                     ItemCodeID=nu.ItemCodeID.ToString(),
+                                                                     ItemCodeID = nu.ItemCodeID.ToString(),
                                                                      NumeroUnicoID = roa.NumeroUnicoID.ToString(),
                                                                      NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
                                                                      Rack = nu.Rack == null ? string.Empty : nu.Rack
@@ -343,6 +300,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -393,6 +353,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -411,12 +374,17 @@ namespace BackEndSAM.DataAcces
                     int itemCodeID = itemCode != "" ? Convert.ToInt32(itemCode) : 0;
 
                     ItemCodeSteelgoJson itemCodeSteelgo = (from ic in ctx.Sam3_ItemCode
-                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                           where rics.ItemCodeID == itemCodeID
-                                                           select new ItemCodeSteelgoJson { 
-                                                           Diametro1= ics.Diametro1,
-                                                           Diametro2=ics.Diametro2
+                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                           join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                           join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                                           join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
+                                                           where ic.ItemCodeID == itemCodeID
+                                                           select new ItemCodeSteelgoJson
+                                                           {
+                                                               Diametro1 = d1.Valor,
+                                                               Diametro2 = d2.Valor
                                                            }).AsParallel().FirstOrDefault();
 
                     return itemCodeSteelgo;
@@ -424,6 +392,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -434,48 +405,68 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public string getRack(List<ListaNumerosUnicos> ids, int id) {
+            var rack = "";
+            foreach (var i in ids)
+            {
+                if (i.NumeroUnicoID.Equals(id.ToString())) {
+                    rack = i.Rack;
+                    break;
+                }
+            }
+
+            return rack;
+        }
+
         public object GenerarAlmacenaje(Items listados, Sam3_Usuario usuario)
         {
             try
             {
                 List<ListaNumerosUnicos> ids = listados.NumerosUnicos.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).OrderBy(x => x.NumeroUnicoID).AsParallel().ToList();
-                using (TransactionScope scope = new TransactionScope())
+                List<int> nuids = new List<int>();
+
+                foreach(var i in ids)
                 {
-                    using (SamContext ctx = new SamContext())
-                    {
-                        foreach (var row in ids)
-                        {
-                            int NumeroUnicoID = row.NumeroUnicoID != "" ? Convert.ToInt32(row.NumeroUnicoID) : 0;
-                            Sam3_NumeroUnico numeroUnicoBd = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == NumeroUnicoID)
-                                    .AsParallel().SingleOrDefault();
-
-                            numeroUnicoBd.Rack = row.Rack;
-                            numeroUnicoBd.UsuarioModificacion = usuario.UsuarioID;
-                            numeroUnicoBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-                        };
-
-                        if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
-                                                        string.Format("Se guardaron los almacenajes del  orden de almacenaje Folio: {0}",
-                                                        listados.OrdenAlmacenajeID), usuario))
-                        {
-                            //Agregar error a la bitacora  PENDIENTE
-                        }
-                    }
-                    scope.Complete();
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-                    return result;
+                    nuids.Add(Convert.ToInt32(i.NumeroUnicoID));
                 }
 
+                string rack = ids.Select(x => x.Rack).FirstOrDefault();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+
+                        List<Sam3_NumeroUnico> list = (from nu in ctx.Sam3_NumeroUnico
+                                                       where nu.Activo
+                                                       && nuids.Contains(nu.NumeroUnicoID)
+                                                       select nu).AsParallel().ToList();
+
+                        list.ForEach(x => x.Rack = getRack(ids, x.NumeroUnicoID));
+
+                        ctx.SaveChanges();
+                        ctx_tran.Commit();
+                    }
+                }
+
+                //if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                //                                    string.Format("Se guardaron los almacenajes del  orden de almacenaje Folio: {0}",
+                //                                    listados.OrdenAlmacenajeID), usuario))
+                //{
+                //    //Agregar error a la bitacora  PENDIENTE
+                //}
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+                return result;
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

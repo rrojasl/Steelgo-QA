@@ -100,8 +100,15 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     nuevoAvisoLlegada.VehiculoID = avisoJson.Tracto.VehiculoID != null ? Convert.ToInt32(avisoJson.Tracto.VehiculoID) : 0;
-                    nuevoAvisoLlegada.ClienteID = avisoJson.Cliente.ClienteID != string.Empty || avisoJson.Cliente.ClienteID != "-1"
+                    nuevoAvisoLlegada.Entidad = 1;
+                    nuevoAvisoLlegada.ProyectoNombrado = 1;
+                    //los datos de entrada traen el id del cliente en sam2
+                    int sam2ClienteID = avisoJson.Cliente.ClienteID != string.Empty || avisoJson.Cliente.ClienteID != "-1"
                         ? Convert.ToInt32(avisoJson.Cliente.ClienteID) : 0;
+                    //insertamos en el id del cliente en sam3
+                    nuevoAvisoLlegada.ClienteID = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == sam2ClienteID
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
                     nuevoAvisoLlegada.TipoAvisoID = avisoJson.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(avisoJson.TipoAviso.TipoAvisoID) : 0;
                     //Guardamos los cambios
                     ctx.Sam3_FolioAvisoLlegada.Add(nuevoAvisoLlegada);
@@ -161,6 +168,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -229,6 +239,14 @@ namespace BackEndSAM.DataAcces
                                       && proyectosUsuario.Contains(p.ProyectoID)
                                       && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
                                       select r).AsParallel().ToList();
+
+                            result.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
+                                             where r.Activo
+                                             && !(from rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                                  where rfp.Activo
+                                                  select rfp.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                                  && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
+                                             select r).AsParallel().Distinct().ToList());
                         }
                         else
                         {
@@ -261,7 +279,10 @@ namespace BackEndSAM.DataAcces
                             if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
                             {
                                 temp = Convert.ToInt32(filtros.ClienteID);
-                                result = result.Where(x => x.ClienteID == temp).ToList();
+                                int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == temp
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
+                                result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
                             }
                         }
                         else
@@ -284,10 +305,13 @@ namespace BackEndSAM.DataAcces
                             if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
                             {
                                 temp = Convert.ToInt32(filtros.ClienteID);
+                                int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == temp
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
 
                                 if (result.Count > 0)
                                 {
-                                    result = result.Where(x => x.ClienteID == temp).ToList();
+                                    result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
                                 }
                             }
                         }
@@ -298,10 +322,22 @@ namespace BackEndSAM.DataAcces
                         {
                             if (result.Count > 0)
                             {
-                                result = (from r in result
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where p.PermisoAutorizado == true
-                                          select r).AsParallel().ToList();
+                                List<Sam3_FolioAvisoLlegada> cuentas = (from r in result
+                                                                        join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                                        where r.Activo && p.Activo
+                                                                        && p.PermisoAutorizado == true
+                                                                        && pa.RequierePermisoAduana
+                                                                        select r).AsParallel().ToList();
+                                cuentas.AddRange((from r in result
+                                                  join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                  where r.Activo && pa.Activo
+                                                  && !pa.RequierePermisoAduana
+                                                  select r).AsParallel().ToList());
+
+                                cuentas = cuentas.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
+                                result = cuentas;
                             }
                         }
 
@@ -310,8 +346,9 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
+                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == false
+                                          where r.Activo == true && p.PermisoAutorizado == false && pa.RequierePermisoAduana
                                           select r).AsParallel().ToList();
 
                             }
@@ -322,13 +359,15 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
+                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                           where r.Activo == true
                                           && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                          && pa.RequierePermisoAduana
                                           select r).AsParallel().ToList();
                             }
                         }
 
-                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList(); 
+                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
 
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
 
@@ -344,16 +383,16 @@ namespace BackEndSAM.DataAcces
                         if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio).Any())
                         {
                             Sam3_FolioAvisoLlegada temp = (from r in ctx.Sam3_FolioAvisoLlegada
-                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                        where r.Activo == true
-                                        && r.FolioAvisoLlegadaID == folio
-                                        select r).AsParallel().SingleOrDefault();
+                                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                           where r.Activo == true
+                                                           && r.FolioAvisoLlegadaID == folio
+                                                           select r).AsParallel().SingleOrDefault();
 
                             string fechaR = temp.FechaRecepcion.HasValue ? temp.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
-                            string fechag = temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().HasValue ?
-                                temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().Value.ToString("dd/MM/yyyy") 
-                                : string.Empty;
-
+                            //string fechag = temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().HasValue ?
+                            //    temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().Value.ToString("dd/MM/yyyy") 
+                            //    : string.Empty;
+                            string fechag = temp.FechaModificacion.HasValue ? temp.FechaModificacion.Value.ToString("dd/MM/yyyy") : string.Empty;
                             elemento = new ElementoListadoFolioAvisoLlegada
                             {
                                 FolioAvisoLlegadaID = temp.FolioAvisoLlegadaID.ToString(),
@@ -369,11 +408,12 @@ namespace BackEndSAM.DataAcces
                                                            select r).AsParallel().SingleOrDefault();
 
                             string fechaR = temp.FechaRecepcion.HasValue ? temp.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
+                            string fechag = temp.FechaModificacion.HasValue ? temp.FechaModificacion.Value.ToString("dd/MM/yyyy") : string.Empty;
 
                             elemento = new ElementoListadoFolioAvisoLlegada
                             {
                                 FolioAvisoLlegadaID = temp.FolioAvisoLlegadaID.ToString(),
-                                FechaGeneracion = string.Empty,
+                                FechaGeneracion = fechag,
                                 FechaRecepcion = fechaR
                             };
 
@@ -392,6 +432,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -463,7 +506,10 @@ namespace BackEndSAM.DataAcces
 
                     aviso.TipoAviso = tipoAvisoBD != null ? tipoAvisoBD : new TipoAvisoAV { Nombre = string.Empty, TipoAvisoID = "0" };
 
-                    int clienteId = registroBd.ClienteID.Value;
+                    //en el registro se encuentra el id del cliente en sam3, pero el detalle requiere del id del cliente en sam2
+                    int clienteId = (from c in ctx.Sam3_Cliente
+                                     where c.Activo && c.ClienteID == registroBd.ClienteID.Value
+                                     select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault(); //registroBd.ClienteID.Value;
 
                     aviso.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(clienteId);
 
@@ -547,6 +593,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -591,6 +640,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -614,88 +666,141 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_FolioAvisoLlegada avisoBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID)
-                        .AsParallel().SingleOrDefault();
-                    if (avisoBd != null)
+                    using (var sam3_tran = ctx.Database.BeginTransaction())
                     {
-                        //modificamos los parametros generales
-                        avisoBd.Activo = true;
-                        avisoBd.ChoferID = cambios.Chofer.Count > 0 ? cambios.Chofer[0].ChoferID : 1;
-                        avisoBd.FechaModificacion = DateTime.Now;
-                        avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
-                        avisoBd.PatioID = cambios.Patio.Count > 0 ? cambios.Patio[0].PatioID : 1;
-                        avisoBd.TransportistaID = cambios.Transportista.Count > 0 ? cambios.Transportista[0].TransportistaID : 1;
-                        avisoBd.UsuarioModificacion = usuario.UsuarioID;
-                        avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 1;
-                        avisoBd.ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
-                            ? Convert.ToInt32(cambios.Cliente.ClienteID) : 1;
-                        avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
-                        avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
-
-                        //Actualizar informacion de las planas
-                        foreach (PlanaAV plana in cambios.Plana)
+                        bool tienePermisoAduana = false;
+                        Sam3_FolioAvisoLlegada avisoBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID)
+                            .AsParallel().SingleOrDefault();
+                        if (avisoBd != null)
                         {
-                            if (!avisoBd.Sam3_Rel_FolioAvisoLlegada_Vehiculo
-                                .Where(x => x.VehiculoID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any()) // varificamos si existe la plana
+                            //modificamos los parametros generales
+                            avisoBd.Activo = true;
+                            avisoBd.ChoferID = cambios.Chofer.Count > 0 ? cambios.Chofer[0].ChoferID : 1;
+                            avisoBd.FechaModificacion = DateTime.Now;
+                            avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
+                            avisoBd.PatioID = cambios.Patio.Count > 0 ? cambios.Patio[0].PatioID : 1;
+                            avisoBd.TransportistaID = cambios.Transportista.Count > 0 ? cambios.Transportista[0].TransportistaID : 1;
+                            avisoBd.UsuarioModificacion = usuario.UsuarioID;
+                            avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 1;
+                            //los datos de entrada traen el id del cliente en sam2
+                            int sam2ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
+                                ? Convert.ToInt32(cambios.Cliente.ClienteID) : 0;
+                            //insertamos en el id del cliente en sam3
+                            avisoBd.ClienteID = (from c in ctx.Sam3_Cliente
+                                                 where c.Activo && c.Sam2ClienteID == sam2ClienteID
+                                                 select c.ClienteID).AsParallel().SingleOrDefault();
+                            avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
+                            avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
+
+                            //Actualizar informacion de las planas
+                            foreach (PlanaAV plana in cambios.Plana)
                             {
-                                //agregamos una nuevo registro a la relacion de aviso y planas
-                                Sam3_Rel_FolioAvisoLlegada_Vehiculo nuevoRegistro = new Sam3_Rel_FolioAvisoLlegada_Vehiculo();
-                                nuevoRegistro.Activo = true;
-                                nuevoRegistro.FechaModificacion = DateTime.Now;
-                                nuevoRegistro.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
-                                nuevoRegistro.VehiculoID = plana.PlanaID;
-                                nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
+                                if (!avisoBd.Sam3_Rel_FolioAvisoLlegada_Vehiculo
+                                    .Where(x => x.VehiculoID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any()) // varificamos si existe la plana
+                                {
+                                    //agregamos una nuevo registro a la relacion de aviso y planas
+                                    Sam3_Rel_FolioAvisoLlegada_Vehiculo nuevoRegistro = new Sam3_Rel_FolioAvisoLlegada_Vehiculo();
+                                    nuevoRegistro.Activo = true;
+                                    nuevoRegistro.FechaModificacion = DateTime.Now;
+                                    nuevoRegistro.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
+                                    nuevoRegistro.VehiculoID = plana.PlanaID;
+                                    nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
 
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo.Add(nuevoRegistro);
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo.Add(nuevoRegistro);
+                                }
                             }
-                        }
 
-                        //actualizar la información de los documentos de Aviso de llegada
-                        foreach (ArchivosAV archivo in cambios.Archivos)
-                        {
-                            //verificamos si ya existe el archivo actual
-                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
-                                .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID 
-                                    && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                            //actualizar la información de los documentos de Aviso de llegada
+                            foreach (ArchivosAV archivo in cambios.Archivos)
                             {
-                                //si el archivo no existe, agregamos uno nuevo
-                                Sam3_Rel_FolioAvisoLlegada_Documento nuenoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
-                                nuenoDoc.Activo = true;
-                                nuenoDoc.DocumentoID = archivo.ArchivoID;
-                                nuenoDoc.Extencion = archivo.Extension;
-                                nuenoDoc.FechaModificacion = DateTime.Now;
-                                nuenoDoc.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
-                                nuenoDoc.Nombre = archivo.Nombre;
-                                nuenoDoc.UsuarioModificacion = usuario.UsuarioID;
+                                //verificamos si ya existe el archivo actual
+                                if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
+                                    .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID
+                                        && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                                {
+                                    //si el archivo no existe, agregamos uno nuevo
+                                    Sam3_Rel_FolioAvisoLlegada_Documento nuenoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
+                                    nuenoDoc.Activo = true;
+                                    nuenoDoc.DocumentoID = archivo.ArchivoID;
+                                    nuenoDoc.Extencion = archivo.Extension;
+                                    nuenoDoc.FechaModificacion = DateTime.Now;
+                                    nuenoDoc.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
+                                    nuenoDoc.Nombre = archivo.Nombre;
+                                    nuenoDoc.UsuarioModificacion = usuario.UsuarioID;
 
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuenoDoc);
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuenoDoc);
+                                }
                             }
-                        }
 
-                        foreach (ProyectosAV proyecto in cambios.Proyectos)
-                        {
-                            //verificamos si existe el registro
-                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
-                                && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any())
+                            foreach (ProyectosAV proyecto in cambios.Proyectos)
                             {
-                                Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
-                                nuevoProyecto.Activo = true;
-                                nuevoProyecto.FechaModificacion = DateTime.Now;
-                                nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
-                                nuevoProyecto.ProyectoID = proyecto.ProyectoID;
-                                nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
+                                //verificamos si existe el registro
+                                if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
+                                    && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any())
+                                {
+                                    Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                    nuevoProyecto.Activo = true;
+                                    nuevoProyecto.FechaModificacion = DateTime.Now;
+                                    nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
+                                    nuevoProyecto.ProyectoID = proyecto.ProyectoID;
+                                    nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
 
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                                }
                             }
+
+                            avisoBd.UsuarioModificacion = usuario.UsuarioID;
+                            avisoBd.FechaModificacion = DateTime.Now;
+
+                            //si no tiene llegada de material:
+                            // se actualiza el estatus del folio aviso llegada.
+                            //permisos tramite o autorizados en inactivo para poder reenviar permiso Issue #235
+                            if (!ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                            {
+                               
+                                if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID && x.Activo).Any())
+                                {
+                                    tienePermisoAduana = true;
+                                    Sam3_PermisoAduana permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID && x.Activo)
+                                    .AsParallel().SingleOrDefault();
+                                    permisoBd.FechaAutorización = DateTime.Now;
+                                    permisoBd.FechaModificacion = DateTime.Now;
+                                    permisoBd.UsuarioModificacion = usuario.UsuarioID;
+                                    permisoBd.Activo = false;
+                                    ctx.SaveChanges();
+
+                                    int permisoID = (permisoBd.PermisoAduanaID);
+
+                                    if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo).Any())
+                                    {
+                                        tienePermisoAduana = true;
+                                        foreach (Sam3_Rel_PermisoAduana_Documento documentos in ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo))
+                                        {
+                                            documentos.Activo = false;
+                                            documentos.FechaModificacion = DateTime.Now;
+                                            documentos.FechaModificacion = DateTime.Now;
+                                            documentos.UsuarioModificacion = usuario.UsuarioID;
+                                        }
+                                        ctx.SaveChanges();
+                                    }
+
+                                }
+
+                               
+                               
+                            }
+
+                            if (tienePermisoAduana)
+                            {
+                                avisoBd.Estatus = "Generado";
+                            }
+
+                            ctx.SaveChanges();
+
+                            
                         }
-
-                        avisoBd.UsuarioModificacion = usuario.UsuarioID;
-                        avisoBd.FechaModificacion = DateTime.Now;
-
-                        ctx.SaveChanges();
-
+                        sam3_tran.Commit();
                     }
-
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;
@@ -707,6 +812,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -733,14 +841,80 @@ namespace BackEndSAM.DataAcces
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
-                                                      value = r.FolioAvisoLlegadaID.ToString()
+                                                      value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                               where pc.Entidad == r.Entidad && pc.Proyecto == r.ProyectoNombrado
+                                                               select pc.PreFijoFolioAvisoLlegada + "," 
+                                                                + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                + r.Consecutivo.ToString() + ","
+                                                                + pc.PostFijoFolioAvisoLlegada).FirstOrDefault()
                                                   }).AsParallel().ToList();
+
+                    foreach (ListaCombos lst in lstFolios)
+                    {
+                        if (lst.value != null)
+                        {
+                            string[] elemntos = lst.value.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            lst.value = elemntos[0].Trim() + consecutivo.ToString(formato) + elemntos[3];
+                        }
+
+                    }
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(lstFolios);
+#endif
 
                     return lstFolios;
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Obtener los folios de Aviso llegada que no tienen entrada de material
+        /// </summary>
+        /// <returns></returns>
+        public object ObtenerFoliosAvisoLlegadaSinEntrada()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                   where r.Activo &&
+                                                   !(from av in ctx.Sam3_FolioAvisoEntrada 
+                                                     where av.Activo 
+                                                     select av.FolioAvisoLlegadaID.ToString()).Contains(r.FolioAvisoLlegadaID.ToString())
+                                                   select new ListaCombos
+                                                   {
+                                                       id = r.FolioAvisoLlegadaID.ToString(),
+                                                       value = r.FolioAvisoLlegadaID.ToString()
+                                                   }).AsParallel().ToList();
+
+                    return lstFolios;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -764,7 +938,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join m in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals m.FolioAvisoLlegadaID
-                                                   where r.Activo && m.Activo && m.FolioDescarga > 0
+                                                   where r.Activo && m.Activo && m.FolioDescarga > 0 && !(bool)r.PaseSalidaEnviado
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -776,6 +950,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -798,8 +975,8 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID  
-                                                   where r.Activo && p.RequierePermisoAduana && pe.Activo 
+                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID
+                                                   where r.Activo && p.RequierePermisoAduana && pe.Activo
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -811,6 +988,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -843,6 +1023,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -867,24 +1050,56 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     DocumentoPermisoAduana permiso = (from r in ctx.Sam3_PermisoAduana
-                                                      join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
-                                                      join p in ctx.Sam3_PermisoAduana on d.PermisoAduanaID equals p.PermisoAduanaID
-                                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo && d.Activo
+                                                      //join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
+                                                      //join p in ctx.Sam3_PermisoAduana on d.PermisoAduanaID equals p.PermisoAduanaID
+                                                      //join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
+                                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo
                                                       select new DocumentoPermisoAduana
                                                       {
-                                                          DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
-                                                          NumeroPermiso = p.NumeroPermiso.ToString(),
-                                                          PermisoAutorizado = p.PermisoAutorizado,
-                                                          Url = d.Url
-                                  
+                                                          PermisoID = r.PermisoAduanaID.ToString(),
+                                                          //DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
+                                                          NumeroPermiso = r.NumeroPermiso.ToString(),
+                                                          PermisoAutorizado = r.PermisoAutorizado,
+                                                          //Url = d.Url,
+                                                          //Nombre = d.Nombre,
+                                                          //TipoArchivo = t.Nombre,
+                                                          //Extencion = d.Extencion,
                                                       }).AsParallel().SingleOrDefault();
 
-                   
+                    permiso.DocumentoID = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                           where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                           select d.Rel_Permiso_Documento_ID.ToString()).AsParallel().SingleOrDefault();
+
+                    permiso.Url = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                   where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                   select d.Url).AsParallel().SingleOrDefault();
+
+                    permiso.Nombre = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                      where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                      select d.Nombre).AsParallel().SingleOrDefault();
+
+                    permiso.TipoArchivo = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                           join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
+                                           where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo && t.Activo
+                                           select t.Nombre).AsParallel().SingleOrDefault();
+
+                    permiso.Extencion = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                         where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                         select d.Extencion).AsParallel().SingleOrDefault();
+
                     return permiso;
                 }
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -895,8 +1110,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
-            DateTime fechainicial, DateTime fechaFinal)
+        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs)
         {
             try
             {
@@ -911,12 +1125,15 @@ namespace BackEndSAM.DataAcces
                                                               where fa.Activo && rfp.Activo
                                                               && proyectos.Contains(rfp.ProyectoID)
                                                               && patios.Contains(pa.PatioID)
-                                                              && (fa.FechaModificacion >= fechainicial && fa.FechaModificacion <= fechaFinal)
+                                                              && IDs.Contains(fa.FolioAvisoLlegadaID)
                                                               select fa).Distinct().AsParallel().ToList();
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (proyectoID > 0)
@@ -936,7 +1153,6 @@ namespace BackEndSAM.DataAcces
                                join ti in ctx.Sam3_TipoIncidencia on incd.TipoIncidenciaID equals ti.TipoIncidenciaID
                                join us in ctx.Sam3_Usuario on incd.UsuarioID equals us.UsuarioID
                                where r.Activo && rif.Activo && incd.Activo
-                               && incidenciaIDs.Contains(incd.IncidenciaID)
                                select new ListadoIncidencias
                                {
                                    Clasificacion = cls.Nombre,
@@ -946,12 +1162,15 @@ namespace BackEndSAM.DataAcces
                                    RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
                                    TipoIncidencia = ti.Nombre
                                }).Distinct().AsParallel().ToList();
-                    
+
                 }
                 return listado;
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
             }
         }

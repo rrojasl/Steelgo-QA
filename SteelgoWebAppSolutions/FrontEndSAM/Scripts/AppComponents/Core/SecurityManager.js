@@ -35,7 +35,7 @@ function applySecurityPolicy(loadMenu) {
 
         //Execute REST Petition to obtain the user access
         $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
-            console.log(data);
+            //console.log(data);
 
             if (loadMenu) {
                 //Retrieve the context menu definition**
@@ -47,11 +47,16 @@ function applySecurityPolicy(loadMenu) {
                 //Generate Side Menu
                 generateSideMenuDOMElements(0, 0, $(".main-menu"));
 
+                //Validate if i have access to this page
+                if (!$MenuData[$currentUrl.split("?")[0].replace("/", "").toLowerCase()] && !window.opener && $errorURI.split("?")[0].replace("/", "").toLowerCase() != $currentUrl.split("?")[0].split("?")[0].replace("/", "").toLowerCase()) {
+                    //document.location.href = $errorURI;
+                }
+
                 //Retrieve the QuickLinks definition**
                 $quickLinks = {};
 
                 //Generate QuickLinks**
-                generateQuickLinks();
+                generateQuickLinks(data.layout.navigation[2].elements);
             }
 
             //Retrieve the obtained data
@@ -93,6 +98,8 @@ function generateReturnOFSecurityCheck(data) {
         returnOfSecurityCheck[keyRetreived.entityName].destroy = keyRetreived.destroy;
         returnOfSecurityCheck[keyRetreived.entityName].detail = keyRetreived.detail;
         returnOfSecurityCheck[keyRetreived.entityName].list = keyRetreived.list;
+        returnOfSecurityCheck[keyRetreived.entityName].createIncidence = keyRetreived.createIncidence;
+        returnOfSecurityCheck[keyRetreived.entityName].solutionincidence = keyRetreived.solutionincidence;
         returnOfSecurityCheck[keyRetreived.entityName].properties = {};
         for (property in keyRetreived.properties) {
             var propertyRetreived = keyRetreived.properties[property];
@@ -109,6 +116,8 @@ function generateReturnOFSecurityCheck(data) {
     returnOfSecurityCheck.Layout.destroy = data.layout.destroy;
     returnOfSecurityCheck.Layout.detail = data.layout.detail;
     returnOfSecurityCheck.Layout.list = data.layout.list;
+    returnOfSecurityCheck.Layout.createIncidence = data.layout.createIncidence;
+    returnOfSecurityCheck.Layout.solutionincidence = data.layout.solutionincidence;
 
     returnOfSecurityCheck.Layout.properties = {};
     returnOfSecurityCheck.Layout.properties.search = {};
@@ -182,12 +191,24 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
         if (entitySecurity.hasOwnProperty("destroy")) {
             entityDestroyPermission = entitySecurity["destroy"];
         }
-    }
 
+        if (entitySecurity.hasOwnProperty("createIncidence")) {
+            entitycreateIncidence = entitySecurity["createIncidence"];
+        }
+
+        if (entitySecurity.hasOwnProperty("solutionincidence")) {
+            entitysolutionincidence = entitySecurity["solutionincidence"];
+        }
+    }
+    
     if (entityDefinition.hasOwnProperty("listContainer")) {
         if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
             if (entityCreationPermission == false) {
-                $(entityDefinition.listContainer["create"]).css("display", "none");
+                if ($(entityDefinition.listContainer["create"]).is("#grid")) {
+                    $(".k-grid-add").addClass("k-state-disabled").removeClass("k-grid-add");
+                } else {
+                    $(entityDefinition.listContainer["create"]).css("display", "none");
+                }
             }
         }
 
@@ -205,9 +226,7 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     });
                 }
                 if ($(entityDefinition.listContainer["detail"]).is("button")) {
-                    $(entityDefinition.listContainer["detail"]).prop('disabled', true);
-                }
-                else {
+                    //$(entityDefinition.listContainer["detail"]).prop('disabled', true);
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
                 }
                 
@@ -216,7 +235,20 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
 
         if (entityDefinition["listContainer"].hasOwnProperty("destroy") && entityDefinition.listContainer["destroy"] != null && entityDefinition.listContainer["destroy"].length > 0) {
             if (entityDestroyPermission == false) {
-                $(entityDefinition.listContainer["destroy"]).css("display", "none");
+               //$(entityDefinition.listContainer["destroy"]).addClass("hidden");
+               $(entityDefinition.listContainer["destroy"]).css("display", "none");
+            }
+        }
+
+        if (entityDefinition["listContainer"].hasOwnProperty("createIncidence") && entityDefinition.listContainer["createIncidence"] != null && entityDefinition.listContainer["createIncidence"].length > 0) {
+            if (entitycreateIncidence == false) {
+                $(entityDefinition.listContainer["createIncidence"]).empty();
+            }
+        }
+
+        if (entityDefinition["listContainer"].hasOwnProperty("solutionincidence") && entityDefinition.listContainer["solutionincidence"] != null && entityDefinition.listContainer["solutionincidence"].length > 0) {
+            if (entitysolutionincidence == false) {
+                $(entityDefinition.listContainer["solutionincidence"]).css("display", "none");
             }
         }
     }
@@ -403,6 +435,8 @@ function validateCredentials() {
                     && Cookies.get("LogOut") != null) {
             Cookies.remove("LogOut", { path: '/' });
             //displayMessage("notificationslabel0005", "", '2');
+            document.location.href = '/';
+        } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" && Cookies.get("token") == null) {
             document.location.href = '/';
         }
     }

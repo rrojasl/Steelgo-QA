@@ -45,11 +45,12 @@ namespace BackEndSAM.DataAcces
                 using(SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> cedulas = (from c in ctx.Sam3_Cedula
-                                                 where c.Activo
+                                                 join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                 where c.Activo && d.Activo
                                                  select new ListaCombos
                                                  {
                                                      id = c.CedulaID.ToString(),
-                                                     value = c.CedulaA
+                                                     value = d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC
                                                  }).AsParallel().ToList();
 
                     return cedulas;
@@ -57,6 +58,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

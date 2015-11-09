@@ -68,7 +68,7 @@
             <input id="password" name="password" type="password" />
         </div>
         <input id="loginLabel0009" type="submit" class="btn btn-yellow" value="Iniciar Sesión" />
-        <a href="#" class="hidden">
+        <a target="_blank" href="http://www.samcontrol.net/RecuperaPassword.aspx" data-login="password">
             <span id="loginLabel0004">¿Olvidaste tu contraseña?</span></a>
     </form>
 </div>
@@ -90,3 +90,19 @@
         </div>
     </div>
 </footer>
+<script>
+    if ( window.location !== window.parent.location ) {
+        alert("Sesión expirada");
+        window.parent.location.href=window.parent.location.origin;
+    }
+    window.onresize= screenSize;
+    window.onload=screenSize;
+
+    function screenSize(){
+        if(600>window.innerHeight){
+            document.querySelectorAll("footer div.content-wrapper")[0].style.display="none";
+        }else{
+            document.querySelectorAll("footer div.content-wrapper")[0].style.display="block";
+        }
+    }
+</script>

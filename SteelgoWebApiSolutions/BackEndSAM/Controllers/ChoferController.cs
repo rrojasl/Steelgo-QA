@@ -18,14 +18,16 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ChoferController : ApiController
     {
-        public object Get(string esAvisoEntrada,string token)
+        public object Get(string esAvisoEntrada, int paginaID, string idioma, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ChoferBd.Instance.ObtenerListadoChoferes(esAvisoEntrada);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ChoferBd.Instance.ObtenerListadoChoferes(esAvisoEntrada, paginaID, idioma, usuario);
             }
             else
             {
