@@ -88,11 +88,14 @@
     };
 
     function GuardarTipoUso() {
+        loadingStart();
         $TipoUso.TipoUso.create({}, { nombre: $("#Nombre_TipoUso").val(), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalTipoUso();
             if (Error(data)) {
                 cerrarVentanaModal();
+                window.parent.ActualizarPadre();
             }
+            loadingStop();
         });
     };
 
@@ -100,6 +103,7 @@
         LimpiarModalTipoUso();
         cerrarVentanaModal();
         cancelarvalidacionRequeridosModalTipoUso();
+        
     };
 
     function cerrarVentanaModal() {

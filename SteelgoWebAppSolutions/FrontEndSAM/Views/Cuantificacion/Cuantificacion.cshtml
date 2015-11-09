@@ -167,6 +167,8 @@
             <li id="Incidencia" class="incidencia"><span id="Cuantificacion0088"></span></li>
             <li id="NuevaColada"><span id="Cuantificacion0090"></span></li>
         </ul>
+
+       
     </div>
 </div>
 
@@ -339,6 +341,19 @@
             };
 
             var $BultoModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: "",
+                    createIncidence: ""
+                },
+                properties: {
+
+                }
+            };
+
+            var $TipoUsoModel = {
                 listContainer: {
                     create: "",
                     list: "",
@@ -722,16 +737,39 @@
            // CargarTipoPackingList(1, "");
            //$("#TipoPackingListID").data("kendoComboBox").value(1);
             $(document).bind("contextmenu", function (e) {
+                var elemento = e.target.attributes[10].value;
+                var index = elemento.indexOf("_");
+                var valor = elemento.substring(0, index);
+
+                if (valor == "TipoUsoID") {
+                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
+                        VentanaModal(4);
+                    }
+                }
                 return false;
             });
             $('#Colada').mousedown(function (e) {
-                if(e.which == 3){
-                    $("#hdnItemCodeIDSeleccionado").val("");
-                    $("#hdnItemCodeSeleccionado").val("");
-                    VentanaModal(3);
-                    e.preventDefault();
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Colada"] != 'undefined') && (typeof returnOfSecurityCheck["Colada"]["create"] != 'undefined') && returnOfSecurityCheck["Colada"]["create"]) {
+                    if(e.which == 3){
+                        $("#hdnItemCodeIDSeleccionado").val("");
+                        $("#hdnItemCodeSeleccionado").val("");
+                        VentanaModal(3);
+                        e.preventDefault();
+                    }
                 }
             });
+
+            //$("#TipoUsoID").data("kendoComboBox").mousedown(function (e) {
+            //    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
+            //        if (e.which == 3) {
+            //            VentanaModal(4);
+            //            e.preventDefault();
+            //        };
+            //    };
+            //});
+
+
+
         };
         function CancelarPadre() { };
         function Cancelar() {
@@ -1325,6 +1363,11 @@
                         mostrarpopup = false;
                         displayMessage("notificationslabel0031", "", '1');
                     };
+                    break;
+                case 4:
+                    modalTitle = "Tipo Uso";
+                    content = "@Url.Action("TipoUso", "PopUps")";
+                    height = "2%";
                     break;
             };
 
@@ -2638,7 +2681,9 @@
             lastEditedCellID = options.model;
         };
 
-
+        function ActualizarPadre() {
+            ObtenerTipoUso();
+        };
         function itemCodeSteelgoAutocomplete(container, options) {
             $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
@@ -3000,6 +3045,7 @@
             $authorizationModel["Item Code"] = $ItemCodeModel;
             $authorizationModel["Colada"] = $ColadaModel;
             $authorizationModel["Bulto"] = $BultoModel;
+            $authorizationModel["Tipo Uso"] = $TipoUsoModel;
             
     }
 
