@@ -36,6 +36,7 @@ function RenderComboBoxDefectos(container, options) {
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Defectos = dataItem.Nombre;
+                options.model.DefectosID = dataItem.DefectoID;
             },
             change: function (e) {
                 options.model.Defectos = dataItem.Nombre;

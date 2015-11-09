@@ -9,7 +9,7 @@ var CampoResultadoVisualPredeterminada = 20;
 var CampoLlenadoPredeterminada = 22;
 
 function AjaxObtenerListaInspector() {
-
+    alert("ingresa a metodo AjaxObtenerListaInspector")
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         $("#inputInspector").data("kendoComboBox").value("");
         $("#inputInspector").data("kendoComboBox").dataSource.data(data)
@@ -24,7 +24,7 @@ function AjaxObtenerListaTaller() {
     });
 }
 function AjaxObtenerListaInspectorVisual() {
-   
+    alert("ingresa a metodo AjaxObtenerListaInspectorVisual")
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         
         $("#inputInspectorVisual").data("kendoComboBox").value("");
@@ -133,10 +133,8 @@ function AjaxObtenerSpoolID() {
 
 function AjaxobtenerDetalleDimensional(spoolID) {
     loadingStart();
-    alert(spoolID);
-    alert($("#language").val());
-    alert(Cookies.get("token"));
-    $Inspeccion.$Inspeccion.read({ id: spoolID, sinCaptura: 'todos', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+   
+    $Inspeccion.Inspeccion.read({ id: spoolID, sinCaptura: 'todos', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
 
         if (data.ListaDetalleDimensional.length == 0) {
@@ -174,7 +172,7 @@ function AjaxJunta(spoolID) {
     });
 }
 function AjaxObtenerJSonGrid() {
-    alert('XD');
+    
     loadingStart();
     //if (ExisteJunta()) {
     try {

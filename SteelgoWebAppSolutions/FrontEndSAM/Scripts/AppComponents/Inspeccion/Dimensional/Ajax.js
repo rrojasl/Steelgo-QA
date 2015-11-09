@@ -6,21 +6,17 @@ var CampoResultadoPredetrminado = 25;
 var CampoLlenadoPredeterminado = 26;
 
 function AjaxObtenerListaInspector() {
-    loadingStart();
+   
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
-       
         $("#inputInspector").data("kendoComboBox").value("");
         $("#inputInspector").data("kendoComboBox").dataSource.data(data)
-        loadingStop();
     });
+   
 }
 function AjaxObtenerListaDefectos() {
-    loadingStart();
     $Defectos.Defectos.read({ lenguaje: $("#language").val(), TipoPrueba: TipoPrueba, token: Cookies.get("token") }).done(function (data) {
-      
-        $("#inputDefecto").data("kendoComboBox").value("");
-        $("#inputDefecto").data("kendoComboBox").dataSource.data(data)
-        loadingStop();
+            $("#inputDefecto").data("kendoComboBox").value("");
+            $("#inputDefecto").data("kendoComboBox").dataSource.data(data)
     });
 }
 function AjaxCargaCamposPredetrminados() {
@@ -80,8 +76,10 @@ function AjaxCargaCamposPredetrminados() {
 }
 function AjaxObtenerSpoolID() {
     try {
+
+        loadingStart();
         $CapturasRapidas.CapturasRapidas.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
-            loadingStart();
+           
             $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
             $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus)
             Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
@@ -129,13 +127,14 @@ function AjaxObtenerJSonGrid() {
             else {
 
             }
+            loadingStop();
         });
 
     } catch (e) {
         displayMessage("Mensajes_error", e.message, '2');
     }
 
-    loadingStop();
+   
 
 }
 
@@ -145,7 +144,7 @@ function AjaxGuardar(jSonCaptura) {
     Captura = [];
     Captura[0] = { Detalles: "" };
 
-
+    var mensaje = '';
     inspeccionDimensional = [];
     for (index = 0; index < jSonCaptura.length; index++) {
         inspeccionDimensional[index] = { Accion: "", InspeccionDimensionalID: "", FechaInspeccion: "", ResultadoID: "", Resultado: "", InspectorID: "", Inspector: "", DefectosID: "", Defectos: "", OrdenTrabajoSpoolID: "" }
@@ -169,10 +168,17 @@ function AjaxGuardar(jSonCaptura) {
     Captura[0].Detalles = inspeccionDimensional;
 
     $InspeccionDimensional.InspeccionDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        if (data.ReturnMessage == "ok")
-            displayMessage("Se guardo correctamente la informacion", "", '0');
-        console.log("se guardo correctamente la informacion");
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            mensaje = "Se guardo correctamente la informacion" + "-0";
+            displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+        }
+        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+            displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+        }
+        loadingStop();
+       
     });
 
-    loadingStop();
+    
 }

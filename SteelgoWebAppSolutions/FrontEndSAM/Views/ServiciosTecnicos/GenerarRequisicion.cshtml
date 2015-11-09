@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "CapturaServiciosTecnicos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Generar Requisicion</span></a>
+    </li>
+}
+
+<div></div>
+
+
+<div id="FormGeneraRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="button-section editButtonSection">
+                <a id="btnCancelar" class="btn btn-yellow"><span id="">Guardar</span></a>
+                <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+               
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label id="">Folio:</label>
+                    Sin Asignar
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label id="">Tipo de Prueba</label>
+                    <input id="Junta" class="" />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label id="">Fecha</label>
+                    <input id="Junta" class="" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <label id="">Observacion</label>
+                    <input id="Junta" class="" />
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="CapturaArmadoHeaderMostrar"></label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" id="styleSinCaptura">
+                            <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="">Sin Requisicion</span>
+                        </label>
+                        <label class="btn btn-default" id="styleTodos">
+                            <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">Ordenar por</label>
+                    <input />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">Tipo de orden</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" id="styleSinCaptura">
+                            <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="">Ascendente</span>
+                        </label>
+                        <label class="btn btn-default" id="styleTodos">
+                            <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="">Descendente </span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label id="">&nbsp;</label>
+                    <a id="btnCancelar" class="btn btn-blue"><span id="">Aplicar</span></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">Agregar</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" id="StylePlanchaTodos">
+                            <input type="radio" name="LLena" value="Todos" /><span id="">Seleccionar</span>
+                        </label>
+                        <label class="btn btn-default" id="StylePlanchaVacios">
+                            <input type="radio" name="LLena" value="Vacios" /><span id="">quitar seleccion</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">Codigo a aplicar</label>
+                    <input id="inputInspectorVisual" class="" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">Observacion</label>
+                    <input id="inputFechaVisual" class="" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" id="StylePlanchaTodos">
+                            <input type="radio" name="LLena" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+                        </label>
+                        <label class="btn btn-default" id="StylePlanchaVacios">
+                            <input type="radio" name="LLena" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="ContenedorGrid" class="row">
+                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="hdAccionFiltrado" type="hidden" />
+    <div id="window">
+    </div>
+</div>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Captura.js"> </script>
