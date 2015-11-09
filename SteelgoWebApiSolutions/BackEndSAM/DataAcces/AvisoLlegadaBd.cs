@@ -666,93 +666,141 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_FolioAvisoLlegada avisoBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID)
-                        .AsParallel().SingleOrDefault();
-                    if (avisoBd != null)
+                    using (var sam3_tran = ctx.Database.BeginTransaction())
                     {
-                        //modificamos los parametros generales
-                        avisoBd.Activo = true;
-                        avisoBd.ChoferID = cambios.Chofer.Count > 0 ? cambios.Chofer[0].ChoferID : 1;
-                        avisoBd.FechaModificacion = DateTime.Now;
-                        avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
-                        avisoBd.PatioID = cambios.Patio.Count > 0 ? cambios.Patio[0].PatioID : 1;
-                        avisoBd.TransportistaID = cambios.Transportista.Count > 0 ? cambios.Transportista[0].TransportistaID : 1;
-                        avisoBd.UsuarioModificacion = usuario.UsuarioID;
-                        avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 1;
-                        //los datos de entrada traen el id del cliente en sam2
-                        int sam2ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
-                            ? Convert.ToInt32(cambios.Cliente.ClienteID) : 0;
-                        //insertamos en el id del cliente en sam3
-                        avisoBd.ClienteID = (from c in ctx.Sam3_Cliente
-                                             where c.Activo && c.Sam2ClienteID == sam2ClienteID
-                                             select c.ClienteID).AsParallel().SingleOrDefault();
-                        avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
-                        avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
-
-                        //Actualizar informacion de las planas
-                        foreach (PlanaAV plana in cambios.Plana)
+                        bool tienePermisoAduana = false;
+                        Sam3_FolioAvisoLlegada avisoBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID)
+                            .AsParallel().SingleOrDefault();
+                        if (avisoBd != null)
                         {
-                            if (!avisoBd.Sam3_Rel_FolioAvisoLlegada_Vehiculo
-                                .Where(x => x.VehiculoID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any()) // varificamos si existe la plana
+                            //modificamos los parametros generales
+                            avisoBd.Activo = true;
+                            avisoBd.ChoferID = cambios.Chofer.Count > 0 ? cambios.Chofer[0].ChoferID : 1;
+                            avisoBd.FechaModificacion = DateTime.Now;
+                            avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
+                            avisoBd.PatioID = cambios.Patio.Count > 0 ? cambios.Patio[0].PatioID : 1;
+                            avisoBd.TransportistaID = cambios.Transportista.Count > 0 ? cambios.Transportista[0].TransportistaID : 1;
+                            avisoBd.UsuarioModificacion = usuario.UsuarioID;
+                            avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 1;
+                            //los datos de entrada traen el id del cliente en sam2
+                            int sam2ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
+                                ? Convert.ToInt32(cambios.Cliente.ClienteID) : 0;
+                            //insertamos en el id del cliente en sam3
+                            avisoBd.ClienteID = (from c in ctx.Sam3_Cliente
+                                                 where c.Activo && c.Sam2ClienteID == sam2ClienteID
+                                                 select c.ClienteID).AsParallel().SingleOrDefault();
+                            avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
+                            avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
+
+                            //Actualizar informacion de las planas
+                            foreach (PlanaAV plana in cambios.Plana)
                             {
-                                //agregamos una nuevo registro a la relacion de aviso y planas
-                                Sam3_Rel_FolioAvisoLlegada_Vehiculo nuevoRegistro = new Sam3_Rel_FolioAvisoLlegada_Vehiculo();
-                                nuevoRegistro.Activo = true;
-                                nuevoRegistro.FechaModificacion = DateTime.Now;
-                                nuevoRegistro.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
-                                nuevoRegistro.VehiculoID = plana.PlanaID;
-                                nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
+                                if (!avisoBd.Sam3_Rel_FolioAvisoLlegada_Vehiculo
+                                    .Where(x => x.VehiculoID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any()) // varificamos si existe la plana
+                                {
+                                    //agregamos una nuevo registro a la relacion de aviso y planas
+                                    Sam3_Rel_FolioAvisoLlegada_Vehiculo nuevoRegistro = new Sam3_Rel_FolioAvisoLlegada_Vehiculo();
+                                    nuevoRegistro.Activo = true;
+                                    nuevoRegistro.FechaModificacion = DateTime.Now;
+                                    nuevoRegistro.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
+                                    nuevoRegistro.VehiculoID = plana.PlanaID;
+                                    nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
 
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo.Add(nuevoRegistro);
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo.Add(nuevoRegistro);
+                                }
                             }
-                        }
 
-                        //actualizar la información de los documentos de Aviso de llegada
-                        foreach (ArchivosAV archivo in cambios.Archivos)
-                        {
-                            //verificamos si ya existe el archivo actual
-                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
-                                .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID
-                                    && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                            //actualizar la información de los documentos de Aviso de llegada
+                            foreach (ArchivosAV archivo in cambios.Archivos)
                             {
-                                //si el archivo no existe, agregamos uno nuevo
-                                Sam3_Rel_FolioAvisoLlegada_Documento nuenoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
-                                nuenoDoc.Activo = true;
-                                nuenoDoc.DocumentoID = archivo.ArchivoID;
-                                nuenoDoc.Extencion = archivo.Extension;
-                                nuenoDoc.FechaModificacion = DateTime.Now;
-                                nuenoDoc.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
-                                nuenoDoc.Nombre = archivo.Nombre;
-                                nuenoDoc.UsuarioModificacion = usuario.UsuarioID;
+                                //verificamos si ya existe el archivo actual
+                                if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
+                                    .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID
+                                        && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                                {
+                                    //si el archivo no existe, agregamos uno nuevo
+                                    Sam3_Rel_FolioAvisoLlegada_Documento nuenoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
+                                    nuenoDoc.Activo = true;
+                                    nuenoDoc.DocumentoID = archivo.ArchivoID;
+                                    nuenoDoc.Extencion = archivo.Extension;
+                                    nuenoDoc.FechaModificacion = DateTime.Now;
+                                    nuenoDoc.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
+                                    nuenoDoc.Nombre = archivo.Nombre;
+                                    nuenoDoc.UsuarioModificacion = usuario.UsuarioID;
 
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuenoDoc);
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuenoDoc);
+                                }
                             }
-                        }
 
-                        foreach (ProyectosAV proyecto in cambios.Proyectos)
-                        {
-                            //verificamos si existe el registro
-                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
-                                && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any())
+                            foreach (ProyectosAV proyecto in cambios.Proyectos)
                             {
-                                Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
-                                nuevoProyecto.Activo = true;
-                                nuevoProyecto.FechaModificacion = DateTime.Now;
-                                nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
-                                nuevoProyecto.ProyectoID = proyecto.ProyectoID;
-                                nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
+                                //verificamos si existe el registro
+                                if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
+                                    && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any())
+                                {
+                                    Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                    nuevoProyecto.Activo = true;
+                                    nuevoProyecto.FechaModificacion = DateTime.Now;
+                                    nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
+                                    nuevoProyecto.ProyectoID = proyecto.ProyectoID;
+                                    nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
 
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                                }
                             }
+
+                            avisoBd.UsuarioModificacion = usuario.UsuarioID;
+                            avisoBd.FechaModificacion = DateTime.Now;
+
+                            //si no tiene llegada de material:
+                            // se actualiza el estatus del folio aviso llegada.
+                            //permisos tramite o autorizados en inactivo para poder reenviar permiso Issue #235
+                            if (!ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                            {
+                               
+                                if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID && x.Activo).Any())
+                                {
+                                    tienePermisoAduana = true;
+                                    Sam3_PermisoAduana permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID && x.Activo)
+                                    .AsParallel().SingleOrDefault();
+                                    permisoBd.FechaAutorización = DateTime.Now;
+                                    permisoBd.FechaModificacion = DateTime.Now;
+                                    permisoBd.UsuarioModificacion = usuario.UsuarioID;
+                                    permisoBd.Activo = false;
+                                    ctx.SaveChanges();
+                                    
+                                }
+
+                                int permisoID = (from per in ctx.Sam3_PermisoAduana
+                                                 where per.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID && per.Activo
+                                                 select per.PermisoAduanaID).AsParallel().SingleOrDefault();
+
+                                if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo).Any())
+                                {
+                                    tienePermisoAduana = true;
+                                    foreach (Sam3_Rel_PermisoAduana_Documento documentos in ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo))
+                                    {
+                                        documentos.Activo = false;
+                                        documentos.FechaModificacion = DateTime.Now;
+                                        documentos.FechaModificacion = DateTime.Now;
+                                        documentos.UsuarioModificacion = usuario.UsuarioID;
+                                    }
+                                    ctx.SaveChanges();
+                                }
+                               
+                            }
+
+                            if (tienePermisoAduana)
+                            {
+                                avisoBd.Estatus = "Generado";
+                            }
+
+                            ctx.SaveChanges();
+
+                            
                         }
-
-                        avisoBd.UsuarioModificacion = usuario.UsuarioID;
-                        avisoBd.FechaModificacion = DateTime.Now;
-
-                        ctx.SaveChanges();
-
+                        sam3_tran.Commit();
                     }
-
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;
