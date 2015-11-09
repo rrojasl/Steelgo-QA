@@ -4050,6 +4050,16 @@ _dictionary = {
 
     //#endregion
     //#region Inspeccion
+
+    "CapturaMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaMensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+
     "DimensionalVisualHeaderSpoolID": {
         "es-MX": "SpoolID",
         "en-US": "SpoolID"
