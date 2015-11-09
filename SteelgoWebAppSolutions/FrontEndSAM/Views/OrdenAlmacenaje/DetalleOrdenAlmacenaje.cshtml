@@ -482,13 +482,14 @@
         loadingStart();
 
         $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: $.cookie("token") }).done(function (result) {
+            OcultarTituloCancelado();
             if (Error(result)) {
                 _resultadoJson = result.ListadoGenerarOrdenAlmacenaje;
                 $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
-                OcultarTituloCancelado();
+               
                 if (!result.Activo) {
                     MostrarTituloCancelado();
-                }
+                };
                 if (_resultadoJson.length > 0) {
                     $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
                 } else {
