@@ -82,17 +82,38 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     ComboItemCode = (from ic in ctx.Sam3_ItemCode
-                                     join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals rfc.ItemCodeID
+                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                     join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfc.Rel_ItemCode_Diametro_ID
                                      where ic.Activo && rfc.Activo
                                      && rfc.FolioCuantificacionID == folioCuantificacion
                                      && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                         where ror.Activo
-                                         select ror.ItemCodeID).Contains(ic.ItemCodeID)
+                                         join rd in ctx.Sam3_Rel_ItemCode_Diametro on ror.Rel_ItemCode_Diametro_ID equals rd.Rel_ItemCode_Diametro_ID
+                                         where ror.Activo && ror.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                         select rd.ItemCodeID).Contains(ic.ItemCodeID)
                                      select new ListaCombos
                                      {
                                          id = ic.ItemCodeID.ToString(),
                                          value = ic.Codigo
                                      }).AsParallel().ToList();
+
+                    ComboItemCode.AddRange((from ic in ctx.Sam3_ItemCode
+                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
+                                     join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                     join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                     where ic.Activo && rbi.Activo && rid.Activo && b.Activo && fc.Activo
+                                     && fc.FolioCuantificacionID == folioCuantificacion
+                                     && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                         join rdi in ctx.Sam3_Rel_ItemCode_Diametro on ror.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                         where ror.Activo
+                                         select rdi.ItemCodeID).Contains(ic.ItemCodeID)
+                                     select new ListaCombos
+                                     {
+                                         id = ic.ItemCodeID.ToString(),
+                                         value = ic.Codigo
+                                     }).AsParallel().ToList());
+
+                    ComboItemCode = ComboItemCode.GroupBy(x => x.id).Select(x => x.First()).OrderBy(x => x.value).ToList();
                 }
 
                 return ComboItemCode;
@@ -326,7 +347,7 @@ namespace BackEndSAM.DataAcces
                                                       Codigo = ic.Codigo,
                                                       Descripcion = ics.DescripcionEspanol,
                                                       Cantidad = (from nu in ctx.Sam3_NumeroUnico
-                                                                  where nu.ItemCodeID == relbu.ItemCodeID
+                                                                  where nu.ItemCodeID == ic.ItemCodeID
                                                                   && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                        where roa.Activo
                                                                        select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
@@ -336,7 +357,7 @@ namespace BackEndSAM.DataAcces
                                                       D2 = d2.Valor.ToString(),
                                                       FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                       NumerosUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                                                       where nu.ItemCodeID == relbu.ItemCodeID
+                                                                       where nu.ItemCodeID == ic.ItemCodeID
                                                                        && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                             where roa.Activo
                                                                             select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)

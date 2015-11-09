@@ -115,6 +115,7 @@ namespace BackEndSAM.DataAcces
                                                                        where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
                                                                        && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                        && !rfi.TieneNumerosUnicos
+                                                                       && rfi.Cantidad > 0
                                                                        select new ElementoItemCodeGenerarOrden
                                                                        {
                                                                            ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -143,6 +144,7 @@ namespace BackEndSAM.DataAcces
                                                                       where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
                                                                       && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                       && !rbi.TieneNumerosUnicos
+                                                                      && rbi.Cantidad > 0
                                                                       select new ElementoItemCodeGenerarOrden
                                                                       {
                                                                           ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -179,6 +181,7 @@ namespace BackEndSAM.DataAcces
                                                                             where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
                                                                             && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                             && !rfi.TieneNumerosUnicos
+                                                                            && rfi.Cantidad > 0
                                                                             select new ElementoItemCodeGenerarOrden
                                                                             {
                                                                                 ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -207,6 +210,7 @@ namespace BackEndSAM.DataAcces
                                                                            where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
                                                                            && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                            && !rbi.TieneNumerosUnicos
+                                                                           && rbi.Cantidad > 0
                                                                            select new ElementoItemCodeGenerarOrden
                                                                            {
                                                                                ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
