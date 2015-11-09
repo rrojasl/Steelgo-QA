@@ -353,7 +353,10 @@
 
         function CargarGridTubos(dataSource, columnas) {
             if ($("#gridTubos").data("kendoGrid"))
-                $("#gridTubos").empty(); // destroy the Grid
+                removeGrid($("#gridTubos"));
+           
+          
+
             $("#gridTubos").kendoGrid({
                 dataSource: dataSource,
                 autoHeight: true,
@@ -373,30 +376,31 @@
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-                    $("#divTubos .row .clearfix").empty();
-                    $(columnas).each(function (i, value) {
-                        $("#divTubos .row .clearfix").append("<input id='" + value.field + "' class='quickFilters general-input' />");
-                        if (!$("#gridTubos th[data-field='" + value.field + "'] input").length)
-                        {
-                            $("#gridTubos th[data-field='" + value.field + "']").append($('#divTubos .row .clearfix input[id=' + value.field + ' ]'));
-                        }
-                        $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").keyup(function () {
-                            var ds = $("#gridTubos").data("kendoGrid").dataSource;
-                            ds.filter([
-                                {
-                                    "field": value.field,
-                                    "operator": "Contains",
-                                    "value": this.value
-                                }
-                            ]);
-                            if (!this.value.length) { $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").parent().children("a.k-state-active").removeClass("k-state-active"); }
-                            $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").focus();
-                            $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").val(this.value);
-                        });
-
-                        $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").click(function (event) { event.stopPropagation(); });
-                    });
+                  
                 }
+            });
+
+            $("#divTubos .row .clearfix").empty();
+            $(columnas).each(function (i, value) {
+                $("#divTubos .row .clearfix").append("<input id='" + value.field + "' class='quickFilters general-input' />");
+                if (!$("#gridTubos th[data-field='" + value.field + "'] input").length) {
+                    $("#gridTubos th[data-field='" + value.field + "']").append($('#divTubos .row .clearfix input[id=' + value.field + ' ]'));
+                };
+                $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").keyup(function () {
+                    var ds = $("#gridTubos").data("kendoGrid").dataSource;
+                    ds.filter([
+                        {
+                            "field": value.field,
+                            "operator": "Contains",
+                            "value": this.value
+                        }
+                    ]);
+                    if (!this.value.length) { $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").parent().children("a.k-state-active").removeClass("k-state-active"); }
+                    $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").focus();
+                    $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").val(this.value);
+                });
+
+                $("#gridTubos th[data-field='" + value.field + "'] input[id=" + value.field + "]").click(function (event) { event.stopPropagation(); });
             });
 
             $("#gridTubos").data("kendoGrid").refresh();
@@ -430,7 +434,7 @@
         };
         function CargarGridAccesorios(datasource, columnas) {
             if ($("#gridAccesorios").data("kendoGrid"))
-                $("#gridAccesorios").empty(); // destroy the Grid
+                removeGrid($("#gridAccesorios"));
             $("#gridAccesorios").kendoGrid({
                 dataSource: datasource,
                 autoHeight: true,
@@ -450,31 +454,32 @@
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-                    //$("#filterContainer .clearfix").empty();
-                    $("#divAccesorios .row .clearfix").empty();
-                    $(columnas).each(function (i, value) {
-                        $("#divAccesorios .row .clearfix").append("<input id='" + value.field + "' class='quickFilters general-input' />");
-                        if (!$("#gridAccesorios th[data-field='" + value.field + "'] input").length)
-                        {
-                            $("#gridAccesorios th[data-field='" + value.field + "']").append($('#divAccesorios .row .clearfix input[id=' + value.field + ' ]'));
-                        }
-                        $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").keyup(function () {
-                            var ds = $("#gridAccesorios").data("kendoGrid").dataSource;
-                            ds.filter([
-                                {
-                                    "field": value.field,
-                                    "operator": "Contains",
-                                    "value": this.value
-                                }
-                            ]);
-                            if (!this.value.length) { $("#gridAccesorios th[data-field='" + value.field + "'] input[id$=" + value.field + "]").parent().children("a.k-state-active").removeClass("k-state-active"); }
-                            $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").focus();
-                            $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").val(this.value);
-                        });
-
-                        $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").click(function (event) { event.stopPropagation(); });
-                    });
+                    
                 }
+            });
+
+            $("#divAccesorios .row .clearfix").empty();
+
+            $(columnas).each(function (i, value) {
+                $("#divAccesorios .row .clearfix").append("<input id='" + value.field + "' class='quickFilters general-input' />");
+                if (!$("#gridAccesorios th[data-field='" + value.field + "'] input").length) {
+                    $("#gridAccesorios th[data-field='" + value.field + "']").append($('#divAccesorios .row .clearfix input[id=' + value.field + ' ]'));
+                };
+                $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").keyup(function () {
+                    var ds = $("#gridAccesorios").data("kendoGrid").dataSource;
+                    ds.filter([
+                        {
+                            "field": value.field,
+                            "operator": "Contains",
+                            "value": this.value
+                        }
+                    ]);
+                    if (!this.value.length) { $("#gridAccesorios th[data-field='" + value.field + "'] input[id$=" + value.field + "]").parent().children("a.k-state-active").removeClass("k-state-active"); }
+                    $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").focus();
+                    $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").val(this.value);
+                });
+
+                $("#gridAccesorios th[data-field='" + value.field + "'] input[id=" + value.field + "]").click(function (event) { event.stopPropagation(); });
             });
 
             $("#gridAccesorios").data("kendoGrid").refresh();
