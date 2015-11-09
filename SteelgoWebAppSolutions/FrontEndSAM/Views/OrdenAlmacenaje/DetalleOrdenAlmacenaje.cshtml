@@ -24,6 +24,8 @@
             <span class="folioLabel">
                 <span id="DetalleOrdenAlmacenaje0001"></span>
                 <span id="spanOrdenAlmacenaje"></span>
+                <span id="DetalleOrdenAlmacenaje0023"></span>
+                <span id="DetalleOrdenAlmacenaje0024" class="statusLabel"></span>
                 <div class="branchCut"></div>
             </span>
             <div class="formNav clearfix">
@@ -45,6 +47,7 @@
                                     <li><a id="RedirectListado"><span id="DetalleOrdenAlmacenaje0005"></span></a></li>
                                     <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleOrdenAlmacenaje0006"></span></a></li>
                                     <li class="save-group"><a id="NuevaCaptura"><span id="DetalleOrdenAlmacenaje0007"></span></a></li>
+                                    <li class="k-grid-Cancelar"><a id="CancelarOrden"><span id="DetalleOrdenAlmacenaje0022"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -319,6 +322,26 @@
         });
     };
 
+    function CancelarOrden() {
+        loadingStart();
+        $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                MostrarTituloCancelado();
+            };
+            loadingStop();
+        });
+    };
+
+    function OcultarTituloCancelado() {
+        $("#DetalleOrdenAlmacenaje0023").hide();
+        $("#DetalleOrdenAlmacenaje0024").hide();
+    };
+
+    function MostrarTituloCancelado() {
+        $("#DetalleOrdenAlmacenaje0023").show();
+        $("#DetalleOrdenAlmacenaje0024").show();
+    };
+
     function DesahabilitarCampos() {
         $("#ProyectoID").data("kendoComboBox").enable(false);
         $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
@@ -462,6 +485,10 @@
             if (Error(result)) {
                 _resultadoJson = result.ListadoGenerarOrdenAlmacenaje;
                 $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
+                OcultarTituloCancelado();
+                if (!result.Activo) {
+                    MostrarTituloCancelado();
+                }
                 if (_resultadoJson.length > 0) {
                     $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
                 } else {

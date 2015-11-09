@@ -1105,8 +1105,9 @@ namespace BackEndSAM.DataAcces
                             }
                         }
                         listado.Add(listadoOrdenAlmacenaje);
-                    }
+                    };
 
+                    listadoDetalleOrdenAlmacenaje.Activo = ordenAlmacenaje.Activo;
                     listadoDetalleOrdenAlmacenaje.ProyectoID = ProyectoID;
                     listadoDetalleOrdenAlmacenaje.ListadoGenerarOrdenAlmacenaje = listado.OrderBy(x => x.FolioCuantificacion).ToList();
 
