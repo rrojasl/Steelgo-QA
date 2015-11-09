@@ -768,25 +768,25 @@ namespace BackEndSAM.DataAcces
                                     permisoBd.UsuarioModificacion = usuario.UsuarioID;
                                     permisoBd.Activo = false;
                                     ctx.SaveChanges();
-                                    
-                                }
 
-                                int permisoID = (from per in ctx.Sam3_PermisoAduana
-                                                 where per.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID && per.Activo
-                                                 select per.PermisoAduanaID).AsParallel().SingleOrDefault();
+                                    int permisoID = (permisoBd.PermisoAduanaID);
 
-                                if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo).Any())
-                                {
-                                    tienePermisoAduana = true;
-                                    foreach (Sam3_Rel_PermisoAduana_Documento documentos in ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo))
+                                    if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo).Any())
                                     {
-                                        documentos.Activo = false;
-                                        documentos.FechaModificacion = DateTime.Now;
-                                        documentos.FechaModificacion = DateTime.Now;
-                                        documentos.UsuarioModificacion = usuario.UsuarioID;
+                                        tienePermisoAduana = true;
+                                        foreach (Sam3_Rel_PermisoAduana_Documento documentos in ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo))
+                                        {
+                                            documentos.Activo = false;
+                                            documentos.FechaModificacion = DateTime.Now;
+                                            documentos.FechaModificacion = DateTime.Now;
+                                            documentos.UsuarioModificacion = usuario.UsuarioID;
+                                        }
+                                        ctx.SaveChanges();
                                     }
-                                    ctx.SaveChanges();
+
                                 }
+
+                               
                                
                             }
 
