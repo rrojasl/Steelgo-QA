@@ -84,9 +84,9 @@
                 required: "#NumeroCertificado_Colada"
             },
             holdcalidad: {
-                visible: "#HoldCalidad_ColadaDiv",
-                editable: "#HoldCalidad_Colada",
-                required: "#HoldCalidad_Colada"
+                visible: "#HoldCalidad_ColadaDivX",
+                editable: "#HoldCalidad_ColadaX",
+                required: "#HoldCalidad_ColadaX"
             },
             itemcode: {
                 visible: "#ItemCode_ColadaDiv",
@@ -274,6 +274,9 @@
     function GuardarColada() {
         ColadaModal = { ItemCodeID: "", FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
         ColadaModal.ItemCodeID = window.parent.$("#hdnItemCodeIDSeleccionado").val();
+        if (ColadaModal.ItemCodeID == undefined || ColadaModal.ItemCodeID == null || !(ColadaModal.ItemCodeID > 0)) {
+            ColadaModal.ItemCodeID = 0;
+        }
         ColadaModal.FabricanteID = FabricanteColada.FabricanteID;
         ColadaModal.AceroID = AceroColada.AceroID;
         ColadaModal.ProyectoID = ProyectoColada.ProyectoID;

@@ -117,7 +117,7 @@ namespace BackEndSAM.DataAcces
 
                                     sam2_tran.Commit();
 
-                                    if (DatosColada.ItemCodeID != null && DatosColada.ItemCodeID > 0)
+                                    if (DatosColada.ItemCodeID > 0)
                                     {
                                         Sam3_Rel_Itemcode_Colada nuevaRel = new Sam3_Rel_Itemcode_Colada();
                                         nuevaRel.Activo = true;
@@ -143,7 +143,7 @@ namespace BackEndSAM.DataAcces
                                         && c.ProyectoID == DatosColada.ProyectoID 
                                         && c.Activo).AsParallel().SingleOrDefault();
 
-                                    if (DatosColada.ItemCodeID != null && DatosColada.ItemCodeID > 0 )
+                                    if (DatosColada.ItemCodeID > 0 )
                                     {
                                         string codigo = (from it in ctx.Sam3_ItemCode
                                                              where it.ItemCodeID == DatosColada.ItemCodeID
@@ -152,18 +152,19 @@ namespace BackEndSAM.DataAcces
                                         if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == registroBd.ColadaID
                                                 && x.ItemCodeID == DatosColada.ItemCodeID).Any())
                                         {
-                                            Sam3_Rel_Itemcode_Colada nuevaRel = new Sam3_Rel_Itemcode_Colada();
-                                            nuevaRel.Activo = true;
-                                            nuevaRel.ColadaID = registroBd.ColadaID;
-                                            nuevaRel.FechaModificacion = DateTime.Now;
-                                            nuevaRel.ItemCodeID = DatosColada.ItemCodeID;
-                                            nuevaRel.UsuarioModificacion = usuario.UsuarioID;
+                                            if (DatosColada.ItemCodeID > 0)
+                                            {
+                                                Sam3_Rel_Itemcode_Colada nuevaRel = new Sam3_Rel_Itemcode_Colada();
+                                                nuevaRel.Activo = true;
+                                                nuevaRel.ColadaID = registroBd.ColadaID;
+                                                nuevaRel.FechaModificacion = DateTime.Now;
+                                                nuevaRel.ItemCodeID = DatosColada.ItemCodeID;
+                                                nuevaRel.UsuarioModificacion = usuario.UsuarioID;
 
-                                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevaRel);
-                                            ctx.SaveChanges();
-
+                                                ctx.Sam3_Rel_Itemcode_Colada.Add(nuevaRel);
+                                                ctx.SaveChanges();
+                                            }
                                             
-
                                             error += string.Format(" Se genero la relacion entre la colada No. {0} y el ItemCode {1}", registroBd.NumeroColada, codigo);
                                         }
                                         else

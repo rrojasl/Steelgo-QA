@@ -15,6 +15,12 @@ begin try
 	ALTER TABLE [dbo].[Sam3_Rel_FolioCuantificacion_ItemCode] ALTER COLUMN ColadaID INT NOT NULL
 	ALTER TABLE [dbo].[Sam3_Rel_Bulto_ItemCode] ALTER COLUMN ColadaID INT NOT NULL 
 
+	ALTER TABLE [dbo].[Sam3_Rel_FolioCuantificacion_ItemCode] ADD 
+		FOREIGN KEY (ColadaID) REFERENCES Sam3_Colada(ColadaID)
+		
+	ALTER TABLE [dbo].[Sam3_Rel_Bulto_ItemCode] ADD 
+		FOREIGN KEY (ColadaID) REFERENCES Sam3_Colada(ColadaID)
+
 	CREATE TABLE Sam3_Rel_Itemcode_Colada(
 		Rel_Itemcode_Colada INT NOT NULL PRIMARY KEY IDENTITY,
 		ItemCodeID INT NOT NULL,

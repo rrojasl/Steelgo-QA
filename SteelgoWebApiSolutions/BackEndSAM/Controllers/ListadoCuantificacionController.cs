@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers
     {
 
         // PUT api/<controller>/5
-        public object Post(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
+        public object Post(int ProyectoID, bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
         {
             string payload = "";
             string newToken = "";
@@ -30,7 +30,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 CuantificacionListado datosItemCode = serializer.Deserialize<CuantificacionListado>(cuantificacion);
 
-                return GuardarItemCodesBd.Instance.GuardadoInformacionItemCodes(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode, usuario, idGuardado);
+                return GuardarItemCodesBd.Instance.GuardadoInformacionItemCodes(ProyectoID, cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode, usuario, idGuardado);
             }
             else
             {

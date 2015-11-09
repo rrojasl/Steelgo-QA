@@ -46,8 +46,10 @@ function applySecurityPolicy(loadMenu) {
 
                 //Generate Side Menu
                 generateSideMenuDOMElements(0, 0, $(".main-menu"));
-                if (!$currentPageOnMenu && !window.opener && $errorURI != $currentUrl.split("?")[0]) {
-                    //document.location.href = $errorURI;
+
+                //Validate if i have access to this page
+                if (!$MenuData[$currentUrl.split("?")[0].replace("/", "").toLowerCase()] && !window.opener && $errorURI.split("?")[0].replace("/", "").toLowerCase() != $currentUrl.split("?")[0].split("?")[0].replace("/", "").toLowerCase()) {
+                    document.location.href = $errorURI;
                 }
 
                 //Retrieve the QuickLinks definition**

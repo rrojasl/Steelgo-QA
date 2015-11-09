@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
         /// 5: Guardar Parcial cuando se encuentra en la pantalla de bulto
         /// </param>
         /// <returns></returns>
-        public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion,
+        public object GuardadoInformacionItemCodes(int ProyectoID, bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion,
             CuantificacionListado datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
         {
             try
@@ -87,7 +87,7 @@ namespace BackEndSAM.DataAcces
                         datosItemCode.ItemCodeSteelgoID = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgoID) || datosItemCode.ItemCodeSteelgoID == "0" ? "1" : datosItemCode.ItemCodeSteelgoID;
                         datosItemCode.Familia = string.IsNullOrEmpty(datosItemCode.Familia) ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
                         datosItemCode.TipoAcero = string.IsNullOrEmpty(datosItemCode.TipoAcero) ? datosItemCode.TipoAcero = "Familia Material Default" : datosItemCode.TipoAcero;
-                        
+
                         switch (tipoGuardado)
                         {
                             case 1: //Terminar y Nuevo
@@ -142,7 +142,9 @@ namespace BackEndSAM.DataAcces
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              where c.NumeroColada == datosItemCode.Colada
+                                                              && c.ProyectoID == ProyectoID
+                                                              && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
@@ -392,7 +394,9 @@ namespace BackEndSAM.DataAcces
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              where c.NumeroColada == datosItemCode.Colada
+                                                              && c.ProyectoID == ProyectoID
+                                                              && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
@@ -633,7 +637,9 @@ namespace BackEndSAM.DataAcces
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              where c.NumeroColada == datosItemCode.Colada
+                                                              && c.ProyectoID == ProyectoID
+                                                              && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
@@ -762,7 +768,7 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
-                                        Detallar="No",
+                                        Detallar = "No",
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
                                         ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
@@ -834,7 +840,9 @@ namespace BackEndSAM.DataAcces
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              where c.NumeroColada == datosItemCode.Colada
+                                                              && c.ProyectoID == ProyectoID
+                                                              && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
@@ -1065,7 +1073,9 @@ namespace BackEndSAM.DataAcces
                                                                  select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              where c.NumeroColada == datosItemCode.Colada
+                                                              && c.ProyectoID == ProyectoID
+                                                              && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
                                     //Buscamos el itemcode de acuerdo a la relacion con diametros
@@ -1195,7 +1205,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
                                     });
                                     //}
-                                   
+
                                 }
                                 //}
                                 //scope.Complete();
@@ -1430,7 +1440,7 @@ namespace BackEndSAM.DataAcces
                            && rid.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == item.ItemCodeSteelgoID
                            select ics).AsParallel().SingleOrDefault();
 
-                    
+
                     string[] splitCedulas;
                     int cedulaID = 0;
 
@@ -1495,22 +1505,49 @@ namespace BackEndSAM.DataAcces
                     //if (!ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                     //    .Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
                     //{
-                        //Insertar la Relacion Folio Cuantificacion IC
-                        
-                        relIC.FolioCuantificacionID = FolioCuantificacion;
-                        relIC.Rel_ItemCode_Diametro_ID = relItemDiametroID;
-                        relIC.TieneNumerosUnicos = false;
-                        relIC.FechaModificacion = DateTime.Now;
-                        relIC.UsuarioModificacion = usuario.UsuarioID;
-                        relIC.Activo = true;
-                        relIC.Cantidad = IC.Cantidad;
-                        relIC.MM = IC.MM;
+                    //Insertar la Relacion Folio Cuantificacion IC
+
+                    relIC.FolioCuantificacionID = FolioCuantificacion;
+                    relIC.Rel_ItemCode_Diametro_ID = relItemDiametroID;
+                    relIC.TieneNumerosUnicos = false;
+                    relIC.FechaModificacion = DateTime.Now;
+                    relIC.UsuarioModificacion = usuario.UsuarioID;
+                    relIC.Activo = true;
+                    relIC.Cantidad = IC.Cantidad;
+                    relIC.MM = IC.MM;
+                    if (IC.ColadaID > 0)
+                    {
                         relIC.ColadaID = IC.ColadaID;
-                        ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
+                    }
+                    else
+                    {
+                        IC.TieneError = true;
+                    }
+                    ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
+                    ctx.SaveChanges();
+
+                    int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == relItemDiametroID)
+                        .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                    if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == IC.ColadaID && x.ItemCodeID == itemCodeID).Any() && IC.ColadaID > 0)
+                    {
+                        Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                        nuevarel.Activo = true;
+                        nuevarel.ColadaID = IC.ColadaID;
+                        nuevarel.FechaModificacion = DateTime.Now;
+                        nuevarel.ItemCodeID = itemCodeID;
+                        nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
                         ctx.SaveChanges();
+                    }
+                    else
+                    {
+                        IC.TieneError = true;
+                    }
                     //}
                 }
-                
+
                 RelID = relIC.Rel_FolioCuantificacion_ItemCode_ID.ToString();
             }
             catch (Exception ex)
@@ -1538,9 +1575,37 @@ namespace BackEndSAM.DataAcces
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
                         registroBd.MM = IC.MM;
-                        registroBd.ColadaID = IC.ColadaID;
+                        if (IC.ColadaID > 0)
+                        {
+                            registroBd.ColadaID = IC.ColadaID;
+                        }
+                        else
+                        {
+                            IC.TieneError = true;
+                        }
 
                         ctx.SaveChanges();
+
+                        int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == registroBd.Rel_ItemCode_Diametro_ID)
+                            .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                        if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == IC.ColadaID && x.ItemCodeID == itemCodeID).Any() && IC.ColadaID > 0)
+                        {
+                            Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                            nuevarel.Activo = true;
+                            nuevarel.ColadaID = IC.ColadaID;
+                            nuevarel.FechaModificacion = DateTime.Now;
+                            nuevarel.ItemCodeID = itemCodeID;
+                            nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                            ctx.SaveChanges();
+                        }
+                        else
+                        {
+                            IC.TieneError = true;
+                        }
+
 
                         ctx_tran.Commit();
                     }
@@ -1610,20 +1675,42 @@ namespace BackEndSAM.DataAcces
 
                     //if (!ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == bultoID && x.Rel_ItemCode_Diametro_ID == relItemDiametroID && x.Activo).Any())
                     //{
-                        
-                        bic.BultoID = bultoID;
-                        bic.Rel_ItemCode_Diametro_ID = relItemDiametroID;
-                        bic.TieneNumerosUnicos = false;
-                        bic.FechaModificacion = DateTime.Now;
-                        bic.UsuarioModificacion = usuario.UsuarioID;
-                        bic.Activo = true;
-                        bic.Cantidad = item.Cantidad;
-                        bic.MM = item.MM;
-                        bic.ColadaID = item.ColadaID;
-                        ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
-                        ctx.SaveChanges();
 
-                        
+                    bic.BultoID = bultoID;
+                    bic.Rel_ItemCode_Diametro_ID = relItemDiametroID;
+                    bic.TieneNumerosUnicos = false;
+                    bic.FechaModificacion = DateTime.Now;
+                    bic.UsuarioModificacion = usuario.UsuarioID;
+                    bic.Activo = true;
+                    bic.Cantidad = item.Cantidad;
+                    bic.MM = item.MM;
+                    if (item.ColadaID > 0)
+                    {
+                        bic.ColadaID = item.ColadaID;
+                    }
+                    else
+                    {
+                        item.TieneError = true;
+                    }
+                    ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+                    ctx.SaveChanges();
+
+                    int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == relItemDiametroID)
+                        .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                    if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == item.ColadaID && x.ItemCodeID == itemCodeID).Any() && item.ColadaID > 0)
+                    {
+                        Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                        nuevarel.Activo = true;
+                        nuevarel.ColadaID = item.ColadaID;
+                        nuevarel.FechaModificacion = DateTime.Now;
+                        nuevarel.ItemCodeID = itemCodeID;
+                        nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                        ctx.SaveChanges();
+                    }
+
                     //}
                 }
 
@@ -1653,9 +1740,38 @@ namespace BackEndSAM.DataAcces
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
                         registroBd.MM = item.MM;
-                        registroBd.ColadaID = item.ColadaID;
+
+                        if (item.ColadaID > 0)
+                        {
+                            registroBd.ColadaID = item.ColadaID;
+                        }
+                        else
+                        {
+                            item.TieneError = true;
+                        }
 
                         ctx.SaveChanges();
+
+                        int itemCodeID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.Rel_ItemCode_Diametro_ID == registroBd.Rel_ItemCode_Diametro_ID)
+                            .Select(x => x.ItemCodeID).AsParallel().SingleOrDefault();
+
+                        if (!ctx.Sam3_Rel_Itemcode_Colada.Where(x => x.ColadaID == item.ColadaID && x.ItemCodeID == itemCodeID).Any() && item.ColadaID > 0)
+                        {
+                            Sam3_Rel_Itemcode_Colada nuevarel = new Sam3_Rel_Itemcode_Colada();
+                            nuevarel.Activo = true;
+                            nuevarel.ColadaID = item.ColadaID;
+                            nuevarel.FechaModificacion = DateTime.Now;
+                            nuevarel.ItemCodeID = itemCodeID;
+                            nuevarel.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_Itemcode_Colada.Add(nuevarel);
+                            ctx.SaveChanges();
+                        }
+                        else
+                        {
+                            item.TieneError = true;
+                        }
+
 
                         ctx_tran.Commit();
                     }
