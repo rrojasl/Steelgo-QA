@@ -480,10 +480,10 @@
                 schema: {
                     model: {
                         fields: {
-                            ItemCodeID: { type: "string" },
-                            NumeroUnicoID: { type: "string" },
-                            NumeroUnico: { type: "string" },
-                            Rack: { type: "string" }
+                            ItemCodeID: { type: "string", editable: false },
+                            NumeroUnicoID: { type: "string", editable: false },
+                            NumeroUnico: { type: "string", editable: false },
+                            Rack: { type: "string", editable: true }
                         }
                     }
                 },
@@ -496,6 +496,10 @@
             sortable: true,
             scrollable: false,
             selectable: true,
+            editable: {
+                mode: "incell",
+                confirmation: false
+            },
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
