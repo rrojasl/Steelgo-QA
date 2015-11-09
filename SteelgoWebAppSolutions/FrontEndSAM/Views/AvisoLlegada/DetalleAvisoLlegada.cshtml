@@ -1168,6 +1168,12 @@
                             $("#DetalleAvisoLlegada0085").show();
                         }
                         if (!data.PermisoAduana[0].PermisoTramite && !data.PermisoAduana[0].PermisoAutorizado) {
+                            $("#hdPermisoTramite").val("0");
+                            $("#hdPermisoAutorizado").val("0");
+                            $("#TramitarPermiso").removeAttr('disabled', 'disabled');
+                            $("#AutorizarPermiso").attr('disabled', 'disabled');
+                            $("#TramitarPermisoDiv").show();
+                            $("#AutorizarPermisoDiv").hide();
                             ObtenerPatioRequierePermiso();
                         } else {
                             applySecurityPolicy(false);
