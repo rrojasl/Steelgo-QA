@@ -3743,6 +3743,15 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "ErrorFechaInicio": {
+        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
+        "en-US": "The field ' DATE START ' , does not have the correct format"
+    },
+
+    "ErrorFechaFin": {
+        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
+        "en-US": "The field ' DATE END ' , does not have the correct format"
+    },
     //#endregion
     //#endregion
     //#region Trabajos adicionales
@@ -4271,15 +4280,7 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
-    "lblValidaFechasInicioSoldadorCertificacion": {
-        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
-        "en-US": "The field ' DATE START ' , does not have the correct format"
-    },
-
-    "lblValidaFechasFinSoldadorCertificacion": {
-        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
-        "en-US": "The field ' DATE END ' , does not have the correct format"
-    },
+  
 
     //#endregion
 
