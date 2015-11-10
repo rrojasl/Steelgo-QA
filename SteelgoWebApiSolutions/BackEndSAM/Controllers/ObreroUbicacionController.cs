@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -16,14 +17,14 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ObreroUbicacionController : ApiController
     {
-        public object Get(string token)
+        public object Get(string token, string Lenguaje)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ObreroUbicacionBD.Instance.ObreroUbicacion();
+                return ObreroUbicacionBD.Instance.ObreroUbicacion(Lenguaje);
             }
             else
             {
@@ -37,7 +38,7 @@ namespace BackEndSAM.Controllers
         }
 
 
-        public object Post(Sam3_ObreroUbicacion ObreroUbicacion, string token)
+        public object Post(ObreroUbicacion ObreroUbicacion, string Lenguaje, string token)
         {
             string payload = "";
             string newToken = "";
@@ -47,7 +48,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ObreroUbicacionBD.Instance.InsertarObreroUbicacion(ObreroUbicacion, usuario);
+                return ObreroUbicacionBD.Instance.InsertarObreroUbicacion(ObreroUbicacion, Lenguaje, usuario);
             }
             else
             {
@@ -60,7 +61,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(Sam3_ObreroUbicacion ObreroUbicacion, string token)
+        public object Put(ObreroUbicacion ObreroUbicacion, string Lenguaje, string token)
         {
             string payload = "";
             string newToken = "";
@@ -70,7 +71,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ObreroUbicacionBD.Instance.ModificarObreroUbicacion(ObreroUbicacion, usuario);
+                return ObreroUbicacionBD.Instance.ModificarObreroUbicacion(ObreroUbicacion, Lenguaje, usuario);
             }
             else
             {

@@ -74,7 +74,7 @@ function CargarGrid() {
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
-            alert('ok');
+            
         },
         dataSource: {
             data: '',
@@ -211,7 +211,7 @@ function PlanchaDefecto() {
             data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
         }
         else {
-            if (data[i].Defectos == "") {
+            if (data[i].Defectos == "" || data[i].Defectos == null || data[i].Defectos == undefined) {
                 data[i].DefectosID = $("#inputDefecto").val();
                 data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
             }
@@ -233,7 +233,7 @@ function PlanchaInspector() {
             data[i].Inspector = $("#inputInspector").data("kendoComboBox").text();
         }
         else {
-            if (data[i].Inspector == "" || data[i].Tubero == undefined) {
+            if (data[i].Inspector == "" || data[i].Inspector == undefined || data[i].Inspector == null) {
                 data[i].InspectorID = $("#inputInspector").val();
                 data[i].Inspector = $("#inputInspector").data("kendoComboBox").text();
             }
@@ -261,7 +261,7 @@ function PlanchadoResultadoDimensional() {
                 }
             }
             else {
-                if (data[i].Resultado == "" || data[i].Resultado == null) {
+                if (data[i].Resultado == "" || data[i].Resultado == null || data[i].Resultado == undefined) {
                     data[i].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
                     data[i].Resultado = $('input:radio[name=ResultadoDimensional]:checked').val();
 
@@ -290,7 +290,7 @@ function PlanchaFecha() {
             data[i].FechaInspeccion = endRangeDate.val().trim();
         }
         else {
-            if (data[i].FechaInspeccion == "" || data[i].FechaInspeccion == null) {
+            if (data[i].FechaInspeccion == "" || data[i].FechaInspeccion == null || data[i].FechaInspeccion == undefined) {
                 data[i].FechaInspeccion = endRangeDate.val().trim();
             }
         }

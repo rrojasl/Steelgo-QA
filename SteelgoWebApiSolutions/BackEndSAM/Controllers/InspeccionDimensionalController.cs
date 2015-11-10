@@ -161,7 +161,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCaptura.Detalles);
                 
-                return InspeccionDimensionalBD.Instance.InsertarCapturaArmado(dtDetalleCaptura, usuario, lenguaje);
+                return InspeccionDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, usuario, lenguaje);
             }
             else
             {

@@ -44,6 +44,11 @@ function CargarGridCamposPredeterminados() {
         autoHeight: true,
         sortable: true,
         scrollable: false,
+        editable: "inline",
+        filterable: {
+            extra: false,
+
+        },
         pageable: {
             refresh: false,
             pageSizes: [5, 10, 15, 20],
@@ -56,7 +61,7 @@ function CargarGridCamposPredeterminados() {
                     { field: "pagina", title: _dictionary.lblIdCampoPredeterminadoPagina[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "NombreDelCampo", title: _dictionary.lblIdCampoPredeterminadoNombreCampo[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "TipoDelCampo", title: _dictionary.lblIdCampoPredeterminadoTipoCampo[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "ValorPorDefecto", title: _dictionary.lblIdCampoPredeterminadoValorPorDefecto[$("#language").data("kendoDropDownList").value()], filterable: true }
+                    { field: "ValorPorDefecto", title: _dictionary.lblIdCampoPredeterminadoValorPorDefecto[$("#language").data("kendoDropDownList").value()], filterable: false }
         ],
         editable: true,
 
