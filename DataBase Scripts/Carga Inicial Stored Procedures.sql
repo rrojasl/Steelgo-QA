@@ -28,7 +28,7 @@ BEGIN
 	and r.Folio=@OrdenRecepcionID
 
 	set @formato= convert(varchar(max), @numeroDigitos)
-
+	
 	select ISNULL(nu.Cedula,'') as [Cedula],
 			c.NumeroCertificado as [Certificado],
 			c.NumeroColada as [Colada],

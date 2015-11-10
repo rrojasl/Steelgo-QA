@@ -225,7 +225,7 @@
                 CargarDatosGrid();
             },
         });
-       
+        
     }
     function cargarInicialGrid() {
         var grid = $("#grid").kendoGrid({
@@ -660,6 +660,11 @@
 
     function detailInit(e) {
         var checked = "";
+
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"] != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"]["detail"] != 'undefined') && !returnOfSecurityCheck["Orden Recepcion"]["detail"]) {
+            return;
+        }
+
         if (e.masterRow[0].children[1].children[0].checked) {
             checked = "checked disabled";
         }

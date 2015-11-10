@@ -344,6 +344,9 @@
     };
 
     function detailInit(e) {
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"] != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"]["detail"] != 'undefined') && !returnOfSecurityCheck["Orden Recepcion"]["detail"]) {
+            return;
+        }
         if (e.data.Accesorios.length > 0) {
             $("<div/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
