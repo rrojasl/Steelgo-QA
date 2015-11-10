@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DocumentoIncidenciaController : ApiController
     {
-        public object Get(int incidenciaID, string token)
+        public object Get(int incidenciaID, string estatusDocumento, string token)
         {
             string payload = "";
             string newToken = "";
@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return DocumentosBd.Instance.ObtenerDocumentosIncidencia(incidenciaID, usuario);
+                return DocumentosBd.Instance.ObtenerDocumentosIncidencia(incidenciaID, estatusDocumento, usuario);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int incidenciaID, string descripcion, string token)
+        public object Post(int incidenciaID, string descripcion, string estatusDocumento, string token)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace BackEndSAM.Controllers
                             docfiles.Add(ruta);
                         }
 
-                        if (DocumentosBd.Instance.GuardarDocumentoIncidencia(lstArchivos))
+                        if (DocumentosBd.Instance.GuardarDocumentoIncidencia(lstArchivos, estatusDocumento))
                         {
                             return Ok();
                         }
