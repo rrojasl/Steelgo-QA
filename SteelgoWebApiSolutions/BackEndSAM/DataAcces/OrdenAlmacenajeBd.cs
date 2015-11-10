@@ -982,7 +982,7 @@ namespace BackEndSAM.DataAcces
 
                     folios.AddRange((from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                      join rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on roa.NumeroUnicoID equals rel.NumeroUnicoID
-                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rel.Rel_FolioCuantificacion_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rel.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
                                      join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                      join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
                                      where roa.Activo && rel.Activo && rbi.Activo && b.Activo && fc.Activo
