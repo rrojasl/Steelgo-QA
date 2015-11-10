@@ -43,19 +43,16 @@ $("#GuardaSoldadorCertificacion").click(function (e) {
         var fechaFin = SoldadorCertificacionModal.FechaFinCertificado;
         var Idioma = $("#language").val();
 
-
-       alert(fechaInicio + ' ' + fechaFin + ' ' + Idioma);
-
         if (ValidaFormatoFecha(fechaInicio, Idioma) == false) {
             $(this).closest("div").find("label").addClass("error");
             $(this).closest("div").addClass("clearfix");
-            displayMessage("lblValidaFechasInicioSoldadorCertificacion", "", '1');
+            displayMessage("ErrorFechaInicio", "", '1');
         }
 
         else if (ValidaFormatoFecha(fechaFin, Idioma) == false) {
             $(this).closest("div").find("label").addClass("error");
             $(this).closest("div").addClass("clearfix");
-            displayMessage("lblValidaFechasFinSoldadorCertificacion", "", '1');
+            displayMessage("ErrorFechaFin", "", '1');
         }
 
         else if (isNaN($("#SoldadorCertificacionEspesorMaximoID").val())) {

@@ -70,3 +70,47 @@ function displayMessage(message, messageComplement, type) {
         cleanDisplayMessage();
     }, alertTimeOut);
 }
+function showConfirmationWindow(message) {
+    return showWindow('#confirmationTemplate', message)
+};
+
+function showWindow(template, message) {
+
+    var dfd = new jQuery.Deferred();
+    var result = false;
+
+    $("<div id='popupWindow'></div>")
+    .appendTo("body")
+    .kendoWindow({
+        width: "200px",
+        modal: true,
+        title: "",
+        modal: true,
+        visible: false,
+        close: function (e) {
+            this.destroy();
+            dfd.resolve(result);
+        }
+    }).data('kendoWindow').content($(template).html()).center().open();
+
+    $('.popupMessage').html(message);
+
+    $('#popupWindow .confirm_yes').val(_dictionary.AlertPreguntaSi[$("#language").data("kendoDropDownList").value()]);
+    $('#popupWindow .confirm_no').val(_dictionary.AlertPreguntaNo[$("#language").data("kendoDropDownList").value()]);
+
+    $('#popupWindow .confirm_no').click(function () {
+        result = false;
+        $('#popupWindow').data('kendoWindow').close();
+    });
+
+    $('#popupWindow .confirm_yes').click(function () {
+        result = true;
+        $('#popupWindow').data('kendoWindow').close();
+    });
+
+    return dfd.promise();
+
+
+
+
+};

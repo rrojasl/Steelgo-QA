@@ -59,7 +59,7 @@ namespace BackEndSAM.DataAcces.InspeccionDimensionalBD
             }
         }
 
-        public object InsertarCapturaArmado(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje)
+        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace BackEndSAM.DataAcces.InspeccionDimensionalBD
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
-                    result.ReturnMessage.Add("xd");
+                   
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

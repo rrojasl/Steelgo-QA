@@ -142,7 +142,7 @@
         <div class="container clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <!-- sidebar -->
-                <div id="sidebar" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
+                <div id="" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
                     <!-- main-nav -->
                     <nav class="main-nav">
                         <ul class="main-menu" id ="main-menu">
@@ -208,7 +208,17 @@
         <!-- Place at bottom of page -->
     </div>
     <iframe id="my_iframe" name="my_iframe" src="@Url.Action("notfound", "Errors")" style="visibility: hidden; display: none"></iframe>
-
+    <!-- Confirm Windows -->
+    <script id="confirmationTemplate" type="text/x-kendo-template">
+        <div class="popupMessage"></div>
+        <hr />
+        <div class="dialog_buttons">
+            <input type="button" class="confirm_yes btn btn-blue" value="Yes" style="width: 70px" />
+            &nbsp;
+            <input type="button" class="confirm_no btn btn-blue" value="No" style="width: 70px" />
+        </div>
+    </script>
+    <!-- Confirm Windows -->
     <script>
         /****************************/
         /*     Global Variables     */

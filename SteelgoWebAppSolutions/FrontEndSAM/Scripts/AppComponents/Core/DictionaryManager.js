@@ -3743,6 +3743,23 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "ErrorFechaInicio": {
+        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
+        "en-US": "The field ' DATE START ' , does not have the correct format"
+    },
+
+    "ErrorFechaFin": {
+        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
+        "en-US": "The field ' DATE END ' , does not have the correct format"
+    },
+    "AlertPreguntaSi": {
+        "es-MX": "Si",
+        "en-US": "yes"
+    },
+    "AlertPreguntaNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
     //#endregion
     //#endregion
     //#region Trabajos adicionales
@@ -4050,6 +4067,16 @@ _dictionary = {
 
     //#endregion
     //#region Inspeccion
+
+    "CapturaMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaMensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+
     "DimensionalVisualHeaderSpoolID": {
         "es-MX": "SpoolID",
         "en-US": "SpoolID"
@@ -4261,15 +4288,7 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
-    "lblValidaFechasInicioSoldadorCertificacion": {
-        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
-        "en-US": "The field ' DATE START ' , does not have the correct format"
-    },
-
-    "lblValidaFechasFinSoldadorCertificacion": {
-        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
-        "en-US": "The field ' DATE END ' , does not have the correct format"
-    },
+  
 
     //#endregion
 

@@ -36,6 +36,8 @@ var $ObreroModel = {
 
 function changeLanguageCall() {
     loadingStart();
+
+   
     LlenarGrid();
     CargarGridObrero();
     $("#TipoObreroID").data("kendoComboBox").enable();
@@ -84,13 +86,6 @@ function CargarGridObrero() {
         editable: "inline",
         filterable: {
             extra: false,
-            operators: {
-                string: {
-                    startswith: "Starts with",
-                    eq: "Is equal to",
-                    neq: "Is not equal to"
-                }
-            }
         },
         pageable: {
             refresh: false,

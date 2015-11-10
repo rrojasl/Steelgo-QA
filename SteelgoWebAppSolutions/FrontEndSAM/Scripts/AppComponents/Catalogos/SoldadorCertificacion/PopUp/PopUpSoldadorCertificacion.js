@@ -52,15 +52,10 @@ Cookies.set("home", true, { path: '/' });
 Cookies.set("navegacion", "39", { path: '/' });
 CargaInicial();
 
-
-
-
-
 function CargaInicial() {
     ObtenerListadoObrerosPopUpAjax();
     ObtenerListadoPQRPopUpAjax();
     CargarCalendarios();
-
 };
 
 

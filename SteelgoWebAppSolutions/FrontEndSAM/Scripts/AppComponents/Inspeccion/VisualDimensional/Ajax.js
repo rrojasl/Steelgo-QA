@@ -9,7 +9,7 @@ var CampoResultadoVisualPredeterminada = 20;
 var CampoLlenadoPredeterminada = 22;
 
 function AjaxObtenerListaInspector() {
-
+    alert("ingresa a metodo AjaxObtenerListaInspector")
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         $("#inputInspector").data("kendoComboBox").value("");
         $("#inputInspector").data("kendoComboBox").dataSource.data(data)
@@ -24,7 +24,7 @@ function AjaxObtenerListaTaller() {
     });
 }
 function AjaxObtenerListaInspectorVisual() {
-   
+    alert("ingresa a metodo AjaxObtenerListaInspectorVisual")
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         
         $("#inputInspectorVisual").data("kendoComboBox").value("");

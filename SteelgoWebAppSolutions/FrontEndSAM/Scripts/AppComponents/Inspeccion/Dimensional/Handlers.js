@@ -1,4 +1,5 @@
 ﻿function SuscribirEventos() {
+   
     SuscribirEventoSpoolID();
     SuscribirEventoInspector();
     SuscribirEventoDefecto();
@@ -96,6 +97,7 @@ function SuscribirEventoInspector() {
     AjaxObtenerListaInspector();
 }
 function SuscribirEventoDefecto() {
+   
     $('#inputDefecto').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "DefectoID",
