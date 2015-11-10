@@ -28,22 +28,4 @@ function EliminaPQRAjax(e) {
 
 };
 
-function agregarPQR() {
-    $PQR.PQR.create(PQRModal, { token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
-        LlenarGridPQR();
-        $("#windowPQR").data("kendoWindow").close();
-        loadingStop();
-    });
 
-};
-
-function EditaPQR() {
-    $PQR.PQR.update(PQRModal, { token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
-        LlenarGridPQR();
-        $("#windowPQR").data("kendoWindow").close();
-        loadingStop();
-    });
-
-};
