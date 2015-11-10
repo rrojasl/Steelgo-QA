@@ -270,6 +270,19 @@
 
         }
     };
+
+    var $TipoUsoModel = {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "",
+            destroy: "",
+            createIncidence: ""
+        },
+        properties: {
+
+        }
+    };
     };
 
 
@@ -550,6 +563,15 @@
 
         //$("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada(); });
         $(document).bind("contextmenu", function (e) {
+            var elemento = e.target.attributes[10].value;
+            var index = elemento.indexOf("_");
+            var valor = elemento.substring(0, index);
+
+            if (valor == "TipoUso") {
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
+                    VentanaModal(2);
+                }
+            }
             return false;
         });
         $('#Colada').mousedown(function (e) {
@@ -564,7 +586,9 @@
       
         
     };
-
+    function ActualizarPadre() {
+        ObtenerTipoUso();
+    };
     function Cancelar() {
         window.location.href = _ComplemementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
@@ -1879,6 +1903,7 @@
 
     $authorizationModel["Orden Almacenaje"] = $OrdenAlmacenajeModel;
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
+    $authorizationModel["Tipo Uso"] = $TipoUsoModel;
     }
 
     @section JavascriptDocumentReadyHomeCookie {

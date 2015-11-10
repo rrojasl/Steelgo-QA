@@ -405,6 +405,19 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public string getRack(List<ListaNumerosUnicos> ids, int id) {
+            var rack = "";
+            foreach (var i in ids)
+            {
+                if (i.NumeroUnicoID.Equals(id.ToString())) {
+                    rack = i.Rack;
+                    break;
+                }
+            }
+
+            return rack;
+        }
+
         public object GenerarAlmacenaje(Items listados, Sam3_Usuario usuario)
         {
             try
@@ -428,7 +441,7 @@ namespace BackEndSAM.DataAcces
                                                        && nuids.Contains(nu.NumeroUnicoID)
                                                        select nu).AsParallel().ToList();
 
-                        list.ForEach(x => x.Rack = rack);
+                        list.ForEach(x => x.Rack = getRack(ids, x.NumeroUnicoID));
 
                         ctx.SaveChanges();
                         ctx_tran.Commit();
