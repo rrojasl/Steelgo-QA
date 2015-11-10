@@ -3752,6 +3752,14 @@ _dictionary = {
         "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
         "en-US": "The field ' DATE END ' , does not have the correct format"
     },
+    "AlertPreguntaSi": {
+        "es-MX": "Si",
+        "en-US": "yes"
+    },
+    "AlertPreguntaNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
     //#endregion
     //#endregion
     //#region Trabajos adicionales
