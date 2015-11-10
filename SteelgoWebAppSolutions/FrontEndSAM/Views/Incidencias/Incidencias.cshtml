@@ -859,28 +859,23 @@
     function CargaInicialEdicion(id) {
         loadingStart();
         //cargarTituloFolio();
-        if ($("#hdEstatus").val() != "Cancelado") {
-            BotonAlta();
-        }
-        else {
-            habilitarTabsNuevaIncidencia();
-        }
+       
         $Incidencia.Incidencia.read({}, { folioIncidenciaID: id, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
-                if (_Edicion != "-1" && data.Estatus != "Cancelado") {
-                    $("#EditarIncidencia").attr("hidden");
-                    $("#Editar").removeAttr("hidden");
-                    //$("#dropdown-toggle").addClass("hidden");
-                    //$("#responderIncidenciaDiv").removeClass("hidden");
-                    //$("#resolverIncidenciaDiv").removeClass("hidden");
-                    //$("#cancelarIncidenciaDiv").removeClass("hidden");
-                    //$("#MotivoCancelacionDiv").removeClass("hidden");
-                    //$("#DetalleResolucionDiv").removeClass("hidden");
-                    //$("#ResueltoPorDiv").removeClass("hidden");
-                    //$("#FechaResolucionDiv").removeClass("hidden");
-                    //$("#RespuestaDiv").removeClass("hidden");
-                    //$("#RespondidoPorDiv").removeClass("hidden");
-                    //$("#FechaRespuestaDiv").removeClass("hidden");
+                if (_Edicion != "-1") {
+                    if (data.Estatus != "Cancelado") {
+                        BotonAlta();
+                        $("#EditarIncidencia").attr("hidden");
+                        $("#Editar").removeAttr("hidden");
+                    }
+                    else {
+                        DeshabilitarControles();
+                        habilitarTabsNuevaIncidencia();
+                        $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
+                        $("#Editar").attr("hidden");
+                        $("#dropdown-toggle").hide();
+                        $("#Guardar").css("display", "none");
+                    }
                 };
 
                 $("#Clasificacion").data("kendoComboBox").value(data.ClasificacionID);
