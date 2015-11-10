@@ -3921,21 +3921,33 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
-    "lblPQREspesor": {
-        "es-MX": "Espesor",
-        "en-US": "Density"
+    "lblPQREspesorRelleno": {
+        "es-MX": "Espesor Relleno",
+        "en-US": "Padding density"
     },
-    "lblPQRProcesoSoldaduraID": {
-        "es-MX": "Proceso soldadura",
-        "en-US": "Welding process"
+    "lblPQREspesorRaiz": {
+        "es-MX": "Espesor Raiz",
+        "en-US": "Root Density"
+    },
+    "lblPQRProcesoSoldaduraRelleno": {
+        "es-MX": "Proceso soldadura Relleno",
+        "en-US": "Welding padding process "
+    },
+    "lblPQRProcesoSoldaduraRaiz": {
+        "es-MX": "Proceso soldadura Raiz",
+        "en-US": "Welding root process"
     },
     "lblPQRNumeroP": {
         "es-MX": "Numero P",
         "en-US": "P number"
     },
-    "lblPQRGrupoP": {
-        "es-MX": "Grupo P",
-        "en-US": "P group"
+    "lblPQRGrupoPMaterialBase1": {
+        "es-MX": "Grupo P Material Base 1",
+        "en-US": "P group base material 1"
+    },
+    "lblPQRGrupoPMaterialBase2": {
+        "es-MX": "Grupo P Material Base 2",
+        "en-US": "P group base material 2"
     },
     "lblPQRAporte": {
         "es-MX": "Aporte",
@@ -3952,6 +3964,10 @@ _dictionary = {
     "lblPQRGrupoF": {
         "es-MX": "Grupo F",
         "en-US": "F group"
+    },
+    "lblPQRCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
     },
     //#endregion
     //#region PopUp
