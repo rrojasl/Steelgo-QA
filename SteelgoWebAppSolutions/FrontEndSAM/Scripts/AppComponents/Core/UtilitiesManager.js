@@ -11,6 +11,7 @@
 /****************************/
 
 //Add all global variables for your partial view here
+var $loadingCounter = 0;
 
 /****************************/
 /*    Document Ready        */
@@ -50,11 +51,16 @@ function validateElementExistence(element) {
 //Function to activate waiting screen
 function loadingStart() {
     $body.addClass("loading");
+    $loadingCounter++;
 }
 
 //Function to deactivate waiting screen
 function loadingStop() {
-    $body.removeClass("loading");
+    $loadingCounter--;
+    if ($loadingCounter <= 0) {
+        $body.removeClass("loading");
+        $loadingCounter = 0;
+    }
 }
 
 //Function to encrypt base64 a string
