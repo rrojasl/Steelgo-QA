@@ -5655,6 +5655,14 @@ _dictionary = {
         "es-MX": "Eliminar",
         "en-US": "Remove"
     },
+    "Incidencias0060": {
+        "es-MX": "Editar Resolucion",
+        "en-US": "Edit Resolution"
+    },
+    "Incidencias0061": {
+        "es-MX": "Editar Respuesta",
+        "en-US": "Edit Response"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
@@ -6131,6 +6139,10 @@ _dictionary = {
         "en-US": "Please select an item code."
     },
     "notificationslabel0087": {
+        "es-MX": "No hay datos del listado que se puedan guardar.",
+        "en-US": "There is no data in the list that could be saved."
+    },
+    "notificationslabel0088": {
         "es-MX": "El valor no es válido en el campo ",
         "en-US": "The value is invalid in the field "
     },

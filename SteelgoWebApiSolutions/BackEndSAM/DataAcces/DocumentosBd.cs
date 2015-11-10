@@ -837,13 +837,30 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public bool GuardarDocumentoIncidencia(List<DocumentoPosteado> documentos)
+        public bool GuardarDocumentoIncidencia(List<DocumentoPosteado> documentos, string estatusDocumento)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     int incidenciaID = documentos[0].IncidenciaID.Value;
+                    int tipoDocumento = 0;
+
+                    switch (estatusDocumento)
+                    {
+                        case "Incidencia" :
+                            tipoDocumento = 1;
+                            break;
+                        case "Resolver" :
+                            tipoDocumento = 2;
+                            break;
+                        case "Responder" :
+                            tipoDocumento = 3;
+                            break;
+                        case "Cancelar":
+                            tipoDocumento = 4;
+                            break;
+                    }
 
                     //Guardamos la informacion de los documentos
                     foreach (DocumentoPosteado d in documentos)
@@ -861,6 +878,7 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.Url = d.Path;
                         nuevoDoc.UsuarioModificacion = d.UserId;
                         nuevoDoc.Descripcion = d.Descripcion;
+                        nuevoDoc.EstatusIncidencia = tipoDocumento;
 
                         ctx.Sam3_Rel_Incidencia_Documento.Add(nuevoDoc);
                     }
@@ -879,14 +897,33 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerDocumentosIncidencia(int incidenciaID, Sam3_Usuario usuario)
+        public object ObtenerDocumentosIncidencia(int incidenciaID, string estatusDocumento, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int tipoDocumento = 0;
+
+                    switch (estatusDocumento)
+                    {
+                        case "Incidencia":
+                            tipoDocumento = 1;
+                            break;
+                        case "Resolver":
+                            tipoDocumento = 2;
+                            break;
+                        case "Responder":
+                            tipoDocumento = 3;
+                            break;
+                        case "Cancelar":
+                            tipoDocumento = 4;
+                            break;
+                    }
+
                     List<ListaDocumentos> documentos = (from rid in ctx.Sam3_Rel_Incidencia_Documento
                                                         where rid.Activo && rid.IncidenciaID == incidenciaID
+                                                        && rid.EstatusIncidencia == tipoDocumento
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = rid.Rel_Incidencia_DocumentoID.ToString(),

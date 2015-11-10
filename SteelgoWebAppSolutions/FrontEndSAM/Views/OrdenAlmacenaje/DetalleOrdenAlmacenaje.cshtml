@@ -352,10 +352,10 @@
     };
     
     function HabilitarCampos() {
-        $("#ProyectoID").data("kendoComboBox").enable(false);
-        $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
-        $("#ItemCode").data("kendoComboBox").enable(false);
-        $("#NumeroUnico").data("kendoComboBox").enable(false);
+        $("#ProyectoID").data("kendoComboBox").enable();
+        $("#FolioCuantificacionID").data("kendoComboBox").enable();
+        $("#ItemCode").data("kendoComboBox").enable();
+        $("#NumeroUnico").data("kendoComboBox").enable();
         $(".detailLink").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
         $(".detailLink").removeClass("hidden");
