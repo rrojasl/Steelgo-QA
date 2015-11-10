@@ -6146,6 +6146,10 @@ _dictionary = {
         "es-MX": "El valor no es válido en el campo ",
         "en-US": "The value is invalid in the field "
     },
+    "notificationslabel0089": {
+        "es-MX": "No hay datos en el listado",
+        "en-US": "There is not data in the list"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
