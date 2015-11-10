@@ -12,41 +12,90 @@ BEGIN
 	set @formato='';
 	set @numeroDigitos=0;
 
-	select @Orden=OrdenRecepcionID from Sam3_OrdenRecepcion where Folio=@OrdenRecepcionID
-	select distinct @numeroDigitos=p.DigitosNumeroUnico from Sam3_OrdenRecepcion r
+	select distinct @numeroDigitos=p.DigitosNumeroUnico 
+	from Sam3_OrdenRecepcion r
 	inner join Sam3_Rel_OrdenRecepcion_ItemCode rel
 		on r.OrdenRecepcionID= rel.OrdenRecepcionID
+	inner join Sam3_Rel_ItemCode_Diametro rid
+		on rel.Rel_ItemCode_Diametro_ID= rid.Rel_ItemCode_Diametro_ID
 	inner join Sam3_ItemCode  i
-		on rel.ItemCodeID=i.ItemCodeID
+		on rid.ItemCodeID=i.ItemCodeID
+	inner join Sam3_Diametro d1 on rid.Diametro1ID=d1.DiametroID
+	inner join Sam3_Diametro d2 on rid.Diametro2ID=d2.DiametroID
 	inner join Sam3_ProyectoConfiguracion p
 		on i.ProyectoID=p.ProyectoID
 	where r.Activo=1 and rel.Activo=1 and i.Activo=1
-	and rel.OrdenRecepcionID=@OrdenRecepcionID
+	and rel.OrdenRecepcionID=@Orden
 
 	set @formato= convert(varchar(max), @numeroDigitos)
 
-
-	select  ISNULL(r.Cedula,'') as [Cedula],
+	select ISNULL(nu.Cedula,'') as [Cedula],
 			c.NumeroCertificado as [Certificado],
 			c.NumeroColada as [Colada],
+			nu.Diametro1 as [Diametro1],
+			nu.Diametro2 as [Diametro2],
 			it.DescripcionEspanol as [Descripcion],
-			r.Diametro1 as [Diametro1],
-			r.Diametro2 as [Diametro2],
 			it.Codigo as [ItemCode],
-			R.Prefijo +'-' + REPLACE(STR(r.Consecutivo,CASE WHEN LEN(r.Consecutivo)> @numeroDigitos THEN LEN(r.Consecutivo) ELSE @numeroDigitos END), SPACE(1), '0') as [NumeroUnico],
+			nu.Prefijo +'-' + REPLACE(STR(nu.Consecutivo,CASE WHEN LEN(nu.Consecutivo)> @numeroDigitos THEN LEN(nu.Consecutivo) ELSE @numeroDigitos END), SPACE(1), '0') as [NumeroUnico],
 			P.Nombre as [Proyecto],
-			R.Prefijo +'-' + REPLACE(STR(r.Consecutivo,CASE WHEN LEN(r.Consecutivo)> @numeroDigitos THEN LEN(r.Consecutivo) ELSE @numeroDigitos END), SPACE(1), '0') as [Material]
-	from Sam3_NumeroUnico r
-	inner join Sam3_Rel_OrdenRecepcion_ItemCode  o
-		on r.ItemCodeID=o.ItemCodeID
-	inner join Sam3_ItemCode it
-		on o.ItemCodeID=it.ItemCodeID
+			nu.Prefijo +'-' + REPLACE(STR(nu.Consecutivo,CASE WHEN LEN(nu.Consecutivo)> @numeroDigitos THEN LEN(nu.Consecutivo) ELSE @numeroDigitos END), SPACE(1), '0') as [Material]
+	from [dbo].Sam3_OrdenRecepcion r
+	inner join Sam3_Rel_OrdenRecepcion_ItemCode roi
+		on r.OrdenRecepcionID=roi.OrdenRecepcionID
+	inner join Sam3_Rel_ItemCode_Diametro rid
+		on roi.Rel_ItemCode_Diametro_ID=rid.Rel_ItemCode_Diametro_ID
+	inner join Sam3_Diametro d1 on rid.Diametro1ID=d1.DiametroID
+	inner join Sam3_Diametro d2 on rid.Diametro2ID=d2.DiametroID
+	inner join Sam3_Rel_FolioCuantificacion_ItemCode rfi
+		on  rid.Rel_ItemCode_Diametro_ID= rfi.Rel_ItemCode_Diametro_ID
+	inner join Sam3_FolioCuantificacion fc
+		on rfi.FolioCuantificacionID=fc.FolioCuantificacionID
+	inner join Sam3_Rel_NumeroUnico_RelFC_RelB rnrr
+		on rfi.Rel_FolioCuantificacion_ItemCode_ID=rnrr.Rel_FolioCuantificacion_ItemCode_ID
+	inner join Sam3_NumeroUnico nu
+		on rnrr.NumeroUnicoID=nu.NumeroUnicoID
 	inner join Sam3_Colada c
-		on r.ColadaID= c.ColadaID
+		on nu.ColadaID= c.ColadaID
+	inner join Sam3_ItemCode it
+		on rid.ItemCodeID=it.ItemCodeID
 	inner join Sam3_Proyecto p
-		on r.ProyectoID=p.ProyectoID
-	where o.OrdenRecepcionID=@Orden
-	and r.Activo=1 and o.Activo=1
+			on nu.ProyectoID=p.ProyectoID
+	where r.Folio=@OrdenRecepcionID and fc.Activo=1 and rfi.Activo=1 and rid.Activo=1
+	union all
+	select ISNULL(nu.Cedula,'') as [Cedula],
+			c.NumeroCertificado as [Certificado],
+			c.NumeroColada as [Colada],
+			nu.Diametro1 as [Diametro1],
+			nu.Diametro2 as [Diametro2],
+			it.DescripcionEspanol as [Descripcion],
+			it.Codigo as [ItemCode],
+			nu.Prefijo +'-' + REPLACE(STR(nu.Consecutivo,CASE WHEN LEN(nu.Consecutivo)> @numeroDigitos THEN LEN(nu.Consecutivo) ELSE @numeroDigitos END), SPACE(1), '0') as [NumeroUnico],
+			P.Nombre as [Proyecto],
+			nu.Prefijo +'-' + REPLACE(STR(nu.Consecutivo,CASE WHEN LEN(nu.Consecutivo)> @numeroDigitos THEN LEN(nu.Consecutivo) ELSE @numeroDigitos END), SPACE(1), '0') as [Material]
+	from [dbo].Sam3_OrdenRecepcion r
+	inner join Sam3_Rel_OrdenRecepcion_ItemCode roi
+		on r.OrdenRecepcionID=roi.OrdenRecepcionID
+	inner join Sam3_Rel_ItemCode_Diametro rid
+		on roi.Rel_ItemCode_Diametro_ID=rid.Rel_ItemCode_Diametro_ID
+	inner join Sam3_Diametro d1 on rid.Diametro1ID=d1.DiametroID
+	inner join Sam3_Diametro d2 on rid.Diametro2ID=d2.DiametroID
+	inner join Sam3_Rel_Bulto_ItemCode rfi
+		on  rid.Rel_ItemCode_Diametro_ID= rfi.Rel_ItemCode_Diametro_ID
+	inner join Sam3_Bulto b
+		on rfi.BultoID = b.BultoID
+	inner join Sam3_FolioCuantificacion fc
+		on b.FolioCuantificacionID=fc.FolioCuantificacionID
+	inner join Sam3_Rel_NumeroUnico_RelFC_RelB rnrr
+		on rfi.Rel_Bulto_ItemCode_ID=rnrr.Rel_Bulto_ItemCode_ID
+	inner join Sam3_NumeroUnico nu
+		on rnrr.NumeroUnicoID=nu.NumeroUnicoID
+	inner join Sam3_Colada c
+		on nu.ColadaID= c.ColadaID
+	inner join Sam3_ItemCode it
+		on rid.ItemCodeID=it.ItemCodeID
+	inner join Sam3_Proyecto p
+			on nu.ProyectoID=p.ProyectoID
+	where r.Folio=@OrdenRecepcionID and fc.Activo=1 and rfi.Activo=1 and rid.Activo=1
 
 
 END
