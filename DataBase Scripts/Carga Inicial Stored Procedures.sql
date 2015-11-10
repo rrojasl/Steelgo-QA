@@ -25,7 +25,7 @@ BEGIN
 	inner join Sam3_ProyectoConfiguracion p
 		on i.ProyectoID=p.ProyectoID
 	where r.Activo=1 and rel.Activo=1 and i.Activo=1
-	and rel.OrdenRecepcionID=@Orden
+	and r.Folio=@OrdenRecepcionID
 
 	set @formato= convert(varchar(max), @numeroDigitos)
 
@@ -96,7 +96,6 @@ BEGIN
 	inner join Sam3_Proyecto p
 			on nu.ProyectoID=p.ProyectoID
 	where r.Folio=@OrdenRecepcionID and fc.Activo=1 and rfi.Activo=1 and rid.Activo=1
-
 
 END
 GO
