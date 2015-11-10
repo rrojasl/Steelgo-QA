@@ -5655,6 +5655,14 @@ _dictionary = {
         "es-MX": "Eliminar",
         "en-US": "Remove"
     },
+    "Incidencias0060": {
+        "es-MX": "Editar Resolucion",
+        "en-US": "Edit Resolution"
+    },
+    "Incidencias0061": {
+        "es-MX": "Editar Respuesta",
+        "en-US": "Edit Response"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",

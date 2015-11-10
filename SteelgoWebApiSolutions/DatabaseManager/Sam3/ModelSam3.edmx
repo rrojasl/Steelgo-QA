@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -1324,6 +1324,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
           <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="EstatusIncidencia" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Incidencia_Entidad">
           <Key>
@@ -9988,6 +9989,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sam3_Incidencia" Relationship="ModelSam3.FK__Sam3_Rel___Incid__45C948A1" FromRole="Sam3_Rel_Incidencia_Documento" ToRole="Sam3_Incidencia" />
+          <Property Name="EstatusIncidencia" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK__Sam3_Inci__Clasi__46BD6CDA">
           <End Type="ModelSam3.Sam3_ClasificacionIncidencia" Role="Sam3_ClasificacionIncidencia" Multiplicity="1" />
@@ -12712,6 +12714,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_Incidencia_Documento">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_Incidencia_Documento">
               <MappingFragment StoreEntitySet="Sam3_Rel_Incidencia_Documento">
+                <ScalarProperty Name="EstatusIncidencia" ColumnName="EstatusIncidencia" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
