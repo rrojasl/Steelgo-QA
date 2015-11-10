@@ -208,6 +208,8 @@
         });
 
         $("#GenerarPaseSalida").click(function () {
+            validateSecurity();
+
             if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
                 displayMessage("notificationslabel0034", "", '1');
                 return false;
@@ -405,8 +407,8 @@
         });
     }
 
-    function onUploadArchivoPaseSalida(e) {
-        var bool = false;
+    function validateSecurity(){
+        var bool=false;
         $("#formPaseSalida .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
                 if ($(elem).attr("id") == "FolioAvisoLlegadaID" || $(elem).attr("id") == "TipoArchivo") {
@@ -421,7 +423,12 @@
                 }
             };
         });
+        return bool;
+    }
 
+    function onUploadArchivoPaseSalida(e) {
+        var bool = validateSecurity();
+        
         if (bool) {
             if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value() || !$("#TipoArchivo").data("kendoComboBox").value()) {
                 displayMessage("notificationslabel0031", "", '1');
