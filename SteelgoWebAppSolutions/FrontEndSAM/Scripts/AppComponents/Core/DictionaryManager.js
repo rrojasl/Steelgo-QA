@@ -6142,6 +6142,10 @@ _dictionary = {
         "es-MX": "No hay datos del listado que se puedan guardar.",
         "en-US": "There is no data in the list that could be saved."
     },
+    "notificationslabel0088": {
+        "es-MX": "El valor no es válido en el campo ",
+        "en-US": "The value is invalid in the field "
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
