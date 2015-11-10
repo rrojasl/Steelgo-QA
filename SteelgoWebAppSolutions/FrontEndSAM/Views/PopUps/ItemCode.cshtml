@@ -184,16 +184,33 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    messageindexKendoCombobox(this);
-                    D1_ItemCode = {};
-                    this.value("");
+                if (this.selectedIndex == -1) {
+                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
+                        messageindexKendoCombobox(this);
+                        D1_ItemCode = {};
+                        this.value("");
+                    };
+                } else {
+                    if (!value) {
+                        messageindexKendoCombobox(this);
+                        D1_ItemCode = {};
+                        this.value("");
+                    };
                 };
             },
             filter: "contains",
         });
         ObtenerDiametros("D1_ItemCode");
 
+        $("#D1_ItemCode").focusout(function (e) {
+            if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && returnOfSecurityCheck["Diametros"]["create"]) {
+                if (!validaFloat(this.value)) {
+                    this.value = "";
+                    $("#D1_ItemCode").data("kendoComboBox").value("");
+                    displayMessage("notificationslabel0088", 'D1', '1');
+                };
+            };
+        });
         $("#D2_ItemCode").kendoComboBox({
             dataTextField: "value",
             dataValueField: "id",
@@ -203,15 +220,34 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    messageindexKendoCombobox(this);
-                    D2_ItemCode = {};
-                    this.value("");
+                if (this.selectedIndex == -1) {
+                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
+                        messageindexKendoCombobox(this);
+                        D2_ItemCode = {};
+                        this.value("");
+                    };
+                } else {
+                    if (!value) {
+                        messageindexKendoCombobox(this);
+                        D2_ItemCode = {};
+                        this.value("");
+                    };
                 };
             },
             filter: "contains",
         });
         ObtenerDiametros("D2_ItemCode");
+
+
+        $("#D2_ItemCode").focusout(function (e) {
+            if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && returnOfSecurityCheck["Diametros"]["create"]) {
+                if (!validaFloat(this.value)) {
+                    this.value = "";
+                    $("#D2_ItemCode").data("kendoComboBox").value("");
+                    displayMessage("notificationslabel0088", 'D2', '1');
+                };
+            };
+        });
 
         $("#Familia_ItemCode").kendoComboBox({
             dataTextField: "Nombre",
@@ -362,10 +398,10 @@
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
-        ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID;
-        ItemCode.Diametro2ID = D2_ItemCode.Diametro2ID;
-        ItemCode.Diametro1 = D1_ItemCode.Valor;
-        ItemCode.Diametro2 = D2_ItemCode.Valor;
+        ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID ? D1_ItemCode.Diametro1ID : "0";
+        ItemCode.Diametro2ID = D2_ItemCode.Diametro2ID ? D2_ItemCode.Diametro2ID : "0";
+        ItemCode.Diametro1 = D1_ItemCode.Valor ? D1_ItemCode.Valor : $("#D1_ItemCode").data("kendoComboBox").value();
+        ItemCode.Diametro2 = D2_ItemCode.Valor ? D2_ItemCode.Valor : $("#D2_ItemCode").data("kendoComboBox").value();
 
         //console.log(JSON.stringify(ItemCode))
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
@@ -420,6 +456,7 @@
     }
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Item Code"] = $ItemCodeModel;
+    
     CargaInicial();
 
     $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);

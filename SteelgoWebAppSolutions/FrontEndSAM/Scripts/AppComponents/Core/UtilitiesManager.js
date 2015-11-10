@@ -196,6 +196,10 @@ function esNumero(n) {
     return patron.test(n);
 }
 
+function validaFloat(n) {
+    var patron = /^([0-9])*[.]?[0-9]*$/;
+    return patron.test(n);
+};
 //Ajusta el tamaño de los filtros rápidos a las columnas del grid
 //Funcion: resizeFilters
 //Parametros: N/A

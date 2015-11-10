@@ -47,159 +47,160 @@ namespace BackEndSAM.DataAcces
                 {
                     using (var ctx_tan = ctx.Database.BeginTransaction())
                     {
-                        nuevaIncidencia.Activo = true;
-                        nuevaIncidencia.ClasificacionID = datos.ClasificacionID;
-                        nuevaIncidencia.Descripcion = datos.Descripcion;
-                        nuevaIncidencia.DetalleResolucion = datos.DetalleResolucion;
-                        if (datos.FechaRegistro != null)
-                        { nuevaIncidencia.FechaCreacion = Convert.ToDateTime(datos.FechaRegistro); }
-                        else { nuevaIncidencia.FechaCreacion = DateTime.Now; }
+                                nuevaIncidencia.Activo = true;
+                                nuevaIncidencia.ClasificacionID = datos.ClasificacionID;
+                                nuevaIncidencia.Descripcion = datos.Descripcion;
+                                nuevaIncidencia.DetalleResolucion = datos.DetalleResolucion;
+                                if (datos.FechaRegistro != null)
+                                { nuevaIncidencia.FechaCreacion = Convert.ToDateTime(datos.FechaRegistro); }
+                                else { nuevaIncidencia.FechaCreacion = DateTime.Now; }
 
-                        nuevaIncidencia.FechaModificacion = DateTime.Now;
-                        nuevaIncidencia.MotivoCancelacion = datos.MotivoCancelacion;
-                        nuevaIncidencia.NoRFI = null;
-                        nuevaIncidencia.Respuesta = datos.Respuesta;
-                        nuevaIncidencia.TipoIncidenciaID = datos.TipoIncidenciaID;
-                        nuevaIncidencia.Titulo = datos.Titulo;
-                        nuevaIncidencia.UsuarioID = datos.RegistradoPor != null && datos.RegistradoPor != "" ? Convert.ToInt32(datos.RegistradoPor) : 1;
-                        nuevaIncidencia.Version = 1;
-                        nuevaIncidencia.UsuarioModificacion = usuario.UsuarioID;
-                        if (datos.FechaRespuesta != null) { nuevaIncidencia.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta); }
-                        if (datos.FechaResolucion != null) { nuevaIncidencia.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion); }
-                        nuevaIncidencia.UsuarioIDRespuesta = datos.RespondidoPor != null && datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
-                        nuevaIncidencia.UsuarioResuelveID = datos.ResueltoPor != null && datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
-                        nuevaIncidencia.Estatus = datos.Estatus == null || datos.Estatus == "" ? "Abierta" : datos.Estatus;
-                        //nuevaIncidencia.RespondidoPor = datos.RespondidoPor;
-                        //nuevaIncidencia.ResueltoPor = datos.ResueltoPor;
-                        //nuevaIncidencia.RegistradoPor = datos.RegistradoPor;
-                        
+                                nuevaIncidencia.FechaModificacion = DateTime.Now;
+                                nuevaIncidencia.MotivoCancelacion = datos.MotivoCancelacion;
+                                nuevaIncidencia.NoRFI = null;
+                                nuevaIncidencia.Respuesta = datos.Respuesta;
+                                nuevaIncidencia.TipoIncidenciaID = datos.TipoIncidenciaID;
+                                nuevaIncidencia.Titulo = datos.Titulo;
+                                nuevaIncidencia.UsuarioID = datos.RegistradoPor != null && datos.RegistradoPor != "" ? Convert.ToInt32(datos.RegistradoPor) : 1;
+                                nuevaIncidencia.Version = 1;
+                                nuevaIncidencia.UsuarioModificacion = usuario.UsuarioID;
+                                if (datos.FechaRespuesta != null) { nuevaIncidencia.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta); }
+                                if (datos.FechaResolucion != null) { nuevaIncidencia.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion); }
+                                nuevaIncidencia.UsuarioIDRespuesta = datos.RespondidoPor != null && datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
+                                nuevaIncidencia.UsuarioResuelveID = datos.ResueltoPor != null && datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
+                                nuevaIncidencia.Estatus = datos.Estatus == null || datos.Estatus == "" ? "Abierta" : datos.Estatus;
+                                //nuevaIncidencia.RespondidoPor = datos.RespondidoPor;
+                                //nuevaIncidencia.ResueltoPor = datos.ResueltoPor;
+                                //nuevaIncidencia.RegistradoPor = datos.RegistradoPor;
 
-                        ctx.Sam3_Incidencia.Add(nuevaIncidencia);
 
-                        ctx.SaveChanges();
+                                ctx.Sam3_Incidencia.Add(nuevaIncidencia);
 
-                        if (datos.TipoIncidenciaID > 0)
-                        {
-                            switch (datos.TipoIncidenciaID)
-                            {
-                                case 1: //Folio Aviso Entrada
-                                    Sam3_Rel_Incidencia_FolioAvisoLlegada nuevoRegistro = new Sam3_Rel_Incidencia_FolioAvisoLlegada();
-                                    nuevoRegistro.Activo = true;
-                                    nuevoRegistro.FechaModificacion = DateTime.Now;
-                                    nuevoRegistro.FolioAvisoLlegadaID = datos.ReferenciaID;
-                                    nuevoRegistro.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.SaveChanges();
 
-                                    ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada.Add(nuevoRegistro);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 2: // Entrada de Material
-                                    Sam3_Rel_Incidencia_FolioAvisoEntrada nuevaRelEntradaMaterial = new Sam3_Rel_Incidencia_FolioAvisoEntrada();
-                                    nuevaRelEntradaMaterial.Activo = true;
-                                    nuevaRelEntradaMaterial.FechaModificacion = DateTime.Now;
-                                    nuevaRelEntradaMaterial.FolioAvisoEntradaID = datos.ReferenciaID;
-                                    nuevaRelEntradaMaterial.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelEntradaMaterial.UsuarioModificacion = usuario.UsuarioID;
+                                if (datos.TipoIncidenciaID > 0)
+                                {
+                                    switch (datos.TipoIncidenciaID)
+                                    {
+                                        case 1: //Folio Aviso Entrada
+                                            Sam3_Rel_Incidencia_FolioAvisoLlegada nuevoRegistro = new Sam3_Rel_Incidencia_FolioAvisoLlegada();
+                                            nuevoRegistro.Activo = true;
+                                            nuevoRegistro.FechaModificacion = DateTime.Now;
+                                            nuevoRegistro.FolioAvisoLlegadaID = datos.ReferenciaID;
+                                            nuevoRegistro.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
 
-                                    ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada.Add(nuevaRelEntradaMaterial);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 3: // Pase Salida. Por el momento sin implementacion
-                                    break;
-                                case 4: // Packing List
-                                    Sam3_Rel_Incidencia_FolioCuantificacion nuevaRelFolioC = new Sam3_Rel_Incidencia_FolioCuantificacion();
-                                    nuevaRelFolioC.Activo = true;
-                                    nuevaRelFolioC.FechaModificacion = DateTime.Now;
-                                    nuevaRelFolioC.FolioCuantificacionID = datos.ReferenciaID;
-                                    nuevaRelFolioC.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelFolioC.UsuarioModificacion = usuario.UsuarioID;
+                                            ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada.Add(nuevoRegistro);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 2: // Entrada de Material
+                                            Sam3_Rel_Incidencia_FolioAvisoEntrada nuevaRelEntradaMaterial = new Sam3_Rel_Incidencia_FolioAvisoEntrada();
+                                            nuevaRelEntradaMaterial.Activo = true;
+                                            nuevaRelEntradaMaterial.FechaModificacion = DateTime.Now;
+                                            nuevaRelEntradaMaterial.FolioAvisoEntradaID = datos.ReferenciaID;
+                                            nuevaRelEntradaMaterial.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelEntradaMaterial.UsuarioModificacion = usuario.UsuarioID;
 
-                                    ctx.Sam3_Rel_Incidencia_FolioCuantificacion.Add(nuevaRelFolioC);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 5: // Orden de recepcion
+                                            ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada.Add(nuevaRelEntradaMaterial);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 3: // Pase Salida. Por el momento sin implementacion
+                                            break;
+                                        case 4: // Packing List
+                                            Sam3_Rel_Incidencia_FolioCuantificacion nuevaRelFolioC = new Sam3_Rel_Incidencia_FolioCuantificacion();
+                                            nuevaRelFolioC.Activo = true;
+                                            nuevaRelFolioC.FechaModificacion = DateTime.Now;
+                                            nuevaRelFolioC.FolioCuantificacionID = datos.ReferenciaID;
+                                            nuevaRelFolioC.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelFolioC.UsuarioModificacion = usuario.UsuarioID;
 
-                                    Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == datos.ReferenciaID).AsParallel().SingleOrDefault();
+                                            ctx.Sam3_Rel_Incidencia_FolioCuantificacion.Add(nuevaRelFolioC);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 5: // Orden de recepcion
 
-                                    Sam3_Rel_Incidencia_OrdenRecepcion nuevaRelOrdenR = new Sam3_Rel_Incidencia_OrdenRecepcion();
-                                    nuevaRelOrdenR.Activo = true;
-                                    nuevaRelOrdenR.FechaModificacion = DateTime.Now;
-                                    nuevaRelOrdenR.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelOrdenR.OrdenRecepcionID = orden.OrdenRecepcionID;
-                                    nuevaRelOrdenR.UsuarioModificacion = usuario.UsuarioID;
+                                            Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == datos.ReferenciaID).AsParallel().SingleOrDefault();
 
-                                    ctx.Sam3_Rel_Incidencia_OrdenRecepcion.Add(nuevaRelOrdenR);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 6: // Complemento de recepcion. Por el momento sin implementacion
-                                    break;
-                                case 7: // ItemCode
-                                    Sam3_Rel_Incidencia_ItemCode nuevaRelItemCode = new Sam3_Rel_Incidencia_ItemCode();
-                                    nuevaRelItemCode.Activo = true;
-                                    nuevaRelItemCode.FechaModificacion = DateTime.Now;
-                                    nuevaRelItemCode.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelItemCode.ItemCodeID = datos.ReferenciaID;
-                                    nuevaRelItemCode.UsuarioModificacion = usuario.UsuarioID;
+                                            Sam3_Rel_Incidencia_OrdenRecepcion nuevaRelOrdenR = new Sam3_Rel_Incidencia_OrdenRecepcion();
+                                            nuevaRelOrdenR.Activo = true;
+                                            nuevaRelOrdenR.FechaModificacion = DateTime.Now;
+                                            nuevaRelOrdenR.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelOrdenR.OrdenRecepcionID = orden.OrdenRecepcionID;
+                                            nuevaRelOrdenR.UsuarioModificacion = usuario.UsuarioID;
 
-                                    ctx.Sam3_Rel_Incidencia_ItemCode.Add(nuevaRelItemCode);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 8: // Orden de almacenaje
+                                            ctx.Sam3_Rel_Incidencia_OrdenRecepcion.Add(nuevaRelOrdenR);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 6: // Complemento de recepcion. Por el momento sin implementacion
+                                            break;
+                                        case 7: // ItemCode
+                                            Sam3_Rel_Incidencia_ItemCode nuevaRelItemCode = new Sam3_Rel_Incidencia_ItemCode();
+                                            nuevaRelItemCode.Activo = true;
+                                            nuevaRelItemCode.FechaModificacion = DateTime.Now;
+                                            nuevaRelItemCode.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelItemCode.ItemCodeID = datos.ReferenciaID;
+                                            nuevaRelItemCode.UsuarioModificacion = usuario.UsuarioID;
 
-                                    Sam3_OrdenAlmacenaje ordenAlmacenaje = ctx.Sam3_OrdenAlmacenaje.Where(x => x.Folio == datos.ReferenciaID)
-                                        .AsParallel().SingleOrDefault();
+                                            ctx.Sam3_Rel_Incidencia_ItemCode.Add(nuevaRelItemCode);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 8: // Orden de almacenaje
 
-                                    Sam3_Rel_Incidencia_OrdenAlmacenaje nuevaRelOrdenAlmacenaje = new Sam3_Rel_Incidencia_OrdenAlmacenaje();
-                                    nuevaRelOrdenAlmacenaje.Activo = true;
-                                    nuevaRelOrdenAlmacenaje.FechaModificacion = DateTime.Now;
-                                    nuevaRelOrdenAlmacenaje.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelOrdenAlmacenaje.OrdenalmacenajeID = ordenAlmacenaje.OrdenAlmacenajeID;
-                                    nuevaRelOrdenAlmacenaje.UsuarioModificacion = usuario.UsuarioID;
+                                            Sam3_OrdenAlmacenaje ordenAlmacenaje = ctx.Sam3_OrdenAlmacenaje.Where(x => x.Folio == datos.ReferenciaID)
+                                                .AsParallel().SingleOrDefault();
 
-                                    ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje.Add(nuevaRelOrdenAlmacenaje);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 9: // Numero unico
-                                    Sam3_Rel_Incidencia_NumeroUnico nuevaRelNumeroUnico = new Sam3_Rel_Incidencia_NumeroUnico();
-                                    nuevaRelNumeroUnico.Activo = true;
-                                    nuevaRelNumeroUnico.FechaModificacion = DateTime.Now;
-                                    nuevaRelNumeroUnico.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelNumeroUnico.NumeroUnicoID = datos.ReferenciaID;
-                                    nuevaRelNumeroUnico.UsuarioModificacion = usuario.UsuarioID;
+                                            Sam3_Rel_Incidencia_OrdenAlmacenaje nuevaRelOrdenAlmacenaje = new Sam3_Rel_Incidencia_OrdenAlmacenaje();
+                                            nuevaRelOrdenAlmacenaje.Activo = true;
+                                            nuevaRelOrdenAlmacenaje.FechaModificacion = DateTime.Now;
+                                            nuevaRelOrdenAlmacenaje.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelOrdenAlmacenaje.OrdenalmacenajeID = ordenAlmacenaje.OrdenAlmacenajeID;
+                                            nuevaRelOrdenAlmacenaje.UsuarioModificacion = usuario.UsuarioID;
 
-                                    ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelNumeroUnico);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 10: // Despacho
-                                    Sam3_Rel_Incidencia_Despacho nuevaRelDespacho = new Sam3_Rel_Incidencia_Despacho();
-                                    nuevaRelDespacho.Activo = true;
-                                    nuevaRelDespacho.DespachoID = datos.ReferenciaID;
-                                    nuevaRelDespacho.FechaModificacion = DateTime.Now;
-                                    nuevaRelDespacho.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelDespacho.UsuarioModificacion = usuario.UsuarioID;
+                                            ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje.Add(nuevaRelOrdenAlmacenaje);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 9: // Numero unico
+                                            Sam3_Rel_Incidencia_NumeroUnico nuevaRelNumeroUnico = new Sam3_Rel_Incidencia_NumeroUnico();
+                                            nuevaRelNumeroUnico.Activo = true;
+                                            nuevaRelNumeroUnico.FechaModificacion = DateTime.Now;
+                                            nuevaRelNumeroUnico.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelNumeroUnico.NumeroUnicoID = datos.ReferenciaID;
+                                            nuevaRelNumeroUnico.UsuarioModificacion = usuario.UsuarioID;
 
-                                    ctx.Sam3_Rel_Incidencia_Despacho.Add(nuevaRelDespacho);
-                                    ctx.SaveChanges();
-                                    break;
-                                case 11: // Corte
-                                    Sam3_Rel_Incidencia_Corte nuevaRelCorte = new Sam3_Rel_Incidencia_Corte();
-                                    nuevaRelCorte.Activo = true;
-                                    nuevaRelCorte.CorteID = datos.ReferenciaID;
-                                    nuevaRelCorte.FechaModificacion = DateTime.Now;
-                                    nuevaRelCorte.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelCorte.UsuarioModificacion = usuario.UsuarioID;
+                                            ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelNumeroUnico);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 10: // Despacho
+                                            Sam3_Rel_Incidencia_Despacho nuevaRelDespacho = new Sam3_Rel_Incidencia_Despacho();
+                                            nuevaRelDespacho.Activo = true;
+                                            nuevaRelDespacho.DespachoID = datos.ReferenciaID;
+                                            nuevaRelDespacho.FechaModificacion = DateTime.Now;
+                                            nuevaRelDespacho.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelDespacho.UsuarioModificacion = usuario.UsuarioID;
 
-                                    ctx.Sam3_Rel_Incidencia_Corte.Add(nuevaRelCorte);
-                                    ctx.SaveChanges();
-                                    break;
-                                default:
-                                    throw new Exception("No se encontro el tipo de incidencia");
-                            }
-                        }
-                        else
-                        {
-                            throw new Exception("El tipo de incidencia es requerido");
-                        }
+                                            ctx.Sam3_Rel_Incidencia_Despacho.Add(nuevaRelDespacho);
+                                            ctx.SaveChanges();
+                                            break;
+                                        case 11: // Corte
+                                            Sam3_Rel_Incidencia_Corte nuevaRelCorte = new Sam3_Rel_Incidencia_Corte();
+                                            nuevaRelCorte.Activo = true;
+                                            nuevaRelCorte.CorteID = datos.ReferenciaID;
+                                            nuevaRelCorte.FechaModificacion = DateTime.Now;
+                                            nuevaRelCorte.IncidenciaID = nuevaIncidencia.IncidenciaID;
+                                            nuevaRelCorte.UsuarioModificacion = usuario.UsuarioID;
+
+                                            ctx.Sam3_Rel_Incidencia_Corte.Add(nuevaRelCorte);
+                                            ctx.SaveChanges();
+                                            break;
+                                        default:
+                                            throw new Exception("No se encontro el tipo de incidencia");
+                                    }
+                                }
+                                else
+                                {
+                                    throw new Exception("El tipo de incidencia es requerido");
+                                }
+
                         ctx_tan.Commit();
                     }
                 }
@@ -243,15 +244,17 @@ namespace BackEndSAM.DataAcces
                         Sam3_Incidencia nuevoRegistro = new Sam3_Incidencia();
                         Sam3_Incidencia registro = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == datos.FolioIncidenciaID).AsParallel().SingleOrDefault();
 
-                        if (datos.Estatus == "Cancelado" || datos.Estatus == "Resuelto")
+                        if (datos.Estatus == "Cancelado" || datos.Estatus == "Resuelto" || datos.Estatus == "Respondido")
                         {
+                            nuevoRegistro.IncidenciaID = registro.IncidenciaID;
                             registro.Activo = true;
                             registro.ClasificacionID = datos.ClasificacionID;
                             registro.Descripcion = datos.Descripcion;
                             registro.DetalleResolucion = datos.DetalleResolucion;
                             registro.Estatus = datos.Estatus;
-                            if (fechaRegistro.ToShortTimeString() != "1/1/0001") 
-                            { registro.FechaCreacion = fechaRegistro; } else { registro.FechaCreacion = DateTime.Now; }
+                            if (fechaRegistro.ToShortTimeString() != "1/1/0001")
+                            { registro.FechaCreacion = fechaRegistro; }
+                            else { registro.FechaCreacion = DateTime.Now; }
 
                             registro.FechaModificacion = DateTime.Now;
                             if (fechaRespuesta.ToShortDateString() != "1/1/0001") { registro.FechaRespuesta = fechaRespuesta; }
@@ -262,9 +265,9 @@ namespace BackEndSAM.DataAcces
                             registro.Respuesta = datos.Respuesta;
                             registro.TipoIncidenciaID = datos.TipoIncidenciaID;
                             registro.Titulo = datos.Titulo;
-                            if (datos.RegistradoPor != null && datos.RegistradoPor != "") { nuevoRegistro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
-                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { nuevoRegistro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
-                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { nuevoRegistro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
+                            if (datos.RegistradoPor != null && datos.RegistradoPor != "") { registro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
+                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { registro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
+                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { registro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
                             registro.UsuarioModificacion = usuario.UsuarioID;
 
                             ctx.SaveChanges();
@@ -275,29 +278,29 @@ namespace BackEndSAM.DataAcces
                             registro.Activo = false;
                             registro.FechaModificacion = DateTime.Now;
                             registro.UsuarioModificacion = usuario.UsuarioID;
-                            
+
 
                             nuevoRegistro.Activo = true;
                             nuevoRegistro.ClasificacionID = datos.ClasificacionID;
                             nuevoRegistro.Descripcion = datos.Descripcion;
-                            nuevoRegistro.DetalleResolucion = datos.DetalleResolucion;
+                            //nuevoRegistro.DetalleResolucion = datos.DetalleResolucion;
                             nuevoRegistro.Estatus = datos.Estatus;
                             if (fechaRegistro.ToShortTimeString() != "1/1/0001")
                             { nuevoRegistro.FechaCreacion = fechaRegistro; }
                             else { nuevoRegistro.FechaCreacion = DateTime.Now; }
 
                             nuevoRegistro.FechaModificacion = DateTime.Now;
-                            if (fechaRespuesta.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaRespuesta = fechaRespuesta; }
-                            if (fechaSolucion.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaSolucion = fechaSolucion; }
+                            //if (fechaRespuesta.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaRespuesta = fechaRespuesta; }
+                            //if (fechaSolucion.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaSolucion = fechaSolucion; }
                             nuevoRegistro.IncidenciaOriginalID = registro.IncidenciaID;
-                            nuevoRegistro.MotivoCancelacion = datos.MotivoCancelacion;
+                            //nuevoRegistro.MotivoCancelacion = datos.MotivoCancelacion;
                             nuevoRegistro.NoRFI = null;
-                            nuevoRegistro.Respuesta = datos.Respuesta;
+                            //nuevoRegistro.Respuesta = datos.Respuesta;
                             nuevoRegistro.TipoIncidenciaID = datos.TipoIncidenciaID;
                             nuevoRegistro.Titulo = datos.Titulo;
                             if (datos.RegistradoPor != null && datos.RegistradoPor != "") { nuevoRegistro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
-                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { nuevoRegistro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
-                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { nuevoRegistro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
+                            //if (datos.RespondidoPor != null && datos.RespondidoPor != "") { nuevoRegistro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
+                            //if (datos.ResueltoPor != null && datos.ResueltoPor != "") { nuevoRegistro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
                             nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
                             nuevoRegistro.Version = registro.Version + 1;
 
@@ -375,7 +378,7 @@ namespace BackEndSAM.DataAcces
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para el Packing List: {0}", datos.ReferenciaID),
                                         usuario);
-                                    
+
                                     break;
                                 case 5: // Orden de recepcion
                                     Sam3_Rel_Incidencia_OrdenRecepcion relOrdenR = ctx.Sam3_Rel_Incidencia_OrdenRecepcion
@@ -398,7 +401,7 @@ namespace BackEndSAM.DataAcces
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para la Orden de Recepción: {0}", datos.ReferenciaID),
                                         usuario);
-                                    
+
                                     break;
                                 case 6: // Complemento de recepcion. Por el momento sin implementacion
                                     break;
@@ -423,7 +426,7 @@ namespace BackEndSAM.DataAcces
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para el ItemCode: {0}", datos.ReferenciaID),
                                         usuario);
-                                    
+
                                     break;
                                 case 8: // Orden de almacenaje
                                     Sam3_Rel_Incidencia_OrdenAlmacenaje relOrdenAlmacenaje = ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje
@@ -446,7 +449,7 @@ namespace BackEndSAM.DataAcces
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para la Orden de Almacenaje: {0}", datos.ReferenciaID),
                                         usuario);
-                                    
+
                                     break;
                                 case 9: // Numero unico
                                     Sam3_Rel_Incidencia_NumeroUnico relNumeroUnico = ctx.Sam3_Rel_Incidencia_NumeroUnico
@@ -492,7 +495,7 @@ namespace BackEndSAM.DataAcces
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para el Despacho: {0}", datos.ReferenciaID),
                                         usuario);
-                                    
+
                                     break;
                                 case 11: // Corte
                                     Sam3_Rel_Incidencia_Corte relCorte = ctx.Sam3_Rel_Incidencia_Corte
@@ -515,17 +518,24 @@ namespace BackEndSAM.DataAcces
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para el Corte: {0}", datos.ReferenciaID),
                                         usuario);
-                                    
+
                                     break;
                                 default:
                                     throw new Exception("No se encontro el tipo de incidencia");
                             }
                         }
 
-                        foreach (Sam3_Rel_Incidencia_Documento doc in registro.Sam3_Rel_Incidencia_Documento)
+                        List<Sam3_Rel_Incidencia_Documento> documentos = ctx.Sam3_Rel_Incidencia_Documento.Where(x => x.IncidenciaID == datos.FolioIncidenciaID && x.Activo).AsParallel().ToList();
+
+                        foreach (Sam3_Rel_Incidencia_Documento doc in documentos)
                         {
-                            if(doc.Activo)
+                            if (doc.Activo)
                             {
+                                doc.Activo = false;
+                                doc.FechaModificacion = DateTime.Now;
+                                doc.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.SaveChanges();
+
                                 Sam3_Rel_Incidencia_Documento nuevaRelDocumento = new Sam3_Rel_Incidencia_Documento();
                                 nuevaRelDocumento.Activo = true;
                                 nuevaRelDocumento.ContentType = doc.ContentType;
@@ -539,6 +549,7 @@ namespace BackEndSAM.DataAcces
                                 nuevaRelDocumento.TipoArchivoID = 0;
                                 nuevaRelDocumento.Url = doc.Url;
                                 nuevaRelDocumento.UsuarioModificacion = usuario.UsuarioID;
+                                nuevaRelDocumento.EstatusIncidencia = doc.EstatusIncidencia;
 
                                 ctx.Sam3_Rel_Incidencia_Documento.Add(nuevaRelDocumento);
                             }
@@ -640,7 +651,7 @@ namespace BackEndSAM.DataAcces
                                      where rior.Activo && rior.IncidenciaID == incidencia.IncidenciaID
                                      select rior).Distinct().AsParallel().ToList();
 
-                                foreach(Sam3_Rel_Incidencia_OrdenRecepcion inc in incidenciasOrdenR)
+                                foreach (Sam3_Rel_Incidencia_OrdenRecepcion inc in incidenciasOrdenR)
                                 {
                                     inc.Activo = false;
                                     inc.FechaModificacion = DateTime.Now;
@@ -761,17 +772,54 @@ namespace BackEndSAM.DataAcces
                                           where inc.Activo && inc.IncidenciaID == incidenciaID
                                           select new Incidencia
                                           {
-                                              Archivos = (from rid in ctx.Sam3_Rel_Incidencia_Documento
-                                                          where rid.Activo && rid.IncidenciaID == inc.IncidenciaID
-                                                          select new ListaDocumentos
-                                                          {
-                                                              Descripcion = rid.Descripcion,
-                                                              DocumentoID = rid.DocGuid.ToString(),
-                                                              Extencion = rid.Extencion,
-                                                              Nombre = rid.Nombre,
-                                                              TipoArchivo = rid.TipoArchivoID.ToString(),
-                                                              Url = rid.Url
-                                                          }).ToList(),
+                                              ArchivosIncidencia = (from rid in ctx.Sam3_Rel_Incidencia_Documento
+                                                                    where rid.Activo && rid.IncidenciaID == inc.IncidenciaID
+                                                                    && rid.EstatusIncidencia == 1
+                                                                    select new ListaDocumentos
+                                                                    {
+                                                                        Descripcion = rid.Descripcion,
+                                                                        DocumentoID = rid.DocGuid.ToString(),
+                                                                        Extencion = rid.Extencion,
+                                                                        Nombre = rid.Nombre,
+                                                                        TipoArchivo = rid.TipoArchivoID.ToString(),
+                                                                        Url = rid.Url
+                                                                    }).ToList(),
+                                              ArchivosResponder = (from rid in ctx.Sam3_Rel_Incidencia_Documento
+                                                                   where rid.Activo && rid.IncidenciaID == inc.IncidenciaID
+                                                                   && rid.EstatusIncidencia == 3
+                                                                   select new ListaDocumentos
+                                                                   {
+                                                                       Descripcion = rid.Descripcion,
+                                                                       DocumentoID = rid.DocGuid.ToString(),
+                                                                       Extencion = rid.Extencion,
+                                                                       Nombre = rid.Nombre,
+                                                                       TipoArchivo = rid.TipoArchivoID.ToString(),
+                                                                       Url = rid.Url
+                                                                   }).ToList(),
+                                              ArchivosResolver = (from rid in ctx.Sam3_Rel_Incidencia_Documento
+                                                                  where rid.Activo && rid.IncidenciaID == inc.IncidenciaID
+                                                                  && rid.EstatusIncidencia == 2
+                                                                  select new ListaDocumentos
+                                                                  {
+                                                                      Descripcion = rid.Descripcion,
+                                                                      DocumentoID = rid.DocGuid.ToString(),
+                                                                      Extencion = rid.Extencion,
+                                                                      Nombre = rid.Nombre,
+                                                                      TipoArchivo = rid.TipoArchivoID.ToString(),
+                                                                      Url = rid.Url
+                                                                  }).ToList(),
+                                              ArchivosCancelar = (from rid in ctx.Sam3_Rel_Incidencia_Documento
+                                                                  where rid.Activo && rid.IncidenciaID == inc.IncidenciaID
+                                                                  && rid.EstatusIncidencia == 4
+                                                                  select new ListaDocumentos
+                                                                  {
+                                                                      Descripcion = rid.Descripcion,
+                                                                      DocumentoID = rid.DocGuid.ToString(),
+                                                                      Extencion = rid.Extencion,
+                                                                      Nombre = rid.Nombre,
+                                                                      TipoArchivo = rid.TipoArchivoID.ToString(),
+                                                                      Url = rid.Url
+                                                                  }).ToList(),
                                               ClasificacionID = inc.ClasificacionID,
                                               Descripcion = inc.Descripcion,
                                               DetalleResolucion = inc.DetalleResolucion,
@@ -784,7 +832,7 @@ namespace BackEndSAM.DataAcces
                                               RegistradoPor = inc.UsuarioID.ToString(),
                                               RespondidoPor = inc.UsuarioIDRespuesta.ToString(),
                                               Respuesta = inc.Respuesta,
-                                              ResueltoPor = inc.UsuarioIDRespuesta.ToString(),
+                                              ResueltoPor = inc.UsuarioResuelveID.ToString(),
                                               TipoIncidenciaID = inc.TipoIncidenciaID,
                                               Titulo = inc.Titulo,
                                               Version = inc.Version.ToString()
@@ -905,13 +953,13 @@ namespace BackEndSAM.DataAcces
                     DateTime.TryParse(detalle.FechaRegistro, out fechaRegistro);
                     detalle.FechaRegistro = fechaRegistro.ToString("yyyy-MM-dd");
 
-                    if (detalle.FechaResolucion != "") 
-                    { 
+                    if (detalle.FechaResolucion != "")
+                    {
                         DateTime.TryParse(detalle.FechaResolucion, out fechaResuelto);
                         detalle.FechaResolucion = fechaResuelto.ToString("yyyy-MM-dd");
                     }
-                    if (detalle.FechaRespuesta != "") 
-                    { 
+                    if (detalle.FechaRespuesta != "")
+                    {
                         DateTime.TryParse(detalle.FechaRespuesta, out fechaRespuesta);
                         detalle.FechaRespuesta = fechaRespuesta.ToString("yyyy-MM-dd");
                     }
@@ -969,7 +1017,7 @@ namespace BackEndSAM.DataAcces
                                             && rif.FolioCuantificacionID == referenciaID
                                             select rif.IncidenciaID).AsParallel().SingleOrDefault();
 
-                            detalle = (Incidencia)DetalleIncidencia(incidenciaID, usuario); 
+                            detalle = (Incidencia)DetalleIncidencia(incidenciaID, usuario);
                             break;
                         case 5: // Orden de recepcion
                             incidenciaID = (from rio in ctx.Sam3_Rel_Incidencia_OrdenRecepcion
@@ -1027,7 +1075,7 @@ namespace BackEndSAM.DataAcces
 
                     return detalle;
                 }
- 
+
             }
             catch (Exception ex)
             {

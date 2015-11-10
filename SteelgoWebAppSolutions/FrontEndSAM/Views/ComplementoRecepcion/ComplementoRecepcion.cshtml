@@ -766,7 +766,7 @@
         var bool = true;
         $("#formComplementoRecepcion .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
-                if (!$(this).val()) {
+                if (!$(this).val() || ($(this).attr("id")=="ProyectoID" && $(this).val()=="1")) {
                     bool = false;
                     $(this).closest("div").find("label").addClass("error");
                 } else {
