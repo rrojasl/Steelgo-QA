@@ -650,11 +650,7 @@
         $("#AdjuntarArchivosIncidencia").on('drop', function (event) {
             event.preventDefault();
         });
-
-        //$("#AdjuntarArchivos" + tabSelected + "Div").append($("#AdjuntarArchivosIncidencia"));
-
-
-
+        
         $('#AdjuntarArchivosResolver').kendoUpload({
             async: {
                 saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&token=" + Cookies.get("token"),
@@ -1589,10 +1585,10 @@
         $("#ResueltoPor").data("kendoComboBox").enable(false);
         $("#RespondidoPor").data("kendoComboBox").enable(false);
 
-        $("#EditarResolucion").css("display", "none");
-        $("#EditarRespuesta").css("display", "none");
-        $("#responderIncidenciaDiv").addClass("hidden");
-        $("#resolverIncidenciaDiv").addClass("hidden");
+        //$("#EditarResolucion").css("display", "none");
+        //$("#EditarRespuesta").css("display", "none");
+        //$("#responderIncidenciaDiv").addClass("hidden");
+        //$("#resolverIncidenciaDiv").addClass("hidden");
         $("#Cancelar").addClass("hidden");
 
         ocultarTabsNuevaIncidencia();
