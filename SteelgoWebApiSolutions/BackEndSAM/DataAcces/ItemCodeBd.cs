@@ -138,6 +138,9 @@ namespace BackEndSAM.DataAcces
                                 //Inserta en Sam 2
                                 DatabaseManager.Sam2.ItemCode itemS2;
 
+                                decimal Diametro1 = string.IsNullOrEmpty(DatosItemCode.Diametro1.ToString()) ? 0 : Convert.ToInt32(DatosItemCode.Diametro1);
+                                decimal Diametro2 = string.IsNullOrEmpty(DatosItemCode.Diametro2.ToString()) ? 0 : Convert.ToInt32(DatosItemCode.Diametro2);
+
                                 if (!ctx2.ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode).Any())
                                 {
                                     itemS2 = new DatabaseManager.Sam2.ItemCode();
@@ -153,8 +156,8 @@ namespace BackEndSAM.DataAcces
                                     itemS2.FechaModificacion = DateTime.Now;
                                     itemS2.Peso = DatosItemCode.Peso;
                                     itemS2.DescripcionInterna = DatosItemCode.DescripcionInterna;
-                                    itemS2.Diametro1 = DatosItemCode.Diametro1;
-                                    itemS2.Diametro2 = DatosItemCode.Diametro2;
+                                    itemS2.Diametro1 = Diametro1;
+                                    itemS2.Diametro2 = Diametro2;
                                     itemS2.FamiliaAceroID = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
                                                              where eq.Activo
                                                              && eq.Sam3_FamiliaAceroID == DatosItemCode.FamiliaID
@@ -171,7 +174,50 @@ namespace BackEndSAM.DataAcces
 
                                 int diam1 = Convert.ToInt32(DatosItemCode.Diametro1ID);
                                 int diam2 = Convert.ToInt32(DatosItemCode.Diametro2ID);
-                                
+
+                                if (diam1 == 0)
+                                {
+                                    Sam3_Diametro diametro1;
+                                    //Se verifica que si exista el diametro
+                                    //Si existe se asigna el valor
+                                    if (ctx.Sam3_Diametro.Where(x => x.Valor == Diametro1).Any())
+                                    {
+                                        diam1 = ctx.Sam3_Diametro.Where(x => x.Valor == Diametro1).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
+                                    }
+                                    else {
+                                        diametro1 = new Sam3_Diametro();
+                                        diametro1.Valor = Diametro1;
+                                        diametro1.VerificadoPorCalidad = true;
+                                        diametro1.Activo = true;
+                                        diametro1.UsuarioModificacion = usuario.UsuarioID;
+                                        diametro1.FechaModificacion = DateTime.Now;
+                                        ctx.Sam3_Diametro.Add(diametro1);
+                                        ctx.SaveChanges();
+                                        diam1 = diametro1.DiametroID;
+                                    }
+                                }
+
+                                if (diam2 == 0)
+                                {
+                                    Sam3_Diametro diametro2;
+                                    //Se verifica que si exista el diametro
+                                    //Si existe se asigna el valor
+                                    if (ctx.Sam3_Diametro.Where(x => x.Valor == Diametro2).Any())
+                                    {
+                                        diam2 = ctx.Sam3_Diametro.Where(x => x.Valor == Diametro2).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
+                                    }
+                                    else {
+                                        diametro2 = new Sam3_Diametro();
+                                        diametro2.Valor = Diametro2;
+                                        diametro2.VerificadoPorCalidad = true;
+                                        diametro2.Activo = true;
+                                        diametro2.UsuarioModificacion = usuario.UsuarioID;
+                                        diametro2.FechaModificacion = DateTime.Now;
+                                        ctx.Sam3_Diametro.Add(diametro2);
+                                        ctx.SaveChanges();
+                                        diam2 = diametro2.DiametroID;
+                                    }
+                                }
 
                                 Sam3_ItemCode itemS3;
                                 //Inserta en Sam 3

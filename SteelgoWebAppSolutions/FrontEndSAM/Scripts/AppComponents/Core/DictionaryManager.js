@@ -6130,6 +6130,10 @@ _dictionary = {
         "es-MX": "Favor de seleccionar un item code.",
         "en-US": "Please select an item code."
     },
+    "notificationslabel0087": {
+        "es-MX": "El valor no es válido en el campo ",
+        "en-US": "The value is invalid in the field "
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
