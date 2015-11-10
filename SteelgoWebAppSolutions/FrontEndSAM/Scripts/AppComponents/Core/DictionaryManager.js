@@ -3743,6 +3743,14 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "AlertPreguntaSi": {
+        "es-MX": "Si. ",
+        "en-US": "yes."
+    },
+    "AlertPreguntaNo": {
+        "es-MX": "No. ",
+        "en-US": "No."
+    },
     //#endregion
     //#endregion
     //#region Trabajos adicionales
@@ -4148,7 +4156,6 @@ _dictionary = {
     },
 
     //#endregion
-
     //#region ServiciosTecnicos
     "ServiciosTecnicosTipoPrueba": {
         "es-MX": "Tipo Prueba",
@@ -4188,8 +4195,6 @@ _dictionary = {
     },
 
     //#endregion
-
-
     //#region  SoldadorCertificacion
     "SoldadorCertificacionID": {
         "es-MX": "SoldadorCertificacionID",
@@ -4272,7 +4277,6 @@ _dictionary = {
     },
 
     //#endregion
-
     //#region Soldadura
     "CapturaSoldaduraSoldaduraSpool": {
         "es-MX": "Soldadura de Spool",
