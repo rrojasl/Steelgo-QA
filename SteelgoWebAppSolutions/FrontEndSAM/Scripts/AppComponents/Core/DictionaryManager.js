@@ -6051,7 +6051,7 @@ _dictionary = {
         "en-US": "Out of tolerance."
     },
     "notificationslabel0065": {
-        "es-MX": "No se encontraron datos generar los cortes.",
+        "es-MX": "No se encontraron datos para generar los cortes.",
         "en-US": "No data have been found to generate cuts."
     },
     "notificationslabel0066": {
