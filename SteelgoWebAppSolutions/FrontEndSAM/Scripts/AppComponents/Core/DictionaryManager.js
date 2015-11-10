@@ -6130,6 +6130,10 @@ _dictionary = {
         "es-MX": "Favor de seleccionar un item code.",
         "en-US": "Please select an item code."
     },
+    "notificationslabel0087": {
+        "es-MX": "No hay datos del listado que se puedan guardar.",
+        "en-US": "There is no data in the list that could be saved."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
