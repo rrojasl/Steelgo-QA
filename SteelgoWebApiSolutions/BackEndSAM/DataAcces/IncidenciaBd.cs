@@ -265,9 +265,9 @@ namespace BackEndSAM.DataAcces
                             registro.Respuesta = datos.Respuesta;
                             registro.TipoIncidenciaID = datos.TipoIncidenciaID;
                             registro.Titulo = datos.Titulo;
-                            if (datos.RegistradoPor != null && datos.RegistradoPor != "") { nuevoRegistro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
-                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { nuevoRegistro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
-                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { nuevoRegistro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
+                            if (datos.RegistradoPor != null && datos.RegistradoPor != "") { registro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
+                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { registro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
+                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { registro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
                             registro.UsuarioModificacion = usuario.UsuarioID;
 
                             ctx.SaveChanges();
@@ -832,7 +832,7 @@ namespace BackEndSAM.DataAcces
                                               RegistradoPor = inc.UsuarioID.ToString(),
                                               RespondidoPor = inc.UsuarioIDRespuesta.ToString(),
                                               Respuesta = inc.Respuesta,
-                                              ResueltoPor = inc.UsuarioIDRespuesta.ToString(),
+                                              ResueltoPor = inc.UsuarioResuelveID.ToString(),
                                               TipoIncidenciaID = inc.TipoIncidenciaID,
                                               Titulo = inc.Titulo,
                                               Version = inc.Version.ToString()
