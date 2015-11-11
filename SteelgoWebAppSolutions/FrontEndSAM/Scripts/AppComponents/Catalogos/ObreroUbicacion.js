@@ -2,6 +2,8 @@
 Cookies.set("home", true, { path: '/' });
 Cookies.set("navegacion", "33", { path: '/' });
 
+var endRangeDateI0;
+var endRangeDateI1;
 
 var resultadoJson, PeriodoTiempo, Obrero = {};
 
@@ -45,6 +47,15 @@ var $ObreroUbicacionModel = {
 
 function changeLanguageCall() {
     loadingStart();
+    cargarCalendarios();
+    endRangeDateI0.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
+
+    endRangeDateI1.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
+
     LlenarGrid();
     CargarGridObrero();
     $("#ObreroID").data("kendoComboBox").enable();
@@ -57,7 +68,8 @@ function changeLanguageCall() {
 };
 
 function LlenarGrid() {
-    $ObreroUbicacion.ObreroUbicacion.read({ token: Cookies.get("token") }).done(function (result) {
+
+    $ObreroUbicacion.ObreroUbicacion.read({ token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (result) {
         if (Error(result)) {
             resultadoJson = result;
             console.log("lista imprime che: " + JSON.stringify(resultadoJson));
@@ -99,13 +111,6 @@ function CargarGridObrero() {
         editable: "inline",
         filterable: {
             extra: false,
-            operators: {
-                string: {
-                    startswith: "Starts with",
-                    eq: "Is equal to",
-                    neq: "Is not equal to"
-                }
-            }
         },
         pageable: {
             refresh: false,
@@ -160,12 +165,34 @@ function editarObrero(e) {
     combobox2.value(dataItem.PatioID);
     $("#ObreroID").val(dataItem.ObreroID);
     $("#ObreroUbicacionID").val(dataItem.ObreroUbicacionID);
-    $("#FechaInicioLabor").val(dataItem.FechaInicioLabor);
-    $("#FechaFinLabor").val(dataItem.FechaFinLabor);
+    LlenarCalendarios(e);
     VentanaModal(1);
     $("#formaObrero").show();
 }
 
+
+function LlenarCalendarios(e) {
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    endRangeDateI0.val(dataItem.FechaInicioLabor);
+    endRangeDateI1.val(dataItem.FechaFinLabor);
+
+};
+
+function cargarCalendarios() {
+
+    if (endRangeDateI0 == undefined) {
+        endRangeDateI0 = $("#FechaInicioLabor").kendoDatePicker({
+        });
+    };
+
+
+    if (endRangeDateI1 == undefined) {
+        endRangeDateI1 = $("#FechaFinLabor").kendoDatePicker({
+        });
+    };
+
+
+};
 
 function VentanaModal(modo) {
 
@@ -238,24 +265,45 @@ function GuardarObrero() {
     ObreroUbicacionModal.FechaInicioLabor = $("#FechaInicioLabor").val();
     ObreroUbicacionModal.FechaFinLabor = $("#FechaFinLabor").val();
 
+    var FechaInicioLabor = ObreroUbicacionModal.FechaInicioLabor;
+    var FechaFinLabor = ObreroUbicacionModal.FechaFinLabor;
+    var Idioma = $("#language").val();
 
-    if ($("#Modo").val() == "0") {
-        console.log("Guardar: " + JSON.stringify(ObreroUbicacionModal));
-        $ObreroUbicacion.ObreroUbicacion.create(ObreroUbicacionModal, { token: Cookies.get("token") }).done(function (result) {
-            LlenarGrid();
-            obtenerTipoObrero();
-        });
+    if (ValidaFormatoFecha(FechaInicioLabor, Idioma) == false) {
+        $(this).closest("div").find("label").addClass("error");
+        $(this).closest("div").addClass("clearfix");
+        displayMessage("ErrorFechaInicio", "", '1');
     }
 
-    else if ($("#Modo").val() == "1") {
-        console.log("Editar: " + JSON.stringify(ObreroUbicacionModal));
-        $ObreroUbicacion.ObreroUbicacion.update(ObreroUbicacionModal, { token: Cookies.get("token") }).done(function (result) {
-            LlenarGrid();
-            obtenerTipoObrero();
-        });
+    else if (ValidaFormatoFecha(FechaFinLabor, Idioma) == false) {
+        $(this).closest("div").find("label").addClass("error");
+        $(this).closest("div").addClass("clearfix");
+        displayMessage("ErrorFechaFin", "", '1');
     }
 
-    $("#window").data("kendoWindow").close();
+    else {
+
+        if ($("#Modo").val() == "0") {
+            console.log("Guardar: " + JSON.stringify(ObreroUbicacionModal));
+            $ObreroUbicacion.ObreroUbicacion.create(ObreroUbicacionModal, { Lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (result) {
+                LlenarGrid();
+                obtenerTipoObrero();
+            });
+            $("#window").data("kendoWindow").close();
+        }
+
+        else if ($("#Modo").val() == "1") {
+            console.log("Editar: " + JSON.stringify(ObreroUbicacionModal));
+            $ObreroUbicacion.ObreroUbicacion.update(ObreroUbicacionModal, { Lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (result) {
+                LlenarGrid();
+                obtenerTipoObrero();
+            });
+            $("#window").data("kendoWindow").close();
+        }
+
+    }
+
+   
 }
 
 
@@ -400,3 +448,85 @@ var end = $("#FechaFinLabor").kendoDatePicker({
 
 start.max(end.value());
 end.min(start.value());
+
+
+
+
+
+function ValidaFormatoFecha(FechaValidar, Idioma) {
+
+    //Valida que el formato de la fecha sea correcto (2-2-4)
+    var bool;
+    var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
+    if ((String(FechaValidar).trim().match(RegExPattern)) && (FechaValidar != '')) {
+
+        if (Idioma == 'es-MX') {
+
+            if (existeFechaMexicoFormato(FechaValidar) && existeFechaMexico(FechaValidar)) {
+                bool = true;
+            }
+            else {
+                bool = false
+            }
+        }
+        else if (Idioma == 'en-US') {
+
+            if (existeFechaEUFormato(FechaValidar) && existeFechaEU(FechaValidar)) {
+                bool = true;
+            }
+            else {
+                bool = false
+            }
+
+        }
+    } else {
+
+        bool = false;
+    }
+    return bool;
+
+}
+
+function existeFechaMexicoFormato(fecha) {
+    var fechaf = fecha.split("/");
+    var d = fechaf[0];
+    var m = fechaf[1];
+    var y = fechaf[2];
+    console.log(m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate());
+    return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+
+
+}
+
+function existeFechaMexico(FechaValidar) {
+    var fechaf = FechaValidar.split("/");
+    var day = FechaValidar[0];
+    var month = FechaValidar[1];
+    var year = FechaValidar[2];
+    var date = new Date(year, month, '0');
+    if ((day - 0) > (date.getDate() - 0)) {
+        return false;
+    }
+    return true;
+}
+
+function existeFechaEUFormato(fecha) {
+    var fechaf = fecha.split("/");
+    var d = fechaf[1];
+    var m = fechaf[0];
+    var y = fechaf[2];
+    console.log(m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate());
+    return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+}
+
+function existeFechaEU(FechaValidar) {
+    var fechaf = FechaValidar.split("/");
+    var day = FechaValidar[1];
+    var month = FechaValidar[0];
+    var year = FechaValidar[2];
+    var date = new Date(year, month, '0');
+    if ((day - 0) > (date.getDate() - 0)) {
+        return false;
+    }
+    return true;
+}

@@ -3743,6 +3743,23 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "ErrorFechaInicio": {
+        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
+        "en-US": "The field ' DATE START ' , does not have the correct format"
+    },
+
+    "ErrorFechaFin": {
+        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
+        "en-US": "The field ' DATE END ' , does not have the correct format"
+    },
+    "AlertPreguntaSi": {
+        "es-MX": "Si",
+        "en-US": "yes"
+    },
+    "AlertPreguntaNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
     //#endregion
     //#endregion
     //#region Trabajos adicionales
@@ -3904,21 +3921,33 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
-    "lblPQREspesor": {
-        "es-MX": "Espesor",
-        "en-US": "Density"
+    "lblPQREspesorRelleno": {
+        "es-MX": "Espesor Relleno",
+        "en-US": "Padding density"
     },
-    "lblPQRProcesoSoldaduraID": {
-        "es-MX": "Proceso soldadura",
-        "en-US": "Welding process"
+    "lblPQREspesorRaiz": {
+        "es-MX": "Espesor Raiz",
+        "en-US": "Root Density"
+    },
+    "lblPQRProcesoSoldaduraRelleno": {
+        "es-MX": "Proceso soldadura Relleno",
+        "en-US": "Welding padding process "
+    },
+    "lblPQRProcesoSoldaduraRaiz": {
+        "es-MX": "Proceso soldadura Raiz",
+        "en-US": "Welding root process"
     },
     "lblPQRNumeroP": {
         "es-MX": "Numero P",
         "en-US": "P number"
     },
-    "lblPQRGrupoP": {
-        "es-MX": "Grupo P",
-        "en-US": "P group"
+    "lblPQRGrupoPMaterialBase1": {
+        "es-MX": "Grupo P Material Base 1",
+        "en-US": "P group base material 1"
+    },
+    "lblPQRGrupoPMaterialBase2": {
+        "es-MX": "Grupo P Material Base 2",
+        "en-US": "P group base material 2"
     },
     "lblPQRAporte": {
         "es-MX": "Aporte",
@@ -3936,15 +3965,23 @@ _dictionary = {
         "es-MX": "Grupo F",
         "en-US": "F group"
     },
+    "lblPQRCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
     //#endregion
     //#region PopUp
     "lblConfirmaElimanarPQR": {
         "es-MX": "¿Está seguro de eliminar este PQR?",
         "en-US": "You Shure delete this PQR?"
     },
-    "lblValidaEspesorPQR": {
-        "es-MX": "El Campo 'Espesor' Solo acepta números decimales",
-        "en-US": "The Field ' thickness ' only accepts decimal numbers"
+    "lblValidaEspesorRellenoPQR": {
+        "es-MX": "El Campo 'Espesor Relleno' Solo acepta números decimales",
+        "en-US": "The Field 'Padding thickness ' only accepts decimal numbers"
+    },
+    "lblValidaEspesorRaizPQR": {
+        "es-MX": "El Campo 'Espesor Raiz' Solo acepta números decimales",
+        "en-US": "The Field 'Root thickness ' only accepts decimal numbers"
     },
 
     "lblExisteNombrePQR": {
@@ -4271,15 +4308,7 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
-    "lblValidaFechasInicioSoldadorCertificacion": {
-        "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
-        "en-US": "The field ' DATE START ' , does not have the correct format"
-    },
-
-    "lblValidaFechasFinSoldadorCertificacion": {
-        "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
-        "en-US": "The field ' DATE END ' , does not have the correct format"
-    },
+  
 
     //#endregion
 
@@ -4378,6 +4407,20 @@ _dictionary = {
         "en-US": "Work"
     },
 
+    "CapturaSoldaduraPreguntaBorradoCapturaTrabajoAdicional": {
+        "es-MX": "¿Está seguro de cancelar el Trabajo adicional de la captura de soldadura?",
+        "en-US": "Are you sure you want to cancel the additional work of the capture of welding ?"
+    },
+    
+    "CapturaSoldaduraPreguntaBorradoCapturaProceso": {
+        "es-MX": "¿Está seguro de cancelar el proceso de la captura de soldadura?",
+        "en-US": "Are you sure you want to cancel the process of the capture of welding ?"
+    },
+
+    "CapturaSoldaduraAgregarPlanchado": {
+        "es-MX": "Aplicar",
+        "en-US": "Apply"
+    },
     //#endregion
 
 };

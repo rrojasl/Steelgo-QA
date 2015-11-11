@@ -33,7 +33,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObreroUbicacion()
+        public object ObreroUbicacion(string Lenguaje)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Cat_ObreroUbicacion_Result> result = ctx.Sam3_Cat_ObreroUbicacion(1, null,null,null,null,null,null).ToList();
+                    List<Sam3_Cat_ObreroUbicacion_Result> result = ctx.Sam3_Cat_ObreroUbicacion(1, null,null,null,null,null,null, Lenguaje).ToList();
 
                     foreach (Sam3_Cat_ObreroUbicacion_Result elem in result)
                     {
@@ -50,8 +50,8 @@ namespace BackEndSAM.DataAcces
                         {
                             ObreroUbicacionID = elem.ObreroUbicacionID,
                             ObreroID = elem.ObreroID,
-                            FechaInicioLabor = elem.FechaInicioLabor.ToShortDateString(),
-                            FechaFinLabor = (elem.FechaFinLabor.ToString() == "") ? elem.FechaFinLabor.ToString(): elem.FechaFinLabor.ToString().Substring(0,10),
+                            FechaInicioLabor = elem.FechaInicioLabor,
+                            FechaFinLabor = elem.FechaFinLabor,
                             PatioID = elem.PatioID,
                             Codigo = elem.Codigo,
                             Nombre = elem.Nombre
@@ -77,17 +77,14 @@ namespace BackEndSAM.DataAcces
 
 
 
-        public object InsertarObreroUbicacion(Sam3_ObreroUbicacion TipoObrero, Sam3_Usuario usuario)
+        public object InsertarObreroUbicacion(ObreroUbicacion TipoObrero, string Lenguaje, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Cat_ObreroUbicacion(2, TipoObrero.ObreroUbicacionID, usuario.UsuarioID,
-                        TipoObrero.ObreroID, TipoObrero.PatioID, TipoObrero.FechaInicioLabor,
-                        TipoObrero.FechaFinLabor);
-
+                    ctx.Sam3_Cat_ObreroUbicacion(2, TipoObrero.ObreroUbicacionID, usuario.UsuarioID, TipoObrero.ObreroID, TipoObrero.PatioID, TipoObrero.FechaInicioLabor.Trim(), TipoObrero.FechaFinLabor.Trim(), Lenguaje);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
                     result.ReturnCode = 200;
@@ -115,7 +112,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.Sam3_Cat_ObreroUbicacion(4,ObreroUbicacionID,null,null,null,null,null);
+                    ctx.Sam3_Cat_ObreroUbicacion(4,ObreroUbicacionID,null,null,null,null,null,null);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -138,15 +135,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ModificarObreroUbicacion(Sam3_ObreroUbicacion CambiosTipoObrero, Sam3_Usuario usuario)
+        public object ModificarObreroUbicacion(ObreroUbicacion CambiosTipoObrero, string Lenguaje, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.Sam3_Cat_ObreroUbicacion(3, CambiosTipoObrero.ObreroUbicacionID,usuario.UsuarioID,
-                        CambiosTipoObrero.ObreroID,CambiosTipoObrero.PatioID,CambiosTipoObrero.FechaInicioLabor,
-                        CambiosTipoObrero.FechaFinLabor);
+                    ctx.Sam3_Cat_ObreroUbicacion(3, CambiosTipoObrero.ObreroUbicacionID,usuario.UsuarioID,CambiosTipoObrero.ObreroID,CambiosTipoObrero.PatioID,CambiosTipoObrero.FechaInicioLabor.Trim(),CambiosTipoObrero.FechaFinLabor.Trim(), Lenguaje);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
