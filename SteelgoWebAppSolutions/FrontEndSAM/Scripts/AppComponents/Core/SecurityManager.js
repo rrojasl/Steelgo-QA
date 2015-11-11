@@ -49,7 +49,7 @@ function applySecurityPolicy(loadMenu) {
 
                 //Validate if i have access to this page
                 if (!$MenuData[$currentUrl.split("?")[0].replace("/", "").toLowerCase()] && !window.opener && $errorURI.split("?")[0].replace("/", "").toLowerCase() != $currentUrl.split("?")[0].split("?")[0].replace("/", "").toLowerCase()) {
-                    //document.location.href = $errorURI;
+                    document.location.href = $errorURI;
                 }
 
                 //Retrieve the QuickLinks definition**
