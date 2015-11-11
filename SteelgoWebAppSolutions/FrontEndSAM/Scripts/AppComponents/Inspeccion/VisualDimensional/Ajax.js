@@ -9,7 +9,7 @@ var CampoResultadoVisualPredeterminada = 20;
 var CampoLlenadoPredeterminada = 22;
 
 function AjaxObtenerListaInspector() {
-    alert("ingresa a metodo AjaxObtenerListaInspector")
+    
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         $("#inputInspector").data("kendoComboBox").value("");
         $("#inputInspector").data("kendoComboBox").dataSource.data(data)
@@ -24,7 +24,7 @@ function AjaxObtenerListaTaller() {
     });
 }
 function AjaxObtenerListaInspectorVisual() {
-    alert("ingresa a metodo AjaxObtenerListaInspectorVisual")
+    
     $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         
         $("#inputInspectorVisual").data("kendoComboBox").value("");
@@ -69,15 +69,13 @@ function AjaxCargaCamposPredeterminados() {
             $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', true);
             $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', false);
             $("input:radio[name=ResultadoDimensional]:checked").change();
-            $("#StyleResultadoDimensionalA").addClass("active");
-            $("#StyleResultadoDimensionalR").removeClass("active");
+           
         }
         else if (data == "Rechazado") {
             $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', false);
             $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', true);
             $("input:radio[name=ResultadoDimensional]:checked").change();
-            $("#StyleResultadoDimensionalR").addClass("active");
-            $("#StyleResultadoDimensionalA").removeClass("active");
+           
         }
     });
     $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoResultadoVisualPredeterminada }).done(function (data) {
@@ -85,15 +83,13 @@ function AjaxCargaCamposPredeterminados() {
             $('input:radio[name=ResultadoVisual]:nth(0)').attr('checked', true);
             $('input:radio[name=ResultadoVisual]:nth(1)').attr('checked', false);
             $("input:radio[name=ResultadoVisual]:checked").change();
-            $("#StyleResultadoVisualA").addClass("active");
-            $("#StyleResultadoVisualR").removeClass("active");
+          
         }
         else if (data == "Rechazado") {
             $('input:radio[name=ResultadoVisual]:nth(0)').attr('checked', false);
             $('input:radio[name=ResultadoVisual]:nth(1)').attr('checked', true);
             $("input:radio[name=ResultadoVisual]:checked").change();
-            $("#StyleResultadoVisualR").addClass("active");
-            $("#StyleResultadoVisualA").removeClass("active");
+           
         }
 
     });
@@ -102,15 +98,13 @@ function AjaxCargaCamposPredeterminados() {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
             $('input:radio[name=LLena]:nth(1)').attr('checked', false);
             $("input:radio[name=LLena]:checked").change();
-            $("#StylePlanchaTodos").addClass("active");
-            $("#StylePlanchaVacios").removeClass("active");
+           
         }
         else if (data == "Vacios") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
             $("input:radio[name=LLena]:checked").change();
-            $("#StylePlanchaVacios").addClass("active");
-            $("#StylePlanchaTodos").removeClass("active");
+            
         }
 
     });
@@ -209,7 +203,7 @@ function AjaxGuardar(jSonCaptura) {
     inspeccionDimensional = [];
 
 
-    ListaDetalleGuardarInspeccionVisual = []
+        ListaDetalleGuardarInspeccionVisual = []
     for (index = 0; index < jSonCaptura.length; index++) {
         ListaDetalleGuardarInspeccionVisual[index] = { Accion: "", OrdenTrabajoSpoolID: "", TipoJuntaID: "", EtiquetaJunta: "", EtiquetaMaterial1: "", EtiquetaMaterial2: "", DefectosID: "", InspectorID: "", FechaInspeccion: "", JuntaTrabajoID: "", ResultadoID: "", TallerID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", InspeccionVisualID: "" };
         ListaDetalleGuardarInspeccionVisual[index].Accion = jSonCaptura[index].Accion;
@@ -220,12 +214,14 @@ function AjaxGuardar(jSonCaptura) {
         ListaDetalleGuardarInspeccionVisual[index].EtiquetaMaterial2 = jSonCaptura[index].EtiquetaMaterial2;
         ListaDetalleGuardarInspeccionVisual[index].DefectosID = jSonCaptura[index].DefectosID;
         ListaDetalleGuardarInspeccionVisual[index].InspectorID = jSonCaptura[index].InspectorID;
-        ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion = kendo.toString(jSonCaptura[index].FechaInspeccion.split(' ')[0], String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+        ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion = kendo.toString(jSonCaptura[index].FechaInspeccion, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
         ListaDetalleGuardarInspeccionVisual[index].JuntaTrabajoID = jSonCaptura[index].JuntaTrabajoID;
         ListaDetalleGuardarInspeccionVisual[index].ResultadoID = jSonCaptura[index].ResultadoID;
         ListaDetalleGuardarInspeccionVisual[index].TallerID = jSonCaptura[index].TallerID;
         ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID = jSonCaptura[index].NumeroUnico1ID;
         ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID = jSonCaptura[index].NumeroUnico2ID;
+        ListaDetalleGuardarInspeccionVisual[index].InspeccionVisualID = jSonCaptura[index].InspeccionVisualID;
+        
     }
 
     inspeccionDimensional[0] = { Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "" }
@@ -249,6 +245,17 @@ function AjaxGuardar(jSonCaptura) {
     Captura[0].Detalles = inspeccionDimensional;
 
     $Inspeccion.Inspeccion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            mensaje = "Se guardo correctamente la informacion" + "-0";
+            displayMessage("CapturaMensajeGuardadoExitoso", "", '0');
+        }
+        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+            displayMessage("CapturaMensajeGuardadoErroneo", "", '2');
+        }
+        loadingStop();
+
         console.log("se guardo correctamente la informacion");
     });
 
