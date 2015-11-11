@@ -160,7 +160,7 @@ function LimpiaControles() {
     $('#MezclaID').data("kendoComboBox").value("");
     $('#RespaldoID').data("kendoComboBox").value("");
     $('#GrupoFID').data("kendoComboBox").value("");
-
+    $('#CodigoID').data("kendoComboBox").value("");
 };
 
 function LLenaControles(e)
