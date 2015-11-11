@@ -3975,9 +3975,13 @@ _dictionary = {
         "es-MX": "¿Está seguro de eliminar este PQR?",
         "en-US": "You Shure delete this PQR?"
     },
-    "lblValidaEspesorPQR": {
-        "es-MX": "El Campo 'Espesor' Solo acepta números decimales",
-        "en-US": "The Field ' thickness ' only accepts decimal numbers"
+    "lblValidaEspesorRellenoPQR": {
+        "es-MX": "El Campo 'Espesor Relleno' Solo acepta números decimales",
+        "en-US": "The Field 'Padding thickness ' only accepts decimal numbers"
+    },
+    "lblValidaEspesorRaizPQR": {
+        "es-MX": "El Campo 'Espesor Raiz' Solo acepta números decimales",
+        "en-US": "The Field 'Root thickness ' only accepts decimal numbers"
     },
 
     "lblExisteNombrePQR": {
