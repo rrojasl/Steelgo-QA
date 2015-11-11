@@ -11,6 +11,7 @@
     SuscribirEventoDefectoVisual();
     SuscribirEventoInspectorVisual();
     SuscribirEventoTaller();
+    SuscribirEventoAgregarCapturaRapida();
    
 };
 function SuscribirEventoSpoolID() {
@@ -132,7 +133,7 @@ function SuscribirEventoTaller() {
             PlanchaTaller();
         }
     });
-  //  AjaxObtenerListaTaller();
+   // AjaxObtenerListaTaller();
 }
 function SuscribirEventoInspector() {
     $('#inputInspector').kendoComboBox({
@@ -180,7 +181,7 @@ function SuscribirEventoDefectoVisual() {
     });
     $('#inputDefectosVisual').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            PlanchaInspector();
+            PlanchaDefecto();
         }
     });
     AjaxObtenerListaDefectosVisuales();
@@ -190,10 +191,13 @@ function SuscribirEventoResultadoDimensional() {
     $('input:radio[name=ResultadoDimensional]:nth(0)').change(function () {
         $("#inputDefecto").data("kendoComboBox").enable(false);
         $("#inputDefecto").data("kendoComboBox").value("");
+        // 
+      
     });
     $('input:radio[name=ResultadoDimensional]:nth(1)').change(function () {
         $("#inputDefecto").data("kendoComboBox").enable(true);
         $("#inputDefecto").data("kendoComboBox").value("");
+       // 
     });
 
    
@@ -203,10 +207,12 @@ function SuscribirEventoResultadoVisual() {
     $('input:radio[name=ResultadoVisual]:nth(0)').change(function () {
         $("#inputDefectosVisual").data("kendoComboBox").enable(false);
         $("#inputDefectosVisual").data("kendoComboBox").value("");
+        PlanchadoResultadoVisual();
     });
     $('input:radio[name=ResultadoVisual]:nth(1)').change(function () {
         $("#inputDefectosVisual").data("kendoComboBox").enable(true);
         $("#inputDefectosVisual").data("kendoComboBox").value("");
+        PlanchadoResultadoVisual();
     });
 
 
@@ -232,15 +238,47 @@ function SuscribirEventoEliminar(idtable) {
     });
 };
 function suscribirEventoGuardar() {
+
+    
     $('#btnGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardar(ds._data);
+        
+        if ($('#botonGuardar2').text() == "Guardar") {
+            AjaxGuardar(ds._data);
+            opcionHabilitarView(true, "FieldSetView");
+        }
+        else if ($('#botonGuardar2').text() == "Editar")
+            opcionHabilitarView(false, "FieldSetView")
+
+
     });
 
     $('#btnGuardarYNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardar(ds._data);
         limpiar();
+    });
+
+    $('#btnGuardar1').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardar(ds._data);
+    });
+
+    $('#btnGuardarYNuevo1').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardar(ds._data);
+        limpiar();
+    });
+}
+function SuscribirEventoAgregarCapturaRapida()
+{
+    $('#btnAplicarCapturaRapida').click(function (e) {
+        if ($("#inputTaller").val() !="")  PlanchaTaller();
+        if ($("#inputInspectorVisual").val() != "") PlanchaInspector();
+        if ($("#inputDefectosVisual").val() != "") PlanchaDefecto();
+        if (String(endRangeDateV.val()).trim() != "") PlanchaFecha();
+
+        PlanchadoResultadoVisual();
     });
 }
 function suscribirEventoCancelar() {
@@ -279,4 +317,34 @@ function deshabilitaSpool()
     $("#InputOrdenTrabajo").prop("disabled", true);
     $("#InputID").data("kendoComboBox").enable(false);
 
+}
+function opcionHabilitarView(valor, name) {
+    
+    if (valor) {
+         $('#FieldSetView').find('*').attr('disabled', true);
+        $("#InputID").data("kendoComboBox").enable(false);
+        $("#inputInspectorVisual").data("kendoComboBox").enable(false);
+        $("#inputFechaVisual").data("kendoDatePicker").enable(false);
+        $("#FechaInspeccion").data("kendoDatePicker").enable(false);
+        $("#inputInspector").data("kendoComboBox").enable(false);
+        $("#inputTaller").data("kendoComboBox").enable(false);
+        
+
+       $('#botonGuardar2').text("Editar");
+        $("#botonGuardar").text("Editar");
+    }
+    else {
+        $('#FieldSetView').find('*').attr('disabled', false);
+        $("#InputID").data("kendoComboBox").enable(true);
+        $("#inputInspectorVisual").data("kendoComboBox").enable(true);
+        $("#inputFechaVisual").data("kendoDatePicker").enable(true);
+        $("#inputTaller").data("kendoComboBox").enable(true);
+        
+
+        $("#FechaInspeccion").data("kendoDatePicker").enable(true);
+        $("#inputInspector").data("kendoComboBox").enable(true);
+        
+        $('#botonGuardar2').text("Guardar");
+        $("#botonGuardar").text("Guardar");
+    }
 }

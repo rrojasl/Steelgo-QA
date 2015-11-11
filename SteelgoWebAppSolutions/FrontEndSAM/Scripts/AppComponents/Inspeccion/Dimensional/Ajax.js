@@ -53,22 +53,19 @@ function AjaxCargaCamposPredetrminados() {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
             $('input:radio[name=LLena]:nth(1)').attr('checked', false);
             $("input:radio[name=LLena]:checked").change();
-            $("#StylePlanchaTodos").addClass("active");
-            $("#StylePlanchaVacios").removeClass("active");
+           
         }
         else if (data == "Vacios") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
             $("input:radio[name=LLena]:checked").change();
-            $("#StylePlanchaVacios").addClass("active");
-            $("#StylePlanchaTodos").removeClass("active");
+           
         }
         else {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
             $("input:radio[name=LLena]:checked").change();
-            $("#StylePlanchaVacios").addClass("active");
-            $("#StylePlanchaTodos").removeClass("active");
+           
         }
 
 
