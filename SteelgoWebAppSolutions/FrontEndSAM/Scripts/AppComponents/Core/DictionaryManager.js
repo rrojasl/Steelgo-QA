@@ -3762,6 +3762,68 @@ _dictionary = {
     },
     //#endregion
     //#endregion
+    //#menu
+    "menuFabricacion": {
+        "es-MX": "Fabricación",
+        "en-US": "manufacturing"
+    },
+    "menuArmado": {
+        "es-MX": "Armado",
+        "en-US": "assembly"
+    },
+    "menuSoldadura": {
+        "es-MX": "Soldadura",
+        "en-US": "welding"
+    },
+    "menuInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "inspection"
+    },
+    "menuInspeccionDimensional": {
+        "es-MX": "Dimensional",
+        "en-US": "Dimensional"
+    },
+    "menuInspeccionVisualDimensional": {
+        "es-MX": "Visual dimensional",
+        "en-US": "Visual and dimensional"
+    },
+    "menuServiciosTecnicos": {
+        "es-MX": "Servicios técnicos",
+        "en-US": "Technical services"
+    },
+    "menuServiciosTecnicosAsignarRequisicion": {
+        "es-MX": "Asignar requisición",
+        "en-US": "assign requisition"
+    },
+    "menuServiciosTecnicosCapturaReportePruebas": {
+        "es-MX": "Captura reporte",
+        "en-US": "Report Capture"
+    },
+    "menuServiciosTecnicosEntregaResultados": {
+        "es-MX": "Entrega de resultados",
+        "en-US": "Delivering Results"
+    },
+    "menuServiciosTecnicosGenerarRequisicion": {
+        "es-MX": "Requisicion",
+        "en-US": "Requisition"
+    },
+    "menuServiciosTecnicosGenerarImpresion": {
+        "es-MX": "Impresion de resultados",
+        "en-US": "Print results"
+    },
+    "menuServiciosTecnicosGenerarListadoRequisicion": {
+        "es-MX": "Listado de requisiciones",
+        "en-US": "List of requisitions"
+    },
+    "menuServiciosTecnicosGenerarRequisicionesAsignadas": {
+        "es-MX": "Requisiciones asignadas",
+        "en-US": "assigned requisitions"
+    },
+    "menuServiciosTecnicosGenerarValidacionResultados": {
+        "es-MX": "Validación de resultados",
+        "en-US": "Validation of results "
+    },
+    //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
         "es-MX": "Trabajo Adicional",

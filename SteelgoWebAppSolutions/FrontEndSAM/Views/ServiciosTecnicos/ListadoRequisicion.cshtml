@@ -29,16 +29,25 @@
     <hr />
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-         
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="ContenedorGrid" class="row">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
+     
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
+                               
+                                <button id="btnSinPermiso" class="btn btn-tabList"><span id="">Capturado </span><span id="">10</span></button>
+                                <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="">Asignados </span><span id="">10</span>10</button>
+                                <button id="btnColetos" class="btn btn-tabList"><span id="">Entregados </span><span id="">10</span></button>
+                                <button id="btnCompletos" class="btn btn-tabList"><span id="">Validados </span><span id="">20</span></button>
+                            </div>
+                        </div>
+                        <div id="ContenedorGrid">
+                            <div id="grid" data-role="grid" class="k-grid k-widget">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />
     <div id="window">
@@ -48,3 +57,5 @@
     <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>
     <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>*@
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ListadoRequisicion/Captura.js"> </script>
+
+

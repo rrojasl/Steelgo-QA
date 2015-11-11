@@ -13,24 +13,18 @@ function CargarGrid() {
         autoBind: true,
         dataSource: {
             data: [
-                     { TipoPrueba: "RT", Prioridad: "1", Cuadrante: "Cuadrante 1", Proyecto: "ETILENO XXI", Requisicion: "Requisicion 1", SpoolID: "003-4", Junta: "4", Agregar:true },
-                     { TipoPrueba: "RT", Prioridad: "Prioridad 2", Cuadrante: "Cuadrante 2", Proyecto: "CROSSOVER PIPING", Requisicion: "Requisicion 2", SpoolID: "004-4", Junta: "5", Agregar: false },
-                     { TipoPrueba: "VI", Prioridad: "Prioridad 3", Cuadrante: "Cuadrante 3", Proyecto: "DUPONT ALTAMIRA2", Requisicion: "Requisicion 3", SpoolID: "005-4", Junta: "6", Agregar: false },
-                     { TipoPrueba: "Neumática", Prioridad: "Prioridad 4", Cuadrante: "Cuadrante 4", Proyecto: "CB LITORAL", Requisicion: "Requisicion 4", SpoolID: "006-6", Junta: "7", Agregar: false }
+                     { TipoPrueba: "RT", Requisicion: "RT-24", SpoolJunta: "X002-1"},
+                     { TipoPrueba: "RT", Requisicion: "RT-25", SpoolJunta: "X002-1 1" },
+                     { TipoPrueba: "VI", Requisicion: "VI-1234", SpoolJunta: "X002-1 2" },
+                     { TipoPrueba: "VI", Requisicion: "VI-1234", SpoolJunta: "X002-1 3" }
             ],
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
-                        Prioridad: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
                         Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false },
-                        CodigoAplicar: { type: "string", editable: false },
-                        observacion: { type: "string", editable: false },
-                        Agregar:{ type: "bool", editable: true }
+                        TipoPrueba: { type: "string", editable: false },
+                        SpoolJunta: { type: "string", editable: false },
+
                     }
                 }
             },
@@ -55,12 +49,10 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "TipoPrueba", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true},
-            { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "SpoolID", title: "Spool - Junta", filterable: true },
-             { field: "CodigoAplicar",title: "Codigo a aplicar", filterable: true},
-             { field: "observacion", title: "Observacion", filterable: true },
-             { field: "Agregar", title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= Agregar ? "checked=checked" : "" # disabled="disabled" ></input>' }
+            { field: "Requisicion", title: "Requisición", filterable: true },
+            { field: "TipoPrueba", title: "Tipo prueba", filterable: true },
+            { field: "SpoolJunta", title: "Spool - Junta", filterable: true },
+             
             
             
 

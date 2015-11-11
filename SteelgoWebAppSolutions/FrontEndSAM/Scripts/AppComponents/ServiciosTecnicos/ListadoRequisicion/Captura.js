@@ -58,7 +58,7 @@ function CargarGrid() {
             { field: "Prioridad", title: "Tipo Prueba", filterable: true },
             { field: "Cuadrante", title: "Fecha", filterable: true },
             { field: "Proyecto", title: "Observación", filterable: true },
-            { field: "Requisicion", title: "Estatus", filterable: true, },
+            //{ field: "Requisicion", title: "Estatus", filterable: true, },
             { field: "SpoolID", title: "ver detalle", filterable: true }
           
 
