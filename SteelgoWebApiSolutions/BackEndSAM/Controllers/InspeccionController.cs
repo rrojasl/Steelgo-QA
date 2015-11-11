@@ -68,8 +68,10 @@ namespace BackEndSAM.Controllers
                         DefectosID = item.DefectoID == null ? capturaDatosJson.DefectosID : item.DefectoID.ToString(),
                         TallerID = item.TallerID == null ? capturaDatosJson.TallerID : item.TallerID.ToString(),
                         Taller = item.Taller == null ? capturaDatosJson.Taller : item.Taller,
-                        Inspector = item.Inspector == null ? usuario.NombreUsuario : item.Inspector.ToString(),
-                        InspectorID = item.ObreroID == null ? usuario.UsuarioID.ToString() : item.ObreroID.ToString(),
+
+                        Inspector = item.Inspector,
+                        InspectorID =  item.ObreroID.ToString(),
+
                         NumeroUnico1 = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].Clave : "") : item.Clave1.ToString(),
                         NumeroUnico2 = item.NumeroUnico2ID == null ? (listNumeroUnico2.Count == 1 ? listNumeroUnico2[0].Clave : "") : item.Clave2.ToString(),
                         NumeroUnico1ID= item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID : 0) : item.NumeroUnico1ID.GetValueOrDefault(),

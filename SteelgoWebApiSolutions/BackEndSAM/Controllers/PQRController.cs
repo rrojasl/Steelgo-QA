@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -298,6 +299,41 @@ namespace BackEndSAM.Controllers
         }
 
 
+        //Llena El DataSouce para Codigo
+        public object Get(string token, int TipoDato, string var1, string var2, string var3)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    return PQRBd.Instance.ObtenerCodigo(TipoDato);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+
         //Elimina Un PQR (Cambia a estado inactivo en BD)
         public object Put(int TipoDeDato, int PQRID, string token)
         {
@@ -336,8 +372,6 @@ namespace BackEndSAM.Controllers
             }
 
         }
-
-
 
         //Edita PQR Seleccionado
         public object Put(Sam3_PQR pqr, string token)
@@ -464,5 +498,46 @@ namespace BackEndSAM.Controllers
 
         }
 
+
+        //Obtiene el listado de PQR Activos, (PQRID , NOMBREPQR)
+        public object Get(string token, int TipoAccion)
+        {
+            try
+            {
+
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoAccion);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+
+
+        }
     }
 }

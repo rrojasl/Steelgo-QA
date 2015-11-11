@@ -163,6 +163,25 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
 };
 
+
+function AjaxCargarReporteJuntas() {
+    var listadoReporte = ArregloListadoReporte();
+
+    for (var i = 0; i < listadoReporte.length; i++) {
+        
+        loadingStart();
+        $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = JSON.parse(data);
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
+            loadingStop();
+        });
+    }
+}
+
+
 function AjaxCargarCamposPredeterminados() {
 
     loadingStart();
@@ -173,38 +192,34 @@ function AjaxCargarCamposPredeterminados() {
         endRangeDate.val(NewDate);
 
         if (data.Muestra == "Sincaptura") {
-            $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
-            $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
-            $("#styleSinCaptura").addClass("active");
-            $("#styleTodos").removeClass("active");
+            $('input:radio[name=Muestra]:nth(0)').attr('checked');
+            $('input:radio[name=Muestra]:nth(1)').removeAttr('checked');
+            
         }
         else if (data.Muestra == "Todos") {
-            $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
+            $('input:radio[name=Muestra]:nth(0)').removeAttr('checked');
             $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
-            $("#styleTodos").addClass("active");
-            $("#styleSinCaptura").removeClass("active");
+            
         }
 
         if (data.Llena == "Todos") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
-            $('input:radio[name=LLena]:nth(1)').attr('checked', false);
-            $("#StylePlanchaTodos").addClass("active");
-            $("#StylePlanchaVacios").removeClass("active");
+            $('input:radio[name=LLena]:nth(1)').removeAttr('checked');
+            
         }
         else if (data.Llena == "Vacios") {
-            $('input:radio[name=LLena]:nth(0)').attr('checked', false);
+            $('input:radio[name=LLena]:nth(0)').removeAttr('checked');
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
-            $("#StylePlanchaVacios").addClass("active");
-            $("#StylePlanchaTodos").removeClass("active");
+            
         }
         if (data.TipoCaptura == "Reporte") {
             $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', true);
-            $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', false);
+            $('input:radio[name=TipoAgregado]:nth(1)').removeAttr('checked');
             $("#styleReporte").addClass("active");
             $("#styleListado").removeClass("active");
         }
         else if (data.TipoCaptura == "Lista") {
-            $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', false);
+            $('input:radio[name=TipoAgregado]:nth(0)').removeAttr('checked');
             $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', true);
             $("#styleListado").addClass("active");
             $("#styleReporte").removeClass("active");
@@ -213,3 +228,23 @@ function AjaxCargarCamposPredeterminados() {
     });
 
 };
+
+function AjaxCargarCamposPredeterminadosOcultaJunta() {
+
+    loadingStart();
+    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+        if (data.Muestra == "Sincaptura") {
+            $('input:radio[name=Muestra]:nth(0)').attr('checked');
+            $('input:radio[name=Muestra]:nth(1)').removeAttr('checked');
+
+        }
+        else if (data.Muestra == "Todos") {
+            $('input:radio[name=Muestra]:nth(0)').removeAttr('checked');
+            $('input:radio[name=Muestra]:nth(1)').attr('checked');
+
+        }
+
+        loadingStop();
+    });
+}

@@ -113,7 +113,7 @@ function AjaxCargarCamposPredeterminados() {
         
         endRangeDate.val(NewDate);
         
-        if (data.Muestra == "Sincaptura") {
+        if (data.Muestra == "sin captura") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
             $("#styleSinCaptura").addClass("active");
@@ -155,3 +155,42 @@ function AjaxCargarCamposPredeterminados() {
     });
     
 };
+
+
+function AjaxCargarCamposPredeterminadosOcultaJunta() {
+
+    loadingStart();
+    $CapturaArmado.Armado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+        if (data.Muestra == "sin captura") {
+            $('input:radio[name=Muestra]:nth(0)').attr('checked');
+            $('input:radio[name=Muestra]:nth(1)').removeAttr('checked');
+
+        }
+        else if (data.Muestra == "Todos") {
+            $('input:radio[name=Muestra]:nth(0)').removeAttr('checked');
+            $('input:radio[name=Muestra]:nth(1)').attr('checked');
+
+        }
+
+        loadingStop();
+    });
+}
+
+
+function AjaxCargarReporteJuntas() {
+    var listadoReporte = ArregloListadoReporte();
+
+    for (var i = 0; i < listadoReporte.length; i++) {
+
+        loadingStart();
+        $CapturaArmado.Armado.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = JSON.parse(data);
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
+            loadingStop();
+        });
+    }
+}
