@@ -176,9 +176,6 @@ function RenderGridDetalle(container, options) {
                     e.preventDefault();
 
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
-
-
                     if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
 
                         var dataSource = this.dataSource;

@@ -44,7 +44,7 @@
           var data = query.filter(filters).data;
 
 
-          actuallongitudTrabajosAdicionales = data.length;;
+          actuallongitudTrabajosAdicionales = data.length;
           options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
           if (ItemSeleccionado.JuntaArmadoID != 0)
               ItemSeleccionado.Accion = 2;
@@ -63,14 +63,27 @@
                click: function (e) {
                    e.preventDefault();
                    dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                   if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-                       if (dataItem.JuntaSoldaduraID == 0)
-                           dataSource.remove(dataItem);
 
-                       dataItem.Accion = 3;
-                       options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-                   }
-                   this.dataSource.sync();
+                   var dataSource = this.dataSource;
+                   $.when(showConfirmationWindow(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaTrabajoAdicional[$("#language").data("kendoDropDownList").value()])).then(function (confirmed) {
+                       if (confirmed) {
+
+                           if (dataItem.JuntaSoldaduraID == 0)
+                               dataSource.remove(dataItem);
+
+                           dataItem.Accion = 3;
+
+                           var filters = dataSource.filter();
+                           var allData = dataSource.data();
+                           var query = new kendo.data.Query(allData);
+                           var data = query.filter(filters).data;
+
+                           actuallongitudTrabajosAdicionales = data.length;
+                           options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+                       }
+                       dataSource.sync();
+                   });
+                   dataSource.sync();
                }
            }, width: "100px"
        }],
@@ -126,7 +139,7 @@ function RenderGridRelleno(container, options) {
           var data = query.filter(filters).data;
 
 
-          longitudSoldadoresRelleno = data.length;;
+          longitudSoldadoresRelleno = data.length;
           options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
           if (ItemSeleccionado.JuntaArmadoID != 0)
               ItemSeleccionado.Accion = 2;
@@ -142,15 +155,28 @@ function RenderGridRelleno(container, options) {
                click: function (e) {
                    e.preventDefault();
                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                   if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-                       if (dataItem.JuntaSoldaduraID == 0)
-                           dataSource.remove(dataItem);
-                       dataItem.Accion = 3;
-                       options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
-                   }
-                   this.dataSource.sync();
+                   var dataSource = this.dataSource;
+                   $.when(showConfirmationWindow(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaProceso[$("#language").data("kendoDropDownList").value()])).then(function (confirmed) {
+                       if (confirmed) {
+
+                           if (dataItem.JuntaSoldaduraID == 0)
+                               dataSource.remove(dataItem);
+                           dataItem.Accion = 3;
+
+                           var filters = dataSource.filter();
+                           var allData = dataSource.data();
+                           var query = new kendo.data.Query(allData);
+                           var data = query.filter(filters).data;
+
+                           longitudSoldadoresRelleno = data.length;
+                           options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+                       }
+                       dataSource.sync();
+                   });
+                   
                }
-           }, width: "90px"
+           },
+           width: "90px"
        }],
       editable: true,
       navigatable: true,
@@ -219,13 +245,24 @@ function RenderGridRaiz(container, options) {
                click: function (e) {
                    e.preventDefault();
                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                   if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-                       if (dataItem.JuntaSoldaduraID == 0)
-                           dataSource.remove(dataItem);
-                       dataItem.Accion = 3;
-                       options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-                   }
-                   this.dataSource.sync();
+                   var dataSource = this.dataSource;
+                   $.when(showConfirmationWindow(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaProceso[$("#language").data("kendoDropDownList").value()])).then(function (confirmed) {
+                       if (confirmed) {
+
+                           if (dataItem.JuntaSoldaduraID == 0)
+                               dataSource.remove(dataItem);
+                           dataItem.Accion = 3;
+
+                           var filters = dataSource.filter();
+                           var allData = dataSource.data();
+                           var query = new kendo.data.Query(allData);
+                           var data = query.filter(filters).data;
+
+                           longitudSoldadoresRaiz = data.length;
+                           options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+                       }
+                       dataSource.sync();
+                   });
                }
            }, width: "60px"
        }],

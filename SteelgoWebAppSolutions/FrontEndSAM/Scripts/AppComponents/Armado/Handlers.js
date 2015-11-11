@@ -8,7 +8,8 @@
     SuscribirEventoTaller();
     SuscribeEventosTipoCaptura();
     suscribirEventoChangeRadio();
-
+    suscribirEventoChangeRadioTipoListado();
+    SuscribirEventoMuestraJunta();
 };
 
 function SuscribeEventosTipoCaptura() {
@@ -25,12 +26,12 @@ function SuscribeEventosTipoCaptura() {
 }
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        if ($("#InputID").data("kendoComboBox").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
+        if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
             AjaxJunta($("#InputID").val());
         }
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        if ($("#InputID").data("kendoComboBox").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
+        if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").data("kendoComboBox").val()) {
             AjaxJunta($("#InputID").val());
         }
     });
@@ -53,12 +54,10 @@ function suscribirEventoGuardar() {
 }
 
 function opcionHabilitarRadioTipoCaptura(valor) {
+    var combobox = $("#InputID").data("kendoComboBox");
     if (valor) {
-        document.getElementsByTagName("fieldset")[0].removeAttribute("disabled");
     }
     else {
-        document.getElementsByTagName("fieldset")[0].setAttribute("disabled", "");
-        $('tipoCapturaCamp').attr('disabled', '');
     }
 }
 
@@ -279,6 +278,11 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 40)
             $("#InputID").data("kendoComboBox").select();
+        else if (e.keyCode == 13) {
+            if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+                AjaxCargarReporteJuntas();
+            }
+        }
     });
 
 };
@@ -295,3 +299,40 @@ function SuscribirEventoEliminar(idtable) {
         });
     });
 };
+
+
+function eventoCambioTipoListado() {
+
+    if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+        $("#JuntaDiv").css('display', 'none');
+        $("#MuestraDiv").css('display', 'none');
+        AjaxCargarCamposPredeterminadosOcultaJunta();
+    }
+    else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+        $("#JuntaDiv").css('display', 'block');
+        $("#MuestraDiv").css('display', 'block');
+    }
+}
+
+function suscribirEventoChangeRadioTipoListado() {
+
+    $('input:radio[name=TipoAgregado]:nth(0)').change(function () {
+        eventoCambioTipoListado();
+    });
+    $('input:radio[name=TipoAgregado]:nth(1)').change(function () {
+        eventoCambioTipoListado();
+    });
+}
+
+
+function SuscribirEventoMuestraJunta() {
+
+    if ($('input:radio[name=TipoAgregado]').val() == "Reporte") {
+        $("#JuntaDiv").hide();
+        $("#MuestraDiv").hide();
+    }
+    else if ($('input:radio[name=TipoAgregado]').val() == "Listado") {
+        $("#JuntaDiv").show();
+        $("#MuestraDiv").show();
+    }
+}
