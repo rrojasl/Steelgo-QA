@@ -390,6 +390,7 @@
     };
 
     function GuardarItemCode() {
+        loadingStart();
         ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
         ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
@@ -409,6 +410,7 @@
             if (Error(data)) {
                 cerrarVentanaModal();
             };
+            loadingStop();
         });
 
     };
