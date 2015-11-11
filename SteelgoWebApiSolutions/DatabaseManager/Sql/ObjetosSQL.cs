@@ -14,7 +14,7 @@ namespace DatabaseManager.Sam3
         /// <returns></returns>
         protected SqlConnection Coneccion()
         {
-            return new SqlConnection("Data Source=MAFTEC_05\\SQLEXPRESS;Initial Catalog=steelgo-sam3;User ID=sa;Password=maftec05;password=maftec05;");
+            return new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString);
         }
         /// <summary>
         /// Retorna un DatatTable con la información de BD

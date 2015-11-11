@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces
                     }
                     if (listaTrabajosAdicionalesSoldadura.Count == 0)
                     {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null).ToList();
+                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null,null).ToList();
 
                         foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                         {
@@ -170,7 +170,7 @@ namespace BackEndSAM.DataAcces
 
                     if (listaTrabajosAdicionalesSoldadura.Count == 0)
                     {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null).ToList();
+                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null,null).ToList();
                         foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                         {
                             listaTrabajosAdicionalesSoldadura.Add(new Relleno
@@ -207,7 +207,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null).ToList();
+                    List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null,null).ToList();
                     foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                     {
                         listaTrabajosAdicionalesSoldadura.Add(new ObreroSoldador

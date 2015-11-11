@@ -3686,7 +3686,19 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "botonGuardar3": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar4": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "botonGuardarYNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "botonGuardarYNuevo1": {
         "es-MX": "Guardar y Nuevo",
         "en-US": "Save and New"
     },
@@ -3694,6 +3706,19 @@ _dictionary = {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
+    "botonAplicar": {
+        "es-MX": "Aplicar",
+        "en-US": "Apply"
+    },
+    "MensajeRequisicion": {
+        "es-MX": "Requisicion",
+        "en-US": "Requisicion"
+    },
+    "MensajeRequisicion1": {
+        "es-MX": "Requisicion",
+        "en-US": "Requisicion"
+    },
+
     "FormatoFecha": {
         "es-MX": "{0: dd/MM/yyyy}",
         "en-US": "{0: MM/dd/yyyy}"
@@ -3729,6 +3754,14 @@ _dictionary = {
     "CapturaLlenadoMasivoVacios": {
         "es-MX": "Vacios",
         "en-US": "Empty"
+    },
+    "MensajeAcciones": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "botonCancelar1": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -4370,7 +4403,7 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
-  
+
 
     //#endregion
 
@@ -4473,7 +4506,7 @@ _dictionary = {
         "es-MX": "¿Está seguro de cancelar el Trabajo adicional de la captura de soldadura?",
         "en-US": "Are you sure you want to cancel the additional work of the capture of welding ?"
     },
-    
+
     "CapturaSoldaduraPreguntaBorradoCapturaProceso": {
         "es-MX": "¿Está seguro de cancelar el proceso de la captura de soldadura?",
         "en-US": "Are you sure you want to cancel the process of the capture of welding ?"
@@ -4482,6 +4515,34 @@ _dictionary = {
     "CapturaSoldaduraAgregarPlanchado": {
         "es-MX": "Aplicar",
         "en-US": "Apply"
+    },
+    "CapturaSoldaduraGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "CapturaSoldaduraGuardar1": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "CapturaSoldaduraCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "cancel"
+    },
+    "CapturaSoldaduraGuardarNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "CapturaSoldaduraAcciones": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "CapturaSoldaduraInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
+    "CapturaSoldaduraInspeccion1": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
     },
     //#endregion
 
