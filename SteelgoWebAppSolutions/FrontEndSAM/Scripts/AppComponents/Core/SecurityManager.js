@@ -48,7 +48,7 @@ function applySecurityPolicy(loadMenu) {
                 generateSideMenuDOMElements(0, 0, $(".main-menu"));
 
                 //Validate if i have access to this page
-                if (!$MenuData[$currentUrl.split("?")[0].replace("/", "").toLowerCase()] && !window.opener && $errorURI.split("?")[0].replace("/", "").toLowerCase() != $currentUrl.split("?")[0].split("?")[0].replace("/", "").toLowerCase()) {
+                if (!$MenuData[$currentUrl.split("?")[0].replace("/", "").replace("\"", "").replace("\"", "").replace("\n", "").replace("\r", "").toLowerCase()] && !window.opener && $errorURI.split("?")[0].replace("/", "").replace("\"", "").replace("\"", "").replace("\n", "").replace("\r", "").toLowerCase() != $currentUrl.split("?")[0].split("?")[0].replace("/", "").replace("\"", "").replace("\"", "").replace("\n", "").replace("\r", "").toLowerCase()) {
                     document.location.href = $errorURI;
                 }
 

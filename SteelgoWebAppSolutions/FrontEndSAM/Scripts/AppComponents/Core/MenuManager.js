@@ -339,7 +339,7 @@ function generateSideMenu(data) {
         for (key in data.layout.navigation[0].elements) {
             var element = data.layout.navigation[0].elements[key];
 
-            $MenuData[element.liga.split("?")[0].replace("/", "").toLowerCase()] = 1;
+            $MenuData[element.liga.split("?")[0].replace("/", "").replace("\"", "").replace("\"", "").replace("\n", "").replace("\r", "").toLowerCase()] = 1;
 
             if ($sideMenuLayout[element.nivel] == undefined) {
                 $sideMenuLayout[element.nivel] = {};
