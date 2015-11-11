@@ -2,7 +2,9 @@
 function ObtenerListadoProcesoSoldaduraPopUpAjax() {
    
     $PQR.PQR.read({ TipoDato: 1, ConsultaProcesoSoldadura: 0, token: Cookies.get("token") }).done(function (data) {
-        $("#ProcesoSoldaduraID").data("kendoComboBox").dataSource.data(data);
+        
+        $("#ProcesoSoldaduraRellenoID").data("kendoComboBox").dataSource.data(data);
+        $("#ProcesoSoldaduraRaizID").data("kendoComboBox").dataSource.data(data);
     });
 
 };
@@ -20,8 +22,11 @@ function ObtenerListadoNumeroPPopUpAjax()
 
 function ObtenerListadoGrupoPPPopUpAjax() {
 
-    $PQR.PQR.read({ ConsultaGrupoP:"GrupoPID", TipoDato:1, token: Cookies.get("token") }).done(function (data) {
-        $("#GrupoPID").data("kendoComboBox").dataSource.data(data);
+    
+    $PQR.PQR.read({ ConsultaGrupoP: "GrupoPID", TipoDato: 1, token: Cookies.get("token") }).done(function (data) {
+        console.log(data);
+        $("#GrupoPMaterialBase1ID").data("kendoComboBox").dataSource.data(data);
+        $("#GrupoPMaterialBase2ID").data("kendoComboBox").dataSource.data(data);
     });
 
 };
@@ -61,6 +66,40 @@ function ObtenerListadoGrupoFPopUpAjax() {
 
     $PQR.PQR.read({ token: Cookies.get("token"), TipoDato:1, var1:"1", var2:"2" }).done(function (data) {
         $("#GrupoFID").data("kendoComboBox").dataSource.data(data);
+    });
+};
+
+
+function ObtenerListadoCodigoPopUpAjax() {
+
+    $PQR.PQR.read({ token: Cookies.get("token"), TipoDato: 1, var1: "1", var2: "2", var3: "3" }).done(function (data) {
+        $("#CodigoID").data("kendoComboBox").dataSource.data(data);
+    });
+
+};
+
+
+
+function agregarPQR(PQRModal) {
+    console.log("LLEGO AL AJAX");
+
+    console.log(PQRModal);
+
+    $PQR.PQR.create(PQRModal, { token: Cookies.get("token") }).done(function (data) {
+        loadingStart();
+        LlenarGridPQR();
+        $("#windowPQR").data("kendoWindow").close();
+        loadingStop();
+    });
+
+};
+
+function EditaPQR(PQRModal) {
+    $PQR.PQR.update(PQRModal, { token: Cookies.get("token") }).done(function (data) {
+        loadingStart();
+        LlenarGridPQR();
+        $("#windowPQR").data("kendoWindow").close();
+        loadingStop();
     });
 
 };

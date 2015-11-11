@@ -44,28 +44,39 @@ namespace BackEndSAM.DataAcces
             using (SamContext ctx = new SamContext())
             {
 
-                List<PQR> data = (from pqr in ctx.Sam3_Soldadura_PQR(TipoDato, null, null, null, null, null, null, null, null, null, null, null, null, null)
+                List<PQR> data = (from pqr in ctx.Sam3_Soldadura_PQR(TipoDato, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
                                   select new PQR
                                   {
                                       PQRID = Convert.ToString(pqr.PQRID),
                                       Nombre = pqr.Nombre,
                                       PREHEAT = pqr.PREHEAT,
                                       PWHT = pqr.PWHT,
-                                      Espesor = Convert.ToString(pqr.Espesor),
-                                      Codigo = pqr.Codigo,
+                                      EspesorRelleno = Convert.ToString(pqr.EspesorRelleno),
+                                      EspesorRaiz = Convert.ToString(pqr.EspesorRaiz),
+                                     CodigoRelleno = pqr.CodigoRelleno,
+                                     CodigoRaiz = pqr.CodigoRaiz,
                                       NumeroP = pqr.NumeroP,
-                                      GrupoP = pqr.GrupoP,
+                                     GrupoMaterialBase1 = pqr.GrupoMaterialBase1,
+                                     GrupoMaterialBase2 = pqr.GrupoMaterialBase2,
                                       Aporte = pqr.Aporte,
                                       Mezcla = pqr.Mezcla,
                                       Respaldo = pqr.Respaldo,
                                       GrupoF = pqr.GrupoF,
-                                      ProcesoSoldaduraID = pqr.ProcesoSoldaduraID,
+                                      Codigo = pqr.Codigo,
+
+
+                                      ProcesoSoldaduraRellenoID = pqr.ProcesoSoldaduraRellenoID,
+                                     ProcesoSoldaduraRaizID =Convert.ToInt32(pqr.ProcesoSoldaduraRaizID),
                                       NumeroPID = Convert.ToInt32(pqr.NumeroPID),
-                                      GrupoPID = Convert.ToInt32(pqr.GrupoPID),
+                                      GrupoMaterialBase1PID = Convert.ToInt32(pqr.GrupoMaterialBase1PID),
+                                      GrupoMaterialBase2PID = Convert.ToInt32(pqr.GrupoMaterialBase2PID),
                                       AporteID = Convert.ToInt32(pqr.AporteID),
                                       MezclaID = Convert.ToInt32(pqr.MezclaID),
                                       RespaldoID = Convert.ToInt32(pqr.RespaldoID),
                                       GrupoFID = Convert.ToInt32(pqr.GrupoFID),
+                                      CodigoID = Convert.ToInt32(pqr.CodigoID)
+                                     
+
 
                                   }).AsParallel().ToList();
                 return data;
@@ -107,8 +118,8 @@ namespace BackEndSAM.DataAcces
                 List<PQR> data = (from pqr in ctx.Sam3_Cat_PQR_ProcesoSoldadura(TipoDato)
                                   select new PQR
                                   {
-                                      ProcesoSoldaduraID = pqr.ProcesoSoldaduraID,
-                                      Codigo = pqr.Codigo,
+                                      ProcesoSoldaduraRellenoID = pqr.ProcesoSoldaduraID,
+                                      CodigoRelleno = pqr.Codigo,
 
                                   }).AsParallel().ToList();
                 return data;
@@ -128,8 +139,8 @@ namespace BackEndSAM.DataAcces
                 List<PQR> data = (from pqr in ctx.Sam3_Cat_PQR_GrupoP(TipoDato, null, null, null)
                                   select new PQR
                                   {
-                                      GrupoPID = pqr.GrupoPID,
-                                      GrupoP = pqr.GrupoP
+                                      GrupoMaterialBase1 = pqr.GrupoP,
+                                      GrupoMaterialBase1PID = pqr.GrupoPID
 
                                   }).AsParallel().ToList();
                 return data;
@@ -228,13 +239,40 @@ namespace BackEndSAM.DataAcces
         }
 
 
+
+        public object ObtenerCodigo(int TipoDato)
+        {
+
+            using (SamContext ctx = new SamContext())
+            {
+
+                List<PQR> data = (from pqr in ctx.Sam3_Cat_PQR_Codigo(TipoDato, null, null, null)
+                                  select new PQR
+                                  {
+                                      CodigoID = pqr.CodigoID,
+                                      Codigo = pqr.Codigo
+
+                                  }).AsParallel().ToList();
+                return data;
+            }
+
+
+
+
+        }
+
+
+
+
+
+
         public object EliminaPQR(int TipoDeDato, int PQRID, int IdUsuario)
         {
 
             using (SamContext ctx = new SamContext())
             {
 
-                var lista = ctx.Sam3_Soldadura_PQR(TipoDeDato, PQRID, null, null, null, null, null, null, null, null, null, null, null, IdUsuario);
+                var lista = ctx.Sam3_Soldadura_PQR(TipoDeDato, PQRID, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, IdUsuario);
                 return lista;
 
             }
@@ -253,7 +291,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Soldadura_PQR(3, pqr.PQRID, pqr.Nombre, pqr.PREHEAT, pqr.PWHT, pqr.Espesor, pqr.ProcesoSoldaduraID, pqr.NumeroP, pqr.GrupoP, pqr.Aporte, pqr.Mezcla, pqr.Respaldo, pqr.GrupoF, usuario.UsuarioID);
+                    ctx.Sam3_Soldadura_PQR(3, pqr.PQRID, pqr.Nombre, pqr.PREHEAT, pqr.PWHT, pqr.EspesorRaiz, pqr.EspesorRelleno,  pqr.ProcesoSoldaduraRellenoID, pqr.ProcesoSoldaduraRaizID, pqr.NumeroP, pqr.GrupoPMaterialBase1, pqr.GrupoPMaterialBase2, pqr.Aporte, pqr.Mezcla, pqr.Respaldo, pqr.GrupoF, pqr.Codigo, usuario.UsuarioID);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
                     result.ReturnCode = 200;
@@ -285,7 +323,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Soldadura_PQR(2, null, Addpqr.Nombre, Addpqr.PREHEAT, Addpqr.PWHT, Addpqr.Espesor, Addpqr.ProcesoSoldaduraID, Addpqr.NumeroP, Addpqr.GrupoP, Addpqr.Aporte, Addpqr.Mezcla, Addpqr.Respaldo, Addpqr.GrupoF, usuario.UsuarioID);
+                    ctx.Sam3_Soldadura_PQR(2, null, Addpqr.Nombre, Addpqr.PREHEAT, Addpqr.PWHT, Addpqr.EspesorRaiz, Addpqr.EspesorRelleno,  Addpqr.ProcesoSoldaduraRellenoID, Addpqr.ProcesoSoldaduraRaizID, Addpqr.NumeroP, Addpqr.GrupoPMaterialBase1, Addpqr.GrupoPMaterialBase2, Addpqr.Aporte, Addpqr.Mezcla, Addpqr.Respaldo, Addpqr.GrupoF, Addpqr.Codigo, usuario.UsuarioID);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
                     result.ReturnCode = 200;
@@ -315,34 +353,34 @@ namespace BackEndSAM.DataAcces
 
 
 
-        public object ValidarExistePQR(int PQRID,  string nombre)
+        public object ValidarExistePQR(int PQRID, string nombre)
         {
 
             try
             {
                 using (SamContext ctx = new SamContext())
+                {
+                    ObjectParameter op = new ObjectParameter("Retorna", typeof(string));
+                    op.Value = null;
+                    var oMyString = new ObjectParameter("Retorna", typeof(string));
+                    var res = ctx.Sam3_Soldadura_PQR_Existe(nombre, oMyString, PQRID);
+                    var data = oMyString.Value.ToString();
+                    TransactionalInformation result = new TransactionalInformation();
+                    if (data.Equals("ok"))
                     {
-                        ObjectParameter op = new ObjectParameter("Retorna", typeof(string));
-                        op.Value = null;
-                        var oMyString = new ObjectParameter("Retorna", typeof(string));
-                        var res = ctx.Sam3_Soldadura_PQR_Existe(nombre, oMyString, PQRID);
-                        var data = oMyString.Value.ToString();
-                        TransactionalInformation result = new TransactionalInformation();
-                        if (data.Equals("ok"))
-                        {
-                            result.ReturnMessage.Add("OK");
-                        }
-                        else
-                        {
-                            result.ReturnMessage.Add("Error");
-                        }
-
-                        result.ReturnCode = 200;
-                        result.ReturnStatus = true;
-                        result.IsAuthenicated = true;
-
-                        return result;
+                        result.ReturnMessage.Add("OK");
                     }
+                    else
+                    {
+                        result.ReturnMessage.Add("Error");
+                    }
+
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
             }
             catch (Exception ex)
             {
@@ -357,5 +395,39 @@ namespace BackEndSAM.DataAcces
 
         }
 
+
+        public object ObtenerListadoPQRActivos(int TipoAccion)
+        {
+
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<PQR> data = (from pqr in ctx.Sam3_Soldadura_PQR(TipoAccion, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+                                      select new PQR
+                                      {
+                                          PQRID = Convert.ToString(pqr.PQRID),
+                                          Nombre = pqr.Nombre
+
+                                      }).AsParallel().ToList();
+                    return data;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation lista = new TransactionalInformation();
+                lista.ReturnMessage.Add(ex.Message);
+                lista.ReturnCode = 500;
+                lista.ReturnStatus = false;
+                lista.IsAuthenicated = true;
+
+                return lista;
+            }
+        }
+
     }
+
 }
