@@ -508,6 +508,7 @@
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
             };
@@ -515,6 +516,9 @@
         });
     };
 
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "43", { path: '/' });
+    }
     function ArregloListado(accion) {
         var Listado;
         Listado = { ProyectoID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "" };
@@ -592,7 +596,7 @@
     @section JavascriptDocumentReadyHomeCookie 
     {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "38", { path: '/' });
+    Cookies.set("navegacion", "43", { path: '/' });
     }
 
 </script>

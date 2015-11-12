@@ -624,8 +624,9 @@
                             $("#grid").data("kendoGrid").dataSource.page(0);
                             //console.log("bindear empty fin");
                         };
-                       CantidadesDelMenuDashboard();
-                       applySecurityPolicy(false);
+                        CantidadesDelMenuDashboard();
+                        AsignarPaginaActualCookie();
+                        applySecurityPolicy(false);
                     };
                 };
                 
@@ -633,6 +634,10 @@
                 //console.log("AccionesListado fin");
             });
         };
+
+        function AsignarPaginaActualCookie() {
+            Cookies.set("navegacion", "3", { path: '/' });
+        }
 
         //Se envia la accion a la funcion de acconeslistado donde se forma el objeto con todos los filtros
         //Funcion: Filtros

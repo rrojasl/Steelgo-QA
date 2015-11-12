@@ -728,9 +728,14 @@
                     $.each(data.Documentos, function (index, value) {
                         $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + (value.Descripcion ? value.Descripcion : "") + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
             });
         };
+
+        function AsignarPaginaActualCookie() {
+            Cookies.set("navegacion", "7", { path: '/' });
+        }
 
         function ObtenerFoliosAvisoLlegada() {// MODIFICAR EL TIPO DE LISTADA, necesito obtener los folios que no tengan pase de salida
             $folioEntradaMaterial.Listado.read({ tipoListado: 5, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
@@ -1134,6 +1139,7 @@
             }
 
             HabilitarObtenerDocumentosLlegadaMaterial();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         };
         
@@ -1151,6 +1157,7 @@
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
             $(".k-upload-selected").attr("disabled", "disabled")
             DesahabilitarObtenerDocumentosLlegadaMaterial();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         };
         

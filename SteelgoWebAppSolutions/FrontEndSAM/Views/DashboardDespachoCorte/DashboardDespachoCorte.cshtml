@@ -531,9 +531,14 @@
                     $("#gridTubos").data("kendoGrid").dataSource.data([]);
                     $("#gridTubos").data("kendoGrid").dataSource.page(0);
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             };
         };
+
+        function AsignarPaginaActualCookie() {
+            Cookies.set("navegacion", "28", { path: '/' });
+        }
 
         function CargaDatosGridAccesorios() {
             if ($("#gridAccesorios").data("kendoGrid")) {
@@ -544,6 +549,7 @@
                     $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
                     $("#gridAccesorios").data("kendoGrid").dataSource.page(0);
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             };
         };

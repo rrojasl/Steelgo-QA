@@ -335,6 +335,7 @@
     Cookies.set("navegacion", "38", { path: '/' });
     }
 
+    
     @section JavascriptGlobalVariables {
     var Clasificacion = {}, TipoIncidencia = {},
         FechaRegistro, FechaResolucion,
@@ -1031,12 +1032,15 @@
                     $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                 });
 
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             };
             loadingStop();
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "38", { path: '/' });
+    }
     function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion, referenciaID) {
         loadingStart();
         $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
@@ -1052,15 +1056,19 @@
         if (referenciaID != "-1") {
             $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
-                    $("#Registro").data("kendoAutoComplete").value(data[0].value);
-                    $("#Registro").data("kendoAutoComplete").enable(false);
-                    CargarRegistro(data[0].id);
+                    if(data.length){
+                        $("#Registro").data("kendoAutoComplete").value(data[0].value);
+                        $("#Registro").data("kendoAutoComplete").enable(false);
+                        CargarRegistro(data[0].id);
+                    }
                 }
                 loadingStop();
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             });
         } else {
             loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         };
     };

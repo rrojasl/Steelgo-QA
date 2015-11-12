@@ -352,11 +352,16 @@
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
                 FiltrarDatos();
             }
             loadingStop();
         });
+    };
+
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "49", { path: '/' });
     };
 
     function FiltrarDatos() {

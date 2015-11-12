@@ -361,13 +361,16 @@
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
             loadingStop();
         });
 
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "24", { path: '/' });
+    }
       
     function ObtenerDiametros() {
         loadingStart();

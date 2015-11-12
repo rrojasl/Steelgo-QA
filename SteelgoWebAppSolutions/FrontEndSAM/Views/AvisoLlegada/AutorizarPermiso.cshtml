@@ -407,10 +407,13 @@
                 };
             }
             loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "8", { path: '/' });
+    }
     function DesahabilitarObtenerDocumentosPermisoAduana() {
         var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
@@ -427,6 +430,7 @@
                 };
             }
             loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
     };

@@ -1377,9 +1377,14 @@
                 }
                 AccionesAltaGuardadoParcial(null);
                 CambiarEstatus("En Proceso de Recepción");
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             };
         };
+
+        function AsignarPaginaActualCookie() {
+            Cookies.set("navegacion", "20", { path: '/' });
+        }
 
         function AccionesAltaGuardadoParcial(data) {
             cargarGridcompletos(data);

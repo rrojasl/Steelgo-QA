@@ -363,6 +363,7 @@
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
                     CantidadesDelMenuDashboard();
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
             };
@@ -370,7 +371,9 @@
             loadingStop();
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "6", { path: '/' });
+    }
     function Filtros() {
         var Listado;
         var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;

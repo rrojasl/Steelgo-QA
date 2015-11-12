@@ -1175,14 +1175,20 @@
                             $("#AutorizarPermisoDiv").hide();
                             ObtenerPatioRequierePermiso();
                         } else {
+                            AsignarPaginaActualCookie();
                             applySecurityPolicy(false);
                         };
                     } else {
+                        AsignarPaginaActualCookie();
                         applySecurityPolicy(false);
                     };
                     loadingStop();
                 });
             };
+            function AsignarPaginaActualCookie() {
+                Cookies.set("navegacion", "4", { path: '/' });
+            }
+
             function CargarProyecto(id) {
                 Proyecto = {};
                 Proyecto = { ProyectoID: id };
@@ -1468,6 +1474,7 @@
                         Chofer = [];
                         $("#ChoferID").data("kendoComboBox").dataSource.data([]);
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 });
             };
@@ -1524,6 +1531,7 @@
                         $("#TramitarPermiso").attr('disabled', 'disabled');
                         $("#AutorizarPermiso").attr('disabled', 'disabled');
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 });
             };
@@ -1680,6 +1688,7 @@
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+    AsignarPaginaActualCookie();
     applySecurityPolicy(false);
 
     }

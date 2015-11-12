@@ -499,13 +499,16 @@
                 } else {
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
             loadingStop();
         });
       
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "16", { path: '/' });
+    }
     function AgregarActualizarNodoPrincipal(value, checkbox) {
         //Se checa si existe en memoria para actualizar el valor del checkbox
         var boolexiste = false;
