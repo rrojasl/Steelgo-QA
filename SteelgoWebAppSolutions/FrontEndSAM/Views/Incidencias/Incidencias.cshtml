@@ -434,9 +434,9 @@
     };
     var $RespuestaModel = {
         listContainer: {
-            create: ".guardarSecurity",
+            create: "",
             list: "#listaArchivosResponderDiv",
-            detail: "#Editar",
+            detail: "",
             destroy: "",
             solutionincidence: ""
         },
@@ -476,9 +476,9 @@
 
     var $ResolucionModel = {
         listContainer: {
-            create: ".guardarSecurity",
+            create: "",
             list: "#listaArchivosResolverDiv",
-            detail: "#Editar",
+            detail: "",
             destroy: "",
             solutionincidence: ""
         },
@@ -518,9 +518,9 @@
 
     var $CancelarModel = {
         listContainer: {
-            create: ".guardarSecurity",
+            create: "",
             list: "#listaArchivosCancelarDiv",
-            detail: "#Editar",
+            detail: "",
             destroy: ".cancelar",
             solutionincidence: ""
         },
@@ -908,6 +908,7 @@
             filter: "contains",
         });
         ObtenerUsuarios("RegistradoPor");
+        ObtenerUsuarioActual("RegistradoPor");
 
         $("#ResueltoPor").kendoComboBox({
             dataTextField: "value",
@@ -927,6 +928,7 @@
             filter: "contains",
         });
         ObtenerUsuarios("ResueltoPor");
+        ObtenerUsuarioActual("ResueltoPor");
 
         $("#RespondidoPor").kendoComboBox({
             dataTextField: "value",
@@ -946,11 +948,15 @@
             filter: "contains",
         });
         ObtenerUsuarios("RespondidoPor");
+        ObtenerUsuarioActual("RespondidoPor");
 
         if (_Edicion == "-1") {
             $("#Clasificacion").data("kendoComboBox").value(1);//default materiales 
             CargarClasificacion(1, "");
         };
+
+        ObtenerFechaDefault();
+        
     };
 
     function CargaInicialEdicion(id) {
@@ -989,13 +995,23 @@
                 $("#MotivoCancelacion").val(data.MotivoCancelacion);
                 $("#DetalleResolucion").val(data.DetalleResolucion);
 
-                $("#RegistradoPor").data("kendoComboBox").value(data.RegistradoPor)
-                $("#ResueltoPor").data("kendoComboBox").value(data.ResueltoPor)
-                $("#RespondidoPor").data("kendoComboBox").value(data.RespondidoPor)
+                if (data.RegistradoPor)
+                {
+                    $("#RegistradoPor").data("kendoComboBox").value(data.RegistradoPor)
+                    CargarRegistradoPor(data.RegistradoPor);
+                }
 
-                CargarRegistradoPor(data.RegistradoPor);
-                CargarResueltoPor(data.ResueltoPor)
-                CargarRespondidoPor(data.RespondidoPor);
+                if (data.ResueltoPor)
+                {
+                    $("#ResueltoPor").data("kendoComboBox").value(data.ResueltoPor)
+                    CargarResueltoPor(data.ResueltoPor)
+                }
+
+                if (data.RespondidoPor)
+                {
+                    $("#RespondidoPor").data("kendoComboBox").value(data.RespondidoPor)
+                    CargarRespondidoPor(data.RespondidoPor);
+                }
 
                 if (data.FechaRegistro) {
                     var splitYear = data.FechaRegistro.split("-")[0];
@@ -1136,6 +1152,34 @@
             ControlErroresObjetosComboBox(control, result);
         });
     };
+
+    function ObtenerUsuarioActual(control) {
+        console.log(control);
+        if (Cookies.get("user") != null) {
+            $("#" + control).data("kendoComboBox").value(Cookies.get("nameUserLogged"));
+        }
+    }
+
+    function ObtenerFechaDefault() {
+        var today = new Date();
+        var curr_date = today.getDate();
+        var curr_month = today.getMonth() + 1; //Months are zero based
+        var curr_year = today.getFullYear();
+
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        };
+
+        var fecha = new Date(curr_year, curr_month - 1, curr_date);
+        var fechakendo = kendo.parseDate(fecha, format);
+
+        $("#FechaRegistro").data("kendoDatePicker").value(fechakendo);
+        $("#FechaResolucion").data("kendoDatePicker").value(fechakendo);
+        $("#FechaRespuesta").data("kendoDatePicker").value(fechakendo);
+    };
+
     function limpiarRegistro() {
         Registro = {};
     };
