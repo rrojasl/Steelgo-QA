@@ -5663,6 +5663,10 @@ _dictionary = {
         "es-MX": "Editar Respuesta",
         "en-US": "Edit Response"
     },
+    "Incidencias0062": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",

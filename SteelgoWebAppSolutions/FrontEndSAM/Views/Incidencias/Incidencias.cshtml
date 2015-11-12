@@ -49,9 +49,20 @@
                                 <div id="cancelarIncidenciaDiv" class="button-section cancelar hidden">
                                     <a id="CancelarIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0011"></span></a>
                                 </div>
-                                <a id="Cancelar" href="#" class="btn btn-black hidden"><span id="Incidencias0027"></span></a>
+                                <a id="Cancelar" href="#" class="btn btn-black"><span id="Incidencias0027"></span></a>
                         </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                        <div class="button-section actionButtonSection">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="LlegadaMaterial0040"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="RedirectDashboard"><span id="Incidencias0062"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
                     </div>
                 </div>
             </div>
@@ -713,6 +724,11 @@
         $("#ResolverIncidencia").click(function () { ResolverIncidencia(); });
         $("#CancelarIncidencia").click(function () { CancelarIncidencia(); });
         $("#ResponderIncidencia").click(function () { ResponderIncidencia(); });
+
+        $("#RedirectDashboard").click(function (e) {
+            var detalleIdeaUrl = "@Url.Action("ListadoIncidencias", "Incidencias")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
 
         FechaRegistro = new kendo.ui.DatePicker($("#FechaRegistro"));
         FechaResolucion = new kendo.ui.DatePicker($("#FechaResolucion"));
