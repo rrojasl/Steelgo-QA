@@ -180,6 +180,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+            var isOpen=false;
             var fromButton=false;
             var Proyecto = {}, Cuantificacion = {}, FolioAvisoEntrada = {}, TipoPackingList = {}, TipoUso = {}, resultadoJson,
             itemCodesJson, itemCodesJsonSteelgo, lastEditedCellID = "", lastEditedCellIDSteelgo = "", lastEditedCellIDSColada,
@@ -1133,7 +1134,11 @@
                             var dataSource = grids.dataSource;
                             var total = dataSource.data().length;
                             //dataSource.insert(total, {});
-                            grids.addRow();
+                            if(!isOpen){
+                                grids.addRow();
+                            }else{
+                                isOpen=false;
+                            }
                         }
                         //find index of the td element
                         tdIndex = $(e.target).closest('td').index();
@@ -2693,7 +2698,10 @@
                                 cargarItemCodeAutocomplete(lastEditedCellID.ItemCodeID);
                             }
                         };
-                    }
+                    },
+                    open:function(e){
+                        isOpen=true;
+                    },
                 });
             lastEditedCellID = options.model;
         };
@@ -2741,7 +2749,10 @@
                             cargarItemCodeSteelgoAutocomplete(lastEditedCellIDSteelgo.ItemCodeSteelgoID);
                         };
                       
-                    }
+                    },
+                    open:function(e){
+                        isOpen=true;
+                    },
                 });
             lastEditedCellIDSteelgo = options.model;
         };
@@ -2783,6 +2794,9 @@
                             lastEditedCellIDSColada.Colada = value;
                         }
                         $('#grid').data('kendoGrid').refresh();
+                    },
+                    open:function(e){
+                        isOpen=true;
                     },
                     filter: "contains",
                 });
