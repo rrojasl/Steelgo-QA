@@ -54,7 +54,7 @@ namespace BackEndSAM.Controllers
                 string newToken = "";
                 string payload = "";
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                Boolean activarFolioConfiguracion = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
+                Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                 if (tokenValido)
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
