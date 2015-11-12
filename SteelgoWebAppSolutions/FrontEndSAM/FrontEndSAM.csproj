@@ -993,6 +993,7 @@
     <Compile Include="Controllers\PopUps\PopUpsController.cs" />
     <Compile Include="Controllers\PreDespacho\PreDespachoController.cs" />
     <Compile Include="Controllers\Prueba\PruebaController.cs" />
+    <Compile Include="Controllers\ConvertirSpoolAGranel\ConvertirSpoolAGranelController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1173,6 +1174,7 @@
     <Content Include="Views\Materiales\NotificacionDeficit.cshtml" />
     <Content Include="Views\Materiales\RevisionDeficit.cshtml" />
     <Content Include="Views\PreDespacho\PreDespacho.cshtml" />
+    <Content Include="Views\ConvertirSpoolAGranel\ConvertirSpoolAGranel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -147,6 +147,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\ConvertirSpoolAGranelController.cs" />
     <Compile Include="Controllers\CortadorController.cs" />
     <Compile Include="Controllers\CorteController.cs" />
     <Compile Include="Controllers\DespachoController.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="Models\Dummy\ItemCode.cs" />
     <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
+    <Compile Include="Models\ListadoConvertirSpoolAGranel.cs" />
     <Compile Include="Models\ListadoIncidencias.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />

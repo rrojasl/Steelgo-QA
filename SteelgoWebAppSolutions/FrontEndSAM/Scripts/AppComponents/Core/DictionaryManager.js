@@ -5793,6 +5793,43 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    //ConvertirSpoolAGranel
+    "ConvertirSpoolAGranel0001": {
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
+    },
+    "ConvertirSpoolAGranel0002": {
+        "es-MX": "Ingeniería",
+        "en-US": "engineering"
+    },
+    "ConvertirSpoolAGranel0003": {
+        "es-MX": "Convertir",
+        "en-US": "Convert"
+    },
+    "ConvertirSpoolAGranel0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ConvertirSpoolAGranel0005": {
+        "es-MX": "Convertir Spool a Granel",
+        "en-US": "Convert Spool to Bulk"
+    },
+    "ConvertirSpoolAGranel0006": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "ConvertirSpoolAGranel0007": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "ConvertirSpoolAGranel0008": {
+        "es-MX": "Tipo de Junta",
+        "en-US": "Joint Type"
+    },
+    "ConvertirSpoolAGranel0009": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
@@ -6149,6 +6186,10 @@ _dictionary = {
     "notificationslabel0089": {
         "es-MX": "No hay datos en el listado",
         "en-US": "There is not data in the list"
+    },
+    "notificationslabel0090": {
+        "es-MX": "No hay datos para guardar.",
+        "en-US": "No data to save."
     },
     //Default to copy
     "label9999": {
