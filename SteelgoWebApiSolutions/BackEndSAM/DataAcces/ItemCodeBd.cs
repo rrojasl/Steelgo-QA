@@ -138,8 +138,8 @@ namespace BackEndSAM.DataAcces
                                 //Inserta en Sam 2
                                 DatabaseManager.Sam2.ItemCode itemS2;
 
-                                decimal Diametro1 = string.IsNullOrEmpty(DatosItemCode.Diametro1.ToString()) ? 0 : Convert.ToInt32(DatosItemCode.Diametro1);
-                                decimal Diametro2 = string.IsNullOrEmpty(DatosItemCode.Diametro2.ToString()) ? 0 : Convert.ToInt32(DatosItemCode.Diametro2);
+                                decimal Diametro1 = string.IsNullOrEmpty(DatosItemCode.Diametro1.ToString()) ? 0 : Convert.ToDecimal(DatosItemCode.Diametro1);
+                                decimal Diametro2 = string.IsNullOrEmpty(DatosItemCode.Diametro2.ToString()) ? 0 : Convert.ToDecimal(DatosItemCode.Diametro2);
 
                                 if (!ctx2.ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode).Any())
                                 {
