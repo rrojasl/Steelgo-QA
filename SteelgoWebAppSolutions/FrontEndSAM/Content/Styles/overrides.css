@@ -763,6 +763,11 @@
     .k-tabstrip .k-content.k-state-active {
     }
 
+    .k-tabstrip .k-content .addedSection {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
 /**Widgets and inputs inside tabs**/
 .k-tabstrip .k-multiselect-wrap,
 .k-tabstrip .k-textbox > input, .k-tabstrip .k-autocomplete .k-input,
