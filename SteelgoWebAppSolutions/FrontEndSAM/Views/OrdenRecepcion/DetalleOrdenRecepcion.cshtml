@@ -297,6 +297,7 @@
                     model: {
                         fields: {
                             AvisoEntradaID: { type: "int" },
+                            FolioConfiguracion: { type: "string" }
                         }
                     }
                 },
@@ -316,7 +317,8 @@
             detailInit: detailInit,
             scrollable: false,
             columns: [
-                { field: "AvisoEntradaID", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()]},
+                { field: "AvisoEntradaID", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "FolioConfiguracion", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()] },
             ]
         }).getKendoGrid();
 

@@ -44,6 +44,7 @@ namespace BackEndSAM.Models
         public Nullable<DateTime> FechaInicioDescarga { get; set; }
         public Nullable<DateTime> FechaFinDescarga { get; set; }
         public string ComboEstatus { get; set; }
+        public string FolioConfiguracion { get; set; }
 
         public DetalleAvisoEntradaJson()
         {

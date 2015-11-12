@@ -65,6 +65,7 @@
                     <div class="row">
                         <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="clearfix">
+                                <input id="FolioConfiguracionID" class="quickFilters general-input" />
                                 <input id="FolioID" class="quickFilters general-input" />
                                 <input id="FechaCreacion" class="quickFilters general-input" />
                                 <input id="FechaEstimada" class="quickFilters general-input" />
@@ -211,6 +212,20 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
 
+
+        $("#FolioConfiguracionID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioConfiguracion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+            if (!$("#FolioConfiguracionID").val().length) { $("#FolioConfiguracionID").parent().children("a.k-state-active").removeClass("k-state-active"); }
+            $("#FolioConfiguracionID").focus();
+        });
+
         $("#FolioID").keyup(function () {
             var ds = $("#grid").data("kendoGrid").dataSource;
             ds.filter([
@@ -339,6 +354,7 @@
                 schema: {
                     model: {
                         fields: {
+                            FolioConfiguracion: { type: "string" },
                             FolioAvisoLlegadaID: { type: "string" },
                             FechaRecepcion: { type: "string" },
                             FechaGeneracion: { type: "string" },
@@ -365,7 +381,8 @@
                 buttonCount: 2
             },
             columns: [
-                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
+                { field: "FolioConfiguracion", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioConfiguracion#</a>", filterable: true },
+                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true, hidden:true },
                 { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "FechaGeneracion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
@@ -375,10 +392,12 @@
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
 
+                $("th[data-field='FolioConfiguracion']").append($("#FolioConfiguracionID"));
                 $("th[data-field='FolioAvisoLlegadaID']").append($("#FolioID"));
                 $("th[data-field='FechaRecepcion']").append($("#FechaEstimada"));
                 $("th[data-field='FechaGeneracion']").append($("#FechaCreacion"));               
-
+                
+                $("#FolioConfiguracionID").click(function (event) { event.stopPropagation(); });
                 $("#FolioID").click(function( event ) {event.stopPropagation();});
                 $("#FechaCreacion").click(function( event ) {event.stopPropagation();});
                 $("#FechaEstimada").click(function( event ) {event.stopPropagation();}); 

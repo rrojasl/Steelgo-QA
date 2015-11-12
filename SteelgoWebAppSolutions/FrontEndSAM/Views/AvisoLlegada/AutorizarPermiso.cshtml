@@ -167,8 +167,8 @@
         $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#FolioAvisoLlegadaID").kendoComboBox({
-            dataTextField: "id",
-            dataValueField: "value",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarFolio(dataItem.id);

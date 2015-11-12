@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -115,6 +116,8 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    Boolean activarFolioConfiguracion = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
+
                     listFE = (from t in ctx.Sam3_FolioAvisoEntrada
                               where t.FolioDescarga > 0 && t.Activo
                               select new ListaCombos
@@ -122,6 +125,29 @@ namespace BackEndSAM.DataAcces
                                     id = t.FolioAvisoLlegadaID.ToString(),
                                     value = t.FolioAvisoLlegadaID.ToString()
                                 }).AsParallel().ToList();
+
+
+                    foreach (ListaCombos lst in listFE)
+                    {
+                        int folioavisollegadaid = Convert.ToInt32(lst.id);
+                        Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioavisollegadaid).FirstOrDefault();
+
+                        lst.value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                 where pc.Entidad == FolioAvisoLlegada.Entidad && pc.Proyecto == FolioAvisoLlegada.ProyectoNombrado
+                                                                 select pc.PreFijoFolioAvisoLlegada + ","
+                                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                  + FolioAvisoLlegada.Consecutivo.ToString() + ","
+                                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : folioavisollegadaid.ToString();
+                        if (activarFolioConfiguracion)
+                        {
+                            string[] elemntos = lst.value.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                    }
                 }
                 return listFE;
 

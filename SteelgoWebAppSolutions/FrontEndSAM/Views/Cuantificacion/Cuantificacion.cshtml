@@ -1197,7 +1197,10 @@
 
                             if (e.item.id == "Incidencia") {
                                 if (!(ItemCode.indexOf("Bulto") != -1)) {
-                                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + (ItemCode ? ItemCode : "-1") + "&TipoIncidencia=7&Clasificacion=1");
+                                    var elemento = ItemCode;
+                                    var index = elemento.indexOf("(");
+                                    var valor = elemento.substring(0, index);
+                                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + (valor ? valor : "-1") + "&TipoIncidencia=7&Clasificacion=1");
                                 } else {
                                     displayMessage("notificationslabel0076", "", '1');
                                 };

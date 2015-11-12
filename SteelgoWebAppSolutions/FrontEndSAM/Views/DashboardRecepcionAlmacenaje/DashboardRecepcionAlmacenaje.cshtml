@@ -286,7 +286,7 @@
             ObtenerCliente();
 
             $("#FolioAvisoEntradaID").kendoComboBox({
-                dataTextField: "id",
+                dataTextField: "value",
                 dataValueField: "id",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
@@ -644,6 +644,7 @@
                 schema: {
                     model: {
                         fields: {
+                            FolioConfiguracion: { type: "string" },
                             FolioAvisoEntrada: { type: "string" },
                             FechaDescarga: { type: "string" },
                             Cliente: { type: "string" }
@@ -661,7 +662,8 @@
         function DefinicionColumnasEntradasPorCuantificar() {
             var columnas =
             [
-                { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioAvisoEntrada#</a>" },
+                { field: "FolioConfiguracion", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioConfiguracion#</a>" },
+                { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioAvisoEntrada#</a>", hidden:true },
                 { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0030[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Cliente", title: _dictionary.DashboardRecepcionAlmacenaje0031[$("#language").data("kendoDropDownList").value()], filterable: true },
                 //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }

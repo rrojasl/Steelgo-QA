@@ -545,7 +545,7 @@
         });
     };
     function ObtenerFolioAvisoEntrada() {
-        $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+        $folioEntradaMaterial.Listado.read({ tipoListado: 18, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
             ControlErroresObjetosComboBox("FolioCuantificacionID", result);
         });
     };

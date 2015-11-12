@@ -338,8 +338,8 @@
             $("#CancelarProveedor").click(function (e) { CancelarProveedor(); });
 
             $("#FolioEntradaID").kendoComboBox({
-                dataTextField: "id",
-                dataValueField: "value",
+                dataTextField: "value",
+                dataValueField: "id",
                 filter: "contains",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
@@ -512,12 +512,10 @@
                 var concat = "";
                 folioLlegada = data.FolioAvisoEntradaID == 0 ? -1 : data.FolioAvisoEntradaID;
 
-                
-
                 if (folioLlegada != -1)
                 {
                     CargarFolio(folioAvisoLlegada);
-                    cargarTituloFolio();
+                    cargarTituloFolio(data.FolioConfiguracion);
                     ActualizarTitulosEdicion(data);
 
                     $("#FolioEntradaID").data("kendoComboBox").text(folioAvisoLlegada);
@@ -657,9 +655,9 @@
             });
         }
 
-        function cargarTituloFolio() {
+        function cargarTituloFolio(folio) {
             $("#divFolio").removeClass("hidden");
-            $("#spanFolio").html(folioAvisoLlegada);
+            $("#spanFolio").html(folio);
         };
 
         function limpiarTituloFolio() {
@@ -674,15 +672,11 @@
                     var concat = "";
                     CargarFolio(folioAvisoLlegada);
                     folioLlegada = data.FolioAvisoEntradaID;
-                    //if (_esAlta != "-1") {
-                    //    BotonEdicion();
-                    //    limpiarTituloFolio();
-                    //}else{
-                        cargarTituloFolio();
-                        ActualizarTitulosEdicion(data);
-                    //}
+                   
+                    cargarTituloFolio(data.FolioConfiguracion);
+                    ActualizarTitulosEdicion(data);
 
-                    $("#FolioEntradaID").data("kendoComboBox").text(folioAvisoLlegada);
+                    $("#FolioEntradaID").data("kendoComboBox").text(data.FolioConfiguracion);
 
                     if (data.Cliente) {
                         CargarProyecto(data.Cliente.ClienteID, data.Cliente.Nombre);

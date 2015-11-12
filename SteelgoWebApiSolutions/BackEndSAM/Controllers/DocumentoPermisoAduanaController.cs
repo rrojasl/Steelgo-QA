@@ -55,6 +55,7 @@ namespace BackEndSAM.Controllers
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
                 if (tokenValido)
                 {
+                    Boolean activarFolioConfiguracion = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
@@ -64,7 +65,6 @@ namespace BackEndSAM.Controllers
 
                     if (httpRequest.Files.Count > 0)
                     {
-
                         var docfiles = new List<string>();
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();

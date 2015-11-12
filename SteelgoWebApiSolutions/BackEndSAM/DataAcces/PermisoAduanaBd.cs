@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Web.Script.Serialization;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -56,6 +57,7 @@ namespace BackEndSAM.DataAcces
                 List<FormatoPermisoAduana> listaClientes = new List<FormatoPermisoAduana>();
                 int clienteFolioAviso = 0;
                 string nombreClienteFolioAviso = "";
+               
 
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
@@ -69,6 +71,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
+
                     var cliente = (from av in ctx.Sam3_FolioAvisoLlegada
                                    where (av.FolioAvisoLlegadaID == folio)
                                    select av.ClienteID).FirstOrDefault();
@@ -280,6 +283,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+
                     Sam3_PermisoAduana permisoAduana = new Sam3_PermisoAduana();
                     var folioAvisoLlegada = (from pa in ctx.Sam3_PermisoAduana
                                              where (pa.FolioAvisoLlegadaID == folio)

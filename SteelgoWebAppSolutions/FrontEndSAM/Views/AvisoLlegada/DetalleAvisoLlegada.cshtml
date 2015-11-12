@@ -765,16 +765,16 @@
                     PlanaIDs[index] = { PlanaID: value };
                 });
                 //$('#files').getKendoUpload().trigger('upload')
-                $('#listaArchivos > tbody  > tr').each(function (index, value) {
-                    if ($(this).find("td:first").length > 0) {
-                        var id = $(this).attr("id").split(",")[0];
-                        var archivo = $(this).find("td a").eq(0).html();
-                        var tipoArchivo = $(this).find("td").eq(1).html();
-                        var extencion = $(this).attr("id").split(",")[1];
+                //$('#listaArchivos > tbody  > tr').each(function (index, value) {
+                //    if ($(this).find("td:first").length > 0) {
+                //        var id = $(this).attr("id").split(",")[0];
+                //        var archivo = $(this).find("td a").eq(0).html();
+                //        var tipoArchivo = $(this).find("td").eq(1).html();
+                //        var extencion = $(this).attr("id").split(",")[1];
 
-                        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
-                    };
-                });
+                //        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
+                //    };
+                //});
 
                 if (!$("#FechaRecepcion").data("kendoDatePicker").value()) {
                     displayMessage("notificationslabel0082", "", '1');
@@ -797,7 +797,7 @@
                 AvisoLlegada[0].Plana = PlanaIDs;
                 AvisoLlegada[0].Patio = Patio;
                 AvisoLlegada[0].Chofer = Chofer;
-                AvisoLlegada[0].Archivos = Documentos;
+                //AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].Tracto = CamionEntradaMaterial;
                 AvisoLlegada[0].Cliente = Cliente;
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
@@ -828,15 +828,15 @@
                     if ((uploadtype != "" || uploadtype != null) && len > 0) {
                         $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                             if (Error(data)) {
-                                folio = data.ReturnMessage[1];
+                                folio = data.ReturnMessage[2];
                                 if (len > 0) {
                                     $(".k-upload-selected").click();
                                     creacionArchivos = 1;
                                 };
-                                cargarTituloFolio();
+                                cargarTituloFolio(data.ReturnMessage[1]);
                                 BotonAlta();
                                 ocultarStatus();
-                                displayMessage("notificationslabel0013", folio, '0');
+                                displayMessage("notificationslabel0013", '', '0');
                                 $("#DetalleAvisoLlegada0090").show();
                                 if (!creacionArchivos) {
                                     CargaInicialEdicion(folio);
@@ -1025,21 +1025,21 @@
                 });
             };
 
-            function cargarTituloFolio() {
+            function cargarTituloFolio(titulo) {
                 $("#divFolio").removeClass("hidden");
-                $("#spanFolio").html(folio);
+                $("#spanFolio").html(titulo);
             };
 
             function CargaInicialEdicion(id) {
-                cargarTituloFolio();
                 BotonAlta();
-
                 $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
                     //console.log(data);
                     var concat = "";
                     var concatPlanas = "";
                     loadingStart();
                     Error(data);
+
+                    cargarTituloFolio(data.FolioConfiguracion);
 
                     $("#TramitarPermiso").attr('disabled', 'disabled');
                     $("#AutorizarPermiso").attr('disabled', 'disabled');

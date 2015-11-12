@@ -71,6 +71,7 @@
                       <div class="row">
                         <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="clearfix">
+                                <input id="FolioConfiguracion" class="quickFilters general-input" />
                                 <input id="AvisoEntradaID" class="quickFilters general-input" />
                                 <input id="FechaCreacion" class="quickFilters general-input" />
                                 <input id="Patio" class="quickFilters general-input" />
@@ -178,6 +179,7 @@
                 schema: {
                     model: {
                         fields: {
+                            FolioConfiguracion: { type: "string" },
                             FolioAvisoEntradaID: { type: "string" },
                             FechaCreación: { type: "string" },
                             Patio: { type: "string" },
@@ -204,8 +206,9 @@
                 buttonCount: 2
             },
             columns: [
+                { field: "FolioConfiguracion", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"mostrarDetalle('#=FolioAvisoLlegadaID#')\">#:FolioConfiguracion#</a>", filterable: true },
                 { field: "FolioAvisoEntradaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
+                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true, hidden:true},
                 { field: "FechaCreación", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0002[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "EstatusFolio", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -215,12 +218,14 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-
+                
+                $("th[data-field='FolioConfiguracion']").append($("#FolioConfiguracion"));
                 $("th[data-field='FolioAvisoLlegadaID']").append($("#AvisoEntradaID"));
                 $("th[data-field='FechaCreación']").append($("#FechaCreacion"));
                 $("th[data-field='Patio']").append($("#Patio"));
                 $("th[data-field='EstatusFolio']").append($("#EstatusFolio"));
 
+                $("#FolioConfiguracion").click(function (event) { event.stopPropagation(); });
                 $("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
                 $("#FechaCreacion").click(function( event ) {event.stopPropagation();});
                 $("#Patio").click(function( event ) {event.stopPropagation();});
@@ -605,6 +610,19 @@
     $("#Patio").val("");
     $("#EstatusFolio").val("");
     $("#Cancel").val("");
+
+    $("#FolioConfiguracion").keyup(function () {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        ds.filter([
+            {
+                "field": "FolioConfiguracion",
+                "operator": "Contains",
+                "value": this.value
+            }
+        ]);
+        if (!$("#FolioConfiguracion").val().length) { $("#FolioConfiguracion").parent().children("a.k-state-active").removeClass("k-state-active"); }
+        $("#FolioConfiguracion").focus();
+    });
 
     $("#AvisoEntradaID").keyup(function () {
         var ds = $("#grid").data("kendoGrid").dataSource;

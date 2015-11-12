@@ -54,6 +54,7 @@ namespace BackEndSAM.Controllers
                 string newToken = "";
                 string payload = "";
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                Boolean activarFolioConfiguracion = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
                 if (tokenValido)
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -62,8 +63,6 @@ namespace BackEndSAM.Controllers
                     HttpResponseMessage result = null;
 
                     var httpRequest = HttpContext.Current.Request;
-
-                  
 
                     if (httpRequest.Files.Count > 0)
                     {

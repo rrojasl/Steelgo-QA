@@ -8,6 +8,7 @@ using BackEndSAM.Utilities;
 using System.Web.Script.Serialization;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -193,6 +194,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                   
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join d in ctx.Sam3_Rel_FolioAvisoLlegada_Documento on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
                                                         join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID

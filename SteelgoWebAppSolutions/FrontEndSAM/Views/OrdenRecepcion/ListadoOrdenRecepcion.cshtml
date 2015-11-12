@@ -187,7 +187,7 @@
 
 
         $("#FolioAvisoEntradaID").kendoComboBox({
-            dataTextField: "id",
+            dataTextField: "value",
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
@@ -298,8 +298,10 @@
                 schema: {
                     model: {
                         fields: {
+                            FolioConfiguracion: { type: "string" },
+                            AvisoEntrada: { type: "string" },
                             ItemCode: { type: "string" },
-                            Cantidad: { type: "int" }
+                            Cantidad: { type: "int" },
                         }
                     }
                 }
@@ -308,7 +310,8 @@
             scrollable: false,
             sortable: false,
             columns: [
-                { field: "AvisoEntrada", title: _dictionary.ListadoOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "110px", },
+                { field: "FolioConfiguracion", title: _dictionary.ListadoOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "110px", },
+                { field: "AvisoEntrada", title: _dictionary.ListadoOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "110px",hidden:true },
                 { field: "Itemcode", title: _dictionary.ListadoOrdenRecepcion0021[$("#language").data("kendoDropDownList").value()], width: "110px", },
                 { field: "Cantidad", title: _dictionary.ListadoOrdenRecepcion0022[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarItemCode }, title: " ", width: "99px" }

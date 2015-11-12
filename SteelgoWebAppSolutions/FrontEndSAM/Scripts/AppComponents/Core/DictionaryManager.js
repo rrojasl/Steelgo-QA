@@ -5843,8 +5843,8 @@ _dictionary = {
         "en-US": "Please, select the type of file"
     },
     "notificationslabel0013": {
-        "es-MX": "Fue creado exitosamente el folio #",
-        "en-US": "Succesfully created the folio "
+        "es-MX": "Fue creado exitosamente el folio.",
+        "en-US": "Succesfully created the folio."
     },
     "notificationslabel0014": {
         "es-MX": "Favor de guardar el aviso de llegada, antes de enviar el permiso",

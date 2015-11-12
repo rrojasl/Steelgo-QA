@@ -19,6 +19,7 @@ namespace BackEndSAM.Models
 
     public class ElementoItemCode 
     {
+        public string FolioConfiguracion { get; set; }
         public string AvisoEntrada { get; set; }
         public string Itemcode { get; set; }
         public int Cantidad { get; set; }
