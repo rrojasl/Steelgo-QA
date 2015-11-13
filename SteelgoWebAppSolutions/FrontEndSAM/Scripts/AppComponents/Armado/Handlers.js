@@ -41,13 +41,19 @@ function suscribirEventoChangeRadio() {
 function suscribirEventoGuardar() {
     $('#btnGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data);
+        if ($('#botonGuardar').text() == "Guardar") {
+            opcionHabilitarView(true, "FieldSetView");
+            AjaxGuardarCaptura(ds._data);
+        }
+        else if ($('#botonGuardar').text() == "Editar")
+            opcionHabilitarView(false, "FieldSetView")
     });
 
     $('#btnGuardarYNuevo').click(function (e) {
 
-        var ds = $("#grid").data("kendoGrid").dataSource;
+       
 
+        var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardarCaptura(ds._data);
         Limpiar();
     });
@@ -109,7 +115,12 @@ function suscribirEventoCancelar() {
 function suscribirEventoAgregar() {
     $('#ButtonAgregar').click(function (e) {
 
-        ObtenerJSonGridArmado();
+        if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+            AjaxCargarReporteJuntas();
+        }
+        else {
+            ObtenerJSonGridArmado();
+        }
     });
 }
 
@@ -334,5 +345,36 @@ function SuscribirEventoMuestraJunta() {
     else if ($('input:radio[name=TipoAgregado]').val() == "Listado") {
         $("#JuntaDiv").show();
         $("#MuestraDiv").show();
+    }
+}
+
+function opcionHabilitarView(valor, name) {
+
+    if (valor) {
+        $('#FieldSetView').find('*').attr('disabled', true);
+        $("#InputID").data("kendoComboBox").enable(false);
+        $("#inputTubero").data("kendoComboBox").enable(false);
+        $("#inputTaller").data("kendoComboBox").enable(false);
+        $("#FechaArmado").data("kendoDatePicker").enable(false);
+
+
+
+        $('#botonGuardar').text("Editar");
+        $("#DetalleAvisoLlegada0017").text("Editar");
+    }
+    else {
+        $('#FieldSetView').find('*').attr('disabled', false);
+        $("#InputID").data("kendoComboBox").enable(true);
+        $("#inputTubero").data("kendoComboBox").enable(true);
+        $("#inputTaller").data("kendoComboBox").enable(true);
+        $("#FechaArmado").data("kendoDatePicker").enable(true);
+
+
+
+        //$("#FechaInspeccion").data("kendoDatePicker").enable(true);
+        //$("#inputInspector").data("kendoComboBox").enable(true);
+
+        $('#botonGuardar').text("Guardar");
+        $("#DetalleAvisoLlegada0017").text("Guardar");
     }
 }

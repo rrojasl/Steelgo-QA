@@ -138,14 +138,14 @@ namespace BackEndSAM.DataAcces.ArmadoBD
 
         
 
-        public object listaNumeroUnicos(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario)
+        public object listaNumeroUnicos(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario,int pagina)
         {
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(int.Parse(JsonCaptura.JuntaID), int.Parse(JsonCaptura.SinCaptura)).ToList();
+                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(int.Parse(JsonCaptura.JuntaID), int.Parse(JsonCaptura.SinCaptura),pagina).ToList();
                     return listaDetallaTrabajoAdicionalJson;
                 }
             }
@@ -284,7 +284,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
-                    result.ReturnMessage.Add("xd");
+                    
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

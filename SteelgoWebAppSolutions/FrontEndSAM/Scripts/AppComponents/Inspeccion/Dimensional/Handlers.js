@@ -240,12 +240,6 @@ function opcionHabilitarView(valor, name) {
         $("#inputDefecto").data("kendoComboBox").enable(true);
         $("#inputInspector").data("kendoComboBox").enable(true);
         $("#FechaInspeccion").data("kendoDatePicker").enable(true);
-     
-
-
-        $("#FechaInspeccion").data("kendoDatePicker").enable(true);
-        $("#inputInspector").data("kendoComboBox").enable(true);
-
         $('#botonGuardar2').text("Guardar");
         $("#botonGuardar").text("Guardar");
     }

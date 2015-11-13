@@ -12,7 +12,9 @@
                 options.model.TallerID = dataItem.TallerID;
             },
             change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Taller = dataItem.Nombre;
+                options.model.TallerID = dataItem.TallerID;
             }
         }
         );
@@ -35,7 +37,9 @@ function RenderComboBoxTubero(container, options) {
                 options.model.TuberoID = dataItem.ObreroID;
             },
             change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Tubero = dataItem.Codigo;
+                options.model.TuberoID = dataItem.ObreroID;
             }
         }
         );
@@ -61,6 +65,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
             ,
             change: function (e) {
                 options.model.NumeroUnico1 = String(dataItem.Clave);
+                options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
                 AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
@@ -85,7 +90,9 @@ function RenderComboBoxNumeroUnico2(container, options) {
                  textAnterior = e.sender._prev;
              },
              change: function (e) {
+                 dataItem = this.dataItem(e.sender.selectedIndex);
                  options.model.NumeroUnico2 = String(dataItem.Clave);
+                 options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
                  AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
                  $("#grid").data("kendoGrid").dataSource.sync();
 
@@ -176,29 +183,72 @@ function RenderGridDetalle(container, options) {
                     e.preventDefault();
 
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
 
-                        var dataSource = this.dataSource;
+                    //windowTemplate = kendo.template($("#windowTemplate").html());
 
-                        if (dataItem.JuntaArmadoID == "1")
-                            dataSource.remove(dataItem);
+                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()]))
+                    {
+                            var dataSource = this.dataSource;
 
-                        dataItem.Accion = 3;
+                            if (dataItem.JuntaArmadoID == "1")
+                                dataSource.remove(dataItem);
 
-                       
-                        
-                        var filters = dataSource.filter();
-                        var allData = dataSource.data();
-                        var query = new kendo.data.Query(allData);
-                        var data = query.filter(filters).data;
+                            dataItem.Accion = 3;
 
-                        actuallongitudTrabajosAdicionales = data.length;
 
-                        options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
 
-                        this.dataSource.sync();
+                            var filters = dataSource.filter();
+                            var allData = dataSource.data();
+                            var query = new kendo.data.Query(allData);
+                            var data = query.filter(filters).data;
 
+                            actuallongitudTrabajosAdicionales = data.length;
+
+                            options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+
+                            this.dataSource.sync();
                     }
+
+
+
+                    //ventanaConfirm = $("#window").kendoWindow({
+                    //    title: "Are you sure you want to delete this record?",
+                    //    visible: false, //the window will not appear before its .open method is called
+                    //    width: "400px",
+                    //    height: "200px",
+                    //    modal: true
+                    //}).data("kendoWindow");
+
+                    //ventanaConfirm.content(windowTemplate(dataItem));
+
+                    //ventanaConfirm.open().center();
+
+                    //$("#yesButton").click(function () {
+                    //    var dataSource = this.dataSource;
+
+                    //    if (dataItem.JuntaArmadoID == "1")
+                    //        dataSource.remove(dataItem);
+
+                    //    dataItem.Accion = 3;
+
+
+
+                    //    var filters = dataSource.filter();
+                    //    var allData = dataSource.data();
+                    //    var query = new kendo.data.Query(allData);
+                    //    var data = query.filter(filters).data;
+
+                    //    actuallongitudTrabajosAdicionales = data.length;
+
+                    //    options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+
+                    //    this.dataSource.sync();
+                    //})
+                    //$("#noButton").click(function () {
+                    //    ventanaConfirm.close();
+                    //})
+
+                  
                 }
             }, width: "99px"
         }

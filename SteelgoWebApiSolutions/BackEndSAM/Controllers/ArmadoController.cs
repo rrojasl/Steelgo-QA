@@ -150,7 +150,7 @@ namespace BackEndSAM.Controllers
 
                 List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> detallaArmadoAdicional = (List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>)CapturaArmadoBD.Instance.DetallaArmadoAdicional(capturaDatosJson, usuario);
 
-                List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)CapturaArmadoBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario);
+                List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)CapturaArmadoBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario,1);
 
                
                 List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
@@ -170,7 +170,7 @@ namespace BackEndSAM.Controllers
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
                         Accion = item.JuntaArmadoID == null ? 1 : 2,
-                        JuntaTrabajoID = 0,
+                        JuntaTrabajoID = item.JuntaTrabajoID==null ?0: item.JuntaTrabajoID.GetValueOrDefault(),
                         JuntaArmadoID =item.JuntaArmadoID==null? 0 : int.Parse(item.JuntaArmadoID.ToString()),
                         IDProyecto = capturaDatosJson.IDProyecto,
                         Proyecto = capturaDatosJson.Proyecto,
@@ -203,7 +203,7 @@ namespace BackEndSAM.Controllers
                         listadoTrabajosAdicionalesXJunta = listaDetalleAdicionalXJuntaConvertida,
                         SinCaptura = capturaDatosJson.SinCaptura,
                         NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
-                        NumeroUnico2ID= item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
+                        NumeroUnico2ID= item.NumeroUnico1ID == null ? (listNumeroUnico2.Count == 1 ? listNumeroUnico2[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
                         DetalleJunta = "Tipo Junta: " + item.TipoJunta + " - " + "Diametro: " + item.Diametro + " - " + "Cedula: " + item.Cedula + " - " + "Localización: " + item.Localizacion + " - " + "Familia Acero: " + item.FamiliaAcero + ""
                     };
                     listaDetalleDatos.Add(detalleDatos);
@@ -287,23 +287,23 @@ namespace BackEndSAM.Controllers
         {
             List<DetalleTrabajoAdicional> listaDetalleAdicional = new List<DetalleTrabajoAdicional>();
 
-            if (listaTrabajoAdicional.Count == 0)
-            {
-                DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
-                {
-                    Accion = 1,
-                    Observacion ="",
-                    ArmadoTrabajoAdicionalID = 0,
-                    JuntaArmadoID = 0,
-                    ObreroID = 0,
-                    TrabajoAdicional ="",
-                    TrabajoAdicionalID = 0,
-                    Tubero = ""
-                };
-                listaDetalleAdicional.Add(detalleAdicional);
-            }
-            else
-            {
+            //if (listaTrabajoAdicional.Count == 0)
+            //{
+            //    DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
+            //    {
+            //        Accion = 1,
+            //        Observacion ="",
+            //        ArmadoTrabajoAdicionalID = 0,
+            //        JuntaArmadoID = 0,
+            //        ObreroID = 0,
+            //        TrabajoAdicional ="",
+            //        TrabajoAdicionalID = 0,
+            //        Tubero = ""
+            //    };
+            //    listaDetalleAdicional.Add(detalleAdicional);
+            //}
+            //else
+            //{
                 foreach (Sam3_Armado_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
                 {
                     DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
@@ -319,7 +319,7 @@ namespace BackEndSAM.Controllers
                     };
                     listaDetalleAdicional.Add(detalleAdicional);
                 }
-            }
+            //}
             
             return listaDetalleAdicional;
         }
@@ -401,32 +401,36 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
+
+                DataTable TabajosAdicionales = null;
+
                 foreach (DetalleGuardarJson item in listaCapturaArmado.Detalles)
                 {
-                    foreach (DetalleGuardarTrabajoAdicional detalleTrabajoAdicional in item.ListaDetalleTrabajoAdicional)
+                    if (item.ListaDetalleTrabajoAdicional != null)
                     {
-                        detalleTrabajoAdicional.JuntaID = detalleTrabajoAdicional.JuntaID == null ? item.JuntaID : detalleTrabajoAdicional.JuntaID;
-                        detalleTrabajoAdicional.ObreroID = detalleTrabajoAdicional.ObreroID==0? int.Parse(item.TuberoID) : detalleTrabajoAdicional.ObreroID;
-                        
+                        foreach (DetalleGuardarTrabajoAdicional detalleTrabajoAdicional in item.ListaDetalleTrabajoAdicional)
+                        {
+                            detalleTrabajoAdicional.Accion = detalleTrabajoAdicional.Accion == 0 ? 1 : detalleTrabajoAdicional.Accion;
+                            detalleTrabajoAdicional.JuntaID = detalleTrabajoAdicional.JuntaID == null ? item.JuntaID : detalleTrabajoAdicional.JuntaID;
+                            detalleTrabajoAdicional.ObreroID = detalleTrabajoAdicional.ObreroID == 0 ? int.Parse(item.TuberoID) : detalleTrabajoAdicional.ObreroID;
+                            detalleTrabajoAdicional.JuntaArmadoID = item.Accion == 2 ? item.JuntaArmadoID : detalleTrabajoAdicional.JuntaArmadoID;
+
+                        }
+
+                        //foreach (DetalleGuardarJson itemDetalle in listaCapturaArmado.Detalles)
+                        //{
+                            if (TabajosAdicionales == null)
+                                TabajosAdicionales = ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional);
+                            else
+                                TabajosAdicionales.Merge(ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional));
+
+                        //}
+
                     }
+                 
                     item.FechaReporte = "";
                 }
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-
-                DataTable TabajosAdicionales=null;
-
-                foreach (DetalleGuardarJson item in listaCapturaArmado.Detalles)
-                {
-                    if(TabajosAdicionales==null)
-                    TabajosAdicionales = ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional);
-                    else
-                    TabajosAdicionales.Merge(ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional));
-                    
-                }
-
-               
-
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCapturaArmado.Detalles);
                 dtDetalleCaptura.Columns.Remove("ListaDetalleTrabajoAdicional");
                 return CapturaArmadoBD.Instance.InsertarCapturaArmado(dtDetalleCaptura, TabajosAdicionales, usuario,lenguaje);

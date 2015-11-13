@@ -76,14 +76,14 @@ namespace BackEndSAM.DataAcces
         /// <param name="JsonCaptura"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object listaNumeroUnicos(int JuntaSpoolID, Sam3_Usuario usuario)
+        public object listaNumeroUnicos(int JuntaSpoolID, Sam3_Usuario usuario,int pagina)
         {
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(JuntaSpoolID, 1).ToList();
+                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(JuntaSpoolID, 1,pagina).ToList();
                     return listaDetallaTrabajoAdicionalJson;
                 }
             }

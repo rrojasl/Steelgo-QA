@@ -17,6 +17,6 @@ namespace DatabaseManager.Sam3
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public bool VerificadoPorCalidad { get; set; }
-        public Nullable<bool> PermiteTerminadoRelleno { get; set; }
+        public bool PermiteTerminadoRelleno { get; set; }
     }
 }

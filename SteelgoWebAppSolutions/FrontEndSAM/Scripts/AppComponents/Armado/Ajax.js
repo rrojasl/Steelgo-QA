@@ -50,7 +50,7 @@ function ObtenerJSonGridArmado() {
 
 function AjaxGuardarCaptura(arregloCaptura) {
     try {
-
+        loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
@@ -87,17 +87,27 @@ function AjaxGuardarCaptura(arregloCaptura) {
                 ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
             }
 
-            ListaDetalles[index].ListaDetalleTrabajoAdicional = ListaTrabajosAdicionalesEditados;
+            ListaDetalles[index].ListaDetalleTrabajoAdicional =  arregloCaptura[index].ListaDetalleTrabajoAdicional.length ==1 &&  arregloCaptura[index].ListaDetalleTrabajoAdicional[0].Accion==3 ? undefined: ListaTrabajosAdicionalesEditados;
         }
 
         Captura[0].Detalles = ListaDetalles;
 
         $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            console.log("se guardo correctamente la informacion");
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                AjaxCambiarAccionAModificacion();
+                mensaje = "Se guardo correctamente la informacion" + "-0";
+                displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+            }
+            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+            }
+            loadingStop();
         });
-        displayMessage("CapturaArmadoMensajeGuardadoExitoso", "", '1');
+      
        
     } catch (e) {
+        loadingStop();
         displayMessage("Mensajes_error", e.message, '0');
       
     }
@@ -180,11 +190,30 @@ function AjaxCargarCamposPredeterminadosOcultaJunta() {
 
 function AjaxCargarReporteJuntas() {
     var listadoReporte = ArregloListadoReporte();
-
+    
     for (var i = 0; i < listadoReporte.length; i++) {
 
         loadingStart();
         $CapturaArmado.Armado.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = JSON.parse(data);
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
+            loadingStop();
+        });
+    }
+}
+
+function AjaxCambiarAccionAModificacion() {
+    var listado = ArregloListadoJuntasCapturadas();
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
+
+    for (var i = 0; i < listado.length; i++) {
+
+        loadingStart();
+        $CapturaArmado.Armado.read({ JsonCaptura: JSON.stringify(listado[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
             for (var i = 0; i < array.length; i++) {

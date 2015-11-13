@@ -110,7 +110,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = null;// ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
@@ -157,7 +157,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = null;// ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {

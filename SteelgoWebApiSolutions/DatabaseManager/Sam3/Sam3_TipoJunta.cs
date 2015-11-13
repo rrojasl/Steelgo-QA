@@ -19,7 +19,9 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public bool VerificadoPorCalidad { get; set; }
         public bool Activo { get; set; }
-        public Nullable<bool> PermiteTerminadoRelleno { get; set; }
+        public bool PermiteTerminadoRelleno { get; set; }
+        public Nullable<bool> PermiteTerminadoRaiz { get; set; }
+        public int PermiteSoldadura { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     }
