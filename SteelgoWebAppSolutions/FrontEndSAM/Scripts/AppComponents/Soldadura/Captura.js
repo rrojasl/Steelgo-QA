@@ -59,7 +59,7 @@ function ArregloListadoReporte() {
         JsonCaptura[i].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
         JsonCaptura[i].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].OrdenTrabajo = $("#InputOrdenTrabajo").val();
-        JsonCaptura[i].idVal = lista[i].JuntaSpoolID;
+        JsonCaptura[i].idVal = $("#InputID").val();
         JsonCaptura[i].idText = $("#InputID").data("kendoComboBox").text()
         JsonCaptura[i].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
         JsonCaptura[i].JuntaID = lista[i].JuntaSpoolID;
@@ -103,7 +103,7 @@ function ArregloListadoSpoolID() {
 
 function CargarGridSoldadura() {
 
-    $("#grid").kendoGrid({
+   $ ("#grid").kendoGrid({
         
         autoBind: false,
         edit: function (e) {
@@ -144,8 +144,8 @@ function CargarGridSoldadura() {
                         TipoJunta: { type: "string", editable: false },
                         Cedula: { type: "string", editable: false },
                         FechaSoldadura: { type: "date", editable: true},
-                        TallerID: { type: "string", editable: true },
-                        Taller: { type: "string", editable: true },
+                        TallerID: { type: "string", editable: true},
+                        Taller: { type: "string", editable: true, validation: { required: true }},
                         Localizacion: { type: "string", editable: false },
                         juntaSpoolID: { type: "int", editable: true },
                         DetalleJunta: { type: "string", editable: false },
@@ -188,10 +188,10 @@ function CargarGridSoldadura() {
             { field: "DetalleJunta", title: _dictionary.CapturaSoldaduraDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
             { field: "FechaSoldadura", title: _dictionary.CapturaSoldaduraHeaderFechaSoldadura[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Taller", title: _dictionary.CapturaSoldaduraHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "130px" },
-            { field: "procesoSoldaduraRaiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", editor: RenderComboBoxProcesoSoldaduraRaiz },
-            { field: "procesoSoldaduraRelleno", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", editor: RenderComboBoxProcesoSoldaduraRelleno },
-            { field: "Raiz", title: _dictionary.CapturaSoldaduraProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px", template: "#:SoldadoresRaiz#", editor: RenderGridRaiz },
-            { field: "Relleno", title: _dictionary.CapturaSoldaduraProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px", template: "#:SoldadoresRelleno#", editor: RenderGridRelleno },
+            { field: "procesoSoldaduraRaiz", title: _dictionary.CapturaSoldaduraProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", editor: RenderComboBoxProcesoSoldaduraRaiz },
+            { field: "procesoSoldaduraRelleno", title: _dictionary.CapturaSoldaduraProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", editor: RenderComboBoxProcesoSoldaduraRelleno },
+            { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px", template: "#:SoldadoresRaiz#", editor: RenderGridRaiz },
+            { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px", template: "#:SoldadoresRelleno#", editor: RenderGridRelleno },
             { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "500px", editor: RenderGridDetalle, template: "#:TrabajosAdicionales#" },
             { field: "juntaSpoolID", title: "", filterable: true, width: "150px", hidden: true },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
@@ -239,9 +239,12 @@ function cancelarCaptura(e) {
 };
 
 function changeLanguageCall() {
+    endRangeDate.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
     AjaxCargarCamposPredeterminados();
     CargarGridSoldadura();
-    SuscribirEventoMuestraJunta
+    SuscribirEventoMuestraJunta();
 };
 
 function AltaFecha() {
@@ -297,7 +300,7 @@ function PlanchaTaller() {
             data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
         }
         else {
-            if (data[i].Taller == "") {
+            if (data[i].Taller == "" || data[i].Taller == null || data[i].Taller == undefined) {
                 data[i].TallerID = $("#inputTaller").val();
                 data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
             }
@@ -314,13 +317,26 @@ function PlanchaFecha() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaSoldadura = endRangeDate.val();
+            data[i].FechaSoldadura = String(endRangeDate.val()).trim();
         }
         else {
             if (data[i].FechaSoldadura == "") {
-                data[i].FechaSoldadura = endRangeDate.val();
+                data[i].FechaSoldadura = String(endRangeDate.val()).trim();
             }
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 };
+
+function ExisteJuntaReporte(juntaVal) {
+    var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGridArmado.length; i++) {
+        if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].idVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID == juntaVal) {
+            
+            $("#grid").data("kendoGrid").dataSource.sync();
+            return false;
+        }
+    }
+    return true;
+}

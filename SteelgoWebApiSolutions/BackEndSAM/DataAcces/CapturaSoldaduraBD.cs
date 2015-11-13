@@ -102,7 +102,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoRaiz(int procesoSoldaduraID)
+        public object ObtenerListadoSoldadoresCertificados(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, string proceso)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = null;// ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID, proceso, tipoJunta, diametro, espesor, cedula).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces
                     }
                     if (listaTrabajosAdicionalesSoldadura.Count == 0)
                     {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null,null).ToList();
+                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
 
                         foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                         {
@@ -149,19 +149,66 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoRelleno(int procesoSoldaduraID)
+        public object ObtenerListadoRaiz(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula)
         {
             try
             {
-                List<Relleno> listaTrabajosAdicionalesSoldadura = new List<Relleno>();
+                List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = null;// ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID, "Raíz", tipoJunta, diametro, espesor, cedula).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
-                        listaTrabajosAdicionalesSoldadura.Add(new Relleno
+                        listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
+                        {
+                            ObreroID = item.ObreroID,
+                            Soldador = item.Codigo
+                        });
+                    }
+                    if (listaTrabajosAdicionalesSoldadura.Count == 0)
+                    {
+                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
+
+                        foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
+                        {
+                            listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
+                            {
+                                ObreroID = item.ObreroID,
+                                Soldador = item.Codigo,
+                            });
+                        }
+                    }
+
+                    return listaTrabajosAdicionalesSoldadura;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoRelleno(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula)
+        {
+            try
+            {
+                List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID, "Relleno", tipoJunta, diametro, espesor, cedula).ToList();
+
+                    foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
+                    {
+                        listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
                         {
                             ObreroID = item.ObreroID,
                             Soldador = item.Codigo,
@@ -170,10 +217,10 @@ namespace BackEndSAM.DataAcces
 
                     if (listaTrabajosAdicionalesSoldadura.Count == 0)
                     {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null,null).ToList();
+                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
                         foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                         {
-                            listaTrabajosAdicionalesSoldadura.Add(new Relleno
+                            listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
                             {
                                 ObreroID = item.ObreroID,
                                 Soldador = item.Codigo,
@@ -207,7 +254,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null,null).ToList();
+                    List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
                     foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                     {
                         listaTrabajosAdicionalesSoldadura.Add(new ObreroSoldador
@@ -434,7 +481,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_JuntaSpool_Result> lista = ctx.Sam3_Steelgo_Get_JuntaSpool(sinCaptura, int.Parse(id),2).ToList();
+                    List<Sam3_Steelgo_Get_JuntaSpool_Result> lista = ctx.Sam3_Steelgo_Get_JuntaSpool(sinCaptura, int.Parse(id), 2).ToList();
                     return lista;
                 }
             }

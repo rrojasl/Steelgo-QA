@@ -58,7 +58,7 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="containerDiv">
         <div class="col-sm-2 col-md-2 col-lg-3">
             <div class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
@@ -91,7 +91,7 @@
     </div>
     <br />
     <br />
-    <div class="row addedSection">
+    <div class="row addedSection" id="AgregadoDiv">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-sm-3 col-md-3 col-lg-3">
@@ -124,58 +124,20 @@
             </div>
             <br>
             <br>
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="formNav clearfix">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="button-section editButtonSection ">
-                                    <div class="btn-group save-group ">
-                                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="CapturaSoldaduraGuardar"></span></button>
-                                        <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="CapturaSoldaduraGuardar"></span></button>
-                                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="caretWhite"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#" id="btnGuardar"><span id="CapturaSoldaduraGuardar1"></span></a></li>
-                                            <li><a href="#" id="btnGuardarYNuevo"><span id="CapturaSoldaduraGuardarNuevo"></span></a></li>
-                                        </ul>
-                                    </div>
-                                    <a id="btnCancelar" class="btn btn-black"><span id="CapturaSoldaduraCancelar"></span></a>
-
-                                </div>
-                                <div id="TramitarPermisoDiv" class="button-section">
-                                    <a id="TramitarPermiso" href="~/inspeccion/VisualDimensional" class="btn btn-primary"><span id="CapturaSoldaduraInspeccion1"></span></a>
-                                </div>
-
-                                <div class="button-section actionButtonSection">
-                                    <div class="dropdown action-group">
-                                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                            <span id="CapturaSoldaduraAcciones"></span>
-                                            <span class="caretBlue"></span>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
-                                    </div>
-                                </div>
-                                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            
         </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />
 </div>
 
-
-
-
-
-@*<script src="~/Scripts/Soldadura/CapturaSoldadura.js" type="text/javascript"> </script>*@
+<script src="~/Scripts/AppComponents/Soldadura/Seguridad.js"></script>
 <script src="~/Scripts/AppComponents/Soldadura/Ajax.js"></script>
 <script src="~/Scripts/AppComponents/Soldadura/Handlers.js"></script>
 <script src="~/Scripts/AppComponents/Soldadura/Render.js"></script>
 <script src="~/Scripts/AppComponents/Soldadura/Captura.js"></script>
 
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Soldadura"] = $SoldaduraModel;
+    }
+</script>

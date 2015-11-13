@@ -76,6 +76,11 @@ namespace BackEndSAM.Models.Soldadura
         public string SoldadoresRelleno { get; set; }
         public List<Taller> ListaTaller { get; set; }
         public string DetalleJunta { get; set; }
+        public decimal Diametro { get; set; }
+        public decimal Espesor { get; set; }
+        public bool PermiteTerminadoRelleno { get; set; }
+        public bool PermiteTerminadoRaiz { get; set; }
+
     }
 
     public class Taller
@@ -171,8 +176,8 @@ namespace BackEndSAM.Models.Soldadura
         public string NumeroUnico1ID { get; set; }
         public string NumeroUnico2ID { get; set; }
         public string TallerID { get; set; }
-        public int ProcesoSoldaduraRaizID { get; set; }
-        public int ProcesoSoldaduraRellenoID { get; set; }
+        public Nullable<int> ProcesoSoldaduraRaizID { get; set; }
+        public Nullable<int> ProcesoSoldaduraRellenoID { get; set; }
         public string FechaSoldadura { get; set; }
         public string FechaReporte { get; set; }
 

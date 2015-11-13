@@ -4544,6 +4544,57 @@ _dictionary = {
         "es-MX": "Inspección",
         "en-US": "Inspection"
     },
+    "CapturaSoldaduraGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "CapturaSoldaduraGuardar1": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "CapturaSoldaduraCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "cancel"
+    },
+    "CapturaSoldaduraGuardarNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "CapturaSoldaduraAcciones": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "CapturaSoldaduraInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
+    "CapturaSoldaduraInspeccion1": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
+    
+    "CapturaSoldaduraMensajeErrorTaller": {
+        "es-MX": "El campo de taller no puede ser vacio",
+        "en-US": "The workshop field is not empty"
+    },
+    "CapturaSoldaduraMensajeErrorProcesoRaiz": {
+        "es-MX": "El campo de proceso soldadura raiz no puede ser vacio",
+        "en-US": "The root welding process field is must not be empty "
+    },
+    "CapturaSoldaduraMensajeErrorProcesoRelleno": {
+        "es-MX": "El campo de proceso soldadura relleno no puede ser vacio",
+        "en-US": "The fill welding process field is must not be empty "
+    },
+    "CapturaSoldaduraMensajePermisoTerminadoRelleno": {
+        "es-MX": "No se permite el terminado de relleno",
+        "en-US": "Fill welding process it's not permissable"
+    },
+    "CapturaSoldaduraMensajePermisoTerminadoRaiz": {
+        "es-MX": "No se permite el terminado de raiz",
+        "en-US": "Root welding process it's not permissable"
+    },
     //#endregion
 
 };
+
+

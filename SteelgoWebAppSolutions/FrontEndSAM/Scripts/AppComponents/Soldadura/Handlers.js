@@ -36,7 +36,13 @@ function suscribirEventoCancelar() {
 function suscribirEventoAgregar() {
     $('#ButtonAgregar').click(function (e) {
         loadingStart();
-        ObtenerJSonGridSoldadura();
+        if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+            AjaxCargarReporteJuntas();
+        }
+        else {
+            ObtenerJSonGridSoldadura();
+        }
+
         loadingStop();
     });
 }
@@ -118,12 +124,12 @@ function SuscribirEventosJunta() {
 function SuscribirEventoMuestraJunta() {
     
     if ($('input:radio[name=TipoAgregado]').val() == "Reporte") {
-        $("#JuntaDiv").hide();
-        $("#MuestraDiv").hide();
+        $("#JuntaDiv").css('display', 'none');
+        $("#MuestraDiv").css('display', 'none');
     }
     else if ($('input:radio[name=TipoAgregado]').val() == "Listado") {
-        $("#JuntaDiv").show();
-        $("#MuestraDiv").show();
+        $("#JuntaDiv").css('display', 'block');
+        $("#MuestraDiv").css('display', 'block');
     }
 }
 
