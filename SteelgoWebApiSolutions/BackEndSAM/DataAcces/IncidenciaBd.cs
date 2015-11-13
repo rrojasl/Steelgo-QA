@@ -237,30 +237,11 @@ namespace BackEndSAM.DataAcces
                         DateTime fechaSolucion = new DateTime();
                         DateTime fechaRegistro = new DateTime();
 
+                        if (datos.FechaRespuesta != null) { DateTime.TryParse(datos.FechaRespuesta, out fechaRespuesta); }
+                        if (datos.FechaResolucion != null) { DateTime.TryParse(datos.FechaResolucion, out fechaSolucion); }
+                        if (datos.FechaRegistro != null) { DateTime.TryParse(datos.FechaRegistro, out fechaRegistro); }
 
-                        //if (datos.FechaRegistro != null)
-                        //{ 
-                        //    nuevaIncidencia.FechaCreacion = Convert.ToDateTime(datos.FechaRegistro); 
-                        //}
-                        //else { 
-                        //    nuevaIncidencia.FechaCreacion = DateTime.Now; 
-                        //}
-
-
-
-                        //if (datos.FechaRespuesta != null) {
-                        //    fechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta); 
-                        //    //DateTime.TryParse(datos.FechaRespuesta, out fechaRespuesta); 
-                        //}
-                        //if (datos.FechaResolucion != null) {
-                        //    fechaSolucion = Convert.ToDateTime(datos.FechaResolucion); 
-                        //    //DateTime.TryParse(datos.FechaResolucion, out fechaSolucion);
-                        //}
-                        //if (datos.FechaRegistro != null) {
-                        //    fechaRegistro = Convert.ToDateTime(datos.FechaRegistro); 
-                        //    //DateTime.TryParse(datos.FechaRegistro, out fechaRegistro); 
-                        //}
-
+                        
                         Sam3_Incidencia nuevoRegistro = new Sam3_Incidencia();
                         Sam3_Incidencia registro = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == datos.FolioIncidenciaID).AsParallel().SingleOrDefault();
 
@@ -291,14 +272,14 @@ namespace BackEndSAM.DataAcces
                             {
                                 registro.DetalleResolucion = datos.DetalleResolucion;
                                 if (datos.ResueltoPor != null && datos.ResueltoPor != "") { registro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
-                                if (fechaSolucion.ToShortDateString() != "1/1/0001") { registro.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion); }
+                                if (fechaSolucion.ToShortDateString() != "1/1/0001") { registro.FechaSolucion = fechaSolucion; }
                             }
 
                             if (datos.Estatus == "Respondido")
                             {
                                 registro.Respuesta = datos.Respuesta;
                                 if (datos.RespondidoPor != null && datos.RespondidoPor != "") { registro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
-                                if (fechaRespuesta.ToShortDateString() != "1/1/0001") { registro.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta); }
+                                if (fechaRespuesta.ToShortDateString() != "1/1/0001") { registro.FechaRespuesta = fechaRespuesta; }
                             }
 
                             ctx.SaveChanges();
@@ -309,15 +290,16 @@ namespace BackEndSAM.DataAcces
                             registro.FechaModificacion = DateTime.Now;
                             registro.UsuarioModificacion = usuario.UsuarioID;
 
+                            ctx.SaveChanges();
 
                             nuevoRegistro.Activo = true;
                             nuevoRegistro.ClasificacionID = datos.ClasificacionID;
                             nuevoRegistro.Descripcion = datos.Descripcion;
                             //nuevoRegistro.DetalleResolucion = datos.DetalleResolucion;
                             nuevoRegistro.Estatus = datos.Estatus;
-                            //if (fechaRegistro.ToShortTimeString() != "1/1/0001")
-                            //{ nuevoRegistro.FechaCreacion = fechaRegistro; }
-                            //else { nuevoRegistro.FechaCreacion = DateTime.Now; }
+                            if (fechaRegistro.ToShortTimeString() != "1/1/0001")
+                            { nuevoRegistro.FechaCreacion = fechaRegistro; }
+                            else { nuevoRegistro.FechaCreacion = DateTime.Now; }
 
                             nuevoRegistro.FechaModificacion = DateTime.Now;
                             //if (fechaRespuesta.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaRespuesta = fechaRespuesta; }
