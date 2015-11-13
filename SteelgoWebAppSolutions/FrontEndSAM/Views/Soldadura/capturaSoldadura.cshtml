@@ -59,36 +59,38 @@
         </div>
     </div>
     <div class="row" id="containerDiv">
-        <div class="col-sm-2 col-md-2 col-lg-3">
-            <div class="btn-group " data-toggle="buttons" role="group">
-                <label>&nbsp;</label>
-                <label class="btn btn-info" id="styleReporte">
-                    <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
-                </label>
-                <label class="btn btn-info" id="styleListado">
-                    <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
-                </label>
+        <div id="FieldSetView">
+            <div class="col-sm-2 col-md-2 col-lg-3">
+                <div class="btn-group " data-toggle="buttons" role="group">
+                    <label>&nbsp;</label>
+                    <label class="btn btn-info" id="styleReporte">
+                        <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
+                    </label>
+                    <label class="btn btn-info" id="styleListado">
+                        <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+                <label id="CapturaArmadoHeaderSpoolID"></label>
+                <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2" id="JuntaDiv">
+                <label id="CapturaArmadoHeaderJunta"></label>
+                <input id="Junta" class="" />
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3" id="MuestraDiv">
+                <label id="CapturaArmadoHeaderMostrar"></label>
+                <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
+                <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
+
+            </div>
+            <div class="col-sm-1 col-md-1 col-lg-1">
+                <label id="">&nbsp;</label>
+                <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="CapturaArmadoAgregarArmado">Agregar</span></button>
+            </div>
             </div>
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
-            <label id="CapturaArmadoHeaderSpoolID"></label>
-            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2" id="JuntaDiv">
-            <label id="CapturaArmadoHeaderJunta"></label>
-            <input id="Junta" class="" />
-        </div>
-        <div class="col-sm-3 col-md-3 col-lg-3" id="MuestraDiv">
-            <label id="CapturaArmadoHeaderMostrar"></label>
-            <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
-            <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
-
-        </div>
-        <div class="col-sm-1 col-md-1 col-lg-1">
-            <label id="">&nbsp;</label>
-            <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="CapturaArmadoAgregarArmado">Agregar</span></button>
-        </div>
-    </div>
     <br />
     <br />
     <div class="row addedSection" id="AgregadoDiv">
