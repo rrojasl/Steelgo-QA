@@ -32,9 +32,9 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Corte0004"></span></a>
                         </div>
-                        <div class="button-section">
+                       @* <div class="button-section">
                             <a id="ImprimirPickingTicket" href="#" class="btn btn-primary"><span id="Corte0042"></span></a>
-                        </div>
+                        </div>*@
                         <div class="button-section listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -354,14 +354,14 @@
     }
 
     function CargaInicial() {
-        $("#ImprimirPickingTicket").attr("disabled", "disabled");
+        //$("#ImprimirPickingTicket").attr("disabled", "disabled");
         $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
         $("#CorregirTolerancia").click(function () { AplicarCambioTolerancia(); });
         $("#CorregirSobrante").click(function () { AplicarCambioSobrante(); });
         $("#CorregirMermaPrimerIntento").click(function () { AplicarCambioMermaCorregir(); });
         $("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
-        $("#ImprimirPickingTicket").click(function () { ImprimirPickingTicket(); });
+        //$("#ImprimirPickingTicket").click(function () { ImprimirPickingTicket(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
         $("#IrIncidencia").click(function () { Incidencias(); });
 
@@ -456,7 +456,7 @@
                     this.value("");
                 }
                 ObtenerDetalleNumeroUnico();
-                $("#ImprimirPickingTicket").attr("disabled", "disabled");
+                //$("#ImprimirPickingTicket").attr("disabled", "disabled");
             },
             filter: "contains",
         });
@@ -566,7 +566,7 @@
         NumeroControl = {};
         $("#NumeroUnico").data("kendoAutoComplete").value("");
         $("#grid").data("kendoGrid").dataSource.data([]);
-        $("#ImprimirPickingTicket").attr("disabled", "disabled");
+        //$("#ImprimirPickingTicket").attr("disabled", "disabled");
     };
 
     function ObtenerDetalleNumeroUnico() {
@@ -612,7 +612,7 @@
         $("#Total").attr("disabled", "disabled");
         $("#Sobrante").attr("disabled", "disabled");
         $("#Merma").attr("disabled", "disabled");
-        $("#ImprimirPickingTicket").removeAttr("disabled", "disabled");
+        //$("#ImprimirPickingTicket").removeAttr("disabled", "disabled");
     };
 
     function DesahabilitarBotonesAgregar() {
@@ -840,9 +840,9 @@
         window.data("kendoWindow").center().open();
     };
 
-    function ImprimirPickingTicket() {
-        alert("Pendiente Formato Picking Ticket");
-    };
+    //function ImprimirPickingTicket() {
+    //    alert("Pendiente Formato Picking Ticket");
+    //};
 
     function Cancelar() {
         window.location.href = _CorteUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
