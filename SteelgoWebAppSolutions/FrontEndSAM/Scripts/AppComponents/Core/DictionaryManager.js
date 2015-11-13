@@ -1211,9 +1211,13 @@ _dictionary = {
         "es-MX": "Espesor",
         "en-US": "Thickness"
     },
-    "ListadoCatalogos0040": {
-        "es-MX": "Configuración",
+    "ListadoCatalogos0041": {
+        "es-MX": "Configuraciones",
         "en-US": "Settings"
+    },
+    "ListadoCatalogos0042": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
     },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
