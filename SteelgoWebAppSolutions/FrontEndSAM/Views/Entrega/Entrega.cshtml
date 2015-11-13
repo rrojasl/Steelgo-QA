@@ -244,7 +244,7 @@
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
-           .kendoAutoComplete({
+           .kendoComboBox({
                autoBind: false,
                dataSource: {
                    type: "json",

@@ -78,7 +78,7 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
+                result.ReturnMessage.Add("Ocurrio un error al guardar los datos.");
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
