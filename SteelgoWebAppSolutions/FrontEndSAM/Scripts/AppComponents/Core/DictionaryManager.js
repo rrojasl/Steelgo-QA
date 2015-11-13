@@ -3168,8 +3168,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "ListadoOrdenAlmacenaje0007": {
-        "es-MX": "Folio Cuantificacion",
-        "en-US": "Quantification Folio"
+        "es-MX": "Folio Aviso Llegada",
+        "en-US": "Arrival Notice Folio"
     },
     "ListadoOrdenAlmacenaje0008": {
         "es-MX": "Fecha Inicial",
