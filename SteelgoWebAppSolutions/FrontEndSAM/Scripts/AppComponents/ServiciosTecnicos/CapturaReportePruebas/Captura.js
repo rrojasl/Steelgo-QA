@@ -13,10 +13,10 @@ function CargarGrid() {
         autoBind: true,
         dataSource: {
             data: [
-                     { TipoPrueba: "RT", Requisicion: "RT-24", SpoolJunta: "X002-1"},
-                     { TipoPrueba: "RT", Requisicion: "RT-25", SpoolJunta: "X002-1 1" },
-                     { TipoPrueba: "VI", Requisicion: "VI-1234", SpoolJunta: "X002-1 2" },
-                     { TipoPrueba: "VI", Requisicion: "VI-1234", SpoolJunta: "X002-1 3" }
+                     { TipoPrueba: "RT", Requisicion: "RT-24", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Aprobado"}]' },
+                     { TipoPrueba: "RT", Requisicion: "RT-25", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Rechazado"}]' },
+                     { TipoPrueba: "VD", Requisicion: "VD-124", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "VD","JuntaSpool":"X003-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Rechazado"}]' },
+                     { TipoPrueba: "VD", Requisicion: "VD-134", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "VD","JuntaSpool":"X004-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Aprobado"}]' }
             ],
             schema: {
                 model: {
@@ -24,6 +24,8 @@ function CargarGrid() {
                         Requisicion: { type: "string", editable: false },
                         TipoPrueba: { type: "string", editable: false },
                         SpoolJunta: { type: "string", editable: false },
+                        InformacionResultados: { type: "string", editable: true },
+                        TemplateMensajeTrabajosAdicionales: { type: "string", editable: true },
 
                     }
                 }
@@ -37,7 +39,7 @@ function CargarGrid() {
         filterable: {
             extra: false
         },
-        editable:true,
+        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
@@ -52,9 +54,9 @@ function CargarGrid() {
             { field: "Requisicion", title: "Requisición", filterable: true },
             { field: "TipoPrueba", title: "Tipo prueba", filterable: true },
             { field: "SpoolJunta", title: "Spool - Junta", filterable: true },
-             
-            
-            
+            { field: "InformacionResultados", title: "Detalle Pruebas", filterable: false, width: "700px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
+
+
 
         ]
     });
