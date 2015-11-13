@@ -1888,10 +1888,13 @@
                 ocultarStatus();
                 cargarTituloFolio();
                 $("#Cuantificacion0077").show();
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             };
         };
-
+        function AsignarPaginaActualCookie() {
+            Cookies.set("navegacion", "12", { path: '/' });
+        }
         function AccionesGuardaryTerminar(data) {
             cargarGridcompletos(data);
             ordenamientoGrid();
@@ -2053,6 +2056,7 @@
                 displayMessage("notificationslabel0081", error, '2');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
                 return;
             }
@@ -2061,6 +2065,7 @@
                 displayMessage("notificationslabel0037", "", '1');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
                 return;
             }
@@ -2069,6 +2074,7 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             
             AccionesTerminaryNuevo(null);
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         }
     };
@@ -2233,6 +2239,7 @@
                 displayMessage("notificationslabel0081", error, '2');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
                 return;
             }
@@ -2240,6 +2247,7 @@
                 displayMessage("notificationslabel0037", "", '1');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
                 return;
             }
@@ -2247,6 +2255,7 @@
             ocultarStatus();
             cargarTituloFolio();
             $("#Cuantificacion0078").show();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         }
     };
@@ -2438,6 +2447,7 @@
                     return;
                 }
                 AccionesAltaGuardadoParcial(null);
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
                 if (guardarynuevo) {
                     var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";

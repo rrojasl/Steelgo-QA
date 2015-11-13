@@ -927,6 +927,7 @@
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
             };
@@ -940,6 +941,9 @@
         });
     };
 
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "22", { path: '/' });
+    }
     //Se envia la accion a la funcion de acconeslistado donde se forma el objeto con todos los filtros
     //Funcion: Filtros
     //Parametros: N/A

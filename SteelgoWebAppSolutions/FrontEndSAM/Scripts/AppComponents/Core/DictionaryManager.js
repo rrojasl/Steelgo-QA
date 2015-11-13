@@ -5667,6 +5667,46 @@ _dictionary = {
         "es-MX": "Editar Respuesta",
         "en-US": "Edit Response"
     },
+    "Incidencias0062": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List"
+    },
+    "Incidencias0063": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0064": {
+        "es-MX": "Guardar Incidencia",
+        "en-US": "Save Incidence"
+    },
+    "Incidencias0065": {
+        "es-MX": "Editar Incidencia",
+        "en-US": "Edit Incidence"
+    },
+    "Incidencias0066": {
+        "es-MX": "Guardar Resolución",
+        "en-US": "Save Resolution"
+    },
+    "Incidencias0067": {
+        "es-MX": "Editar Resolución",
+        "en-US": "Edit Resolution"
+    },
+    "Incidencias0068": {
+        "es-MX": "Guardar Respuesta",
+        "en-US": "Save Response"
+    },
+    "Incidencias0069": {
+        "es-MX": "Editar Respuesta",
+        "en-US": "Edit Response"
+    },
+    "Incidencias0070": {
+        "es-MX": "Guardar Cancelación",
+        "en-US": "Save Cancellation"
+    },
+    "Incidencias0071": {
+        "es-MX": "Editar Cancelación",
+        "en-US": "Edit Cancellation"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",

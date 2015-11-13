@@ -474,10 +474,13 @@
                 $(".detailLink").addClass("hidden");
                 $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
             }
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         }
     }
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "17", { path: '/' });
+    }
     function CargarDatosGridInicial() {
         loadingStart();
 
@@ -497,6 +500,7 @@
                 };
             }
             loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
     };

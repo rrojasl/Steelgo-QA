@@ -263,6 +263,7 @@
                                 $("#grid").data("kendoGrid").dataSource.page(0);
                             };
                         };
+                        AsignarPaginaActualCookie();
                         applySecurityPolicy(false);
                     }
                 };
@@ -271,6 +272,9 @@
         }
     };
 
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "40", { path: '/' });
+    }
 
     function validarRequeridosImpresionDocumental() {
         var bool = true;

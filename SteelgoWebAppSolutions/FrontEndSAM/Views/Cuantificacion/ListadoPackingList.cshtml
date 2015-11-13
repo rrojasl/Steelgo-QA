@@ -632,12 +632,17 @@
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
             };
             loadingStop();
         });
     };
+
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "19", { path: '/' });
+    }
 
     function ArregloListado(accion) {
         var Listado;

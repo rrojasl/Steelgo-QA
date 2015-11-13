@@ -257,12 +257,15 @@
                 //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(0);
                 //    };
                 //};
+                //AsignarPaginaActualCookie();
                 //applySecurityPolicy(false);
             };
             loadingStop();
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "23", { path: '/' });
+    }
     function ObtenerMovimientos() {
         loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "1", token: Cookies.get("token") }).done(function (result) {
@@ -276,6 +279,7 @@
                         $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
             loadingStop();
@@ -295,6 +299,7 @@
                         $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
             loadingStop();
