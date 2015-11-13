@@ -919,12 +919,16 @@
     function CargaInicial() {
         ocultarTabsNuevaIncidencia();
 
-        //Muestro boton de siguiente paso
-        $("#nuevaIncidenciaDiv").addClass("hidden");
-        $("#responderIncidenciaDiv").addClass("hidden");
-        $("#cancelarIncidenciaDiv").addClass("hidden");
-        $("#resolverIncidenciaDiv").removeClass("hidden");
+        if (_Edicion == 1)
+        {
+            //Muestro boton de siguiente paso
+            $("#nuevaIncidenciaDiv").addClass("hidden");
+            $("#responderIncidenciaDiv").addClass("hidden");
+            $("#cancelarIncidenciaDiv").addClass("hidden");
+            $("#resolverIncidenciaDiv").removeClass("hidden");
 
+        }
+       
         $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
         $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
 
@@ -1145,6 +1149,7 @@
             },
             filter: "contains",
         });
+        
         ObtenerUsuarios("ResueltoPor");
         ObtenerUsuarioActual("ResueltoPor");
 
@@ -1181,6 +1186,7 @@
         loadingStart();
         //cargarTituloFolio();
         habilitarTabsNuevaIncidencia();
+
         $Incidencia.Incidencia.read({}, { folioIncidenciaID: id, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 if (_Edicion != "-1") {
@@ -1204,7 +1210,6 @@
 
                 $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
                 CargarTipoIncidencia(data.TipoIncidenciaID);
-
 
                 $("#Version").val(data.Version);
                 $("#Titulo").val(data.Titulo);
@@ -1871,6 +1876,9 @@
         var d = new Date($("#FechaRegistro").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaResolucion").data("kendoDatePicker").value());
         var d2 = new Date($("#FechaRespuesta").data("kendoDatePicker").value());
+        CargarRegistradoPor($("#RegistradoPor").data("kendoComboBox").value());
+        CargarResueltoPor($("#ResueltoPor").data("kendoComboBox").value());
+        CargarRespondidoPor($("#RespondidoPor").data("kendoComboBox").value());
 
         Listado.FolioIncidenciaID = _FolioIncidencia;
         Listado.ClasificacionID = Clasificacion.ClasificacionID;
@@ -2110,6 +2118,14 @@
                 _FolioIncidencia = result.FolioIncidenciaID;
                 $("#Version").val(result.Version);
                 BotonAlta();
+                habilitarTabsNuevaIncidencia();
+
+                //Muestro boton de siguiente paso
+                $("#nuevaIncidenciaDiv").addClass("hidden");
+                $("#responderIncidenciaDiv").addClass("hidden");
+                $("#cancelarIncidenciaDiv").addClass("hidden");
+                $("#resolverIncidenciaDiv").removeClass("hidden");
+
                 //cargarTituloFolio();
                 LimpiarHistorialFiles();
                 displayMessage("notificationslabel0056", "", '0');
