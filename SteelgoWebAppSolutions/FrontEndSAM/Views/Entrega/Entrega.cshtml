@@ -146,8 +146,8 @@
     };
 
     function CargaInicial() {
-        $("#1a1").click(function () { GuardarUnoAUno(); });
-        $("#Guardar").click(function () { GuardarMasivo(); });
+        //$("#1a1").click(function () { GuardarUnoAUno(); });
+        $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
 
         $("#EmpleadoEntrega").kendoComboBox({
@@ -244,7 +244,7 @@
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
-           .kendoComboBox({
+           .kendoAutoComplete({
                autoBind: false,
                dataSource: {
                    type: "json",
@@ -392,7 +392,15 @@
             loadingStop();
         }
     };
-
+    function Guardar() {
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if ($("#1a1").is(":checked")) {
+            GuardarUnoAUno();
+        } else {
+            GuardarMasivo();
+        }
+    };
     function GuardarMasivo() {
         loadingStart();
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
