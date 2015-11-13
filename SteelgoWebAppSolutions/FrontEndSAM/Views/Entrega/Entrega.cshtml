@@ -238,10 +238,11 @@
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
-           .kendoAutoComplete({
+           .kendoComboBox({
                autoBind: false,
                dataSource: {
                    type: "json",
+                   serverFiltering: true,
                    transport: {
                        read: $UrlNoPickingTicket + "token=" + Cookies.get("token")
                    },
@@ -252,8 +253,13 @@
                change: function (e) {
                    
                    var value = this.value();
-                   lastEditedCellIDSPickingTicket.NoPickingTicket = value;
-                   lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   if (this.selectedIndex == -1) {
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = "";
+                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = "";
+                   } else {
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = value;
+                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   };
                    $('#grid').data('kendoGrid').refresh();
                },
                filter: "contains",
