@@ -596,6 +596,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -637,6 +641,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -678,6 +686,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -719,6 +731,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
         };
@@ -767,6 +783,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -808,6 +828,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -849,6 +873,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -890,6 +918,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
         };
@@ -919,12 +951,16 @@
     function CargaInicial() {
         ocultarTabsNuevaIncidencia();
 
-        //Muestro boton de siguiente paso
-        $("#nuevaIncidenciaDiv").addClass("hidden");
-        $("#responderIncidenciaDiv").addClass("hidden");
-        $("#cancelarIncidenciaDiv").addClass("hidden");
-        $("#resolverIncidenciaDiv").removeClass("hidden");
+        if (_Edicion == 1)
+        {
+            //Muestro boton de siguiente paso
+            $("#nuevaIncidenciaDiv").addClass("hidden");
+            $("#responderIncidenciaDiv").addClass("hidden");
+            $("#cancelarIncidenciaDiv").addClass("hidden");
+            $("#resolverIncidenciaDiv").removeClass("hidden");
 
+        }
+       
         $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
         $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
 
@@ -1059,6 +1095,7 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
+               
             },
             change: function (e) {
                 var value = this.value();
@@ -1069,30 +1106,15 @@
                     TipoIncidencia = {};
                     this.value("");
                 }
+                else { ObtenerRegistro(this.value()); }
             },
             filter: "contains",
         });
         ObtenerTipoIncidencia();
 
-        $("#Registro").kendoAutoComplete({
+        $("#Registro").kendoComboBox({
             dataTextField: "value",
             dataValueField: "id",
-            dataSource: {
-                type: "json",
-                minLength: 1,
-                serverFiltering: true,
-                transport: {
-                    read: {
-                        url: function (op) {
-                            var val = "";
-                            if (op.filter) {
-                                val = op.filter.filters[0].value;
-                            }
-                            return $UrlTipoIncidencia + "tipoIncidencia=" + $("#TipoIncidencia").data("kendoComboBox").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
-                        }
-                    }
-                },
-            },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarRegistro(dataItem.id);
@@ -1100,12 +1122,15 @@
             change: function (e) {
                 var value = this.value();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Registro = {};
+                    this.value("");
                 }
             },
             filter: "contains",
         });
+        
 
 
         $("#RegistradoPor").kendoComboBox({
@@ -1145,6 +1170,7 @@
             },
             filter: "contains",
         });
+        
         ObtenerUsuarios("ResueltoPor");
         ObtenerUsuarioActual("ResueltoPor");
 
@@ -1181,6 +1207,7 @@
         loadingStart();
         //cargarTituloFolio();
         habilitarTabsNuevaIncidencia();
+
         $Incidencia.Incidencia.read({}, { folioIncidenciaID: id, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 if (_Edicion != "-1") {
@@ -1193,9 +1220,15 @@
                         DeshabilitarControles();
                         //habilitarTabsNuevaIncidencia();
                         $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
-                        $("#Editar").attr("hidden");
                         $("#dropdown-toggle").hide();
                         $("#Guardar").css("display", "none");
+                        $("#Editar").css("display", "none");
+
+                       
+                        $("#nuevaIncidenciaDiv").addClass("hidden");
+                        $("#responderIncidenciaDiv").addClass("hidden");
+                        $("#cancelarIncidenciaDiv").addClass("hidden");
+                        $("#resolverIncidenciaDiv").addClass("hidden");
                     }
                 };
 
@@ -1204,7 +1237,6 @@
 
                 $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
                 CargarTipoIncidencia(data.TipoIncidenciaID);
-
 
                 $("#Version").val(data.Version);
                 $("#Titulo").val(data.Titulo);
@@ -1258,7 +1290,7 @@
                     $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
                 }
 
-                $("#Registro").data("kendoAutoComplete").value(data.ValorReferencia);
+                $("#Registro").data("kendoComboBox").value(data.ValorReferencia);
                 CargarRegistro(data.ReferenciaID);
 
                 $("#hdEstatus").val(data.Estatus);
@@ -1307,8 +1339,8 @@
             $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
                     if(data.length){
-                        $("#Registro").data("kendoAutoComplete").value(data[0].value);
-                        $("#Registro").data("kendoAutoComplete").enable(false);
+                        $("#Registro").data("kendoComboBox").value(data[0].value);
+                        $("#Registro").data("kendoComboBox").enable(false);
                         CargarRegistro(data[0].id);
                     }
                 }
@@ -1375,6 +1407,12 @@
         if (Cookies.get("user") != null) {
             $("#" + control).data("kendoComboBox").value(Cookies.get("nameUserLogged"));
         }
+    };
+    function ObtenerRegistro(id)
+    {
+        $UrlTipoIncidencia.TipoIncidencia.read({ tipoIncidencia: id, token: Cookies.get("token") }).done(function (result) {
+                ControlErroresObjetosComboBox("Registro", result);
+        });
     }
 
     function ObtenerFechaDefault() {
@@ -1871,6 +1909,9 @@
         var d = new Date($("#FechaRegistro").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaResolucion").data("kendoDatePicker").value());
         var d2 = new Date($("#FechaRespuesta").data("kendoDatePicker").value());
+        CargarRegistradoPor($("#RegistradoPor").data("kendoComboBox").value());
+        CargarResueltoPor($("#ResueltoPor").data("kendoComboBox").value());
+        CargarRespondidoPor($("#RespondidoPor").data("kendoComboBox").value());
 
         Listado.FolioIncidenciaID = _FolioIncidencia;
         Listado.ClasificacionID = Clasificacion.ClasificacionID;
@@ -1897,7 +1938,7 @@
         if ($("#hdEstatus").val() != "Cancelado") {
             $("#Clasificacion").data("kendoComboBox").enable(false);
             $("#TipoIncidencia").data("kendoComboBox").enable(false);
-            $("#Registro").data("kendoAutoComplete").enable(false);
+            $("#Registro").data("kendoComboBox").enable(false);
             $("#Titulo").removeAttr("disabled");
             $("#Descripcion").removeAttr("disabled");
             $("#Respuesta").removeAttr("disabled");
@@ -1936,7 +1977,7 @@
     function DeshabilitarControles() {
         $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(false);
-        $("#Registro").data("kendoAutoComplete").enable(false);
+        $("#Registro").data("kendoComboBox").enable(false);
         $("#Version").attr("disabled", "disabled");
         $("#Titulo").attr("disabled", "disabled");
         $("#Descripcion").attr("disabled", "disabled");
@@ -1973,7 +2014,7 @@
         $("#resolverIncidenciaDiv").addClass("hidden");
         $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(false);
-        $("#Registro").data("kendoAutoComplete").enable(false);
+        $("#Registro").data("kendoComboBox").enable(false);
         $("#Version").attr("disabled", "disabled");
         $("#Titulo").attr("disabled", "disabled");
         $("#Descripcion").attr("disabled", "disabled");
@@ -2110,6 +2151,14 @@
                 _FolioIncidencia = result.FolioIncidenciaID;
                 $("#Version").val(result.Version);
                 BotonAlta();
+                habilitarTabsNuevaIncidencia();
+
+                //Muestro boton de siguiente paso
+                $("#nuevaIncidenciaDiv").addClass("hidden");
+                $("#responderIncidenciaDiv").addClass("hidden");
+                $("#cancelarIncidenciaDiv").addClass("hidden");
+                $("#resolverIncidenciaDiv").removeClass("hidden");
+
                 //cargarTituloFolio();
                 LimpiarHistorialFiles();
                 displayMessage("notificationslabel0056", "", '0');
@@ -2125,6 +2174,7 @@
                     Nuevo();
                 }
                 _FolioIncidencia = result.ReturnMessage[0];
+                console.log(result);
                 //LimpiarHistorialFiles();
                 CargaInicialEdicion(_FolioIncidencia);
                 displayMessage("notificationslabel0056", "", '0');
@@ -2226,6 +2276,14 @@
                     if (Listado.FolioIncidenciaID != "-1") {
                         Editar(Listado);
                         BotonAlta();
+                        $("#Editar").css("display", "none");
+                        $("#Guardar").css("display", "none");
+                        $("#dropdown-toggle").hide();
+                        $("#nuevaIncidenciaDiv").addClass("hidden");
+                        $("#responderIncidenciaDiv").addClass("hidden");
+                        $("#cancelarIncidenciaDiv").addClass("hidden");
+                        $("#resolverIncidenciaDiv").addClass("hidden");
+
                     } else {
                         BotonAlta();
                         Alta(Listado);

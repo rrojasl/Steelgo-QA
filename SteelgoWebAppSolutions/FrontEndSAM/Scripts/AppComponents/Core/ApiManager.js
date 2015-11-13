@@ -50,7 +50,6 @@ var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumen
 var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
 var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
 var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
-var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
 var $UrlOrdenTrabajoSpool = $BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?';
 var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho?';
 var $DiametrosCatalogos = $BackEndSAMUri + '/backendsam/api/Diametros?';
@@ -145,6 +144,7 @@ var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Diametros = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ConvertirSpoolAGranel = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $UrlTipoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -248,3 +248,4 @@ $PreDespacho.add("PreDespacho");
 $GuardarPermisoAduana.add("DocumentoPermisoAduana");
 $Diametros.add("Diametros");
 $ConvertirSpoolAGranel.add("ConvertirSpoolAGranel");
+$UrlTipoIncidencia.add("TipoIncidencia");

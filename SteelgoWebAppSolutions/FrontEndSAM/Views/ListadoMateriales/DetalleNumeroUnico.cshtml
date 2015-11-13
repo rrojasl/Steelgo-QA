@@ -23,51 +23,51 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 filter-section">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div  id="numerounicoDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0002"></label>
                                 <input id="numerounico" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="d1Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0003"></label>
                                 <input id="d1" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="d2Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0004"></label>
                                 <input id="d2" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="cedulaDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0005"></label>
                                 <input id="cedula" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totalrecibidoDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0006"></label>
                                 <input id="totalrecibido" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totaldañadoDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0007"></label>
                                 <input id="totaldañado" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="itemcodeDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0008"></label>
                                 <input id="itemcode" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="profile1Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0009"></label>
                                 <input id="profile1" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="profile2Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0010"></label>
                                 <input id="profile2" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totalentradasDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0011"></label>
                                 <input id="totalentradas" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totalsalidasDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0031"></label>
                                 <input id="totalsalidas" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="saldoactualDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0012"></label>
                                 <input id="saldoactual" class="general-input" disabled />
                             </div>
@@ -78,14 +78,14 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                     <div id="gridSegmentos"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="addedSection clearfix">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                             <div id="gridMovimientosInventario"></div>
                         </div>
                     </div>
@@ -102,6 +102,79 @@
     {
     var _NumeroUnico= getUrlParameter("NumeroUnico", "-1");
     var _listadoMateriales = "@Url.Action("ListadoMateriales", "ListadoMateriales")";
+
+
+
+    var $DetalleNumeroUnicoModel = {
+        listContainer: {
+            create: "",
+            list: ".listado",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+        properties: {
+            numerounico: {
+                visible: "#numerounicoDiv",
+                editable: "#numerounico",
+                required: "#numerounico"
+            },
+            diametro1: {
+                visible: "#d1Div",
+                editable: "#d1",
+                required: "#d1"
+            },
+            diametro2: {
+                visible: "#d2Div",
+                editable: "#d2",
+                required: "#d2"
+            },
+            cedula: {
+                visible: "#cedulaDiv",
+                editable: "#cedula",
+                required: "#cedula"
+            },
+            totalrecibido: {
+                visible: "#totalrecibidoDiv",
+                editable: "#totalrecibido",
+                required: "#totalrecibido"
+            },
+            totaldanado: {
+                visible: "#totaldañadoDiv",
+                editable: "#totaldañado",
+                required: "#totaldañado"
+            },
+            itemcode: {
+                visible: "#itemcodeDiv",
+                editable: "#itemcode",
+                required: "#itemcode"
+            },
+            profile1: {
+                visible: "#profile1Div",
+                editable: "#profile1",
+                required: "#profile1"
+            },
+            profile2: {
+                visible: "#profile2Div",
+                editable: "#profile2",
+                required: "#profile2"
+            },
+            totalentradas: {
+                visible: "#totalentradasDiv",
+                editable: "#totalentradas",
+                required: "#totalentradas"
+            },
+            totalsalidas: {
+                visible: "#totalsalidasDiv",
+                editable: "#totalsalidas",
+                required: "#totalsalidas"
+            },
+            saldoactual: {
+                visible: "#saldoactualDiv",
+                editable: "#saldoactual",
+                required: "#saldoactual"
+            }
+        }
+    };
     }
     @section JavascriptGlobalFunctions 
     {
@@ -325,7 +398,10 @@
 
     }
     @section JavascriptDocumentReadyFunctions {
-        CargaInicial();
+    $authorizationModel["Detalle Numero Unico"] = $DetalleNumeroUnicoModel;
+    CargaInicial();
+    
+    
     }
 
     @section JavascriptDocumentReadyHomeCookie 

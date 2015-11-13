@@ -146,8 +146,8 @@
     };
 
     function CargaInicial() {
-        $("#1a1").click(function () { GuardarUnoAUno(); });
-        $("#Guardar").click(function () { GuardarMasivo(); });
+        //$("#1a1").click(function () { GuardarUnoAUno(); });
+        $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
 
         $("#EmpleadoEntrega").kendoComboBox({
@@ -244,10 +244,11 @@
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
-           .kendoAutoComplete({
+           .kendoComboBox({
                autoBind: false,
                dataSource: {
                    type: "json",
+                   serverFiltering: true,
                    transport: {
                        read: $UrlNoPickingTicket + "token=" + Cookies.get("token")
                    },
@@ -258,8 +259,13 @@
                change: function (e) {
                    
                    var value = this.value();
-                   lastEditedCellIDSPickingTicket.NoPickingTicket = value;
-                   lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   if (this.selectedIndex == -1) {
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = "";
+                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = "";
+                   } else {
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = value;
+                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   };
                    $('#grid').data('kendoGrid').refresh();
                },
                filter: "contains",
@@ -351,12 +357,13 @@
     };
     function GuardarUnoAUno() {
         loadingStart();
-        if (validarRequeridosFormaEntrega() && $("#grid").data("kendoGrid").dataSource.data().length>0) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
             Listado.Entregas = ListadoAGuardar(datasource);
 
-            if (!ValidarInformacionCompleta(datasource)) {
+            if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
                 loadingStop();
                 return;
@@ -385,19 +392,29 @@
             loadingStop();
         }
     };
-
+    function Guardar() {
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if ($("#1a1").is(":checked")) {
+            GuardarUnoAUno();
+        } else {
+            GuardarMasivo();
+        }
+    };
     function GuardarMasivo() {
         loadingStart();
-        if (validarRequeridosFormaEntrega() && $("#grid").data("kendoGrid").dataSource.data().length>0) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
              Listado.Entregas = ListadoAGuardar(datasource);
 
-            if (!ValidarInformacionCompleta(datasource)) {
+            if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
                 loadingStop();
                 return;
             }
+            
             $Entrega.Entrega.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 if (Error(result))
                 {
@@ -478,7 +495,7 @@
     };
 
     }; 
-    function ValidarInformacionCompleta(datasource) {
+    function BorrarVacios(datasource) {
         var bool = true;
         var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
         var FechaEntrega = obtenerFormatoFecha(d);
@@ -488,6 +505,7 @@
             var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe
             if (!NoPickingTicket || !NoEmpleadoEntrega || !NoEmpleadoRecibe) {
                 bool = false;
+                datasource.remove(datasource[i]);
             }
         }
 

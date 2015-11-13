@@ -2653,7 +2653,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListaComboIncidencia(int tipoIncidenciaID, string busqueda)
+        public object ListaComboIncidencia(int tipoIncidenciaID)
         {
             try
             {
@@ -2662,19 +2662,19 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> listado = new List<ListaCombos>();
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
-                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
-                    List<string> elementos = new List<string>();
-                    foreach (char i in lstElementoNumeroControl)
-                    {
-                        elementos.Add(i.ToString());
-                    }
+                    //char[] lstElementoNumeroControl = busqueda.ToCharArray();
+                    //List<string> elementos = new List<string>();
+                    //foreach (char i in lstElementoNumeroControl)
+                    //{
+                    //    elementos.Add(i.ToString());
+                    //}
 
                     switch (tipoIncidenciaID)
                     {
                         case 1: //Folio Aviso Entrada
                             listado = (from fe in ctx.Sam3_FolioAvisoLlegada
                                        where fe.Activo
-                                       && fe.FolioAvisoLlegadaID.ToString().Contains(busqueda)
+                                       //&& fe.FolioAvisoLlegadaID.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
                                            id = fe.FolioAvisoLlegadaID.ToString(),
@@ -2706,7 +2706,7 @@ namespace BackEndSAM.DataAcces
                         case 2: // Entrada de Material
                             listado = (from fem in ctx.Sam3_FolioAvisoEntrada
                                        where fem.Activo
-                                       && fem.FolioAvisoEntradaID.ToString().Contains(busqueda)
+                                       //&& fem.FolioAvisoEntradaID.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
                                            id = fem.FolioAvisoEntradaID.ToString(),
@@ -2718,7 +2718,7 @@ namespace BackEndSAM.DataAcces
                         case 4: // Packing List
                             listado = (from fc in ctx.Sam3_FolioCuantificacion
                                        where fc.Activo
-                                       && fc.FolioCuantificacionID.ToString().Contains(busqueda)
+                                       //&& fc.FolioCuantificacionID.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
                                            id = fc.FolioCuantificacionID.ToString(),
@@ -2728,7 +2728,7 @@ namespace BackEndSAM.DataAcces
                         case 5: // Orden de recepcion
                             listado = (from ordr in ctx.Sam3_OrdenRecepcion
                                        where ordr.Activo
-                                       && ordr.Folio.ToString().Contains(busqueda)
+                                       //&& ordr.Folio.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
                                            id = ordr.Folio.ToString(),
@@ -2740,7 +2740,7 @@ namespace BackEndSAM.DataAcces
                         case 7: // ItemCode
                             listado = (from it in ctx.Sam3_ItemCode
                                        where it.Activo
-                                       && it.Codigo.Contains(busqueda)
+                                       //&& it.Codigo.Contains(busqueda)
                                        select new ListaCombos
                                        {
                                            id = it.ItemCodeID.ToString(),
@@ -2750,7 +2750,7 @@ namespace BackEndSAM.DataAcces
                         case 8: // Orden de almacenaje
                             listado = (from oa in ctx.Sam3_OrdenAlmacenaje
                                        where oa.Activo
-                                       && oa.Folio.ToString().Contains(busqueda)
+                                       //&& oa.Folio.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
                                            id = oa.Folio.ToString(),
@@ -2758,27 +2758,27 @@ namespace BackEndSAM.DataAcces
                                        }).AsParallel().Distinct().ToList();
                             break;
                         case 9: // Numero unico
-                            string prefijo = "";
-                            string num = "";
-                            int tempN = 0;
-                            string[] elem;
+                            //string prefijo = "";
+                            //string num = "";
+                            //int tempN = 0;
+                            //string[] elem;
 
-                            if (busqueda.Contains('-'))
-                            {
-                                elem = busqueda.Split('-').ToArray();
-                                prefijo = elem[0];
-                                int.TryParse(elem[1], out tempN);
-                                num = tempN > 0 ? tempN.ToString() : "";
-                            }
-                            else
-                            {
-                                prefijo = busqueda;
-                            }
+                            //if (busqueda.Contains('-'))
+                            //{
+                            //    elem = busqueda.Split('-').ToArray();
+                            //    prefijo = elem[0];
+                            //    int.TryParse(elem[1], out tempN);
+                            //    num = tempN > 0 ? tempN.ToString() : "";
+                            //}
+                            //else
+                            //{
+                            //    prefijo = busqueda;
+                            //}
 
                             listado = (from nu in ctx.Sam3_NumeroUnico
                                        where nu.Activo
-                                       && nu.Prefijo.Contains(prefijo)
-                                       && nu.Consecutivo.ToString().Contains(num)
+                                       //&& nu.Prefijo.Contains(prefijo)
+                                       //&& nu.Consecutivo.ToString().Contains(num)
                                        select new ListaCombos
                                        {
                                            id = nu.NumeroUnicoID.ToString(),
@@ -2806,7 +2806,7 @@ namespace BackEndSAM.DataAcces
                         case 10: // Despacho
                             listado = (from d in ctx.Sam3_Despacho
                                        where d.Activo
-                                       && elementos.Any(x => d.DespachoID.ToString().Contains(x))
+                                       //&& elementos.Any(x => d.DespachoID.ToString().Contains(x))
                                        select new ListaCombos
                                        {
                                            id = d.DespachoID.ToString(),
@@ -2816,7 +2816,7 @@ namespace BackEndSAM.DataAcces
                         case 11: // Corte
                             listado = (from c in ctx.Sam3_Corte
                                        where c.Activo
-                                       && elementos.Any(x => c.CorteID.ToString().Contains(x))
+                                       //&& elementos.Any(x => c.CorteID.ToString().Contains(x))
                                        select new ListaCombos
                                        {
                                            id = c.CorteID.ToString(),
