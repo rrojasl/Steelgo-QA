@@ -40,6 +40,9 @@
                                     <li id="menuEditarIncidencias" style="display:none"><a id="EditarIncidencia" href="#"><span id="Incidencias0009"></span></a></li>*@
                                 </ul>
                                 </div>
+                            <div id="nuevaIncidenciaDiv" class="button-section responderIncidencia hidden">
+                                    <a id="NuevaIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0063"></span></a>
+                                </div>
                                 <div id="responderIncidenciaDiv" class="button-section responderIncidencia hidden">
                                     <a id="ResponderIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0037"></span></a>
                                 </div>
@@ -550,16 +553,14 @@
     }
 
     @section JavascriptGlobalFunctions {
-
-    function cambiaActivos(e) {
-        //applySecurityPolicy(false);
-        tabSelected = $(e.item).find("> .k-link").text();
+    function cambiaActivosClick(tabSelected)
+    {
         switch (tabSelected) {
 
             case "Incidencia":
 
                 if ($("#hdEstatus").val() != "Cancelado") {
-                    if (typeof (returnOfSecurityCheck) != undefined 
+                    if (typeof (returnOfSecurityCheck) != undefined
                         && typeof (returnOfSecurityCheck["Incidencias"]) != undefined
                          && typeof (returnOfSecurityCheck["Incidencias"].create) != undefined
                             && !returnOfSecurityCheck["Incidencias"].create) {
@@ -581,6 +582,15 @@
                             habilitarControles();
                         }
                     }
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").removeClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
                 }
                 else {
                     $("#Editar").css("display", "none");
@@ -613,6 +623,15 @@
                             habilitarControles();
                         }
                     }
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").removeClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0066[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0067[$("#language").data("kendoDropDownList").value()]);
                 }
                 else {
                     $("#Editar").css("display", "none");
@@ -645,6 +664,15 @@
                             habilitarControles();
                         }
                     }
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").removeClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0068[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0069[$("#language").data("kendoDropDownList").value()]);
                 }
                 else {
                     $("#Editar").css("display", "none");
@@ -677,6 +705,186 @@
                             habilitarControles();
                         }
                     }
+                    //Oculto boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").removeClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0070[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0071[$("#language").data("kendoDropDownList").value()]);
+                }
+                else {
+                    $("#Editar").css("display", "none");
+                    $("#Guardar").css("display", "none");
+                    $("#dropdown-toggle").hide();
+                }
+                break;
+        };
+    }
+
+    function cambiaActivos(e) {
+        tabSelected = $(e.item).find("> .k-link").text();
+        switch (tabSelected) {
+
+            case "Incidencia":
+
+                if ($("#hdEstatus").val() != "Cancelado") {
+                    if (typeof (returnOfSecurityCheck) != undefined 
+                        && typeof (returnOfSecurityCheck["Incidencias"]) != undefined
+                         && typeof (returnOfSecurityCheck["Incidencias"].create) != undefined
+                            && !returnOfSecurityCheck["Incidencias"].create) {
+                        $("#Editar").css("display", "none");
+                        $("#Guardar").css("display", "none");
+                        $("#dropdown-toggle").hide();
+                    } else if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["Incidencias"]) != undefined
+                         && typeof (returnOfSecurityCheck["Incidencias"].create) != undefined
+                            && returnOfSecurityCheck["Incidencias"].create) {
+                        if (_Editando[tabSelected] == 0) {
+                            $("#Editar").css("display", "block");
+                            $("#Guardar").css("display", "none");
+                            $("#dropdown-toggle").hide();
+                        } else {
+                            $("#Guardar").css("display", "block");
+                            $("#dropdown-toggle").show();
+                            $("#Editar").css("display", "none");
+                            habilitarControles();
+                        }
+                    }
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").removeClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
+                }
+                else {
+                    $("#Editar").css("display", "none");
+                    $("#Guardar").css("display", "none");
+                    $("#dropdown-toggle").hide();
+                }
+                break;
+
+            case "Resolver":
+                if ($("#hdEstatus").val() != "Cancelado") {
+                    if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["ResolucionIncidencia"]) != undefined
+                         && typeof (returnOfSecurityCheck["ResolucionIncidencia"].create) != undefined
+                            && !returnOfSecurityCheck["ResolucionIncidencia"].create) {
+                        $("#Editar").css("display", "none");
+                        $("#Guardar").css("display", "none");
+                        $("#dropdown-toggle").hide();
+                    } else if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["ResolucionIncidencia"]) != undefined
+                         && typeof (returnOfSecurityCheck["ResolucionIncidencia"].create) != undefined
+                            && returnOfSecurityCheck["ResolucionIncidencia"].create) {
+                        if (_Editando[tabSelected] == 0) {
+                            $("#Editar").css("display", "block");
+                            $("#Guardar").css("display", "none");
+                            $("#dropdown-toggle").hide();
+                        } else {
+                            $("#Guardar").css("display", "block");
+                            $("#dropdown-toggle").show();
+                            $("#Editar").css("display", "none");
+                            habilitarControles();
+                        }
+                    }
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").removeClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0066[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0067[$("#language").data("kendoDropDownList").value()]);
+                }
+                else {
+                    $("#Editar").css("display", "none");
+                    $("#Guardar").css("display", "none");
+                    $("#dropdown-toggle").hide();
+                }
+                break;
+
+            case "Responder":
+                if ($("#hdEstatus").val() != "Cancelado") {
+                    if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["RespuestaIncidencia"]) != undefined
+                         && typeof (returnOfSecurityCheck["RespuestaIncidencia"].create) != undefined
+                            && !returnOfSecurityCheck["RespuestaIncidencia"].create) {
+                        $("#Editar").css("display", "none");
+                        $("#Guardar").css("display", "none");
+                        $("#dropdown-toggle").hide();
+                    } else if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["RespuestaIncidencia"]) != undefined
+                         && typeof (returnOfSecurityCheck["RespuestaIncidencia"].create) != undefined
+                            && returnOfSecurityCheck["RespuestaIncidencia"].create) {
+                        if (_Editando[tabSelected] == 0) {
+                            $("#Editar").css("display", "block");
+                            $("#Guardar").css("display", "none");
+                            $("#dropdown-toggle").hide();
+                        } else {
+                            $("#Guardar").css("display", "block");
+                            $("#dropdown-toggle").show();
+                            $("#Editar").css("display", "none");
+                            habilitarControles();
+                        }
+                    }
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").removeClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0068[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0069[$("#language").data("kendoDropDownList").value()]);
+                }
+                else {
+                    $("#Editar").css("display", "none");
+                    $("#Guardar").css("display", "none");
+                    $("#dropdown-toggle").hide();
+                }
+                break;
+
+            case "Cancelar":
+                if ($("#hdEstatus").val() != "Cancelado") {
+                    if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["CancelarIncidencia"]) != undefined
+                         && typeof (returnOfSecurityCheck["CancelarIncidencia"].create) != undefined
+                            && !returnOfSecurityCheck["CancelarIncidencia"].create) {
+                        $("#Editar").css("display", "none");
+                        $("#Guardar").css("display", "none");
+                        $("#dropdown-toggle").hide();
+                    } else if (typeof (returnOfSecurityCheck) != undefined
+                        && typeof (returnOfSecurityCheck["CancelarIncidencia"]) != undefined
+                         && typeof (returnOfSecurityCheck["CancelarIncidencia"].create) != undefined
+                            && returnOfSecurityCheck["CancelarIncidencia"].create) {
+                        if (_Editando[tabSelected] == 0) {
+                            $("#Editar").css("display", "block");
+                            $("#Guardar").css("display", "none");
+                            $("#dropdown-toggle").hide();
+                        } else {
+                            $("#Guardar").css("display", "block");
+                            $("#dropdown-toggle").show();
+                            $("#Editar").css("display", "none");
+                            habilitarControles();
+                        }
+                    }
+                    //Oculto boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").removeClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+
+                    //Cambio el nombre del boton Guardar
+                    $("#Guardar").text(_dictionary.Incidencias0070[$("#language").data("kendoDropDownList").value()]);
+                    $("#Editar").text(_dictionary.Incidencias0071[$("#language").data("kendoDropDownList").value()]);
                 }
                 else {
                     $("#Editar").css("display", "none");
@@ -711,6 +919,15 @@
     function CargaInicial() {
         ocultarTabsNuevaIncidencia();
 
+        //Muestro boton de siguiente paso
+        $("#nuevaIncidenciaDiv").addClass("hidden");
+        $("#responderIncidenciaDiv").addClass("hidden");
+        $("#cancelarIncidenciaDiv").addClass("hidden");
+        $("#resolverIncidenciaDiv").removeClass("hidden");
+
+        $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
+        $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
+
         //ALTA DE UNA INCIDENCIA
         $("#Guardar").click(function () { Guardar(); });
         $("#GuardaryNuevoIncidencia").click(function () { GuardaryNuevoIncidencia(); });
@@ -724,6 +941,7 @@
         $("#ResolverIncidencia").click(function () { ResolverIncidencia(); });
         $("#CancelarIncidencia").click(function () { CancelarIncidencia(); });
         $("#ResponderIncidencia").click(function () { ResponderIncidencia(); });
+        $("#NuevaIncidencia").click(function () { NuevaIncidencia(); });
 
         $("#RedirectDashboard").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("ListadoIncidencias", "Incidencias")";
@@ -1154,7 +1372,6 @@
     };
 
     function ObtenerUsuarioActual(control) {
-        console.log(control);
         if (Cookies.get("user") != null) {
             $("#" + control).data("kendoComboBox").value(Cookies.get("nameUserLogged"));
         }
@@ -1194,6 +1411,10 @@
                 if ($("#hdEstatus").val() != "Cancelado") {
                     $("#dropdown-toggle").show();
                     $("#Guardar").css("display", "block");
+
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").removeClass("hidden");
                 }
                 else {
                     $("#dropdown-toggle").hide();
@@ -1737,7 +1958,7 @@
         $("#ResueltoPor").data("kendoComboBox").enable(false);
         $("#RespondidoPor").data("kendoComboBox").enable(false);
 
-        $("#Cancelar").addClass("hidden");
+        //$("#Cancelar").addClass("hidden");
 
         //ocultarTabsNuevaIncidencia();
     };
@@ -2046,16 +2267,27 @@
         //loadingStop();
     };
 
-    function ResolverIncidencia() {
-        
+    function NuevaIncidencia() {
+        $("#tabstrip").data("kendoTabStrip").select(0);
+        tabSelected = "Incidencia";
+        cambiaActivosClick(tabSelected);
     };
-
-    function CancelarIncidencia() {
-        
+    function ResolverIncidencia() {
+        $("#tabstrip").data("kendoTabStrip").select(1);
+        tabSelected = "Resolver";
+        cambiaActivosClick(tabSelected);
     };
     function ResponderIncidencia() {
-       
+        $("#tabstrip").data("kendoTabStrip").select(2);
+        tabSelected = "Responder";
+        cambiaActivosClick(tabSelected);
     };
+    function CancelarIncidencia() {
+        $("#tabstrip").data("kendoTabStrip").select(3);
+        tabSelected = "Cancelar";
+        cambiaActivosClick(tabSelected);
+    };
+
     function Nuevo() {
         window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
@@ -2183,7 +2415,7 @@
             }
         },
         //select: tabSeleccionado,
-        select: cambiaActivos
+        select: cambiaActivos,
     });
 
     CargaInicial();
