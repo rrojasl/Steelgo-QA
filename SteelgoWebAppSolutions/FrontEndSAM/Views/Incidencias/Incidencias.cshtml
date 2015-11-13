@@ -2281,6 +2281,14 @@
                     if (Listado.FolioIncidenciaID != "-1") {
                         Editar(Listado);
                         BotonAlta();
+                        $("#Editar").css("display", "none");
+                        $("#Guardar").css("display", "none");
+                        $("#dropdown-toggle").hide();
+                        $("#nuevaIncidenciaDiv").addClass("hidden");
+                        $("#responderIncidenciaDiv").addClass("hidden");
+                        $("#cancelarIncidenciaDiv").addClass("hidden");
+                        $("#resolverIncidenciaDiv").addClass("hidden");
+
                     } else {
                         BotonAlta();
                         Alta(Listado);
