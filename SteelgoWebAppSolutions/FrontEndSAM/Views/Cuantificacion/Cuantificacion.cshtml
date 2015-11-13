@@ -2711,6 +2711,7 @@
                     },
                     open:function(e){
                         isOpen=true;
+                        $(e.sender.ul).on("click",function(){isOpen=false});
                     },
                 });
             lastEditedCellID = options.model;
