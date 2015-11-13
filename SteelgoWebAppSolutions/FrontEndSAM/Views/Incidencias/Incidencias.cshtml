@@ -596,6 +596,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -637,6 +641,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -678,6 +686,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -719,6 +731,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
         };
@@ -767,6 +783,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -808,6 +828,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -849,6 +873,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
 
@@ -890,6 +918,10 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").addClass("hidden");
                 }
                 break;
         };
@@ -1199,9 +1231,15 @@
                         DeshabilitarControles();
                         //habilitarTabsNuevaIncidencia();
                         $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
-                        $("#Editar").attr("hidden");
                         $("#dropdown-toggle").hide();
                         $("#Guardar").css("display", "none");
+                        $("#Editar").css("display", "none");
+
+                       
+                        $("#nuevaIncidenciaDiv").addClass("hidden");
+                        $("#responderIncidenciaDiv").addClass("hidden");
+                        $("#cancelarIncidenciaDiv").addClass("hidden");
+                        $("#resolverIncidenciaDiv").addClass("hidden");
                     }
                 };
 
@@ -2141,6 +2179,7 @@
                     Nuevo();
                 }
                 _FolioIncidencia = result.ReturnMessage[0];
+                console.log(result);
                 //LimpiarHistorialFiles();
                 CargaInicialEdicion(_FolioIncidencia);
                 displayMessage("notificationslabel0056", "", '0');
