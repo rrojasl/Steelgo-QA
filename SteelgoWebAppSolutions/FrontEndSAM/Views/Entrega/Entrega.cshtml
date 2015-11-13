@@ -345,12 +345,13 @@
     };
     function GuardarUnoAUno() {
         loadingStart();
-        if (validarRequeridosFormaEntrega() && $("#grid").data("kendoGrid").dataSource.data().length>0) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
             Listado.Entregas = ListadoAGuardar(datasource);
 
-            if (!ValidarInformacionCompleta(datasource)) {
+            if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
                 loadingStop();
                 return;
@@ -382,16 +383,18 @@
 
     function GuardarMasivo() {
         loadingStart();
-        if (validarRequeridosFormaEntrega() && $("#grid").data("kendoGrid").dataSource.data().length>0) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
              Listado.Entregas = ListadoAGuardar(datasource);
 
-            if (!ValidarInformacionCompleta(datasource)) {
+            if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
                 loadingStop();
                 return;
             }
+            
             $Entrega.Entrega.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 if (Error(result))
                 {
@@ -472,7 +475,7 @@
     };
 
     }; 
-    function ValidarInformacionCompleta(datasource) {
+    function BorrarVacios(datasource) {
         var bool = true;
         var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
         var FechaEntrega = obtenerFormatoFecha(d);
@@ -482,6 +485,7 @@
             var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe
             if (!NoPickingTicket || !NoEmpleadoEntrega || !NoEmpleadoRecibe) {
                 bool = false;
+                datasource.remove(datasource[i]);
             }
         }
 
