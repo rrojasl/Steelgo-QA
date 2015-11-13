@@ -46,11 +46,18 @@
     @Scripts.Render("~/Scripts/AppComponents/Core/UtilitiesManager.js")
 
     @RenderSection("HtmlHead", required: false)
+    <script type="text/x-kendo-template" id="windowTemplate">
+        Grid Padre
 
+        <button class="k-button" id="yesButton">Yes</button>
+        <button class="k-button" id="noButton"> No</button>
+    </script>
 </head>
 <body>
     <header class="clearfix">
         <div class="content-wrapper clearfix">
+            <div id="window">
+            </div>
             <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
                 <a class="logo" href="#"></a>
             </div>
