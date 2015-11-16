@@ -36,16 +36,22 @@
                     </div>
                 </div>
             </div>
+            <div id="grid"></div>
         </div>
     </div>
 </div>
-<div id="grid"></div>
 
 <script>
 @section JavascriptGlobalVariables {
+    filtrosBase=[{ field: "a", operator: "contains", value: "" },{ field: "b", operator: "contains", value: "" }]
 }
 
 @section JavascriptGlobalFunctions {
+    function updateFiltros(){
+        filtros=[];
+        $("#proyectos").data("kendoComboBox").value() ? filtrosBase[0]["value"]=$("#proyectos").data("kendoComboBox").value() : 0;
+        $("#nombre").data("kendoAutoComplete").value() ? filtrosBase[1]["value"]=$("#proyectos").data("kendoComboBox").value() : 0;
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
@@ -61,9 +67,9 @@
         },
         dataTextField: "value",
         dataValueField: "id",
-        change:function(e){
-            //
-        }
+        select:function(e){
+            updateFiltros();
+        },
     });
     $("#nombre").kendoAutoComplete({
         dataSource:{
@@ -74,10 +80,66 @@
                 }
             }
         } ,
-        dataTextField: "value"
+        dataTextField: "value",
+        select:function(e){
+            updateFiltros();
+        },
     });
 
-    $("#grid").kendoGrid({})
+    $("#grid").kendoGrid({
+        columns: [
+            { field: "a", title: _dictionary.ListadoSpoolGranel0007[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "a"} }, template:"<a href='@Url.Action("SpoolGranel", "Spool")'>#: id # </strong>", width: "120px" },
+            { field: "b", title: _dictionary.ListadoSpoolGranel0008[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "b"} }, width: "120px" },
+            { field: "c", title: _dictionary.ListadoSpoolGranel0009[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "c"} }, width: "120px" },
+        ],
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    id:"",
+                    fields: {}
+                }
+            },
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            pageSize: 20,
+            transport:{
+                read:{
+                    url:"#",
+                    dataType:"json",
+                    type:"GET",
+                    cache: false
+                },
+            },
+        },
+        autoHeight: true,
+        sortable: false,
+        scrollable: false,
+        filterable:{
+            extra: false,
+            mode: "row",
+            cell: {
+                showOperators: false,
+                operator: "contains"
+            }
+        },
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 15, 20],
+            info: false,
+            input: false,
+            numeric: true,
+            buttonCount: 2
+        },
+        dataBound: function(e) {
+            //
+        },
+    });
+
+    $("#buscar").on("click",function(){
+        $("#grid").data("kendoGrid").dataSource.filter(filtrosBase);
+    })
 };
     
 @section JavascriptDocumentReadyHomeCookie {

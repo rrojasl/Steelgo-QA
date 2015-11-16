@@ -5899,6 +5899,18 @@ _dictionary = {
         "es-MX": "Search",
         "en-US": "Buscar"
     },
+    "ListadoSpoolGranel0007": {
+        "es-MX": "Nombre spool",
+        "en-US": "Spool's name"
+    },
+    "ListadoSpoolGranel0008": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoSpoolGranel0009": {
+        "es-MX": "Tipo Spool",
+        "en-US": "Spool's type"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
