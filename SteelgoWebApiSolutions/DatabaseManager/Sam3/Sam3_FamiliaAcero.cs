@@ -20,6 +20,8 @@ namespace DatabaseManager.Sam3
             this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
             this.Sam3_Spool = new HashSet<Sam3_Spool>();
             this.Sam3_Spool1 = new HashSet<Sam3_Spool>();
+            this.Sam3_JuntaSpool = new HashSet<Sam3_JuntaSpool>();
+            this.Sam3_JuntaSpool1 = new HashSet<Sam3_JuntaSpool>();
         }
     
         public int FamiliaAceroID { get; set; }
@@ -36,5 +38,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
         public virtual ICollection<Sam3_Spool> Sam3_Spool { get; set; }
         public virtual ICollection<Sam3_Spool> Sam3_Spool1 { get; set; }
+        public virtual ICollection<Sam3_JuntaSpool> Sam3_JuntaSpool { get; set; }
+        public virtual ICollection<Sam3_JuntaSpool> Sam3_JuntaSpool1 { get; set; }
     }
 }

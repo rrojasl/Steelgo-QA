@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
             this.Sam3_NumeroUnico1 = new HashSet<Sam3_NumeroUnico>();
+            this.Sam3_CorteSpool = new HashSet<Sam3_CorteSpool>();
+            this.Sam3_CorteSpool1 = new HashSet<Sam3_CorteSpool>();
         }
     
         public int TipoCorteID { get; set; }
@@ -31,5 +33,7 @@ namespace DatabaseManager.Sam3
     
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico1 { get; set; }
+        public virtual ICollection<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
+        public virtual ICollection<Sam3_CorteSpool> Sam3_CorteSpool1 { get; set; }
     }
 }

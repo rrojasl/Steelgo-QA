@@ -12,23 +12,13 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Taller
+    public partial class Sam3_EquivalenciaODTM
     {
-        public Sam3_Taller()
-        {
-            this.Sam3_OrdenTrabajo = new HashSet<Sam3_OrdenTrabajo>();
-            this.Sam3_Estacion = new HashSet<Sam3_Estacion>();
-        }
-    
-        public int TallerID { get; set; }
-        public int PatioID { get; set; }
-        public string Nombre { get; set; }
+        public int EquivalenciaODTM_ID { get; set; }
+        public int Sam2_ODTM_ID { get; set; }
+        public int Sam3_ODTM_ID { get; set; }
         public bool Activo { get; set; }
-        public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-    
-        public virtual ICollection<Sam3_OrdenTrabajo> Sam3_OrdenTrabajo { get; set; }
-        public virtual Sam3_Patio Sam3_Patio { get; set; }
-        public virtual ICollection<Sam3_Estacion> Sam3_Estacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
     }
 }
