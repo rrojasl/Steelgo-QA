@@ -298,5 +298,136 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ListadoNumeroControlConvertirAGranel(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        List<int> proyectos = new List<int>();
+                        List<int> patios = new List<int>();
+
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
+                        List<int> proyectos_sam2 = (from eqp in ctx.Sam3_EquivalenciaProyecto
+                                                    where eqp.Activo
+                                                    && proyectos.Contains(eqp.Sam3_ProyectoID)
+                                                    select eqp.Sam2_ProyectoID).AsParallel().ToList();
+
+                        List<int> patios_sam2 = (from eqp in ctx.Sam3_EquivalenciaPatio
+                                                 where eqp.Activo
+                                                 && patios.Contains(eqp.Sam3_PatioID)
+                                                 select eqp.Sam2_PatioID).AsParallel().ToList();
+
+                        List<ListaCombos> listado = (from odts in ctx2.OrdenTrabajoSpool
+                                                     join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                     where proyectos_sam2.Contains(odt.ProyectoID)
+                                                     select new ListaCombos
+                                                     {
+                                                         id = odts.OrdenTrabajoSpoolID.ToString(),
+                                                         value = odts.NumeroControl
+                                                     }).AsParallel().Distinct().ToList();
+
+                        listado = listado.GroupBy(x => x.id).Select(x => x.First()).OrderBy(x => x.value).ToList();
+
+                        return listado;
+                    }
+                }
+ 
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerJuntasPorODTS(int odtsID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                ItemsSpoolAGranel lista = new ItemsSpoolAGranel();
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    lista.Items.AddRange((from js in ctx2.JuntaSpool
+                                          join odts in ctx2.OrdenTrabajoSpool on js.SpoolID equals odts.SpoolID
+                                          join tj in ctx2.TipoJunta on js.TipoJuntaID equals tj.TipoJuntaID
+                                          where odts.OrdenTrabajoSpoolID == odtsID
+                                          select new ListadoConvertirSpoolAGranel
+                                          {
+                                              Spool = odts.NumeroControl,
+                                              Junta = js.Etiqueta,
+                                              Status = (from jwks in ctx2.JuntaWorkstatus
+                                                        join up in ctx2.UltimoProceso on jwks.UltimoProcesoID equals up.UltimoProcesoID
+                                                        where jwks.JuntaSpoolID == js.JuntaSpoolID
+                                                        select up.Nombre).FirstOrDefault(),
+                                              TipoJunta = tj.Nombre
+                                          }).AsParallel().Distinct().ToList());
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ConvertirJuntasPorODTS(int odtsID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+                        using (Sam2Context ctx2 = new Sam2Context())
+                        {
+                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
+                            {
+                                
+                                ctx2_tran.Commit();
+                            }
+                        }
+                        ctx_tran.Commit();
+                    }
+                }
+
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

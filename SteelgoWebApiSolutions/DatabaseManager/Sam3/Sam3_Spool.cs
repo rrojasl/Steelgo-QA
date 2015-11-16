@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
             this.Sam3_OrdenTrabajoSpool = new HashSet<Sam3_OrdenTrabajoSpool>();
+            this.Sam3_CorteSpool = new HashSet<Sam3_CorteSpool>();
+            this.Sam3_JuntaSpool = new HashSet<Sam3_JuntaSpool>();
         }
     
         public int SpoolID { get; set; }
@@ -83,5 +85,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
         public virtual ICollection<Sam3_OrdenTrabajoSpool> Sam3_OrdenTrabajoSpool { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        public virtual ICollection<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
+        public virtual ICollection<Sam3_JuntaSpool> Sam3_JuntaSpool { get; set; }
     }
 }

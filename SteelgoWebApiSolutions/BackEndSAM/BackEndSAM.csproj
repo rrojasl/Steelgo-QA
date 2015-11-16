@@ -318,6 +318,7 @@
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\PickingTicketBd.cs" />
     <Compile Include="DataAcces\PreDespachoBd.cs" />
+    <Compile Include="DataAcces\SpoolBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />

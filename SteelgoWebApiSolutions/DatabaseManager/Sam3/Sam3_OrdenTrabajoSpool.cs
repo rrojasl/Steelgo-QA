@@ -17,6 +17,8 @@ namespace DatabaseManager.Sam3
         public Sam3_OrdenTrabajoSpool()
         {
             this.Sam3_CorteDetalle = new HashSet<Sam3_CorteDetalle>();
+            this.Sam3_OrdenTrabajoJunta = new HashSet<Sam3_OrdenTrabajoJunta>();
+            this.Sam3_OrdenTrabajoMaterial = new HashSet<Sam3_OrdenTrabajoMaterial>();
         }
     
         public int OrdenTrabajoSpoolID { get; set; }
@@ -32,5 +34,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_CorteDetalle> Sam3_CorteDetalle { get; set; }
         public virtual Sam3_OrdenTrabajo Sam3_OrdenTrabajo { get; set; }
         public virtual Sam3_Spool Sam3_Spool { get; set; }
+        public virtual ICollection<Sam3_OrdenTrabajoJunta> Sam3_OrdenTrabajoJunta { get; set; }
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
     }
 }

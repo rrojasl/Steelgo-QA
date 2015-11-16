@@ -17,79 +17,52 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ConvertirSpoolAGranelController : ApiController
     {
-        // GET api/convertirspoolagranel
-        public IEnumerable<ListaCombos> Get(string token)
+
+        public object Get(string token)
         {
-            List<ListaCombos> lstCombo= new List<ListaCombos>();
-            ListaCombos item1= new ListaCombos();
-            ListaCombos item2= new ListaCombos();
-            ListaCombos item3 = new ListaCombos();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-            item1.id="1";
-            item1.value="Spool 1";
-            lstCombo.Add(item1);
-
-            item2.id="2";
-            item2.value="Spool 2";
-            lstCombo.Add(item2);
-
-            item3.id = "3";
-            item3.value = "Spool 3";
-            lstCombo.Add(item3);
-
-            return lstCombo.AsEnumerable();
+                return OrdenTrabajoSpoolBd.Instance.ListadoNumeroControlConvertirAGranel(usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // GET api/convertirspoolagranel/5
-        public IEnumerable<ListadoConvertirSpoolAGranel> Get(int spoolID, string token)
+        public object Get(int spoolID, string token)
         {
-            List<ListadoConvertirSpoolAGranel> lstConvertirSpool = new List<ListadoConvertirSpoolAGranel>();
-            ListadoConvertirSpoolAGranel item1 = new ListadoConvertirSpoolAGranel();
-            ListadoConvertirSpoolAGranel item2 = new ListadoConvertirSpoolAGranel();
-            if (spoolID == 1)
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
             {
-                item1.Junta = "Junta 1";
-                item1.TipoJunta = "Shop";
-                item1.Status = "";
-                lstConvertirSpool.Add(item1);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-
-                item2.Junta = "Junta 2";
-                item2.TipoJunta = "Shop";
-                item2.Status = "";
-                lstConvertirSpool.Add(item2);
+                return OrdenTrabajoSpoolBd.Instance.ObtenerJuntasPorODTS(spoolID, usuario);
             }
-
-            if (spoolID == 2)
+            else
             {
-                item1.Junta = "Junta 3";
-                item1.TipoJunta = "Shop";
-                item1.Status = "";
-                lstConvertirSpool.Add(item1);
-
-
-                item2.Junta = "Junta 4";
-                item2.TipoJunta = "Field";
-                item2.Status = "";
-                lstConvertirSpool.Add(item2);
-            
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
             }
-
-            if (spoolID == 3)
-            {
-                item1.Junta = "Junta 5";
-                item1.TipoJunta = "Shop";
-                item1.Status = "error";
-                lstConvertirSpool.Add(item1);
-
-
-                item2.Junta = "Junta 6";
-                item2.TipoJunta = "Field";
-                item2.Status = "";
-                lstConvertirSpool.Add(item2);
-
-            }
-            return lstConvertirSpool.AsEnumerable();
         }
 
         // POST api/convertirspoolagranel

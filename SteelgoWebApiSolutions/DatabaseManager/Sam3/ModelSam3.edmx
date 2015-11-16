@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -192,6 +192,25 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
+        <EntityType Name="Sam3_CorteSpool">
+          <Key>
+            <PropertyRef Name="CorteSpoolID" />
+          </Key>
+          <Property Name="CorteSpoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpoolID" Type="int" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="TipoCorte1ID" Type="int" Nullable="false" />
+          <Property Name="TipoCorte2ID" Type="int" Nullable="false" />
+          <Property Name="EtiquetaMaterial" Type="nvarchar" MaxLength="10" />
+          <Property Name="EtiquetaSeccion" Type="nvarchar" MaxLength="5" />
+          <Property Name="Diametro" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="InicioFin" Type="nvarchar" MaxLength="20" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Observaciones" Type="nvarchar" MaxLength="500" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_DeficitMateriales">
           <Key>
             <PropertyRef Name="DeficitID" />
@@ -293,6 +312,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_EquivalenciaCorteSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaCorteSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaCorteSpool_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_CorteSpoolID" Type="int" Nullable="false" />
+          <Property Name="Sam3_CorteSpoolID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_EquivalenciaDespacho">
           <Key>
             <PropertyRef Name="EquivalenciaDespachoID" />
@@ -311,6 +341,39 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="EquivalenciaDiametroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sam2_DiametroID" Type="int" />
           <Property Name="Sam3_DiametroID" Type="int" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaEstacion">
+          <Key>
+            <PropertyRef Name="EquivalenciaEstacio_ID" />
+          </Key>
+          <Property Name="EquivalenciaEstacio_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_EstacionID" Type="int" Nullable="false" />
+          <Property Name="Sam3_EstacionID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaEstatusOrden">
+          <Key>
+            <PropertyRef Name="EquivalenciaEstatusOrden_ID" />
+          </Key>
+          <Property Name="EquivalenciaEstatusOrden_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_EstatusOrdenID" Type="int" Nullable="false" />
+          <Property Name="Sam3_EstatusOrdenID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaFabArea">
+          <Key>
+            <PropertyRef Name="EquivalenciaFabArea_ID" />
+          </Key>
+          <Property Name="EquivalenciaFabArea_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_FabAreaID" Type="int" Nullable="false" />
+          <Property Name="Sam3_FabAreaID" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -359,6 +422,28 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_EquivalenciaJuntaSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaJuntaSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaJuntaSpool_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_JuntaSpoolID" Type="int" Nullable="false" />
+          <Property Name="Sam3_JuntaSpoolID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaMaterialSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaMaterialSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaMaterialSpool_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_MaterialSpoolID" Type="int" Nullable="false" />
+          <Property Name="Sam3_MaterialSpoolID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_EquivalenciaNumeroUnico">
           <Key>
             <PropertyRef Name="EquivalenciaNumeroUnicoID" />
@@ -377,6 +462,50 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="EquivalenciaNumeroUnicoMovimientoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sam2_NumeroUnicoMovimientoID" Type="int" Nullable="false" />
           <Property Name="Sam3_NumeroUnicoMovimientoID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODT">
+          <Key>
+            <PropertyRef Name="EquivalenciaODT_ID" />
+          </Key>
+          <Property Name="EquivalenciaODT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_ODT_ID" Type="int" Nullable="false" />
+          <Property Name="Sam3_ODT_ID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODTJ">
+          <Key>
+            <PropertyRef Name="EquivalenciaODTJ_ID" />
+          </Key>
+          <Property Name="EquivalenciaODTJ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_ODTJ_ID" Type="int" Nullable="false" />
+          <Property Name="Sam3_ODTJ_ID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODTM">
+          <Key>
+            <PropertyRef Name="EquivalenciaODTM_ID" />
+          </Key>
+          <Property Name="EquivalenciaODTM_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_ODTM_ID" Type="int" Nullable="false" />
+          <Property Name="Sam3_ODTM_ID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODTS">
+          <Key>
+            <PropertyRef Name="EquivalenciaODTS_ID" />
+          </Key>
+          <Property Name="EquivalenciaODTS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_ODTS_ID" Type="int" Nullable="false" />
+          <Property Name="Sam3_ODTS_ID" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -414,6 +543,61 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_EquivalenciaSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaSpool_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_SpoolID" Type="int" Nullable="false" />
+          <Property Name="Sam3_SpoolID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaTaller">
+          <Key>
+            <PropertyRef Name="EquivalenciaTaller_ID" />
+          </Key>
+          <Property Name="EquivalenciaTaller_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_TallerID" Type="int" Nullable="false" />
+          <Property Name="Sam3_TallerID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModifica" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaTipoCorte">
+          <Key>
+            <PropertyRef Name="EquivalenciaTipoCorte_ID" />
+          </Key>
+          <Property Name="EquivalenciaTipoCorte_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_TipoCorteID" Type="int" Nullable="false" />
+          <Property Name="Sam3_TipoCorteID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaTipoJunta">
+          <Key>
+            <PropertyRef Name="EquivalenciaTipoJunta_ID" />
+          </Key>
+          <Property Name="EquivalenciaTipoJunta_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_TipoJuntaID" Type="int" Nullable="false" />
+          <Property Name="Sam3_TipoJuntaID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_Estacion">
+          <Key>
+            <PropertyRef Name="EstacionID" />
+          </Key>
+          <Property Name="EstacionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TallerID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_EstatusOrden">
           <Key>
             <PropertyRef Name="EstatusOrdenID" />
@@ -435,6 +619,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sam3_FabArea">
+          <Key>
+            <PropertyRef Name="FabAreaID" />
+          </Key>
+          <Property Name="FabAreaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Fabricante">
           <Key>
@@ -647,6 +842,33 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="GrupoID" Type="int" />
           <Property Name="DescripcionLargaEspanol" Type="varchar" MaxLength="250" />
           <Property Name="DescripcionLargaIngles" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Sam3_JuntaSpool">
+          <Key>
+            <PropertyRef Name="JuntaSpoolID" />
+          </Key>
+          <Property Name="JuntaSpoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpoolID" Type="int" Nullable="false" />
+          <Property Name="TipoJuntaID" Type="int" Nullable="false" />
+          <Property Name="FabAreaID" Type="int" Nullable="false" />
+          <Property Name="Etiqueta" Type="nvarchar" MaxLength="10" />
+          <Property Name="EtiquetaMaterial1" Type="nvarchar" MaxLength="10" />
+          <Property Name="EtiquetaMaterial2" Type="nvarchar" MaxLength="10" />
+          <Property Name="Cedula" Type="nvarchar" MaxLength="10" />
+          <Property Name="FamiliaAceroMaterial1ID" Type="int" Nullable="false" />
+          <Property Name="FamiliaAceroMaterial2ID" Type="int" />
+          <Property Name="Diametro" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="Espesor" Type="decimal" Precision="10" Scale="4" />
+          <Property Name="KgTeoricos" Type="decimal" Precision="12" Scale="4" />
+          <Property Name="Peqs" Type="decimal" Precision="10" Scale="4" />
+          <Property Name="EsManual" Type="bit" />
+          <Property Name="EstacionID" Type="int" />
+          <Property Name="FabClas" Type="nvarchar" MaxLength="150" />
+          <Property Name="RequierePwht" Type="bit" Nullable="false" />
+          <Property Name="RequierePruebaNeumatica" Type="bit" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Maquina">
           <Key>
@@ -884,6 +1106,49 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sam3_OrdenTrabajoJunta">
+          <Key>
+            <PropertyRef Name="OrdenTrabajoJuntaID" />
+          </Key>
+          <Property Name="OrdenTrabajoJuntaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdenTrabajoSpoolID" Type="int" Nullable="false" />
+          <Property Name="JuntaSpoolID" Type="int" Nullable="false" />
+          <Property Name="FueReingenieria" Type="bit" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModifica" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sam3_OrdenTrabajoMaterial">
+          <Key>
+            <PropertyRef Name="OrdenTrabajoMaterialID" />
+          </Key>
+          <Property Name="OrdenTrabajoMaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdenTrabajoSpoolID" Type="int" Nullable="false" />
+          <Property Name="MaterialSpoolID" Type="int" Nullable="false" />
+          <Property Name="DespachoID" Type="int" />
+          <Property Name="CorteDetalleID" Type="int" />
+          <Property Name="TieneInventarioCongelado" Type="bit" Nullable="false" />
+          <Property Name="NumeroUnicoCongeladoID" Type="int" />
+          <Property Name="SegmentoCongelado" Type="nchar" MaxLength="1" />
+          <Property Name="CantidadCongelada" Type="int" />
+          <Property Name="CongeladoEsEquivalente" Type="bit" Nullable="false" />
+          <Property Name="NumeroUnicoSugeridoID" Type="int" />
+          <Property Name="SegmentoSugerido" Type="nchar" MaxLength="1" />
+          <Property Name="SugeridoEsEquivalente" Type="bit" Nullable="false" />
+          <Property Name="TieneCorte" Type="bit" />
+          <Property Name="TieneDespacho" Type="bit" Nullable="false" />
+          <Property Name="DespachoEsEquivalente" Type="bit" Nullable="false" />
+          <Property Name="NumeroUnicoDespachadoID" Type="int" />
+          <Property Name="SegmentoDespachado" Type="nchar" MaxLength="1" />
+          <Property Name="CantidadDespachada" Type="int" />
+          <Property Name="FueReingenieria" Type="bit" Nullable="false" />
+          <Property Name="EsAsignado" Type="bit" Nullable="false" />
+          <Property Name="NumeroUnicoAsignadoID" Type="int" />
+          <Property Name="SegmentoAsignado" Type="nchar" MaxLength="1" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_OrdenTrabajoSpool">
           <Key>
@@ -1868,6 +2133,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_TipoJunta">
+          <Key>
+            <PropertyRef Name="TipoJuntaID" />
+          </Key>
+          <Property Name="TipoJuntaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="VerificadoPorCalidad" Type="bit" Nullable="false" />
+          <Property Name="PermiteTerminadoRelleno" Type="bit" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_TipoMaterial">
           <Key>
             <PropertyRef Name="TipoMaterialID" />
@@ -2092,6 +2370,54 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Cort__ItemC__52B92F6B">
+          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
+          <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cort__Spool__51C50B32">
+          <End Role="Sam3_Spool" Type="Self.Sam3_Spool" Multiplicity="1" />
+          <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Spool">
+              <PropertyRef Name="SpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="SpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cort__TipoC__53AD53A4">
+          <End Role="Sam3_TipoCorte" Type="Self.Sam3_TipoCorte" Multiplicity="1" />
+          <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoCorte">
+              <PropertyRef Name="TipoCorteID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="TipoCorte1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cort__TipoC__54A177DD">
+          <End Role="Sam3_TipoCorte" Type="Self.Sam3_TipoCorte" Multiplicity="1" />
+          <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoCorte">
+              <PropertyRef Name="TipoCorteID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="TipoCorte2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sam3_Desp__Numer__60B24907">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_Despacho" Type="Self.Sam3_Despacho" Multiplicity="*" />
@@ -2137,6 +2463,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Entrega">
               <PropertyRef Name="FolioPickingTicketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Esta__Talle__587208C1">
+          <End Role="Sam3_Taller" Type="Self.Sam3_Taller" Multiplicity="1" />
+          <End Role="Sam3_Estacion" Type="Self.Sam3_Estacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Taller">
+              <PropertyRef Name="TallerID" />
+            </Principal>
+            <Dependent Role="Sam3_Estacion">
+              <PropertyRef Name="TallerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2365,6 +2703,174 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_ItemCode">
               <PropertyRef Name="TipoUsoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Estac__61074EC2">
+          <End Role="Sam3_Estacion" Type="Self.Sam3_Estacion" Multiplicity="0..1" />
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Estacion">
+              <PropertyRef Name="EstacionID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="EstacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__FabAr__5E2AE217">
+          <End Role="Sam3_FabArea" Type="Self.Sam3_FabArea" Multiplicity="1" />
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FabArea">
+              <PropertyRef Name="FabAreaID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="FabAreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Famil__5F1F0650">
+          <End Role="Sam3_FamiliaAcero" Type="Self.Sam3_FamiliaAcero" Multiplicity="1" />
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FamiliaAcero">
+              <PropertyRef Name="FamiliaAceroID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="FamiliaAceroMaterial1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Famil__60132A89">
+          <End Role="Sam3_FamiliaAcero" Type="Self.Sam3_FamiliaAcero" Multiplicity="0..1" />
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FamiliaAcero">
+              <PropertyRef Name="FamiliaAceroID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="FamiliaAceroMaterial2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Spool__5C4299A5">
+          <End Role="Sam3_Spool" Type="Self.Sam3_Spool" Multiplicity="1" />
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Spool">
+              <PropertyRef Name="SpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="SpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__TipoJ__5D36BDDE">
+          <End Role="Sam3_TipoJunta" Type="Self.Sam3_TipoJunta" Multiplicity="1" />
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoJunta">
+              <PropertyRef Name="TipoJuntaID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="TipoJuntaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Junta__65CC03DF">
+          <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="1" />
+          <End Role="Sam3_OrdenTrabajoJunta" Type="Self.Sam3_OrdenTrabajoJunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_JuntaSpool">
+              <PropertyRef Name="JuntaSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoJunta">
+              <PropertyRef Name="JuntaSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Mater__7AC720C5">
+          <End Role="Sam3_MaterialSpool" Type="Self.Sam3_MaterialSpool" Multiplicity="1" />
+          <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_MaterialSpool">
+              <PropertyRef Name="MaterialSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="MaterialSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7BBB44FE">
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoCongeladoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7CAF6937">
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoSugeridoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7DA38D70">
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoDespachadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7E97B1A9">
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoAsignadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Orden__64D7DFA6">
+          <End Role="Sam3_OrdenTrabajoSpool" Type="Self.Sam3_OrdenTrabajoSpool" Multiplicity="1" />
+          <End Role="Sam3_OrdenTrabajoJunta" Type="Self.Sam3_OrdenTrabajoJunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenTrabajoSpool">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoJunta">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Orden__79D2FC8C">
+          <End Role="Sam3_OrdenTrabajoSpool" Type="Self.Sam3_OrdenTrabajoSpool" Multiplicity="1" />
+          <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenTrabajoSpool">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4289,6 +4795,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Contacto" EntityType="Self.Sam3_Contacto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Corte" EntityType="Self.Sam3_Corte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_CorteDetalle" EntityType="Self.Sam3_CorteDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_CorteSpool" EntityType="Self.Sam3_CorteSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_DeficitMateriales" EntityType="Self.Sam3_DeficitMateriales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Despacho" EntityType="Self.Sam3_Despacho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Diametro" EntityType="Self.Sam3_Diametro" Schema="dbo" store:Type="Tables" />
@@ -4297,19 +4804,35 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_EquivalenciaAcero" EntityType="Self.Sam3_EquivalenciaAcero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaColada" EntityType="Self.Sam3_EquivalenciaColada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaCorte" EntityType="Self.Sam3_EquivalenciaCorte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaCorteSpool" EntityType="Self.Sam3_EquivalenciaCorteSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaDespacho" EntityType="Self.Sam3_EquivalenciaDespacho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaDiametro" EntityType="Self.Sam3_EquivalenciaDiametro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaEstacion" EntityType="Self.Sam3_EquivalenciaEstacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaEstatusOrden" EntityType="Self.Sam3_EquivalenciaEstatusOrden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaFabArea" EntityType="Self.Sam3_EquivalenciaFabArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaFabricante" EntityType="Self.Sam3_EquivalenciaFabricante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaFamiliaAcero" EntityType="Self.Sam3_EquivalenciaFamiliaAcero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaFamiliaMaterial" EntityType="Self.Sam3_EquivalenciaFamiliaMaterial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaItemCode" EntityType="Self.Sam3_EquivalenciaItemCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaJuntaSpool" EntityType="Self.Sam3_EquivalenciaJuntaSpool" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaMaterialSpool" EntityType="Self.Sam3_EquivalenciaMaterialSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaNumeroUnico" EntityType="Self.Sam3_EquivalenciaNumeroUnico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaNumeroUnicoMovimiento" EntityType="Self.Sam3_EquivalenciaNumeroUnicoMovimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaODT" EntityType="Self.Sam3_EquivalenciaODT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaODTJ" EntityType="Self.Sam3_EquivalenciaODTJ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaODTM" EntityType="Self.Sam3_EquivalenciaODTM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaODTS" EntityType="Self.Sam3_EquivalenciaODTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaPatio" EntityType="Self.Sam3_EquivalenciaPatio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaProveedor" EntityType="Self.Sam3_EquivalenciaProveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaProyecto" EntityType="Self.Sam3_EquivalenciaProyecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaSpool" EntityType="Self.Sam3_EquivalenciaSpool" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaTaller" EntityType="Self.Sam3_EquivalenciaTaller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaTipoCorte" EntityType="Self.Sam3_EquivalenciaTipoCorte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaTipoJunta" EntityType="Self.Sam3_EquivalenciaTipoJunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Estacion" EntityType="Self.Sam3_Estacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EstatusOrden" EntityType="Self.Sam3_EstatusOrden" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ExtensionDocumento" EntityType="Self.Sam3_ExtensionDocumento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_FabArea" EntityType="Self.Sam3_FabArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Fabricante" EntityType="Self.Sam3_Fabricante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_FamiliaAcero" EntityType="Self.Sam3_FamiliaAcero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_FamiliaItemCode" EntityType="Self.Sam3_FamiliaItemCode" Schema="dbo" store:Type="Tables" />
@@ -4323,6 +4846,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Incidencia" EntityType="Self.Sam3_Incidencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ItemCode" EntityType="Self.Sam3_ItemCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ItemCodeSteelgo" EntityType="Self.Sam3_ItemCodeSteelgo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_JuntaSpool" EntityType="Self.Sam3_JuntaSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Maquina" EntityType="Self.Sam3_Maquina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_MaterialSpool" EntityType="Self.Sam3_MaterialSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_MenuContextual" EntityType="Self.Sam3_MenuContextual" Schema="dbo" store:Type="Tables" />
@@ -4336,6 +4860,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_OrdenAlmacenaje" EntityType="Self.Sam3_OrdenAlmacenaje" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_OrdenRecepcion" EntityType="Self.Sam3_OrdenRecepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_OrdenTrabajo" EntityType="Self.Sam3_OrdenTrabajo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_OrdenTrabajoJunta" EntityType="Self.Sam3_OrdenTrabajoJunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_OrdenTrabajoMaterial" EntityType="Self.Sam3_OrdenTrabajoMaterial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_OrdenTrabajoSpool" EntityType="Self.Sam3_OrdenTrabajoSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Pagina" EntityType="Self.Sam3_Pagina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Patio" EntityType="Self.Sam3_Patio" Schema="dbo" store:Type="Tables" />
@@ -4401,6 +4927,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_TipoCorte" EntityType="Self.Sam3_TipoCorte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoDocumento" EntityType="Self.Sam3_TipoDocumento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoIncidencia" EntityType="Self.Sam3_TipoIncidencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_TipoJunta" EntityType="Self.Sam3_TipoJunta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoMaterial" EntityType="Self.Sam3_TipoMaterial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoMovimiento" EntityType="Self.Sam3_TipoMovimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoNotificacion" EntityType="Self.Sam3_TipoNotificacion" Schema="dbo" store:Type="Tables" />
@@ -4504,6 +5031,22 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_ColaCreacionNumerosUnicos" EntitySet="Sam3_ColaCreacionNumerosUnicos" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__ItemC__52B92F6B" Association="Self.FK__Sam3_Cort__ItemC__52B92F6B">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__Spool__51C50B32" Association="Self.FK__Sam3_Cort__Spool__51C50B32">
+            <End Role="Sam3_Spool" EntitySet="Sam3_Spool" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__TipoC__53AD53A4" Association="Self.FK__Sam3_Cort__TipoC__53AD53A4">
+            <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__TipoC__54A177DD" Association="Self.FK__Sam3_Cort__TipoC__54A177DD">
+            <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Desp__Numer__60B24907" Association="Self.FK__Sam3_Desp__Numer__60B24907">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
@@ -4519,6 +5062,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Entr__Folio__16D94F8E" Association="Self.FK__Sam3_Entr__Folio__16D94F8E">
             <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
             <End Role="Sam3_Entrega" EntitySet="Sam3_Entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Esta__Talle__587208C1" Association="Self.FK__Sam3_Esta__Talle__587208C1">
+            <End Role="Sam3_Taller" EntitySet="Sam3_Taller" />
+            <End Role="Sam3_Estacion" EntitySet="Sam3_Estacion" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Foli__Chofe__24285DB4" Association="Self.FK__Sam3_Foli__Chofe__24285DB4">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
@@ -4595,6 +5142,62 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Item__TipoU__7D8391DF" Association="Self.FK__Sam3_Item__TipoU__7D8391DF">
             <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Estac__61074EC2" Association="Self.FK__Sam3_Junt__Estac__61074EC2">
+            <End Role="Sam3_Estacion" EntitySet="Sam3_Estacion" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__FabAr__5E2AE217" Association="Self.FK__Sam3_Junt__FabAr__5E2AE217">
+            <End Role="Sam3_FabArea" EntitySet="Sam3_FabArea" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Famil__5F1F0650" Association="Self.FK__Sam3_Junt__Famil__5F1F0650">
+            <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Famil__60132A89" Association="Self.FK__Sam3_Junt__Famil__60132A89">
+            <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Spool__5C4299A5" Association="Self.FK__Sam3_Junt__Spool__5C4299A5">
+            <End Role="Sam3_Spool" EntitySet="Sam3_Spool" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__TipoJ__5D36BDDE" Association="Self.FK__Sam3_Junt__TipoJ__5D36BDDE">
+            <End Role="Sam3_TipoJunta" EntitySet="Sam3_TipoJunta" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Junta__65CC03DF" Association="Self.FK__Sam3_Orde__Junta__65CC03DF">
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+            <End Role="Sam3_OrdenTrabajoJunta" EntitySet="Sam3_OrdenTrabajoJunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Mater__7AC720C5" Association="Self.FK__Sam3_Orde__Mater__7AC720C5">
+            <End Role="Sam3_MaterialSpool" EntitySet="Sam3_MaterialSpool" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7BBB44FE" Association="Self.FK__Sam3_Orde__Numer__7BBB44FE">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7CAF6937" Association="Self.FK__Sam3_Orde__Numer__7CAF6937">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7DA38D70" Association="Self.FK__Sam3_Orde__Numer__7DA38D70">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7E97B1A9" Association="Self.FK__Sam3_Orde__Numer__7E97B1A9">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Orden__64D7DFA6" Association="Self.FK__Sam3_Orde__Orden__64D7DFA6">
+            <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
+            <End Role="Sam3_OrdenTrabajoJunta" EntitySet="Sam3_OrdenTrabajoJunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Orden__79D2FC8C" Association="Self.FK__Sam3_Orde__Orden__79D2FC8C">
+            <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_PreD__Numer__19B5BC39" Association="Self.FK__Sam3_PreD__Numer__19B5BC39">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
@@ -5469,6 +6072,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Spool1" Relationship="Self.FK_Spool_FamiliaAcero_2" FromRole="Sam3_FamiliaAcero" ToRole="Sam3_Spool" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_JuntaSpool" Relationship="ModelSam3.FK__Sam3_Junt__Famil__5F1F0650" FromRole="Sam3_FamiliaAcero" ToRole="Sam3_JuntaSpool" />
+          <NavigationProperty Name="Sam3_JuntaSpool1" Relationship="ModelSam3.FK__Sam3_Junt__Famil__60132A89" FromRole="Sam3_FamiliaAcero" ToRole="Sam3_JuntaSpool" />
         </EntityType>
         <EntityType Name="Sam3_FamiliaItemCode">
           <Key>
@@ -5612,6 +6217,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Rel_Incidencia_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__33AA9866" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_Incidencia_ItemCode" />
           <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__477C86E9" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
           <NavigationProperty Name="Sam3_Rel_Itemcode_Colada" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__2D87AABC" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_Itemcode_Colada" />
+          <NavigationProperty Name="Sam3_CorteSpool" Relationship="ModelSam3.FK__Sam3_Cort__ItemC__52B92F6B" FromRole="Sam3_ItemCode" ToRole="Sam3_CorteSpool" />
         </EntityType>
         <EntityType Name="Sam3_Maquina">
           <Key>
@@ -5655,6 +6261,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Spool" Relationship="Self.FK_MaterialSpool_Spool" FromRole="Sam3_MaterialSpool" ToRole="Sam3_Spool" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoMaterial" Relationship="ModelSam3.FK__Sam3_Orde__Mater__7AC720C5" FromRole="Sam3_MaterialSpool" ToRole="Sam3_OrdenTrabajoMaterial" />
         </EntityType>
         <EntityType Name="Sam3_MenuContextual">
           <Key>
@@ -5768,6 +6375,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Despacho" Relationship="ModelSam3.FK__Sam3_Desp__Numer__60B24907" FromRole="Sam3_NumeroUnico" ToRole="Sam3_Despacho" />
           <NavigationProperty Name="Sam3_PreDespacho" Relationship="ModelSam3.FK__Sam3_PreD__Numer__19B5BC39" FromRole="Sam3_NumeroUnico" ToRole="Sam3_PreDespacho" />
           <NavigationProperty Name="Sam3_Rel_NumeroUnico_RelFC_RelB" Relationship="ModelSam3.FK__Sam3_Rel___Numer__1D5142F3" FromRole="Sam3_NumeroUnico" ToRole="Sam3_Rel_NumeroUnico_RelFC_RelB" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoMaterial" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7BBB44FE" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoMaterial1" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7CAF6937" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoMaterial2" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7DA38D70" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoMaterial3" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7E97B1A9" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoCorte">
           <Key>
@@ -5895,6 +6506,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Spool" Relationship="Self.FK_OrdenTrabajoSpool_Spool" FromRole="Sam3_OrdenTrabajoSpool" ToRole="Sam3_Spool" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoJunta" Relationship="ModelSam3.FK__Sam3_Orde__Orden__64D7DFA6" FromRole="Sam3_OrdenTrabajoSpool" ToRole="Sam3_OrdenTrabajoJunta" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoMaterial" Relationship="ModelSam3.FK__Sam3_Orde__Orden__79D2FC8C" FromRole="Sam3_OrdenTrabajoSpool" ToRole="Sam3_OrdenTrabajoMaterial" />
         </EntityType>
         <EntityType Name="Sam3_Pagina">
           <Key>
@@ -6314,6 +6927,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Proyecto" Relationship="Self.FK_Spool_Proyecto" FromRole="Sam3_Spool" ToRole="Sam3_Proyecto" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_CorteSpool" Relationship="ModelSam3.FK__Sam3_Cort__Spool__51C50B32" FromRole="Sam3_Spool" ToRole="Sam3_CorteSpool" />
+          <NavigationProperty Name="Sam3_JuntaSpool" Relationship="ModelSam3.FK__Sam3_Junt__Spool__5C4299A5" FromRole="Sam3_Spool" ToRole="Sam3_JuntaSpool" />
         </EntityType>
         <EntityType Name="Sam3_Taller">
           <Key>
@@ -6327,6 +6942,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Patio" Relationship="Self.FK_Taller_Patio" FromRole="Sam3_Taller" ToRole="Sam3_Patio" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_Estacion" Relationship="ModelSam3.FK__Sam3_Esta__Talle__587208C1" FromRole="Sam3_Taller" ToRole="Sam3_Estacion" />
         </EntityType>
         <EntityType Name="Sam3_TipoCorte">
           <Key>
@@ -6342,6 +6958,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_NumeroUnico1" Relationship="Self.FK_NumeroUnico_TipoCorte_2" FromRole="Sam3_TipoCorte" ToRole="Sam3_NumeroUnico" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_CorteSpool" Relationship="ModelSam3.FK__Sam3_Cort__TipoC__53AD53A4" FromRole="Sam3_TipoCorte" ToRole="Sam3_CorteSpool" />
+          <NavigationProperty Name="Sam3_CorteSpool1" Relationship="ModelSam3.FK__Sam3_Cort__TipoC__54A177DD" FromRole="Sam3_TipoCorte" ToRole="Sam3_CorteSpool" />
         </EntityType>
         <EntityType Name="Sam3_TipoDocumento">
           <Key>
@@ -8469,6 +9087,103 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___ItemC__2D87AABC" Association="ModelSam3.FK__Sam3_Rel___ItemC__2D87AABC">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_Rel_Itemcode_Colada" EntitySet="Sam3_Rel_Itemcode_Colada" />
+          </AssociationSet>
+          <EntitySet Name="Sam3_CorteSpool" EntityType="ModelSam3.Sam3_CorteSpool" />
+          <EntitySet Name="Sam3_EquivalenciaCorteSpool" EntityType="ModelSam3.Sam3_EquivalenciaCorteSpool" />
+          <EntitySet Name="Sam3_EquivalenciaEstacion" EntityType="ModelSam3.Sam3_EquivalenciaEstacion" />
+          <EntitySet Name="Sam3_EquivalenciaEstatusOrden" EntityType="ModelSam3.Sam3_EquivalenciaEstatusOrden" />
+          <EntitySet Name="Sam3_EquivalenciaFabArea" EntityType="ModelSam3.Sam3_EquivalenciaFabArea" />
+          <EntitySet Name="Sam3_EquivalenciaJuntaSpool" EntityType="ModelSam3.Sam3_EquivalenciaJuntaSpool" />
+          <EntitySet Name="Sam3_EquivalenciaMaterialSpool" EntityType="ModelSam3.Sam3_EquivalenciaMaterialSpool" />
+          <EntitySet Name="Sam3_EquivalenciaODT" EntityType="ModelSam3.Sam3_EquivalenciaODT" />
+          <EntitySet Name="Sam3_EquivalenciaODTJ" EntityType="ModelSam3.Sam3_EquivalenciaODTJ" />
+          <EntitySet Name="Sam3_EquivalenciaODTM" EntityType="ModelSam3.Sam3_EquivalenciaODTM" />
+          <EntitySet Name="Sam3_EquivalenciaODTS" EntityType="ModelSam3.Sam3_EquivalenciaODTS" />
+          <EntitySet Name="Sam3_EquivalenciaSpool" EntityType="ModelSam3.Sam3_EquivalenciaSpool" />
+          <EntitySet Name="Sam3_EquivalenciaTaller" EntityType="ModelSam3.Sam3_EquivalenciaTaller" />
+          <EntitySet Name="Sam3_EquivalenciaTipoCorte" EntityType="ModelSam3.Sam3_EquivalenciaTipoCorte" />
+          <EntitySet Name="Sam3_EquivalenciaTipoJunta" EntityType="ModelSam3.Sam3_EquivalenciaTipoJunta" />
+          <EntitySet Name="Sam3_Estacion" EntityType="ModelSam3.Sam3_Estacion" />
+          <EntitySet Name="Sam3_FabArea" EntityType="ModelSam3.Sam3_FabArea" />
+          <EntitySet Name="Sam3_JuntaSpool" EntityType="ModelSam3.Sam3_JuntaSpool" />
+          <EntitySet Name="Sam3_OrdenTrabajoJunta" EntityType="ModelSam3.Sam3_OrdenTrabajoJunta" />
+          <EntitySet Name="Sam3_OrdenTrabajoMaterial" EntityType="ModelSam3.Sam3_OrdenTrabajoMaterial" />
+          <EntitySet Name="Sam3_TipoJunta" EntityType="ModelSam3.Sam3_TipoJunta" />
+          <AssociationSet Name="FK__Sam3_Cort__ItemC__52B92F6B" Association="ModelSam3.FK__Sam3_Cort__ItemC__52B92F6B">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__Spool__51C50B32" Association="ModelSam3.FK__Sam3_Cort__Spool__51C50B32">
+            <End Role="Sam3_Spool" EntitySet="Sam3_Spool" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__TipoC__53AD53A4" Association="ModelSam3.FK__Sam3_Cort__TipoC__53AD53A4">
+            <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cort__TipoC__54A177DD" Association="ModelSam3.FK__Sam3_Cort__TipoC__54A177DD">
+            <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
+            <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Esta__Talle__587208C1" Association="ModelSam3.FK__Sam3_Esta__Talle__587208C1">
+            <End Role="Sam3_Taller" EntitySet="Sam3_Taller" />
+            <End Role="Sam3_Estacion" EntitySet="Sam3_Estacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Estac__61074EC2" Association="ModelSam3.FK__Sam3_Junt__Estac__61074EC2">
+            <End Role="Sam3_Estacion" EntitySet="Sam3_Estacion" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__FabAr__5E2AE217" Association="ModelSam3.FK__Sam3_Junt__FabAr__5E2AE217">
+            <End Role="Sam3_FabArea" EntitySet="Sam3_FabArea" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Famil__5F1F0650" Association="ModelSam3.FK__Sam3_Junt__Famil__5F1F0650">
+            <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Famil__60132A89" Association="ModelSam3.FK__Sam3_Junt__Famil__60132A89">
+            <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__Spool__5C4299A5" Association="ModelSam3.FK__Sam3_Junt__Spool__5C4299A5">
+            <End Role="Sam3_Spool" EntitySet="Sam3_Spool" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Junt__TipoJ__5D36BDDE" Association="ModelSam3.FK__Sam3_Junt__TipoJ__5D36BDDE">
+            <End Role="Sam3_TipoJunta" EntitySet="Sam3_TipoJunta" />
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Junta__65CC03DF" Association="ModelSam3.FK__Sam3_Orde__Junta__65CC03DF">
+            <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+            <End Role="Sam3_OrdenTrabajoJunta" EntitySet="Sam3_OrdenTrabajoJunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Mater__7AC720C5" Association="ModelSam3.FK__Sam3_Orde__Mater__7AC720C5">
+            <End Role="Sam3_MaterialSpool" EntitySet="Sam3_MaterialSpool" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7BBB44FE" Association="ModelSam3.FK__Sam3_Orde__Numer__7BBB44FE">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7CAF6937" Association="ModelSam3.FK__Sam3_Orde__Numer__7CAF6937">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7DA38D70" Association="ModelSam3.FK__Sam3_Orde__Numer__7DA38D70">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Numer__7E97B1A9" Association="ModelSam3.FK__Sam3_Orde__Numer__7E97B1A9">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Orden__64D7DFA6" Association="ModelSam3.FK__Sam3_Orde__Orden__64D7DFA6">
+            <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
+            <End Role="Sam3_OrdenTrabajoJunta" EntitySet="Sam3_OrdenTrabajoJunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Orden__79D2FC8C" Association="ModelSam3.FK__Sam3_Orde__Orden__79D2FC8C">
+            <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
+            <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
@@ -10852,6 +11567,535 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Sam3_CorteSpool">
+          <Key>
+            <PropertyRef Name="CorteSpoolID" />
+          </Key>
+          <Property Name="CorteSpoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpoolID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="TipoCorte1ID" Type="Int32" Nullable="false" />
+          <Property Name="TipoCorte2ID" Type="Int32" Nullable="false" />
+          <Property Name="EtiquetaMaterial" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EtiquetaSeccion" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Diametro" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+          <Property Name="InicioFin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Cort__ItemC__52B92F6B" FromRole="Sam3_CorteSpool" ToRole="Sam3_ItemCode" />
+          <NavigationProperty Name="Sam3_Spool" Relationship="ModelSam3.FK__Sam3_Cort__Spool__51C50B32" FromRole="Sam3_CorteSpool" ToRole="Sam3_Spool" />
+          <NavigationProperty Name="Sam3_TipoCorte" Relationship="ModelSam3.FK__Sam3_Cort__TipoC__53AD53A4" FromRole="Sam3_CorteSpool" ToRole="Sam3_TipoCorte" />
+          <NavigationProperty Name="Sam3_TipoCorte1" Relationship="ModelSam3.FK__Sam3_Cort__TipoC__54A177DD" FromRole="Sam3_CorteSpool" ToRole="Sam3_TipoCorte" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaCorteSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaCorteSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaCorteSpool_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_CorteSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_CorteSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaEstacion">
+          <Key>
+            <PropertyRef Name="EquivalenciaEstacio_ID" />
+          </Key>
+          <Property Name="EquivalenciaEstacio_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_EstacionID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_EstacionID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaEstatusOrden">
+          <Key>
+            <PropertyRef Name="EquivalenciaEstatusOrden_ID" />
+          </Key>
+          <Property Name="EquivalenciaEstatusOrden_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_EstatusOrdenID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_EstatusOrdenID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaFabArea">
+          <Key>
+            <PropertyRef Name="EquivalenciaFabArea_ID" />
+          </Key>
+          <Property Name="EquivalenciaFabArea_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_FabAreaID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_FabAreaID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaJuntaSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaJuntaSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaJuntaSpool_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_JuntaSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_JuntaSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaMaterialSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaMaterialSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaMaterialSpool_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_MaterialSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_MaterialSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODT">
+          <Key>
+            <PropertyRef Name="EquivalenciaODT_ID" />
+          </Key>
+          <Property Name="EquivalenciaODT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_ODT_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_ODT_ID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODTJ">
+          <Key>
+            <PropertyRef Name="EquivalenciaODTJ_ID" />
+          </Key>
+          <Property Name="EquivalenciaODTJ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_ODTJ_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_ODTJ_ID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODTM">
+          <Key>
+            <PropertyRef Name="EquivalenciaODTM_ID" />
+          </Key>
+          <Property Name="EquivalenciaODTM_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_ODTM_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_ODTM_ID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaODTS">
+          <Key>
+            <PropertyRef Name="EquivalenciaODTS_ID" />
+          </Key>
+          <Property Name="EquivalenciaODTS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_ODTS_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_ODTS_ID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaSpool">
+          <Key>
+            <PropertyRef Name="EquivalenciaSpool_ID" />
+          </Key>
+          <Property Name="EquivalenciaSpool_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_SpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_SpoolID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaTaller">
+          <Key>
+            <PropertyRef Name="EquivalenciaTaller_ID" />
+          </Key>
+          <Property Name="EquivalenciaTaller_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_TallerID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_TallerID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModifica" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaTipoCorte">
+          <Key>
+            <PropertyRef Name="EquivalenciaTipoCorte_ID" />
+          </Key>
+          <Property Name="EquivalenciaTipoCorte_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_TipoCorteID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_TipoCorteID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaTipoJunta">
+          <Key>
+            <PropertyRef Name="EquivalenciaTipoJunta_ID" />
+          </Key>
+          <Property Name="EquivalenciaTipoJunta_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_TipoJuntaID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_TipoJuntaID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_Estacion">
+          <Key>
+            <PropertyRef Name="EstacionID" />
+          </Key>
+          <Property Name="EstacionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TallerID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_Taller" Relationship="ModelSam3.FK__Sam3_Esta__Talle__587208C1" FromRole="Sam3_Estacion" ToRole="Sam3_Taller" />
+          <NavigationProperty Name="Sam3_JuntaSpool" Relationship="ModelSam3.FK__Sam3_Junt__Estac__61074EC2" FromRole="Sam3_Estacion" ToRole="Sam3_JuntaSpool" />
+        </EntityType>
+        <EntityType Name="Sam3_FabArea">
+          <Key>
+            <PropertyRef Name="FabAreaID" />
+          </Key>
+          <Property Name="FabAreaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_JuntaSpool" Relationship="ModelSam3.FK__Sam3_Junt__FabAr__5E2AE217" FromRole="Sam3_FabArea" ToRole="Sam3_JuntaSpool" />
+        </EntityType>
+        <EntityType Name="Sam3_JuntaSpool">
+          <Key>
+            <PropertyRef Name="JuntaSpoolID" />
+          </Key>
+          <Property Name="JuntaSpoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpoolID" Type="Int32" Nullable="false" />
+          <Property Name="TipoJuntaID" Type="Int32" Nullable="false" />
+          <Property Name="FabAreaID" Type="Int32" Nullable="false" />
+          <Property Name="Etiqueta" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EtiquetaMaterial1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EtiquetaMaterial2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Cedula" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FamiliaAceroMaterial1ID" Type="Int32" Nullable="false" />
+          <Property Name="FamiliaAceroMaterial2ID" Type="Int32" />
+          <Property Name="Diametro" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+          <Property Name="Espesor" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="KgTeoricos" Type="Decimal" Precision="12" Scale="4" />
+          <Property Name="Peqs" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="EsManual" Type="Boolean" />
+          <Property Name="EstacionID" Type="Int32" />
+          <Property Name="FabClas" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RequierePwht" Type="Boolean" Nullable="false" />
+          <Property Name="RequierePruebaNeumatica" Type="Boolean" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_Estacion" Relationship="ModelSam3.FK__Sam3_Junt__Estac__61074EC2" FromRole="Sam3_JuntaSpool" ToRole="Sam3_Estacion" />
+          <NavigationProperty Name="Sam3_FabArea" Relationship="ModelSam3.FK__Sam3_Junt__FabAr__5E2AE217" FromRole="Sam3_JuntaSpool" ToRole="Sam3_FabArea" />
+          <NavigationProperty Name="Sam3_FamiliaAcero" Relationship="ModelSam3.FK__Sam3_Junt__Famil__5F1F0650" FromRole="Sam3_JuntaSpool" ToRole="Sam3_FamiliaAcero" />
+          <NavigationProperty Name="Sam3_FamiliaAcero1" Relationship="ModelSam3.FK__Sam3_Junt__Famil__60132A89" FromRole="Sam3_JuntaSpool" ToRole="Sam3_FamiliaAcero" />
+          <NavigationProperty Name="Sam3_Spool" Relationship="ModelSam3.FK__Sam3_Junt__Spool__5C4299A5" FromRole="Sam3_JuntaSpool" ToRole="Sam3_Spool" />
+          <NavigationProperty Name="Sam3_TipoJunta" Relationship="ModelSam3.FK__Sam3_Junt__TipoJ__5D36BDDE" FromRole="Sam3_JuntaSpool" ToRole="Sam3_TipoJunta" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoJunta" Relationship="ModelSam3.FK__Sam3_Orde__Junta__65CC03DF" FromRole="Sam3_JuntaSpool" ToRole="Sam3_OrdenTrabajoJunta" />
+        </EntityType>
+        <EntityType Name="Sam3_OrdenTrabajoJunta">
+          <Key>
+            <PropertyRef Name="OrdenTrabajoJuntaID" />
+          </Key>
+          <Property Name="OrdenTrabajoJuntaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdenTrabajoSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="JuntaSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="FueReingenieria" Type="Boolean" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModifica" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_JuntaSpool" Relationship="ModelSam3.FK__Sam3_Orde__Junta__65CC03DF" FromRole="Sam3_OrdenTrabajoJunta" ToRole="Sam3_JuntaSpool" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoSpool" Relationship="ModelSam3.FK__Sam3_Orde__Orden__64D7DFA6" FromRole="Sam3_OrdenTrabajoJunta" ToRole="Sam3_OrdenTrabajoSpool" />
+        </EntityType>
+        <EntityType Name="Sam3_OrdenTrabajoMaterial">
+          <Key>
+            <PropertyRef Name="OrdenTrabajoMaterialID" />
+          </Key>
+          <Property Name="OrdenTrabajoMaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdenTrabajoSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="MaterialSpoolID" Type="Int32" Nullable="false" />
+          <Property Name="DespachoID" Type="Int32" />
+          <Property Name="CorteDetalleID" Type="Int32" />
+          <Property Name="TieneInventarioCongelado" Type="Boolean" Nullable="false" />
+          <Property Name="NumeroUnicoCongeladoID" Type="Int32" />
+          <Property Name="SegmentoCongelado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CantidadCongelada" Type="Int32" />
+          <Property Name="CongeladoEsEquivalente" Type="Boolean" Nullable="false" />
+          <Property Name="NumeroUnicoSugeridoID" Type="Int32" />
+          <Property Name="SegmentoSugerido" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="SugeridoEsEquivalente" Type="Boolean" Nullable="false" />
+          <Property Name="TieneCorte" Type="Boolean" />
+          <Property Name="TieneDespacho" Type="Boolean" Nullable="false" />
+          <Property Name="DespachoEsEquivalente" Type="Boolean" Nullable="false" />
+          <Property Name="NumeroUnicoDespachadoID" Type="Int32" />
+          <Property Name="SegmentoDespachado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CantidadDespachada" Type="Int32" />
+          <Property Name="FueReingenieria" Type="Boolean" Nullable="false" />
+          <Property Name="EsAsignado" Type="Boolean" Nullable="false" />
+          <Property Name="NumeroUnicoAsignadoID" Type="Int32" />
+          <Property Name="SegmentoAsignado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_MaterialSpool" Relationship="ModelSam3.FK__Sam3_Orde__Mater__7AC720C5" FromRole="Sam3_OrdenTrabajoMaterial" ToRole="Sam3_MaterialSpool" />
+          <NavigationProperty Name="Sam3_NumeroUnico" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7BBB44FE" FromRole="Sam3_OrdenTrabajoMaterial" ToRole="Sam3_NumeroUnico" />
+          <NavigationProperty Name="Sam3_NumeroUnico1" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7CAF6937" FromRole="Sam3_OrdenTrabajoMaterial" ToRole="Sam3_NumeroUnico" />
+          <NavigationProperty Name="Sam3_NumeroUnico2" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7DA38D70" FromRole="Sam3_OrdenTrabajoMaterial" ToRole="Sam3_NumeroUnico" />
+          <NavigationProperty Name="Sam3_NumeroUnico3" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7E97B1A9" FromRole="Sam3_OrdenTrabajoMaterial" ToRole="Sam3_NumeroUnico" />
+          <NavigationProperty Name="Sam3_OrdenTrabajoSpool" Relationship="ModelSam3.FK__Sam3_Orde__Orden__79D2FC8C" FromRole="Sam3_OrdenTrabajoMaterial" ToRole="Sam3_OrdenTrabajoSpool" />
+        </EntityType>
+        <EntityType Name="Sam3_TipoJunta">
+          <Key>
+            <PropertyRef Name="TipoJuntaID" />
+          </Key>
+          <Property Name="TipoJuntaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VerificadoPorCalidad" Type="Boolean" Nullable="false" />
+          <Property Name="PermiteTerminadoRelleno" Type="Boolean" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_JuntaSpool" Relationship="ModelSam3.FK__Sam3_Junt__TipoJ__5D36BDDE" FromRole="Sam3_TipoJunta" ToRole="Sam3_JuntaSpool" />
+        </EntityType>
+        <Association Name="FK__Sam3_Cort__ItemC__52B92F6B">
+          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_CorteSpool" Role="Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cort__Spool__51C50B32">
+          <End Type="ModelSam3.Sam3_Spool" Role="Sam3_Spool" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_CorteSpool" Role="Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Spool">
+              <PropertyRef Name="SpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="SpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cort__TipoC__53AD53A4">
+          <End Type="ModelSam3.Sam3_TipoCorte" Role="Sam3_TipoCorte" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_CorteSpool" Role="Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoCorte">
+              <PropertyRef Name="TipoCorteID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="TipoCorte1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cort__TipoC__54A177DD">
+          <End Type="ModelSam3.Sam3_TipoCorte" Role="Sam3_TipoCorte" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_CorteSpool" Role="Sam3_CorteSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoCorte">
+              <PropertyRef Name="TipoCorteID" />
+            </Principal>
+            <Dependent Role="Sam3_CorteSpool">
+              <PropertyRef Name="TipoCorte2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Esta__Talle__587208C1">
+          <End Type="ModelSam3.Sam3_Taller" Role="Sam3_Taller" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Estacion" Role="Sam3_Estacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Taller">
+              <PropertyRef Name="TallerID" />
+            </Principal>
+            <Dependent Role="Sam3_Estacion">
+              <PropertyRef Name="TallerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Estac__61074EC2">
+          <End Type="ModelSam3.Sam3_Estacion" Role="Sam3_Estacion" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Estacion">
+              <PropertyRef Name="EstacionID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="EstacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__FabAr__5E2AE217">
+          <End Type="ModelSam3.Sam3_FabArea" Role="Sam3_FabArea" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FabArea">
+              <PropertyRef Name="FabAreaID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="FabAreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Famil__5F1F0650">
+          <End Type="ModelSam3.Sam3_FamiliaAcero" Role="Sam3_FamiliaAcero" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FamiliaAcero">
+              <PropertyRef Name="FamiliaAceroID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="FamiliaAceroMaterial1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Famil__60132A89">
+          <End Type="ModelSam3.Sam3_FamiliaAcero" Role="Sam3_FamiliaAcero" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FamiliaAcero">
+              <PropertyRef Name="FamiliaAceroID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="FamiliaAceroMaterial2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__Spool__5C4299A5">
+          <End Type="ModelSam3.Sam3_Spool" Role="Sam3_Spool" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Spool">
+              <PropertyRef Name="SpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="SpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Junt__TipoJ__5D36BDDE">
+          <End Type="ModelSam3.Sam3_TipoJunta" Role="Sam3_TipoJunta" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoJunta">
+              <PropertyRef Name="TipoJuntaID" />
+            </Principal>
+            <Dependent Role="Sam3_JuntaSpool">
+              <PropertyRef Name="TipoJuntaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Junta__65CC03DF">
+          <End Type="ModelSam3.Sam3_JuntaSpool" Role="Sam3_JuntaSpool" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoJunta" Role="Sam3_OrdenTrabajoJunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_JuntaSpool">
+              <PropertyRef Name="JuntaSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoJunta">
+              <PropertyRef Name="JuntaSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Mater__7AC720C5">
+          <End Type="ModelSam3.Sam3_MaterialSpool" Role="Sam3_MaterialSpool" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoMaterial" Role="Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_MaterialSpool">
+              <PropertyRef Name="MaterialSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="MaterialSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7BBB44FE">
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoMaterial" Role="Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoCongeladoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7CAF6937">
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoMaterial" Role="Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoSugeridoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7DA38D70">
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoMaterial" Role="Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoDespachadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Numer__7E97B1A9">
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoMaterial" Role="Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="NumeroUnicoAsignadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Orden__64D7DFA6">
+          <End Type="ModelSam3.Sam3_OrdenTrabajoSpool" Role="Sam3_OrdenTrabajoSpool" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoJunta" Role="Sam3_OrdenTrabajoJunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenTrabajoSpool">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoJunta">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Orden__79D2FC8C">
+          <End Type="ModelSam3.Sam3_OrdenTrabajoSpool" Role="Sam3_OrdenTrabajoSpool" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_OrdenTrabajoMaterial" Role="Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenTrabajoSpool">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenTrabajoMaterial">
+              <PropertyRef Name="OrdenTrabajoSpoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12938,6 +14182,305 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="ColadaID" ColumnName="ColadaID" />
                 <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
                 <ScalarProperty Name="Rel_Itemcode_Colada" ColumnName="Rel_Itemcode_Colada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_CorteSpool">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_CorteSpool">
+              <MappingFragment StoreEntitySet="Sam3_CorteSpool">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="InicioFin" ColumnName="InicioFin" />
+                <ScalarProperty Name="Diametro" ColumnName="Diametro" />
+                <ScalarProperty Name="EtiquetaSeccion" ColumnName="EtiquetaSeccion" />
+                <ScalarProperty Name="EtiquetaMaterial" ColumnName="EtiquetaMaterial" />
+                <ScalarProperty Name="TipoCorte2ID" ColumnName="TipoCorte2ID" />
+                <ScalarProperty Name="TipoCorte1ID" ColumnName="TipoCorte1ID" />
+                <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
+                <ScalarProperty Name="SpoolID" ColumnName="SpoolID" />
+                <ScalarProperty Name="CorteSpoolID" ColumnName="CorteSpoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaCorteSpool">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaCorteSpool">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaCorteSpool">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_CorteSpoolID" ColumnName="Sam3_CorteSpoolID" />
+                <ScalarProperty Name="Sam2_CorteSpoolID" ColumnName="Sam2_CorteSpoolID" />
+                <ScalarProperty Name="EquivalenciaCorteSpool_ID" ColumnName="EquivalenciaCorteSpool_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaEstacion">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaEstacion">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaEstacion">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_EstacionID" ColumnName="Sam3_EstacionID" />
+                <ScalarProperty Name="Sam2_EstacionID" ColumnName="Sam2_EstacionID" />
+                <ScalarProperty Name="EquivalenciaEstacio_ID" ColumnName="EquivalenciaEstacio_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaEstatusOrden">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaEstatusOrden">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaEstatusOrden">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_EstatusOrdenID" ColumnName="Sam3_EstatusOrdenID" />
+                <ScalarProperty Name="Sam2_EstatusOrdenID" ColumnName="Sam2_EstatusOrdenID" />
+                <ScalarProperty Name="EquivalenciaEstatusOrden_ID" ColumnName="EquivalenciaEstatusOrden_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaFabArea">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaFabArea">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaFabArea">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_FabAreaID" ColumnName="Sam3_FabAreaID" />
+                <ScalarProperty Name="Sam2_FabAreaID" ColumnName="Sam2_FabAreaID" />
+                <ScalarProperty Name="EquivalenciaFabArea_ID" ColumnName="EquivalenciaFabArea_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaJuntaSpool">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaJuntaSpool">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaJuntaSpool">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_JuntaSpoolID" ColumnName="Sam3_JuntaSpoolID" />
+                <ScalarProperty Name="Sam2_JuntaSpoolID" ColumnName="Sam2_JuntaSpoolID" />
+                <ScalarProperty Name="EquivalenciaJuntaSpool_ID" ColumnName="EquivalenciaJuntaSpool_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaMaterialSpool">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaMaterialSpool">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaMaterialSpool">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_MaterialSpoolID" ColumnName="Sam3_MaterialSpoolID" />
+                <ScalarProperty Name="Sam2_MaterialSpoolID" ColumnName="Sam2_MaterialSpoolID" />
+                <ScalarProperty Name="EquivalenciaMaterialSpool_ID" ColumnName="EquivalenciaMaterialSpool_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaODT">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaODT">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaODT">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_ODT_ID" ColumnName="Sam3_ODT_ID" />
+                <ScalarProperty Name="Sam2_ODT_ID" ColumnName="Sam2_ODT_ID" />
+                <ScalarProperty Name="EquivalenciaODT_ID" ColumnName="EquivalenciaODT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaODTJ">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaODTJ">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaODTJ">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_ODTJ_ID" ColumnName="Sam3_ODTJ_ID" />
+                <ScalarProperty Name="Sam2_ODTJ_ID" ColumnName="Sam2_ODTJ_ID" />
+                <ScalarProperty Name="EquivalenciaODTJ_ID" ColumnName="EquivalenciaODTJ_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaODTM">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaODTM">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaODTM">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_ODTM_ID" ColumnName="Sam3_ODTM_ID" />
+                <ScalarProperty Name="Sam2_ODTM_ID" ColumnName="Sam2_ODTM_ID" />
+                <ScalarProperty Name="EquivalenciaODTM_ID" ColumnName="EquivalenciaODTM_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaODTS">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaODTS">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaODTS">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_ODTS_ID" ColumnName="Sam3_ODTS_ID" />
+                <ScalarProperty Name="Sam2_ODTS_ID" ColumnName="Sam2_ODTS_ID" />
+                <ScalarProperty Name="EquivalenciaODTS_ID" ColumnName="EquivalenciaODTS_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaSpool">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaSpool">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaSpool">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_SpoolID" ColumnName="Sam3_SpoolID" />
+                <ScalarProperty Name="Sam2_SpoolID" ColumnName="Sam2_SpoolID" />
+                <ScalarProperty Name="EquivalenciaSpool_ID" ColumnName="EquivalenciaSpool_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaTaller">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaTaller">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaTaller">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_TallerID" ColumnName="Sam3_TallerID" />
+                <ScalarProperty Name="Sam2_TallerID" ColumnName="Sam2_TallerID" />
+                <ScalarProperty Name="EquivalenciaTaller_ID" ColumnName="EquivalenciaTaller_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaTipoCorte">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaTipoCorte">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaTipoCorte">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_TipoCorteID" ColumnName="Sam3_TipoCorteID" />
+                <ScalarProperty Name="Sam2_TipoCorteID" ColumnName="Sam2_TipoCorteID" />
+                <ScalarProperty Name="EquivalenciaTipoCorte_ID" ColumnName="EquivalenciaTipoCorte_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaTipoJunta">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaTipoJunta">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaTipoJunta">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_TipoJuntaID" ColumnName="Sam3_TipoJuntaID" />
+                <ScalarProperty Name="Sam2_TipoJuntaID" ColumnName="Sam2_TipoJuntaID" />
+                <ScalarProperty Name="EquivalenciaTipoJunta_ID" ColumnName="EquivalenciaTipoJunta_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Estacion">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Estacion">
+              <MappingFragment StoreEntitySet="Sam3_Estacion">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TallerID" ColumnName="TallerID" />
+                <ScalarProperty Name="EstacionID" ColumnName="EstacionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_FabArea">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_FabArea">
+              <MappingFragment StoreEntitySet="Sam3_FabArea">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="FabAreaID" ColumnName="FabAreaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_JuntaSpool">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_JuntaSpool">
+              <MappingFragment StoreEntitySet="Sam3_JuntaSpool">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="RequierePruebaNeumatica" ColumnName="RequierePruebaNeumatica" />
+                <ScalarProperty Name="RequierePwht" ColumnName="RequierePwht" />
+                <ScalarProperty Name="FabClas" ColumnName="FabClas" />
+                <ScalarProperty Name="EstacionID" ColumnName="EstacionID" />
+                <ScalarProperty Name="EsManual" ColumnName="EsManual" />
+                <ScalarProperty Name="Peqs" ColumnName="Peqs" />
+                <ScalarProperty Name="KgTeoricos" ColumnName="KgTeoricos" />
+                <ScalarProperty Name="Espesor" ColumnName="Espesor" />
+                <ScalarProperty Name="Diametro" ColumnName="Diametro" />
+                <ScalarProperty Name="FamiliaAceroMaterial2ID" ColumnName="FamiliaAceroMaterial2ID" />
+                <ScalarProperty Name="FamiliaAceroMaterial1ID" ColumnName="FamiliaAceroMaterial1ID" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="EtiquetaMaterial2" ColumnName="EtiquetaMaterial2" />
+                <ScalarProperty Name="EtiquetaMaterial1" ColumnName="EtiquetaMaterial1" />
+                <ScalarProperty Name="Etiqueta" ColumnName="Etiqueta" />
+                <ScalarProperty Name="FabAreaID" ColumnName="FabAreaID" />
+                <ScalarProperty Name="TipoJuntaID" ColumnName="TipoJuntaID" />
+                <ScalarProperty Name="SpoolID" ColumnName="SpoolID" />
+                <ScalarProperty Name="JuntaSpoolID" ColumnName="JuntaSpoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_OrdenTrabajoJunta">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_OrdenTrabajoJunta">
+              <MappingFragment StoreEntitySet="Sam3_OrdenTrabajoJunta">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModifica" ColumnName="UsuarioModifica" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FueReingenieria" ColumnName="FueReingenieria" />
+                <ScalarProperty Name="JuntaSpoolID" ColumnName="JuntaSpoolID" />
+                <ScalarProperty Name="OrdenTrabajoSpoolID" ColumnName="OrdenTrabajoSpoolID" />
+                <ScalarProperty Name="OrdenTrabajoJuntaID" ColumnName="OrdenTrabajoJuntaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_OrdenTrabajoMaterial">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_OrdenTrabajoMaterial">
+              <MappingFragment StoreEntitySet="Sam3_OrdenTrabajoMaterial">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="SegmentoAsignado" ColumnName="SegmentoAsignado" />
+                <ScalarProperty Name="NumeroUnicoAsignadoID" ColumnName="NumeroUnicoAsignadoID" />
+                <ScalarProperty Name="EsAsignado" ColumnName="EsAsignado" />
+                <ScalarProperty Name="FueReingenieria" ColumnName="FueReingenieria" />
+                <ScalarProperty Name="CantidadDespachada" ColumnName="CantidadDespachada" />
+                <ScalarProperty Name="SegmentoDespachado" ColumnName="SegmentoDespachado" />
+                <ScalarProperty Name="NumeroUnicoDespachadoID" ColumnName="NumeroUnicoDespachadoID" />
+                <ScalarProperty Name="DespachoEsEquivalente" ColumnName="DespachoEsEquivalente" />
+                <ScalarProperty Name="TieneDespacho" ColumnName="TieneDespacho" />
+                <ScalarProperty Name="TieneCorte" ColumnName="TieneCorte" />
+                <ScalarProperty Name="SugeridoEsEquivalente" ColumnName="SugeridoEsEquivalente" />
+                <ScalarProperty Name="SegmentoSugerido" ColumnName="SegmentoSugerido" />
+                <ScalarProperty Name="NumeroUnicoSugeridoID" ColumnName="NumeroUnicoSugeridoID" />
+                <ScalarProperty Name="CongeladoEsEquivalente" ColumnName="CongeladoEsEquivalente" />
+                <ScalarProperty Name="CantidadCongelada" ColumnName="CantidadCongelada" />
+                <ScalarProperty Name="SegmentoCongelado" ColumnName="SegmentoCongelado" />
+                <ScalarProperty Name="NumeroUnicoCongeladoID" ColumnName="NumeroUnicoCongeladoID" />
+                <ScalarProperty Name="TieneInventarioCongelado" ColumnName="TieneInventarioCongelado" />
+                <ScalarProperty Name="CorteDetalleID" ColumnName="CorteDetalleID" />
+                <ScalarProperty Name="DespachoID" ColumnName="DespachoID" />
+                <ScalarProperty Name="MaterialSpoolID" ColumnName="MaterialSpoolID" />
+                <ScalarProperty Name="OrdenTrabajoSpoolID" ColumnName="OrdenTrabajoSpoolID" />
+                <ScalarProperty Name="OrdenTrabajoMaterialID" ColumnName="OrdenTrabajoMaterialID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_TipoJunta">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_TipoJunta">
+              <MappingFragment StoreEntitySet="Sam3_TipoJunta">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="PermiteTerminadoRelleno" ColumnName="PermiteTerminadoRelleno" />
+                <ScalarProperty Name="VerificadoPorCalidad" ColumnName="VerificadoPorCalidad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="TipoJuntaID" ColumnName="TipoJuntaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
