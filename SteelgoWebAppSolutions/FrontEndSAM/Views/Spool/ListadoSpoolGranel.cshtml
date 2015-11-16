@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Transacciones - Lista de Spool a Granel";
+}
+
+@section breadcrumb {
+    <li class="">
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoSpoolGranel0002"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ListadoSpoolGranel", "Spool")"><span id="ListadoSpoolGranel0001"></span></a>
+    </li>
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label>  </label>
+                            <button id="Guardar" class="btn btn-yellow"><span id="ListadoSpoolGranel0003"></span></button>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="proyecto" id="ListadoSpoolGranel0004"></label>
+                            <input id="proyecto" type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="nombre" id="ListadoSpoolGranel0005"></label>
+                            <input id="nombre" type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label>  </label>
+                            <button id="Buscar" class="btn btn-blue"><span id="ListadoSpoolGranel0006"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="grid"></div>
+
+<script>
+@section JavascriptGlobalVariables {
+}
+
+@section JavascriptGlobalFunctions {
+};
+
+@section JavascriptDocumentReadyFunctions {
+    $("#proyecto").kendoComboBox({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "#",
+                    dataType: "json",
+                    type:"GET"
+                }
+            }
+        },
+        dataTextField: "value",
+        dataValueField: "id",
+        change:function(e){
+            //
+        }
+    });
+    $("#nombre").kendoAutoComplete({
+        dataSource:{
+            transport: {
+                read: {
+                    url: "#",
+                    dataType: "jsonp"
+                }
+            }
+        } ,
+        dataTextField: "value"
+    });
+
+    $("#grid").kendoGrid({})
+};
+    
+@section JavascriptDocumentReadyHomeCookie {
+ 
+};
+</script>

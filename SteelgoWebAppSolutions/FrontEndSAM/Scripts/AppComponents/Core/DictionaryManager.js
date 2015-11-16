@@ -5874,6 +5874,31 @@ _dictionary = {
         "es-MX": "Estatus",
         "en-US": "Status"
     },
+    //Listado de Spool a Granel
+    "ListadoSpoolGranel0001":{
+        "es-MX": "Listado de Spool a Granel",
+        "en-US": "Bulk Spool List"
+    },
+    "ListadoSpoolGranel0002": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "ListadoSpoolGranel0003": {
+        "es-MX": "Generar Spool a granel",
+        "en-US": "Generate bulk Spool"
+    },
+    "ListadoSpoolGranel0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoSpoolGranel0005": {
+        "es-MX": "Nombre de spool",
+        "en-US": "Spool's name"
+    },
+    "ListadoSpoolGranel0006": {
+        "es-MX": "Search",
+        "en-US": "Buscar"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
