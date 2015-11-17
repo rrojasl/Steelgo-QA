@@ -1177,6 +1177,7 @@
     <Content Include="Views\PreDespacho\PreDespacho.cshtml" />
     <Content Include="Views\ConvertirSpoolAGranel\ConvertirSpoolAGranel.cshtml" />
     <Content Include="Views\Spool\ListadoSpoolGranel.cshtml" />
+    <Content Include="Views\Spool\SpoolGranel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

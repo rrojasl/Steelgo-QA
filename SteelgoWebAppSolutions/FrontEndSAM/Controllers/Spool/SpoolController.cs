@@ -12,5 +12,10 @@ namespace FrontEndSAM.Controllers.Spool
         {
             return View();        
         }
+
+        public ActionResult SpoolGranel()
+        {
+            return View();
+        }
     }
 }

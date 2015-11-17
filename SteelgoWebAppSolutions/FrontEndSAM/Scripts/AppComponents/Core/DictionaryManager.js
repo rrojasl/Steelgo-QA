@@ -5911,6 +5911,71 @@ _dictionary = {
         "es-MX": "Tipo Spool",
         "en-US": "Spool's type"
     },
+    //SpoolGranel
+    "SpoolGranel0001": {
+        "es-MX": "Ingeniería",
+        "en-US": "Engineering"
+    },
+    "SpoolGranel0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "SpoolGranel0003": {
+        "es-MX": "Tipo Spool",
+        "en-US": "Spool's Type"
+    },
+    "SpoolGranel0004": {
+        "es-MX": "Nombre del Spool",
+        "en-US": "Spool's name"
+    },
+    "SpoolGranel0005": {
+        "es-MX": "Familia de acero",
+        "en-US": "Steel's Family"
+    },
+    "SpoolGranel0006": {
+        "es-MX": "Nombre del dibujo",
+        "en-US": "Draw's name"
+    },
+    "SpoolGranel0007": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "SpoolGranel0008": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "SpoolGranel0009": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "SpoolGranel0010": {
+        "es-MX": "Cantidad Materiales",
+        "en-US": "Material quantity"
+    },
+    "SpoolGranel0011": {
+        "es-MX": "Tipo de corte",
+        "en-US": "Cut type"
+    },
+    "SpoolGranel0012": {
+        "es-MX": "Tolerancia",
+        "en-US": "Tolerance"
+    },
+    "SpoolGranel0013": {
+        "es-MX": "Longitud total",
+        "en-US": "Total longitude"
+    },
+    "SpoolGranel0014": {
+        "es-MX": "Longitud material",
+        "en-US": "Material longitude"
+    },
+    "SpoolGranel0015": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "SpoolGranel0016": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
