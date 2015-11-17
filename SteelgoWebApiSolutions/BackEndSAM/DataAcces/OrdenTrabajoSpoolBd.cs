@@ -404,7 +404,41 @@ namespace BackEndSAM.DataAcces
                         {
                             using (var ctx2_tran = ctx2.Database.BeginTransaction())
                             {
-                                
+                                //buscamos las juntas que aun no tienen ningun proceso de armado, soldadura o inspeccion visual
+                                List<JuntaSpool> listaJuntas = (from js in ctx2.JuntaSpool
+                                                                join odts in ctx2.OrdenTrabajoSpool on js.SpoolID equals odts.SpoolID
+                                                                where odts.OrdenTrabajoSpoolID == odtsID
+                                                                && !(from jwks in ctx2.JuntaWorkstatus
+                                                                     where jwks.JuntaSpoolID == js.JuntaSpoolID
+                                                                     && jwks.JuntaArmadoID > 0 && jwks.JuntaArmadoID != null
+                                                                     && jwks.JuntaSoldaduraID > 0 && jwks.JuntaSoldaduraID != null
+                                                                     && jwks.JuntaInspeccionVisualID > 0 && jwks.JuntaInspeccionVisualID != null
+                                                                     && jwks.JuntaFinal
+                                                                     select jwks.JuntaSpoolID).Contains(js.JuntaSpoolID)
+                                                                && (from tj in ctx2.TipoJunta
+                                                                    where tj.Nombre == "SHOP" || tj.Nombre == "FIELD"
+                                                                     select tj.TipoJuntaID).Contains(js.TipoJuntaID)
+                                                                select js).AsParallel().Distinct().ToList();
+
+                                List<Sam3_JuntaSpool> sam3_JuntasSpool = (from eq in ctx.Sam3_EquivalenciaJuntaSpool
+                                                                          join js in ctx.Sam3_JuntaSpool on eq.Sam3_JuntaSpoolID equals js.JuntaSpoolID
+                                                                          where listaJuntas.Select(x => x.JuntaSpoolID).Contains(eq.Sam2_JuntaSpoolID)
+                                                                          select js).AsParallel().ToList();
+
+                                int sam2_fabAreaID = (from f in ctx2.FabArea
+                                                      where f.Nombre == "FIELD"
+                                                      select f.FabAreaID).AsParallel().SingleOrDefault();
+
+                                int sam3_fabAreaID = (from f in ctx.Sam3_FabArea
+                                                      where f.Nombre == "FIELD"
+                                                      select f.FabAreaID).AsParallel().SingleOrDefault();
+
+                                listaJuntas.ForEach(x => x.FabAreaID = sam2_fabAreaID);
+                                sam3_JuntasSpool.ForEach(x => x.FabAreaID = sam3_fabAreaID);
+
+                                ctx.SaveChanges();
+                                ctx2.SaveChanges();
+
                                 ctx2_tran.Commit();
                             }
                         }
@@ -412,7 +446,7 @@ namespace BackEndSAM.DataAcces
                     }
                 }
 
-                return null;
+                return ObtenerJuntasPorODTS(odtsID, usuario);
 
             }
             catch (Exception ex)

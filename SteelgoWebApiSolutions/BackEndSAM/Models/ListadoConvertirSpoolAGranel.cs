@@ -11,6 +11,7 @@ namespace BackEndSAM.Models
         public string Junta { get; set; }
         public string TipoJunta { get; set; }
         public string Status { get; set; }
+        public string FabArea { get; set; }
     }
 
 
