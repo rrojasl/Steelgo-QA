@@ -3678,6 +3678,12 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+
+    "botonCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+
     "botonGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
@@ -3762,6 +3768,10 @@ _dictionary = {
     "botonCancelar1": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
+    },
+    "botonDetalle": {
+        "es-MX": "Detalle",
+        "en-US": "Detail"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -4403,6 +4413,43 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
+
+    "SoldadorCertificacionProcesoSoldaduraPQR": {
+        "es-MX": "Proceso Soldadura",
+        "en-US": "Welding process"
+    },
+    "SoldadorCertificacionTipoDePruebaPQR": {
+        "es-MX": "Tipo de prueba",
+        "en-US": "Type of test"
+    },
+    "SoldadorCertificacionPosicionPQR": {
+        "es-MX": "Posición",
+        "en-US": "Position"
+    },
+    "SoldadorCertificacionCedulaTuboPQR": {
+        "es-MX": "Cédula tubo calificado",
+        "en-US": "Qualified certificate tube"
+    },
+    "SoldadorCertificacionDiametroCalificadoPQR": {
+        "es-MX": "Diametro Calificado",
+        "en-US": "Qualified Diameter"
+    },
+    "lblValidaCertificacionDiametroCalificado": {
+        "es-MX": "El Campo ' DIAMETRO CALIFICADO', solo acepta valores numéricos'",
+        "en-US": "The Field 'QUALIFIED DIAMETER', accepts only numeric values"
+    },
+    "lblSoldadorCertificacionPasosDeSoldadura": {
+        "es-MX": "¿Cúantos pasos de soldadura requirió la certificación?",
+        "en-US": "Many steps required welding certification?"
+    },
+    "lblValidaDiferenciaEspesores": {
+        "es-MX": "El campo 'ESPESOR MÍNIMO' no puede ser mayor al campo 'ESPESOR MAXIMO' ",
+        "en-US": "The field 'MINIMUM THICKNESS' can not be greater than the field 'MAXIUM THICKNESS"
+    },
+    "lblValidaPasosSoldadura": {
+        "es-MX": "El campo 'PASOS SOLDADURA' solo acepta valores numéricos ",
+        "en-US": "The field 'STEPS WELDING' accepts only numeric values"
+    },
 
 
     //#endregion
