@@ -4450,7 +4450,10 @@ _dictionary = {
         "es-MX": "El campo 'PASOS SOLDADURA' solo acepta valores numéricos ",
         "en-US": "The field 'STEPS WELDING' accepts only numeric values"
     },
-
+    "SoldadoCertificacion": {
+        "es-MX": "Soldador certificación",
+        "en-US": "Welder Certification"
+    },
 
     //#endregion
 
