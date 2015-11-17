@@ -241,7 +241,7 @@
                 return;
             };
 
-            $ConvertirSpoolAGranel.ConvertirSpoolAGranel.create(Listado, { token: $.cookie("token") }).done(function (result) {
+            $ConvertirSpoolAGranel.ConvertirSpoolAGranel.create({}, {  spoolID: Spool.SpoolID, token: $.cookie("token") }).done(function (result) {
                 if (Error(result)) {
                     ObtenerDatosGrid();
                 };
