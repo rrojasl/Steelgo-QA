@@ -25,3 +25,6 @@ function EliminaSoldadorCertificacionAjax(dataItem) {
         });
     }
 }
+
+
+

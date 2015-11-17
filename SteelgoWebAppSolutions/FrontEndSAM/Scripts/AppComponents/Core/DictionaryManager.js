@@ -4074,6 +4074,10 @@ _dictionary = {
         "es-MX": "Codigo",
         "en-US": "Code"
     },
+    "PQRMENU": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
     //#endregion
     //#region PopUp
     "lblConfirmaElimanarPQR": {

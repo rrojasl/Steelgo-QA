@@ -1,5 +1,7 @@
 ﻿var endRangeDateI0;
 var endRangeDateI1;
+var EspesorRellenoPQR;
+var TotalPasosSoldadura = 1;
 var $SoldadorCertificacionSaveModel = {
     listContainer: {
         create: "",
@@ -12,12 +14,26 @@ var $SoldadorCertificacionSaveModel = {
             visible: "#DivCodigoObrero",
             editable: "#SoldadorCertificacionCargarObreroID",
             required: "#SoldadorCertificacionCargarObreroID"
-        }
-        ,
+        },
         NombrePQR: {
             visible: "#DivNombrePQR",
             editable: "#SoldadorCertificacionCargarPQRID",
             required: "#SoldadorCertificacionCargarPQRID"
+        },
+        ProcesoSoldadura: {
+            visible: "#DivProcesoSoldadura",
+            editable: "#SoldadorCertificacionProcesoSoldaduraID",
+            required: "#SoldadorCertificacionProcesoSoldaduraID"
+        },
+        TipoDePrueba: {
+            visible: "#DivTipoDePrueba",
+            editable: "#SoldadorCertificacionTipoDePruebaID",
+            required: "#SoldadorCertificacionTipoDePruebaID"
+        },
+        Posicion: {
+            visible: "#DivPosicion",
+            editable: "#SoldadorCertificacionPosicionID",
+            required: "#SoldadorCertificacionPosicionID"
         },
         FechaInicioCertificado: {
             visible: "#DivFechaInicio",
@@ -28,6 +44,16 @@ var $SoldadorCertificacionSaveModel = {
             visible: "#DivFechaFin",
             editable: "#SoldadorCertificacionFechaFin",
             required: "#SoldadorCertificacionFechaFin"
+        },
+        CedulaTubo: {
+            visible: "#DivCedulaTubo",
+            editable: "#SoldadorCertificacionCedulaTuboID",
+            required: "#SoldadorCertificacionCedulaTuboID"
+        },
+        DiametroCalificado: {
+            visible: "#DivDiametroCalificado",
+            editable: "#SoldadorCertificacionDiametroCalificadoID",
+            required: "#SoldadorCertificacionDiametroCalificadoID"
         },
         EspesorMinimo: {
             visible: "#DivEspesorMinimo",
@@ -55,6 +81,10 @@ CargaInicial();
 function CargaInicial() {
     ObtenerListadoObrerosPopUpAjax();
     ObtenerListadoPQRPopUpAjax();
+    ObtenerListadoProcesoSoldaduraAjax();
+    ObtenerListadoTipoDePruebaAjax();
+    ObtenerListadoPosicionAjax();
+    //VentanaModalPasosSoldadura();
     CargarCalendarios();
 };
 
@@ -71,11 +101,47 @@ function CrearDropDownListPQR() {
 
     $("#SoldadorCertificacionCargarPQRID").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "PQRID"
+        dataValueField: "PQRID",
+        select: function (e) {
+         
+            dataItem = this.dataItem(e.item.index());
+            var PQRIDBuscar = dataItem.PQRID;
+            ObtenerEspesoresPQRAjax(PQRIDBuscar);
+        },
+       
+
     });
 
 
 };
+function CrearDropDownListProcesoSoldadura() {
+
+    $("#SoldadorCertificacionProcesoSoldaduraID").kendoComboBox({
+        dataTextField: "CodigoRelleno",
+        dataValueField: "ProcesoSoldaduraRellenoID",
+    });
+
+};
+function CrearDropDownListTipoDePrueba() {
+
+    $("#SoldadorCertificacionTipoDePruebaID").kendoComboBox({
+        dataTextField: "TipoDePrueba",
+        dataValueField: "TipoDePruebaID"
+    });
+
+};
+function CrearDropDownListPosicion() {
+
+    $("#SoldadorCertificacionPosicionID").kendoComboBox({
+        dataTextField: "Posicion",
+        dataValueField: "PosicionID"
+    });
+};
+
+
+
+
+
 
 function ControlErroresObjetosComboBox(control, data) {
     if (Error(data)) {
@@ -105,14 +171,14 @@ function validarRequeridosSoldadorCertificacion() {
 
 
 function ValidaFormatoFecha(FechaValidar, Idioma) {
-   
+
     //Valida que el formato de la fecha sea correcto (2-2-4)
     var bool;
     var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
     if ((String(FechaValidar).trim().match(RegExPattern)) && (FechaValidar != '')) {
-       
+
         if (Idioma == 'es-MX') {
-            
+
             if (existeFechaMexicoFormato(FechaValidar) && existeFechaMexico(FechaValidar)) {
                 bool = true;
             }
@@ -131,7 +197,7 @@ function ValidaFormatoFecha(FechaValidar, Idioma) {
 
         }
     } else {
-       
+
         bool = false;
     }
     return bool;
@@ -143,10 +209,10 @@ function existeFechaMexicoFormato(fecha) {
     var d = fechaf[0];
     var m = fechaf[1];
     var y = fechaf[2];
-    console.log(m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate());
+    
     return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
 
-   
+
 }
 
 function existeFechaMexico(FechaValidar) {
@@ -166,7 +232,7 @@ function existeFechaEUFormato(fecha) {
     var d = fechaf[1];
     var m = fechaf[0];
     var y = fechaf[2];
-    console.log(m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate());
+   
     return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
 }
 
@@ -216,24 +282,44 @@ function AsignarValoresItemSeleccionado() {
     CMBPQRD.value(currentDataItem.PQRID);
     //#endregion
 
+    //#region ObtenerProcesoSoldadura
+    var CMBPProcesoSoldadura = $("#SoldadorCertificacionProcesoSoldaduraID").data("kendoComboBox");
+    CMBPProcesoSoldadura.value(currentDataItem.ProcesoSoldaduraID);
+    //#endregion
+
+    //#region ObtenerProcesoSoldadura
+    var CMBPPosicion = $("#SoldadorCertificacionPosicionID").data("kendoComboBox");
+    CMBPPosicion.value(currentDataItem.PosicionID);
+    //#endregion
+
+    //#region ObtenerTipoPruebas
+    var CMBPTipoPruebas = $("#SoldadorCertificacionTipoDePruebaID").data("kendoComboBox");
+    CMBPTipoPruebas.value(currentDataItem.TipoDePruebaID);
+    //#endregion
+
     //#region LLenacontrolfechaInicio
-    
+
     endRangeDateI0.val(currentDataItem.FechaInicioCertificado);
 
     //#endregion
 
-
     //#region LllenaControlFechaFin
-    
+
     endRangeDateI1.val(currentDataItem.FechaFinCertificado);
 
     //#endregion
-
 
     //#region LlenaEspesorMinimo
     $("#SoldadorCertificacionEspesorMinimoID").val(currentDataItem.EspesorMinimo);
     //#endregion
 
+    //#region LlenaCedulaTuboCalificado
+    $("#SoldadorCertificacionCedulaTuboID").val(currentDataItem.CedulaTuboCalificado);
+    //#endregion
+
+    //#region LlenaDiametroCalificado
+    $("#SoldadorCertificacionDiametroCalificadoID").val(currentDataItem.DiametroCalificado);
+    //#endregion
 
     //#region LlenaEspesorMaximo
     $("#SoldadorCertificacionEspesorMaximoID").val(currentDataItem.EspesorMaximo);
@@ -261,13 +347,68 @@ function AsignarValoresItemSeleccionado() {
 
     //#endregion
 
+    //#region PasosSoldadura
+    $("#SoldadorCertificacionPasosDeSoldadura").val(currentDataItem.PasosSoldadura);
+    //#endregion
+
+};
+
+function CalcularEspesorMaximo(EspesorRellenoPQR) {
+
+    if (EspesorRellenoPQR > .5) {
+        loadingStart();
+        VentanaModalPasosSoldadura();
+        $("#windowPasosSoldadura").show();
+
+
+
+        
+    }
+    else {
+        var EspesorMaximo = EspesorRellenoPQR * 2;
+        $("#SoldadorCertificacionEspesorMaximoID").val(EspesorMaximo);
+    }
+    loadingStop();
+
+};
+
+function VentanaModalPasosSoldadura() {
+    var modalTitle = "";
+    modalTitle = "Pasos de soldadura";
+    var window = $("#windowPasosSoldadura");
+
+        win = window.kendoWindow({
+            actions: "",
+            modal: true,
+            title: modalTitle,
+            resizable: false,
+            visible: false,
+            width: "50%",
+            minWidth: 660,
+            position: {
+                top: "10%",
+                left: "20%"
+            }
+        }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
 };
 
 
+function CalcularEspesorMaximoMayoraCinco(VarPasosSoldadura) {
 
+    if (VarPasosSoldadura > 3) {
+        var EspesorMaximo = 999999;
+        $("#SoldadorCertificacionEspesorMaximoID").val(EspesorMaximo)
+    }
+    else {
+        
+        var EspesorMaximo = EspesorRellenoPQR * 2;
+        $("#SoldadorCertificacionEspesorMaximoID").val(EspesorMaximo);
+    }
 
-
-
+};
 
 
 

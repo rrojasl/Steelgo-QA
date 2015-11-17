@@ -1,7 +1,4 @@
-﻿
-
-
-<div id="CamposRequeridosSoldadorCertificacion" class="form col-sm-12 col-md-12 col-lg-12" role="form">
+﻿<div id="CamposRequeridosSoldadorCertificacion" class="form col-sm-12 col-md-12 col-lg-12" role="form">
     <div class="row">
         <div class="clearfix col-sm-11 col-md-12 col-lg-12">
             <div class="col-sm-12 col-md-12 col-lg-12" id="IDSoldadorCertificacion" style="display:none">
@@ -20,10 +17,22 @@
             <input id="SoldadorCertificacionCargarObreroID" />
         </div>
         <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivNombrePQR">
-
             <label id="SoldadorCertificacionNombrePQR"></label>
             <input id="SoldadorCertificacionCargarPQRID" />
-
+        </div>
+        <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivProcesoSoldadura">
+            <label id="SoldadorCertificacionProcesoSoldaduraPQR"></label>
+            <input id="SoldadorCertificacionProcesoSoldaduraID" />
+        </div>
+        <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivTipoDePrueba">
+            <label id="SoldadorCertificacionTipoDePruebaPQR"></label>
+            <input id="SoldadorCertificacionTipoDePruebaID" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivPosicion">
+            <label id="SoldadorCertificacionPosicionPQR"></label>
+            <input id="SoldadorCertificacionPosicionID" />
         </div>
         <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivFechaInicio">
             <label id="SoldadorCertificacionFechaInicioCertificado"></label>
@@ -33,13 +42,23 @@
             <label id="SoldadorCertificacionFechaFinCertificado"></label>
             <input id="SoldadorCertificacionFechaFin" />
         </div>
+        <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivCedulaTubo">
+            <label id="SoldadorCertificacionCedulaTuboPQR"></label>
+            <input id="SoldadorCertificacionCedulaTuboID" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivDiametroCalificado">
+            <label id="SoldadorCertificacionDiametroCalificadoPQR"></label>
+            <input id="SoldadorCertificacionDiametroCalificadoID" />
+        </div>
         <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivEspesorMaximo">
             <label id="SoldadorCertificacionEspesorMinimo"></label>
             <input id="SoldadorCertificacionEspesorMinimoID" />
         </div>
         <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivEspesorMinimo">
             <label id="SoldadorCertificacionEspesorMaximo"></label>
-            <input id="SoldadorCertificacionEspesorMaximoID" />
+            <input id="SoldadorCertificacionEspesorMaximoID"  readonly="readonly" />
         </div>
         <div class="form-group col-sm-3 col-md-3 col-lg-4" id="DivPorcentajeJuntas">
             <label id="SoldadorCertificacionPorcentajeJuntasRequiere"></label>
@@ -49,21 +68,46 @@
             <label id="SoldadorCertificacionCertificadoActivo"></label>
             <input type="checkbox" id="chkSoldadorCertificacionCertificacion" data-bind="checked: optionCheck" />
         </div>
-
     </div>
     <div class="row">
-        <div class="col-sm-6 col-md-6 col-lg-3">
-            <a id="GuardaSoldadorCertificacion" href="#" style="width:50%" class="btn btn-primary">
-                <span id="botonGuardar"></span>
-            </a>
+        <div class="form-group col-sm-3 col-md-3 col-lg-4">
+            <a id="GuardaSoldadorCertificacion" href="#" class="btn btn-primary"><span id="botonGuardar"></span></a>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-3">
-            <a id="CancelaSoldadorCertificacion" href="#" style="width:50%" class="btn btn-primary">
-                <span id="botonCancelar"></span>
-            </a>
+        <div class="form-group col-sm-3 col-md-3 col-lg-4">
+            <a id="CancelaSoldadorCertificacion" href="#" class="btn btn-primary"><span id="botonCancelar"></span></a>
         </div>
     </div>
 </div>
+
+<div id="windowPasosSoldadura" style="display:none; z-index:inherit">
+    <div class="row">
+        <div class="alert-container">
+            <div class="message">
+                Mensaje de éxito/error/advertencia
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-3 col-md-3 col-lg-5" id="DivDiametroCalificado">
+            <label id="lblSoldadorCertificacionPasosDeSoldadura"></label>
+        </div>
+        <div class="form-group col-sm-3 col-md-3 col-lg-5" id="DivDiametroCalificado">
+            <input id="SoldadorCertificacionPasosDeSoldadura" class="active" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3 col-md-3 col-lg-5">
+            <a id="GuardarPasosSoldadura" href="#" class="btn btn-primary"><span id="botonGuardar2"></span></a>
+        </div>
+        <div class="form-group col-sm-3 col-md-3 col-lg-5">
+            <a id="CancelaPasosSoldadura" href="#" class="btn btn-primary"><span id="botonCancelar2"></span></a>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script src="~/Scripts/AppComponents/Catalogos/SoldadorCertificacion/PopUp/PopUpAjax.js"></script>
 <script src="~/Scripts/AppComponents/Catalogos/SoldadorCertificacion/PopUp/PopUpHandlers.js"></script>
@@ -75,9 +119,7 @@
 <script>
 @section JavascriptGlobalVariables {
     $authorizationModel["Edita SoldadortCertificacion"] = $SoldadorCertificacionSaveModel;
-}
+    }
 </script>
-
-
 
 

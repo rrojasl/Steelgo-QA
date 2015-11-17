@@ -194,7 +194,6 @@ namespace BackEndSAM.DataAcces
 
         }
 
-
         public object ObtenerRespaldo(int TipoDato)
         {
 
@@ -215,7 +214,6 @@ namespace BackEndSAM.DataAcces
 
 
         }
-
 
         public object ObtenerGrupoF(int TipoDato)
         {
@@ -238,8 +236,6 @@ namespace BackEndSAM.DataAcces
 
         }
 
-
-
         public object ObtenerCodigo(int TipoDato)
         {
 
@@ -261,11 +257,6 @@ namespace BackEndSAM.DataAcces
 
         }
 
-
-
-
-
-
         public object EliminaPQR(int TipoDeDato, int PQRID, int IdUsuario)
         {
 
@@ -281,7 +272,6 @@ namespace BackEndSAM.DataAcces
 
 
         }
-
 
         public object ActualizaPQR(Sam3_PQR pqr, Sam3_Usuario usuario)
         {
@@ -351,8 +341,6 @@ namespace BackEndSAM.DataAcces
 
         }
 
-
-
         public object ValidarExistePQR(int PQRID, string nombre)
         {
 
@@ -395,7 +383,6 @@ namespace BackEndSAM.DataAcces
 
         }
 
-
         public object ObtenerListadoPQRActivos(int TipoAccion)
         {
 
@@ -426,6 +413,31 @@ namespace BackEndSAM.DataAcces
 
                 return lista;
             }
+        }
+
+
+
+        public object ObtenerEspesores(int TipoDato, int PQRIDABuscar)
+        {
+
+            using (SamContext ctx = new SamContext())
+            {
+
+                List<PQR> data = (from pqr in ctx.Sam3_Soldadura_PQR(TipoDato, PQRIDABuscar, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+                                  select new PQR
+                                  {
+                                      PQRID = Convert.ToString(pqr.PQRID),
+                                      EspesorRaiz = Convert.ToString(pqr.EspesorRaiz),
+                                      EspesorRelleno = Convert.ToString(pqr.EspesorRelleno)
+               
+
+                                  }).AsParallel().ToList();
+                return data;
+            }
+
+
+
+
         }
 
     }

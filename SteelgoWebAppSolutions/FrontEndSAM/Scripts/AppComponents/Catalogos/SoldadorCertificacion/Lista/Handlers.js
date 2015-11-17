@@ -8,6 +8,7 @@ function EliminaSoldadorCertificacion(e) {
 };
 
 $("#AgregarSoldadorCertificacion").click(function (e) {
+    TotalPasosSoldadura = 0;
     LimpiarControlesParaAgregar();
     VentanaModal();
     $("#windowSoldadorCertificacion").show();
@@ -17,7 +18,8 @@ $("#AgregarSoldadorCertificacion").click(function (e) {
 function editaSoldadorCertificacion(e) {
 
     currentDataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    
+
+   
     AsignarValoresItemSeleccionado();
     AbrirVentanaModalVista();
     

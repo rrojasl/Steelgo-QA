@@ -333,6 +333,41 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        //Llena El DataSource Para  Espesores de PQR
+        public object Get(string token, int TipoDato, int PQRIDABuscar, string var1)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    return PQRBd.Instance.ObtenerEspesores(TipoDato, PQRIDABuscar);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+
 
         //Elimina Un PQR (Cambia a estado inactivo en BD)
         public object Put(int TipoDeDato, int PQRID, string token)
