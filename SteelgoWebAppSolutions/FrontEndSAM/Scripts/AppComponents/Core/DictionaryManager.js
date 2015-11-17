@@ -4354,8 +4354,8 @@ _dictionary = {
     },
 
     "SoldadorCertificacionCodigoObrero": {
-        "es-MX": "Código Obrero",
-        "en-US": "Workman code"
+        "es-MX": "Obrero",
+        "en-US": "Workman"
     },
 
     "SoldadorCertificacionPQRID": {
@@ -4364,18 +4364,18 @@ _dictionary = {
     },
 
     "SoldadorCertificacionNombrePQR": {
-        "es-MX": "Nombre PQR",
-        "en-US": "PQR name"
+        "es-MX": "PQR",
+        "en-US": "PQR"
     },
 
     "SoldadorCertificacionFechaInicioCertificado": {
-        "es-MX": "Fecha inicio de certificado",
-        "en-US": "Start date of certificate"
+        "es-MX": "Inicio de certificado",
+        "en-US": "Start of certificate"
     },
 
     "SoldadorCertificacionFechaFinCertificado": {
-        "es-MX": "Fecha fin de certificado",
-        "en-US": "End date of certificate"
+        "es-MX": "Fin de certificado",
+        "en-US": "End of certificate"
     },
 
     "SoldadorCertificacionEspesorMinimo": {
@@ -4389,8 +4389,8 @@ _dictionary = {
     },
 
     "SoldadorCertificacionPorcentajeJuntasRequiere": {
-        "es-MX": "Porcentaje de juntas que requiere",
-        "en-US": "Percentage of joints requiring"
+        "es-MX": "Porcentaje de juntas",
+        "en-US": "Percentage of joints"
     },
 
     "SoldadorCertificacionCertificadoActivo": {
@@ -4419,20 +4419,20 @@ _dictionary = {
         "en-US": "Welding process"
     },
     "SoldadorCertificacionTipoDePruebaPQR": {
-        "es-MX": "Tipo de prueba",
-        "en-US": "Type of test"
+        "es-MX": "Tipo prueba",
+        "en-US": "Type test"
     },
     "SoldadorCertificacionPosicionPQR": {
         "es-MX": "Posición",
         "en-US": "Position"
     },
     "SoldadorCertificacionCedulaTuboPQR": {
-        "es-MX": "Cédula tubo calificado",
-        "en-US": "Qualified certificate tube"
+        "es-MX": "Cédula tubo",
+        "en-US": "Qualified tube"
     },
     "SoldadorCertificacionDiametroCalificadoPQR": {
-        "es-MX": "Diametro Calificado",
-        "en-US": "Qualified Diameter"
+        "es-MX": "Diametro",
+        "en-US": "Qualified"
     },
     "lblValidaCertificacionDiametroCalificado": {
         "es-MX": "El Campo ' DIAMETRO CALIFICADO', solo acepta valores numéricos'",
