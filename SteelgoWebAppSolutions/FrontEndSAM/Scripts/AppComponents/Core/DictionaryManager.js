@@ -2716,8 +2716,8 @@ _dictionary = {
     },
     //Orden de Recepcion
     "GenerarOrdenRecepcion0001": {
-        "es-MX": "Generar Orden Recepción",
-        "en-US": "Generate Order Reception"
+        "es-MX": "Guardar Orden Recepción",
+        "en-US": "Save Order Reception"
     },
     "GenerarOrdenRecepcion0002": {
         "es-MX": "Cancelar",
