@@ -548,6 +548,8 @@
                     },
                     change: function (e) {
                         var value = this.value();
+                        $("#Tracto").data("kendoComboBox").value("");
+                        $("#Tracto").data("kendoComboBox").dataSource.data([]);
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
                             Transportista = [];
