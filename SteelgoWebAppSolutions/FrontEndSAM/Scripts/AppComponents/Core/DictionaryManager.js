@@ -4108,6 +4108,10 @@ _dictionary = {
         "es-MX": "Al cambiar la colada se generara una incidencia.",
         "en-US": "By changing the casting an incidence will be generated."
     },
+    "ComplementoRecepcion0079": {
+        "es-MX": "Nueva Colada",
+        "en-US": "New Wash"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
