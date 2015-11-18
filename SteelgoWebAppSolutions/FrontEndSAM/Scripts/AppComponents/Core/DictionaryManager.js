@@ -6408,6 +6408,10 @@ _dictionary = {
         "es-MX": "No es igual a",
         "en-US": "Is not equal to"
     },
+    "KendoGridFilterable0004": {
+        "es-MX": "Contiene",
+        "en-US": "Contains"
+    },
     //KendoDelete
     "KendoDeleteTxt0001": {
         "es-MX": "¿Estás seguro que quieres eliminar este elemento?",
