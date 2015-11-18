@@ -19,10 +19,10 @@
 
 <div id="FormListadoRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-    <div class="row">
+    <div class="row" id="AgregarRequisicionDiv">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="button-section editButtonSection">
-                <a id="btnCancelar" class="btn btn-yellow"><span id="">Agregar Requisicion</span></a>
+                <button id="btnAgregarRequisicion" type="button" class="btn btn-newArrival btn-yellow"><span id="spanAddReguisicion"></span></button>
             </div>
         </div>
     </div>
@@ -33,12 +33,12 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="row">
-                            <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
+                            <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" id="divStatusRequisiciones" arial-label="tabList">
                                
-                                <button id="btnSinPermiso" class="btn btn-tabList"><span id="">Capturado </span><span id="">10</span></button>
-                                <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="">Asignados </span><span id="">10</span>10</button>
-                                <button id="btnColetos" class="btn btn-tabList"><span id="">Entregados </span><span id="">10</span></button>
-                                <button id="btnCompletos" class="btn btn-tabList"><span id="">Validados </span><span id="">20</span></button>
+                                @*<button  id="btnSinPermiso" class="btn btn-tabList"><span id="">Capturado </span><span id="">0</span></button>
+    <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="">Asignados </span><span id="">0</span>10</button>
+    <button id="btnColetos" class="btn btn-tabList"><span id="">Entregados </span><span id="">0</span></button>
+    <button id="btnCompletos" class="btn btn-tabList"><span id="">Validados </span><span id="">0</span></button>*@
                             </div>
                         </div>
                         <div id="ContenedorGrid">
@@ -54,8 +54,14 @@
     </div>
 </div>
 @*<script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ListadoRequisicion/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ListadoRequisicion/Handlers.js"> </script>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ListadoRequisicion/Captura.js"> </script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ListadoRequisicion/Seguridad.js"></script>
 
-
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["ListadoRequisicion"] = $ListadoRequisicionModel;
+    }
+</script>

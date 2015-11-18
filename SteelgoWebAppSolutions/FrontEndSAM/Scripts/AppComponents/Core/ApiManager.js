@@ -16,7 +16,7 @@ var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:61066';
-var $FilesSAMUri = 'http://localhost:60971'; 
+var $FilesSAMUri = 'http://localhost:60971';
 
 //DEVELOPMENT Steelgo BASE URL's
 //var $BackEndSAMUri = 'http://192.168.1.7:60960';
@@ -26,7 +26,7 @@ var $FilesSAMUri = 'http://localhost:60971';
 //var $FilesSAMUri = 'http://192.168.1.7:60921';
 
 //Combos Base URL
-var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
+var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
@@ -34,6 +34,10 @@ var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
+
+//ServiciosTecnicos
+var $ListadoRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -67,7 +71,7 @@ var $DocumentoAvisoLlegada = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $ValidacionFolioConPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $PaseSalida= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenDescarga = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -125,6 +129,8 @@ $BackEndSAM.add('ListadoCamposPredeterminados');
 $BackEndSAM.add('PQR');
 $BackEndSAM.add('SoldadorCertificacion');
 
+// ServiciosTecnicos
+$ListadoRequisicion.add('ListadoRequisicion');
 
 //captura armado
 $CapturaArmado.add('Armado');

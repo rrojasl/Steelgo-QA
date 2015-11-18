@@ -3,7 +3,25 @@
     $('#grid').data('kendoGrid').dataSource.read();
 };
 
+IniciarListaRequisicion();
 
+function IniciarListaRequisicion() {
+    SuscribirEventos();
+    AjaxObtenerStatus();
+   
+};
+
+function AgregarStatusDinamicos(listaStatus)
+{
+    for (var i = 0; i < listaStatus.length; i++) {
+        $("#divStatusRequisiciones").append("<button onclick='ActivarRefrescarGrid(" + listaStatus[i].EstatusID + ")' id='" + listaStatus[i].EstatusID + "' class='btn btn-tabList'><span id='" + listaStatus[i].EstatusID + "'>" + listaStatus[i].Estatus + " </span><span id='" + listaStatus[i].CantidadRegistros + "'>" + listaStatus[i].CantidadRegistros + "</span></button>");
+        if (i == 0)
+        {
+            AjaxAccionesListado(listaStatus[i].EstatusID);
+            $("#" + listaStatus[i].EstatusID).addClass("active");
+        }
+    }
+}
 
 
 function CargarGrid() {
@@ -12,24 +30,19 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [
-                     { TipoPrueba: "XRT0327", Prioridad: "RT", Cuadrante: "10/10/2015", Proyecto: "Prueba sobre", Requisicion: "Capturado", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "XRT0334", Prioridad: "RT", Cuadrante: "10/10/2015", Proyecto: "", Requisicion: "Asignado", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "LMNa0954", Prioridad: "PMI", Cuadrante: "10/10/2015", Proyecto: "Prueba sobre", Requisicion: "Resultados Entregados", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "TRN2345", Prioridad: "UT", Cuadrante: "10/10/2015", Proyecto: "", Requisicion: "Validado", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "XRT0327", Prioridad: "RT", Cuadrante: "10/10/2015", Proyecto: "Prueba sobre", Requisicion: "Capturado", SpoolID: "", Junta: "", Agregar: "" }
-            ],
+          data:null,
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
-                        Prioridad: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
-                        Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false },
-                        Agregar: { type: "bool", editable: true }
+                        RequisicionID: { type: "int", editable: false },
+                        Folio: { type: "string", editable: false },
+                        PruebasID: { type: "int", editable: false },
+                        Prueba: { type: "string", editable: false },
+                        FechaRequisicion: { type: "string", editable: false },
+                        Observacion: { type: "string", editable: false },
+                        EstatusID: { type: "int", editable: false },
+                        Estatus: { type: "string", editable: false },
+                        Orden: { type: "bool", editable: false }
                     }
                 }
             },
@@ -54,23 +67,32 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "TipoPrueba", title: "Folio", filterable: true },
-            { field: "Prioridad", title: "Tipo Prueba", filterable: true },
-            { field: "Cuadrante", title: "Fecha", filterable: true },
-            { field: "Proyecto", title: "Observación", filterable: true },
-            //{ field: "Requisicion", title: "Estatus", filterable: true, },
-            { field: "SpoolID", title: "ver detalle", filterable: true }
-          
-
-
-           // { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.ServiciosTecnicosEliminar[$("#language").data("kendoDropDownList").value()], width: "99px" }
-
+            { field: "Folio", title: _dictionary.ListaRequisicionFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Prueba", title: _dictionary.ListaRequisicionPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FechaRequisicion", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Observacion", title: _dictionary.ListaRequisicionObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: VerDetalle }, title: _dictionary.ListaRequisicionVerDetalle[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
     });
 };
 
-function AgregarCaptura() {
+function VerDetalle(e) {
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr")); 
+    document.location.target = "_blank";
+    document.location.href = "/serviciostecnicos/generarrequisicion?id=" + dataItem.RequisicionID;
 };
 
-function eliminarCaptura() {
+function tabActivo(idButton) {
+    $(".btn-tabList").removeClass("active");
+    var list = document.getElementById("divStatusRequisiciones").getElementsByTagName("button");
+
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id == idButton)
+        {
+            $("#" + idButton).addClass("active");
+            break;
+        }
+    }
 };
+
+

@@ -3678,12 +3678,6 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-
-    "botonCancelar2": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-
     "botonGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
@@ -3768,10 +3762,6 @@ _dictionary = {
     "botonCancelar1": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
-    },
-    "botonDetalle": {
-        "es-MX": "Detalle",
-        "en-US": "Detail"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -4074,10 +4064,6 @@ _dictionary = {
         "es-MX": "Codigo",
         "en-US": "Code"
     },
-    "PQRMENU": {
-        "es-MX": "PQR",
-        "en-US": "PQR"
-    },
     //#endregion
     //#region PopUp
     "lblConfirmaElimanarPQR": {
@@ -4358,8 +4344,8 @@ _dictionary = {
     },
 
     "SoldadorCertificacionCodigoObrero": {
-        "es-MX": "Obrero",
-        "en-US": "Workman"
+        "es-MX": "Código Obrero",
+        "en-US": "Workman code"
     },
 
     "SoldadorCertificacionPQRID": {
@@ -4368,18 +4354,18 @@ _dictionary = {
     },
 
     "SoldadorCertificacionNombrePQR": {
-        "es-MX": "PQR",
-        "en-US": "PQR"
+        "es-MX": "Nombre PQR",
+        "en-US": "PQR name"
     },
 
     "SoldadorCertificacionFechaInicioCertificado": {
-        "es-MX": "Inicio de certificado",
-        "en-US": "Start of certificate"
+        "es-MX": "Fecha inicio de certificado",
+        "en-US": "Start date of certificate"
     },
 
     "SoldadorCertificacionFechaFinCertificado": {
-        "es-MX": "Fin de certificado",
-        "en-US": "End of certificate"
+        "es-MX": "Fecha fin de certificado",
+        "en-US": "End date of certificate"
     },
 
     "SoldadorCertificacionEspesorMinimo": {
@@ -4393,8 +4379,8 @@ _dictionary = {
     },
 
     "SoldadorCertificacionPorcentajeJuntasRequiere": {
-        "es-MX": "Porcentaje de juntas",
-        "en-US": "Percentage of joints"
+        "es-MX": "Porcentaje de juntas que requiere",
+        "en-US": "Percentage of joints requiring"
     },
 
     "SoldadorCertificacionCertificadoActivo": {
@@ -4418,46 +4404,6 @@ _dictionary = {
     },
 
 
-    "SoldadorCertificacionProcesoSoldaduraPQR": {
-        "es-MX": "Proceso Soldadura",
-        "en-US": "Welding process"
-    },
-    "SoldadorCertificacionTipoDePruebaPQR": {
-        "es-MX": "Tipo prueba",
-        "en-US": "Type test"
-    },
-    "SoldadorCertificacionPosicionPQR": {
-        "es-MX": "Posición",
-        "en-US": "Position"
-    },
-    "SoldadorCertificacionCedulaTuboPQR": {
-        "es-MX": "Cédula tubo",
-        "en-US": "Qualified tube"
-    },
-    "SoldadorCertificacionDiametroCalificadoPQR": {
-        "es-MX": "Diametro",
-        "en-US": "Qualified"
-    },
-    "lblValidaCertificacionDiametroCalificado": {
-        "es-MX": "El Campo ' DIAMETRO CALIFICADO', solo acepta valores numéricos'",
-        "en-US": "The Field 'QUALIFIED DIAMETER', accepts only numeric values"
-    },
-    "lblSoldadorCertificacionPasosDeSoldadura": {
-        "es-MX": "¿Cúantos pasos de soldadura requirió la certificación?",
-        "en-US": "Many steps required welding certification?"
-    },
-    "lblValidaDiferenciaEspesores": {
-        "es-MX": "El campo 'ESPESOR MÍNIMO' no puede ser mayor al campo 'ESPESOR MAXIMO' ",
-        "en-US": "The field 'MINIMUM THICKNESS' can not be greater than the field 'MAXIUM THICKNESS"
-    },
-    "lblValidaPasosSoldadura": {
-        "es-MX": "El campo 'PASOS SOLDADURA' solo acepta valores numéricos ",
-        "en-US": "The field 'STEPS WELDING' accepts only numeric values"
-    },
-    "SoldadoCertificacion": {
-        "es-MX": "Soldador certificación",
-        "en-US": "Welder Certification"
-    },
 
     //#endregion
 
@@ -4626,7 +4572,7 @@ _dictionary = {
         "es-MX": "Inspección",
         "en-US": "Inspection"
     },
-    
+
     "CapturaSoldaduraMensajeErrorTaller": {
         "es-MX": "El campo de taller no puede ser vacio",
         "en-US": "The workshop field is not empty"
@@ -4648,7 +4594,37 @@ _dictionary = {
         "en-US": "Root welding process it's not permissable"
     },
     //#endregion
-
+    //#region ListadoRequisicion
+    "ListaRequisicionFolio": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "ListaRequisicionPrueba": {
+        "es-MX": "Prueba",
+        "en-US": "Test"
+    },
+    "ListaRequisicionFecha": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "ListaRequisicionObservacion": {
+        "es-MX": "Observacion",
+        "en-US": "Observation"
+    },
+    "ListaRequisicionVerDetalle": {
+        "es-MX": "Ver Detalle",
+        "en-US": "See Detail"
+    },
+    "botonDetalle": {
+        "es-MX": "Detalle",
+        "en-US": "Detail"
+    }
+    ,
+    "spanAddReguisicion": {
+        "es-MX": "Agregar Requisicion",
+        "en-US": "Add requisition"
+    }
+    //#endregion
 };
 
 
