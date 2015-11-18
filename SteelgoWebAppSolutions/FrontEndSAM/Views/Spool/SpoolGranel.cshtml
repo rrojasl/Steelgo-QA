@@ -129,9 +129,30 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    spoolObj={};
+    spool=getUrlParameter("SpoolID","");
 }
 
 @section JavascriptGlobalFunctions {
+    function SpoolDesdeServidor(){
+        loadingStart();
+        $Spool.Spool.read({},{SpoolID:spool}).done(function(data){
+            spoolObj=data;
+            $("#proyecto").data("kendoComboBox").select(function(){
+                return dataItem.text === spoolObj.Proyecto;
+            })
+            $("#tipoSpool").data("kendoComboBox").select(function(){
+                return dataItem.text === spoolObj.TipoSpool;
+            })
+            $("#nombreSpool").val(spoolObj.NombreSpool);
+            $("#familiaAcero").data("kendoComboBox").select(function(){
+                return dataItem.text === spoolObj.FamiliaAcero;
+            })
+        }).fail(function(){
+            loadingStop();
+        })
+    }
+
     function esAccesorio(val){
         return !(+new Date()%2);//Temporary
     }
@@ -144,9 +165,9 @@
     }
 
     function verificarSpoolInicial(){
-        var spool=getUrlParameter("SpoolID","");
         if(spool!==""){
             cambiarEstadoWidgets(false);
+            SpoolDesdeServidor();
             $("#Guardar").hide();
             $("#Editar").show();
         }
@@ -173,6 +194,8 @@
         select:function(e){
             //console.log(e)
         },
+        cascade:function(e){
+        }
     });
 
     $("#tipoSpool").kendoComboBox({
@@ -190,6 +213,8 @@
         select:function(e){
             //console.log(e)
         },
+        cascade:function(e){
+        }
     });
 
     $("#familiaAcero").kendoComboBox({
@@ -207,10 +232,22 @@
         select:function(e){
             //console.log(e)
         },
+        cascade:function(e){
+            if (Object.keys(spoolObj).length>0){
+                $Itemcode.Itemcode({},{ProyectoID:$("#Proyecto").data("kendoComboBox").value,FamiliaID:$("#familiaAcero").data("kendoComboBox").value}).done(function(data){
+                    $("#itemCode").data("kendoComboBox").dataSource.data(data);
+                    $("#itemCode").data("kendoComboBox").select(function(){
+                        return dataItem.text === spoolObj.ItemCode;
+                    })
+                    $("#itemCode").data("kendoComboBox").trigger("select");
+                })
+            }
+        }
     });
 
     $("#itemCode").kendoComboBox({
         dataSource: {
+            data:[],
             transport: {
                 read: {
                     url: "#",
@@ -224,11 +261,23 @@
         select:function(e){
             if($("#itemCode").data("kendoComboBox").value()){
                 esAccesorio($("#itemCode").data("kendoComboBox").value()) ? $("#seccionAccesorio").show() : $("#seccionTuberia").show();
+                rellenarSeccion();
             }else{
                 $("#seccionAccesorio").hide();
                 $("#seccionTuberia").hide();
             }
         },
+        cascade:function(e){
+            if (Object.keys(spoolObj).length>0){
+                $Diametro1.Diametro1({},{ItemCodeID:$("#itemCode").data("kendoComboBox").value()}).done(function(data){
+                    $("#d1").data("kendoComboBox").dataSource.data(data);
+                    $("#d1").data("kendoComboBox").select(function(){
+                        return dataItem.text === spoolObj.D1;
+                    })
+                    loadingStop();
+                })
+            }
+        }
     });
 
     $("#d1").kendoComboBox({
@@ -246,6 +295,16 @@
         select:function(e){
             //console.log(e)
         },
+        cascade:function(e){
+            if (Object.keys(spoolObj).length>0){
+                $Diametro2.Diametro2({},{ItemCodeID:$("#itemCode").data("kendoComboBox").value()}).done(function(data){
+                    $("#d2").data("kendoComboBox").dataSource.data(data);
+                    $("#d2").data("kendoComboBox").select(function(){
+                        return dataItem.text === spoolObj.D2;
+                    })
+                })
+            }
+        }
     });
 
     $("#d2").kendoComboBox({
@@ -271,7 +330,7 @@
 
     $("#Editar").on("click",function(){
         cambiarEstadoWidgets(true);
-        $(this).hide()
+        $(this).hide();
         $("#Guardar").show();
     })
 };
