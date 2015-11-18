@@ -46,7 +46,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegada, int NumeroPermiso, string token)
+        public object Post(int folioAvisoLlegada, string NumeroPermiso, string token)
         {
             try
             {
