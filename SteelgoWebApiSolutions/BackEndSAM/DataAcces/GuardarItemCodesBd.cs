@@ -1343,72 +1343,15 @@ namespace BackEndSAM.DataAcces
                     IC.Activo = true;
                     IC.UsuarioModificacion = usuario.UsuarioID;
                     IC.FechaModificacion = DateTime.Now;
-                    IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
+                    if (item.MM > 0)
+                    {
+                        IC.MM = item.MM;
+                    }
                     IC.FamiliaAceroID = Convert.ToInt32(item.FamiliaMaterial);
                     ctx.SaveChanges();
 
                     return IC;
                 }
-            }
-            catch (Exception ex)
-            {
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                LoggerBd.Instance.EscribirLog(ex);
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-
-                return null;
-            }
-        }
-
-        public Sam3_ItemCode InsertarItemCodeSam3(CuantificacionListado datosItemCode, Sam3_Usuario usuario)
-        {
-            try
-            {
-                //DatabaseManager.Sam2.ItemCode itemS2 = new DatabaseManager.Sam2.ItemCode();
-                //using (DatabaseManager.Sam2.Sam2Context ctx2 = new DatabaseManager.Sam2.Sam2Context())
-                //{
-                //    itemS2 = ctx2.ItemCode.Where(x => x.Codigo == datosItemCode.ItemCode).AsParallel().SingleOrDefault();
-                //}
-
-                //using (SamContext ctx = new SamContext())
-                //{
-                //    Sam3_ItemCode nuevoItem = new Sam3_ItemCode();
-                //    nuevoItem.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
-                //                            where eq.Activo && eq.Sam2_ProyectoID == itemS2.ProyectoID
-                //                            select eq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
-                //    nuevoItem.TipoMaterialID = itemS2.TipoMaterialID;
-                //    nuevoItem.Codigo = itemS2.Codigo;
-                //    nuevoItem.ItemCodeCliente = itemS2.ItemCodeCliente;
-                //    nuevoItem.DescripcionEspanol = itemS2.DescripcionEspanol;
-                //    nuevoItem.DescripcionIngles = itemS2.DescripcionIngles;
-                //    nuevoItem.DescripcionInterna = itemS2.DescripcionInterna;
-                //    //nuevoItem.Diametro1 = itemS2.Diametro1;
-                //    //nuevoItem.Diametro2 = itemS2.Diametro2;
-                //    nuevoItem.FamiliaAceroID = itemS2.FamiliaAceroID;
-                //    nuevoItem.Peso = itemS2.Peso;
-                //    nuevoItem.ColadaID = datosItemCode.ColadaID;
-                //    nuevoItem.TipoUsoID = Convert.ToInt32(datosItemCode.TipoUsoID) == -1 ? 1 : Convert.ToInt32(datosItemCode.TipoUsoID);
-                //    nuevoItem.FamiliaAceroID = Convert.ToInt32(datosItemCode.FamiliaMaterial);
-                //    nuevoItem.Activo = true;
-                //    nuevoItem.FechaModificacion = DateTime.Now;
-                //    nuevoItem.UsuarioModificacion = usuario.UsuarioID;
-
-                //    ctx.Sam3_ItemCode.Add(nuevoItem);
-                //    ctx.SaveChanges();
-
-                //    Sam3_EquivalenciaItemCode equivalencia = new Sam3_EquivalenciaItemCode();
-                //    equivalencia.Sam2_ItemCodeID = itemS2.ItemCodeID;
-                //    equivalencia.Sam3_ItemCodeID = nuevoItem.ItemCodeID;
-                //    equivalencia.Activo = true;
-                //    equivalencia.FechaModificacion = DateTime.Now;
-                //    equivalencia.UsuarioModificacion = usuario.UsuarioID;
-
-                //    ctx.Sam3_EquivalenciaItemCode.Add(equivalencia);
-                //    ctx.SaveChanges();
-
-                //return nuevoItem;
-                //}
-                throw new Exception("Metodo en des uso GuardarItemCodeBd Linea 1296");
             }
             catch (Exception ex)
             {
@@ -1514,7 +1457,10 @@ namespace BackEndSAM.DataAcces
                     relIC.UsuarioModificacion = usuario.UsuarioID;
                     relIC.Activo = true;
                     relIC.Cantidad = IC.Cantidad;
-                    relIC.MM = IC.MM;
+                    if (IC.MM > 0)
+                    {
+                        relIC.MM = IC.MM;
+                    }
                     if (IC.ColadaID > 0)
                     {
                         relIC.ColadaID = IC.ColadaID;
@@ -1574,7 +1520,10 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = IC.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
-                        registroBd.MM = IC.MM;
+                        if (IC.MM > 0)
+                        {
+                            registroBd.MM = IC.MM;
+                        }
                         if (IC.ColadaID > 0)
                         {
                             registroBd.ColadaID = IC.ColadaID;
@@ -1683,7 +1632,10 @@ namespace BackEndSAM.DataAcces
                     bic.UsuarioModificacion = usuario.UsuarioID;
                     bic.Activo = true;
                     bic.Cantidad = item.Cantidad;
-                    bic.MM = item.MM;
+                    if (item.MM > 0)
+                    {
+                        bic.MM = item.MM;
+                    }
                     if (item.ColadaID > 0)
                     {
                         bic.ColadaID = item.ColadaID;
@@ -1739,7 +1691,10 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = item.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
-                        registroBd.MM = item.MM;
+                        if (item.MM > 0)
+                        {
+                            registroBd.MM = item.MM;
+                        }
 
                         if (item.ColadaID > 0)
                         {
