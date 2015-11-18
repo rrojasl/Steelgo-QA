@@ -75,8 +75,14 @@ namespace BackEndSAM.DataAcces
                                                     where riit.Activo && rids.Activo && ics.Activo && ced.Activo
                                                     && rfii.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
                                                     select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
-                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                          TipoAcero = (from rfii in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                       join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                       join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                                       join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                       join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                       join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                                       where riit.Activo && rids.Activo && ics.Activo && fa.Activo
+                                                       && rfii.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
                                                        select fa.Nombre).FirstOrDefault(),
                                           D1 = d1.Valor.ToString(),
                                           D2 = d2.Valor.ToString(),
@@ -125,8 +131,14 @@ namespace BackEndSAM.DataAcces
                                            where riit.Activo && rids.Activo && ics.Activo && ced.Activo
                                            && rbii.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
                                            select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
-                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                          TipoAcero = (from rbii in ctx.Sam3_Rel_Bulto_ItemCode
+                                                       join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rbii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                       join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                                       join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                       join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                       join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                                       where riit.Activo && rids.Activo && ics.Activo && fa.Activo
+                                                       && rbii.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
                                                        select fa.Nombre).FirstOrDefault(),
                                           D1 = d1.Valor.ToString(),
                                           D2 = d2.Valor.ToString(),
@@ -228,8 +240,14 @@ namespace BackEndSAM.DataAcces
                                               where riit.Activo && rids.Activo && ics.Activo && ced.Activo
                                               && rfii.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
                                               select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
-                                    TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                 where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                    TipoAcero = (from rfii in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                 join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                 join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                                 join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                 join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                 join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                                 where riit.Activo && rids.Activo && ics.Activo && fa.Activo
+                                                 && rfii.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
                                                  select fa.Nombre).FirstOrDefault(),
                                     D1 = d1.Valor.ToString(),
                                     D2 = d2.Valor.ToString(),
@@ -284,8 +302,14 @@ namespace BackEndSAM.DataAcces
                                               where riit.Activo && rids.Activo && ics.Activo && ced.Activo
                                               && rbii.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
                                               select d.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault(),
-                                    TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                 where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                    TipoAcero = (from rbii in ctx.Sam3_Rel_Bulto_ItemCode
+                                                 join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rbii.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                 join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                                                 join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                 join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                 join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                                 where riit.Activo && rids.Activo && ics.Activo && fa.Activo
+                                                 && rbii.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
                                                  select fa.Nombre).FirstOrDefault(),
                                     D1 = d1.Valor.ToString(),
                                     D2 = d2.Valor.ToString(),
