@@ -144,6 +144,7 @@ var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Diametros = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ConvertirSpoolAGranel = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Spool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -247,3 +248,4 @@ $PreDespacho.add("PreDespacho");
 $GuardarPermisoAduana.add("DocumentoPermisoAduana");
 $Diametros.add("Diametros");
 $ConvertirSpoolAGranel.add("ConvertirSpoolAGranel");
+$Spool.add("Spool");

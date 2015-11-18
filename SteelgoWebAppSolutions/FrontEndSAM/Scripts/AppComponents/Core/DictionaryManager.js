@@ -5976,6 +5976,14 @@ _dictionary = {
         "es-MX": "No",
         "en-US": "No"
     },
+    "SpoolGranel0017": {
+        "es-MX": "Generar",
+        "en-US": "Generate"
+    },
+    "SpoolGranel0018": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
