@@ -39,20 +39,20 @@
                                     <li id="menucancelarIncidencia" class="cancelar"><a id="CancelarIncidencia" href="#"><span id="Incidencias0011"></span></a></li>
                                     <li id="menuEditarIncidencias" style="display:none"><a id="EditarIncidencia" href="#"><span id="Incidencias0009"></span></a></li>*@
                                 </ul>
-                                </div>
+                            </div>
                             <div id="nuevaIncidenciaDiv" class="button-section responderIncidencia hidden">
-                                    <a id="NuevaIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0063"></span></a>
-                                </div>
-                                <div id="responderIncidenciaDiv" class="button-section responderIncidencia hidden">
-                                    <a id="ResponderIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0037"></span></a>
-                                </div>
-                                <div id="resolverIncidenciaDiv" class="button-section resolverIncidencia hidden">
-                                    <a id="ResolverIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0010"></span></a>
-                                </div>
-                                <div id="cancelarIncidenciaDiv" class="button-section cancelar hidden">
-                                    <a id="CancelarIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0011"></span></a>
-                                </div>
-                                <a id="Cancelar" href="#" class="btn btn-black"><span id="Incidencias0027"></span></a>
+                                <a id="NuevaIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0063"></span></a>
+                            </div>
+                            <div id="responderIncidenciaDiv" class="button-section responderIncidencia hidden">
+                                <a id="ResponderIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0037"></span></a>
+                            </div>
+                            <div id="resolverIncidenciaDiv" class="button-section resolverIncidencia hidden">
+                                <a id="ResolverIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0010"></span></a>
+                            </div>
+                            <div id="cancelarIncidenciaDiv" class="button-section cancelar hidden">
+                                <a id="CancelarIncidencia" href="#" class="btn btn-primary"><span id="Incidencias0011"></span></a>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="Incidencias0027"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -553,8 +553,7 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function cambiaActivosClick(tabSelected)
-    {
+    function cambiaActivosClick(tabSelected) {
         switch (tabSelected) {
 
             case "Incidencia":
@@ -747,7 +746,7 @@
             case "Incidencia":
 
                 if ($("#hdEstatus").val() != "Cancelado") {
-                    if (typeof (returnOfSecurityCheck) != undefined 
+                    if (typeof (returnOfSecurityCheck) != undefined
                         && typeof (returnOfSecurityCheck["Incidencias"]) != undefined
                          && typeof (returnOfSecurityCheck["Incidencias"].create) != undefined
                             && !returnOfSecurityCheck["Incidencias"].create) {
@@ -925,7 +924,7 @@
                 }
                 break;
         };
-        
+
     }
     function changeLanguageCall() {
         var options = $("#AdjuntarArchivosIncidencia").data("kendoUpload").options;
@@ -951,8 +950,7 @@
     function CargaInicial() {
         ocultarTabsNuevaIncidencia();
 
-        if (_Edicion == 1)
-        {
+        if (_Edicion == 1) {
             //Muestro boton de siguiente paso
             $("#nuevaIncidenciaDiv").addClass("hidden");
             $("#responderIncidenciaDiv").addClass("hidden");
@@ -960,7 +958,7 @@
             $("#resolverIncidenciaDiv").removeClass("hidden");
 
         }
-       
+
         $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
         $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
 
@@ -1008,7 +1006,7 @@
         $("#AdjuntarArchivosIncidencia").on('drop', function (event) {
             event.preventDefault();
         });
-        
+
         $('#AdjuntarArchivosResolver').kendoUpload({
             async: {
                 saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&token=" + Cookies.get("token"),
@@ -1095,7 +1093,7 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
-               
+
             },
             change: function (e) {
                 var value = this.value();
@@ -1130,7 +1128,7 @@
             },
             filter: "contains",
         });
-        
+
 
 
         $("#RegistradoPor").kendoComboBox({
@@ -1170,7 +1168,7 @@
             },
             filter: "contains",
         });
-        
+
         ObtenerUsuarios("ResueltoPor");
         ObtenerUsuarioActual("ResueltoPor");
 
@@ -1200,1264 +1198,1315 @@
         };
 
         ObtenerFechaDefault();
-        
-    };
 
-    function CargaInicialEdicion(id) {
-        loadingStart();
-        //cargarTituloFolio();
-        habilitarTabsNuevaIncidencia();
+        };
 
-        $Incidencia.Incidencia.read({}, { folioIncidenciaID: id, token: Cookies.get("token") }).done(function (data) {
-            if (Error(data)) {
-                if (_Edicion != "-1") {
-                    if (data.Estatus != "Cancelado") {
-                        BotonAlta();
-                        $("#EditarIncidencia").attr("hidden");
-                        $("#Editar").removeAttr("hidden");
-                    }
-                    else {
-                        DeshabilitarControles();
-                        //habilitarTabsNuevaIncidencia();
-                        $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
-                        $("#dropdown-toggle").hide();
-                        $("#Guardar").css("display", "none");
-                        $("#Editar").css("display", "none");
+        function CargaInicialEdicion(id) {
+            loadingStart();
+            //cargarTituloFolio();
+            habilitarTabsNuevaIncidencia();
 
-                       
-                        $("#nuevaIncidenciaDiv").addClass("hidden");
-                        $("#responderIncidenciaDiv").addClass("hidden");
-                        $("#cancelarIncidenciaDiv").addClass("hidden");
-                        $("#resolverIncidenciaDiv").addClass("hidden");
-                    }
-                };
-
-                $("#Clasificacion").data("kendoComboBox").value(data.ClasificacionID);
-                CargarClasificacion(data.ClasificacionID);
-
-                $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
-                CargarTipoIncidencia(data.TipoIncidenciaID);
-
-                $("#Version").val(data.Version);
-                $("#Titulo").val(data.Titulo);
-                $("#Descripcion").val(data.Descripcion);
-                $("#Respuesta").val(data.Respuesta);
-                $("#MotivoCancelacion").val(data.MotivoCancelacion);
-                $("#DetalleResolucion").val(data.DetalleResolucion);
-
-                if (data.RegistradoPor)
-                {
-                    $("#RegistradoPor").data("kendoComboBox").value(data.RegistradoPor)
-                    CargarRegistradoPor(data.RegistradoPor);
-                }
-
-                if (data.ResueltoPor)
-                {
-                    $("#ResueltoPor").data("kendoComboBox").value(data.ResueltoPor)
-                    CargarResueltoPor(data.ResueltoPor)
-                }
-
-                if (data.RespondidoPor)
-                {
-                    $("#RespondidoPor").data("kendoComboBox").value(data.RespondidoPor)
-                    CargarRespondidoPor(data.RespondidoPor);
-                }
-
-                if (data.FechaRegistro) {
-                    var splitYear = data.FechaRegistro.split("-")[0];
-                    var splitMonth = data.FechaRegistro.split("-")[1];
-                    var splitDay = data.FechaRegistro.split("-")[2];
-
-                    var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
-                    $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
-                }
-
-                if (data.FechaResolucion) {
-                    var splitYear1 = data.FechaResolucion.split("-")[0];
-                    var splitMonth1 = data.FechaResolucion.split("-")[1];
-                    var splitDay1 = data.FechaResolucion.split("-")[2];
-
-                    var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
-                    $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
-                };
-
-                if (data.FechaRespuesta) {
-                    var splitYear2 = data.FechaRespuesta.split("-")[0];
-                    var splitMonth2 = data.FechaRespuesta.split("-")[1];
-                    var splitDay2 = data.FechaRespuesta.split("-")[2];
-
-                    var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
-                    $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
-                }
-
-                $("#Registro").data("kendoComboBox").value(data.ValorReferencia);
-                CargarRegistro(data.ReferenciaID);
-
-                $("#hdEstatus").val(data.Estatus);
-                $("#listaArchivosIncidencia tbody").empty();
-                $("#listaArchivosResolver tbody").empty();
-                $("#listaArchivosResponder tbody").empty();
-                $("#listaArchivosCancelar tbody").empty();
-                $.each(data.ArchivosIncidencia, function (index, value) {
-                    $("#listaArchivosIncidencia tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                });
-
-                $.each(data.ArchivosResolver, function (index, value) {
-                    $("#listaArchivosResolver tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                });
-
-                $.each(data.ArchivosResponder, function (index, value) {
-                    $("#listaArchivosResponder tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                });
-
-                $.each(data.ArchivosCancelar, function (index, value) {
-                    $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                });
-
-                AsignarPaginaActualCookie();
-                applySecurityPolicy(false);
-            };
-            loadingStop();
-        });
-    };
-    function AsignarPaginaActualCookie() {
-        Cookies.set("navegacion", "38", { path: '/' });
-    }
-    function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion, referenciaID) {
-        loadingStart();
-        $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
-        $("#Clasificacion").data("kendoComboBox").enable(false);
-        CargarClasificacion(clasificacion);
-
-        if (tipoincidenciaID != "-1") {
-            $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
-            $("#TipoIncidencia").data("kendoComboBox").enable(false);
-            CargarTipoIncidencia(tipoincidenciaID);
-        }
-
-        if (referenciaID != "-1") {
-            $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
+            $Incidencia.Incidencia.read({}, { folioIncidenciaID: id, token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
-                    if(data.length){
-                        $("#Registro").data("kendoComboBox").value(data[0].value);
-                        $("#Registro").data("kendoComboBox").enable(false);
-                        CargarRegistro(data[0].id);
+                    if (_Edicion != "-1") {
+                        if (data.Estatus != "Cancelado") {
+                            //BotonAlta();
+                            DeshabilitarAlIniciar();
+                            $("#EditarIncidencia").attr("hidden");
+                            $("#Editar").removeAttr("hidden");
+                        }
+                        else {
+                            DeshabilitarAlCancelar();
+                            //habilitarTabsNuevaIncidencia();
+                            $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
+                            $("#dropdown-toggle").hide();
+                            $("#Guardar").css("display", "none");
+                            $("#Editar").css("display", "none");
+
+
+                            $("#nuevaIncidenciaDiv").addClass("hidden");
+                            $("#responderIncidenciaDiv").addClass("hidden");
+                            $("#cancelarIncidenciaDiv").addClass("hidden");
+                            $("#resolverIncidenciaDiv").addClass("hidden");
+                        }
+                    };
+
+                    $("#Clasificacion").data("kendoComboBox").value(data.ClasificacionID);
+                    CargarClasificacion(data.ClasificacionID);
+
+                    $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
+                    CargarTipoIncidencia(data.TipoIncidenciaID);
+
+                    $("#Version").val(data.Version);
+                    $("#Titulo").val(data.Titulo);
+                    $("#Descripcion").val(data.Descripcion);
+                    $("#Respuesta").val(data.Respuesta);
+                    $("#MotivoCancelacion").val(data.MotivoCancelacion);
+                    $("#DetalleResolucion").val(data.DetalleResolucion);
+
+                    if (data.RegistradoPor) {
+                        $("#RegistradoPor").data("kendoComboBox").value(data.RegistradoPor)
+                        CargarRegistradoPor(data.RegistradoPor);
                     }
-                }
+
+                    if (data.ResueltoPor) {
+                        $("#ResueltoPor").data("kendoComboBox").value(data.ResueltoPor)
+                        CargarResueltoPor(data.ResueltoPor)
+                    }
+
+                    if (data.RespondidoPor) {
+                        $("#RespondidoPor").data("kendoComboBox").value(data.RespondidoPor)
+                        CargarRespondidoPor(data.RespondidoPor);
+                    }
+
+                    if (data.FechaRegistro) {
+                        var splitYear = data.FechaRegistro.split("-")[0];
+                        var splitMonth = data.FechaRegistro.split("-")[1];
+                        var splitDay = data.FechaRegistro.split("-")[2];
+
+                        var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
+                        $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
+                    }
+
+                    if (data.FechaResolucion) {
+                        var splitYear1 = data.FechaResolucion.split("-")[0];
+                        var splitMonth1 = data.FechaResolucion.split("-")[1];
+                        var splitDay1 = data.FechaResolucion.split("-")[2];
+
+                        var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
+                        $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
+                    };
+
+                    if (data.FechaRespuesta) {
+                        var splitYear2 = data.FechaRespuesta.split("-")[0];
+                        var splitMonth2 = data.FechaRespuesta.split("-")[1];
+                        var splitDay2 = data.FechaRespuesta.split("-")[2];
+
+                        var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
+                        $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
+                    }
+
+                    $("#Registro").data("kendoComboBox").value(data.ValorReferencia);
+                    CargarRegistro(data.ReferenciaID);
+
+                    $("#hdEstatus").val(data.Estatus);
+                    $("#listaArchivosIncidencia tbody").empty();
+                    $("#listaArchivosResolver tbody").empty();
+                    $("#listaArchivosResponder tbody").empty();
+                    $("#listaArchivosCancelar tbody").empty();
+                    $.each(data.ArchivosIncidencia, function (index, value) {
+                        $("#listaArchivosIncidencia tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    });
+
+                    $.each(data.ArchivosResolver, function (index, value) {
+                        $("#listaArchivosResolver tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    });
+
+                    $.each(data.ArchivosResponder, function (index, value) {
+                        $("#listaArchivosResponder tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    });
+
+                    $.each(data.ArchivosCancelar, function (index, value) {
+                        $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    });
+
+                    AsignarPaginaActualCookie();
+                    applySecurityPolicy(false);
+                };
+                loadingStop();
+            });
+        };
+        function AsignarPaginaActualCookie() {
+            Cookies.set("navegacion", "38", { path: '/' });
+        }
+        function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion, referenciaID) {
+            loadingStart();
+            $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
+            $("#Clasificacion").data("kendoComboBox").enable(false);
+            CargarClasificacion(clasificacion);
+
+            if (tipoincidenciaID != "-1") {
+                $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
+                $("#TipoIncidencia").data("kendoComboBox").enable(false);
+                CargarTipoIncidencia(tipoincidenciaID);
+            }
+
+            if (referenciaID != "-1") {
+                $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
+                    if (Error(data)) {
+                        if (data.length) {
+                            $("#Registro").data("kendoComboBox").value(data[0].value);
+                            $("#Registro").data("kendoComboBox").enable(false);
+                            CargarRegistro(data[0].id);
+                        }
+                    }
+                    loadingStop();
+                    AsignarPaginaActualCookie();
+                    applySecurityPolicy(false);
+                });
+            } else {
                 loadingStop();
                 AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
+            };
+        };
+
+        function CargarClasificacion(id, value) {
+            Clasificacion = {};
+            Clasificacion = { ClasificacionID: id, Nombre: value };
+        };
+
+        function CargarTipoIncidencia(id, value) {
+            TipoIncidencia = {};
+            TipoIncidencia = { TipoIncidenciaID: id, Nombre: value };
+        };
+
+        function CargarRegistro(id) {
+            Registro = {};
+            Registro = { RegistroID: id };
+        };
+
+        function CargarRegistradoPor(id) {
+            RegistradoPor = {};
+            RegistradoPor = { RegistradoPorID: id };
+        };
+
+        function CargarResueltoPor(id) {
+            ResueltoPor = {};
+            ResueltoPor = { ResueltoPorID: id };
+        };
+
+        function CargarRespondidoPor(id) {
+            RespondidoPor = {};
+            RespondidoPor = { RespondidoPorID: id };
+        };
+
+        function ObtenerClasificacion() {
+            $Clasificacion.Clasificacion.read({ token: Cookies.get("token") }).done(function (result) {
+                ControlErroresObjetosComboBox("Clasificacion", result);
             });
-        } else {
-            loadingStop();
-            AsignarPaginaActualCookie();
-            applySecurityPolicy(false);
         };
-    };
 
-    function CargarClasificacion(id, value) {
-        Clasificacion = {};
-        Clasificacion = { ClasificacionID: id, Nombre: value };
-    };
+        function ObtenerTipoIncidencia() {
+            $TipoIncidencia.TipoIncidencia.read({ token: Cookies.get("token") }).done(function (result) {
+                ControlErroresObjetosComboBox("TipoIncidencia", result);
+            });
+        };
 
-    function CargarTipoIncidencia(id, value) {
-        TipoIncidencia = {};
-        TipoIncidencia = { TipoIncidenciaID: id, Nombre: value };
-    };
+        function ObtenerUsuarios(control) {
+            $Usuario.Usuario.read({ token: Cookies.get("token") }).done(function (result) {
+                ControlErroresObjetosComboBox(control, result);
+            });
+        };
 
-    function CargarRegistro(id) {
-        Registro = {};
-        Registro = { RegistroID: id };
-    };
-
-    function CargarRegistradoPor(id) {
-        RegistradoPor = {};
-        RegistradoPor = { RegistradoPorID: id };
-    };
-
-    function CargarResueltoPor(id) {
-        ResueltoPor = {};
-        ResueltoPor = { ResueltoPorID: id };
-    };
-
-    function CargarRespondidoPor(id) {
-        RespondidoPor = {};
-        RespondidoPor = { RespondidoPorID: id };
-    };
-
-    function ObtenerClasificacion() {
-        $Clasificacion.Clasificacion.read({ token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("Clasificacion", result);
-        });
-    };
-
-    function ObtenerTipoIncidencia() {
-        $TipoIncidencia.TipoIncidencia.read({ token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("TipoIncidencia", result);
-        });
-    };
-
-    function ObtenerUsuarios(control) {
-        $Usuario.Usuario.read({ token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox(control, result);
-        });
-    };
-
-    function ObtenerUsuarioActual(control) {
-        if (Cookies.get("user") != null) {
-            $("#" + control).data("kendoComboBox").value(Cookies.get("nameUserLogged"));
-        }
-    };
-    function ObtenerRegistro(id)
-    {
-        $UrlTipoIncidencia.TipoIncidencia.read({ tipoIncidencia: id, token: Cookies.get("token") }).done(function (result) {
+        function ObtenerUsuarioActual(control) {
+            if (Cookies.get("user") != null) {
+                $("#" + control).data("kendoComboBox").value(Cookies.get("nameUserLogged"));
+            }
+        };
+        function ObtenerRegistro(id) {
+            $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: id, token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Registro", result);
-        });
-    }
+            });
+        }
 
-    function ObtenerFechaDefault() {
-        var today = new Date();
-        var curr_date = today.getDate();
-        var curr_month = today.getMonth() + 1; //Months are zero based
-        var curr_year = today.getFullYear();
+        function ObtenerFechaDefault() {
+            var today = new Date();
+            var curr_date = today.getDate();
+            var curr_month = today.getMonth() + 1; //Months are zero based
+            var curr_year = today.getFullYear();
 
-        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-            format = "dd/MM/yyyy";
-        } else {
-            format = "MM/dd/yyyy";
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            };
+
+            var fecha = new Date(curr_year, curr_month - 1, curr_date);
+            var fechakendo = kendo.parseDate(fecha, format);
+
+            $("#FechaRegistro").data("kendoDatePicker").value(fechakendo);
+            $("#FechaResolucion").data("kendoDatePicker").value(fechakendo);
+            $("#FechaRespuesta").data("kendoDatePicker").value(fechakendo);
         };
 
-        var fecha = new Date(curr_year, curr_month - 1, curr_date);
-        var fechakendo = kendo.parseDate(fecha, format);
+        function limpiarRegistro() {
+            Registro = {};
+        };
 
-        $("#FechaRegistro").data("kendoDatePicker").value(fechakendo);
-        $("#FechaResolucion").data("kendoDatePicker").value(fechakendo);
-        $("#FechaRespuesta").data("kendoDatePicker").value(fechakendo);
-    };
+        function tabSeleccionado(e) {
+            tabSelected = $(e.item).find("> .k-link").text();
+            switch (tabSelected) {
 
-    function limpiarRegistro() {
-        Registro = {};
-    };
+                case "Incidencia":
 
-    function tabSeleccionado(e) {
-        tabSelected = $(e.item).find("> .k-link").text();
-        switch (tabSelected) {
+                    $("#Editar").css("display", "none");
+                    if ($("#hdEstatus").val() != "Cancelado") {
+                        $("#dropdown-toggle").show();
+                        $("#Guardar").css("display", "block");
 
-            case "Incidencia":
-
-                $("#Editar").css("display", "none");
-                if ($("#hdEstatus").val() != "Cancelado") {
-                    $("#dropdown-toggle").show();
-                    $("#Guardar").css("display", "block");
-
+                        $("#responderIncidenciaDiv").addClass("hidden");
+                        $("#cancelarIncidenciaDiv").addClass("hidden");
+                        $("#resolverIncidenciaDiv").removeClass("hidden");
+                    }
+                    else {
+                        $("#dropdown-toggle").hide();
+                        $("#Guardar").addClass("hidden");
+                    }
                     $("#responderIncidenciaDiv").addClass("hidden");
                     $("#cancelarIncidenciaDiv").addClass("hidden");
-                    $("#resolverIncidenciaDiv").removeClass("hidden");
-                }
-                else {
-                    $("#dropdown-toggle").hide();
-                    $("#Guardar").addClass("hidden");
-                }
-                $("#responderIncidenciaDiv").addClass("hidden");
-                $("#cancelarIncidenciaDiv").addClass("hidden");
-                $("#resolverIncidenciaDiv").addClass("hidden");
-                $("#EditarResolucion").css("display", "none");
-                $("#EditarRespuesta").css("display", "none");
-                break;
-
-            case "Resolver":
-                if ($("#hdEstatus").val() != "Cancelado") {
-                    $("#resolverIncidenciaDiv").removeClass("hidden");
-                }
-                else {
                     $("#resolverIncidenciaDiv").addClass("hidden");
-                }
+                    $("#EditarResolucion").css("display", "none");
+                    $("#EditarRespuesta").css("display", "none");
+                    break;
 
-                $("#dropdown-toggle").hide();
-                $("#Guardar").css("display", "none");
+                case "Resolver":
+                    if ($("#hdEstatus").val() != "Cancelado") {
+                        $("#resolverIncidenciaDiv").removeClass("hidden");
+                    }
+                    else {
+                        $("#resolverIncidenciaDiv").addClass("hidden");
+                    }
 
-                $("#responderIncidenciaDiv").addClass("hidden");
-                $("#cancelarIncidenciaDiv").addClass("hidden");
-                $("#EditarResolucion").css("display", "none");
-                $("#EditarRespuesta").css("display", "none");
-                break;
+                    $("#dropdown-toggle").hide();
+                    $("#Guardar").css("display", "none");
 
-            case "Responder":
-                if ($("#hdEstatus").val() != "Cancelado") {
-                    $("#responderIncidenciaDiv").removeClass("hidden");
-                }
-                else {
                     $("#responderIncidenciaDiv").addClass("hidden");
-                }
-
-                $("#dropdown-toggle").hide();
-                $("#Guardar").css("display", "none");
-
-                $("#resolverIncidenciaDiv").addClass("hidden");
-                $("#cancelarIncidenciaDiv").addClass("hidden");
-                $("#EditarResolucion").css("display", "none");
-                $("#EditarRespuesta").css("display", "none");
-                break;
-
-            case "Cancelar":
-                if ($("#hdEstatus").val() != "Cancelado") {
-                    $("#cancelarIncidenciaDiv").removeClass("hidden");
-                }
-                else {
                     $("#cancelarIncidenciaDiv").addClass("hidden");
-                }
+                    $("#EditarResolucion").css("display", "none");
+                    $("#EditarRespuesta").css("display", "none");
+                    break;
 
-                $("#dropdown-toggle").hide();
-                $("#Guardar").css("display", "none");
+                case "Responder":
+                    if ($("#hdEstatus").val() != "Cancelado") {
+                        $("#responderIncidenciaDiv").removeClass("hidden");
+                    }
+                    else {
+                        $("#responderIncidenciaDiv").addClass("hidden");
+                    }
 
-                $("#resolverIncidenciaDiv").addClass("hidden");
-                $("#responderIncidenciaDiv").addClass("hidden");
-                $("#EditarResolucion").css("display", "none");
-                $("#EditarRespuesta").css("display", "none");
-                break;
-        };
-    };
+                    $("#dropdown-toggle").hide();
+                    $("#Guardar").css("display", "none");
 
-    function onUploadAdjuntarArchivosIncidencia() {
-        var bool = false;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") == "DescripcionArchivoIncidencia") {
-                    if (!$(this).val()) {
-                        bool = true;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    };
-                }
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#EditarResolucion").css("display", "none");
+                    $("#EditarRespuesta").css("display", "none");
+                    break;
+
+                case "Cancelar":
+                    if ($("#hdEstatus").val() != "Cancelado") {
+                        $("#cancelarIncidenciaDiv").removeClass("hidden");
+                    }
+                    else {
+                        $("#cancelarIncidenciaDiv").addClass("hidden");
+                    }
+
+                    $("#dropdown-toggle").hide();
+                    $("#Guardar").css("display", "none");
+
+                    $("#resolverIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#EditarResolucion").css("display", "none");
+                    $("#EditarRespuesta").css("display", "none");
+                    break;
             };
-        });
-
-        if (bool) {
-            if (!$("#DescripcionArchivoIncidencia").val()) {
-                displayMessage("notificationslabel0025", "", '1');
-                e.preventDefault();
-            }
-        }
-
-        if (_FolioIncidencia == "-1") {
-            displayMessage("notificationslabel0078", "", '1');
-            e.preventDefault();
-        }
-
-        $("#AdjuntarArchivosIncidencia").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&estatusDocumento=" + "Incidencia" + "&token=" + Cookies.get("token");
-    };
-
-    function onUploadAdjuntarArchivosResolver() {
-        var bool = false;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") == "DescripcionArchivoResolver") {
-                    if (!$(this).val()) {
-                        bool = true;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    };
-                }
-            };
-        });
-
-        if (bool) {
-            if (!$("#DescripcionArchivoResolver").val()) {
-                displayMessage("notificationslabel0025", "", '1');
-                e.preventDefault();
-            }
-        }
-
-        if (_FolioIncidencia == "-1") {
-            displayMessage("notificationslabel0078", "", '1');
-            e.preventDefault();
-        }
-
-        $("#AdjuntarArchivosResolver").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoResolver").val() + "&estatusDocumento=" + "Resolver" + "&token=" + Cookies.get("token");
-    };
-
-    function onUploadAdjuntarArchivosResponder() {
-        var bool = false;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") == "DescripcionArchivoResponder") {
-                    if (!$(this).val()) {
-                        bool = true;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    };
-                }
-            };
-        });
-
-        if (bool) {
-            if (!$("#DescripcionArchivoResponder").val()) {
-                displayMessage("notificationslabel0025", "", '1');
-                e.preventDefault();
-            }
-        }
-
-        if (_FolioIncidencia == "-1") {
-            displayMessage("notificationslabel0078", "", '1');
-            e.preventDefault();
-        }
-
-        $("#AdjuntarArchivosResponder").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoResponder").val() + "&estatusDocumento=" + "Responder" + "&token=" + Cookies.get("token");
-    };
-
-    function onUploadAdjuntarArchivosCancelar() {
-        var bool = false;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") == "DescripcionArchivoCancelar") {
-                    if (!$(this).val()) {
-                        bool = true;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    };
-                }
-            };
-        });
-
-        if (bool) {
-            if (!$("#DescripcionArchivoCancelar").val()) {
-                displayMessage("notificationslabel0025", "", '1');
-                e.preventDefault();
-            }
-        }
-
-        if (_FolioIncidencia == "-1") {
-            displayMessage("notificationslabel0078", "", '1');
-            e.preventDefault();
-        }
-
-        $("#AdjuntarArchivosCancelar").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoCancelar").val() + "&estatusDocumento=" + "Cancelar" + "&token=" + Cookies.get("token");
-    };
-
-    function DesahabilitarObtenerDocumentosIncidencias() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Incidencia", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosIncidencia tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosIncidencia tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function HabilitarObtenerDocumentosIncidencias() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Incidencia", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosIncidencia tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosIncidencia tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function DesahabilitarObtenerDocumentosResolver() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Resolver", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosResolver tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosResolver tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function HabilitarObtenerDocumentosResolver() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Resolver", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosResolver tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosResolver tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-                }
-                else { LimpiarHistorialFiles(); }
-            };
-            loadingStop();
-        });
-    };
-
-    function DesahabilitarObtenerDocumentosResponder() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Responder", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosResponder tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosResponder tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function HabilitarObtenerDocumentosResponder() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Responder", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosResponder tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosResponder tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function DesahabilitarObtenerDocumentosCancelar() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Cancelar", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosCancelar tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function HabilitarObtenerDocumentosCancelar() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Cancelar", token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
-            if (Error(result)) {
-                if (result.length > 0) {
-                    $("#listaArchivosCancelar tbody").empty();
-                    $.each(result, function (index, value) {
-                        $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-                }
-            };
-            loadingStop();
-        });
-    };
-
-    function borrarArchivo(id, fila) {
-        $DocumentoIncidencia.DocumentoIncidencia.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
-            fila.closest("tr").remove();
-        });
-    };
-
-    function cargarTituloFolio() {
-        $("#divFolio").removeClass("hidden");
-        $("#spanFolio").html(_FolioIncidencia);
-    };
-
-    function limpiarTituloFolio() {
-        $("#divFolio").addClass("hidden");
-        $("#spanFolio").html("");
-    }
-
-
-
-    function validarRequeridosFormaIncidenciasGuardar() {
-        var bool = true;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "MotivoCancelacion"
-                    && $(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "Respuesta"
-                    && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta"
-                    && $(elem).attr("id") != "DescripcionArchivoResolver" && $(elem).attr("id") != "DescripcionArchivoResponder"
-                    && $(elem).attr("id") != "DescripcionArchivoCancelar") {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                    };
-                }
-            };
-        });
-        return bool;
-    };
-
-    function validarRequeridosFormaIncidenciasResolverIncidencia() {
-        var bool = true;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") != "MotivoCancelacion" && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "Respuesta"
-                    && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta" && $(elem).attr("id") != "DescripcionArchivoResponder"
-                    && $(elem).attr("id") != "DescripcionArchivoCancelar") {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                    };
-                }
-            };
-        });
-        return bool;
-    };
-
-    function validarRequeridosFormaIncidenciasCancelarIncidencia() {
-        var bool = true;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "Respuesta"
-                    && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta"
-                    && $(elem).attr("id") != "DescripcionArchivoResolver" && $(elem).attr("id") != "DescripcionArchivoResponder") {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                    };
-                }
-            };
-        });
-        return bool;
-    };
-
-    function validarRequeridosFormaIncidenciasResponderIncidenciaIncidencia() {
-        var bool = true;
-        $("#formaIncidencias .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "MotivoCancelacion"
-                    && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "DescripcionArchivoResolver"
-                    && $(elem).attr("id") != "DescripcionArchivoCancelar") {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                    };
-                }
-            };
-        });
-        return bool;
-    };
-
-    function obtenerFormatoFechaConHora(d) {
-        var curr_date = d.getDate();
-        var curr_month = d.getMonth() + 1; //Months are zero based
-        var curr_year = d.getFullYear();
-
-        var horaActual = new Date();
-        if (curr_year == "1969") {
-            return null;
-        } else {
-            return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
-        }
-    };
-
-    function ObtenerFechasporDefecto() {
-        var fecha = new Date();
-
-        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-            format = "dd/MM/yyyy";
-        } else {
-            format = "MM/dd/yyyy";
-        }
-
-        var curr_date = fecha.getDate();
-        var curr_month = fecha.getMonth() + 1;
-        var curr_year = fecha.getFullYear();
-
-        var fecha = new Date(curr_year, curr_month - 1, curr_date);
-        var fechakendo = kendo.parseDate(fecha, format);
-
-        $("#FechaRegistro").data("kendoDatePicker").value(fechakendo);
-        $("#FechaResolucion").data("kendoDatePicker").value(fechakendo);
-        $("#FechaRespuesta").data("kendoDatePicker").value(fechakendo);
-    };
-
-    function ArrayListado() {
-        var Listado = {
-            ClasificacionID: "", TipoIncidenciaID: "", Version: "",
-            Titulo: "", Descripcion: "", Respuesta: "", MotivoCancelacion: "",
-            DetalleResolucion: "", RegistradoPor: "", FechaRegistro: "",
-            ResueltoPor: "", FechaResolucion: "", RespondidoPor: "",
-            FechaRespuesta: "", Nuevo: "", ReferenciaID: "", Estatus: ""
         };
 
-        var d = new Date($("#FechaRegistro").data("kendoDatePicker").value());
-        var d1 = new Date($("#FechaResolucion").data("kendoDatePicker").value());
-        var d2 = new Date($("#FechaRespuesta").data("kendoDatePicker").value());
-        CargarRegistradoPor($("#RegistradoPor").data("kendoComboBox").value());
-        CargarResueltoPor($("#ResueltoPor").data("kendoComboBox").value());
-        CargarRespondidoPor($("#RespondidoPor").data("kendoComboBox").value());
+        function onUploadAdjuntarArchivosIncidencia() {
+            var bool = false;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "DescripcionArchivoIncidencia") {
+                        if (!$(this).val()) {
+                            bool = true;
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    }
+                };
+            });
 
-        Listado.FolioIncidenciaID = _FolioIncidencia;
-        Listado.ClasificacionID = Clasificacion.ClasificacionID;
-        Listado.TipoIncidenciaID = TipoIncidencia.TipoIncidenciaID;
-        Listado.Version = $("#Version").val();
-        Listado.Titulo = $("#Titulo").val();
-        Listado.Descripcion = $("#Descripcion").val();
-        Listado.Respuesta = $("#Respuesta").val();
-        Listado.MotivoCancelacion = $("#MotivoCancelacion").val();
-        Listado.DetalleResolucion = $("#DetalleResolucion").val();
-        Listado.RegistradoPor = RegistradoPor.RegistradoPorID;
-        Listado.FechaRegistro = obtenerFormatoFechaConHora(d);
-        Listado.ResueltoPor = ResueltoPor.ResueltoPorID;
-        Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
-        Listado.RespondidoPor = RespondidoPor.RespondidoPorID;
-        Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
-        Listado.ReferenciaID = Registro.RegistroID;
-        Listado.Nuevo = false;
-        Listado.Estatus = $("#hdEstatus").val();
-        return Listado;
-    };
+            if (bool) {
+                if (!$("#DescripcionArchivoIncidencia").val()) {
+                    displayMessage("notificationslabel0025", "", '1');
+                    e.preventDefault();
+                }
+            }
 
-    function habilitarControles() {
-        if ($("#hdEstatus").val() != "Cancelado") {
+            if (_FolioIncidencia == "-1") {
+                displayMessage("notificationslabel0078", "", '1');
+                e.preventDefault();
+            }
+
+            $("#AdjuntarArchivosIncidencia").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&estatusDocumento=" + "Incidencia" + "&token=" + Cookies.get("token");
+        };
+
+        function onUploadAdjuntarArchivosResolver() {
+            var bool = false;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "DescripcionArchivoResolver") {
+                        if (!$(this).val()) {
+                            bool = true;
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    }
+                };
+            });
+
+            if (bool) {
+                if (!$("#DescripcionArchivoResolver").val()) {
+                    displayMessage("notificationslabel0025", "", '1');
+                    e.preventDefault();
+                }
+            }
+
+            if (_FolioIncidencia == "-1") {
+                displayMessage("notificationslabel0078", "", '1');
+                e.preventDefault();
+            }
+
+            $("#AdjuntarArchivosResolver").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoResolver").val() + "&estatusDocumento=" + "Resolver" + "&token=" + Cookies.get("token");
+        };
+
+        function onUploadAdjuntarArchivosResponder() {
+            var bool = false;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "DescripcionArchivoResponder") {
+                        if (!$(this).val()) {
+                            bool = true;
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    }
+                };
+            });
+
+            if (bool) {
+                if (!$("#DescripcionArchivoResponder").val()) {
+                    displayMessage("notificationslabel0025", "", '1');
+                    e.preventDefault();
+                }
+            }
+
+            if (_FolioIncidencia == "-1") {
+                displayMessage("notificationslabel0078", "", '1');
+                e.preventDefault();
+            }
+
+            $("#AdjuntarArchivosResponder").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoResponder").val() + "&estatusDocumento=" + "Responder" + "&token=" + Cookies.get("token");
+        };
+
+        function onUploadAdjuntarArchivosCancelar() {
+            var bool = false;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "DescripcionArchivoCancelar") {
+                        if (!$(this).val()) {
+                            bool = true;
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    }
+                };
+            });
+
+            if (bool) {
+                if (!$("#DescripcionArchivoCancelar").val()) {
+                    displayMessage("notificationslabel0025", "", '1');
+                    e.preventDefault();
+                }
+            }
+
+            if (_FolioIncidencia == "-1") {
+                displayMessage("notificationslabel0078", "", '1');
+                e.preventDefault();
+            }
+
+            $("#AdjuntarArchivosCancelar").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoCancelar").val() + "&estatusDocumento=" + "Cancelar" + "&token=" + Cookies.get("token");
+        };
+
+        function DesahabilitarObtenerDocumentosIncidencias() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Incidencia", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosIncidencia tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosIncidencia tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function HabilitarObtenerDocumentosIncidencias() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Incidencia", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosIncidencia tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosIncidencia tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function DesahabilitarObtenerDocumentosResolver() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Resolver", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosResolver tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosResolver tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function HabilitarObtenerDocumentosResolver() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Resolver", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosResolver tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosResolver tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    }
+                    else { LimpiarHistorialFiles(); }
+                };
+                loadingStop();
+            });
+        };
+
+        function DesahabilitarObtenerDocumentosResponder() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Responder", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosResponder tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosResponder tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function HabilitarObtenerDocumentosResponder() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Responder", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosResponder tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosResponder tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function DesahabilitarObtenerDocumentosCancelar() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Cancelar", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosCancelar tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function HabilitarObtenerDocumentosCancelar() {
+            $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Cancelar", token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    if (result.length > 0) {
+                        $("#listaArchivosCancelar tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    }
+                };
+                loadingStop();
+            });
+        };
+
+        function borrarArchivo(id, fila) {
+            $DocumentoIncidencia.DocumentoIncidencia.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
+                fila.closest("tr").remove();
+            });
+        };
+
+        function cargarTituloFolio() {
+            $("#divFolio").removeClass("hidden");
+            $("#spanFolio").html(_FolioIncidencia);
+        };
+
+        function limpiarTituloFolio() {
+            $("#divFolio").addClass("hidden");
+            $("#spanFolio").html("");
+        }
+
+
+
+        function validarRequeridosFormaIncidenciasGuardar() {
+            var bool = true;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "MotivoCancelacion"
+                        && $(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "Respuesta"
+                        && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta"
+                        && $(elem).attr("id") != "DescripcionArchivoResolver" && $(elem).attr("id") != "DescripcionArchivoResponder"
+                        && $(elem).attr("id") != "DescripcionArchivoCancelar") {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
+                    }
+                };
+            });
+            return bool;
+        };
+
+        function validarRequeridosFormaIncidenciasResolverIncidencia() {
+            var bool = true;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") != "MotivoCancelacion" && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "Respuesta"
+                        && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta" && $(elem).attr("id") != "DescripcionArchivoResponder"
+                        && $(elem).attr("id") != "DescripcionArchivoCancelar") {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
+                    }
+                };
+            });
+            return bool;
+        };
+
+        function validarRequeridosFormaIncidenciasCancelarIncidencia() {
+            var bool = true;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "Respuesta"
+                        && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta"
+                        && $(elem).attr("id") != "DescripcionArchivoResolver" && $(elem).attr("id") != "DescripcionArchivoResponder") {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
+                    }
+                };
+            });
+            return bool;
+        };
+
+        function validarRequeridosFormaIncidenciasResponderIncidenciaIncidencia() {
+            var bool = true;
+            $("#formaIncidencias .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "MotivoCancelacion"
+                        && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "DescripcionArchivoResolver"
+                        && $(elem).attr("id") != "DescripcionArchivoCancelar") {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
+                    }
+                };
+            });
+            return bool;
+        };
+
+        function obtenerFormatoFechaConHora(d) {
+            var curr_date = d.getDate();
+            var curr_month = d.getMonth() + 1; //Months are zero based
+            var curr_year = d.getFullYear();
+
+            var horaActual = new Date();
+            if (curr_year == "1969") {
+                return null;
+            } else {
+                return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+            }
+        };
+
+        function ObtenerFechasporDefecto() {
+            var fecha = new Date();
+
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            }
+
+            var curr_date = fecha.getDate();
+            var curr_month = fecha.getMonth() + 1;
+            var curr_year = fecha.getFullYear();
+
+            var fecha = new Date(curr_year, curr_month - 1, curr_date);
+            var fechakendo = kendo.parseDate(fecha, format);
+
+            $("#FechaRegistro").data("kendoDatePicker").value(fechakendo);
+            $("#FechaResolucion").data("kendoDatePicker").value(fechakendo);
+            $("#FechaRespuesta").data("kendoDatePicker").value(fechakendo);
+        };
+
+        function ArrayListado() {
+            var Listado = {
+                ClasificacionID: "", TipoIncidenciaID: "", Version: "",
+                Titulo: "", Descripcion: "", Respuesta: "", MotivoCancelacion: "",
+                DetalleResolucion: "", RegistradoPor: "", FechaRegistro: "",
+                ResueltoPor: "", FechaResolucion: "", RespondidoPor: "",
+                FechaRespuesta: "", Nuevo: "", ReferenciaID: "", Estatus: ""
+            };
+
+            var d = new Date($("#FechaRegistro").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaResolucion").data("kendoDatePicker").value());
+            var d2 = new Date($("#FechaRespuesta").data("kendoDatePicker").value());
+            CargarRegistradoPor($("#RegistradoPor").data("kendoComboBox").value());
+            CargarResueltoPor($("#ResueltoPor").data("kendoComboBox").value());
+            CargarRespondidoPor($("#RespondidoPor").data("kendoComboBox").value());
+
+            Listado.FolioIncidenciaID = _FolioIncidencia;
+            Listado.ClasificacionID = Clasificacion.ClasificacionID;
+            Listado.TipoIncidenciaID = TipoIncidencia.TipoIncidenciaID;
+            Listado.Version = $("#Version").val();
+            Listado.Titulo = $("#Titulo").val();
+            Listado.Descripcion = $("#Descripcion").val();
+            Listado.Respuesta = $("#Respuesta").val();
+            Listado.MotivoCancelacion = $("#MotivoCancelacion").val();
+            Listado.DetalleResolucion = $("#DetalleResolucion").val();
+            Listado.RegistradoPor = RegistradoPor.RegistradoPorID;
+            Listado.FechaRegistro = obtenerFormatoFechaConHora(d);
+            Listado.ResueltoPor = ResueltoPor.ResueltoPorID;
+            Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
+            Listado.RespondidoPor = RespondidoPor.RespondidoPorID;
+            Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
+            Listado.ReferenciaID = Registro.RegistroID;
+            Listado.Nuevo = false;
+            Listado.Estatus = $("#hdEstatus").val();
+            return Listado;
+        };
+
+        function habilitarControles() {
+            if ($("#hdEstatus").val() != "Cancelado") {
+
+                $("#Clasificacion").data("kendoComboBox").enable(false);
+                $("#TipoIncidencia").data("kendoComboBox").enable(false);
+                $("#Registro").data("kendoComboBox").enable(false);
+
+                switch (tabSelected) {
+                    case "Incidencia":
+                        $("#Titulo").removeAttr("disabled");
+                        $("#Descripcion").removeAttr("disabled");
+                        $("#RegistradoPor").data("kendoComboBox").enable(true);
+                        $("#FechaRegistro").data("kendoDatePicker").enable(true);
+                        $("#DescripcionArchivoIncidencia").removeAttr("disabled");
+                        $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
+                        HabilitarObtenerDocumentosIncidencias();
+                        break;
+                    case "Resolver":
+                        $("#DetalleResolucion").removeAttr("disabled");
+                        $("#FechaResolucion").data("kendoDatePicker").enable(true);
+                        $("#ResueltoPor").data("kendoComboBox").enable(true);
+                        $("#AdjuntarArchivosResolver").data("kendoUpload").enable(true);
+                        $("#DescripcionArchivoResolver").removeAttr("disabled");
+                        $("#AdjuntarArchivosResolver").data("kendoUpload").enable(true);
+                        HabilitarObtenerDocumentosResolver();
+                        break;
+                    case "Responder":
+                        $("#Respuesta").removeAttr("disabled");
+                        $("#FechaRespuesta").data("kendoDatePicker").enable(true);
+                        $("#RespondidoPor").data("kendoComboBox").enable(true);
+                        $("#AdjuntarArchivosResponder").data("kendoUpload").enable(true);
+                        $("#DescripcionArchivoResponder").removeAttr("disabled");
+                        $("#AdjuntarArchivosResponder").data("kendoUpload").enable(true);
+                        HabilitarObtenerDocumentosResponder();
+                        break;
+                    case "Cancelar":
+                        $("#MotivoCancelacion").removeAttr("disabled");
+                        $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(true);
+                        $("#DescripcionArchivoCancelar").removeAttr("disabled");
+                        $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(true);
+                        HabilitarObtenerDocumentosCancelar();
+                        break;
+                }
+            }
+        };
+
+        function DeshabilitarControles() {
+
             $("#Clasificacion").data("kendoComboBox").enable(false);
             $("#TipoIncidencia").data("kendoComboBox").enable(false);
             $("#Registro").data("kendoComboBox").enable(false);
-            $("#Titulo").removeAttr("disabled");
-            $("#Descripcion").removeAttr("disabled");
-            $("#Respuesta").removeAttr("disabled");
-            $("#MotivoCancelacion").removeAttr("disabled");
-            $("#DetalleResolucion").removeAttr("disabled");
-            $("#FechaRegistro").data("kendoDatePicker").enable(true);
-            $("#FechaResolucion").data("kendoDatePicker").enable(true);
-            $("#FechaRespuesta").data("kendoDatePicker").enable(true);
-            $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
-            $("#DescripcionArchivoIncidencia").removeAttr("disabled");
-            $("#RegistradoPor").data("kendoComboBox").enable(true);
-            $("#ResueltoPor").data("kendoComboBox").enable(true);
-            $("#RespondidoPor").data("kendoComboBox").enable(true);
-            $("#AdjuntarArchivosResolver").data("kendoUpload").enable(true);
-            $("#AdjuntarArchivosResponder").data("kendoUpload").enable(true);
-            $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(true);
-            $("#DescripcionArchivoResolver").removeAttr("disabled");
-            $("#DescripcionArchivoResponder").removeAttr("disabled");
-            $("#DescripcionArchivoCancelar").removeAttr("disabled");
+            $("#Version").attr("disabled", "disabled");
 
-            HabilitarObtenerDocumentosIncidencias();
-            HabilitarObtenerDocumentosResponder();
-            HabilitarObtenerDocumentosResolver();
-            HabilitarObtenerDocumentosCancelar();
-            //habilitarTabsNuevaIncidencia(false);
-            /*if (_Edicion != "-1") {
-                $("#RegistradoPor").data("kendoComboBox").enable(false);
-                $("#FechaRegistro").data("kendoDatePicker").enable(false);
-                $("#TipoIncidencia").data("kendoComboBox").enable(false);
-                $("#FechaRespuesta").data("kendoDatePicker").enable(false);
-                $("#RespondidoPor").data("kendoComboBox").enable(false);
-            }*/
-        }
-    };
+            switch (tabSelected) {
+                case "Incidencia":
+                    $("#Titulo").attr("disabled", "disabled");
+                    $("#Descripcion").attr("disabled", "disabled");
+                    $("#FechaRegistro").data("kendoDatePicker").enable(false);
+                    $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(false);
+                    $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
+                    $("#RegistradoPor").data("kendoComboBox").enable(false);
+                    break;
 
-    function DeshabilitarControles() {
-        $("#Clasificacion").data("kendoComboBox").enable(false);
-        $("#TipoIncidencia").data("kendoComboBox").enable(false);
-        $("#Registro").data("kendoComboBox").enable(false);
-        $("#Version").attr("disabled", "disabled");
-        $("#Titulo").attr("disabled", "disabled");
-        $("#Descripcion").attr("disabled", "disabled");
-        $("#Respuesta").attr("disabled", "disabled");
-        $("#MotivoCancelacion").attr("disabled", "disabled");
-        $("#DetalleResolucion").attr("disabled", "disabled");
-        $("#FechaRegistro").data("kendoDatePicker").enable(false);
-        $("#FechaResolucion").data("kendoDatePicker").enable(false);
-        $("#FechaRespuesta").data("kendoDatePicker").enable(false);
-        $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(false);
-        $("#AdjuntarArchivosResolver").data("kendoUpload").enable(false);
-        $("#AdjuntarArchivosResponder").data("kendoUpload").enable(false);
-        $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(false);
-        $("#DescripcionArchivoResolver").attr("disabled", "disabled");
-        $("#DescripcionArchivoResponder").attr("disabled", "disabled");
-        $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
-        $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
-        $("#RegistradoPor").data("kendoComboBox").enable(false);
-        $("#ResueltoPor").data("kendoComboBox").enable(false);
-        $("#RespondidoPor").data("kendoComboBox").enable(false);
+                case "Resolver":
+                    $("#DetalleResolucion").attr("disabled", "disabled");
+                    $("#FechaResolucion").data("kendoDatePicker").enable(false);
+                    $("#AdjuntarArchivosResolver").data("kendoUpload").enable(false);
+                    $("#DescripcionArchivoResolver").attr("disabled", "disabled");
+                    $("#ResueltoPor").data("kendoComboBox").enable(false);
+                    break;
 
-        //$("#Cancelar").addClass("hidden");
+                case "Responder":
+                    $("#Respuesta").attr("disabled", "disabled");
+                    $("#FechaRespuesta").data("kendoDatePicker").enable(false);
+                    $("#AdjuntarArchivosResponder").data("kendoUpload").enable(false);
+                    $("#DescripcionArchivoResponder").attr("disabled", "disabled");
+                    $("#RespondidoPor").data("kendoComboBox").enable(false);
+                    break;
 
-        //ocultarTabsNuevaIncidencia();
-    };
+                case "Cancelar":
+                    $("#MotivoCancelacion").attr("disabled", "disabled");
+                    $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(false);
+                    $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
 
-    function DeshabilitarAlCancelar() {
-        $("#Editar").css("display", "none");
-        $("#dropdown-toggle").hide();
-        $("#Guardar").css("display", "none");
-        $("#EditarResolucion").css("display", "none");
-        $("#EditarRespuesta").css("display", "none");
-        $("#responderIncidenciaDiv").addClass("hidden");
-        $("#resolverIncidenciaDiv").addClass("hidden");
-        $("#Clasificacion").data("kendoComboBox").enable(false);
-        $("#TipoIncidencia").data("kendoComboBox").enable(false);
-        $("#Registro").data("kendoComboBox").enable(false);
-        $("#Version").attr("disabled", "disabled");
-        $("#Titulo").attr("disabled", "disabled");
-        $("#Descripcion").attr("disabled", "disabled");
-        $("#Respuesta").attr("disabled", "disabled");
-        $("#MotivoCancelacion").attr("disabled", "disabled");
-        $("#DetalleResolucion").attr("disabled", "disabled");
-        $("#FechaRegistro").data("kendoDatePicker").enable(false);
-        $("#FechaResolucion").data("kendoDatePicker").enable(false);
-        $("#FechaRespuesta").data("kendoDatePicker").enable(false);
-        $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(false);
-        $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
-        $("#AdjuntarArchivosResolver").data("kendoUpload").disable();
-        $("#AdjuntarArchivosResponder").data("kendoUpload").disable();
-        $("#AdjuntarArchivosCancelar").data("kendoUpload").disable();
-        $("#DescripcionArchivoResolver").attr("disabled", "disabled");
-        $("#DescripcionArchivoResponder").attr("disabled", "disabled");
-        $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
-        $("#RegistradoPor").data("kendoComboBox").enable(false);
-        $("#ResueltoPor").data("kendoComboBox").enable(false);
-        $("#RespondidoPor").data("kendoComboBox").enable(false);
+                    break;
+            }
+        };
 
-        DesahabilitarObtenerDocumentosIncidencias();
-        DesahabilitarObtenerDocumentosResponder();
-        DesahabilitarObtenerDocumentosResolver();
-        DesahabilitarObtenerDocumentosCancelar();
-    }
-
-    function BotonAlta() {
-        /*if (tabSelected == "Resolver" || tabSelected == "Responder" || tabSelected == "Cancelar") {
-            $("#dropdown-toggle").hide();
-            $("#Editar").css("display", "none");
-            $("#Guardar").css("display", "none");
-        }
-        else {
+        function DeshabilitarAlIniciar() {
             $("#dropdown-toggle").hide();
             $("#Editar").css("display", "block");
             $("#Guardar").css("display", "none");
+            _Editando[tabSelected] = 0;
+
+            $("#Clasificacion").data("kendoComboBox").enable(false);
+            $("#TipoIncidencia").data("kendoComboBox").enable(false);
+            $("#Registro").data("kendoComboBox").enable(false);
+            $("#Version").attr("disabled", "disabled");
+
+            $("#Titulo").attr("disabled", "disabled");
+            $("#Descripcion").attr("disabled", "disabled");
+            $("#FechaRegistro").data("kendoDatePicker").enable(false);
+            $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(false);
+            $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
+            $("#RegistradoPor").data("kendoComboBox").enable(false);
+
+            $("#DetalleResolucion").attr("disabled", "disabled");
+            $("#FechaResolucion").data("kendoDatePicker").enable(false);
+            $("#AdjuntarArchivosResolver").data("kendoUpload").enable(false);
+            $("#DescripcionArchivoResolver").attr("disabled", "disabled");
+            $("#ResueltoPor").data("kendoComboBox").enable(false);
+
+            $("#Respuesta").attr("disabled", "disabled");
+            $("#FechaRespuesta").data("kendoDatePicker").enable(false);
+            $("#AdjuntarArchivosResponder").data("kendoUpload").enable(false);
+            $("#DescripcionArchivoResponder").attr("disabled", "disabled");
+            $("#RespondidoPor").data("kendoComboBox").enable(false);
+
+            $("#MotivoCancelacion").attr("disabled", "disabled");
+            $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(false);
+            $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
         }
-        */
-        $("#dropdown-toggle").hide();
-        $("#Editar").css("display", "block");
-        $("#Guardar").css("display", "none");
-        DeshabilitarControles();
-        _Editando[tabSelected] = 0;
-        //ocultarTabsNuevaIncidencia();
-    };
 
-    function BotonEdicion() {
-        $("#dropdown-toggle").show();
-        $("#Editar").css("display", "none");
-        $("#Guardar").css("display", "block");
-        $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
-        habilitarControles();
-        _Editando[tabSelected] = 1;
-        //habilitarTabsNuevaIncidencia(false);
-    };
+        function DeshabilitarAlCancelar() {
+            $("#Editar").css("display", "none");
+            $("#dropdown-toggle").hide();
+            $("#Guardar").css("display", "none");
+            $("#EditarResolucion").css("display", "none");
+            $("#EditarRespuesta").css("display", "none");
+            $("#responderIncidenciaDiv").addClass("hidden");
+            $("#resolverIncidenciaDiv").addClass("hidden");
+            $("#Clasificacion").data("kendoComboBox").enable(false);
+            $("#TipoIncidencia").data("kendoComboBox").enable(false);
+            $("#Registro").data("kendoComboBox").enable(false);
+            $("#Version").attr("disabled", "disabled");
+            $("#Titulo").attr("disabled", "disabled");
+            $("#Descripcion").attr("disabled", "disabled");
+            $("#Respuesta").attr("disabled", "disabled");
+            $("#MotivoCancelacion").attr("disabled", "disabled");
+            $("#DetalleResolucion").attr("disabled", "disabled");
+            $("#FechaRegistro").data("kendoDatePicker").enable(false);
+            $("#FechaResolucion").data("kendoDatePicker").enable(false);
+            $("#FechaRespuesta").data("kendoDatePicker").enable(false);
+            $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(false);
+            $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
+            $("#AdjuntarArchivosResolver").data("kendoUpload").disable();
+            $("#AdjuntarArchivosResponder").data("kendoUpload").disable();
+            $("#AdjuntarArchivosCancelar").data("kendoUpload").disable();
+            $("#DescripcionArchivoResolver").attr("disabled", "disabled");
+            $("#DescripcionArchivoResponder").attr("disabled", "disabled");
+            $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
+            $("#RegistradoPor").data("kendoComboBox").enable(false);
+            $("#ResueltoPor").data("kendoComboBox").enable(false);
+            $("#RespondidoPor").data("kendoComboBox").enable(false);
 
-    function BotonEditarResolucion() {
-        $("#resolverIncidenciaDiv").removeClass("hidden");
-        $("#EditarResolucion").css("display", "none");
-        $("#EditarRespuesta").css("display", "none");
-        $("#dropdown-toggle").hide();
-        $("#Guardar").css("display", "none");
-        $("#Editar").css("display", "none");
-        $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
+            DesahabilitarObtenerDocumentosIncidencias();
+            DesahabilitarObtenerDocumentosResponder();
+            DesahabilitarObtenerDocumentosResolver();
+            DesahabilitarObtenerDocumentosCancelar();
+        }
 
-        $("#responderIncidenciaDiv").addClass("hidden");
-        $("#cancelarIncidenciaDiv").addClass("hidden");
-        habilitarControles();
-        //habilitarTabsNuevaIncidencia(false);
-    };
-
-    function BotonAltaResolucion() {
-        $("#dropdown-toggle").hide();
-        $("#EditarResolucion").css("display", "block");
-        $("#EditarRespuesta").css("display", "none");
-        $("#resolverIncidenciaDiv").addClass("hidden");
-        $("#Editar").css("display", "none");
-        $("#Guardar").css("display", "none");
-        DeshabilitarControles();
-        //ocultarTabsNuevaIncidencia();
-    };
-
-    function BotonEditarRespuesta() {
-        $("#resolverIncidenciaDiv").removeClass("hidden");
-        $("#EditarRespuesta").css("display", "none");
-        $("#EditarResolucion").css("display", "none");
-        $("#dropdown-toggle").hide();
-        $("#Guardar").css("display", "none");
-        $("#Editar").css("display", "none");
-        $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
-
-        $("#resolverIncidenciaDiv").addClass("hidden");
-        $("#cancelarIncidenciaDiv").addClass("hidden");
-        habilitarControles();
-        //habilitarTabsNuevaIncidencia(false);
-    };
-
-    function BotonAltaRespuesta() {
-        $("#dropdown-toggle").hide();
-        $("#EditarRespuesta").css("display", "block");
-        $("#responderIncidenciaDiv").addClass("hidden");
-        $("#EditarResolucion").css("display", "none");
-        $("#Editar").css("display", "none");
-        $("#Guardar").css("display", "none");
-        DeshabilitarControles();
-        //ocultarTabsNuevaIncidencia();
-    };
-
-    function BotonAltaCancelar() {
-        $("#dropdown-toggle").hide();
-        $("#EditarResolucion").css("display", "none");
-        $("#EditarRespuesta").css("display", "none");
-        $("#resolverIncidenciaDiv").addClass("hidden");
-        $("#Editar").css("display", "none");
-        $("#Guardar").css("display", "none");
-        $("#dropdown-toggle").hide();
-        $("#Guardar").css("display", "none");
-        $("#cancelarIncidenciaDiv").addClass("hidden");
-        $("#resolverIncidenciaDiv").addClass("hidden");
-        $("#responderIncidenciaDiv").addClass("hidden");
-
-        DeshabilitarAlCancelar();
-        //habilitarTabsNuevaIncidencia(true);
-    };
-
-
-    function Alta(Listado) {
-        $Incidencia.Incidencia.create(Listado, { token: $.cookie("token") }).done(function (result) {
-            if (Error(result)) {
-                if (Listado.Nuevo) {
-                    Nuevo();
-                }
-                _FolioIncidencia = result.FolioIncidenciaID;
-                $("#Version").val(result.Version);
-                BotonAlta();
-                habilitarTabsNuevaIncidencia();
-
-                //Muestro boton de siguiente paso
-                $("#nuevaIncidenciaDiv").addClass("hidden");
-                $("#responderIncidenciaDiv").addClass("hidden");
-                $("#cancelarIncidenciaDiv").addClass("hidden");
-                $("#resolverIncidenciaDiv").removeClass("hidden");
-
-                //cargarTituloFolio();
-                LimpiarHistorialFiles();
-                displayMessage("notificationslabel0056", "", '0');
+        function BotonAlta() {
+            /*if (tabSelected == "Resolver" || tabSelected == "Responder" || tabSelected == "Cancelar") {
+                $("#dropdown-toggle").hide();
+                $("#Editar").css("display", "none");
+                $("#Guardar").css("display", "none");
             }
-            loadingStop();
-        });
-    };
-
-    function Editar(Listado) {
-        $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
-            if (Error(result)) {
-                if (Listado.Nuevo) {
-                    Nuevo();
-                }
-                _FolioIncidencia = result.ReturnMessage[0];
-                console.log(result);
-                //LimpiarHistorialFiles();
-                CargaInicialEdicion(_FolioIncidencia);
-                displayMessage("notificationslabel0056", "", '0');
+            else {
+                $("#dropdown-toggle").hide();
+                $("#Editar").css("display", "block");
+                $("#Guardar").css("display", "none");
             }
-            loadingStop();
-        });
-    };
-
-    function LimpiarHistorialFiles() {
-        $(".k-upload-files").remove();
-        $(".k-upload-status").remove();
-        $(".k-upload-selected").remove();
-        $(".k-upload.k-header").addClass("k-upload-empty");
-        $(".k-upload-button").removeClass("k-state-focused");
-        $("#DescripcionArchivoIncidencia").val("");
-        $("#DescripcionArchivoResolver").val("");
-        $("#DescripcionArchivoResponder").val("");
-        $("#DescripcionArchivoCancelar").val("");
-    };
-    function EditarIncidencia() {
-        $("#Titulo").removeAttr("disabled");
-        $("#Descripcion").removeAttr("disabled");
-        Guardar();
-    };
-    function Guardar() {
-        loadingStart();
-        switch (tabSelected) {
-
-            case "Incidencia":
-                if (validarRequeridosFormaIncidenciasGuardar()) {
-                    var Listado = ArrayListado();
-                    Listado.Estatus = "Abierta";
-                    $("#hdEstatus").val(Listado.Estatus);
-                    if (Listado.FolioIncidenciaID != "-1") {
-                        Editar(Listado);
-                        BotonAlta();
-                    } else {
-                        //habilitarControles();
-                        BotonAlta();
-                        Alta(Listado);
-                    }
-                } else {
-                    displayMessage("notificationslabel0031", "", '1');
-                    loadingStop();
-                }
-                break;
-
-            case "Resolver":
-                loadingStart();
-                if (validarRequeridosFormaIncidenciasResolverIncidencia()) {
-                    var Listado = ArrayListado();
-
-                    Listado.Estatus = "Resuelto";
-                    $("#hdEstatus").val(Listado.Estatus);
-                    if (Listado.FolioIncidenciaID != "-1") {
-                        Editar(Listado);
-                        BotonAlta();
-                    } else {
-                        BotonAlta();
-                        Alta(Listado);
-                    }
-                } else {
-                    displayMessage("notificationslabel0031", "", '1');
-                    loadingStop();
-                    //$("#DetalleResolucionDiv").removeClass("hidden");
-                    //$("#ResueltoPorDiv").removeClass("hidden");
-                    //$("#FechaResolucionDiv").removeClass("hidden");
-                    //$("#MotivoCancelacionDiv").addClass("hidden");
-                }
-                loadingStop();
-                break;
-
-            case "Responder":
-                loadingStart();
-                if (validarRequeridosFormaIncidenciasResponderIncidenciaIncidencia()) {
-                    var Listado = ArrayListado();
-                    Listado.Estatus = "Respondido";
-                    $("#hdEstatus").val(Listado.Estatus);
-                    if (Listado.FolioIncidenciaID != "-1") {
-                        Editar(Listado);
-                        BotonAlta();
-                    } else {
-                        BotonAlta();
-                        Alta(Listado);
-                    }
-                } else {
-                    displayMessage("notificationslabel0031", "", '1');
-                    loadingStop();
-                };
-                loadingStop();
-                break;
-
-            case "Cancelar":
-                loadingStart();
-                if (validarRequeridosFormaIncidenciasCancelarIncidencia()) {
-                    var Listado = ArrayListado();
-                    Listado.Estatus = "Cancelado";
-                    $("#hdEstatus").val(Listado.Estatus);
-                    if (Listado.FolioIncidenciaID != "-1") {
-                        Editar(Listado);
-                        BotonAlta();
-                        $("#Editar").css("display", "none");
-                        $("#Guardar").css("display", "none");
-                        $("#dropdown-toggle").hide();
-                        $("#nuevaIncidenciaDiv").addClass("hidden");
-                        $("#responderIncidenciaDiv").addClass("hidden");
-                        $("#cancelarIncidenciaDiv").addClass("hidden");
-                        $("#resolverIncidenciaDiv").addClass("hidden");
-
-                    } else {
-                        BotonAlta();
-                        Alta(Listado);
-                    }
-                } else {
-                    displayMessage("notificationslabel0031", "", '1');
-                    loadingStop();
-                    //$("#MotivoCancelacionDiv").removeClass("hidden");
-                    //$("#DetalleResolucionDiv").addClass("hidden");
-                    //$("#ResueltoPorDiv").addClass("hidden");
-                    //$("#FechaResolucionDiv").addClass("hidden");
-                }
-                loadingStop();
-                break;
+            */
+            $("#dropdown-toggle").hide();
+            $("#Editar").css("display", "block");
+            $("#Guardar").css("display", "none");
+            DeshabilitarControles();
+            _Editando[tabSelected] = 0;
+            //ocultarTabsNuevaIncidencia();
         };
 
-        
-        //loadingStop();
-    };
+        function BotonEdicion() {
+            $("#dropdown-toggle").show();
+            $("#Editar").css("display", "none");
+            $("#Guardar").css("display", "block");
+            $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
+            habilitarControles();
+            _Editando[tabSelected] = 1;
+            //habilitarTabsNuevaIncidencia(false);
+        };
 
-    function GuardaryNuevoIncidencia() {
-        loadingStart();
-        if (validarRequeridosFormaIncidenciasGuardar()) {
-            var Listado = ArrayListado();
-            Listado.Estatus = "Abierta";
-            $("#hdEstatus").val(Listado.Estatus);
-            Listado.Nuevo = true;
-            if (Listado.FolioIncidenciaID != "-1") {
-                Editar(Listado);
+        function BotonEditarResolucion() {
+            $("#resolverIncidenciaDiv").removeClass("hidden");
+            $("#EditarResolucion").css("display", "none");
+            $("#EditarRespuesta").css("display", "none");
+            $("#dropdown-toggle").hide();
+            $("#Guardar").css("display", "none");
+            $("#Editar").css("display", "none");
+            $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
+
+            $("#responderIncidenciaDiv").addClass("hidden");
+            $("#cancelarIncidenciaDiv").addClass("hidden");
+            habilitarControles();
+            //habilitarTabsNuevaIncidencia(false);
+        };
+
+        function BotonAltaResolucion() {
+            $("#dropdown-toggle").hide();
+            $("#EditarResolucion").css("display", "block");
+            $("#EditarRespuesta").css("display", "none");
+            $("#resolverIncidenciaDiv").addClass("hidden");
+            $("#Editar").css("display", "none");
+            $("#Guardar").css("display", "none");
+            DeshabilitarControles();
+            //ocultarTabsNuevaIncidencia();
+        };
+
+        function BotonEditarRespuesta() {
+            $("#resolverIncidenciaDiv").removeClass("hidden");
+            $("#EditarRespuesta").css("display", "none");
+            $("#EditarResolucion").css("display", "none");
+            $("#dropdown-toggle").hide();
+            $("#Guardar").css("display", "none");
+            $("#Editar").css("display", "none");
+            $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
+
+            $("#resolverIncidenciaDiv").addClass("hidden");
+            $("#cancelarIncidenciaDiv").addClass("hidden");
+            habilitarControles();
+            //habilitarTabsNuevaIncidencia(false);
+        };
+
+        function BotonAltaRespuesta() {
+            $("#dropdown-toggle").hide();
+            $("#EditarRespuesta").css("display", "block");
+            $("#responderIncidenciaDiv").addClass("hidden");
+            $("#EditarResolucion").css("display", "none");
+            $("#Editar").css("display", "none");
+            $("#Guardar").css("display", "none");
+            DeshabilitarControles();
+            //ocultarTabsNuevaIncidencia();
+        };
+
+        function BotonAltaCancelar() {
+            $("#dropdown-toggle").hide();
+            $("#EditarResolucion").css("display", "none");
+            $("#EditarRespuesta").css("display", "none");
+            $("#resolverIncidenciaDiv").addClass("hidden");
+            $("#Editar").css("display", "none");
+            $("#Guardar").css("display", "none");
+            $("#dropdown-toggle").hide();
+            $("#Guardar").css("display", "none");
+            $("#cancelarIncidenciaDiv").addClass("hidden");
+            $("#resolverIncidenciaDiv").addClass("hidden");
+            $("#responderIncidenciaDiv").addClass("hidden");
+
+            DeshabilitarAlCancelar();
+            //habilitarTabsNuevaIncidencia(true);
+        };
+
+
+        function Alta(Listado) {
+            $Incidencia.Incidencia.create(Listado, { token: $.cookie("token") }).done(function (result) {
+                if (Error(result)) {
+                    if (Listado.Nuevo) {
+                        Nuevo();
+                    }
+                    _FolioIncidencia = result.FolioIncidenciaID;
+                    _Edicion = "1";
+                    $("#Version").val(result.Version);
+                    BotonAlta();
+                    habilitarTabsNuevaIncidencia();
+
+                    //Muestro boton de siguiente paso
+                    $("#nuevaIncidenciaDiv").addClass("hidden");
+                    $("#responderIncidenciaDiv").addClass("hidden");
+                    $("#cancelarIncidenciaDiv").addClass("hidden");
+                    $("#resolverIncidenciaDiv").removeClass("hidden");
+
+                    //cargarTituloFolio();
+                    LimpiarHistorialFiles();
+                    displayMessage("notificationslabel0056", "", '0');
+                    CargaInicialEdicion(_FolioIncidencia);
+                }
+                loadingStop();
+            });
+        };
+
+        function Editar(Listado) {
+            $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
+                if (Error(result)) {
+                    if (Listado.Nuevo) {
+                        Nuevo();
+                    }
+                    _FolioIncidencia = result.ReturnMessage[0];
+                    //LimpiarHistorialFiles();
+                    CargaInicialEdicion(_FolioIncidencia);
+                    displayMessage("notificationslabel0056", "", '0');
+                }
+                loadingStop();
+            });
+        };
+
+        function LimpiarHistorialFiles() {
+            $(".k-upload-files").remove();
+            $(".k-upload-status").remove();
+            $(".k-upload-selected").remove();
+            $(".k-upload.k-header").addClass("k-upload-empty");
+            $(".k-upload-button").removeClass("k-state-focused");
+            $("#DescripcionArchivoIncidencia").val("");
+            $("#DescripcionArchivoResolver").val("");
+            $("#DescripcionArchivoResponder").val("");
+            $("#DescripcionArchivoCancelar").val("");
+        };
+        function EditarIncidencia() {
+            $("#Titulo").removeAttr("disabled");
+            $("#Descripcion").removeAttr("disabled");
+            Guardar();
+        };
+        function Guardar() {
+            loadingStart();
+            switch (tabSelected) {
+
+                case "Incidencia":
+                    if (validarRequeridosFormaIncidenciasGuardar()) {
+                        var Listado = ArrayListado();
+                        Listado.Estatus = "Abierta";
+                        $("#hdEstatus").val(Listado.Estatus);
+                        if (Listado.FolioIncidenciaID != "-1") {
+                            Editar(Listado);
+                            BotonAlta();
+                        } else {
+                            //habilitarControles();
+                            BotonAlta();
+                            Alta(Listado);
+                        }
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                        loadingStop();
+                    }
+                    break;
+
+                case "Resolver":
+                    loadingStart();
+                    if (validarRequeridosFormaIncidenciasResolverIncidencia()) {
+                        var Listado = ArrayListado();
+
+                        Listado.Estatus = "Resuelto";
+                        $("#hdEstatus").val(Listado.Estatus);
+                        if (Listado.FolioIncidenciaID != "-1") {
+                            Editar(Listado);
+                            BotonAlta();
+                        } else {
+                            BotonAlta();
+                            Alta(Listado);
+                        }
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                        loadingStop();
+                        //$("#DetalleResolucionDiv").removeClass("hidden");
+                        //$("#ResueltoPorDiv").removeClass("hidden");
+                        //$("#FechaResolucionDiv").removeClass("hidden");
+                        //$("#MotivoCancelacionDiv").addClass("hidden");
+                    }
+                    loadingStop();
+                    break;
+
+                case "Responder":
+                    loadingStart();
+                    if (validarRequeridosFormaIncidenciasResponderIncidenciaIncidencia()) {
+                        var Listado = ArrayListado();
+                        Listado.Estatus = "Respondido";
+                        $("#hdEstatus").val(Listado.Estatus);
+                        if (Listado.FolioIncidenciaID != "-1") {
+                            Editar(Listado);
+                            BotonAlta();
+                        } else {
+                            BotonAlta();
+                            Alta(Listado);
+                        }
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                        loadingStop();
+                    };
+                    loadingStop();
+                    break;
+
+                case "Cancelar":
+                    loadingStart();
+                    if (validarRequeridosFormaIncidenciasCancelarIncidencia()) {
+                        var Listado = ArrayListado();
+                        Listado.Estatus = "Cancelado";
+                        $("#hdEstatus").val(Listado.Estatus);
+                        if (Listado.FolioIncidenciaID != "-1") {
+                            Editar(Listado);
+                            BotonAlta();
+                            $("#Editar").css("display", "none");
+                            $("#Guardar").css("display", "none");
+                            $("#dropdown-toggle").hide();
+                            $("#nuevaIncidenciaDiv").addClass("hidden");
+                            $("#responderIncidenciaDiv").addClass("hidden");
+                            $("#cancelarIncidenciaDiv").addClass("hidden");
+                            $("#resolverIncidenciaDiv").addClass("hidden");
+
+                        } else {
+                            BotonAlta();
+                            Alta(Listado);
+                        }
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                        loadingStop();
+                        //$("#MotivoCancelacionDiv").removeClass("hidden");
+                        //$("#DetalleResolucionDiv").addClass("hidden");
+                        //$("#ResueltoPorDiv").addClass("hidden");
+                        //$("#FechaResolucionDiv").addClass("hidden");
+                    }
+                    loadingStop();
+                    break;
+            };
+
+
+            //loadingStop();
+        };
+
+        function GuardaryNuevoIncidencia() {
+            loadingStart();
+            if (validarRequeridosFormaIncidenciasGuardar()) {
+                var Listado = ArrayListado();
+                Listado.Estatus = "Abierta";
+                $("#hdEstatus").val(Listado.Estatus);
+                Listado.Nuevo = true;
+                if (Listado.FolioIncidenciaID != "-1") {
+                    Editar(Listado);
+                } else {
+                    //habilitarControles();
+                    BotonAlta();
+                    Alta(Listado);
+                }
             } else {
-                //habilitarControles();
-                BotonAlta();
-                Alta(Listado);
+                displayMessage("notificationslabel0031", "", '1');
+                loadingStop();
             }
-        } else {
-            displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
-        }
-        //loadingStop();
-    };
+            //loadingStop();
+        };
 
-    function NuevaIncidencia() {
-        $("#tabstrip").data("kendoTabStrip").select(0);
-        tabSelected = "Incidencia";
-        cambiaActivosClick(tabSelected);
-    };
-    function ResolverIncidencia() {
-        $("#tabstrip").data("kendoTabStrip").select(1);
-        tabSelected = "Resolver";
-        cambiaActivosClick(tabSelected);
-    };
-    function ResponderIncidencia() {
-        $("#tabstrip").data("kendoTabStrip").select(2);
-        tabSelected = "Responder";
-        cambiaActivosClick(tabSelected);
-    };
-    function CancelarIncidencia() {
-        $("#tabstrip").data("kendoTabStrip").select(3);
-        tabSelected = "Cancelar";
-        cambiaActivosClick(tabSelected);
-    };
+        function NuevaIncidencia() {
+            $("#tabstrip").data("kendoTabStrip").select(0);
+            tabSelected = "Incidencia";
+            cambiaActivosClick(tabSelected);
+        };
+        function ResolverIncidencia() {
+            $("#tabstrip").data("kendoTabStrip").select(1);
+            tabSelected = "Resolver";
+            cambiaActivosClick(tabSelected);
+        };
+        function ResponderIncidencia() {
+            $("#tabstrip").data("kendoTabStrip").select(2);
+            tabSelected = "Responder";
+            cambiaActivosClick(tabSelected);
+        };
+        function CancelarIncidencia() {
+            $("#tabstrip").data("kendoTabStrip").select(3);
+            tabSelected = "Cancelar";
+            cambiaActivosClick(tabSelected);
+        };
 
-    function Nuevo() {
-        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
-    };
-
-    function Cancelar() {
-        if (_Edicion != "-1") {
-            window.location.href = _ListadoIncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-        }
-        else {
+        function Nuevo() {
             window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        };
+
+        function Cancelar() {
+            if (_Edicion != "-1") {
+                window.location.href = _ListadoIncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            }
+            else {
+                window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+            }
+        };
+
+        function LimpiarPantalla() {
+            loadingStart();
+            $("#Clasificacion").data("kendoComboBox").value("");
+            $("#TipoIncidencia").data("kendoComboBox").value("");
+            $("#Version").val("");
+            $("#Titulo").val("");
+            $("#Descripcion").val("");
+            $("#Respuesta").val("");
+            $("#MotivoCancelacion").val("");
+            $("#DetalleResolucion").val("");
+            $("#RegistradoPor").val("");
+            $("#ResueltoPor").val("");
+            $("#RespondidoPor").val("");
+            $("#DescripcionArchivoIncidencia").val("");
+            Clasificacion = {};
+            TipoIncidencia = {};
+            _FolioIncidencia = "-1";
+            //ObtenerFechasporDefecto();
+            loadingStop();
+        };
+        function hideElementsIncidencias() {
+            $(".sidebar").hide();
+            $(".logo").hide();
+            $(".search-bar").hide();
+            $(".notifications").hide();
+            $(".logged-user").hide();
+            $(".content-container").removeClass("topbar").addClass("printView");
+            $(".breadcrumb-container").hide();
+            $(".languageSelector").hide();
+            $(".pull-right").hide();
+            $("header").hide();
+            $(".content-frame").removeClass("content-frame");
+            $("body").css("background", "#FFFFFF");
+
+        };
+
+        function ocultarTabsNuevaIncidencia() {
+            if (tabSelected == "Incidencia") {
+                var tabStrip1 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                tabStrip1.disable(tabStrip1.tabGroup.children().eq(1));
+                var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                tabStrip.disable(tabStrip.tabGroup.children().eq(2));
+                var tabStrip2 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                tabStrip2.disable(tabStrip2.tabGroup.children().eq(3));
+            }
         }
-    };
 
-    function LimpiarPantalla() {
-        loadingStart();
-        $("#Clasificacion").data("kendoComboBox").value("");
-        $("#TipoIncidencia").data("kendoComboBox").value("");
-        $("#Version").val("");
-        $("#Titulo").val("");
-        $("#Descripcion").val("");
-        $("#Respuesta").val("");
-        $("#MotivoCancelacion").val("");
-        $("#DetalleResolucion").val("");
-        $("#RegistradoPor").val("");
-        $("#ResueltoPor").val("");
-        $("#RespondidoPor").val("");
-        $("#DescripcionArchivoIncidencia").val("");
-        Clasificacion = {};
-        TipoIncidencia = {};
-        _FolioIncidencia = "-1";
-        //ObtenerFechasporDefecto();
-        loadingStop();
-    };
-    function hideElementsIncidencias() {
-        $(".sidebar").hide();
-        $(".logo").hide();
-        $(".search-bar").hide();
-        $(".notifications").hide();
-        $(".logged-user").hide();
-        $(".content-container").removeClass("topbar").addClass("printView");
-        $(".breadcrumb-container").hide();
-        $(".languageSelector").hide();
-        $(".pull-right").hide();
-        $("header").hide();
-        $(".content-frame").removeClass("content-frame");
-        $("body").css("background", "#FFFFFF");
-
-    };
-
-    function ocultarTabsNuevaIncidencia() {
-        if (tabSelected == "Incidencia") {
+        function habilitarTabsNuevaIncidencia(cancelar) {
             var tabStrip1 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-            tabStrip1.disable(tabStrip1.tabGroup.children().eq(1));
+            tabStrip1.enable(tabStrip1.tabGroup.children().eq(1));
             var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-            tabStrip.disable(tabStrip.tabGroup.children().eq(2));
+            tabStrip.enable(tabStrip.tabGroup.children().eq(2));
             var tabStrip2 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-            tabStrip2.disable(tabStrip2.tabGroup.children().eq(3));
+            tabStrip2.enable(tabStrip2.tabGroup.children().eq(3));
         }
-    }
 
-    function habilitarTabsNuevaIncidencia(cancelar) {
-        var tabStrip1 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-        tabStrip1.enable(tabStrip1.tabGroup.children().eq(1));
-        var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-        tabStrip.enable(tabStrip.tabGroup.children().eq(2));
-        var tabStrip2 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-        tabStrip2.enable(tabStrip2.tabGroup.children().eq(3));
-    }
+        function formatoFechaKendo(splitYear, splitMonth, splitDay) {
+            var FechaRegistro = new Date(splitYear, splitMonth - 1, splitDay);
+            var curr_date = FechaRegistro.getDate();
+            var curr_month = FechaRegistro.getMonth() + 1; //Months are zero based
+            var curr_year = FechaRegistro.getFullYear();
 
-    function formatoFechaKendo(splitYear, splitMonth, splitDay) {
-        var FechaRegistro = new Date(splitYear, splitMonth - 1, splitDay);
-        var curr_date = FechaRegistro.getDate();
-        var curr_month = FechaRegistro.getMonth() + 1; //Months are zero based
-        var curr_year = FechaRegistro.getFullYear();
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            };
 
-        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-            format = "dd/MM/yyyy";
-        } else {
-            format = "MM/dd/yyyy";
+            var fecha = new Date(curr_year, curr_month - 1, curr_date);
+            var fechakendo = kendo.parseDate(fecha, format);
+
+            return fechakendo
         };
 
-        var fecha = new Date(curr_year, curr_month - 1, curr_date);
-        var fechakendo = kendo.parseDate(fecha, format);
-
-        return fechakendo
-    };
-
-    function ControlErroresObjetosComboBox(control, result) {
-        if (Error(result)) {
-            $("#" + control).data("kendoComboBox").dataSource.data(result);
-        } else {
-            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        function ControlErroresObjetosComboBox(control, result) {
+            if (Error(result)) {
+                $("#" + control).data("kendoComboBox").dataSource.data(result);
+            } else {
+                $("#" + control).data("kendoComboBox").dataSource.data([]);
+            };
         };
-    };
 
-    function Error(data) {
-        if (data.ReturnCode) {
-            if (data.ReturnCode != 200) {
-                if (data.ReturnCode == 401) {
-                    removeUserSession();
-                    return true;
+        function Error(data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                        return true;
+                    } else {
+                        displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                        return false;
+                    }
                 } else {
-                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
-                    return false;
+                    return true;
                 }
             } else {
                 return true;
             }
-        } else {
-            return true;
-        }
-    };
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
