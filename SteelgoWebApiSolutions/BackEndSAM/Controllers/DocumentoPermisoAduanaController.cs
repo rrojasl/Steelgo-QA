@@ -46,7 +46,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegada, int NumeroPermiso, string token)
+        public object Post(int folioAvisoLlegada, string NumeroPermiso, string token)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace BackEndSAM.Controllers
                         var docfiles = new List<string>();
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
-                        foreach (string file in httpRequest.Files)
+                        for (int i = 0; i < httpRequest.Files.Count; i++)
                         {
                             Guid docguID = Guid.NewGuid();
-                            postedFile = httpRequest.Files[file];
+                            postedFile = httpRequest.Files[i];
                             string nombreArchivo = "";
                             //verificar si el nombre del archivo es una ruta completa
                             if (postedFile.FileName.Contains("\\"))

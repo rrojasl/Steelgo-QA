@@ -360,7 +360,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="documentoID">ID del documento</param>
         /// <param name="usuario">usuario actual</param>
         /// <returns></returns>
-        public object GuardarDatosPermisoAutorizado(int numeroPermiso, string nombre, string extension, int folio, int documentoID, Sam3_Usuario usuario)
+        public object GuardarDatosPermisoAutorizado(string numeroPermiso, string nombre, string extension, int folio, int documentoID, Sam3_Usuario usuario)
         {
             try
             {

@@ -4108,6 +4108,10 @@ _dictionary = {
         "es-MX": "Al cambiar la colada se generara una incidencia.",
         "en-US": "By changing the casting an incidence will be generated."
     },
+    "ComplementoRecepcion0079": {
+        "es-MX": "Nueva Colada",
+        "en-US": "New Wash"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
@@ -6403,6 +6407,10 @@ _dictionary = {
     "KendoGridFilterable0003": {
         "es-MX": "No es igual a",
         "en-US": "Is not equal to"
+    },
+    "KendoGridFilterable0004": {
+        "es-MX": "Contiene",
+        "en-US": "Contains"
     },
     //KendoDelete
     "KendoDeleteTxt0001": {
