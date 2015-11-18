@@ -70,10 +70,10 @@ namespace BackEndSAM.Controllers
                         var docfiles = new List<string>();
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
-                        foreach (string file in httpRequest.Files)
+                        for (int i = 0; i < httpRequest.Files.Count; i++)
                         {
                             Guid docguID = Guid.NewGuid();
-                            postedFile = httpRequest.Files[file];
+                            postedFile = httpRequest.Files[i];
                             string nombreArchivo = "";
 
                             //verificar si el nombre del archivo es una ruta completa
