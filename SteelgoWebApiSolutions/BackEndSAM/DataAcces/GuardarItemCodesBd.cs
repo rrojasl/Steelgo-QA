@@ -158,10 +158,10 @@ namespace BackEndSAM.DataAcces
                                     bool existeICenSam3 = ctx.Sam3_EquivalenciaItemCode
                                        .Where(x => x.Sam3_ItemCodeID == itemCodeID && x.Activo).Any();
 
-                                    if (!existeICenSam3)
-                                    {
-                                        InsertarItemCodeSam3(datosItemCode, usuario);
-                                    }
+                                    //if (!existeICenSam3)
+                                    //{
+                                    //    InsertarItemCodeSam3(datosItemCode, usuario);
+                                    //}
 
 
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
@@ -411,10 +411,10 @@ namespace BackEndSAM.DataAcces
                                     bool existeICenSam3 = ctx.Sam3_EquivalenciaItemCode
                                        .Where(x => x.Sam3_ItemCodeID == itemCodeID && x.Activo).Any();
 
-                                    if (!existeICenSam3)
-                                    {
-                                        InsertarItemCodeSam3(datosItemCode, usuario);
-                                    }
+                                    //if (!existeICenSam3)
+                                    //{
+                                    //    InsertarItemCodeSam3(datosItemCode, usuario);
+                                    //}
 
 
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
@@ -655,10 +655,10 @@ namespace BackEndSAM.DataAcces
                                     bool existeICenSam3 = ctx.Sam3_EquivalenciaItemCode
                                        .Where(x => x.Sam3_ItemCodeID == itemCodeID && x.Activo).Any();
 
-                                    if (!existeICenSam3)
-                                    {
-                                        InsertarItemCodeSam3(datosItemCode, usuario);
-                                    }
+                                    //if (!existeICenSam3)
+                                    //{
+                                    //    InsertarItemCodeSam3(datosItemCode, usuario);
+                                    //}
 
 
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
@@ -856,10 +856,10 @@ namespace BackEndSAM.DataAcces
                                     bool existeICenSam3 = ctx.Sam3_EquivalenciaItemCode
                                        .Where(x => x.Sam3_ItemCodeID == itemCodeID && x.Activo).Any();
 
-                                    if (!existeICenSam3)
-                                    {
-                                        InsertarItemCodeSam3(datosItemCode, usuario);
-                                    }
+                                    //if (!existeICenSam3)
+                                    //{
+                                    //    InsertarItemCodeSam3(datosItemCode, usuario);
+                                    //}
 
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
@@ -1089,10 +1089,10 @@ namespace BackEndSAM.DataAcces
                                     bool existeICenSam3 = ctx.Sam3_EquivalenciaItemCode
                                        .Where(x => x.Sam3_ItemCodeID == itemCodeID && x.Activo).Any();
 
-                                    if (!existeICenSam3)
-                                    {
-                                        InsertarItemCodeSam3(datosItemCode, usuario);
-                                    }
+                                    //if (!existeICenSam3)
+                                    //{
+                                    //    InsertarItemCodeSam3(datosItemCode, usuario);
+                                    //}
 
 
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
