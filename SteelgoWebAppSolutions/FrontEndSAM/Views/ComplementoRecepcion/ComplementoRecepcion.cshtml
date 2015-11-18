@@ -635,6 +635,7 @@
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
         $("#Mostrar").removeAttr("disabled");
         $("#Colada").data("kendoAutoComplete").enable(true);
+        $("#menu").data("kendoContextMenu").unbind("open");
         CambiarEstatus("En Proceso de Recepción");
     };
 
@@ -661,6 +662,9 @@
         $("input:radio").attr('disabled', "disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
         $("#Mostrar").attr("disabled", "disabled");
+        $("#menu").data("kendoContextMenu").bind("open", function (e) {
+            e.preventDefault();
+        });
         //$("#Colada").data("kendoComboBox").enable(false);
     };
 
@@ -863,6 +867,11 @@
                 editable: {
                     mode: "incell",
                     confirmation: false
+                },
+                edit: function (e) {
+                    if ($("#Editar").css("display") == "block") {
+                        this.closeCell();
+                    };
                 },
                 navigatable: true,
                 columns: [
@@ -1297,6 +1306,7 @@
                     displayMessage("notificationslabel0050", error, '2');
                     BotonAlta();
                     CambiarEstatus("En Proceso de Recepción");
+                    loadinStop();
                     return;
                 }
 
@@ -1304,6 +1314,7 @@
                     displayMessage("notificationslabel0051", "", '2');
                     BotonAlta();
                     CambiarEstatus("En Proceso de Recepción");
+                    loadinStop();
                     return;
                 }
 
@@ -1373,6 +1384,7 @@
                 if (error) {
                     displayMessage("notificationslabel0051", error, '2');
                     ordenamientoGrid();
+                    loadinStop();
                     return;
                 }
                 AccionesAltaGuardadoParcial(null);
