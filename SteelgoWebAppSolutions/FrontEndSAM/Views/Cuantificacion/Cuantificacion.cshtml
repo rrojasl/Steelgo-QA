@@ -1038,18 +1038,7 @@
                                  { field: "Cantidad", aggregate: "sum" }
                     ]
                 },
-                dataBound:function(e){
-                    $(".k-button.k-button-icontext.k-grid-add").on("click",function(){
-                        fromButton=true;
-                    })
-                    $('td:nth-child(5):contains("ICS-Default")').each(function(){
-                        tmp=this;
-                        for(var i=0;4>i;i++){
-                            tmp.style.color="rgba(0,0,0,0)";
-                            tmp=tmp.nextElementSibling;
-                        }
-                    });
-                },
+                dataBound:OndataBound,
                 autoHeight: true,
                 sortable: true,
                 scrollable: true,
@@ -1062,10 +1051,16 @@
                     confirmation: false
                 },
                 edit: function (e) {
+                    if (TipoPackingList.TipoPackingListID == "2") {
+                        var nombreColumna = e.container.find("input[name]").attr("name");
+                        if (nombreColumna == "MM") {
+                            this.closeCell();
+                        }
+                    };
                     if ($("#Editar").css("display") == "block") {
                         this.closeCell();
                     };
-
+                    
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["detail"]) {
                         this.closeCell();
                     }
@@ -1198,6 +1193,11 @@
             //if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["create"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["create"]) {
                 //$(".k-grid-add").addClass("k-state-disabled");
             //}
+
+            $(".k-grid-add").click(function () {
+                var datasource = $("#grid").data("kendoGrid").dataSource.data();
+                alert(datasource.length);
+            });
         };
 
     function CrearMenuContextual() {
@@ -3048,7 +3048,7 @@
             return JSON.stringify(records);
         };
     
-
+        
         function CargarDefaults() {
             $("#formCuantificacion :not(.security_required)").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
@@ -3067,6 +3067,27 @@
                 };
             });
         };
+
+        function OndataBound(e) {
+            $(".k-button.k-button-icontext.k-grid-add").on("click", function () {
+                fromButton = true;
+            })
+            $('td:nth-child(5):contains("ICS-Default")').each(function () {
+                tmp = this;
+                for (var i = 0; 4 > i; i++) {
+                    tmp.style.color = "rgba(0,0,0,0)";
+                    tmp = tmp.nextElementSibling;
+                }
+            });
+
+            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+            if (TipoPackingList.TipoPackingListID == "2") {
+                $(datasource).each(function () {
+                    this.set("MM", "N/A");
+                });
+            };
+        };
+
         @section JavascriptDocumentReadyFunctions 
         {
             var dispositivo = navigator.userAgent.toLowerCase();
