@@ -314,17 +314,21 @@
 
 
         $("#FechaInic").bind("change", function () {
-            if (!$("#FechaInic").val()) {
+            if (!$("#FechaInic").data("kendoDatePicker").value() && this.value!=="") {
                 $("#FechaInic").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                Filtros();
             }
-            Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
-            if (!$("#FechaFinal").val()) {
+            if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
                 $("#FechaFinal").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                Filtros();
             }
-            Filtros();
         });
 
         if (DashBoardAccionListado != -1) {

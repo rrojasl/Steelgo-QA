@@ -266,3 +266,8 @@ function validaFloat(n) {
 //            }
 //    ]}
 //}
+
+//Adds validation to Date
+Date.prototype.isValid = function () {
+    return this.getTime() === this.getTime();
+};

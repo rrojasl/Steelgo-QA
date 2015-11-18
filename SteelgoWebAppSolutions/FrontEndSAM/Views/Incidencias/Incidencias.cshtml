@@ -2485,6 +2485,14 @@
     if (_LevantarIncidencia != "-1") {
         cargaInicialLentarNuevaIncidencia(_TipoIncidencia, _Clasificacion, _ReferenciaID);
     };
+
+    $("#FechaRegistro").on("change",function(){
+        if (!$("#FechaRegistro").data("kendoDatePicker").value() && this.value!=="") {
+            $("#FechaRegistro").data("kendoDatePicker").value("");
+            displayMessage("notificationslabel0082","","2")
+        }
+    })
+
     }
 
 </script>

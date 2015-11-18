@@ -647,17 +647,21 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInicial").bind("change", function () {
-            if (!$("#FechaInicial").val()) {
+            if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
                 $("#FechaInicial").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                CantidadesDelMenuDashboard();
             }
-            CantidadesDelMenuDashboard();
         });
 
         $("#FechaFinal").bind("change", function () {
-            if (!$("#FechaFinal").val()) {
+            if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
                 $("#FechaFinal").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                CantidadesDelMenuDashboard();
             }
-            CantidadesDelMenuDashboard();
         });
 
         ObtenerFechasporDefecto();
