@@ -125,7 +125,8 @@
         </div>        
         
         <ul id="menu">
-            <li id="Complemento"><span id="ComplementoRecepcion0063"></span></li>
+            <li id="NuevaColada"><span id="ComplementoRecepcion0079"></span></li>
+            <li id="EditarColada"><span id="ComplementoRecepcion0063"></span></li>
             <li id="Incidencia"><span id="ComplementoRecepcion0066"></span></li>
         </ul>
     </div>
@@ -272,6 +273,19 @@
     };
 
     var $TipoUsoModel = {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "",
+            destroy: "",
+            createIncidence: ""
+        },
+        properties: {
+
+        }
+    };
+
+    var $ColadaModel = {
         listContainer: {
             create: "",
             list: "",
@@ -563,23 +577,28 @@
 
         //$("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada(); });
         $(document).bind("contextmenu", function (e) {
-            var elemento = e.target.attributes[10].value;
-            var index = elemento.indexOf("_");
-            var valor = elemento.substring(0, index);
+            if(e.target.attributes[10]){
+                var elemento = e.target.attributes[10].value;
+                var index = elemento.indexOf("_");
+                var valor = elemento.substring(0, index);
 
-            if (valor == "TipoUso") {
-                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
-                    VentanaModal(2);
+                if (valor == "TipoUso") {
+                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
+                        VentanaModal(2);
+                    }
                 }
             }
             return false;
         });
+
         $('#Colada').mousedown(function (e) {
-            if (e.which == 3) {
-                $("#hdnItemCodeIDSeleccionado").val("");
-                $("#hdnItemCodeSeleccionado").val("");
-                VentanaModal(1);
-                e.preventDefault();
+            if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Colada"] != 'undefined') && (typeof returnOfSecurityCheck["Colada"]["create"] != 'undefined') && returnOfSecurityCheck["Colada"]["create"]) {
+                if (e.which == 3) {
+                    $("#hdnItemCodeIDSeleccionado").val("");
+                    $("#hdnItemCodeSeleccionado").val("");
+                    VentanaModal(1);
+                    e.preventDefault();
+                }
             }
         });
 
@@ -724,7 +743,7 @@
     };
 
     function CancelarPadre() {
-        VentanaEdicionColada(3);
+        //VentanaEdicionColada(3);
     };
 
     function CancelarColada() {
@@ -811,7 +830,7 @@
     function ActualizarPaginaPadre() {
         ObtenerColada("EdicionColada", 0, 1);
         ObtenerColada("Colada", 1, 0);
-        VentanaEdicionColada(3);
+        //VentanaEdicionColada(3);
     };
 
 
@@ -849,6 +868,7 @@
                             }
                         }
                     },
+                    pageSize: 10,
                     serverPaging: false,
                     serverFiltering: false,
                     serverSorting: false,
@@ -861,7 +881,14 @@
                 sortable: true,
                 scrollable: true,
                 filterable: getKendoGridFilterableComplementoRecepcion($("#language").data("kendoDropDownList").value()),
-                pageable: false,
+                pageable: {
+                    refresh: false,
+                    pageSizes: [10, 15, 20],
+                    info: false,
+                    input: false,
+                    numeric: true,
+                    buttonCount: 2
+                },
                 groupable: true,
                 selectable: true,
                 editable: {
@@ -968,6 +995,14 @@
                     var grid = $("#grid").data("kendoGrid");
                     var select = grid.select();
                     var data = grid.dataItem(select);
+                    rowselected = data;
+
+                    if (e.item.id == "NuevaColada") {
+                        $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
+                        $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
+                        VentanaModal(1);
+                        return;
+                    };
 
                     LimpiarModalEdicionColadaEditarClick();
                     $("#hdnItemCodeIDSeleccionado").val("");
@@ -977,7 +1012,7 @@
                         return;
                     };
 
-                    rowselected = data;
+                    
                     $("#hdnItemCodeIDSeleccionado").val(rowselected.ItemCodeID);
                     $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
                     $("#EdicionColada").data("kendoAutoComplete").value(rowselected.Colada);
@@ -998,6 +1033,14 @@
                 $("#grid thead .k-state-selected> .k-link").css({
                     "color": "black"
                 });
+
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Colada"] != 'undefined') && (typeof returnOfSecurityCheck["Colada"]["create"] != 'undefined') && !returnOfSecurityCheck["Colada"]["create"]) {
+                    $("#NuevaColada").empty();
+                }
+
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Colada"] != 'undefined') && (typeof returnOfSecurityCheck["Colada"]["detail"] != 'undefined') && !returnOfSecurityCheck["Colada"]["detail"]) {
+                    $("#EditarColada").empty();
+                }
             });
         };
 
@@ -1921,6 +1964,7 @@
     $authorizationModel["Orden Almacenaje"] = $OrdenAlmacenajeModel;
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
     $authorizationModel["Tipo Uso"] = $TipoUsoModel;
+    $authorizationModel["Colada"] = $ColadaModel;
     }
 
     @section JavascriptDocumentReadyHomeCookie {
