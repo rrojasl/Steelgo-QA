@@ -808,17 +808,34 @@
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
-                    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-                        if (Error(data)) {
-                            BotonAlta();
-                            CargaInicialEdicion(folio);
-                            if (bool) {//guardar y nuevo
-                                var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
-                                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                            }
-                        }
+
+                    if (!$('#listaArchivos > tbody  > tr').length) {
+                        $("#DetalleAvisoLlegada0010").addClass("security_required error");
+                        displayMessage("notificationslabel0031", "", '1');
                         loadingStop();
-                    });
+                        return;
+                    };
+
+                    var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
+                    var upload = $("#files").data("kendoUpload");
+                    var len = $(".k-upload-files li").length;
+                    if ((uploadtype != "" || uploadtype != null) && len > 0) {
+                        $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                            if (Error(data)) {
+                                BotonAlta();
+                                CargaInicialEdicion(folio);
+                                if (bool) {//guardar y nuevo
+                                    var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                                }
+                            }
+                            loadingStop();
+                        });
+                    } else {
+                        $("#DetalleAvisoLlegada0010").addClass("security_required error");
+                        displayMessage("notificationslabel0031", "", '1');
+                        loadingStop();
+                    }
                 } else //Alta
                 {
                     var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
@@ -1021,6 +1038,9 @@
             function borrarArchivo(id, fila) {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
                     fila.closest("tr").remove();
+                    var restar = ($("#hdnCantidadArchivos").val() - 1);
+                    var cantidadarchivos = restar ? restar : 0;
+                    $("#hdnCantidadArchivos").val(cantidadarchivos);
                     //console.log("Client.DocumentoAvisoLlegada.destroy");
                 });
             };
