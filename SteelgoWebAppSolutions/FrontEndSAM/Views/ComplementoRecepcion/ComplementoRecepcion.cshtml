@@ -868,6 +868,7 @@
                             }
                         }
                     },
+                    pageSize: 10,
                     serverPaging: false,
                     serverFiltering: false,
                     serverSorting: false,
@@ -880,7 +881,14 @@
                 sortable: true,
                 scrollable: true,
                 filterable: getKendoGridFilterableComplementoRecepcion($("#language").data("kendoDropDownList").value()),
-                pageable: false,
+                pageable: {
+                    refresh: false,
+                    pageSizes: [10, 15, 20],
+                    info: false,
+                    input: false,
+                    numeric: true,
+                    buttonCount: 2
+                },
                 groupable: true,
                 selectable: true,
                 editable: {
