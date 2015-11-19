@@ -1184,8 +1184,12 @@
             
             CrearMenuContextual();
             
+           
             $("#grid").on("mousedown", "tr[role='row']", function (e) {
                 $('#grid').data("kendoGrid").select(e.target.parentElement);
+                if (!$('#grid').data("kendoGrid").select().length) {
+                    $('#grid').data("kendoGrid").select(e.target.parentElement.parentElement.parentElement.parentElement);
+                };
                 $("#grid thead .k-state-selected> .k-link").css({
                     "color": "black"
                 });
