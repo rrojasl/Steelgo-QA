@@ -5724,7 +5724,7 @@ _dictionary = {
         "en-US": "Incidence"
     },
     "Incidencias0073": {
-        "es-MX": "Resolver Incidencia",
+        "es-MX": "Resolver",
         "en-US": "Resolve"
     },
     "Incidencias0074": {
