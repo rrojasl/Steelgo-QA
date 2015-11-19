@@ -194,6 +194,8 @@ namespace BackEndSAM.DataAcces
                         item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
 
                         item.Cedula = item.ItemCodeSteelgoID == 1 ? "" : item.Cedula;
+
+                        item.TipoAcero = item.ItemCodeSteelgoID == 1 ? "" : item.TipoAcero;
                     }
 
                     listado = listado.OrderBy(x => x.NumeroUnico).ToList();
