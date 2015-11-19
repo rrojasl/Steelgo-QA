@@ -113,6 +113,12 @@ function removeGrid(grid) {
 }
 
 function messageindexKendoCombobox(obj) {
+    obj.select(function (dataItem) {
+        if (dataItem.value === obj.value()) {
+            obj.trigger("select");
+            return dataItem.value === obj.value();
+        }
+    });
     if (obj.selectedIndex == -1) {
         if (obj.value()) {
             var elemento = obj.list.attr("id");
@@ -268,3 +274,8 @@ function validaFloat(n) {
 //            }
 //    ]}
 //}
+
+//Adds validation to Date
+Date.prototype.isValid = function () {
+    return this.getTime() === this.getTime();
+};

@@ -510,7 +510,7 @@ namespace BackEndSAM.DataAcces
                                      value = r.Valor.ToString()
                                  }).ToList();
 
-                    return registros;
+                    return registros.OrderBy(x => x.value).ToList();
                 }
             }
             catch (Exception ex)

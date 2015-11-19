@@ -167,7 +167,7 @@ namespace BackEndSAM.DataAcces
 
                         if (filtros.PorDescargar)
                         {
-                            result = result.Where(x => x.FolioDescarga <= 0).ToList();
+                            result = result.Where(x => x.FolioDescarga <= 0 && x.Estatus == "En Patio").ToList();
                         }
 
                         if (filtros.PorSalir)

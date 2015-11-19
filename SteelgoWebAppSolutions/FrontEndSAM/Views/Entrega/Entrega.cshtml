@@ -529,6 +529,12 @@
     @section JavascriptDocumentReadyFunctions {
         $authorizationModel["Entrega"] = $EntregaModel;
         CargaInicial();
+        $("#FechaEntrega").on("change",function(){
+            if (!$("#FechaEntrega").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaEntrega").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }
+        })
     }
 
 </script>

@@ -1210,7 +1210,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="PermisoAutorizado" Type="bit" Nullable="false" />
           <Property Name="PermisoTramite" Type="bit" Nullable="false" />
-          <Property Name="NumeroPermiso" Type="int" />
+          <Property Name="NumeroPermiso" Type="varchar(max)" />
           <Property Name="FechaGeneracion" Type="datetime" />
           <Property Name="FechaAutorización" Type="datetime" />
         </EntityType>
@@ -6568,7 +6568,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="PermisoAutorizado" Type="Boolean" Nullable="false" />
           <Property Name="PermisoTramite" Type="Boolean" Nullable="false" />
-          <Property Name="NumeroPermiso" Type="Int32" />
+          <Property Name="NumeroPermiso" Type="String" />
           <NavigationProperty Name="Sam3_Rel_PermisoAduana_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Permi__36470DEF" FromRole="Sam3_PermisoAduana" ToRole="Sam3_Rel_PermisoAduana_Documento" />
           <Property Name="FechaGeneracion" Type="DateTime" Precision="3" />
           <Property Name="FechaAutorización" Type="DateTime" Precision="3" />

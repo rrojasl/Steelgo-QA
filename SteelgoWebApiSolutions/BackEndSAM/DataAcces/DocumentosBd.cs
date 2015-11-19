@@ -506,7 +506,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object CambiarEstatusFolio(int FolioAviso, int NumeroPermiso, Sam3_Usuario usuario)
+        public object CambiarEstatusFolio(int FolioAviso, string NumeroPermiso, Sam3_Usuario usuario)
         {
             try
             {
