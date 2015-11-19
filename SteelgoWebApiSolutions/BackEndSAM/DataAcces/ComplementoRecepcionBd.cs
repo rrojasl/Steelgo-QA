@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                       where fc.Activo && rfi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo
                                       && fc.FolioCuantificacionID == folioCuantificacionID
-                                      && !it.TieneComplementoRecepcion
+                                     // && !it.TieneComplementoRecepcion
                                       select new ItemCodeComplemento
                                       {
                                           NumeroUnicoID = nu.NumeroUnicoID.ToString(),
@@ -111,6 +111,7 @@ namespace BackEndSAM.DataAcces
                                           RelFCID = rel.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                           RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                           ColadaOriginal = nu.Sam3_Colada.NumeroColada,
+                                          TieneComplementoRecepcion= it.TieneComplementoRecepcion?"Si":"No"
                                       }).AsParallel().Distinct().ToList());
 
                     //agregar items en bulto
@@ -125,7 +126,7 @@ namespace BackEndSAM.DataAcces
                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                       where fc.Activo && b.Activo && rbi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo
                                       && fc.FolioCuantificacionID == folioCuantificacionID
-                                      && !it.TieneComplementoRecepcion
+                                      //&& !it.TieneComplementoRecepcion
                                       select new ItemCodeComplemento
                                       {
                                           NumeroUnicoID = nu.NumeroUnicoID.ToString(),
@@ -177,6 +178,7 @@ namespace BackEndSAM.DataAcces
                                           RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                           RelBID = rel.Rel_Bulto_ItemCode_ID.ToString(),
                                           ColadaOriginal = nu.Sam3_Colada.NumeroColada,
+                                          TieneComplementoRecepcion = it.TieneComplementoRecepcion ? "Si" : "No"
                                       }
                         ).AsParallel().Distinct().ToList());
 

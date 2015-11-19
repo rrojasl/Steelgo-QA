@@ -520,8 +520,46 @@ namespace BackEndSAM.DataAcces
                     folioCuantificacion.Estatus = estatus;
                     folioCuantificacion.FechaModificacion = DateTime.Now;
                     folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
-
                     ctx.SaveChanges();
+
+                    if (estatus != "Recepción Terminada")
+                    {
+                        List<Sam3_ItemCode> Itemcodes = (from fc in ctx.Sam3_FolioCuantificacion
+                                                         join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                         join rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals rel.Rel_FolioCuantificacion_ItemCode_ID
+                                                         join nu in ctx.Sam3_NumeroUnico on rel.NumeroUnicoID equals nu.NumeroUnicoID
+                                                         join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                         join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                                         join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                                         where fc.Activo && rfi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo
+                                                         && fc.FolioCuantificacionID == folio
+                                                         select it).AsParallel().Distinct().ToList();
+
+
+                        Itemcodes.AddRange((from fc in ctx.Sam3_FolioCuantificacion
+                                            join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                            join rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals rel.Rel_Bulto_ItemCode_ID
+                                            join nu in ctx.Sam3_NumeroUnico on rel.NumeroUnicoID equals nu.NumeroUnicoID
+                                            join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                            join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                            join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                            where fc.Activo && b.Activo && rbi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo
+                                            && fc.FolioCuantificacionID == folio
+                                            select it).AsParallel().Distinct().ToList()
+                                        );
+
+                        foreach (Sam3_ItemCode item in Itemcodes)
+                        {
+                            Sam3_ItemCode it = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).FirstOrDefault();
+                            it.TieneComplementoRecepcion = false;
+                            it.FechaModificacion = DateTime.Now;
+                            it.UsuarioModificacion = usuario.UsuarioID;
+                            ctx.SaveChanges();
+                        };
+                    };
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");

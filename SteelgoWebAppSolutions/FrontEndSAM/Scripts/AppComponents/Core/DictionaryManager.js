@@ -4112,6 +4112,14 @@ _dictionary = {
         "es-MX": "Nueva Colada",
         "en-US": "New Wash"
     },
+    "ComplementoRecepcion0080": {
+        "es-MX": "Tiene Complemento Recepción",
+        "en-US": "it has Reception Complement"
+    },
+    "ComplementoRecepcion0081": {
+        "es-MX": "Terminar",
+        "en-US": "Finish"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
