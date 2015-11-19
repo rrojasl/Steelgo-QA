@@ -113,14 +113,13 @@
 
     function cargarInicialGrid() {
         $("#grid").kendoGrid({
-            columns: [
-                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], width: "150px" },
-                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], width: "150px" },
-                { field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], width: "150px" },
-                { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], width: "150px" },
-                { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], width: "150px" },
-                { field: "Rel_ICS_DiametroID", title: "rel", width: "150px", hidden: true },
-                { field: "Diametro1ID", title: "d1 id", width: "150px", hidden: true },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns:addTo([
+                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], width: "150px"},
+                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], width: "150px"},
+                { field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], width: "150px"},
+                { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], width: "150px"},
+                { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], width: "150px"},
                 {
                     field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
                         $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
@@ -148,7 +147,6 @@
                         });
                     }
                 },
-                { field: "Diametro2ID", title: "d2id", width: "150px", hidden: true },
                 {
                     field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
                         $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
@@ -232,7 +230,7 @@
                 { command: "edit", title: "Editar", width: "91px" },
                 { command: "destroy", title: "Borrar", width: "91px" }
 
-            ],
+            ]),
             dataSource: {
                 data: [],
                 schema: {
@@ -308,17 +306,6 @@
             autoHeight: true,
             sortable: true,
             scrollable: true,
-            //filterable: {
-            //    extra: false,
-            //    operators: {
-            //        string: {
-            //            startswith: "Starts with",
-            //            eq: "Is equal to",
-            //            neq: "Is not equal to"
-            //        }
-            //    }
-            //},
-            filterable: { extra: false },
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],

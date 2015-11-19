@@ -284,7 +284,7 @@ Date.prototype.isValid = function () {
 function addTo(c) {
     if (c !== undefined) {
         c.forEach(function (n) {
-            n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } }
+            Object.keys(n).indexOf("command")==-1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
         })
         return c;
     } else {
