@@ -5684,8 +5684,8 @@ _dictionary = {
         "en-US": "Go to List"
     },
     "Incidencias0063": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Registrar Incidencia",
+        "en-US": "Register Incidence"
     },
     "Incidencias0064": {
         "es-MX": "Guardar Incidencia",
