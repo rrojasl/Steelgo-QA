@@ -574,14 +574,15 @@
             $("#FolioAvisoEntradaID").kendoComboBox({
                     dataTextField: "value",
                     dataValueField: "id",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarFolioAvisoEntrada(dataItem.id,dataItem.value);
+                    //select: function (e) {
+                    //    var dataItem = this.dataItem(e.item.index());
+                    //    CargarFolioAvisoEntrada(dataItem.id,dataItem.value);
                    
-                    },
+                    //},
                     change: function (e) {
                         var value = this.value();
-
+                        var dataItem = this.dataItem();
+                        CargarFolioAvisoEntrada(dataItem.id,dataItem.value);
                         limpiarfiltrosFolioAvisoEntrada();
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
                         if (!value || this.selectedIndex == -1) {
@@ -601,11 +602,13 @@
             $("#ProyectoID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "ProyectoID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
-                },
+                //select: function (e) {
+                //    var dataItem = this.dataItem(e.item.index());
+                //    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                //},
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -622,11 +625,13 @@
             $("#FolioCuantificacionID").kendoComboBox({
                 dataTextField: "FolioCuantificacionID",
                 dataValueField: "FolioAvisoEntradaID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
-                },
+                //select: function (e) {
+                //    var dataItem = this.dataItem(e.item.index());
+                //    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
+                //},
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
                     var value = this.value();
                     limpiarfiltrosFolioLlegada();
                     if (!value || this.selectedIndex == -1) {
@@ -644,11 +649,13 @@
             $("#TipoPackingListID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "id",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
-                },
+                //select: function (e) {
+                //    var dataItem = this.dataItem(e.item.index());
+                //    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
+                //},
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -670,11 +677,13 @@
             $("#TipoUsoID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "id",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarTipoUso(dataItem.id, dataItem.Nombre);
-                },
+                //select: function (e) {
+                //    var dataItem = this.dataItem(e.item.index());
+                //    CargarTipoUso(dataItem.id, dataItem.Nombre);
+                //},
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarTipoUso(dataItem.id, dataItem.Nombre);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
