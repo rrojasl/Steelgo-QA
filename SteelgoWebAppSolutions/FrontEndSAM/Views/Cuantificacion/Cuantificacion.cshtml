@@ -733,6 +733,12 @@
 
             $("#MM").keydown(function (e) {
                 if (e.keyCode == 13) {
+                    if (!this.value) {
+                        changeValueColumnMM("");
+                        $("#MM").val("");
+                        return;
+                    }
+
                     if (esNumero(this.value)) {
                         changeValueColumnMM(this.value);
                     }
@@ -1193,11 +1199,6 @@
             //if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["create"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["create"]) {
                 //$(".k-grid-add").addClass("k-state-disabled");
             //}
-
-            $(".k-grid-add").click(function () {
-                var datasource = $("#grid").data("kendoGrid").dataSource.data();
-                alert(datasource.length);
-            });
         };
 
     function CrearMenuContextual() {
@@ -1576,11 +1577,11 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if (!this.get("Cantidad")) {
-                        this.set("Cantidad", value);
-                    }
+                    if (!this.get("Cantidad") || this.get("Cantidad") == "0") {
+                        this.set("Cantidad", value ? value : "0");
+                    };
                 }else{
-                    this.set("Cantidad", value);
+                    this.set("Cantidad", value ? value : "0");
                 }
             });
         };
@@ -1609,19 +1610,28 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if (!this.get("MM")) {
-                        if (TipoPackingList.TipoPackingListID == "1") {//TUBO
-                            this.set("MM", value);
-                        } else {
-                            this.set("MM", "N/A");
+                    if (!this.get("MM") || this.get("MM") == "0") {
+                        this.set("MM", value);
+                    } else {
+                        if (TipoPackingList.TipoPackingListID)
+                        {
+                            if (TipoPackingList.TipoPackingListID == "1") {//TUBO
+                                this.set("MM", value);
+                            } else {
+                                if (TipoPackingList.TipoPackingListID == "2") {
+                                    this.set("MM", "N/A");
+                                } else {
+                                    this.set("MM", value);
+                                }
+                            }
                         }
                     }
                 }else{
-                    if (TipoPackingList.TipoPackingListID == "1") {//TUBO
-                        this.set("MM", value);
-                    } else {
-                        this.set("MM", "N/A");
-                    }
+                        if (TipoPackingList.TipoPackingListID == "2") {
+                            this.set("MM", "N/A");
+                        } else {
+                            this.set("MM", value);
+                        }
                 }
             });
         };
