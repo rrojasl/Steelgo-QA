@@ -275,18 +275,14 @@
     @section JavascriptGlobalFunctions {
 
     function changeLanguageCall() {
-        var optionsf = $("#files").data("kendoUpload").options;
+        var options = $("#files").data("kendoUpload").options;
         $("#filesDiv .k-button.k-upload-button").remove();
-        optionsf.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
+        options.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
         $("#filesDiv").append("<input type='file' id='files'>");
-        $("#files").kendoUpload(optionsf);
-        try {
-            var optionsp = $("#PackingList").data("kendoUpload").options;
-            var padre = $("#PackingList").parent();
-            optionsp.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
-            padre.append("<input type='file' id='PackingList'>");
-            $("#PackingList").kendoUpload(optionsf);
-        } catch (e) { }
+        $("#files").kendoUpload(options);
+        var tmp = {};
+        $("#files").data("kendoUpload").options.async.saveUrl.split("?")[1].split("&").forEach(function (n) { tmp[n.split("=")[0]] = n.split("=")[1] });
+
         if (folio != -1) {
             $("#files").data("kendoUpload").disable();
         }
@@ -652,6 +648,7 @@
                         removeUrl:"#",
                         autoUpload: false,
                         withCredentials: false,
+                        batch: true
                     },
                     success: function (data) {
                         if (creacionArchivos) {
