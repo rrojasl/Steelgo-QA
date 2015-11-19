@@ -284,6 +284,70 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtener las coladas por itemCode y texto
+        /// Si id es != 0, se elimina la opcion "Sin Colada"
+        /// </summary>
+        /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
+        /// <returns>lista de ccoladas</returns>
+        public object ObtenerColadasPorItemCodeyTexto(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID,string texto, string idioma, string itemCodeID = "")
+        {
+            try
+            {
+                List<Coladas> listColada = new List<Coladas>();
+                int itemID = string.IsNullOrEmpty(itemCodeID) ? 0 : Convert.ToInt32(itemCodeID);
+                using (SamContext ctx = new SamContext())
+                {
+                    if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
+                    {
+                        if (idioma == "en-US")
+                        {
+                            listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                        }
+                        else
+                        {
+                            listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        }
+                    }
+
+
+                    List<Coladas> coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                             join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                             join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
+                                             where ric.Activo && c.Activo && it.Activo
+                                             && ric.ItemCodeID == itemID
+                                             && c.NumeroColada.Contains(texto)
+                                             select new Coladas
+                                             {
+                                                 ColadaID = c.ColadaID,
+                                                 Nombre = c.NumeroColada
+                                             }).AsParallel().Distinct().ToList();
+
+
+                    listColada.AddRange(coladas);
+
+                    if (id != 0)
+                    {
+                        listColada.RemoveAll(x => x.ColadaID == 1);
+                    }
+                }
+                return listColada;
+
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
         /// <summary>
         /// Obtener las coladas por itemCode

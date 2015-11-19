@@ -496,7 +496,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $URLColada + "itemcode=" + (rowselected.ItemCodeID) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
+                            return $URLColada + "itemcode=" + (rowselected.ItemCodeID) + "&texto=" + val + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                         }
                     }
                 },
