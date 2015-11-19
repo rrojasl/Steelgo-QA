@@ -1311,6 +1311,8 @@ namespace BackEndSAM.DataAcces
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
+                    Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
+
                     //obtenemos todos los avisos de llegada segun los datos propuestos
                     List<Sam3_FolioAvisoLlegada> registros = (from fa in ctx.Sam3_FolioAvisoLlegada
                                                               join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
@@ -1340,6 +1342,7 @@ namespace BackEndSAM.DataAcces
                     }
 
 
+
                     listado = (from r in registros
                                join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals rif.FolioAvisoLlegadaID
                                join incd in ctx.Sam3_Incidencia on rif.IncidenciaID equals incd.IncidenciaID
@@ -1354,9 +1357,27 @@ namespace BackEndSAM.DataAcces
                                    FechaRegistro = incd.FechaCreacion.ToString(),
                                    FolioIncidenciaID = incd.IncidenciaID.ToString(),
                                    RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
-                                   TipoIncidencia = ti.Nombre
+                                   TipoIncidencia = ti.Nombre,
+                                   FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                          where pc.Entidad == r.Entidad && pc.Proyecto == r.ProyectoNombrado
+                                                                                                          select pc.PreFijoFolioAvisoLlegada + ","
+                                                                                                           + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                                                           + r.Consecutivo.ToString() + ","
+                                                                                                           + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : incd.IncidenciaID.ToString()
                                }).Distinct().AsParallel().ToList();
 
+                    if (ActivarFolioConfiguracionIncidencias)
+                    {
+                        foreach (ListadoIncidencias item in listado)
+                        {
+                            string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                    }
                 }
                 return listado;
             }

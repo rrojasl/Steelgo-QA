@@ -361,7 +361,8 @@ namespace BackEndSAM.DataAcces
                                                     where us.Activo && us.UsuarioID == inc.UsuarioID
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    FolioIncidenciaID = inc.IncidenciaID.ToString(),
-                                   FechaRegistro = inc.FechaCreacion.ToString()
+                                   FechaRegistro = inc.FechaCreacion.ToString(),
+                                   FolioConfiguracionIncidencia = inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
                 }
                 return listado;
