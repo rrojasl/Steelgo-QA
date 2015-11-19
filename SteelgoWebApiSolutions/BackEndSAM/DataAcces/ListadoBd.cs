@@ -290,6 +290,7 @@ namespace BackEndSAM.DataAcces
 
                     result.SinOrdenDescarga = (from r in registrosBd
                                                where r.FolioDescarga <= 0
+                                               && r.Estatus == "En Patio"
                                                select r).Count();
 
                     result.SinPaseSalida = (from r in registrosBd

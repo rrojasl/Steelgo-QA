@@ -113,6 +113,12 @@ function removeGrid(grid) {
 }
 
 function messageindexKendoCombobox(obj) {
+    obj.select(function (dataItem) {
+        if (dataItem.value === obj.value()) {
+            obj.trigger("select");
+            return dataItem.value === obj.value();
+        }
+    });
     if (obj.selectedIndex == -1) {
         if (obj.value()) {
             var elemento = obj.list.attr("id");
@@ -268,3 +274,20 @@ function validaFloat(n) {
 //            }
 //    ]}
 //}
+
+//Adds validation to Date
+Date.prototype.isValid = function () {
+    return this.getTime() === this.getTime();
+};
+
+//Add the incell config for inline filter
+function addTo(c) {
+    if (c !== undefined) {
+        c.forEach(function (n) {
+            Object.keys(n).indexOf("command")==-1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
+        })
+        return c;
+    } else {
+        return [];
+    }
+}

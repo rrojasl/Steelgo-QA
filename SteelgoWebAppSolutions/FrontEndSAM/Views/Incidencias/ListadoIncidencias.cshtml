@@ -235,17 +235,21 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInicial").bind("change", function () {
-            if (!$("#FechaInicial").val()) {
+            if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
                 $("#FechaInicial").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                Filtros();
             }
-            Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
-            if (!$("#FechaFinal").val()) {
-                $("#FechaFinal").data("kendoDatePicker").value("");
+            if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaInicial").data("kendoDatePicker").value("");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                Filtros();
             }
-            Filtros();
         });
 
         $("#PeriodoTiempo").kendoComboBox({});
@@ -261,6 +265,7 @@
                 schema: {
                     model: {
                         fields: {
+                            FolioConfiguracionIncidencia: { type: "string" },
                             FolioIncidenciaID: { type: "string" },
                             Clasificacion: { type: "string" },
                             TipoIncidencia: { type: "string" },
@@ -291,7 +296,8 @@
                 buttonCount: 2
             },
             columns: [
-                { field: "FolioIncidenciaID", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioIncidenciaID#</a>" },
+                { field: "FolioConfiguracionIncidencia", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioConfiguracionIncidencia#</a>" },
+                { field: "FolioIncidenciaID", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioIncidenciaID#</a>", hidden:true },
                 { field: "Clasificacion", title: _dictionary.ListadoIncidencias0009[$("#language").data("kendoDropDownList").value()] },
                 { field: "TipoIncidencia", title: _dictionary.ListadoIncidencias0010[$("#language").data("kendoDropDownList").value()] },
                 { field: "Estatus", title: _dictionary.ListadoIncidencias0011[$("#language").data("kendoDropDownList").value()] },

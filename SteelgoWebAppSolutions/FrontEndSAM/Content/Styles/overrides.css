@@ -393,6 +393,7 @@
                 font-size: 11.5px;
                 font-weight: 600;
                 text-transform: uppercase;
+                white-space: pre-wrap;
             }
 
             .k-grid .k-grid-header tr th .k-filter {

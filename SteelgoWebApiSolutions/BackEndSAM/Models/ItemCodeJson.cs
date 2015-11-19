@@ -44,6 +44,7 @@ namespace BackEndSAM.Models
         public string NumeroUnicoCliente { get; set; }
         public string ItemCode { get; set; }
         public int ItemCodeID { get; set; }
+        public int ItemCodeSteelgoID { get; set; }
         public string Descripcion { get; set; }
         public string Cedula { get; set; }
         public string TipoAcero { get; set; }
@@ -64,6 +65,7 @@ namespace BackEndSAM.Models
         public string Titulo { get; set; }
         public string DescripcionIncidencia { get; set; }
         public string ColadaOriginal { get; set; }
+        public string TieneComplementoRecepcion { get; set; }
 
     }
 

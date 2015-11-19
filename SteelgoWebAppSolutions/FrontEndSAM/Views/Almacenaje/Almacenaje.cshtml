@@ -511,12 +511,13 @@
                 numeric: true,
                 buttonCount: 2
             },
-            columns: [
-                { field: "ItemCodeID", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "NumeroUnicoID", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()], hidden: true },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
+                //{ field: "ItemCodeID", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], hidden: true },
+                //{ field: "NumeroUnicoID", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "NumeroUnico", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()]},
                 { field: "Rack", title: _dictionary.Almacenaje0019[$("#language").data("kendoDropDownList").value()] },
-            ],
+            ]),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');

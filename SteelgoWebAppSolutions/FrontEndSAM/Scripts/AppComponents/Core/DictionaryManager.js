@@ -1277,8 +1277,8 @@ _dictionary = {
         "en-US": "Document B"
     },
     "ItemCodeSteelGo0015": {
-        "es-MX": "Cédula C(Libra)",
-        "en-US": "Document C(Pound)"
+        "es-MX": "Cédula C (Libra)",
+        "en-US": "Document C (Pound)"
     },
     "ItemCodeSteelGo0016": {
         "es-MX": "Pulgadas",
@@ -2716,8 +2716,8 @@ _dictionary = {
     },
     //Orden de Recepcion
     "GenerarOrdenRecepcion0001": {
-        "es-MX": "Generar Orden Recepción",
-        "en-US": "Generate Order Reception"
+        "es-MX": "Guardar Orden Recepción",
+        "en-US": "Save Order Reception"
     },
     "GenerarOrdenRecepcion0002": {
         "es-MX": "Cancelar",
@@ -4112,6 +4112,14 @@ _dictionary = {
         "es-MX": "Nueva Colada",
         "en-US": "New Wash"
     },
+    "ComplementoRecepcion0080": {
+        "es-MX": "Tiene Complemento Recepción",
+        "en-US": "it has Reception Complement"
+    },
+    "ComplementoRecepcion0081": {
+        "es-MX": "Terminar",
+        "en-US": "Finish"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
@@ -5464,12 +5472,12 @@ _dictionary = {
         "en-US": "Edit"
     },
     "Incidencias0010": {
-        "es-MX": "Resolver",
-        "en-US": "Resolve"
+        "es-MX": "Resolver Incidencia",
+        "en-US": "Resolve Incidence"
     },
     "Incidencias0011": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
+        "es-MX": "Cancelar Incidencia",
+        "en-US": "Cancel Incidence"
     },
     "Incidencias0012": {
         "es-MX": "Motivo Cancelación",
@@ -5572,8 +5580,8 @@ _dictionary = {
         "en-US": "Record"
     },
     "Incidencias0037": {
-        "es-MX": "Responder",
-        "en-US": "Answer"
+        "es-MX": "Responder Incidencia",
+        "en-US": "Answer Incidence"
     },
     "Incidencias0038": {
         "es-MX": "Incidencia",
@@ -5676,8 +5684,8 @@ _dictionary = {
         "en-US": "Go to List"
     },
     "Incidencias0063": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Registrar Incidencia",
+        "en-US": "Register Incidence"
     },
     "Incidencias0064": {
         "es-MX": "Guardar Incidencia",
@@ -5711,6 +5719,35 @@ _dictionary = {
         "es-MX": "Editar Cancelación",
         "en-US": "Edit Cancellation"
     },
+    "Incidencias0072": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0073": {
+        "es-MX": "Resolver",
+        "en-US": "Resolve"
+    },
+    "Incidencias0074": {
+        "es-MX": "Responder",
+        "en-US": "Respond"
+    },
+    "Incidencias0075": {
+        "es-MX": "Ver Incidencia",
+        "en-US": "See Incidence"
+    },
+    "Incidencias0076": {
+        "es-MX": "Ver Resolución",
+        "en-US": "See Resolution"
+    },
+    "Incidencias0077": {
+        "es-MX": "Ver Respuesta",
+        "en-US": "See Response"
+    },
+    "Incidencias0078": {
+        "es-MX": "Ver Cancelación",
+        "en-US": "See Cancellation"
+    },
+
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
