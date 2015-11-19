@@ -1277,8 +1277,8 @@ _dictionary = {
         "en-US": "Document B"
     },
     "ItemCodeSteelGo0015": {
-        "es-MX": "Cédula C(Libra)",
-        "en-US": "Document C(Pound)"
+        "es-MX": "Cédula C (Libra)",
+        "en-US": "Document C (Pound)"
     },
     "ItemCodeSteelGo0016": {
         "es-MX": "Pulgadas",
@@ -4111,6 +4111,14 @@ _dictionary = {
     "ComplementoRecepcion0079": {
         "es-MX": "Nueva Colada",
         "en-US": "New Wash"
+    },
+    "ComplementoRecepcion0080": {
+        "es-MX": "Tiene Complemento Recepción",
+        "en-US": "it has Reception Complement"
+    },
+    "ComplementoRecepcion0081": {
+        "es-MX": "Terminar",
+        "en-US": "Finish"
     },
     // Lista Materiales
     "ListaMateriales0001": {

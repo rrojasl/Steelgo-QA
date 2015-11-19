@@ -742,6 +742,12 @@
 
             $("#MM").keydown(function (e) {
                 if (e.keyCode == 13) {
+                    if (!this.value) {
+                        changeValueColumnMM("");
+                        $("#MM").val("");
+                        return;
+                    }
+
                     if (esNumero(this.value)) {
                         changeValueColumnMM(this.value);
                     }
@@ -1047,18 +1053,7 @@
                                  { field: "Cantidad", aggregate: "sum" }
                     ]
                 },
-                dataBound:function(e){
-                    $(".k-button.k-button-icontext.k-grid-add").on("click",function(){
-                        fromButton=true;
-                    })
-                    $('td:nth-child(5):contains("ICS-Default")').each(function(){
-                        tmp=this;
-                        for(var i=0;4>i;i++){
-                            tmp.style.color="rgba(0,0,0,0)";
-                            tmp=tmp.nextElementSibling;
-                        }
-                    });
-                },
+                dataBound:OndataBound,
                 autoHeight: true,
                 sortable: true,
                 scrollable: true,
@@ -1071,10 +1066,16 @@
                     confirmation: false
                 },
                 edit: function (e) {
+                    if (TipoPackingList.TipoPackingListID == "2") {
+                        var nombreColumna = e.container.find("input[name]").attr("name");
+                        if (nombreColumna == "MM") {
+                            this.closeCell();
+                        }
+                    };
                     if ($("#Editar").css("display") == "block") {
                         this.closeCell();
                     };
-
+                    
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["detail"]) {
                         this.closeCell();
                     }
@@ -1183,8 +1184,12 @@
             
             CrearMenuContextual();
             
+           
             $("#grid").on("mousedown", "tr[role='row']", function (e) {
                 $('#grid').data("kendoGrid").select(e.target.parentElement);
+                if (!$('#grid').data("kendoGrid").select().length) {
+                    $('#grid').data("kendoGrid").select(e.target.parentElement.parentElement.parentElement.parentElement);
+                };
                 $("#grid thead .k-state-selected> .k-link").css({
                     "color": "black"
                 });
@@ -1585,11 +1590,11 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if (!this.get("Cantidad")) {
-                        this.set("Cantidad", value);
-                    }
+                    if (!this.get("Cantidad") || this.get("Cantidad") == "0") {
+                        this.set("Cantidad", value ? value : "0");
+                    };
                 }else{
-                    this.set("Cantidad", value);
+                    this.set("Cantidad", value ? value : "0");
                 }
             });
         };
@@ -1618,19 +1623,28 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if (!this.get("MM")) {
-                        if (TipoPackingList.TipoPackingListID == "1") {//TUBO
-                            this.set("MM", value);
-                        } else {
-                            this.set("MM", "N/A");
+                    if (!this.get("MM") || this.get("MM") == "0") {
+                        this.set("MM", value);
+                    } else {
+                        if (TipoPackingList.TipoPackingListID)
+                        {
+                            if (TipoPackingList.TipoPackingListID == "1") {//TUBO
+                                this.set("MM", value);
+                            } else {
+                                if (TipoPackingList.TipoPackingListID == "2") {
+                                    this.set("MM", "N/A");
+                                } else {
+                                    this.set("MM", value);
+                                }
+                            }
                         }
                     }
                 }else{
-                    if (TipoPackingList.TipoPackingListID == "1") {//TUBO
-                        this.set("MM", value);
-                    } else {
-                        this.set("MM", "N/A");
-                    }
+                        if (TipoPackingList.TipoPackingListID == "2") {
+                            this.set("MM", "N/A");
+                        } else {
+                            this.set("MM", value);
+                        }
                 }
             });
         };
@@ -3057,7 +3071,7 @@
             return JSON.stringify(records);
         };
     
-
+        
         function CargarDefaults() {
             $("#formCuantificacion :not(.security_required)").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
@@ -3076,6 +3090,27 @@
                 };
             });
         };
+
+        function OndataBound(e) {
+            $(".k-button.k-button-icontext.k-grid-add").on("click", function () {
+                fromButton = true;
+            })
+            $('td:nth-child(5):contains("ICS-Default")').each(function () {
+                tmp = this;
+                for (var i = 0; 4 > i; i++) {
+                    tmp.style.color = "rgba(0,0,0,0)";
+                    tmp = tmp.nextElementSibling;
+                }
+            });
+
+            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+            if (TipoPackingList.TipoPackingListID == "2") {
+                $(datasource).each(function () {
+                    this.set("MM", "N/A");
+                });
+            };
+        };
+
         @section JavascriptDocumentReadyFunctions 
         {
             var dispositivo = navigator.userAgent.toLowerCase();

@@ -1219,7 +1219,8 @@ namespace BackEndSAM.DataAcces
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    TipoIncidencia = tpi.Nombre,
                                    Estatus = inc.Estatus,
-                                   Clasificacion = c.Nombre
+                                   Clasificacion = c.Nombre,
+                                   FolioConfiguracionIncidencia = inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
 
                 }

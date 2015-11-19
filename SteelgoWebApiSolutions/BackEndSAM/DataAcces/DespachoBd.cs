@@ -506,7 +506,8 @@ namespace BackEndSAM.DataAcces
                                                     where us.Activo && us.UsuarioID == inc.UsuarioID
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    TipoIncidencia = tpi.Nombre,
-                                   Estatus = inc.Estatus
+                                   Estatus = inc.Estatus,
+                                   FolioConfiguracionIncidencia = inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
 
                 }

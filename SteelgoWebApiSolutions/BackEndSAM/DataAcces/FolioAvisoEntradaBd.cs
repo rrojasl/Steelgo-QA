@@ -708,6 +708,8 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_FolioAvisoEntrada> registros = new List<Sam3_FolioAvisoEntrada>();
+                    Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
+
                     if (proyectoID > 0)
                     {
                         registros = (from fe in ctx.Sam3_FolioAvisoEntrada
@@ -748,6 +750,8 @@ namespace BackEndSAM.DataAcces
                                join clas in ctx.Sam3_ClasificacionIncidencia on ind.ClasificacionID equals clas.ClasificacionIncidenciaID
                                join ti in ctx.Sam3_TipoIncidencia on ind.TipoIncidenciaID equals ti.TipoIncidenciaID
                                join us in ctx.Sam3_Usuario on ind.UsuarioID equals us.UsuarioID
+                               join fe in ctx.Sam3_FolioAvisoEntrada on rif.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                               join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
                                where r.Activo && rif.Activo && ind.Activo && clas.Activo && ti.Activo
                                select new ListadoIncidencias
                                {
@@ -756,8 +760,16 @@ namespace BackEndSAM.DataAcces
                                    FechaRegistro = ind.FechaCreacion.ToString(),
                                    FolioIncidenciaID = ind.IncidenciaID.ToString(),
                                    RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
-                                   TipoIncidencia = ti.Nombre
+                                   TipoIncidencia = ti.Nombre,
+                                   FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                          where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
+                                                                                                          select pc.PreFijoFolioAvisoLlegada + ","
+                                                                                                           + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                                                           + fa.Consecutivo.ToString() + ","
+                                                                                                           + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : ind.IncidenciaID.ToString()
                                }).Distinct().AsParallel().ToList();
+
+                    
                                                               
                 }
                 return listado;
