@@ -257,6 +257,11 @@
                 visible: "#ColadaDiv",
                 editable: "#Colada",
                 required: "#Colada"
+            },
+            edicioncolada: {
+                visible: "#EdicionColadaDiv",
+                editable: "#EdicionColada",
+                required: "#EdicionColada"
             }
         }
     };
@@ -799,7 +804,20 @@
         });
         return bool;
     };
-
+    function validarRequeridosFormaEdicionColada() {
+        var bool = true;
+        $("#modalEdicionColada .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if (!$(this).val() || ($(this).attr("id") == "EdicionColada" && $(this).val() == "Sin Colada PL")) {
+                    bool = false;
+                    $(this).closest("div").find("label").addClass("error");
+                } else {
+                    $(this).closest("div").find("label").removeClass("error");
+                };
+            };
+        });
+        return bool;
+    };
 
 
     function ocultarStatus() {
@@ -1693,15 +1711,21 @@
         };
 
         function GuardarColada() {
+            if (validarRequeridosFormaEdicionColada()) {
+                //$("#Titulo").val(rowselected.Titulo);
+                rowselected.Colada = $("#EdicionColada").data("kendoAutoComplete").value();
+                rowselected.DescripcionIncidencia = $("#DescripcionIncidencia").val();
+                $('#grid').data('kendoGrid').refresh();
+                LimpiarModalEdicionColada();
+                cleanDisplayMessage();
+            } else {
+                displayMessage("notificationslabel0031", "", '1');
+            }
             
-            //$("#Titulo").val(rowselected.Titulo);
-            rowselected.Colada = $("#EdicionColada").data("kendoAutoComplete").value();
-            rowselected.DescripcionIncidencia = $("#DescripcionIncidencia").val();
-            $('#grid').data('kendoGrid').refresh();
-            LimpiarModalEdicionColada();
         };
         function CancelarColada() {
             LimpiarModalEdicionColada();
+            cleanDisplayMessage();
         };
 
         function ErrorBool(data) {
