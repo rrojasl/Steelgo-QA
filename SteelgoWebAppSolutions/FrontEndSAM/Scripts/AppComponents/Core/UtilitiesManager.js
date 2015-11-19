@@ -279,3 +279,15 @@ function validaFloat(n) {
 Date.prototype.isValid = function () {
     return this.getTime() === this.getTime();
 };
+
+//Add the incell config for inline filter
+function addTo(c) {
+    if (c !== undefined) {
+        c.forEach(function (n) {
+            n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } }
+        })
+        return c;
+    } else {
+        return [];
+    }
+}

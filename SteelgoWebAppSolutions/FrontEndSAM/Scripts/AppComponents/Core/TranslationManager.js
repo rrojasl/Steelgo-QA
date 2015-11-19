@@ -117,12 +117,17 @@ function getKendoUploadLocalization(val) {
 function getKendoGridFilterable(val) {
     return {
         extra: false,
+        mode: "row,menu",
         operators: {
             string: {
                 startswith: _dictionary.KendoGridFilterable0001[val],
                 eq: _dictionary.KendoGridFilterable0002[val],
                 neq: _dictionary.KendoGridFilterable0003[val],
             }
+        },
+        cell: {
+            showOperators: false,
+            operator: "contains"
         }
     }
 }
