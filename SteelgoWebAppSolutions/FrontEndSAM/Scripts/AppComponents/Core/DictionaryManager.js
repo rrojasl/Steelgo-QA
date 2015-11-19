@@ -5472,12 +5472,12 @@ _dictionary = {
         "en-US": "Edit"
     },
     "Incidencias0010": {
-        "es-MX": "Resolver",
-        "en-US": "Resolve"
+        "es-MX": "Resolver Incidencia",
+        "en-US": "Resolve Incidence"
     },
     "Incidencias0011": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
+        "es-MX": "Cancelar Incidencia",
+        "en-US": "Cancel Incidence"
     },
     "Incidencias0012": {
         "es-MX": "Motivo Cancelación",
@@ -5580,8 +5580,8 @@ _dictionary = {
         "en-US": "Record"
     },
     "Incidencias0037": {
-        "es-MX": "Responder",
-        "en-US": "Answer"
+        "es-MX": "Responder Incidencia",
+        "en-US": "Answer Incidence"
     },
     "Incidencias0038": {
         "es-MX": "Incidencia",
@@ -5719,6 +5719,35 @@ _dictionary = {
         "es-MX": "Editar Cancelación",
         "en-US": "Edit Cancellation"
     },
+    "Incidencias0072": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Incidencias0073": {
+        "es-MX": "Resolver Incidencia",
+        "en-US": "Resolve"
+    },
+    "Incidencias0074": {
+        "es-MX": "Responder",
+        "en-US": "Respond"
+    },
+    "Incidencias0075": {
+        "es-MX": "Ver Incidencia",
+        "en-US": "See Incidence"
+    },
+    "Incidencias0076": {
+        "es-MX": "Ver Resolución",
+        "en-US": "See Resolution"
+    },
+    "Incidencias0077": {
+        "es-MX": "Ver Respuesta",
+        "en-US": "See Response"
+    },
+    "Incidencias0078": {
+        "es-MX": "Ver Cancelación",
+        "en-US": "See Cancellation"
+    },
+
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
