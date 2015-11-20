@@ -498,19 +498,28 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<ListaCombos> registros = new List<ListaCombos>();
+                List<ListaDiametros> registros = new List<ListaDiametros>();
 
                 using (SamContext ctx = new SamContext())
                 {
                     registros = (from r in ctx.Sam3_Diametro
                                  where r.Activo
-                                 select new ListaCombos
+                                 select new ListaDiametros
                                  {
-                                     id = r.DiametroID.ToString(),
-                                     value = r.Valor.ToString()
+                                     id = r.DiametroID,
+                                     value = r.Valor
                                  }).ToList();
 
-                    return registros.OrderBy(x => x.value).ToList();
+                    registros.OrderBy(x => x.value).ToList();
+
+                     List<ListaCombos>  diametros = (from r in registros.OrderBy(x => x.value)
+                                 select new ListaCombos
+                                 {
+                                     id = r.id.ToString(),
+                                     value = r.value.ToString()
+                                 }).AsParallel().ToList();
+
+                    return diametros;
                 }
             }
             catch (Exception ex)
