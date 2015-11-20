@@ -489,6 +489,11 @@
 
         function ActualizarTitulosEdicion(data)
         {
+            if (!data.Estatus) {
+                ocultarStatus();
+                $("#LlegadaMaterial0060").hide();
+            };
+            
             if (data.Estatus == _estatus) {
                 ocultarStatus();
                 $("#LlegadaMaterial0061").show();

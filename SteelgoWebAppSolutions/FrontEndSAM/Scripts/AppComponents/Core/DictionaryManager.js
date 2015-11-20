@@ -1788,6 +1788,10 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "LlegadaMaterial0066": {
+        "es-MX": "Generado",
+        "en-US": "Generated"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
