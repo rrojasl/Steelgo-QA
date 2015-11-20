@@ -214,7 +214,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, string idioma, int proyectoID = 0 )
+        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, string idioma, int proyectoID = 0)
         {
             try
             {
@@ -249,14 +249,74 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        coladas = (from c in ctx.Sam3_Colada
-                                   where c.Activo
-                                   && c.NumeroColada.Contains(texto)
-                                   select new Coladas
-                                   {
-                                       ColadaID = c.ColadaID,
-                                       Nombre = c.NumeroColada
-                                   }).AsParallel().ToList();
+                        throw new Exception("La propiedad ProyectoID es requerida");
+                    }
+
+
+                    if (coladas.Count <= 0)
+                    {
+                        //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
+                        if (ctx.Sam3_Colada.Where(x => x.NumeroColada == "" && x.ProyectoID == proyectoID && x.Activo).Any())
+                        {
+                            coladas.Add((from co in ctx.Sam3_Colada
+                                         where co.Activo
+                                         && co.ProyectoID == proyectoID
+                                         && co.NumeroColada == ""
+                                         select new Coladas
+                                         {
+                                             ColadaID = co.ColadaID,
+                                             Nombre = co.NumeroColada
+                                         }).AsParallel().SingleOrDefault());
+                        }
+                        else // si no existe la colada hay que crearla
+                        {
+                            Sam3_Colada nuevaColada = new Sam3_Colada();
+                            nuevaColada.AceroID = 1;
+                            nuevaColada.Activo = true;
+                            nuevaColada.FabricanteID = 1;
+                            nuevaColada.FechaModificacion = DateTime.Now;
+                            nuevaColada.HoldCalidad = false;
+                            nuevaColada.NumeroCertificado = "";
+                            nuevaColada.NumeroColada = "";
+                            nuevaColada.ProyectoID = proyectoID;
+                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Colada.Add(nuevaColada);
+                            ctx.SaveChanges();
+
+                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                        }
+
+                        if (ctx.Sam3_Colada.Where(x => x.ProyectoID == proyectoID && x.NumeroColada == "Sin Colada PL" && x.Activo).Any())
+                        {
+                            coladas.Add((from co in ctx.Sam3_Colada
+                                         where co.Activo
+                                         && co.ProyectoID == proyectoID
+                                         && co.NumeroColada == "Sin Colada PL"
+                                         select new Coladas
+                                         {
+                                             ColadaID = co.ColadaID,
+                                             Nombre = co.NumeroColada
+                                         }).AsParallel().SingleOrDefault());
+                        }
+                        else
+                        {
+                            Sam3_Colada nuevaColada = new Sam3_Colada();
+                            nuevaColada.AceroID = 1;
+                            nuevaColada.Activo = true;
+                            nuevaColada.FabricanteID = 1;
+                            nuevaColada.FechaModificacion = DateTime.Now;
+                            nuevaColada.HoldCalidad = false;
+                            nuevaColada.NumeroCertificado = "";
+                            nuevaColada.NumeroColada = "Sin Colada PL";
+                            nuevaColada.ProyectoID = proyectoID;
+                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Colada.Add(nuevaColada);
+                            ctx.SaveChanges();
+
+                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                        }
                     }
 
                     listColada.AddRange(coladas);
@@ -386,6 +446,74 @@ namespace BackEndSAM.DataAcces
                                                  ColadaID = c.ColadaID,
                                                  Nombre = c.NumeroColada
                                              }).AsParallel().Distinct().ToList();
+
+                    if (coladas.Count <= 0)
+                    {
+                        int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
+
+                        //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
+                        if (ctx.Sam3_Colada.Where(x => x.NumeroColada == "" && x.ProyectoID == proyectoID && x.Activo).Any())
+                        {
+                            coladas.Add((from co in ctx.Sam3_Colada
+                                         where co.Activo
+                                         && co.ProyectoID == proyectoID
+                                         && co.NumeroColada == ""
+                                         select new Coladas
+                                         {
+                                             ColadaID = co.ColadaID,
+                                             Nombre = co.NumeroColada
+                                         }).AsParallel().SingleOrDefault());
+                        }
+                        else // si no existe la colada hay que crearla
+                        {
+                            Sam3_Colada nuevaColada = new Sam3_Colada();
+                            nuevaColada.AceroID = 1;
+                            nuevaColada.Activo = true;
+                            nuevaColada.FabricanteID = 1;
+                            nuevaColada.FechaModificacion = DateTime.Now;
+                            nuevaColada.HoldCalidad = false;
+                            nuevaColada.NumeroCertificado = "";
+                            nuevaColada.NumeroColada = "";
+                            nuevaColada.ProyectoID = proyectoID;
+                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Colada.Add(nuevaColada);
+                            ctx.SaveChanges();
+
+                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                        }
+
+                        if (ctx.Sam3_Colada.Where(x => x.ProyectoID == proyectoID && x.NumeroColada == "Sin Colada PL" && x.Activo).Any())
+                        {
+                            coladas.Add((from co in ctx.Sam3_Colada
+                                         where co.Activo
+                                         && co.ProyectoID == proyectoID
+                                         && co.NumeroColada == "Sin Colada PL"
+                                         select new Coladas
+                                         {
+                                             ColadaID = co.ColadaID,
+                                             Nombre = co.NumeroColada
+                                         }).AsParallel().SingleOrDefault());
+                        }
+                        else 
+                        {
+                            Sam3_Colada nuevaColada = new Sam3_Colada();
+                            nuevaColada.AceroID = 1;
+                            nuevaColada.Activo = true;
+                            nuevaColada.FabricanteID = 1;
+                            nuevaColada.FechaModificacion = DateTime.Now;
+                            nuevaColada.HoldCalidad = false;
+                            nuevaColada.NumeroCertificado = "";
+                            nuevaColada.NumeroColada = "Sin Colada PL";
+                            nuevaColada.ProyectoID = proyectoID;
+                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Colada.Add(nuevaColada);
+                            ctx.SaveChanges();
+
+                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                        }
+                    }
 
 
                     listColada.AddRange(coladas);
