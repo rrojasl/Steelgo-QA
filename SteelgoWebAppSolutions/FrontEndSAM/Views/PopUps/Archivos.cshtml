@@ -102,12 +102,13 @@
 
     function CargarGrid() {
         $("#grid").kendoGrid({
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { field: "Nombre", title: "Nombre", template: "<a href='#: Url #'>#: Nombre # </a>"},
                 { field: "Extencion", title: "Extensión"},
                 { field: "TipoArchivo", title: "Tipo de Archivo"},
                 { command: "destroy", title: "Borrar", width: "91px" }
-            ],
+            ],null),
             dataSource: getDataSource(),
             autoHeight: true,
             sortable: false,

@@ -98,6 +98,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+        var detailID=0;
     var _listadourl = "@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _generarurl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _detalleurl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
@@ -301,10 +302,11 @@
             },
             detailInit: detailInit,
             scrollable: false,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { template: '<input type="checkbox" class="master" >', width: 40 },
                 { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()]},
-            ],
+            ],null),
             dataBound: onDataBoundPrincipal,
         }).getKendoGrid();
 
@@ -774,6 +776,7 @@
             }
             
         }
+        checkTH(this);
     };
 
     //se busca el folio cuantificacion, itemcode y numero unico para marcarlo en el check
@@ -791,6 +794,7 @@
                 }
             }
         }
+        checkTH(this);
     };
 
     function detailInit(e) {
@@ -799,7 +803,7 @@
             checked = "checked disabled";
         }
 
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
+        $("<div id='detail"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
                 data: e.data.ItemCodes,
                 schema: {
@@ -822,16 +826,17 @@
             scrollable: false,
             sortable: false,
             selectable: true,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + '  class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.FolioCuantificacion + ');"></label>', width: '8%'},
-                { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], hidden:true },
                 { field: "Codigo", title: _dictionary.GenerarOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()] },
                 { field: "Descripcion", title: _dictionary.GenerarOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()]},
                 { field: "D1", title: _dictionary.GenerarOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()]},
                 { field: "D2", title: _dictionary.GenerarOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()]},
                 { field: "Cantidad", title: _dictionary.GenerarOrdenAlmacenaje0023[$("#language").data("kendoDropDownList").value()]},
-                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true }
-            ]
+                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], hidden:true },
+            ],null)
         });
        
     }
@@ -843,7 +848,7 @@
             checked = "checked disabled";
         }
         //if (e.data.Accesorios.length > 0) {
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
+        $("<div id='detail1-"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
                 data: e.data.NumerosUnicos,
                 schema: {
@@ -862,13 +867,13 @@
             scrollable: false,
             sortable: false,
             selectable: true,
-            columns: [
+            columns: addTo([
                 { template: '<input type="checkbox" ' + checked + ' class="numerosunicos" onclick="NodoHijoNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadreNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"></label>', width: '8%' },
+                { field: "NumeroUnico", title: _dictionary.GenerarOrdenAlmacenaje0027[$("#language").data("kendoDropDownList").value()] },
                 { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0024[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                 { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0025[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
                 { field: "NumeroUnicoID", title: _dictionary.GenerarOrdenAlmacenaje0026[$("#language").data("kendoDropDownList").value()], width: "200px", hidden: true },
-                { field: "NumeroUnico", title: _dictionary.GenerarOrdenAlmacenaje0027[$("#language").data("kendoDropDownList").value()] },
-            ]
+            ],null)
         });
     }
 

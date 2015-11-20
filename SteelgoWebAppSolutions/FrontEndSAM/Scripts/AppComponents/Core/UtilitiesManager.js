@@ -289,7 +289,7 @@ function addTo(c,f) {
             })
         } else {
             c.forEach(function (n) {
-                if (Object.keys(n).indexOf("command") === -1) {
+                if (Object.keys(n).indexOf("command") === -1 && Object.keys(n).indexOf("template") === -1) {
                     if (f[n.field]["type"] === "number") {//ask for the type of the model field of the grid is equal to number
                         n["filterable"] = { cell: { showOperators: false, operator: "eq", delay: 2, dataTextField: n.field, ui: function (element) { element.kendoNumericTextBox({ format: "n4", decimals: 4 }); } } }
                     } else {
@@ -307,10 +307,13 @@ function addTo(c,f) {
 //Check the number of th match with td:visible number in grid with hidden:true
 function checkTH(g) {
     var contador = 0;
+    //g.columns = g.options.columns;
     g.columns.forEach(function (c) {
         Object.keys(c).indexOf("hidden") === -1 ? contador++ : 0;
     })
-    while (contador < $((g).table[0]).find(".k-filter-row th").length) {
-        $(".k-filter-row th:last").remove()
+    g.options.detailInit !== null && g.options.detailInit !== undefined ? contador++ : 0;
+    while (contador < $("#" + g.wrapper[0].id + " .k-filter-row th").length) {
+        $("#" + g.wrapper[0].id + " .k-filter-row th:last").remove();
+        //g.columns.pop();
     }
 }

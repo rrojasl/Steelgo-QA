@@ -105,6 +105,17 @@
     function changeLanguageCall(){
         cargarGrids();
     }
+    
+    function getFields(){
+        return {
+            ItemCodeID:{ editable: false, nullable: true },
+            ItemCode: { editable: false,type:"string",validation: { required: false } },
+            Diametro1: { editable: false,type:"number", validation: { required: false } },
+            Diametro2: { editable: false,type:"number", validation: { required: false } },
+            Cantidad:{editable: false,type:"number"},
+            DeficitTotal:{editable: true,type:"number"}
+        }
+    }
 
     function cargarGrids(){
         var tmpIC=removeGrid($("#gridIC"));
@@ -113,26 +124,20 @@
             $("#gridSp").hide();
         }
         $("#gridIC").kendoGrid({
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 {field:"ItemCode",title:"Item Code"},
                 {field:"Diametro1",title:_dictionary.NotificacionDeficit0012[$("#language").data("kendoDropDownList").value()]},
                 {field:"Diametro2",title:_dictionary.NotificacionDeficit0013[$("#language").data("kendoDropDownList").value()]},
                 {field:"Cantidad",title:_dictionary.NotificacionDeficit0014[$("#language").data("kendoDropDownList").value()]},
                 {field:"DeficitTotal",title:_dictionary.NotificacionDeficit0015[$("#language").data("kendoDropDownList").value()]},
-            ],
+            ],getFields()),
             dataSource: {
                 data: [],
                 schema: {
                     model: {
                         id:"ItemCodeID",
-                        fields:{
-                            ItemCodeID:{ editable: false, nullable: true },
-                            ItemCode: { editable: false,type:"string",validation: { required: false } },
-                            Diametro1: { editable: false,type:"number", validation: { required: false } },
-                            Diametro2: { editable: false,type:"number", validation: { required: false } },
-                            Cantidad:{editable: false,type:"number"},
-                            DeficitTotal:{editable: true,type:"number"}
-                        }
+                        fields: getFields(),
                     },
                 },
                 serverPaging: false,
@@ -159,7 +164,6 @@
             autoHeight: true,
             sortable: false,
             scrollable: false,
-            filterable: false,
             editable:"inline",
             pageable: false,
             editable:false,

@@ -205,31 +205,32 @@
                 numeric: true,
                 buttonCount: 2
             },
-            columns: [
+            columns: addTo([
                 { field: "FolioConfiguracion", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"mostrarDetalle('#=FolioAvisoLlegadaID#')\">#:FolioConfiguracion#</a>", filterable: true },
-                { field: "FolioAvisoEntradaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true, hidden:true},
                 { field: "FechaCreación", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0002[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "EstatusFolio", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
-            ],
+                { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" },
+                { field: "FolioAvisoEntradaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true, hidden:true},
+            ],null),
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                //$(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid td .k-button").text('');
+                //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                 
-                $("th[data-field='FolioConfiguracion']").append($("#FolioConfiguracion"));
-                $("th[data-field='FolioAvisoLlegadaID']").append($("#AvisoEntradaID"));
-                $("th[data-field='FechaCreación']").append($("#FechaCreacion"));
-                $("th[data-field='Patio']").append($("#Patio"));
-                $("th[data-field='EstatusFolio']").append($("#EstatusFolio"));
+                //$("th[data-field='FolioConfiguracion']").append($("#FolioConfiguracion"));
+                //$("th[data-field='FolioAvisoLlegadaID']").append($("#AvisoEntradaID"));
+                //$("th[data-field='FechaCreación']").append($("#FechaCreacion"));
+                //$("th[data-field='Patio']").append($("#Patio"));
+                //$("th[data-field='EstatusFolio']").append($("#EstatusFolio"));
 
-                $("#FolioConfiguracion").click(function (event) { event.stopPropagation(); });
-                $("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
-                $("#FechaCreacion").click(function( event ) {event.stopPropagation();});
-                $("#Patio").click(function( event ) {event.stopPropagation();});
-                $("#EstatusFolio").click(function( event ) {event.stopPropagation();});              
+                //$("#FolioConfiguracion").click(function (event) { event.stopPropagation(); });
+                //$("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
+                //$("#FechaCreacion").click(function( event ) {event.stopPropagation();});
+                //$("#Patio").click(function( event ) {event.stopPropagation();});
+                //$("#EstatusFolio").click(function( event ) {event.stopPropagation();});
+                checkTH($("#grid").data("kendoGrid"));
             }
         });
 

@@ -738,7 +738,7 @@
                 buttonCount: 2
             },
             scrollable: true,
-            columns: [
+            columns: addTo([
                 { field: "ItemCode", title: _dictionary.ListadoMaterialesItemCode0004[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "Descripcion", title: _dictionary.ListadoMaterialesItemCode0005[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px" },
                 { field: "D1", title: _dictionary.ListadoMaterialesItemCode0006[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
@@ -770,75 +770,75 @@
                 { field: "InventarioDisponibleCruce", title: _dictionary.ListadoMaterialesItemCode0035[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px" },
                 { field: "DisponibleICEquivalente", title: _dictionary.ListadoMaterialesItemCode0036[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px" },
                 { field: "TotalDisponibleParaCruce", title: _dictionary.ListadoMaterialesItemCode0037[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px" },
-            ],
+            ],null),
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                //$(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid td .k-button").text('');
+                //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
 				
-				$("th[data-field='ItemCode']").append($("#ItemCode"));
-                $("th[data-field='Descripcion']").append($("#Descripcion"));
-                $("th[data-field='D1']").append($("#Diametro1"));
-                $("th[data-field='D2']").append($("#Diametro2"));
-                $("th[data-field='TipoMaterial']").append($("#TipoMaterial"));
-                $("th[data-field='TotalIngenieria']").append($("#TotalIngenieria"));
-                $("th[data-field='TotalRecibido']").append($("#TotalRecibido"));
-				$("th[data-field='OtrasEntradas']").append($("#OtrasEntradas"));
-                $("th[data-field='TotalCondicionada']").append($("#TotalCondicionado"));
-                $("th[data-field='TotalRechazado']").append($("#TotalRechazado"));
-                $("th[data-field='TotalDanado']").append($("#TotalDanado"));
-                $("th[data-field='TotalRecibidoNeto']").append($("#RecibidoNeto"));
-                $("th[data-field='EntradasDesdeICEquivalente']").append($("#EntradasDesdeICEquivalente"));
-                $("th[data-field='SalidasTemporales']").append($("#SalidasTemporales"));
-				$("th[data-field='TotalOtrasSalidas']").append($("#TotalOtrasSalidas"));
-                $("th[data-field='TotalMermas']").append($("#TotalMermas"));
-                $("th[data-field='TotalOrdenTrabajo']").append($("#TotalOrdenTrabajo"));
-                $("th[data-field='DespachadoPorCortarParaICEquivalente']").append($("#DespachadoPorCortarICEquiv"));
-                $("th[data-field='CortadoParaICEquivalente']").append($("#CotadoParaICEquiv"));
-                $("th[data-field='TotalDespachadoPorCortar']").append($("#TotalDespachadoPorCortar"));
-                $("th[data-field='TotalCortado']").append($("#TotalCortado"));
-				$("th[data-field='DespachadoDesdeICEquivalente']").append($("#DespachadoDesdeICEquivalente"));
-                $("th[data-field='DespachadoAProduccion']").append($("#DespachadoAProduccion"));
-                $("th[data-field='SalidaParaICEquivalente']").append($("#SalidaParaICEquivalente"));
-                $("th[data-field='TotalPorDespachar']").append($("#TotalPorDespachar"));
-                $("th[data-field='TotalFisicoEnAlmacen']").append($("#TotalFisicoEnAlmacen"));
-                $("th[data-field='AsignadoParaICEquivalente']").append($("#AsignadoParaICEquivalente"));
-                $("th[data-field='TotalCongelado']").append($("#TotalCongelado"));
-				$("th[data-field='InventarioDisponibleCruce']").append($("#InventarioDisponibleCruce"));
-				$("th[data-field='DisponibleICEquivalente']").append($("#DisponibleICEquivalente"));
-				$("th[data-field='TotalDisponibleParaCruce']").append($("#TotalDisponibleCruce"));
+				//$("th[data-field='ItemCode']").append($("#ItemCode"));
+                //$("th[data-field='Descripcion']").append($("#Descripcion"));
+                //$("th[data-field='D1']").append($("#Diametro1"));
+                //$("th[data-field='D2']").append($("#Diametro2"));
+                //$("th[data-field='TipoMaterial']").append($("#TipoMaterial"));
+                //$("th[data-field='TotalIngenieria']").append($("#TotalIngenieria"));
+                //$("th[data-field='TotalRecibido']").append($("#TotalRecibido"));
+				//$("th[data-field='OtrasEntradas']").append($("#OtrasEntradas"));
+                //$("th[data-field='TotalCondicionada']").append($("#TotalCondicionado"));
+                //$("th[data-field='TotalRechazado']").append($("#TotalRechazado"));
+                //$("th[data-field='TotalDanado']").append($("#TotalDanado"));
+                //$("th[data-field='TotalRecibidoNeto']").append($("#RecibidoNeto"));
+                //$("th[data-field='EntradasDesdeICEquivalente']").append($("#EntradasDesdeICEquivalente"));
+                //$("th[data-field='SalidasTemporales']").append($("#SalidasTemporales"));
+				//$("th[data-field='TotalOtrasSalidas']").append($("#TotalOtrasSalidas"));
+                //$("th[data-field='TotalMermas']").append($("#TotalMermas"));
+                //$("th[data-field='TotalOrdenTrabajo']").append($("#TotalOrdenTrabajo"));
+                //$("th[data-field='DespachadoPorCortarParaICEquivalente']").append($("#DespachadoPorCortarICEquiv"));
+                //$("th[data-field='CortadoParaICEquivalente']").append($("#CotadoParaICEquiv"));
+                //$("th[data-field='TotalDespachadoPorCortar']").append($("#TotalDespachadoPorCortar"));
+                //$("th[data-field='TotalCortado']").append($("#TotalCortado"));
+				//$("th[data-field='DespachadoDesdeICEquivalente']").append($("#DespachadoDesdeICEquivalente"));
+                //$("th[data-field='DespachadoAProduccion']").append($("#DespachadoAProduccion"));
+                //$("th[data-field='SalidaParaICEquivalente']").append($("#SalidaParaICEquivalente"));
+                //$("th[data-field='TotalPorDespachar']").append($("#TotalPorDespachar"));
+                //$("th[data-field='TotalFisicoEnAlmacen']").append($("#TotalFisicoEnAlmacen"));
+                //$("th[data-field='AsignadoParaICEquivalente']").append($("#AsignadoParaICEquivalente"));
+                //$("th[data-field='TotalCongelado']").append($("#TotalCongelado"));
+				//$("th[data-field='InventarioDisponibleCruce']").append($("#InventarioDisponibleCruce"));
+				//$("th[data-field='DisponibleICEquivalente']").append($("#DisponibleICEquivalente"));
+				//$("th[data-field='TotalDisponibleParaCruce']").append($("#TotalDisponibleCruce"));
 
-                $("#ItemCode").click(function( event ) {event.stopPropagation();});
-                $("#Descripcion").click(function( event ) {event.stopPropagation();});
-                $("#Diametro1").click(function( event ) {event.stopPropagation();});
-                $("#Diametro2").click(function( event ) {event.stopPropagation();});
-                $("#TipoMaterial").click(function( event ) {event.stopPropagation();});
-                $("#TotalIngenieria").click(function( event ) {event.stopPropagation();});
-                $("#TotalRecibido").click(function( event ) {event.stopPropagation();});
-				$("#OtrasEntradas").click(function( event ) {event.stopPropagation();});
-                $("#TotalCondicionado").click(function( event ) {event.stopPropagation();});
-                $("#TotalRechazado").click(function( event ) {event.stopPropagation();});
-                $("#TotalDanado").click(function( event ) {event.stopPropagation();});
-                $("#RecibidoNeto").click(function( event ) {event.stopPropagation();});
-                $("#EntradasDesdeICEquivalente").click(function( event ) {event.stopPropagation();});
-                $("#SalidasTemporales").click(function( event ) {event.stopPropagation();});
-				$("#TotalOtrasSalidas").click(function( event ) {event.stopPropagation();});
-                $("#TotalMermas").click(function( event ) {event.stopPropagation();});
-                $("#TotalOrdenTrabajo").click(function( event ) {event.stopPropagation();});
-                $("#DespachadoPorCortarICEquiv").click(function( event ) {event.stopPropagation();});
-                $("#CotadoParaICEquiv").click(function( event ) {event.stopPropagation();});
-                $("#TotalDespachadoPorCortar").click(function( event ) {event.stopPropagation();});
-                $("#TotalCortado").click(function( event ) {event.stopPropagation();});
-				$("#DespachadoDesdeICEquivalente").click(function( event ) {event.stopPropagation();});
-                $("#DespachadoAProduccion").click(function( event ) {event.stopPropagation();});
-                $("#SalidaParaICEquivalente").click(function( event ) {event.stopPropagation();});
-                $("#TotalPorDespachar").click(function( event ) {event.stopPropagation();});
-                $("#TotalFisicoEnAlmacen").click(function( event ) {event.stopPropagation();});
-                $("#AsignadoParaICEquivalente").click(function( event ) {event.stopPropagation();});
-                $("#TotalCongelado").click(function( event ) {event.stopPropagation();});
-				$("#InventarioDisponibleCruce").click(function( event ) {event.stopPropagation();});
-                $("#DisponibleICEquivalente").click(function( event ) {event.stopPropagation();});
-                $("#TotalDisponibleCruce").click(function( event ) {event.stopPropagation();});
+                //$("#ItemCode").click(function( event ) {event.stopPropagation();});
+                //$("#Descripcion").click(function( event ) {event.stopPropagation();});
+                //$("#Diametro1").click(function( event ) {event.stopPropagation();});
+                //$("#Diametro2").click(function( event ) {event.stopPropagation();});
+                //$("#TipoMaterial").click(function( event ) {event.stopPropagation();});
+                //$("#TotalIngenieria").click(function( event ) {event.stopPropagation();});
+                //$("#TotalRecibido").click(function( event ) {event.stopPropagation();});
+				//$("#OtrasEntradas").click(function( event ) {event.stopPropagation();});
+                //$("#TotalCondicionado").click(function( event ) {event.stopPropagation();});
+                //$("#TotalRechazado").click(function( event ) {event.stopPropagation();});
+                //$("#TotalDanado").click(function( event ) {event.stopPropagation();});
+                //$("#RecibidoNeto").click(function( event ) {event.stopPropagation();});
+                //$("#EntradasDesdeICEquivalente").click(function( event ) {event.stopPropagation();});
+                //$("#SalidasTemporales").click(function( event ) {event.stopPropagation();});
+				//$("#TotalOtrasSalidas").click(function( event ) {event.stopPropagation();});
+                //$("#TotalMermas").click(function( event ) {event.stopPropagation();});
+                //$("#TotalOrdenTrabajo").click(function( event ) {event.stopPropagation();});
+                //$("#DespachadoPorCortarICEquiv").click(function( event ) {event.stopPropagation();});
+                //$("#CotadoParaICEquiv").click(function( event ) {event.stopPropagation();});
+                //$("#TotalDespachadoPorCortar").click(function( event ) {event.stopPropagation();});
+                //$("#TotalCortado").click(function( event ) {event.stopPropagation();});
+				//$("#DespachadoDesdeICEquivalente").click(function( event ) {event.stopPropagation();});
+                //$("#DespachadoAProduccion").click(function( event ) {event.stopPropagation();});
+                //$("#SalidaParaICEquivalente").click(function( event ) {event.stopPropagation();});
+                //$("#TotalPorDespachar").click(function( event ) {event.stopPropagation();});
+                //$("#TotalFisicoEnAlmacen").click(function( event ) {event.stopPropagation();});
+                //$("#AsignadoParaICEquivalente").click(function( event ) {event.stopPropagation();});
+                //$("#TotalCongelado").click(function( event ) {event.stopPropagation();});
+				//$("#InventarioDisponibleCruce").click(function( event ) {event.stopPropagation();});
+                //$("#DisponibleICEquivalente").click(function( event ) {event.stopPropagation();});
+                //$("#TotalDisponibleCruce").click(function( event ) {event.stopPropagation();});
             }
         });
 

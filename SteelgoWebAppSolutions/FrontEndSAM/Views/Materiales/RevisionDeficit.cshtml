@@ -86,12 +86,28 @@
         cargarGrids();
     }
 
+    function getICfields(){
+        return {
+            DeficitID:{type:"number",nullable:false,editable:false},
+            SpoolID:{type:"number",nullable:false,editable:false},
+            ItemCodeID:{type:"number",nullable:false,editable:false},
+            ItemCode:{type:"string",nullable:false,editable:false},
+            Diametro1:{type:"number",nullable:false,editable:false},
+            Diametro2:{type:"number",nullable:false,editable:false},
+            Descripcion:{type:"string",nullable:false,editable:false},
+            Cantidad:{type:"number",nullable:false,editable:false},
+            Deficit:{type:"number",nullable:false,editable:true},
+            PorCubrir:{type:"number",nullable:false,editable:false,defaultValue:0},
+        }
+    }
+
     function cargarGrids(){
         var tmpIC=removeGrid($("#gridIC"));
         var tmpSp=removeGrid($("#gridSp"));
 
         $("#gridIC").kendoGrid({
-            columns:[
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns:addTo([
                 {field:"ItemCode"},
                 {field:"Diametro1",title:_dictionary.RevisionDeficit0011[$("#language").data("kendoDropDownList").value()]},
                 {field:"Diametro2",title:_dictionary.RevisionDeficit0012[$("#language").data("kendoDropDownList").value()]},
@@ -100,24 +116,13 @@
                 {field:"Deficit",title:_dictionary.RevisionDeficit0015[$("#language").data("kendoDropDownList").value()]},
                 {field:"PorCubrir",title:_dictionary.RevisionDeficit0016[$("#language").data("kendoDropDownList").value()]},
                 { command: "destroy", title: "Borrar", width: "91px" }
-            ],
+            ],getICfields()),
             dataSource:{
                 data:[],
                 schema:{
                     model:{
                         id:"DeficitID",
-                        fields:{
-                            DeficitID:{type:"number",nullable:false,editable:false},
-                            SpoolID:{type:"number",nullable:false,editable:false},
-                            ItemCodeID:{type:"number",nullable:false,editable:false},
-                            ItemCode:{type:"string",nullable:false,editable:false},
-                            Diametro1:{type:"number",nullable:false,editable:false},
-                            Diametro2:{type:"number",nullable:false,editable:false},
-                            Descripcion:{type:"string",nullable:false,editable:false},
-                            Cantidad:{type:"number",nullable:false,editable:false},
-                            Deficit:{type:"number",nullable:false,editable:true},
-                            PorCubrir:{type:"number",nullable:false,editable:false,defaultValue:0},
-                        }
+                        fields:getICfields(),
                     }
                 },
                 transport:{
@@ -171,29 +176,34 @@
         });
         $("#gridIC").data("kendoGrid").dataSource.data(tmpIC);
 
+        function getSPfields(){
+            return {
+                SpoolID:{type:"number",nullable:false,editable:false},
+                Spool:{type:"String",nullable:false,editable:false},
+                Prioridad:{type:"number",nullable:false,editable:false},
+                Peso:{type:"number",nullable:false,editable:false},
+                Peqs:{type:"string",nullable:false,editable:false},
+                ItemCodeID:{type:"number",nullable:false,editable:false},
+                Seleccionado:{type:"boolean",nullable:false,editable:false}
+            }
+        }
+
         $("#gridSp").kendoGrid({
-            columns:[
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns:addTo([
                 { template: '<input type="checkbox" class="sub" >', width: 45 },
                 {field:"SpoolID"},
                 {field:"Spool"},
                 {field:"Prioridad",title:_dictionary.RevisionDeficit0017[$("#language").data("kendoDropDownList").value()]},
                 {field:"Peso",title:_dictionary.RevisionDeficit0018[$("#language").data("kendoDropDownList").value()]},
                 {field:"Peqs"},
-            ],
+            ],getSPfields()),
             dataSource:{
                 data:[],
                 schema:{
                     model:{
                         id:"SpoolID",
-                        fields:{
-                            SpoolID:{type:"number",nullable:false,editable:false},
-                            Spool:{type:"String",nullable:false,editable:false},
-                            Prioridad:{type:"number",nullable:false,editable:false},
-                            Peso:{type:"number",nullable:false,editable:false},
-                            Peqs:{type:"string",nullable:false,editable:false},
-                            ItemCodeID:{type:"number",nullable:false,editable:false},
-                            Seleccionado:{type:"boolean",nullable:false,editable:false}
-                        }
+                        fields:getSPfields(),
                     }
                 }
             },
@@ -216,6 +226,16 @@
         $("#gridSp").data("kendoGrid").dataSource.data(tmpSp);
     }
 
+    function getDetFields(){
+        return {
+            ItemCodeID:{ editable: false, nullable: true },
+            ItemCode: { editable: false,type:"string",validation: { required: false } },
+            Diametro1: { editable: false,type:"number", validation: { required: false } },
+            Diametro2: { editable: false,type:"number", validation: { required: false } },
+            Cantidad:{editable: false,type:"number"},
+        }
+    }
+
     function detailInit(e) {
         $("<div/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
@@ -223,23 +243,18 @@
                 schema: {
                     model: {
                         id:"ItemCodeID",
-                        fields:{
-                            ItemCodeID:{ editable: false, nullable: true },
-                            ItemCode: { editable: false,type:"string",validation: { required: false } },
-                            Diametro1: { editable: false,type:"number", validation: { required: false } },
-                            Diametro2: { editable: false,type:"number", validation: { required: false } },
-                            Cantidad:{editable: false,type:"number"},
-                        }
+                        fields:getDetFields(),
                     },
                 },
             },
             scrollable: true,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 {field:"ItemCode",title:"Item Code"},
                 {field:"Diametro1",title:"Diametro 1"},
                 {field:"Diametro2",title:"Diametro 2"},
                 {field:"Cantidad"},
-            ]
+            ],getDetFields())
         });
     }
 
