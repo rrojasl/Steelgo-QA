@@ -130,8 +130,8 @@ namespace BackEndSAM.DataAcces
                                                     where rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
                                                     select fm.Nombre).FirstOrDefault().ToString(),
 
-                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
-                                            ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
+                                       TieneNU = ctx.Sam3_NumeroUnico.Where(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo).Count() == fc.Cantidad ? "Si" :
+                                            ctx.Sam3_NumeroUnico.Where(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo).Count() == 0 ? "No" : "Parcial",
                                        RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                        ItemCodeOrigenID = ic.ItemCodeID.ToString()
                                    }).AsParallel().ToList();
@@ -201,8 +201,8 @@ namespace BackEndSAM.DataAcces
                                                     where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
-                                            ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
+                                       TieneNU = ctx.Sam3_NumeroUnico.Where(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo).Count() == rbic.Cantidad  ? "Si" :
+                                            ctx.Sam3_NumeroUnico.Where(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo).Count() == 0 ? "No" : "Parcial",
                                        RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString(),
                                        ItemCodeOrigenID = ic.ItemCodeID.ToString()
                                    }).AsParallel().ToList();
