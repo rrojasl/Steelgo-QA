@@ -904,7 +904,7 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.MarcadoGolpe = false;
                                     nuevoNU.MarcadoPintura = false;
                                     //--------------------------------------------------------------------------------------------------
-
+                                    nuevoNU.TipoUsoID = itemCodeBase.TipoUsoID;
                                     ctx.Sam3_NumeroUnico.Add(nuevoNU);
                                     ctx.SaveChanges(); // debemos guardar para obtener un nuevo id de numero unico
 
@@ -1029,7 +1029,7 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.MarcadoGolpe = false;
                                     nuevoNU.MarcadoPintura = false;
                                     //--------------------------------------------------------------------------------------------------
-
+                                    nuevoNU.TipoUsoID = itemCodeBase.TipoUsoID;
                                     ctx.Sam3_NumeroUnico.Add(nuevoNU);
                                     ctx.SaveChanges(); // debemos guardar para obtener un nuevo id de numero unico
 
