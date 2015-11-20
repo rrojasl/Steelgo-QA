@@ -111,6 +111,35 @@
                });
     }
 
+    function getFields(){
+        return {
+            ItemCodeSteelgoID: { editable: false, nullable: true },
+            Codigo: { type: "string", validation: { required: true } },
+            Descripcion: { type: "string", validation: { required: false } },
+            DescripcionLarga: { type: "string", validation: { required: false } },
+            DescripcionIngles: { type: "string", validation: { required: false } },
+            DescripcionLargaIngles: { type: "string", validation: { required: false } },
+            Rel_ICS_DiametroID: { editable: false, nullable: true },
+            Diametro1ID: { editable: false, nullable: true },
+            Diametro1: { type: "string", validation: { required: true } },
+            Diametro2ID: { editable: false, nullable: true },
+            Diametro2: { type: "string", validation: { required: true } },
+            Grupo: { type: "string", validation: { required: false } },
+            GrupoID: { editable: false, nullable: true },
+            Acero: { type: "string", validation: { required: false } },
+            AceroID: { editable: false, nullable: true },
+            CedulaID: { editable: false, nullable: true },
+            CedulaA: { type: "string", validation: { required: false } },
+            CedulaB: { type: "string", validation: { required: false } },
+            Libra: { type: "string", validation: { required: false } },
+            Inch: { type: "number", validation: { required: false }, editable: false },
+            MM: { type: "number", validation: { required: false }, editable: false },
+            Espesor: { type: "number", validation: { required: true }, editable: false },
+            Peso: { type: "decimal", validation: { required: false }, editable: true },
+            Area: { type: "number", validation: { required: false }, editable: true },
+        }
+    }
+
     function cargarInicialGrid() {
         $("#grid").kendoGrid({
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
@@ -230,38 +259,13 @@
                 { command: "edit", title: "Editar", width: "91px" },
                 { command: "destroy", title: "Borrar", width: "91px" }
 
-            ]),
+            ],getFields()),
             dataSource: {
                 data: [],
                 schema: {
                     model: {
                         id: "ItemCodeSteelgoID",
-                        fields: {
-                            ItemCodeSteelgoID: { editable: false, nullable: true },
-                            Codigo: { type: "string", validation: { required: true } },
-                            Descripcion: { type: "string", validation: { required: false } },
-                            DescripcionLarga: { type: "string", validation: { required: false } },
-                            DescripcionIngles: { type: "string", validation: { required: false } },
-                            DescripcionLargaIngles: { type: "string", validation: { required: false } },
-                            Rel_ICS_DiametroID: { editable: false, nullable: true },
-                            Diametro1ID: { editable: false, nullable: true },
-                            Diametro1: { type: "string", validation: { required: true } },
-                            Diametro2ID: { editable: false, nullable: true },
-                            Diametro2: { type: "string", validation: { required: true } },
-                            Grupo: { type: "string", validation: { required: false } },
-                            GrupoID: { editable: false, nullable: true },
-                            Acero: { type: "string", validation: { required: false } },
-                            AceroID: { editable: false, nullable: true },
-                            CedulaID: { editable: false, nullable: true },
-                            CedulaA: { type: "string", validation: { required: false } },
-                            CedulaB: { type: "string", validation: { required: false } },
-                            Libra: { type: "string", validation: { required: false } },
-                            Inch: { type: "number", validation: { required: false }, editable: false },
-                            MM: { type: "number", validation: { required: false }, editable: false },
-                            Espesor: { type: "number", validation: { required: true }, editable: false },
-                            Peso: { type: "decimal", validation: { required: false }, editable: true },
-                            Area: { type: "number", validation: { required: false }, editable: true },
-                        }
+                        fields: getFields(),
                     }
                 },
                 serverPaging: false,

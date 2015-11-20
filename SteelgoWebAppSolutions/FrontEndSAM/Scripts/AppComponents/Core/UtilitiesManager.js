@@ -281,11 +281,23 @@ Date.prototype.isValid = function () {
 };
 
 //Add the incell config for inline filter
-function addTo(c) {
-    if (c !== undefined) {
-        c.forEach(function (n) {
-            Object.keys(n).indexOf("command")==-1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
-        })
+function addTo(c,f) {
+    if (c !== undefined) {//Verify the set of columns in case it is send null
+        if (f === null) {//ask if there is a set of model fields
+            c.forEach(function (n) {
+                Object.keys(n).indexOf("command") === -1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
+            })
+        } else {
+            c.forEach(function (n) {
+                if(Object.keys(n).indexOf("command") === -1){
+                    if (f[n.field]["type"] === "number") {//ask for the type of the model field of the grid is equal to number
+                        n["filterable"] = { cell: { showOperators: false, operator: "eq", delay: 2, dataTextField: n.field, ui: function (element) { element.kendoNumericTextBox({ format: "n4", decimals: 4 }); } } }
+                    } else {
+                        n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } }
+                    }
+                }
+            })
+        }
         return c;
     } else {
         return [];
