@@ -64,17 +64,23 @@
     </div>
     <div class="row addedSection">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div  class="row">
+
+            <div class="row">
                 <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="CapturaArmadoHeaderMostrar"></label>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="">Sin Asignar</span>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
+                    <label id="CapturaHeaderMostrar"></label>
+                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaSinAsinar"></span>
+                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaTodos"> </span>
 
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="">Proveedor</label>
-                    <input id="Junta" class="" />
+                    <label id="AsignarRequisicionHeaderPrueba"></label>
+                    <input id="inputPrueba" class="" />
                 </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label id="AsignarRequisicionHeaderProveedor"></label>
+                    <input id="inputProveedor" class="" />
+                </div>
+                
             </div>
             <br />
             <div class="row">
@@ -85,6 +91,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />
@@ -132,7 +140,9 @@
         </div>
     </div>
 </div>
-@*<script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>*@
+
+
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/AsignarRequisicion/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/AsignarRequisicion/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/AsignarRequisicion/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/AsignarRequisicion/Captura.js"> </script>
