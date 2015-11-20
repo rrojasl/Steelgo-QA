@@ -855,130 +855,151 @@ namespace BackEndSAM.DataAcces
                             //tipo de material
                             if (itemCodeBase.TipoMaterialID == 1) // tubo
                             {
-                                folio = folio + 1;
-                                Sam3_NumeroUnico nuevoNU = new Sam3_NumeroUnico();
-                                nuevoNU.Activo = true;
-                                nuevoNU.ColadaID = coladaID;
-                                nuevoNU.Diametro1 = diametro1;
-                                nuevoNU.Diametro2 = diametro2;
-                                nuevoNU.Estatus = "D"; //
-                                nuevoNU.EsVirtual = false;
-                                nuevoNU.FechaModificacion = DateTime.Now;
-                                nuevoNU.ItemCodeID = itemCodeBase.ItemCodeID;
-                                nuevoNU.UsuarioModificacion = usuario.UsuarioID;
-                                nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
-                                nuevoNU.Consecutivo = folio;
-                                nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
-                                nuevoNU.Factura = folioEntrada.Factura;
-                                nuevoNU.OrdenDeCompra = folioEntrada.OrdenCompra;
-                                nuevoNU.ProveedorID = folioEntrada.ProveedorID;
-                                nuevoNU.ProyectoID = itemCodeBase.ProyectoID;
-                                //----------------- por defaulto lo colocare en falso, ya en un ptoceso posterior podra modificarse
-                                nuevoNU.TieneDano = false;
-                                nuevoNU.MarcadoAsme = false;
-                                nuevoNU.MarcadoGolpe = false;
-                                nuevoNU.MarcadoPintura = false;
-                                //--------------------------------------------------------------------------------------------------
-
-                                ctx.Sam3_NumeroUnico.Add(nuevoNU);
-                                ctx.SaveChanges(); // debemos guardar para obtener un nuevo id de numero unico
-
-                                //Generamos el nuevo registro en inventario
-                                Sam3_NumeroUnicoInventario inventario = new Sam3_NumeroUnicoInventario();
-                                inventario.Activo = true;
-                                inventario.CantidadDanada = 0; // en este punto no se conoce la cantidad dañada o si existe esta cantidad
-                                inventario.CantidadRecibida = cantidad;
-                                inventario.EsVirtual = false;
-                                inventario.FechaModificacion = DateTime.Now;
-                                inventario.InventarioFisico = cantidad;
-                                inventario.InventarioBuenEstado = cantidad;
-                                inventario.InventarioCongelado = 0; // en este punto no existen los congelados;
-                                inventario.InventarioDisponibleCruce = cantidad;
-                                inventario.InventarioTransferenciaCorte = 0; //en este punto no existe este dato
-                                inventario.NumeroUnicoID = nuevoNU.NumeroUnicoID;
-                                inventario.ProyectoID = nuevoNU.ProyectoID;
-                                inventario.UsuarioModificacion = usuario.UsuarioID;
-
-                                ctx.Sam3_NumeroUnicoInventario.Add(inventario);
-
-                                //Generamos el registro en NumeroUnicoSegmento
-                                Sam3_NumeroUnicoSegmento nuevoSegmento = new Sam3_NumeroUnicoSegmento();
-                                nuevoSegmento.Activo = true;
-                                nuevoSegmento.CantidadDanada = 0;
-                                nuevoSegmento.FechaModificacion = DateTime.Now;
-                                nuevoSegmento.InventarioFisico = cantidad;
-                                nuevoSegmento.InventarioBuenEstado = cantidad;
-                                nuevoSegmento.InventarioCongelado = 0;
-                                nuevoSegmento.InventarioDisponibleCruce = cantidad;
-                                nuevoSegmento.InventarioTransferenciaCorte = 0;
-                                nuevoSegmento.NumeroUnicoID = nuevoNU.NumeroUnicoID;
-                                nuevoSegmento.ProyectoID = nuevoNU.ProyectoID;
-                                nuevoSegmento.Segmento = "A";
-                                nuevoSegmento.UsuarioModificacion = usuario.UsuarioID;
-
-                                ctx.Sam3_NumeroUnicoSegmento.Add(nuevoSegmento);
-
-                                //Agregamos el registro de movimiento
-                                Sam3_NumeroUnicoMovimiento movimiento = new Sam3_NumeroUnicoMovimiento();
-                                movimiento.Activo = true;
-                                movimiento.Cantidad = cantidad;
-                                movimiento.Estatus = "A";
-                                movimiento.FechaModificacion = DateTime.Now;
-                                movimiento.FechaMovimiento = DateTime.Now;
-                                movimiento.NumeroUnicoID = nuevoNU.NumeroUnicoID;
-                                movimiento.ProyectoID = nuevoNU.ProyectoID;
-                                movimiento.Referencia = "Recepcion";
-                                movimiento.Segmento = "A";
-                                movimiento.TipoMovimientoID = 1; //este debe ser recepcion
-                                movimiento.UsuarioModificacion = usuario.UsuarioID;
-
-                                consecutivos.ConsecutivoNumerounico = folio;
-                                ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
-
-                                //Actualizar el ItemCode para indicar que ya tiene un numero unico
-                                if (ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).Any())
+                                for (int i = 0; i < cantidad; i++)
                                 {
-                                    Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).AsParallel().SingleOrDefault();
-                                    actualizarRelacion.TieneNumerosUnicos = true;
-                                    actualizarRelacion.FechaModificacion = DateTime.Now;
-                                    actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
 
-                                    Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
-                                    relNumero.Activo = true;
-                                    relNumero.FechaModificacion = DateTime.Now;
-                                    relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
-                                    relNumero.Rel_FolioCuantificacion_ItemCode_ID = actualizarRelacion.Rel_FolioCuantificacion_ItemCode_ID;
-                                    relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                    int milimetros = (from it in ctx.Sam3_ItemCode
+                                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                      join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
+                                                      where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
+                                                      && rfi.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID
+                                                      select rfi.MM.Value).AsParallel().SingleOrDefault();
 
-                                    ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+                                    if (milimetros <= 0)
+                                    {
+                                        milimetros = (from it in ctx.Sam3_ItemCode
+                                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
+                                                    where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
+                                                    && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
+                                                    select rbi.MM.Value).AsParallel().SingleOrDefault();
+                                    }
 
+                                    if (milimetros <= 0)
+                                    {
+                                        throw new Exception("La propiedad MM no puede ser menor o igual a 0");
+                                    }
+
+                                    folio = folio + 1;
+                                    Sam3_NumeroUnico nuevoNU = new Sam3_NumeroUnico();
+                                    nuevoNU.Activo = true;
+                                    nuevoNU.ColadaID = coladaID;
+                                    nuevoNU.Diametro1 = diametro1;
+                                    nuevoNU.Diametro2 = diametro2;
+                                    nuevoNU.Estatus = "D"; //
+                                    nuevoNU.EsVirtual = false;
+                                    nuevoNU.FechaModificacion = DateTime.Now;
+                                    nuevoNU.ItemCodeID = itemCodeBase.ItemCodeID;
+                                    nuevoNU.UsuarioModificacion = usuario.UsuarioID;
+                                    nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
+                                    nuevoNU.Consecutivo = folio;
+                                    nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
+                                    nuevoNU.Factura = folioEntrada.Factura;
+                                    nuevoNU.OrdenDeCompra = folioEntrada.OrdenCompra;
+                                    nuevoNU.ProveedorID = folioEntrada.ProveedorID;
+                                    nuevoNU.ProyectoID = itemCodeBase.ProyectoID;
+                                    //----------------- por defaulto lo colocare en falso, ya en un ptoceso posterior podra modificarse
+                                    nuevoNU.TieneDano = false;
+                                    nuevoNU.MarcadoAsme = false;
+                                    nuevoNU.MarcadoGolpe = false;
+                                    nuevoNU.MarcadoPintura = false;
+                                    //--------------------------------------------------------------------------------------------------
+
+                                    ctx.Sam3_NumeroUnico.Add(nuevoNU);
+                                    ctx.SaveChanges(); // debemos guardar para obtener un nuevo id de numero unico
+
+                                    //Generamos el nuevo registro en inventario
+                                    Sam3_NumeroUnicoInventario inventario = new Sam3_NumeroUnicoInventario();
+                                    inventario.Activo = true;
+                                    inventario.CantidadDanada = 0; // en este punto no se conoce la cantidad dañada o si existe esta cantidad
+                                    inventario.CantidadRecibida = milimetros;
+                                    inventario.EsVirtual = false;
+                                    inventario.FechaModificacion = DateTime.Now;
+                                    inventario.InventarioFisico = milimetros;
+                                    inventario.InventarioBuenEstado = milimetros;
+                                    inventario.InventarioCongelado = 0; // en este punto no existen los congelados;
+                                    inventario.InventarioDisponibleCruce = milimetros;
+                                    inventario.InventarioTransferenciaCorte = 0; //en este punto no existe este dato
+                                    inventario.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                    inventario.ProyectoID = nuevoNU.ProyectoID;
+                                    inventario.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_NumeroUnicoInventario.Add(inventario);
+
+                                    //Generamos el registro en NumeroUnicoSegmento
+                                    Sam3_NumeroUnicoSegmento nuevoSegmento = new Sam3_NumeroUnicoSegmento();
+                                    nuevoSegmento.Activo = true;
+                                    nuevoSegmento.CantidadDanada = 0;
+                                    nuevoSegmento.FechaModificacion = DateTime.Now;
+                                    nuevoSegmento.InventarioFisico = milimetros;
+                                    nuevoSegmento.InventarioBuenEstado = milimetros;
+                                    nuevoSegmento.InventarioCongelado = 0;
+                                    nuevoSegmento.InventarioDisponibleCruce = milimetros;
+                                    nuevoSegmento.InventarioTransferenciaCorte = 0;
+                                    nuevoSegmento.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                    nuevoSegmento.ProyectoID = nuevoNU.ProyectoID;
+                                    nuevoSegmento.Segmento = "A";
+                                    nuevoSegmento.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_NumeroUnicoSegmento.Add(nuevoSegmento);
+
+                                    //Agregamos el registro de movimiento
+                                    Sam3_NumeroUnicoMovimiento movimiento = new Sam3_NumeroUnicoMovimiento();
+                                    movimiento.Activo = true;
+                                    movimiento.Cantidad = milimetros;
+                                    movimiento.Estatus = "A";
+                                    movimiento.FechaModificacion = DateTime.Now;
+                                    movimiento.FechaMovimiento = DateTime.Now;
+                                    movimiento.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                    movimiento.ProyectoID = nuevoNU.ProyectoID;
+                                    movimiento.Referencia = "Recepcion";
+                                    movimiento.Segmento = "A";
+                                    movimiento.TipoMovimientoID = 1; //este debe ser recepcion
+                                    movimiento.UsuarioModificacion = usuario.UsuarioID;
+
+                                    consecutivos.ConsecutivoNumerounico = folio;
+                                    ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
+
+                                    //Actualizar el ItemCode para indicar que ya tiene un numero unico
+                                    if (ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).Any())
+                                    {
+                                        Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                            .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID).AsParallel().SingleOrDefault();
+                                        actualizarRelacion.TieneNumerosUnicos = true;
+                                        actualizarRelacion.FechaModificacion = DateTime.Now;
+                                        actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+
+                                        Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
+                                        relNumero.Activo = true;
+                                        relNumero.FechaModificacion = DateTime.Now;
+                                        relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                        relNumero.Rel_FolioCuantificacion_ItemCode_ID = actualizarRelacion.Rel_FolioCuantificacion_ItemCode_ID;
+                                        relNumero.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+
+                                    }
+
+                                    if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).Any())
+                                    {
+                                        Sam3_Rel_Bulto_ItemCode relacion = ctx.Sam3_Rel_Bulto_ItemCode
+                                            .Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).AsParallel().Distinct().SingleOrDefault();
+                                        relacion.TieneNumerosUnicos = true;
+                                        relacion.FechaModificacion = DateTime.Now;
+                                        relacion.UsuarioModificacion = usuario.UsuarioID;
+
+                                        Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
+                                        relNumero.Activo = true;
+                                        relNumero.FechaModificacion = DateTime.Now;
+                                        relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
+                                        relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
+                                        relNumero.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
+
+                                    }
+                                    ctx.SaveChanges();
                                 }
-
-                                if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).Any())
-                                {
-                                    Sam3_Rel_Bulto_ItemCode relacion = ctx.Sam3_Rel_Bulto_ItemCode
-                                        .Where(x => x.Rel_Bulto_ItemCode_ID == lstDatos.RelBID).AsParallel().Distinct().SingleOrDefault();
-                                    relacion.TieneNumerosUnicos = true;
-                                    relacion.FechaModificacion = DateTime.Now;
-                                    relacion.UsuarioModificacion = usuario.UsuarioID;
-
-                                    Sam3_Rel_NumeroUnico_RelFC_RelB relNumero = new Sam3_Rel_NumeroUnico_RelFC_RelB();
-                                    relNumero.Activo = true;
-                                    relNumero.FechaModificacion = DateTime.Now;
-                                    relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
-                                    relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
-                                    relNumero.UsuarioModificacion = usuario.UsuarioID;
-
-                                    ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
-
-                                }
-
-
-
-
-                                ctx.SaveChanges();
-
                             }
                             else //accesorio
                             {

@@ -546,6 +546,8 @@
                         var value = this.value();
                         $("#Tracto").data("kendoComboBox").value("");
                         $("#Tracto").data("kendoComboBox").dataSource.data([]);
+                        $("#PlanaID").data("kendoMultiSelect").value("");
+                        $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
                             Transportista = [];

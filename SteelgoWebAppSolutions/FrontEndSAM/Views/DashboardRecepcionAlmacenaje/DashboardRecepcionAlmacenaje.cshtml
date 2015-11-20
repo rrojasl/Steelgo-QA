@@ -376,7 +376,7 @@
                     input: false,
                     numeric: true,
                 },
-                columns: addTo(columnas),
+                columns: addTo(columnas,null),
                 dataBound: function (e) {
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
@@ -454,7 +454,7 @@
                     input: false,
                     numeric: true,
                 },
-                columns: addTo(columnas),
+                columns: addTo(columnas,null),
                 dataBound: function (e) {
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
@@ -668,10 +668,10 @@
             var columnas =
             [
                 { field: "FolioConfiguracion", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioConfiguracion#</a>" },
-                //{ field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioAvisoEntrada#</a>", hidden:true },
                 { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0030[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                 { field: "Cliente", title: _dictionary.DashboardRecepcionAlmacenaje0031[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                 //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
+                { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioAvisoEntrada#</a>", hidden:true },
             ];
             return columnas;
         };
@@ -751,7 +751,7 @@
                { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0035[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               //{ field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
+               { field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarPlporCuantificar }, title: " ", width: "99px" }
            ];
             return columnas;
@@ -824,7 +824,7 @@
                { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadItems", title: _dictionary.DashboardRecepcionAlmacenaje0038[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadSinICS", title: _dictionary.DashboardRecepcionAlmacenaje0039[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               //{ field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
+               { field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarMTLsinICS }, title: " ", width: "99px" }
            ];
             return columnas;
@@ -1005,10 +1005,10 @@
         function DefinicionColumnasIncidenciasAbiertas() {
             var columnas =
            [
-               //{ field: "NumeroUnicoID", title: _dictionary.DashboardRecepcionAlmacenaje0053[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                { field: "NumeroUnico", title: _dictionary.DashboardRecepcionAlmacenaje0045[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadIncidencias", title: _dictionary.DashboardRecepcionAlmacenaje0046[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarIncidenciasAbiertas }, title: " ", width: "99px" }
+               { field: "NumeroUnicoID", title: _dictionary.DashboardRecepcionAlmacenaje0053[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
            ];
             return columnas;
         };
