@@ -967,7 +967,8 @@
                     { field: "Titulo", title: _dictionary.ComplementoRecepcion0075[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: true },
                     { field: "DescripcionIncidencia", title: _dictionary.ComplementoRecepcion0076[$("#language").data("kendoDropDownList").value()], filterable: true, width: 125, hidden: true },
                     { field: "ColadaOriginal", title: _dictionary.ComplementoRecepcion0032[$("#language").data("kendoDropDownList").value()], filterable: true, width: 120, hidden: true },// editor: ColadaAutocomplete,
-                    { field: "TieneComplementoRecepcion", title: _dictionary.ComplementoRecepcion0080[$("#language").data("kendoDropDownList").value()], width: 240, hidden: true }
+                    { field: "TieneComplementoRecepcion", title: _dictionary.ComplementoRecepcion0080[$("#language").data("kendoDropDownList").value()], width: 240, hidden: true },
+                    { command: { text: _dictionary.ComplementoRecepcion0082[$("#language").data("kendoDropDownList").value()], click: cancelarComplemento }, title: " ", width: "99px" }
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
@@ -1087,6 +1088,25 @@
             });
         };
 
+        function cancelarComplemento(e) {
+            e.preventDefault();
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var NumeroUnicoID = dataItem.NumeroUnicoID;
+            var ItemCodeID = dataItem.ItemCodeID;
+            var RelFCID = dataItem.RelFCID;
+            var RelBID = dataItem.RelBID;
+            var RelNUFCBID = dataItem.RelNUFCBID;
+
+            if (confirm(_dictionary.ComplementoRecepcion0083[$("#language").data("kendoDropDownList").value()])) {
+                $ComplementarRecepcion.ComplementarRecepcion.destroy({}, { folio: NumeroUnicoID, token: Cookies.get("token") }).done(function (data) {
+                    if (Error(data)) {
+                        cargarGridPackingList();
+                    }
+                });
+            }
+
+           
+        };
         function ObtenerProyecto(id) {
             $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox(id, result);
