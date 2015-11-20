@@ -32,7 +32,7 @@ function asignarProyecto() {
 
 function ArregloListadoCaptura() {
     JsonCaptura = [];
-    JsonCaptura[0] = {IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "" };
+    JsonCaptura[0] = {IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "", IDProyecto: "" };
     JsonCaptura[0].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
     JsonCaptura[0].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
     JsonCaptura[0].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
@@ -46,6 +46,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].tallerID = $("#inputTaller").val();
     JsonCaptura[0].Taller = $("#inputTaller").data("kendoComboBox").text();
     JsonCaptura[0].sinCaptura = $('input:radio[name=Muestra]:checked').val();
+
     return JsonCaptura[0];
 };
 

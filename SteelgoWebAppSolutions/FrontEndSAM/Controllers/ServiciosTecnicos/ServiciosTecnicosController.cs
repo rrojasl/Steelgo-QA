@@ -12,10 +12,13 @@ namespace FrontEndSAM.Controllers.ServiciosTecnicos
         {
             return View();
         }
-        public ActionResult GenerarRequisicion()
+        public ActionResult GenerarRequisicion(int id)
         {
+            ViewBag.id = id;
             return View();
         }
+
+
         public ActionResult AsignarRequisicion()
         {
             return View();

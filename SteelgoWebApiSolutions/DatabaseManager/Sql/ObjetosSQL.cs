@@ -12,7 +12,7 @@ namespace DatabaseManager.Sam3
         /// Cadena Coneccion a la BD
         /// </summary>
         /// <returns></returns>
-        protected SqlConnection Coneccion()
+        protected SqlConnection Conexion()
         {
             return new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString);
         }
@@ -26,7 +26,7 @@ namespace DatabaseManager.Sam3
         {
 
             DataTable dt = new DataTable();
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
@@ -63,7 +63,7 @@ namespace DatabaseManager.Sam3
         {
 
             DataTable dt = new DataTable();
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
@@ -101,7 +101,7 @@ namespace DatabaseManager.Sam3
         {
 
             DataTable dt = new DataTable();
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
@@ -140,7 +140,7 @@ namespace DatabaseManager.Sam3
         {
 
             DataTable dt = new DataTable();
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
@@ -176,7 +176,7 @@ namespace DatabaseManager.Sam3
         public DataSet Coleccion(string Stord, string[,] Parametros = null)
         {
             DataSet ds = new DataSet();
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Rank / Numeros.DOS; i++)
@@ -213,7 +213,7 @@ namespace DatabaseManager.Sam3
         public DataSet Coleccion(string Stord, DataTable TablaSube, String NombreTabla, string[,] Parametros = null)
         {
             DataSet ds = new DataSet();
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Rank / Numeros.DOS; i++)
@@ -248,7 +248,7 @@ namespace DatabaseManager.Sam3
         /// <returns>True si se ejecuto el stord, Exception: error</returns>
         public bool Ejecuta(string Stord, string[,] Parametros = null)
         {
-            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Rank / Numeros.DOS; i++)

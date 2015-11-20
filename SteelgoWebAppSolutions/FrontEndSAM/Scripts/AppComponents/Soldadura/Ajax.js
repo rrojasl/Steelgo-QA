@@ -51,8 +51,6 @@ function getGridSoldadura() {
                 ds._data[i].procesoSoldaduraRelleno;
 
         }
-
-
         loadingStop();
     });
 }
@@ -304,7 +302,7 @@ function AjaxCargarCamposPredeterminadosOcultaJunta() {
 
 function AjaxActualizaSoldadoresRaiz(ProcesoSoldaduraID, tipoJunta, diametro, espesor, cedula) {
     loadingStart();
-    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), procesoSoldaduraID: ProcesoSoldaduraID, tipoJunta: tipoJunta, diametro: diametro, espesor: espesor, cedula: cedula, proceso: "Raíz" }).done(function (data) {
+    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), procesoSoldaduraID: ProcesoSoldaduraID, tipoJunta: tipoJunta, diametro: diametro, espesor: espesor, cedula: cedula, proceso: 1, idProyecto: Cookies.get("Proyecto").split('°')[0] }).done(function (data) {
         ItemSeleccionado.ListadoRaiz = data;
         loadingStop();
     });
@@ -312,7 +310,7 @@ function AjaxActualizaSoldadoresRaiz(ProcesoSoldaduraID, tipoJunta, diametro, es
 
 function AjaxActualizaSoldadoresRelleno(ProcesoSoldaduraID, tipoJunta, diametro, espesor, cedula) {
     loadingStart();
-    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), procesoSoldaduraID: ProcesoSoldaduraID, tipoJunta: tipoJunta, diametro: diametro, espesor: espesor, cedula: cedula, proceso: "Relleno" }).done(function (data) {
+    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), procesoSoldaduraID: ProcesoSoldaduraID, tipoJunta: tipoJunta, diametro: diametro, espesor: espesor, cedula: cedula, proceso: 0, idProyecto: Cookies.get("Proyecto").split('°')[0] }).done(function (data) {
         ItemSeleccionado.ListadoRelleno = data;
         loadingStop();
     });

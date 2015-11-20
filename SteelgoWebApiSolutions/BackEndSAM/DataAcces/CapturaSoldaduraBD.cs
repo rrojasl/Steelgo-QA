@@ -102,7 +102,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoSoldadoresCertificados(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, string proceso)
+        public object ObtenerListadoSoldadoresCertificados(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
         {
             try
             {
@@ -110,30 +110,16 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID, proceso, tipoJunta, diametro, espesor, cedula).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor,procesoSoldaduraID,diametro,proyecto,proceso).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
                         listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
                         {
                             ObreroID = item.ObreroID,
-                            Soldador = item.Codigo
+                            Soldador = item.Mostrar
                         });
                     }
-                    if (listaTrabajosAdicionalesSoldadura.Count == 0)
-                    {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
-
-                        foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
-                        {
-                            listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
-                            {
-                                ObreroID = item.ObreroID,
-                                Soldador = item.Codigo,
-                            });
-                        }
-                    }
-
                     return listaTrabajosAdicionalesSoldadura;
                 }
             }
@@ -149,7 +135,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoRaiz(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula)
+        public object ObtenerListadoRaiz(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
         {
             try
             {
@@ -157,30 +143,16 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID, "Raíz", tipoJunta, diametro, espesor, cedula).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
                         listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
                         {
                             ObreroID = item.ObreroID,
-                            Soldador = item.Codigo
+                            Soldador = item.Mostrar
                         });
                     }
-                    if (listaTrabajosAdicionalesSoldadura.Count == 0)
-                    {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
-
-                        foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
-                        {
-                            listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
-                            {
-                                ObreroID = item.ObreroID,
-                                Soldador = item.Codigo,
-                            });
-                        }
-                    }
-
                     return listaTrabajosAdicionalesSoldadura;
                 }
             }
@@ -196,7 +168,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoRelleno(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula)
+        public object ObtenerListadoRelleno(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
         {
             try
             {
@@ -204,30 +176,16 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(procesoSoldaduraID, "Relleno", tipoJunta, diametro, espesor, cedula).ToList();
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
 
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
                         listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
                         {
                             ObreroID = item.ObreroID,
-                            Soldador = item.Codigo,
+                            Soldador = item.Mostrar
                         });
                     }
-
-                    if (listaTrabajosAdicionalesSoldadura.Count == 0)
-                    {
-                        List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(2, "Soldador", null, null).ToList();
-                        foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
-                        {
-                            listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
-                            {
-                                ObreroID = item.ObreroID,
-                                Soldador = item.Codigo,
-                            });
-                        }
-                    }
-
                     return listaTrabajosAdicionalesSoldadura;
                 }
             }
