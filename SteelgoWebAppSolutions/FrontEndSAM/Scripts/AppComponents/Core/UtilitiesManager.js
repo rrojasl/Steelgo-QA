@@ -285,11 +285,11 @@ function addTo(c,f) {
     if (c !== undefined) {//Verify the set of columns in case it is send null
         if (f === null) {//ask if there is a set of model fields
             c.forEach(function (n) {
-                Object.keys(n).indexOf("command") === -1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
+                Object.keys(n).indexOf("hidden") === -1 && Object.keys(n).indexOf("command") === -1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
             })
         } else {
             c.forEach(function (n) {
-                if(Object.keys(n).indexOf("command") === -1){
+                if (Object.keys(n).indexOf("command") === -1) {
                     if (f[n.field]["type"] === "number") {//ask for the type of the model field of the grid is equal to number
                         n["filterable"] = { cell: { showOperators: false, operator: "eq", delay: 2, dataTextField: n.field, ui: function (element) { element.kendoNumericTextBox({ format: "n4", decimals: 4 }); } } }
                     } else {
@@ -301,5 +301,16 @@ function addTo(c,f) {
         return c;
     } else {
         return [];
+    }
+}
+
+//Check the number of th match with td:visible number in grid with hidden:true
+function checkTH(g) {
+    var contador = 0;
+    g.columns.forEach(function (c) {
+        Object.keys(c).indexOf("hidden") === -1 ? contador++ : 0;
+    })
+    while (contador < $((g).table[0]).find(".k-filter-row th").length) {
+        $(".k-filter-row th:last").remove()
     }
 }

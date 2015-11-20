@@ -181,15 +181,15 @@
     
     function getColumnas(){
         return {
-            "1": {
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                "Propietario":{field:"Propietario", title:_dictionary.ListadoCatalogos0021[$("#language").data("kendoDropDownList").value()]},
-                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                "RequierePermisoAduana": { field: "RequierePermisoAduana", title:_dictionary.ListadoCatalogos0023[$("#language").data("kendoDropDownList").value()], editor: dropdownSiNo }
-            },
-            "2": {
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                "TransportistaNombre": {
+            "1": [
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                {field:"Propietario", title:_dictionary.ListadoCatalogos0021[$("#language").data("kendoDropDownList").value()]},
+                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                {field:"RequierePermisoAduana", title:_dictionary.ListadoCatalogos0023[$("#language").data("kendoDropDownList").value()], editor: dropdownSiNo }
+            ],
+            "2": [
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                {
                     field: "TransportistaNombre",
                     title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -212,12 +212,11 @@
                         });
                     }
                 }
-            },
-            "3":{
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-            },
-            "4": {
-                "Contacto": {
+            ],
+            "3":[
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            ],
+            "4": [{
                     field: "Contacto",
                     title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -240,16 +239,16 @@
                         });
                     }
                 },
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                "Direccion":{field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
-                "Telefono":{field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
-            },
-            "5": {
-                "Placas":{field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
-                "TarjetaCirculacion":{field:"TarjetaCirculacion", title:_dictionary.ListadoCatalogos0029[$("#language").data("kendoDropDownList").value()]},
-                "PolizaSeguro":{field:"PolizaSeguro", title:_dictionary.ListadoCatalogos0030[$("#language").data("kendoDropDownList").value()]},
-                "choferNombre": {
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                {field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
+                {field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+            ],
+            "5": [
+                {field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
+                {field:"TarjetaCirculacion", title:_dictionary.ListadoCatalogos0029[$("#language").data("kendoDropDownList").value()]},
+                {field:"PolizaSeguro", title:_dictionary.ListadoCatalogos0030[$("#language").data("kendoDropDownList").value()]},
+                {
                     field: "choferNombre",
                     title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -272,7 +271,7 @@
                         });
                     }
                 },
-                "transportistaNombre": {
+                {
                     field: "transportistaNombre",
                     title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -295,12 +294,12 @@
                         });
                     }
                 },
-            },
-            "6": {//{"VehiculoID":"3041","TractoID":"1","Placas":"PL001-PLA-V1","Unidad":"PL001-PLA-V1","Modelo":"PL001-PLA-V1","choferID":"1003","choferNombre":"Chofer Default","transportistaID":"1","transportistaNombre":"Transportiste Default","relVehiculoChoferID":"3011","relVehiculoTransportistaID":"3005"}
-                "Placas":{field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
-                "Unidad":{field:"Unidad", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
-                "Modelo":{field:"Modelo", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
-                "choferNombre": {
+            ],
+            "6": [
+                {field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
+                {field:"Unidad", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
+                {field:"Modelo", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
+                {
                     field: "choferNombre",
                     title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -323,7 +322,7 @@
                         });
                     }
                 },
-                "transportistaNombre": {
+                {
                     field: "transportistaNombre",
                     title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -346,9 +345,9 @@
                         });
                     }
                 }
-            },
-            "7": {
-                "Contacto": {
+            ],
+            "7": [
+                 {
                     field: "Contacto",
                     title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -371,19 +370,19 @@
                         });
                     }
                 },
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                "Direccion":{field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
-                "Telefono":{field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
-            },
-            "8":{
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-            },
-            "9":{
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-            },
-            "10": {
-                "Contacto": {
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                {field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
+                {field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+            ],
+            "8":[
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            ],
+            "9":[
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            ],
+            "10": [
+                  {
                     field: "Contacto",
                     title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
@@ -406,11 +405,24 @@
                         });
                     }
                 },
-                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                "Direccion":{field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
-                "Telefono":{field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
-            },
+                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                {field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
+                {field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+            ],
+        }
+    }
+
+    function obtenerFieldsCedula(){
+        return {
+            CedulaID: { type: "number", editable: false, nullable: true },
+            Diametro1: { type: "number", validation: { required: false }, nullable: true },
+            CedulaA: { type: "string", validation: { required: false }, nullable: true },
+            CedulaB: { type: "string", validation: { required: false }, nullable: true },
+            CedulaC: { type: "string", validation: { required: false }, nullable: true},
+            CedulaIn: { type: "number", validation: { required: false }, nullable: true },
+            CedulaMM: { type: "number", validation: { required: false }, nullable: true},
+            Espesor: { type: "number", validation: { required: true } },
         }
     }
 
@@ -461,6 +473,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            columns:addTo(columnas[$("#listaCatalogos").data("kendoDropDownList").value()],modelos[$("#listaCatalogos").data("kendoDropDownList").value()]["fields"]),
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
@@ -502,24 +515,26 @@
             dataBound: function (e) {
                 if (contadorDataBound == 0) {
                     contadorDataBound++;
-                    $(".k-grid input.k-textbox").prop('readonly', true);
-                    $(".k-grid td .k-button").text('');
-                    $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                    //$(".k-grid input.k-textbox").prop('readonly', true);
+                    //$(".k-grid td .k-button").text('');
+                    //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     var grid = $("#grid").data("kendoGrid");
-                    if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.columns.push({ command: { text: "Archivos", click: showFiles}, title: "Archivos", width: "95px" });
-                    grid.columns.push({ command: "edit", title: "Editar", width: "91px" });
-                    grid.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
+                    if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles}, title: "Archivos", width: "95px" });
+                    grid.options.columns.push({ command: "edit", title: "Editar", width: "91px" });
+                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
                     //grid.columns.push(niceDeleteTemplate());
-                    for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
-                        var columna = $.grep(grid.columns, function (e) { return e.field == c; });
-                        grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
-                    }
-                    grid.options.columns=grid.columns;
-                    var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
-                    ids.forEach(function(i){
-                        i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : null;
-                    });
+                    //for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
+                    //    var columna = $.grep(grid.columns, function (e) { return e.field == c; });
+                    //    grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
+                    //}
+                    //grid.options.columns=grid.columns;
+                    //var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
+                    //ids.forEach(function(i){
+                    //    i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : null;
+                    //});
+                    
                     regenerarGrid();
+                    checkTH($("#grid").data("kendoGrid"));
                 }
                 if(ultimaInsercionFallida){
                     ultimaInsercionFallida=false;
@@ -779,7 +794,7 @@
                 });
                 var tmp=removeGrid($("#grid"));
                 $("#grid").kendoGrid({
-                    columns: [
+                    columns: addTo([
                         { field: "Diametro1", title:_dictionary.ListadoCatalogos0034[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaA",title:_dictionary.ListadoCatalogos0035[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaB",title:_dictionary.ListadoCatalogos0036[$("#language").data("kendoDropDownList").value()] },
@@ -787,22 +802,13 @@
                         { field: "CedulaIn",title:_dictionary.ListadoCatalogos0038[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaMM",title:_dictionary.ListadoCatalogos0039[$("#language").data("kendoDropDownList").value()] },
                         { field: "Espesor",title:_dictionary.ListadoCatalogos0040[$("#language").data("kendoDropDownList").value()]},
-                    ],
+                    ],obtenerFieldsCedula()),
                     dataSource: {
                         data: [],
                         schema: {
                             model: {
                                 id: "CedulaID",
-                                fields: {
-                                    CedulaID: { type: "number", editable: false, nullable: true },
-                                    Diametro1: { type: "number", validation: { required: false }, nullable: true },
-                                    CedulaA: { type: "string", validation: { required: false }, nullable: true },
-                                    CedulaB: { type: "string", validation: { required: false }, nullable: true },
-                                    CedulaC: { type: "string", validation: { required: false }, nullable: true},
-                                    CedulaIn: { type: "number", validation: { required: false }, nullable: true },
-                                    CedulaMM: { type: "number", validation: { required: false }, nullable: true},
-                                    Espesor: { type: "number", validation: { required: true } },
-                                }
+                                fields: obtenerFieldsCedula(),
                             }
                         },
                         serverPaging: false,

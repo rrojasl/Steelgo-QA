@@ -114,40 +114,41 @@ function getKendoUploadLocalization(val) {
     }
 }
 
-//function getKendoGridFilterable(val) {
-//    return {
-//        extra: false,
-//        mode: "row,menu",
-//        operators: {
-//            string: {
-//                startswith: _dictionary.KendoGridFilterable0001[val],
-//                eq: _dictionary.KendoGridFilterable0002[val],
-//                neq: _dictionary.KendoGridFilterable0003[val],
-//            }
-//        },
-//        cell: {
-//            showOperators: false,
-//            operator: "contains"
-//        }
-//    }
-//}
-
 function getKendoGridFilterable(val) {
     return {
         extra: false,
+        mode: "row,menu",
         operators: {
             string: {
                 startswith: _dictionary.KendoGridFilterable0001[val],
                 eq: _dictionary.KendoGridFilterable0002[val],
                 neq: _dictionary.KendoGridFilterable0003[val],
             }
+        },
+        cell: {
+            showOperators: false,
+            operator: "contains"
         }
     }
 }
 
+//function getKendoGridFilterable(val) {
+//    return {
+//        extra: false,
+//        operators: {
+//            string: {
+//                startswith: _dictionary.KendoGridFilterable0001[val],
+//                eq: _dictionary.KendoGridFilterable0002[val],
+//                neq: _dictionary.KendoGridFilterable0003[val],
+//            }
+//        }
+//    }
+//}
+
 function getKendoGridFilterableComplementoRecepcion(val) {
     return {
         extra: false,
+        mode: "row,menu",
         operators: {
             string: {
                 startswith: _dictionary.KendoGridFilterable0001[val],
@@ -155,6 +156,10 @@ function getKendoGridFilterableComplementoRecepcion(val) {
                 neq: _dictionary.KendoGridFilterable0003[val],
                 contains: _dictionary.KendoGridFilterable0004[val],
             }
+        },
+        cell: {
+            showOperators: false,
+            operator: "contains"
         }
     }
 }
