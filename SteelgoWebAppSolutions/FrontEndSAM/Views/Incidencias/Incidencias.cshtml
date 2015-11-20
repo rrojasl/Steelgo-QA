@@ -599,7 +599,6 @@
                     $("#Editar").css("display", "none");
                     $("#Guardar").css("display", "none");
                     $("#dropdown-toggle").hide();
-
                     //Muestro boton de siguiente paso
                     $("#nuevaIncidenciaDiv").addClass("hidden");
                     $("#responderIncidenciaDiv").addClass("hidden");
@@ -987,12 +986,12 @@
         ocultarTabsNuevaIncidencia();
 
         if (_Edicion == 1) {
-                //Muestro boton de siguiente paso
-                $("#nuevaIncidenciaDiv").addClass("hidden");
-                $("#responderIncidenciaDiv").addClass("hidden");
-                $("#cancelarIncidenciaDiv").addClass("hidden");
-                $("#resolverIncidenciaDiv").removeClass("hidden");
-
+                ////Muestro boton de siguiente paso
+                //$("#nuevaIncidenciaDiv").addClass("hidden");
+                //$("#responderIncidenciaDiv").addClass("hidden");
+                //$("#cancelarIncidenciaDiv").addClass("hidden");
+                //$("#resolverIncidenciaDiv").removeClass("hidden");
+                //$("#Incidencias0010").text("dshadhasjhdasjd");
                 habilitarAcciones();
         }
 
@@ -1253,6 +1252,11 @@
                             //habilitarAcciones();
                             $("#EditarIncidencia").attr("hidden");
                             $("#Editar").removeAttr("hidden");
+                            //Muestro boton de siguiente paso
+                            $("#nuevaIncidenciaDiv").addClass("hidden");
+                            $("#responderIncidenciaDiv").addClass("hidden");
+                            $("#cancelarIncidenciaDiv").addClass("hidden");
+                            $("#resolverIncidenciaDiv").removeClass("hidden");
                         }
                         else {
                             DeshabilitarAlCancelar();
@@ -1268,7 +1272,8 @@
                             $("#cancelarIncidenciaDiv").addClass("hidden");
                             $("#resolverIncidenciaDiv").removeClass("hidden");
                             //Cambio nombre a Ver Resolucion
-                            $("#Incidencias0010").text("dshadhasjhdasjd");
+                            $("#ResolverIncidencia").text(_dictionary.Incidencias0076[$("#language").data("kendoDropDownList").value()]);
+                            $("#ResolverIncidencia").css("color", "white");
                         }
                     };
 
@@ -2128,7 +2133,6 @@
             $("#Guardar").css("display", "none");
             $("#Editar").css("display", "none");
             $("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
-
             $("#resolverIncidenciaDiv").addClass("hidden");
             $("#cancelarIncidenciaDiv").addClass("hidden");
             habilitarControles();
@@ -2175,7 +2179,6 @@
                     $("#Version").val(result.Version);
                     BotonAlta();
                     habilitarTabsNuevaIncidencia();
-
                     //Muestro boton de siguiente paso
                     $("#nuevaIncidenciaDiv").addClass("hidden");
                     $("#responderIncidenciaDiv").addClass("hidden");
@@ -2537,6 +2540,7 @@
 
     if (_Edicion != "-1") {
         CargaInicialEdicion(_FolioIncidencia);
+        //$("#RedirectIncidencia").trigger("click");
     };
 
     if (_LevantarIncidencia != "-1") {
@@ -2549,6 +2553,8 @@
             displayMessage("notificationslabel0082","","2")
         }
     })
+
+   
 
     }
 
