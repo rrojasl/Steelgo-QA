@@ -55,6 +55,8 @@ namespace DatabaseManager.Sam3
         public string ResueltoPor { get; set; }
         public string RespondidoPor { get; set; }
         public string RegistradoPor { get; set; }
+        public Nullable<int> UsuarioCancelaID { get; set; }
+        public Nullable<System.DateTime> FechaCancelacion { get; set; }
     
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
         public virtual Sam3_Incidencia Sam3_Incidencia2 { get; set; }

@@ -546,6 +546,8 @@
                         var value = this.value();
                         $("#Tracto").data("kendoComboBox").value("");
                         $("#Tracto").data("kendoComboBox").dataSource.data([]);
+                        $("#PlanaID").data("kendoMultiSelect").value("");
+                        $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
                             Transportista = [];
@@ -807,8 +809,14 @@
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
+                    var tienePackinglist = false;
+                    $('#listaArchivos > tbody  > tr').each(function (index, value) {
+                        if ($(this).find("td:first").length > 0 && $(this).find("td").eq(1).html() == "Packing List") {
+                            tienePackinglist = true;
+                        };
+                    });
 
-                    if (!$('#listaArchivos > tbody  > tr').length) {
+                    if (!tienePackinglist) {
                         $("#DetalleAvisoLlegada0010").addClass("security_required error");
                         displayMessage("notificationslabel0031", "", '1');
                         loadingStop();
