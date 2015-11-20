@@ -790,6 +790,7 @@
         $("#Titulo").val("");
         $("#DescripcionIncidencia").val("");
         $("#IncidenciaDiv").addClass("hidden");
+        cancelarvalidacionRequeridosModalEdicionColada();
     };
 
     function cerrarVentanaModal() {
@@ -824,7 +825,15 @@
         });
         return bool;
     };
-
+    function cancelarvalidacionRequeridosModalEdicionColada() {
+        $("#modalEdicionColada .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                $(this).closest("div").find("label").removeClass("error");
+                $(this).closest("div").removeClass("clearfix");
+            };
+        });
+        cleanDisplayMessage();
+    };
 
     function ocultarStatus() {
         $("#ComplementoRecepcion0042").hide();
@@ -1108,6 +1117,7 @@
             var window = $("#windowColada");
             var height = "";
 
+            cancelarvalidacionRequeridosModalEdicionColada();
             $("#modalEdicionColada").show();
 
             window.kendoWindow({
@@ -1781,7 +1791,6 @@
             } else {
                 displayMessage("notificationslabel0031", "", '1');
             }
-            
         };
         function CancelarColada() {
             LimpiarModalEdicionColada();
