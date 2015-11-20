@@ -267,6 +267,8 @@ namespace BackEndSAM.DataAcces
                             if (datos.Estatus == "Cancelado")
                             {
                                 registro.MotivoCancelacion = datos.MotivoCancelacion;
+                                registro.FechaCancelacion = DateTime.Now;
+                                registro.UsuarioCancelaID = usuario.UsuarioID;
                             }
                             if (datos.Estatus == "Resuelto")
                             {

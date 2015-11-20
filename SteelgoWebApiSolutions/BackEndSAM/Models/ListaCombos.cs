@@ -31,5 +31,11 @@ namespace BackEndSAM.Models
         }
     }
 
+    public class ListaDiametros
+    {
+        public int id { get; set; }
+        public decimal value { get; set; }
+    }
+
 
 }
