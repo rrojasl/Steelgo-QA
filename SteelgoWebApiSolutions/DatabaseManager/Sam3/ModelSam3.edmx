@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -799,6 +799,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="ResueltoPor" Type="varchar" MaxLength="250" />
           <Property Name="RespondidoPor" Type="varchar" MaxLength="250" />
           <Property Name="RegistradoPor" Type="varchar" MaxLength="250" />
+          <Property Name="UsuarioCancelaID" Type="int" />
+          <Property Name="FechaCancelacion" Type="datetime" />
         </EntityType>
         <EntityType Name="Sam3_ItemCode">
           <Key>
@@ -6183,6 +6185,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="ResueltoPor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="RespondidoPor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="RegistradoPor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCancelaID" Type="Int32" />
+          <Property Name="FechaCancelacion" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sam3_ItemCode">
           <Key>
@@ -6568,7 +6572,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="PermisoAutorizado" Type="Boolean" Nullable="false" />
           <Property Name="PermisoTramite" Type="Boolean" Nullable="false" />
-          <Property Name="NumeroPermiso" Type="String" />
+          <Property Name="NumeroPermiso" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Sam3_Rel_PermisoAduana_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Permi__36470DEF" FromRole="Sam3_PermisoAduana" ToRole="Sam3_Rel_PermisoAduana_Documento" />
           <Property Name="FechaGeneracion" Type="DateTime" Precision="3" />
           <Property Name="FechaAutorización" Type="DateTime" Precision="3" />
@@ -12352,6 +12356,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Incidencia">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Incidencia">
               <MappingFragment StoreEntitySet="Sam3_Incidencia">
+                <ScalarProperty Name="FechaCancelacion" ColumnName="FechaCancelacion" />
+                <ScalarProperty Name="UsuarioCancelaID" ColumnName="UsuarioCancelaID" />
                 <ScalarProperty Name="RegistradoPor" ColumnName="RegistradoPor" />
                 <ScalarProperty Name="RespondidoPor" ColumnName="RespondidoPor" />
                 <ScalarProperty Name="ResueltoPor" ColumnName="ResueltoPor" />
