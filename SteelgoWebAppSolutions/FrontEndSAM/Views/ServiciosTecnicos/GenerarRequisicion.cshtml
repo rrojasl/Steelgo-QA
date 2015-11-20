@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "CapturaServiciosTecnicos";
+    ViewBag.Title = "Generar Requisición";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -7,12 +7,14 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+        <a href="@Url.Action("landing","Home" )"><span id="lblInicio"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Generar Requisicion</span></a>
+        <a href="@Url.Action("CapturaArmado","Armado" )"><span id="">Entrega de resultados</span></a>
     </li>
 }
+
+
 
 <div></div>
 
@@ -23,6 +25,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
+                    <input type="hidden" value=@ViewBag.id id="idField" />
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
@@ -40,7 +43,7 @@
                         <div id="TramitarPermisoDiv" class="button-section">
                             <a id="TramitarPermiso" href="~/ServiciosTecnicos/AsignarRequisicion" class="btn btn-primary"><span>Asignar Requisicion</span></a>
                         </div>
-                     
+
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -48,7 +51,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    @*
+                                        <li><a id="RedirectDashboard"><span id="DetalleAvisoLlegada0065"></span></a></li>
                                         <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
                                         <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
                                 </ul>
@@ -63,15 +67,19 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="col-sm-2 col-md-2 col-lg-2">
                     <label id="CapturaArmadoHeaderMostrar"></label>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="">Sin Requisicion</span>
+                    <input type="radio" name="Muestra" style=" width:auto;" value="SinCaptura" /><span id="">Sin Requisicion</span>
                     <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
 
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <label id="">Folio:</label>
                     Sin Asignar
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label id="">Proyecto</label>
+                    <input id="Proyecto" class="" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <label id="">Tipo de Prueba</label>
@@ -81,7 +89,7 @@
                     <label id="">Fecha</label>
                     <input id="Fecha" class="" />
                 </div>
-                <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="col-sm-2 col-md-2 col-lg-2">
                     <label id="">Observacion</label>
                     <input id="Observacion" class="" />
                 </div>
@@ -105,7 +113,7 @@
                     <label id="">&nbsp;</label>
                     <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
                 </div>
-              
+
             </div>
             <br /><br />
             <div class="row">
@@ -149,7 +157,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    @*
+                                        <li><a id="RedirectDashboard"><span id="DetalleAvisoLlegada0065"></span></a></li>
                                         <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
                                         <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
                                 </ul>
@@ -162,7 +171,8 @@
         </div>
     </div>
 </div>
-@*<script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>*@
+
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Captura.js"> </script>

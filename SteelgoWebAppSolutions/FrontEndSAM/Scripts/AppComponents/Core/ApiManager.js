@@ -207,13 +207,14 @@ var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $Pruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 //#region Capturas rapidas
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $GenerarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 
 //#endregion
@@ -229,11 +230,13 @@ $ObreroUbicacion.add("ObreroUbicacion");
 $Defectos.add("Defectos");
 $ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
 $Taller.add("Taller");
+$Pruebas.add("Pruebas");
 //#endregion
 //#region Capturas rapidas
 $CapturasRapidas.add("CapturasRapidas");
 $CapturaSoldadura.add("Soldadura");
 $Inspeccion.add("Inspeccion");
 $InspeccionDimensional.add("InspeccionDimensional");
+$GenerarRequisicion.add("GenerarRequisicion");
 //#endregion
 //#endregion
