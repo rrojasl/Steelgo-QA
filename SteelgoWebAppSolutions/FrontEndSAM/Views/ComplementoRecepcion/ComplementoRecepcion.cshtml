@@ -961,6 +961,7 @@
                     { field: "EstatusFisico", title: _dictionary.ComplementoRecepcion0034[$("#language").data("kendoDropDownList").value()], editor: EstatusFisicoAutocomplete, /*filterable: true,*/ width: 160},
                     { field: "EstatusDocumental", title: _dictionary.ComplementoRecepcion0035[$("#language").data("kendoDropDownList").value()], editor: EstatusDepartamentalAutocomplete, /*filterable: true,*/ width: 200 },
                     { field: "TipoUso", title: _dictionary.ComplementoRecepcion0036[$("#language").data("kendoDropDownList").value()], editor:TipoUsoAutocomplete, /*filterable: true,*/ width: 145 },
+                    { command: { text: _dictionary.ComplementoRecepcion0082[$("#language").data("kendoDropDownList").value()], click: cancelarComplemento }, title: " ", width: "99px" },
                     { field: "TieneError", title: _dictionary.ComplementoRecepcion0037[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ hidden: true, width: 120 },
                     { field: "ItemCodeID", title: _dictionary.ComplementoRecepcion0069[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 125, hidden: true },
                     { field: "RelFCID", title: _dictionary.ComplementoRecepcion0070[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 125, hidden: true },
@@ -1090,6 +1091,25 @@
             });
         };
 
+        function cancelarComplemento(e) {
+            e.preventDefault();
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var NumeroUnicoID = dataItem.NumeroUnicoID;
+            var ItemCodeID = dataItem.ItemCodeID;
+            var RelFCID = dataItem.RelFCID;
+            var RelBID = dataItem.RelBID;
+            var RelNUFCBID = dataItem.RelNUFCBID;
+
+            if (confirm(_dictionary.ComplementoRecepcion0083[$("#language").data("kendoDropDownList").value()])) {
+                $ComplementarRecepcion.ComplementarRecepcion.destroy({}, { folio: NumeroUnicoID, token: Cookies.get("token") }).done(function (data) {
+                    if (Error(data)) {
+                        cargarGridPackingList();
+                    }
+                });
+            }
+
+           
+        };
         function ObtenerProyecto(id) {
             $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox(id, result);

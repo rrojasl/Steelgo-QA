@@ -382,6 +382,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Numer__7E97B1A9" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Orden__64D7DFA6" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Orden__79D2FC8C" />
+        <AssociationConnector Association="ModelSam3.FK_NumeroUnico_TipoUso" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4124,6 +4124,14 @@ _dictionary = {
         "es-MX": "Terminar",
         "en-US": "Finish"
     },
+    "ComplementoRecepcion0082": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0083": {
+        "es-MX": "¿Está seguro de cancelar el complemento?",
+        "en-US": "Are you sure you want to cancel the complement?"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",
