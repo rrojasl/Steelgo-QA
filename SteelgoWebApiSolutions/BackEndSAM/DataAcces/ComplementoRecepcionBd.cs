@@ -613,8 +613,6 @@ namespace BackEndSAM.DataAcces
                                             }
 
                                             ctx.SaveChanges();
-
-                                            itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
                                             itemCodeJson.TieneError = false;
 
                                             break;
@@ -769,7 +767,6 @@ namespace BackEndSAM.DataAcces
                                                 ctx.SaveChanges();
                                             }
 
-                                            itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
                                             itemCodeJson.TieneError = false;
 
                                             break;
@@ -782,7 +779,6 @@ namespace BackEndSAM.DataAcces
 
                                             return result;
                                     } // Fin switch
-
                                     ctx_tran.Commit();  
                                     ctx2_tran.Commit();
                                 } // tran sam2
@@ -790,6 +786,7 @@ namespace BackEndSAM.DataAcces
                         } // tran sam3
                     }// fin using SAM
 
+                    itemCodeJson = ObtenerPropiedadesJson(relFcId, relBId, relNuId);
                     return itemCodeJson;
             }
             catch (Exception ex)
