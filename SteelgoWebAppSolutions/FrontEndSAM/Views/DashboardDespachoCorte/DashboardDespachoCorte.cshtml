@@ -361,11 +361,12 @@
                 input: false,
                 numeric: true,
             },
-            columns: columnas,
+            columns: addTo(columnas,null),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                checkTH($("#gridTubos").data("kendoGrid"));
             }
         });
        
@@ -388,11 +389,12 @@
                 input: false,
                 numeric: true,
             },
-            columns: columnas,
+            columns: addTo(columnas,null),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                checkTH($("#gridAccesorios").data("kendoGrid"));
             }
         });
         $("#gridAccesorios").data("kendoGrid").refresh();
@@ -1128,12 +1130,12 @@
         function DefinicionColumnasDespacho() {
             var columnas =
            [
-               { field: "ProyectoID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true },
                { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
                { field: "CantidadMateriales", title: _dictionary.DashboardDespachoCorte0038[$("#language").data("kendoDropDownList").value()], filterable: true },
                { field: "CantidadDespachados", title: _dictionary.DashboardDespachoCorte0039[$("#language").data("kendoDropDownList").value()], filterable: true },
                { field: "FaltantesPorDespachar", title: _dictionary.DashboardDespachoCorte0040[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleDespachar(#:SpoolID#,#:ProyectoID#)'>#:SpoolID#</a>" },
+               { field: "ProyectoID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
            ];
             return columnas;
         };
@@ -1158,13 +1160,13 @@
                     autoBind: true,
                     scrollable: false,
                     sortable: false,
-                    columns: [
+                    columns: addTo([
                         { field: "Etiqueta", title: _dictionary.DashboardDespachoCorte0041[$("#language").data("kendoDropDownList").value()] },
                         { field: "ItemCode", title: _dictionary.DashboardDespachoCorte0052[$("#language").data("kendoDropDownList").value()] },
                         { field: "Descripcion", title: _dictionary.DashboardDespachoCorte0053[$("#language").data("kendoDropDownList").value()] },
                         { field: "Cantidad", title: _dictionary.DashboardDespachoCorte0054[$("#language").data("kendoDropDownList").value()] },
                         { field: "TieneDespacho", title: _dictionary.DashboardDespachoCorte0042[$("#language").data("kendoDropDownList").value()] },
-                    ]
+                    ],null)
                 });
             }
         }

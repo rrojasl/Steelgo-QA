@@ -227,12 +227,13 @@
                 numeric: true,
                 buttonCount: 2
             },
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { field: "NoPickingTicket", title: _dictionary.Entrega0010[$("#language").data("kendoDropDownList").value()], editor: ObtenerPickingTicket },
                 { field: "NoEmpleadoEntrega", title: _dictionary.Entrega0011[$("#language").data("kendoDropDownList").value()], editor: EmpleadoEntregaAutocomplete },
                 { field: "NoEmpleadoRecibe", title: _dictionary.Entrega0012[$("#language").data("kendoDropDownList").value()], editor: EmpleadoRecibeAutocomplete },
                 { command: { text: _dictionary.Entrega0013[$("#language").data("kendoDropDownList").value()], click: CancelarPickingTicket }, title: " ", width: "99px" }
-            ],
+            ],null),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');

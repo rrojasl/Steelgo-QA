@@ -1011,6 +1011,31 @@
             } 
         };
 
+        function getFields(){
+            return {
+                ItemCode: { type: "string", editable: true },
+                BultoID: { type: "string", editable: true },
+                Descripcion: { type: "string", editable: false },
+                D1: { type: "number", editable: false },
+                D2: { type: "number", editable: false },
+                ItemCodeSteelgo: { type: "string", editable: true },
+                Familia: { type: "string", editable: false },
+                Cedula: { type: "string", editable: false },
+                TipoAcero: { type: "string", editable: false },
+                Colada: { type: "string", editable: true },
+                Cantidad: { type: "number", editable: true },
+                MM: { type: "string", editable: true },
+                Detallar: { type: "string", defaultValue: "No", editable: false },
+                TieneNU: { type: "string", defaultValue: "No", editable: false },
+                TieneError: { type: "boolean", defaultValue: false, editable: false },
+                RelFCId: { type: "string",defaultValue:"", editable: false },
+                RelBID: { type: "string", defaultValue: "", editable: false },
+                ItemCodeID: { type: "string", defaultValue: "", editable: false },
+                ItemCodeSteelgoID: { type: "string", defaultValue: "", editable: false },
+                ItemCodeOrigenID: { type: "string", defaultValue: "", editable: false }
+            }
+        }
+
         function LoadGridQuantification() {
             $("#grid").kendoGrid({
                 dataSource: {
@@ -1021,28 +1046,7 @@
                     autoSync: true,
                     schema: {
                         model: {
-                            fields: {
-                                ItemCode: { type: "string", editable: true },
-                                BultoID: { type: "string", editable: true },
-                                Descripcion: { type: "string", editable: false },
-                                D1: { type: "number", editable: false },
-                                D2: { type: "number", editable: false },
-                                ItemCodeSteelgo: { type: "string", editable: true },
-                                Familia: { type: "string", editable: false },
-                                Cedula: { type: "string", editable: false },
-                                TipoAcero: { type: "string", editable: false },
-                                Colada: { type: "string", editable: true },
-                                Cantidad: { type: "number", editable: true },
-                                MM: { type: "string", editable: true },
-                                Detallar: { type: "string", defaultValue: "No", editable: false },
-                                TieneNU: { type: "string", defaultValue: "No", editable: false },
-                                TieneError: { type: "boolean", defaultValue: false, editable: false },
-                                RelFCId: { type: "string",defaultValue:"", editable: false },
-                                RelBID: { type: "string", defaultValue: "", editable: false },
-                                ItemCodeID: { type: "string", defaultValue: "", editable: false },
-                                ItemCodeSteelgoID: { type: "string", defaultValue: "", editable: false },
-                                ItemCodeOrigenID: { type: "string", defaultValue: "", editable: false }
-                            }
+                            fields: getFields(),
                         }
                     },
                     serverPaging: false,
@@ -1088,29 +1092,29 @@
                         "create"
                 ],
                 navigatable: true,
-                columns: [
-                    { field: "ItemCode",        title: _dictionary.Cuantificacion0028[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: itemCodeAutocomplete },
-                    { field: "Descripcion",     title: _dictionary.Cuantificacion0029[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px", aggregates: ["count"], footerTemplate: "Total Count: #=count#", groupFooterTemplate: "Count: #=count#" },
-                    { field: "D1",              title: _dictionary.Cuantificacion0030[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
-                    { field: "D2",              title: _dictionary.Cuantificacion0031[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
-                    { field: "ItemCodeSteelgo", title: _dictionary.Cuantificacion0032[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px", editor: itemCodeSteelgoAutocomplete },
-                    { field: "Familia",         title: _dictionary.Cuantificacion0033[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
-                    { field: "Cedula",          title: _dictionary.Cuantificacion0034[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
-                    { field: "TipoAcero",       title: _dictionary.Cuantificacion0035[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-                    { field: "Colada",          title: _dictionary.Cuantificacion0036[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px", editor: ColadaAutocomplete },
-                    { field: "Cantidad",        title: _dictionary.Cuantificacion0037[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", aggregates: ["sum"], footerTemplate: "Total SUM: #=sum#", groupFooterTemplate: "SUM: #=sum#" },
-                    { field: "MM",              title: _dictionary.Cuantificacion0038[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px"},
-                    { field: "Detallar",        title: _dictionary.Cuantificacion0039[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
-                    { field: "TieneNU",         title: _dictionary.Cuantificacion0040[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+                columns: addTo([
+                    { field: "ItemCode",        title: _dictionary.Cuantificacion0028[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", editor: itemCodeAutocomplete },
+                    { field: "Descripcion",     title: _dictionary.Cuantificacion0029[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "150px", aggregates: ["count"], footerTemplate: "Total Count: #=count#", groupFooterTemplate: "Count: #=count#" },
+                    { field: "D1",              title: _dictionary.Cuantificacion0030[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "80px" },
+                    { field: "D2",              title: _dictionary.Cuantificacion0031[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "80px" },
+                    { field: "ItemCodeSteelgo", title: _dictionary.Cuantificacion0032[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "180px", editor: itemCodeSteelgoAutocomplete },
+                    { field: "Familia",         title: _dictionary.Cuantificacion0033[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "110px" },
+                    { field: "Cedula",          title: _dictionary.Cuantificacion0034[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "110px" },
+                    { field: "TipoAcero",       title: _dictionary.Cuantificacion0035[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "130px" },
+                    { field: "Colada",          title: _dictionary.Cuantificacion0036[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "110px", editor: ColadaAutocomplete },
+                    { field: "Cantidad",        title: _dictionary.Cuantificacion0037[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", aggregates: ["sum"], footerTemplate: "Total SUM: #=sum#", groupFooterTemplate: "SUM: #=sum#" },
+                    { field: "MM",              title: _dictionary.Cuantificacion0038[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "80px"},
+                    { field: "Detallar",        title: _dictionary.Cuantificacion0039[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px" },
+                    { field: "TieneNU",         title: _dictionary.Cuantificacion0040[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "150px" },
                     { command: { text: _dictionary.Cuantificacion0043[$("#language").data("kendoDropDownList").value()], click: CancelarInformacionItem }, title: " ", width: "99px" },
-                    { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
-                    { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
-                    { field: "RelFCId", title: _dictionary.Cuantificacion0091[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
-                    { field: "RelBID", title: _dictionary.Cuantificacion0092[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
-                    { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", hidden: true },//es la rel_itemcode
-                    { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", hidden: true }, //es la rel_itemcodesteelgo
-                    { field: "ItemCodeOrigenID", title: _dictionary.Cuantificacion0097[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px", hidden: true } //es la rel_itemcodesteelgo
-                ]
+                    { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", hidden: true },
+                    { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", hidden: true },
+                    { field: "RelFCId", title: _dictionary.Cuantificacion0091[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", hidden: true },
+                    { field: "RelBID", title: _dictionary.Cuantificacion0092[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", hidden: true },
+                    { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true },//es la rel_itemcode
+                    { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true }, //es la rel_itemcodesteelgo
+                    { field: "ItemCodeOrigenID", title: _dictionary.Cuantificacion0097[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true } //es la rel_itemcodesteelgo
+                ],getFields()),
             });
             var grid = $("#grid").data("kendoGrid");
             var dispositivo = navigator.userAgent.toLowerCase();
@@ -1138,7 +1142,7 @@
                 
             };
             //Kendo "Enter" key input is captured through this binding
-            $("#grid table").on("keydown", "tr", function (e) {
+            $("#grid table tbody").on("keydown", "tr", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if (code == 13) { //If key is ENTER
                     //console.log("--KendoEnter--");
@@ -3109,6 +3113,7 @@
                     this.set("MM", "N/A");
                 });
             };
+            checkTH($("#grid").data("kendoGrid"));
         };
 
         @section JavascriptDocumentReadyFunctions 

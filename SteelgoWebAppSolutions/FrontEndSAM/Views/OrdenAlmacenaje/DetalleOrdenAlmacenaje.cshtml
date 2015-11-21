@@ -93,6 +93,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+        var detailID=0;
     var FolioCuantificacion = {}, Proyecto = {}, ItemCode = {}, NumeroUnico = {}, _resultadoJson, _esFiltros = false;
     var _ordenAlmacenajeID = getUrlParameter("OrdenAlmacenajeID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
@@ -389,10 +390,11 @@
             sortable: false,
             scrollable: false,
             detailInit: detailInit,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
                 //{ field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
-            ],
+            ],null),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
@@ -404,7 +406,7 @@
 
     function detailInit(e) {
         if (e.data.ItemCodes.length > 0) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
+            $("<div id='detail"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.ItemCodes,
                     schema: {
@@ -425,16 +427,20 @@
                 scrollable: false,
                 sortable: true,
                 detailInit: detailInitNumerosUnicos,
-                columns: [
-                    { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
-                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+                columns: addTo([
                     { field: "Codigo", title: _dictionary.DetalleOrdenAlmacenaje0011[$("#language").data("kendoDropDownList").value()] },
                     { field: "Descripcion", title: _dictionary.DetalleOrdenAlmacenaje0012[$("#language").data("kendoDropDownList").value()]},
                     { field: "D1", title: _dictionary.DetalleOrdenAlmacenaje0013[$("#language").data("kendoDropDownList").value()]},
                     { field: "D2", title: _dictionary.DetalleOrdenAlmacenaje0014[$("#language").data("kendoDropDownList").value()]},
                     { field: "Cantidad", title: _dictionary.DetalleOrdenAlmacenaje0015[$("#language").data("kendoDropDownList").value()]},
+                    { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
+                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
                     //{ field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioItemCode(this)'>Cancelar</a>" }
-                ]
+                ],null),
+                dataBound:function(e){
+                    checkTH(this);
+                }
             });
         }
         
@@ -442,7 +448,7 @@
 
     function detailInitNumerosUnicos(e) {
         if (e.data.NumerosUnicos.length > 0) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
+            $("<div id='detail1-"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.NumerosUnicos,
                     schema: {
@@ -459,15 +465,18 @@
                 autoBind: true,
                 scrollable: false,
                 sortable: false,
-                columns: [
-                    { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true},
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+                columns: addTo([
                     { field: "NumeroUnico", title: _dictionary.DetalleOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()]},
+                    //{ field: "", title: "", width: "110px", template: "<a class='detailLink' href='' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
+                    { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarNumerosUnicos }, title: " ", width: "99px" },
+                    { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true},
                     { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
                     { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
-                    //{ field: "", title: "", width: "110px", template: "<a class='detailLink' href='' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
-                    { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarNumerosUnicos }, title: " ", width: "99px" }
-
-                ]
+                ],null),
+                dataBound:function(e){
+                    checkTH(this);
+                }
             });
 
             if ($("#edicion").val() != "1") {

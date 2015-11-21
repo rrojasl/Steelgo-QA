@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                       where fc.Activo && rfi.Activo && it.Activo && nu.Activo && rel.Activo && rid.Activo && d1.Activo && d2.Activo
                                       && fc.FolioCuantificacionID == folioCuantificacionID
-                                     // && !it.TieneComplementoRecepcion
+                                      // && !it.TieneComplementoRecepcion
                                       select new ItemCodeComplemento
                                       {
                                           NumeroUnicoID = nu.NumeroUnicoID.ToString(),
@@ -105,13 +105,13 @@ namespace BackEndSAM.DataAcces
                                                       select nui.CantidadRecibida).FirstOrDefault(),
                                           MM = it.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
-                                          EstatusDocumental = it.EstatusDocumental,
-                                          EstatusFisico = it.EstatusFisico,
-                                          TipoUso = it.Sam3_TipoUso.Nombre,
+                                          EstatusDocumental =  nu.EstatusDocumental,
+                                          EstatusFisico = nu.EstatusFisico,
+                                          TipoUso = nu.Sam3_TipoUso.Nombre,
                                           RelFCID = rel.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                           RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                           ColadaOriginal = nu.Sam3_Colada.NumeroColada,
-                                          TieneComplementoRecepcion= it.TieneComplementoRecepcion?"Si":"No"
+                                          TieneComplementoRecepcion = it.TieneComplementoRecepcion ? "Si" : "No"
                                       }).AsParallel().Distinct().ToList());
 
                     //agregar items en bulto
@@ -172,9 +172,9 @@ namespace BackEndSAM.DataAcces
                                                       select nui.CantidadRecibida).FirstOrDefault(),
                                           MM = it.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
-                                          EstatusDocumental = it.EstatusDocumental,
-                                          EstatusFisico = it.EstatusFisico,
-                                          TipoUso = it.Sam3_TipoUso.Nombre,
+                                          EstatusDocumental = nu.EstatusDocumental,
+                                          EstatusFisico = nu.EstatusFisico,
+                                          TipoUso = nu.Sam3_TipoUso.Nombre,
                                           RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                           RelBID = rel.Rel_Bulto_ItemCode_ID.ToString(),
                                           ColadaOriginal = nu.Sam3_Colada.NumeroColada,
@@ -288,9 +288,9 @@ namespace BackEndSAM.DataAcces
                                     Colada = (from c in ctx.Sam3_Colada
                                               where c.ColadaID == rfi.ColadaID
                                               select c.NumeroColada).FirstOrDefault(),
-                                    EstatusDocumental = it.EstatusDocumental,
-                                    EstatusFisico = it.EstatusFisico,
-                                    TipoUso = it.Sam3_TipoUso.Nombre,
+                                    EstatusDocumental = nu.EstatusDocumental,
+                                    EstatusFisico = nu.EstatusFisico,
+                                    TipoUso = nu.Sam3_TipoUso.Nombre,
                                     ColadaID = rfi.ColadaID,
                                     RelFCID = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                     RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
@@ -350,9 +350,9 @@ namespace BackEndSAM.DataAcces
                                     Colada = (from c in ctx.Sam3_Colada
                                               where c.ColadaID == rbi.ColadaID
                                               select c.NumeroColada).FirstOrDefault(),
-                                    EstatusDocumental = it.EstatusDocumental,
-                                    EstatusFisico = it.EstatusFisico,
-                                    TipoUso = it.Sam3_TipoUso.Nombre,
+                                    EstatusDocumental = nu.EstatusDocumental,
+                                    EstatusFisico = nu.EstatusFisico,
+                                    TipoUso = nu.Sam3_TipoUso.Nombre,
                                     ColadaID = rbi.ColadaID,
                                     RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
                                     RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
@@ -470,6 +470,12 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
                                     actualizaNU.ColadaID = coladaID;
+                                    actualizaNU.EstatusFisico = itemCodeJson.EstatusFisico;
+                                    actualizaNU.EstatusDocumental = itemCodeJson.EstatusDocumental;
+                                    actualizaNU.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
+                                        (from tp in ctx.Sam3_TipoUso
+                                         where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
+                                         select tp.TipoUsoID).SingleOrDefault() : 1;
                                 }
                                 else
                                 {
@@ -479,12 +485,12 @@ namespace BackEndSAM.DataAcces
                                 if (actualizaItem != null)
                                 {
                                     actualizaItem.MM = itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                    actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
-                                    actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
-                                    actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
-                                        (from tp in ctx.Sam3_TipoUso
-                                         where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
-                                         select tp.TipoUsoID).SingleOrDefault() : 1;
+                                    //actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
+                                    //actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
+                                    //actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
+                                    //    (from tp in ctx.Sam3_TipoUso
+                                    //     where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
+                                    //     select tp.TipoUsoID).SingleOrDefault() : 1;
                                     actualizaItem.TieneComplementoRecepcion = false;
                                     actualizaItem.FechaModificacion = DateTime.Now;
                                     actualizaItem.UsuarioModificacion = usuario.UsuarioID;
@@ -522,6 +528,12 @@ namespace BackEndSAM.DataAcces
                                     actualizaNU.FechaModificacion = DateTime.Now;
                                     actualizaNU.UsuarioModificacion = usuario.UsuarioID;
                                     actualizaNU.ColadaID = coladaID;
+                                    actualizaNU.EstatusFisico = itemCodeJson.EstatusFisico;
+                                    actualizaNU.EstatusDocumental = itemCodeJson.EstatusDocumental;
+                                    actualizaNU.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
+                                        (from tp in ctx.Sam3_TipoUso
+                                         where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
+                                         select tp.TipoUsoID).SingleOrDefault() : 1;
                                 }
                                 else
                                 {
@@ -537,12 +549,12 @@ namespace BackEndSAM.DataAcces
                                     }
 
                                     actualizaItem.MM = itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                    actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
-                                    actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
-                                    actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
-                                        (from tp in ctx.Sam3_TipoUso
-                                         where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
-                                         select tp.TipoUsoID).SingleOrDefault() : 1;
+                                    //actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
+                                    //actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
+                                    //actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
+                                    //    (from tp in ctx.Sam3_TipoUso
+                                    //     where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
+                                    //     select tp.TipoUsoID).SingleOrDefault() : 1;
                                     actualizaItem.TieneComplementoRecepcion = true;
                                     actualizaItem.FechaModificacion = DateTime.Now;
                                     actualizaItem.UsuarioModificacion = usuario.UsuarioID;

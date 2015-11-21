@@ -290,22 +290,26 @@
         $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
+    function getFields(){
+        return {
+            SpoolID: { type: "string", editable: false },
+            Etiqueta: { type: "string", editable: false },
+            Cantidad: { type: "number", editable: true },
+            CantidadIngenieria: { type: "string", editable: false },
+            //MaquinaID: { type: "string", editable: false },
+            //OperadorID: { type: "string", editable: false },
+            //EsTramoCompleto: { type: "string", editable: false },
+            //MermaTeorica: { type: "string", editable: false }
+        }
+    }
+
     function CargarGridCorte() {
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
                 schema: {
                     model: {
-                        fields: {
-                            SpoolID: { type: "string", editable: false },
-                            Etiqueta: { type: "string", editable: false },
-                            Cantidad: { type: "number", editable: true },
-                            CantidadIngenieria: { type: "string", editable: false },
-                            //MaquinaID: { type: "string", editable: false },
-                            //OperadorID: { type: "string", editable: false },
-                            //EsTramoCompleto: { type: "string", editable: false },
-                            //MermaTeorica: { type: "string", editable: false }
-                        }
+                        fields: getFields(),
                     }
                 },
                 pageSize: 10,
@@ -328,13 +332,14 @@
                 numeric: true,
                 buttonCount: 2
             },
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { field: "SpoolID", title: _dictionary.Corte0020[$("#language").data("kendoDropDownList").value()] },
                 { field: "Etiqueta", title: _dictionary.Corte0021[$("#language").data("kendoDropDownList").value()] },
                 { field: "Cantidad", title: _dictionary.Corte0022[$("#language").data("kendoDropDownList").value()] },
                 { field: "CantidadIngenieria", title: _dictionary.Corte0031[$("#language").data("kendoDropDownList").value()] },
                 { command: { text: _dictionary.Corte0030[$("#language").data("kendoDropDownList").value()], click: CancelarSpool }, title: " ", width: "99px" }
-            ],
+            ],getFields()),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');

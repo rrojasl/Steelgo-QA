@@ -19,6 +19,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
             this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
             this.Sam3_ProyectoConfiguracion = new HashSet<Sam3_ProyectoConfiguracion>();
+            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
         }
     
         public int TipoUsoID { get; set; }
@@ -30,5 +31,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
         public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
         public virtual ICollection<Sam3_ProyectoConfiguracion> Sam3_ProyectoConfiguracion { get; set; }
+        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
     }
 }

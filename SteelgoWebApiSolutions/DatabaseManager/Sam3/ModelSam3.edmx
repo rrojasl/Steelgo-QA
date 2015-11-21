@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -998,6 +998,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Prefijo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Consecutivo" Type="int" Nullable="false" />
+          <Property Name="EstatusFisico" Type="varchar" MaxLength="100" />
+          <Property Name="EstatusDocumental" Type="varchar" MaxLength="100" />
+          <Property Name="TipoUsoID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoCorte">
           <Key>
@@ -4172,6 +4175,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NumeroUnico_TipoUso">
+          <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="0..1" />
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoUso">
+              <PropertyRef Name="TipoUsoID" />
+            </Principal>
+            <Dependent Role="Sam3_NumeroUnico">
+              <PropertyRef Name="TipoUsoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NumeroUnicoCorte_NumeroUnico">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_NumeroUnicoCorte" Type="Self.Sam3_NumeroUnicoCorte" Multiplicity="*" />
@@ -5633,6 +5648,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
           </AssociationSet>
+          <AssociationSet Name="FK_NumeroUnico_TipoUso" Association="Self.FK_NumeroUnico_TipoUso">
+            <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+          </AssociationSet>
           <AssociationSet Name="FK_NumeroUnicoCorte_NumeroUnico" Association="Self.FK_NumeroUnicoCorte_NumeroUnico">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_NumeroUnicoCorte" EntitySet="Sam3_NumeroUnicoCorte" />
@@ -6383,6 +6402,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_OrdenTrabajoMaterial1" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7CAF6937" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
           <NavigationProperty Name="Sam3_OrdenTrabajoMaterial2" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7DA38D70" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
           <NavigationProperty Name="Sam3_OrdenTrabajoMaterial3" Relationship="ModelSam3.FK__Sam3_Orde__Numer__7E97B1A9" FromRole="Sam3_NumeroUnico" ToRole="Sam3_OrdenTrabajoMaterial" />
+          <Property Name="EstatusFisico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EstatusDocumental" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TipoUsoID" Type="Int32" />
+          <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK_NumeroUnico_TipoUso" FromRole="Sam3_NumeroUnico" ToRole="Sam3_TipoUso" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoCorte">
           <Key>
@@ -9189,6 +9212,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
+          <AssociationSet Name="FK_NumeroUnico_TipoUso" Association="ModelSam3.FK_NumeroUnico_TipoUso">
+            <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -9851,6 +9878,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_FolioCuantificacion" Relationship="ModelSam3.FK__Sam3_Foli__TipoU__66D536B1" FromRole="Sam3_TipoUso" ToRole="Sam3_FolioCuantificacion" />
           <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Item__TipoU__7D8391DF" FromRole="Sam3_TipoUso" ToRole="Sam3_ItemCode" />
           <NavigationProperty Name="Sam3_ProyectoConfiguracion" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_TipoUso" ToRole="Sam3_ProyectoConfiguracion" />
+          <NavigationProperty Name="Sam3_NumeroUnico" Relationship="ModelSam3.FK_NumeroUnico_TipoUso" FromRole="Sam3_TipoUso" ToRole="Sam3_NumeroUnico" />
         </EntityType>
         <Association Name="FK__Rel_Bulto__Bulto__77FFC2B3">
           <End Type="ModelSam3.Sam3_Bulto" Role="Sam3_Bulto" Multiplicity="1" />
@@ -12100,6 +12128,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NumeroUnico_TipoUso">
+          <End Type="ModelSam3.Sam3_TipoUso" Role="Sam3_TipoUso" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoUso">
+              <PropertyRef Name="TipoUsoID" />
+            </Principal>
+            <Dependent Role="Sam3_NumeroUnico">
+              <PropertyRef Name="TipoUsoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12499,6 +12539,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_NumeroUnico">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_NumeroUnico">
               <MappingFragment StoreEntitySet="Sam3_NumeroUnico">
+                <ScalarProperty Name="TipoUsoID" ColumnName="TipoUsoID" />
+                <ScalarProperty Name="EstatusDocumental" ColumnName="EstatusDocumental" />
+                <ScalarProperty Name="EstatusFisico" ColumnName="EstatusFisico" />
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
                 <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />

@@ -73,6 +73,9 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string Prefijo { get; set; }
         public int Consecutivo { get; set; }
+        public string EstatusFisico { get; set; }
+        public string EstatusDocumental { get; set; }
+        public Nullable<int> TipoUsoID { get; set; }
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
@@ -99,5 +102,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial1 { get; set; }
         public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial2 { get; set; }
         public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial3 { get; set; }
+        public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
     }
 }
