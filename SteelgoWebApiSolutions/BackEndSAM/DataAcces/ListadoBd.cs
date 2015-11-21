@@ -968,43 +968,74 @@ namespace BackEndSAM.DataAcces
                         {
                             ListadoMTLSinICS elemento = new ListadoMTLSinICS();
                             elemento.FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
-                            elemento.PackingList = fc.PackingList + "(" + fc.FolioCuantificacionID.ToString() +")";
+                            elemento.PackingList = fc.PackingList + "(" + fc.FolioCuantificacionID.ToString() + ")";
                             elemento.Proyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == fc.ProyectoID).Select(x => x.Nombre).SingleOrDefault();
                             elemento.FolioCuantificacionID = fc.FolioCuantificacionID.ToString();
-                            elemento.CantidadSinICS = (from f in ctx.Sam3_FolioCuantificacion
-                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                       join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                                       where f.Activo && rfi.Activo && it.Activo && rid.Activo
-                                                       && it.TipoMaterialID == tipoMaterialID
-                                                       && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                             where its.Activo
-                                                             select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
-                                                        ||
-                                                            (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                             join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                             where its.Activo && ics.ItemCodeSteelgoID == 1
-                                                             select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
-                                                       select it.ItemCodeID).AsParallel().Count().ToString();
 
-                            elemento.CantidadTotalItems = (from f in ctx.Sam3_FolioCuantificacion
-                                                           join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                           join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                                           where f.Activo && rfi.Activo && it.Activo && rid.Activo
-                                                           && it.TipoMaterialID == tipoMaterialID
-                                                           select it.ItemCodeID).AsParallel().Count().ToString();
+                            int cantidadsinICS = 0;
+                            int totalItems = 0;
 
-                            elemento.CantidadTotalItems += (from f in ctx.Sam3_FolioCuantificacion
-                                                            join b in ctx.Sam3_Bulto on f.FolioCuantificacionID equals b.FolioCuantificacionID
-                                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                           join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                                           where f.Activo && rbi.Activo && it.Activo && rid.Activo && b.Activo
-                                                           && it.TipoMaterialID == tipoMaterialID
-                                                           select it.ItemCodeID).AsParallel().Count().ToString();
+                            cantidadsinICS = (from f in ctx.Sam3_FolioCuantificacion
+                                              join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                              join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                              join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                              where f.Activo && rfi.Activo && it.Activo && rid.Activo
+                                              && it.TipoMaterialID == tipoMaterialID
+                                              && f.FolioCuantificacionID == fc.FolioCuantificacionID
+                                              && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                    where its.Activo
+                                                    select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
+                                               ||
+                                                   (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                    join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                    where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                    select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
+                                              select it.ItemCodeID).AsParallel().Count();
 
-                            listado.Add(elemento);
+                            cantidadsinICS += (from f in ctx.Sam3_FolioCuantificacion
+                                               join b in ctx.Sam3_Bulto on f.FolioCuantificacionID equals b.FolioCuantificacionID
+                                               join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                               join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                               where f.Activo && rbi.Activo && it.Activo && rid.Activo
+                                               && it.TipoMaterialID == tipoMaterialID
+                                               && f.FolioCuantificacionID == fc.FolioCuantificacionID
+                                               && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                     where its.Activo
+                                                     select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
+                                                   ||
+                                                   (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                    join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                    where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                    select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
+                                               select it.ItemCodeID).AsParallel().Count();
+
+                            totalItems = (from f in ctx.Sam3_FolioCuantificacion
+                                          join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                          join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                          where f.Activo && rfi.Activo && it.Activo && rid.Activo
+                                          && it.TipoMaterialID == tipoMaterialID
+                                          && f.FolioCuantificacionID == fc.FolioCuantificacionID
+                                          select it.ItemCodeID).AsParallel().Count();
+
+                            totalItems += (from f in ctx.Sam3_FolioCuantificacion
+                                           join b in ctx.Sam3_Bulto on f.FolioCuantificacionID equals b.FolioCuantificacionID
+                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                           join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                           where f.Activo && rbi.Activo && it.Activo && rid.Activo && b.Activo
+                                           && it.TipoMaterialID == tipoMaterialID
+                                           && f.FolioCuantificacionID == fc.FolioCuantificacionID
+                                           select it.ItemCodeID).AsParallel().Count();
+
+                            elemento.CantidadSinICS = cantidadsinICS.ToString();
+                            elemento.CantidadTotalItems = totalItems.ToString();
+
+                            if (Convert.ToInt32(elemento.CantidadSinICS) > 0)
+                            {
+                                listado.Add(elemento);
+                            }
 
                         }
                     }
@@ -1138,16 +1169,16 @@ namespace BackEndSAM.DataAcces
 
                             ordenes.AddRange((from fc in ctx.Sam3_FolioCuantificacion
                                               join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
-                                       join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                       join roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals roi.Rel_ItemCode_Diametro_ID
-                                       join o in ctx.Sam3_OrdenRecepcion on roi.OrdenRecepcionID equals o.OrdenRecepcionID
-                                       join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                       where fc.Activo && rbi.Activo && roi.Activo
-                                       && it.TieneComplementoRecepcion == false
-                                       && fc.FolioAvisoEntradaID == f.FolioAvisoEntradaID
-                                       && fc.FolioCuantificacionID == packingListID
-                                       select o).AsParallel().ToList());
+                                              join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                              join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                              join roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals roi.Rel_ItemCode_Diametro_ID
+                                              join o in ctx.Sam3_OrdenRecepcion on roi.OrdenRecepcionID equals o.OrdenRecepcionID
+                                              join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                              where fc.Activo && rbi.Activo && roi.Activo
+                                              && it.TieneComplementoRecepcion == false
+                                              && fc.FolioAvisoEntradaID == f.FolioAvisoEntradaID
+                                              && fc.FolioCuantificacionID == packingListID
+                                              select o).AsParallel().ToList());
                         }
                         else
                         {
@@ -1201,7 +1232,7 @@ namespace BackEndSAM.DataAcces
                                                                  && it.TipoMaterialID == tipoMaterialID
                                                                  && it.TieneComplementoRecepcion == false
                                                                  select nu.NumeroUnicoID).AsParallel().Count().ToString();
-
+                            
                             listado.Add(elemento);
                         }
 
@@ -2871,7 +2902,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoPreDespacho(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false )
+        public object ListadoPreDespacho(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
         {
             try
             {
@@ -2892,7 +2923,7 @@ namespace BackEndSAM.DataAcces
                         int proyectoIDSam2 = 0;
 
                         DateTime fechaInicial = new DateTime();
-                        DateTime fechaFinal = new DateTime(); 
+                        DateTime fechaFinal = new DateTime();
                         DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                         DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
                         UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
@@ -2913,7 +2944,7 @@ namespace BackEndSAM.DataAcces
                                               where eq.Activo && eq.Sam3_ProyectoID == proyectoID
                                               select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
                         }
-                        
+
 
                         if (fechaFinal.ToShortDateString() == "1/1/0001")
                         {
