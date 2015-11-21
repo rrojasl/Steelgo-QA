@@ -1257,7 +1257,7 @@ _dictionary = {
         "en-US": "Diameter 1"
     },
     "ItemCodeSteelGo0010": {
-        "es-MX": "Diametro 2",
+        "es-MX": "Diámetro 2",
         "en-US": "Diameter 2"
     },
     "ItemCodeSteelGo0011": {
@@ -1301,15 +1301,15 @@ _dictionary = {
         "en-US": "You must make a valid registration"
     },
     "ItemCodeSteelGo0021": {
-        "es-MX": "No hay datos",
-        "en-US": "There is no data"
+        "es-MX": "No hay datos para el diámetro seleccionado",
+        "en-US": "There is no data for the selected diameter"
     },
     "ItemCodeSteelGo0022": {
-        "es-MX": "Necesitas ingresar un diametro",
-        "en-US": "You should type a diameter"
+        "es-MX": "Es necesario ingresar un diámetro",
+        "en-US": "You must enter a diameter"
     },
     "ItemCodeSteelGo0023": {
-        "es-MX": "Este elemento aún no existe en la BD",
+        "es-MX": "Este elemento aún no existe en la base de datos",
         "en-US": "This element doesnt exist yet in the database"
     },
     "AsociacionICS0001": {
