@@ -1101,7 +1101,7 @@
             var RelNUFCBID = dataItem.RelNUFCBID;
 
             if (confirm(_dictionary.ComplementoRecepcion0083[$("#language").data("kendoDropDownList").value()])) {
-                $ComplementarRecepcion.ComplementarRecepcion.destroy({}, { folio: NumeroUnicoID, token: Cookies.get("token") }).done(function (data) {
+                $NumeroUnico.NumeroUnico.destroy({}, { numeroUnicoID: NumeroUnicoID, token: Cookies.get("token") }).done(function (data) {
                     if (Error(data)) {
                         cargarGridPackingList();
                     }
