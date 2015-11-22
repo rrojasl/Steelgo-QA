@@ -30,12 +30,29 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
                         </div>
+                        
+               <div class="button-section actionButtonSection">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="RedirectDashboard"><span id="AsociacionICS0008"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
+                         <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                                    <label for="ProyectoID" id="AsociacionICS0009"></label>
+                                    <input id="ProyectoID" type="text" />
+                                </div>
                         <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
                             <label for="icinput" id="AsociacionICS0001"></label>
                             <input id="icinput" type="text" />
@@ -109,7 +126,7 @@
         cargarInicialGrid();
         $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
-    
+
     function regenerarCombo(combo){
         var options = combo.data("kendoComboBox").options;
         combo.data("kendoComboBox").destroy();
@@ -121,87 +138,255 @@
         $("#icsasociado").val("");
     }
 
-    $("#Cancelar").on("click",function(){
-        regenerarCombo($("#icinput"));
-        regenerarCombo($("#D1"));
-        regenerarCombo($("#D2"));
-        $("#descripcionIC").val(null);
-        $("#icsasociado").val(null);
-        itemActual=[];
-        editado=false;
-    })
+    $("#Cancelar").on("click", function () {
+        window.location.href = "@Url.Action("AsociacionItemCodes", "Catalogos")"; + "?leng=" + $("#language").data("kendoDropDownList").value();
+        //regenerarCombo($("#icinput"));
+        //regenerarCombo($("#D1"));
+        //regenerarCombo($("#D2"));
+        //$("#descripcionIC").val(null);
+        //$("#icsasociado").val(null);
+        //itemActual = [];
+        //editado = false;
+    });
+
+
+    $("#ProyectoID").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ProyectoID",
+        select: function (e) {
+            var dataItem = this.dataItem(e.item.index());
+            //if (dataItem.PatioID == 0) {
+            //    VentanaModal(4);
+            //    e.preventDefault();
+            //}
+            //CargarPatio(dataItem.PatioID, dataItem.Nombre);
+        },
+        change: function (e) {
+            var value = this.value();
+            //$("#ClienteID").data("kendoComboBox").value("");
+            //$("#ClienteID").data("kendoComboBox").dataSource.data([]);
+            //Cliente = {};
+            if (!value || this.selectedIndex == -1) {
+                messageindexKendoCombobox(this);
+                //Patio = [];
+                this.value("");
+            }
+            else {
+                //llamar a obtener item codes
+                var ds = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                    url: $AsociacionICS.AsociacionICS.urlNoId + "?proyectoID=" + $("#ProyectoID").val() + "&token=" + Cookies.get("token"),
+                                    dataType: "json",
+                                    type:"GET"
+                            }
+                        }
+                });
+                var combobox = $("#icinput").data("kendoComboBox");
+                combobox.setDataSource(ds);
+            }
+            //ObtenerCliente();
+
+        },
+        filter: "contains",
+    });
+    ObtenerProyectos();
 
     $("#icinput").kendoComboBox({
-        dataSource: {
-            transport: {
-                read: {
-                    url:$AsociacionICS.AsociacionICS.urlNoId + "?token=" + Cookies.get("token"),
-                    dataType: "json",
-                    type:"GET"
-                }
+        change: function (e) {
+            var value = this.value();
+            if (!value || !e.sender.current()) {
+                messageindexKendoCombobox(this);
+                this.value("");
+            }else{
+                botonDefault()
+                itemActual={};
+                itemActual["ItemCodeID"]=e.sender._old;
+                $("#D1").data("kendoComboBox").enable(false);
+                $("#D2").data("kendoComboBox").enable(false);
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                //obtengo diametro 1
+                $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), token: Cookies.get("token") }).done(function (data) {
+                    regenerarCombo($("#D1"));
+                    regenerarCombo($("#D2"));
+                    limpiarDatos();
+                    $(".k-grid .k-input").removeAttr("disabled");
+                    $(".k-grid .k-filter").show();
+                    if (data.length == 1)
+                    {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        itemActual["D1"] = data[0].id;
+                        $("#D1").data("kendoComboBox").value(data[0].value);
+                        $("#D1").data("kendoComboBox").enable(false);
+                        //obtengo diametro 2
+                        $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1ID: data[0].id, token: Cookies.get("token") }).done(function (result) {
+                            if (result.length == 1)
+                            {
+                                $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                                $("#D2").data("kendoComboBox").value(result[0].value);
+                                $("#D2").data("kendoComboBox").enable(false);
+                                //obtengo la descripcion del ic
+                                $("#grid").data("kendoGrid").dataSource.data([]);
+                                limpiarDatos();
+                                $("#grid").data("kendoGrid").dataSource.filter([]);
+                                itemActual["D2"] = result[0].id;
+                                $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1:data[0].id, diametro2: result[0].id, token: Cookies.get("token") }).done(function (res) {
+                                    $("#descripcionIC").val(res.Descripcion);
+                                    $("#icsasociado").val(res.ItemCodeSteelgo);
+                                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + data[0].id + "&diametro2=" + result[0].id + "&token=" + Cookies.get("token");
+                                   
+                                    $("#grid").data("kendoGrid").dataSource.read();
+                                    $("#grid").data("kendoGrid").refresh();
+                                    0 > $("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007", "", "2") : 0;
+                                    if (res.ItemCodeSteelgo !== null && res.ItemCodeSteelgo !== "") {
+                                        $("#GuardarICS").css("display", "none");
+                                        $("#EditarICS").css("display", "block");
+                                        $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                                            e.preventDefault();
+                                        });
+                                        $(".k-grid .k-input").attr("disabled", "disabled");
+                                        $(".k-grid .k-filter").hide();
+                                    }
+                                    else {
+                                        $("#GuardarICS").css("display", "block");
+                                        $("#EditarICS").css("display", "none");
+                                        $("#context-menu").data("kendoContextMenu").unbind("open");
+                                        $(".k-grid .k-input").removeAttr("disabled");
+                                        $(".k-grid .k-filter").show();
+                                    };
+                                })
+                            }
+                            else if(result.length > 1) {
+                                $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                                limpiarDatos();
+                                regenerarCombo($("#D2"));
+                                $("#D2").data("kendoComboBox").dataSource.data(result);
+                                $("#D2").data("kendoComboBox").enable(true);
+                            }
+                        });
+                    }
+                    else if(data.length > 1)
+                    {
+                        $("#D1").data("kendoComboBox").dataSource.data(data);
+                        $("#D1").data("kendoComboBox").enable(true);
+                    }
+                })
             }
-        },
-        change:function(e){
-            botonDefault()
-            itemActual={};
-            itemActual["ItemCodeID"]=e.sender._old;
-            $("#D1").data("kendoComboBox").enable(false);
-            $("#D2").data("kendoComboBox").enable(false);
-            $("#grid").data("kendoGrid").dataSource.data([]);
-            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), token:Cookies.get("token")}).done(function(data){
-                regenerarCombo($("#D1"));
-                regenerarCombo($("#D2"));
-                limpiarDatos();
-                $("#D1").data("kendoComboBox").dataSource.data(data);
-                $("#D1").data("kendoComboBox").enable(true);
-            })
         },
         dataTextField: "value",
         dataValueField: "id"
     });
-
+    
     $("#D1").kendoComboBox({
-        change:function(e){
-            $("#grid").data("kendoGrid").dataSource.data([]);
-            itemActual["D1"]=e.sender._old;
-            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
-                if (data.length>0) {
-                    $("#Guardar span").attr("id","LlegadaMaterial0011");
-                    limpiarDatos();
-                    regenerarCombo($("#D2"));
-                    $("#D2").data("kendoComboBox").dataSource.data(data);
-                    $("#D2").data("kendoComboBox").enable(true);
-                }
-            })
+        change: function (e) {
+            var value = this.value();
+            if (!value || !e.sender.current()) {
+                messageindexKendoCombobox(this);
+                this.value("");
+            }else{
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                itemActual["D1"]=e.sender._old;
+                $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
+                    
+                    if (data.length == 1) {
+                        $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                        $("#D2").data("kendoComboBox").value(data[0].value);
+                        $("#D2").data("kendoComboBox").enable(false);
+                        //obtengo la descripcion del ic
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        limpiarDatos();
+                        $("#grid").data("kendoGrid").dataSource.filter([]);
+                        itemActual["D2"] = data[0].id;
+                        $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: e.sender._old, diametro2: data[0].id, token: Cookies.get("token") }).done(function (res) {
+                         
+                            $("#descripcionIC").val(res.Descripcion);
+                            $("#icsasociado").val(res.ItemCodeSteelgo);
+                            $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + e.sender._old + "&diametro2=" + data[0].id + "&token=" + Cookies.get("token");
+                           
+                            $("#grid").data("kendoGrid").dataSource.read();
+                            $("#grid").data("kendoGrid").refresh();
+                            0 > $("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007", "", "2") : 0;
+                            if (res.ItemCodeSteelgo !== null && res.ItemCodeSteelgo !== "") {
+                                $("#GuardarICS").css("display", "none");
+                                $("#EditarICS").css("display", "block");
+                                $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                                    e.preventDefault();
+                                });
+                                $(".k-grid .k-input").attr("disabled", "disabled");
+                                $(".k-grid .k-filter").hide();
+                            }
+                            else {
+                                $("#GuardarICS").css("display", "block");
+                                $("#EditarICS").css("display", "none");
+                                $("#context-menu").data("kendoContextMenu").unbind("open");
+                                $(".k-grid .k-input").removeAttr("disabled");
+                                $(".k-grid .k-filter").show();
+                            };
+                        })
+                    }
+                    else if (data.length > 1) {
+                        $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                        limpiarDatos();
+                        regenerarCombo($("#D2"));
+                        $("#D2").data("kendoComboBox").dataSource.data(data);
+                        $("#D2").data("kendoComboBox").enable(true);
+                    }
+                })
+            }
         },
         dataTextField: "value",
         dataValueField: "id"
     });
 
     $("#D2").kendoComboBox({
-        change:function(e){
-            $("#grid").data("kendoGrid").dataSource.data([]);
-            limpiarDatos();
-            $("#grid").data("kendoGrid").dataSource.filter([]);
-            itemActual["D2"]=e.sender._old;
-            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
-                $("#descripcionIC").val(data.Descripcion);
-                $("#icsasociado").val(data.ItemCodeSteelgo);
-                $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
-                $("#grid").data("kendoGrid").dataSource.read();
-                $("#grid").data("kendoGrid").refresh();
-                0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
-                if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
-                    $("#GuardarICS").hide();
-                    $("#EditarICS").show();
-                }
-            })
+        change: function (e) {
+            var value = this.value();
+            if (!value || !e.sender.current()) {
+                messageindexKendoCombobox(this);
+                this.value("");
+            }else{
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                limpiarDatos();
+                $("#grid").data("kendoGrid").dataSource.filter([]);
+                itemActual["D2"]=e.sender._old;
+                $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
+                    $("#descripcionIC").val(data.Descripcion);
+                    $("#icsasociado").val(data.ItemCodeSteelgo);
+                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
+                    $("#grid").data("kendoGrid").dataSource.read();
+                    $("#grid").data("kendoGrid").refresh();
+                    0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
+                    if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
+                        $("#GuardarICS").css("display", "none");
+                        $("#EditarICS").css("display", "block");
+                        $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                            e.preventDefault();
+                        });
+                        $(".k-grid .k-input").attr("disabled", "disabled");
+                        $(".k-grid .k-filter").hide();
+                    }
+                })
+            }
         },
         dataTextField: "value",
         dataValueField: "id"
     });
 
-    function cargarInicialGrid(){
+    function ObtenerProyectos() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+        });
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+    function cargarInicialGrid() {
+ 
         $("#grid").kendoGrid({
             columns: [
                 { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], filterable: { 
@@ -326,12 +511,23 @@
                 }
             },
         });
+        $(".k-grid .k-input").attr("disabled", "disabled");
+        $(".k-grid .k-filter").hide();
     }
 
     $("#GuardarICS").on("click",function(){
         if (itemActual["ItemCodeSteelgoIDNuevo"]) {
             $AsociacionICS.AsociacionICS.create({},{itemCode:itemActual["ItemCodeID"],itemCodeSteelgo:itemActual["ItemCodeSteelgoIDNuevo"],diametro1ID:itemActual["D1"],diametro2ID:itemActual["D2"], token:Cookies.get("token")}).done(function(data){
-                if(data.ReturnMessage[0]=="OK"){
+                if (data.ReturnMessage[0] == "OK") {
+                    $(".k-i-close").trigger("click");
+                    $(".k-grid .k-input").val("");
+                    $("#GuardarICS").css("display", "none");
+                    $("#EditarICS").css("display", "block");
+                    $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                        e.preventDefault();
+                    });
+                    $(".k-grid .k-input").attr("disabled", "disabled");
+                    $(".k-grid .k-filter").hide();
                     displayMessage("AsociacionICS0005", "", '0');
                 }else{
                     displayMessage("",data.ReturnMessage[0], '2');
@@ -344,9 +540,12 @@
 
     $("#EditarICS").on("click",botonDefault);
 
-    function botonDefault(){
-        $("#EditarICS").hide();
-        $("#GuardarICS").show();
+    function botonDefault() {
+        $("#EditarICS").css("display", "none");
+        $("#GuardarICS").css("display", "block");
+        $("#context-menu").data("kendoContextMenu").unbind("open");
+        $(".k-grid .k-input").removeAttr("disabled");
+        $(".k-grid .k-filter").show();
     }
 };
 
@@ -355,6 +554,14 @@
     $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
     $("#D1").data("kendoComboBox").enable(false);
     $("#D2").data("kendoComboBox").enable(false);
+    //$("#context-menu").data("kendoContextMenu").unbind("open");
+    $(".k-grid .k-input").attr("disabled", "disabled");
+    $(".k-grid .k-filter").hide();
+
+    $("#RedirectDashboard").click(function (e) {
+        var detalleIdeaUrl = "@Url.Action("ItemCodeSteelGo", "Catalogos")";
+        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+    });
 };
     
 @section JavascriptDocumentReadyHomeCookie {

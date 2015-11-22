@@ -1340,6 +1340,14 @@ _dictionary = {
         "es-MX": "No hay datos con esos diametros",
         "en-US": "There are no data with that diameters"
     },
+    "AsociacionICS0008": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "AsociacionICS0009": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     //Notificacion Deficit
     "NotificacionDeficit0001": {
         "es-MX": "Orden de trabajo",

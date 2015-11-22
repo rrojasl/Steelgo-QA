@@ -18,14 +18,14 @@ namespace BackEndSAM.Controllers
     public class AsociacionICSController : ApiController
     {
         // GET api/<controller>/5
-        public object Get(string token)
+        public object Get(string proyectoID, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return AsociacionICSBd.Instance.obtenerListadoItemCodes();
+                return AsociacionICSBd.Instance.obtenerListadoItemCodes(proyectoID);
             }
             else
             {

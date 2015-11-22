@@ -44,7 +44,7 @@ namespace BackEndSAM.DataAcces
         /// de asociacion ICS - IC
         /// </summary>
         /// <returns></returns>
-        public object obtenerListadoItemCodes()
+        public object obtenerListadoItemCodes(string proyectoID)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> itemCodes = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
                                                    join ic in ctx.Sam3_ItemCode on icd.ItemCodeID equals ic.ItemCodeID
-                                                   where icd.Activo && ic.Activo
+                                                   where icd.Activo && ic.Activo && ic.ProyectoID.ToString() == proyectoID
                                                    select new ListaCombos
                                                    {
                                                        id = icd.ItemCodeID.ToString(),
