@@ -57,7 +57,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public object Post(string data, string token)
+        public object Post(string data, string token, int editado = 0)
         {
             string payload = "";
             string newToken = "";
@@ -82,7 +82,7 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public object Put(string data, string token)
+        public object Put(string data, string token, int editado = 0)
         {
             string payload = "";
             string newToken = "";
@@ -93,7 +93,7 @@ namespace BackEndSAM.Controllers
                 ICSDatosAsociacion datosICS = serializer.Deserialize<ICSDatosAsociacion>(data);
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CatalogosBd.Instance.editarItemCodeSteelgo(datosICS, usuario);
+                return CatalogosBd.Instance.editarItemCodeSteelgo(datosICS, usuario, editado);
             }
             else
             {
