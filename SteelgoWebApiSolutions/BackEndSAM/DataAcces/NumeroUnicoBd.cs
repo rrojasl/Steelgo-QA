@@ -375,5 +375,98 @@ namespace BackEndSAM.DataAcces
                 return null;
             }
         }
+
+        public object EliminarNumeroUnico(int numeroUnicoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+                        using (Sam2Context ctx2 = new Sam2Context())
+                        {
+                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
+                            {
+                                int sam2_NumeroUnicoID = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                          where eq.Activo && eq.Sam3_NumeroUnicoID == numeroUnicoID
+                                                          select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                NumeroUnico NumeroUnicoSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                //buscamos si tiene procesos en ODTM
+                                bool tieneProcesos = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                        where odtm.NumeroUnicoCongeladoID == NumeroUnicoSam2.NumeroUnicoID
+                                                        || odtm.NumeroUnicoDespachadoID == NumeroUnicoSam2.NumeroUnicoID
+                                                        || odtm.NumeroUnicoSugeridoID == NumeroUnicoSam2.NumeroUnicoID
+                                                        select odtm).Any();
+
+                                bool tieneInventarioCongelado = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                                    where nui.NumeroUnicoID == NumeroUnicoSam2.NumeroUnicoID
+                                                                    select nui.InventarioCongelado).AsParallel().SingleOrDefault() > 0 ? true : false;
+
+                                bool tieneInventarioTransferenciaCorte = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                                          where nui.NumeroUnicoID == NumeroUnicoSam2.NumeroUnicoID
+                                                                          select nui.InventarioTransferenciaCorte).AsParallel().SingleOrDefault() > 0 ? true : false;
+
+                                if (!tieneProcesos && !tieneInventarioCongelado && !tieneInventarioTransferenciaCorte)
+                                {
+                                    //Para eliminar el numero unico de sam 2 solo hay que ponerlo en estatus C
+                                    NumeroUnicoSam2.Estatus = "C";
+                                    NumeroUnicoSam2.FechaModificacion = DateTime.Now;
+                                    ctx2.SaveChanges();
+
+                                    Sam3_NumeroUnico numUnicoS3 = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoID).AsParallel().SingleOrDefault();
+                                    numUnicoS3.Activo = false;
+                                    numUnicoS3.FechaModificacion = DateTime.Now;
+                                    numUnicoS3.UsuarioModificacion = usuario.UsuarioID;
+
+                                    numUnicoS3.Sam3_NumeroUnicoInventario.Activo = false;
+                                    numUnicoS3.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+                                    numUnicoS3.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
+
+                                    foreach (Sam3_NumeroUnicoSegmento segmento in numUnicoS3.Sam3_NumeroUnicoSegmento)
+                                    {
+                                        segmento.Activo = false;
+                                        segmento.FechaModificacion = DateTime.Now;
+                                        segmento.UsuarioModificacion = usuario.UsuarioID;
+                                    }
+
+                                    ctx.SaveChanges();
+                                }
+                                else
+                                {
+                                    throw new Exception("No se puede Eliminar el Número Único pues tiene algun proceso capturado");
+                                }
+
+                                ctx_tran.Commit();
+                                ctx2_tran.Commit();
+                            }
+                        }
+                    }
+ 
+                }
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("OK");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
