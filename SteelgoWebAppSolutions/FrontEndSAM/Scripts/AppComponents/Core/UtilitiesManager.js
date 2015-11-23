@@ -282,15 +282,15 @@ Date.prototype.isValid = function () {
 
 //Add the incell config for inline filter
 function addTo(c,f) {
-    if (c !== undefined) {//Verify the set of columns in case it is send null
+    if (c !== undefined) {//Verify the set of columns in case it is sent null
         if (f === null) {//ask if there is a set of model fields
             c.forEach(function (n) {
                 Object.keys(n).indexOf("hidden") === -1 && Object.keys(n).indexOf("command") === -1 && Object.keys(n).indexOf("field") > -1 ? n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } } : 0;
             })
         } else {
-            c.forEach(function (n) {
+            c.forEach(function (n) {//In case there is fields definition
                 if (Object.keys(n).indexOf("hidden") === -1 && Object.keys(n).indexOf("command") === -1 && Object.keys(n).indexOf("field") > -1) {
-                    if (f[n.field]["type"] === "number") {//ask for the type of the model field of the grid is equal to number
+                    if (f[n.field]["type"] === "number") {//Asks for the type of model field of the grid is equal to number
                         n["filterable"] = { cell: { showOperators: false, operator: "eq", delay: 2, dataTextField: n.field, ui: function (element) { element.kendoNumericTextBox({ format: "n4", decimals: 4 }); } } }
                     } else {
                         n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } }
@@ -304,16 +304,14 @@ function addTo(c,f) {
     }
 }
 
-//Check the number of th match with td:visible number in grid with hidden:true
+//Function that counts the number of non hidden columns and delete the left th
 function checkTH(g) {
     var contador = 0;
-    //g.columns = g.options.columns;
     g.columns.forEach(function (c) {
         Object.keys(c).indexOf("hidden") === -1 ? contador++ : 0;
     })
     g.options.detailInit !== null && g.options.detailInit !== undefined ? contador++ : 0;
     while (contador < $("#" + g.wrapper[0].id + " .k-filter-row th").length) {
         $("#" + g.wrapper[0].id + " .k-filter-row th:last").remove();
-        //g.columns.pop();
     }
 }

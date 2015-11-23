@@ -402,7 +402,7 @@
                 },
                 requestEnd: function (e) {
 
-                    if (e.response.ReturnCode === 500)
+                    if (e.response!==undefined && e.response.ReturnCode === 500)
                     {
                         var count = 0;
                         setTimeout(function ()
