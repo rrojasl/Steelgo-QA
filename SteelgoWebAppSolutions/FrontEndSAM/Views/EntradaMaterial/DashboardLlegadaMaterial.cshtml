@@ -442,18 +442,20 @@
 
     $("#FechaInicial").bind("change", function () {
         if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
-            $("#FechaInicial").data("kendoDatePicker").value("");
-            displayMessage("notificationslabel0082","","2")
+            $("#FechaInicial").css("color","#EB4D50");
+            displayMessage("notificationslabel0082","","2");
         }else{
+            $("#FechaInicial").attr("style","");
             CantidadesDelMenuDashboard();
         }
     });
 
     $("#FechaFinal").bind("change", function () {
         if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
-            $("#FechaFinal").data("kendoDatePicker").value("");
+            $("#FechaFinal").css("color","#EB4D50");
             displayMessage("notificationslabel0082","","2")
         }else{
+            $("#FechaFinal").attr("style","");
             CantidadesDelMenuDashboard();
         }
     });

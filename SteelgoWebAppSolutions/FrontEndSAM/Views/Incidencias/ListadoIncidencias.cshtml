@@ -236,18 +236,20 @@
 
         $("#FechaInicial").bind("change", function () {
             if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
-                $("#FechaInicial").data("kendoDatePicker").value("");
+                $("#FechaInicial").css("color","#EB4D50");
                 displayMessage("notificationslabel0082","","2")
             }else{
+                $("#FechaInicial").attr("style","");
                 Filtros();
             }
         });
 
         $("#FechaFinal").bind("change", function () {
-            if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
-                $("#FechaInicial").data("kendoDatePicker").value("");
+            if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaFinal").css("color","#EB4D50");
                 displayMessage("notificationslabel0082","","2")
             }else{
+                $("#FechaFinal").attr("style","");
                 Filtros();
             }
         });

@@ -2549,8 +2549,10 @@
 
     $("#FechaRegistro").on("change",function(){
         if (!$("#FechaRegistro").data("kendoDatePicker").value() && this.value!=="") {
-            $("#FechaRegistro").data("kendoDatePicker").value("");
+            $("#FechaRegistro").css("color","#EB4D50");
             displayMessage("notificationslabel0082","","2")
+        }else{
+            $("#FechaRegistro").attr("style","");
         }
     })
 
