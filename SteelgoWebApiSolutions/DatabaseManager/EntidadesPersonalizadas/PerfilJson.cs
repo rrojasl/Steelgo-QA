@@ -112,6 +112,7 @@ namespace DatabaseManager.EntidadesPersonalizadas
         public string liga { get; set; }
         public string icono { get; set; }
         public int nivel { get; set; }
+        public int acomodo { get; set; }
     }
 
     public class ContextMenuElement

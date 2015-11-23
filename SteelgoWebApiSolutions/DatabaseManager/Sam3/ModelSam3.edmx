@@ -936,6 +936,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Icono" Type="varchar(max)" />
           <Property Name="Nivel" Type="int" />
           <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="Acomodo" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Notificacion">
           <Key>
@@ -6314,6 +6315,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Icono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Nivel" Type="Int32" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Acomodo" Type="Int32" />
         </EntityType>
         <EntityType Name="Sam3_Notificacion">
           <Key>
@@ -12506,6 +12508,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_MenuGeneral">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_MenuGeneral">
               <MappingFragment StoreEntitySet="Sam3_MenuGeneral">
+                <ScalarProperty Name="Acomodo" ColumnName="Acomodo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nivel" ColumnName="Nivel" />
                 <ScalarProperty Name="Icono" ColumnName="Icono" />
