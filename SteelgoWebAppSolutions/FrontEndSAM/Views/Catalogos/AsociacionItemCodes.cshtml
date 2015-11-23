@@ -212,34 +212,108 @@
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 //obtengo diametro 1
                 $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), token: Cookies.get("token") }).done(function (data) {
-                    regenerarCombo($("#D1"));
-                    regenerarCombo($("#D2"));
-                    limpiarDatos();
-                    $(".k-grid .k-input").removeAttr("disabled");
-                    $(".k-grid .k-filter").show();
-                    if (data.length == 1)
-                    {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        itemActual["D1"] = data[0].id;
-                        $("#D1").data("kendoComboBox").value(data[0].value);
-                        $("#D1").data("kendoComboBox").enable(false);
-                        //obtengo diametro 2
-                        $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1ID: data[0].id, token: Cookies.get("token") }).done(function (result) {
-                            if (result.length == 1)
-                            {
-                                $("#Guardar span").attr("id", "LlegadaMaterial0011");
-                                $("#D2").data("kendoComboBox").value(result[0].value);
-                                $("#D2").data("kendoComboBox").enable(false);
-                                //obtengo la descripcion del ic
-                                $("#grid").data("kendoGrid").dataSource.data([]);
-                                limpiarDatos();
-                                $("#grid").data("kendoGrid").dataSource.filter([]);
-                                itemActual["D2"] = result[0].id;
-                                $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1:data[0].id, diametro2: result[0].id, token: Cookies.get("token") }).done(function (res) {
+                    if (Error(data)) {
+                        regenerarCombo($("#D1"));
+                        regenerarCombo($("#D2"));
+                        limpiarDatos();
+                        $(".k-grid .k-input").removeAttr("disabled");
+                        $(".k-grid .k-filter").show();
+                        if (data.length == 1)
+                        {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            itemActual["D1"] = data[0].id;
+                            $("#D1").data("kendoComboBox").value(data[0].value);
+                            $("#D1").data("kendoComboBox").enable(false);
+                            //obtengo diametro 2
+                            $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1ID: data[0].id, token: Cookies.get("token") }).done(function (result) {
+                                if (Error(result)) {
+                                    if (result.length == 1)
+                                    {
+                                        $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                                        $("#D2").data("kendoComboBox").value(result[0].value);
+                                        $("#D2").data("kendoComboBox").enable(false);
+                                        //obtengo la descripcion del ic
+                                        $("#grid").data("kendoGrid").dataSource.data([]);
+                                        limpiarDatos();
+                                        $("#grid").data("kendoGrid").dataSource.filter([]);
+                                        itemActual["D2"] = result[0].id;
+                                        $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: data[0].id, diametro2: result[0].id, token: Cookies.get("token") }).done(function (res) {
+                                            if (Error(res)) {
+                                                $("#descripcionIC").val(res.Descripcion);
+                                                $("#icsasociado").val(res.ItemCodeSteelgo);
+                                                $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + data[0].id + "&diametro2=" + result[0].id + "&token=" + Cookies.get("token");
+                                   
+                                                $("#grid").data("kendoGrid").dataSource.read();
+                                                $("#grid").data("kendoGrid").refresh();
+                                                0 > $("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007", "", "2") : 0;
+                                                if (res.ItemCodeSteelgo !== null && res.ItemCodeSteelgo !== "") {
+                                                    $("#GuardarICS").css("display", "none");
+                                                    $("#EditarICS").css("display", "block");
+                                                    $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                                                        e.preventDefault();
+                                                    });
+                                                    $(".k-grid .k-input").attr("disabled", "disabled");
+                                                    $(".k-grid .k-filter").hide();
+                                                }
+                                                else {
+                                                    $("#GuardarICS").css("display", "block");
+                                                    $("#EditarICS").css("display", "none");
+                                                    $("#context-menu").data("kendoContextMenu").unbind("open");
+                                                    $(".k-grid .k-input").removeAttr("disabled");
+                                                    $(".k-grid .k-filter").show();
+                                                };
+                                            }
+                                        })
+                                    }
+                                    else if(result.length > 1) {
+                                        $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                                        limpiarDatos();
+                                        regenerarCombo($("#D2"));
+                                        $("#D2").data("kendoComboBox").dataSource.data(result);
+                                        $("#D2").data("kendoComboBox").enable(true);
+                                    }
+                                }
+                            });
+                        }
+                        else if(data.length > 1)
+                        {
+                            $("#D1").data("kendoComboBox").dataSource.data(data);
+                            $("#D1").data("kendoComboBox").enable(true);
+                        }
+                    }
+                })
+            }
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+    
+    $("#D1").kendoComboBox({
+        change: function (e) {
+            var value = this.value();
+            if (!value || !e.sender.current()) {
+                messageindexKendoCombobox(this);
+                this.value("");
+            }else{
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                itemActual["D1"]=e.sender._old;
+                $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
+                    if (Error(data)) {
+                        if (data.length == 1) {
+                            $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                            $("#D2").data("kendoComboBox").value(data[0].value);
+                            $("#D2").data("kendoComboBox").enable(false);
+                            //obtengo la descripcion del ic
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            limpiarDatos();
+                            $("#grid").data("kendoGrid").dataSource.filter([]);
+                            itemActual["D2"] = data[0].id;
+                            $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: e.sender._old, diametro2: data[0].id, token: Cookies.get("token") }).done(function (res) {
+                                if (Error(res)) {
                                     $("#descripcionIC").val(res.Descripcion);
                                     $("#icsasociado").val(res.ItemCodeSteelgo);
-                                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + data[0].id + "&diametro2=" + result[0].id + "&token=" + Cookies.get("token");
-                                   
+                                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + e.sender._old + "&diametro2=" + data[0].id + "&token=" + Cookies.get("token");
+                           
                                     $("#grid").data("kendoGrid").dataSource.read();
                                     $("#grid").data("kendoGrid").refresh();
                                     0 > $("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007", "", "2") : 0;
@@ -259,82 +333,16 @@
                                         $(".k-grid .k-input").removeAttr("disabled");
                                         $(".k-grid .k-filter").show();
                                     };
-                                })
-                            }
-                            else if(result.length > 1) {
-                                $("#Guardar span").attr("id", "LlegadaMaterial0011");
-                                limpiarDatos();
-                                regenerarCombo($("#D2"));
-                                $("#D2").data("kendoComboBox").dataSource.data(result);
-                                $("#D2").data("kendoComboBox").enable(true);
-                            }
-                        });
-                    }
-                    else if(data.length > 1)
-                    {
-                        $("#D1").data("kendoComboBox").dataSource.data(data);
-                        $("#D1").data("kendoComboBox").enable(true);
-                    }
-                })
-            }
-        },
-        dataTextField: "value",
-        dataValueField: "id"
-    });
-    
-    $("#D1").kendoComboBox({
-        change: function (e) {
-            var value = this.value();
-            if (!value || !e.sender.current()) {
-                messageindexKendoCombobox(this);
-                this.value("");
-            }else{
-                $("#grid").data("kendoGrid").dataSource.data([]);
-                itemActual["D1"]=e.sender._old;
-                $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
-                    
-                    if (data.length == 1) {
-                        $("#Guardar span").attr("id", "LlegadaMaterial0011");
-                        $("#D2").data("kendoComboBox").value(data[0].value);
-                        $("#D2").data("kendoComboBox").enable(false);
-                        //obtengo la descripcion del ic
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        limpiarDatos();
-                        $("#grid").data("kendoGrid").dataSource.filter([]);
-                        itemActual["D2"] = data[0].id;
-                        $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: e.sender._old, diametro2: data[0].id, token: Cookies.get("token") }).done(function (res) {
-                         
-                            $("#descripcionIC").val(res.Descripcion);
-                            $("#icsasociado").val(res.ItemCodeSteelgo);
-                            $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + e.sender._old + "&diametro2=" + data[0].id + "&token=" + Cookies.get("token");
-                           
-                            $("#grid").data("kendoGrid").dataSource.read();
-                            $("#grid").data("kendoGrid").refresh();
-                            0 > $("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007", "", "2") : 0;
-                            if (res.ItemCodeSteelgo !== null && res.ItemCodeSteelgo !== "") {
-                                $("#GuardarICS").css("display", "none");
-                                $("#EditarICS").css("display", "block");
-                                $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
-                                    e.preventDefault();
-                                });
-                                $(".k-grid .k-input").attr("disabled", "disabled");
-                                $(".k-grid .k-filter").hide();
-                            }
-                            else {
-                                $("#GuardarICS").css("display", "block");
-                                $("#EditarICS").css("display", "none");
-                                $("#context-menu").data("kendoContextMenu").unbind("open");
-                                $(".k-grid .k-input").removeAttr("disabled");
-                                $(".k-grid .k-filter").show();
-                            };
-                        })
-                    }
-                    else if (data.length > 1) {
-                        $("#Guardar span").attr("id", "LlegadaMaterial0011");
-                        limpiarDatos();
-                        regenerarCombo($("#D2"));
-                        $("#D2").data("kendoComboBox").dataSource.data(data);
-                        $("#D2").data("kendoComboBox").enable(true);
+                                }
+                            })
+                        }
+                        else if (data.length > 1) {
+                            $("#Guardar span").attr("id", "LlegadaMaterial0011");
+                            limpiarDatos();
+                            regenerarCombo($("#D2"));
+                            $("#D2").data("kendoComboBox").dataSource.data(data);
+                            $("#D2").data("kendoComboBox").enable(true);
+                        }
                     }
                 })
             }
@@ -354,21 +362,23 @@
                 limpiarDatos();
                 $("#grid").data("kendoGrid").dataSource.filter([]);
                 itemActual["D2"]=e.sender._old;
-                $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
-                    $("#descripcionIC").val(data.Descripcion);
-                    $("#icsasociado").val(data.ItemCodeSteelgo);
-                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
-                    $("#grid").data("kendoGrid").dataSource.read();
-                    $("#grid").data("kendoGrid").refresh();
-                    0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
-                    if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
-                        $("#GuardarICS").css("display", "none");
-                        $("#EditarICS").css("display", "block");
-                        $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
-                            e.preventDefault();
-                        });
-                        $(".k-grid .k-input").attr("disabled", "disabled");
-                        $(".k-grid .k-filter").hide();
+                $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: $("#D1").data("kendoComboBox").value(), diametro2: e.sender._old, token: Cookies.get("token") }).done(function (data) {
+                    if (Error(data)) {
+                        $("#descripcionIC").val(data.Descripcion);
+                        $("#icsasociado").val(data.ItemCodeSteelgo);
+                        $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
+                        $("#grid").data("kendoGrid").dataSource.read();
+                        $("#grid").data("kendoGrid").refresh();
+                        0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
+                        if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
+                            $("#GuardarICS").css("display", "none");
+                            $("#EditarICS").css("display", "block");
+                            $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                                e.preventDefault();
+                            });
+                            $(".k-grid .k-input").attr("disabled", "disabled");
+                            $(".k-grid .k-filter").hide();
+                        }
                     }
                 })
             }
@@ -381,6 +391,24 @@
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
         });
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
     };
 
     function ControlErroresObjetosComboBox(control, result) {
@@ -447,7 +475,24 @@
                             Peso: { type: "string", validation: { required: true }, editable: false },
                             Area: { type: "string", validation: { required: false }, editable: false },
                         }
-                    }
+                    },
+                    errors: function (response) {
+                        if (response.ReturnCode) {
+                            if (response.ReturnCode != 200) {
+                                if (response.ReturnCode == 401) {
+                                    removeUserSession();
+                                    //return true;
+                                } else {
+                                    displayMessage("notificationslabel0008", response.ReturnMessage, '2');
+                                    //return false;
+                                }
+                            } else {
+                                //return true;
+                            }
+                        } else {
+                            //return true;
+                        }
+                    },
                 },
                 serverPaging: false,
                 serverFiltering: false,
@@ -518,24 +563,28 @@
         });
         $(".k-grid .k-input").attr("disabled", "disabled");
         $(".k-grid .k-filter").hide();
+        applySecurityPolicy(false);
     }
 
     $("#GuardarICS").on("click",function(){
         if (itemActual["ItemCodeSteelgoIDNuevo"]) {
-            $AsociacionICS.AsociacionICS.create({},{itemCode:itemActual["ItemCodeID"],itemCodeSteelgo:itemActual["ItemCodeSteelgoIDNuevo"],diametro1ID:itemActual["D1"],diametro2ID:itemActual["D2"], token:Cookies.get("token")}).done(function(data){
-                if (data.ReturnMessage[0] == "OK") {
-                    $(".k-i-close").trigger("click");
-                    $(".k-grid .k-input").val("");
-                    $("#GuardarICS").css("display", "none");
-                    $("#EditarICS").css("display", "block");
-                    $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
-                        e.preventDefault();
-                    });
-                    $(".k-grid .k-input").attr("disabled", "disabled");
-                    $(".k-grid .k-filter").hide();
-                    displayMessage("AsociacionICS0005", "", '0');
-                }else{
-                    displayMessage("",data.ReturnMessage[0], '2');
+            $AsociacionICS.AsociacionICS.create({}, { itemCode: itemActual["ItemCodeID"], itemCodeSteelgo: itemActual["ItemCodeSteelgoIDNuevo"], diametro1ID: itemActual["D1"], diametro2ID: itemActual["D2"], token: Cookies.get("token") }).done(function (data) {
+                if (Error(data)) {
+                    //if (data.ReturnMessage[0] == "OK") {
+                        $(".k-i-close").trigger("click");
+                        $(".k-grid .k-input").val("");
+                        $("#GuardarICS").css("display", "none");
+                        $("#EditarICS").css("display", "block");
+                        $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                            e.preventDefault();
+                        });
+                        $(".k-grid .k-input").attr("disabled", "disabled");
+                        $(".k-grid .k-filter").hide();
+                        displayMessage("AsociacionICS0005", "", '0');
+                        applySecurityPolicy(false);
+                    //}else{
+                    //    displayMessage("",data.ReturnMessage[0], '2');
+                    //}
                 }
             });
         }else{
