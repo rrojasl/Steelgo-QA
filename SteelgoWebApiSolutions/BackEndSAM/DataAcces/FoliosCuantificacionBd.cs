@@ -516,6 +516,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> listado = ctx.Sam3_FolioCuantificacion.Where(x => x.ProyectoID == proyectoID)
@@ -525,6 +526,28 @@ namespace BackEndSAM.DataAcces
                                             value = x.FolioCuantificacionID.ToString()
                                         })
                         .AsParallel().Distinct().ToList();
+
+                    if (activarFolioConfiguracionCuantificacion) {
+                        foreach (ListaCombos item in listado) {
+                            int foliocuantificacionid = Convert.ToInt32(item.id);
+                            Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
+
+                            item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                          where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
+                                          select pc.PreFijoFolioPackingList + ","
+                                           + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                           + folioCuantificacion.FolioCuantificacionID.ToString() + ","
+                                           + pc.PostFijoFolioPackingList).FirstOrDefault();
+
+                            string[] elemntos = item.value.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                    }
+                    
 
                     return listado.OrderBy(x => x.value).ToList();
                 }
