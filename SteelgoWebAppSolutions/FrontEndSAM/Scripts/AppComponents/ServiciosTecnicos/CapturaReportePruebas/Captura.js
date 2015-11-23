@@ -13,17 +13,19 @@ function CargarGrid() {
         autoBind: true,
         dataSource: {
             data: [
-                     { TipoPrueba: "RT", Requisicion: "RT-24", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Aprobado"}]' },
-                     { TipoPrueba: "RT", Requisicion: "RT-25", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Rechazado"}]' },
-                     { TipoPrueba: "VD", Requisicion: "VD-124", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "VD","JuntaSpool":"X003-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Rechazado"}]' },
-                     { TipoPrueba: "VD", Requisicion: "VD-134", TemplateMensajeTrabajosAdicionales: "ver detalle", ListaDetalleTrabajoAdicional: '[{"TipoPrueba": "VD","JuntaSpool":"X004-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Aprobado"}]' }
+                     { TipoPrueba: "RT", SpoolJunta: "X001-001", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 3, Tamano: "25mm", Densidad: "22mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"0-1","Resultado":"Aprobado"},{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"1-2","Resultado":"Rechazado"},{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"2-3","Resultado":"Aprobado"}]' },
+                     { TipoPrueba: "RT", SpoolJunta: "X001-002", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 10, Tamano: "10mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Rechazado"}]' },
+                     { TipoPrueba: "RT", SpoolJunta: "X001-003", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 4, Tamano: "15mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "VD","JuntaSpool":"X003-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Rechazado"}]' },
+                     { TipoPrueba: "RT", SpoolJunta: "X001-004", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 1, Tamano: "25mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "VD","JuntaSpool":"X004-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Aprobado"}]' }
             ],
             schema: {
                 model: {
                     fields: {
-                        Requisicion: { type: "string", editable: false },
                         TipoPrueba: { type: "string", editable: false },
                         SpoolJunta: { type: "string", editable: false },
+                        NumeroPlacas: { type: "string", editable: false },
+                        Densidad: { type: "string", editable: false },
+                        NumeroPlacas: { type: "string", editable: false },
                         InformacionResultados: { type: "string", editable: true },
                         TemplateMensajeTrabajosAdicionales: { type: "string", editable: true },
 
@@ -51,12 +53,13 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Requisicion", title: "Requisición", filterable: true },
-            { field: "TipoPrueba", title: "Tipo prueba", filterable: true },
-            { field: "SpoolJunta", title: "Spool - Junta", filterable: true },
-            { field: "InformacionResultados", title: "Detalle Pruebas", filterable: false, width: "700px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
-
-
+          
+            { field: "SpoolJunta", title: "Spool - Junta", filterable: true, width: "100px" },
+             { field: "NumeroPlacas", title: "Número Placas", filterable: true, width: "90px" },
+             { field: "Tamano", title: "Tamaño", filterable: true, width: "90px" },
+             { field: "Densidad", title: "Densidad", filterable: true, width: "100px" },
+              
+            { field: "InformacionResultados", title: "Detalle Pruebas", filterable: false, width: "500px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
 
         ]
     });
