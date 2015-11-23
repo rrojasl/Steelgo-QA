@@ -532,8 +532,10 @@
         CargaInicial();
         $("#FechaEntrega").on("change",function(){
             if (!$("#FechaEntrega").data("kendoDatePicker").value() && this.value!=="") {
-                $("#FechaEntrega").data("kendoDatePicker").value("");
+                $("#FechaEntrega").css("color","#EB4D50");
                 displayMessage("notificationslabel0082","","2")
+            }else{
+                $("#FechaEntrega").attr("style","");
             }
         })
     }

@@ -223,18 +223,20 @@
 
         $("#FechaInic").bind("change", function () {
             if (!$("#FechaInic").data("kendoDatePicker").value() && this.value!=="") {
-                $("#FechaInic").data("kendoDatePicker").value("");
+                $("#FechaInic").css("color","#EB4D50");
                 displayMessage("notificationslabel0082","","2")
             }else{
+                $("#FechaInic").attr("style","");
                 Filtros();
             }
         });
 
         $("#FechaFinal").bind("change", function () {
             if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
-                $("#FechaFinal").data("kendoDatePicker").value("");
+                $("#FechaFinal").css("color","#EB4D50");
                 displayMessage("notificationslabel0082","","2")
             }else{
+                $("#FechaFinal").attr("style","");
                 Filtros();
             }
         });
