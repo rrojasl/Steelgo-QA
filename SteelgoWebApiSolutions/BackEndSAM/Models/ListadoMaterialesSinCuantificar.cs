@@ -79,5 +79,6 @@ namespace BackEndSAM.Models
         public string TipoUso { get; set; }
         public string Estatus { get; set; }
         public string FolioConfiguracion { get; set; }
+        public string FolioConfiguracionCuantificacionID { get; set; }
     }
 }

@@ -202,8 +202,8 @@
         ObtenerProyecto();
 
         $("#FolioCuantificacionID").kendoComboBox({
-            dataTextField: "id",
-            dataValueField: "value",
+            dataTextField: "value",
+            dataValueField: "id",
             filter: "contains",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
@@ -282,6 +282,7 @@
                     model: {
                         fields: {
                             FolioCuantificacion: { type: "string" },
+                            FolioConfiguracionCuantificacion: { type: "string" },
                         }
                     }
                 },
@@ -305,7 +306,8 @@
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: addTo([
                 { template: '<input type="checkbox" class="master" >', width: 40 },
-                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()]},
+                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "FolioConfiguracionCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()] },
             ],null),
             dataBound: onDataBoundPrincipal,
         }).getKendoGrid();

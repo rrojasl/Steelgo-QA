@@ -15,6 +15,7 @@ namespace BackEndSAM.Models
     public class ListadoGenerarOrdenAlmacenaje
     {
             public string FolioCuantificacion { get; set; }
+            public string FolioConfiguracionCuantificacion { get; set; }
             public List<ElementoCuantificacionItemCode> ItemCodes { get; set; }
 
             public ListadoGenerarOrdenAlmacenaje()

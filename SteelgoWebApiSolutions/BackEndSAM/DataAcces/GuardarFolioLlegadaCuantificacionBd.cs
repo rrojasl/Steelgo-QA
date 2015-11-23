@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -209,6 +210,7 @@ namespace BackEndSAM.DataAcces
                 {
                     using (var ctx_tran = ctx.Database.BeginTransaction())
                     {
+                        Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                         int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada
                             .Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
 
@@ -324,7 +326,30 @@ namespace BackEndSAM.DataAcces
 
                         ctx_tran.Commit();
 
-                        return new FolioLlegadaCuantificacion { FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID, ProyectoID = folioCuantificacion.ProyectoID, Nombre = nombre };
+
+
+                        FolioLlegadaCuantificacion folioLlegadaCuantificacion = new FolioLlegadaCuantificacion();
+                        folioLlegadaCuantificacion.FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID;
+                        folioLlegadaCuantificacion.ProyectoID = folioCuantificacion.ProyectoID;
+                        folioLlegadaCuantificacion.Nombre = nombre;
+                        folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                     where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
+                                                                                                                     select pc.PreFijoFolioPackingList + ","
+                                                                                                                      + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                                                                      + folioCuantificacion.FolioCuantificacionID.ToString() + ","
+                                                                                                                      + pc.PostFijoFolioPackingList).FirstOrDefault() : folioCuantificacion.FolioCuantificacionID.ToString();
+
+                        if (activarFolioConfiguracion)
+                        {
+                            string[] elemntos = folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+
+                        return folioLlegadaCuantificacion;
                     }
                 }
             }

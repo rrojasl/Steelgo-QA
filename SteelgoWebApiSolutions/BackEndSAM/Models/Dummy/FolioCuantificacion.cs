@@ -30,6 +30,7 @@ namespace BackEndSAM.Models
     {
         public int FolioCuantificacionID { get; set; }
         public int FolioAvisoEntradaID { get; set; }
+        public string FolioConfiguracionCuantificacionID { get; set; }
     }
 
     public class FolioEntradaYLlegada

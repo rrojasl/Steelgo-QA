@@ -192,6 +192,7 @@
 
             var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
             var _folioCuantificacion = getUrlParameter("FolioCuantificacionID", "-1");
+            var _folioConfiguracionCuantificacion = "";
             //var _folioLlegadaMaterialID = getUrlParameter("FolioLlegadaMaterialID", "-1");
             var _bultoID = getUrlParameter("BultoID", "-1");
             var _detalleBulto = getUrlParameter("DetalleBulto", "-1");
@@ -623,8 +624,8 @@
             });
             
             $("#FolioCuantificacionID").kendoComboBox({
-                dataTextField: "FolioCuantificacionID",
-                dataValueField: "FolioAvisoEntradaID",
+                dataTextField: "FolioConfiguracionCuantificacionID",
+                dataValueField: "FolioCuantificacionID",
                 //select: function (e) {
                 //    var dataItem = this.dataItem(e.item.index());
                 //    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
@@ -820,7 +821,7 @@
         function cargaInicialEdicion() {
             $("#AccionRegresar").css("display", "none");
             $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
-            $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion != "-1" ? _folioCuantificacion : "");
+            $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion != "-1" ? _folioCuantificacion : "");
             CargarFolioCuantificacion(_folioCuantificacion);
             CargarFolioAvisoEntrada(_folioAvisoEntradaID, _folioAvisoEntradaID);
 
@@ -1474,7 +1475,7 @@
 
             DeshabilitarControlesDetalleBulto();
             $("#FolioAvisoEntradaID").data("kendoComboBox").value(folio);
-            $("#FolioCuantificacionID").data("kendoComboBox").text(cuantificacion);
+            $("#FolioCuantificacionID").data("kendoComboBox").value(cuantificacion);
             CargarFolioCuantificacion(cuantificacion);
             CargarFolioAvisoEntrada(folio, folio);
             ObtenerDatosDelFolioAvisoLlegada();
@@ -1501,6 +1502,7 @@
             $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto==0?"-1":_detalleBulto, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
+                    _folioConfiguracionCuantificacion = result.FolioConfiguracionCuantificacionID;
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
                     $("#BultoID").val(_bultoID == -1 ? 0 : _bultoID);
                     $("#PackingList").val(result.PackingList);
@@ -1737,6 +1739,7 @@
             //TipoPackingList = {};
             TipoUso = {};
             _folioCuantificacion = "-1";
+            _folioConfiguracionCuantificacion = "";
             $("#ProyectoID").data("kendoComboBox").value("");
             $("#BultoID").val("");
             $("#PackingList").val("");
@@ -1751,6 +1754,7 @@
             //TipoPackingList = {};
             TipoUso = {};
             _folioCuantificacion = "-1";
+            _folioConfiguracionCuantificacion = "";
             $("#ProyectoID").data("kendoComboBox").value("");
             $("#BultoID").val("");
             $("#PackingList").val("");
@@ -1762,7 +1766,7 @@
         
         function cargarTituloFolio() {
             $("#divFolio").removeClass("hidden");
-            $("#spanFolio").html(_folioCuantificacion);
+            $("#spanFolio").html(_folioConfiguracionCuantificacion);
         };
 
         function limpiarTituloFolio() {
@@ -1859,6 +1863,7 @@
             if (folioCuantificacionID != -1) {
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
+                    _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                     if (Error(data)) {
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         llenarGrid(null, ListadoCuantificacionIncompletos);
@@ -1880,6 +1885,7 @@
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     if (Error(data)) {
                         _folioCuantificacion = data.FolioCuantificacionID;
+                        _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         llenarGrid(null, ListadoCuantificacionIncompletos);
                         $ListadoCuantificacion.ListadoCuantificacion.create({}, { ProyectoID: $("#ProyectoID").data("kendoComboBox").value(), cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
@@ -2043,6 +2049,7 @@
             if (folioCuantificacionID != -1) {
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
+                    _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     llenarGrid(null, ListadoCuantificacionIncompletos);
 
@@ -2061,6 +2068,7 @@
             } else {
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
+                    _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     llenarGrid(null, ListadoCuantificacionIncompletos);
                     $ListadoCuantificacion.ListadoCuantificacion.create({}, { ProyectoID: $("#ProyectoID").data("kendoComboBox").value(), cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
@@ -2224,6 +2232,7 @@
         if (folioCuantificacionID != -1) {
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
+                _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 llenarGrid(null, ListadoCuantificacionIncompletos);
 
@@ -2242,6 +2251,7 @@
         } else {
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
+                _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 llenarGrid(null, ListadoCuantificacionIncompletos);
 
@@ -2421,6 +2431,7 @@
             var i = 0, error = "";
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
+                _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                 if (Error(data)) {
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         llenarGrid(null, ListadoCuantificacionIncompletos);
@@ -2446,6 +2457,7 @@
                 var i = 0, error = "";
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
+                    _folioConfiguracionCuantificacion = data.FolioConfiguracionCuantificacionID;
                     if (Error(data)) {
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         llenarGrid(null, ListadoCuantificacionIncompletos);
