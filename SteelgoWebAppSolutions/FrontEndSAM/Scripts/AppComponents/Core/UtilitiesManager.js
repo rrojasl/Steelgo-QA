@@ -306,12 +306,15 @@ function addTo(c,f) {
 
 //Function that counts the number of non hidden columns and delete the left th
 function checkTH(g) {
-    var contador = 0;
-    g.columns.forEach(function (c) {
-        Object.keys(c).indexOf("hidden") === -1 ? contador++ : 0;
-    })
-    g.options.detailInit !== null && g.options.detailInit !== undefined ? contador++ : 0;
-    while (contador < $("#" + g.wrapper[0].id + " .k-filter-row th").length) {
-        $("#" + g.wrapper[0].id + " .k-filter-row th:last").remove();
-    }
+    //var contador = 0;
+    //g.columns.forEach(function (c) {
+    //    Object.keys(c).indexOf("hidden") === -1 ? contador++ : 0;
+    //})
+    //g.options.detailInit !== null && g.options.detailInit !== undefined ? contador++ : 0;
+    //while (contador < $("#" + g.wrapper[0].id + " .k-filter-row th").length) {
+    //    $("#" + g.wrapper[0].id + " .k-filter-row th:last").remove();
+    //}
+    var th = $("#" + g.wrapper[0].id + " .k-filter-row th");
+    var td = $("#" + g.wrapper[0].id + " tbody tr:first td")
+    td.each(function (i) { !$(this).is(":visible") ? $(th[i]).hide() : 0 })
 }
