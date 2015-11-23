@@ -101,10 +101,8 @@ namespace BackEndSAM.DataAcces
                                           D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                      where nui.NumeroUnicoID == nu.NumeroUnicoID
-                                                      select nui.CantidadRecibida).FirstOrDefault(),
-                                          MM = it.MM.ToString(),
+                                          Cantidad = rfi.Cantidad,
+                                          MM = rfi.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
                                           EstatusDocumental =  nu.EstatusDocumental,
                                           EstatusFisico = nu.EstatusFisico,
@@ -168,10 +166,8 @@ namespace BackEndSAM.DataAcces
                                           D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                      where nui.NumeroUnicoID == nu.NumeroUnicoID
-                                                      select nui.CantidadRecibida).FirstOrDefault(),
-                                          MM = it.MM.ToString(),
+                                          Cantidad = rbi.Cantidad,
+                                          MM = rbi.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
                                           EstatusDocumental = nu.EstatusDocumental,
                                           EstatusFisico = nu.EstatusFisico,
@@ -282,10 +278,8 @@ namespace BackEndSAM.DataAcces
                                     D2 = d2.Valor.ToString(),
                                     ItemCodeID = it.ItemCodeID,
                                     ProyectoID = it.ProyectoID,
-                                    Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                where nui.NumeroUnicoID == nu.NumeroUnicoID
-                                                select nui.CantidadRecibida).FirstOrDefault(),
-                                    MM = it.MM.ToString(),
+                                    Cantidad = rfi.Cantidad,
+                                    MM = rfi.MM.ToString(),
                                     Colada = (from c in ctx.Sam3_Colada
                                               where c.ColadaID == rfi.ColadaID
                                               select c.NumeroColada).FirstOrDefault(),
@@ -346,10 +340,8 @@ namespace BackEndSAM.DataAcces
                                     D2 = d2.Valor.ToString(),
                                     ItemCodeID = it.ItemCodeID,
                                     ProyectoID = it.ProyectoID,
-                                    Cantidad = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                where nui.NumeroUnicoID == nu.NumeroUnicoID
-                                                select nui.CantidadRecibida).FirstOrDefault(),
-                                    MM = it.MM.ToString(),
+                                    Cantidad = rbi.Cantidad,
+                                    MM = rbi.MM.ToString(),
                                     Colada = (from c in ctx.Sam3_Colada
                                               where c.ColadaID == rbi.ColadaID
                                               select c.NumeroColada).FirstOrDefault(),
@@ -579,6 +571,30 @@ namespace BackEndSAM.DataAcces
                                                         {
                                                             throw new Exception("El Número Único ya cuenta con congelados, no se puede actualizar el inventario por este medio");
                                                         }
+
+                                                        #region ActualizarRelacion IT
+
+                                                        if (relBId > 0)
+                                                        {
+                                                            Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
+                                                                .AsParallel().SingleOrDefault();
+                                                            relBulto.MM = milimetros;
+                                                            relBulto.FechaModificacion = DateTime.Now;
+                                                            relBulto.UsuarioModificacion = usuario.UsuarioID;
+                                                        }
+
+                                                        if (relFcId > 0)
+                                                        {
+                                                            Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                                .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
+                                                            relitemCode.MM = milimetros;
+                                                            relitemCode.FechaModificacion = DateTime.Now;
+                                                            relitemCode.UsuarioModificacion = usuario.UsuarioID;
+                                                        }
+
+                                                        ctx.SaveChanges();
+
+                                                        #endregion
                                                     }
                                                 }
                                                 #endregion
@@ -726,6 +742,30 @@ namespace BackEndSAM.DataAcces
                                                         {
                                                             throw new Exception("El Número Único ya cuenta con congelados, no se puede actualizar el inventario por este medio");
                                                         }
+
+                                                        #region ActualizarRelacion IT
+
+                                                        if (relBId > 0)
+                                                        {
+                                                            Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
+                                                                .AsParallel().SingleOrDefault();
+                                                            relBulto.MM = milimetros;
+                                                            relBulto.FechaModificacion = DateTime.Now;
+                                                            relBulto.UsuarioModificacion = usuario.UsuarioID;
+                                                        }
+
+                                                        if (relFcId > 0)
+                                                        {
+                                                            Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                                .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
+                                                            relitemCode.MM = milimetros;
+                                                            relitemCode.FechaModificacion = DateTime.Now;
+                                                            relitemCode.UsuarioModificacion = usuario.UsuarioID;
+                                                        }
+
+                                                        ctx.SaveChanges();
+
+                                                        #endregion
                                                     }
                                                 }
                                                 #endregion
