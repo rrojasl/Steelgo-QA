@@ -178,11 +178,11 @@
                                 }
                             },
                             change: function (e) {
-                                    var value = this.value();
-                                    if ((!value || this.selectedIndex == -1) && value != "") {
-                                        displayMessage("notificationslabel0083", "Diametro1", '1');
-                                        this.value("");
-                                    }
+                                var value = this.value();
+                                if ((!value || this.selectedIndex == -1) && value != "") {
+                                    displayMessage("notificationslabel0083", "Diametro1", '1');
+                                    this.value("");
+                                }
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro1 = data.nombre;
@@ -298,59 +298,12 @@
                         fields: getFields(),
                     },
                     errors: function (response) {
-
                         if (response.ReturnCode) {
                             if (response.ReturnCode != 200) {
                                 if (response.ReturnCode == 401) {
                                     removeUserSession();
                                     //return true;
                                 } else {
-                        //            var count = 0;
-                        //            setTimeout(function () {
-                        //                rowError = $.grep($("#grid").data("kendoGrid").dataSource.data(), function (n) {
-                        //                    return n.id === undefined
-                        //                });
-
-                        //                for (var i = 0; $("#grid").data("kendoGrid").dataSource.data().length > i; i++) {
-                        //                    //var count = $("#grid").data("kendoGrid").dataSource.data()[i];
-
-                        //                    if ($("#grid").data("kendoGrid").dataSource.data()[i].id === undefined) {
-                        //                        count = i;
-                        //                    }
-                        //                };
-
-                        //                console.log(count);
-
-                        //                rowError[0].Acero = rowEditada.Acero;
-                        //                rowError[0].AceroID = rowEditada.AceroID;
-                        //                rowError[0].Area = rowEditada.Area;
-                        //                rowError[0].CedulaA = rowEditada.CedulaA;
-                        //                rowError[0].CedulaB = rowEditada.CedulaB;
-                        //                rowError[0].CedulaID = rowEditada.CedulaID;
-                        //                rowError[0].Libra = rowEditada.Libra;
-                        //                rowError[0].Codigo = rowEditada.Codigo;
-                        //                rowError[0].Diametro1 = rowEditada.Diametro1;
-                        //                rowError[0].Diametro1ID = rowEditada.Diametro1ID;
-                        //                rowError[0].Diametro2ID = rowEditada.Diametro2ID;
-                        //                rowError[0].Diametro2 = rowEditada.Diametro2;
-                        //                rowError[0].Inch = rowEditada.Inch;
-                        //                rowError[0].MM = rowEditada.MM;
-                        //                rowError[0].Espesor = rowEditada.Espesor;
-                        //                rowError[0].Rel_ICS_DiametroID = rowEditada.Rel_ICS_DiametroID;
-                        //                rowError[0].Descripcion = rowEditada.Descripcion;
-                        //                rowError[0].DescripcionIngles = rowEditada.DescripcionIngles;
-                        //                rowError[0].DescripcionLarga = rowEditada.DescripcionLarga;
-                        //                rowError[0].DescripcionLargaIngles = rowEditada.DescripcionLargaIngles;
-                        //                rowError[0].Grupo = rowEditada.Grupo;
-                        //                rowError[0].GrupoID = rowEditada.GrupoID;
-                        //                rowError[0].Peso = rowEditada.Peso;
-                        //                rowError[0].ItemCodeSteelgoID = rowEditada.ItemCodeSteelgoID;
-
-                        //                $("#grid").data("kendoGrid").refresh();
-                        //                count++;
-                        //                $("#grid").data("kendoGrid").editRow($("#grid tr:eq(" + count + ")"));
-                        //                console.log("#grid tr:eq(" + count + ")");
-                        //            }, 1);
                                     displayMessage("notificationslabel0008", response.ReturnMessage, '2');
                                     //return false;
                                 }
@@ -402,27 +355,22 @@
                 },
                 requestEnd: function (e) {
 
-                    if (e.response!==undefined && e.response.ReturnCode === 500)
-                    {
+                    if (e.response !== undefined && e.response.ReturnCode === 500) {
                         var count = 0;
-                        setTimeout(function ()
-                        {
-                            rowError = $.grep($("#grid").data("kendoGrid").dataSource.data(), function (n)
-                            {
+                        setTimeout(function () {
+                            rowError = $.grep($("#grid").data("kendoGrid").dataSource.data(), function (n) {
                                 return n.id === undefined
                             });
-                          
-                            for (var i = 0; $("#grid").data("kendoGrid").dataSource.data().length > i; i++) 
-                            {
+
+                            for (var i = 0; $("#grid").data("kendoGrid").dataSource.data().length > i; i++) {
                                 //var count = $("#grid").data("kendoGrid").dataSource.data()[i];
 
-                                if ($("#grid").data("kendoGrid").dataSource.data()[i].id === undefined)
-                                {
+                                if ($("#grid").data("kendoGrid").dataSource.data()[i].id === undefined) {
                                     count = i;
                                 }
                             };
                             rowError[0].Acero = rowEditada.Acero;
-                            rowError[0].AceroID = rowEditada.AceroID; 
+                            rowError[0].AceroID = rowEditada.AceroID;
                             rowError[0].Area = rowEditada.Area;
                             rowError[0].CedulaA = rowEditada.CedulaA;
                             rowError[0].CedulaB = rowEditada.CedulaB;
@@ -448,11 +396,14 @@
 
                             $("#grid").data("kendoGrid").refresh();
                             //count++;
-                            $("#grid").data("kendoGrid").editRow($("#grid tr:eq(" + (count+2) + ")"));
+                            $("#grid").data("kendoGrid").editRow($("#grid tr:eq(" + (count + 2) + ")"));
                         }, 1);
+                    } else if (e.response.ReturnCode === 401)
+                    {
+                        removeUserSession();
                     }
-                   
 
+                    applySecurityPolicy(false);
                 },
             },
             autoHeight: true,
@@ -476,10 +427,8 @@
                         data[f] = e.model[f];
                     }
                     creado = 0;
-                    for (var i= 1; grid.dataSource.data().length > i; i++)
-                    {
-                        if (data["Codigo"] == grid.dataSource.data()[i].Codigo)
-                        {
+                    for (var i = 1; grid.dataSource.data().length > i; i++) {
+                        if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
                             creado = 1;
                             e.model.dirty = true;
                         }
@@ -509,9 +458,9 @@
                     rowEditada.GrupoID = e.model.GrupoID;
                     rowEditada.Peso = e.model.Peso;
                     rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
-                        grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
-                        grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
-                    
+                    grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
+                    grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
+
                     editado = false;
                 } else if ((e.model.id !== null && e.model.id !== "" || e.model.id != undefined) && (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))) {
                     creado = 0;
@@ -528,7 +477,7 @@
                             e.model.dirty = true;
                         }
                     }
-                   
+
                     rowEditada.Acero = e.model.Acero;
                     rowEditada.AceroID = e.model.AceroID;
                     rowEditada.Area = e.model.Area;
@@ -626,7 +575,7 @@
                         $("#grid").data("kendoGrid").refresh();
                         $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                         displayMessage("ItemCodeSteelGo0022", "", '1');
-                       
+
                     }
                 });
             },
@@ -647,6 +596,7 @@
                 ////console.log(e);
             },
         });
+        applySecurityPolicy(false);
     };
     };
 
