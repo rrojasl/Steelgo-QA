@@ -42,6 +42,15 @@ function applySecurityPolicy(loadMenu) {
                 $contextMenu = {};
 
                 //Retrieve the side menu definition
+                //data.layout.navigation[0].elements.sort(function (a,b) {
+                //    if (a.nivel > b.nivel) return 1
+                //    else if (a.nivel < b.nivel) return -1
+                //    else if (a.padre > b.padre) return 1
+                //    else if (a.padre < b.padre) return -1
+                //    else if (a.acomodo > b.acomodo) return 1
+                //    else if (a.acomodo  < b.acomodo) return -1
+                //})
+                //data.layout.navigation[0].elements.forEach(function (n) { console.log(n) })
                 generateSideMenu(data);
 
                 //Generate Side Menu
