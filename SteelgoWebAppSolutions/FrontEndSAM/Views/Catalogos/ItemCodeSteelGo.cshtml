@@ -175,6 +175,12 @@
                                         dataType: "json",
                                         url: $DiametrosCatalogos + "token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.response != undefined && e.response.ReturnCode == 401)
+                                    {
+                                        removeUserSession();
+                                    }
                                 }
                             },
                             change: function (e) {
@@ -201,6 +207,11 @@
                                     read: {
                                         dataType: "json",
                                         url: $DiametrosCatalogos + "token=" + Cookies.get("token")
+                                    }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.response != undefined && e.response.ReturnCode == 401) {
+                                        removeUserSession();
                                     }
                                 }
                             },
@@ -231,6 +242,11 @@
                                         dataType: "json",
                                         url: $Grupo.Grupo.urlNoId + "?token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.response != undefined && e.response.ReturnCode == 401) {
+                                        removeUserSession();
+                                    }
                                 }
                             },
                             change: function (e) {
@@ -258,6 +274,11 @@
                                     read: {
                                         dataType: "json",
                                         url: $Familia.Familia.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.response != undefined && e.response.ReturnCode == 401) {
+                                        removeUserSession();
                                     }
                                 }
                             },
@@ -398,11 +419,10 @@
                             //count++;
                             $("#grid").data("kendoGrid").editRow($("#grid tr:eq(" + (count + 2) + ")"));
                         }, 1);
-                    } else if (e.response.ReturnCode === 401)
+                    } else if (e.response !== undefined && e.response.ReturnCode == 401)
                     {
                         removeUserSession();
                     }
-
                     applySecurityPolicy(false);
                 },
             },
@@ -545,26 +565,29 @@
                         data["Diametro2"] = e.model.Diametro2;
 
                         $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
-                            if (data === null) {
-                                e.model.CedulaA = "";
-                                e.model.CedulaB = "";
-                                e.model.CedulaC = "";
-                                e.model.Libra = "";
-                                $("#grid").data("kendoGrid").refresh();
-                                $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
-                                displayMessage("ItemCodeSteelGo0021", "", '2');
-                            } else {
-                                e.model.CedulaID = data.CedulaID;
-                                e.model.CedulaA = data.CedulaA;
-                                e.model.CedulaB = data.CedulaB;
-                                e.model.Libra = data.CedulaC;
-                                e.model.Inch = data.CedulaIn;
-                                e.model.MM = data.CedulaMM;
-                                e.model.Espesor = data.Espesor;
-                                //e.model.Peso=data.Peso;
-                                //e.model.Area=data.Area;
-                                $("#grid").data("kendoGrid").refresh();
-                                $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
+                            if (Error(data))
+                            {
+                                if (data === null) {
+                                    e.model.CedulaA = "";
+                                    e.model.CedulaB = "";
+                                    e.model.CedulaC = "";
+                                    e.model.Libra = "";
+                                    $("#grid").data("kendoGrid").refresh();
+                                    $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
+                                    displayMessage("ItemCodeSteelGo0021", "", '2');
+                                } else {
+                                    e.model.CedulaID = data.CedulaID;
+                                    e.model.CedulaA = data.CedulaA;
+                                    e.model.CedulaB = data.CedulaB;
+                                    e.model.Libra = data.CedulaC;
+                                    e.model.Inch = data.CedulaIn;
+                                    e.model.MM = data.CedulaMM;
+                                    e.model.Espesor = data.Espesor;
+                                    //e.model.Peso=data.Peso;
+                                    //e.model.Area=data.Area;
+                                    $("#grid").data("kendoGrid").refresh();
+                                    $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
+                                }
                             }
                         });
                     } else {
