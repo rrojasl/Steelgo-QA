@@ -769,3 +769,6 @@
 /* lg viewport */
 @media (min-width: 1025px) {
 }
+.k-grid-header th.k-header {
+    white-space:normal !important;
+}
