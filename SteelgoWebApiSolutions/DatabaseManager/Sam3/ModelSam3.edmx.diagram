@@ -383,6 +383,8 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Orden__64D7DFA6" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Orden__79D2FC8C" />
         <AssociationConnector Association="ModelSam3.FK_NumeroUnico_TipoUso" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Proyecto_Correo" Width="1.5" PointX="8.25" PointY="82.75" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__1F04813B" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
