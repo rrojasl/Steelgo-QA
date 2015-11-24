@@ -57,6 +57,8 @@ namespace DatabaseManager.Sam3
         public string RegistradoPor { get; set; }
         public Nullable<int> UsuarioCancelaID { get; set; }
         public Nullable<System.DateTime> FechaCancelacion { get; set; }
+        public Nullable<int> Consecutivo { get; set; }
+        public Nullable<int> Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
     
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
         public virtual Sam3_Incidencia Sam3_Incidencia2 { get; set; }
@@ -78,5 +80,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
+        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
     }
 }

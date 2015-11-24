@@ -803,6 +803,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="RegistradoPor" Type="varchar" MaxLength="250" />
           <Property Name="UsuarioCancelaID" Type="int" />
           <Property Name="FechaCancelacion" Type="datetime" />
+          <Property Name="Consecutivo" Type="int" />
+          <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_ItemCode">
           <Key>
@@ -4746,6 +4748,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion">
+          <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="0..1" />
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_Proyecto_Entidad_Configuracion">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Incidencia">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_NumeroUnicoInventario" Type="Self.Sam3_NumeroUnicoInventario" Multiplicity="0..1" />
@@ -5900,6 +5914,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" Association="Self.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion">
+            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" Association="Self.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_NumeroUnicoInventario" EntitySet="Sam3_NumeroUnicoInventario" />
@@ -6290,6 +6308,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="RegistradoPor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioCancelaID" Type="Int32" />
           <Property Name="FechaCancelacion" Type="DateTime" Precision="3" />
+          <Property Name="Consecutivo" Type="Int32" />
+          <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" FromRole="Sam3_Incidencia" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
         </EntityType>
         <EntityType Name="Sam3_ItemCode">
           <Key>
@@ -9319,6 +9340,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" Association="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion">
+            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -11577,6 +11602,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_FolioCuantificacion" Relationship="ModelSam3.FK_FolioCuantificacion_Rel_Proyecto_Entidad_Configuracion" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_FolioCuantificacion" />
           <NavigationProperty Name="Sam3_OrdenAlmacenaje" Relationship="ModelSam3.FK__Sam3_Orde__Rel_P__21E0EDE6" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_OrdenAlmacenaje" />
           <NavigationProperty Name="Sam3_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Orde__Rel_P__22D5121F" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_OrdenRecepcion" />
+          <NavigationProperty Name="Sam3_Incidencia" Relationship="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_Incidencia" />
         </EntityType>
         <Association Name="FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Entidad">
           <End Type="ModelSam3.Sam3_Entidad" Role="Sam3_Entidad" Multiplicity="1" />
@@ -12316,6 +12342,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion">
+          <End Type="ModelSam3.Sam3_Rel_Proyecto_Entidad_Configuracion" Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Incidencia" Role="Sam3_Incidencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_Proyecto_Entidad_Configuracion">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Incidencia">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12572,6 +12610,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Incidencia">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Incidencia">
               <MappingFragment StoreEntitySet="Sam3_Incidencia">
+                <ScalarProperty Name="Rel_Proyecto_Entidad_Configuracion_ID" ColumnName="Rel_Proyecto_Entidad_Configuracion_ID" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
                 <ScalarProperty Name="FechaCancelacion" ColumnName="FechaCancelacion" />
                 <ScalarProperty Name="UsuarioCancelaID" ColumnName="UsuarioCancelaID" />
                 <ScalarProperty Name="RegistradoPor" ColumnName="RegistradoPor" />

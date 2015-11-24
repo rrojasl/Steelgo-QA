@@ -387,6 +387,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__1F04813B" />
         <AssociationConnector Association="ModelSam3.FK_FolioCuantificacion_Rel_Proyecto_Entidad_Configuracion" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Rel_P__21E0EDE6" />
+        <AssociationConnector Association="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
