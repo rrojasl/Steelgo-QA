@@ -384,6 +384,12 @@ function removeUserSession() {
                 validateCredentials();
             }
         });
+    } else {
+        Cookies.set("LogOut", true, { path: "/" });
+        Cookies.remove("user", { path: '/' });
+        Cookies.remove("token", { path: '/' });
+        Cookies.remove("home", { path: '/' });
+        validateCredentials();
     }
 }
 

@@ -347,7 +347,7 @@
             }
         });
 
-        $("#grid table").on("keydown", "tr", function (e) {
+        $("#grid table tbody").on("keydown", "tr", function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
             if (code == 13) { //If key is ENTER
                 if (!ValidarTolerancia(parseInt($(e.currentTarget).closest("tr").find("input").val()), parseInt($(e.currentTarget).closest("tr").find("td")[3].innerHTML))) {
