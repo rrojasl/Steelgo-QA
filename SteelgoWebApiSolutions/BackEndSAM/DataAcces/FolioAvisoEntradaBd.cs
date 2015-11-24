@@ -763,14 +763,25 @@ namespace BackEndSAM.DataAcces
                                    TipoIncidencia = ti.Nombre,
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                                                           where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
-                                                                                                          select pc.PreFijoFolioAvisoLlegada + ","
-                                                                                                           + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                                                                                           + fa.Consecutivo.ToString() + ","
-                                                                                                           + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : ind.IncidenciaID.ToString()
+                                                                                                          select pc.PreFijoFolioIncidencias + ","
+                                                                                                           + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                           + ind.IncidenciaID.ToString() + ","
+                                                                                                           + pc.PostFijoFolioIncidencias).FirstOrDefault() : ind.IncidenciaID.ToString()
                                }).Distinct().AsParallel().ToList();
 
-                    
-                                                              
+                    if (ActivarFolioConfiguracionIncidencias)
+                    {
+                        foreach (ListadoIncidencias item in listado)
+                        {
+                            string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                    }
+
                 }
                 return listado;
             }

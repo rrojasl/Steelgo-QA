@@ -9,7 +9,6 @@ using BackEndSAM.Utilities;
 using System.Web.Script.Serialization;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
-using BackEndSAM.Utilities;
 using System.Web.Mvc;
 using System.Net.Http;
 using System.Net;
@@ -2594,30 +2593,35 @@ namespace BackEndSAM.DataAcces
                                        {
                                            id = fe.FolioAvisoLlegadaID.ToString(),
                                            value = fe.FolioAvisoLlegadaID.ToString()
-                                           //value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                           //                                     where pc.Entidad == fe.Entidad && pc.Proyecto == fe.ProyectoNombrado
-                                           //                                     select pc.PreFijoFolioAvisoLlegada + ","
-                                           //                                      + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                           //                                      + fe.Consecutivo.ToString() + ","
-                                           //                                      + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fe.FolioAvisoLlegadaID.ToString()
+                                         
                                        }).AsParallel().Distinct().ToList();
 
-                            //if (activarFolioConfiguracion)
-                            //{
-                            //    foreach (ListaCombos lst in listado)
-                            //    {
-                            //        if (lst.value != null)
-                            //        {
-                            //            string[] elemntos = lst.value.Split(',').ToArray();
-                            //            int digitos = Convert.ToInt32(elemntos[1]);
-                            //            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            //            string formato = "D" + digitos.ToString();
+                            if (activarFolioConfiguracion)
+                            {
+                                foreach (ListaCombos lst in listado)
+                                {
+                                    int folioAvisoLlegadaID = Convert.ToInt32(lst.id);
+                                    Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).FirstOrDefault();
 
-                            //            lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            //        }
+                                    lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 select pc.PreFijoFolioAvisoLlegada + ","
+                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                  + folioAvisoLlegada.Consecutivo.ToString() + ","
+                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault();
 
-                            //    }
-                            //}
+                                    if (lst.value != null)
+                                    {
+                                        string[] elemntos = lst.value.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+
+                                }
+                            }
                             break;
                         case 2: // Entrada de Material
                             listado = (from fem in ctx.Sam3_FolioAvisoEntrada
@@ -2628,6 +2632,35 @@ namespace BackEndSAM.DataAcces
                                            id = fem.FolioAvisoEntradaID.ToString(),
                                            value = fem.FolioAvisoEntradaID.ToString()
                                        }).AsParallel().Distinct().ToList();
+
+
+                            if (activarFolioConfiguracion)
+                            {
+                                foreach (ListaCombos lst in listado)
+                                {
+                                    int folioAvisoEntradaID = Convert.ToInt32(lst.id);
+                                    Sam3_FolioAvisoEntrada folioAvisoEntrada = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID).FirstOrDefault();
+                                    Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
+
+                                    lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 select pc.PreFijoFolioAvisoLlegada + ","
+                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                  + folioAvisoLlegada.Consecutivo.ToString() + ","
+                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault();
+
+                                    if (lst.value != null)
+                                    {
+                                        string[] elemntos = lst.value.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+
+                                }
+                            }
                             break;
                         case 3: // Pase Salida. Por el momento sin implementacion
                             break;
@@ -2642,28 +2675,28 @@ namespace BackEndSAM.DataAcces
                                        }).AsParallel().Distinct().ToList();
 
 
-                            //if (activarFolioConfiguracionCuantificacion)
-                            //{
-                            //    foreach (ListaCombos item in listado)
-                            //    {
-                            //        int foliocuantificacionid = Convert.ToInt32(item.id);
-                            //        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
+                            if (activarFolioConfiguracionCuantificacion)
+                            {
+                                foreach (ListaCombos item in listado)
+                                {
+                                    int foliocuantificacionid = Convert.ToInt32(item.id);
+                                    Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
 
-                            //        item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                            //                      where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
-                            //                      select pc.PreFijoFolioPackingList + ","
-                            //                       + pc.CantidadCerosFolioPackingList.ToString() + ","
-                            //                       + folioCuantificacion.FolioCuantificacionID.ToString() + ","
-                            //                       + pc.PostFijoFolioPackingList).FirstOrDefault();
+                                    item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                  where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
+                                                  select pc.PreFijoFolioPackingList + ","
+                                                   + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                   + folioCuantificacion.FolioCuantificacionID.ToString() + ","
+                                                   + pc.PostFijoFolioPackingList).FirstOrDefault();
 
-                            //        string[] elemntos = item.value.Split(',').ToArray();
-                            //        int digitos = Convert.ToInt32(elemntos[1]);
-                            //        int consecutivo = Convert.ToInt32(elemntos[2]);
-                            //        string formato = "D" + digitos.ToString();
+                                    string[] elemntos = item.value.Split(',').ToArray();
+                                    int digitos = Convert.ToInt32(elemntos[1]);
+                                    int consecutivo = Convert.ToInt32(elemntos[2]);
+                                    string formato = "D" + digitos.ToString();
 
-                            //        item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            //    }
-                            //}
+                                    item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                }
+                            }
                             break;
                         case 5: // Orden de recepcion
                             listado = (from ordr in ctx.Sam3_OrdenRecepcion
@@ -2786,30 +2819,34 @@ namespace BackEndSAM.DataAcces
                                        {
                                            id = fe.FolioAvisoLlegadaID.ToString(),
                                            value = fe.FolioAvisoLlegadaID.ToString()
-                                           //value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                           //                                     where pc.Entidad == fe.Entidad && pc.Proyecto == fe.ProyectoNombrado
-                                           //                                     select pc.PreFijoFolioAvisoLlegada + ","
-                                           //                                      + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                           //                                      + fe.Consecutivo.ToString() + ","
-                                           //                                      + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fe.FolioAvisoLlegadaID.ToString()
                                        }).AsParallel().Distinct().ToList();
 
-                            //if (activarFolioConfiguracion)
-                            //{
-                            //    foreach (ListaCombos lst in listado)
-                            //    {
-                            //        if (lst.value != null)
-                            //        {
-                            //            string[] elemntos = lst.value.Split(',').ToArray();
-                            //            int digitos = Convert.ToInt32(elemntos[1]);
-                            //            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            //            string formato = "D" + digitos.ToString();
+                            if (activarFolioConfiguracion)
+                            {
+                                foreach (ListaCombos lst in listado)
+                                {
+                                    int folioAvisoLlegadaID = Convert.ToInt32(lst.id);
+                                    Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).FirstOrDefault();
 
-                            //            lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            //        }
+                                    lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 select pc.PreFijoFolioAvisoLlegada + ","
+                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                  + folioAvisoLlegada.Consecutivo.ToString() + ","
+                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault();
 
-                            //    }
-                            //}
+                                    if (lst.value != null)
+                                    {
+                                        string[] elemntos = lst.value.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+
+                                }
+                            }
                             break;
                         case 2: // Entrada de Material
                             listado = (from fem in ctx.Sam3_FolioAvisoEntrada
@@ -2820,6 +2857,35 @@ namespace BackEndSAM.DataAcces
                                            id = fem.FolioAvisoEntradaID.ToString(),
                                            value = fem.FolioAvisoEntradaID.ToString()
                                        }).AsParallel().Distinct().ToList();
+
+
+                            if (activarFolioConfiguracion)
+                            {
+                                foreach (ListaCombos lst in listado)
+                                {
+                                    int folioAvisoEntradaID = Convert.ToInt32(lst.id);
+                                    Sam3_FolioAvisoEntrada folioAvisoEntrada = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID).FirstOrDefault();
+                                    Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
+
+                                    lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo==1
+                                                 select pc.PreFijoFolioAvisoLlegada + ","
+                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                  + folioAvisoLlegada.Consecutivo.ToString() + ","
+                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault();
+
+                                    if (lst.value != null)
+                                    {
+                                        string[] elemntos = lst.value.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        lst.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+
+                                }
+                            }
                             break;
                         case 3: // Pase Salida. Por el momento sin implementacion
                             break;
@@ -2834,28 +2900,28 @@ namespace BackEndSAM.DataAcces
                                        }).AsParallel().Distinct().ToList();
 
 
-                            //if (activarFolioConfiguracionCuantificacion)
-                            //{
-                            //    foreach (ListaCombos item in listado)
-                            //    {
-                            //        int foliocuantificacionid = Convert.ToInt32(item.id);
-                            //        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
+                            if (activarFolioConfiguracionCuantificacion)
+                            {
+                                foreach (ListaCombos item in listado)
+                                {
+                                    int foliocuantificacionid = Convert.ToInt32(item.id);
+                                    Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
 
-                            //        item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                            //                      where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
-                            //                      select pc.PreFijoFolioPackingList + ","
-                            //                       + pc.CantidadCerosFolioPackingList.ToString() + ","
-                            //                       + folioCuantificacion.FolioCuantificacionID.ToString() + ","
-                            //                       + pc.PostFijoFolioPackingList).FirstOrDefault();
+                                    item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                  where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
+                                                  select pc.PreFijoFolioPackingList + ","
+                                                   + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                   + folioCuantificacion.FolioCuantificacionID.ToString() + ","
+                                                   + pc.PostFijoFolioPackingList).FirstOrDefault();
 
-                            //        string[] elemntos = item.value.Split(',').ToArray();
-                            //        int digitos = Convert.ToInt32(elemntos[1]);
-                            //        int consecutivo = Convert.ToInt32(elemntos[2]);
-                            //        string formato = "D" + digitos.ToString();
+                                    string[] elemntos = item.value.Split(',').ToArray();
+                                    int digitos = Convert.ToInt32(elemntos[1]);
+                                    int consecutivo = Convert.ToInt32(elemntos[2]);
+                                    string formato = "D" + digitos.ToString();
 
-                            //        item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            //    }
-                            //}
+                                    item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                }
+                            }
 
                             break;
                         case 5: // Orden de recepcion
