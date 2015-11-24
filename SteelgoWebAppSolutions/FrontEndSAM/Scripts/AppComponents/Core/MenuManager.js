@@ -349,14 +349,18 @@ function generateSideMenu(data) {
                 $sideMenuLayout[element.nivel][element.idPadre] = {};
             }
 
-
-            if ($sideMenuLayout[element.nivel][element.idPadre][element.elemetId] == undefined) {
-                $sideMenuLayout[element.nivel][element.idPadre][element.elemetId] = {};
+            var elementIdentifier = element.elemetId;
+            if (element.acomodo != 0) {
+                elementIdentifier = element.acomodo;
             }
 
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].texto = element.texto;
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].liga = element.liga;
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].icono = element.icono;
+            if ($sideMenuLayout[element.nivel][element.idPadre][elementIdentifier] == undefined) {
+                $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier] = {};
+            }
+
+            $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier].texto = element.texto;
+            $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier].liga = element.liga;
+            $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier].icono = element.icono;
         }
     }
 }
