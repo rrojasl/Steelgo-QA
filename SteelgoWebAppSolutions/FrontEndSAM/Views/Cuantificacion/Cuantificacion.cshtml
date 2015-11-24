@@ -180,6 +180,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+            var recentlyAdded=false;
             var isOpen=false;
             var fromButton=false;
             var Proyecto = {}, Cuantificacion = {}, FolioAvisoEntrada = {}, TipoPackingList = {}, TipoUso = {}, resultadoJson,
@@ -492,6 +493,7 @@
 
     @section JavascriptGlobalFunctions 
     {
+
         function changeLanguageCall() {
             var tmp=removeGrid($("#grid"));
             LoadGridQuantification();
@@ -581,6 +583,7 @@
                    
                     //},
                     change: function (e) {
+                        recentlyAdded=false;
                         var value = this.value();
                         var dataItem = this.dataItem();
                         CargarFolioAvisoEntrada(dataItem.id,dataItem.value);
@@ -608,6 +611,7 @@
                 //    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 //},
                 change: function (e) {
+                    recentlyAdded=false;
                     var dataItem = this.dataItem();
                     CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                     var value = this.value();
@@ -631,6 +635,7 @@
                 //    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
                 //},
                 change: function (e) {
+                    recentlyAdded=false;
                     var dataItem = this.dataItem();
                     CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
                     var value = this.value();
@@ -655,6 +660,7 @@
                 //    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
                 //},
                 change: function (e) {
+                    recentlyAdded=false;
                     var dataItem = this.dataItem();
                     CargarTipoPackingList(dataItem.id, dataItem.Nombre);
                     var value = this.value();
@@ -683,6 +689,7 @@
                 //    CargarTipoUso(dataItem.id, dataItem.Nombre);
                 //},
                 change: function (e) {
+                    recentlyAdded=false;
                     var dataItem = this.dataItem();
                     CargarTipoUso(dataItem.id, dataItem.Nombre);
                     var value = this.value();
@@ -718,6 +725,7 @@
                     },
                 },
                 change: function (e) {
+                    recentlyAdded=false;
                     var value = this.value();
                     if (!value || !e.sender.current()) {
                         messageindexKendoCombobox(this);
@@ -996,6 +1004,13 @@
             return bool;
         };
 
+        function alInicio(){
+            setTimeout(function(){
+                $("#grid tr[data-uid] td:first").trigger("click");
+                $("#grid tr[data-uid] input:first").focus();
+            },5);
+        }
+
         function ocultarStatus() {
             $("#Cuantificacion0076").hide();
             $("#Cuantificacion0077").hide();
@@ -1047,6 +1062,7 @@
                     autoSync: true,
                     schema: {
                         model: {
+                            id:"ItemCodeID",
                             fields: getFields(),
                         }
                     },
@@ -1153,15 +1169,19 @@
                     var nextRow = $(e.target).closest('tr').next();
                     var nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
                     //Check if the next row is the last one and add one
-                    if (nextRowCell.length == 0) {
+                    //if (nextRowCell.length == 0) {
                         var grids = $("#grid").data("kendoGrid");
                         if (grids) {
                             var dataSource = grids.dataSource;
                             var total = dataSource.data().length;
                             //dataSource.insert(total, {});
-                            if(!isOpen){
+                            if(!isOpen && !recentlyAdded){
                                 grids.addRow();
-                            }else{
+                                recentlyAdded=true;
+                            }else if(recentlyAdded){
+                                alInicio();
+                            }
+                            else{
                                 isOpen=false;
                             }
                         }
@@ -1179,9 +1199,9 @@
                             $("#grid tr[data-uid] td:first").trigger("click");
                             $("#grid tr[data-uid] input:first").focus();
                         }, 0);
-                    }else{
-                        $("#grid").data("kendoGrid").current(nextRowCell);
-                    }
+                    //}else{
+                    //    $("#grid").data("kendoGrid").current(nextRowCell);
+                    //}
                 }
             });
 
@@ -2720,6 +2740,7 @@
                         }
                     },
                     change: function (e) {
+                        recentlyAdded=false;
                         var value = this.value();
 
                         //console.log(e.sender.current());
@@ -2797,6 +2818,7 @@
                         }
                     },
                     change: function (e) {
+                        recentlyAdded=false;
                         var value = this.value();
                         if (!e.sender.current()) {
                             lastEditedCellIDSteelgo.ItemCodeSteelgoID = "";
@@ -2851,6 +2873,7 @@
                         }
                     },
                     change: function (e) {
+                        recentlyAdded=false;
                         var value = this.text();
                         if (this.selectedIndex == -1) {
                             lastEditedCellIDSColada.Colada = "";
@@ -3110,6 +3133,8 @@
         function OndataBound(e) {
             $(".k-button.k-button-icontext.k-grid-add").on("click", function () {
                 fromButton = true;
+                recentlyAdded=true;
+                alInicio();
             })
             $('td:nth-child(5):contains("ICS-Default")').each(function () {
                 tmp = this;
@@ -3127,6 +3152,11 @@
             };
             $("#grid tbody td:visible").each(function(i,n){$(this).attr("tabindex",i)});
             //Gets the current focused cell
+            if($("#grid").data("kendoGrid").dataSource.data().length>1 && !detectIE()){
+                $("#grid").data("kendoGrid").tbody.find("td").each(function(){
+                    observer.observe(this,{attributes:true,attributeOldValue:true,attributeFilter:["class"]})
+                });
+            }
             checkTH($("#grid").data("kendoGrid"));
         };
 
@@ -3166,6 +3196,10 @@
             $authorizationModel["Bulto"] = $BultoModel;
             $authorizationModel["Tipo Uso"] = $TipoUsoModel;
             $authorizationModel["Diametros"] = $DiametrosModel;
+            observer=new MutationObserver(function(n){
+                console.log(this.takeRecords());
+                $("#grid").data("kendoGrid").current().focus();
+            })
     }
 
     @section JavascriptDocumentReadyHomeCookie {
