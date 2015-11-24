@@ -183,5 +183,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_OrdenTrabajoJunta> Sam3_OrdenTrabajoJunta { get; set; }
         public virtual DbSet<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
         public virtual DbSet<Sam3_TipoJunta> Sam3_TipoJunta { get; set; }
+        public virtual DbSet<Sam3_Rel_Proyecto_Correo> Sam3_Rel_Proyecto_Correo { get; set; }
     }
 }
