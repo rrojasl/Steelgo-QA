@@ -5,6 +5,7 @@ using System.Web;
 using DatabaseManager.Sam3;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -43,6 +44,8 @@ namespace BackEndSAM.DataAcces
             try
             {
                 Sam3_Incidencia nuevaIncidencia = new Sam3_Incidencia();
+                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
+
                 using (SamContext ctx = new SamContext())
                 {
                     using (var ctx_tan = ctx.Database.BeginTransaction())
@@ -92,6 +95,15 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada.Add(nuevoRegistro);
                                             ctx.SaveChanges();
+                                            
+                                            Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == datos.ReferenciaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
+
                                             break;
                                         case 2: // Entrada de Material
                                             Sam3_Rel_Incidencia_FolioAvisoEntrada nuevaRelEntradaMaterial = new Sam3_Rel_Incidencia_FolioAvisoEntrada();
@@ -103,6 +115,15 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada.Add(nuevaRelEntradaMaterial);
                                             ctx.SaveChanges();
+
+                                            Sam3_FolioAvisoEntrada folioAvisoEntrada = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == datos.ReferenciaID).FirstOrDefault();
+                                            Sam3_FolioAvisoLlegada folioAvisoLlegadaEntradaMaterial = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Entidad == folioAvisoLlegadaEntradaMaterial.Entidad && pc.Proyecto == folioAvisoLlegadaEntradaMaterial.ProyectoNombrado && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
                                             break;
                                         case 3: // Pase Salida. Por el momento sin implementacion
                                             break;
@@ -116,6 +137,14 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_FolioCuantificacion.Add(nuevaRelFolioC);
                                             ctx.SaveChanges();
+
+                                            Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == datos.ReferenciaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
                                             break;
                                         case 5: // Orden de recepcion
 
@@ -143,6 +172,15 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_ItemCode.Add(nuevaRelItemCode);
                                             ctx.SaveChanges();
+
+
+                                            Sam3_ItemCode itemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == datos.ReferenciaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Proyecto == itemCode.ProyectoID && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
                                             break;
                                         case 8: // Orden de almacenaje
 
@@ -169,6 +207,15 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelNumeroUnico);
                                             ctx.SaveChanges();
+
+
+                                            Sam3_NumeroUnico numeroUnico = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == datos.ReferenciaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Proyecto == numeroUnico.ProyectoID && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
                                             break;
                                         case 10: // Despacho
                                             Sam3_Rel_Incidencia_Despacho nuevaRelDespacho = new Sam3_Rel_Incidencia_Despacho();
@@ -180,6 +227,15 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_Despacho.Add(nuevaRelDespacho);
                                             ctx.SaveChanges();
+
+
+                                            Sam3_Despacho despacho = ctx.Sam3_Despacho.Where(x => x.DespachoID == datos.ReferenciaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Proyecto == despacho.ProyectoID && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
                                             break;
                                         case 11: // Corte
                                             Sam3_Rel_Incidencia_Corte nuevaRelCorte = new Sam3_Rel_Incidencia_Corte();
@@ -191,6 +247,14 @@ namespace BackEndSAM.DataAcces
 
                                             ctx.Sam3_Rel_Incidencia_Corte.Add(nuevaRelCorte);
                                             ctx.SaveChanges();
+
+                                            Sam3_Corte corte = ctx.Sam3_Corte.Where(x => x.CorteID == datos.ReferenciaID).FirstOrDefault();
+                                            datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                           where pc.Proyecto == corte.ProyectoID && pc.Activo == 1
+                                                                                                                           select pc.PreFijoFolioIncidencias + ","
+                                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                            + nuevaIncidencia.IncidenciaID.ToString() + ","
+                                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : nuevaIncidencia.IncidenciaID.ToString();
                                             break;
                                         default:
                                             throw new Exception("No se encontro el tipo de incidencia");
@@ -207,7 +271,6 @@ namespace BackEndSAM.DataAcces
 
                 datos.Version = nuevaIncidencia.Version.ToString();
                 datos.FolioIncidenciaID = nuevaIncidencia.IncidenciaID;
-
                 return datos;
             }
             catch (Exception ex)
@@ -780,6 +843,8 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                 using (SamContext ctx = new SamContext())
                 {
                     Incidencia detalle = (from inc in ctx.Sam3_Incidencia
@@ -861,6 +926,27 @@ namespace BackEndSAM.DataAcces
 
                             detalle.ValorReferencia = detalle.ReferenciaID.ToString();
 
+                            if (activarFolioConfiguracion) {
+                                    Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == detalle.ReferenciaID).FirstOrDefault();
+
+                                    detalle.ValorReferencia = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 select pc.PreFijoFolioAvisoLlegada + ","
+                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                  + folioAvisoLlegada.Consecutivo.ToString() + ","
+                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault();
+
+                                    if (detalle.ValorReferencia != null)
+                                    {
+                                        string[] elemntos = detalle.ValorReferencia.Split(',').ToArray();
+                                        int digitosAE = Convert.ToInt32(elemntos[1]);
+                                        int consecutivoAE = Convert.ToInt32(elemntos[2]);
+                                        string formatoAE = "D" + digitosAE.ToString();
+
+                                        detalle.ValorReferencia = elemntos[0].Trim() + consecutivoAE.ToString(formatoAE).Trim() + elemntos[3].Trim();
+                                    }
+                            }
+
                             break;
                         case 2: // Entrada de Material
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada
@@ -868,6 +954,29 @@ namespace BackEndSAM.DataAcces
                                                     select r.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
 
                             detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
+                            if (activarFolioConfiguracion)
+                            {
+                                Sam3_FolioAvisoEntrada folioAvisoEntrada = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == detalle.ReferenciaID).FirstOrDefault();
+                                Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
+
+                                detalle.ValorReferencia = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                           where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                           select pc.PreFijoFolioAvisoLlegada + ","
+                                                            + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                            + folioAvisoLlegada.Consecutivo.ToString() + ","
+                                                            + pc.PostFijoFolioAvisoLlegada).FirstOrDefault();
+
+                                if (detalle.ValorReferencia != null)
+                                {
+                                    string[] elemntos = detalle.ValorReferencia.Split(',').ToArray();
+                                    int digitosE = Convert.ToInt32(elemntos[1]);
+                                    int consecutivoE = Convert.ToInt32(elemntos[2]);
+                                    string formatoE = "D" + digitosE.ToString();
+
+                                    detalle.ValorReferencia = elemntos[0].Trim() + consecutivoE.ToString(formatoE).Trim() + elemntos[3].Trim();
+                                }
+                            }
 
                             break;
                         case 3: // Pase Salida. Por el momento sin implementacion
@@ -878,6 +987,28 @@ namespace BackEndSAM.DataAcces
                                                     select r.FolioCuantificacionID).AsParallel().SingleOrDefault();
 
                             detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
+                            if (activarFolioConfiguracionCuantificacion)
+                            {
+                                Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == detalle.ReferenciaID).FirstOrDefault();
+
+                                detalle.ValorReferencia = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                           where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
+                                                           select pc.PreFijoFolioPackingList + ","
+                                                            + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                            + folioCuantificacion.FolioCuantificacionID.ToString() + ","
+                                                            + pc.PostFijoFolioPackingList).FirstOrDefault();
+
+                                if (detalle.ValorReferencia != null)
+                                {
+                                    string[] elemntos = detalle.ValorReferencia.Split(',').ToArray();
+                                    int digitosP = Convert.ToInt32(elemntos[1]);
+                                    int consecutivoP = Convert.ToInt32(elemntos[2]);
+                                    string formatoP = "D" + digitosP.ToString();
+
+                                    detalle.ValorReferencia = elemntos[0].Trim() + consecutivoP.ToString(formatoP).Trim() + elemntos[3].Trim();
+                                }
+                            }
 
                             break;
                         case 5: // Orden de recepcion
