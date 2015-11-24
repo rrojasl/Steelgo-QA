@@ -173,6 +173,7 @@
     <Compile Include="Controllers\EntregaController.cs" />
     <Compile Include="Controllers\IncidenciaPaseSalidaController.cs" />
     <Compile Include="Controllers\MaterialPendienteController.cs" />
+    <Compile Include="Controllers\MaterialSpoolController.cs" />
     <Compile Include="Controllers\NotificacionDeficitController.cs" />
     <Compile Include="Controllers\NumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Controllers\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\OrdenRecepcionController.cs" />
+    <Compile Include="Controllers\OrdenTrabajoController.cs" />
     <Compile Include="Controllers\OrdenTrabajoSpoolController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\PickingTicketController.cs" />
@@ -311,9 +313,11 @@
     <Compile Include="DataAcces\ListadoMaterialesPorItemCodeBd.cs" />
     <Compile Include="DataAcces\LoggerBd.cs" />
     <Compile Include="DataAcces\MaquinaBd.cs" />
+    <Compile Include="DataAcces\MaterialSpoolBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
+    <Compile Include="DataAcces\OrdenTrabajoBd.cs" />
     <Compile Include="DataAcces\OrdenTrabajoSpoolBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\PickingTicketBd.cs" />

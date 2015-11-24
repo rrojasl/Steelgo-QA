@@ -463,5 +463,48 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ObtenerODTSporODT(int odtID, string busqueda, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<ListaCombos> listado = new List<ListaCombos>();
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    List<string> elementos = new List<string>();
+                    if (busqueda != "" && busqueda != null)
+                    {
+                        char[] lstElementoNumeroControl = busqueda.ToCharArray();
+                        foreach (char i in lstElementoNumeroControl)
+                        {
+                            elementos.Add(i.ToString());
+                        }
+                    }
+
+                    listado = (from odts in ctx2.OrdenTrabajoSpool
+                               where odts.OrdenTrabajoID == odtID
+                               && elementos.Any(x => odts.NumeroControl.Contains(x))
+                               select new ListaCombos
+                               {
+                                   id = odts.OrdenTrabajoSpoolID.ToString(),
+                                   value = odts.NumeroControl
+                               }).AsParallel().Distinct().OrderBy(x => x.value).ToList();
+                }
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
