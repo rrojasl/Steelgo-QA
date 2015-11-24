@@ -1362,7 +1362,7 @@ namespace BackEndSAM.DataAcces
                                                                                                           where pc.Entidad == r.Entidad && pc.Proyecto == r.ProyectoNombrado
                                                                                                           select pc.PreFijoFolioIncidencias + ","
                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
-                                                                                                           + incd.IncidenciaID.ToString() + ","
+                                                                                                           + incd.Consecutivo.ToString() + ","
                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : incd.IncidenciaID.ToString()
                                }).Distinct().AsParallel().ToList();
 

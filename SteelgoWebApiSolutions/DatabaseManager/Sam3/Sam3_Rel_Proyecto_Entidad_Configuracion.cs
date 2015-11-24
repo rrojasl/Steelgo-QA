@@ -19,6 +19,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
             this.Sam3_OrdenAlmacenaje = new HashSet<Sam3_OrdenAlmacenaje>();
             this.Sam3_OrdenRecepcion = new HashSet<Sam3_OrdenRecepcion>();
+            this.Sam3_Incidencia = new HashSet<Sam3_Incidencia>();
         }
     
         public int Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
@@ -57,5 +58,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
         public virtual ICollection<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
         public virtual ICollection<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
+        public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia { get; set; }
     }
 }
