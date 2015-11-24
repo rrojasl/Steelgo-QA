@@ -1360,10 +1360,10 @@ namespace BackEndSAM.DataAcces
                                    TipoIncidencia = ti.Nombre,
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                                                           where pc.Entidad == r.Entidad && pc.Proyecto == r.ProyectoNombrado
-                                                                                                          select pc.PreFijoFolioAvisoLlegada + ","
-                                                                                                           + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                                                                                           + r.Consecutivo.ToString() + ","
-                                                                                                           + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : incd.IncidenciaID.ToString()
+                                                                                                          select pc.PreFijoFolioIncidencias + ","
+                                                                                                           + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                           + incd.Consecutivo.ToString() + ","
+                                                                                                           + pc.PostFijoFolioIncidencias).FirstOrDefault() : incd.IncidenciaID.ToString()
                                }).Distinct().AsParallel().ToList();
 
                     if (ActivarFolioConfiguracionIncidencias)

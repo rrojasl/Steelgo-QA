@@ -3125,6 +3125,8 @@
                     this.set("MM", "N/A");
                 });
             };
+            $("#grid tbody td:visible").each(function(i,n){$(this).attr("tabindex",i)});
+            //Gets the current focused cell
             checkTH($("#grid").data("kendoGrid"));
         };
 

@@ -324,31 +324,44 @@ namespace BackEndSAM.DataAcces
                                          where p.ProyectoID == folioCuantificacion.ProyectoID && p.Activo
                                          select p.Nombre).AsParallel().SingleOrDefault();
 
-                        ctx_tran.Commit();
-
-
 
                         FolioLlegadaCuantificacion folioLlegadaCuantificacion = new FolioLlegadaCuantificacion();
                         folioLlegadaCuantificacion.FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID;
                         folioLlegadaCuantificacion.ProyectoID = folioCuantificacion.ProyectoID;
                         folioLlegadaCuantificacion.Nombre = nombre;
-                        folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                                     where pc.Proyecto == folioCuantificacion.ProyectoID && pc.Activo == 1
-                                                                                                                     select pc.PreFijoFolioPackingList + ","
-                                                                                                                      + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                                                                                                      + folioCuantificacion.FolioCuantificacionID.ToString() + ","
-                                                                                                                      + pc.PostFijoFolioPackingList).FirstOrDefault() : folioCuantificacion.FolioCuantificacionID.ToString();
+
+                        folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = folioCuantificacion.FolioCuantificacionID.ToString();
 
                         if (activarFolioConfiguracion)
                         {
+                            Sam3_Rel_Proyecto_Entidad_Configuracion rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion.Where(x => x.Activo == 1 && x.Proyecto == folioCuantificacion.ProyectoID).FirstOrDefault();
+                            
+                            folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = (rel_proyecto_entidad_configuracion.PreFijoFolioPackingList + ","
+                                                                                                                            + rel_proyecto_entidad_configuracion.CantidadCerosFolioPackingList.ToString() + ","
+                                                                                                                            + rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList.ToString() + ","
+                                                                                                                            + rel_proyecto_entidad_configuracion.PostFijoFolioPackingList);
+
                             string[] elemntos = folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID.Split(',').ToArray();
                             int digitos = Convert.ToInt32(elemntos[1]);
                             int consecutivo = Convert.ToInt32(elemntos[2]);
                             string formato = "D" + digitos.ToString();
 
                             folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                        }
 
+
+                            int consecutivofoliopl = rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList;
+                            Sam3_FolioCuantificacion folioCuantificacionConsecutivo = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID).FirstOrDefault();
+                            folioCuantificacionConsecutivo.Consecutivo = consecutivofoliopl;
+                            folioCuantificacionConsecutivo.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                            ctx.SaveChanges();
+
+
+                            rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList = consecutivofoliopl + 1;
+                        }
+                        ctx.SaveChanges();
+
+                        ctx_tran.Commit();
+                       
                         return folioLlegadaCuantificacion;
                     }
                 }
