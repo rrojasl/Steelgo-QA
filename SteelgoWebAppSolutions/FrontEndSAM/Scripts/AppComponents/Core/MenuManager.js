@@ -348,8 +348,7 @@ function generateSideMenu(data) {
             if ($sideMenuLayout[element.nivel][element.idPadre] == undefined) {
                 $sideMenuLayout[element.nivel][element.idPadre] = {};
             }
-
-
+            
             if ($sideMenuLayout[element.nivel][element.idPadre][element.elemetId] == undefined) {
                 $sideMenuLayout[element.nivel][element.idPadre][element.elemetId] = {};
             }
