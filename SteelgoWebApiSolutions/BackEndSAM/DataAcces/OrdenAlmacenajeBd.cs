@@ -66,18 +66,21 @@ namespace BackEndSAM.DataAcces
                             Sam3_FolioCuantificacion FolioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID).FirstOrDefault();
 
                             item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                          where pc.Proyecto == FolioCuantificacion.ProyectoID && pc.Activo == 1
+                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID == FolioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
                                           select pc.PreFijoFolioPackingList + ","
                                            + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                           + FolioCuantificacion.FolioCuantificacionID.ToString() + ","
+                                           + FolioCuantificacion.Consecutivo.ToString() + ","
                                            + pc.PostFijoFolioPackingList).FirstOrDefault();
 
-                            string[] elemntos = item.value.Split(',').ToArray();
-                            int digitos = Convert.ToInt32(elemntos[1]);
-                            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            string formato = "D" + digitos.ToString();
+                            if (!string.IsNullOrEmpty(item.value))
+                            {
+                                string[] elemntos = item.value.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
 
-                            item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
                         }
                     }
                     return lstFolios;
@@ -300,21 +303,24 @@ namespace BackEndSAM.DataAcces
                         ListadoGenerarOrdenAlmacenaje orden = new ListadoGenerarOrdenAlmacenaje();
                         orden.FolioCuantificacion = item.FolioCuantificacionID.ToString();
                         orden.FolioConfiguracionCuantificacion = activarFolioConfiguracionCuantificacion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                            where pc.Proyecto == item.ProyectoID && pc.Activo == 1
+                                                                                                            where pc.Rel_Proyecto_Entidad_Configuracion_ID == item.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                             select pc.PreFijoFolioPackingList + ","
                                                                                                              + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                                                                                             + item.FolioCuantificacionID.ToString() + ","
+                                                                                                             + item.Consecutivo.ToString() + ","
                                                                                                              + pc.PostFijoFolioPackingList).FirstOrDefault() : item.FolioCuantificacionID.ToString();
 
 
                         if (activarFolioConfiguracionCuantificacion)
                         {
-                            string[] elemntos = orden.FolioConfiguracionCuantificacion.Split(',').ToArray();
-                            int digitos = Convert.ToInt32(elemntos[1]);
-                            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            string formato = "D" + digitos.ToString();
+                            if (!string.IsNullOrEmpty(orden.FolioConfiguracionCuantificacion))
+                            {
+                                string[] elemntos = orden.FolioConfiguracionCuantificacion.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
 
-                            orden.FolioConfiguracionCuantificacion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                orden.FolioConfiguracionCuantificacion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
                         }
 
                         orden.ItemCodes = (from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode

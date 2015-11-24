@@ -98,7 +98,7 @@ namespace BackEndSAM.DataAcces
                                             
                                             Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == datos.ReferenciaID).FirstOrDefault();
                                             datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                                           where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                                                                                           where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                                                                                            select pc.PreFijoFolioIncidencias + ","
                                                                                                                             + pc.CantidadCerosFolioIncidencias.ToString() + ","
                                                                                                                             + nuevaIncidencia.IncidenciaID.ToString() + ","
@@ -119,7 +119,7 @@ namespace BackEndSAM.DataAcces
                                             Sam3_FolioAvisoEntrada folioAvisoEntrada = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == datos.ReferenciaID).FirstOrDefault();
                                             Sam3_FolioAvisoLlegada folioAvisoLlegadaEntradaMaterial = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
                                             datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                                           where pc.Entidad == folioAvisoLlegadaEntradaMaterial.Entidad && pc.Proyecto == folioAvisoLlegadaEntradaMaterial.ProyectoNombrado && pc.Activo == 1
+                                                                                                                           where pc.Entidad == folioAvisoLlegadaEntradaMaterial.Entidad && pc.Proyecto == folioAvisoLlegadaEntradaMaterial.ProyectoNombrado
                                                                                                                            select pc.PreFijoFolioIncidencias + ","
                                                                                                                             + pc.CantidadCerosFolioIncidencias.ToString() + ","
                                                                                                                             + nuevaIncidencia.IncidenciaID.ToString() + ","
@@ -930,7 +930,7 @@ namespace BackEndSAM.DataAcces
                                     Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == detalle.ReferenciaID).FirstOrDefault();
 
                                     detalle.ValorReferencia = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                  select pc.PreFijoFolioAvisoLlegada + ","
                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                   + folioAvisoLlegada.Consecutivo.ToString() + ","
@@ -961,7 +961,7 @@ namespace BackEndSAM.DataAcces
                                 Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
 
                                 detalle.ValorReferencia = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                           where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                           where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                            select pc.PreFijoFolioAvisoLlegada + ","
                                                             + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                             + folioAvisoLlegada.Consecutivo.ToString() + ","

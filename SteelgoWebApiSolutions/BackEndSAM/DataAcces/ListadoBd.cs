@@ -2604,7 +2604,7 @@ namespace BackEndSAM.DataAcces
                                     Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).FirstOrDefault();
 
                                     lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                  select pc.PreFijoFolioAvisoLlegada + ","
                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                   + folioAvisoLlegada.Consecutivo.ToString() + ","
@@ -2643,7 +2643,7 @@ namespace BackEndSAM.DataAcces
                                     Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
 
                                     lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                  select pc.PreFijoFolioAvisoLlegada + ","
                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                   + folioAvisoLlegada.Consecutivo.ToString() + ","
@@ -2829,7 +2829,7 @@ namespace BackEndSAM.DataAcces
                                     Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).FirstOrDefault();
 
                                     lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo == 1
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                  select pc.PreFijoFolioAvisoLlegada + ","
                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                   + folioAvisoLlegada.Consecutivo.ToString() + ","
@@ -2868,7 +2868,7 @@ namespace BackEndSAM.DataAcces
                                     Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoEntrada.FolioAvisoLlegadaID).FirstOrDefault();
 
                                     lst.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado && pc.Activo==1
+                                                 where pc.Entidad == folioAvisoLlegada.Entidad && pc.Proyecto == folioAvisoLlegada.ProyectoNombrado
                                                  select pc.PreFijoFolioAvisoLlegada + ","
                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                   + folioAvisoLlegada.Consecutivo.ToString() + ","

@@ -14,6 +14,12 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Rel_Proyecto_Entidad_Configuracion
     {
+        public Sam3_Rel_Proyecto_Entidad_Configuracion()
+        {
+            this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
+            this.Sam3_OrdenAlmacenaje = new HashSet<Sam3_OrdenAlmacenaje>();
+        }
+    
         public int Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
         public int Proyecto { get; set; }
         public int Entidad { get; set; }
@@ -47,5 +53,7 @@ namespace DatabaseManager.Sam3
     
         public virtual Sam3_Entidad Sam3_Entidad { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        public virtual ICollection<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
     }
 }
