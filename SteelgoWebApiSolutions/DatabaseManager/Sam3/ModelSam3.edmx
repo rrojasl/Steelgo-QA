@@ -1100,6 +1100,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="int" />
+          <Property Name="Consecutivo" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_OrdenTrabajo">
           <Key>
@@ -2904,6 +2906,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
               <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
             </Principal>
             <Dependent Role="Sam3_OrdenAlmacenaje">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Rel_P__22D5121F">
+          <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="0..1" />
+          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_Proyecto_Entidad_Configuracion">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenRecepcion">
               <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5273,6 +5287,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Orde__Rel_P__21E0EDE6" Association="Self.FK__Sam3_Orde__Rel_P__21E0EDE6">
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Rel_P__22D5121F" Association="Self.FK__Sam3_Orde__Rel_P__22D5121F">
+            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_PreD__Numer__19B5BC39" Association="Self.FK__Sam3_PreD__Numer__19B5BC39">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
@@ -9297,6 +9315,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Orde__Rel_P__22D5121F" Association="ModelSam3.FK__Sam3_Orde__Rel_P__22D5121F">
+            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -10099,6 +10121,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Rel___Orden__0FD74C44" FromRole="Sam3_OrdenRecepcion" ToRole="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
           <NavigationProperty Name="Sam3_ColaCreacionNumerosUnicos" Relationship="ModelSam3.FK__Sam3_Cola__Orden__79B300FB" FromRole="Sam3_OrdenRecepcion" ToRole="Sam3_ColaCreacionNumerosUnicos" />
           <NavigationProperty Name="Sam3_Rel_Incidencia_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Rel___Orden__2A212E2C" FromRole="Sam3_OrdenRecepcion" ToRole="Sam3_Rel_Incidencia_OrdenRecepcion" />
+          <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="Int32" />
+          <Property Name="Consecutivo" Type="Int32" />
+          <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK__Sam3_Orde__Rel_P__22D5121F" FromRole="Sam3_OrdenRecepcion" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
         </EntityType>
         <EntityType Name="Sam3_Rel_OrdenRecepcion_ItemCode">
           <Key>
@@ -11551,6 +11576,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Proyecto" Relationship="ModelSam3.FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Proyecto" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_Proyecto" />
           <NavigationProperty Name="Sam3_FolioCuantificacion" Relationship="ModelSam3.FK_FolioCuantificacion_Rel_Proyecto_Entidad_Configuracion" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_FolioCuantificacion" />
           <NavigationProperty Name="Sam3_OrdenAlmacenaje" Relationship="ModelSam3.FK__Sam3_Orde__Rel_P__21E0EDE6" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_OrdenAlmacenaje" />
+          <NavigationProperty Name="Sam3_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Orde__Rel_P__22D5121F" FromRole="Sam3_Rel_Proyecto_Entidad_Configuracion" ToRole="Sam3_OrdenRecepcion" />
         </EntityType>
         <Association Name="FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Entidad">
           <End Type="ModelSam3.Sam3_Entidad" Role="Sam3_Entidad" Multiplicity="1" />
@@ -12274,6 +12300,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
               <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
             </Principal>
             <Dependent Role="Sam3_OrdenAlmacenaje">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Orde__Rel_P__22D5121F">
+          <End Type="ModelSam3.Sam3_Rel_Proyecto_Entidad_Configuracion" Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_OrdenRecepcion" Role="Sam3_OrdenRecepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_Proyecto_Entidad_Configuracion">
+              <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
+            </Principal>
+            <Dependent Role="Sam3_OrdenRecepcion">
               <PropertyRef Name="Rel_Proyecto_Entidad_Configuracion_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -13677,6 +13715,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_OrdenRecepcion">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_OrdenRecepcion">
               <MappingFragment StoreEntitySet="Sam3_OrdenRecepcion">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Rel_Proyecto_Entidad_Configuracion_ID" ColumnName="Rel_Proyecto_Entidad_Configuracion_ID" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
