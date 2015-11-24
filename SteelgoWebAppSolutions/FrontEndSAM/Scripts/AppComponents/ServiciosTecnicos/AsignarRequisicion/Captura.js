@@ -6,22 +6,14 @@ IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
     SuscribirEventos();
-    
+    AjaxCargarCamposPredeterminados();
     //setTimeout(function () { alert("Hello"); }, 3000);
 };
 
 function CargarGrid() {
-
-
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            //data: [
-            //         { TipoPrueba: "RT", Prioridad: "1", Cuadrante: "Cuadrante 1", Proyecto: "ETILENO XXI", Requisicion: "Requisicion 1", SpoolID: "10/10/2015", Junta: "4", Agregar: true, CodigoAplicar: "10" },
-            //         { TipoPrueba: "RT", Prioridad: "Prioridad 2", Cuadrante: "Cuadrante 2", Proyecto: "CROSSOVER PIPING", Requisicion: "Requisicion 2", SpoolID: "10/10/2015", Junta: "5", Agregar: false, CodigoAplicar: "15" },
-            //         { TipoPrueba: "VI", Prioridad: "Prioridad 3", Cuadrante: "Cuadrante 3", Proyecto: "DUPONT ALTAMIRA2", Requisicion: "Requisicion 3", SpoolID: "10/10/2015", Junta: "6", Agregar: false, CodigoAplicar: "2" },
-            //         { TipoPrueba: "Neumática", Prioridad: "Prioridad 4", Cuadrante: "Cuadrante 4", Proyecto: "CB LITORAL", Requisicion: "Requisicion 4", SpoolID: "10/10/2015", Junta: "7", Agregar: false, CodigoAplicar: "32" }
-            //],
             schema: {
                 model: {
                     fields: {
@@ -30,7 +22,9 @@ function CargarGrid() {
                         Fecha: { type: "string", editable: false },
                         RequisicionID: { type: "int", editable: false },
                         CantidadJuntas: { type: "int", editable: false },
-                        Proveedor: { type: "string", editable: true }
+                        Proveedor: { type: "string", editable: true },
+                        HerramientadePrueba: { type: "string", editable: true },
+                        TurnoLaboral: { type: "string", editable: true }
                     }
                 }
             },
@@ -58,8 +52,10 @@ function CargarGrid() {
             { field: "Clave", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Observacion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Fecha", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true },
-             { field: "CantidadJuntas", title: _dictionary.AsignarRequisicionHeaderCantidadJuntas[$("#language").data("kendoDropDownList").value()], filterable: true },
-             { field: "Proveedor", title: _dictionary.AsignarRequisicionHeaderProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: true }
+            { field: "CantidadJuntas", title: _dictionary.AsignarRequisicionHeaderCantidadJuntas[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Proveedor", title: _dictionary.AsignarRequisicionHeaderProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: true },
+            { field: "HerramientadePrueba", title: _dictionary.AsignarRequisicionHeaderHerramientaPruebas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: true },
+            { field: "TurnoLaboral", title: _dictionary.AsignarRequisicionHeaderTurnoLaboral[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: true }
         ]
     });
 };
@@ -72,12 +68,15 @@ function PlanchaProveedor() {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=Muestra]:checked').val() === "Todos") {
+        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputPrueba").data("kendoDropDownList").text() == data[i].Clave) {
             data[i].ProveedorID = $("#inputProveedor").val();
             data[i].Proveedor = $("#inputProveedor").data("kendoDropDownList").text();
+            var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);
+            data[i].ListaHerramientaPrueba = Proveedor.ListaHerramientaPrueba;
+            data[i].ListaTurnoLaboral = Proveedor.ListaTurnoLaboral;
         }
         else {
-            if (data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) {
+            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoDropDownList").text() == data[i].Clave) {
                 data[i].ProveedorID = $("#inputProveedor").val();
                 data[i].Proveedor = $("#inputProveedor").data("kendoDropDownList").text();
             }
@@ -86,4 +85,16 @@ function PlanchaProveedor() {
     $("#grid").data("kendoGrid").dataSource.sync();
 };
 
-
+function ObtenerProveedor(id, listaProveedores) {
+    for (var i = 0; i < listaProveedores.length; i++) {
+        if (id = listaProveedores[i].ProveedorID)
+            return listaProveedores[i];
+    }
+    return null;
+};
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
