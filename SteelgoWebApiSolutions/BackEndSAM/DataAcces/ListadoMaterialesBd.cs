@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -133,6 +134,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> folios = (from fc in ctx.Sam3_FolioCuantificacion
@@ -145,6 +147,33 @@ namespace BackEndSAM.DataAcces
                                             id = fc.FolioCuantificacionID.ToString(),
                                             value = fc.FolioCuantificacionID.ToString()
                                         }).AsParallel().ToList();
+
+                    if (activarFolioConfiguracionCuantificacion)
+                    {
+                        foreach (ListaCombos item in folios)
+                        {
+                            int folioCuantificacionID = Convert.ToInt32(item.id);
+                            Sam3_FolioCuantificacion FolioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID).FirstOrDefault();
+
+                            item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID == FolioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                                          select pc.PreFijoFolioPackingList + ","
+                                           + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                           + FolioCuantificacion.Consecutivo.ToString() + ","
+                                           + pc.PostFijoFolioPackingList).FirstOrDefault();
+
+                            if (!string.IsNullOrEmpty(item.value))
+                            {
+                                string[] elemntos = item.value.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                        }
+                    }
+
                     return folios;
                 }
             }
