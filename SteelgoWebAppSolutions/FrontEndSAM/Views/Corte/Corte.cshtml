@@ -190,7 +190,9 @@
     var resultadoJson = "", Maquina = {}, Operador = {},
         Proyecto = {}, NumeroUnico = {}, intento = 0,
         _CorteUrl = "@Url.Action("Corte", "Corte")",
-        _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")", _CorteID = "-1";
+        _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")",
+        _CorteID = "-1", OrdenTrabajo = {}, Consecutivo = {},
+        Etiqueta = {};
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"
     var _MaterialPendiente = getUrlParameter("MaterialPendiente", "-1"),
         _SpoolID = getUrlParameter("SpoolID", "-1"),
@@ -485,26 +487,136 @@
         //    filter: "contains",
         //});
         //ObtenerNumeroUnico();
-        EventoSoloNumeros();
+        //EventoSoloNumeros();
 
-
-        $("#Consecutivo").keydown(function (e) {
-            if (e.keyCode == 13) {
-                $("#Etiqueta").focus();
-            }
+        $("#OrdenTrabajo").kendoAutoComplete({
+            dataTextField: "value",
+            dataValueField: "id",
+            autoBind: false,
+            dataSource: {
+                type: "json",
+                minLength: 1,
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        url: function (op) {
+                            var val = "";
+                            if (op.filter) {
+                                val = op.filter.filters[0].value;
+                            }
+                            return $UrlOrdenTrabajo + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
+                        }
+                    }
+                },
+            },
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarOrdenTrabajo(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || !e.sender.current()) {
+                    OrdenTrabajo = {};
+                    this.value("");
+                } else {
+                    $("#Consecutivo").focus();
+                };
+            },
+            filter: "contains",
         });
 
-        $("#OrdenTrabajo").keydown(function (e) {
-            if (e.keyCode == 13) {
-                $("#Consecutivo").focus();
-            }
+       
+        $("#Consecutivo").kendoAutoComplete({
+            dataTextField: "value",
+            dataValueField: "id",
+            autoBind: false,
+            dataSource: {
+                type: "json",
+                minLength: 1,
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        url: function (op) {
+                            var val = "";
+                            if (op.filter) {
+                                val = op.filter.filters[0].value;
+                            }
+                            return $UrlOrdenTrabajoSpool + "&odtID=" + (OrdenTrabajo.OrdenTrabajoID ? OrdenTrabajo.OrdenTrabajoID : 0) + "&busqueda=" + val + "&token=" + Cookies.get("token");
+                        }
+                    }
+                },
+            },
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarConsecutivo(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || !e.sender.current()) {
+                    Consecutivo = {};
+                    this.value("");
+                } else {
+                    $("#Etiqueta").focus();
+                };
+            },
+            filter: "contains",
         });
 
-        $("#Etiqueta").keydown(function (e) {
-            if (e.keyCode == 13) {
-                ValidarInformacion();
-            }
+        $("#Etiqueta").kendoAutoComplete({
+            dataTextField: "value",
+            dataValueField: "id",
+            autoBind: false,
+            dataSource: {
+                type: "json",
+                minLength: 1,
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        url: function (op) {
+                            var val = "";
+                            if (op.filter) {
+                                val = op.filter.filters[0].value;
+                            }
+                            return $UrlMaterialSpool + "&odtsID=" + (Consecutivo.ConsecutivoID ? Consecutivo.ConsecutivoID : 0) + "&busqueda=" + val + "&token=" + Cookies.get("token");
+                        }
+                    }
+                },
+            },
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarEtiqueta(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || !e.sender.current()) {
+                    Etiqueta = {};
+                    this.value("");
+                } else {
+                    ValidarInformacion();
+                };
+            },
+            filter: "contains",
         });
+
+        
+
+        //$("#OrdenTrabajo").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        $("#Consecutivo").focus();
+        //    }
+        //});
+
+        //$("#Consecutivo").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        $("#Etiqueta").focus();
+        //    }
+        //});
+
+        //$("#Etiqueta").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        ValidarInformacion();
+        //    }
+        //});
 
         $("#TramoCompleto").click(function (e) {
             ValidarInformacion();
@@ -533,6 +645,21 @@
     function CargarNumeroUnico(id, value) {
         NumeroUnico = {};
         NumeroUnico = { NumeroUnicoID: id, Nombre: value };
+    };
+    
+    function CargarOrdenTrabajo(id) {
+        OrdenTrabajo = {};
+        OrdenTrabajo = { OrdenTrabajoID: id };
+    };
+    
+    function CargarConsecutivo(id) {
+        Consecutivo = {};
+        Consecutivo = { ConsecutivoID: id };
+    };
+
+    function CargarEtiqueta(id) {
+        Etiqueta = {};
+        Etiqueta = { EtiquetaID: id };
     };
 
     function ObtenerMaquina() {
@@ -605,9 +732,9 @@
 
     function DesahabilitarBotones() {
         $("#ProyectoID").data("kendoComboBox").enable(false);
-        $("#OrdenTrabajo").attr("disabled", "disabled");
-        $("#Consecutivo").attr("disabled", "disabled");
-        $("#Etiqueta").attr("disabled", "disabled");
+        $("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
+        $("#Consecutivo").data("kendoAutoComplete").enable(false);
+        $("#Etiqueta").data("kendoComboBox").enable(false);
         $("#TramoCompleto").attr("disabled", "disabled");
         $("#Maquina").data("kendoComboBox").enable(false);
         $("#Operador").data("kendoComboBox").enable(false);
@@ -621,17 +748,17 @@
     };
 
     function DesahabilitarBotonesAgregar() {
-        $("#OrdenTrabajo").attr("disabled", "disabled");
-        $("#Consecutivo").attr("disabled", "disabled");
-        $("#Etiqueta").attr("disabled", "disabled");
+        $("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
+        $("#Consecutivo").data("kendoAutoComplete").enable(false);
+        $("#Etiqueta").data("kendoComboBox").enable(false);
         $("#TramoCompleto").attr("disabled", "disabled");
         $("#Maquina").data("kendoComboBox").enable(false);
     };
 
     function HabilitarBotonesAgregar() {
-        $("#OrdenTrabajo").removeAttr("disabled");
-        $("#Consecutivo").removeAttr("disabled");
-        $("#Etiqueta").removeAttr("disabled");
+        $("#OrdenTrabajo").data("kendoAutoComplete").enable(true);
+        $("#Consecutivo").data("kendoAutoComplete").enable(true);
+        $("#Etiqueta").data("kendoComboBox").enable(true);
         $("#TramoCompleto").removeAttr("disabled");
         $("#TramoCompleto").removeAttr("checked");
         $("#Maquina").data("kendoComboBox").enable(true);
@@ -718,9 +845,9 @@
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-        info.OrdenTrabajo = $("#OrdenTrabajo").val();
-        info.Consecutivo = $("#Consecutivo").val();
-        info.Etiqueta = $("#Etiqueta").val();
+        info.OrdenTrabajo = OrdenTrabajo.OrdenTrabajoID;
+        info.Consecutivo = Consecutivo.ConsecutivoID;
+        info.Etiqueta = Etiqueta.EtiquetaID;
         info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
         info.token = Cookies.get("token");
 
@@ -750,9 +877,9 @@
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-        info.OrdenTrabajo = $("#OrdenTrabajo").val();
-        info.Consecutivo = $("#Consecutivo").val();
-        info.Etiqueta = $("#Etiqueta").val();
+        info.OrdenTrabajo = OrdenTrabajo.OrdenTrabajoID;
+        info.Consecutivo = Consecutivo.ConsecutivoID;
+        info.Etiqueta = Etiqueta.EtiquetaID;
         info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
         info.token = Cookies.get("token");
 
