@@ -995,6 +995,7 @@ namespace BackEndSAM.DataAcces
                                         relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                         relNumero.Rel_FolioCuantificacion_ItemCode_ID = actualizarRelacion.Rel_FolioCuantificacion_ItemCode_ID;
                                         relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                        relNumero.MM = milimetros;
 
                                         ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
 
@@ -1014,6 +1015,7 @@ namespace BackEndSAM.DataAcces
                                         relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                         relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
                                         relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                        relNumero.MM = milimetros;
 
                                         ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
 
@@ -1113,6 +1115,7 @@ namespace BackEndSAM.DataAcces
                                         relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                         relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
                                         relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                        relNumero.MM = 0;
 
                                         ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
                                     }
