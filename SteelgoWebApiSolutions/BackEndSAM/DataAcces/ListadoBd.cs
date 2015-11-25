@@ -295,7 +295,7 @@ namespace BackEndSAM.DataAcces
                     result.SinPaseSalida = (from r in registrosBd
                                             join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
                                             where r.Activo && f.Activo
-                                            && f.PaseSalidaEnviado == false
+                                            && (f.PaseSalidaEnviado == false || r.Estatus == "Cierre de Folio Por Devolución")
                                             select r).AsParallel().Count();
 
                     result.PorcentajeSinDescarga = result.TotalCreados > 0 ? (result.SinOrdenDescarga * 100) / result.TotalCreados : 0;

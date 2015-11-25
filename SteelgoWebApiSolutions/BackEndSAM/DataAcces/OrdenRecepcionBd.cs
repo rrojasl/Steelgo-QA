@@ -135,6 +135,9 @@ namespace BackEndSAM.DataAcces
                                                                        && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                        && !rfi.TieneNumerosUnicos
                                                                        && rfi.Cantidad > 0
+                                                                       && !(from co in ctx.Sam3_Colada
+                                                                            where co.Activo && co.NumeroColada == ""
+                                                                            select co.ColadaID).Contains(rfi.ColadaID)
                                                                        select new ElementoItemCodeGenerarOrden
                                                                        {
                                                                            ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -164,6 +167,9 @@ namespace BackEndSAM.DataAcces
                                                                       && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                       && !rbi.TieneNumerosUnicos
                                                                       && rbi.Cantidad > 0
+                                                                      && !(from co in ctx.Sam3_Colada
+                                                                           where co.Activo && co.NumeroColada == ""
+                                                                           select co.ColadaID).Contains(rbi.ColadaID)
                                                                       select new ElementoItemCodeGenerarOrden
                                                                       {
                                                                           ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -201,6 +207,9 @@ namespace BackEndSAM.DataAcces
                                                                             && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                             && !rfi.TieneNumerosUnicos
                                                                             && rfi.Cantidad > 0
+                                                                            && !(from co in ctx.Sam3_Colada
+                                                                                 where co.Activo && co.NumeroColada == ""
+                                                                                 select co.ColadaID).Contains(rfi.ColadaID)
                                                                             select new ElementoItemCodeGenerarOrden
                                                                             {
                                                                                 ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -230,6 +239,9 @@ namespace BackEndSAM.DataAcces
                                                                            && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                            && !rbi.TieneNumerosUnicos
                                                                            && rbi.Cantidad > 0
+                                                                           && !(from co in ctx.Sam3_Colada
+                                                                                where co.Activo && co.NumeroColada == ""
+                                                                                select co.ColadaID).Contains(rbi.ColadaID)
                                                                            select new ElementoItemCodeGenerarOrden
                                                                            {
                                                                                ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),

@@ -221,109 +221,176 @@ namespace BackEndSAM.DataAcces
                 List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
+                    using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        if (idioma == "en-US")
+                        if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                         {
-                            listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                            if (idioma == "en-US")
+                            {
+                                listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                            }
+                            else
+                            {
+                                listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                            }
+                        }
+                        List<Coladas> coladas = new List<Coladas>();
+
+                        if (proyectoID > 0)
+                        {
+                            coladas = (from c in ctx.Sam3_Colada
+                                       join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                       where c.Activo && p.Activo
+                                       && c.ProyectoID == proyectoID
+                                       && c.NumeroColada.Contains(texto)
+                                       select new Coladas
+                                       {
+                                           ColadaID = c.ColadaID,
+                                           Nombre = c.NumeroColada
+                                       }).AsParallel().ToList();
                         }
                         else
                         {
-                            listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                            throw new Exception("La propiedad ProyectoID es requerida");
                         }
-                    }
-                    List<Coladas> coladas = new List<Coladas>();
-
-                    if (proyectoID > 0)
-                    {
-                        coladas = (from c in ctx.Sam3_Colada
-                                   join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
-                                   where c.Activo && p.Activo
-                                   && c.ProyectoID == proyectoID
-                                   && c.NumeroColada.Contains(texto)
-                                   select new Coladas
-                                   {
-                                       ColadaID = c.ColadaID,
-                                       Nombre = c.NumeroColada
-                                   }).AsParallel().ToList();
-                    }
-                    else
-                    {
-                        throw new Exception("La propiedad ProyectoID es requerida");
-                    }
 
 
-                    if (coladas.Count <= 0)
-                    {
-                        //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
-                        if (ctx.Sam3_Colada.Where(x => x.NumeroColada == "" && x.ProyectoID == proyectoID && x.Activo).Any())
+                        #region agregar coladas
+                        using (var ctx_tran = ctx.Database.BeginTransaction())
                         {
-                            coladas.Add((from co in ctx.Sam3_Colada
-                                         where co.Activo
-                                         && co.ProyectoID == proyectoID
-                                         && co.NumeroColada == ""
-                                         select new Coladas
-                                         {
-                                             ColadaID = co.ColadaID,
-                                             Nombre = co.NumeroColada
-                                         }).AsParallel().SingleOrDefault());
+                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
+                            {
+                                if (coladas.Count <= 0)
+                                {
+                                    //int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
+
+                                    //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
+                                    if (ctx.Sam3_Colada.Where(x => x.NumeroColada == "" && x.ProyectoID == proyectoID && x.Activo).Any())
+                                    {
+                                        coladas.Add((from co in ctx.Sam3_Colada
+                                                     where co.Activo
+                                                     && co.ProyectoID == proyectoID
+                                                     && co.NumeroColada == ""
+                                                     select new Coladas
+                                                     {
+                                                         ColadaID = co.ColadaID,
+                                                         Nombre = co.NumeroColada
+                                                     }).AsParallel().SingleOrDefault());
+                                    }
+                                    else // si no existe la colada hay que crearla
+                                    {
+                                        Sam3_Colada nuevaColada = new Sam3_Colada();
+                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.Activo = true;
+                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FechaModificacion = DateTime.Now;
+                                        nuevaColada.HoldCalidad = false;
+                                        nuevaColada.NumeroCertificado = "";
+                                        nuevaColada.NumeroColada = "";
+                                        nuevaColada.ProyectoID = proyectoID;
+                                        nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Colada.Add(nuevaColada);
+                                        ctx.SaveChanges();
+
+                                        Colada nuevaColadaSam2 = new Colada();
+                                        nuevaColadaSam2.AceroID = (from ac in ctx2.Acero
+                                                                   where ac.Nomenclatura == "Sin Trazabilidad"
+                                                                   select ac.AceroID).FirstOrDefault();
+                                        nuevaColadaSam2.FabricanteID = (from f in ctx2.Fabricante
+                                                                        where f.Nombre == "N/A"
+                                                                        select f.FabricanteID).FirstOrDefault();
+                                        nuevaColadaSam2.FechaModificacion = DateTime.Now;
+                                        nuevaColadaSam2.HoldCalidad = false;
+                                        nuevaColadaSam2.NumeroCertificado = "";
+                                        nuevaColadaSam2.NumeroColada = "";
+                                        nuevaColadaSam2.ProyectoID = proyectoID;
+
+                                        ctx2.Colada.Add(nuevaColadaSam2);
+                                        ctx2.SaveChanges();
+
+                                        Sam3_EquivalenciaColada equivalencia = new Sam3_EquivalenciaColada();
+                                        equivalencia.Activo = true;
+                                        equivalencia.FechaModificacion = DateTime.Now;
+                                        equivalencia.Sam2_ColadaID = nuevaColadaSam2.ColadaID;
+                                        equivalencia.Sam3_ColadaID = nuevaColada.ColadaID;
+                                        equivalencia.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_EquivalenciaColada.Add(equivalencia);
+                                        ctx.SaveChanges();
+
+                                        coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                                    }
+
+                                    if (ctx.Sam3_Colada.Where(x => x.ProyectoID == proyectoID && x.NumeroColada == "Sin Colada PL" && x.Activo).Any())
+                                    {
+                                        coladas.Add((from co in ctx.Sam3_Colada
+                                                     where co.Activo
+                                                     && co.ProyectoID == proyectoID
+                                                     && co.NumeroColada == "Sin Colada PL"
+                                                     select new Coladas
+                                                     {
+                                                         ColadaID = co.ColadaID,
+                                                         Nombre = co.NumeroColada
+                                                     }).AsParallel().SingleOrDefault());
+                                    }
+                                    else
+                                    {
+                                        Sam3_Colada nuevaColada = new Sam3_Colada();
+                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.Activo = true;
+                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FechaModificacion = DateTime.Now;
+                                        nuevaColada.HoldCalidad = false;
+                                        nuevaColada.NumeroCertificado = "";
+                                        nuevaColada.NumeroColada = "Sin Colada PL";
+                                        nuevaColada.ProyectoID = proyectoID;
+                                        nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Colada.Add(nuevaColada);
+                                        ctx.SaveChanges();
+
+                                        Colada nuevaColadaSam2 = new Colada();
+                                        nuevaColadaSam2.AceroID = (from ac in ctx2.Acero
+                                                                   where ac.Nomenclatura == "Sin Trazabilidad"
+                                                                   select ac.AceroID).FirstOrDefault();
+                                        nuevaColadaSam2.FabricanteID = (from f in ctx2.Fabricante
+                                                                        where f.Nombre == "N/A"
+                                                                        select f.FabricanteID).FirstOrDefault();
+                                        nuevaColadaSam2.FechaModificacion = DateTime.Now;
+                                        nuevaColadaSam2.HoldCalidad = false;
+                                        nuevaColadaSam2.NumeroCertificado = "";
+                                        nuevaColadaSam2.NumeroColada = "Sin Colada PL";
+                                        nuevaColadaSam2.ProyectoID = proyectoID;
+
+                                        ctx2.Colada.Add(nuevaColadaSam2);
+                                        ctx2.SaveChanges();
+
+                                        Sam3_EquivalenciaColada equivalencia = new Sam3_EquivalenciaColada();
+                                        equivalencia.Activo = true;
+                                        equivalencia.FechaModificacion = DateTime.Now;
+                                        equivalencia.Sam2_ColadaID = nuevaColadaSam2.ColadaID;
+                                        equivalencia.Sam3_ColadaID = nuevaColada.ColadaID;
+                                        equivalencia.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_EquivalenciaColada.Add(equivalencia);
+                                        ctx.SaveChanges();
+
+                                        coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                                    }
+                                }
+                                ctx2_tran.Commit();
+                                ctx_tran.Commit();
+                            }
                         }
-                        else // si no existe la colada hay que crearla
+                        #endregion
+
+                        listColada.AddRange(coladas);
+
+                        if (id != 0)
                         {
-                            Sam3_Colada nuevaColada = new Sam3_Colada();
-                            nuevaColada.AceroID = 1;
-                            nuevaColada.Activo = true;
-                            nuevaColada.FabricanteID = 1;
-                            nuevaColada.FechaModificacion = DateTime.Now;
-                            nuevaColada.HoldCalidad = false;
-                            nuevaColada.NumeroCertificado = "";
-                            nuevaColada.NumeroColada = "";
-                            nuevaColada.ProyectoID = proyectoID;
-                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_Colada.Add(nuevaColada);
-                            ctx.SaveChanges();
-
-                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                            listColada.RemoveAll(x => x.ColadaID == 1);
                         }
-
-                        if (ctx.Sam3_Colada.Where(x => x.ProyectoID == proyectoID && x.NumeroColada == "Sin Colada PL" && x.Activo).Any())
-                        {
-                            coladas.Add((from co in ctx.Sam3_Colada
-                                         where co.Activo
-                                         && co.ProyectoID == proyectoID
-                                         && co.NumeroColada == "Sin Colada PL"
-                                         select new Coladas
-                                         {
-                                             ColadaID = co.ColadaID,
-                                             Nombre = co.NumeroColada
-                                         }).AsParallel().SingleOrDefault());
-                        }
-                        else
-                        {
-                            Sam3_Colada nuevaColada = new Sam3_Colada();
-                            nuevaColada.AceroID = 1;
-                            nuevaColada.Activo = true;
-                            nuevaColada.FabricanteID = 1;
-                            nuevaColada.FechaModificacion = DateTime.Now;
-                            nuevaColada.HoldCalidad = false;
-                            nuevaColada.NumeroCertificado = "";
-                            nuevaColada.NumeroColada = "Sin Colada PL";
-                            nuevaColada.ProyectoID = proyectoID;
-                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_Colada.Add(nuevaColada);
-                            ctx.SaveChanges();
-
-                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
-                        }
-                    }
-
-                    listColada.AddRange(coladas);
-
-                    if (id != 0)
-                    {
-                        listColada.RemoveAll(x => x.ColadaID == 1);
                     }
                 }
                 return listColada;
@@ -423,104 +490,169 @@ namespace BackEndSAM.DataAcces
                 int itemID = string.IsNullOrEmpty(itemCodeID) ? 0 : Convert.ToInt32(itemCodeID);
                 using (SamContext ctx = new SamContext())
                 {
-                    if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
+                    using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        if (idioma == "en-US")
+                        if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                         {
-                            listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
-                        }
-                        else
-                        {
-                            listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
-                        }
-                    }
-
-
-                    List<Coladas> coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
-                                             join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
-                                             join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
-                                             where ric.Activo && c.Activo && it.Activo
-                                             && ric.ItemCodeID == itemID
-                                             select new Coladas
-                                             {
-                                                 ColadaID = c.ColadaID,
-                                                 Nombre = c.NumeroColada
-                                             }).AsParallel().Distinct().ToList();
-
-                    if (coladas.Count <= 0)
-                    {
-                        int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
-
-                        //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
-                        if (ctx.Sam3_Colada.Where(x => x.NumeroColada == "" && x.ProyectoID == proyectoID && x.Activo).Any())
-                        {
-                            coladas.Add((from co in ctx.Sam3_Colada
-                                         where co.Activo
-                                         && co.ProyectoID == proyectoID
-                                         && co.NumeroColada == ""
-                                         select new Coladas
-                                         {
-                                             ColadaID = co.ColadaID,
-                                             Nombre = co.NumeroColada
-                                         }).AsParallel().SingleOrDefault());
-                        }
-                        else // si no existe la colada hay que crearla
-                        {
-                            Sam3_Colada nuevaColada = new Sam3_Colada();
-                            nuevaColada.AceroID = 1;
-                            nuevaColada.Activo = true;
-                            nuevaColada.FabricanteID = 1;
-                            nuevaColada.FechaModificacion = DateTime.Now;
-                            nuevaColada.HoldCalidad = false;
-                            nuevaColada.NumeroCertificado = "";
-                            nuevaColada.NumeroColada = "";
-                            nuevaColada.ProyectoID = proyectoID;
-                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_Colada.Add(nuevaColada);
-                            ctx.SaveChanges();
-
-                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                            if (idioma == "en-US")
+                            {
+                                listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                            }
+                            else
+                            {
+                                listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                            }
                         }
 
-                        if (ctx.Sam3_Colada.Where(x => x.ProyectoID == proyectoID && x.NumeroColada == "Sin Colada PL" && x.Activo).Any())
+
+                        List<Coladas> coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                                 join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                                 join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
+                                                 where ric.Activo && c.Activo && it.Activo
+                                                 && ric.ItemCodeID == itemID
+                                                 select new Coladas
+                                                 {
+                                                     ColadaID = c.ColadaID,
+                                                     Nombre = c.NumeroColada
+                                                 }).AsParallel().Distinct().ToList();
+
+                        #region agregar coladas
+                        using (var ctx_tran = ctx.Database.BeginTransaction())
                         {
-                            coladas.Add((from co in ctx.Sam3_Colada
-                                         where co.Activo
-                                         && co.ProyectoID == proyectoID
-                                         && co.NumeroColada == "Sin Colada PL"
-                                         select new Coladas
-                                         {
-                                             ColadaID = co.ColadaID,
-                                             Nombre = co.NumeroColada
-                                         }).AsParallel().SingleOrDefault());
+                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
+                            {
+                                if (coladas.Count <= 0)
+                                {
+                                    int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
+
+                                    //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
+                                    if (ctx.Sam3_Colada.Where(x => x.NumeroColada == "" && x.ProyectoID == proyectoID && x.Activo).Any())
+                                    {
+                                        coladas.Add((from co in ctx.Sam3_Colada
+                                                     where co.Activo
+                                                     && co.ProyectoID == proyectoID
+                                                     && co.NumeroColada == ""
+                                                     select new Coladas
+                                                     {
+                                                         ColadaID = co.ColadaID,
+                                                         Nombre = co.NumeroColada
+                                                     }).AsParallel().SingleOrDefault());
+                                    }
+                                    else // si no existe la colada hay que crearla
+                                    {
+                                        Sam3_Colada nuevaColada = new Sam3_Colada();
+                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.Activo = true;
+                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FechaModificacion = DateTime.Now;
+                                        nuevaColada.HoldCalidad = false;
+                                        nuevaColada.NumeroCertificado = "";
+                                        nuevaColada.NumeroColada = "";
+                                        nuevaColada.ProyectoID = proyectoID;
+                                        nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Colada.Add(nuevaColada);
+                                        ctx.SaveChanges();
+
+                                        Colada nuevaColadaSam2 = new Colada();
+                                        nuevaColadaSam2.AceroID = (from ac in ctx2.Acero
+                                                                   where ac.Nomenclatura == "Sin Trazabilidad"
+                                                                   select ac.AceroID).FirstOrDefault();
+                                        nuevaColadaSam2.FabricanteID = (from f in ctx2.Fabricante
+                                                                        where f.Nombre == "N/A"
+                                                                        select f.FabricanteID).FirstOrDefault();
+                                        nuevaColadaSam2.FechaModificacion = DateTime.Now;
+                                        nuevaColadaSam2.HoldCalidad = false;
+                                        nuevaColadaSam2.NumeroCertificado = "";
+                                        nuevaColadaSam2.NumeroColada = "";
+                                        nuevaColadaSam2.ProyectoID = proyectoID;
+
+                                        ctx2.Colada.Add(nuevaColadaSam2);
+                                        ctx2.SaveChanges();
+
+                                        Sam3_EquivalenciaColada equivalencia = new Sam3_EquivalenciaColada();
+                                        equivalencia.Activo = true;
+                                        equivalencia.FechaModificacion = DateTime.Now;
+                                        equivalencia.Sam2_ColadaID = nuevaColadaSam2.ColadaID;
+                                        equivalencia.Sam3_ColadaID = nuevaColada.ColadaID;
+                                        equivalencia.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_EquivalenciaColada.Add(equivalencia);
+                                        ctx.SaveChanges();
+
+                                        coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                                    }
+
+                                    if (ctx.Sam3_Colada.Where(x => x.ProyectoID == proyectoID && x.NumeroColada == "Sin Colada PL" && x.Activo).Any())
+                                    {
+                                        coladas.Add((from co in ctx.Sam3_Colada
+                                                     where co.Activo
+                                                     && co.ProyectoID == proyectoID
+                                                     && co.NumeroColada == "Sin Colada PL"
+                                                     select new Coladas
+                                                     {
+                                                         ColadaID = co.ColadaID,
+                                                         Nombre = co.NumeroColada
+                                                     }).AsParallel().SingleOrDefault());
+                                    }
+                                    else
+                                    {
+                                        Sam3_Colada nuevaColada = new Sam3_Colada();
+                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.Activo = true;
+                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FechaModificacion = DateTime.Now;
+                                        nuevaColada.HoldCalidad = false;
+                                        nuevaColada.NumeroCertificado = "";
+                                        nuevaColada.NumeroColada = "Sin Colada PL";
+                                        nuevaColada.ProyectoID = proyectoID;
+                                        nuevaColada.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Colada.Add(nuevaColada);
+                                        ctx.SaveChanges();
+
+
+                                        Colada nuevaColadaSam2 = new Colada();
+                                        nuevaColadaSam2.AceroID = (from ac in ctx2.Acero
+                                                                   where ac.Nomenclatura == "Sin Trazabilidad"
+                                                                   select ac.AceroID).FirstOrDefault();
+                                        nuevaColadaSam2.FabricanteID = (from f in ctx2.Fabricante
+                                                                        where f.Nombre == "N/A"
+                                                                        select f.FabricanteID).FirstOrDefault();
+                                        nuevaColadaSam2.FechaModificacion = DateTime.Now;
+                                        nuevaColadaSam2.HoldCalidad = false;
+                                        nuevaColadaSam2.NumeroCertificado = "";
+                                        nuevaColadaSam2.NumeroColada = "Sin Colada PL";
+                                        nuevaColadaSam2.ProyectoID = proyectoID;
+
+                                        ctx2.Colada.Add(nuevaColadaSam2);
+                                        ctx2.SaveChanges();
+
+                                        Sam3_EquivalenciaColada equivalencia = new Sam3_EquivalenciaColada();
+                                        equivalencia.Activo = true;
+                                        equivalencia.FechaModificacion = DateTime.Now;
+                                        equivalencia.Sam2_ColadaID = nuevaColadaSam2.ColadaID;
+                                        equivalencia.Sam3_ColadaID = nuevaColada.ColadaID;
+                                        equivalencia.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_EquivalenciaColada.Add(equivalencia);
+                                        ctx.SaveChanges();
+
+                                        coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                                    }
+                                }
+                                ctx2_tran.Commit();
+                                ctx_tran.Commit();
+                            }
                         }
-                        else 
+                        #endregion
+
+                        listColada.AddRange(coladas);
+
+                        if (id != 0)
                         {
-                            Sam3_Colada nuevaColada = new Sam3_Colada();
-                            nuevaColada.AceroID = 1;
-                            nuevaColada.Activo = true;
-                            nuevaColada.FabricanteID = 1;
-                            nuevaColada.FechaModificacion = DateTime.Now;
-                            nuevaColada.HoldCalidad = false;
-                            nuevaColada.NumeroCertificado = "";
-                            nuevaColada.NumeroColada = "Sin Colada PL";
-                            nuevaColada.ProyectoID = proyectoID;
-                            nuevaColada.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_Colada.Add(nuevaColada);
-                            ctx.SaveChanges();
-
-                            coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
+                            listColada.RemoveAll(x => x.ColadaID == 1);
                         }
-                    }
-
-
-                    listColada.AddRange(coladas);
-
-                    if (id != 0)
-                    {
-                        listColada.RemoveAll(x => x.ColadaID == 1);
                     }
                 }
                 return listColada;
