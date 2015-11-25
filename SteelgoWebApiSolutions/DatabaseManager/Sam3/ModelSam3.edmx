@@ -1763,6 +1763,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="MM" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Rel_OrdenAlmacenaje_NumeroUnico">
           <Key>
@@ -11666,6 +11667,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_NumeroUnico" Relationship="ModelSam3.FK__Sam3_Rel___Numer__1D5142F3" FromRole="Sam3_Rel_NumeroUnico_RelFC_RelB" ToRole="Sam3_NumeroUnico" />
           <NavigationProperty Name="Sam3_Rel_Bulto_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___Rel_B__1F398B65" FromRole="Sam3_Rel_NumeroUnico_RelFC_RelB" ToRole="Sam3_Rel_Bulto_ItemCode" />
           <NavigationProperty Name="Sam3_Rel_FolioCuantificacion_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___Rel_F__1E45672C" FromRole="Sam3_Rel_NumeroUnico_RelFC_RelB" ToRole="Sam3_Rel_FolioCuantificacion_ItemCode" />
+          <Property Name="MM" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Numer__1D5142F3">
           <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
@@ -14435,6 +14437,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_NumeroUnico_RelFC_RelB">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_NumeroUnico_RelFC_RelB">
               <MappingFragment StoreEntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB">
+                <ScalarProperty Name="MM" ColumnName="MM" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
