@@ -1171,35 +1171,54 @@
                     //Check if the next row is the last one and add one
                     //if (nextRowCell.length == 0) {
                         var grids = $("#grid").data("kendoGrid");
+						var deboEntrarAlEditor = false;
                         if (grids) {
                             var dataSource = grids.dataSource;
                             var total = dataSource.data().length;
                             //dataSource.insert(total, {});
                             if(!isOpen && !recentlyAdded){
-                                grids.addRow();
-                                recentlyAdded=true;
-                                alInicio();
+                                if(tdIndex == 0 || tdIndex == 4 || tdIndex == 8 || tdIndex == 9 || tdIndex == 10){
+									if(!recentlyAdded && !$(e.target).is("td")){
+										grids.addRow();
+										recentlyAdded=true;
+										alInicio();
+										console.log("111" + $(e.target).is("input") + "-" + $(e.target).is("td"));
+									}else{
+										console.log("222" + $(e.target).is("input") + "-" + $(e.target).is("td"));
+										deboEntrarAlEditor = true;
+										$(e.target).trigger("click");
+										$(e.target).find("input").trigger("click");
+										$(e.target).find("input").focus();
+										grids.editCell($(e.target));
+									}
+								}else{
+									grids.addRow();
+									recentlyAdded=true;
+									alInicio();
+									console.log("333" + $(e.target).is("input") + "-" + $(e.target).is("td"));
+								}								
                             }else if(recentlyAdded){
                                 alInicio();
+								console.log("444" + $(e.target).is("input") + "-" + $(e.target).is("td"));
                             }
                             else{
                                 isOpen=false;
+								console.log("555" + $(e.target).is("input") + "-" + $(e.target).is("td"));
                             }
                         }
-                        //find index of the td element
-                        tdIndex = $(e.target).closest('td').index();
-                        //get the next row's cell
-                        nextRow = $(e.target).closest('tr').next();
-                        nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
-                        //grids.current(nextRowCell);
-                        //$("#grid tr[data-uid] td:first").trigger("click");
-                        setTimeout(function () {
-                            //console.log("--Changing Current--");
-                            var grid = $("#grid").data("kendoGrid");
-                            //grid.current(nextRowCell);
-                            $("#grid tr[data-uid] td:first").trigger("click");
-                            $("#grid tr[data-uid] input:first").focus();
-                        }, 0);
+						if(!deboEntrarAlEditor){
+							//find index of the td element
+							tdIndex = $(e.target).closest('td').index();
+							nextRow = $(e.target).closest('tr').next();
+							nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
+							setTimeout(function () {
+								//console.log("--Changing Current--");
+								var grid = $("#grid").data("kendoGrid");
+								//grid.current(nextRowCell);
+								$("#grid tr[data-uid] td:first").trigger("click");
+								$("#grid tr[data-uid] input:first").focus();
+							}, 0);
+						}
                     //}else{
                     //    $("#grid").data("kendoGrid").current(nextRowCell);
                     //}
