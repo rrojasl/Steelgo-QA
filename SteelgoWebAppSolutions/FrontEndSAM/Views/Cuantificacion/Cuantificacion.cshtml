@@ -199,7 +199,7 @@
             var _detalleBulto = getUrlParameter("DetalleBulto", "-1");
             var _edicion = getUrlParameter("EdicionPackingList", "-1");
             var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
-
+			var _deboEntrarAlEditor = false;
             //Mappeo de Controles y sus flechas
             var mapeoNavegacion = {
                 "FolioAvisoEntradaID": { 37: "FolioAvisoEntradaID", 38: "FolioAvisoEntradaID", 39: "ProyectoID", 40: "PackingList" },
@@ -1158,6 +1158,8 @@
                 });
                 
             };
+			
+			
             //Kendo "Enter" key input is captured through this binding
             $("#grid table tbody").on("keydown", "tr", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
@@ -1171,7 +1173,7 @@
                     //Check if the next row is the last one and add one
                     //if (nextRowCell.length == 0) {
                         var grids = $("#grid").data("kendoGrid");
-						var deboEntrarAlEditor = false;
+						_deboEntrarAlEditor = false;
                         if (grids) {
                             var dataSource = grids.dataSource;
                             var total = dataSource.data().length;
@@ -1185,11 +1187,11 @@
 										console.log("111" + $(e.target).is("input") + "-" + $(e.target).is("td"));
 									}else{
 										console.log("222" + $(e.target).is("input") + "-" + $(e.target).is("td"));
-										deboEntrarAlEditor = true;
+										_deboEntrarAlEditor = true;
 										$(e.target).trigger("click");
 										$(e.target).find("input").trigger("click");
 										$(e.target).find("input").focus();
-										grids.editCell($(e.target));
+										//grids.editCell($(e.target));
 									}
 								}else{
 									grids.addRow();
@@ -1203,10 +1205,11 @@
                             }
                             else{
                                 isOpen=false;
+								//_deboEntrarAlEditor = true;
 								console.log("555" + $(e.target).is("input") + "-" + $(e.target).is("td"));
                             }
                         }
-						if(!deboEntrarAlEditor){
+						if(!_deboEntrarAlEditor){
 							//find index of the td element
 							tdIndex = $(e.target).closest('td').index();
 							nextRow = $(e.target).closest('tr').next();
@@ -2760,6 +2763,7 @@
                         }
                     },
                     change: function (e) {
+						_deboEntrarAlEditor = false;
                         recentlyAdded=false;
                         var value = this.value();
                         //lastEditedCellID = options.model;
@@ -3217,7 +3221,9 @@
             $authorizationModel["Tipo Uso"] = $TipoUsoModel;
             $authorizationModel["Diametros"] = $DiametrosModel;
             observer=new MutationObserver(function(n){
-                $("#grid").data("kendoGrid").current().focus();
+				if(!_deboEntrarAlEditor){
+					$("#grid").data("kendoGrid").current().focus();
+				}                
             })
     }
 
