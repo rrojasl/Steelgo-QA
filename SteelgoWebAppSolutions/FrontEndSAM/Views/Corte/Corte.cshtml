@@ -84,16 +84,16 @@
                         </div>
                         <div id="OrdenTrabajoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0016"></label>
-                            <input id="OrdenTrabajo" class="general-input" />
+                            <input id="OrdenTrabajo" class="" />
                         </div>
                         <div id="ConsecutivoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0017"></label>
-                            <input id="Consecutivo" class="general-input" />
+                            <input id="Consecutivo" class="" />
 
                         </div>
                         <div id="EtiquetaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0018"></label>
-                            <input id="Etiqueta" class="general-input" />
+                            <input id="Etiqueta" class="" />
 
                         </div>
                         <div id="TramoCompletoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -541,7 +541,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $UrlOrdenTrabajoSpool + "&odtID=" + (OrdenTrabajo.OrdenTrabajoID ? OrdenTrabajo.OrdenTrabajoID : 0) + "&busqueda=" + val + "&token=" + Cookies.get("token");
+                            return $UrlOrdenTrabajoSpool + "&odtID=" + $("#OrdenTrabajo").data("kendoAutoComplete").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
                         }
                     }
                 },
@@ -562,24 +562,16 @@
             filter: "contains",
         });
 
-        $("#Etiqueta").kendoAutoComplete({
+        $("#Etiqueta").kendoComboBox({
             dataTextField: "value",
             dataValueField: "id",
             autoBind: false,
             dataSource: {
                 type: "json",
-                minLength: 1,
+                //minLength: 1,
                 serverFiltering: true,
                 transport: {
-                    read: {
-                        url: function (op) {
-                            var val = "";
-                            if (op.filter) {
-                                val = op.filter.filters[0].value;
-                            }
-                            return $UrlMaterialSpool + "&odtsID=" + (Consecutivo.ConsecutivoID ? Consecutivo.ConsecutivoID : 0) + "&busqueda=" + val + "&token=" + Cookies.get("token");
-                        }
-                    }
+                    read: $UrlMaterialSpool + "&odtsID=" + $("#Consecutivo").data("kendoAutoComplete").value() + "&token=" + Cookies.get("token")
                 },
             },
             select: function (e) {

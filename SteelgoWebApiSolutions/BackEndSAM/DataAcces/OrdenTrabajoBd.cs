@@ -39,7 +39,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerOrdenTrabajoPorProyecto(int proyectoID, string busqueda, Sam3_Usuario usuario)
+        public object ObtenerOrdenTrabajoPorProyecto(string proyecto, string busqueda, Sam3_Usuario usuario)
         {
             try
             {
@@ -47,6 +47,8 @@ namespace BackEndSAM.DataAcces
                 int sam2_proyectoID = 0;
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
+                int proyectoID = string.IsNullOrEmpty(proyecto) ? 0 : Convert.ToInt32(proyecto);
+
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     using (SamContext ctx = new SamContext())
