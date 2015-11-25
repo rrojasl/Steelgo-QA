@@ -510,7 +510,7 @@ namespace BackEndSAM.DataAcces
                                    TipoIncidencia = tpi.Nombre,
                                    Estatus = inc.Estatus,
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                          where pc.Proyecto == r.ProyectoID && pc.Activo == 1
+                                                                                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID==inc.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                           select pc.PreFijoFolioIncidencias + ","
                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
                                                                                                            + inc.Consecutivo.ToString() + ","
@@ -521,12 +521,15 @@ namespace BackEndSAM.DataAcces
                     {
                         foreach (ListadoIncidencias item in listado)
                         {
-                            string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
-                            int digitos = Convert.ToInt32(elemntos[1]);
-                            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            string formato = "D" + digitos.ToString();
+                            if (!string.IsNullOrEmpty(item.FolioConfiguracionIncidencia))
+                            {
+                                string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
 
-                            item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
                         }
                     }
                 }

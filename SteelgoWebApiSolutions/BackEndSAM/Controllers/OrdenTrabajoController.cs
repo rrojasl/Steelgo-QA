@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class OrdenTrabajoController : ApiController
     {
-        public object Get(int proyectoID, string busqueda, string token)
+        public object Get(string proyectoID, string busqueda, string token)
         {
             string payload = "";
             string newToken = "";

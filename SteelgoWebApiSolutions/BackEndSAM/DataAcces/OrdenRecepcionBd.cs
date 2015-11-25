@@ -135,6 +135,11 @@ namespace BackEndSAM.DataAcces
                                                                        && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                        && !rfi.TieneNumerosUnicos
                                                                        && rfi.Cantidad > 0
+                                                                       && !(from co in ctx.Sam3_Colada
+                                                                            where co.Activo && co.NumeroColada == ""
+                                                                            && co.ProyectoID == i.ProyectoID
+                                                                            select co.ColadaID).Contains(rfi.ColadaID)
+                                                                       && rfi.ColadaID > 0
                                                                        select new ElementoItemCodeGenerarOrden
                                                                        {
                                                                            ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -164,6 +169,11 @@ namespace BackEndSAM.DataAcces
                                                                       && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                       && !rbi.TieneNumerosUnicos
                                                                       && rbi.Cantidad > 0
+                                                                      && !(from co in ctx.Sam3_Colada
+                                                                           where co.Activo && co.NumeroColada == ""
+                                                                           && co.ProyectoID == i.ProyectoID
+                                                                           select co.ColadaID).Contains(rbi.ColadaID)
+                                                                      && rbi.ColadaID > 0
                                                                       select new ElementoItemCodeGenerarOrden
                                                                       {
                                                                           ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -201,6 +211,11 @@ namespace BackEndSAM.DataAcces
                                                                             && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                             && !rfi.TieneNumerosUnicos
                                                                             && rfi.Cantidad > 0
+                                                                            && !(from co in ctx.Sam3_Colada
+                                                                                 where co.Activo && co.NumeroColada == ""
+                                                                                 && co.ProyectoID == i.ProyectoID
+                                                                                 select co.ColadaID).Contains(rfi.ColadaID)
+                                                                            && rfi.ColadaID > 0
                                                                             select new ElementoItemCodeGenerarOrden
                                                                             {
                                                                                 ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -230,6 +245,11 @@ namespace BackEndSAM.DataAcces
                                                                            && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                            && !rbi.TieneNumerosUnicos
                                                                            && rbi.Cantidad > 0
+                                                                           && !(from co in ctx.Sam3_Colada
+                                                                                where co.Activo && co.NumeroColada == ""
+                                                                                && co.ProyectoID == i.ProyectoID
+                                                                                select co.ColadaID).Contains(rbi.ColadaID)
+                                                                           && rbi.ColadaID > 0
                                                                            select new ElementoItemCodeGenerarOrden
                                                                            {
                                                                                ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),

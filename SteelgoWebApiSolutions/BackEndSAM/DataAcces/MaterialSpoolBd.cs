@@ -39,10 +39,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtnerEtiquetasMaterialPorODTS(int odtsID, Sam3_Usuario usuario)
+        public object ObtnerEtiquetasMaterialPorODTS(string odtsm, Sam3_Usuario usuario)
         {
             try
             {
+                int odtsID = string.IsNullOrEmpty(odtsm) ? 0 : Convert.ToInt32(odtsm);
                 List<ListaCombos> listado = new List<ListaCombos>();
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
