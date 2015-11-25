@@ -19,7 +19,6 @@ namespace BackEndSAM.Controllers
     public class PQRController : ApiController
     {
 
-
         //Obtiene el DataSource Para PQR
         public object Get(int TipoDato, string token)
         {
@@ -367,8 +366,6 @@ namespace BackEndSAM.Controllers
             }
         }
 
-
-
         //Elimina Un PQR (Cambia a estado inactivo en BD)
         public object Put(int TipoDeDato, int PQRID, string token)
         {
@@ -574,5 +571,7 @@ namespace BackEndSAM.Controllers
 
 
         }
+
+
     }
 }

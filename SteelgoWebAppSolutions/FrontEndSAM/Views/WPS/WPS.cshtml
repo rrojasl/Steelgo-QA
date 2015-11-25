@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "WPS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+    </li>
+    <li>
+        <a href="#">Soldadura</a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("WPS", "WPS")"><span id="WPSMenu"></span></a>
+    </li>
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="formNav filtersFields clearfix">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                <div class="button-section">
+                                    <button id="AgregarWPS" type="button" class="btn btn-newArrival btn-yellow"><span id="botonAgregar"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="ContenedorGrid" class="row">
+                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="windowWPS" style="display:none; z-index:inherit">
+        @Html.Partial("~/Views/WPS/_PopUPWPS.cshtml")
+    </div>
+
+</div>
+
+<script src="~/Scripts/AppComponents/WPS/Listado/WPS.js"></script>
+<script src="~/Scripts/AppComponents/WPS/Listado/Ajax.js"></script>
+<script src="~/Scripts/AppComponents/WPS/Listado/Handlers.js"></script>
+
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Edita WPS"] = $WPSSaveModel;
+    }
+</script>

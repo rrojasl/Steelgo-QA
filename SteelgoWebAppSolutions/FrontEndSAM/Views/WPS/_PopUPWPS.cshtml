@@ -1,0 +1,107 @@
+﻿<div id="ValidaCamposRequeridosWPS" class="form col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="clearfix col-sm-11 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-12" value="0" id="IDWPS" style="display:none">
+                <input id="WPSID" />
+            </div>
+            <div class="alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="clearfix col-sm-11 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-12" >
+                <div class="col-sm-12 col-md-12 col-lg-12" id="DivNombreWPS">
+                    <label id="WPSNombre"></label>
+                    <input id="NomnreWPS" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @*IZQUEIRDA*@
+        <div class="clearfix col-sm-3 col-md-3 col-lg-5">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-12 col-md-12 col-lg-12" id="DivNombrePQRRaiz">
+                    <label id="WPSPQRRAIZ"></label>
+                    <input id="PQRRaizNombre" />
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSPQRGrupoPRelleno"></label>
+                    <input id="grupoPRaiz" readonly="readonly" />
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSPWHTRaiz"></label>
+                    <input type="checkbox" id="PWHRaiz"  data-bind="checked: optionCheck" readonly="readonly" checked onclick="javascript: return false;"/>
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSEspesorMaximoRaiz"></label>
+                    <input id="EspesoirMaximoRaiz" value="0" readonly="readonly" />
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSEspesorMinimoRaiz"></label>
+                    <input id="EspesoirMinimoRaiz" value="0" readonly="readonly" />
+                </div>
+            </div>
+        </div>
+        @*DERECHA*@
+        <div class="clearfix col-sm-3 col-md-3 col-lg-5">
+            <div class="col-sm-12 col-md-12 col-lg-12" >
+                <div class="col-sm-12 col-md-12 col-lg-12" id="DivNombrePQRRelleno">
+                    <label id="WPSPQRRelleno"></label>
+                    <input id="PQRRellenoNombre" />
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSPQRGrupoPRaiz"></label>
+                    <input id="grupoPRelleno" readonly="readonly" />
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSPWHTRelleno"></label>
+                    <input type="checkbox" id="PWHRelleno" data-bind="checked: optionCheck" readonly="readonly" checked onclick="javascript: return false;"/>
+                </div>
+               
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSEspesorMaximoRelleno"></label>
+                    <input id="EspesoirMaximoRelleno" value="0" readonly="readonly" />
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label id="WPSEspesorMinimoRelleno"></label>
+                    <input id="EspesoirMinimoRelleno" value="0" readonly="readonly" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-3 col-md-3 col-lg-5">
+            <div class="col-sm-12 col-md-12 col-lg-12" id="divPQRRelleno">
+                <a id="GuardarWPS" href="#" class="btn btn-primary"><span id="botonGuardar"></span></a>
+            </div>
+        </div>
+        <div class="form-group col-sm-3 col-md-3 col-lg-5">
+            <div class="col-sm-12 col-md-12 col-lg-12" id="divPQRRelleno">
+                <a id="CancelarWPS" href="#" class="btn btn-primary"><span id="botonCancelar"></span></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/AppComponents/WPS/PopUp/PopUpAjax.js"></script>
+<script src="~/Scripts/AppComponents/WPS/PopUp/PopUpHandlers.js"></script>
+<script src="~/Scripts/AppComponents/WPS/PopUp/PopUpWPS.js"></script>
+
+
+
+
