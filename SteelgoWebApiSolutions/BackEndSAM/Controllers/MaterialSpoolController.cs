@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers
     public class MaterialSpoolController : ApiController
     {
 
-        public object Get(int odtsID, string token)
+        public object Get(string odtsID, string token)
         {
             string payload = "";
             string newToken = "";

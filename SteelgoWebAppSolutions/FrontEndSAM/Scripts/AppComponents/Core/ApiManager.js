@@ -53,6 +53,9 @@ var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
 var $UrlOrdenTrabajoSpool = $BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?';
 var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho?';
 var $DiametrosCatalogos = $BackEndSAMUri + '/backendsam/api/Diametros?';
+var $UrlOrdenTrabajo = $BackEndSAMUri + '/backendsam/api/OrdenTrabajo?';
+var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
