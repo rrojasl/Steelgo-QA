@@ -127,7 +127,7 @@
         };
     
     function CargaInicial() {
-        $("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
+        //$("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
         $("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
         $("#IrIncidencia").click(function () { Incidencias(); });
         $("#CancelarOrden").click(function () { CancelarOrden(); });
@@ -497,6 +497,8 @@
             OcultarTituloCancelado();
             if (Error(result)) {
                 _resultadoJson = result.ListadoGenerarOrdenAlmacenaje;
+                console.log(result.FolioConfiguracionOrdenAlmacenaje);
+                $("#spanOrdenAlmacenaje").html(result.FolioConfiguracionOrdenAlmacenaje);
                 $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
                
                 if (!result.Activo) {

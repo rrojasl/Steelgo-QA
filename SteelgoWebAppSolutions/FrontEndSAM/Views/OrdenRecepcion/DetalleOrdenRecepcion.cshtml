@@ -144,7 +144,7 @@
         };
 
     function CargaInicial() {
-        $("#spanOrdenRecepcion").html(_ordenRecepcionID);
+        //$("#spanOrdenRecepcion").html(_ordenRecepcionID);
         $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#ProyectoID").kendoComboBox({
@@ -465,6 +465,7 @@
         $OrdenRecepcion.OrdenRecepcion.read({}, { ordenrecepcionID: _ordenRecepcionID, token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 _resultadoJson = result;
+                $("#spanOrdenRecepcion").html(_resultadoJson[0].FolioConfiguracionOrdenRecepcion);
                 if (_resultadoJson.length > 0) {                    
                     $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
                 } else {

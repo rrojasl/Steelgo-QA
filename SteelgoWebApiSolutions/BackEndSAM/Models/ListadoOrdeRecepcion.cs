@@ -9,6 +9,7 @@ namespace BackEndSAM.Models
     {
         public string FechaOrdenRecepcion { get; set; }
         public string OrdenRecepcion { get; set; }
+        public string OrdenRecepcionID { get; set; }
         public List<ElementoItemCode> Detalle { get; set; }
 
         public ListadoOrdeRecepcion()
