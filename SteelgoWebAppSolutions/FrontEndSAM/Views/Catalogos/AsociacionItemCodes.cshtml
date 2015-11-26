@@ -28,6 +28,10 @@
                                 <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
                                 <button id="EditarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0064"></span></button>
                             </div>
+                            <div id="DesasociarDiv" class="button-section hidden">
+                                <button id="Desasociar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span id="AsociacionICS0010"></span></button>
+                            </div>
+                             
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
                         </div>
                         
@@ -90,6 +94,8 @@
         <ul id="context-menu">
             <li>Seleccionar Item Code Steelgo</li>
         </ul>
+
+        <input id="hdnICSID" type="hidden" value="" />
     </div>
 </div>
 
@@ -103,7 +109,7 @@
             create: "",
             list: ["#grid","#icinput"],
             detail: "",
-            destroy: ""
+            destroy: "#DesasociarDiv"
         },
         properties:{
             icinput:{
@@ -177,6 +183,11 @@
                 this.value("");
             }
             else {
+                $("#icinput").data("kendoComboBox").value("");
+                $("#D1").data("kendoComboBox").value("");
+                $("#D2").data("kendoComboBox").value("");
+                $("#descripcionIC").val("");
+                $("#icsasociado").val("");
                 //llamar a obtener item codes
                 var ds = new kendo.data.DataSource({
                         transport: {
@@ -203,7 +214,8 @@
             if (!value || !e.sender.current()) {
                 messageindexKendoCombobox(this);
                 this.value("");
-            }else{
+            } else {
+                $("#DesasociarDiv").addClass("hidden");
                 botonDefault()
                 itemActual={};
                 itemActual["ItemCodeID"]=e.sender._old;
@@ -249,6 +261,8 @@
                                                 if (res.ItemCodeSteelgo !== null && res.ItemCodeSteelgo !== "") {
                                                     $("#GuardarICS").css("display", "none");
                                                     $("#EditarICS").css("display", "block");
+                                                    $("#DesasociarDiv").removeClass("hidden");
+                                                    //$("#Desasociar").attr("disabled", "disabled");
                                                     $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
                                                         e.preventDefault();
                                                     });
@@ -258,6 +272,7 @@
                                                 else {
                                                     $("#GuardarICS").css("display", "block");
                                                     $("#EditarICS").css("display", "none");
+                                                    $("#DesasociarDiv").addClass("hidden");
                                                     $("#context-menu").data("kendoContextMenu").unbind("open");
                                                     $(".k-grid .k-input").removeAttr("disabled");
                                                     $(".k-grid .k-filter").show();
@@ -310,6 +325,7 @@
                             itemActual["D2"] = data[0].id;
                             $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: e.sender._old, diametro2: data[0].id, token: Cookies.get("token") }).done(function (res) {
                                 if (Error(res)) {
+                                    $("#hdnICSID").val(res.ItemCodeSteelgoID);
                                     $("#descripcionIC").val(res.Descripcion);
                                     $("#icsasociado").val(res.ItemCodeSteelgo);
                                     $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + e.sender._old + "&diametro2=" + data[0].id + "&token=" + Cookies.get("token");
@@ -320,6 +336,8 @@
                                     if (res.ItemCodeSteelgo !== null && res.ItemCodeSteelgo !== "") {
                                         $("#GuardarICS").css("display", "none");
                                         $("#EditarICS").css("display", "block");
+                                        $("#DesasociarDiv").removeClass("hidden");
+                                        //$("#Desasociar").attr("disabled", "disabled");
                                         $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
                                             e.preventDefault();
                                         });
@@ -329,6 +347,7 @@
                                     else {
                                         $("#GuardarICS").css("display", "block");
                                         $("#EditarICS").css("display", "none");
+                                        $("#DesasociarDiv").addClass("hidden");
                                         $("#context-menu").data("kendoContextMenu").unbind("open");
                                         $(".k-grid .k-input").removeAttr("disabled");
                                         $(".k-grid .k-filter").show();
@@ -364,6 +383,7 @@
                 itemActual["D2"]=e.sender._old;
                 $AsociacionICS.AsociacionICS.read({}, { itemCode: $("#icinput").data("kendoComboBox").value(), diametro1: $("#D1").data("kendoComboBox").value(), diametro2: e.sender._old, token: Cookies.get("token") }).done(function (data) {
                     if (Error(data)) {
+                        $("#hdnICSID").val(data.ItemCodeSteelgoID);
                         $("#descripcionIC").val(data.Descripcion);
                         $("#icsasociado").val(data.ItemCodeSteelgo);
                         $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
@@ -373,6 +393,8 @@
                         if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
                             $("#GuardarICS").css("display", "none");
                             $("#EditarICS").css("display", "block");
+                            $("#DesasociarDiv").removeClass("hidden")
+                            //$("#Desasociar").attr("disabled", "disabled");
                             $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
                                 e.preventDefault();
                             });
@@ -566,36 +588,54 @@
         applySecurityPolicy(false);
     }
 
-    $("#GuardarICS").on("click",function(){
+    $("#GuardarICS").on("click", function () {
         if (itemActual["ItemCodeSteelgoIDNuevo"]) {
             $AsociacionICS.AsociacionICS.create({}, { itemCode: itemActual["ItemCodeID"], itemCodeSteelgo: itemActual["ItemCodeSteelgoIDNuevo"], diametro1ID: itemActual["D1"], diametro2ID: itemActual["D2"], token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
                     //if (data.ReturnMessage[0] == "OK") {
-                        $(".k-i-close").trigger("click");
-                        $(".k-grid .k-input").val("");
-                        $("#GuardarICS").css("display", "none");
-                        $("#EditarICS").css("display", "block");
-                        $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
-                            e.preventDefault();
-                        });
-                        $(".k-grid .k-input").attr("disabled", "disabled");
-                        $(".k-grid .k-filter").hide();
-                        displayMessage("AsociacionICS0005", "", '0');
-                        applySecurityPolicy(false);
+                    $(".k-i-close").trigger("click");
+                    $(".k-grid .k-input").val("");
+                    $("#GuardarICS").css("display", "none");
+                    $("#EditarICS").css("display", "block");
+                    $("#DesasociarDiv").removeClass("hidden");
+                    //$("#Desasociar").attr("disabled", "disabled");
+                    $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
+                        e.preventDefault();
+                    });
+                    $(".k-grid .k-input").attr("disabled", "disabled");
+                    $(".k-grid .k-filter").hide();
+                    displayMessage("AsociacionICS0005", "", '0');
+                    applySecurityPolicy(false);
                     //}else{
                     //    displayMessage("",data.ReturnMessage[0], '2');
                     //}
                 }
             });
-        }else{
+        } else {
             displayMessage("AsociacionICS0006", "", '1');
         }
-    })
+    });
+
+    $("#Desasociar").on("click", function () {
+        $AsociacionICS.AsociacionICS.destroy({}, { itemCode: itemActual["ItemCodeID"], itemCodeSteelgo: $("#icsasociado").val(), diametro1ID: itemActual["D1"], diametro2ID: itemActual["D2"], token: Cookies.get("token") }).done(function (data) {
+                if (Error(data)) {
+                    if (data.ReturnMessage[0] == "OK") {
+                        $("#icsasociado").val("");
+                        $("#DesasociarDiv").addClass("hidden");
+                        botonDefault();
+                    }else{
+                        displayMessage("",data.ReturnMessage[0], '2');
+                    }
+                }
+            });
+    });
+
 
     $("#EditarICS").on("click",botonDefault);
 
     function botonDefault() {
         $("#EditarICS").css("display", "none");
+        //$("#Desasociar").removeAttr("disabled");
         $("#GuardarICS").css("display", "block");
         $("#context-menu").data("kendoContextMenu").unbind("open");
         $(".k-grid .k-input").removeAttr("disabled");

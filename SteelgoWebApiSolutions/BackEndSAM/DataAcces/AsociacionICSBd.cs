@@ -312,13 +312,21 @@ namespace BackEndSAM.DataAcces
                                        select ricsd.Rel_ItemCodeSteelgo_Diametro_ID).AsParallel().SingleOrDefault();
 
                     bool existe = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                   where rics.Activo && rics.ItemCodeID.ToString() == itemCodeID ||
-                                   (rics.Rel_ItemCode_Diametro_ID == relIC_Diam && rics.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam)
+                                   where rics.Activo &&
+                                   rics.ItemCodeID.ToString() == itemCodeID &&
+                                   rics.Rel_ItemCode_Diametro_ID == relIC_Diam
+                                   //rics.ItemCodeID.ToString() == itemCodeID ||
+                                   //(rics.Rel_ItemCode_Diametro_ID == relIC_Diam && rics.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam)
                                    select rics.ItemCodeID).Any();
 
                     if (existe) //update
                     {
-                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCode_Diametro_ID == relIC_Diam &&
+                        //Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCode_Diametro_ID == relIC_Diam &&
+                        //    x.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam &&
+                        //    x.Activo).AsParallel().SingleOrDefault();
+
+                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == itemCodeID &&
+                                   x.Rel_ItemCode_Diametro_ID == relIC_Diam &&
                             x.Activo).AsParallel().SingleOrDefault();
 
                         relacion.Rel_ItemCodeSteelgo_Diametro_ID = relICS_Diam;
@@ -347,6 +355,63 @@ namespace BackEndSAM.DataAcces
                         ctx.SaveChanges();
                     }
 
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarRelacion(string itemCodeID, string itemCodeSteelgo, string diametro1, string diametro2, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int ic = Convert.ToInt32(itemCodeID);
+                    int ics = (from itemCS in ctx.Sam3_ItemCodeSteelgo
+                               where itemCS.Activo && itemCS.Codigo == itemCodeSteelgo
+                               select itemCS.ItemCodeSteelgoID).AsParallel().SingleOrDefault();
+
+                    int relIC_Diam = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                      where ricd.Activo && ricd.Diametro1ID.ToString() == diametro1 &&
+                                      ricd.Diametro2ID.ToString() == diametro2 &&
+                                      ricd.ItemCodeID.ToString() == itemCodeID
+                                      select ricd.Rel_ItemCode_Diametro_ID).AsParallel().SingleOrDefault();
+
+                    int relICS_Diam = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                       where ricsd.Activo && ricsd.Diametro1ID.ToString() == diametro1 &&
+                                       ricsd.Diametro2ID.ToString() == diametro2 &&
+                                       ricsd.ItemCodeSteelgoID == ics
+                                       select ricsd.Rel_ItemCodeSteelgo_Diametro_ID).AsParallel().SingleOrDefault();
+
+                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCode_Diametro_ID == relIC_Diam &&
+                            x.Rel_ItemCodeSteelgo_Diametro_ID == relICS_Diam &&
+                            x.Activo).AsParallel().SingleOrDefault();
+
+                        relacion.Activo = false;
+                        relacion.UsuarioModificacion = usuario.UsuarioID;
+                        relacion.FechaModificacion = DateTime.Now;
+
+                        ctx.SaveChanges();
+                                      
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
                     result.ReturnCode = 200;
