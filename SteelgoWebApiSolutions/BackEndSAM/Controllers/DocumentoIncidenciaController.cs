@@ -87,9 +87,20 @@ namespace BackEndSAM.Controllers
                                 nombreArchivo = postedFile.FileName;
                             }
 
+                            if (nombreArchivo.Contains(" "))
+                            {
+                                nombreArchivo = nombreArchivo.Replace(' ', '_');
+                            }
+
                             var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
                             string[] st = nombreArchivo.Split('.');
+
+                            if (st.Length > 2)
+                            {
+                                throw new Exception("El nombre de archivo no puede contener puntos");
+                            }
+
                             string extencion = "." + st[1];
                             lstArchivos.Add(new DocumentoPosteado
                             {
