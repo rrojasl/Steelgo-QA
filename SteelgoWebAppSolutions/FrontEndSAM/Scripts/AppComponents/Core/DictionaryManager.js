@@ -4623,7 +4623,7 @@ _dictionary = {
     "spanAddReguisicion": {
         "es-MX": "Agregar Requisicion",
         "en-US": "Add requisition"
-    }
+    },
     //#endregion
 
 
