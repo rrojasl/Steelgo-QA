@@ -180,6 +180,26 @@ namespace BackEndSAM.DataAcces
                                 //                       where nueq.Activo && nueq.Sam2_ProyectoID == proyectoID
                                 //                       select nueq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
 
+                                //traemos los datos de la orden de trabajo spool de Sam2
+                                OrdenTrabajoSpool odtSpool = (from odts in ctx2.OrdenTrabajoSpool
+                                                              join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                              where odts.NumeroControl == item.NumeroControl
+                                                              && odt.ProyectoID == proyectoID
+                                                              select odts).AsParallel().SingleOrDefault();
+
+                                //traemos los datos del material de Sam 2
+                                MaterialSpool materialSpool = (from ms in ctx2.MaterialSpool
+                                                               join odts in ctx2.OrdenTrabajoSpool on ms.SpoolID equals odts.SpoolID
+                                                               where odts.OrdenTrabajoSpoolID == odtSpool.OrdenTrabajoSpoolID
+                                                               //&& ms.Etiqueta == datosJson.Etiqueta
+                                                               select ms).AsParallel().SingleOrDefault();
+
+                                //traemos los datos de la orden de trabajo material de Sam 2
+                                OrdenTrabajoMaterial odtMaterial = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                                    where odtm.OrdenTrabajoSpoolID == odtSpool.OrdenTrabajoSpoolID
+                                                                    && odtm.MaterialSpoolID == materialSpool.MaterialSpoolID
+                                                                    select odtm).AsParallel().SingleOrDefault();
+
                                 //buscamos el numero unico en SAM 3
                                 if (ctx.Sam3_NumeroUnico.Where(x => x.Prefijo == prefijoNumeroUnico
                                     && x.Consecutivo == consecutivoNumeroUnico && x.ProyectoID == proyectoID).AsParallel().Any())
@@ -198,7 +218,7 @@ namespace BackEndSAM.DataAcces
                                         preDespacho.UsuarioModificacion = usuario.UsuarioID;
                                         preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
                                         preDespacho.NumeroUnicoID = numeroUnico.NumeroUnicoID;
-
+                                        preDespacho.Cantidad = (int)odtMaterial.CantidadCongelada;
                                         ctx.SaveChanges();
                                     }
                                     else
@@ -211,12 +231,14 @@ namespace BackEndSAM.DataAcces
                                         preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
                                         preDespacho.OrdenTrabajoSpoolID = Convert.ToInt32(item.NumeroControl);
                                         preDespacho.NumeroUnicoID = numeroUnico.NumeroUnicoID;
-                                        preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
-                                                                       join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
-                                                                       where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
-                                                                       && ms.ItemCodeID.ToString() == item.ItemCode
-                                                                       select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
+                                        preDespacho.MaterialSpoolID = odtMaterial.MaterialSpoolID;
+                                        //preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
+                                        //                               join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
+                                        //                               where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
+                                        //                               && ms.ItemCodeID.ToString() == item.ItemCode
+                                        //                               select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
                                         preDespacho.ItemCodeID = Convert.ToInt32(item.ItemCode);
+                                        preDespacho.Cantidad = (int)odtMaterial.CantidadCongelada;
                                         ctx.Sam3_PreDespacho.Add(preDespacho);
                                         ctx.SaveChanges();
                                     }
@@ -253,6 +275,7 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
 
         public object ListadoNumerosUnicos(string numeroControl, string itemcode, int proyectoID, Sam3_Usuario usuario)
         {
