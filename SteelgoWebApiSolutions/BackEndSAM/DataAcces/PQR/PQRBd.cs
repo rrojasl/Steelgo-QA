@@ -262,7 +262,6 @@ namespace BackEndSAM.DataAcces
 
             using (SamContext ctx = new SamContext())
             {
-
                 var lista = ctx.Sam3_Soldadura_PQR(TipoDeDato, PQRID, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, IdUsuario);
                 return lista;
 
@@ -397,6 +396,7 @@ namespace BackEndSAM.DataAcces
                                       {
                                           PQRID = Convert.ToString(pqr.PQRID),
                                           Nombre = pqr.Nombre
+                                         
 
                                       }).AsParallel().ToList();
                     return data;
@@ -428,7 +428,13 @@ namespace BackEndSAM.DataAcces
                                   {
                                       PQRID = Convert.ToString(pqr.PQRID),
                                       EspesorRaiz = Convert.ToString(pqr.EspesorRaiz),
-                                      EspesorRelleno = Convert.ToString(pqr.EspesorRelleno)
+                                      EspesorRelleno = Convert.ToString(pqr.EspesorRelleno),
+                                      GrupoMaterialBase1PID = Convert.ToInt32(pqr.GrupoMaterialBase1PID),
+                                      PWHT = pqr.PWHT,
+                                      GrupoMaterialBase2PID = Convert.ToInt32(pqr.GrupoMaterialBase2PID),
+                                      CodigoRaiz = pqr.CodigoRaiz,
+                                      CodigoRelleno = pqr.CodigoRelleno
+                                      
                
 
                                   }).AsParallel().ToList();
