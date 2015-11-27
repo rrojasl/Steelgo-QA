@@ -41,7 +41,7 @@
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="~/ServiciosTecnicos/AsignarRequisicion" class="btn btn-primary"><span>Asignar Requisicion</span></a>
+                            <a id="TramitarPermiso" href="~/ServiciosTecnicos/AsignarRequisicion" class="btn btn-primary"><span id="GenerarRequisicionAsignarRequisicion"></span></a>
                         </div>
 
                         <div class="button-section actionButtonSection">
@@ -66,31 +66,31 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
+            <div class="row" id="AgregadoDiv">
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <label id="CapturaArmadoHeaderMostrar"></label>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="SinCaptura" /><span id="">Sin Requisicion</span>
+                    <input type="radio" name="Muestra" style=" width:auto;" value="SinCaptura" /><span id="GenerarRequisicionMuestraSinCaptura"></span>
                     <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
 
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="">Folio:</label>
-                    Sin Asignar
+                    <label id=""><span id="ListaRequisicionFolio"></span></label>
+                    <label id="Folio">Sin asignar</label>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="">Proyecto</label>
+                    <label id=""><span id="GenerarRequisicionProyecto"></span></label>
                     <input id="Proyecto" class="" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="">Tipo de Prueba</label>
+                    <label id=""><span id="ListaRequisicionPrueba"></span></label>
                     <input id="tipoPrueba" class="" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="">Fecha</label>
+                    <label id=""><span id="ListaRequisicionFecha"></span></label>
                     <input id="Fecha" class="" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="">Observacion</label>
+                    <label id=""><span id="ListaRequisicionObservacion"></span></label>
                     <input id="Observacion" class="" />
                 </div>
             </div>
@@ -100,7 +100,7 @@
 
     <div class="row addedSection">
         <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
+            <div class="row" id="containerDiv">
                 <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
                     <label id="CapturaArmadoHeaderSpoolID"></label>
                     <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
@@ -176,3 +176,10 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Captura.js"> </script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/GenerarRequisicion/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Generar Requisicion"] = $GenerarRequisicionModel;
+    }
+</script>

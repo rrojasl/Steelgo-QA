@@ -56,8 +56,8 @@ namespace DatabaseManager.Sam3
         public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_Inspeccion_VisualDimensional";
         public static string GUARDARINSPECCIONDIMENSIONAL= "Sam3_Inspeccion_Dimensional";
         public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
-        public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ServiciosTecnicos_Guardar_RequisicionAsignacion";  
-
+        public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ServiciosTecnicos_Guardar_RequisicionAsignacion";
+        public static string GUARDARGENERARREQUISICICION = "Sam3_ServiciosTecnicos_Requisicion";
 
 
     }

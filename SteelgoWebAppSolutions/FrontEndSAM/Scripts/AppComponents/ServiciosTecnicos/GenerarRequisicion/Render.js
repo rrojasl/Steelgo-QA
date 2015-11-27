@@ -1,12 +1,12 @@
 ﻿
 function RenderComboBoxClasificacion(container, options) {
-    loadingStart();
+    
     var dataItem;
-    $('<input required data-text-field="Clave" id=' + options.model.uid + ' data-value-field="PruebasClasificacionID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Clave" id=' + options.model.uid + ' data-value-field="Clave" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: ItemSeleccionado.listaClasificaciones,
+            dataSource: options.model.listaClasificaciones,
             template: "<i class=\"fa fa-#=data.Clave.toLowerCase()#\"></i> #=data.Clave#",
             select: function (e) {
 
@@ -23,5 +23,5 @@ function RenderComboBoxClasificacion(container, options) {
             }
         }
         );
-    loadingStop();
+    
 }

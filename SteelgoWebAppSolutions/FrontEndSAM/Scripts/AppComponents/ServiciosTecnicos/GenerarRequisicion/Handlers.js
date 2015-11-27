@@ -1,24 +1,48 @@
 ﻿function SuscribirEventos() {
     suscribirEventoGuardar();
+    suscribirEventoAgregar();
+    suscribirEventoCancelar();
     suscribirEventoTipoPrueba();
     suscribirEventoProyecto();
-    ajaxObtenerProyectos();
     SuscribirEventoSpoolID();
     SuscribirEventosJunta();
+    SuscribirEventoOcultarDivJunta();
 }
 
 
-SuscribirEventos();
+function SuscribirEventoOcultarDivJunta() {
+    $('#containerDiv').css('display', 'none');
+}
 
 
 function suscribirEventoGuardar() {
+    
     $('#btnGuardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
-            opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardarCaptura(ds._data);
+            if ($("#Fecha").val() != "" && ValidaFormatoFecha($("#Fecha").val(), $("#language").val())) {
+                //opcionHabilitarView(true, "FieldSetView");
+                AjaxGuardarCaptura(ds._data);
+            }
+            else
+                displayMessage("Mensajes_error", "El campo fecha no puede estar vacio", '1');
         }
-        else if ($('#botonGuardar').text() == "Editar")
-            opcionHabilitarView(false, "FieldSetView")
+        //else if ($('#botonGuardar').text() == "Editar")
+        //    opcionHabilitarView(false, "FieldSetView")
+    });
+}
+
+function suscribirEventoCancelar() {
+    $('#btnCancelar').click(function (e) {
+        Limpiar();
+    });
+}
+
+function suscribirEventoAgregar() {
+    $('#ButtonAgregar').click(function (e) {
+        
+            AgregarJuntaNueva();
+        
     });
 }
 
@@ -45,7 +69,7 @@ function suscribirEventoTipoPrueba() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            ajaxObtenerJuntasSoldadas();
+            ajaxObtenerJuntasSoldadas($("#tipoPrueba").data("kendoComboBox").value());
         }
        
     });
@@ -60,20 +84,6 @@ function SuscribirEventoSpoolID() {
         filter: "contains",
         index: 3,
         select: function (e) {
-            dataItem = this.dataItem(e.item.index());
-
-            if (dataItem.Status != "1") {
-                e.preventDefault();
-                $("#InputID").val("");
-                console.log("borrar datos");
-                alert(dataItem.Status);
-            }
-            else {
-                $("#InputID").val(dataItem.IDValido);
-                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                $("#LabelProyecto").text(dataItem.Proyecto);
-                AjaxJunta($("#InputID").val());
-            }
         }
         ,
         change: function (e) {
@@ -84,7 +94,7 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                 $("#LabelProyecto").text(dataItem.Proyecto);
-                AjaxJunta($("#InputID").val());
+                AjaxJunta($("#InputID").data("kendoComboBox").value());
                 
             }
         }
@@ -96,7 +106,7 @@ function SuscribirEventoSpoolID() {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
                 loadingStart();
-                $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
+                $GenerarRequisicion.GenerarRequisicion.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
                     $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                     $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
                     Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
@@ -129,9 +139,7 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 40)
             $("#InputID").data("kendoComboBox").select();
-        else if (e.keyCode == 13) {
-
-        }
+        
 
     });
 };
@@ -157,20 +165,31 @@ function SuscribirEventosJunta() {
             $("#ButtonAgregar").focus();
         }
         else if (e.keyCode == 13) {
-
-            //if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
-            //    deshabilitaSpool();
-            //    ObtenerJSonGridSoldadura();
-            //    opcionHabilitarRadioTipoCaptura(false);
-            //}
-            //else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
-            //    habilitaSpool();
-            //    ObtenerJSonGridSoldadura();
-            //    opcionHabilitarRadioTipoCaptura(false);
-            //}
-            //else {
-            //    displayMessage("Mensajes_error", "Favor de seleccionar un Tipo de Captura", '2');
-            //}
+            AgregarJuntaNueva();
         }
     });
+}
+
+
+function Limpiar() {
+
+    $("#InputOrdenTrabajo").val("");
+    $("#Observacion").val("");
+    $("#Folio").text("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#Junta").data("kendoComboBox").value("");
+    $("#Proyecto").data("kendoComboBox").value("");
+    $("#tipoPrueba").data("kendoComboBox").value("");
+
+    var radioButtons = document.getElementsByName('Muestra');
+    for (var x = 0; x < radioButtons.length; x++) {
+        if (radioButtons[x].checked) {
+            radioButtons[x].checked = false;
+        }
+    }
+
+    $("#Fecha").data("kendoDatePicker").value("");
+
+
+    $("#grid").data('kendoGrid').dataSource.data([]);
 }
