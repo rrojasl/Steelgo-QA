@@ -27,9 +27,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ListadoRequisicionBD
                     {
                         ListadoStatusRequisicion.Add(new StatusRequisicion
                         {
-                          CantidadRegistros= item.Cuantos.GetValueOrDefault(),
+                          CantidadRegistros= item.Cuantos,
                           Estatus=item.Estatus,
-                          EstatusID=item.EstatusID.GetValueOrDefault(),
+                          EstatusID=item.EstatusID,
                           Orden=item.Orden.GetValueOrDefault()
                         });
                     }
@@ -71,7 +71,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ListadoRequisicionBD
                             Observacion=item.Observacion,
                             Orden=item.Orden.GetValueOrDefault(),
                             Prueba=item.Prueba,
-                            PruebasID=item.PruebasID,
+                            PruebasProyectoID = item.PruebasProyectoID,
                             RequisicionID=item.RequisicionID
                         });
                     }

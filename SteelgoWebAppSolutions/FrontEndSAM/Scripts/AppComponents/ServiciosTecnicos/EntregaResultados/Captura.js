@@ -3,8 +3,13 @@
     $('#grid').data('kendoGrid').dataSource.read();
 };
 
+IniciarEntregaResultados();
 
-
+function IniciarEntregaResultados() {
+    SuscribirEventos();
+    setTimeout(function () { AjaxCargarEntregaResultados() }, 1000);
+    
+};
 
 function CargarGrid() {
 
@@ -12,25 +17,14 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [
-                     { TipoPrueba: "XL2345", Prioridad: "", Cuadrante: "", Proyecto: "ETILENO XXI", Requisicion: "Requisicion 1", SpoolID: "Aprobada", Junta: "4", Agregar:true },
-                     { TipoPrueba: "RT-67644", Prioridad: "Prueba RT con 5 placas", Cuadrante: "Placa sucia", Proyecto: "CROSSOVER PIPING", Requisicion: "Requisicion 2", SpoolID: "Rechazada", Junta: "5", Agregar: false },
-                     { TipoPrueba: "RT-67645", Prioridad: "Prueba RT con 5 placas", Cuadrante: "placa rayada", Proyecto: "DUPONT ALTAMIRA2", Requisicion: "Requisicion 3", SpoolID: "Rechazada", Junta: "6", Agregar: false },
-                     { TipoPrueba: "RT-67646", Prioridad: "Prueba RT con 5 placas", Cuadrante: "placa rota", Proyecto: "CB LITORAL", Requisicion: "Requisicion 4", SpoolID: "Rechazada", Junta: "7", Agregar: false }
-            ],
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
-                        Prioridad: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
-                        Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false },
-                        CodigoAplicar: { type: "string", editable: false },
-                        observacion: { type: "string", editable: false },
-                        Agregar:{ type: "bool", editable: true }
+                        FOLIO: { type: "int", editable: false },
+                        DESCRIPCION: { type: "string", editable: false },
+                        RECIBIDO: { type: "boolean" },
+                        CONDICIONESFISICAS: { type: "string", editable: true },
+                        DEFECTOS: { type: "string", editable: true }
                     }
                 }
             },
@@ -55,22 +49,18 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "TipoPrueba", title: "Folio", filterable: true },
-            { field: "Prioridad", title: "Descripcion", filterable: true },
-            { field: "Agregar", title: "Recibido", filterable: true, template: '<input type="checkbox" #= Agregar ? "checked=checked" : "" # disabled="disabled" ></input>' },
-            { field: "SpoolID", title: "Condiciones Fisicas", filterable: true },
-             { field: "Cuadrante",title: "defectos", filterable: true}
-             
-             
-            
-            
-
+            { field: "FOLIO", title:  _dictionary.ServiciosTecnicosFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "DESCRIPCION", title:  _dictionary.ServiciosTecnicosDescripcion[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "RECIBIDO", title:  _dictionary.ServiciosTecnicosRECIBIDO[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= RECIBIDO ? "checked=checked" : "" # class="chkbx"  ></input>' },
+            { field: "CONDICIONESFISICAS", title: _dictionary.ServiciosTecnicosCondicionesFisicas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCondicionFisica, filterable: true },
+            { field: "DEFECTOS", title:  _dictionary.ServiciosTecnicosDefectos[$("#language").data("kendoDropDownList").value()],editor: RenderComboBoxDefectos, filterable: true }
         ]
+    });
+
+    $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
+        var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+        dataItem.set("RECIBIDO", this.checked);
     });
 };
 
-function AgregarCaptura() {
-};
-
-function eliminarCaptura() {
-};
