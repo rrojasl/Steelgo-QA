@@ -4731,7 +4731,7 @@ _dictionary = {
     "es-MX": "El nombre del WPS ya existe",
     "en-US": "WPS name already exists"
     },
-    
+    //#endregion
     //#region GenerarRequisicion
 
     "MensajeJuntasSoldadasReguisicion": {
@@ -4776,12 +4776,8 @@ _dictionary = {
     }
     //#endregion
 
-},
-    //#endregion
+}
     
 
-
-
-};
 
 
