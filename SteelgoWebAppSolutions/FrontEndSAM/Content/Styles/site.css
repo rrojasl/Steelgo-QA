@@ -330,7 +330,7 @@ input {
 
 .content-container .form input[type="checkbox"] {
     width: auto;
-    min-height: 31px;
+    //min-height: 31px;
 }
 
 #window input[type="checkbox"], 
@@ -338,7 +338,7 @@ input {
 #formBusqueda input[type="checkbox"] {
     width: auto!important;
     position: relative;
-    top: 2px; 
+    top: 2px;     
 }
 
 input.quickFilters {
