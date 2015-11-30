@@ -273,7 +273,8 @@
                     model: {
                         fields: {
                             FechaOrdenAlmacenaje: { type: "string" },
-                            OrdenAlmacenaje: { type: "string" }
+                            OrdenAlmacenaje: { type: "string" },
+                            OrdenAlmacenajeID: {type:"string"}
                         }
                     }
                 },
@@ -298,15 +299,16 @@
             detailInit: detailInit,
             columns: addTo([
                 { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()] },
-                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], template: "<a onclick='mostrarDetalle(#:OrdenAlmacenaje#)'>#:OrdenAlmacenaje#</a>" },
+                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], template: "<a onclick='mostrarDetalle(#:OrdenAlmacenajeID#)'>#:OrdenAlmacenaje#</a>" },
                 { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "99px" },
-                { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" }
+                { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" },
+                { field: "OrdenAlmacenajeID", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },
             ],null),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-                
+                checkTH(this);
                 //$("th[data-field='FechaOrdenAlmacenaje']").append($("#FechaOrdenAlmacenaje"));
                 //$("th[data-field='OrdenAlmacenaje']").append($("#OrdenAlmacenaje"));
 
@@ -688,7 +690,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

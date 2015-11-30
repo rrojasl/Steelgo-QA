@@ -241,7 +241,8 @@
     function getFilterG(){
         return {
             FechaOrdenRecepcion: { type: "string" },
-            OrdenRecepcion: { type: "number" }
+            OrdenRecepcion: { type: "number" },
+            OrdenRecepcionID: {type: "string"}
         }
     }
 
@@ -283,12 +284,14 @@
             detailInit: detailInit,
             columns: addTo([
                 { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()] },
-                { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenRecepcion#)'>#:OrdenRecepcion#</a>" },
+                { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenRecepcionID#)'>#:OrdenRecepcion#</a>" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "99px" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0029[$("#language").data("kendoDropDownList").value()], click: ImprimirEtiquetas }, title: " ", width: "99px" },
+                { field: "OrdenRecepcionID", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], hidden: true}
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" }
             ],getFilterG()),
             dataBound: function (e) {
+                checkTH(this);
                 //$(".k-grid input.k-textbox").prop('readonly', true);
                 //$(".k-grid td .k-button").text('');
                 //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
@@ -642,7 +645,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

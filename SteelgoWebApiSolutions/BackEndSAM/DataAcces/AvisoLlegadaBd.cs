@@ -1260,31 +1260,38 @@ namespace BackEndSAM.DataAcces
                                                           //Extencion = d.Extencion,
                                                       }).AsParallel().SingleOrDefault();
 
-                    permiso.DocumentoID = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
-                                           where d.PermisoAduanaID.ToString() == permiso.PermisoID
-                                           && d.Activo
-                                           select d.Rel_Permiso_Documento_ID.ToString()).AsParallel().SingleOrDefault();
+                    //if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID.ToString() == permiso.PermisoID).Count() == 1)
+                    //{
+                        permiso.DocumentoID = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                               where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                               && d.Activo
+                                               select d.Rel_Permiso_Documento_ID.ToString()).AsParallel().FirstOrDefault();
 
-                    permiso.Url = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
-                                   where d.PermisoAduanaID.ToString() == permiso.PermisoID
-                                           && d.Activo
-                                   select d.Url).AsParallel().SingleOrDefault();
+                        permiso.Url = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                       where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                               && d.Activo
+                                       select d.Url).AsParallel().FirstOrDefault();
 
-                    permiso.Nombre = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
-                                      where d.PermisoAduanaID.ToString() == permiso.PermisoID
-                                           && d.Activo
-                                      select d.Nombre).AsParallel().SingleOrDefault();
+                        permiso.Nombre = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                          where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                               && d.Activo
+                                          select d.Nombre).AsParallel().FirstOrDefault();
 
-                    permiso.TipoArchivo = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
-                                           join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
-                                           where d.PermisoAduanaID.ToString() == permiso.PermisoID
-                                           && d.Activo && t.Activo
-                                           select t.Nombre).AsParallel().SingleOrDefault();
+                        permiso.TipoArchivo = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                               join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
+                                               where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                               && d.Activo && t.Activo
+                                               select t.Nombre).AsParallel().FirstOrDefault();
 
-                    permiso.Extencion = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
-                                         where d.PermisoAduanaID.ToString() == permiso.PermisoID
-                                           && d.Activo
-                                         select d.Extencion).AsParallel().SingleOrDefault();
+                        permiso.Extencion = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                             where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                               && d.Activo
+                                             select d.Extencion).AsParallel().FirstOrDefault();
+                    //}
+                    //else
+                    //{
+
+                    //}
 
                     return permiso;
                 }

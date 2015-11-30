@@ -9,6 +9,7 @@ namespace BackEndSAM.Models
     {
         public string FechaOrdenAlmacenaje { get; set; }
         public string OrdenAlmacenaje { get; set; }
+        public string OrdenAlmacenajeID { get; set; }
         public List<PackingListCuantificacion> FolioCuantificacion { get; set; }
 
         public OrdenAlmacenajeJson()
