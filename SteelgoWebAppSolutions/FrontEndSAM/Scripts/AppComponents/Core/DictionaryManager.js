@@ -2290,6 +2290,10 @@ _dictionary = {
         "es-MX": "ItemCodeOrigenID",
         "en-US": "ItemCodeOrigenID"
     },
+    "Cuantificacion0098": {
+        "es-MX": "Familia Acero",
+        "en-US": "Family Steel"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
