@@ -6418,6 +6418,10 @@ _dictionary = {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
     },
+    "notificationslabel0091": {
+        "es-MX": "La cantidad es mayor al disponible.",
+        "en-US": "The amount is greater than available."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
