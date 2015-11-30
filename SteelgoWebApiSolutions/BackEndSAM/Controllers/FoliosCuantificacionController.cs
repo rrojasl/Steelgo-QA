@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 using DatabaseManager.Sam3;
 using BackEndSAM.Models;
+using System.IO;
 
 namespace BackEndSAM.Controllers
 {
@@ -69,9 +70,10 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(string token)
         {
-
+            var contenido = Request.Content.ReadAsStringAsync();
+            int x = 0;
         }
 
         /// <summary>

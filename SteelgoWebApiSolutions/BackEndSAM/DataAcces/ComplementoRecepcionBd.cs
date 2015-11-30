@@ -101,8 +101,10 @@ namespace BackEndSAM.DataAcces
                                           D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = rfi.Cantidad,
-                                          MM = rfi.MM.ToString(),
+                                          Cantidad = (from n in ctx.Sam3_NumeroUnico
+                                                      where n.NumeroUnicoID == nu.NumeroUnicoID
+                                                      select n).Count(),
+                                          MM = rel.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
                                           EstatusDocumental =  nu.EstatusDocumental,
                                           EstatusFisico = nu.EstatusFisico,
@@ -166,8 +168,10 @@ namespace BackEndSAM.DataAcces
                                           D2 = d2.Valor.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
-                                          Cantidad = rbi.Cantidad,
-                                          MM = rbi.MM.ToString(),
+                                          Cantidad = (from n in ctx.Sam3_NumeroUnico
+                                                      where n.NumeroUnicoID == nu.NumeroUnicoID
+                                                      select n).Count(),
+                                          MM = rel.MM.ToString(),
                                           Colada = nu.Sam3_Colada.NumeroColada,
                                           EstatusDocumental = nu.EstatusDocumental,
                                           EstatusFisico = nu.EstatusFisico,
@@ -278,8 +282,10 @@ namespace BackEndSAM.DataAcces
                                     D2 = d2.Valor.ToString(),
                                     ItemCodeID = it.ItemCodeID,
                                     ProyectoID = it.ProyectoID,
-                                    Cantidad = rfi.Cantidad,
-                                    MM = rfi.MM.ToString(),
+                                    Cantidad = (from n in ctx.Sam3_NumeroUnico
+                                                where n.NumeroUnicoID == nu.NumeroUnicoID
+                                                select n).Count(),
+                                    MM = rel.MM.ToString(),
                                     Colada = (from c in ctx.Sam3_Colada
                                               where c.ColadaID == rfi.ColadaID
                                               select c.NumeroColada).FirstOrDefault(),
@@ -340,8 +346,10 @@ namespace BackEndSAM.DataAcces
                                     D2 = d2.Valor.ToString(),
                                     ItemCodeID = it.ItemCodeID,
                                     ProyectoID = it.ProyectoID,
-                                    Cantidad = rbi.Cantidad,
-                                    MM = rbi.MM.ToString(),
+                                    Cantidad = (from n in ctx.Sam3_NumeroUnico
+                                                where n.NumeroUnicoID == nu.NumeroUnicoID
+                                                select n).Count(),
+                                    MM = rel.MM.ToString(),
                                     Colada = (from c in ctx.Sam3_Colada
                                               where c.ColadaID == rbi.ColadaID
                                               select c.NumeroColada).FirstOrDefault(),
@@ -574,23 +582,35 @@ namespace BackEndSAM.DataAcces
 
                                                         #region ActualizarRelacion IT
 
-                                                        if (relBId > 0)
-                                                        {
-                                                            Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
-                                                                .AsParallel().SingleOrDefault();
-                                                            relBulto.MM = milimetros;
-                                                            relBulto.FechaModificacion = DateTime.Now;
-                                                            relBulto.UsuarioModificacion = usuario.UsuarioID;
-                                                        }
+                                                        Sam3_Rel_NumeroUnico_RelFC_RelB relNumeos = (from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                                                                     where rel.Activo
+                                                                                                     && rel.NumeroUnicoID == actualizaNU.NumeroUnicoID
+                                                                                                     select rel).AsParallel().SingleOrDefault();
 
-                                                        if (relFcId > 0)
-                                                        {
-                                                            Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                                                .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
-                                                            relitemCode.MM = milimetros;
-                                                            relitemCode.FechaModificacion = DateTime.Now;
-                                                            relitemCode.UsuarioModificacion = usuario.UsuarioID;
-                                                        }
+                                                        relNumeos.MM = milimetros;
+                                                        relNumeos.FechaModificacion = DateTime.Now;
+                                                        relNumeos.UsuarioModificacion = usuario.UsuarioID;
+
+                                                        //if (relBId > 0)
+                                                        //{
+                                                        //    Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
+                                                        //        .AsParallel().SingleOrDefault();
+                                                        //    relBulto.MM = milimetros;
+                                                        //    relBulto.FechaModificacion = DateTime.Now;
+                                                        //    relBulto.UsuarioModificacion = usuario.UsuarioID;
+
+                                                            
+
+                                                        //}
+
+                                                        //if (relFcId > 0)
+                                                        //{
+                                                        //    Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                        //        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
+                                                        //    relitemCode.MM = milimetros;
+                                                        //    relitemCode.FechaModificacion = DateTime.Now;
+                                                        //    relitemCode.UsuarioModificacion = usuario.UsuarioID;
+                                                        //}
 
                                                         ctx.SaveChanges();
 
@@ -745,23 +765,32 @@ namespace BackEndSAM.DataAcces
 
                                                         #region ActualizarRelacion IT
 
-                                                        if (relBId > 0)
-                                                        {
-                                                            Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
-                                                                .AsParallel().SingleOrDefault();
-                                                            relBulto.MM = milimetros;
-                                                            relBulto.FechaModificacion = DateTime.Now;
-                                                            relBulto.UsuarioModificacion = usuario.UsuarioID;
-                                                        }
+                                                        Sam3_Rel_NumeroUnico_RelFC_RelB relNumeos = (from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                                                                     where rel.Activo
+                                                                                                     && rel.NumeroUnicoID == actualizaNU.NumeroUnicoID
+                                                                                                     select rel).AsParallel().SingleOrDefault();
 
-                                                        if (relFcId > 0)
-                                                        {
-                                                            Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                                                .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
-                                                            relitemCode.MM = milimetros;
-                                                            relitemCode.FechaModificacion = DateTime.Now;
-                                                            relitemCode.UsuarioModificacion = usuario.UsuarioID;
-                                                        }
+                                                        relNumeos.MM = milimetros;
+                                                        relNumeos.FechaModificacion = DateTime.Now;
+                                                        relNumeos.UsuarioModificacion = usuario.UsuarioID;
+
+                                                        //if (relBId > 0)
+                                                        //{
+                                                        //    Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
+                                                        //        .AsParallel().SingleOrDefault();
+                                                        //    relBulto.MM = milimetros;
+                                                        //    relBulto.FechaModificacion = DateTime.Now;
+                                                        //    relBulto.UsuarioModificacion = usuario.UsuarioID;
+                                                        //}
+
+                                                        //if (relFcId > 0)
+                                                        //{
+                                                        //    Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                        //        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
+                                                        //    relitemCode.MM = milimetros;
+                                                        //    relitemCode.FechaModificacion = DateTime.Now;
+                                                        //    relitemCode.UsuarioModificacion = usuario.UsuarioID;
+                                                        //}
 
                                                         ctx.SaveChanges();
 

@@ -1149,6 +1149,9 @@ namespace BackEndSAM.DataAcces
             {
                 Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                 Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
+                Boolean activarFolioConfiguracionOrdenRecepcion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
+                Boolean activarFolioConfiguracionOrdenAlmacenaje = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"].Equals("1") ? true : false) : false;
+
                 using (SamContext ctx = new SamContext())
                 {
                     Incidencia detalle = (from inc in ctx.Sam3_Incidencia
@@ -1325,6 +1328,28 @@ namespace BackEndSAM.DataAcces
                                                        where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                        select o.Folio).AsParallel().SingleOrDefault().ToString();
 
+                            if (activarFolioConfiguracionOrdenRecepcion)
+                            {
+                                Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == detalle.ReferenciaID).FirstOrDefault();
+
+                                detalle.ValorReferencia = orden.Rel_Proyecto_Entidad_Configuracion_ID != null ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                       where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                       select pc.PreFijoFolioOrdenRecepcion + ","
+                                                                                       + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                                                                                       + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                       + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : detalle.ValorReferencia;
+
+                                if (!string.IsNullOrEmpty(detalle.ValorReferencia) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                                {
+                                    string[] elemntosOR = detalle.ValorReferencia.Split(',').ToArray();
+                                    int digitosOR = Convert.ToInt32(elemntosOR[1]);
+                                    int consecutivoOR = Convert.ToInt32(elemntosOR[2]);
+                                    string formatoOR = "D" + digitosOR.ToString();
+
+                                    detalle.ValorReferencia = elemntosOR[0].Trim() + consecutivoOR.ToString(formatoOR).Trim() + elemntosOR[3].Trim();
+                                }
+                            }
+
                             break;
                         case 6: // Complemento de recepcion. Por el momento sin implementacion
                             break;
@@ -1348,6 +1373,28 @@ namespace BackEndSAM.DataAcces
                                                        join oa in ctx.Sam3_OrdenAlmacenaje on r.OrdenalmacenajeID equals oa.OrdenAlmacenajeID
                                                        where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                        select oa.Folio).AsParallel().SingleOrDefault().ToString();
+
+                            if (activarFolioConfiguracionOrdenAlmacenaje)
+                            {
+                                Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.OrdenAlmacenajeID == detalle.ReferenciaID).FirstOrDefault();
+
+                                detalle.ValorReferencia = orden.Rel_Proyecto_Entidad_Configuracion_ID != null ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                                 select pc.PreFijoFolioOrdenAlmacenaje + ","
+                                                                                                                 + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                                 + pc.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                                 + pc.PostFijoFolioOrdenAlmacenaje).AsParallel().FirstOrDefault() : detalle.ValorReferencia;
+
+                                if (!string.IsNullOrEmpty(detalle.ValorReferencia) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                                {
+                                    string[] elemntosOA = detalle.ValorReferencia.Split(',').ToArray();
+                                    int digitosOA = Convert.ToInt32(elemntosOA[1]);
+                                    int consecutivoOA = Convert.ToInt32(elemntosOA[2]);
+                                    string formatoOA = "D" + digitosOA.ToString();
+
+                                    detalle.ValorReferencia = elemntosOA[0].Trim() + consecutivoOA.ToString(formatoOA).Trim() + elemntosOA[3].Trim();
+                                }
+                            }
 
                             break;
                         case 9: // Numero unico

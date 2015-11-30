@@ -341,6 +341,7 @@ namespace BackEndSAM.DataAcces
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracionOR = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
 
                     if (fechaFinal.ToShortDateString() == "1/1/0001")
                     {
@@ -428,6 +429,30 @@ namespace BackEndSAM.DataAcces
                         ListadoOrdeRecepcion elemento = new ListadoOrdeRecepcion();
                         elemento.FechaOrdenRecepcion = o.FechaCreacion.ToString("dd/MM/yyyy");
                         elemento.OrdenRecepcion = o.Folio.ToString();
+                        elemento.OrdenRecepcionID = o.Folio.ToString();
+                        
+                        if (activarFolioConfiguracionOR)
+                        {
+                            Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                where rel.Rel_Proyecto_Entidad_Configuracion_ID == o.Rel_Proyecto_Entidad_Configuracion_ID && rel.Activo == 1
+                                                                                select rel).AsParallel().SingleOrDefault();
+
+                            if (rel_proy != null)
+                            {
+                                string folioOR = rel_proy.PreFijoFolioOrdenRecepcion + ","
+                                    + rel_proy.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                                    + rel_proy.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                    + rel_proy.PostFijoFolioOrdenRecepcion;
+
+                                string[] elemntos = folioOR.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int cons = Convert.ToInt32(elemntos[2]);
+                                string formato_proy = "D" + digitos.ToString();
+
+                                elemento.OrdenRecepcion = elemntos[0].Trim() + cons.ToString(formato_proy).Trim() + elemntos[3].Trim();
+                            }
+                        }
+
 
                         List<ElementoItemCode> items = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
@@ -513,6 +538,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListadoGenerarOrdenRecepcion> listado = new List<ListadoGenerarOrdenRecepcion>();
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracionOR = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
 
                     Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == folio).AsParallel().SingleOrDefault();
 
@@ -536,6 +562,8 @@ namespace BackEndSAM.DataAcces
                                                                                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                                                                                   + FolioAvisoLlegada.Consecutivo.ToString() + ","
                                                                                                                   + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString();
+                       
+                        
                         if (activarFolioConfiguracion)
                         {
                             string[] elemntos = elemento.FolioConfiguracion.Split(',').ToArray();
@@ -544,6 +572,25 @@ namespace BackEndSAM.DataAcces
                             string formato = "D" + digitos.ToString();
 
                             elemento.FolioConfiguracion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+
+                        elemento.FolioConfiguracionOrdenRecepcion = activarFolioConfiguracionOR ?
+                            orden.Rel_Proyecto_Entidad_Configuracion_ID != null ?
+                            (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                                select pc.PreFijoFolioOrdenRecepcion + ","
+                                + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                                + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault() : orden.Folio.ToString() : orden.Folio.ToString();
+
+                        if (activarFolioConfiguracionOR && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                        {
+                            string[] elemntos = elemento.FolioConfiguracionOrdenRecepcion.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            elemento.FolioConfiguracionOrdenRecepcion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                         }
 
                         elemento.Tubos = (from o in ctx.Sam3_OrdenRecepcion
@@ -646,6 +693,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
         public object GenerarOrdeRecepcion(List<ListaEnteros> RelItemCodesD, Sam3_Usuario usuario)
         {
             try
@@ -653,6 +701,9 @@ namespace BackEndSAM.DataAcces
                 Sam3_OrdenRecepcion nuevaOrden = new Sam3_OrdenRecepcion();
                 int consecutivo = 0;
                 List<int> foliosEntrada = new List<int>();
+                string ordenRecepcionFolio = "";
+                Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ?
+                   (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
 
                 using (TransactionScope scope = new TransactionScope())
                 {
@@ -735,6 +786,40 @@ namespace BackEndSAM.DataAcces
 
                         ctx.Sam3_OrdenRecepcion.Add(nuevaOrden);
                         ctx.SaveChanges();
+
+                        if (activarFolioConfiguracion)
+                        {
+                            List<int> avisos = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                join fll in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals fll.FolioAvisoLlegadaID
+                                                where foliosEntrada.Contains(fe.FolioAvisoEntradaID) && fe.Activo && fll.Activo
+                                                select fll.ProyectoID).AsParallel().ToList();
+
+                            //Obtenemos el proyecto con el id mas pequeno
+                            Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                where rel.Proyecto == avisos.Min() && rel.Activo == 1
+                                                                                    select rel).AsParallel().SingleOrDefault();
+
+                            Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == nuevaOrden.OrdenRecepcionID && x.Activo).AsParallel().SingleOrDefault();
+
+                            orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
+                            orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenRecepcion;
+
+                            rel_proy.ConsecutivoFolioOrdenRecepcion += 1;
+
+                            ctx.SaveChanges();
+
+                            ordenRecepcionFolio = rel_proy.PreFijoFolioOrdenRecepcion + ","
+                                + rel_proy.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                                + rel_proy.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                + rel_proy.PostFijoFolioOrdenRecepcion;
+
+                            string[] elemntos = ordenRecepcionFolio.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int cons = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            ordenRecepcionFolio = elemntos[0].Trim() + cons.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
 
                         //generamos la relacion con el folio aviso de entrada
                         foreach (int i in foliosEntrada)
@@ -995,6 +1080,7 @@ namespace BackEndSAM.DataAcces
                                         relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                         relNumero.Rel_FolioCuantificacion_ItemCode_ID = actualizarRelacion.Rel_FolioCuantificacion_ItemCode_ID;
                                         relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                        relNumero.MM = milimetros;
 
                                         ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
 
@@ -1014,6 +1100,7 @@ namespace BackEndSAM.DataAcces
                                         relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                         relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
                                         relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                        relNumero.MM = milimetros;
 
                                         ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
 
@@ -1113,6 +1200,7 @@ namespace BackEndSAM.DataAcces
                                         relNumero.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                         relNumero.Rel_Bulto_ItemCode_ID = relacion.Rel_Bulto_ItemCode_ID;
                                         relNumero.UsuarioModificacion = usuario.UsuarioID;
+                                        relNumero.MM = 0;
 
                                         ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Add(relNumero);
                                     }
@@ -1155,7 +1243,7 @@ namespace BackEndSAM.DataAcces
 
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("Ok");
-                result.ReturnMessage.Add(nuevaOrden.Folio.ToString());
+                result.ReturnMessage.Add(activarFolioConfiguracion ? ordenRecepcionFolio : nuevaOrden.Folio.ToString());
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;

@@ -8,6 +8,7 @@ namespace BackEndSAM.Models
     public class ListadoGenerarOrdenRecepcion
     {
         public string FolioConfiguracion { get; set; }
+        public string FolioConfiguracionOrdenRecepcion { get; set; }
         public string AvisoEntradaID { get; set; }
         public List<ElementoItemCodeGenerarOrden> Tubos { get; set; }
         public List<ElementoItemCodeGenerarOrden> Accesorios { get; set; }
