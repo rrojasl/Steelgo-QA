@@ -229,18 +229,23 @@
         $("#grid").data("kendoGrid").dataSource.insert(row);
     };
    
+
+    function getFields() {
+        return {
+            NoPickingTicket: { type: "string", editable: true },
+            NoEmpleadoEntrega: { type: "string", editable: true },
+            NoEmpleadoRecibe: { type: "string", editable: true },
+            FechaEntrega: { type: "date", editable: true },
+        }
+    }
+
     function CargarGridEntrega() {
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
                 schema: {
                     model: {
-                        fields: {
-                            NoPickingTicket: { type: "string", editable: true },
-                            NoEmpleadoEntrega: { type: "string", editable: true },
-                            NoEmpleadoRecibe: { type: "string", editable: true },
-                            FechaEntrega: { type: "date", editable: true },
-                        }
+                        fields: getFields(),
                     }
                 },
                 pageSize: 10,
@@ -273,7 +278,7 @@
                 { field: "NoEmpleadoRecibe", title: _dictionary.Entrega0012[$("#language").data("kendoDropDownList").value()], editor: EmpleadoRecibeAutocomplete },
                 { field: "FechaEntrega", title: _dictionary.Entrega0014[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", editor: FechaEntregaDateTimePicker },
                 { command: { text: _dictionary.Entrega0013[$("#language").data("kendoDropDownList").value()], click: CancelarPickingTicket }, title: " ", width: "99px" }
-            ],null),
+            ],getFields()),
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
