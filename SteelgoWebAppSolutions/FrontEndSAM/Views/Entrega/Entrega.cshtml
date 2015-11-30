@@ -163,8 +163,10 @@
                     messageindexKendoCombobox(this);
                     EmpleadoEntrega = {};
                     this.value("");
+                    changeValueColumnEmpleadoEntrega("");
                 } else {
-                    AgregarRow();
+                    //AgregarRow();
+                    changeValueColumnEmpleadoEntrega(value);
                 }
                 
             },
@@ -173,6 +175,42 @@
         ObtenerEmpleadoEntrega();
 
         FechaEntrega = new kendo.ui.DatePicker($("#FechaEntrega"));
+
+        $("#FechaEntrega").bind("change", function () {
+            if (!$("#FechaEntrega").data("kendoDatePicker").value() && this.value !== "") {
+                displayMessage("notificationslabel0082", "", "2")
+            } else {
+                var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
+                if (d.getFullYear() == "1969") {
+                    d = new Date();
+                };
+
+                var FechaEntrega = obtenerFormatoFechaPlanchado(d);
+                changeValueColumnFechaEntrega(FechaEntrega);
+            };
+        });
+    };
+
+    function changeValueColumnFechaEntrega(value) {
+        var allData = $("#grid").data("kendoGrid").dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var result = query.data;
+        var datasource = result;
+
+        $(datasource).each(function () {
+            this.set("FechaEntrega", value);
+        });
+    };
+
+    function changeValueColumnEmpleadoEntrega(value) {
+        var allData = $("#grid").data("kendoGrid").dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var result = query.data;
+        var datasource = result;
+
+        $(datasource).each(function () {
+            this.set("NoEmpleadoEntrega", value);
+        });
     };
 
     function CargarEmpleado(id, value) {
@@ -200,7 +238,8 @@
                         fields: {
                             NoPickingTicket: { type: "string", editable: true },
                             NoEmpleadoEntrega: { type: "string", editable: true },
-                            NoEmpleadoRecibe: { type: "string", editable: true }
+                            NoEmpleadoRecibe: { type: "string", editable: true },
+                            FechaEntrega: { type: "date", editable: true },
                         }
                     }
                 },
@@ -232,6 +271,7 @@
                 { field: "NoPickingTicket", title: _dictionary.Entrega0010[$("#language").data("kendoDropDownList").value()], editor: ObtenerPickingTicket },
                 { field: "NoEmpleadoEntrega", title: _dictionary.Entrega0011[$("#language").data("kendoDropDownList").value()], editor: EmpleadoEntregaAutocomplete },
                 { field: "NoEmpleadoRecibe", title: _dictionary.Entrega0012[$("#language").data("kendoDropDownList").value()], editor: EmpleadoRecibeAutocomplete },
+                { field: "FechaEntrega", title: _dictionary.Entrega0014[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", editor: FechaEntregaDateTimePicker },
                 { command: { text: _dictionary.Entrega0013[$("#language").data("kendoDropDownList").value()], click: CancelarPickingTicket }, title: " ", width: "99px" }
             ],null),
             dataBound: function (e) {
@@ -331,6 +371,12 @@
             });
 
         lastEditedCellIDSEmpleadoRecibe = options.model;
+    };
+
+    function FechaEntregaDateTimePicker(container, options) {
+        $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+           .appendTo(container)
+           .kendoDatePicker({});
     };
 
     function CancelarPickingTicket(e) {
@@ -449,6 +495,15 @@
         return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
     };
 
+    function obtenerFormatoFechaPlanchado(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+        var horaActual = new Date();
+
+        return curr_date  + "/" +curr_month + "/" + curr_year;
+    };
+
     function AgregarRowGrid(container) {
         var tdIndex = $(container).closest('td').index();
         //get the next row's cell
@@ -503,24 +558,26 @@
         for (var i = 0; i < datasource.length; i++) {
             var NoPickingTicket = datasource[i].NoPickingTicket;
             var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
-            var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe
-            if (!NoPickingTicket || !NoEmpleadoEntrega || !NoEmpleadoRecibe) {
+            var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
+            var FechaEntrega = datasource[i].FechaEntrega;
+
+            if (!NoPickingTicket || !NoEmpleadoEntrega || !NoEmpleadoRecibe || !FechaEntrega) {
                 bool = false;
                 datasource.remove(datasource[i]);
             }
-        }
+        };
 
         return bool;
     };
 
     function ListadoAGuardar(datasource) {
         var Listado = {};
-        var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
-        var FechaEntrega = obtenerFormatoFecha(d);
         for (var i = 0; i < datasource.length; i++) {
             var NoPickingTicket = datasource[i].NoPickingTicket;
             var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
             var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
+            var FechaEntrega = obtenerFormatoFecha(datasource[i].FechaEntrega);
+
             var token = $.cookie("token");
             Listado[i] = { FechaEntrega: FechaEntrega, NoPickingTicket: NoPickingTicket, NoEmpleadoEntrega: NoEmpleadoEntrega, NoEmpleadoRecibe: NoEmpleadoRecibe, token: token };
         };

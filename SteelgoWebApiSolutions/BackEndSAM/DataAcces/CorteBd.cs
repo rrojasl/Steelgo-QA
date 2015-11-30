@@ -608,9 +608,9 @@ namespace BackEndSAM.DataAcces
                                        where ms.MaterialSpoolID == materialSpoolID
                                        select new DetalleOdtsCorte
                                        {
-                                           Consecutivo = odts.NumeroControl,
-                                           Etiqueta = ms.Etiqueta,
-                                           NumeroControl = odts.NumeroControl
+                                           Consecutivo = odts.OrdenTrabajoSpoolID.ToString(),
+                                           Etiqueta = ms.MaterialSpoolID.ToString(),
+                                           NumeroControl = odts.OrdenTrabajoID.ToString()
                                        }).AsParallel().SingleOrDefault());
 
                         string[] temp = (resultado[2] as DetalleOdtsCorte).Consecutivo.Split('-').ToArray();
