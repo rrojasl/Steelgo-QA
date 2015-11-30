@@ -2618,8 +2618,8 @@ _dictionary = {
         "en-US": "Pass Out"
     },
     "PaseDeSalida0005": {
-        "es-MX": "Generar Pase de Salida",
-        "en-US": "Generate Pass Out"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "PaseDeSalida0006": {
         "es-MX": "Cancelar",
