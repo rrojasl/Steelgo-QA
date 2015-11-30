@@ -211,7 +211,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="itemCodeSteelgoID">item code steelgo seleccionado</param>
         /// <param name="usuario">usuario actual</param>
         /// <returns>objeto con la informacion del item code steelgo</returns>
-        public object ObtenerDetalleRelacionitemCodeSteelgo(string ItemCode, string diam1, string diam2, Sam3_Usuario usuario)
+        public object ObtenerDetalleRelacionitemCodeSteelgo(string ItemCode, string diam1, string diam2, int mm, Sam3_Usuario usuario)
         {
             try
             {
@@ -246,7 +246,7 @@ namespace BackEndSAM.DataAcces
                                    ItemCode = r.Codigo,
                                    //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                    Cantidad = r.Cantidad,
-                                   MM = r.MM,
+                                   MM = mm,
                                    Descripcion = r.DescripcionEspanol,
                                    Diametro1 = d1.Valor,
                                    Diametro2 = d2.Valor,
@@ -291,7 +291,7 @@ namespace BackEndSAM.DataAcces
                                        Diametro2 = d2.Valor,
                                        //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
-                                       MM = r.MM
+                                       MM = mm
                                    }).AsParallel().SingleOrDefault();
                         return detalle;
                     }
