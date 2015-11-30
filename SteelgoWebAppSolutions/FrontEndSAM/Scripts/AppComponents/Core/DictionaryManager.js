@@ -5902,6 +5902,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "Entrega0014": {
+        "es-MX": "Fecha de Entrega",
+        "en-US": "Delivery Date"
+    },
     //ConvertirSpoolAGranel
     "ConvertirSpoolAGranel0001": {
         "es-MX": "Transacciones",
