@@ -2664,6 +2664,8 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> listado = new List<ListaCombos>();
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                     Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracionOrdenRecepcion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracionOrdenAlmacenaje = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"].Equals("1") ? true : false) : false;
 
                     switch (tipoIncidenciaID)
                     {
@@ -2791,6 +2793,34 @@ namespace BackEndSAM.DataAcces
                                            id = ordr.Folio.ToString(),
                                            value = ordr.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
+
+                            if (activarFolioConfiguracionOrdenRecepcion)
+                            {
+                                foreach (ListaCombos item in listado)
+                                {
+                                    int ordenRecepcionid = Convert.ToInt32(item.id);
+                                    Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == ordenRecepcionid && x.Activo).FirstOrDefault();
+
+                                    item.value = orden.Rel_Proyecto_Entidad_Configuracion_ID != null ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                        where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                        select pc.PreFijoFolioOrdenRecepcion + ","
+                                                                                                        + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                                                                                                        + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                                        + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : orden.Folio.ToString();
+
+                                    if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                                    {
+                                        string[] elemntos = item.value.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+                                }
+                            }
+
+
                             break;
                         case 6: // Complemento de recepcion. Por el momento sin implementacion
                             break;
@@ -2813,6 +2843,32 @@ namespace BackEndSAM.DataAcces
                                            id = oa.Folio.ToString(),
                                            value = oa.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
+
+                            if (activarFolioConfiguracionOrdenAlmacenaje)
+                            {
+                                foreach (ListaCombos item in listado)
+                                {
+                                    int ordenAlmacenajeid = Convert.ToInt32(item.id);
+                                    Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.Folio == ordenAlmacenajeid && x.Activo).FirstOrDefault();
+
+                                    item.value = orden.Rel_Proyecto_Entidad_Configuracion_ID != null ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                        where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                        select pc.PreFijoFolioOrdenAlmacenaje + ","
+                                                                                                        + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                        + pc.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                        + pc.PostFijoFolioOrdenAlmacenaje).AsParallel().FirstOrDefault() : orden.Folio.ToString();
+
+                                    if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                                    {
+                                        string[] elemntos = item.value.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+                                }
+                            }
                             break;
                         case 9: // Numero unico
                             listado = (from nu in ctx.Sam3_NumeroUnico
@@ -3030,11 +3086,11 @@ namespace BackEndSAM.DataAcces
                                     Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == ordenRecepcionid && x.Activo).FirstOrDefault();
 
                                     item.value = orden.Rel_Proyecto_Entidad_Configuracion_ID != null ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                  where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
-                                                  select pc.PreFijoFolioOrdenRecepcion + ","
-                                                  + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                                  + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
-                                                  + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : orden.Folio.ToString();
+                                                                                                        where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                        select pc.PreFijoFolioOrdenRecepcion + ","
+                                                                                                        + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                                                                                                        + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                                        + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : orden.Folio.ToString();
 
                                     if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
                                     {
@@ -3185,6 +3241,7 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
 
         public object ListadoPreDespacho(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
         {
