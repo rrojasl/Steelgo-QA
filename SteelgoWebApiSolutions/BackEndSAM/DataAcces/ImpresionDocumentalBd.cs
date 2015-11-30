@@ -75,7 +75,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 listaFaltantes = (from r in listaMateriales
                                                   join it in ctx2.ItemCode on r.ItemCodeID equals it.ItemCodeID
-                                                  join tp in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals tp.TipoMaterialID
+                                                  join tp in ctx2.TipoMaterial on it.TipoMaterialID equals tp.TipoMaterialID
                                                   select new ListadoImpresionDocumental
                                                   {
                                                       Cantidad = r.Cantidad.ToString(),
