@@ -6403,8 +6403,8 @@ _dictionary = {
         "en-US": "The value is invalid in the field "
     },
     "notificationslabel0089": {
-        "es-MX": "No hay datos en el listado",
-        "en-US": "There is not data in the list"
+        "es-MX": "El valor enviado no existe.",
+        "en-US": "The sent value does not exist."
     },
     "notificationslabel0090": {
         "es-MX": "No hay datos para guardar.",
