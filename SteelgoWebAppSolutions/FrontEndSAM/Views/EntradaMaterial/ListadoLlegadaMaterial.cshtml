@@ -263,7 +263,7 @@
                 detalleIdeaUrl = "@Url.Action("PaseDeSalida", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
             } else {
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio + "&esAlta=" + esAlta;
             }
         }
     }
