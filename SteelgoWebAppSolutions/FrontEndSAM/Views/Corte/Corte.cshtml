@@ -511,7 +511,7 @@
             },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarOrdenTrabajo(dataItem.id);
+                CargarOrdenTrabajo(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -548,7 +548,7 @@
             },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarConsecutivo(dataItem.id);
+                CargarConsecutivo(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -576,7 +576,7 @@
             },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarEtiqueta(dataItem.id);
+                CargarEtiqueta(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -639,19 +639,19 @@
         NumeroUnico = { NumeroUnicoID: id, Nombre: value };
     };
     
-    function CargarOrdenTrabajo(id) {
+    function CargarOrdenTrabajo(id, value) {
         OrdenTrabajo = {};
-        OrdenTrabajo = { OrdenTrabajoID: id };
+        OrdenTrabajo = { OrdenTrabajoID: id, Nombre: value };
     };
     
-    function CargarConsecutivo(id) {
+    function CargarConsecutivo(id, value) {
         Consecutivo = {};
-        Consecutivo = { ConsecutivoID: id };
+        Consecutivo = { ConsecutivoID: id, Nombre: value };
     };
 
-    function CargarEtiqueta(id) {
+    function CargarEtiqueta(id, value) {
         Etiqueta = {};
-        Etiqueta = { EtiquetaID: id };
+        Etiqueta = { EtiquetaID: id, Nombre: value };
     };
 
     function ObtenerMaquina() {
@@ -837,9 +837,9 @@
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-        info.OrdenTrabajo = OrdenTrabajo.OrdenTrabajoID;
-        info.Consecutivo = Consecutivo.ConsecutivoID;
-        info.Etiqueta = Etiqueta.EtiquetaID;
+        info.OrdenTrabajo = OrdenTrabajo.Nombre;
+        info.Consecutivo = Consecutivo.Nombre;
+        info.Etiqueta = Etiqueta.Nombre;
         info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
         info.token = Cookies.get("token");
 
@@ -869,9 +869,9 @@
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-        info.OrdenTrabajo = OrdenTrabajo.OrdenTrabajoID;
-        info.Consecutivo = Consecutivo.ConsecutivoID;
-        info.Etiqueta = Etiqueta.EtiquetaID;
+        info.OrdenTrabajo = OrdenTrabajo.Nombre;
+        info.Consecutivo = Consecutivo.Nombre;
+        info.Etiqueta = Etiqueta.Nombre;
         info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
         info.token = Cookies.get("token");
 
@@ -1102,10 +1102,14 @@
                     $("#Cantidad").val(result[4].Cantidad);
                     $("#ItemCode").val(result[1].ItemCode);
                     $("#Diametro1").val(result[1].D1);
-                    $("#hdnTolerancia").val(result[1].Tolerancia?result[1].Tolerancia:0);
-                    $("#OrdenTrabajo").val(result[2].NumeroControl);
-                    $("#Consecutivo").val(result[2].Consecutivo);
-                    $("#Etiqueta").val(result[2].Etiqueta);
+                    $("#hdnTolerancia").val(result[1].Tolerancia ? result[1].Tolerancia : 0);
+                    $("#OrdenTrabajo").data("kendoAutoComplete").value(result[2].NumeroControl);
+                    $("#Consecutivo").data("kendoAutoComplete").value(result[2].Consecutivo);
+                    $("#Etiqueta").data("kendoComboBox").value(result[2].Etiqueta);
+
+                    CargarOrdenTrabajo(result[2].OrdenTrabajoID, result[2].NumeroControl);
+                    CargarConsecutivo(result[2].ConsecutivoID, result[2].Consecutivo);
+                    CargarEtiqueta(result[2].EtiquetaID, result[2].Etiqueta);
 
                     CargarNumeroUnico(result[3].id, result[3].value);
                     CargarProyecto(result[0].id);
