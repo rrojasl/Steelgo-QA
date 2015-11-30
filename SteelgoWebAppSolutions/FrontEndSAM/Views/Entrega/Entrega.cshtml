@@ -441,7 +441,7 @@
     };
     function Guardar() {
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
-        //BorrarVacios(datasource);
+        BorrarVacios(datasource);
         if ($("#1a1").is(":checked")) {
             GuardarUnoAUno();
         } else {
@@ -451,16 +451,16 @@
     function GuardarMasivo() {
         loadingStart();
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
-        //BorrarVacios(datasource);
+        BorrarVacios(datasource);
         if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
              Listado.Entregas = ListadoAGuardar(datasource);
 
-            //if (!BorrarVacios(datasource)) {
-            //    displayMessage("notificationslabel0075", "", "2");
-            //    loadingStop();
-            //    return;
-            //}
+            if (!BorrarVacios(datasource)) {
+                displayMessage("notificationslabel0075", "", "2");
+                loadingStop();
+                return;
+            }
             
             $Entrega.Entrega.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 if (Error(result))
