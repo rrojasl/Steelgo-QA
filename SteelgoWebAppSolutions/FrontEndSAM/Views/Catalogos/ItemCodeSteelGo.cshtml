@@ -45,6 +45,7 @@
 <script>
 @section JavascriptGlobalVariables {
     editado = false;
+    lastEditedDocument="";
     var creado = 0;
     var idDiam1 = 0;
     var rowEditada = {
@@ -571,9 +572,10 @@
                     })
                 }
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).blur(function () {
+                    lastEditedDocument=$(this).attr("name");
                     var data = {};
                     var i = $(this);
-                    if (e.model.Diametro1 !== null && e.model.Diametro1 !== "") {
+                    if ($('[name=Diametro1]').data("kendoComboBox").value() !== "0" && $('[name=Diametro1]').data("kendoComboBox").value() !== "") {
                         data['CedulaA'] = e.model.CedulaA;
                         data['CedulaB'] = e.model.CedulaB;
                         data['Libra'] = e.model.Libra;
@@ -593,6 +595,7 @@
                                     $("#grid").data("kendoGrid").refresh();
                                     $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                     displayMessage("ItemCodeSteelGo0021", "", '2');
+                                    $("[data-container-for='Peso']").focus();
                                 } else {
                                     e.model.CedulaID = data.CedulaID;
                                     e.model.CedulaA = data.CedulaA;
@@ -616,7 +619,7 @@
                         $("#grid").data("kendoGrid").refresh();
                         $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                         displayMessage("ItemCodeSteelGo0022", "", '1');
-
+                        $("[name='Diametro1']").focus();
                     }
                 });
             },
