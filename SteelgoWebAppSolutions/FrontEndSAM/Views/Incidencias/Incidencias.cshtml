@@ -1025,6 +1025,7 @@
         $('#AdjuntarArchivosIncidencia').kendoUpload({
             async: {
                 saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&token=" + Cookies.get("token"),
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -1046,6 +1047,7 @@
         $('#AdjuntarArchivosResolver').kendoUpload({
             async: {
                 saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&token=" + Cookies.get("token"),
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -1066,6 +1068,7 @@
         $('#AdjuntarArchivosResponder').kendoUpload({
             async: {
                 saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&token=" + Cookies.get("token"),
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -1086,6 +1089,7 @@
         $('#AdjuntarArchivosCancelar').kendoUpload({
             async: {
                 saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivoIncidencia").val() + "&token=" + Cookies.get("token"),
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true

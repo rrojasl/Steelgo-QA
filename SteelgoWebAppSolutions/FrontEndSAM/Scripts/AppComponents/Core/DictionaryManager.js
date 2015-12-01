@@ -1196,16 +1196,16 @@ _dictionary = {
         "en-US": "Chart B"
     },
     "ListadoCatalogos0037": {
-        "es-MX": "Cedula C",
-        "en-US": "Chart C"
+        "es-MX": "Cédula C (Libraje)",
+        "en-US": "Chart C (Poundage)"
     },
     "ListadoCatalogos0038": {
-        "es-MX": "Cedula In",
-        "en-US": "Chart In"
+        "es-MX": "Espesor In",
+        "en-US": "Thickness In"
     },
     "ListadoCatalogos0039": {
-        "es-MX": "Cedula MM",
-        "en-US": "Chart MM"
+        "es-MX": "Espesor MM",
+        "en-US": "Thickness MM"
     },
     "ListadoCatalogos0040": {
         "es-MX": "Espesor",
@@ -1277,8 +1277,8 @@ _dictionary = {
         "en-US": "Document B"
     },
     "ItemCodeSteelGo0015": {
-        "es-MX": "Cédula C (Libra)",
-        "en-US": "Document C (Pound)"
+        "es-MX": "Cédula C (Libraje)",
+        "en-US": "Document C (Poundage)"
     },
     "ItemCodeSteelGo0016": {
         "es-MX": "Pulgadas",
@@ -2293,6 +2293,10 @@ _dictionary = {
     "Cuantificacion0098": {
         "es-MX": "Familia Acero",
         "en-US": "Family Steel"
+    },
+    "Cuantificacion0099": {
+        "es-MX": "Añadir ITCS",
+        "en-US": "Add ITCS"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
