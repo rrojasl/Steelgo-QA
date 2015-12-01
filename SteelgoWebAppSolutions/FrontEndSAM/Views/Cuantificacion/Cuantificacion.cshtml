@@ -3216,9 +3216,11 @@
             $authorizationModel["Bulto"] = $BultoModel;
             $authorizationModel["Tipo Uso"] = $TipoUsoModel;
             $authorizationModel["Diametros"] = $DiametrosModel;
-            observer=new MutationObserver(function(n){
-                $("#grid").data("kendoGrid").current().focus();
-            })
+            if(!detectIE()){
+                observer=new MutationObserver(function(n){
+                    $("#grid").data("kendoGrid").current().focus();
+                })
+            }
     }
 
     @section JavascriptDocumentReadyHomeCookie {
