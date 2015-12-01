@@ -85,7 +85,7 @@ namespace BackEndSAM.Controllers
 
             Sam3_Usuario usuario = new Sam3_Usuario();
             usuario.UsuarioID = 1;
-            List<ListaCombos> listado = (List<ListaCombos>)OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(Convert.ToInt32(id), texto, usuario);
+            List<ListaCombos> listado = (List<ListaCombos>)OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(texto, Convert.ToInt32(id), usuario);
 
             foreach(ListaCombos lst in listado)
             {
