@@ -20,7 +20,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        DatosJunta: { type: "string", editable: true },
+                        DatosJunta: { type: "string", editable: false},
                         Conciliado: { type: "string", editable: true },
                         RazonesParaRechazo: { type: "string", editable: true },
                         Comentario: { type: "string", editable: true },
@@ -50,10 +50,11 @@ function CargarGrid() {
         },
         columns: [
             { field: "DatosJunta", title: "Datos de junta", filterable: true },
-            { field: "Conciliado", title: "Conciliación", filterable: true },
+            { field: "Conciliado", title: "Conciliación", filterable: true},
             { field: "RazonesParaRechazo", title: "Razones de rechazo", filterable: true },
              { field: "Comentario", title: "Comentario", filterable: true },
-             { field: "Accion", title: "Accion", filterable: false }
+             { field: "Accion", title: "Accion", filterable: false },
+        { field: "Ubicacion", title: "Ubicacion", filterable: false }
         ]
     });
 };

@@ -56,7 +56,8 @@ namespace SecurityManager.TokenHandler
                 { "PerfilID", usuario.PerfilID},
                 { "BloqueadoPorAdministracion", usuario.BloqueadoPorAdministracion},
                 { "Activo", usuario.Activo},
-                { "exp", now}
+                { "exp", now},
+                 { "ProveedorID", usuario.ProveedorID}
             };
 
             string token = JWT.JsonWebToken.Encode(payload, ConfigurationManager.AppSettings["scrKey"], JWT.JwtHashAlgorithm.HS256);

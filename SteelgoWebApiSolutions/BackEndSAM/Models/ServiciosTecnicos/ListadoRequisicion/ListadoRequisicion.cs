@@ -24,7 +24,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ListadoRequisicion
     {
         public int RequisicionID { get; set; }
         public string Folio { get; set; }
-        public int PruebasID { get; set; }
+        public int PruebasProyectoID { get; set; }
         public string Prueba { get; set; }
         public string FechaRequisicion { get; set; }
         public string Observacion { get; set; }

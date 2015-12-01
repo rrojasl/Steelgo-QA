@@ -1,15 +1,14 @@
 ﻿function AjaxObtenerStatus() {
-
-    $ListadoRequisicion.ListadoRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    
+    $RequisicionesAsignadas.RequisicionesAsignadas.read({ lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         AgregarStatusDinamicos(data)
     });
 }
 
-
 function AjaxAccionesListado(idStatus) {
     loadingStart();
 
-    $ListadoRequisicion.ListadoRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), idStatus: idStatus }).done(function (data) {
+    $RequisicionesAsignadas.RequisicionesAsignadas.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), idStatus: idStatus, }).done(function (data) {
         if (data.length > 0) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             $("#grid").data("kendoGrid").dataSource.data(data);

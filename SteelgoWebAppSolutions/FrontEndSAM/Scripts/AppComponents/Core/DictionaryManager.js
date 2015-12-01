@@ -4752,13 +4752,54 @@ _dictionary = {
     "lblExisteNombreWPS": {
     "es-MX": "El nombre del WPS ya existe",
     "en-US": "WPS name already exists"
-},
+    },
+    //#endregion
+    //#region GenerarRequisicion
 
-//#endregion
+    "MensajeJuntasSoldadasReguisicion": {
+        "es-MX": "No hay juntas soldadas",
+        "en-US": "no welded joint"
+    },
+    "MensajeSeleccioneRequisiciones": {
+        "es-MX": "Debe seleccionar al menos 1 item",
+        "en-US": "You must select at least 1 item"
+    },
+    "GenerarRequisicionClasificacion": {
+        "es-MX": "Clasificación",
+        "en-US": "Clasification"
+    },
+    "GenerarRequisicionCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
+    "GenerarRequisicionPrioridad": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "GenerarRequisicionProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "GenerarRequisicionMuestraSinCaptura": {
+        "es-MX": "Sin Captura",
+        "en-US": "Without Capture"
+    },
+    "GenerarRequisicionNumeroControl": {
+        "es-MX": "Numero de control",
+        "en-US": "Control number"
+    },
+    "GenerarRequisicionAsignarRequisicion": {
+        "es-MX": "Asignar Requisicion",
+        "en-US": "Assign Requisition"
+    },
+    "GenerarRequisicionMensajeJuntaAgregada": {
+        "es-MX": "Junta agregada",
+        "en-US": "Agree Joint"
+    }
+    //#endregion
 
+}
+    
 
-
-
-};
 
 

@@ -4,32 +4,54 @@
 };
 
 
+IniciarRequisicionesAsignadas();
 
+function IniciarRequisicionesAsignadas() {
+    SuscribirEventos();
+    AjaxObtenerStatus();
+    
+    //setTimeout(function () { alert("Hello"); }, 3000);
+};
+
+function AgregarStatusDinamicos(listaStatus) {
+    for (var i = 0; i < listaStatus.length; i++) {
+        $("#divStatusRequisiciones").append("<button onclick='ActivarRefrescarGrid(" + listaStatus[i].EstatusID + ")' id='" + listaStatus[i].EstatusID + "' class='btn btn-tabList'><span id='" + listaStatus[i].EstatusID + "'>" + listaStatus[i].Estatus + " </span><span id='" + listaStatus[i].CantidadRegistros + "'>" + listaStatus[i].CantidadRegistros + "</span></button>");
+        if (i == 0) {
+            AjaxAccionesListado(listaStatus[i].EstatusID);
+            $("#" + listaStatus[i].EstatusID).addClass("active");
+        }
+    }
+}
+
+function VerDetalle(e) {
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    document.location.target = "_blank";
+    document.location.href = "/serviciostecnicos/CapturaReportePruebas?id=" + dataItem.Folio;
+};
+
+function tabActivo(idButton) {
+    $(".btn-tabList").removeClass("active");
+    var list = document.getElementById("divStatusRequisiciones").getElementsByTagName("button");
+
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id == idButton) {
+            $("#" + idButton).addClass("active");
+            break;
+        }
+    }
+};
 
 function CargarGrid() {
-
-
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [
-                     { TipoPrueba: "XRT0327", Prioridad: "RT", Cuadrante: "10/10/2015", Proyecto: "Prueba sobre", Requisicion: "Pendiente", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "XRT0334", Prioridad: "RT", Cuadrante: "10/10/2015", Proyecto: "", Requisicion: "En espera de validacion", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "LMNa0954", Prioridad: "PMI", Cuadrante: "10/10/2015", Proyecto: "Prueba sobre", Requisicion: "Validada", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "TRN2345", Prioridad: "UT", Cuadrante: "10/10/2015", Proyecto: "", Requisicion: "Rechazada", SpoolID: "", Junta: "", Agregar: "" },
-                     { TipoPrueba: "XRT0327", Prioridad: "RT", Cuadrante: "10/10/2015", Proyecto: "Prueba sobre", Requisicion: "Pendiente", SpoolID: "", Junta: "", Agregar: "" }
-            ],
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
-                        Prioridad: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
-                        Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false },
-                        Agregar: { type: "bool", editable: true }
+                        Folio: { type: "int", editable: false },
+                        Clave: { type: "string", editable: false },
+                        FechaAsignacion: { type: "string", editable: false },
+                        Observacion: { type: "string", editable: false }
                     }
                 }
             },
@@ -54,23 +76,12 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "TipoPrueba", title: "Folio", filterable: true },
-            { field: "Prioridad", title: "Tipo Prueba", filterable: true },
-            { field: "Cuadrante", title: "Fecha", filterable: true },
-            { field: "Proyecto", title: "Observación", filterable: true },
-           // { field: "Requisicion", title: "Estatus", filterable: true, },
-            { field: "SpoolID", title: "ver detalle", filterable: true }
-          
-
-
-           // { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.ServiciosTecnicosEliminar[$("#language").data("kendoDropDownList").value()], width: "99px" }
-
+            { field: "Folio", title: "Folio", filterable: true },
+            { field: "Clave", title: "Tipo Prueba", filterable: true },
+            { field: "FechaAsignacion", title: "Fecha", filterable: true },
+            { field: "Observacion", title: "Observación", filterable: true },
+            { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: VerDetalle }, title: _dictionary.ListaRequisicionVerDetalle[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
     });
 };
 
-function AgregarCaptura() {
-};
-
-function eliminarCaptura() {
-};
