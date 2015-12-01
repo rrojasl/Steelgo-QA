@@ -347,6 +347,10 @@ _dictionary = {
         "es-MX": "Pre Despacho",
         "en-US": "Pre Dispatch"
     },
+    "menuLabel1068": {
+        "es-MX": "Catálogo Asociación ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo Association Catalog"
+    },
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
