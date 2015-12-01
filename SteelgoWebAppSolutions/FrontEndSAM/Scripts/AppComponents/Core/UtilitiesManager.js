@@ -292,8 +292,6 @@ function addTo(c,f) {
                 if (Object.keys(n).indexOf("hidden") === -1 && Object.keys(n).indexOf("command") === -1 && Object.keys(n).indexOf("field") > -1) {
                     if (f[n.field]["type"] === "number") {//Asks for the type of model field of the grid is equal to number
                         n["filterable"] = { cell: { showOperators: false, operator: "eq", delay: 2, dataTextField: n.field, ui: function (element) { element.kendoNumericTextBox({ format: "n4", decimals: 4 }); } } }
-                    } else if ((f[n.field]["type"] === "date")) {
-                        n["filterable"] = { cell: { template: function (e) { e.element.kendoDatePicker({ format: "dd/mm/yyyy" }); } } }
                     } else {
                         n["filterable"] = { cell: { showOperators: false, operator: "contains", delay: 2, dataTextField: n.field } }
                     }

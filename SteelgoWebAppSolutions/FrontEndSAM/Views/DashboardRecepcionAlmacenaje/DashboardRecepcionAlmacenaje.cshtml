@@ -653,7 +653,7 @@
                         fields: {
                             FolioConfiguracion: { type: "string" },
                             FolioAvisoEntrada: { type: "string" },
-                            FechaDescarga: { type: "string" },
+                            FechaDescarga: { type: "date"},
                             Cliente: { type: "string" }
                         }
                     }
@@ -670,7 +670,7 @@
             var columnas =
             [
                 { field: "FolioConfiguracion", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioConfiguracion#</a>" },
-                { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0030[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+                { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0030[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
                 { field: "Cliente", title: _dictionary.DashboardRecepcionAlmacenaje0031[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                 //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
                 { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioAvisoEntrada#</a>", hidden:true },
@@ -731,8 +731,8 @@
                         fields: {
                             Proyecto: { type: "string" },
                             FolioAvisoEntrada: { type: "string" },
-                            FechaDescarga: { type: "string" },
-                            FechaCreacionPackingList: { type: "string" },
+                            FechaDescarga: { type: "date" },
+                            FechaCreacionPackingList: { type: "date" },
                             PackingList: { type: "string" },
                             FolioCuantificacionID: { type: "string" },
                         }
@@ -750,8 +750,8 @@
            [
                { field: "Proyecto", title: _dictionary.DashboardRecepcionAlmacenaje0033[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0034[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0035[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0035[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
+               { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
                { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarPlporCuantificar }, title: " ", width: "99px" }
@@ -822,7 +822,7 @@
             var columnas =
            [
                { field: "Proyecto", title: _dictionary.DashboardRecepcionAlmacenaje0033[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
                { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadItems", title: _dictionary.DashboardRecepcionAlmacenaje0038[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadSinICS", title: _dictionary.DashboardRecepcionAlmacenaje0039[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
@@ -868,10 +868,10 @@
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenRecepcion: { type: "string" },
+                            FechaOrdenRecepcion: { type: "date" },
                             OrdenRecepcion: { type: "string" },
-                            CantidadNUEnOrdenRecepcion: { type: "string" },
-                            CantidadNUSinComplemento: { type: "string" },
+                            CantidadNUEnOrdenRecepcion: { type: "number" },
+                            CantidadNUSinComplemento: { type: "number" },
                             //Folio: { type: "string" }
                         }
                     }
@@ -886,7 +886,7 @@
         function DefinicionColumnasNUporRecepcionar() {
             var columnas =
            [
-               { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "Descripcion"} } /*filterable: true*/ },
+               { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "Descripcion"} }, format: "{0:dd/MM/yyyy}", /*filterable: true*/ },
                { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                //{ field: "Folio", title: _dictionary.DashboardRecepcionAlmacenaje0052[$("#language").data("kendoDropDownList").value()], /*filterable: true*/},
                { field: "CantidadNUEnOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0042[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
@@ -931,10 +931,10 @@
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenRecepcion: { type: "string" },
+                            FechaOrdenRecepcion: { type: "date" },
                             OrdenRecepcion: { type: "string" },
-                            CantidadNUEnOrdenRecepcion: { type: "string" },
-                            CantidadNUPorAlmacenar: { type: "string" },
+                            CantidadNUEnOrdenRecepcion: { type: "number" },
+                            CantidadNUPorAlmacenar: { type: "number" },
                         }
                     }
                 },
@@ -948,7 +948,7 @@
         function DefinicionColumnasNUsinAlmacenar() {
             var columnas =
            [
-               { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
                { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadNUEnOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0042[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadNUPorAlmacenar", title: _dictionary.DashboardRecepcionAlmacenaje0044[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
@@ -992,7 +992,7 @@
                         fields: {
                             NumeroUnicoID: { type: "string" },
                             NumeroUnico: { type: "string" },
-                            CantidadIncidenciasAbiertas: { type: "string" },
+                            CantidadIncidenciasAbiertas: { type: "number" },
                         }
                     }
                 },

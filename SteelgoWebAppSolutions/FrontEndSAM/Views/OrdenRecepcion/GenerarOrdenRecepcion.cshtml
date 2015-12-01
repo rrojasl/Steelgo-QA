@@ -619,6 +619,9 @@
             };
         }
         $(this.table.find(".k-filter-row th")[2]).hide();
+        if($.isNumeric(detectIE())){
+            $("#grid tr:first th:hidden").remove();
+        }
     };
     //se busca el folio cuantificacion, itemcode para marcarlo en el check
     function onDataBoundAccesorios(e) {
