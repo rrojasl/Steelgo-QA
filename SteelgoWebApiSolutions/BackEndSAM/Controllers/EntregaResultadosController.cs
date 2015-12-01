@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EntregaResultadosBD.Instance.ObtenerDetalleEntregaResultados (lenguaje);
+                return EntregaResultadosBD.Instance.ObtenerDetalleEntregaResultados (lenguaje, ConstantesSteelGo.PruebasNombre);
             }
             else
             {

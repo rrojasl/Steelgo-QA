@@ -29,7 +29,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
             }
         }
 
-        public object ObtenerDetalleEntregaResultados(string lenguaje)
+        public object ObtenerDetalleEntregaResultados(string lenguaje,string TipoPrueba)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                     List<Sam3_ServiciosTecnicos_Get_CondicionesFisicas_Result> resultCondicionesFisicas = ctx.Sam3_ServiciosTecnicos_Get_CondicionesFisicas(lenguaje).ToList();
                     List<CondicionesFisicas> ListadoCondicionesFisicas= new List<CondicionesFisicas>();
 
-                    List<Sam3_ServiciosTecnicos_Get_Defectos_Result> resultDefault = ctx.Sam3_ServiciosTecnicos_Get_Defectos(lenguaje).ToList();
+                    List<Sam3_Steelgo_Get_Defectos_Result> resultDefault = ctx.Sam3_Steelgo_Get_Defectos(lenguaje, TipoPrueba).ToList();
                     List<Defectos> ListadoDefectos = new List<Defectos>();
 
                     foreach (Sam3_ServiciosTecnicos_Get_CondicionesFisicas_Result item in resultCondicionesFisicas)
@@ -55,7 +55,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                         });
                     }
 
-                    foreach (Sam3_ServiciosTecnicos_Get_Defectos_Result item in resultDefault)
+                    foreach (Sam3_Steelgo_Get_Defectos_Result item in resultDefault)
                     {
                         ListadoDefectos.Add(new Defectos
                         {
