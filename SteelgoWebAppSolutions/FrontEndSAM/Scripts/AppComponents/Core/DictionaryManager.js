@@ -1200,12 +1200,12 @@ _dictionary = {
         "en-US": "Chart C (Poundage)"
     },
     "ListadoCatalogos0038": {
-        "es-MX": "Cedula In",
-        "en-US": "Chart In"
+        "es-MX": "Espesor In",
+        "en-US": "Thickness In"
     },
     "ListadoCatalogos0039": {
-        "es-MX": "Cedula MM",
-        "en-US": "Chart MM"
+        "es-MX": "Espesor MM",
+        "en-US": "Thickness MM"
     },
     "ListadoCatalogos0040": {
         "es-MX": "Espesor",
