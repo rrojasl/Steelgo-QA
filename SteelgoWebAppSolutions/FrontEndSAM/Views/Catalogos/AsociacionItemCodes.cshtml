@@ -481,8 +481,8 @@
                             //DescripcionLarga: { type:"string",validation: { required: false } },
                             //DescripcionIngles: { type:"string",validation: { required: false } },
                             //DescripcionLargaIngles: { type:"string",validation: { required: false } },
-                            Diametro1: { type:"string", validation: { required: false } },
-                            Diametro2: { type:"string", validation: { required: false } },
+                            Diametro1: { type:"number", validation: { required: false } },
+                            Diametro2: { type:"number", validation: { required: false } },
                             Grupo: { type:"string",validation: { required: false } },
                             GrupoID: { editable: false, nullable: true },
                             Acero: { type:"string",validation: { required: false } },
@@ -491,11 +491,11 @@
                             CedulaA: { type:"string",validation: { required: false }},
                             CedulaB: { type:"string",validation: { required: false }},
                             Libra: { type:"string",validation: { required: false }},
-                            Inch: { type: "string", validation: { required: false }, editable: false },
-                            MM: { type: "string", validation: { required: false }, editable: false },
+                            Inch: { type: "number", validation: { required: false }, editable: false },
+                            MM: { type: "number", validation: { required: false }, editable: false },
                             Espesor: { type: "string", validation: { required: false }, editable: false },
                             Peso: { type: "string", validation: { required: true }, editable: false },
-                            Area: { type: "string", validation: { required: false }, editable: false },
+                            Area: { type: "number", validation: { required: false }, editable: false },
                         }
                     },
                     errors: function (response) {
@@ -605,6 +605,9 @@
                     $(".k-grid .k-input").attr("disabled", "disabled");
                     $(".k-grid .k-filter").hide();
                     displayMessage("AsociacionICS0005", "", '0');
+                    if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+                        window.parent.RecargarFilaSeleccionada();
+                    }
                     applySecurityPolicy(false);
                     //}else{
                     //    displayMessage("",data.ReturnMessage[0], '2');
@@ -623,6 +626,7 @@
                         $("#icsasociado").val("");
                         $("#DesasociarDiv").addClass("hidden");
                         botonDefault();
+                        window.parent.RecargarFilaSeleccionada();
                     }else{
                         displayMessage("",data.ReturnMessage[0], '2');
                     }
@@ -641,6 +645,22 @@
         $(".k-grid .k-input").removeAttr("disabled");
         $(".k-grid .k-filter").show();
     }
+
+    function hideElementsItemCodeSteelgo() {
+        $(".sidebar").hide();
+        $(".logo").hide();
+        $(".search-bar").hide();
+        $(".notifications").hide();
+        $(".logged-user").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".breadcrumb-container").hide();
+        $(".languageSelector").hide();
+        $(".pull-right").hide();
+        $("header").hide();
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
+        $(".actionButtonSection").hide();
+    };
 };
 
 @section JavascriptDocumentReadyFunctions {
@@ -656,11 +676,24 @@
         var detalleIdeaUrl = "@Url.Action("ItemCodeSteelGo", "Catalogos")";
         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
     });
+
+
+    if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+        hideElementsItemCodeSteelgo();
+    }
 };
     
 @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "46", { path: '/' });
+    if (window.parent.$("#hdnOcultarMenus").val() != "1") {
+        Cookies.set("navegacion", "46", { path: '/' });
+    }
+    if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+        window.parent.$(".k-i-close").click(function (e) {
+            window.parent.AsignarPaginaActualCookie();
+            window.parent.RecargarFilaSeleccionada();
+        });
+    }
 };
 
 </script>

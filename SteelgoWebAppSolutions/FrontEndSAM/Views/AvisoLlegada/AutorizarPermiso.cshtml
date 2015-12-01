@@ -194,6 +194,7 @@
         $('#ArchivoAutorizar').kendoUpload({
             async: {
                 saveUrl: $DocumentoPermisoAduana,
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -206,6 +207,7 @@
             error: function (data) { },
             upload: onUploadArchivoAutorizar,
             select: singleFile,
+            remove: onRemove,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
         });
 
@@ -220,11 +222,16 @@
             BotonEdicion();
         });
 
+        $(".k-i-close.k-delete").click(function () {
+            alert("borrar Archivo");
+        });
         ObtenerFolioEntradaMaterial();
 
         cargarFolioDeterminado();
     };
-
+    function onRemove(e) {
+        MostrarUpload(e);
+    };
     function Guardar() {
         var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
         var Folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
@@ -524,13 +531,17 @@
 
        
     };
+    function MostrarUpload(e) {
+            $("#ArchivoAutorizar").show();
+    };
+
 
     function singleFile(e) {
         //console.log(e);
         if (e.files.length == 1) {
-                $("#divLinkAutorizar").empty();
-                this.element.hide();
-        }
+            $("#divLinkAutorizar").empty();
+            this.element.hide();
+        } 
     }
 
     //Si viene de otra pagina se carga el folio y

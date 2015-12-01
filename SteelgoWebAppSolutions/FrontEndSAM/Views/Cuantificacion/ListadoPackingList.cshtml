@@ -336,7 +336,7 @@
                 schema: {
                     model: {
                         fields: {
-                            FechaFolioAvisoEntrada: { type: "string" },
+                            FechaFolioAvisoEntrada: { type: "date" },
                             FolioConfiguracion: { type: "string" },
                             FolioEntrada: { type: "string" },
                             PackingList: { type: "string" },
@@ -370,7 +370,7 @@
                 buttonCount: 2
             },
             columns: addTo([
-                { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()] },
+                { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
                 { field: "FolioConfiguracion", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioConfiguracion#</a>" },
                 { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()] },
                 { field: "FolioConfiguracionCuantificacionID", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalleComplemento(#:FolioCuantificacion#)'>#:FolioConfiguracionCuantificacionID#</a>" },

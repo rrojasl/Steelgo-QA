@@ -272,7 +272,7 @@
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenAlmacenaje: { type: "string" },
+                            FechaOrdenAlmacenaje: { type: "date" },
                             OrdenAlmacenaje: { type: "string" },
                             OrdenAlmacenajeID: {type:"string"}
                         }
@@ -298,7 +298,7 @@
             },
             detailInit: detailInit,
             columns: addTo([
-                { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()] },
+                { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], template: "<a onclick='mostrarDetalle(#:OrdenAlmacenajeID#)'>#:OrdenAlmacenaje#</a>" },
                 { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "99px" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" },

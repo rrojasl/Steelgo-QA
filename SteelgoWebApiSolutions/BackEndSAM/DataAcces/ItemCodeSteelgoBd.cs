@@ -218,8 +218,8 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Sam3_ItemCode item = ctx.Sam3_ItemCode.Where(x => x.Codigo == ItemCode && x.Activo).FirstOrDefault();
-                     int diametro1 = diam1 != "" ? Convert.ToInt32(diam1) : 0;
-                     int diametro2 = diam2 != "" ? Convert.ToInt32(diam2) : 0;
+                     decimal diametro1 = diam1 != "" ? Convert.ToDecimal(diam1) : 0;
+                     decimal diametro2 = diam2 != "" ? Convert.ToDecimal(diam2) : 0;
 
                      int diametro1IID = (from d in ctx.Sam3_Diametro
                                          where d.Activo && d.Valor == diametro1
@@ -291,7 +291,9 @@ namespace BackEndSAM.DataAcces
                                        Diametro2 = d2.Valor,
                                        //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
-                                       MM = mm
+                                       MM = mm,
+                                       Descripcion = r.DescripcionEspanol,
+                                       ItemCodeOrigenID = r.ItemCodeID
                                    }).AsParallel().SingleOrDefault();
                         return detalle;
                     }

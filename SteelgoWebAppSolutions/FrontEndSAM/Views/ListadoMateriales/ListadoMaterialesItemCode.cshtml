@@ -687,35 +687,35 @@
                         fields: {
                             ItemCode: { type: "string" },
                             Descripcion: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             TipoMaterial: { type: "string" },
-                            TotalIngenieria: { type: "string" },
-                            TotalRecibido: { type: "string" },
+                            TotalIngenieria: { type: "number", },
+                            TotalRecibido: { type: "number" },
                             OtrasEntradas: { type: "string" },
-                            TotalCondicionada: { type: "string" },
-                            TotalRechazado: { type: "string" },
-                            TotalDanado: { type: "string" },
-                            TotalRecibidoNeto: { type: "string" },
+                            TotalCondicionada: { type: "number" },
+                            TotalRechazado: { type: "number" },
+                            TotalDanado: { type: "number" },
+                            TotalRecibidoNeto: { type: "number" },
                             EntradasDesdeICEquivalente: { type: "string" },
                             SalidasTemporales: { type: "string" },
-                            TotalOtrasSalidas: { type: "string" },
-                            TotalMermas: { type: "string" },
-                            TotalOrdenTrabajo: { type: "string" },
+                            TotalOtrasSalidas: { type: "number" },
+                            TotalMermas: { type: "number" },
+                            TotalOrdenTrabajo: { type: "number" },
                             DespachadoPorCortarParaICEquivalente: { type: "string" },
                             CortadoParaICEquivalente: { type: "string" },
-                            TotalDespachadoPorCortar: { type: "string" },
-                            TotalCortado: { type: "string" },
+                            TotalDespachadoPorCortar: { type: "number" },
+                            TotalCortado: { type: "number" },
                             DespachadoDesdeICEquivalente: { type: "string" },
                             DespachadoAProduccion: { type: "string" },
                             SalidaParaICEquivalente: { type: "string" },
-                            TotalPorDespachar: { type: "string" },
-                            TotalFisicoEnAlmacen: { type: "string" },
+                            TotalPorDespachar: { type: "number" },
+                            TotalFisicoEnAlmacen: { type: "number" },
                             AsignadoParaICEquivalente: { type: "string" },
-                            TotalCongelado: { type: "string" },
+                            TotalCongelado: { type: "number" },
                             InventarioDisponibleCruce: { type: "string" },
                             DisponibleICEquivalente: { type: "string" },
-                            TotalDisponibleParaCruce: { type: "string" },
+                            TotalDisponibleParaCruce: { type: "number" },
                         }
                     }
                 },
@@ -932,12 +932,14 @@
                 };
             };
             loadingStop();
-            var tmp={};
-            window.location.href.split("?")[1].split("&").forEach(function(n){tmp[n.split("=")[0]]=n.split("=")[1]});
-            if(tmp.IC!==undefined && tmp.IC!=="" && tmp.IC!==null){
-                paramICID=getUrlParameter("IC","");
-                $("#grid").data("kendoGrid").dataSource.filter({ field: "ItemCodeID", operator: "eq", value: parseInt(paramICID) })
-            }
+            try{
+                var tmp={};
+                window.location.href.split("?")[1].split("&").forEach(function(n){tmp[n.split("=")[0]]=n.split("=")[1]});
+                if(tmp.IC!==undefined && tmp.IC!=="" && tmp.IC!==null){
+                    paramICID=getUrlParameter("IC","");
+                    $("#grid").data("kendoGrid").dataSource.filter({ field: "ItemCodeID", operator: "eq", value: parseInt(paramICID) })
+                }
+            }catch(e){}
         });
     };
 

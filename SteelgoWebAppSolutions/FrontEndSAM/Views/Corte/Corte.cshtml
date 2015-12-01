@@ -82,7 +82,7 @@
                             <label id="Corte0014"></label>
                             <input id="Diametro1" class="general-input" disabled />
                         </div>
-                        <div id="OrdenTrabajoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                      @*<div id="OrdenTrabajoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0016"></label>
                             <input id="OrdenTrabajo" class="" />
                         </div>
@@ -94,8 +94,7 @@
                         <div id="EtiquetaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0018"></label>
                             <input id="Etiqueta" class="" />
-
-                        </div>
+                        </div>*@
                         <div id="TramoCompletoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0019"></label>
                             <input id="TramoCompleto" type="checkbox" />
@@ -297,7 +296,7 @@
             SpoolID: { type: "string", editable: false },
             Etiqueta: { type: "string", editable: false },
             Cantidad: { type: "number", editable: true },
-            CantidadIngenieria: { type: "string", editable: false },
+            CantidadIngenieria: { type: "number", editable: false },
             //MaquinaID: { type: "string", editable: false },
             //OperadorID: { type: "string", editable: false },
             //EsTramoCompleto: { type: "string", editable: false },
@@ -343,6 +342,7 @@
                 { command: { text: _dictionary.Corte0030[$("#language").data("kendoDropDownList").value()], click: CancelarSpool }, title: " ", width: "99px" }
             ],getFields()),
             dataBound: function (e) {
+                CalcularCantidad();
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
@@ -489,106 +489,106 @@
         //ObtenerNumeroUnico();
         //EventoSoloNumeros();
 
-        $("#OrdenTrabajo").kendoAutoComplete({
-            dataTextField: "value",
-            dataValueField: "id",
-            autoBind: false,
-            dataSource: {
-                type: "json",
-                minLength: 1,
-                serverFiltering: true,
-                transport: {
-                    read: {
-                        url: function (op) {
-                            var val = "";
-                            if (op.filter) {
-                                val = op.filter.filters[0].value;
-                            }
-                            return $UrlOrdenTrabajo + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
-                        }
-                    }
-                },
-            },
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarOrdenTrabajo(dataItem.id, dataItem.value);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || !e.sender.current()) {
-                    OrdenTrabajo = {};
-                    this.value("");
-                } else {
-                    $("#Consecutivo").focus();
-                };
-            },
-            filter: "contains",
-        });
+        //$("#OrdenTrabajo").kendoAutoComplete({
+        //    dataTextField: "value",
+        //    dataValueField: "id",
+        //    autoBind: false,
+        //    dataSource: {
+        //        type: "json",
+        //        minLength: 1,
+        //        serverFiltering: true,
+        //        transport: {
+        //            read: {
+        //                url: function (op) {
+        //                    var val = "";
+        //                    if (op.filter) {
+        //                        val = op.filter.filters[0].value;
+        //                    }
+        //                    return $UrlOrdenTrabajo + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
+        //                }
+        //            }
+        //        },
+        //    },
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarOrdenTrabajo(dataItem.id, dataItem.value);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || !e.sender.current()) {
+        //            OrdenTrabajo = {};
+        //            this.value("");
+        //        } else {
+        //            $("#Consecutivo").focus();
+        //        };
+        //    },
+        //    filter: "contains",
+        //});
 
        
-        $("#Consecutivo").kendoAutoComplete({
-            dataTextField: "value",
-            dataValueField: "id",
-            autoBind: false,
-            dataSource: {
-                type: "json",
-                minLength: 1,
-                serverFiltering: true,
-                transport: {
-                    read: {
-                        url: function (op) {
-                            var val = "";
-                            if (op.filter) {
-                                val = op.filter.filters[0].value;
-                            }
-                            return $UrlOrdenTrabajoSpool + "&odtID=" + $("#OrdenTrabajo").data("kendoAutoComplete").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
-                        }
-                    }
-                },
-            },
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarConsecutivo(dataItem.id, dataItem.value);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || !e.sender.current()) {
-                    Consecutivo = {};
-                    this.value("");
-                } else {
-                    $("#Etiqueta").focus();
-                };
-            },
-            filter: "contains",
-        });
+        //$("#Consecutivo").kendoAutoComplete({
+        //    dataTextField: "value",
+        //    dataValueField: "id",
+        //    autoBind: false,
+        //    dataSource: {
+        //        type: "json",
+        //        minLength: 1,
+        //        serverFiltering: true,
+        //        transport: {
+        //            read: {
+        //                url: function (op) {
+        //                    var val = "";
+        //                    if (op.filter) {
+        //                        val = op.filter.filters[0].value;
+        //                    }
+        //                    return $UrlOrdenTrabajoSpool + "&odtID=" + $("#OrdenTrabajo").data("kendoAutoComplete").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
+        //                }
+        //            }
+        //        },
+        //    },
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarConsecutivo(dataItem.id, dataItem.value);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || !e.sender.current()) {
+        //            Consecutivo = {};
+        //            this.value("");
+        //        } else {
+        //            $("#Etiqueta").focus();
+        //        };
+        //    },
+        //    filter: "contains",
+        //});
 
-        $("#Etiqueta").kendoComboBox({
-            dataTextField: "value",
-            dataValueField: "id",
-            autoBind: false,
-            dataSource: {
-                type: "json",
-                //minLength: 1,
-                serverFiltering: true,
-                transport: {
-                    read: $UrlMaterialSpool + "&odtsID=" + $("#Consecutivo").data("kendoAutoComplete").value() + "&token=" + Cookies.get("token")
-                },
-            },
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarEtiqueta(dataItem.id, dataItem.value);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || !e.sender.current()) {
-                    Etiqueta = {};
-                    this.value("");
-                } else {
-                    ValidarInformacion();
-                };
-            },
-            filter: "contains",
-        });
+        //$("#Etiqueta").kendoComboBox({
+        //    dataTextField: "value",
+        //    dataValueField: "id",
+        //    autoBind: false,
+        //    dataSource: {
+        //        type: "json",
+        //        //minLength: 1,
+        //        serverFiltering: true,
+        //        transport: {
+        //            read: $UrlMaterialSpool + "&odtsID=" + $("#Consecutivo").data("kendoAutoComplete").value() + "&token=" + Cookies.get("token")
+        //        },
+        //    },
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarEtiqueta(dataItem.id, dataItem.value);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || !e.sender.current()) {
+        //            Etiqueta = {};
+        //            this.value("");
+        //        } else {
+        //            ValidarInformacion();
+        //        };
+        //    },
+        //    filter: "contains",
+        //});
 
         
 
@@ -704,6 +704,18 @@
                         $("#ItemCode").val(result.ItemCode);
                         $("#Diametro1").val(result.D1);
                         $("#hdnTolerancia").val(result.Tolerancia);
+                        resultadoJson = result.ListadoCortes;
+
+                        if ($("#grid").data("kendoGrid")) {
+                            if (resultadoJson.length > 0) {
+                                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                                $("#grid").data("kendoGrid").dataSource.page(1);
+                            } else {
+                                $("#grid").data("kendoGrid").dataSource.data([]);
+                                $("#grid").data("kendoGrid").dataSource.page(0);
+                            };
+                            applySecurityPolicy(false);
+                        };
                     } else {
                         $("#Cantidad").val("");
                         $("#ItemCode").val("");
@@ -724,9 +736,9 @@
 
     function DesahabilitarBotones() {
         $("#ProyectoID").data("kendoComboBox").enable(false);
-        $("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
-        $("#Consecutivo").data("kendoAutoComplete").enable(false);
-        $("#Etiqueta").data("kendoComboBox").enable(false);
+       // $("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
+        //$("#Consecutivo").data("kendoAutoComplete").enable(false);
+        //$("#Etiqueta").data("kendoComboBox").enable(false);
         $("#TramoCompleto").attr("disabled", "disabled");
         $("#Maquina").data("kendoComboBox").enable(false);
         $("#Operador").data("kendoComboBox").enable(false);
@@ -740,17 +752,17 @@
     };
 
     function DesahabilitarBotonesAgregar() {
-        $("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
-        $("#Consecutivo").data("kendoAutoComplete").enable(false);
-        $("#Etiqueta").data("kendoComboBox").enable(false);
+        //$("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
+        //$("#Consecutivo").data("kendoAutoComplete").enable(false);
+        //$("#Etiqueta").data("kendoComboBox").enable(false);
         $("#TramoCompleto").attr("disabled", "disabled");
         $("#Maquina").data("kendoComboBox").enable(false);
     };
 
     function HabilitarBotonesAgregar() {
-        $("#OrdenTrabajo").data("kendoAutoComplete").enable(true);
-        $("#Consecutivo").data("kendoAutoComplete").enable(true);
-        $("#Etiqueta").data("kendoComboBox").enable(true);
+        //$("#OrdenTrabajo").data("kendoAutoComplete").enable(true);
+        //$("#Consecutivo").data("kendoAutoComplete").enable(true);
+        //$("#Etiqueta").data("kendoComboBox").enable(true);
         $("#TramoCompleto").removeAttr("disabled");
         $("#TramoCompleto").removeAttr("checked");
         $("#Maquina").data("kendoComboBox").enable(true);
@@ -775,23 +787,23 @@
             return false;
         };
 
-        if (!info.OrdenTrabajo) {
-            //Favor de proporcionar una orden de trabajo
-            displayMessage("notificationslabel0059", "", '2');
-            return false;
-        };
+        //if (!info.OrdenTrabajo) {
+        //    //Favor de proporcionar una orden de trabajo
+        //    displayMessage("notificationslabel0059", "", '2');
+        //    return false;
+        //};
 
-        if (!info.Consecutivo) {
-            //Favor de proporcionar un consecutivo
-            displayMessage("notificationslabel0060", "", '2');
-            return false;
-        };
+        //if (!info.Consecutivo) {
+        //    //Favor de proporcionar un consecutivo
+        //    displayMessage("notificationslabel0060", "", '2');
+        //    return false;
+        //};
 
-        if (!info.Etiqueta) {
-            //Favor de proporcionar una Etiqueta
-            displayMessage("notificationslabel0061", "", '2');
-            return false;
-        };
+        //if (!info.Etiqueta) {
+        //    //Favor de proporcionar una Etiqueta
+        //    displayMessage("notificationslabel0061", "", '2');
+        //    return false;
+        //};
         return true;
     };
 
@@ -811,23 +823,23 @@
             return false;
         };
 
-        if (!info.OrdenTrabajo) {
-            //Favor de proporcionar una orden de trabajo
-            displayMessage("notificationslabel0059", "", '2');
-            return false;
-        };
+        //if (!info.OrdenTrabajo) {
+        //    //Favor de proporcionar una orden de trabajo
+        //    displayMessage("notificationslabel0059", "", '2');
+        //    return false;
+        //};
 
-        if (!info.Consecutivo) {
-            //Favor de proporcionar un consecutivo
-            displayMessage("notificationslabel0060", "", '2');
-            return false;
-        };
+        //if (!info.Consecutivo) {
+        //    //Favor de proporcionar un consecutivo
+        //    displayMessage("notificationslabel0060", "", '2');
+        //    return false;
+        //};
 
-        if (!info.Etiqueta) {
-            //Favor de proporcionar una Etiqueta
-            displayMessage("notificationslabel0061", "", '2');
-            return false;
-        };
+        //if (!info.Etiqueta) {
+        //    //Favor de proporcionar una Etiqueta
+        //    displayMessage("notificationslabel0061", "", '2');
+        //    return false;
+        //};
         return true;
     };
     function ValidarInformacionEdicionImpresionDocumental() {
@@ -837,9 +849,9 @@
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-        info.OrdenTrabajo = OrdenTrabajo.Nombre;
-        info.Consecutivo = Consecutivo.Nombre;
-        info.Etiqueta = Etiqueta.Nombre;
+        //info.OrdenTrabajo = OrdenTrabajo.Nombre;
+        //info.Consecutivo = Consecutivo.Nombre;
+        //info.Etiqueta = Etiqueta.Nombre;
         info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
         info.token = Cookies.get("token");
 
@@ -869,9 +881,9 @@
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-        info.OrdenTrabajo = OrdenTrabajo.Nombre;
-        info.Consecutivo = Consecutivo.Nombre;
-        info.Etiqueta = Etiqueta.Nombre;
+        //info.OrdenTrabajo = OrdenTrabajo.Nombre;
+        //info.Consecutivo = Consecutivo.Nombre;
+        //info.Etiqueta = Etiqueta.Nombre;
         info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
         info.token = Cookies.get("token");
 
@@ -1103,20 +1115,37 @@
                     $("#ItemCode").val(result[1].ItemCode);
                     $("#Diametro1").val(result[1].D1);
                     $("#hdnTolerancia").val(result[1].Tolerancia ? result[1].Tolerancia : 0);
-                    $("#OrdenTrabajo").data("kendoAutoComplete").value(result[2].NumeroControl);
-                    $("#Consecutivo").data("kendoAutoComplete").value(result[2].Consecutivo);
-                    $("#Etiqueta").data("kendoComboBox").value(result[2].Etiqueta);
+                    //$("#OrdenTrabajo").data("kendoAutoComplete").value(result[2].NumeroControl);
+                    //$("#Consecutivo").data("kendoAutoComplete").value(result[2].Consecutivo);
+                    //$("#Etiqueta").data("kendoComboBox").value(result[2].Etiqueta);
 
-                    CargarOrdenTrabajo(result[2].OrdenTrabajoID, result[2].NumeroControl);
-                    CargarConsecutivo(result[2].ConsecutivoID, result[2].Consecutivo);
-                    CargarEtiqueta(result[2].EtiquetaID, result[2].Etiqueta);
+                    //CargarOrdenTrabajo(result[2].OrdenTrabajoID, result[2].NumeroControl);
+                    //CargarConsecutivo(result[2].ConsecutivoID, result[2].Consecutivo);
+                    //CargarEtiqueta(result[2].EtiquetaID, result[2].Etiqueta);
 
                     CargarNumeroUnico(result[3].id, result[3].value);
                     CargarProyecto(result[0].id);
 
                     $("#ProyectoID").data("kendoComboBox").value(result[0].id);
                     $("#NumeroUnico").data("kendoAutoComplete").value(result[3].value);
-                   ValidarInformacionEdicionImpresionDocumental();
+
+                    resultadoJson = result.ListadoCortes;
+                    if ($("#grid").data("kendoGrid")) {
+                        if (resultadoJson.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                            $("#grid").data("kendoGrid").dataSource.page(1);
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            $("#grid").data("kendoGrid").dataSource.page(0);
+                        };
+                        applySecurityPolicy(false);
+                    };
+
+                    if ($("#TramoCompleto").is(":checked")) {
+                        LimpiarMaquina();
+                        DesahabilitarBotonesAgregar();
+                    };
+                  // ValidarInformacionEdicionImpresionDocumental();
             }
         });
     };
@@ -1250,12 +1279,25 @@
         grid.refresh();
         $("#window").data("kendoWindow").close();
     };
+
     function ValidarCantidadTramoRecto(datasource) {
-        var boolValidarMismaCantidadNU = false;
-        if (datasource.length == 1) {
-            if (datasource[0].Cantidad == $("#Cantidad").val()) {
-                boolValidarMismaCantidadNU = true;
-            };
+        var boolValidarMismaCantidadNU = false, Cantidad = 0;
+        for (var i = 0; i < datasource.length; i++) {
+            Cantidad = datasource[i].Cantidad;
+        }
+
+        if (Cantidad == $("#Cantidad").val()) {
+            boolValidarMismaCantidadNU = true;
+        }
+
+        if (Cantidad < $("#Cantidad").val()) {
+            boolValidarMismaCantidadNU = false;
+            $("#TramoCompleto").removeAttr("checked");
+        };
+
+        if (Cantidad > $("#Cantidad").val()) {
+            displayMessage("notificationslabel0091", "", '2');
+            return;
         };
 
         if (boolValidarMismaCantidadNU) {

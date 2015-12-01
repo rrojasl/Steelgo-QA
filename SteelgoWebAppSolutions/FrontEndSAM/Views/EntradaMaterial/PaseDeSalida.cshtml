@@ -311,6 +311,7 @@
         $('#PackingList').kendoUpload({
             async: {
                 saveUrl: $DocumentoPaseSalidaUploadFiles + FolioPaseSalida.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.TipoArchivoID + "&token=" + Cookies.get("token"),
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -384,6 +385,7 @@
                 $("#FolioAvisoLlegadaID").data("kendoComboBox").value(FolioPaseSalida);
                 CargarFolio(FolioPaseSalida);
                 ObtenerDocumentosPaseSalida();
+                ObtenerIncidencias(FolioPaseSalida);
             }
 
         });

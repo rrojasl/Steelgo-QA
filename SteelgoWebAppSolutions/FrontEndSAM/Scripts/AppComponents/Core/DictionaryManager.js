@@ -347,6 +347,18 @@ _dictionary = {
         "es-MX": "Pre Despacho",
         "en-US": "Pre Dispatch"
     },
+    "menuLabel1068": {
+        "es-MX": "Catálogo Asociación ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo Association Catalog"
+    },
+    "menuLabel1069": {
+        "es-MX": "Notificacion del Deficit",
+        "en-US": "Deficit Notification"
+    },
+    "menuLabel1070": {
+        "es-MX": "Revision del Deficit",
+        "en-US": "Deficit Revision"
+    },
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
@@ -1196,16 +1208,16 @@ _dictionary = {
         "en-US": "Chart B"
     },
     "ListadoCatalogos0037": {
-        "es-MX": "Cedula C",
-        "en-US": "Chart C"
+        "es-MX": "Cédula C (Libraje)",
+        "en-US": "Chart C (Poundage)"
     },
     "ListadoCatalogos0038": {
-        "es-MX": "Cedula In",
-        "en-US": "Chart In"
+        "es-MX": "Espesor In",
+        "en-US": "Thickness In"
     },
     "ListadoCatalogos0039": {
-        "es-MX": "Cedula MM",
-        "en-US": "Chart MM"
+        "es-MX": "Espesor MM",
+        "en-US": "Thickness MM"
     },
     "ListadoCatalogos0040": {
         "es-MX": "Espesor",
@@ -1277,8 +1289,8 @@ _dictionary = {
         "en-US": "Document B"
     },
     "ItemCodeSteelGo0015": {
-        "es-MX": "Cédula C (Libra)",
-        "en-US": "Document C (Pound)"
+        "es-MX": "Cédula C (Libraje)",
+        "en-US": "Document C (Poundage)"
     },
     "ItemCodeSteelGo0016": {
         "es-MX": "Pulgadas",
@@ -2294,6 +2306,10 @@ _dictionary = {
         "es-MX": "Familia Acero",
         "en-US": "Family Steel"
     },
+    "Cuantificacion0099": {
+        "es-MX": "Añadir ITCS",
+        "en-US": "Add ITCS"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -2618,8 +2634,8 @@ _dictionary = {
         "en-US": "Pass Out"
     },
     "PaseDeSalida0005": {
-        "es-MX": "Generar Pase de Salida",
-        "en-US": "Generate Pass Out"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "PaseDeSalida0006": {
         "es-MX": "Cancelar",
@@ -6417,6 +6433,10 @@ _dictionary = {
     "notificationslabel0090": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
+    },
+    "notificationslabel0091": {
+        "es-MX": "La cantidad es mayor al disponible.",
+        "en-US": "The amount is greater than available."
     },
     //Default to copy
     "label9999": {

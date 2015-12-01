@@ -253,7 +253,7 @@
                 schema: {
                     model: {
                         fields: {
-                            Fecha: { type: "string" },
+                            Fecha: { type: "date" },
                             Movimiento: { type: "string" },
                             Segmento: { type: "string" },
                             Entrada: { type: "string" },
@@ -280,7 +280,7 @@
                 numeric: true,
             },
             columns: addTo([
-                { field: "Fecha", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "Fecha", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true, format: "{0:dd/MM/yyyy}", },
                 { field: "Movimiento", title: _dictionary.ListaMateriales0008[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Segmento", title: _dictionary.ListaMateriales0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Entrada", title: _dictionary.ListaMateriales0010[$("#language").data("kendoDropDownList").value()], filterable: true },

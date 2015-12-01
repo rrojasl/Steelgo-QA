@@ -240,7 +240,7 @@
 
     function getFilterG(){
         return {
-            FechaOrdenRecepcion: { type: "string" },
+            FechaOrdenRecepcion: { type: "date" },
             OrdenRecepcion: { type: "number" },
             OrdenRecepcionID: {type: "string"}
         }
@@ -283,7 +283,7 @@
             },
             detailInit: detailInit,
             columns: addTo([
-                { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()] },
+                { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
                 { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenRecepcionID#)'>#:OrdenRecepcion#</a>" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "99px" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0029[$("#language").data("kendoDropDownList").value()], click: ImprimirEtiquetas }, title: " ", width: "99px" },
