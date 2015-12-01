@@ -4403,7 +4403,29 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
+    "SoldadorCertificacionProcesoSoldaduraPQR": {
+        "es-MX": "Proceso Soldadura",
+        "en-US": "Welding process"
+    },
 
+    "SoldadorCertificacionTipoDePruebaPQR": {
+        "es-MX": "Tipo de Prueba",
+        "en-US": "Test Type"
+    },
+
+    "SoldadorCertificacionPosicionPQR": {
+        "es-MX": "Posición",
+        "en-US": "Position"
+    },
+
+    "SoldadorCertificacionCedulaTuboPQR": {
+        "es-MX": "Cedula tubo",
+        "en-US": "tube"
+    },
+    "SoldadorCertificacionDiametroCalificadoPQR": {
+        "es-MX": "Diametro Calificado",
+        "en-US": "Qualified diameter"
+    },
 
     //#endregion
 

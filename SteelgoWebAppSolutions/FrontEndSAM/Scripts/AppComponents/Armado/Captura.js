@@ -12,15 +12,14 @@ function IniciarCapturaArmado() {
     asignarProyecto();
     SuscribirEventos();
 
-};
+}
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 function AltaFecha() {
-
     endRangeDate = $("#FechaArmado").kendoDatePicker({
-        max: new Date(),
+        max: new Date()
     });
 
     endRangeDate.on("keydown", function (e) {
@@ -34,8 +33,8 @@ function ExisteJunta() {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < jsonGridArmado.length; i++) {
-        if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID == $("#Junta").val()) {
-            jsonGridArmado.Accion = 2
+        if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID === $("#Junta").val()) {
+            jsonGridArmado.Accion = 2;
             $("#grid").data("kendoGrid").dataSource.sync();
             return false;
         }
@@ -52,7 +51,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
     JsonCaptura[0].OrdenTrabajo = $("#InputOrdenTrabajo").val();
     JsonCaptura[0].IdVal = $("#InputID").val();
-    JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text()
+    JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text();
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
     JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
@@ -64,7 +63,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].SinCaptura = $('input:radio[name=Muestra]:checked').val();
 
     return JsonCaptura[0];
-};
+}
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
@@ -76,17 +75,13 @@ function CargarGrid() {
 
             input.focus(function () {
                 console.log(ItemSeleccionado.Accion);
-                if (ItemSeleccionado.JuntaArmadoID != 0)
-                    ItemSeleccionado.Accion = 2;
-                console.log(ItemSeleccionado.Accion);
-            })
+                if (ItemSeleccionado.JuntaArmadoID !== 0)
+                { ItemSeleccionado.Accion = 2; }
+            });
 
         },
         change: function () {
-
             ItemSeleccionado = this.dataSource.view()[this.select().index()];
-
-
         },
         dataSource: {
             data: '',
@@ -153,7 +148,7 @@ function CargarGrid() {
             pageSizes: [10, 15, 20],
             info: false,
             input: false,
-            numeric: true,
+            numeric: true
         },
         columns: [
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
@@ -175,7 +170,7 @@ function CargarGrid() {
 
         }
     });
-};
+}
 function AddRow(idTable) {
     var row = '';
     row += ' <tr>';
@@ -203,8 +198,8 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
                     jsonGridArmado[i].NumeroUnico1ID = combobox.NumeroUnicoID;
                 }
             }
-            for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos2.length; j++) {
-                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial) {
+            for (var k = 0; k < jsonGridArmado[i].ListaNumerosUnicos2.length; k++) {
+                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos2[k].EtiquetaMaterial) {
                     jsonGridArmado[i].NumeroUnico2 = combobox.Clave;
                     jsonGridArmado[i].NumeroUnico2ID = combobox.NumeroUnicoID;
                 }
@@ -219,14 +214,14 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
     var arrayListaNumerosUnicos;
 
     if (combobox.Etiqueta == "2")
-        arrayListaNumerosUnicos = rowitem.ListaNumerosUnicos2;
+    { arrayListaNumerosUnicos = rowitem.ListaNumerosUnicos2; }
     else if (combobox.Etiqueta == "1")
-        arrayListaNumerosUnicos = rowitem.ListaNumerosUnicos1;
+    { arrayListaNumerosUnicos = rowitem.ListaNumerosUnicos1; }
 
     if (arrayListaNumerosUnicos.length - 1 == 1) {
-        for (var i = 0; i < arrayListaNumerosUnicos.length; i++) {
-            if (combobox.Clave != arrayListaNumerosUnicos[i].Clave) {
-                itemSiguienteMismoMaterial = arrayListaNumerosUnicos[i];
+        for (var l = 0; l < arrayListaNumerosUnicos.length; l++) {
+            if (combobox.Clave != arrayListaNumerosUnicos[l].Clave) {
+                itemSiguienteMismoMaterial = arrayListaNumerosUnicos[l];
                 rowitem = BuscarItemSiguienteEnGrid(itemSiguienteMismoMaterial);
 
                 if (rowitem != undefined) {
@@ -234,14 +229,14 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
 
                     if (posicionSiguiente < arrayListaNumerosUnicos.length) {
                         posicionSiguiente++;
-                        AplicarAsignacionAutomaticaNumeroUnico(rowitem[0], textoAnterior, rowitem[1], posicionSiguiente)
+                        AplicarAsignacionAutomaticaNumeroUnico(rowitem[0], textoAnterior, rowitem[1], posicionSiguiente);
                     }
                 }
             }
         }
     }
 
-};
+}
 function DatoDefaultNumeroUnico1()
 { }
 function DatoDefaultNumeroUnico2()
@@ -254,12 +249,12 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
     for (var i = 0; i < jsonGridArmado.length; i++) {
         for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos1.length; j++) {
             if (jsonGridArmado[i].ListaNumerosUnicos1[j].Clave == siguienteItemBuscar.Clave && jsonGridArmado[i].ListaNumerosUnicos1[j].EtiquetaMaterial == siguienteItemBuscar.EtiquetaMaterial && jsonGridArmado[i].NumeroUnico1 == undefined)
-                return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos1[j]];
+            { return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos1[j]]; }
         }
 
         for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos2.length; j++) {
             if (jsonGridArmado[i].ListaNumerosUnicos2[j].Clave == siguienteItemBuscar.Clave && jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial == siguienteItemBuscar.EtiquetaMaterial && jsonGridArmado[i].NumeroUnico2 == undefined)
-                return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos2[j]];
+            { return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos2[j]]; }
         }
     }
 
@@ -267,12 +262,12 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
     for (var i = 0; i < jsonGridArmado.length; i++) {
         for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos1.length; j++) {
             if (jsonGridArmado[i].ListaNumerosUnicos1[j].Clave == siguienteItemBuscar.Clave && jsonGridArmado[i].ListaNumerosUnicos1[j].EtiquetaMaterial != siguienteItemBuscar.EtiquetaMaterial)
-                return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos1[j]];
+            { return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos1[j]]; }
         }
 
         for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos2.length; j++) {
             if (jsonGridArmado[i].ListaNumerosUnicos2[j].Clave == siguienteItemBuscar.Clave && jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial != siguienteItemBuscar.EtiquetaMaterial)
-                return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos2[j]];
+            { return [jsonGridArmado[i], jsonGridArmado[i].ListaNumerosUnicos2[j]]; }
         }
     }
 
@@ -309,22 +304,17 @@ function eliminarCaptura(e) {
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataItem.Accion = 3;
 
-        if (dataItem.JuntaArmadoID == 0)
-            dataSource.remove(dataItem);
+        if (dataItem.JuntaArmadoID === 0)
+        { dataSource.remove(dataItem); }
 
         dataSource.sync();
-        //$("#grid").data("kendoGrid").dataSource.sync();
         ventanaConfirm.close();
-    })
+    });
     $("#noButton").click(function () {
         ventanaConfirm.close();
-    })
+    });
 
-    //if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-
-
-    //}
-};
+}
 function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
@@ -332,7 +322,7 @@ function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
-};
+}
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
@@ -346,14 +336,14 @@ function PlanchaTubero() {
             data[i].Tubero = $("#inputTubero").data("kendoComboBox").text();
         }
         else {
-            if (data[i].Tubero == "" || data[i].Tubero == null || data[i].Tubero == undefined) {
+            if (data[i].Tubero === "" || data[i].Tubero === null || data[i].Tubero === undefined) {
                 data[i].TuberoID = $("#inputTubero").val();
                 data[i].Tubero = $("#inputTubero").data("kendoComboBox").text();
             }
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
-};
+}
 function PlanchaTaller() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
@@ -367,14 +357,14 @@ function PlanchaTaller() {
             data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
         }
         else {
-            if (data[i].Taller == "" || data[i].Taller == null || data[i].Taller == undefined) {
+            if (data[i].Taller === "" || data[i].Taller === null || data[i].Taller === undefined) {
                 data[i].TallerID = $("#inputTaller").val();
                 data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
             }
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
-};
+}
 function PlanchaFecha() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
@@ -387,13 +377,13 @@ function PlanchaFecha() {
             data[i].FechaArmado = String(endRangeDate.val()).trim();
         }
         else {
-            if (data[i].FechaArmado == "" || data[i].FechaArmado == null || data[i].FechaArmado == undefined) {
+            if (data[i].FechaArmado === "" || data[i].FechaArmado === null || data[i].FechaArmado === undefined) {
                 data[i].FechaArmado = String(endRangeDate.val()).trim();
             }
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
-};
+}
 function ArregloListadoReporte() {
     JsonCaptura = [];
     var lista = $("#Junta").data("kendoComboBox").dataSource._data;
@@ -405,7 +395,7 @@ function ArregloListadoReporte() {
         JsonCaptura[i].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].OrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].idVal = $("#InputID").val();
-        JsonCaptura[i].idText = $("#InputID").data("kendoComboBox").text()
+        JsonCaptura[i].idText = $("#InputID").data("kendoComboBox").text();
         JsonCaptura[i].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
         JsonCaptura[i].JuntaID = lista[i].JuntaSpoolID;
         JsonCaptura[i].Junta = lista[i].Etiqueta;
@@ -417,7 +407,7 @@ function ArregloListadoReporte() {
         JsonCaptura[i].sinCaptura = "Todos";
     }
     return JsonCaptura;
-};
+}
 
 function ArregloListadoJuntasCapturadas() {
 
@@ -447,5 +437,4 @@ function ArregloListadoJuntasCapturadas() {
         JsonCaptura[i].sinCaptura = data[i].SinCaptura;
     }
     return JsonCaptura;
-};
-
+}

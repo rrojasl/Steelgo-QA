@@ -33,8 +33,8 @@ function ObtenerJSonGridArmado() {
                 var array = JSON.parse(data);
 
                 for (var i = 0; i < array.length; i++) {
-                    array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
-                    array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                    array[i].NumeroUnico1 = array[i].NumeroUnico1 === "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
+                    array[i].NumeroUnico2 = array[i].NumeroUnico2 === "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
                     ds.add(array[i]);
                 }
             });
@@ -77,7 +77,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
             ListaTrabajosAdicionalesEditados = [];
             for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
                 
-                ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" }
+                ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
                 ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
                 ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
                 ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
@@ -99,7 +99,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
                 displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
                 displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
             }
             loadingStop();
@@ -112,7 +112,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
       
     }
 
-};
+}
 
 function AjaxCargarCamposPredeterminados() {
 
@@ -164,7 +164,7 @@ function AjaxCargarCamposPredeterminados() {
 
     });
     
-};
+}
 
 
 function AjaxCargarCamposPredeterminadosOcultaJunta() {

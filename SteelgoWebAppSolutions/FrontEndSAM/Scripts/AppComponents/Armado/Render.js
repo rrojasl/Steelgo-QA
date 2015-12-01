@@ -43,7 +43,7 @@ function RenderComboBoxTubero(container, options) {
             }
         }
         );
-};
+}
 
 function RenderComboBoxNumeroUnico1(container, options) {
     //container  contiene las propiedades de la celda
@@ -70,7 +70,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
-};
+}
 
 function RenderComboBoxNumeroUnico2(container, options) {
     //container  contiene las propiedades de la celda
@@ -98,7 +98,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
 
              }
          });
-};
+}
 
 
 function grid_saveChanges(e) {
@@ -265,7 +265,7 @@ function RenderGridDetalle(container, options) {
 
 
 
-};
+}
 
 function RenderComboBoxTrabajoAdicional(container, options) {
     //container  contiene las propiedades de la celda
@@ -295,11 +295,11 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             }
         });
 
-};
+}
 
 
 function onChange(e) {
 
-};
+}
 
 
