@@ -71,28 +71,35 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-                    { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: "", width: "90px" },
-                    { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: editaSoldadorCertificacion }, title: "", width: "90px" },
+                    
                     { field: "SoldadorCertificacionID", title: _dictionary.SoldadorCertificacionID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
                     { field: "ObreroID", title: _dictionary.SoldadorCertificacionObreroID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "CodigoObrero", title: _dictionary.SoldadorCertificacionCodigoObrero[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
                     { field: "PQRID", title: _dictionary.SoldadorCertificacionPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true, width: "90px" },
-                    { field: "NombrePQR", title: _dictionary.SoldadorCertificacionNombrePQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
                     { field: "ProcesoSoldaduraID", title: _dictionary.SoldadorCertificacionPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "ProcesoSoldadura", title: _dictionary.SoldadorCertificacionProcesoSoldaduraPQR[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "TipoDePruebaID", title: _dictionary.SoldadorCertificacionPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "TipoDePrueba", title: _dictionary.SoldadorCertificacionTipoDePruebaPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+                    
                     { field: "PosicionID", title: _dictionary.SoldadorCertificacionPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "Posicion", title: _dictionary.SoldadorCertificacionPosicionPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-                    { field: "FechaInicioCertificado", title: _dictionary.SoldadorCertificacionFechaInicioCertificado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px" },
-                    { field: "FechaFinCertificado", title: _dictionary.SoldadorCertificacionFechaFinCertificado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
-                    { field: "CedulaTuboCalificado", title: _dictionary.SoldadorCertificacionCedulaTuboPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
-                    { field: "DiametroCalificado", title: _dictionary.SoldadorCertificacionDiametroCalificadoPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-                    { field: "EspesorMinimo", title: _dictionary.SoldadorCertificacionEspesorMinimo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px" },
-                    { field: "EspesorMaximo", title: _dictionary.SoldadorCertificacionEspesorMaximo[$("#language").data("kendoDropDownList").value()], filterable: true,  width: "200px" },
-                    { field: "PorcentajeJuntasRequiere", title: _dictionary.SoldadorCertificacionPorcentajeJuntasRequiere[$("#language").data("kendoDropDownList").value()], filterable: true,  width: "200px" },
-                    { field: "CertificadoActivo", title: _dictionary.SoldadorCertificacionCertificadoActivo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px" },
-                    { field: "PasosSoldadura", title: _dictionary.SoldadorCertificacionCertificadoActivo[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true }
+                    { field: "PasosSoldadura", title: _dictionary.SoldadorCertificacionCertificadoActivo[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+
+                    { field: "CodigoObrero", title: _dictionary.SoldadorCertificacionCodigoObrero[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "NombrePQR", title: _dictionary.SoldadorCertificacionNombrePQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+                    { field: "TipoDePrueba", title: _dictionary.SoldadorCertificacionTipoDePruebaPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "Posicion", title: _dictionary.SoldadorCertificacionPosicionPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+                    { field: "FechaInicioCertificado", title: _dictionary.SoldadorCertificacionFechaInicioCertificado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "155px" },
+                    { field: "FechaFinCertificado", title: _dictionary.SoldadorCertificacionFechaFinCertificado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "140px" },
+                    { field: "CedulaTuboCalificado", title: _dictionary.SoldadorCertificacionCedulaTuboPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "DiametroCalificado", title: _dictionary.SoldadorCertificacionDiametroCalificadoPQR[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+                    { field: "EspesorMinimo", title: _dictionary.SoldadorCertificacionEspesorMinimo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "EspesorMaximo", title: _dictionary.SoldadorCertificacionEspesorMaximo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "PorcentajeJuntasRequiere", title: _dictionary.SoldadorCertificacionPorcentajeJuntasRequiere[$("#language").data("kendoDropDownList").value()], filterable: true,  width: "150px" },
+                    { field: "CertificadoActivo", title: _dictionary.SoldadorCertificacionCertificadoActivo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+                    { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: "", width: "90px" },
+                    { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: editaSoldadorCertificacion }, title: "", width: "90px" },
+                    { field: "ProcesoSoldadura", title: _dictionary.SoldadorCertificacionProcesoSoldaduraPQR[$("#language").data("kendoDropDownList").value()], filterable: true }
+                    
+                    
+                    
+                   
                     
         ],
         dataBound: function (e) {

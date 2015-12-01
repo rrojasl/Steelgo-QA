@@ -68,7 +68,7 @@ function CargarGridPQR() {
         },
         autoHeight: true,
         sortable: true,
-        scrollable: false,
+        scrollable: true,
         editable: "inline",
         filterable: {
             extra: false,
@@ -81,22 +81,26 @@ function CargarGridPQR() {
             numeric: true,
         },
         columns: [
-                    { field: "PQRID", title: _dictionary.lblPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "Nombre", title: _dictionary.lblPQRNombre[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "PREHEAT", title: _dictionary.lblPQRPREHEAT[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: " PWHT", title: _dictionary.lblPQRPWHT[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "EspesorRelleno", title: _dictionary.lblPQREspesorRelleno[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "EspesorRaiz", title: _dictionary.lblPQREspesorRaiz[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "CodigoRelleno", title: _dictionary.lblPQRProcesoSoldaduraRelleno[$("#language").data("kendoDropDownList").value()], filterable: true},
-                    { field: "CodigoRaiz", title: _dictionary.lblPQRProcesoSoldaduraRaiz[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "NumeroP", title: _dictionary.lblPQRNumeroP[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "GrupoMaterialBase1", title: _dictionary.lblPQRGrupoPMaterialBase1[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "GrupoMaterialBase2", title: _dictionary.lblPQRGrupoPMaterialBase2[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Aporte", title: _dictionary.lblPQRAporte[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Mezcla", title: _dictionary.lblPQRMezcla[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Respaldo", title: _dictionary.lblPQRRespaldo[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "GrupoF", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Codigo", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true },
+                   
+                    { width:"110px", field: "Nombre", title: _dictionary.lblPQRNombre[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "PREHEAT", title: _dictionary.lblPQRPREHEAT[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "100px", field: " PWHT", title: _dictionary.lblPQRPWHT[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "EspesorRelleno", title: _dictionary.lblPQREspesorRelleno[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "EspesorRaiz", title: _dictionary.lblPQREspesorRaiz[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "CodigoRelleno", title: _dictionary.lblPQRProcesoSoldaduraRelleno[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "CodigoRaiz", title: _dictionary.lblPQRProcesoSoldaduraRaiz[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "NumeroP", title: _dictionary.lblPQRNumeroP[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "GrupoMaterialBase1", title: _dictionary.lblPQRGrupoPMaterialBase1[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "GrupoMaterialBase2", title: _dictionary.lblPQRGrupoPMaterialBase2[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "Aporte", title: _dictionary.lblPQRAporte[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "Mezcla", title: _dictionary.lblPQRMezcla[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "Respaldo", title: _dictionary.lblPQRRespaldo[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "GrupoF", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "Codigo", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { width: "120px", field: "PQRID", title: _dictionary.lblPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: editarPQR }, title: " ", width: "90px" },
+                    { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminarPQR }, title: " ", width: "90px" },
+
                     {field: "ProcesoSoldaduraRellenoID", title: _dictionary.lblPQRProcesoSoldaduraRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true},
                     { field: "ProcesoSoldaduraRaizID", title: _dictionary.lblPQRProcesoSoldaduraRaiz[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
                     { field: "NumeroPID", title: _dictionary.lblPQRNumeroP[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
@@ -106,9 +110,8 @@ function CargarGridPQR() {
                     { field: "MezclaID", title: _dictionary.lblPQRMezcla[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
                     { field: "RespaldoID", title: _dictionary.lblPQRRespaldo[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
                     { field: "GrupoFID", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "CodigoID", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { command: { text: _dictionary.Cuantificacion0004[$("#language").data("kendoDropDownList").value()], click: editarPQR }, title: " ", width: "40px" },
-                    { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: EliminarPQR }, title: " ", width: "40px" }
+                    { field: "CodigoID", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true }
+                    
             
         ],
         dataBound: function (e) {
