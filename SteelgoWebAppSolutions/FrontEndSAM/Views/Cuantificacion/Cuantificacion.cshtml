@@ -3267,11 +3267,12 @@
             $authorizationModel["Bulto"] = $BultoModel;
             $authorizationModel["Tipo Uso"] = $TipoUsoModel;
             $authorizationModel["Diametros"] = $DiametrosModel;
+            if(!detectIE()){
+                observer=new MutationObserver(function(n){
+                    $("#grid").data("kendoGrid").current().focus();
+                })
+            }
             $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
-
-            observer=new MutationObserver(function(n){
-                $("#grid").data("kendoGrid").current().focus();
-            })
     }
 
     @section JavascriptDocumentReadyHomeCookie {
