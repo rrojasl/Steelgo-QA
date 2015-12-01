@@ -39,7 +39,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoNumerosDeControl(int proyectoID, string busqueda, Sam3_Usuario usuario)
+        public object ListadoNumerosDeControl(string busqueda, Sam3_Usuario usuario)
         {
             try
             {
@@ -57,7 +57,6 @@ namespace BackEndSAM.DataAcces
                                      join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
                                      where p.Activo && eqp.Activo
                                      && p.UsuarioID == usuario.UsuarioID
-                                     && eqp.Sam3_ProyectoID == proyectoID
                                      select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
                        // proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
@@ -99,7 +98,7 @@ namespace BackEndSAM.DataAcces
                                                  {
                                                      id = odts.OrdenTrabajoSpoolID.ToString(),
                                                      value = odts.NumeroControl
-                                                 }).Distinct().AsParallel().ToList();
+                                                 }).Distinct().GroupBy(x => x.id).Select(x => x.First()).AsParallel().ToList();
 
                     listado = listado.OrderBy(x => x.value).ToList();
 
