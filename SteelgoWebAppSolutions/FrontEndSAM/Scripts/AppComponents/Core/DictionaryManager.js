@@ -2294,6 +2294,10 @@ _dictionary = {
         "es-MX": "Familia Acero",
         "en-US": "Family Steel"
     },
+    "Cuantificacion0099": {
+        "es-MX": "Añadir ITCS",
+        "en-US": "Add ITCS"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
