@@ -1277,8 +1277,8 @@ _dictionary = {
         "en-US": "Group"
     },
     "ItemCodeSteelGo0012": {
-        "es-MX": "Acero",
-        "en-US": "Steel"
+        "es-MX": "Familia Acero",
+        "en-US": "Steel Family"
     },
     "ItemCodeSteelGo0013": {
         "es-MX": "Cédula A",
