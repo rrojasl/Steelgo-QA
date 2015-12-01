@@ -351,6 +351,14 @@ _dictionary = {
         "es-MX": "Catálogo Asociación ItemCode Steelgo",
         "en-US": "ItemCode Steelgo Association Catalog"
     },
+    "menuLabel1069": {
+        "es-MX": "Notificacion del Deficit",
+        "en-US": "Deficit Notification"
+    },
+    "menuLabel1070": {
+        "es-MX": "Revision del Deficit",
+        "en-US": "Deficit Revision"
+    },
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
