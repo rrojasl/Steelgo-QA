@@ -1196,8 +1196,8 @@ _dictionary = {
         "en-US": "Chart B"
     },
     "ListadoCatalogos0037": {
-        "es-MX": "Cedula C",
-        "en-US": "Chart C"
+        "es-MX": "Cédula C (Libraje)",
+        "en-US": "Chart C (Poundage)"
     },
     "ListadoCatalogos0038": {
         "es-MX": "Cedula In",
@@ -1277,8 +1277,8 @@ _dictionary = {
         "en-US": "Document B"
     },
     "ItemCodeSteelGo0015": {
-        "es-MX": "Cédula C (Libra)",
-        "en-US": "Document C (Pound)"
+        "es-MX": "Cédula C (Libraje)",
+        "en-US": "Document C (Poundage)"
     },
     "ItemCodeSteelGo0016": {
         "es-MX": "Pulgadas",
