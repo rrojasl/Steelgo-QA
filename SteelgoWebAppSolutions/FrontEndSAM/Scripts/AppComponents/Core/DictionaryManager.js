@@ -2290,6 +2290,10 @@ _dictionary = {
         "es-MX": "ItemCodeOrigenID",
         "en-US": "ItemCodeOrigenID"
     },
+    "Cuantificacion0098": {
+        "es-MX": "Familia Acero",
+        "en-US": "Family Steel"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -2614,8 +2618,8 @@ _dictionary = {
         "en-US": "Pass Out"
     },
     "PaseDeSalida0005": {
-        "es-MX": "Generar Pase de Salida",
-        "en-US": "Generate Pass Out"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "PaseDeSalida0006": {
         "es-MX": "Cancelar",
@@ -6413,6 +6417,10 @@ _dictionary = {
     "notificationslabel0090": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
+    },
+    "notificationslabel0091": {
+        "es-MX": "La cantidad es mayor al disponible.",
+        "en-US": "The amount is greater than available."
     },
     //Default to copy
     "label9999": {

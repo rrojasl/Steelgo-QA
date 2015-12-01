@@ -38,7 +38,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object obtenerTipoAcero()
+        public object obtenerTipoAcero(int familiaAceroID)
         {
             try
             {
@@ -46,12 +46,13 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    tipoAcero = (from fm in ctx.Sam3_FamiliaMaterial
-                                 where fm.Activo
+                    tipoAcero = (from a in ctx.Sam3_Acero
+                                 where a.Activo
+                                 && a.FamiliaAceroID == familiaAceroID
                                  select new TipoAcero
                                  {
-                                     AceroID = fm.FamiliaMaterialID.ToString(),
-                                     Nomenclatura = fm.Nombre
+                                     AceroID = a.AceroID.ToString(),
+                                     Nomenclatura = a.Nomenclatura
                                  }).AsParallel().ToList();
                 }
                 return tipoAcero;

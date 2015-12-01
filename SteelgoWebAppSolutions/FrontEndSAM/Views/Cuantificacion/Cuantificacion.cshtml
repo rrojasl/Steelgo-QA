@@ -2913,7 +2913,7 @@
         
         function ObtenerItemCodeSteelgo(dataJson, key, error) {
             if (dataJson[key]) {
-                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", d1: dataJson[key].D1, d2: dataJson[key].D2, token: Cookies.get("token") }).done(function (data) {
+                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", d1: dataJson[key].D1, d2: dataJson[key].D2, mm: dataJson[key].MM, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
                     if (data) {
                         error = ErrorInsertandoItems(data, error, dataJson[key]);
@@ -3123,7 +3123,7 @@
             var z = 0;
             for (var i = 1; i < lines.length; i++) {
                 if (lines[i]) {
-                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", D1: Number(lines[i].split(",")[1]), D2: Number(lines[i].split(",")[2]), ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[3]), MM: "", Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: "", ItemCodeSteelgoID: "" };
+                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", D1: Number(lines[i].split(",")[1]), D2: Number(lines[i].split(",")[2]), ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[3]), MM: Number(lines[i].split(",")[4]), Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: "", ItemCodeSteelgoID: "" };
                     z++;
                 }
             }

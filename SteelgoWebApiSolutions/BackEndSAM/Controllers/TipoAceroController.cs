@@ -21,14 +21,14 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(string token)
+        public object Get(int familiaAceroID, string token)
         { 
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-            return TipoAceroBd.Instance.obtenerTipoAcero();
+            return TipoAceroBd.Instance.obtenerTipoAcero(familiaAceroID);
             }
             else
             {

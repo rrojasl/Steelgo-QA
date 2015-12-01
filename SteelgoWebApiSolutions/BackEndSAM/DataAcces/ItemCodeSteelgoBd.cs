@@ -211,15 +211,15 @@ namespace BackEndSAM.DataAcces
         /// <param name="itemCodeSteelgoID">item code steelgo seleccionado</param>
         /// <param name="usuario">usuario actual</param>
         /// <returns>objeto con la informacion del item code steelgo</returns>
-        public object ObtenerDetalleRelacionitemCodeSteelgo(string ItemCode, string diam1, string diam2, Sam3_Usuario usuario)
+        public object ObtenerDetalleRelacionitemCodeSteelgo(string ItemCode, string diam1, string diam2, int mm, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     Sam3_ItemCode item = ctx.Sam3_ItemCode.Where(x => x.Codigo == ItemCode && x.Activo).FirstOrDefault();
-                     int diametro1 = diam1 != "" ? Convert.ToInt32(diam1) : 0;
-                     int diametro2 = diam2 != "" ? Convert.ToInt32(diam2) : 0;
+                     decimal diametro1 = diam1 != "" ? Convert.ToDecimal(diam1) : 0;
+                     decimal diametro2 = diam2 != "" ? Convert.ToDecimal(diam2) : 0;
 
                      int diametro1IID = (from d in ctx.Sam3_Diametro
                                          where d.Activo && d.Valor == diametro1
@@ -246,7 +246,7 @@ namespace BackEndSAM.DataAcces
                                    ItemCode = r.Codigo,
                                    //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                    Cantidad = r.Cantidad,
-                                   MM = r.MM,
+                                   MM = mm,
                                    Descripcion = r.DescripcionEspanol,
                                    Diametro1 = d1.Valor,
                                    Diametro2 = d2.Valor,
@@ -291,7 +291,9 @@ namespace BackEndSAM.DataAcces
                                        Diametro2 = d2.Valor,
                                        //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
-                                       MM = r.MM
+                                       MM = mm,
+                                       Descripcion = r.DescripcionEspanol,
+                                       ItemCodeOrigenID = r.ItemCodeID
                                    }).AsParallel().SingleOrDefault();
                         return detalle;
                     }
