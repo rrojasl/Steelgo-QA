@@ -48,6 +48,13 @@ function validateElementExistence(element) {
     return false;
 }
 
+function onRefresh(e) {
+    kendo.ui.progress(e.sender.element, false);
+};
+function onOpen(e) {
+    kendo.ui.progress(e.sender.element, true);
+};
+
 //Function to activate waiting screen
 function loadingStart() {
     $body.addClass("loading");
