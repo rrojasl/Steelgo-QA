@@ -79,26 +79,31 @@ namespace BackEndSAM.DataAcces
                     }
 
                     List<string> elementos = new List<string>();
-                    
+
                     int consecutivo = 0;
                     if (busqueda.Contains("-"))
                     {
                         string[] divididos = busqueda.Split('-').ToArray();
-                        char[] lstElementoNumeroControl = divididos[0].ToCharArray();
-                        foreach (char i in lstElementoNumeroControl)
-                        {
-                            elementos.Add(i.ToString());
-                        }
+
+                        //char[] lstElementoNumeroControl = divididos[0].ToCharArray();
+                        //foreach (char i in lstElementoNumeroControl)
+                        //{
+                        //    elementos.Add(i.ToString());
+                        //}
 
                         consecutivo = Convert.ToInt32(divididos[1]);
+
+                        busqueda = divididos[0].Replace("0", string.Empty).ToUpper();
+
                     }
-                    else 
+                    else
                     {
-                        char[] lstElementoNumeroControl = busqueda.ToCharArray();
-                        foreach (char i in lstElementoNumeroControl)
-                        {
-                            elementos.Add(i.ToString());
-                        }
+                        //char[] lstElementoNumeroControl = busqueda.ToCharArray();
+                        //foreach (char i in lstElementoNumeroControl)
+                        //{
+                        //    elementos.Add(i.ToString());
+                        //}
+                        busqueda = busqueda.Replace("0", string.Empty).ToUpper();
                     }
 
 
@@ -128,27 +133,32 @@ namespace BackEndSAM.DataAcces
                     {
                         string[] elem = lst.NumeroControl.Split('-').ToArray();
 
-                        if(consecutivo > 0 && elementos.Count > 0)
+                        string simplificado = elem[0].Replace("0", string.Empty);
+                        int consec = Convert.ToInt32(elem[1]);
+
+                        if (consecutivo > 0)
                         {
-                            if(elementos.Any(x => elementos[0].Contains(x)) && (Convert.ToInt32(elem[1]) == consecutivo))
+                            if (simplificado.Contains(busqueda) && consec == consecutivo)
                             {
                                 filtrado.Add(lst);
                             }
                         }
                         else
                         {
-                            if(elementos.Count > 0 && elementos.Any(x => elementos[0].Contains(x)))
+                            if (simplificado.Contains(busqueda))
                             {
                                 filtrado.Add(lst);
                             }
                         }
+
+
                     }
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
+                    string json = serializer.Serialize(filtrado);
 #endif
 
-                    return listado.OrderBy(x => x.NumeroControl).ToList();
+                    return filtrado.OrderBy(x => x.NumeroControl).ToList();
 
                 }
             }
