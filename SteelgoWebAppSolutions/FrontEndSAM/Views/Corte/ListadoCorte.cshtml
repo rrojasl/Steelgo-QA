@@ -165,8 +165,8 @@
                     model: {
                         fields: {
                             FolioAvisoLlegadaID: { type: "string" },
-                            FechaRecepcion: { type: "string" },
-                            FechaGeneracion: { type: "string" },
+                            FechaRecepcion: { type: "date" },
+                            FechaGeneracion: { type: "date" },
                             Estatus: { type: "string" }
                         }
                     }
@@ -190,8 +190,8 @@
             },
             columns: addTo([
                 { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()] },
-                { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "FechaGeneracion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true, format: "{0:dd/MM/yyyy}", },
+                { field: "FechaGeneracion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true, format: "{0:dd/MM/yyyy}", },
                
             ],null),
             dataBound: function (e) {

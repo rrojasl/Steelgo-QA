@@ -181,7 +181,7 @@
                         fields: {
                             FolioConfiguracion: { type: "string" },
                             FolioAvisoEntradaID: { type: "string" },
-                            FechaCreación: { type: "string" },
+                            FechaCreación: { type: "date" },
                             Patio: { type: "string" },
                             EstatusFolio: { type: "string" },
                         }
@@ -207,7 +207,7 @@
             },
             columns: addTo([
                 { field: "FolioConfiguracion", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"mostrarDetalle('#=FolioAvisoLlegadaID#')\">#:FolioConfiguracion#</a>", filterable: true },
-                { field: "FechaCreación", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "FechaCreación", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true, format: "{0:dd/MM/yyyy}", },
                 { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0002[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "EstatusFolio", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" },
@@ -263,7 +263,7 @@
                 detalleIdeaUrl = "@Url.Action("PaseDeSalida", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
             } else {
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio + "&esAlta=" + esAlta;
             }
         }
     }

@@ -73,14 +73,17 @@ namespace BackEndSAM.DataAcces
                                                                where eq.Activo
                                                                && eq.Sam3_FabricanteID == DatosColada.FabricanteID
                                                                select eq.Sam2_FabricanteID).AsParallel().SingleOrDefault(); 
+
                                     Sam2Colada.AceroID = (from eq in ctx.Sam3_EquivalenciaAcero
                                                           where eq.Activo
                                                           && eq.Sam3_AceroID ==  DatosColada.AceroID
                                                           select eq.Sam2_AceroID).AsParallel().SingleOrDefault();
+
                                     Sam2Colada.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
                                                              where eq.Activo
                                                              && eq.Sam3_ProyectoID == DatosColada.ProyectoID
                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault(); 
+
                                     Sam2Colada.NumeroColada = DatosColada.NumeroColada;
                                     Sam2Colada.NumeroCertificado = DatosColada.NumeroCertificado;
                                     Sam2Colada.HoldCalidad = DatosColada.HoldCalidad;

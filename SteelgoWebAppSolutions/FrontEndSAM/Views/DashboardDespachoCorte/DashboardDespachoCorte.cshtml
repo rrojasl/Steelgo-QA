@@ -199,7 +199,7 @@
             CargarGridTubos();
             CargarGridAccesorios();
             CrearPeriodoTiempo();
-            CrearUnidadMedida();
+            //CrearUnidadMedida();
             $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
             $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
             Filtros();
@@ -298,6 +298,33 @@
             });
             ObtenerFoliosAvisoLlegada();
 
+            $("#UnidadMedida").kendoComboBox({
+                dataTextField: "UnidadMedida",
+                dataValueField: "UnidadMedidaID",
+                dataSource: [
+                    { "UnidadMedidaID": "1", "UnidadMedida": _dictionary.DashboardDespachoCorte0049[$("#language").data("kendoDropDownList").value()] },
+                    { "UnidadMedidaID": "2", "UnidadMedida": _dictionary.DashboardDespachoCorte0048[$("#language").data("kendoDropDownList").value()] },
+                    { "UnidadMedidaID": "3", "UnidadMedida": _dictionary.DashboardDespachoCorte0050[$("#language").data("kendoDropDownList").value()] },
+                    { "UnidadMedidaID": "4", "UnidadMedida": _dictionary.DashboardDespachoCorte0051[$("#language").data("kendoDropDownList").value()] },
+                ],
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarUnidadMedida(dataItem.UnidadMedidaID);
+                },
+                change: function (e) {
+                    var value = this.value();
+
+                    if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
+                        UnidadMedida = {};
+                        this.value("");
+                    }
+                    Filtros();
+                },
+                filter: "contains",
+            });
+            $("#UnidadMedida").data("kendoComboBox").value(2);
+
             $("#PackingList").kendoComboBox({
                 dataTextField: "id",
                 dataValueField: "value",
@@ -344,6 +371,8 @@
 
             ObtenerFechasporDefecto();
             CantidadesDelMenuDashboardTubos();
+
+          
             
         };
 
@@ -432,33 +461,33 @@
         });
     };
     function CrearUnidadMedida() {
-        $("#UnidadMedida").kendoComboBox({
-            dataTextField: "UnidadMedida",
-            dataValueField: "UnidadMedidaID",
-            dataSource: [
-                { "UnidadMedidaID": "1", "UnidadMedida": _dictionary.DashboardDespachoCorte0049[$("#language").data("kendoDropDownList").value()] },
-                { "UnidadMedidaID": "2", "UnidadMedida": _dictionary.DashboardDespachoCorte0048[$("#language").data("kendoDropDownList").value()] },
-                { "UnidadMedidaID": "3", "UnidadMedida": _dictionary.DashboardDespachoCorte0050[$("#language").data("kendoDropDownList").value()] },
-                { "UnidadMedidaID": "4", "UnidadMedida": _dictionary.DashboardDespachoCorte0051[$("#language").data("kendoDropDownList").value()] },
-            ],
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarUnidadMedida(dataItem.UnidadMedidaID);
-            },
-            change: function (e) {
-                var value = this.value();
+        //$("#UnidadMedida").kendoComboBox({
+        //    dataTextField: "UnidadMedida",
+        //    dataValueField: "UnidadMedidaID",
+        //    dataSource: [
+        //        { "UnidadMedidaID": "1", "UnidadMedida": _dictionary.DashboardDespachoCorte0049[$("#language").data("kendoDropDownList").value()] },
+        //        { "UnidadMedidaID": "2", "UnidadMedida": _dictionary.DashboardDespachoCorte0048[$("#language").data("kendoDropDownList").value()] },
+        //        { "UnidadMedidaID": "3", "UnidadMedida": _dictionary.DashboardDespachoCorte0050[$("#language").data("kendoDropDownList").value()] },
+        //        { "UnidadMedidaID": "4", "UnidadMedida": _dictionary.DashboardDespachoCorte0051[$("#language").data("kendoDropDownList").value()] },
+        //    ],
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarUnidadMedida(dataItem.UnidadMedidaID);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
 
-                if (!value || this.selectedIndex == -1) {
-                    messageindexKendoCombobox(this);
-                    UnidadMedida = {};
-                    this.value("");
-                }
-                Filtros();
-            },
-            filter: "contains",
-        });
+        //        if (!value || this.selectedIndex == -1) {
+        //            messageindexKendoCombobox(this);
+        //            UnidadMedida = {};
+        //            this.value("");
+        //        }
+        //        Filtros();
+        //    },
+        //    filter: "contains",
+        //});
         //default
-        //$("#UnidadMedida").data("kendoComboBox").value(1);
+        $("#UnidadMedida").data("kendoComboBox").value(2);
     };
         function ObtenerAccionesListadoTubos(Listado) {
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -523,7 +552,7 @@
             Listado.TipoMaterialID = tipomaterial;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
-            Listado.UnidadDeMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            Listado.UnidadDeMedida = $("#UnidadMedida").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
             Listado.TipoListado = tipolistado;
 
@@ -598,7 +627,7 @@
             var Listado = ArregloListado("25", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+                //if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = DefinicionModeloOrdenesTrabajo();
                     var columnas = DefinicionColumnasOrdenesTrabajo();
@@ -620,7 +649,7 @@
                     };
                     
                     
-                };
+                //};
                 loadingStop();
             });
         };
@@ -660,7 +689,7 @@
             var Listado = ArregloListado("25", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+                //if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = DefinicionModeloOrdenesTrabajoActivas();
                     var columnas = DefinicionColumnasOrdenesTrabajoActivas();
@@ -682,7 +711,7 @@
                     };
 
                    
-                };
+                //};
                 loadingStop();
             });
 
@@ -696,9 +725,9 @@
                     model: {
                         fields: {
                             ID: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadPredespachada: { type: "string" },
-                            CantidadPorPredespachar  : { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadPredespachada: { type: "number" },
+                            CantidadPorPredespachar  : { type: "number" },
                         }
                     }
                 },
@@ -733,9 +762,9 @@
                             D1: { type: "string" },
                             D2: { type: "string" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadPredespachada: { type: "string" },
-                            CantidadPorPredespachar : { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadPredespachada: { type: "number" },
+                            CantidadPorPredespachar : { type: "number" },
                         }
                     }
                 },
@@ -744,6 +773,7 @@
                 serverFiltering: false,
                 serverSorting: false
             });
+            console.log(resultadoJson);
             return dataSource;
         };
 
@@ -775,9 +805,9 @@
                             D1: { type: "string" },
                             D2: { type: "string" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadPredespachada: { type: "string" },
-                            CantidadPorPredespachar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadPredespachada: { type: "number" },
+                            CantidadPorPredespachar: { type: "number" },
                         }
                     }
                 },
@@ -815,9 +845,9 @@
                             D1: { type: "string" },
                             D2: { type: "string" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadPredespachada: { type: "string" },
-                            CantidadPorPredespachar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadPredespachada: { type: "number" },
+                            CantidadPorPredespachar: { type: "number" },
                         }
                     }
                 },
@@ -849,7 +879,7 @@
             var Listado = ArregloListado("28", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+                //if (Error(result)) {
                      resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
@@ -892,7 +922,7 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("3");
                     };
-                };
+                //};
                 loadingStop();
             });
 
@@ -905,9 +935,9 @@
                     model: {
                         fields: {
                             ID: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadEntregada: { type: "string" },
-                            CantidadPorEntregar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadEntregada: { type: "number" },
+                            CantidadPorEntregar: { type: "number" },
                         }
                     }
                 },
@@ -939,12 +969,12 @@
                         fields: {
                             IC: { type: "string" },
                             DescripcionIC: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadEntregada: { type: "string" },
-                            CantidadPorEntregar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadEntregada: { type: "number" },
+                            CantidadPorEntregar: { type: "number" },
                         }
                     }
                 },
@@ -984,9 +1014,9 @@
                             D1: { type: "string" },
                             D2: { type: "string" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadEntregada: { type: "string" },
-                            CantidadPorEntregar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadEntregada: { type: "number" },
+                            CantidadPorEntregar: { type: "number" },
                         }
                     }
                 },
@@ -1021,12 +1051,12 @@
                         fields: {
                             IC: { type: "string" },
                             DescripcionIC: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadEntregada: { type: "string" },
-                            CantidadPorEntregar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadEntregada: { type: "number" },
+                            CantidadPorEntregar: { type: "number" },
                         }
                     }
                 },
@@ -1059,7 +1089,7 @@
             var Listado = ArregloListado("30", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+                //if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
@@ -1102,7 +1132,7 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("5");
                     };
-                };
+                //};
                 loadingStop();
             });
         };
@@ -1115,8 +1145,8 @@
                         fields: {
                             SpoolID: { type: "string" },
                             Spool: { type: "string" },
-                            CantidadMateriales: { type: "string" },
-                            CantidadDespachados: { type: "string" },
+                            CantidadMateriales: { type: "number" },
+                            CantidadDespachados: { type: "number" },
                             FaltantesPorDespachar: { type: "string" },
                         }
                     }
@@ -1153,7 +1183,7 @@
                                     Etiqueta: { type: "string" },
                                     ItemCode: { type: "string" },
                                     Descripcion: { type: "string" },
-                                    Cantidad: { type: "string" },
+                                    Cantidad: { type: "number" },
                                     TieneDespacho: { type: "string" },
                                 }
                             }
@@ -1177,7 +1207,7 @@
             var Listado = ArregloListado("15", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+                //if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = DefinicionModeloDespacho();
                     var columnas = DefinicionColumnasDespacho();
@@ -1193,7 +1223,7 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("7");
                     };
-                };
+                //};
                 loadingStop();
             });
         };
@@ -1234,7 +1264,7 @@
             var Listado = ArregloListado("16", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+                //if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = DefinicionModeloIncidenciasAbiertas();
                     var columnas = DefinicionColumnasIncidenciasAbiertas();
@@ -1250,7 +1280,7 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("8");
                     };
-                };
+                //};
                 loadingStop();
             });
         };
@@ -1262,9 +1292,9 @@
                     model: {
                         fields: {
                             ID: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadDespachada: { type: "string" },
-                            CantidadPorDespachar : { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadDespachada: { type: "number" },
+                            CantidadPorDespachar : { type: "number" },
                         }
                     }
                 },
@@ -1296,12 +1326,12 @@
                         fields: {
                             IC: { type: "string" },
                             DescripcionIC: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadDespachada: { type: "string" },
-                            CantidadPorDespachar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadDespachada: { type: "number" },
+                            CantidadPorDespachar: { type: "number" },
                         }
                     }
                 },
@@ -1338,12 +1368,12 @@
                         fields: {
                             IC: { type: "string" },
                             DescripcionIC: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadPredespachada: { type: "string" },
-                            CantidadPorPredespachar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadPredespachada: { type: "number" },
+                            CantidadPorPredespachar: { type: "number" },
                         }
                     }
                 },
@@ -1378,12 +1408,12 @@
                         fields: {
                             IC: { type: "string" },
                             DescripcionIC: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             Cedula: { type: "string" },
-                            CantidadTotal: { type: "string" },
-                            CantidadPredespachada: { type: "string" },
-                            CantidadPorPredespachar: { type: "string" },
+                            CantidadTotal: { type: "number" },
+                            CantidadPredespachada: { type: "number" },
+                            CantidadPorPredespachar: { type: "number" },
                         }
                     }
                 },
@@ -1413,10 +1443,11 @@
 
         function PorDespachar(tipomaterial, esBoton) {
             var Listado = ArregloListado("29", tipomaterial);
-          
+            console.log("resultado");
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
-                    resultadoJson = result;
+                //if (Error(result)) {
+                console.log(result);
+                resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
 
@@ -1458,7 +1489,7 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("4");
                     };
-                };
+                //};
                 loadingStop();
             });
         };
@@ -1753,9 +1784,10 @@
                 if (data.ReturnCode!=200){
                     if (data.ReturnCode == 401) {
                         removeUserSession();
+                        return false;
                     } else {
                         displayMessage("notificationslabel0009", data.ReturnMessage, '2');
-                        return;
+                        return false;
                     }
                 } else {
                     return true;
@@ -1788,7 +1820,7 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 26;
-            Listado.UnidadDeMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            Listado.UnidadDeMedida = $("#UnidadMedida").data("kendoComboBox").value();
 
             ObtenerAccionesListadoTubos(Listado);
         };
@@ -1816,7 +1848,7 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 26;
-            Listado.UnidadDeMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            Listado.UnidadDeMedida = $("#UnidadMedida").data("kendoComboBox").value();
 
             ObtenerAccionesListadoAccesorios(Listado);
         };

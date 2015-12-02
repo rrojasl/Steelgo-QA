@@ -14,6 +14,10 @@
                 <label id="Cuantificacion0061"></label>
                 <input id="Fabricante_Colada" class="" />
             </div>
+            <div id="FamiliaAcero_ColadaDiv" class="form-group">
+                <label id="Cuantificacion0098"></label>
+                <input id="FamiliaAcero_Colada" class="" />
+            </div>
             <div id="Acero_ColadaDiv" class="form-group">
                 <label id="Cuantificacion0062"></label>
                 <input id="Acero_Colada" class="" />
@@ -48,7 +52,8 @@
 
 <script>
     @section JavascriptGlobalVariables {
-    var FabricanteColada = {}, AceroColada = {}, ProyectoColada = {};
+    var FabricanteColada = {}, AceroColada = {}, ProyectoColada = {},
+        FamiliaAceroColada = {};
 
     var $ColadaModel = {
         listContainer: {
@@ -92,6 +97,11 @@
                 visible: "#ItemCode_ColadaDiv",
                 editable: "#ItemCode_Colada",
                 required: "#ItemCode_Colada"
+            },
+            familiaacero: {
+                visible: "#FamiliaAcero_ColadaDiv",
+                editable: "#FamiliaAcero_Colada",
+                required: "#FamiliaAcero_Colada"
             }
         }
     };
@@ -132,6 +142,30 @@
         });
         ObtenerFabricanteColada();
 
+        $("#FamiliaAcero_Colada").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "FamiliaAceroID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFamiliaAceroColada(dataItem.FamiliaAceroID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                AceroColada = {};
+                $("#Acero_Colada").data("kendoComboBox").value("");
+                $("#Acero_Colada").data("kendoComboBox").dataSource.data([]);
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    FamiliaAceroColada = {};
+                    this.value("");
+                } else {
+                    ObtenerAceroColada();
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerFamiliaAceroColada();
+
         $("#Acero_Colada").kendoComboBox({
             dataTextField: "Nomenclatura",
             dataValueField: "AceroID",
@@ -149,7 +183,7 @@
             },
             filter: "contains",
         });
-        ObtenerAceroColada();
+       
 
         $("#Proyecto_Colada").kendoComboBox({
             dataTextField: "Nombre",
@@ -190,6 +224,11 @@
         FabricanteColada = { FabricanteID: id, Nombre: value };
     };
 
+    function CargarFamiliaAceroColada(id, value) {
+        FamiliaAceroColada = {};
+        FamiliaAceroColada = { FamiliaAceroColadaID: id, Nombre: value };
+    };
+
     function CargarAceroColada(id, value) {
         AceroColada = {};
         AceroColada = { AceroID: id, Nombre: value };
@@ -206,8 +245,14 @@
         });
     };
 
+    function ObtenerFamiliaAceroColada() {
+        $FamiliaAcero.FamiliaAcero.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("FamiliaAcero_Colada", result);
+        });
+    };
+
     function ObtenerAceroColada() {
-        $TipoAcero.TipoAcero.read({ token: Cookies.get("token") }).done(function (result) {
+        $TipoAcero.TipoAcero.read({ familiaAceroID: FamiliaAceroColada.FamiliaAceroColadaID, token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Acero_Colada", result);
         });
     };

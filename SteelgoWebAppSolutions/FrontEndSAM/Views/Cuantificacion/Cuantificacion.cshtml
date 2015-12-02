@@ -166,6 +166,7 @@
             <li id="Detallar"><span id="Cuantificacion0087"></span></li>
             <li id="Incidencia" class="incidencia"><span id="Cuantificacion0088"></span></li>
             <li id="NuevaColada"><span id="Cuantificacion0090"></span></li>
+            <li id="AgregarITCS"><span id="Cuantificacion0099"></span></li>
         </ul>
 
        
@@ -177,6 +178,7 @@
 <input id="hdnNavegacion" type="hidden" value="" />
 <input id="hdnItemCodeIDSeleccionado" type="hidden" />
 <input id="hdnItemCodeSeleccionado" type="hidden" />
+<input id="hdnOcultarMenus" type="hidden" value="1"/>
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -377,6 +379,18 @@
                     detail: "",
                     destroy: "",
                     createIncidence: ""
+                },
+                properties: {
+
+                }
+            };
+
+            var $AsociacionItemCodesModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: ""
                 },
                 properties: {
 
@@ -1255,6 +1269,9 @@
                 if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Bulto"] != 'undefined') && (typeof returnOfSecurityCheck["Bulto"]["create"] != 'undefined') && !returnOfSecurityCheck["Bulto"]["create"]) {
                     $("#Detallar").empty();
                 }
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["AsociacionItemCodes"] != 'undefined') && (typeof returnOfSecurityCheck["AsociacionItemCodes"]["create"] != 'undefined') && !returnOfSecurityCheck["AsociacionItemCodes"]["create"]) {
+                    $("#AgregarITCS").empty();
+                }
             });
 
             //if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["create"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["create"]) {
@@ -1293,6 +1310,23 @@
                     } else {
                         displayMessage("notificationslabel0086", "", '1');
                     };
+                    return;
+                };
+
+                if (e.item.id == "AgregarITCS") {
+                    //if (typeof (filaseleccionada) != undefined) {
+                        //if (!filaseleccionada) {
+                        //    displayMessage("notificationslabel0086", "", '1');
+                        //    return;
+                        //};
+                        //if (!filaseleccionada.ItemCodeID) {
+                        //    displayMessage("notificationslabel0086", "", '1');
+                        //    return;
+                        //};
+                        VentanaModal(5);
+                    //} else {
+                    //    displayMessage("notificationslabel0086", "", '1');
+                    //};
                     return;
                 };
 
@@ -1336,6 +1370,13 @@
                     }
          });
     };
+
+        function RecargarFilaSeleccionada() {
+            if(lastEditedCellID){
+                cargarItemCodeAutocomplete(lastEditedCellID, lastEditedCellID.ItemCodeID);
+            }
+        };
+
         function CancelarInformacionItem(e) {
             e.preventDefault();
             if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && returnOfSecurityCheck["Item Code"]["destroy"]) {
@@ -1437,6 +1478,7 @@
             var content = "";
             var window = $("#window");
             var height = "";
+            var width = "32.6%";
             var mostrarpopup = true;
             switch (id) {
                 case 1:
@@ -1467,6 +1509,15 @@
                     content = "@Url.Action("TipoUso", "PopUps")";
                     height = "2%";
                     break;
+                case 5:
+                    modalTitle = "Añadir ITCS";
+                    content = "@Url.Action("AsociacionItemCodes", "Catalogos")";
+                    height = "30%";
+                    width = "50%";
+                    if (!validarRequeridosFormaColadaCuantificacion()) {
+                        mostrarpopup = false;
+                        displayMessage("notificationslabel0031", "", '1');
+                    };
             };
 
             if(mostrarpopup){
@@ -1478,7 +1529,7 @@
                     resizable: true,
                     actions: ["Close"],
                     visible: false,
-                    width: "32.6%",
+                    width: width,
                     minWidth: 660,
                     height: height,
                     iframe: true,
@@ -1490,7 +1541,7 @@
 
                 //Se actualiza el tamaño
                 $("#window").data("kendoWindow").setOptions({
-                    width: "32.6%",
+                    width: width,
                     height: height,
                 });
 
@@ -2917,7 +2968,7 @@
         
         function ObtenerItemCodeSteelgo(dataJson, key, error) {
             if (dataJson[key]) {
-                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", d1: dataJson[key].D1, d2: dataJson[key].D2, token: Cookies.get("token") }).done(function (data) {
+                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", d1: dataJson[key].D1, d2: dataJson[key].D2, mm: dataJson[key].MM, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
                     if (data) {
                         error = ErrorInsertandoItems(data, error, dataJson[key]);
@@ -3127,7 +3178,7 @@
             var z = 0;
             for (var i = 1; i < lines.length; i++) {
                 if (lines[i]) {
-                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", D1: Number(lines[i].split(",")[1]), D2: Number(lines[i].split(",")[2]), ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[3]), MM: "", Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: "", ItemCodeSteelgoID: "" };
+                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", D1: Number(lines[i].split(",")[1]), D2: Number(lines[i].split(",")[2]), ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[3]), MM: Number(lines[i].split(",")[4]), Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: "", ItemCodeSteelgoID: "" };
                     z++;
                 }
             }
@@ -3220,11 +3271,12 @@
             $authorizationModel["Bulto"] = $BultoModel;
             $authorizationModel["Tipo Uso"] = $TipoUsoModel;
             $authorizationModel["Diametros"] = $DiametrosModel;
-            observer=new MutationObserver(function(n){
-				if(!_deboEntrarAlEditor){
-					$("#grid").data("kendoGrid").current().focus();
-				}                
-            })
+            if(!detectIE()){
+                observer=new MutationObserver(function(n){
+                    $("#grid").data("kendoGrid").current().focus();
+                })
+            }
+            $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
     }
 
     @section JavascriptDocumentReadyHomeCookie {

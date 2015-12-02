@@ -273,7 +273,7 @@
                             TipoIncidencia: { type: "string" },
                             Estatus: { type: "string" },
                             RegistradoPor: { type: "string" },
-                            FechaRegistro: { type: "string" }
+                            FechaRegistro: { type: "date" }
                         }
                     }
                 },
@@ -303,7 +303,7 @@
                 { field: "TipoIncidencia", title: _dictionary.ListadoIncidencias0010[$("#language").data("kendoDropDownList").value()] },
                 { field: "Estatus", title: _dictionary.ListadoIncidencias0011[$("#language").data("kendoDropDownList").value()] },
                 { field: "RegistradoPor", title: _dictionary.ListadoIncidencias0012[$("#language").data("kendoDropDownList").value()] },
-                { field: "FechaRegistro", title: _dictionary.ListadoIncidencias0013[$("#language").data("kendoDropDownList").value()] },
+                { field: "FechaRegistro", title: _dictionary.ListadoIncidencias0013[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
                 { field: "FolioIncidenciaID", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioIncidenciaID#</a>", hidden:true },
             ],null),
             dataBound: function (e) {

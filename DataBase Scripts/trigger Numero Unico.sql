@@ -199,6 +199,7 @@ BEGIN
 			   ,[MarcadoPintura]
 			   ,[TieneDano]
 			   ,[Rack]
+			   ,[FechaModificacion]
 		   )
 		   SELECT 
 				@sam2_ProyectoID,
@@ -222,7 +223,8 @@ BEGIN
 				MarcadoGolpe,
 				MarcadoPintura,
 				TieneDano,
-				Rack
+				Rack,
+				GETDATE()
 		   FROM @registroTemporal r
 		   WHERE r.NumeroUnicoID = @numeroUnicoID
 

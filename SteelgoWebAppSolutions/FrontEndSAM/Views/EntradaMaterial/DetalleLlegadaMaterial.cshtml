@@ -472,6 +472,7 @@
                 async: {
                     ////VAlida que este tomando todos los parametros por favor
                     saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioLlegada + "&token=" + Cookies.get("token"),
+                    removeUrl: "#",
                     autoUpload: false,
                     withCredentials: false,
                     batch: true
@@ -496,16 +497,19 @@
             
             if (data.Estatus == _estatus) {
                 ocultarStatus();
+                $("#LlegadaMaterial0060").show();
                 $("#LlegadaMaterial0061").show();
             };
 
             if (data.Estatus == _estatusCierreDevolucion) {
                 ocultarStatus();
+                $("#LlegadaMaterial0060").show();
                 $("#LlegadaMaterial0062").show();
             };
 
             if (data.Estatus == _estatusDescargada) {
                 ocultarStatus();
+                $("#LlegadaMaterial0060").show();
                 $("#LlegadaMaterial0063").show();
             };
         }
@@ -672,7 +676,11 @@
 
         function CargaInicialEdicion(id) {
             ocultarStatus();
-            BotonAlta();
+            if (_esAlta != "-1") {
+                BotonEdicion();
+            } else {
+                BotonAlta();
+            };
             $FolioAvisoEntrada.FolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
                     var concat = "";
                     CargarFolio(folioAvisoLlegada);
@@ -1025,6 +1033,7 @@
                     //console.log("$FolioAvisoEntrada.FolioAvisoEntrada.update");
                     //Error(data);
                     loadingStop();
+                    _esAlta = "-1";
                     BotonAlta();
                     actualizarTitulos(FolioLlegada);
                     CargaInicialEdicion(folioAvisoLlegada);

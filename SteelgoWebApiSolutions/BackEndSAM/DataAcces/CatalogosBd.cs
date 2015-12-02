@@ -346,7 +346,7 @@ namespace BackEndSAM.DataAcces
                                               CedulaC = c.CedulaC,
                                               CedulaIn = c.CedulaIn.ToString(),
                                               CedulaMM = c.CedulaMM.ToString(),
-                                              Espesor = c.Espesor.ToString()
+                                              //Espesor = c.Espesor.ToString()
                                           }).AsParallel().ToList();
 
                             return catCedulas;
@@ -1500,7 +1500,7 @@ namespace BackEndSAM.DataAcces
                             cedulas.CedulaC = item.CedulaC;
                             cedulas.CedulaIn = String.IsNullOrEmpty(item.CedulaIn) ? Decimal.Parse((Decimal.Parse(item.CedulaMM) / factor).ToString("0.####")) : Decimal.Parse(item.CedulaIn);
                             cedulas.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0.####")) : Decimal.Parse(item.CedulaMM);
-                            cedulas.Espesor = Decimal.Parse(item.Espesor);
+                            //cedulas.Espesor = Decimal.Parse(item.Espesor);
                             cedulas.Activo = true;
                             cedulas.UsuarioModificacion = usuario.UsuarioID;
                             cedulas.FechaModificacion = DateTime.Now;
@@ -1518,7 +1518,7 @@ namespace BackEndSAM.DataAcces
                                 CedulaC = cedulas.CedulaC,
                                 CedulaIn = cedulas.CedulaIn.ToString(),
                                 CedulaMM = cedulas.CedulaMM.ToString(),
-                                Espesor = cedulas.Espesor.ToString()
+                                //Espesor = cedulas.Espesor.ToString()
                             });
                         }
                         else //Update
@@ -1561,7 +1561,7 @@ namespace BackEndSAM.DataAcces
                             cedula.CedulaC = item.CedulaC;
                             cedula.CedulaIn = String.IsNullOrEmpty(item.CedulaIn) ? Decimal.Parse((Decimal.Parse(item.CedulaMM) / factor).ToString("0000.####")) : Decimal.Parse(item.CedulaIn);
                             cedula.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0000.####")) : Decimal.Parse(item.CedulaMM);
-                            cedula.Espesor = Decimal.Parse(item.Espesor);
+                            //cedula.Espesor = Decimal.Parse(item.Espesor);
 
                             cedula.Activo = true;
                             cedula.UsuarioModificacion = usuario.UsuarioID;
@@ -1579,7 +1579,7 @@ namespace BackEndSAM.DataAcces
                                 CedulaC = cedula.CedulaC,
                                 CedulaIn = cedula.CedulaIn.ToString(),
                                 CedulaMM = cedula.CedulaMM.ToString(),
-                                Espesor = cedula.Espesor.ToString()
+                                //Espesor = cedula.Espesor.ToString()
                             });
                         }
                     }
@@ -1642,7 +1642,7 @@ namespace BackEndSAM.DataAcces
                                            CedulaC = c.CedulaC,
                                            CedulaIn = c.CedulaIn.ToString(),
                                            CedulaMM = c.CedulaMM.ToString(),
-                                           Espesor = c.Espesor.ToString()
+                                           //Espesor = c.Espesor.ToString()
                                        }).AsParallel().ToList();
 
                         if (cedulasEnBD.Count > 1)
@@ -1862,7 +1862,10 @@ namespace BackEndSAM.DataAcces
                         Diametro1 = datos.Diametro1,
                         Diametro2 = datos.Diametro2,
                         Grupo = datos.Grupo,
+                        GrupoID = datos.GrupoID,
+                        AceroID = datos.AceroID,
                         Acero = datos.Acero,
+                        CedulaID = datos.CedulaID,
                         CedulaA = datos.CedulaA,
                         CedulaB = datos.CedulaB,
                         Libra = datos.Libra,

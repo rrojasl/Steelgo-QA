@@ -422,7 +422,7 @@
             CedulaC: { type: "string", validation: { required: false }, nullable: true},
             CedulaIn: { type: "number", validation: { required: false }, nullable: true },
             CedulaMM: { type: "number", validation: { required: false }, nullable: true},
-            Espesor: { type: "number", validation: { required: true } },
+            //Espesor: { type: "number", validation: { required: true } },
         }
     }
 
@@ -742,10 +742,10 @@
                                 csvToJson(csvData,"CedulaID").forEach(function(c){
                                     var cedVal=cedulaValida(c);
                                     var modVal=validModelData(c);
-                                    if(modVal && cedVal==0){
+                                    if (modVal && cedVal == 0) {
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
-                                    }else{
-                                        if(modVal && cedVal==1){
+                                    } else {
+                                        if (modVal && cedVal == 1) {
                                             c["advertencia"]=true;
                                         }else{
                                             c["valido"]=false;
@@ -801,7 +801,7 @@
                         { field: "CedulaC",title:_dictionary.ListadoCatalogos0037[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaIn",title:_dictionary.ListadoCatalogos0038[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaMM",title:_dictionary.ListadoCatalogos0039[$("#language").data("kendoDropDownList").value()] },
-                        { field: "Espesor",title:_dictionary.ListadoCatalogos0040[$("#language").data("kendoDropDownList").value()]},
+                        //{ field: "Espesor",title:_dictionary.ListadoCatalogos0040[$("#language").data("kendoDropDownList").value()]},
                     ],obtenerFieldsCedula()),
                     dataSource: {
                         data: [],
@@ -898,7 +898,7 @@
         try{
             datos.forEach(function(d){
                 d.Diametro1 == ""  || d.Diametro1 == null ? d.Diametro1 = c.Diametro1 : 0;
-                if(d.Espesor==c.Espesor) throw -1;
+                //if(d.Espesor==c.Espesor) throw -1;
                 if(((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
                     throw 1;
                 }
@@ -920,19 +920,19 @@
         data.pop();
         data=data.join("\n");
         data=data.split("\r").join("");
-        var encabezados=Object.keys($("#grid").data("kendoGrid").options.dataSource.schema.model.fields);
+        var encabezados = Object.keys($("#grid").data("kendoGrid").options.dataSource.schema.model.fields);
         encabezados.splice(encabezados.indexOf(idField),1);
         var csv=[];
         try{
-            data.split("\n").forEach(function(d,i){
-                if(d.substring(0, d.length - 1).split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
+            data.split("\n").forEach(function (d, i) {
+                if(d.substring(0, d.length).split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
                     var tmp={};
                     tmp[idField]=null;
-                    d.split(",").forEach(function(cell,z){
+                    d.split(",").forEach(function (cell, z) {
                         tmp[encabezados[z]]=cell;
                     });
                     csv.push(tmp);
-                }else{
+                } else {
                     throw -1;
                 }
             })
