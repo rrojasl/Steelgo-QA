@@ -333,12 +333,12 @@ function quickFilter(g, i) {
     var tmp = { field: $(i).attr("data-filter"), value: $(i).val() }
     var modelType = function () {
         try {
-            return g.options.dataSource.schema.model.fields[fname]
+            return g.options.dataSource.schema.model.fields[fname].type;
         } catch (e) {
-            return g.options.dataSource.options.schema.model.fields[fname];
+            return g.options.dataSource.options.schema.model.fields[fname].type;
         }
     }
-    modelType === "number" ? tmp.operator = function (item, value) { var u = false; item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
+    modelType() === "number" ? tmp.operator = function (item, value) { var u = false; item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
     if (f!==undefined) {
         var found = false;
         f.filters.forEach(function (n) {

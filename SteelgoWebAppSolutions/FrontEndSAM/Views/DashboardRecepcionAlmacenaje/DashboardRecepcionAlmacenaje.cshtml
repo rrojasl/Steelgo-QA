@@ -385,6 +385,7 @@
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     checkTH($("#gridTubos").data("kendoGrid"));
                     quickHeadFilter($("#gridTubos").data("kendoGrid"));
+                    stringifyDate(this);
                 }
             });
 
@@ -440,6 +441,23 @@
             });
 
         };
+
+        function stringifyDate(g){
+            g.dataSource.data().forEach(function(n){
+                for(f in n){
+                    var tmp=null;
+                    typeof n[f]==="object" ? tmp=new Date(n[f]) : tmp=new Date("Hello");
+                    if(tmp.isValid()){
+                        var compD="";
+                        var compM="";
+                        10>tmp.getDate() ? compD="0":null;
+                        10>(tmp.getMonth()+1) ? compM="0":null;
+                        n[f]=compD+tmp.getDate()+"/"+compM+(tmp.getMonth()+1)+"/"+tmp.getFullYear();
+                    }
+                }
+            })
+        }
+        
         function CargarGridAccesorios(datasource, columnas) {
             if ($("#gridAccesorios").data("kendoGrid"))
                 removeGrid($("#gridAccesorios"));
@@ -459,6 +477,7 @@
                 },
                 columns: columnas,
                 dataBound: function (e) {
+                    stringifyDate(this);
                     //$(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
