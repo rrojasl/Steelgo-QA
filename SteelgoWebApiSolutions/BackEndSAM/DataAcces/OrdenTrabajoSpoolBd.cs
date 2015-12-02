@@ -6,6 +6,7 @@ using DatabaseManager.Sam3;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Web.Script.Serialization;
+using System.Text.RegularExpressions;
 
 namespace BackEndSAM.DataAcces
 {
@@ -43,10 +44,12 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                if (busqueda == null)
+                busqueda = busqueda.Replace("\\n", "-");
+                if (busqueda == null || (busqueda.Length == 1 && busqueda.Contains("-")))
                 {
                     busqueda = "";
                 }
+
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     List<int> proyectos = new List<int>();
@@ -59,32 +62,43 @@ namespace BackEndSAM.DataAcces
                                      && p.UsuarioID == usuario.UsuarioID
                                      select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
-                       // proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
-                       //.Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
-
                         proyectos = proyectos.Where(x => x > 0).ToList();
 
 
 
                         patios = (from p in ctx.Sam3_Proyecto
                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
+                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam3_PatioID
+                                  join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
                                   where p.Activo && pa.Activo && eq.Activo
-                                  && proyectos.Contains(p.ProyectoID)
+                                  && proyectos.Contains(eqp.Sam2_ProyectoID)
                                   select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                         patios = patios.Where(x => x > 0).ToList();
                     }
 
-                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
-                    List<string> elementos = new List<string>();
-                    foreach (char i in lstElementoNumeroControl)
+                    
+
+                    int consecutivo = 0;
+                    
+                    if (busqueda.Contains("-") && busqueda != "")
                     {
-                        elementos.Add(i.ToString());
+                        string[] divididos = busqueda.Split('-').ToArray();
+                        int.TryParse(divididos[1], out consecutivo);
+
+                        busqueda = divididos[0] != "" ? divididos[0].Replace("0", string.Empty).ToUpper() : "";
+
+                    }
+                    else
+                    {
+                        busqueda = busqueda.Replace("0", string.Empty).ToUpper();
                     }
 
-                    List<ListaCombos> listado = (from odts in ctx2.OrdenTrabajoSpool
+
+                    List<ComboNumeroControl> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                  join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                 join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.MaterialSpoolID
+                                                 join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
                                                  where !(from d in ctx2.Despacho
                                                       where d.Cancelado == false
                                                       select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
@@ -93,21 +107,51 @@ namespace BackEndSAM.DataAcces
                                                       && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
                                                       select sh).Any()
                                                  && proyectos.Contains(odt.ProyectoID)
-                                                 && elementos.Any(x => odts.NumeroControl.Contains(x))
-                                                 select new ListaCombos
+                                                 && it.TipoMaterialID == 2
+                                                 select new ComboNumeroControl
                                                  {
-                                                     id = odts.OrdenTrabajoSpoolID.ToString(),
-                                                     value = odts.NumeroControl
-                                                 }).Distinct().GroupBy(x => x.id).Select(x => x.First()).AsParallel().ToList();
+                                                     NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
+                                                     NumeroControl = odts.NumeroControl
+                                                 }).Distinct().AsParallel().ToList();
 
-                    listado = listado.OrderBy(x => x.value).ToList();
+                    List<ComboNumeroControl> filtrado = new List<ComboNumeroControl>();
+                    listado = listado.GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
 
+                    if (busqueda == "")
+                    {
+                        return listado.OrderBy(x => x.NumeroControl).ToList();
+                    }
+
+                    foreach (ComboNumeroControl lst in listado)
+                    {
+                        string[] elem = lst.NumeroControl.Split('-').ToArray();
+
+                        string simplificado = elem[0].Replace("0", string.Empty);
+                        int consec = Convert.ToInt32(elem[1]);
+
+                        if (consecutivo > 0)
+                        {
+                            if (simplificado.Contains(busqueda) && consec == consecutivo)
+                            {
+                                filtrado.Add(lst);
+                            }
+                        }
+                        else
+                        {
+                            if (simplificado.Contains(busqueda))
+                            {
+                                filtrado.Add(lst);
+                            }
+                        }
+
+
+                    }
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
+                    string json = serializer.Serialize(filtrado);
 #endif
 
-                    return listado;
+                    return filtrado.OrderBy(x => x.NumeroControl).ToList();
 
                 }
             }
