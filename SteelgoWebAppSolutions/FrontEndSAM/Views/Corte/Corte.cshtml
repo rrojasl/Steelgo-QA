@@ -446,6 +446,7 @@
                             var val = "";
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
+                                val = val.replace(/-/g, '\\n');
                             }
                             return $UrlNumerosUnicos + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
