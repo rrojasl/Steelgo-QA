@@ -44,7 +44,8 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                if (busqueda == null || (busqueda.Length == 1 && busqueda.Contains("\\n")))
+                busqueda = busqueda.Replace("\\n", "-");
+                if (busqueda == null || (busqueda.Length == 1 && busqueda.Contains("-")))
                 {
                     busqueda = "";
                 }
@@ -79,13 +80,13 @@ namespace BackEndSAM.DataAcces
                     
 
                     int consecutivo = 0;
-                    busqueda = busqueda.Replace("\\n", "-");
-                    if (busqueda.Contains("-"))
+                    
+                    if (busqueda.Contains("-") && busqueda != "")
                     {
                         string[] divididos = busqueda.Split('-').ToArray();
-                        consecutivo = Convert.ToInt32(divididos[1]);
+                        int.TryParse(divididos[1], out consecutivo);
 
-                        busqueda = divididos[0].Replace("0", string.Empty).ToUpper();
+                        busqueda = divididos[0] != "" ? divididos[0].Replace("0", string.Empty).ToUpper() : "";
 
                     }
                     else
