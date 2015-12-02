@@ -539,7 +539,7 @@
             scrollable: false,
             filterable:{
                 extra: false,
-                mode: "row,menu",
+                mode: "menu",
                 cell: {
                     showOperators: false,
                     operator: "contains"
@@ -558,6 +558,7 @@
                     once=false;
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 }
+                quickHeadFilter($("#grid").data("kendoGrid"));
                 $("#context-menu").kendoContextMenu({
                     //target: "#grid tr td:first-child",
                     target: "#grid",
@@ -583,7 +584,7 @@
                 }
             },
         });
-        $(".k-grid .k-input").attr("disabled", "disabled");
+        $(".k-grid .filter-row input").attr("disabled", "disabled");
         $(".k-grid .k-filter").hide();
         applySecurityPolicy(false);
     }

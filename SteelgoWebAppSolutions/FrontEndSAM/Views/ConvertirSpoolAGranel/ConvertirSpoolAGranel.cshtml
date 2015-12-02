@@ -184,15 +184,16 @@
                 buttonCount: 2
             },
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-            columns: addTo([
+            columns: [
                 { field: "Junta", title: _dictionary.ConvertirSpoolAGranel0007[$("#language").data("kendoDropDownList").value()] },
                 { field: "TipoJunta", title: _dictionary.ConvertirSpoolAGranel0008[$("#language").data("kendoDropDownList").value()] },
                 { field: "Status", title: _dictionary.ConvertirSpoolAGranel0009[$("#language").data("kendoDropDownList").value()] },
-            ],null),
+            ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                quickHeadFilter($("#grid").data("kendoGrid"));
             }
         });
 

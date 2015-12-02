@@ -45,6 +45,7 @@
 <script>
 @section JavascriptGlobalVariables {
     editado = false;
+    addedFilters=false;
     lastEditedDocument="";
     var creado = 0;
     var idDiam1 = 0;
@@ -638,7 +639,7 @@
                 }
             },
             dataBound: function (e) {
-                ////console.log(e);
+                quickHeadFilter($("#grid").data("kendoGrid"));
             },
         });
         applySecurityPolicy(false);

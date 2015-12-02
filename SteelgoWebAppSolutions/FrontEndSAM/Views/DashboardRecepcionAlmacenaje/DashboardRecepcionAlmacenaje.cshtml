@@ -378,12 +378,13 @@
                     input: false,
                     numeric: true,
                 },
-                columns: addTo(columnas,null),
+                columns: columnas,
                 dataBound: function (e) {
-                    $(".k-grid input.k-textbox").prop('readonly', true);
+                    //$(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     checkTH($("#gridTubos").data("kendoGrid"));
+                    quickHeadFilter($("#gridTubos").data("kendoGrid"));
                 }
             });
 
@@ -456,12 +457,13 @@
                     input: false,
                     numeric: true,
                 },
-                columns: addTo(columnas,null),
+                columns: columnas,
                 dataBound: function (e) {
-                    $(".k-grid input.k-textbox").prop('readonly', true);
+                    //$(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     checkTH($("#gridAccesorios").data("kendoGrid"));
+                    quickHeadFilter($("#gridAccesorios").data("kendoGrid"));
                 }
             });
 
@@ -803,7 +805,7 @@
                     model: {
                         fields: {
                             Proyecto: { type: "string" },
-                            FechaCreacionPackingList: { type: "string" },
+                            FechaCreacionPackingList: { type: "date" },
                             PackingList: { type: "string" },
                             CantidadItems: { type: "string" },
                             CantidadSinICS: { type: "string" },

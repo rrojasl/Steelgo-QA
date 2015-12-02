@@ -304,6 +304,56 @@ function addTo(c,f) {
     }
 }
 
+function quickHeadFilter(g) {
+    var id = "#" + g.wrapper[0].id;
+    var gr = '$("' + id + '").data("kendoGrid")';
+    if ($(id + " .filter-row").length === 0) {
+        g.thead.append(function () {
+            var init = "<tr class='filter-row'>"
+            $(id+" thead th:visible").each(function () {
+                this.hasAttribute("data-title") ? init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter("+gr+",this)'/></th>" : init += "<th></th>";
+            })
+            return init += "</tr>"
+        })
+    }
+}
+
+function quickFilter(g, i) {
+    var f = g.dataSource.filter();
+    var fname = $(i).attr("data-filter");
+    if ($(i).val().length === 0 && f.filters.length>0) {
+        f.filters.forEach(function (n,i,t) {
+            if (n.field === fname) {
+                t.splice(i, 1);
+                g.dataSource.filter(t);
+                f = t;
+            }
+        })
+    }
+    var tmp = { field: $(i).attr("data-filter"), value: $(i).val() }
+    var modelType = function () {
+        try {
+            return g.options.dataSource.schema.model.fields[fname]
+        } catch (e) {
+            return g.options.dataSource.options.schema.model.fields[fname];
+        }
+    }
+    modelType === "number" ? tmp.operator = function (item, value) { var u = false; item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
+    if (f!==undefined) {
+        var found = false;
+        f.filters.forEach(function (n) {
+            if (n.field===fname) {
+                n.value = $(i).val();
+                found = true;
+            }
+        })
+        found === false ? f.filters.push(tmp) : 0;
+        g.dataSource.filter(f.filters)
+    } else {
+        g.dataSource.filter(tmp)
+    }
+}
+
 //Function that counts the number of non hidden columns and delete the left th
 function checkTH(g) {
     var contador = 0;

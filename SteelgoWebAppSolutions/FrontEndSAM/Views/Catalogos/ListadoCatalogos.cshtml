@@ -473,7 +473,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            columns:addTo(columnas[$("#listaCatalogos").data("kendoDropDownList").value()],modelos[$("#listaCatalogos").data("kendoDropDownList").value()]["fields"]),
+            columns:columnas[$("#listaCatalogos").data("kendoDropDownList").value()],
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
@@ -535,6 +535,7 @@
                     
                     regenerarGrid();
                     checkTH($("#grid").data("kendoGrid"));
+                    quickHeadFilter($("#grid").data("kendoGrid"));
                 }
                 if(ultimaInsercionFallida){
                     ultimaInsercionFallida=false;

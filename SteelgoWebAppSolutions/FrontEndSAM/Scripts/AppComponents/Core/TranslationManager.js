@@ -117,7 +117,7 @@ function getKendoUploadLocalization(val) {
 function getKendoGridFilterable(val) {
     return {
         extra: false,
-        mode: "row,menu",
+        mode: "menu",
         operators: {
             string: {
                 startswith: _dictionary.KendoGridFilterable0001[val],
@@ -148,7 +148,7 @@ function getKendoGridFilterable(val) {
 function getKendoGridFilterableComplementoRecepcion(val) {
     return {
         extra: false,
-        mode: "row,menu",
+        mode: "menu",
         operators: {
             string: {
                 startswith: _dictionary.KendoGridFilterable0001[val],

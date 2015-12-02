@@ -1123,7 +1123,7 @@
                         "create"
                 ],
                 navigatable: true,
-                columns: addTo([
+                columns:[
                     { field: "ItemCode",        title: _dictionary.Cuantificacion0028[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "120px", editor: itemCodeAutocomplete },
                     { field: "Descripcion",     title: _dictionary.Cuantificacion0029[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "150px", aggregates: ["count"], footerTemplate: "Total Count: #=count#", groupFooterTemplate: "Count: #=count#" },
                     { field: "D1",              title: _dictionary.Cuantificacion0030[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "80px" },
@@ -1145,7 +1145,7 @@
                     { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true },//es la rel_itemcode
                     { field: "ItemCodeSteelgoID", title: _dictionary.Cuantificacion0094[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true }, //es la rel_itemcodesteelgo
                     { field: "ItemCodeOrigenID", title: _dictionary.Cuantificacion0097[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true } //es la rel_itemcodesteelgo
-                ],getFields()),
+                ],
             });
             var grid = $("#grid").data("kendoGrid");
             var dispositivo = navigator.userAgent.toLowerCase();
@@ -3229,6 +3229,7 @@
                 });
             }
             checkTH($("#grid").data("kendoGrid"));
+            quickHeadFilter($("#grid").data("kendoGrid"));
         };
 
         @section JavascriptDocumentReadyFunctions 

@@ -945,8 +945,11 @@
                         this.closeCell();
                     };
                 },
+                dataBound:function(e){
+                    quickHeadFilter($("#grid").data("kendoGrid"));
+                },
                 navigatable: true,
-                columns: addTo([
+                columns: [
                     { field: "NumeroUnico", title: _dictionary.ComplementoRecepcion0022[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width:150},
                     { field: "NumeroUnicoCliente", title: _dictionary.ComplementoRecepcion0023[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 200 },
                     { field: "ItemCode", title: _dictionary.ComplementoRecepcion0024[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 125 },
@@ -972,7 +975,7 @@
                     { field: "ColadaOriginal", title: _dictionary.ComplementoRecepcion0032[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 120, hidden: true },// editor: ColadaAutocomplete,
                     { field: "NumeroUnicoID", title: _dictionary.ComplementoRecepcion0067[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 150, hidden:true },
                     { field: "TieneComplementoRecepcion", title: _dictionary.ComplementoRecepcion0080[$("#language").data("kendoDropDownList").value()], width: 240, hidden: true }
-                ],getFields()),
+                ],
             });
             var grid = $("#grid").data("kendoGrid");
 
