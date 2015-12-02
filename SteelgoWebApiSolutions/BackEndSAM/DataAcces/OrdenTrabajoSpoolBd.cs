@@ -44,10 +44,11 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                if (busqueda == null)
+                if (busqueda == null || (busqueda.Length == 1 && busqueda.Contains("\\n")))
                 {
                     busqueda = "";
                 }
+
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     List<int> proyectos = new List<int>();
@@ -59,9 +60,6 @@ namespace BackEndSAM.DataAcces
                                      where p.Activo && eqp.Activo
                                      && p.UsuarioID == usuario.UsuarioID
                                      select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
-
-                       // proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
-                       //.Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
 
                         proyectos = proyectos.Where(x => x > 0).ToList();
 
@@ -78,19 +76,13 @@ namespace BackEndSAM.DataAcces
                         patios = patios.Where(x => x > 0).ToList();
                     }
 
-                    List<string> elementos = new List<string>();
+                    
 
                     int consecutivo = 0;
+                    busqueda = busqueda.Replace("\\n", "-");
                     if (busqueda.Contains("-"))
                     {
                         string[] divididos = busqueda.Split('-').ToArray();
-
-                        //char[] lstElementoNumeroControl = divididos[0].ToCharArray();
-                        //foreach (char i in lstElementoNumeroControl)
-                        //{
-                        //    elementos.Add(i.ToString());
-                        //}
-
                         consecutivo = Convert.ToInt32(divididos[1]);
 
                         busqueda = divididos[0].Replace("0", string.Empty).ToUpper();
@@ -98,11 +90,6 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        //char[] lstElementoNumeroControl = busqueda.ToCharArray();
-                        //foreach (char i in lstElementoNumeroControl)
-                        //{
-                        //    elementos.Add(i.ToString());
-                        //}
                         busqueda = busqueda.Replace("0", string.Empty).ToUpper();
                     }
 
@@ -128,6 +115,11 @@ namespace BackEndSAM.DataAcces
 
                     List<ComboNumeroControl> filtrado = new List<ComboNumeroControl>();
                     listado = listado.GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
+
+                    if (busqueda == "")
+                    {
+                        return listado.OrderBy(x => x.NumeroControl).ToList();
+                    }
 
                     foreach (ComboNumeroControl lst in listado)
                     {
