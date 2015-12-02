@@ -347,6 +347,18 @@ _dictionary = {
         "es-MX": "Pre Despacho",
         "en-US": "Pre Dispatch"
     },
+    "menuLabel1068": {
+        "es-MX": "Catálogo Asociación ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo Association Catalog"
+    },
+    "menuLabel1069": {
+        "es-MX": "Notificacion del Deficit",
+        "en-US": "Deficit Notification"
+    },
+    "menuLabel1070": {
+        "es-MX": "Revision del Deficit",
+        "en-US": "Deficit Revision"
+    },
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
@@ -1265,8 +1277,8 @@ _dictionary = {
         "en-US": "Group"
     },
     "ItemCodeSteelGo0012": {
-        "es-MX": "Acero",
-        "en-US": "Steel"
+        "es-MX": "Familia Acero",
+        "en-US": "Steel Family"
     },
     "ItemCodeSteelGo0013": {
         "es-MX": "Cédula A",

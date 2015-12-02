@@ -21,8 +21,78 @@ namespace BackEndSAM.Models
         public string Spool { get; set; }
     }
 
-    //public class ListadoODTPorDespachar
-    //{
- 
-    //}
+    public class ListadoPorSpoolPreDespacho
+    {
+        public string ID { get; set; }
+        public string CantidadTotal { get; set; }
+        public string CantidadPredespachada { get; set; }
+        public string CantidadPorPredespachar { get; set; }
+    }
+
+    public class ListadoPreDespacho
+    {
+        public string IC { get; set; }
+        public string DescripcionIC { get; set; }
+        public string D1 { get; set; }
+        public string D2 { get; set; }
+        public string Cedula { get; set; }
+        public string CantidadTotal { get; set; }
+        public string CantidadPredespachada { get; set; }
+        public string CantidadPorPredespachar { get; set; }
+    }
+
+    public class InformacionSpool
+    {
+        public string SpoolID { get; set; }
+        public string MaterialSpoolID { get; set; }
+        public string ProyectoID { get; set; }
+        public string OrdenTrabajoSpoolID { get; set; }
+    }
+
+    public class ListadoPorSpoolDespacho
+    {
+        public string ID { get; set; }
+        public string CantidadTotal { get; set; }
+        public string CantidadDespachada { get; set; }
+        public string CantidadPorDespachar { get; set; }
+    }
+
+    public class ListadoDespacho
+    {
+        public string IC { get; set; }
+        public string DescripcionIC { get; set; }
+        public string D1 { get; set; }
+        public string D2 { get; set; }
+        public string Cedula { get; set; }
+        public string CantidadTotal { get; set; }
+        public string CantidadDespachada { get; set; }
+        public string CantidadPorDespachar { get; set; }
+    }
+
+    public class ListadoPorSpoolEntrega
+    {
+        public string ID { get; set; }
+        public string CantidadTotal { get; set; }
+        public string CantidadEntregada { get; set; }
+        public string CantidadPorEntregar { get; set; }
+    }
+
+    public class ListadoEntregaDash
+    {
+        public string IC { get; set; }
+        public string DescripcionIC { get; set; }
+        public string D1 { get; set; }
+        public string D2 { get; set; }
+        public string Cedula { get; set; }
+        public string CantidadTotal { get; set; }
+        public string CantidadEntregada { get; set; }
+        public string CantidadPorEntregar { get; set; }
+    }
+
+    public class MedidaToneladas
+    {
+        public string itemCode { get; set; }
+        public string itemCodeSteelgo { get; set; }
+        public string material { get; set; }
+    }
 }

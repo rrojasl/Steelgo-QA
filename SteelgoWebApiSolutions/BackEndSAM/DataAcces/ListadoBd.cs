@@ -2198,8 +2198,9 @@ namespace BackEndSAM.DataAcces
                                 from fe in registros
                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
-                                where fc.Activo && rfi.Activo && it.Activo
+                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                where fc.Activo && rfi.Activo && it.Activo && rid.Activo
                                 && fc.FolioCuantificacionID == folioCuantificacionID
                                 && it.TipoMaterialID == tipoMaterialID
                                 select it.ItemCodeID).Distinct().AsParallel().ToList()
@@ -2210,8 +2211,9 @@ namespace BackEndSAM.DataAcces
                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                     join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                    join it in ctx.Sam3_ItemCode on rbi.ItemCodeID equals it.ItemCodeID
-                                    where fc.Activo && b.Activo && rbi.Activo && it.Activo
+                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                    join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                    where fc.Activo && b.Activo && rbi.Activo && it.Activo && rid.Activo
                                     && fc.FolioCuantificacionID == folioCuantificacionID
                                     && it.TipoMaterialID == tipoMaterialID
                                     select it.ItemCodeID).Distinct().AsParallel().ToList()
@@ -2224,8 +2226,9 @@ namespace BackEndSAM.DataAcces
                                 from fe in registros
                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
-                                where fc.Activo && rfi.Activo && it.Activo
+                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                where fc.Activo && rfi.Activo && it.Activo && rid.Activo
                                 && it.TipoMaterialID == tipoMaterialID
                                 select it.ItemCodeID).Distinct().AsParallel().ToList()
                                 );
@@ -2235,8 +2238,9 @@ namespace BackEndSAM.DataAcces
                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                     join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                    join it in ctx.Sam3_ItemCode on rbi.ItemCodeID equals it.ItemCodeID
-                                    where fc.Activo && b.Activo && rbi.Activo && it.Activo
+                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                    join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                    where fc.Activo && b.Activo && rbi.Activo && it.Activo && rid.Activo
                                     && it.TipoMaterialID == tipoMaterialID
                                     select it.ItemCodeID).Distinct().AsParallel().ToList()
                                 );
@@ -2267,6 +2271,11 @@ namespace BackEndSAM.DataAcces
 
                     }
                 }
+
+#if DEBUG
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                string json = serializer.Serialize(listado);
+#endif
 
                 if (conteo)
                 {
