@@ -506,26 +506,16 @@ namespace BackEndSAM.DataAcces
                                 listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
                             }
                         }
-
-
-                        List<Coladas> coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
-                                                 join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
-                                                 join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
-                                                 where ric.Activo && c.Activo && it.Activo
-                                                 && ric.ItemCodeID == itemID
-                                                 select new Coladas
-                                                 {
-                                                     ColadaID = c.ColadaID,
-                                                     Nombre = c.NumeroColada
-                                                 }).AsParallel().Distinct().ToList();
+                        List<Coladas> coladas = new List<Coladas>();
+                        
 
                         #region agregar coladas
                         using (var ctx_tran = ctx.Database.BeginTransaction())
                         {
                             using (var ctx2_tran = ctx2.Database.BeginTransaction())
                             {
-                                if (coladas.Count <= 0)
-                                {
+                                //if (coladas.Count <= 0)
+                                //{
                                     int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
 
                                     //si existe la colada "" para el proyecyo en cuestion la agregamos a la lista
@@ -643,7 +633,18 @@ namespace BackEndSAM.DataAcces
 
                                         coladas.Add(new Coladas { ColadaID = nuevaColada.ColadaID, Nombre = nuevaColada.NumeroColada });
                                     }
-                                }
+
+                                    coladas.AddRange((from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                               join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                               join it in ctx.Sam3_ItemCode on ric.ItemCodeID equals it.ItemCodeID
+                                               where ric.Activo && c.Activo && it.Activo
+                                               && ric.ItemCodeID == itemID
+                                               select new Coladas
+                                               {
+                                                   ColadaID = c.ColadaID,
+                                                   Nombre = c.NumeroColada
+                                               }).AsParallel().Distinct().ToList());
+                                //}
                                 ctx2_tran.Commit();
                                 ctx_tran.Commit();
                             }
