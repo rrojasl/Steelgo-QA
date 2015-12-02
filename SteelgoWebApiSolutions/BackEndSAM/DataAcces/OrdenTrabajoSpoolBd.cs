@@ -6,6 +6,7 @@ using DatabaseManager.Sam3;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Web.Script.Serialization;
+using System.Text.RegularExpressions;
 
 namespace BackEndSAM.DataAcces
 {
@@ -68,23 +69,43 @@ namespace BackEndSAM.DataAcces
 
                         patios = (from p in ctx.Sam3_Proyecto
                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
+                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam3_PatioID
+                                  join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
                                   where p.Activo && pa.Activo && eq.Activo
-                                  && proyectos.Contains(p.ProyectoID)
+                                  && proyectos.Contains(eqp.Sam2_ProyectoID)
                                   select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                         patios = patios.Where(x => x > 0).ToList();
                     }
 
-                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
                     List<string> elementos = new List<string>();
-                    foreach (char i in lstElementoNumeroControl)
+                    
+                    int consecutivo = 0;
+                    if (busqueda.Contains("-"))
                     {
-                        elementos.Add(i.ToString());
+                        string[] divididos = busqueda.Split('-').ToArray();
+                        char[] lstElementoNumeroControl = divididos[0].ToCharArray();
+                        foreach (char i in lstElementoNumeroControl)
+                        {
+                            elementos.Add(i.ToString());
+                        }
+
+                        consecutivo = Convert.ToInt32(divididos[1]);
+                    }
+                    else 
+                    {
+                        char[] lstElementoNumeroControl = busqueda.ToCharArray();
+                        foreach (char i in lstElementoNumeroControl)
+                        {
+                            elementos.Add(i.ToString());
+                        }
                     }
 
-                    List<ListaCombos> listado = (from odts in ctx2.OrdenTrabajoSpool
+
+                    List<ComboNumeroControl> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                  join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                 join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.MaterialSpoolID
+                                                 join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
                                                  where !(from d in ctx2.Despacho
                                                       where d.Cancelado == false
                                                       select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
@@ -93,21 +114,41 @@ namespace BackEndSAM.DataAcces
                                                       && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
                                                       select sh).Any()
                                                  && proyectos.Contains(odt.ProyectoID)
-                                                 && elementos.Any(x => odts.NumeroControl.Contains(x))
-                                                 select new ListaCombos
+                                                 && it.TipoMaterialID == 2
+                                                 select new ComboNumeroControl
                                                  {
-                                                     id = odts.OrdenTrabajoSpoolID.ToString(),
-                                                     value = odts.NumeroControl
-                                                 }).Distinct().GroupBy(x => x.id).Select(x => x.First()).AsParallel().ToList();
+                                                     NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
+                                                     NumeroControl = odts.NumeroControl
+                                                 }).Distinct().AsParallel().ToList();
 
-                    listado = listado.OrderBy(x => x.value).ToList();
+                    List<ComboNumeroControl> filtrado = new List<ComboNumeroControl>();
+                    listado = listado.GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
 
+                    foreach (ComboNumeroControl lst in listado)
+                    {
+                        string[] elem = lst.NumeroControl.Split('-').ToArray();
+
+                        if(consecutivo > 0 && elementos.Count > 0)
+                        {
+                            if(elementos.Any(x => elementos[0].Contains(x)) && (Convert.ToInt32(elem[1]) == consecutivo))
+                            {
+                                filtrado.Add(lst);
+                            }
+                        }
+                        else
+                        {
+                            if(elementos.Count > 0 && elementos.Any(x => elementos[0].Contains(x)))
+                            {
+                                filtrado.Add(lst);
+                            }
+                        }
+                    }
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
 
-                    return listado;
+                    return listado.OrderBy(x => x.NumeroControl).ToList();
 
                 }
             }

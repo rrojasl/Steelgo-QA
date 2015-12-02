@@ -85,8 +85,9 @@ namespace BackEndSAM.DataAcces
                     patios = (from p in ctx.Sam3_Proyecto
                               join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                               join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
-                              where p.Activo && pa.Activo && eq.Activo
-                              && proyectos.Contains(p.ProyectoID)
+                              join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
+                              where p.Activo && pa.Activo && eq.Activo && eqp.Activo
+                              && proyectos.Contains(eqp.Sam2_ProyectoID)
                               select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                     patios = patios.Where(x => x > 0).ToList();
