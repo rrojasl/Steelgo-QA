@@ -189,6 +189,7 @@
                             var val="";
                             if(op.filter){
                                 val = op.filter.filters[0].value;
+                                val = val.replace(/-/g, '\\n');
                             }
                             //return $UrlDummyDespacho + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                             return $UrlDummyDespacho + "&texto=" + val + "&token=" + Cookies.get("token") + "&combo=0";
