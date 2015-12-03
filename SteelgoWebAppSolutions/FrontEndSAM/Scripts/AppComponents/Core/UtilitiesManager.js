@@ -318,47 +318,58 @@ function quickHeadFilter(g) {
         g.thead.append(function () {
             var init = "<tr class='filter-row'>"
             $(id+" thead th:visible").each(function () {
-                this.hasAttribute("data-field") && $(this).attr("data-field")!=="" ? init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this)'/></th>" : init += "<th></th>";
+                if (this.hasAttribute("data-field") && $(this).attr("data-field") !== "") {
+                    if (modelType(g, $(this).attr("data-field")) === "number") {
+                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this)'/></th>";
+                    } else {
+                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this)'/></th>";
+                    }
+                } else {
+                    init += "<th></th>";
+                }
             })
             return init += "</tr>"
         })
     }
 }
 
+function modelType(g,fname) {
+    try {
+        return g.options.dataSource.schema.model.fields[fname].type;
+    } catch (e) {
+        return g.options.dataSource.options.schema.model.fields[fname].type;
+    }
+}
+
 function quickFilter(g, i) {
-    var f = g.dataSource.filter();
-    var fname = $(i).attr("data-filter");
-    if ($(i).val().length === 0 && f.filters.length>0) {
-        f.filters.forEach(function (n,i,t) {
-            if (n.field === fname) {
-                t.splice(i, 1);
-                g.dataSource.filter(t);
-                f = t;
-            }
-        })
-    }
-    var tmp = { field: $(i).attr("data-filter"), value: $(i).val() }
-    var modelType = function () {
-        try {
-            return g.options.dataSource.schema.model.fields[fname].type;
-        } catch (e) {
-            return g.options.dataSource.options.schema.model.fields[fname].type;
+    try {
+        var f = g.dataSource.filter();
+        var fname = $(i).attr("data-filter");
+        if ($(i).val().length === 0 && f.filters.length > 0) {
+            f.filters.forEach(function (n, i, t) {
+                if (n.field === fname) {
+                    t.splice(i, 1);
+                    g.dataSource.filter(t);
+                    f = t;
+                }
+            })
         }
-    }
-    modelType() === "number" ? tmp.operator = function (item, value) { var u = false; (item!==null && item!==undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
-    if (f!==undefined) {
-        var found = false;
-        f.filters.forEach(function (n) {
-            if (n.field===fname) {
-                n.value = $(i).val();
-                found = true;
-            }
-        })
-        found === false ? f.filters.push(tmp) : 0;
-        g.dataSource.filter(f.filters)
-    } else {
-        g.dataSource.filter(tmp)
-    }
+        var tmp = { field: fname, value: $(i).val() }
+        modelType(g, fname) === "number" ? tmp.operator = function (item, value) { var u = false; (item !== null && item !== undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
+        if (f !== undefined) {
+            var found = false;
+            f.filters.forEach(function (n) {
+                if (n.field === fname) {
+                    n.value = $(i).val();
+                    found = true;
+                }
+            })
+            found === false ? f.filters.push(tmp) : 0;
+            g.dataSource.filter(f.filters)
+        } else {
+            g.dataSource.filter(tmp)
+        }
+    } catch (e) { }
 }
 
 function stringifyDate(g) {
