@@ -103,17 +103,16 @@
     function CargarGrid() {
         $("#grid").kendoGrid({
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-            columns: addTo([
+            columns: [
                 { field: "Nombre", title: "Nombre", template: "<a href='#: Url #'>#: Nombre # </a>"},
                 { field: "Extencion", title: "Extensión"},
                 { field: "TipoArchivo", title: "Tipo de Archivo"},
                 { command: "destroy", title: "Borrar", width: "91px" }
-            ],null),
+            ],
             dataSource: getDataSource(),
             autoHeight: true,
             sortable: false,
             scrollable: false,
-            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -130,6 +129,9 @@
                 }
             },
             editable: true,
+            dataBound:function(e){
+                quickHeadFilter(this);
+            }
         })
     };
         function regenerarGrid(){

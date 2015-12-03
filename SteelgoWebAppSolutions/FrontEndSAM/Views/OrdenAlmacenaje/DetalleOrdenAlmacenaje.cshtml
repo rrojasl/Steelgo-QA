@@ -391,14 +391,15 @@
             scrollable: false,
             detailInit: detailInit,
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-            columns: addTo([
+            columns: [
                 { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
                 //{ field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
-            ],null),
+            ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                quickHeadFilter(this);
             }
          }).getKendoGrid();
 
@@ -428,7 +429,7 @@
                 sortable: true,
                 detailInit: detailInitNumerosUnicos,
                 filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-                columns: addTo([
+                columns: [
                     { field: "Codigo", title: _dictionary.DetalleOrdenAlmacenaje0011[$("#language").data("kendoDropDownList").value()] },
                     { field: "Descripcion", title: _dictionary.DetalleOrdenAlmacenaje0012[$("#language").data("kendoDropDownList").value()]},
                     { field: "D1", title: _dictionary.DetalleOrdenAlmacenaje0013[$("#language").data("kendoDropDownList").value()]},
@@ -437,9 +438,10 @@
                     { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
                     { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
                     //{ field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioItemCode(this)'>Cancelar</a>" }
-                ],null),
+                ],
                 dataBound:function(e){
                     checkTH(this);
+                    quickHeadFilter(this);
                 }
             });
         }
@@ -466,16 +468,17 @@
                 scrollable: false,
                 sortable: false,
                 filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-                columns: addTo([
+                columns: [
                     { field: "NumeroUnico", title: _dictionary.DetalleOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()]},
                     //{ field: "", title: "", width: "110px", template: "<a class='detailLink' href='' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
                     { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarNumerosUnicos }, title: " ", width: "99px" },
                     { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true},
                     { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
                     { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
-                ],null),
+                ],
                 dataBound:function(e){
                     checkTH(this);
+                    quickHeadFilter(this);
                 }
             });
 

@@ -297,18 +297,19 @@
                 buttonCount: 2
             },
             detailInit: detailInit,
-            columns: addTo([
+            columns: [
                 { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], template: "<a onclick='mostrarDetalle(#:OrdenAlmacenajeID#)'>#:OrdenAlmacenaje#</a>" },
                 { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "99px" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" },
                 { field: "OrdenAlmacenajeID", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },
-            ],null),
+            ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                 checkTH(this);
+                quickHeadFilter($("#grid").data("kendoGrid"));
                 //$("th[data-field='FechaOrdenAlmacenaje']").append($("#FechaOrdenAlmacenaje"));
                 //$("th[data-field='OrdenAlmacenaje']").append($("#OrdenAlmacenaje"));
 
@@ -337,13 +338,14 @@
             sortable: false,
             selectable: true,
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-            columns: addTo([
+            columns: [
                 { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()] },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },
                 //{ field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioCuantificacion(this)'>Cancelar</a>" },
-            ],null),
+            ],
             dataBound:function(e){
                 checkTH(this);
+                quickHeadFilter(this);
             }
         });
     }
@@ -368,7 +370,7 @@
             scrollable: false,
             sortable: false,
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-            columns: addTo([
+            columns: [
                 { field: "Codigo", title: _dictionary.ListadoOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()] },
                 { field: "", title: "", width: "110px", template: "<a class='k-grid-Cancelar' onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
@@ -377,9 +379,10 @@
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarItem }, title: " ", width: "99px" }
 
-            ],null),
+            ],
             dataBound:function(e){
                 checkTH(this);
+                quickHeadFilter(this);
             }
         });
     }

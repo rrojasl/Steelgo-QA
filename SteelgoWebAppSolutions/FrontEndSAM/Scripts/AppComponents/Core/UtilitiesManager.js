@@ -318,7 +318,7 @@ function quickHeadFilter(g) {
         g.thead.append(function () {
             var init = "<tr class='filter-row'>"
             $(id+" thead th:visible").each(function () {
-                this.hasAttribute("data-title") ? init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter("+gr+",this)'/></th>" : init += "<th></th>";
+                this.hasAttribute("data-field") && $(this).attr("data-field")!=="" ? init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this)'/></th>" : init += "<th></th>";
             })
             return init += "</tr>"
         })
@@ -345,7 +345,7 @@ function quickFilter(g, i) {
             return g.options.dataSource.options.schema.model.fields[fname].type;
         }
     }
-    modelType() === "number" ? tmp.operator = function (item, value) { var u = false; item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
+    modelType() === "number" ? tmp.operator = function (item, value) { var u = false; (item!==null && item!==undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
     if (f!==undefined) {
         var found = false;
         f.filters.forEach(function (n) {
@@ -359,6 +359,22 @@ function quickFilter(g, i) {
     } else {
         g.dataSource.filter(tmp)
     }
+}
+
+function stringifyDate(g) {
+    g.dataSource.data().forEach(function (n) {
+        for (f in n) {
+            var tmp = null;
+            typeof n[f] === "object" ? tmp = new Date(n[f]) : tmp = new Date("Hello");
+            if (tmp.isValid()) {
+                var compD = "";
+                var compM = "";
+                10 > tmp.getDate() ? compD = "0" : null;
+                10 > (tmp.getMonth() + 1) ? compM = "0" : null;
+                n[f] = compD + tmp.getDate() + "/" + compM + (tmp.getMonth() + 1) + "/" + tmp.getFullYear();
+            }
+        }
+    })
 }
 
 //Function that counts the number of non hidden columns and delete the left th

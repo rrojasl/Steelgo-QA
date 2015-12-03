@@ -738,7 +738,7 @@
                 buttonCount: 2
             },
             scrollable: true,
-            columns: addTo([
+            columns:[
                 { field: "ItemCode", title: _dictionary.ListadoMaterialesItemCode0004[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "Descripcion", title: _dictionary.ListadoMaterialesItemCode0005[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px" },
                 { field: "D1", title: _dictionary.ListadoMaterialesItemCode0006[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
@@ -770,7 +770,7 @@
                 { field: "InventarioDisponibleCruce", title: _dictionary.ListadoMaterialesItemCode0035[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px" },
                 { field: "DisponibleICEquivalente", title: _dictionary.ListadoMaterialesItemCode0036[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px" },
                 { field: "TotalDisponibleParaCruce", title: _dictionary.ListadoMaterialesItemCode0037[$("#language").data("kendoDropDownList").value()], filterable: true, width: "250px" },
-            ],null),
+            ],
             dataBound: function (e) {
                 //$(".k-grid input.k-textbox").prop('readonly', true);
                 //$(".k-grid td .k-button").text('');
@@ -839,6 +839,7 @@
 				//$("#InventarioDisponibleCruce").click(function( event ) {event.stopPropagation();});
                 //$("#DisponibleICEquivalente").click(function( event ) {event.stopPropagation();});
                 //$("#TotalDisponibleCruce").click(function( event ) {event.stopPropagation();});
+                quickHeadFilter($("#grid").data("kendoGrid"));
             }
         });
 
