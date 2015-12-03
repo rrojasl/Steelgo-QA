@@ -1438,7 +1438,7 @@ namespace BackEndSAM.DataAcces
                                     idDiametro = ctx.Sam3_Diametro.Where(x => x.Valor == diam && x.Activo).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
                                     int? eqDiametro = ctx.Sam3_EquivalenciaDiametro.Where(x => x.Sam3_DiametroID == idDiametro && x.Activo).Select(x => x.Sam2_DiametroID).AsParallel().SingleOrDefault();
 
-                                    item.CedulaCorrecta = idDiametro == 0 ? false : true;
+                                    item.Correcta = idDiametro == 0 ? false : true;
 
                                     idCedulaA = ctx.Sam3_Cedula.Where(x => x.Codigo == item.CedulaA && x.Activo).Select(x => x.CedulaID).AsParallel().SingleOrDefault();
                                     idCedulaB = ctx.Sam3_Cedula.Where(x => x.Codigo == item.CedulaB && x.Activo).Select(x => x.CedulaID).AsParallel().SingleOrDefault();
@@ -1521,7 +1521,7 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else
                                         {
-                                            item.CedulaCorrecta = false;
+                                            item.Correcta = false;
                                         }
                                     }
 
@@ -1596,7 +1596,7 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else
                                         {
-                                            item.CedulaCorrecta = false;
+                                            item.Correcta = false;
                                         }
                                     }
 
@@ -1671,7 +1671,7 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else
                                         {
-                                            item.CedulaCorrecta = false;
+                                            item.Correcta = false;
                                         }
                                     }
 
@@ -1681,7 +1681,7 @@ namespace BackEndSAM.DataAcces
                                     EspesorMM = Convert.ToDecimal(item.CedulaMM);
                                     idEspesor = ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && (x.CedulaID == idCedulaC || x.CedulaID == idCedulaA || x.CedulaID == idCedulaB) && x.Valor == EspesorMM && x.Activo == 1).Select(x => x.EspesorID).AsParallel().ToList();
 
-                                    if (item.CedulaCorrecta)
+                                    if (item.Correcta)
                                     {
                                         if (existe)
                                         {
@@ -1720,7 +1720,7 @@ namespace BackEndSAM.DataAcces
 
                                     cedulasCorrectas.Add(new CatalogoCedulas
                                     {
-                                        CedulaCorrecta = item.CedulaCorrecta,
+                                        Correcta = item.Correcta,
                                         Diametro1 = item.Diametro1,
                                         CedulaID = nuevoElemento.CatalogoCedulasID.ToString(),
                                         CedulaA = item.CedulaA,

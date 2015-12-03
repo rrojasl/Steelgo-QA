@@ -1293,12 +1293,12 @@ _dictionary = {
         "en-US": "Document C (Poundage)"
     },
     "ItemCodeSteelGo0016": {
-        "es-MX": "Pulgadas",
-        "en-US": "Inchs"
+        "es-MX": "Espesor In",
+        "en-US": "Thickness In"
     },
     "ItemCodeSteelGo0017": {
-        "es-MX": "Espesor",
-        "en-US": "Thickness"
+        "es-MX": "Espesor MM",
+        "en-US": "Thickness MM"
     },
     "ItemCodeSteelGo0018": {
         "es-MX": "Peso",
