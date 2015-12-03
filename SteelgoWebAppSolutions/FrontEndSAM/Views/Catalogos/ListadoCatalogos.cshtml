@@ -620,12 +620,37 @@
         displayMessage("ListadoCatalogos0019", "", '2');
     }
 
-    function enviarCedulas(data){
-        $Catalogos.AdministracionCatalogos.create({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data),factorConversion:$("#fconversion").val()}).done(function(result){
-            displayMessage("ListadoCatalogos0018", "", '0');
-            regenerarGrid();
+    function enviarCedulas(data) {
+        $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
+            if (Error(result)) {
+                console.log(result);
+                displayMessage("ListadoCatalogos0018", "", '0');
+                regenerarGrid();
+            }
         })
-    }
+    };
+
+    function Error(data) {
+        if (data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                        return false;
+                    } else {
+                        displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    };
 
     function getDataSourceGrid(val) {
         return new kendo.data.DataSource({
@@ -715,13 +740,14 @@
                 $("#fcarga").on("click",function(){
                     if(nuevasCedulas.length!=0){
                         var data=[];
-                        nuevasCedulas.forEach(function(c){
-                            data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields,c));
-                        })
-                        $Catalogos.AdministracionCatalogos.read({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data)}).done(function(result){
-                            //regenerarGrid();
-                            result.HayConflictos ? mostrarConflictos(result) : enviarCedulas(data);
+                        nuevasCedulas.forEach(function (c) {
+                            data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields, c));
                         });
+                        enviarCedulas(data);
+                        //$Catalogos.AdministracionCatalogos.read({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data)}).done(function(result){
+                        //    //regenerarGrid();
+                        //    result.HayConflictos ? mostrarConflictos(result) : enviarCedulas(data);
+                        //});
                     }else{
                         displayMessage("ListadoCatalogos0010", "", '2');
                     }
@@ -744,6 +770,14 @@
                                     var cedVal=cedulaValida(c);
                                     var modVal=validModelData(c);
                                     if (modVal && cedVal == 0) {
+                                        if (c["CedulaMM"] == "")
+                                        {
+                                            c["CedulaMM"] = c["CedulaIn"] * $("#fconversion").val();
+                                        }
+                                        if (c["CedulaIn"] == "")
+                                        {
+                                            c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+                                        }
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     } else {
                                         if (modVal && cedVal == 1) {
@@ -892,13 +926,14 @@
     
     function cedulaValida(c){
         if(c.CedulaMM=="" && c.CedulaIn=="") return -1;
-        if (!$.isNumeric(c.Diametro1) && c.Diametro1!="") return -1;
+        if (!$.isNumeric(c.Diametro1) && c.Diametro1 != "") return -1;
+        if (c.Diametro1 == "" || c.Diametro1 == null) return -1;
         var datos=$.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data() , function(n){
             return n.id != null
         })
         try{
             datos.forEach(function(d){
-                d.Diametro1 == ""  || d.Diametro1 == null ? d.Diametro1 = c.Diametro1 : 0;
+                //d.Diametro1 == ""  || d.Diametro1 == null ? d.Diametro1 = c.Diametro1 : 0;
                 //if(d.Espesor==c.Espesor) throw -1;
                 if(((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
                     throw 1;

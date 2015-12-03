@@ -102,10 +102,45 @@ namespace BackEndSAM.DataAcces
                                                  join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                                  join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
                                                  join itcs in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                 join ced in ctx.Sam3_Cedula on itcs.CedulaID equals ced.CedulaID
-                                                 join d in ctx.Sam3_Diametro on rids.Diametro1ID equals d.DiametroID
-                                                 where rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
-                                                 select d1.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault().ToString(),
+                                                 join cat in ctx.Sam3_CatalogoCedulas on itcs.CedulaID equals cat.CatalogoCedulasID
+                                                 join d in ctx.Sam3_Diametro on cat.DiametroID equals d.DiametroID
+                                                 where rdi.Activo && rids.Activo && rics.Activo && itcs.Activo && cat.Activo && d.Activo
+                                                     && rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                                 select d.Valor
+                                         ).FirstOrDefault() +
+                                         "-" +
+                                         (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
+                                          join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                          join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                          join itcs in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                          join cat in ctx.Sam3_CatalogoCedulas on itcs.CedulaID equals cat.CatalogoCedulasID
+                                          join ced in ctx.Sam3_Cedula on cat.CedulaA equals ced.CedulaID
+                                          where rdi.Activo && rids.Activo && rics.Activo && itcs.Activo && cat.Activo && ced.Activo
+                                                    && rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                          select ced.Codigo
+                                         ).FirstOrDefault() +
+                                         "-" +
+                                         (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
+                                          join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                          join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                          join itcs in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                          join cat in ctx.Sam3_CatalogoCedulas on itcs.CedulaID equals cat.CatalogoCedulasID
+                                          join ced in ctx.Sam3_Cedula on cat.CedulaB equals ced.CedulaID
+                                          where rdi.Activo && rids.Activo && rics.Activo && itcs.Activo && cat.Activo && ced.Activo
+                                                    && rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                          select ced.Codigo
+                                         ).FirstOrDefault() +
+                                         "-" +
+                                         (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
+                                          join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                          join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                          join itcs in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                          join cat in ctx.Sam3_CatalogoCedulas on itcs.CedulaID equals cat.CatalogoCedulasID
+                                          join ced in ctx.Sam3_Cedula on cat.CedulaC equals ced.CedulaID
+                                          where rdi.Activo && rids.Activo && rics.Activo && itcs.Activo && cat.Activo && ced.Activo
+                                                    && rdi.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                          select ced.Codigo
+                                         ).FirstOrDefault(),
 
                                        Colada = (from ric in ctx.Sam3_Rel_Itemcode_Colada
                                                  join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
@@ -193,12 +228,44 @@ namespace BackEndSAM.DataAcces
                                                           select fa.Nombre).FirstOrDefault(),
 
                                        Cedula = (from rii in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                          join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rii.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                                          join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                          join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
-                                                          where rii.Activo && rids.Activo && ics.Activo && c.Activo
-                                                          && rii.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
-                                                          select d1.Valor.ToString() + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
+                                                 join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rii.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                 join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                 join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                                 join d in ctx.Sam3_Diametro on cat.DiametroID equals d.DiametroID
+                                                 where rii.Activo && rids.Activo && ics.Activo && cat.Activo && d.Activo
+                                                     && rii.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                                 select d.Valor
+                                                     ).FirstOrDefault() +
+                                                     "-" +
+                                                     (from rii in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                      join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rii.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                      join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                      join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                                      join ced in ctx.Sam3_Cedula on cat.CedulaA equals ced.CedulaID
+                                                      where rii.Activo && rids.Activo && ics.Activo && cat.Activo && ced.Activo
+                                                      && rii.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                                      select ced.Codigo
+                                                     ).FirstOrDefault() +
+                                                     "-" +
+                                                     (from rii in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                      join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rii.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                      join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                      join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                                      join ced in ctx.Sam3_Cedula on cat.CedulaB equals ced.CedulaID
+                                                      where rii.Activo && rids.Activo && ics.Activo && cat.Activo && ced.Activo
+                                                      && rii.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                                      select ced.Codigo
+                                                     ).FirstOrDefault() +
+                                                     "-" +
+                                                     (from rii in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                      join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rii.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                      join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                      join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                                      join ced in ctx.Sam3_Cedula on cat.CedulaC equals ced.CedulaID
+                                                      where rii.Activo && rids.Activo && ics.Activo && cat.Activo && ced.Activo
+                                                      && rii.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
+                                                      select ced.Codigo
+                                                     ).FirstOrDefault(),
 
                                        Colada = (from ric in ctx.Sam3_Rel_Itemcode_Colada
                                                  join co in ctx.Sam3_Colada on ric.ColadaID equals co.ColadaID

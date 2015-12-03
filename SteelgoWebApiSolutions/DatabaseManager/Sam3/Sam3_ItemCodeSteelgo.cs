@@ -34,8 +34,8 @@ namespace DatabaseManager.Sam3
         public string DescripcionLargaEspanol { get; set; }
         public string DescripcionLargaIngles { get; set; }
     
-        public virtual Sam3_Cedula Sam3_Cedula { get; set; }
         public virtual Sam3_Grupo Sam3_Grupo { get; set; }
         public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
+        public virtual Sam3_CatalogoCedulas Sam3_CatalogoCedulas { get; set; }
     }
 }

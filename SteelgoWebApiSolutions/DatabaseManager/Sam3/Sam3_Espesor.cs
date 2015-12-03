@@ -12,25 +12,21 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Cedula
+    public partial class Sam3_Espesor
     {
-        public Sam3_Cedula()
+        public Sam3_Espesor()
         {
             this.Sam3_CatalogoCedulas = new HashSet<Sam3_CatalogoCedulas>();
-            this.Sam3_CatalogoCedulas1 = new HashSet<Sam3_CatalogoCedulas>();
-            this.Sam3_CatalogoCedulas2 = new HashSet<Sam3_CatalogoCedulas>();
         }
     
-        public int CedulaID { get; set; }
-        public string Codigo { get; set; }
-        public Nullable<int> Orden { get; set; }
-        public bool VerificadoPorCalidad { get; set; }
-        public bool Activo { get; set; }
-        public Nullable<int> UsuarioModificacion { get; set; }
+        public int EspesorID { get; set; }
+        public Nullable<int> DiametroID { get; set; }
+        public Nullable<int> CedulaID { get; set; }
+        public decimal Valor { get; set; }
+        public int Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
     
         public virtual ICollection<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
-        public virtual ICollection<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas1 { get; set; }
-        public virtual ICollection<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas2 { get; set; }
     }
 }
