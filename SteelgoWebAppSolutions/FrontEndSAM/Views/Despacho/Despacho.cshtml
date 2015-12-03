@@ -186,16 +186,29 @@
                 transport: {
                     read: {
                         url: function (op) {
-                            var val="";
+                            var val = "";
+                            var characterReg = /[`~!$%^&*()#_°¬|+=?;:'",.<>]/gi;
                             if(op.filter){
                                 val = op.filter.filters[0].value;
                                 val = val.replace(/-/g, '\\n');
                             }
                             //return $UrlDummyDespacho + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
+                            if(characterReg.test(val)) {
+                                val = "";
+                            }
                             return $UrlDummyDespacho + "&texto=" + val + "&token=" + Cookies.get("token") + "&combo=0";
                         }
                     }
                 },
+                requestEnd: function (e) {
+                    if (e.response.ReturnCode != undefined) {
+                        if (e.response != undefined && e.response.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            displayMessage("notificationslabel0009", e.response.ReturnMessage[0], '2');
+                        }
+                    }
+                }
             },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());

@@ -2259,15 +2259,21 @@ namespace BackEndSAM.DataAcces
                         listado = (from odts in ctx2.OrdenTrabajoSpool
                                    join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
                                    join sp in ctx2.Spool on odts.SpoolID equals sp.SpoolID
+                                   //join ep in ctx.Sam3_EquivalenciaProyecto on sp.ProyectoID equals ep.Sam2_ProyectoID
                                    where sam2_NumerosUnicosIDs.Contains(odtm.NumeroUnicoCongeladoID.Value)
                                    || sam2_NumerosUnicosIDs.Contains(odtm.NumeroUnicoDespachadoID.Value)
                                    select new ListadoODTDespacho
                                    {
+                                       ProyectoID = sp.ProyectoID,
                                        Spool = sp.Nombre,
-                                       SpoolID = odts.NumeroControl
+                                       SpoolID = odts.NumeroControl,
+                                       NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
                                    }).Distinct().AsParallel().ToList();
 
-
+                        foreach (ListadoODTDespacho item in listado) {
+                            Sam3_EquivalenciaProyecto equivalenciaProyecto = ctx.Sam3_EquivalenciaProyecto.Where(x => x.Sam2_ProyectoID == item.ProyectoID && x.Activo).FirstOrDefault();
+                            item.ProyectoID = equivalenciaProyecto.Sam3_ProyectoID;
+                        } 
 
                     }
                 }

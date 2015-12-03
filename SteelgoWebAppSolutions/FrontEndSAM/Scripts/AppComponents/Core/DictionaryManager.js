@@ -5376,6 +5376,14 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "DashboardDespachoCorte0092": {
+        "es-MX": "ProyectoID",
+        "en-US": "ProyectoID"
+    },
+    "DashboardDespachoCorte0093": {
+        "es-MX": "NumeroControlID",
+        "en-US": "NumeroControlID"
+    },
     //Listado Corte
     "ListadoCorte0001": {
         "es-MX": "Inicio",

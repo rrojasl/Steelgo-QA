@@ -17,8 +17,10 @@ namespace BackEndSAM.Models
 
     public class ListadoODTDespacho
     {
+        public int ProyectoID { get; set; }
         public string SpoolID { get; set; }
         public string Spool { get; set; }
+        public string NumeroControlID { get; set; }
     }
 
     public class ListadoPorSpoolPreDespacho

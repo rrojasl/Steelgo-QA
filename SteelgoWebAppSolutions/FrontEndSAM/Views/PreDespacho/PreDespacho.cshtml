@@ -188,13 +188,27 @@
                     read: {
                         url: function (op) {
                             var val = "";
+                            var characterReg = /[`~!$%^&*()#_°¬|+=?;:'",.<>]/gi;
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
+                                val = val.replace(/-/g, '\\n');
+                            }
+                            if (characterReg.test(val)) {
+                                val = "";
                             }
                             return $UrlOrdenTrabajoSpool + "&proyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&Busqueda=" + val + "&token=" + Cookies.get("token");
                         }
-                    }
+                    },
                 },
+                requestEnd: function (e) {
+                    if (e.response.ReturnCode != undefined) {
+                        if (e.response != undefined && e.response.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            displayMessage("notificationslabel0009", e.response.ReturnMessage[0], '2');
+                        }
+                    }
+                }
             },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
@@ -226,9 +240,9 @@
     function CargaInicialEdicion() {
 
         $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
-        $("#SpoolID").data("kendoAutoComplete").value(_NumeroControl);
+        $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
-        CargarNumeroControl(_spoolID, _NumeroControl);
+        CargarNumeroControl(_NumeroControl, _spoolID);
         CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
         ObtenerDatosGrid();
     };
@@ -341,7 +355,7 @@
 
     function ObtenerDatosGrid() {
         loadingStart();
-        var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : "";
+        var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : 0;
 
         $PreDespacho.PreDespacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
