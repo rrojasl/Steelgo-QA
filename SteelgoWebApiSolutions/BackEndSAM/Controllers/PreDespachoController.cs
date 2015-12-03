@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string numeroControl, string itemcode, int proyectoID, string token)
+        public object Get(string numeroControl, string itemcode, string token)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +49,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PreDespachoBd.Instance.ListadoNumerosUnicos(numeroControl, itemcode, proyectoID, usuario);
+                return PreDespachoBd.Instance.ListadoNumerosUnicos(numeroControl, itemcode, usuario);
             }
             else
             {

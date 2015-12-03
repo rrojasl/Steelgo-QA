@@ -261,6 +261,7 @@
                             Descripcion: { type: "string", editable: false },
                             //NumeroUnicoID: { type: "string", editable: false },
                             NumeroUnico: { type: "string", editable: true},
+                            Etiqueta: { type: "string", editable: false}
                         }
                     }
                 },
@@ -494,11 +495,11 @@
             var NumeroControl = datasource[i].NumeroControlID;
             var ItemCode = datasource[i].ItemCodeID;
             var NumeroUnico = datasource[i].NumeroUnico;
-
+            var Etiqueta = datasource[i].Etiqueta;
             //var ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
 
             if (NumeroUnico) {
-                Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico };
+                Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, Etiqueta: Etiqueta };
                 z++;
             }
         };
