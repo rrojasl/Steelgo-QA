@@ -96,7 +96,7 @@ namespace BackEndSAM.DataAcces
                                 }
                             }
 
-                            return listaFaltantes;
+                            return listaFaltantes.OrderBy(x => x.TipoMaterial).ToList();
                         }
                         else
                         {

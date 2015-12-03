@@ -66,6 +66,7 @@ namespace BackEndSAM.DataAcces
 
 
 
+
                         patios = (from p in ctx.Sam3_Proyecto
                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                   join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam3_PatioID
@@ -77,10 +78,10 @@ namespace BackEndSAM.DataAcces
                         patios = patios.Where(x => x > 0).ToList();
                     }
 
-                    
+
 
                     int consecutivo = 0;
-                    
+
                     if (busqueda.Contains("-") && busqueda != "")
                     {
                         string[] divididos = busqueda.Split('-').ToArray();
@@ -96,23 +97,23 @@ namespace BackEndSAM.DataAcces
 
 
                     List<ComboNumeroControl> listado = (from odts in ctx2.OrdenTrabajoSpool
-                                                 join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                 join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.MaterialSpoolID
-                                                 join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
-                                                 where !(from d in ctx2.Despacho
-                                                      where d.Cancelado == false
-                                                      select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
-                                                 && !(from sh in ctx2.SpoolHold
-                                                      where sh.SpoolID == odts.SpoolID
-                                                      && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
-                                                      select sh).Any()
-                                                 && proyectos.Contains(odt.ProyectoID)
-                                                 && it.TipoMaterialID == 2
-                                                 select new ComboNumeroControl
-                                                 {
-                                                     NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
-                                                     NumeroControl = odts.NumeroControl
-                                                 }).Distinct().AsParallel().ToList();
+                                                        join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                        join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.MaterialSpoolID
+                                                        join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
+                                                        where !(from d in ctx2.Despacho
+                                                                where d.Cancelado == false
+                                                                select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
+                                                        && !(from sh in ctx2.SpoolHold
+                                                             where sh.SpoolID == odts.SpoolID
+                                                             && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
+                                                             select sh).Any()
+                                                        && proyectos.Contains(odt.ProyectoID)
+                                                        && it.TipoMaterialID == 2
+                                                        select new ComboNumeroControl
+                                                        {
+                                                            NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
+                                                            NumeroControl = odts.NumeroControl
+                                                        }).Distinct().AsParallel().ToList();
 
                     List<ComboNumeroControl> filtrado = new List<ComboNumeroControl>();
                     listado = listado.GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
@@ -174,156 +175,123 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                if (busqueda == null)
+                busqueda = busqueda.Replace("\\n", "-");
+                if (busqueda == null || (busqueda.Length == 1 && busqueda.Contains("-")))
                 {
                     busqueda = "";
                 }
+
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     List<int> proyectos = new List<int>();
                     List<int> patios = new List<int>();
                     using (SamContext ctx = new SamContext())
                     {
-                        proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
-                                     join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
-                                     where p.Activo && eqp.Activo
-                                     && p.UsuarioID == usuario.UsuarioID
-                                     && p.ProyectoID == proyectoID
-                                     select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
-
-                        // proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
-                        //.Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
-
-                        proyectos = proyectos.Where(x => x > 0).ToList();
-
-
-
-                        patios = (from p in ctx.Sam3_Proyecto
-                                  join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
-                                  where p.Activo && pa.Activo && eq.Activo
-                                  && proyectos.Contains(p.ProyectoID)
-                                  select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
-
-                        patios = patios.Where(x => x > 0).ToList();
-                    }
-
-                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
-                    List<string> elementos = new List<string>();
-                    foreach (char i in lstElementoNumeroControl)
-                    {
-                        elementos.Add(i.ToString());
-                    }
-
-                    List<ComboNumeroControl> listado = (from odts in ctx2.OrdenTrabajoSpool
-                                                 join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                 where !(from d in ctx2.Despacho
-                                                         where d.Cancelado == false
-                                                         select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
-                                                 && !(from sh in ctx2.SpoolHold
-                                                      where sh.SpoolID == odts.SpoolID
-                                                      && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
-                                                      select sh).Any()
-                                                 && proyectos.Contains(odt.ProyectoID)
-                                                 && elementos.Any(x => odts.NumeroControl.Contains(x))
-                                                        select new ComboNumeroControl
-                                                 {
-                                                      NumeroControl = odts.NumeroControl, 
-                                                      NumeroControlID = odts.OrdenTrabajoSpoolID.ToString()
-                                                 }).Distinct().AsParallel().ToList();
-
-                    listado = listado.OrderBy(x => x.NumeroControl).ToList();
-
-#if DEBUG
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
-#endif
-                    return listado;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                LoggerBd.Instance.EscribirLog(ex);
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-        public object ListadoNumerosDeControlImpresionDocumental(string busqueda, int proyectoID, Sam3_Usuario usuario)
-        {
-            try
-            {
-                if (busqueda == null)
-                {
-                    busqueda = "";
-                }
-                using (Sam2Context ctx2 = new Sam2Context())
-                {
-                    List<int> proyectos = new List<int>();
-                    List<int> patios = new List<int>();
-                    using (SamContext ctx = new SamContext())
-                    {
-                        proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
-                                     join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
-                                     where p.Activo && eqp.Activo
-                                     && p.UsuarioID == usuario.UsuarioID
-                                     && p.ProyectoID == proyectoID
-                                     select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
-
-                        // proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
-                        //.Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
+                        if (proyectoID > 0)
+                        {
+                            proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
+                                         join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
+                                         where p.Activo && eqp.Activo
+                                         && p.UsuarioID == usuario.UsuarioID
+                                         && p.ProyectoID == proyectoID
+                                         select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
+                        }
+                        else
+                        {
+                            proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
+                                         join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
+                                         where p.Activo && eqp.Activo
+                                         && p.UsuarioID == usuario.UsuarioID
+                                         select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
+                        }
 
                         proyectos = proyectos.Where(x => x > 0).ToList();
 
 
 
+
                         patios = (from p in ctx.Sam3_Proyecto
                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
+                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam3_PatioID
+                                  join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
                                   where p.Activo && pa.Activo && eq.Activo
-                                  && proyectos.Contains(p.ProyectoID)
+                                  && proyectos.Contains(eqp.Sam2_ProyectoID)
                                   select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                         patios = patios.Where(x => x > 0).ToList();
                     }
 
-                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
-                    List<string> elementos = new List<string>();
-                    foreach (char i in lstElementoNumeroControl)
+
+
+                    int consecutivo = 0;
+
+                    if (busqueda.Contains("-") && busqueda != "")
                     {
-                        elementos.Add(i.ToString());
+                        string[] divididos = busqueda.Split('-').ToArray();
+                        int.TryParse(divididos[1], out consecutivo);
+
+                        busqueda = divididos[0] != "" ? divididos[0].Replace("0", string.Empty).ToUpper() : "";
+
                     }
+                    else
+                    {
+                        busqueda = busqueda.Replace("0", string.Empty).ToUpper();
+                    }
+
 
                     List<ComboNumeroControl> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                         join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                        join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.MaterialSpoolID
+                                                        join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
                                                         where !(from sh in ctx2.SpoolHold
-                                                             where sh.SpoolID == odts.SpoolID
-                                                             && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
-                                                             select sh).Any()
+                                                                where sh.SpoolID == odts.SpoolID
+                                                                && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
+                                                                select sh).Any()
                                                         && proyectos.Contains(odt.ProyectoID)
-                                                        && elementos.Any(x => odts.NumeroControl.Contains(x))
                                                         select new ComboNumeroControl
                                                         {
-                                                            NumeroControl = odts.NumeroControl,
-                                                            NumeroControlID = odts.OrdenTrabajoSpoolID.ToString()
+                                                            NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
+                                                            NumeroControl = odts.NumeroControl
                                                         }).Distinct().AsParallel().ToList();
 
+                    List<ComboNumeroControl> filtrado = new List<ComboNumeroControl>();
+                    listado = listado.GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
 
-                    listado = listado.OrderBy(x => x.NumeroControl).ToList();
+                    if (busqueda == "")
+                    {
+                        return listado.OrderBy(x => x.NumeroControl).ToList();
+                    }
 
+                    foreach (ComboNumeroControl lst in listado)
+                    {
+                        string[] elem = lst.NumeroControl.Split('-').ToArray();
+
+                        string simplificado = elem[0].Replace("0", string.Empty);
+                        int consec = Convert.ToInt32(elem[1]);
+
+                        if (consecutivo > 0)
+                        {
+                            if (simplificado.Contains(busqueda) && consec == consecutivo)
+                            {
+                                filtrado.Add(lst);
+                            }
+                        }
+                        else
+                        {
+                            if (simplificado.Contains(busqueda))
+                            {
+                                filtrado.Add(lst);
+                            }
+                        }
+
+
+                    }
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
+                    string json = serializer.Serialize(filtrado);
 #endif
-                    return listado;
+
+                    return filtrado.OrderBy(x => x.NumeroControl).ToList();
 
                 }
             }
@@ -379,7 +347,7 @@ namespace BackEndSAM.DataAcces
                         return listado;
                     }
                 }
- 
+
             }
             catch (Exception ex)
             {
@@ -460,7 +428,7 @@ namespace BackEndSAM.DataAcces
                                                                      select jwks.JuntaSpoolID).Contains(js.JuntaSpoolID)
                                                                 && (from tj in ctx2.TipoJunta
                                                                     where tj.Nombre == "SHOP" || tj.Nombre == "FIELD"
-                                                                     select tj.TipoJuntaID).Contains(js.TipoJuntaID)
+                                                                    select tj.TipoJuntaID).Contains(js.TipoJuntaID)
                                                                 select js).AsParallel().Distinct().ToList();
 
                                 List<Sam3_JuntaSpool> sam3_JuntasSpool = (from eq in ctx.Sam3_EquivalenciaJuntaSpool

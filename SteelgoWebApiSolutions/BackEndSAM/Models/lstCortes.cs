@@ -46,6 +46,12 @@ namespace BackEndSAM.Models
         public string ItemCode { get; set; }
         public string D1 { get; set; }
         public string Tolerancia { get; set; }
+        public List<DatosBusquedaODT> ListadoCortes { get; set; }
+
+        public DetalleNumeroUnicoCorte()
+        {
+            ListadoCortes = new List<DatosBusquedaODT>();
+        }
     }
 
     public class DetalleOdtsCorte

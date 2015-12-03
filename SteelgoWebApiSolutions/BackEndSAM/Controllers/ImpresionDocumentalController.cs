@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControlImpresionDocumental(texto, Convert.ToInt32(id), usuario);
+                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(texto, Convert.ToInt32(id), usuario);
             }
             else
             {

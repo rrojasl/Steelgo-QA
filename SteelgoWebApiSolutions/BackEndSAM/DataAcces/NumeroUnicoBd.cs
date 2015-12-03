@@ -195,18 +195,19 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object DetalleNumeroUnicoCorte(int numeroUnicoID, Sam3_Usuario usuario)
+        public object DetalleNumeroUnicoCorte(string prefijo, int consecutivo, string segmento, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    return (from nu in ctx.Sam3_NumeroUnico
+                    DetalleNumeroUnicoCorte detalle = (from nu in ctx.Sam3_NumeroUnico
                             join nui in ctx.Sam3_NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
                             join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                             join pc in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals pc.ProyectoID
                             where nu.Activo && nui.Activo && it.Activo && pc.Activo
-                            && nu.NumeroUnicoID == numeroUnicoID
+                            && nu.Prefijo == prefijo
+                            && nu.Consecutivo == consecutivo
                             select new DetalleNumeroUnicoCorte
                             {
                                 Cantidad = nui.InventarioFisico.ToString(),
@@ -214,6 +215,10 @@ namespace BackEndSAM.DataAcces
                                 ItemCode = it.Codigo,
                                 Tolerancia = pc.ToleranciaCortes.Value.ToString()
                             }).Distinct().AsParallel().SingleOrDefault();
+
+                    detalle.ListadoCortes = (List<DatosBusquedaODT>)CorteBd.Instance.ListadoGenerarCorte(prefijo, consecutivo, segmento, usuario);
+
+                    return detalle; 
                 }
             }
             catch (Exception ex)

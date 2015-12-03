@@ -697,9 +697,10 @@
 
     function ObtenerDetalleNumeroUnico() {
         loadingStart();
-        var numerounicoID = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : "";
-        if(numerounicoID){
-            $NumerosUnicos.NumerosUnicos.read({ NumeroUnicoID: numerounicoID, token: Cookies.get("token") }).done(function (result) {
+        //var numerounicoID = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : "";
+        var numeroUnico = NumeroUnico.Nombre ? NumeroUnico.Nombre : ""; 
+        if(numeroUnico){
+            $NumerosUnicos.NumerosUnicos.read({ NumeroUnicoID: numeroUnico, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     if (result) {
                         $("#Cantidad").val(result.Cantidad);
@@ -1115,7 +1116,7 @@
         $Corte.Corte.read({ materialSpoolID: _MaterialSpoolID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                     $("#hdnMermaTeorica").val(0);
-                    $("#Cantidad").val(result[4].Cantidad);
+                    $("#Cantidad").val(result[1].Cantidad);
                     $("#ItemCode").val(result[1].ItemCode);
                     $("#Diametro1").val(result[1].D1);
                     $("#hdnTolerancia").val(result[1].Tolerancia ? result[1].Tolerancia : 0);
@@ -1127,13 +1128,13 @@
                     //CargarConsecutivo(result[2].ConsecutivoID, result[2].Consecutivo);
                     //CargarEtiqueta(result[2].EtiquetaID, result[2].Etiqueta);
 
-                    CargarNumeroUnico(result[3].id, result[3].value);
+                    CargarNumeroUnico(result[2].id, result[2].value);
                     CargarProyecto(result[0].id);
 
                     $("#ProyectoID").data("kendoComboBox").value(result[0].id);
-                    $("#NumeroUnico").data("kendoAutoComplete").value(result[3].value);
+                    $("#NumeroUnico").data("kendoAutoComplete").value(result[2].value);
 
-                    resultadoJson = result.ListadoCortes;
+                    resultadoJson = result[1].ListadoCortes;
                     if ($("#grid").data("kendoGrid")) {
                         if (resultadoJson.length > 0) {
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
