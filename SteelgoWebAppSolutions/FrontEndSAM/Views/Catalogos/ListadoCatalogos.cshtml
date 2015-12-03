@@ -706,6 +706,22 @@
         });
     }
 
+    function checkMM(c){
+        if (c["CedulaMM"] !== "" && c["CedulaIn"] !== ""){
+            if(Math.round((parseFloat(c["CedulaMM"]) / parseFloat(c["CedulaIn"])*10000))/10000!==parseFloat($("#fconversion").val())){
+                c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+            }
+        }
+        if (c["CedulaMM"] == "")//Obtiene los MM multiplicando los In
+        {
+            c["CedulaMM"] = c["CedulaIn"] * $("#fconversion").val();
+        }
+        if (c["CedulaIn"] == "")//Obtiene los IN dividiendo los MM
+        {
+            c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+        }
+    }
+
     $("#listaCatalogos").kendoDropDownList({
         dataTextField: "value",
         dataValueField: "id",
@@ -770,17 +786,11 @@
                                     var cedVal=cedulaValida(c);
                                     var modVal=validModelData(c);
                                     if (modVal && cedVal == 0) {
-                                        if (c["CedulaMM"] == "")
-                                        {
-                                            c["CedulaMM"] = c["CedulaIn"] * $("#fconversion").val();
-                                        }
-                                        if (c["CedulaIn"] == "")
-                                        {
-                                            c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
-                                        }
+                                        checkMM(c);
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     } else {
                                         if (modVal && cedVal == 1) {
+                                            checkMM(c);
                                             c["advertencia"]=true;
                                         }else{
                                             c["valido"]=false;
@@ -887,8 +897,8 @@
                         ////console.log(e);
                     },
                     dataBound: function(e) {
-                        $("#grid tr td:first-child").each(function(){
-                            this.innerHTML=="" ? this.innerHTML="0-9999" : 0;
+                        $("#grid tbody td").each(function(){
+                            this.innerHTML=="" ? this.innerHTML="-" : 0;
                         })
                     }
                 });
