@@ -286,9 +286,9 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        int proyectoSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                            where eq.Sam3_ProyectoID == proyectoID
-                                            select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                        //int proyectoSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                        //                    where eq.Sam3_ProyectoID == proyectoID
+                        //                    select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
 
                         List<int> sam2_NumerosUnicosIDs = (from odts in ctx2.OrdenTrabajoSpool
                                                            join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
@@ -299,7 +299,7 @@ namespace BackEndSAM.DataAcces
                                                            where odts.OrdenTrabajoSpoolID.ToString() == numeroControl
                                                            && it.TipoMaterialID == 2
                                                            && it.ItemCodeID.ToString() == itemcode
-                                                           && odt.ProyectoID == proyectoSam2
+                                                           //&& odt.ProyectoID == proyectoSam2
                                                            && ms.Diametro1 == nu.Diametro1
                                                            && ms.Diametro2 == nu.Diametro2
                                                            select nu.NumeroUnicoID).Distinct().AsParallel().ToList();

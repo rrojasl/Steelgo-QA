@@ -231,9 +231,9 @@
     function CargaInicialEdicion() {
 
         $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
-        $("#SpoolID").data("kendoAutoComplete").value(_NumeroControl);
+        $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
-        CargarNumeroControl(_spoolID, _NumeroControl);
+        CargarNumeroControl(_NumeroControl, _spoolID);
         CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
         ObtenerDatosGrid();
     };
@@ -346,7 +346,7 @@
 
     function ObtenerDatosGrid() {
         loadingStart();
-        var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : "";
+        var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : 0;
 
         $PreDespacho.PreDespacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
