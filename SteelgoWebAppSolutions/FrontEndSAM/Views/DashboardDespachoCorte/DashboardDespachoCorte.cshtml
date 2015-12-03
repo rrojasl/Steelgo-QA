@@ -682,14 +682,16 @@
         function DefinicionColumnasOrdenesTrabajoActivas() {
             var columnas =
            [
-               { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick=\"MostrarDetalleOrdenesTrabajoActivas('#:SpoolID#')\">#:SpoolID#</a>" },
-               { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick=\"MostrarDetalleOrdenesTrabajoActivas('#:NumeroControlID#','#:ProyectoID#','#:SpoolID#')\">#:SpoolID#</a>" },
+                { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "ProyectoID", title: _dictionary.DashboardDespachoCorte0092[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                { field: "NumeroControlID", title: _dictionary.DashboardDespachoCorte0093[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true }
            ];
             return columnas;
         };
 
-        function MostrarDetalleOrdenesTrabajoActivas(spoolID) {
-            alert("Por definir pantalla pre-despacho");
+        function MostrarDetalleOrdenesTrabajoActivas(numeroControlID, proyectoID, spoolID) {
+            window.location.href = _predespachoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroControl=" + numeroControlID + "&ProyectoID=" + proyectoID + "&SpoolID=" + spoolID;
         };
 
         function OrdenesTrabajoActivas(tipomaterial, esBoton) {
