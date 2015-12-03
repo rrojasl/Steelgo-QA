@@ -342,7 +342,7 @@
                 { command: { text: _dictionary.Corte0030[$("#language").data("kendoDropDownList").value()], click: CancelarSpool }, title: " ", width: "99px" }
             ],
             dataBound: function (e) {
-                CalcularCantidad();
+                //CalcularCantidad();
                 //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
@@ -714,17 +714,18 @@
                         $("#Diametro1").val(result.D1);
                         $("#hdnTolerancia").val(result.Tolerancia);
                         resultadoJson = result.ListadoCortes;
-
-                        if ($("#grid").data("kendoGrid")) {
-                            if (resultadoJson.length > 0) {
-                                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                                $("#grid").data("kendoGrid").dataSource.page(1);
-                            } else {
-                                $("#grid").data("kendoGrid").dataSource.data([]);
-                                $("#grid").data("kendoGrid").dataSource.page(0);
-                            };
-                            applySecurityPolicy(false);
-                        };
+                        AgregarRegistroGrid(result.ListadoCortes);
+                        $("#grid").data("kendoGrid").refresh()
+                        //if ($("#grid").data("kendoGrid")) {
+                        //    if (resultadoJson.length > 0) {
+                        //        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        //        $("#grid").data("kendoGrid").dataSource.page(1);
+                        //    } else {
+                        //        $("#grid").data("kendoGrid").dataSource.data([]);
+                        //        $("#grid").data("kendoGrid").dataSource.page(0);
+                        //    };
+                        //    applySecurityPolicy(false);
+                        //};
                     } else {
                         $("#Cantidad").val("");
                         $("#ItemCode").val("");
@@ -919,17 +920,21 @@
     };
 
     function AgregarRegistroGrid(item) {
-        if (item) {
-            var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: $("#TramoCompleto").is(":checked") };
-            if (!ValidarDuplicado(row)) {
-                $("#grid").data("kendoGrid").dataSource.insert(item);
+        //if (item) {
+        for (var i = 0; i <= item.length - 1; i++) {
+            var row = { SpoolID: item[i].SpoolID, Etiqueta: item[i].Etiqueta, Cantidad: item[i].Cantidad, CantidadIngenieria: item[i].CantidadIngenieria, EsTramoCompleto: $("#TramoCompleto").is(":checked") };
+            $("#grid").data("kendoGrid").dataSource.insert(item[i]);
+        };
+            //var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: $("#TramoCompleto").is(":checked") };
+            //if (!ValidarDuplicado(row)) {
+                //$("#grid").data("kendoGrid").dataSource.insert(item);
                 CalcularCantidad();
-            } else {
-                displayMessage("notificationslabel0066", "", '2');
-            }
-        } else {
-            displayMessage("notificationslabel0055", "", '2');
-        }
+            //} else {
+            //    displayMessage("notificationslabel0066", "", '2');
+            //}
+        //} else {
+        //    displayMessage("notificationslabel0055", "", '2');
+        //}
     };
 
     function VentanaModal(id) {
@@ -1141,16 +1146,17 @@
                     $("#NumeroUnico").data("kendoAutoComplete").value(result[2].value);
 
                     resultadoJson = result[1].ListadoCortes;
-                    if ($("#grid").data("kendoGrid")) {
-                        if (resultadoJson.length > 0) {
-                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                            $("#grid").data("kendoGrid").dataSource.page(1);
-                        } else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                            $("#grid").data("kendoGrid").dataSource.page(0);
-                        };
-                        applySecurityPolicy(false);
-                    };
+                    AgregarRegistroGrid(result[1].ListadoCortes);
+                    //if ($("#grid").data("kendoGrid")) {
+                    //    if (resultadoJson.length > 0) {
+                    //        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                    //        $("#grid").data("kendoGrid").dataSource.page(1);
+                    //    } else {
+                    //        $("#grid").data("kendoGrid").dataSource.data([]);
+                    //        $("#grid").data("kendoGrid").dataSource.page(0);
+                    //    };
+                    //    applySecurityPolicy(false);
+                    //};
 
                     if ($("#TramoCompleto").is(":checked")) {
                         LimpiarMaquina();
@@ -1226,6 +1232,8 @@
     };
 
     function CalcularCantidad() {
+        ActivarTramoRecto();
+
         var dataSource = $("#grid").data("kendoGrid").dataSource.data(), sum = 0,
             Sobrante = 0, Merma = 0, mermaTeorica = 0,
             TramoCompleto = $("#TramoCompleto").is(":checked"),
@@ -1233,7 +1241,7 @@
             valorCantidad = $("#Cantidad").val() ? $("#Cantidad").val() : "0";
 
         //Total
-        for (var i = 0; i < dataSource.length; i++) {
+        for (var i = 0; i <= dataSource.length -1; i++) {
             var Cantidad = dataSource[i].Cantidad;
             sum += Cantidad;
             mermaTeorica += parseInt(valorMerma);
@@ -1249,7 +1257,7 @@
 
         if (Sobrante < 0) {
             displayMessage("notificationslabel0062", "", '2');
-            return;
+            //return;
         }
 
         $("#Total").val(sum);
@@ -1290,6 +1298,22 @@
         grid.refresh();
         $("#window").data("kendoWindow").close();
     };
+
+    function ActivarTramoRecto() {
+        var boolValidarMismaCantidadNU = false, Cantidad = 0;
+        for (var i = 0; i < datasource.length; i++) {
+            Cantidad = datasource[i].Cantidad;
+        };
+
+        if (Cantidad == $("#Cantidad").val()) {
+            boolValidarMismaCantidadNU = true;
+        };
+
+        if (boolValidarMismaCantidadNU) {
+            $("#TramoCompleto").attr("checked", "checked");
+            LimpiarMaquina();
+        };
+    }
 
     function ValidarCantidadTramoRecto(datasource) {
         var boolValidarMismaCantidadNU = false, Cantidad = 0;
