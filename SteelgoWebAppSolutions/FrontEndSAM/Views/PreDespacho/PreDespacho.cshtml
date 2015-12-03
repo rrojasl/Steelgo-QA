@@ -201,7 +201,7 @@
                     },
                 },
                 requestEnd: function (e) {
-                    if (e.response != undefined) {
+                    if (e.response.ReturnCode != undefined) {
                         if (e.response != undefined && e.response.ReturnCode == 401) {
                             removeUserSession();
                         } else {
