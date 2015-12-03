@@ -386,8 +386,11 @@
                     messageindexKendoCombobox(this);
                     Maquina = {};
                     this.value("");
+                    $("#hdnMermaTeorica").val("");
+                    CalcularCantidad();
+                }else{
+                    ObtenerMerma();
                 }
-                ObtenerMerma();
             },
             filter: "contains",
         });
@@ -469,6 +472,13 @@
                 if (!value || !e.sender.current()) {
                     NumeroUnico = {};
                     this.value("");
+                    $("#Total").val("");
+                    $("#Sobrante").val("");
+                    $("#Merma").val("");
+
+                    $("#hdnTotal").val("");
+                    $("#hdnSobrante").val("");
+                    $("#hdnMerma").val("");
                 }
                 ObtenerDetalleNumeroUnico();
                 //$("#ImprimirPickingTicket").attr("disabled", "disabled");
@@ -787,6 +797,7 @@
         var tr = $(e.currentTarget).closest("tr");
         grid.removeRow(tr);
         HabilitarBotonesAgregar();
+        CalcularCantidad();
     };
 
     function ValidarErroresEdicionImpresionDocumental(info) {
@@ -1301,11 +1312,12 @@
 
     function ActivarTramoRecto() {
         var boolValidarMismaCantidadNU = false, Cantidad = 0;
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
         for (var i = 0; i < datasource.length; i++) {
             Cantidad = datasource[i].Cantidad;
         };
 
-        if (Cantidad == $("#Cantidad").val()) {
+        if (Cantidad == $("#Cantidad").val() && datasource.length) {
             boolValidarMismaCantidadNU = true;
         };
 
