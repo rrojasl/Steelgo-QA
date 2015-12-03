@@ -44,9 +44,10 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
-                List<ListaCombos> listado = new List<ListaCombos>();
+                List<Operador> listado = new List<Operador>();
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -64,19 +65,20 @@ namespace BackEndSAM.DataAcces
 
                         patios = (from p in ctx.Sam3_Proyecto
                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
+                                  join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam3_PatioID
+                                  join up in ctx.Sam3_Rel_Usuario_Proyecto on p.ProyectoID equals up.ProyectoID
                                   where p.Activo && pa.Activo && eq.Activo
-                                  && proyectos.Contains(p.ProyectoID)
+                                  && up.UsuarioID == usuario.UsuarioID
                                   select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                         patios = patios.Where(x => x > 0).ToList();
 
                         listado = (from co in ctx2.Cortador
                                    where patios.Contains(co.PatioID)
-                                   select new ListaCombos
+                                   select new Operador
                                    {
-                                       id = co.CortadorID.ToString(),
-                                       value = co.Nombre
+                                       OperadorID = co.CortadorID.ToString(),
+                                       Nombre = co.Nombre
                                    }).AsParallel().Distinct().ToList();
                     }
                 }
