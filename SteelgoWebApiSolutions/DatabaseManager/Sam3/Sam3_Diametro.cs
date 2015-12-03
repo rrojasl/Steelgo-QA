@@ -20,7 +20,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_ItemCode_Diametro1 = new HashSet<Sam3_Rel_ItemCode_Diametro>();
             this.Sam3_Rel_ItemCodeSteelgo_Diametro = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
             this.Sam3_Rel_ItemCodeSteelgo_Diametro1 = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
-            this.Sam3_Cedula = new HashSet<Sam3_Cedula>();
+            this.Sam3_CatalogoCedulas = new HashSet<Sam3_CatalogoCedulas>();
         }
     
         public int DiametroID { get; set; }
@@ -34,6 +34,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro1 { get; set; }
         public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
         public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro1 { get; set; }
-        public virtual ICollection<Sam3_Cedula> Sam3_Cedula { get; set; }
+        public virtual ICollection<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
     }
 }

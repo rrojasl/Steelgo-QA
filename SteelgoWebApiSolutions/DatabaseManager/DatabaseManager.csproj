@@ -929,6 +929,9 @@
     <Compile Include="Sam3\Sam3_Bulto.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_CatalogoCedulas.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Catalogos.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -983,6 +986,9 @@
     <Compile Include="Sam3\Sam3_EquivalenciaAcero.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaCedula.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaColada.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -996,6 +1002,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaDiametro.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaEspesor.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaEstacion.cs">
@@ -1062,6 +1071,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaTipoJunta.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Espesor.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Estacion.cs">

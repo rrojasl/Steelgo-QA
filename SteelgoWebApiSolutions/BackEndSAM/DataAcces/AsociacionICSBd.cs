@@ -220,10 +220,10 @@ namespace BackEndSAM.DataAcces
                         lista = (from ics in ctx.Sam3_ItemCodeSteelgo
                                  join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rids.ItemCodeSteelgoID
                                  join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
-                                 join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                 join catced in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals catced.CatalogoCedulasID
                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                  join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                                 where ics.Activo && g.Activo && c.Activo && d1.Activo && d2.Activo
+                                 where ics.Activo && g.Activo && d1.Activo && d2.Activo
                                  && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
                                  select new ICSDatosAsociacion
                                  {
@@ -241,12 +241,19 @@ namespace BackEndSAM.DataAcces
                                      GrupoID = ics.GrupoID.ToString(),
                                      AceroID = ics.FamiliaAceroID.ToString(),
                                      CedulaID = ics.CedulaID.ToString(),
-                                     CedulaA = c.CedulaA,
-                                     CedulaB = c.CedulaB,
-                                     Libra = c.CedulaC,
-                                     Inch = c.CedulaIn.ToString(),
-                                     MM = c.CedulaMM.ToString(),
-                                     Espesor = c.Espesor.ToString(),
+                                     CedulaA = (from ced in ctx.Sam3_Cedula
+                                                    where ced.Activo && catced.CedulaA == ced.CedulaID
+                                                    select ced.Codigo).FirstOrDefault(),
+                                     CedulaB = (from ced in ctx.Sam3_Cedula
+                                                where ced.Activo && catced.CedulaB == ced.CedulaID
+                                                select ced.Codigo).FirstOrDefault(),
+                                     Libra = (from ced in ctx.Sam3_Cedula
+                                              where ced.Activo && catced.CedulaC == ced.CedulaID
+                                              select ced.Codigo).FirstOrDefault(),
+                                     Inch = catced.EspesorIn.ToString(),
+                                     MM = (from esp in ctx.Sam3_Espesor
+                                               where esp.Activo == 1 && catced.EspesorID == esp.EspesorID
+                                               select esp.Valor.ToString()).FirstOrDefault(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString()
                                  }).AsParallel().ToList();
