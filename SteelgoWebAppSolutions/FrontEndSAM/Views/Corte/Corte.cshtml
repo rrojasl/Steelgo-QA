@@ -458,9 +458,18 @@
                             }
 
                             return $UrlNumerosUnicos + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
-                        }
+                        },
                     }
                 },
+                requestEnd: function (e) {
+                    if (e.response != undefined) {
+                        if (e.response != undefined && e.response.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            displayMessage("notificationslabel0009", e.response.ReturnMessage[0], '2');
+                        }
+                    }
+                }
             },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
