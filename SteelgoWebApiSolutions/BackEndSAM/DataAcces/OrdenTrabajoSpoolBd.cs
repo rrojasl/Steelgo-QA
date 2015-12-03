@@ -44,12 +44,20 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                busqueda = busqueda.Replace("\\n", "-");
+                
                 if (busqueda == null || (busqueda.Length == 1 && busqueda.Contains("-")))
                 {
                     busqueda = "";
                 }
 
+                if ((busqueda.Length > 1 && busqueda.Contains("\\n")))
+                 {
+                  busqueda = busqueda.Replace("\\n", "-");
+                 }
+
+                if ((busqueda.Length == 1 && busqueda.Contains("-"))) {
+                    busqueda = "";
+                }
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     List<int> proyectos = new List<int>();

@@ -186,12 +186,16 @@
                 transport: {
                     read: {
                         url: function (op) {
-                            var val="";
+                            var val = "";
+                            var characterReg = /[`~!$%^&*()#_°¬|+=?;:'",.<>]/gi;
                             if(op.filter){
                                 val = op.filter.filters[0].value;
                                 val = val.replace(/-/g, '\\n');
                             }
                             //return $UrlDummyDespacho + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
+                            if(characterReg.test(val)) {
+                                val = "";
+                            }
                             return $UrlDummyDespacho + "&texto=" + val + "&token=" + Cookies.get("token") + "&combo=0";
                         }
                     }

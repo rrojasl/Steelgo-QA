@@ -444,10 +444,16 @@
                     read: {
                         url: function (op) {
                             var val = "";
+                            var characterReg = /[`~!$%^&*()#_°¬|+=?;:'",.<>]/gi;
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                                 val = val.replace(/-/g, '\\n');
                             }
+
+                            if (characterReg.test(val)) {
+                                val = "";
+                            }
+
                             return $UrlNumerosUnicos + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
