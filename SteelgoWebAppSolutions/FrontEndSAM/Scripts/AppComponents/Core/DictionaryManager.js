@@ -1241,8 +1241,8 @@ _dictionary = {
     },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
-        "es-MX": "IC Steelgo",
-        "en-US": "IC Steelgo"
+        "es-MX": "Catálogo ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo Catalog"
     },
     "ItemCodeSteelGo0002": {
         "es-MX": "Guardar",
@@ -1345,8 +1345,8 @@ _dictionary = {
         "en-US": "Associated ICS"
     },
     "AsociacionICS0004": {
-        "es-MX": "Asociación Item Code Steelgo",
-        "en-US": "Associated Item Code Steelgo"
+        "es-MX": "Catálogo Asociación Item Code Steelgo",
+        "en-US": "Association Item Code Steelgo Catalog"
     },
     "AsociacionICS0005": {
         "es-MX": "Se ha creado la asociación",
@@ -1382,7 +1382,7 @@ _dictionary = {
         "en-US": "Select spool"
     },
     "NotificacionDeficit0003": {
-        "es-MX": "Notificación de Déficit",
+        "es-MX": "Notificación del Déficit",
         "en-US": "Deficit notification"
     },
     "NotificacionDeficit0004": {
@@ -1449,9 +1449,17 @@ _dictionary = {
         "es-MX": "Debes ingresar un deficit para algun elemento del listado",
         "en-US": "You must type a deficit for one of the listed elements"
     },
+    "NotificacionDeficit0020": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "NotificacionDeficit0021": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
     //Revisión de deficit
     "RevisionDeficit0001": {
-        "es-MX": "Revisión de Déficit",
+        "es-MX": "Revisión del Déficit",
         "en-US": "Deficit review"
     },
     "RevisionDeficit0002": {
@@ -4258,8 +4266,8 @@ _dictionary = {
         "en-US": "Virtual Storage"
     },
     "ListaMateriales0021": {
-        "es-MX": "Listado Materiales Packing List",
-        "en-US": "Materials List Packing List"
+        "es-MX": "Listado Materiales",
+        "en-US": "Materials List"
     },
     "ListaMateriales0022": {
         "es-MX": "Item Code Steelgo",
@@ -4267,8 +4275,8 @@ _dictionary = {
     },
     // Detalle Numero Unico
     "DetalleNumeroUnico0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "DetalleNumeroUnico0002": {
         "es-MX": "Número único: ",
@@ -4395,8 +4403,8 @@ _dictionary = {
         "en-US": "Close"
     },
     "DetalleNumeroUnico0033": {
-        "es-MX": "Listado Materiales Packing List",
-        "en-US": "Materials List Packing List"
+        "es-MX": "Listado de Materiales",
+        "en-US": "Materials List"
     },
     "DetalleNumeroUnico0034": {
         "es-MX": "Detalle Número Único",
@@ -4468,7 +4476,7 @@ _dictionary = {
         "en-US": "Total Other Outputs"
     },
     "ListadoMaterialesItemCode0017": {
-        "es-MX": "Listado Materiales por Item Code",
+        "es-MX": "Listado de Materiales por Item Code",
         "en-US": "Materials List by Item Code"
     },
     "ListadoMaterialesItemCode0018": {
@@ -4647,6 +4655,10 @@ _dictionary = {
     "Almacenaje0024": {
         "es-MX": "Materiales",
         "en-US": "Materials"
+    },
+    "Almacenaje0025": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Reception & Storage Dashboard"
     },
     //Despacho
     "Despacho0001": {
@@ -5008,8 +5020,8 @@ _dictionary = {
         "en-US": "Assume incongruence."
     },
     "Corte0040": {
-        "es-MX": "Listado Corte",
-        "en-US": "Cut List"
+        "es-MX": "Dashboard Despacho y Corte",
+        "en-US": "Dispatch & Cut Dashboard"
     },
     "Corte0041": {
         "es-MX": "Proyecto",
@@ -5398,8 +5410,8 @@ _dictionary = {
     },
     //Listado Corte
     "ListadoCorte0001": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Listados",
+        "en-US": "Lists"
     },
     "ListadoCorte0002": {
         "es-MX": "Listado Corte",
