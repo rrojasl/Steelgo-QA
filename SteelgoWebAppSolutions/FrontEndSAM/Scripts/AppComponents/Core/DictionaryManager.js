@@ -1231,6 +1231,14 @@ _dictionary = {
         "es-MX": "Catálogos",
         "en-US": "Catalogs"
     },
+    "ListadoCatalogos0043": {
+        "es-MX": "El catálogo de cédulas ha sido actualizado, pero han habido algunos errores",
+        "en-US": "The documents catalog has been updated, but there were few errors"
+    },
+    "ListadoCatalogos0044": {
+        "es-MX": "No se actualizo el catálogo, verifique los errores",
+        "en-US": "The documents catalog was not updated, verify the errors"
+    },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "IC Steelgo",
