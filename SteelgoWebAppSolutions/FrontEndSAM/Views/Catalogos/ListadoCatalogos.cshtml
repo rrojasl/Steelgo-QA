@@ -454,14 +454,19 @@
             tmp!=$("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp) ? encabezados.push(tmp) : 0;
         }
         csvMimeType+=encabezados.join(",")+"\n";
-        datos.forEach(function(modelo){
-            var doctmp=[];
-            encabezados.forEach(function(e){
-                doctmp.push(modelo[e]);
+        try{
+            datos.forEach(function(modelo){
+                var doctmp=[];
+                encabezados.forEach(function(e){
+                    doctmp.push(modelo[e]);
+                })
+                csvMimeType+=doctmp.join(",")+"\n";
+                throw 1;
             })
-            csvMimeType+=doctmp.join(",")+"\n";
-        })
-        return csvMimeType;
+        }catch(e){
+            if(e===1) return csvMimeType;
+        }
+        
     }
 
     function getUrl() {
