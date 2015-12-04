@@ -25,16 +25,12 @@ namespace DatabaseManager.Sam3
         public Nullable<int> CedulaB { get; set; }
         public Nullable<int> CedulaC { get; set; }
         public decimal EspesorIn { get; set; }
-        public int EspesorID { get; set; }
+        public decimal EspesorMM { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Diametro Sam3_Diametro { get; set; }
-        public virtual Sam3_Espesor Sam3_Espesor { get; set; }
         public virtual ICollection<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
-        public virtual Sam3_Cedula Sam3_Cedula { get; set; }
-        public virtual Sam3_Cedula Sam3_Cedula1 { get; set; }
-        public virtual Sam3_Cedula Sam3_Cedula2 { get; set; }
     }
 }

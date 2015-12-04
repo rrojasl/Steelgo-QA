@@ -54,7 +54,8 @@
     };
     datosRegistro={};
     nuevasCedulas=[];
-    porPintar=[];
+    porPintar = [];
+    mensajesError = [];
     contadorDataBound = 0;
     tiposCSV=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
     modelos = {
@@ -636,12 +637,22 @@
             if (Error(result)) {
                 var counter=0;
                 result.forEach(function(n){
-                    n.Correcta ? counter++ : porPintar.push(n);
+                    n.Correcta ? counter++ : porPintar.push(n); mensajesError.push(n.MensajeError);
+                    //mensajesError = n.MensajeError;
+                    //console.log(n);
                 });
+                console.log(mensajesError);
                 if(counter==0){
                     displayMessage("ListadoCatalogos0044", "", '2');
+                    //mensajesError.forEach(function (m) {
+                        displayMessage("notificationslabel0009", mensajesError, '2');
+                    //});
+                    
                 }else if(result.length>counter>0){
                     displayMessage("ListadoCatalogos0043", "", '1');
+                    //mensajesError.forEach(function (m) {
+                        displayMessage("notificationslabel0009", mensajesError, '2');
+                    //});
                 }else if(counter===result.length){
                     displayMessage("ListadoCatalogos0018", "", '0');
                 }
