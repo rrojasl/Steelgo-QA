@@ -1332,6 +1332,10 @@ _dictionary = {
         "es-MX": "Este elemento aún no existe en la base de datos",
         "en-US": "This element doesnt exist yet in the database"
     },
+    "ItemCodeSteelGo0024": {
+        "es-MX": "ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo"
+    },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
