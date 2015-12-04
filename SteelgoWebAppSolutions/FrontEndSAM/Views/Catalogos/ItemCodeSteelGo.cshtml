@@ -156,6 +156,7 @@
             //Espesor: { type: "number", validation: { required: true }, editable: false },
             Peso: { type: "number", validation: { required: true }, editable: true },
             Area: { type: "number", validation: { required: true }, editable: true },
+            TieneD2: { type: "string", validation: { required: true } },
         }
     };
 
@@ -280,6 +281,20 @@
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].GrupoID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Grupo = data.nombre;
+
+                                if (data.id)
+                                {
+                                    $Grupo.Grupo.read({}, { grupoID: data.id, token: Cookies.get("token") }).done(function (result) {
+                                            $("#grid").data("kendoGrid")._data[data.posicion].TieneD2 = result;
+                                            if (result) {
+                                                $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
+                                            } else {
+                                                $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
+                                            }
+                                    });
+                                }
+                                //$("#grid").data("kendoGrid")._data[data.posicion].TieneD2 = "Si";
+                                //$("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
                             },
                             dataTextField: "value",
                             dataValueField: "id"
@@ -327,6 +342,7 @@
                 //{ field: "Espesor", title: _dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "Peso", title: _dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "Area", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                { field: "TieneD2", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], width: "150px", hidden:true },
                 { command: "edit", title: "Editar", width: "91px" },
                 { command: "destroy", title: "Borrar", width: "91px" }
 
@@ -551,6 +567,14 @@
                 }
             },
             edit: function (e) {
+                if (e.model.TieneD2 == "No") {
+                    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
+                    e.model.Diametro1ID = 119;
+                    e.model.Diametro1 = 0;
+                } else {
+                    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
+                };
+
                 if (e.model.id) {
                     $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change", function () {
                         if (editado == false) {

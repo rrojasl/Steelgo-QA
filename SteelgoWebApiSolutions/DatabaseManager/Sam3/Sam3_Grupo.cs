@@ -25,6 +25,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> TipoMaterialID { get; set; }
+        public Nullable<bool> TieneD2 { get; set; }
     
         public virtual ICollection<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }

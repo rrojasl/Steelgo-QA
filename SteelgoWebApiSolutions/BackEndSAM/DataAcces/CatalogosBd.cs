@@ -1927,7 +1927,8 @@ namespace BackEndSAM.DataAcces
                                      Inch = cat.EspesorIn.ToString(),
                                      MM = cat.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
-                                     Area = ics.Area.ToString()
+                                     Area = ics.Area.ToString(),
+                                     TieneD2 = g.TieneD2 == null ? "No" : g.TieneD2 == true ? "Si" : "No"
                                  }).AsParallel().ToList();
 
                         lista.ForEach(x =>
