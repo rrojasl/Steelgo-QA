@@ -16,6 +16,7 @@ namespace BackEndSAM.Models
         public string NumeroUnico { get; set; }
         public string Etiqueta { get; set; }
         public List<NumerosUnicos> NumerosUnicos { get; set; }
+        public int MaterialSpoolID { get; set; } 
 
         public PreDespacho()
         {

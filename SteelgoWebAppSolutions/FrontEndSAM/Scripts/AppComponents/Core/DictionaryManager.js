@@ -6474,6 +6474,10 @@ _dictionary = {
         "es-MX": "La cantidad es mayor al disponible.",
         "en-US": "The amount is greater than available."
     },
+    "notificationslabel0092": {
+        "es-MX": "Mensaje de error: No hay datos",
+        "en-US": "Error messsage: There is no data"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -818,6 +818,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="TipoMaterialID" Type="int" />
+          <Property Name="TieneD2" Type="bit" />
         </EntityType>
         <EntityType Name="Sam3_Incidencia">
           <Key>
@@ -10738,6 +10739,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" FromRole="Sam3_Grupo" ToRole="Sam3_ItemCodeSteelgo" />
           <Property Name="TipoMaterialID" Type="Int32" />
           <NavigationProperty Name="Sam3_TipoMaterial" Relationship="ModelSam3.FK__Sam3_Grup__TipoM__5654B625" FromRole="Sam3_Grupo" ToRole="Sam3_TipoMaterial" />
+          <Property Name="TieneD2" Type="Boolean" />
         </EntityType>
         <Association Name="FK__Sam3_Item__Grupo__6E0C4425">
           <End Type="ModelSam3.Sam3_Grupo" Role="Sam3_Grupo" Multiplicity="0..1" />
@@ -14196,6 +14198,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Grupo">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Grupo">
               <MappingFragment StoreEntitySet="Sam3_Grupo">
+                <ScalarProperty Name="TieneD2" ColumnName="TieneD2" />
                 <ScalarProperty Name="TipoMaterialID" ColumnName="TipoMaterialID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />

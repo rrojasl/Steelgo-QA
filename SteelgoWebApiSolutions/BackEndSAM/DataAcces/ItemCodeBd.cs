@@ -574,5 +574,44 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Obtiene los diametros
+        /// </summary>
+        /// <returns>lista de diametros</returns>
+        public object ObtenerDiametroCero(int Diametro, Sam3_Usuario usuario)
+        {
+            try
+            {
+                ListaCombos registro = new ListaCombos();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    registro = (from r in ctx.Sam3_Diametro
+                                where r.Activo && r.Valor == Diametro
+                                select new ListaCombos
+                                {
+                                    id = r.DiametroID.ToString(),
+                                    value = r.Valor.ToString()
+                                }).FirstOrDefault();
+
+                    return registro;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(string.Format("Error al obtener los diametros"));
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

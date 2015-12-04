@@ -1450,8 +1450,6 @@ namespace BackEndSAM.DataAcces
                                     }
 
                                     decimal EspesorMM = Convert.ToDecimal(item.CedulaMM);
-                                    //List<decimal> idEspesor = ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && (x.CedulaID == idCedulaC || x.CedulaID == idCedulaA || x.CedulaID == idCedulaB) && x.Valor == EspesorMM && x.Activo == 1).Select(x => x.Valor).AsParallel().ToList();
-
                                     if (!String.IsNullOrEmpty(item.CedulaA) && item.Correcta)
                                     {
                                         if (!ctx.Sam3_Cedula.Where(x => x.Codigo == item.CedulaA && x.Activo).Any())
@@ -1685,73 +1683,10 @@ namespace BackEndSAM.DataAcces
                                     idCedulaC = ctx.Sam3_Cedula.Where(x => x.Codigo == item.CedulaC && x.Activo).Select(x => x.CedulaID).AsParallel().SingleOrDefault();
                                     EspesorMM = Convert.ToDecimal(item.CedulaMM);
 
-                                    if (idCedulaA == 0)
-                                    {
-                                        if (idCedulaB == 0)
-                                        {
-                                            if (idCedulaC == 0)
-                                            {
-                                                //abyc vacias
-                                                //no busco por cedulas 
-                                                nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                          where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM /*&& (cat.CedulaA == 0 || cat.CedulaB == 0 || cat.CedulaC == 0)*/)
-                                                                 select cat).AsParallel().SingleOrDefault();
+                                    nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
+                                                     where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM)
+                                                     select cat).AsParallel().SingleOrDefault();
 
-                                            }
-                                            else
-                                            {
-                                                //busco por C
-                                                nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                          where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaC == idCedulaC))
-                                                                 select cat).AsParallel().SingleOrDefault();
-                                            }
-                                        }
-                                        else if (idCedulaC == 0)
-                                        {
-                                            //busco por B
-                                            nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                             where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaB == idCedulaB))
-                                                             select cat).AsParallel().SingleOrDefault();
-                                        }
-                                        else
-                                        {
-                                            //busco por b y c
-                                            nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                             where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaB == idCedulaB || cat.CedulaC == idCedulaC))
-                                                             select cat).AsParallel().SingleOrDefault();
-                                        }
-                                    }
-                                    else if (idCedulaB == 0)
-                                    {
-                                        if (idCedulaC == 0)
-                                        {
-                                            //busco por A
-                                            nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                             where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaA == idCedulaA))
-                                                             select cat).AsParallel().SingleOrDefault();
-                                        }
-                                        else
-                                        {
-                                            //busco por A y C
-                                            nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                             where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaA == idCedulaA || cat.CedulaC == idCedulaC))
-                                                             select cat).AsParallel().SingleOrDefault();
-                                        }
-                                    }
-                                    else if (idCedulaC == 0)
-                                    {
-                                        //busco por A y b
-                                        nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                         where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaA == idCedulaA || cat.CedulaB == idCedulaB))
-                                                         select cat).AsParallel().SingleOrDefault();
-                                    }
-                                    else
-                                    {
-                                        //busco por todas
-                                        nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                         where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM || (cat.CedulaA == idCedulaA || cat.CedulaB == idCedulaB || cat.CedulaC == idCedulaC))
-                                                         select cat).AsParallel().SingleOrDefault();
-                                    }
 
                                     if (item.Correcta)
                                     {
@@ -1793,7 +1728,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         Correcta = item.Correcta,
                                         Diametro1 = item.Diametro1,
-                                        CedulaID = nuevoElemento.CatalogoCedulasID.ToString(),
+                                        CedulaID = nuevoElemento == null ? "0" : nuevoElemento.CatalogoCedulasID.ToString(),
                                         CedulaA = item.CedulaA,
                                         CedulaB = item.CedulaB,
                                         CedulaC = item.CedulaC,
@@ -1960,8 +1895,11 @@ namespace BackEndSAM.DataAcces
                                      Rel_ICS_DiametroID = diam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                      Diametro1ID = diam.Diametro1ID.ToString(),
                                      Diametro1 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro1ID select d.Valor.ToString()).FirstOrDefault(),
-                                     Diametro2ID = diam.Diametro2ID.ToString(),
-                                     Diametro2 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
+                                     Diametro2ID = g.TieneD2 == null || g.TieneD2==false // Si no tiene D2 se muestra la opcion de cero
+                                                    ? (ctx.Sam3_Diametro.Where(x => x.Activo && x.Valor == 0).FirstOrDefault().DiametroID.ToString()) : diam.Diametro2ID.ToString(),
+                                     Diametro2 = g.TieneD2 == null || g.TieneD2 == false // Si no tiene D2 se muestra la opcion de cero
+                                                ? (ctx.Sam3_Diametro.Where(x => x.Activo && x.Valor == 0).FirstOrDefault().Valor.ToString()) :
+                                                (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
                                      Grupo = g.Nombre,
                                      GrupoID = ics.GrupoID.ToString(),
                                      AceroID = ics.FamiliaAceroID.ToString(),
@@ -1981,7 +1919,8 @@ namespace BackEndSAM.DataAcces
                                      Inch = cat.EspesorIn.ToString(),
                                      MM = cat.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
-                                     Area = ics.Area.ToString()
+                                     Area = ics.Area.ToString(),
+                                     TieneD2 = g.TieneD2 == null ? "No" : g.TieneD2 == true ? "Si" : "No"
                                  }).AsParallel().ToList();
 
                         lista.ForEach(x =>
