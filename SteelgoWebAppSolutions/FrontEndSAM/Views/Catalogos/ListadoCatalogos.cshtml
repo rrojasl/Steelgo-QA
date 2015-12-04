@@ -454,14 +454,19 @@
             tmp!=$("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp) ? encabezados.push(tmp) : 0;
         }
         csvMimeType+=encabezados.join(",")+"\n";
-        datos.forEach(function(modelo){
-            var doctmp=[];
-            encabezados.forEach(function(e){
-                doctmp.push(modelo[e]);
+        try{
+            datos.forEach(function(modelo){
+                var doctmp=[];
+                encabezados.forEach(function(e){
+                    doctmp.push(modelo[e]);
+                })
+                csvMimeType+=doctmp.join(",")+"\n";
+                throw 1;
             })
-            csvMimeType+=doctmp.join(",")+"\n";
-        })
-        return csvMimeType;
+        }catch(e){
+            if(e===1) return csvMimeType;
+        }
+        
     }
 
     function getUrl() {
@@ -633,32 +638,27 @@
     }
 
     function enviarCedulas(data) {
+        loadingStart();
         $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
             if (Error(result)) {
                 var counter=0;
                 result.forEach(function(n){
                     n.Correcta ? counter++ : porPintar.push(n); mensajesError.push(n.MensajeError);
-                    //mensajesError = n.MensajeError;
-                    //console.log(n);
                 });
-                console.log(mensajesError);
                 if(counter==0){
                     displayMessage("ListadoCatalogos0044", "", '2');
-                    //mensajesError.forEach(function (m) {
                         displayMessage("notificationslabel0009", mensajesError, '2');
-                    //});
                     
                 }else if(result.length>counter>0){
                     displayMessage("ListadoCatalogos0043", "", '1');
-                    //mensajesError.forEach(function (m) {
                         displayMessage("notificationslabel0009", mensajesError, '2');
-                    //});
                 }else if(counter===result.length){
                     displayMessage("ListadoCatalogos0018", "", '0');
                 }
                 porPintar.length>0 ? cedulasErroneas=true : null;
                 regenerarGrid();
             }
+            loadingStart();
         })
     };
 
