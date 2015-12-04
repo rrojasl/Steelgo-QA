@@ -633,6 +633,7 @@
     }
 
     function enviarCedulas(data) {
+        loadingStart();
         $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
             if (Error(result)) {
                 var counter=0;
@@ -652,6 +653,7 @@
                 porPintar.length>0 ? cedulasErroneas=true : null;
                 regenerarGrid();
             }
+            loadingStart();
         })
     };
 
