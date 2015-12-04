@@ -39,10 +39,10 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div id="ProyectoDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                @*<div id="ProyectoDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                     <label id="ImpresionDocumental0004"></label>
                                     <input id="ProyectoID" />
-                                </div>
+                                </div>*@
                                 <div id="SpoolDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                     <label id="ImpresionDocumental0005"></label>
                                     <input id="SpoolID" class="" />
@@ -113,25 +113,25 @@
         $("#ImprimirPickingTicket").click(function () { ImprimirPickingTicket(); });
         $("#ImprimirTraveler").click(function () { ImprimirTraveler(); });
 
-        $("#ProyectoID").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ProyectoID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                LimpiarCamposProyecto();
-                if (!value || this.selectedIndex == -1) {
-                    messageindexKendoCombobox(this);
-                    Proyecto = {};
-                    this.value("");
-                }
-            },
-            filter: "contains",
-        });
-        ObtenerProyecto();
+        //$("#ProyectoID").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ProyectoID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        LimpiarCamposProyecto();
+        //        if (!value || this.selectedIndex == -1) {
+        //            messageindexKendoCombobox(this);
+        //            Proyecto = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerProyecto();
 
         $("#SpoolID").kendoAutoComplete({
             dataTextField: "NumeroControl",
@@ -148,7 +148,8 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $UrlImpresionDocumental + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
+                            //return $UrlImpresionDocumental + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
+                            return $UrlImpresionDocumental + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
                 },
@@ -218,10 +219,10 @@
         });
     };
 
-    function CargarProyecto(id, value) {
-        Proyecto = {};
-        Proyecto = { ProyectoID: parseInt(id), Nombre: value };
-    };
+    //function CargarProyecto(id, value) {
+    //    Proyecto = {};
+    //    Proyecto = { ProyectoID: parseInt(id), Nombre: value };
+    //};
 
     function CargarNumeroControl(id, value) {
         NumeroControl = {};
@@ -232,11 +233,11 @@
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
 
-    function ObtenerProyecto() {
-        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("ProyectoID", result);
-        });
-    };
+    //function ObtenerProyecto() {
+    //    $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+    //        ControlErroresObjetosComboBox("ProyectoID", result);
+    //    });
+    //};
     function LimpiarCamposProyecto() {
         NumeroControl = {};
         $("#SpoolID").data("kendoAutoComplete").value("");
@@ -247,7 +248,7 @@
         if (NumeroControl.NumeroControlID) {
             loadingStart();
 
-            $ImpresionDocumental.ImpresionDocumental.read({ proyectoID: Proyecto.ProyectoID, NumeroControl: NumeroControl.NumeroControlID, obtenerFormato: 0, token: Cookies.get("token") }).done(function (result) {
+            $ImpresionDocumental.ImpresionDocumental.read({ NumeroControl: NumeroControl.NumeroControlID, obtenerFormato: 0, token: Cookies.get("token") }).done(function (result) {
                 if (!result.length) {
                     $("#hdnImprimirDocumentos").val("1");
                     $("#ImprimirTraveler").removeAttr("disabled", "disabled");
@@ -300,7 +301,7 @@
                 window.location.href = _UrlCorte + "?leng=" + $("#language").data("kendoDropDownList").value() + "&MaterialSpoolID=" + materialSpoolID + "&MaterialPendiente=1";
                 break;
             case "Accesorio":
-                window.location.href = _UrlDespacho + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + NumeroControl.NumeroControlID + "&NumeroControl=" + NumeroControl.NumeroControl + "&ProyectoID=" + Proyecto.ProyectoID;
+                window.location.href = _UrlDespacho + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + NumeroControl.NumeroControlID + "&NumeroControl=" + NumeroControl.NumeroControl;
                 break;
         };
     };
@@ -309,8 +310,9 @@
         loadingStart();
         if (validarRequeridosImpresionDocumental()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
-            var Listado = { ProyectoID: "", NumeroControl: "" };
-            Listado.ProyectoID = Proyecto.ProyectoID;
+            //var Listado = { ProyectoID: "", NumeroControl: "" };
+            var Listado = { NumeroControl: "" };
+            //Listado.ProyectoID = Proyecto.ProyectoID;
             Listado.NumeroControl = NumeroControl.NumeroControl;
 
             if (datasource.length) {
@@ -335,7 +337,8 @@
     };
     function ImprimirTraveler() {
         if ($("#hdnImprimirDocumentos").val() == 1){
-            window.open($BackEndSAMUri + "/backendsam/api/ImpresionDocumental/ImpresionDocumental?proyectoID=" + Proyecto.ProyectoID + "&NumeroControl=" + NumeroControl.NumeroControlID + "&obtenerFormato=1&token=" + Cookies.get("token"));
+            //window.open($BackEndSAMUri + "/backendsam/api/ImpresionDocumental/ImpresionDocumental?proyectoID=" + Proyecto.ProyectoID + "&NumeroControl=" + NumeroControl.NumeroControlID + "&obtenerFormato=1&token=" + Cookies.get("token"));
+            window.open($BackEndSAMUri + "/backendsam/api/ImpresionDocumental/ImpresionDocumental?NumeroControl=" + NumeroControl.NumeroControlID + "&obtenerFormato=1&token=" + Cookies.get("token"));
         }
     };
 
