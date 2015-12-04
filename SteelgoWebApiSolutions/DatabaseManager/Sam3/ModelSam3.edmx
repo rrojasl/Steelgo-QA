@@ -38,7 +38,7 @@
           <Property Name="CedulaB" Type="int" />
           <Property Name="CedulaC" Type="int" />
           <Property Name="EspesorIn" Type="decimal" Precision="7" Scale="4" Nullable="false" />
-          <Property Name="EspesorID" Type="int" Nullable="false" />
+          <Property Name="EspesorMM" Type="decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
@@ -2392,18 +2392,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_CatalogoCedulas">
               <PropertyRef Name="DiametroID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Cata__Espes__424DBD78">
-          <End Role="Sam3_Espesor" Type="Self.Sam3_Espesor" Multiplicity="1" />
-          <End Role="Sam3_CatalogoCedulas" Type="Self.Sam3_CatalogoCedulas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Espesor">
-              <PropertyRef Name="EspesorID" />
-            </Principal>
-            <Dependent Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="EspesorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5187,10 +5175,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Cata__Diame__3E7D2C94" Association="Self.FK__Sam3_Cata__Diame__3E7D2C94">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
-            <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cata__Espes__424DBD78" Association="Self.FK__Sam3_Cata__Espes__424DBD78">
-            <End Role="Sam3_Espesor" EntitySet="Sam3_Espesor" />
             <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Chof__Trans__3726238F" Association="Self.FK__Sam3_Chof__Trans__3726238F">
@@ -9419,38 +9403,22 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
           </AssociationSet>
-          <EntitySet Name="Sam3_CatalogoCedulas" EntityType="ModelSam3.Sam3_CatalogoCedulas" />
           <EntitySet Name="Sam3_EquivalenciaEspesor" EntityType="ModelSam3.Sam3_EquivalenciaEspesor" />
           <EntitySet Name="Sam3_Espesor" EntityType="ModelSam3.Sam3_Espesor" />
+          <EntitySet Name="Sam3_Cedula" EntityType="ModelSam3.Sam3_Cedula" />
+          <EntitySet Name="Sam3_EquivalenciaCedula" EntityType="ModelSam3.Sam3_EquivalenciaCedula" />
+          <AssociationSet Name="FK__Sam3_Grup__TipoM__5654B625" Association="ModelSam3.FK__Sam3_Grup__TipoM__5654B625">
+            <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
+            <End Role="Sam3_Grupo" EntitySet="Sam3_Grupo" />
+          </AssociationSet>
+          <EntitySet Name="Sam3_CatalogoCedulas" EntityType="ModelSam3.Sam3_CatalogoCedulas" />
           <AssociationSet Name="FK__Sam3_Cata__Diame__3E7D2C94" Association="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
-            <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cata__Espes__424DBD78" Association="ModelSam3.FK__Sam3_Cata__Espes__424DBD78">
-            <End Role="Sam3_Espesor" EntitySet="Sam3_Espesor" />
             <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Item__Cedul__443605EA" Association="ModelSam3.FK__Sam3_Item__Cedul__443605EA">
             <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
-          </AssociationSet>
-          <EntitySet Name="Sam3_Cedula" EntityType="ModelSam3.Sam3_Cedula" />
-          <AssociationSet Name="FK__Sam3_Cata__Cedul__3F7150CD" Association="ModelSam3.FK__Sam3_Cata__Cedul__3F7150CD">
-            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
-            <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cata__Cedul__40657506" Association="ModelSam3.FK__Sam3_Cata__Cedul__40657506">
-            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
-            <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cata__Cedul__4159993F" Association="ModelSam3.FK__Sam3_Cata__Cedul__4159993F">
-            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
-            <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
-          </AssociationSet>
-          <EntitySet Name="Sam3_EquivalenciaCedula" EntityType="ModelSam3.Sam3_EquivalenciaCedula" />
-          <AssociationSet Name="FK__Sam3_Grup__TipoM__5654B625" Association="ModelSam3.FK__Sam3_Grup__TipoM__5654B625">
-            <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
-            <End Role="Sam3_Grupo" EntitySet="Sam3_Grupo" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
@@ -12423,27 +12391,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Sam3_CatalogoCedulas">
-          <Key>
-            <PropertyRef Name="CatalogoCedulasID" />
-          </Key>
-          <Property Name="CatalogoCedulasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DiametroID" Type="Int32" />
-          <Property Name="CedulaA" Type="Int32" />
-          <Property Name="CedulaB" Type="Int32" />
-          <Property Name="CedulaC" Type="Int32" />
-          <Property Name="EspesorIn" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
-          <Property Name="EspesorID" Type="Int32" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="UsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sam3_Diametro" Relationship="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_Diametro" />
-          <NavigationProperty Name="Sam3_Espesor" Relationship="ModelSam3.FK__Sam3_Cata__Espes__424DBD78" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_Espesor" />
-          <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Item__Cedul__443605EA" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_ItemCodeSteelgo" />
-          <NavigationProperty Name="Sam3_Cedula" Relationship="ModelSam3.FK__Sam3_Cata__Cedul__3F7150CD" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_Cedula" />
-          <NavigationProperty Name="Sam3_Cedula1" Relationship="ModelSam3.FK__Sam3_Cata__Cedul__40657506" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_Cedula" />
-          <NavigationProperty Name="Sam3_Cedula2" Relationship="ModelSam3.FK__Sam3_Cata__Cedul__4159993F" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_Cedula" />
-        </EntityType>
         <EntityType Name="Sam3_EquivalenciaEspesor">
           <Key>
             <PropertyRef Name="EquivalenciaEspesorID" />
@@ -12466,44 +12413,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="Int32" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />
-          <NavigationProperty Name="Sam3_CatalogoCedulas" Relationship="ModelSam3.FK__Sam3_Cata__Espes__424DBD78" FromRole="Sam3_Espesor" ToRole="Sam3_CatalogoCedulas" />
         </EntityType>
-        <Association Name="FK__Sam3_Cata__Diame__3E7D2C94">
-          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="0..1" />
-          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Diametro">
-              <PropertyRef Name="DiametroID" />
-            </Principal>
-            <Dependent Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="DiametroID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Cata__Espes__424DBD78">
-          <End Type="ModelSam3.Sam3_Espesor" Role="Sam3_Espesor" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Espesor">
-              <PropertyRef Name="EspesorID" />
-            </Principal>
-            <Dependent Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="EspesorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Item__Cedul__443605EA">
-          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="0..1" />
-          <End Type="ModelSam3.Sam3_ItemCodeSteelgo" Role="Sam3_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="CatalogoCedulasID" />
-            </Principal>
-            <Dependent Role="Sam3_ItemCodeSteelgo">
-              <PropertyRef Name="CedulaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Sam3_Cedula">
           <Key>
             <PropertyRef Name="CedulaID" />
@@ -12515,46 +12425,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sam3_CatalogoCedulas" Relationship="ModelSam3.FK__Sam3_Cata__Cedul__3F7150CD" FromRole="Sam3_Cedula" ToRole="Sam3_CatalogoCedulas" />
-          <NavigationProperty Name="Sam3_CatalogoCedulas1" Relationship="ModelSam3.FK__Sam3_Cata__Cedul__40657506" FromRole="Sam3_Cedula" ToRole="Sam3_CatalogoCedulas" />
-          <NavigationProperty Name="Sam3_CatalogoCedulas2" Relationship="ModelSam3.FK__Sam3_Cata__Cedul__4159993F" FromRole="Sam3_Cedula" ToRole="Sam3_CatalogoCedulas" />
-        </EntityType>
-        <Association Name="FK__Sam3_Cata__Cedul__3F7150CD">
-          <End Type="ModelSam3.Sam3_Cedula" Role="Sam3_Cedula" Multiplicity="0..1" />
-          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Cedula">
-              <PropertyRef Name="CedulaID" />
-            </Principal>
-            <Dependent Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="CedulaA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Cata__Cedul__40657506">
-          <End Type="ModelSam3.Sam3_Cedula" Role="Sam3_Cedula" Multiplicity="0..1" />
-          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Cedula">
-              <PropertyRef Name="CedulaID" />
-            </Principal>
-            <Dependent Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="CedulaB" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Cata__Cedul__4159993F">
-          <End Type="ModelSam3.Sam3_Cedula" Role="Sam3_Cedula" Multiplicity="0..1" />
-          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Cedula">
-              <PropertyRef Name="CedulaID" />
-            </Principal>
-            <Dependent Role="Sam3_CatalogoCedulas">
-              <PropertyRef Name="CedulaC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+          </EntityType>
         <EntityType Name="Sam3_EquivalenciaCedula">
           <Key>
             <PropertyRef Name="EquivalenciaCedulaID" />
@@ -12575,6 +12446,47 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Grupo">
               <PropertyRef Name="TipoMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sam3_CatalogoCedulas">
+          <Key>
+            <PropertyRef Name="CatalogoCedulasID" />
+          </Key>
+          <Property Name="CatalogoCedulasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiametroID" Type="Int32" />
+          <Property Name="CedulaA" Type="Int32" />
+          <Property Name="CedulaB" Type="Int32" />
+          <Property Name="CedulaC" Type="Int32" />
+          <Property Name="EspesorIn" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+          <Property Name="EspesorMM" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_Diametro" Relationship="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_Diametro" />
+          <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Item__Cedul__443605EA" FromRole="Sam3_CatalogoCedulas" ToRole="Sam3_ItemCodeSteelgo" />
+        </EntityType>
+        <Association Name="FK__Sam3_Cata__Diame__3E7D2C94">
+          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_CatalogoCedulas">
+              <PropertyRef Name="DiametroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Item__Cedul__443605EA">
+          <End Type="ModelSam3.Sam3_CatalogoCedulas" Role="Sam3_CatalogoCedulas" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_ItemCodeSteelgo" Role="Sam3_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_CatalogoCedulas">
+              <PropertyRef Name="CatalogoCedulasID" />
+            </Principal>
+            <Dependent Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="CedulaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14978,22 +14890,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sam3_CatalogoCedulas">
-            <EntityTypeMapping TypeName="ModelSam3.Sam3_CatalogoCedulas">
-              <MappingFragment StoreEntitySet="Sam3_CatalogoCedulas">
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="EspesorID" ColumnName="EspesorID" />
-                <ScalarProperty Name="EspesorIn" ColumnName="EspesorIn" />
-                <ScalarProperty Name="CedulaC" ColumnName="CedulaC" />
-                <ScalarProperty Name="CedulaB" ColumnName="CedulaB" />
-                <ScalarProperty Name="CedulaA" ColumnName="CedulaA" />
-                <ScalarProperty Name="DiametroID" ColumnName="DiametroID" />
-                <ScalarProperty Name="CatalogoCedulasID" ColumnName="CatalogoCedulasID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sam3_EquivalenciaEspesor">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaEspesor">
               <MappingFragment StoreEntitySet="Sam3_EquivalenciaEspesor">
@@ -15041,6 +14937,22 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="Sam3_CedulaID" ColumnName="Sam3_CedulaID" />
                 <ScalarProperty Name="Sam2_CedulaID" ColumnName="Sam2_CedulaID" />
                 <ScalarProperty Name="EquivalenciaCedulaID" ColumnName="EquivalenciaCedulaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_CatalogoCedulas">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_CatalogoCedulas">
+              <MappingFragment StoreEntitySet="Sam3_CatalogoCedulas">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="EspesorMM" ColumnName="EspesorMM" />
+                <ScalarProperty Name="EspesorIn" ColumnName="EspesorIn" />
+                <ScalarProperty Name="CedulaC" ColumnName="CedulaC" />
+                <ScalarProperty Name="CedulaB" ColumnName="CedulaB" />
+                <ScalarProperty Name="CedulaA" ColumnName="CedulaA" />
+                <ScalarProperty Name="DiametroID" ColumnName="DiametroID" />
+                <ScalarProperty Name="CatalogoCedulasID" ColumnName="CatalogoCedulasID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

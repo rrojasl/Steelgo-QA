@@ -14,11 +14,6 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Espesor
     {
-        public Sam3_Espesor()
-        {
-            this.Sam3_CatalogoCedulas = new HashSet<Sam3_CatalogoCedulas>();
-        }
-    
         public int EspesorID { get; set; }
         public Nullable<int> DiametroID { get; set; }
         public Nullable<int> CedulaID { get; set; }
@@ -26,7 +21,5 @@ namespace DatabaseManager.Sam3
         public int Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
-    
-        public virtual ICollection<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
     }
 }

@@ -260,9 +260,7 @@ namespace BackEndSAM.DataAcces
                                               where ced.Activo && catced.CedulaC == ced.CedulaID
                                               select ced.Codigo).FirstOrDefault(),
                                      Inch = catced.EspesorIn.ToString(),
-                                     MM = (from esp in ctx.Sam3_Espesor
-                                               where esp.Activo == 1 && catced.EspesorID == esp.EspesorID
-                                               select esp.Valor.ToString()).FirstOrDefault(),
+                                     MM = catced.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString()
                                  }).AsParallel().ToList();
@@ -502,9 +500,7 @@ namespace BackEndSAM.DataAcces
                                               select ced.Codigo
                                                     ).FirstOrDefault(),
                                      Inch = cat.EspesorIn.ToString(),
-                                     MM = (from esp in ctx.Sam3_Espesor
-                                           where esp.EspesorID == cat.EspesorID && esp.Activo == 1
-                                           select esp.Valor.ToString()).FirstOrDefault(),
+                                     MM = cat.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString(),
                                      TipoMaterial = g.TipoMaterialID.ToString()
