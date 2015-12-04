@@ -135,7 +135,9 @@
     function changeLanguageCall() {
         tmp=removeGrid($("#grid"));
         cargarInicialGrid();
+        console.log("carga");
         $("#grid").data("kendoGrid").dataSource.data(tmp);
+        $(".filter-row th input").attr("disabled", "disabled");
     };
 
     function regenerarCombo(combo){
@@ -188,6 +190,7 @@
                 $("#D2").data("kendoComboBox").value("");
                 $("#descripcionIC").val("");
                 $("#icsasociado").val("");
+                $(".filter-row th input").attr("disabled", "disabled");
                 //llamar a obtener item codes
                 var ds = new kendo.data.DataSource({
                         transport: {
@@ -253,7 +256,7 @@
                                             if (Error(res)) {
                                                 $("#descripcionIC").val(res.Descripcion);
                                                 $("#icsasociado").val(res.ItemCodeSteelgo);
-                                                $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + data[0].id + "&diametro2=" + result[0].id + "&token=" + Cookies.get("token");
+                                                $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?item=" + $("#icinput").data("kendoComboBox").value() + "&diametro1=" + data[0].id + "&diametro2=" + result[0].id + "&token=" + Cookies.get("token");
                                    
                                                 $("#grid").data("kendoGrid").dataSource.read();
                                                 $("#grid").data("kendoGrid").refresh();
@@ -262,6 +265,7 @@
                                                     $("#GuardarICS").css("display", "none");
                                                     $("#EditarICS").css("display", "block");
                                                     $("#DesasociarDiv").removeClass("hidden");
+                                                    $(".filter-row th input").attr("disabled", "disabled");
                                                     //$("#Desasociar").attr("disabled", "disabled");
                                                     $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
                                                         e.preventDefault();
@@ -328,7 +332,7 @@
                                     $("#hdnICSID").val(res.ItemCodeSteelgoID);
                                     $("#descripcionIC").val(res.Descripcion);
                                     $("#icsasociado").val(res.ItemCodeSteelgo);
-                                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?diametro1=" + e.sender._old + "&diametro2=" + data[0].id + "&token=" + Cookies.get("token");
+                                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?item=" + $("#icinput").data("kendoComboBox").value() + "&diametro1=" + e.sender._old + "&diametro2=" + data[0].id + "&token=" + Cookies.get("token");
                            
                                     $("#grid").data("kendoGrid").dataSource.read();
                                     $("#grid").data("kendoGrid").refresh();
@@ -386,7 +390,7 @@
                         $("#hdnICSID").val(data.ItemCodeSteelgoID);
                         $("#descripcionIC").val(data.Descripcion);
                         $("#icsasociado").val(data.ItemCodeSteelgo);
-                        $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
+                        $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?item=" + $("#icinput").data("kendoComboBox").value() + "&diametro1=" + $("#D1").data("kendoComboBox").value() + "&diametro2=" + $("#D2").data("kendoComboBox").value() + "&token=" + Cookies.get("token");
                         $("#grid").data("kendoGrid").dataSource.read();
                         $("#grid").data("kendoGrid").refresh();
                         0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
@@ -522,7 +526,7 @@
                 pageSize: 20,
                 transport:{
                     read:{
-                        url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
+                        url: $AsociacionICS.AsociacionICS.urlNoId + "?token=" + Cookies.get("token"),
                         dataType:"json",
                         type:"GET",
                         cache: false
@@ -584,8 +588,9 @@
                 }
             },
         });
-        $(".k-grid .filter-row input").attr("disabled", "disabled");
+        //$(".k-grid .filter-row input").attr("disabled", "disabled");
         $(".k-grid .k-filter").hide();
+       
         applySecurityPolicy(false);
     }
 
@@ -603,6 +608,7 @@
                     $("#context-menu").data("kendoContextMenu").bind("open", function (e) {
                         e.preventDefault();
                     });
+                    $(".filter-row th input").attr("disabled", "disabled");
                     $(".k-grid .k-input").attr("disabled", "disabled");
                     $(".k-grid .k-filter").hide();
                     displayMessage("AsociacionICS0005", "", '0');
@@ -641,6 +647,8 @@
     function botonDefault() {
         $("#EditarICS").css("display", "none");
         //$("#Desasociar").removeAttr("disabled");
+        //$(".filter-row th input").attr("disabled", "disabled");
+        $(".filter-row th input").removeAttr("disabled");
         $("#GuardarICS").css("display", "block");
         $("#context-menu").data("kendoContextMenu").unbind("open");
         $(".k-grid .k-input").removeAttr("disabled");
@@ -666,12 +674,14 @@
 
 @section JavascriptDocumentReadyFunctions {
     $("#EditarICS").hide();
+
     $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
     $("#D1").data("kendoComboBox").enable(false);
     $("#D2").data("kendoComboBox").enable(false);
     //$("#context-menu").data("kendoContextMenu").unbind("open");
-    $(".k-grid .k-input").attr("disabled", "disabled");
+    //$(".k-grid .k-input").attr("disabled", "disabled");
     $(".k-grid .k-filter").hide();
+    //$(".k-grid .k-input").attr("disabled", "disabled");
 
     $("#RedirectDashboard").click(function (e) {
         var detalleIdeaUrl = "@Url.Action("ItemCodeSteelGo", "Catalogos")";

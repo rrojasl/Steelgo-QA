@@ -50,5 +50,6 @@ namespace BackEndSAM.Models
         public string Espesor { get; set; }
         public string Peso { get; set; }
         public string Area { get; set; }
+        public string TipoMaterial { get; set; }
     }
 }
