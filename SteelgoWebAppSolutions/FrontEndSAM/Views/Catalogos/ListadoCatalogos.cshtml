@@ -638,21 +638,14 @@
                 var counter=0;
                 result.forEach(function(n){
                     n.Correcta ? counter++ : porPintar.push(n); mensajesError.push(n.MensajeError);
-                    //mensajesError = n.MensajeError;
-                    //console.log(n);
                 });
-                console.log(mensajesError);
                 if(counter==0){
                     displayMessage("ListadoCatalogos0044", "", '2');
-                    //mensajesError.forEach(function (m) {
                         displayMessage("notificationslabel0009", mensajesError, '2');
-                    //});
                     
                 }else if(result.length>counter>0){
                     displayMessage("ListadoCatalogos0043", "", '1');
-                    //mensajesError.forEach(function (m) {
                         displayMessage("notificationslabel0009", mensajesError, '2');
-                    //});
                 }else if(counter===result.length){
                     displayMessage("ListadoCatalogos0018", "", '0');
                 }
