@@ -903,8 +903,8 @@ _dictionary = {
         "en-US": "Entry Notices List"
     },
     "DetalleAvisoLlegada0052": {
-        "es-MX": "Detalle de Avisos de Entrada",
-        "en-US": "Entry Notices Detail"
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Entry Notice"
     },
     "DetalleAvisoLlegada0053": {
         "es-MX": "Estatus",
@@ -1653,8 +1653,8 @@ _dictionary = {
         "en-US": "Arrival Material Folios List"
     },
     "LlegadaMaterial0024": {
-        "es-MX": "Llegada de Material",
-        "en-US": "Material Arrival"
+        "es-MX": "Llegada de Materiales",
+        "en-US": "Materials Arrival"
     },
     "LlegadaMaterial0025": {
         "es-MX": "Pase de Salida",
@@ -2462,8 +2462,8 @@ _dictionary = {
         "en-US": "Authorized permit"
     },
     "AutorizarPermiso0007": {
-        "es-MX": "Dashboard Aviso Llegada",
-        "en-US": "Notice Arrival Dashboard"
+        "es-MX": "Dashboard Aviso de Llegada",
+        "en-US": "Arrival Notice Dashboard"
     },
     "AutorizarPermiso0008": {
         "es-MX": "Listado de Avisos de Entrada",
@@ -2495,8 +2495,8 @@ _dictionary = {
         "en-US": "Dealings"
     },
     "DashboardAvisoLlegada0002": {
-        "es-MX": "Dashboard Aviso Llegada",
-        "en-US": "Notice Arrival Dashboard"
+        "es-MX": "Dashboard Aviso Entrada",
+        "en-US": "Entry Notice Dashboard"
     },
     "DashboardAvisoLlegada0003": {
         "es-MX": "Nuevo",
@@ -2701,6 +2701,10 @@ _dictionary = {
         "es-MX": "Dashboard Llegada de Material",
         "en-US": "Arrival Material Dashboard"
     },
+    "PaseDeSalida0020": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
     //
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
@@ -2848,8 +2852,8 @@ _dictionary = {
         "en-US": "Order Reception List"
     },
     "GenerarOrdenRecepcion0023": {
-        "es-MX": "Generar Orden de Recepción",
-        "en-US": "Generate Reception Order"
+        "es-MX": "Orden de Recepción",
+        "en-US": "Reception Order"
     },
     "GenerarOrdenRecepcion0024": {
         "es-MX": "Aviso Llegada ID",
@@ -3074,8 +3078,8 @@ _dictionary = {
         "en-US": "Reception & Storage Dashboard"
     },
     "DetalleOrdenRecepcion0021": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
     },
     "DetalleOrdenRecepcion0022": {
         "es-MX": "Etiquetas",
@@ -3196,7 +3200,7 @@ _dictionary = {
         "en-US": "Reception & Storage Dashboard"
     },
     "ListadoOrdenAlmacenaje0003": {
-        "es-MX": "Listado Orden de Almacenaje",
+        "es-MX": "Listado de Orden de Almacenaje",
         "en-US": "Order Storage List"
     },
     "ListadoOrdenAlmacenaje0004": {
@@ -3293,8 +3297,8 @@ _dictionary = {
         "en-US": "Order Storage List"
     },
     "GenerarOrdenAlmacenaje0004": {
-        "es-MX": "Generar Orden de Almacenaje",
-        "en-US": "Generate Order Storage"
+        "es-MX": "Orden de Almacenaje",
+        "en-US": "Order Storage"
     },
     "GenerarOrdenAlmacenaje0005": {
         "es-MX": "Generar Orden de Almacenaje",
@@ -3824,7 +3828,7 @@ _dictionary = {
         "en-US": "Year"
     },
     "ListadoPackingList0020": {
-        "es-MX": "Listado Packing List",
+        "es-MX": "Listado de Packing List",
         "en-US": "List Packing List"
     },
     "ListadoPackingList0021": {
@@ -3849,7 +3853,7 @@ _dictionary = {
         "en-US": "Reception & Storage Dashboard"
     },
     "ComplementoRecepcion0003": {
-        "es-MX": "Complemento Recepción",
+        "es-MX": "Complemento de la Recepción",
         "en-US": "Reception Complement"
     },
     "ComplementoRecepcion0004": {
