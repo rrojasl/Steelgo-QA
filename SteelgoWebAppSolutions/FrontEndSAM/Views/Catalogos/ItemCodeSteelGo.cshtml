@@ -148,12 +148,12 @@
             DescripcionIngles: { type: "string", validation: { required: true } },
             DescripcionLargaIngles: { type: "string", validation: { required: true } },
             Rel_ICS_DiametroID: { editable: false, nullable: true },
+            Grupo: { type: "string", validation: { required: true } },
+            GrupoID: { editable: false, nullable: true },
             Diametro1ID: { editable: false, nullable: true },
             Diametro1: { type: "number", validation: { required: true } },
             Diametro2ID: { editable: false, nullable: true },
             Diametro2: { type: "number", validation: { required: true } },
-            Grupo: { type: "string", validation: { required: true } },
-            GrupoID: { editable: false, nullable: true },
             Acero: { type: "string", validation: { required: true } },
             AceroID: { editable: false, nullable: true },
             CedulaID: { editable: false, nullable: true },
@@ -196,6 +196,53 @@
                 { field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], width: "150px" },
+                {
+                    field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Grupo.Grupo.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.response != undefined && e.response.ReturnCode == 401) {
+                                        removeUserSession();
+                                    }
+                                }
+                            },
+                            change: function (e) {
+                                var value = this.value();
+                                if ((!value || this.selectedIndex == -1) && value != "") {
+                                    displayMessage("notificationslabel0083", "Grupo", '1');
+                                    this.value("");
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].GrupoID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Grupo = data.nombre;
+
+                                if (data.id) {
+                                    $Grupo.Grupo.read({}, { grupoID: data.id, token: Cookies.get("token") }).done(function (result) {
+                                        $("#grid").data("kendoGrid")._data[data.posicion].TieneD2 = result;
+                                        if (result) {
+                                            $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
+                                        } else {
+                                            $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
+                                            $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = DiametroCero.id;
+                                            $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = DiametroCero.value;
+                                            $("[name='Diametro2']", e.container).data("kendoComboBox").value(0);
+                                        }
+                                    });
+                                }
+                            },
+                            dataTextField: "value",
+                            dataValueField: "id"
+                        });
+                    }
+                },
                 {
                     field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
                         $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
@@ -261,54 +308,6 @@
                         });
 
                         //$('#grid').data('kendoGrid').refresh();
-                    }
-                },
-                {
-                    field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
-                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                            dataSource: {
-                                transport: {
-                                    read: {
-                                        dataType: "json",
-                                        url: $Grupo.Grupo.urlNoId + "?token=" + Cookies.get("token")
-                                    }
-                                },
-                                requestEnd: function (e) {
-                                    if (e.response != undefined && e.response.ReturnCode == 401) {
-                                        removeUserSession();
-                                    }
-                                }
-                            },
-                            change: function (e) {
-                                var value = this.value();
-                                if ((!value || this.selectedIndex == -1) && value != "") {
-                                    displayMessage("notificationslabel0083", "Grupo", '1');
-                                    this.value("");
-                                }
-                            },
-                            close: function (e) {
-                                var data = getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].GrupoID = data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].Grupo = data.nombre;
-
-                                if (data.id)
-                                {
-                                    $Grupo.Grupo.read({}, { grupoID: data.id, token: Cookies.get("token") }).done(function (result) {
-                                            $("#grid").data("kendoGrid")._data[data.posicion].TieneD2 = result;
-                                            if (result) {
-                                                $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
-                                            } else {
-                                                $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
-                                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = DiametroCero.id;
-                                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = DiametroCero.value;
-                                                $("[name='Diametro2']", e.container).data("kendoComboBox").value(0);
-                                            }
-                                    });
-                                }
-                            },
-                            dataTextField: "value",
-                            dataValueField: "id"
-                        });
                     }
                 },
                 {
