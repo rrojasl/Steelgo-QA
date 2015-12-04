@@ -283,6 +283,7 @@ namespace BackEndSAM.DataAcces
 
                         detalle.FolioConfiguracion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                     };
+                    detalle.EstatusAv = FolioAvisoLlegada.Estatus;
 
                     if (registro != null)
                     {

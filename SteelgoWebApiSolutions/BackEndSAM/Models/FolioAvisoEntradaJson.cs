@@ -37,6 +37,7 @@ namespace BackEndSAM.Models
         public Cliente Cliente { get; set; }
         public Patio Patio { get; set; }
         public string Estatus { get; set; }
+        public string EstatusAv { get; set; }
         public List<int>Proyectos { get; set; }
         public List<ListaDocumentos> Documentos { get; set; }
         public int FolioDescarga { get; set; }

@@ -31,6 +31,7 @@
                 <span id="LlegadaMaterial0061" class="statusLabel"></span>
                 <span id="LlegadaMaterial0062" class="statusLabel"></span>
                 <span id="LlegadaMaterial0063" class="statusLabel"></span>
+                <span id="EstatAV" class="statusLabel"></span>
                 <div class="branchCut"></div>
             </span>
             <div class="formNav clearfix">
@@ -492,7 +493,7 @@
         {
             if (!data.Estatus) {
                 ocultarStatus();
-                $("#LlegadaMaterial0060").hide();
+                //$("#LlegadaMaterial0060").hide();
             };
             
             if (data.Estatus == _estatus) {
@@ -717,7 +718,10 @@
                             }
                         
                         };
-                    };
+                    }else{
+                        $("#EstatAV").html(data.EstatusAv);
+                        $("#EstatAV").show();
+                    }
 
                     if (data.OrdenCompra) {
                         $("#OrdenDeCompra").val(data.OrdenCompra);
@@ -1418,7 +1422,7 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
     $authorizationModel["Orden Descarga"] = $OrdenDescargaModel;
-
+    $("#EstatAV").hide();
     CargaInicial();
 
 
