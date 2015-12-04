@@ -44,7 +44,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerFormatos(int odtsID, int proyectoID, int obtenerFormato, Sam3_Usuario usuario)
+        public object ObtenerFormatos(int odtsID, int obtenerFormato, Sam3_Usuario usuario)
         {
             try
             {
@@ -56,7 +56,11 @@ namespace BackEndSAM.DataAcces
                         OrdenTrabajoSpool OrdenTSpool = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == odtsID).AsParallel().SingleOrDefault();
                         //int faltantesDespacho = (from 
 
-                        string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == proyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
+                        int sam3_ProyectoID = (from eqp in ctx.Sam3_EquivalenciaProyecto
+                                               where eqp.Activo && eqp.Sam2_ProyectoID == OrdenTSpool.OrdenTrabajo.ProyectoID
+                                               select eqp.Sam3_ProyectoID).AsParallel().SingleOrDefault();
+
+                        string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == sam3_ProyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
                         string numeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == OrdenTSpool.OrdenTrabajoSpoolID)
                             .Select(x => x.NumeroControl).SingleOrDefault();
 
