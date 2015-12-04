@@ -215,6 +215,7 @@ var $CapturaSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GenerarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 
 //#endregion
@@ -238,5 +239,6 @@ $CapturaSoldadura.add("Soldadura");
 $Inspeccion.add("Inspeccion");
 $InspeccionDimensional.add("InspeccionDimensional");
 $GenerarRequisicion.add("GenerarRequisicion");
+$ValidacionResultados.add("ValidacionResultados");
 //#endregion
 //#endregion

@@ -1,0 +1,150 @@
+﻿using BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD;
+using BackEndSAM.Models.ServiciosTecnicos.ValidacionResultados;
+using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
+using SecurityManager.TokenHandler;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Reflection;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
+
+namespace BackEndSAM.Controllers
+{
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class ValidacionResultadosController : ApiController
+    {
+        [HttpGet]
+        public object ObtenerListadoJuntas(string token,string lenguaje, int requisicionID)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                DetalleJuntasValidacion resultado = new DetalleJuntasValidacion();
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                List<DetalleJuntasValidacion> listaResult = new List<DetalleJuntasValidacion>();
+
+                List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result> result = (List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result>)ValidacionResultadosBD.Instance.getListadoJuntas(requisicionID);
+                foreach(Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result item in result)
+                {
+                    resultado = new DetalleJuntasValidacion
+                    {
+                        Accion = item.ValidacionResultadosID == null ? 1 : 2,
+                        ValidacionResultadosID = item.ValidacionResultadosID == null ? 0 : int.Parse(item.ValidacionResultadosID.ToString()),
+                        DatosJunta = "Junta " + item.Junta + ", Tipo " + item.TipoJunta + ", Cedula " + item.Cedula,
+                        Ubicacion = item.Ubicacion,
+                        Comentario = item.Comentario == null ? "": item.Comentario,
+                        Conciliado = item.Conciliado == null ? "" : item.Conciliado,
+                        RequisicionID = item.RequisicionID,
+                        DefectoID = item.DefectoID == null ? 0:  int.Parse( item.DefectoID.ToString()),
+                        Nombre = item.Nombre == null ? "": item.Nombre,
+                        IdentificadorForaneo = item.IdentificadorForaneo.ToString(),
+                        PruebaElementoID = item.PruebaElementoID,
+                        RequisicionPruebaElementoID = item.RequisicionPruebaElementoID,
+                        Defectos = (List<RazonesRechazo>)ValidacionResultadosBD.Instance.getListadoDefectos(lenguaje, "Validacion Resultados")
+
+                    };
+                    listaResult.Add(resultado);
+                }
+                return listaResult;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+        [HttpPost]
+        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                DataTable dtDetalleCaptura = new DataTable();
+                if (listaCapturasRequisicion.ListaDetalles != null)
+                {
+                    dtDetalleCaptura = ToDataTable(listaCapturasRequisicion.ListaDetalles);
+                }
+
+                return ValidacionResultadosBD.Instance.InsertarValidarRequisicion(dtDetalleCaptura, usuario, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public static DataTable ToDataTable<T>(List<T> l_oItems)
+        {
+            DataTable oReturn = new DataTable(typeof(T).Name);
+            object[] a_oValues;
+            int i;
+
+            //#### Collect the a_oProperties for the passed T
+            PropertyInfo[] a_oProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            //#### Traverse each oProperty, .Add'ing each .Name/.BaseType into our oReturn value
+            //####     NOTE: The call to .BaseType is required as DataTables/DataSets do not support nullable types, so it's non-nullable counterpart Type is required in the .Column definition
+            foreach (PropertyInfo oProperty in a_oProperties)
+            {
+                oReturn.Columns.Add(oProperty.Name, BaseType(oProperty.PropertyType));
+            }
+
+            //#### Traverse the l_oItems
+            foreach (T oItem in l_oItems)
+            {
+                //#### Collect the a_oValues for this loop
+                a_oValues = new object[a_oProperties.Length];
+
+                //#### Traverse the a_oProperties, populating each a_oValues as we go
+                for (i = 0; i < a_oProperties.Length; i++)
+                {
+                    a_oValues[i] = a_oProperties[i].GetValue(oItem, null);
+                }
+
+                //#### .Add the .Row that represents the current a_oValues into our oReturn value
+                oReturn.Rows.Add(a_oValues);
+            }
+
+            //#### Return the above determined oReturn value to the caller
+            return oReturn;
+        }
+        public static Type BaseType(Type oType)
+        {
+            //#### If the passed oType is valid, .IsValueType and is logicially nullable, .Get(its)UnderlyingType
+            if (oType != null && oType.IsValueType &&
+                oType.IsGenericType && oType.GetGenericTypeDefinition() == typeof(Nullable<>)
+            )
+            {
+                return Nullable.GetUnderlyingType(oType);
+            }
+            //#### Else the passed oType was null or was not logicially nullable, so simply return the passed oType
+            else
+            {
+                return oType;
+            }
+        }
+    }
+}
