@@ -171,6 +171,10 @@ namespace BackEndSAM.DataAcces
                                                  where ic.Activo && ic.ItemCodeID == itemCodeID
                                                  select ic.DescripcionEspanol).AsParallel().SingleOrDefault();
 
+                    datosItemCode.TipoMaterial = (from ic in ctx.Sam3_ItemCode
+                                                  where ic.Activo && ic.ItemCodeID == itemCodeID
+                                                  select ic.TipoMaterialID.ToString()).AsParallel().SingleOrDefault();
+
                     datosItemCode.ItemCodeSteelgo = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                      join icsdiam in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals icsdiam.Rel_ItemCodeSteelgo_Diametro_ID
@@ -184,6 +188,7 @@ namespace BackEndSAM.DataAcces
                                                        where rics.Activo && ics.Activo && icsdiam.Activo
                                                        && rics.Rel_ItemCode_Diametro_ID == relIC_Diam
                                                        select ics.ItemCodeSteelgoID.ToString()).AsParallel().SingleOrDefault();
+
 
                     return datosItemCode;
                 }
@@ -208,10 +213,11 @@ namespace BackEndSAM.DataAcces
         /// Pantalla Catalogo ICS
         /// </summary>
         /// <returns></returns>
-        public object obtenerInformacionICS(string diametro1, string diametro2)
+        public object obtenerInformacionICS(string item, string diametro1, string diametro2)
         {
             try
             {
+                int items = Convert.ToInt32(item);
                 List<ICSDatosAsociacion> lista = new List<ICSDatosAsociacion>();
                 using (SamContext ctx = new SamContext())
                 {
@@ -223,8 +229,11 @@ namespace BackEndSAM.DataAcces
                                  join catced in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals catced.CatalogoCedulasID
                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                  join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
+                                 join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                 join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
                                  where ics.Activo && g.Activo && d1.Activo && d2.Activo
                                  && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
+                                 && ic.ItemCodeID == items && g.TipoMaterialID == ic.TipoMaterialID
                                  select new ICSDatosAsociacion
                                  {
                                      ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
@@ -427,6 +436,94 @@ namespace BackEndSAM.DataAcces
 
                     return result;
                 }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Se obtienen los datos del ICS para el Grid
+        /// Pantalla Catalogo ICS
+        /// </summary>
+        /// <returns></returns>
+        public object obtenerDatosCatalogoICS()
+        {
+            try
+            {
+                List<ICSDatosAsociacion> lista = new List<ICSDatosAsociacion>();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        lista = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                 join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
+                                 join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                 //join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                 join diam in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals diam.ItemCodeSteelgoID
+                                 where ics.Activo && g.Activo && cat.Activo && diam.Activo
+                                 select new ICSDatosAsociacion
+                                 {
+                                     ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                     Codigo = ics.Codigo,
+                                     Descripcion = ics.DescripcionEspanol,
+                                     DescripcionIngles = ics.DescripcionIngles,
+                                     DescripcionLarga = ics.DescripcionLargaEspanol,
+                                     DescripcionLargaIngles = ics.DescripcionLargaIngles,
+                                     Rel_ICS_DiametroID = diam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
+                                     Diametro1ID = diam.Diametro1ID.ToString(),
+                                     Diametro1 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro1ID select d.Valor.ToString()).FirstOrDefault(),
+                                     Diametro2ID = diam.Diametro2ID.ToString(),
+                                     Diametro2 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
+                                     Grupo = g.Nombre,
+                                     GrupoID = ics.GrupoID.ToString(),
+                                     AceroID = ics.FamiliaAceroID.ToString(),
+                                     CedulaID = ics.CedulaID.ToString(),
+                                     CedulaA = (from ced in ctx.Sam3_Cedula
+                                                where ced.CedulaID == cat.CedulaA && ced.Activo
+                                                select ced.Codigo
+                                                    ).FirstOrDefault(),
+                                     CedulaB = (from ced in ctx.Sam3_Cedula
+                                                where ced.CedulaID == cat.CedulaB && ced.Activo
+                                                select ced.Codigo
+                                                    ).FirstOrDefault(),
+                                     Libra = (from ced in ctx.Sam3_Cedula
+                                              where ced.CedulaID == cat.CedulaC && ced.Activo
+                                              select ced.Codigo
+                                                    ).FirstOrDefault(),
+                                     Inch = cat.EspesorIn.ToString(),
+                                     MM = (from esp in ctx.Sam3_Espesor
+                                           where esp.EspesorID == cat.EspesorID && esp.Activo == 1
+                                           select esp.Valor.ToString()).FirstOrDefault(),
+                                     Peso = ics.Peso.ToString(),
+                                     Area = ics.Area.ToString(),
+                                     TipoMaterial = g.TipoMaterialID.ToString()
+                                 }).AsParallel().ToList();
+
+                        lista.ForEach(x =>
+                        {
+                            int equiv = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
+                                         where eq.Activo && eq.Sam3_FamiliaAceroID.ToString() == x.AceroID
+                                         select eq.Sam2_FamiliaAceroID).AsParallel().SingleOrDefault();
+
+                            x.Acero = (from fa in ctx2.FamiliaAcero
+                                       where fa.FamiliaAceroID == equiv
+                                       select fa.Nombre).AsParallel().SingleOrDefault();
+                        });
+                    }
+                }
+
+                return lista;
             }
             catch (Exception ex)
             {

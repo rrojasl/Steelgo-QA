@@ -396,6 +396,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Cedul__40657506" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Cedul__4159993F" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaCedula" Width="1.5" PointX="16.375" PointY="19.75" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Grup__TipoM__5654B625" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
