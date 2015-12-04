@@ -341,7 +341,8 @@ namespace BackEndSAM.DataAcces
                                               CedulaB = (from ced in ctx.Sam3_Cedula where ced.Activo && cat.CedulaB == ced.CedulaID select ced.Codigo).FirstOrDefault(),
                                               CedulaC = (from ced in ctx.Sam3_Cedula where ced.Activo && cat.CedulaC == ced.CedulaID select ced.Codigo).FirstOrDefault(),
                                               CedulaIn = cat.EspesorIn.ToString(),
-                                              CedulaMM = (from esp in ctx.Sam3_Espesor where esp.Activo == 1 && esp.EspesorID == cat.EspesorID select esp.Valor.ToString()).FirstOrDefault()
+                                              CedulaMM = (from esp in ctx.Sam3_Espesor where esp.Activo == 1 && esp.EspesorID == cat.EspesorID select esp.Valor.ToString()).FirstOrDefault(),
+                                              Correcta = true
                                           }).AsParallel().ToList();
 
                             return catCedulas;
