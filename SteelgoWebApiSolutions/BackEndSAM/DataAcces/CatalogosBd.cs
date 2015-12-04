@@ -1960,8 +1960,11 @@ namespace BackEndSAM.DataAcces
                                      Rel_ICS_DiametroID = diam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                      Diametro1ID = diam.Diametro1ID.ToString(),
                                      Diametro1 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro1ID select d.Valor.ToString()).FirstOrDefault(),
-                                     Diametro2ID = diam.Diametro2ID.ToString(),
-                                     Diametro2 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
+                                     Diametro2ID = g.TieneD2 == null || g.TieneD2==false // Si no tiene D2 se muestra la opcion de cero
+                                                    ? (ctx.Sam3_Diametro.Where(x => x.Activo && x.Valor == 0).FirstOrDefault().DiametroID.ToString()) : diam.Diametro2ID.ToString(),
+                                     Diametro2 = g.TieneD2 == null || g.TieneD2 == false // Si no tiene D2 se muestra la opcion de cero
+                                                ? (ctx.Sam3_Diametro.Where(x => x.Activo && x.Valor == 0).FirstOrDefault().Valor.ToString()) :
+                                                (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
                                      Grupo = g.Nombre,
                                      GrupoID = ics.GrupoID.ToString(),
                                      AceroID = ics.FamiliaAceroID.ToString(),

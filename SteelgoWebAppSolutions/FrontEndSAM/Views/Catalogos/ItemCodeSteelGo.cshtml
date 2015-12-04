@@ -49,6 +49,7 @@
     lastEditedDocument="";
     var creado = 0;
     var idDiam1 = 0;
+    var DiametroCero = { id: "", value: "" };
     var rowEditada = {
         ItemCodeSteelgoID: "", Codigo: "", Descripcion: "", DescripcionLarga: "",
         DescripcionIngles: "", DescripcionLargaIngles: "", Rel_ICS_DiametroID: "",
@@ -102,7 +103,15 @@
     //    $("#grid").data("kendoGrid").destroy();
     //    $("#grid").empty().kendoGrid(options);
     //})
+    function ObtenerDiametroCero() {
 
+        $Diametros.Diametros.read({}, { Valor:0, token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                DiametroCero.id = result.id;
+                DiametroCero.value = result.value;
+            }
+        });
+    };
     function ObtenerDiametros(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                .appendTo(container)
@@ -290,11 +299,12 @@
                                                 $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
                                             } else {
                                                 $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
+                                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = DiametroCero.id;
+                                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = DiametroCero.value;
+                                                $("[name='Diametro2']", e.container).data("kendoComboBox").value(0);
                                             }
                                     });
                                 }
-                                //$("#grid").data("kendoGrid")._data[data.posicion].TieneD2 = "Si";
-                                //$("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
                             },
                             dataTextField: "value",
                             dataValueField: "id"
@@ -569,7 +579,7 @@
             edit: function (e) {
                 if (e.model.TieneD2 == "No") {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
-                    e.model.Diametro1ID = 119;
+                    e.model.Diametro1ID = DiametroCero.id;
                     e.model.Diametro1 = 0;
                 } else {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
@@ -672,7 +682,7 @@
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["ItemCodeSteelGo"] = $ItemCodeSteelGoModel;
-
+    ObtenerDiametroCero();
     };
 
     
