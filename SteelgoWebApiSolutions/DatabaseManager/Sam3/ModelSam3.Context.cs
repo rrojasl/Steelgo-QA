@@ -183,10 +183,10 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
         public virtual DbSet<Sam3_TipoJunta> Sam3_TipoJunta { get; set; }
         public virtual DbSet<Sam3_Rel_Proyecto_Correo> Sam3_Rel_Proyecto_Correo { get; set; }
-        public virtual DbSet<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
         public virtual DbSet<Sam3_EquivalenciaEspesor> Sam3_EquivalenciaEspesor { get; set; }
         public virtual DbSet<Sam3_Espesor> Sam3_Espesor { get; set; }
         public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
         public virtual DbSet<Sam3_EquivalenciaCedula> Sam3_EquivalenciaCedula { get; set; }
+        public virtual DbSet<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
     }
 }

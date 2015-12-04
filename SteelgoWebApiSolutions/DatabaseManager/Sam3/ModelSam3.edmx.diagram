@@ -385,18 +385,14 @@
         <AssociationConnector Association="ModelSam3.FK_FolioCuantificacion_Rel_Proyecto_Entidad_Configuracion" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Rel_P__21E0EDE6" />
         <AssociationConnector Association="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" />
-        <EntityTypeShape EntityType="ModelSam3.Sam3_CatalogoCedulas" Width="1.5" PointX="23.25" PointY="11.125" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaEspesor" Width="1.5" PointX="21.375" PointY="3.75" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Espesor" Width="1.5" PointX="21" PointY="72.875" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Espes__424DBD78" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__443605EA" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Cedula" Width="1.5" PointX="23.375" PointY="1" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Cedul__3F7150CD" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Cedul__40657506" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Cedul__4159993F" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaCedula" Width="1.5" PointX="16.375" PointY="19.75" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Grup__TipoM__5654B625" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_CatalogoCedulas" Width="1.5" PointX="3" PointY="58.625" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__443605EA" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
