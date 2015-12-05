@@ -155,7 +155,7 @@
             Diametro2ID: { editable: false, nullable: true },
             Diametro2: { type: "number", validation: { required: true } },
             Acero: { type: "string", validation: { required: true } },
-            AceroID: { editable: false, nullable: true },
+            AceroID: { editable: false, nullable: false },
             CedulaID: { editable: false, nullable: true },
             CedulaA: { type: "string", validation: { required: false } },
             CedulaB: { type: "string", validation: { required: false } },
@@ -492,6 +492,13 @@
                     for (f in grid.options.dataSource.schema.model.fields) {
                         data[f] = e.model[f];
                     }
+                    if (data["Acero"] === "" || data["AceroID"] === "")
+                    {
+                        displayMessage("ItemCodeSteelGo0025", "", '1');
+                        e.preventDefault();
+                        //e.stopPropagation();
+                        return false;
+                    }
                     creado = 0;
                     for (var i = 1; grid.dataSource.data().length > i; i++) {
                         if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
@@ -534,6 +541,13 @@
                     var data = {};
                     for (f in grid.options.dataSource.schema.model.fields) {
                         data[f] = e.model[f];
+                    }
+
+                    if (data["Acero"] === "" || data["AceroID"] === "") {
+                        displayMessage("ItemCodeSteelGo0025", "", '1');
+                        e.preventDefault();
+                        //e.stopPropagation();
+                        return false;
                     }
 
                     creado = 0;
@@ -610,7 +624,7 @@
                     lastEditedDocument=$(this).attr("name");
                     var data = {};
                     var i = $(this);
-                    if ($('[name=Diametro1]').data("kendoComboBox").value() !== "0" && $('[name=Diametro1]').data("kendoComboBox").value() !== "") {
+                    if (e.model.Diametro1 !== 0 && e.model.Diametro1 !== "") {
                         data['CedulaA'] = e.model.CedulaA;
                         data['CedulaB'] = e.model.CedulaB;
                         data['Libra'] = e.model.Libra;
@@ -620,8 +634,7 @@
                         data["Diametro2"] = e.model.Diametro2;
 
                         $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
-                            if (Error(data))
-                            {
+                            if (Error(data)) {
                                 if (data === null) {
                                     e.model.CedulaA = "";
                                     e.model.CedulaB = "";
@@ -630,8 +643,9 @@
                                     $("#grid").data("kendoGrid").refresh();
                                     $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                     displayMessage("ItemCodeSteelGo0021", "", '2');
-                                    $("[name='"+lastEditedDocument+"']").focus();
+                                    $("[name='" + lastEditedDocument + "']").focus();
                                 } else {
+                                    //data = data[0];
                                     e.model.CedulaID = data.CedulaID;
                                     e.model.CedulaA = data.CedulaA;
                                     e.model.CedulaB = data.CedulaB;
@@ -645,6 +659,20 @@
                                     $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                     $("[data-container-for='Peso'] input:first").focus();
                                 }
+                            }
+                            else {
+                                e.model.CedulaA = "";
+                                e.model.CedulaB = "";
+                                e.model.CedulaC = "";
+                                e.model.Libra = "";
+                                e.model.Inch = "";
+                                e.model.MM = "";
+                                e.model.Peso = "";
+                                e.model.Area = "";
+                                $("#grid").data("kendoGrid").refresh();
+                                $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
+                                displayMessage("ItemCodeSteelGo0021", "", '2');
+                                $("[name='" + lastEditedDocument + "']").focus();
                             }
                         });
                     } else {

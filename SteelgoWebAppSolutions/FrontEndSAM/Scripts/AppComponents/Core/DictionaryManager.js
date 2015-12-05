@@ -1336,6 +1336,10 @@ _dictionary = {
         "es-MX": "ItemCode Steelgo",
         "en-US": "ItemCode Steelgo"
     },
+    "ItemCodeSteelGo0025": {
+        "es-MX": "La familia acero es requerida",
+        "en-US": "You must enter a Family Steel"
+    },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
@@ -1376,6 +1380,7 @@ _dictionary = {
         "es-MX": "Desasociar",
         "en-US": "Disassociate"
     },
+
     //Notificacion Deficit
     "NotificacionDeficit0001": {
         "es-MX": "Orden de trabajo",

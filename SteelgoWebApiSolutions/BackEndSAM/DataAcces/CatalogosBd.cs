@@ -2328,9 +2328,13 @@ namespace BackEndSAM.DataAcces
                     int cedulaAID = !String.IsNullOrEmpty(datosCedulas.CedulaA) ? (from c in ctx.Sam3_Cedula where c.Activo && c.Codigo == datosCedulas.CedulaA select c.CedulaID).AsParallel().SingleOrDefault() : 0;
                     int cedulaBID = !String.IsNullOrEmpty(datosCedulas.CedulaB) ? (from c in ctx.Sam3_Cedula where c.Activo && c.Codigo == datosCedulas.CedulaB select c.CedulaID).AsParallel().SingleOrDefault() : 0;
                     int cedulaCID = !String.IsNullOrEmpty(datosCedulas.CedulaC) ? (from c in ctx.Sam3_Cedula where c.Activo && c.Codigo == datosCedulas.CedulaC select c.CedulaID).AsParallel().SingleOrDefault() : 0;
+                    decimal diametroSeleccionado = Convert.ToDecimal(datosCedulas.Diametro1);
+                    int diametroID = (from d in ctx.Sam3_Diametro
+                                      where d.Activo && d.Valor == diametroSeleccionado
+                                      select d.DiametroID).AsParallel().SingleOrDefault();
 
                     List<CatalogoCedulas> lista = (from cat in ctx.Sam3_CatalogoCedulas
-                                                   where cat.Activo && (cedulaAID != 0 ? cat.CedulaA == cedulaAID : cedulaBID != 0 ? cat.CedulaB == cedulaBID : cedulaCID != 0 ? cat.CedulaC == cedulaCID : cat.DiametroID.ToString() == datosCedulas.Diametro1ID)
+                                                   where cat.Activo && cat.DiametroID == diametroID //&& (!String.IsNullOrEmpty(datosCedulas.CedulaA) && cedulaAID != 0 ? cat.CedulaA == cedulaAID : !String.IsNullOrEmpty(datosCedulas.CedulaB) && cedulaBID != 0 ? cat.CedulaB == cedulaBID : !String.IsNullOrEmpty(datosCedulas.CedulaC) && cedulaCID != 0 ? cat.CedulaC == cedulaCID : (cat.CedulaA == 0 && cat.CedulaB == 0 && cat.CedulaC == 0))
                                                    select new CatalogoCedulas
                                                    {
                                                        CedulaID = cat.CatalogoCedulasID.ToString(),
@@ -2351,9 +2355,58 @@ namespace BackEndSAM.DataAcces
                                                        CedulaMM = cat.EspesorMM.ToString()
                                                    }).AsParallel().ToList();
 
-                    cedula = lista.Where(x => x.Diametro1ID == datosCedulas.Diametro1ID).Count() == 0 ?
-                        lista.Where(x => x.Diametro1ID == "").AsParallel().SingleOrDefault() :
-                        lista.Where(x => x.Diametro1ID == datosCedulas.Diametro1ID).AsParallel().SingleOrDefault();
+
+                    if (String.IsNullOrEmpty(datosCedulas.CedulaA))
+                    {
+                        if (String.IsNullOrEmpty(datosCedulas.CedulaB))
+                        {
+                            if (String.IsNullOrEmpty(datosCedulas.CedulaC))
+                            {
+                                //abyc vacias
+                                cedula = lista.Where(x => x.CedulaA == null && x.CedulaB == null && x.CedulaC == null).AsParallel().SingleOrDefault();
+
+                            }
+                            else
+                            {
+                                cedula = cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
+                                
+                            }
+                        }
+                        else if (String.IsNullOrEmpty(datosCedulas.CedulaC))
+                        {
+                            //busco por B
+                            cedula = cedulaBID == 0 ? null : lista.Where(x => x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault();
+                        }
+                        else
+                        {
+                            //busco por b y c
+                            cedula = cedulaBID == 0 ? cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault() : cedulaCID == 0 ? lista.Where(x => x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault() : lista.Where(x => x.CedulaB == datosCedulas.CedulaB && x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
+                        }
+                    }
+                    else if (String.IsNullOrEmpty(datosCedulas.CedulaB))
+                    {
+                        if (String.IsNullOrEmpty(datosCedulas.CedulaC))
+                        {
+                            //busco por A
+                            cedula = cedulaAID == 0 ? null : lista.Where(x => x.CedulaA == datosCedulas.CedulaA).AsParallel().SingleOrDefault();
+                        }
+                        else
+                        {
+                            //busco por A y C
+                            cedula = cedulaAID == 0 ? cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault() : cedulaCID == 0 ? lista.Where(x => x.CedulaA == datosCedulas.CedulaA).AsParallel().SingleOrDefault() : lista.Where(x => x.CedulaA == datosCedulas.CedulaA && x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
+                        }
+                    }
+                    else if (String.IsNullOrEmpty(datosCedulas.CedulaC))
+                    {
+                        //busco por A y b
+                        cedula = cedulaAID == 0 ? cedulaBID == 0 ? null : lista.Where(x => x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault() : cedulaBID == 0 ? lista.Where(c => c.CedulaA == datosCedulas.CedulaA).AsParallel().SingleOrDefault() : lista.Where(x => x.CedulaA == datosCedulas.CedulaA && x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault();
+                    }
+                    //else
+                    //{
+                    //    //busco por todas
+                    //    cedula = cedulaAID == 0 
+                    //}
+
 
                     return cedula;
                 }
