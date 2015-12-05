@@ -643,8 +643,10 @@
                                     $("#grid").data("kendoGrid").refresh();
                                     $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                     displayMessage("ItemCodeSteelGo0021", "", '2');
-                                    return false;
-                                    $("[name='" + lastEditedDocument + "']").focus();
+                                    //$("[name='" + lastEditedDocument + "']").focus();
+									e.preventDefault();
+									e.stopPropagation();
+									return false;
                                 } else {
                                     //data = data[0];
                                     e.model.CedulaID = data.CedulaID;
@@ -673,7 +675,9 @@
                                 $("#grid").data("kendoGrid").refresh();
                                 $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                 displayMessage("ItemCodeSteelGo0021", "", '2');
-                                $("[name='" + lastEditedDocument + "']").focus();
+                                //$("[name='" + lastEditedDocument + "']").focus();
+								e.preventDefault();
+								e.stopPropagation();
                                 return false;
                             }
                         });
@@ -685,7 +689,9 @@
                         $("#grid").data("kendoGrid").refresh();
                         $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                         displayMessage("ItemCodeSteelGo0022", "", '1');
-                        $("[name='Diametro1']").data("kendoComboBox").focus();
+                        //$("[name='Diametro1']").data("kendoComboBox").focus();
+						e.preventDefault();
+						e.stopPropagation();
                         return false;
                     }
                 });
