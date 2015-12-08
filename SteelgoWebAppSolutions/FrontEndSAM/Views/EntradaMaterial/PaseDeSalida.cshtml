@@ -330,11 +330,11 @@
     }
 
     function GenerarPaseSalida() {
-        loadingStart();
+        //loadingStart();
 
         $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                loadingStop();
+                //loadingStop();
                 //DesahabilitarControles();
                 $("#GenerarPaseSalida").css("display", "none");
                 $("#ImprimirPaseSalida").css("display", "block");
@@ -447,7 +447,7 @@
     function ObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if (Error(result)) {
                 var contador = 0;
                 if (result.length > 0) {
@@ -458,14 +458,14 @@
                     $("#hdnCantidadArchivos").val(contador);
                 }
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 
     function DeshabilitarObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if (Error(result)) {
                 var contador = 0;
                 if (result.length > 0) {
@@ -476,13 +476,13 @@
                     $("#hdnCantidadArchivos").val(contador);
                 }
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 
     function HabilitarObtenerDocumentosPaseSalidaUploadFile() {
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if (Error(result)) {
                 var contador = 0;
                 if (result.length > 0) {
@@ -507,7 +507,7 @@
                     }
                 }
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -528,7 +528,7 @@
     }
 
     function ChecarPaseSalidaEnviadoUploadFile() {
-        loadingStart();
+        //loadingStart();
         $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if (result) {
@@ -542,13 +542,13 @@
                     $("#ImprimirPaseSalida").css("display", "none");
                     HabilitarObtenerDocumentosPaseSalidaUploadFile();
                 }
-                loadingStop();
+                //loadingStop();
             }
         });
     }
 
     function ChecarPaseSalidaEnviado(id) {
-        loadingStart();
+        //loadingStart();
         $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: id, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if (result) {
@@ -564,7 +564,7 @@
                     CargarFolio(id);
                     ObtenerDocumentosPaseSalida();
                 }
-                loadingStop();
+                //loadingStop();
             }
         });
     }

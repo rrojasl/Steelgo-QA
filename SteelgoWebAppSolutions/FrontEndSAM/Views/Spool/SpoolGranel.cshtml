@@ -135,7 +135,7 @@
 
 @section JavascriptGlobalFunctions {
     function SpoolDesdeServidor(){
-        loadingStart();
+        //loadingStart();
         $Spool.Spool.read({},{SpoolID:spool}).done(function(data){
             spoolObj=data;
             $("#proyecto").data("kendoComboBox").select(function(){
@@ -149,7 +149,7 @@
                 return dataItem.text === spoolObj.FamiliaAcero;
             })
         }).fail(function(){
-            loadingStop();
+            //loadingStop();
         })
     }
 
@@ -274,7 +274,7 @@
                     $("#d1").data("kendoComboBox").select(function(){
                         return dataItem.text === spoolObj.D1;
                     })
-                    loadingStop();
+                    //loadingStop();
                 })
             }
         }

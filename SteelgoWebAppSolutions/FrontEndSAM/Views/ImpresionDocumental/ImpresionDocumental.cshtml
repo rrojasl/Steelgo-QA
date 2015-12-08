@@ -246,7 +246,7 @@
 
     function ObtenerDatosGrid() {
         if (NumeroControl.NumeroControlID) {
-            loadingStart();
+            //loadingStart();
 
             $ImpresionDocumental.ImpresionDocumental.read({ NumeroControl: NumeroControl.NumeroControlID, obtenerFormato: 0, token: Cookies.get("token") }).done(function (result) {
                 if (!result.length) {
@@ -271,7 +271,7 @@
                         applySecurityPolicy(false);
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         }
     };
@@ -307,7 +307,7 @@
     };
 
     function ImpresionDocumental() {
-        loadingStart();
+        //loadingStart();
         if (validarRequeridosImpresionDocumental()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
             //var Listado = { ProyectoID: "", NumeroControl: "" };
@@ -317,18 +317,18 @@
 
             if (datasource.length) {
                 displayMessage("notificationslabel0073", "", '1');
-                loadingStop();
+                //loadingStop();
                 return;
             }
 
             $ImpresionDocumental.ImpresionDocumental.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 Error(result);
                 //displayMessage("notificationslabel0056", "", '0');
-                loadingStop();
+                //loadingStop();
             });
         } else {
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     function ImprimirPickingTicket() {

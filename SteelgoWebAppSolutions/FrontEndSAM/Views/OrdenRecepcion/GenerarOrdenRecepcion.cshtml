@@ -385,7 +385,7 @@
     };
 
     function CargarDatosGrid() {
-        loadingStart();
+        //loadingStart();
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
@@ -401,7 +401,7 @@
                             $("#grid").data("kendoGrid").dataSource.data([]);
                         };
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -510,13 +510,13 @@
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
 
-        loadingStart();
+        //loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
 
         if (itemCodes.length > 0 || folios.length > 0) {
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
                     window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -524,7 +524,7 @@
             });
         } else {
             displayMessage("notificationslabel0044", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 
@@ -540,7 +540,7 @@
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
 
-        loadingStart();
+        //loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
        
@@ -548,14 +548,14 @@
         if (itemCodes.length > 0 || folios.length > 0) {
             
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
                     window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"");
                 }
             });
         } else {
             displayMessage("notificationslabel0044", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     
@@ -567,21 +567,21 @@
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
         
-        loadingStart();
+        //loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
 
         if (itemCodes.length>0 || folios.length>0) {
             
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
                     window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : "") + "&ImprimirFormatos=1";
                 }
             });
         } else {
             displayMessage("notificationslabel0044", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 

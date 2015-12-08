@@ -324,12 +324,12 @@
     };
 
     function CancelarOrden() {
-        loadingStart();
+        //loadingStart();
         $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 MostrarTituloCancelado();
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -494,7 +494,7 @@
         Cookies.set("navegacion", "17", { path: '/' });
     }
     function CargarDatosGridInicial() {
-        loadingStart();
+        //loadingStart();
 
         $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: $.cookie("token") }).done(function (result) {
             OcultarTituloCancelado();
@@ -513,7 +513,7 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
             }
-            loadingStop();
+            //loadingStop();
             AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });

@@ -241,12 +241,12 @@
         Listado.NumeroPermiso = numeropermiso;
 
         $GuardarPermisoAduana.DocumentoPermisoAduana.create({}, { datos: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (data) {
-            loadingStart();
+            //loadingStart();
             if (Error(data)) {
                 displayMessage("notificationslabel0085", "", '0');
                 BotonAlta();
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -398,7 +398,7 @@
         //removerValidacionRequeridos();
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
 
             if(result){
                 if (Error(result)) {
@@ -413,7 +413,7 @@
                     }
                 };
             }
-            loadingStop();
+            //loadingStop();
             AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
@@ -427,7 +427,7 @@
         //removerValidacionRequeridos();
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if(result){
                 if (Error(result)) {
                     if (result.DocumentoID) {
@@ -436,7 +436,7 @@
                     }
                 };
             }
-            loadingStop();
+            //loadingStop();
             AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
@@ -452,7 +452,7 @@
         removerValidacionRequeridos();
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if (Error(result)) {
                 if (result) {
                     $("#listaArchivos tbody").empty();
@@ -476,7 +476,7 @@
                     displayMessage("notificationslabel0084", '', '2');
                 }
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 

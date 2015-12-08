@@ -442,7 +442,7 @@
         }
     }
     function Filtros() {
-        loadingStart();
+        //loadingStart();
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
@@ -458,12 +458,12 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
     function CargarDatosGridInicial() {
-        loadingStart();
+        //loadingStart();
 
         $OrdenRecepcion.OrdenRecepcion.read({}, { ordenrecepcionID: _ordenRecepcionID, token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
@@ -475,7 +475,7 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 

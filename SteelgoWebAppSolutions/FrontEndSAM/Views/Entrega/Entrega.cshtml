@@ -388,11 +388,11 @@
 
     function CancelarPickingTicket(e) {
         e.preventDefault();
-        loadingStart();
+        //loadingStart();
         var grid = $("#grid").data("kendoGrid");
         var tr = $(e.currentTarget).closest("tr");
         grid.removeRow(tr);
-        loadingStop();
+        //loadingStop();
     };
 
     function validarRequeridosFormaEntrega() {
@@ -410,7 +410,7 @@
         return bool;
     };
     function GuardarUnoAUno() {
-        loadingStart();
+        //loadingStart();
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
         BorrarVacios(datasource);
         if (validarRequeridosFormaEntrega() && datasource.length > 0) {
@@ -419,13 +419,13 @@
 
             if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
-                loadingStop();
+                //loadingStop();
                 return;
             };
 
             if (datasource.length > 1) {
                 displayMessage("notificationslabel0077", "", "2");
-                loadingStop();
+                //loadingStop();
                 return;
             };
 
@@ -435,15 +435,15 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     displayMessage("notificationslabel0056", "", '0');
                 }
-                loadingStop();
+                //loadingStop();
              });
         } else if($("#grid").data("kendoGrid").dataSource.data()){
             displayMessage("notificationslabel0089", "", '1');
-            loadingStop();
+            //loadingStop();
         }
         else{
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     function Guardar() {
@@ -456,7 +456,7 @@
         }
     };
     function GuardarMasivo() {
-        loadingStart();
+        //loadingStart();
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
         BorrarVacios(datasource);
         if (validarRequeridosFormaEntrega() && datasource.length > 0) {
@@ -465,7 +465,7 @@
 
             if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
-                loadingStop();
+                //loadingStop();
                 return;
             }
             
@@ -477,15 +477,15 @@
                     $("#EmpleadoEntrega").data("kendoComboBox").value("");
                     displayMessage("notificationslabel0056", "", '0');
                 }
-                loadingStop();
+                //loadingStop();
             });
         } else if($("#grid").data("kendoGrid").dataSource.data()){
             displayMessage("notificationslabel0089", "", '1');
-            loadingStop();
+            //loadingStop();
         }
         else{
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     

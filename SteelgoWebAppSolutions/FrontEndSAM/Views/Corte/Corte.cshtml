@@ -722,7 +722,7 @@
     };
 
     function ObtenerDetalleNumeroUnico() {
-        loadingStart();
+        //loadingStart();
         //var numerounicoID = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : "";
         var numeroUnico = NumeroUnico.Nombre ? NumeroUnico.Nombre : ""; 
         if(numeroUnico){
@@ -753,14 +753,14 @@
                         $("#hdnTolerancia").val("");
                     };
                 }
-                loadingStop();
+                //loadingStop();
             });
         } else {
             $("#Cantidad").val("");
             $("#ItemCode").val("");
             $("#Diametro1").val("");
             $("#hdnTolerancia").val("");
-            loadingStop();
+            //loadingStop();
         }
     };
 
@@ -1082,13 +1082,13 @@
         Listado.Merma = $("#Merma").val();
         Listado.Detalle = Cortes;
 
-        loadingStart();
+        //loadingStart();
         $Corte.Corte.create(Listado, { token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 _CorteID = result.CorteID;
                 DesahabilitarBotones();
             }
-            loadingStop();
+            //loadingStop();
         });
 
     };

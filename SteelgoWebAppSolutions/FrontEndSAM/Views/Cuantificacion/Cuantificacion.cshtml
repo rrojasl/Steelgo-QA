@@ -852,7 +852,7 @@
         };
 
         function BotonEdicion() {
-            loadingStart();
+            //loadingStart();
             $("#dropdown-toggle").show();
             $("#Editar").css("display", "none");
             $("#Guardar").css("display", "block");
@@ -893,7 +893,7 @@
                         token: Cookies.get("token")
                     }).done(function (data) {
                         
-                        loadingStop();
+                        //loadingStop();
                         Error(data);
                         CargarLabelEstatus("En Proceso de Recepción");
 
@@ -1380,7 +1380,7 @@
         function CancelarInformacionItem(e) {
             e.preventDefault();
             if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && returnOfSecurityCheck["Item Code"]["destroy"]) {
-                loadingStart();
+                //loadingStart();
                 var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
                 var ItemCode = dataItem.ItemCodeID ? dataItem.ItemCodeID : "";
                 var bultoID = dataItem.BultoID ? dataItem.BultoID : "-1";
@@ -1394,7 +1394,7 @@
                     var grid = $("#grid").data("kendoGrid");
                     var tr = $(e.currentTarget).closest("tr");
                     grid.removeRow(tr);
-                    loadingStop();
+                    //loadingStop();
                     return;
                 } 
 
@@ -1418,14 +1418,14 @@
                                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
                                     }
                                 }
-                                loadingStop();
+                                //loadingStop();
                             });
                         } else {
-                            loadingStop();
+                            //loadingStop();
                         };
                     } else {
                         displayMessage("notificationslabel0039", "", '1');
-                        loadingStop();
+                        //loadingStop();
                         e.preventDefault();
                     };
                 });
@@ -1594,7 +1594,7 @@
         }
 
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
-            loadingStart();
+            //loadingStart();
             $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto==0?"-1":_detalleBulto, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
@@ -1613,7 +1613,7 @@
 
                 } else {
                     limpiarfiltrosFolioCuantificacion();
-                    loadingStop();
+                    //loadingStop();
                 };
             });
         }
@@ -1875,7 +1875,7 @@
         };
 
         function GuardaryTerminar() {
-            loadingStart();
+            //loadingStart();
             var j = 0, z = 0, cerrar = true, incompletos = false;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
@@ -1939,13 +1939,13 @@
             if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
                 llenarGrid(null, ListadoCuantificacionIncompletos);
                 ordenamientoGrid();
-                loadingStop();
+                //loadingStop();
                 return;
             }
 
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0087", '', '1');
-                loadingStop();
+                //loadingStop();
                 return;
             }
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
@@ -1974,7 +1974,7 @@
                                 CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i,error);
                             });
                     } else {
-                        loadingStop();
+                        //loadingStop();
                     }
                 });
             } else {
@@ -1995,7 +1995,7 @@
                             CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                         });
                     } else {
-                        loadingStop();
+                        //loadingStop();
                     }
                 });
             };
@@ -2014,7 +2014,7 @@
                     CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0081", error, '2');
@@ -2048,7 +2048,7 @@
         };
 
         function TerminaryNuevo() {
-            loadingStart();
+            //loadingStart();
             //var filters = $("#grid").data("kendoGrid").dataSource.filter();
             //var allData = $("#grid").data("kendoGrid").dataSource.data();
             //var query = new kendo.data.Query(allData);
@@ -2125,13 +2125,13 @@
             if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
                 llenarGrid(null, ListadoCuantificacionIncompletos);
                 ordenamientoGrid();
-                loadingStop();
+                //loadingStop();
                 return;
             }
 
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0087", '', '1');
-                loadingStop();
+                //loadingStop();
                 return;
             }
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
@@ -2195,7 +2195,7 @@
                     CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
             });
         } else {
-            loadingStop();
+            //loadingStop();
             ordenamientoGrid();
             if (error) {
                 displayMessage("notificationslabel0081", error, '2');
@@ -2234,7 +2234,7 @@
     };
 
     function GuardaryCerrar() {
-        loadingStart();
+        //loadingStart();
         var j = 0, z = 0, incompletos = false, cerrar = true;
         var allData = $("#grid").data("kendoGrid").dataSource.data();
         var query = new kendo.data.Query(allData);
@@ -2315,13 +2315,13 @@
         if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
             llenarGrid(null, ListadoCuantificacionIncompletos);
             ordenamientoGrid();
-            loadingStop();
+            //loadingStop();
             return;
         }
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
             displayMessage("notificationslabel0087", '', '1');
-            loadingStop();
+            //loadingStop();
             return;
         }
         var i = 0, error = "";
@@ -2379,7 +2379,7 @@
                 CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
             });
         } else {
-            loadingStop();
+            //loadingStop();
             ordenamientoGrid();
            
             if (error) {
@@ -2423,7 +2423,7 @@
 
 
         function GuardarParcial(guardarynuevo, idGuardado) {
-            loadingStart();
+            //loadingStart();
             var j = 0, z = 0;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
@@ -2486,13 +2486,13 @@
             if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
                 llenarGrid(null, ListadoCuantificacionIncompletos);
                 ordenamientoGrid();
-                loadingStop();
+                //loadingStop();
                 return;
             }
             
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0087", '', '1');
-                loadingStop();
+                //loadingStop();
                 return;
             } 
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
@@ -2543,7 +2543,7 @@
                             cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                         });                    
                 } else {
-                    loadingStop();
+                    //loadingStop();
                 }
             });
         };
@@ -2569,7 +2569,7 @@
                             cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                         });
                     } else {
-                        loadingStop();
+                        //loadingStop();
                     };
                 });
         };
@@ -2587,7 +2587,7 @@
                         cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0081", error, '2');
@@ -2709,7 +2709,7 @@
                         };
                     };
                 }
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -2990,7 +2990,7 @@
                     ObtenerItemCodeSteelgo(dataJson, key, error);
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0047", error, '2');
@@ -3029,7 +3029,7 @@
                         if (dataJson && dataJson.length > 0) {
                             //$.each(dataJson, function (key) {
                             var i = 0, error = "";
-                            loadingStart();
+                            //loadingStart();
                                 ObtenerItemCodeSteelgo(dataJson, i, error);
                                 //var item =
                                 //       { ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: "No", TieneNU: "No", TieneError: false };

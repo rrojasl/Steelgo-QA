@@ -577,7 +577,7 @@
     };
 
     function AccionesListado(accion) {
-        loadingStart();
+        //loadingStart();
         var Listado;
         Listado = ArregloListado(accion);
 
@@ -598,7 +598,7 @@
                     applySecurityPolicy(false);
                 };
             };
-            loadingStop();
+            //loadingStop();
         });
     };
     function AsignarPaginaActualCookie() {
@@ -641,7 +641,7 @@
         if (confirm("Estas seguro de cancelar la orden de almacenaje?")) {
             $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
                 Error(result);
-                loadingStop();
+                //loadingStop();
                 Filtros();
             });
         }
@@ -661,17 +661,17 @@
     //};
 
     function Cancelarnumerounico(row) {
-        loadingStart();
+        //loadingStart();
         var numeroUnicoID = $(row).closest("tr").children()[2].innerText;
 
         if (confirm("Estas seguro de cancelar el item code de la orden de almacenaje?")) {
             $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { numeroUnico: numeroUnicoID, token: Cookies.get("token") }).done(function (result) {
                 Error(result);
                 Filtros();
-                loadingStop();
+                //loadingStop();
             });
         } else {
-            loadingStop();
+            //loadingStop();
         }
     };
 

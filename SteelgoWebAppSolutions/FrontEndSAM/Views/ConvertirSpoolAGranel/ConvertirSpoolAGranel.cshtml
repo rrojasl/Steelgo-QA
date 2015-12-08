@@ -140,7 +140,7 @@
                         applySecurityPolicy(false);
                     };
                 };
-                loadingStop();
+                //loadingStop();
             });
         }
     };
@@ -229,7 +229,7 @@
     };
 
     function Guardar() {
-        loadingStart();
+        //loadingStart();
         if (validarRequeridosForma()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
             var Listado = { Items: "" };
@@ -239,7 +239,7 @@
             
             if (!Listado.Items[0]) {
                 displayMessage("notificationslabel0090", "", '1');
-                loadingStop();
+                //loadingStop();
                 return;
             };
 
@@ -247,11 +247,11 @@
                 if (Error(result)) {
                     ObtenerDatosGrid();
                 };
-                loadingStop();
+                //loadingStop();
             });
         } else {
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 

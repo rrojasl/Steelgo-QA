@@ -498,7 +498,7 @@
     }
 
     function cargarInicialGrid(val) {
-        loadingStart();
+        //loadingStart();
         removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: getDataSourceGrid(val),
@@ -575,7 +575,7 @@
                 }
             }
         });
-        loadingStop();
+        //loadingStop();
     };
 
     function getDataFromModel(fields,model){
@@ -662,7 +662,7 @@
     }
 
     function enviarCedulas(data) {
-        loadingStart();
+        //loadingStart();
         $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
             if (Error(result)) {
                 var counter=0;
@@ -682,7 +682,7 @@
                 porPintar.length>0 ? cedulasErroneas=true : null;
                 regenerarGrid();
             }
-            loadingStop();
+            //loadingStop();
         })
     };
 

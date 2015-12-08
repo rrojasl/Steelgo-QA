@@ -1242,7 +1242,7 @@
         };
 
     function CargaInicialEdicion(id) {
-            loadingStart();
+            //loadingStart();
             //cargarTituloFolio();
             habilitarTabsNuevaIncidencia();
             //habilitarAcciones();
@@ -1375,14 +1375,14 @@
                     AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
         function AsignarPaginaActualCookie() {
             Cookies.set("navegacion", "38", { path: '/' });
         }
         function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion, referenciaID) {
-            loadingStart();
+            //loadingStart();
             $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
             $("#Clasificacion").data("kendoComboBox").enable(false);
             CargarClasificacion(clasificacion);
@@ -1402,12 +1402,12 @@
                             CargarRegistro(data[0].id);
                         }
                     }
-                    loadingStop();
+                    //loadingStop();
                     AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             };
@@ -1626,7 +1626,7 @@
 
         function DesahabilitarObtenerDocumentosIncidencias() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Incidencia", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosIncidencia tbody").empty();
@@ -1635,13 +1635,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function HabilitarObtenerDocumentosIncidencias() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Incidencia", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosIncidencia tbody").empty();
@@ -1650,13 +1650,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function DesahabilitarObtenerDocumentosResolver() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Resolver", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosResolver tbody").empty();
@@ -1665,13 +1665,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function HabilitarObtenerDocumentosResolver() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Resolver", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosResolver tbody").empty();
@@ -1681,13 +1681,13 @@
                     }
                     else { LimpiarHistorialFiles(); }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function DesahabilitarObtenerDocumentosResponder() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Responder", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosResponder tbody").empty();
@@ -1696,13 +1696,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function HabilitarObtenerDocumentosResponder() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Responder", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosResponder tbody").empty();
@@ -1711,13 +1711,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function DesahabilitarObtenerDocumentosCancelar() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Cancelar", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosCancelar tbody").empty();
@@ -1726,13 +1726,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function HabilitarObtenerDocumentosCancelar() {
             $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, estatusDocumento: "Cancelar", token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivosCancelar tbody").empty();
@@ -1741,7 +1741,7 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -2194,7 +2194,7 @@
                     displayMessage("notificationslabel0056", "", '0');
                     CargaInicialEdicion(_FolioIncidencia);
                 }
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -2209,7 +2209,7 @@
                     CargaInicialEdicion(_FolioIncidencia);
                     displayMessage("notificationslabel0056", "", '0');
                 }
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -2234,7 +2234,7 @@
                 displayMessage("notificationslabel0082","","2");
                 return 0;
             }
-            loadingStart();
+            //loadingStart();
             switch (tabSelected) {
 
                 case "Incidencia":
@@ -2252,12 +2252,12 @@
                         }
                     } else {
                         displayMessage("notificationslabel0031", "", '1');
-                        loadingStop();
+                        //loadingStop();
                     }
                     break;
 
                 case "Resolver":
-                    loadingStart();
+                    //loadingStart();
                     if (validarRequeridosFormaIncidenciasResolverIncidencia()) {
                         var Listado = ArrayListado();
 
@@ -2272,17 +2272,17 @@
                         }
                     } else {
                         displayMessage("notificationslabel0031", "", '1');
-                        loadingStop();
+                        //loadingStop();
                         //$("#DetalleResolucionDiv").removeClass("hidden");
                         //$("#ResueltoPorDiv").removeClass("hidden");
                         //$("#FechaResolucionDiv").removeClass("hidden");
                         //$("#MotivoCancelacionDiv").addClass("hidden");
                     }
-                    loadingStop();
+                    //loadingStop();
                     break;
 
                 case "Responder":
-                    loadingStart();
+                    //loadingStart();
                     if (validarRequeridosFormaIncidenciasResponderIncidenciaIncidencia()) {
                         var Listado = ArrayListado();
                         Listado.Estatus = "Respondido";
@@ -2296,13 +2296,13 @@
                         }
                     } else {
                         displayMessage("notificationslabel0031", "", '1');
-                        loadingStop();
+                        //loadingStop();
                     };
-                    loadingStop();
+                    //loadingStop();
                     break;
 
                 case "Cancelar":
-                    loadingStart();
+                    //loadingStart();
                     if (validarRequeridosFormaIncidenciasCancelarIncidencia()) {
                         var Listado = ArrayListado();
                         Listado.Estatus = "Cancelado";
@@ -2324,18 +2324,18 @@
                         }
                     } else {
                         displayMessage("notificationslabel0031", "", '1');
-                        loadingStop();
+                        //loadingStop();
                         //$("#MotivoCancelacionDiv").removeClass("hidden");
                         //$("#DetalleResolucionDiv").addClass("hidden");
                         //$("#ResueltoPorDiv").addClass("hidden");
                         //$("#FechaResolucionDiv").addClass("hidden");
                     }
-                    loadingStop();
+                    //loadingStop();
                     break;
             };
 
 
-            //loadingStop();
+            ////loadingStop();
         };
 
         function GuardaryNuevoIncidencia() {
@@ -2343,7 +2343,7 @@
                 displayMessage("notificationslabel0082","","2");
                 return 0;
             }
-            loadingStart();
+            //loadingStart();
             if (validarRequeridosFormaIncidenciasGuardar()) {
                 var Listado = ArrayListado();
                 Listado.Estatus = "Abierta";
@@ -2358,9 +2358,9 @@
                 }
             } else {
                 displayMessage("notificationslabel0031", "", '1');
-                loadingStop();
+                //loadingStop();
             }
-            //loadingStop();
+            ////loadingStop();
         };
 
         $("#RedirectIncidencia").click(function (e) {
@@ -2419,7 +2419,7 @@
         };
 
         function LimpiarPantalla() {
-            loadingStart();
+            //loadingStart();
             $("#Clasificacion").data("kendoComboBox").value("");
             $("#TipoIncidencia").data("kendoComboBox").value("");
             $("#Version").val("");
@@ -2436,7 +2436,7 @@
             TipoIncidencia = {};
             _FolioIncidencia = "-1";
             //ObtenerFechasporDefecto();
-            loadingStop();
+            //loadingStop();
         };
         function hideElementsIncidencias() {
             $(".sidebar").hide();

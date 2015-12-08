@@ -934,7 +934,7 @@
 
         function DesahabilitarObtenerDocumentosLlegadaMaterial() {
             $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivos tbody").empty();
@@ -943,13 +943,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function HabilitarObtenerDocumentosLlegadaMaterial() {
             $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
                         $("#listaArchivos tbody").empty();
@@ -958,13 +958,13 @@
                         });
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
         function HabilitarObtenerDocumentosLlegadaMaterialUploadFiles() {
             $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
-                loadingStart();
+                //loadingStart();
                 if (Error(result)) {
                     var contador = 0;
                     if (result.length > 0) {
@@ -988,7 +988,7 @@
                         }
                     }
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -1031,14 +1031,14 @@
 
             //console.log(JSON.stringify(FolioLlegada));
 
-            loadingStart();
+            //loadingStart();
             if (folioLlegada != -1 && folioLlegada != 0)//Edición
             {
                 BotonEdicion();
                 $FolioAvisoEntrada.FolioAvisoEntrada.update(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
                     //console.log("$FolioAvisoEntrada.FolioAvisoEntrada.update");
                     //Error(data);
-                    loadingStop();
+                    //loadingStop();
                     _esAlta = "-1";
                     BotonAlta();
                     actualizarTitulos(FolioLlegada);
@@ -1066,7 +1066,7 @@
                     }
                     $("#hdnOrdenDescargada").val("false");
                     //console.log("foliollegada: " + folioLlegada + ", folioAvisoLlegada: " + folioAvisoLlegada);
-                    loadingStop();
+                    //loadingStop();
                 });
             }
 
@@ -1315,7 +1315,7 @@
         };
 
         function GenerarOrdenDescarga() {
-            loadingStart();
+            //loadingStart();
             $OrdenDescarga.OrdenDescarga.create({},{ folioAvisoEntrada: folioLlegada, token: Cookies.get("token") }).done(function (data) {
                 //console.log("$OrdenDescarga.OrdenDescarga.create");
                 if (Error(data)) {
@@ -1324,7 +1324,7 @@
                     ocultarStatus();
                     $("#LlegadaMaterial0063").show();
                 }
-                loadingStop();
+                //loadingStop();
             });
         }
 
@@ -1335,10 +1335,10 @@
                 return;
             };
 
-            loadingStart();
+            //loadingStart();
             $FolioAvisoEntrada.FolioAvisoEntrada.destroy({}, { folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
                 Error(result);
-                loadingStop();
+                //loadingStop();
 
                 displayMessage("notificationslabel0032", "", '0');
                 var detalleIdeaUrl = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";

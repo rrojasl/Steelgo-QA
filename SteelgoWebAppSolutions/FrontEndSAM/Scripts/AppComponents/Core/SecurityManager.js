@@ -28,7 +28,7 @@ function securityManagerToBeExecutedOnDocumentReady() {
 //Method to change the visibility, editability and required attributes of the elements
 function applySecurityPolicy(loadMenu) {
     //Block the screen
-    //loadingStart();
+    ////loadingStart();
 
     //If this page its not the login page
     if (Cookies.get("navegacion") != "1") {
@@ -78,7 +78,7 @@ function applySecurityPolicy(loadMenu) {
 
             //Apply Security
             applySecurity();
-            //loadingStop();
+            ////loadingStop();
             //$("#language").data("kendoDropDownList").trigger("change");
             changeLayoutLabels($("#language").data("kendoDropDownList").value());
             changeLayoutSpans($("#language").data("kendoDropDownList").value());
@@ -87,7 +87,7 @@ function applySecurityPolicy(loadMenu) {
     } else {
         //Apply Security
         applySecurity();
-        //loadingStop();
+        ////loadingStop();
         //$("#language").data("kendoDropDownList").trigger("change");
         changeLayoutLabels($("#language").data("kendoDropDownList").value());
         changeLayoutSpans($("#language").data("kendoDropDownList").value());
@@ -367,7 +367,7 @@ function authenticate(username, password) {
 
 function createUserSession(username, password) {
     //Create Login
-    loadingStart();
+    //loadingStart();
     $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
         if (data.IsAuthenicated) {
             Cookies.set("home", false, { path: '/' });
@@ -377,7 +377,7 @@ function createUserSession(username, password) {
             //RedirectToLanding
             document.location.href = $homeURI;
         } else {
-            loadingStop();
+            //loadingStop();
         }
     });
 }
@@ -404,7 +404,7 @@ function removeUserSession() {
 
 function validateCredentials() {
     if (Cookies.get("home") != null && Cookies.get("home") == "false" && Cookies.get("user") != null && Cookies.get("token") != null) {
-        loadingStart();
+        //loadingStart();
         var request = $SecurityManager.authentication.read({ username: Cookies.get("user"), token: Cookies.get("token") });
         request.done(function (data) {
             //console.out(data);
@@ -417,14 +417,14 @@ function validateCredentials() {
                 displayMessage("notificationslabel0001", "", '2');
                 document.location.href = '/';
             }
-            loadingStop();
+            //loadingStop();
         });
         request.error(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
             displayMessage("notificationslabel0002", "", '2');
             document.location.href = '/';
-            loadingStop();
+            //loadingStop();
         });
         request.fail(function (data) {
             Cookies.remove("user", { path: '/' });
@@ -432,7 +432,7 @@ function validateCredentials() {
             displayMessage("notificationslabel0003", "", '2');
             document.location.href = '/';
 
-            loadingStop();
+            //loadingStop();
         });
 
     } else {

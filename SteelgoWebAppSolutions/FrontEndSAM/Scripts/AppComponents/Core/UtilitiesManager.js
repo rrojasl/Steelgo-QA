@@ -16,6 +16,14 @@ var $loadingCounter = 0;
 /****************************/
 /*    Document Ready        */
 /****************************/
+$(document).bind("ajaxStart", function () {
+    loadingStart();
+}).bind("ajaxStop", function () {
+    loadingStop();
+}).bind("ajaxError", function () {
+    loadingStop();
+});
+
 
 //Method to be called on the document ready and contains all the pertinent code for a partial view
 function utilitiesManagerToBeExecutedOnDocumentReady() {
@@ -58,16 +66,16 @@ function onOpen(e) {
 //Function to activate waiting screen
 function loadingStart() {
     $body.addClass("loading");
-    $loadingCounter++;
+    //$loadingCounter++;
 }
 
 //Function to deactivate waiting screen
 function loadingStop() {
-    $loadingCounter--;
-    if ($loadingCounter <= 0) {
+    //$loadingCounter--;
+    //if ($loadingCounter <= 0) {
         $body.removeClass("loading");
-        $loadingCounter = 0;
-    }
+        //$loadingCounter = 0;
+    //}
 }
 
 //Function to encrypt base64 a string
