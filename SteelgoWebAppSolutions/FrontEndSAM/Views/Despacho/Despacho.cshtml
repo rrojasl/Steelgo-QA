@@ -479,8 +479,9 @@
 
             Listado.ListaDespachos = ListadoAGuardar(datasource);
 
-            if (!datasource.length) {
+            if (!datasource.length || Listado.ListaDespachos.length==0) {
                 displayMessage("notificationslabel0067", "", '2');
+                loadingStop();
                 return;
             };
 
@@ -516,7 +517,7 @@
         return baston;
     };
     function ListadoAGuardar(datasource) {
-        var Listado = {}, z = 0;
+        var Listado = [], z = 0;
         for (var i = 0; i < datasource.length; i++) {
             var NumeroControl = datasource[i].NumeroControl;
             var ItemCode = datasource[i].ItemCode;
