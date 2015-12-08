@@ -217,6 +217,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || !e.sender.current()) {
+                    messageindexKendoAutocomplete(this, e.sender.current());
                     NumeroControl = {};
                     this.value("");
                 }

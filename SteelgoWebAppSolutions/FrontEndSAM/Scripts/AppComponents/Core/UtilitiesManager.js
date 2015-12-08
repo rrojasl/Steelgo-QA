@@ -119,6 +119,18 @@ function removeGrid(grid) {
     return tmp;
 }
 
+function messageindexKendoAutocomplete(obj, current) {
+    if (obj.value()) {
+        if (!current) {
+            var elemento = obj.list.attr("id");
+            var index = elemento.indexOf("-");
+            var valor = elemento.substring(0, index);
+
+            displayMessage("notificationslabel0083", $("#" + valor).closest("div").find("label").text(), '1');
+        };
+    }
+};
+
 function messageindexKendoCombobox(obj) {
     obj.select(function (dataItem) {
         if (dataItem.value === obj.value()) {
