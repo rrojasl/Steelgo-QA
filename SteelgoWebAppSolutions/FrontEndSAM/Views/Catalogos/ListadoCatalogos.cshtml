@@ -498,7 +498,7 @@
     }
 
     function cargarInicialGrid(val) {
-        //loadingStart();
+        loadingStart();
         removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: getDataSourceGrid(val),
@@ -508,10 +508,7 @@
             columns:columnas[$("#listaCatalogos").data("kendoDropDownList").value()],
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
-                refresh: false,
                 pageSizes: [10, 15, 20],
-                info: false,
-                input: false,
                 numeric: true,
                 buttonCount: 2
             },
@@ -575,7 +572,7 @@
                 }
             }
         });
-        //loadingStop();
+        loadingStop();
     };
 
     function getDataFromModel(fields,model){
@@ -662,7 +659,7 @@
     }
 
     function enviarCedulas(data) {
-        //loadingStart();
+        loadingStart();
         $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
             if (Error(result)) {
                 var counter=0;
@@ -682,7 +679,7 @@
                 porPintar.length>0 ? cedulasErroneas=true : null;
                 regenerarGrid();
             }
-            //loadingStop();
+            loadingStop();
         })
     };
 
@@ -714,13 +711,7 @@
             schema: {
                 model: modelos[val]
             },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
             pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
             transport: {
                 read: {
                     url: getUrl() + Cookies.get("token"),
@@ -743,11 +734,6 @@
                     type:"POST",
                     cache: false
                 },
-                parameterMap: function (options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return { models: kendo.stringify(options.models) };
-                    }
-                }
             },
             requestEnd:function(e){
                 Error(e.response);
@@ -919,13 +905,7 @@
                                 fields: obtenerFieldsCedula(),
                             }
                         },
-                        serverPaging: false,
-                        serverFiltering: false,
-                        serverSorting: false,
                         pageSize: 20,
-                        serverPaging: false,
-                        serverFiltering: false,
-                        serverSorting: false,
                         transport:{
                             read:{
                                 url:$Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=11&token=" +Cookies.get("token"),
@@ -933,11 +913,6 @@
                                 type:"GET",
                                 cache: false
                             },
-                            parameterMap: function(options, operation) {
-                                if (operation !== "read" && options.models) {
-                                    return {models: kendo.stringify(options.models)};
-                                }
-                            }
                         },
                         requestEnd:function(e){
                             Error(e.response);
@@ -948,10 +923,7 @@
                     scrollable: false,
                     filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                     pageable: {
-                        refresh: false,
                         pageSizes: [10, 15, 20],
-                        info: false,
-                        input: false,
                         numeric: true,
                         buttonCount: 2
                     },
@@ -1104,6 +1076,7 @@
 @section JavascriptDocumentReadyFunctions {
     $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
     columnas = getColumnas();
+    $(document).bind("ajaxStart", function () {}).bind("ajaxStop", function () {}).bind("ajaxError", function () {}).bind("ajaxSuccess", function () {});
 };
     
 @section JavascriptDocumentReadyHomeCookie {
