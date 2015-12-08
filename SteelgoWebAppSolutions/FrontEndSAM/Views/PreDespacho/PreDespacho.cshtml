@@ -460,8 +460,9 @@
             var Listado = { };
             Listado.lista = ListadoAGuardar(datasource);
 
-            if (!datasource.length) {
+            if (!datasource.length || Listado.lista.length==0) {
                 displayMessage("notificationslabel0067", "", '2');
+                loadingStop();
                 return;
             };
             //console.log(Listado.lista);
@@ -490,7 +491,7 @@
     }
 
     function ListadoAGuardar(datasource) {
-        var Listado = {}, z = 0;
+        var Listado = [], z = 0;
         for (var i = 0; i < datasource.length; i++) {
             var NumeroControl = datasource[i].NumeroControlID;
             var ItemCode = datasource[i].ItemCodeID;
