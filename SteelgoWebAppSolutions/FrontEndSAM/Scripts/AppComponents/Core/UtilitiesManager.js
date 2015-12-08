@@ -424,6 +424,19 @@ function detectIE() {
         return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
     }
 
+    var msSafari = ua.indexOf('Safari');
+    if (msSafari > 0) {
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msSafari)), 10);
+    }
     // other browser
     return false;
 }
+
+function detectSafari() {
+    var ua = window.navigator.userAgent;
+    var msSafari = ua.indexOf('Safari');
+    if (msSafari > 0) {
+        return true;
+    }
+    return false;
+};
