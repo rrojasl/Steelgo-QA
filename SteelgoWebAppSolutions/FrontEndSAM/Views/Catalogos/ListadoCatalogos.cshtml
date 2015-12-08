@@ -203,6 +203,9 @@
                                         dataType: "json",
                                         url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function (e) {
@@ -230,6 +233,9 @@
                                         dataType: "json",
                                         url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function (e) {
@@ -262,6 +268,9 @@
                                         dataType: "json",
                                         url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function(e) {
@@ -285,6 +294,9 @@
                                         dataType: "json",
                                         url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function(e) {
@@ -313,6 +325,9 @@
                                         dataType: "json",
                                         url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function(e) {
@@ -336,6 +351,9 @@
                                         dataType: "json",
                                         url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function(e) {
@@ -361,6 +379,9 @@
                                         dataType: "json",
                                         url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function (e) {
@@ -396,6 +417,9 @@
                                         dataType: "json",
                                         url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                     }
+                                },
+                                requestEnd:function(e){
+                                    Error(e.response);
                                 }
                             },
                             close: function (e) {
@@ -726,6 +750,7 @@
                 }
             },
             requestEnd:function(e){
+                Error(e.response);
                 if(e.type=="create" && e.response.ReturnCode==500){
                     displayMessage("",e.response.ReturnMessage,"2")
                     ultimaInsercionFallida=true;
@@ -741,16 +766,16 @@
     function checkMM(c){
         if (c["CedulaMM"] !== "" && c["CedulaIn"] !== ""){
             if(Math.round((parseFloat(c["CedulaMM"]) / parseFloat(c["CedulaIn"])*10000))/10000!==parseFloat($("#fconversion").val())){
-                c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+                c["CedulaIn"] = (c["CedulaMM"] / $("#fconversion").val()).toFixed(4);
             }
         }
         if (c["CedulaMM"] == "")//Obtiene los MM multiplicando los In
         {
-            c["CedulaMM"] = c["CedulaIn"] * $("#fconversion").val();
+            c["CedulaMM"] = (c["CedulaIn"] * $("#fconversion").val()).toFixed(4);
         }
         if (c["CedulaIn"] == "")//Obtiene los IN dividiendo los MM
         {
-            c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+            c["CedulaIn"] = (c["CedulaMM"] / $("#fconversion").val()).toFixed(4);
         }
     }
 
@@ -763,7 +788,13 @@
                 read: {
                     dataType: "json",
                     url: $Catalogos.AdministracionCatalogos.urlNoId + "?token=" + Cookies.get("token")
+                },
+                requestEnd:function(e){
+                    Error(e.response);
                 }
+            },
+            requestEnd:function(e){
+                Error(e.response);
             }
         },
         change: function (e) {
@@ -908,6 +939,9 @@
                                 }
                             }
                         },
+                        requestEnd:function(e){
+                            Error(e.response);
+                        }
                     },
                     autoHeight: true,
                     sortable: false,
