@@ -4795,9 +4795,60 @@ _dictionary = {
     "GenerarRequisicionMensajeJuntaAgregada": {
         "es-MX": "Junta agregada",
         "en-US": "Agree Joint"
-    }
+    },
     //#endregion
+    //#region CapturaReporte
+    "lblTituloCapturaDeReportePruebas": {
+        "es-MX": "Captura de reportes",
+        "en-US": "Capturing report"
+    },
+    "lblSooplJuntaCapturaDeReportePruebas": {
+        "es-MX": "Spool-Junta",
+        "en-US": "Spool-board"
+    },
+    "lblNumeroPlacasCapturaDeReportePruebas": {
+        "es-MX": "Número Placas",
+        "en-US": "Number plates"
+    },
+    "lblTamañoCapturaDeReportePruebas": {
+        "es-MX": "Tamaño",
+        "en-US": "Size"
+    },
+    "lblDensidadCapturaDeReportePruebas": {
+        "es-MX": "Densidad",
+        "en-US": "Density"
+    },
+    "lblDetalleCapturaDeReportePruebas": {
+        "es-MX": "Detalle pruebas",
+        "en-US": "Test detail"
+    },
 
+    "lblUbicacionCapturaDeReportePruebas": {
+        "es-MX": "Ubicación",
+        "en-US": "Location"
+    },
+    "lblResultadoCapturaDeReportePruebas": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "lblDetalleDefectosCapturaDeReportePruebas": {
+        "es-MX": "Detalle defectos",
+        "en-US": "Detail defects"
+    },
+
+    "lblDefectoCapturaDeReportePruebas": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
+    "lblInicioCapturaDeReportePruebas": {
+        "es-MX": "Inicio",
+        "en-US": "Start"
+    },
+    "lblFinCapturaDeReportePruebas": {
+        "es-MX": "Fin",
+        "en-US": "End"
+    },
+    //#endRegion
 }
     
 
