@@ -119,6 +119,18 @@ function removeGrid(grid) {
     return tmp;
 }
 
+function messageindexKendoAutocomplete(obj, current) {
+    if (obj.value()) {
+        if (!current) {
+            var elemento = obj.list.attr("id");
+            var index = elemento.indexOf("-");
+            var valor = elemento.substring(0, index);
+
+            displayMessage("notificationslabel0083", $("#" + valor).closest("div").find("label").text(), '1');
+        };
+    }
+};
+
 function messageindexKendoCombobox(obj) {
     obj.select(function (dataItem) {
         if (dataItem.value === obj.value()) {
@@ -424,6 +436,19 @@ function detectIE() {
         return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
     }
 
+    var msSafari = ua.indexOf('Safari');
+    if (msSafari > 0) {
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msSafari)), 10);
+    }
     // other browser
     return false;
 }
+
+function detectSafari() {
+    var ua = window.navigator.userAgent;
+    var msSafari = ua.indexOf('Safari');
+    if (msSafari > 0) {
+        return true;
+    }
+    return false;
+};
