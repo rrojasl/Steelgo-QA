@@ -766,16 +766,16 @@
     function checkMM(c){
         if (c["CedulaMM"] !== "" && c["CedulaIn"] !== ""){
             if(Math.round((parseFloat(c["CedulaMM"]) / parseFloat(c["CedulaIn"])*10000))/10000!==parseFloat($("#fconversion").val())){
-                c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+                c["CedulaIn"] = (c["CedulaMM"] / $("#fconversion").val()).toFixed(4);
             }
         }
         if (c["CedulaMM"] == "")//Obtiene los MM multiplicando los In
         {
-            c["CedulaMM"] = c["CedulaIn"] * $("#fconversion").val();
+            c["CedulaMM"] = (c["CedulaIn"] * $("#fconversion").val()).toFixed(4);
         }
         if (c["CedulaIn"] == "")//Obtiene los IN dividiendo los MM
         {
-            c["CedulaIn"] = c["CedulaMM"] / $("#fconversion").val();
+            c["CedulaIn"] = (c["CedulaMM"] / $("#fconversion").val()).toFixed(4);
         }
     }
 
