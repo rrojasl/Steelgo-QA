@@ -30,7 +30,7 @@ var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:60921';
-var $SearchSAMUri2 = 'http://10.15.2.12:8089';
+var $SearchSAMUri2 = 'http://10.15.10.185:8089';
 var $FilesSAMUri = 'http://localhost:60921';
 
 //Combos Base URL
@@ -148,7 +148,9 @@ var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/'
 var $Diametros = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ConvertirSpoolAGranel = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Spool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $FamiliaAcero= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FamiliaAcero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -254,3 +256,5 @@ $Diametros.add("Diametros");
 $ConvertirSpoolAGranel.add("ConvertirSpoolAGranel");
 $Spool.add("Spool");
 $FamiliaAcero.add("FamiliaAcero");
+$Proxy.add("Proxy");
+$Reporte.add("Reporte");

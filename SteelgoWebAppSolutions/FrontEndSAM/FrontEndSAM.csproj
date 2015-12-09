@@ -992,6 +992,7 @@
     <Compile Include="Controllers\PackingList\PackingListController.cs" />
     <Compile Include="Controllers\PopUps\PopUpsController.cs" />
     <Compile Include="Controllers\PreDespacho\PreDespachoController.cs" />
+    <Compile Include="Controllers\Proxy\ProxyController.cs" />
     <Compile Include="Controllers\Prueba\PruebaController.cs" />
     <Compile Include="Controllers\ConvertirSpoolAGranel\ConvertirSpoolAGranelController.cs" />
     <Compile Include="Controllers\Spool\SpoolController.cs" />
@@ -1185,6 +1186,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Proxy\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
