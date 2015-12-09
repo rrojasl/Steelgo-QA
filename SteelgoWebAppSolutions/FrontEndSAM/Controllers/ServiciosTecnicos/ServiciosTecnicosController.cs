@@ -27,8 +27,9 @@ namespace FrontEndSAM.Controllers.ServiciosTecnicos
         {
             return View();
         }
-        public ActionResult CapturaReportePruebas()
+        public ActionResult CapturaReportePruebas(int id = 1)
         {
+            ViewBag.id = id;
             return View();
         }
         public ActionResult EntregaResultados()

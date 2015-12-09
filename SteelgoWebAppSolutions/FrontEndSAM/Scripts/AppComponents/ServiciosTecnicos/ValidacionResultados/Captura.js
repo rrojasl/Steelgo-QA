@@ -1,4 +1,6 @@
-﻿function changeLanguageCall() {
+﻿var ItemSeleccionado;
+
+function changeLanguageCall() {
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
 };
@@ -8,23 +10,44 @@
 
 function CargarGrid() {
 
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
 
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
             data: [
-                     { DatosJunta: "Junta R1,Tipo BW, Cedua STD", Conciliado: "Aprobada", RazonesParaRechazo: "", Comentario: "", Accion: "" },
-                     { DatosJunta: "Junta 2,Tipo BW, Cedua STD", Conciliado: "Aprobada", RazonesParaRechazo: "", Comentario: "", Accion: "" },
-                     { DatosJunta: "Junta 2,Tipo BW, Cedua STD", Conciliado: "Rechazada", RazonesParaRechazo: "Placa mal analizada", Comentario: "Angulo mal tomado", Accion: "Regresar al proveedor - Editar" }
+                     
             ],
             schema: {
                 model: {
                     fields: {
-                        DatosJunta: { type: "string", editable: false},
+                        DatosJunta: { type: "string", editable: false },
                         Conciliado: { type: "string", editable: true },
-                        RazonesParaRechazo: { type: "string", editable: true },
+                        Nombre: { type: "string", editable: true },
                         Comentario: { type: "string", editable: true },
-                        Accion: { type: "string", editable: true },
+                        Enlace: { type: "string", editable: true },
+                        Ubicacion: { type: "string", editable: false },
                     }
                 }
             },
@@ -37,7 +60,18 @@ function CargarGrid() {
         filterable: {
             extra: false
         },
-        editable:true,
+        click: function (e) {
+            ItemSeleccionado = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        },
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                //e.model.Enlace = '<a class="EnlacesValidacionResultados" href="#">Editar</a>';
+                e.preventDefault();
+            }
+        },
+        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
@@ -50,17 +84,22 @@ function CargarGrid() {
         },
         columns: [
             { field: "DatosJunta", title: "Datos de junta", filterable: true },
-            { field: "Conciliado", title: "Conciliación", filterable: true},
-            { field: "RazonesParaRechazo", title: "Razones de rechazo", filterable: true },
-             { field: "Comentario", title: "Comentario", filterable: true },
-             { field: "Accion", title: "Accion", filterable: false },
-        { field: "Ubicacion", title: "Ubicacion", filterable: false }
+             { field: "Ubicacion", title: "Ubicacion", filterable: false },
+            { field: "Conciliado", title: "Conciliación", filterable: true, editor: comboBoxConciliacion },
+            { field: "Nombre", title: "Razones de rechazo", filterable: true, editor: comboBoxDefectos},
+            { field: "Comentario", title: "Comentario", filterable: true },
+            { field: "Enlace", title: "Accion", filterable: false, editor: renderEnlaceEditar, template: "Ver opciones" },
+           
         ]
+    }).on("click", "tbody td", function (e) {
     });
 };
 
-function AgregarCaptura() {
-};
+function isEditable(fieldName, model) {
+    if (fieldName === "Enlace") {
+        // condition for the field "ProductName"
+        return model.Conciliado !== "Aceptado";
+    }
 
-function eliminarCaptura() {
-};
+    return true; // default to editable
+}

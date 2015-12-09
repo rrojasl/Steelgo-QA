@@ -105,6 +105,7 @@ var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SoldadorCertificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CapturaReportesPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -131,6 +132,7 @@ $BackEndSAM.add('SoldadorCertificacion');
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');
+$CapturaReportesPruebas.add("CapturaReportesPruebas");
 
 //captura armado
 $CapturaArmado.add('Armado');
@@ -215,6 +217,7 @@ var $CapturaSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GenerarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 
 //#endregion
@@ -238,5 +241,6 @@ $CapturaSoldadura.add("Soldadura");
 $Inspeccion.add("Inspeccion");
 $InspeccionDimensional.add("InspeccionDimensional");
 $GenerarRequisicion.add("GenerarRequisicion");
+$ValidacionResultados.add("ValidacionResultados");
 //#endregion
 //#endregion

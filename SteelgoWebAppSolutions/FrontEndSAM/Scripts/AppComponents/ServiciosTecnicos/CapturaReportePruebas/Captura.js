@@ -1,6 +1,39 @@
-﻿function changeLanguageCall() {
+﻿var requisicionID;
+var resultadoJson;
+
+
+if ($("#idField").val() != null || $("#idField").val() != undefined)
+    requisicionID = $("#idField").val();
+else
+    requisicionID = 0;
+
+
+function changeLanguageCall() {
+   ObtenerDatosReporte();
+    ObtenerDatosGidAjax();
     CargarGrid();
-    $('#grid').data('kendoGrid').dataSource.read();
+};
+
+
+function ObtenerDatosReporte() {
+    if (requisicionID != 0) {
+        ObtenerDatosReporteAjax();
+    }
+};
+
+function LlenarDatosDeRequisicion(_TipoDePrueba, _Requisicion, _HerramientaPrueba, _TurnoLaboral) {
+    $("#RequisicionTipoDePrueba").text(_TipoDePrueba);
+    $("#RequisicionNoRequisicion").text(_Requisicion);
+    $("#RequisicionHerramientaPrueba").text(_HerramientaPrueba);
+    $("#RequisicionTurno").text(_TurnoLaboral);
+};
+
+
+function ObtenerDatosReporte() {
+
+    if (requisicionID != 0) {
+        ObtenerDatosReporteAjax();
+    }
 };
 
 
@@ -9,26 +42,19 @@
 function CargarGrid() {
 
 
+
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [
-                     { TipoPrueba: "RT", SpoolJunta: "X001-001", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 3, Tamano: "25mm", Densidad: "22mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"0-1","Resultado":"Aprobado"},{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"1-2","Resultado":"Rechazado"},{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"2-3","Resultado":"Aprobado"}]' },
-                     { TipoPrueba: "RT", SpoolJunta: "X001-002", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 10, Tamano: "10mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Rechazado"}]' },
-                     { TipoPrueba: "RT", SpoolJunta: "X001-003", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 4, Tamano: "15mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "VD","JuntaSpool":"X003-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Rechazado"}]' },
-                     { TipoPrueba: "RT", SpoolJunta: "X001-004", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 1, Tamano: "25mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "VD","JuntaSpool":"X004-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Aprobado"}]' }
-            ],
+            data: resultadoJson,
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
+                        RequisicionPruebaElementoID : { type:"string", editable:false},
                         SpoolJunta: { type: "string", editable: false },
-                        NumeroPlacas: { type: "string", editable: false },
-                        Densidad: { type: "string", editable: false },
-                        NumeroPlacas: { type: "string", editable: false },
-                        InformacionResultados: { type: "string", editable: true },
-                        TemplateMensajeTrabajosAdicionales: { type: "string", editable: true },
-
+                        NumeroPlacas: { type: "string", editable: true },
+                        Tamaño :{type:"string", editable:true},
+                        Densidad: { type: "string", editable: true }
                     }
                 }
             },
@@ -53,20 +79,21 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-          
-            { field: "SpoolJunta", title: "Spool - Junta", filterable: true, width: "100px" },
-             { field: "NumeroPlacas", title: "Número Placas", filterable: true, width: "90px" },
-             { field: "Tamano", title: "Tamaño", filterable: true, width: "90px" },
-             { field: "Densidad", title: "Densidad", filterable: true, width: "100px" },
-              
-            { field: "InformacionResultados", title: "Detalle Pruebas", filterable: false, width: "500px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
+         { field: "RequisicionPruebaElementoID", title: _dictionary.lblSooplJuntaCapturaDeReportePruebas[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
+        { field: "SpoolJunta", title: _dictionary.lblSooplJuntaCapturaDeReportePruebas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+        { field: "NumeroPlacas", title: _dictionary.lblNumeroPlacasCapturaDeReportePruebas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
+        { field: "Tamaño", title: _dictionary.lblTamañoCapturaDeReportePruebas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
+        { field: "Densidad", title: _dictionary.lblDensidadCapturaDeReportePruebas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+        { field: "DetallePruebas", title: _dictionary.lblDetalleCapturaDeReportePruebas[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: RenderGridDetalle, template: "Ver detalle" },
 
-        ]
+        ],
+        
+
+        edit: function (e) { 
+            console.log(e);
+        
+        }
+          
     });
 };
 
-function AgregarCaptura() {
-};
-
-function eliminarCaptura() {
-};

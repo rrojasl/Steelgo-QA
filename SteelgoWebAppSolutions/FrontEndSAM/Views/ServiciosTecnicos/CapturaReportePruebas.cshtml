@@ -10,30 +10,23 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Captura de Reportes</span></a>
+        <a href="@Url.Action("CapturaReportePruebas", "ServiciosTecnicos")"><span id="lblTituloCapturaDeReportePruebas"></span></a>
     </li>
 }
 
 <div></div>
 
 
-<div id="FormGeneraRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
+<div id="FormCapturaReportePruebas" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
+                    <input type="hidden" value=@ViewBag.id id="idField" />
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar2"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
-                                </ul>
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
@@ -43,10 +36,7 @@
                                     <span id="DetalleAvisoLlegada0064"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                        <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                        <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">                          
                                 </ul>
                             </div>
                         </div>
@@ -56,20 +46,26 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span id="Re">Tipo de Prueba: </span><span id="Re">RT</span>
+            <span id="Re">Tipo de Prueba: </span>
+            <span id="RequisicionTipoDePrueba"></span>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span id="Re">Requisición: </span><span id="Re">RT0023</span>
+            <span id="Re">Requisición: </span>
+            <span id="RequisicionNoRequisicion"></span>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span id="Re">Fuente: </span><span id="Re">F1</span>
+            <span id="Re">Fuente: </span>
+            <span id="RequisicionHerramientaPrueba"></span>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span id="Re">Turno: </span><span id="Re">Matutino</span>
+            <span id="Re">Turno: </span>
+            <span id="RequisicionTurno"></span>
         </div>
     </div>
+
     <hr />
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -84,21 +80,15 @@
     <div id="window">
     </div>
     <br /><br />
-    <div class="row">
+  
+      <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
-                                </ul>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>                       
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
                         </div>
@@ -110,9 +100,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                        <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                        <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -123,7 +111,7 @@
         </div>
     </div>
 </div>
-@*<script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Handlers.js"></script>*@
-    <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/CapturaReportePruebas/Render.js"></script>
+
+<script src="~/Scripts/AppComponents/ServiciosTecnicos/CapturaReportePruebas/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/CapturaReportePruebas/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/CapturaReportePruebas/Captura.js"> </script>
