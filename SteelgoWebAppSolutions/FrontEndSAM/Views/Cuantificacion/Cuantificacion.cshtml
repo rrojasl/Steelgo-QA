@@ -644,14 +644,13 @@
             $("#FolioCuantificacionID").kendoComboBox({
                 dataTextField: "FolioConfiguracionCuantificacionID",
                 dataValueField: "FolioCuantificacionID",
-                //select: function (e) {
-                //    var dataItem = this.dataItem(e.item.index());
-                //    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
-                //},
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
+                },
                 change: function (e) {
                     recentlyAdded=false;
                     var dataItem = this.dataItem();
-                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
                     var value = this.value();
                     limpiarfiltrosFolioLlegada();
                     if (!value || this.selectedIndex == -1) {
