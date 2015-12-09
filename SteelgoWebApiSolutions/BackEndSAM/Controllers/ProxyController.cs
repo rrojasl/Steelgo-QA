@@ -27,8 +27,6 @@ namespace BackEndSAM.Controllers
             HttpContent content = new StringContent("");
             HttpResponseMessage response = new HttpResponseMessage();
 
-            
-
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
