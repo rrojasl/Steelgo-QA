@@ -235,10 +235,23 @@
         CargarDatosGridInicial();
 
         if (_imprimirFormatos != "-1") {
-            window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + _ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+            var pdf = ArregloPDF(_ordenRecepcionID);
+            $Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
+                if (result) {
+                    if (Error(result)) {
+                    }
+                }
+            });
+
+            //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + _ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
             alert("Pendiente formato de impresion de Orden Recepcion Reporting Services");
         };
     };
+
+    function ArregloPDF(id) {
+        var PDF = { TipoReporte: 1, FolioOrdenRecepcion: id};
+        return PDF;
+    }
 
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {

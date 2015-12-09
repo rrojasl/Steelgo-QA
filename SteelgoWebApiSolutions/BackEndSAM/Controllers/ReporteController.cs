@@ -18,14 +18,17 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ReporteController : ApiController
     {
-        public object Get(ConsultaReportes consulta, string token)
+        public object Get(string data, string token)
         {
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ConsultaReportes consulta = serializer.Deserialize<ConsultaReportes>(data);
+
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 switch (consulta.TipoReporte)
                 {

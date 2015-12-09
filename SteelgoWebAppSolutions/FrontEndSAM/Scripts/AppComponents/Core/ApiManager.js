@@ -150,6 +150,7 @@ var $ConvertirSpoolAGranel = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $Spool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FamiliaAcero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -256,3 +257,4 @@ $ConvertirSpoolAGranel.add("ConvertirSpoolAGranel");
 $Spool.add("Spool");
 $FamiliaAcero.add("FamiliaAcero");
 $Proxy.add("Proxy");
+$Reporte.add("Reporte");
