@@ -416,8 +416,8 @@
         //client.PreDespacho.read({}, { spoolID: 21562, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQ0NTYxMzE3Nn0.lwrTZEJ6mt5O-k9JDJzUlraR60dQWDOXJQoNcR2QQYk" }).done(function (data) { console.log(data) });
 
         var client = new $.RestClient('http://localhost:60960/backendsam/api/');
-        client.add("FoliosCuantificacion");
-        client.FoliosCuantificacion.update({}, { token: "123456" }).done(function (data) { console.log(data) });
+        client.add("Reporte");
+        client.Reporte.read({}, { folio: 3, token: "123456" }).done(function (data) { console.log(data) });
 
 
     </script>
