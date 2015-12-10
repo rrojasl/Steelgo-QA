@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
                     case 1: //Formato Etiquetas Orden de recepcion
                         return ReportesBd.Instance.ReporteFormatoEtiquetasOrdenRecepcion(consulta.FolioOrdenRecepcion, usuario);
                     case 2: //Formato Incidencia
-                        return ReportesBd.Instance.ReporteFormatoIncidencias(consulta.FolioAvisoLlegadaID, cadena, usuario);
+                        return ReportesBd.Instance.ReporteFormatoIncidencias(consulta.FolioAvisoLlegadaID, consulta.Cadena, usuario);
                     case 3: //Pase Salida transportista
                         return ReportesBd.Instance.ReportePaseSalidaTransportista(consulta.FolioAvisoLlegadaID, usuario);
                     default:
