@@ -654,7 +654,7 @@
                 //loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[1];
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[2];
                 }
             });
         } else {
@@ -718,7 +718,7 @@
                 //loadingStop();
                 if (Error(result)) {
                     window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1];
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[2];
                 }
             });
         } else {

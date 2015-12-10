@@ -100,22 +100,15 @@ namespace BackEndSAM.DataAcces
 
                                             datos.FolioConfiguracionIncidenciaID = nuevaIncidencia.IncidenciaID.ToString();
 
+                                            Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == datos.ReferenciaID).FirstOrDefault();
+                                            rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion.Where(x => x.Entidad == folioAvisoLlegada.Entidad && x.Proyecto == folioAvisoLlegada.ProyectoNombrado).FirstOrDefault();
 
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                Sam3_FolioAvisoLlegada folioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == datos.ReferenciaID).FirstOrDefault();
-                                                rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion.Where(x => x.Entidad == folioAvisoLlegada.Entidad && x.Proyecto == folioAvisoLlegada.ProyectoNombrado).FirstOrDefault();
-
                                                 datos.FolioConfiguracionIncidenciaID = (rel_proyecto_entidad_configuracion.PreFijoFolioIncidencias + ","
                                                                                                                                         + rel_proyecto_entidad_configuracion.CantidadCerosFolioIncidencias.ToString() + ","
                                                                                                                                         + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                         + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias);
-
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
 
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
@@ -124,9 +117,17 @@ namespace BackEndSAM.DataAcces
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
 
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
+                                               
                                             }
+
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
 
                                             break;
                                         case 2: // Entrada de Material
@@ -150,23 +151,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
 
                                             
@@ -191,23 +192,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
                                             break;
                                         case 5: // Orden de recepcion
@@ -231,23 +232,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString() : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
                                             break;
                                         case 6: // Complemento de recepcion. Por el momento sin implementacion
@@ -271,23 +272,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+                                            
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
                                             break;
                                         case 8: // Orden de almacenaje
@@ -312,23 +313,24 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString() : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias && ordenAlmacenaje.Rel_Proyecto_Entidad_Configuracion_ID != null)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
 
                                             break;
@@ -351,23 +353,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
                                             break;
                                         case 10: // Despacho
@@ -389,23 +391,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
                                             break;
                                         case 11: // Corte
@@ -426,23 +428,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevaIncidencia.IncidenciaID.ToString();
 
+                                            consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                            actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
+                                            actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                            actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                            ctx.SaveChanges();
+
+                                            rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                            ctx.SaveChanges();
+
                                             if (ActivarFolioConfiguracionIncidencias)
                                             {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevaIncidencia.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
-
                                                 string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                                 int digitos = Convert.ToInt32(elemntos[1]);
                                                 int consecutivo = Convert.ToInt32(elemntos[2]);
                                                 string formato = "D" + digitos.ToString();
 
                                                 datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
                                             }
                                             break;
                                         default:
@@ -606,23 +608,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
 
 
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
+
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
+
                                     if (ActivarFolioConfiguracionIncidencias)
                                     {
-                                        consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                        actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                        actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                        actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                        ctx.SaveChanges();
-
                                         string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                         int digitos = Convert.ToInt32(elemntos[1]);
                                         int consecutivo = Convert.ToInt32(elemntos[2]);
                                         string formato = "D" + digitos.ToString();
 
                                         datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                        rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                        ctx.SaveChanges();
                                     }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -659,23 +661,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                     + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                     + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
 
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
+
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
+
                                     if (ActivarFolioConfiguracionIncidencias)
                                     {
-                                        consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                        actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                        actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                        actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                        ctx.SaveChanges();
-
                                         string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                         int digitos = Convert.ToInt32(elemntos[1]);
                                         int consecutivo = Convert.ToInt32(elemntos[2]);
                                         string formato = "D" + digitos.ToString();
 
                                         datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                        rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                        ctx.SaveChanges();
                                     }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -711,23 +713,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                     + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                     + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
 
+                                     consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                     actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                     actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                     actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                     ctx.SaveChanges();
+
+                                     rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                     ctx.SaveChanges();
+
                                      if (ActivarFolioConfiguracionIncidencias)
                                      {
-                                        consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                        actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                        actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                        actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                        ctx.SaveChanges();
-
                                         string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                         int digitos = Convert.ToInt32(elemntos[1]);
                                         int consecutivo = Convert.ToInt32(elemntos[2]);
                                         string formato = "D" + digitos.ToString();
 
                                         datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                        rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                        ctx.SaveChanges();
                                      }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -761,24 +763,24 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString() : nuevoRegistro.IncidenciaID.ToString();
 
-                                            if (ActivarFolioConfiguracionIncidencias && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
-                                            {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
 
-                                                string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
-                                                int digitos = Convert.ToInt32(elemntos[1]);
-                                                int consecutivo = Convert.ToInt32(elemntos[2]);
-                                                string formato = "D" + digitos.ToString();
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
 
-                                                datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    if (ActivarFolioConfiguracionIncidencias && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                                    {
+                                        string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
 
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
-                                            }
+                                        datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para la Orden de Recepción: {0}", datos.ReferenciaID),
@@ -812,23 +814,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                     + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                     + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
 
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
+
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
+
                                     if (ActivarFolioConfiguracionIncidencias)
                                     {
-                                        consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                        actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                        actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                        actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                        ctx.SaveChanges();
-
                                         string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                         int digitos = Convert.ToInt32(elemntos[1]);
                                         int consecutivo = Convert.ToInt32(elemntos[2]);
                                         string formato = "D" + digitos.ToString();
 
                                         datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                        rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                        ctx.SaveChanges();
                                     }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -863,24 +865,24 @@ namespace BackEndSAM.DataAcces
                                                                                                                                           + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                           + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString() : nuevoRegistro.IncidenciaID.ToString();
 
-                                            if (ActivarFolioConfiguracionIncidencias && ordenAlmacenaje.Rel_Proyecto_Entidad_Configuracion_ID != null)
-                                            {
-                                                consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                                actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                                actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                                actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                                ctx.SaveChanges();
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
 
-                                                string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
-                                                int digitos = Convert.ToInt32(elemntos[1]);
-                                                int consecutivo = Convert.ToInt32(elemntos[2]);
-                                                string formato = "D" + digitos.ToString();
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
 
-                                                datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    if (ActivarFolioConfiguracionIncidencias && ordenAlmacenaje.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                                    {
+                                        string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
 
-                                                rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                                ctx.SaveChanges();
-                                            }
+                                        datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
 
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -905,6 +907,33 @@ namespace BackEndSAM.DataAcces
                                     ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelNumeroUnico);
 
                                     ctx.SaveChanges();
+
+
+                                    Sam3_NumeroUnico numeroUnico = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == datos.ReferenciaID).FirstOrDefault();
+                                    rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion.Where(x => x.Activo == 1 && x.Proyecto == numeroUnico.ProyectoID).FirstOrDefault();
+                                    datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (rel_proyecto_entidad_configuracion.PreFijoFolioIncidencias + ","
+                                                                                                                                    + rel_proyecto_entidad_configuracion.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                                                    + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
+                                                                                                                                    + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
+
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
+
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
+
+                                    if (ActivarFolioConfiguracionIncidencias)
+                                    {
+                                        string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
+                                        int digitos = Convert.ToInt32(elemntos[1]);
+                                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                                        string formato = "D" + digitos.ToString();
+
+                                        datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
                                         string.Format("Se generó una incidencia para el Número Único: {0}", datos.ReferenciaID),
@@ -936,23 +965,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                     + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                     + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
 
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
+
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
+
                                     if (ActivarFolioConfiguracionIncidencias)
                                     {
-                                        consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                        actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                        actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                        actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                        ctx.SaveChanges();
-
                                         string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                         int digitos = Convert.ToInt32(elemntos[1]);
                                         int consecutivo = Convert.ToInt32(elemntos[2]);
                                         string formato = "D" + digitos.ToString();
 
                                         datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                        rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                        ctx.SaveChanges();
                                     }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -986,23 +1015,23 @@ namespace BackEndSAM.DataAcces
                                                                                                                                     + rel_proyecto_entidad_configuracion.ConsecutivoIncidencias.ToString() + ","
                                                                                                                                     + rel_proyecto_entidad_configuracion.PostFijoFolioIncidencias) : nuevoRegistro.IncidenciaID.ToString();
 
+                                    consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
+                                    actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
+                                    actualizarIncidencia.Consecutivo = consecutivoincidencia;
+                                    actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                                    ctx.SaveChanges();
+
+                                    rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
+                                    ctx.SaveChanges();
+
                                     if (ActivarFolioConfiguracionIncidencias)
                                     {
-                                        consecutivoincidencia = rel_proyecto_entidad_configuracion.ConsecutivoIncidencias;
-                                        actualizarIncidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == nuevoRegistro.IncidenciaID).FirstOrDefault();
-                                        actualizarIncidencia.Consecutivo = consecutivoincidencia;
-                                        actualizarIncidencia.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                                        ctx.SaveChanges();
-
                                         string[] elemntos = datos.FolioConfiguracionIncidenciaID.Split(',').ToArray();
                                         int digitos = Convert.ToInt32(elemntos[1]);
                                         int consecutivo = Convert.ToInt32(elemntos[2]);
                                         string formato = "D" + digitos.ToString();
 
                                         datos.FolioConfiguracionIncidenciaID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-
-                                        rel_proyecto_entidad_configuracion.ConsecutivoIncidencias = consecutivoincidencia + 1;
-                                        ctx.SaveChanges();
                                     }
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -1445,7 +1474,7 @@ namespace BackEndSAM.DataAcces
                                                                                        where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                        select pc.PreFijoFolioOrdenRecepcion + ","
                                                                                        + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                                                                       + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                       + orden.Consecutivo.ToString() + ","
                                                                                        + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : detalle.ValorReferencia;
 
                                 if (!string.IsNullOrEmpty(detalle.ValorReferencia) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -1491,7 +1520,7 @@ namespace BackEndSAM.DataAcces
                                                                                                                  where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                                  select pc.PreFijoFolioOrdenAlmacenaje + ","
                                                                                                                  + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
-                                                                                                                 + pc.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                                 + orden.Consecutivo.ToString() + ","
                                                                                                                  + pc.PostFijoFolioOrdenAlmacenaje).AsParallel().FirstOrDefault() : detalle.ValorReferencia;
 
                                 if (!string.IsNullOrEmpty(detalle.ValorReferencia) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)

@@ -393,6 +393,7 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_CatalogoCedulas" Width="1.5" PointX="3" PointY="58.625" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__443605EA" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Incid__7108AC61" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
