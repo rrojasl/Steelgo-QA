@@ -213,7 +213,7 @@
     -ms-filter: "FlipV";
 }
 
-.k-upload, .k-upload-files, .k-file {
+.k-upload, .k-upload-files {
     border-color: transparent;
     background-color: transparent;
 }
