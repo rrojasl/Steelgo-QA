@@ -645,7 +645,7 @@
         });
     };
     function BotonEdicion() {
-        loadingStart();
+        //loadingStart();
         $("#dropdown-toggle").show();
         $("#Editar").css("display", "none");
         $("#Guardar").css("display", "block");
@@ -680,7 +680,7 @@
             estatus: estatus,
             token: Cookies.get("token")
         }).done(function (data) {
-            loadingStop();
+            //loadingStop();
             Error(data);
             CargarLabelEstatus(estatus);
             ObtenerDatosDelFolioCuantificacion();
@@ -1102,13 +1102,13 @@
             var RelFCID = dataItem.RelFCID;
             var RelBID = dataItem.RelBID;
             var RelNUFCBID = dataItem.RelNUFCBID;
-            loadingStart();
+            //loadingStart();
             //if (confirm(_dictionary.ComplementoRecepcion0083[$("#language").data("kendoDropDownList").value()])) {
                 $NumeroUnico.NumeroUnico.destroy({}, { numeroUnicoID: NumeroUnicoID, token: Cookies.get("token") }).done(function (data) {
                     if (Error(data)) {
                         cargarGridPackingList();
                     }
-                    loadingStop();
+                    //loadingStop();
                 });
             //}
 
@@ -1139,7 +1139,7 @@
                 } else {
                     limpiarfiltrosFolioCuantificacion();
                 };
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -1238,7 +1238,7 @@
 
 
         function ObtenerDatosDelFolioCuantificacion(cuantificacion) {
-            loadingStart();
+            //loadingStart();
             cargarGridPackingList();
         }
 
@@ -1426,7 +1426,7 @@
                     //ObtenerDatosDelFolioCuantificacion();
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 ordenamientoGrid();
 
                 if (error) {
@@ -1464,7 +1464,7 @@
                     //ObtenerDatosDelFolioCuantificacion();
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 ordenamientoGrid();
 
                 if (error) {
@@ -1545,7 +1545,7 @@
                     //ObtenerDatosDelFolioCuantificacion();
                 });
             } else {
-                loadingStop();
+                //loadingStop();
                 ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0051", error, '2');
@@ -1620,7 +1620,7 @@
                         };
                     };
                 }
-                loadingStop();
+                //loadingStop();
             });
         };
 
@@ -1875,7 +1875,7 @@
         }
 
     function GuardarParcial() {
-        loadingStart();
+        //loadingStart();
         var j = 0, z = 0;
         var allData = $("#grid").data("kendoGrid").dataSource.data();
         var query = new kendo.data.Query(allData);
@@ -1944,14 +1944,14 @@
         if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
             llenarGrid(null, ListadoCuantificacionIncompletos);
             ordenamientoGrid();
-            loadingStop();
+            //loadingStop();
             displayMessage("notificationslabel0051", '', '1');
             return;
         }
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
             displayMessage("notificationslabel0053", '', '1');
-            loadingStop();
+            //loadingStop();
             return;
         }
 
@@ -1960,7 +1960,7 @@
 
 
     function Terminar() {
-        loadingStart();
+        //loadingStart();
 
         var j = 0, z = 0, cerrar = true, incompletos = false;
         var allData = $("#grid").data("kendoGrid").dataSource.data();
@@ -2031,13 +2031,13 @@
             llenarGrid(null, ListadoCuantificacionIncompletos);
             ordenamientoGrid();
             displayMessage("notificationslabel0051", '', '1');
-            loadingStop();
+            //loadingStop();
             return;
         }
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
             displayMessage("notificationslabel0053", '', '1');
-            loadingStop();
+            //loadingStop();
             return;
         }
 
@@ -2063,7 +2063,7 @@
     };
 
     function TerminaryNuevo() {
-        loadingStart();
+        //loadingStart();
 
         var j = 0, z = 0, cerrar = true, incompletos = false;
         var allData = $("#grid").data("kendoGrid").dataSource.data();
@@ -2134,13 +2134,13 @@
             llenarGrid(null, ListadoCuantificacionIncompletos);
             ordenamientoGrid();
             displayMessage("notificationslabel0051", '', '1');
-            loadingStop();
+            //loadingStop();
             return;
         }
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
             displayMessage("notificationslabel0053", '', '1');
-            loadingStop();
+            //loadingStop();
             return;
         }
 

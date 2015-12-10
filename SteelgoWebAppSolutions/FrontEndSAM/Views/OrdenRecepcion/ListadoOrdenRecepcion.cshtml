@@ -367,14 +367,29 @@
         };
     };
 
+    function ArregloPDF(id) {
+        var PDF = { TipoReporte: 1, FolioOrdenRecepcion: id};
+        return PDF;
+    }
+
     function ImprimirEtiquetas(e) {
         //alert("Esta pendiente ImprimirEtiquetas, se realizara por reporting services");
         //return;
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var ordenRecepcionID = dataItem.OrdenRecepcion
-        window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+
+        var pdf = ArregloPDF(ordenRecepcionID);
+        $Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
+            if (result) {
+                if (Error(result)) {
+                }
+            }
+        });
+
+        //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
     };
+
 
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
@@ -563,7 +578,7 @@
     };
 
     function AccionesListado(accion) {
-        loadingStart();
+        //loadingStart();
         var Listado;
         Listado = ArregloListado(accion);
 
@@ -584,7 +599,7 @@
                     applySecurityPolicy(false);
                 };
             };
-            loadingStop();
+            //loadingStop();
         });
     };
     function AsignarPaginaActualCookie() {

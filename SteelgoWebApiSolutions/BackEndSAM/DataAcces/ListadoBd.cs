@@ -285,6 +285,7 @@ namespace BackEndSAM.DataAcces
                                         && !(from fe in ctx.Sam3_FolioAvisoEntrada
                                              where fe.Activo
                                              select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                                        && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
                                         select fa).AsParallel().Distinct().Count();
 
                     result.SinOrdenDescarga = (from r in registrosBd
@@ -1193,7 +1194,7 @@ namespace BackEndSAM.DataAcces
                                  where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                  select pc.PreFijoFolioOrdenRecepcion + ","
                                 + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                + orden.Consecutivo.ToString() + ","
                                 + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault()
                                 : orden.Folio.ToString() : orden.Folio.ToString();
 
@@ -1409,7 +1410,7 @@ namespace BackEndSAM.DataAcces
                                                              where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                              select pc.PreFijoFolioOrdenRecepcion + ","
                                                             + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                                            + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                            + orden.Consecutivo.ToString() + ","
                                                             + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault()
                                                             : orden.Folio.ToString() : orden.Folio.ToString();
 
@@ -2828,7 +2829,7 @@ namespace BackEndSAM.DataAcces
                                                                                                         where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                         select pc.PreFijoFolioOrdenRecepcion + ","
                                                                                                         + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                                                                                        + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                                        + orden.Consecutivo.ToString() + ","
                                                                                                         + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : orden.Folio.ToString();
 
                                     if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -2878,7 +2879,7 @@ namespace BackEndSAM.DataAcces
                                                                                                         where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                         select pc.PreFijoFolioOrdenAlmacenaje + ","
                                                                                                         + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
-                                                                                                        + pc.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                        + orden.Consecutivo.ToString() + ","
                                                                                                         + pc.PostFijoFolioOrdenAlmacenaje).AsParallel().FirstOrDefault() : orden.Folio.ToString();
 
                                     if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -3112,7 +3113,7 @@ namespace BackEndSAM.DataAcces
                                                                                                         where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                         select pc.PreFijoFolioOrdenRecepcion + ","
                                                                                                         + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                                                                                        + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                                        + orden.Consecutivo.ToString() + ","
                                                                                                         + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : orden.Folio.ToString();
 
                                     if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -3161,7 +3162,7 @@ namespace BackEndSAM.DataAcces
                                                                                                         where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                         select pc.PreFijoFolioOrdenAlmacenaje + ","
                                                                                                         + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
-                                                                                                        + pc.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                        + orden.Consecutivo.ToString() + ","
                                                                                                         + pc.PostFijoFolioOrdenAlmacenaje).AsParallel().FirstOrDefault() : orden.Folio.ToString();
 
                                     if (!string.IsNullOrEmpty(item.value) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)

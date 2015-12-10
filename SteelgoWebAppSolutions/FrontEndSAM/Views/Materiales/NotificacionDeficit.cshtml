@@ -390,7 +390,7 @@
     });
 
     $("#notificar").on("click",function(){
-        loadingStart();
+        //loadingStart();
         if(validarRequeridos()){
             if(hayDeficit()){
                 var deficits=[];
@@ -412,7 +412,7 @@
                     }else{
                         displayMessage("",_dictionary.result.ReturnMessage, '0');
                     }
-                    loadingStop();
+                    //loadingStop();
                 });
             }else{
                 displayMessage("NotificacionDeficit0019","","2");
@@ -420,7 +420,7 @@
         }else{
             displayMessage("NotificacionDeficit0018","","2");
         }
-        loadingStop();
+        //loadingStop();
     })
     $authorizationModel["Materiales"] = $NotificacionDeficitModel;
 };

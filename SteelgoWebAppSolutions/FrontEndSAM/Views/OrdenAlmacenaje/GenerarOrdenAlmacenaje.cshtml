@@ -486,7 +486,7 @@
     };
 
     function CargarDatosGrid() {
-        loadingStart();
+        //loadingStart();
        
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
@@ -506,7 +506,7 @@
                 AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
       
     };
@@ -643,7 +643,7 @@
         itemCodes = ObtenerItemCodesDeMemoria();
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
-        loadingStart();
+        //loadingStart();
         OrdenAlmacenaje.listaFoliosCuantificacion = folios;
         OrdenAlmacenaje.listaItemCodes = itemCodes;
         OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
@@ -651,15 +651,15 @@
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[1];
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[2];
                 }
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     
@@ -707,7 +707,7 @@
         itemCodes = ObtenerItemCodesDeMemoria();
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
-        loadingStart();
+        //loadingStart();
         OrdenAlmacenaje.listaFoliosCuantificacion = folios;
         OrdenAlmacenaje.listaItemCodes = itemCodes;
         OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
@@ -715,15 +715,15 @@
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
                     window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1];
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[2];
                 }
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 
@@ -761,10 +761,11 @@
                 }
             };
         }
-        $(this.table.find(".k-filter-row th")[2]).hide();
-        if($.isNumeric(detectIE())){
-            $("#grid tr:first th:hidden").remove();
-        }
+        //$(this.table.find(".k-filter-row th")[2]).hide();
+        //if($.isNumeric(detectIE())){
+        //    $("#grid tr:first th:hidden").remove();
+        //}
+        quickHeadFilter(this);
     };
     //se busca el folio cuantificacion, itemcode para marcarlo en el check
     function onDataBoundDetalle(e) {

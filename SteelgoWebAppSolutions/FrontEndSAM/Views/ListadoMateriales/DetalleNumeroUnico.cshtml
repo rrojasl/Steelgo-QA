@@ -299,7 +299,7 @@
         });
     }
     function ObtenerDetalleNumeroUnico() {
-        loadingStart();
+        //loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, token: Cookies.get("token") }).done(function (result) {
             if(Error(result)) {
                 $("#numerounico").val(result.NumeroUnico);
@@ -337,14 +337,14 @@
                 //AsignarPaginaActualCookie();
                 //applySecurityPolicy(false);
             };
-            loadingStop();
+            //loadingStop();
         });
     };
     function AsignarPaginaActualCookie() {
         Cookies.set("navegacion", "23", { path: '/' });
     }
     function ObtenerMovimientos() {
-        loadingStart();
+        //loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "1", token: Cookies.get("token") }).done(function (result) {
             if(Error(result)) {
                 if ($("#gridMovimientosInventario").data("kendoGrid")) {
@@ -359,12 +359,12 @@
                 AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
     function ObtenerSegmentos() {
-        loadingStart();
+        //loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "2", token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if ($("#gridSegmentos").data("kendoGrid")) {
@@ -379,7 +379,7 @@
                 AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
     function Error(data) {

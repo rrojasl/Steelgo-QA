@@ -338,19 +338,19 @@
     };
 
     function ObtenerOrdenesAlmacenaje() {//Se Obtienen los numeros unicos y los item codes
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({ ProyectoID: Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 ControlErroresObjetosComboBox("OrdenAlmacenaje", result);
             }
-            loadingStop();
+            //loadingStop();
         });
 
     };
 
 
     function ObtenerItemCodes() {//Se Obtienen los numeros unicos y los item codes
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({ proyectoID: Proyecto.ProyectoID, ordenalmacenajeID: OrdenAlmacenaje.OrdenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 ControlErroresObjetosComboBox("ItemCode", result.ListadoItemCode);
@@ -367,7 +367,7 @@
                 AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
 
     };
@@ -376,7 +376,7 @@
     }
       
     function ObtenerDiametros() {
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({
            itemCodeid: ItemCode.ItemCodeID, token: Cookies.get("token")
         }).done(function (result) {
@@ -384,11 +384,11 @@
                 $("#Diametro1").val(result.Diametro1);
                 $("#Diametro2").val(result.Diametro2);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
     function ObtenerNumerosUnicos() {
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({
             ProyectoID: Proyecto.ProyectoID, ordenalmacenajeID: OrdenAlmacenaje.OrdenAlmacenajeID,
             itemCodeid: ItemCode.ItemCodeID, token: Cookies.get("token")
@@ -396,7 +396,7 @@
             if (Error(result)) {
                 ControlErroresObjetosComboBox("NumeroUnico", result);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -574,7 +574,7 @@
     };
 
     function Guardar() {
-        loadingStart();
+        //loadingStart();
         if (validarRequeridosFormaAlmacenaje()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
             var Listado = { OrdenAlmacenajeID: "", Items: "" };
@@ -584,11 +584,11 @@
             $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
                 Error(result);
                 displayMessage("notificationslabel0056", "", '0');
-                loadingStop();
+                //loadingStop();
             });
         } else {
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 

@@ -434,14 +434,14 @@ namespace BackEndSAM.DataAcces
                         if (activarFolioConfiguracionOR)
                         {
                             Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                where rel.Rel_Proyecto_Entidad_Configuracion_ID == o.Rel_Proyecto_Entidad_Configuracion_ID && rel.Activo == 1
+                                                                                where rel.Rel_Proyecto_Entidad_Configuracion_ID == o.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                 select rel).AsParallel().SingleOrDefault();
 
                             if (rel_proy != null)
                             {
                                 string folioOR = rel_proy.PreFijoFolioOrdenRecepcion + ","
                                     + rel_proy.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                    + rel_proy.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                    + o.Consecutivo.ToString() + ","
                                     + rel_proy.PostFijoFolioOrdenRecepcion;
 
                                 string[] elemntos = folioOR.Split(',').ToArray();
@@ -580,7 +580,7 @@ namespace BackEndSAM.DataAcces
                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                 select pc.PreFijoFolioOrdenRecepcion + ","
                                 + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                + orden.Consecutivo.ToString() + ","
                                 + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault() : orden.Folio.ToString() : orden.Folio.ToString();
 
                         if (activarFolioConfiguracionOR && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -787,27 +787,27 @@ namespace BackEndSAM.DataAcces
                         ctx.Sam3_OrdenRecepcion.Add(nuevaOrden);
                         ctx.SaveChanges();
 
+                        List<int> avisos = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                            join fll in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals fll.FolioAvisoLlegadaID
+                                            where foliosEntrada.Contains(fe.FolioAvisoEntradaID) && fe.Activo && fll.Activo
+                                            select fll.ProyectoID).AsParallel().ToList();
+
+                        //Obtenemos el proyecto con el id mas pequeno
+                        Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                            where rel.Proyecto == avisos.Min() && rel.Activo == 1
+                                                                            select rel).AsParallel().SingleOrDefault();
+
+                        int consecutivofolio = rel_proy.ConsecutivoFolioOrdenRecepcion;
+                        Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == nuevaOrden.OrdenRecepcionID && x.Activo).AsParallel().SingleOrDefault();
+                        orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
+                        orden.Consecutivo = consecutivofolio;
+                        ctx.SaveChanges();
+
+                        rel_proy.ConsecutivoFolioOrdenRecepcion = consecutivofolio + 1;
+                        ctx.SaveChanges();
+
                         if (activarFolioConfiguracion)
                         {
-                            List<int> avisos = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                join fll in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals fll.FolioAvisoLlegadaID
-                                                where foliosEntrada.Contains(fe.FolioAvisoEntradaID) && fe.Activo && fll.Activo
-                                                select fll.ProyectoID).AsParallel().ToList();
-
-                            //Obtenemos el proyecto con el id mas pequeno
-                            Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                where rel.Proyecto == avisos.Min() && rel.Activo == 1
-                                                                                    select rel).AsParallel().SingleOrDefault();
-
-                            Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == nuevaOrden.OrdenRecepcionID && x.Activo).AsParallel().SingleOrDefault();
-
-                            orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
-                            orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenRecepcion;
-
-                            rel_proy.ConsecutivoFolioOrdenRecepcion += 1;
-
-                            ctx.SaveChanges();
-
                             ordenRecepcionFolio = rel_proy.PreFijoFolioOrdenRecepcion + ","
                                 + rel_proy.CantidadCerosFolioOrdenRecepcion.ToString() + ","
                                 + rel_proy.ConsecutivoFolioOrdenRecepcion.ToString() + ","
@@ -1244,6 +1244,7 @@ namespace BackEndSAM.DataAcces
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("Ok");
                 result.ReturnMessage.Add(activarFolioConfiguracion ? ordenRecepcionFolio : nuevaOrden.Folio.ToString());
+                result.ReturnMessage.Add(nuevaOrden.Folio.ToString());
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;

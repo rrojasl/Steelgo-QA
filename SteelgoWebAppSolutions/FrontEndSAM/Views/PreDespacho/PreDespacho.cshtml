@@ -217,6 +217,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || !e.sender.current()) {
+                    messageindexKendoAutocomplete(this, e.sender.current());
                     NumeroControl = {};
                     this.value("");
                 }
@@ -355,7 +356,7 @@
     };
 
     function ObtenerDatosGrid() {
-        loadingStart();
+        //loadingStart();
         var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : 0;
 
         $PreDespacho.PreDespacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
@@ -374,7 +375,7 @@
                 applySecurityPolicy(false);
                 FiltrarDatos();
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -450,7 +451,7 @@
     };
 
     function Guardar() {
-        loadingStart();
+        //loadingStart();
         if (validarRequeridosFormaDespacho()) {
             var filters = $("#grid").data("kendoGrid").dataSource.filter();
             var allData = $("#grid").data("kendoGrid").dataSource.data();
@@ -462,7 +463,7 @@
 
             if (!datasource.length || Listado.lista.length==0) {
                 displayMessage("notificationslabel0067", "", '2');
-                loadingStop();
+                //loadingStop();
                 return;
             };
             //console.log(Listado.lista);
@@ -472,11 +473,11 @@
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
                 }
-                loadingStop();
+                //loadingStop();
             });
         } else {
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
 
         }
     };

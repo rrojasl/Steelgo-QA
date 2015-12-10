@@ -16,6 +16,14 @@ var $loadingCounter = 0;
 /****************************/
 /*    Document Ready        */
 /****************************/
+$(document).bind("ajaxStart", function () {
+    loadingStart();
+}).bind("ajaxStop", function () {
+    loadingStop();
+}).bind("ajaxError", function () {
+    loadingStop();
+});
+
 
 //Method to be called on the document ready and contains all the pertinent code for a partial view
 function utilitiesManagerToBeExecutedOnDocumentReady() {
@@ -58,16 +66,16 @@ function onOpen(e) {
 //Function to activate waiting screen
 function loadingStart() {
     $body.addClass("loading");
-    $loadingCounter++;
+    //$loadingCounter++;
 }
 
 //Function to deactivate waiting screen
 function loadingStop() {
-    $loadingCounter--;
-    if ($loadingCounter <= 0) {
+    //$loadingCounter--;
+    //if ($loadingCounter <= 0) {
         $body.removeClass("loading");
-        $loadingCounter = 0;
-    }
+        //$loadingCounter = 0;
+    //}
 }
 
 //Function to encrypt base64 a string
@@ -118,6 +126,18 @@ function removeGrid(grid) {
     contenedor.append("<div id='" + grid.attr("id") + "' class='" + grid.attr("class") + "'></div>");
     return tmp;
 }
+
+function messageindexKendoAutocomplete(obj, current) {
+    if (obj.value()) {
+        if (!current) {
+            var elemento = obj.list.attr("id");
+            var index = elemento.indexOf("-");
+            var valor = elemento.substring(0, index);
+
+            displayMessage("notificationslabel0083", $("#" + valor).closest("div").find("label").text(), '1');
+        };
+    }
+};
 
 function messageindexKendoCombobox(obj) {
     obj.select(function (dataItem) {
@@ -320,9 +340,9 @@ function quickHeadFilter(g) {
             $(id+" thead th:visible").each(function () {
                 if (this.hasAttribute("data-field") && $(this).attr("data-field") !== "") {
                     if (modelType(g, $(this).attr("data-field")) === "number") {
-                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this)'/></th>";
+                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
                     } else {
-                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this)'/></th>";
+                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
                     }
                 } else {
                     init += "<th></th>";
@@ -354,9 +374,12 @@ function quickFilter(g, i) {
                 }
             })
         }
-        var tmp = { field: fname, value: $(i).val() }
+        var tmp = { field: fname, value: $.trim($(i).val()) }
         modelType(g, fname) === "number" ? tmp.operator = function (item, value) { var u = false; (item !== null && item !== undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
         if (f !== undefined) {
+            if (!$.isNumeric(String.fromCharCode(event.which))) {
+                throw -1;
+            }
             var found = false;
             f.filters.forEach(function (n) {
                 if (n.field === fname) {

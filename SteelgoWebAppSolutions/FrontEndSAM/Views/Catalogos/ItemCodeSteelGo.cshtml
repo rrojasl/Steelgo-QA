@@ -154,6 +154,8 @@
             Diametro1: { type: "number", validation: { required: true } },
             Diametro2ID: { editable: false, nullable: true },
             Diametro2: { type: "number", validation: { required: true } },
+            //FamiliaMaterialID: {type: "number", validation: { required: true },editable: false},
+            FamiliaMaterial: { type: "string", validation: { required: true },editable: false},
             Acero: { type: "string", validation: { required: true } },
             AceroID: { editable: false, nullable: false },
             CedulaID: { editable: false, nullable: true },
@@ -166,6 +168,7 @@
             Peso: { type: "number", validation: { required: true }, editable: true },
             Area: { type: "number", validation: { required: true }, editable: true },
             TieneD2: { type: "string", validation: { required: true } },
+            Asociado: { type: "boolean", validation: { required: false }, editable: false },
         }
     };
 
@@ -338,12 +341,21 @@
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].AceroID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Acero = data.nombre;
+                                var uid=$("#grid").data("kendoGrid")._data[data.posicion].uid;
+                                $CatalogoICSteelgo.CatalogoICSteelgo.read({},{familiaAceroID:data.id,token:Cookies.get("token")}).done(function(r){
+                                    if(Error(r)){
+                                        $("#grid").data("kendoGrid")._data[data.posicion].FamiliaMaterial = r;
+                                        $("#grid").data("kendoGrid").refresh();
+                                        $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + uid + "]"));
+                                    }
+                                });
                             },
                             dataTextField: "Nombre",
                             dataValueField: "FamiliaAceroID"
                         });
                     }
                 },
+                { field: "FamiliaMaterial", title: _dictionary.ItemCodeSteelGo0026[$("#language").data("kendoDropDownList").value()], width: "150px"},
                 { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "CedulaB", title: _dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "Libra", title: _dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()], width: "165px" },
@@ -591,13 +603,20 @@
                 }
             },
             edit: function (e) {
+                if(e.model.Asociado===true){
+                    $("[name='Grupo']").data("kendoComboBox").enable(false);
+                    $("[name='Diametro1']").data("kendoComboBox").enable(false);
+                    $("[name='Diametro2']").data("kendoComboBox").enable(false);
+                    displayMessage("ItemCodeSteelGo0027","","1");
+                    e.preventDefault();
+                }
                 if (e.model.TieneD2 == "No") {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
                     e.model.Diametro1ID = DiametroCero.id;
                     e.model.Diametro1 = 0;
-                } else {
-                    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
-                };
+                }// else {
+                //    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
+                //};
 
                 if (e.model.id) {
                     $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change", function () {

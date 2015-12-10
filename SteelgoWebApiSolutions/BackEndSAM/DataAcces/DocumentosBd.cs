@@ -330,7 +330,8 @@ namespace BackEndSAM.DataAcces
                                                             Nombre = d.Nombre,
                                                             Extencion = d.Extencion,
                                                             Url = d.Url,
-                                                            TipoArchivo = t.Nombre
+                                                            TipoArchivo = t.Nombre,
+                                                            IncidenciaID = d.IncidenciaID
                                                         }).AsParallel().ToList();
                     return documentos;
                 }
@@ -598,6 +599,7 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.TipoArchivoID = tipoArchivoId;
                         nuevoDoc.Url = d.Path;
                         nuevoDoc.UsuarioModificacion = d.UserId;
+                        nuevoDoc.IncidenciaID = d.IncidenciaID;
 
                         ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo.Add(nuevoDoc);
                     }

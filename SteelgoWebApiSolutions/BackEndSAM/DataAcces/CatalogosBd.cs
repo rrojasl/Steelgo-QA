@@ -1883,6 +1883,11 @@ namespace BackEndSAM.DataAcces
                                  join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
                                  //join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                                  join diam in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals diam.ItemCodeSteelgoID
+                                 join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                 join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                 //join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                 join ricd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals ricd.ItemCodeSteelgoID
+
                                  where ics.Activo && g.Activo && cat.Activo && diam.Activo
                                  select new ICSDatosAsociacion
                                  {
@@ -1902,6 +1907,8 @@ namespace BackEndSAM.DataAcces
                                                 (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
                                      Grupo = g.Nombre,
                                      GrupoID = ics.GrupoID.ToString(),
+                                     FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
+                                     FamiliaMaterial = fm.Nombre,
                                      AceroID = ics.FamiliaAceroID.ToString(),
                                      CedulaID = ics.CedulaID.ToString(),
                                      CedulaA = (from ced in ctx.Sam3_Cedula
@@ -1920,7 +1927,8 @@ namespace BackEndSAM.DataAcces
                                      MM = cat.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString(),
-                                     TieneD2 = g.TieneD2 == null ? "No" : g.TieneD2 == true ? "Si" : "No"
+                                     TieneD2 = g.TieneD2 == null ? "No" : g.TieneD2 == true ? "Si" : "No",
+                                     Asociado = (ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID == ricd.Rel_ItemCodeSteelgo_Diametro_ID && x.Activo).Any()) 
                                  }).AsParallel().ToList();
 
                         lista.ForEach(x =>
@@ -2424,6 +2432,36 @@ namespace BackEndSAM.DataAcces
 
                 return result;
             }
+        }
+
+        public object obtenerFamilia(int familiaAceroID)
+        {
+            try {
+//                select Sam3_FamiliaMaterial.Nombre,Sam3_FamiliaMaterial.FamiliaMaterialID from Sam3_FamiliaMaterial 
+//inner join Sam3_FamiliaAcero on Sam3_FamiliaMaterial.FamiliaMaterialID = Sam3_FamiliaAcero.FamiliaMaterialID
+//where Sam3_FamiliaAcero.FamiliaAceroID=3;
+                using (SamContext ctx = new SamContext()) {
+                    
+                    return (from x in ctx.Sam3_FamiliaMaterial
+                            join t in ctx.Sam3_FamiliaAcero on x.FamiliaMaterialID equals t.FamiliaMaterialID
+                            where t.FamiliaAceroID == familiaAceroID && x.Activo && t.Activo
+                            select x.Nombre).AsParallel().SingleOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+            
         }
     }
 }

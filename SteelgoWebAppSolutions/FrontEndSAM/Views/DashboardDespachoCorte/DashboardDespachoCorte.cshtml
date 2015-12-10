@@ -786,7 +786,7 @@
                     
                     
                 //};
-                loadingStop();
+                //////loadingStop();
             });
         };
 
@@ -848,7 +848,7 @@
 
                    
                 //};
-                loadingStop();
+                //////loadingStop();
             });
 
         };
@@ -1058,7 +1058,7 @@
                         $("#hdAccionFiltradoAccesorios").val("3");
                     };
                 //};
-                loadingStop();
+                ////loadingStop();
             });
 
         };
@@ -1268,7 +1268,7 @@
                         $("#hdAccionFiltradoAccesorios").val("5");
                     };
                 //};
-                loadingStop();
+                ////loadingStop();
             });
         };
 
@@ -1359,7 +1359,7 @@
                         $("#hdAccionFiltradoAccesorios").val("7");
                     };
                 //};
-                loadingStop();
+                ////loadingStop();
             });
         };
 
@@ -1416,7 +1416,7 @@
                         $("#hdAccionFiltradoAccesorios").val("8");
                     };
                 //};
-                loadingStop();
+                ////loadingStop();
             });
         };
 
@@ -1623,7 +1623,7 @@
                         $("#hdAccionFiltradoAccesorios").val("4");
                     };
                 //};
-                loadingStop();
+                ////loadingStop();
             });
         };
 
@@ -1842,7 +1842,7 @@
         };
         
         function AccionesListado(accion,tipomaterial,esBoton) {
-            loadingStart();
+            ////loadingStart();
 
             switch (accion) {
                 case "1":
@@ -1853,17 +1853,17 @@
                     break;
                 case "3":
                     //alert("pendiente");
-                    //loadingStop();
+                    //////loadingStop();
                     PreDespachar(tipomaterial, esBoton);
                     break;
                 case "4":
                     //alert("pendiente");
-                    //loadingStop();
+                    //////loadingStop();
                     PorDespachar(tipomaterial, esBoton);
                     break;
                 case "5":
                     //alert("pendiente");
-                    //loadingStop();
+                    //////loadingStop();
                     Entregar(tipomaterial, esBoton);
                     break;
                 case "6":
@@ -1871,7 +1871,7 @@
                     break;
                 case "7":
                     alert("pendiente");
-                    loadingStop();
+                    ////loadingStop();
                     if (tipomaterial == 1) {
                         $("#gridTubos").data("kendoGrid").dataSource.data([]);
                     } else {

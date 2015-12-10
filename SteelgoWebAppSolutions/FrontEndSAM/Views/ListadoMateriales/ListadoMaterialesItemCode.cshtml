@@ -908,7 +908,7 @@
     //Parametros: accion
     //Return:    N/A
     function AccionesListado() {
-        loadingStart();
+        //loadingStart();
         var Listado = ArregloListado();
 
         $ListadoMaterialesPorItemCode.ListadoMaterialesPorItemCode.read({}, { proyectoID: Listado.ProyectoID, token: Listado.token }).done(function (data) {
@@ -916,7 +916,7 @@
                 resultadoJson = data;
                 if (!resultadoJson.length) {
                     displayMessage("notificationslabel0055", "", '1');
-                    loadingStop();
+                    //loadingStop();
                     return;
                 };
 
@@ -932,7 +932,7 @@
                     applySecurityPolicy(false);
                 };
             };
-            loadingStop();
+            //loadingStop();
             try{
                 var tmp={};
                 window.location.href.split("?")[1].split("&").forEach(function(n){tmp[n.split("=")[0]]=n.split("=")[1]});

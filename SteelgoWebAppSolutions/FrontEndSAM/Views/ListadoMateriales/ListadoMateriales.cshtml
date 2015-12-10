@@ -140,7 +140,7 @@
     //Parametros: N/A
     //Return:     N/A
     function cargaInicial() {
-
+        
         $("#NumeroUnico").val("");
         $("#ItemCode").val("");
         $("#ItemCodeSteelgo").val("");
@@ -673,14 +673,14 @@
     };
 
     function AccionesListado() {
-        loadingStart();
+        ////loadingStart();
         var Listado = ArregloListado();
 
         $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioPackingListID, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 if (!data.length) {
                     displayMessage("notificationslabel0055", "", '1');
-                    loadingStop();
+                    ////loadingStop();
                     return;
                 };
 
@@ -696,7 +696,7 @@
                     applySecurityPolicy(false);
                 };
             };
-            loadingStop();
+            ////loadingStop();
         });
     };
     function AsignarPaginaActualCookie() {

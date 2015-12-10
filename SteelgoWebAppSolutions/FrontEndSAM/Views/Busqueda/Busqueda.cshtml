@@ -76,26 +76,41 @@
 }
 
 @section JavascriptGlobalFunctions {
-    function getDataGrid(){
-        $Busqueda.select.read({},parametros).done(function(data){
-            //$Patio.Patio.read({},{token:Cookies.get("token"),esAvisoEntrada:0,PaginaID:0}).done(function(result){
-            //    var idPatios=[];
-            //    result.forEach(function(r){
-            //        idPatios.push(r.PatioID);
-            //    });
-            //    dataGrid=[];
-            //    $.grep(data.response.docs,function(d){
-            //        if(idPatios.indexOf(d.Patio)!=-1){
-            //            dataGrid.push(d);
-            //        }
-            //    });
-                parametros=data.responseHeader.params;
-                queryRes=data.response.numFound;
-                //$("#grid").data("kendoGrid").dataSource.data(dataGrid);
-                $("#grid").data("kendoGrid").dataSource.data(data.response.docs);
-                $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());  
-            //})
-        })
+    function getDataGrid() {
+        $Proxy.Proxy.read({},
+       {
+           url: $Busqueda.select.urlNoId + "?q=" + parametros.q + "&start=" + parametros.start + "&rows=" + parametros.rows + "&wt=" + parametros.wt + "&indent=" + parametros.indent + "&defType=" + parametros.defType + "&qf=" + parametros.qf + "&stopwords=" + parametros.stopwords + "&lowercaseOperators=" + parametros.lowercaseOperators,
+           proxyID:1, token: Cookies.get("token")
+       }).done(function (data) {
+           data = JSON.parse(data);
+           if (Error(data)) {
+               parametros = data.responseHeader.params;
+               queryRes = data.response.numFound;
+
+               $("#grid").data("kendoGrid").dataSource.data(data.response.docs);
+               $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());
+           }
+       });
+
+        //$Busqueda.select.read({},parametros).done(function(data){
+        //    //$Patio.Patio.read({},{token:Cookies.get("token"),esAvisoEntrada:0,PaginaID:0}).done(function(result){
+        //    //    var idPatios=[];
+        //    //    result.forEach(function(r){
+        //    //        idPatios.push(r.PatioID);
+        //    //    });
+        //    //    dataGrid=[];
+        //    //    $.grep(data.response.docs,function(d){
+        //    //        if(idPatios.indexOf(d.Patio)!=-1){
+        //    //            dataGrid.push(d);
+        //    //        }
+        //    //    });
+        //        parametros=data.responseHeader.params;
+        //        queryRes=data.response.numFound;
+        //        //$("#grid").data("kendoGrid").dataSource.data(dataGrid);
+        //        $("#grid").data("kendoGrid").dataSource.data(data.response.docs);
+        //        $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());  
+        //    //})
+        //})
     }
 
     function changeLanguageCall() {

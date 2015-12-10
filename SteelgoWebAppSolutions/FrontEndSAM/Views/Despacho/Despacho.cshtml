@@ -217,6 +217,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || !e.sender.current()) {
+                    messageindexKendoAutocomplete(this, e.sender.current());
                     NumeroControl = {};
                     this.value("");
                 }
@@ -336,7 +337,7 @@
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     function ObtenerDatosGrid() {
-        loadingStart();
+        //loadingStart();
         var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : "";
         
         $Despacho.Despacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
@@ -355,7 +356,7 @@
                 applySecurityPolicy(false);
                 FiltrarDatos();
             }
-            loadingStop();
+            //loadingStop();
         });
     };
     function AsignarPaginaActualCookie() {
@@ -467,7 +468,7 @@
     };
 
     function Guardar() {
-        loadingStart();
+        //loadingStart();
         if (validarRequeridosFormaDespacho()) {
             var filters = $("#grid").data("kendoGrid").dataSource.filter();
             var allData = $("#grid").data("kendoGrid").dataSource.data();
@@ -478,8 +479,9 @@
 
             Listado.ListaDespachos = ListadoAGuardar(datasource);
 
-            if (!datasource.length) {
+            if (!datasource.length || Listado.ListaDespachos.length==0) {
                 displayMessage("notificationslabel0067", "", '2');
+                loadingStop();
                 return;
             };
 
@@ -489,11 +491,11 @@
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
                 }
-                loadingStop();
+                //loadingStop();
             });
         } else {
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 
@@ -515,7 +517,7 @@
         return baston;
     };
     function ListadoAGuardar(datasource) {
-        var Listado = {}, z = 0;
+        var Listado = [], z = 0;
         for (var i = 0; i < datasource.length; i++) {
             var NumeroControl = datasource[i].NumeroControl;
             var ItemCode = datasource[i].ItemCode;

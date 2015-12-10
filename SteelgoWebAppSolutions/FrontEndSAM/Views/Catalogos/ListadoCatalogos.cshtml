@@ -508,10 +508,7 @@
             columns:columnas[$("#listaCatalogos").data("kendoDropDownList").value()],
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
-                refresh: false,
                 pageSizes: [10, 15, 20],
-                info: false,
-                input: false,
                 numeric: true,
                 buttonCount: 2
             },
@@ -714,13 +711,7 @@
             schema: {
                 model: modelos[val]
             },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
             pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
             transport: {
                 read: {
                     url: getUrl() + Cookies.get("token"),
@@ -743,11 +734,6 @@
                     type:"POST",
                     cache: false
                 },
-                parameterMap: function (options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return { models: kendo.stringify(options.models) };
-                    }
-                }
             },
             requestEnd:function(e){
                 Error(e.response);
@@ -805,7 +791,9 @@
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
                 $("#cedbtns").remove();
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-8 col-lg-9"><div class="row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">Factor de conversión</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >Carga masiva</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">Seleccionar archivos</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">Cargar</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced"><label id="" class="download">Descargar plantilla</label></a></div></div></div></div></div>');
+                var g=null;
+                $("#language").data("kendoDropDownList").value()==="es-MX" ? g=["Factor de conversión","Carga masiva","Seleccionar archivos","Guardar","Descargar plantilla"] : g=["Conversion factor","Bulk upload","Select files","Save","Download template"];
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-8 col-lg-9"><div class="row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">'+g[0]+'</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >'+g[1]+'</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">'+g[2]+'</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">'+g[3]+'</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced"><label id="" class="download">'+g[4]+'</label></a></div></div></div></div></div>');
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
                     $("#fconversion").val(result);
                 });
@@ -919,13 +907,7 @@
                                 fields: obtenerFieldsCedula(),
                             }
                         },
-                        serverPaging: false,
-                        serverFiltering: false,
-                        serverSorting: false,
                         pageSize: 20,
-                        serverPaging: false,
-                        serverFiltering: false,
-                        serverSorting: false,
                         transport:{
                             read:{
                                 url:$Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=11&token=" +Cookies.get("token"),
@@ -933,11 +915,6 @@
                                 type:"GET",
                                 cache: false
                             },
-                            parameterMap: function(options, operation) {
-                                if (operation !== "read" && options.models) {
-                                    return {models: kendo.stringify(options.models)};
-                                }
-                            }
                         },
                         requestEnd:function(e){
                             Error(e.response);
@@ -948,10 +925,7 @@
                     scrollable: false,
                     filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                     pageable: {
-                        refresh: false,
                         pageSizes: [10, 15, 20],
-                        info: false,
-                        input: false,
                         numeric: true,
                         buttonCount: 2
                     },
@@ -1104,6 +1078,7 @@
 @section JavascriptDocumentReadyFunctions {
     $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
     columnas = getColumnas();
+    $(document).bind("ajaxStart", function () {}).bind("ajaxStop", function () {}).bind("ajaxError", function () {}).bind("ajaxSuccess", function () {});
 };
     
 @section JavascriptDocumentReadyHomeCookie {
