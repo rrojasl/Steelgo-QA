@@ -1344,6 +1344,10 @@ _dictionary = {
         "es-MX": "Tipo Acero",
         "en-US": "Steel Type"
     },
+    "ItemCodeSteelGo0027": {
+        "es-MX": "El ItemCode Steelgo seleccionado se encuentra asociado",
+        "en-US": "Steel Type"
+    },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
