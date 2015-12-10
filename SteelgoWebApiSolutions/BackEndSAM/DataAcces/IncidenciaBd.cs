@@ -1474,7 +1474,7 @@ namespace BackEndSAM.DataAcces
                                                                                        where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                        select pc.PreFijoFolioOrdenRecepcion + ","
                                                                                        + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                                                                       + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                                                                       + orden.Consecutivo.ToString() + ","
                                                                                        + pc.PostFijoFolioOrdenRecepcion).AsParallel().FirstOrDefault() : detalle.ValorReferencia;
 
                                 if (!string.IsNullOrEmpty(detalle.ValorReferencia) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -1520,7 +1520,7 @@ namespace BackEndSAM.DataAcces
                                                                                                                  where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                                  select pc.PreFijoFolioOrdenAlmacenaje + ","
                                                                                                                  + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
-                                                                                                                 + pc.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                                                                                                 + orden.Consecutivo.ToString() + ","
                                                                                                                  + pc.PostFijoFolioOrdenAlmacenaje).AsParallel().FirstOrDefault() : detalle.ValorReferencia;
 
                                 if (!string.IsNullOrEmpty(detalle.ValorReferencia) && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)

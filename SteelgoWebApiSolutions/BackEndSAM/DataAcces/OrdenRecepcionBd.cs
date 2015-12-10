@@ -441,7 +441,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 string folioOR = rel_proy.PreFijoFolioOrdenRecepcion + ","
                                     + rel_proy.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                    + rel_proy.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                    + o.Consecutivo.ToString() + ","
                                     + rel_proy.PostFijoFolioOrdenRecepcion;
 
                                 string[] elemntos = folioOR.Split(',').ToArray();

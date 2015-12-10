@@ -745,7 +745,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 string folioOA = rel_proy.PreFijoFolioOrdenAlmacenaje + ","
                                     + rel_proy.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
-                                    + rel_proy.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","
+                                    + orden.Consecutivo.ToString() + ","
                                     + rel_proy.PostFijoFolioOrdenAlmacenaje;
 
                                 string[] elemntos = folioOA.Split(',').ToArray();
@@ -1241,7 +1241,7 @@ namespace BackEndSAM.DataAcces
                         where pc.Rel_Proyecto_Entidad_Configuracion_ID == ordenAlmacenaje.Rel_Proyecto_Entidad_Configuracion_ID
                         select pc.PreFijoFolioOrdenAlmacenaje + ","
                         + pc.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
-                        + pc.ConsecutivoFolioOrdenAlmacenaje + ","
+                        + ordenAlmacenaje.Consecutivo + ","
                         + pc.PostFijoFolioOrdenAlmacenaje).FirstOrDefault() : ordenAlmacenaje.Folio.ToString() : ordenAlmacenaje.Folio.ToString();
 
                     if (activarFolioConfiguracionOA && ordenAlmacenaje.Rel_Proyecto_Entidad_Configuracion_ID != null)
