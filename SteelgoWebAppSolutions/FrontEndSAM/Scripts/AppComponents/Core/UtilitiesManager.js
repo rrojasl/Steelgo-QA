@@ -340,9 +340,9 @@ function quickHeadFilter(g) {
             $(id+" thead th:visible").each(function () {
                 if (this.hasAttribute("data-field") && $(this).attr("data-field") !== "") {
                     if (modelType(g, $(this).attr("data-field")) === "number") {
-                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this)'/></th>";
+                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
                     } else {
-                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this)'/></th>";
+                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
                     }
                 } else {
                     init += "<th></th>";
@@ -374,9 +374,12 @@ function quickFilter(g, i) {
                 }
             })
         }
-        var tmp = { field: fname, value: $(i).val() }
+        var tmp = { field: fname, value: $.trim($(i).val()) }
         modelType(g, fname) === "number" ? tmp.operator = function (item, value) { var u = false; (item !== null && item !== undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
         if (f !== undefined) {
+            if (!$.isNumeric(String.fromCharCode(event.which))) {
+                throw -1;
+            }
             var found = false;
             f.filters.forEach(function (n) {
                 if (n.field === fname) {
