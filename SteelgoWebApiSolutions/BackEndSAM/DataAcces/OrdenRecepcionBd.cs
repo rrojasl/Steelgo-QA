@@ -580,7 +580,7 @@ namespace BackEndSAM.DataAcces
                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                 select pc.PreFijoFolioOrdenRecepcion + ","
                                 + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                + pc.ConsecutivoFolioOrdenRecepcion.ToString() + ","
+                                + orden.Consecutivo.ToString() + ","
                                 + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault() : orden.Folio.ToString() : orden.Folio.ToString();
 
                         if (activarFolioConfiguracionOR && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
@@ -1244,6 +1244,7 @@ namespace BackEndSAM.DataAcces
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("Ok");
                 result.ReturnMessage.Add(activarFolioConfiguracion ? ordenRecepcionFolio : nuevaOrden.Folio.ToString());
+                result.ReturnMessage.Add(nuevaOrden.Folio.ToString());
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;
