@@ -797,13 +797,13 @@ namespace BackEndSAM.DataAcces
                                                                             where rel.Proyecto == avisos.Min() && rel.Activo == 1
                                                                             select rel).AsParallel().SingleOrDefault();
 
+                        int consecutivofolio = rel_proy.ConsecutivoFolioOrdenRecepcion;
                         Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == nuevaOrden.OrdenRecepcionID && x.Activo).AsParallel().SingleOrDefault();
-
                         orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
-                        orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenRecepcion;
+                        orden.Consecutivo = consecutivofolio;
+                        ctx.SaveChanges();
 
-                        rel_proy.ConsecutivoFolioOrdenRecepcion += 1;
-
+                        rel_proy.ConsecutivoFolioOrdenRecepcion = consecutivofolio + 1;
                         ctx.SaveChanges();
 
                         if (activarFolioConfiguracion)
