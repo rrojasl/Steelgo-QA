@@ -335,9 +335,9 @@ function quickHeadFilter(g) {
 
 function modelType(g,fname) {
     try {
-        return g.options.dataSource.schema.model.fields[fname].type;
+        return g.options.dataSource.schema.model.fields[$.trim(fname)].type;
     } catch (e) {
-        return g.options.dataSource.options.schema.model.fields[fname].type;
+        return g.options.dataSource.options.schema.model.fields[$.trim(fname)].type;
     }
 }
 

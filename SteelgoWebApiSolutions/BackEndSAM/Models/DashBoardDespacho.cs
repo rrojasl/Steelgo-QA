@@ -23,6 +23,14 @@ namespace BackEndSAM.Models
         public string NumeroControlID { get; set; }
     }
 
+    public class ListadoTravelerPendientePorSpool
+    {
+        public int ProyectoID { get; set; }
+        public string SpoolID { get; set; }
+        public string Spool { get; set; }
+        public string NumeroControlID { get; set; }
+    }
+
     public class ListadoPorSpoolPreDespacho
     {
         public string ID { get; set; }
@@ -96,5 +104,22 @@ namespace BackEndSAM.Models
         public string itemCode { get; set; }
         public string itemCodeSteelgo { get; set; }
         public string material { get; set; }
+    }
+
+    public class CantidadMateriales
+    {
+        public int? NumeroUnicoID { get; set; }
+        public int MaterialSpoolID { get; set; }
+        public int ItemCodeID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+    }
+
+    public class CantidadSpools
+    {
+        public int MaterialSpoolID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public int SpoolID { get; set; }
+        public int ItemCodeIDSam2 { get; set; }
+        public int OrdenTrabajoID { get; set; }
     }
 }

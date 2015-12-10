@@ -2081,14 +2081,21 @@ namespace BackEndSAM.DataAcces
             try
             {
                 DashBoardDespacho conteos = new DashBoardDespacho();
-                conteos.PreDespacho = "0";
+                
                 int conteoODT = (int)ListadoOrdenesDeTrabajo(filtro, usuario, true);
+                //int conteoPorEntregar = (int)ListadoPorEntregar(filtro, usuario, true);
+                int conteoPorDespachar = (int)ListadoPorDespachar(filtro, usuario, true);
+                int conteoPreDespacho = (int)ListadoPreDespacho(filtro, usuario, true);
+                int conteoEntrega = (int)ListadoPorEntregar(filtro, usuario, true);
+                int porDespachar = (int)ListadoDespachos(filtro, usuario);
+                int travelerPendiente = (int)ListadoTravelerPendiente(filtro, usuario, true);
+                
                 conteos.CantidadODT = conteoODT.ToString();
                 conteos.CantidadODTActiva = conteoODT.ToString();
-                conteos.PorEntregar = "0";
-                conteos.TrevelerPendiente = "0";
-                int porDespachar = (int)ListadoDespachos(filtro, usuario);
-                conteos.PorDespachar = porDespachar.ToString();
+                conteos.PorEntregar = conteoEntrega.ToString();
+                conteos.TrevelerPendiente = travelerPendiente.ToString();
+                conteos.PorDespachar = conteoPorDespachar.ToString();
+                conteos.PreDespacho = conteoPreDespacho.ToString();
 
                 return conteos;
             }
@@ -2270,10 +2277,11 @@ namespace BackEndSAM.DataAcces
                                        NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
                                    }).Distinct().AsParallel().ToList();
 
-                        foreach (ListadoODTDespacho item in listado) {
+                        foreach (ListadoODTDespacho item in listado)
+                        {
                             Sam3_EquivalenciaProyecto equivalenciaProyecto = ctx.Sam3_EquivalenciaProyecto.Where(x => x.Sam2_ProyectoID == item.ProyectoID && x.Activo).FirstOrDefault();
                             item.ProyectoID = equivalenciaProyecto.Sam3_ProyectoID;
-                        } 
+                        }
 
                     }
                 }
@@ -3271,6 +3279,7 @@ namespace BackEndSAM.DataAcces
                         int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                         int folioCuantificacionID = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                         int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
                         int unidadDeMedida = 0;
                         List<int> patiosUsuario;
                         List<int> proyectosUsuario;
@@ -3314,13 +3323,13 @@ namespace BackEndSAM.DataAcces
                             fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
                         }
 
-                        if (filtros.UnidadDeMedida != null && filtros.UnidadDeMedida != "")
+                        if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
                         {
                             unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
                         }
                         else
                         {
-                            throw new Exception("La unida de Medida es requerida");
+                            throw new Exception("La unidad de Medida es requerida");
                         }
 
                         #endregion
@@ -3328,86 +3337,2163 @@ namespace BackEndSAM.DataAcces
                         switch (unidadDeMedida)
                         {
                             case 1: // pieza. Numeros Unicos
+                                #region Numeros Unicos
+                                {
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoPreDespacho> listadoPorPredespachar = new List<ListadoPreDespacho>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
 
-                                //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
-                                List<int> sam2NumerosUnicos = new List<int>();
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = nu.NumeroUnicoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos.Where(x=> x.NumeroUnicoID != 0))
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        int preDespachados = (from pre in ctx.Sam3_PreDespacho
+                                                              where pre.Activo && pre.ItemCodeID == itemCode
+                                                              select pre.PreDespachoID).AsParallel().Count();
+
+                                        listadoPorPredespachar.Add(new ListadoPreDespacho
+                                                                         {
+                                                                             IC = (from ic in ctx.Sam3_ItemCode
+                                                                                   where ic.Activo && ic.ItemCodeID == itemCode
+                                                                                   select ic.Codigo).AsParallel().SingleOrDefault(),
+                                                                             DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                                                              where ic.Activo && ic.ItemCodeID == itemCode
+                                                                                              select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                                                             D1 = (from ic in ctx.Sam3_ItemCode
+                                                                                   join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                                                   join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                                                   where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                                                   select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                                             D2 = (from ic in ctx.Sam3_ItemCode
+                                                                                   join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                                                   join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                                                   where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                                                   select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                                             Cedula = "",
+                                                                             CantidadPredespachada = preDespachados.ToString(),
+                                                                             CantidadPorPredespachar = MaterialesPorIC.Count().ToString(),
+                                                                             CantidadTotal = (preDespachados + MaterialesPorIC.Count()).ToString()
+                                                                         });
+
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorPredespachar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorPredespachar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                #endregion
+                                break;
+                            //break;
+                            case 2: // Spool
+                                #region Spool
+                                List<CantidadSpools> listaCantidadesSpool = (from ot in ctx2.OrdenTrabajo
+                                                                             join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
+                                                                             join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                                             join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                                             join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                                             join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                                             where proyectosSam2.Contains(ot.ProyectoID) && ic.TipoMaterialID == tipoMaterialID
+                                                                             && (ot.FechaOrden >= fechaInicial && ot.FechaOrden <= fechaFinal)
+                                                                             select new CantidadSpools
+                                                                             {
+                                                                                 ItemCodeIDSam2 = ic.ItemCodeID,
+                                                                                 MaterialSpoolID = otm.MaterialSpoolID,
+                                                                                 OrdenTrabajoSpoolID = ots.OrdenTrabajoSpoolID,
+                                                                                 SpoolID = ots.SpoolID,
+                                                                                 OrdenTrabajoID = ot.OrdenTrabajoID
+                                                                             }).AsParallel().Distinct().ToList();
+
                                 if (proyectoID > 0)
                                 {
-                                    sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
-                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
-                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
-                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
-                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
-                                                         where !odtm.TieneDespacho && !odtm.TieneCorte.Value
-                                                         && proyectosSam2.Contains(p.ProyectoID)
-                                                         && patiosSam2.Contains(p.PatioID)
-                                                         && p.ProyectoID == proyectoIDSam2
-                                                         select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                            where ot.ProyectoID == proyectoID
+                                                            select lst).AsParallel().ToList();
                                 }
-                                else
-                                {
-                                    sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
-                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
-                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
-                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
-                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
-                                                         where !odtm.TieneDespacho && !odtm.TieneCorte.Value
-                                                         && proyectosSam2.Contains(p.ProyectoID)
-                                                         && patiosSam2.Contains(p.PatioID)
-                                                         select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
-                                }
-
-                                //Obtenermos las equivalencias en sam3
-                                List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
-                                                               where eq.Activo
-                                                               && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
-                                                               select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
-
-                                #region Numeros Unicos
-                                //obtengo los numeros unicos que no
-                                List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                                                       join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
-                                                                       join p in ctx.Sam3_Proyecto on nu.ProveedorID equals p.ProyectoID
-                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                                       where nu.Activo && pred.Activo
-                                                                       && proyectosUsuario.Contains(p.ProyectoID)
-                                                                       && patiosUsuario.Contains(pa.PatioID)
-                                                                       && (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
-                                                                       && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
-                                                                       select nu).AsParallel().Distinct().ToList();
 
                                 if (clienteID > 0)
                                 {
-                                    lstNumUnicos = (from nu in lstNumUnicos
-                                                    join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
-                                                    join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
-                                                    where p.Activo && c.Sam2ClienteID == clienteID
-                                                    select nu).AsParallel().Distinct().ToList();
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                            join p in ctx2.Proyecto on ot.ProyectoID equals p.ProyectoID
+                                                            join c in ctx2.Cliente on p.ClienteID equals c.ClienteID
+                                                            where c.ClienteID == clienteID
+                                                            select lst).AsParallel().ToList();
                                 }
 
+                                if (folioAvisoEntrada > 0)
+                                {
+                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                               select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                    List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
+                                                          join fc in ctx.Sam3_FolioCuantificacion on fae.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                          join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                          join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                          where fae.Activo && fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                          && itemCodesSam3.Contains(ic.ItemCodeID) && fae.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                          select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                    List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                               select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                            select lst).AsParallel().ToList();
+                                }
                                 if (folioCuantificacionID > 0)
                                 {
-                                    lstNumUnicos = (from nu in lstNumUnicos
-                                                    join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                    where it.Activo
-                                                    && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                                         where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
-                                                         select rfi.ItemCodeID).Contains(it.ItemCodeID)
-                                                    || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
-                                                        join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                                                        where rbi.Activo && b.Activo
-                                                        && b.FolioCuantificacionID == folioCuantificacionID
-                                                        select rbi.ItemCodeID).Contains(it.ItemCodeID))
-                                                    select nu).AsParallel().Distinct().ToList();
+                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                               select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                    List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
+                                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                          join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                          join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                          where fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                          && fc.FolioCuantificacionID == folioCuantificacionID
+                                                          && itemCodesSam3.Contains(ic.ItemCodeID)
+                                                          select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                    List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                               select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                            select lst).AsParallel().ToList();
                                 }
 
+                                List<ListadoPorSpoolPreDespacho> porSpool = new List<ListadoPorSpoolPreDespacho>();
+
+                                List<int> spoolsRepetidos = listaCantidadesSpool.GroupBy(x => x.SpoolID).Select(x => x.Key).ToList();//.Where(x=> x.Count()>1).Select(x=> x);
+
+                                foreach (int item in spoolsRepetidos)
+                                {
+                                    //selecciono los materiales por spool
+                                    List<int> MaterialesPorSpool = listaCantidadesSpool.Where(x => x.SpoolID == item).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                    //cuantos de esos materiales estan despachados
+                                    int predespachados = (from p in ctx.Sam3_PreDespacho
+                                                       where p.Activo && MaterialesPorSpool.Contains(p.MaterialSpoolID)
+                                                       select p.MaterialSpoolID).AsParallel().Count();
+
+                                    //si los que me faltan por despachar son > 0 los agrego a la lista, sino no
+                                    if (MaterialesPorSpool.Count() - predespachados > 0)
+                                    {
+
+                                        porSpool.Add(new ListadoPorSpoolPreDespacho
+                                        {
+                                            ID = (from s in ctx2.Spool where s.SpoolID == item select s.Nombre).AsParallel().SingleOrDefault(),
+                                            CantidadPorPredespachar = (MaterialesPorSpool.Count() - predespachados).ToString(),
+                                            CantidadPredespachada = predespachados.ToString(),
+                                            CantidadTotal = MaterialesPorSpool.Count().ToString()
+                                        });
+                                    }
+                                }
+
+                                if (conteo)
+                                {
+                                    return porSpool.Count();
+                                }
+                                else
+                                {
+                                    return porSpool;
+                                }
+                                #endregion
+                                break;
+                            case 3: // Toneladas
+                                #region Toneladas
+                                {
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoPreDespacho> listadoPorPredespachar = new List<ListadoPreDespacho>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where sam2NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = nu.NumeroUnicoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        decimal pesoICS = (from ic in ctx.Sam3_ItemCode
+                                                       join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
+                                                       join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                       where ic.Activo && rics.Activo && ic.ItemCodeID == itemCode
+                                                       select ics.Peso).AsParallel().SingleOrDefault();
+
+                                        decimal MaterialesPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().Count() * pesoICS;
+
+                                        decimal preDespachados = (from pre in ctx.Sam3_PreDespacho
+                                                              where pre.Activo && pre.ItemCodeID == itemCode
+                                                              select pre.PreDespachoID).AsParallel().Count() * pesoICS;
+
+                                        listadoPorPredespachar.Add(new ListadoPreDespacho
+                                        {
+                                            IC = (from ic in ctx.Sam3_ItemCode
+                                                  where ic.Activo && ic.ItemCodeID == itemCode
+                                                  select ic.Codigo).AsParallel().SingleOrDefault(),
+                                            DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                             where ic.Activo && ic.ItemCodeID == itemCode
+                                                             select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                            D1 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            D2 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            Cedula = "",
+                                            CantidadPredespachada = preDespachados.ToString(),
+                                            CantidadPorPredespachar = MaterialesPorIC.ToString(),
+                                            CantidadTotal = (preDespachados + MaterialesPorIC).ToString()
+                                        });
+
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorPredespachar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorPredespachar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
+                            case 4: // MM
+                                #region MM
+                                {
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoPreDespacho> listadoPorPredespachar = new List<ListadoPreDespacho>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where sam2NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = nu.NumeroUnicoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        decimal mmPorPredespachar = 0;
+                                        decimal mmPredespachados = 0;
+
+                                        foreach (int material in MaterialesPorIC)
+                                        {
+                                            mmPorPredespachar = mmPorPredespachar + (from ms in ctx2.MaterialSpool
+                                                                                     where ms.MaterialSpoolID == material
+                                                                                     select ms.Cantidad).AsParallel().SingleOrDefault();
+                                        }
+
+                                        List<int> preDespachados = (from pre in ctx.Sam3_PreDespacho
+                                                              where pre.Activo && pre.ItemCodeID == itemCode
+                                                              select pre.MaterialSpoolID).AsParallel().ToList();
+
+                                        foreach (int material in preDespachados)
+                                        {
+                                            mmPredespachados = mmPredespachados + (from ms in ctx2.MaterialSpool
+                                                                                   where ms.MaterialSpoolID == material
+                                                                                   select ms.Cantidad).AsParallel().SingleOrDefault();
+                                        }
+
+                                        listadoPorPredespachar.Add(new ListadoPreDespacho
+                                        {
+                                            IC = (from ic in ctx.Sam3_ItemCode
+                                                  where ic.Activo && ic.ItemCodeID == itemCode
+                                                  select ic.Codigo).AsParallel().SingleOrDefault(),
+                                            DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                             where ic.Activo && ic.ItemCodeID == itemCode
+                                                             select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                            D1 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            D2 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            Cedula = "",
+                                            CantidadPredespachada = (mmPredespachados / 1000).ToString(),
+                                            CantidadPorPredespachar = (mmPorPredespachar / 1000).ToString(),
+                                            CantidadTotal = ((mmPredespachados / 1000) + (mmPorPredespachar / 1000)).ToString()
+                                        });
+                                    }
+
+                                    if (conteo && filtros.TipoMaterialID == "1")
+                                    {
+                                        return listadoPorPredespachar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else if(!conteo && filtros.TipoMaterialID == "1")
+                                    {
+                                        return listadoPorPredespachar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
+                            default:
+                                throw new Exception("Unidad de medida invalida");
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ListadoPorDespachar(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        #region filtros
+                        int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        int folioCuantificacionID = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+                        int unidadDeMedida = 0;
+                        List<int> patiosUsuario;
+                        List<int> proyectosUsuario;
+                        List<int> proyectosSam2;
+                        List<int> patiosSam2;
+                        int proyectoIDSam2 = 0;
+
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime();
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+
+                        proyectosSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                         where eq.Activo
+                                         && proyectosUsuario.Contains(eq.Sam3_ProyectoID)
+                                         select eq.Sam2_ProyectoID).AsParallel().Distinct().ToList();
+
+                        patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                      where eq.Activo
+                                      && patiosUsuario.Contains(eq.Sam3_PatioID)
+                                      select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
+
+                        if (proyectoID > 0)
+                        {
+                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                        }
+
+
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
+
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        }
+
+                        if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
+                        {
+                            unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
+                        }
+                        else
+                        {
+                            throw new Exception("La unidad de Medida es requerida");
+                        }
+
+                        #endregion
+
+                        switch (unidadDeMedida)
+                        {
+                            case 1: // pieza. Numeros Unicos
+                                #region Numeros Unicos
+                                {
+                                    //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoDespacho> listadoPorDespachar = new List<ListadoDespacho>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         //join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                              && proyectosSam2.Contains(p.ProyectoID)
+                                                              && patiosSam2.Contains(p.PatioID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = odtm.NumeroUnicoCongeladoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesDespachados = InfoNumerosUnicos.Where(x => x.NumeroUnicoID == null && x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        List<int> MaterialesPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2 && x.NumeroUnicoID != null).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        int Despachados = (from des in ctx.Sam3_Despacho
+                                                           where des.Activo && MaterialesDespachados.Contains(des.MaterialSpoolID)
+                                                           select des.DespachoID).AsParallel().Count();
+
+                                        listadoPorDespachar.Add(new ListadoDespacho
+                                                                  {
+                                                                      IC = (from ic in ctx.Sam3_ItemCode
+                                                                            where ic.Activo && ic.ItemCodeID == itemCode
+                                                                            select ic.Codigo).AsParallel().SingleOrDefault(),
+                                                                      DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                                                       where ic.Activo && ic.ItemCodeID == itemCode
+                                                                                       select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                                                      D1 = (from ic in ctx.Sam3_ItemCode
+                                                                            join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                                            join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                                            where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                                            select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                                      D2 = (from ic in ctx.Sam3_ItemCode
+                                                                            join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                                            join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                                            where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                                            select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                                      Cedula = "",
+                                                                      CantidadDespachada = Despachados.ToString(),
+                                                                      CantidadPorDespachar = MaterialesPorIC.Count().ToString(),
+                                                                      CantidadTotal = (Despachados + MaterialesPorIC.Count()).ToString()
+                                                                  });
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorDespachar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorDespachar.GroupBy(x => x.IC).Select(x => x.First()).AsParallel().ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
+                            case 2: // Spool
+                                #region Spool
+                                List<CantidadSpools> listaCantidadesSpool = (from ot in ctx2.OrdenTrabajo
+                                                                             join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
+                                                                             join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                                             join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                                             join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                                             join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                                             where proyectosSam2.Contains(ot.ProyectoID) && ic.TipoMaterialID == tipoMaterialID
+                                                                             && (ot.FechaOrden >= fechaInicial && ot.FechaOrden <= fechaFinal)
+                                                                             select new CantidadSpools
+                                                                             {
+                                                                                 ItemCodeIDSam2 = ic.ItemCodeID,
+                                                                                 MaterialSpoolID = otm.MaterialSpoolID,
+                                                                                 OrdenTrabajoSpoolID = ots.OrdenTrabajoSpoolID,
+                                                                                 SpoolID = ots.SpoolID,
+                                                                                 OrdenTrabajoID = ot.OrdenTrabajoID
+                                                                             }).AsParallel().Distinct().ToList();
+
+                                if (proyectoID > 0)
+                                {
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                            where ot.ProyectoID == proyectoID
+                                                            select lst).AsParallel().ToList();
+                                }
+
+                                if (clienteID > 0)
+                                {
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                            join p in ctx2.Proyecto on ot.ProyectoID equals p.ProyectoID
+                                                            join c in ctx2.Cliente on p.ClienteID equals c.ClienteID
+                                                            where c.ClienteID == clienteID
+                                                            select lst).AsParallel().ToList();
+                                }
+
+                                if (folioAvisoEntrada > 0)
+                                {
+                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                               select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                    List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
+                                                          join fc in ctx.Sam3_FolioCuantificacion on fae.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                          join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                          join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                          where fae.Activo && fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                          && itemCodesSam3.Contains(ic.ItemCodeID) && fae.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                          select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                    List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                               select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                            select lst).AsParallel().ToList();
+                                }
+                                if (folioCuantificacionID > 0)
+                                {
+                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                               select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                    List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
+                                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                          join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                          join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                          where fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                          && fc.FolioCuantificacionID == folioCuantificacionID
+                                                          && itemCodesSam3.Contains(ic.ItemCodeID)
+                                                          select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                    List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                               select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                            select lst).AsParallel().ToList();
+                                }
+
+                                List<ListadoPorSpoolDespacho> porSpool = new List<ListadoPorSpoolDespacho>();
+
+                                List<int> spoolsRepetidos = listaCantidadesSpool.GroupBy(x => x.SpoolID).Select(x => x.Key).ToList();
+
+                                foreach (int item in spoolsRepetidos)
+                                {
+                                    //selecciono los materiales por spool
+                                    List<int> MaterialesPorSpool = listaCantidadesSpool.Where(x => x.SpoolID == item).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                    //cuantos de esos materiales estan despachados
+                                    int despachados = (from d in ctx.Sam3_Despacho
+                                                       where d.Activo && MaterialesPorSpool.Contains(d.MaterialSpoolID)
+                                                       select d.MaterialSpoolID).AsParallel().Count();
+
+                                    //si los que me faltan por despachar son > 0 los agrego a la lista, sino no
+                                    if (MaterialesPorSpool.Count() - despachados > 0)
+                                    {
+
+                                        porSpool.Add(new ListadoPorSpoolDespacho
+                                        {
+                                            ID = (from s in ctx2.Spool where s.SpoolID == item select s.Nombre).AsParallel().SingleOrDefault(),
+                                            CantidadPorDespachar = (MaterialesPorSpool.Count() - despachados).ToString(),
+                                            CantidadDespachada = despachados.ToString(),
+                                            CantidadTotal = MaterialesPorSpool.Count().ToString()
+                                        });
+                                    }
+                                }
+                                if (conteo)
+                                {
+                                    return porSpool.Count();
+                                }
+                                else
+                                {
+                                    return porSpool;
+                                }
+                                #endregion
+                            case 3: // Toneladas
+                                #region Toneladas
+                                {
+                                    //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoDespacho> listadoPorDespachar = new List<ListadoDespacho>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         //join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                              && proyectosSam2.Contains(p.ProyectoID)
+                                                              && patiosSam2.Contains(p.PatioID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = odtm.NumeroUnicoCongeladoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesDespachados = InfoNumerosUnicos.Where(x => x.NumeroUnicoID == null && x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        //List<int> OrdenTrabajoSpoolPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2).Select(x => x.OrdenTrabajoSpoolID).AsParallel().ToList();
+
+                                        decimal pesoICS = (from ic in ctx.Sam3_ItemCode
+                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
+                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                           where ic.Activo && rics.Activo && ic.ItemCodeID == itemCode
+                                                           select ics.Peso).AsParallel().SingleOrDefault();
+
+                                        decimal MaterialesPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2 && x.NumeroUnicoID != null).Select(x => x.MaterialSpoolID).AsParallel().Count() * pesoICS;
+
+                                        decimal Despachados = (from des in ctx.Sam3_Despacho
+                                                           where des.Activo && MaterialesDespachados.Contains(des.MaterialSpoolID)
+                                                           select des.DespachoID).AsParallel().Count() * pesoICS;
+
+                                        listadoPorDespachar.Add(new ListadoDespacho
+                                        {
+                                            IC = (from ic in ctx.Sam3_ItemCode
+                                                  where ic.Activo && ic.ItemCodeID == itemCode
+                                                  select ic.Codigo).AsParallel().SingleOrDefault(),
+                                            DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                             where ic.Activo && ic.ItemCodeID == itemCode
+                                                             select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                            D1 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            D2 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            Cedula = "",
+                                            CantidadDespachada = Despachados.ToString(),
+                                            CantidadPorDespachar = MaterialesPorIC.ToString(),
+                                            CantidadTotal = (Despachados + MaterialesPorIC).ToString()
+                                        });
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorDespachar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorDespachar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
+                            case 4: // MM
+                                #region MM
+                                {
+                                    //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoDespacho> listadoPorDespachar = new List<ListadoDespacho>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         //join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                              && proyectosSam2.Contains(p.ProyectoID)
+                                                              && patiosSam2.Contains(p.PatioID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = odtm.NumeroUnicoCongeladoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesDespachados = InfoNumerosUnicos.Where(x => x.NumeroUnicoID == null && x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        //List<int> OrdenTrabajoSpoolPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2).Select(x => x.OrdenTrabajoSpoolID).AsParallel().ToList();
+
+                                        List<int> MaterialesPorIC = InfoNumerosUnicos.Where(x => x.ItemCodeID == itemCodeSam2 && x.NumeroUnicoID != null).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        decimal mmPorDespachar = 0;
+                                        decimal mmDespachados = 0;
+
+                                        foreach (int material in MaterialesPorIC)
+                                        {
+                                            mmPorDespachar = mmPorDespachar + (from ms in ctx2.MaterialSpool
+                                                                                     where ms.MaterialSpoolID == material
+                                                                                     select ms.Cantidad).AsParallel().SingleOrDefault();
+                                        }
+
+                                        List<int> Despachados = (from des in ctx.Sam3_Despacho
+                                                                 where des.Activo && MaterialesDespachados.Contains(des.MaterialSpoolID)
+                                                           select des.MaterialSpoolID).AsParallel().ToList();
+
+                                        foreach (int material in Despachados)
+                                        {
+                                            mmDespachados = mmDespachados + (from ms in ctx2.MaterialSpool
+                                                                                   where ms.MaterialSpoolID == material
+                                                                                   select ms.Cantidad).AsParallel().SingleOrDefault();
+                                        }
+
+                                        listadoPorDespachar.Add(new ListadoDespacho
+                                        {
+                                            IC = (from ic in ctx.Sam3_ItemCode
+                                                  where ic.Activo && ic.ItemCodeID == itemCode
+                                                  select ic.Codigo).AsParallel().SingleOrDefault(),
+                                            DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                             where ic.Activo && ic.ItemCodeID == itemCode
+                                                             select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                            D1 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            D2 = (from ic in ctx.Sam3_ItemCode
+                                                  join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                  join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                  where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                  select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                            Cedula = "",
+                                            CantidadDespachada = (mmDespachados / 1000).ToString(),
+                                            CantidadPorDespachar = (mmPorDespachar / 1000).ToString(),
+                                            CantidadTotal = ((mmDespachados / 1000) + (mmPorDespachar / 1000)).ToString()
+                                        });
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorDespachar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorDespachar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
+                            default:
+                                throw new Exception("Unidad de medida invalida");
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        public object ListadoPorEntregar(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        #region filtros
+                        int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        int folioCuantificacionID = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+                        int unidadDeMedida = 0;
+                        List<int> patiosUsuario;
+                        List<int> proyectosUsuario;
+                        List<int> proyectosSam2;
+                        List<int> patiosSam2;
+                        int proyectoIDSam2 = 0;
+
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime();
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+
+                        proyectosSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                         where eq.Activo
+                                         && proyectosUsuario.Contains(eq.Sam3_ProyectoID)
+                                         select eq.Sam2_ProyectoID).AsParallel().Distinct().ToList();
+
+                        patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                      where eq.Activo
+                                      && patiosUsuario.Contains(eq.Sam3_PatioID)
+                                      select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
+
+                        if (proyectoID > 0)
+                        {
+                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                        }
+
+
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
+
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        }
+
+                        if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
+                        {
+                            unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
+                        }
+                        else
+                        {
+                            throw new Exception("La unidad de Medida es requerida");
+                        }
+
+                        #endregion
+
+                        switch (unidadDeMedida)
+                        {
+                            case 1: // pieza. Numeros Unicos
+                                #region Numeros Unicos
+                                {
+                                    //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoEntregaDash> listadoPorEntregar = new List<ListadoEntregaDash>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         //join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                              && proyectosSam2.Contains(p.ProyectoID)
+                                                              && patiosSam2.Contains(p.PatioID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = odtm.NumeroUnicoCongeladoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        //Cuantos despachos tiene
+                                        List<int> MaterialesDespachados = InfoNumerosUnicos.Where(x => x.NumeroUnicoID == null && x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        List<int> DespachadosPorIC = (from des in ctx.Sam3_Despacho
+                                                                      where des.Activo && MaterialesDespachados.Contains(des.MaterialSpoolID)
+                                                                      select des.DespachoID).AsParallel().ToList();
+
+                                        //Cuantos ya fueron entregados
+                                        List<int> Entregados = (from en in ctx.Sam3_Entrega
+                                                                join pt in ctx.Sam3_FolioPickingTicket on en.FolioPickingTicketID equals pt.FolioPickingTicketID
+                                                                join d in ctx.Sam3_Despacho on pt.DespachoID equals d.DespachoID
+                                                                where en.Activo && pt.Activo && d.Activo && DespachadosPorIC.Contains(d.DespachoID)
+                                                                select en.EntregaID).AsParallel().ToList();
+
+                                        if ( DespachadosPorIC.Count() - Entregados.Count() > 0)
+                                        {
+                                            listadoPorEntregar.Add(new ListadoEntregaDash
+                                            {
+                                                IC = (from ic in ctx.Sam3_ItemCode
+                                                      where ic.Activo && ic.ItemCodeID == itemCode
+                                                      select ic.Codigo).AsParallel().SingleOrDefault(),
+                                                DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                                 where ic.Activo && ic.ItemCodeID == itemCode
+                                                                 select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                                D1 = (from ic in ctx.Sam3_ItemCode
+                                                      join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                      join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                      where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                      select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                D2 = (from ic in ctx.Sam3_ItemCode
+                                                      join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                      join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                      where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                      select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                Cedula = "",
+                                                CantidadEntregada = Entregados.Count().ToString(),
+                                                CantidadPorEntregar = (DespachadosPorIC.Count() - Entregados.Count()).ToString(),
+                                                CantidadTotal = DespachadosPorIC.Count().ToString()
+                                            });
+                                        }
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorEntregar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorEntregar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
                                 #endregion
                                 break;
                             case 2: // Spool
+                                 #region Spool
+                                List<CantidadSpools> listaCantidadesSpool = (from ot in ctx2.OrdenTrabajo
+                                                                             join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
+                                                                             join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                                             //join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                                             join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                                             join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                                             where proyectosSam2.Contains(ot.ProyectoID) && ic.TipoMaterialID == tipoMaterialID
+                                                                             && (ot.FechaOrden >= fechaInicial && ot.FechaOrden <= fechaFinal)
+                                                                             select new CantidadSpools
+                                                                             {
+                                                                                 ItemCodeIDSam2 = ic.ItemCodeID,
+                                                                                 MaterialSpoolID = otm.MaterialSpoolID,
+                                                                                 OrdenTrabajoSpoolID = ots.OrdenTrabajoSpoolID,
+                                                                                 SpoolID = ots.SpoolID,
+                                                                                 OrdenTrabajoID = ot.OrdenTrabajoID
+                                                                             }).AsParallel().Distinct().ToList();
+
+                                if (proyectoID > 0)
+                                {
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                            where ot.ProyectoID == proyectoID
+                                                            select lst).AsParallel().ToList();
+                                }
+
+                                if (clienteID > 0)
+                                {
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                            join p in ctx2.Proyecto on ot.ProyectoID equals p.ProyectoID
+                                                            join c in ctx2.Cliente on p.ClienteID equals c.ClienteID
+                                                            where c.ClienteID == clienteID
+                                                            select lst).AsParallel().ToList();
+                                }
+
+                                if (folioAvisoEntrada > 0)
+                                {
+                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                               select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                    List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
+                                                          join fc in ctx.Sam3_FolioCuantificacion on fae.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                          join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                          join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                          where fae.Activo && fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                          && itemCodesSam3.Contains(ic.ItemCodeID) && fae.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                          select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                    List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                               select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                            select lst).AsParallel().ToList();
+                                }
+                                if (folioCuantificacionID > 0)
+                                {
+                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                               select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                    List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
+                                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                          join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                          join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                          where fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                          && fc.FolioCuantificacionID == folioCuantificacionID
+                                                          && itemCodesSam3.Contains(ic.ItemCodeID)
+                                                          select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                    List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                               where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                               select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                            select lst).AsParallel().ToList();
+                                }
+
+                                List<ListadoPorSpoolEntrega> porSpool = new List<ListadoPorSpoolEntrega>();
+
+                                List<int> spoolsRepetidos = listaCantidadesSpool.GroupBy(x => x.SpoolID).Select(x => x.Key).ToList();
+
+                                foreach (int item in spoolsRepetidos)
+                                {
+                                    //selecciono los materiales por spool
+                                    List<int> MaterialesPorSpool = listaCantidadesSpool.Where(x => x.SpoolID == item).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                    //cuantos de esos materiales estan despachados
+                                    List<int> despachados = (from d in ctx.Sam3_Despacho
+                                                       where d.Activo && MaterialesPorSpool.Contains(d.MaterialSpoolID)
+                                                       select d.DespachoID).AsParallel().ToList();
+
+                                    //cuantos han sido entregados
+                                    List<int> Entregados = (from en in ctx.Sam3_Entrega
+                                                            join pt in ctx.Sam3_FolioPickingTicket on en.FolioPickingTicketID equals pt.FolioPickingTicketID
+                                                            join d in ctx.Sam3_Despacho on pt.DespachoID equals d.DespachoID
+                                                            where en.Activo && pt.Activo && d.Activo && despachados.Contains(d.DespachoID)
+                                                            select en.EntregaID).AsParallel().ToList();
+
+                                    if (despachados.Count() - Entregados.Count() > 0)
+                                    {
+
+                                        porSpool.Add(new ListadoPorSpoolEntrega
+                                        {
+                                            ID = (from s in ctx2.Spool where s.SpoolID == item select s.Nombre).AsParallel().SingleOrDefault(),
+                                            CantidadPorEntregar = (despachados.Count() - Entregados.Count()).ToString(),
+                                            CantidadEntregada = Entregados.Count().ToString(),
+                                            CantidadTotal = despachados.Count().ToString()
+                                        });
+                                    }
+                                }
+                              
+                                if (conteo)
+                                {
+                                    return porSpool.Count();
+                                }
+                                else
+                                {
+                                    return porSpool;
+                                }
+                                #endregion
                                 break;
                             case 3: // Toneladas
+                                 #region Toneladas
+                                {
+                                    //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoEntregaDash> listadoPorEntregar = new List<ListadoEntregaDash>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         //join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                              && proyectosSam2.Contains(p.ProyectoID)
+                                                              && patiosSam2.Contains(p.PatioID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = odtm.NumeroUnicoCongeladoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesDespachados = InfoNumerosUnicos.Where(x => x.NumeroUnicoID == null && x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        decimal pesoICS = (from ic in ctx.Sam3_ItemCode
+                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
+                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                           where ic.Activo && rics.Activo && ic.ItemCodeID == itemCode
+                                                           select ics.Peso).AsParallel().SingleOrDefault();
+
+
+                                        List<int> Despachados = (from des in ctx.Sam3_Despacho
+                                                                 where des.Activo && MaterialesDespachados.Contains(des.MaterialSpoolID)
+                                                                 select des.DespachoID).AsParallel().ToList();
+
+
+                                        //Cuantos ya fueron entregados
+                                        List<int> Entregados = (from en in ctx.Sam3_Entrega
+                                                                join pt in ctx.Sam3_FolioPickingTicket on en.FolioPickingTicketID equals pt.FolioPickingTicketID
+                                                                join d in ctx.Sam3_Despacho on pt.DespachoID equals d.DespachoID
+                                                                where en.Activo && pt.Activo && d.Activo && Despachados.Contains(d.DespachoID)
+                                                                select en.EntregaID).AsParallel().ToList();
+
+                                        if (Despachados.Count() - Entregados.Count() > 0)
+                                        {
+                                            listadoPorEntregar.Add(new ListadoEntregaDash
+                                             {
+                                                 IC = (from ic in ctx.Sam3_ItemCode
+                                                       where ic.Activo && ic.ItemCodeID == itemCode
+                                                       select ic.Codigo).AsParallel().SingleOrDefault(),
+                                                 DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                                  where ic.Activo && ic.ItemCodeID == itemCode
+                                                                  select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                                 D1 = (from ic in ctx.Sam3_ItemCode
+                                                       join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                       join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                       where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                       select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                 D2 = (from ic in ctx.Sam3_ItemCode
+                                                       join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                       join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                       where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                       select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                 Cedula = "",
+                                                 CantidadEntregada = (Entregados.Count() * pesoICS).ToString(),
+                                                 CantidadPorEntregar = ((Despachados.Count() * pesoICS) - (Entregados.Count() * pesoICS)).ToString(),
+                                                 CantidadTotal = (Despachados.Count() * pesoICS).ToString()
+                                             });
+                                        }
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorEntregar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorEntregar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
                                 break;
                             case 4: // MM
+                               #region MM
+                                {
+                                    //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                    List<int> sam2NumerosUnicos = new List<int>();
+                                    List<CantidadMateriales> InfoNumerosUnicos = new List<CantidadMateriales>();
+                                    List<ListadoEntregaDash> listadoPorEntregar = new List<ListadoEntregaDash>();
+                                    if (proyectoID > 0)
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where proyectosSam2.Contains(p.ProyectoID)
+                                                                 && patiosSam2.Contains(p.PatioID)
+                                                             && p.ProyectoID == proyectoIDSam2 && ic.TipoMaterialID == tipoMaterialID
+                                                             select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                    }
+                                    else
+                                    {
+                                        sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                             join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                             join ic in ctx2.ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                             join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                             where ic.TipoMaterialID == tipoMaterialID
+                                                             && proyectosSam2.Contains(p.ProyectoID)
+                                                             && patiosSam2.Contains(p.PatioID)
+                                                             select nu.NumeroUnicoID).AsParallel().ToList();
+                                    }
+
+                                    InfoNumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         //join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where ic.TipoMaterialID == tipoMaterialID
+                                                              && proyectosSam2.Contains(p.ProyectoID)
+                                                              && patiosSam2.Contains(p.PatioID)
+                                                         select new CantidadMateriales
+                                                         {
+                                                             NumeroUnicoID = odtm.NumeroUnicoCongeladoID,
+                                                             MaterialSpoolID = odtm.MaterialSpoolID,
+                                                             ItemCodeID = ic.ItemCodeID,
+                                                             OrdenTrabajoSpoolID = odts.OrdenTrabajoSpoolID
+                                                         }).AsParallel().Distinct().ToList();
+
+                                    List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                   where eq.Activo
+                                                                   && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                                   select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                    #region Numeros Unicos
+
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
+                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                           where nu.Activo
+                                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                                           select nu).AsParallel().Distinct().ToList();
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
+                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                        join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                        where p.Activo && c.Sam2ClienteID == clienteID
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        lstNumUnicos = (from nu in lstNumUnicos
+                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where it.Activo
+                                                        && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                             where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                             select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                        || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            where rbi.Activo && b.Activo
+                                                            && b.FolioCuantificacionID == folioCuantificacionID
+                                                            select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                        select nu).AsParallel().Distinct().ToList();
+                                    }
+
+                                    #endregion
+
+                                    foreach (Sam3_NumeroUnico item in lstNumUnicos)
+                                    {
+                                        int itemCode = (from lst in lstNumUnicos
+                                                        join ic in ctx.Sam3_ItemCode on lst.ItemCodeID equals ic.ItemCodeID
+                                                        where ic.Activo && lst.NumeroUnicoID == item.NumeroUnicoID
+                                                        select ic.ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        int itemCodeSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                            where eq.Activo && eq.Sam3_ItemCodeID == itemCode
+                                                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
+                                        List<int> MaterialesDespachados = InfoNumerosUnicos.Where(x => x.NumeroUnicoID == null && x.ItemCodeID == itemCodeSam2).Select(x => x.MaterialSpoolID).AsParallel().ToList();
+
+                                        decimal mmEntregados = 0;
+                                        decimal mmDespachados = 0;
+
+                                        List<int> Despachados = (from des in ctx.Sam3_Despacho
+                                                                 where des.Activo && MaterialesDespachados.Contains(des.MaterialSpoolID)
+                                                           select des.MaterialSpoolID).AsParallel().ToList();
+
+                                        foreach (int material in Despachados)
+                                        {
+                                            mmDespachados = mmDespachados + (from ms in ctx2.MaterialSpool
+                                                                                   where ms.MaterialSpoolID == material
+                                                                                   select ms.Cantidad).AsParallel().SingleOrDefault();
+                                        }
+
+                                        //Cuantos ya fueron entregados
+                                        List<int> Entregados = (from en in ctx.Sam3_Entrega
+                                                                join pt in ctx.Sam3_FolioPickingTicket on en.FolioPickingTicketID equals pt.FolioPickingTicketID
+                                                                join d in ctx.Sam3_Despacho on pt.DespachoID equals d.DespachoID
+                                                                where en.Activo && pt.Activo && d.Activo && Despachados.Contains(d.MaterialSpoolID)
+                                                                select d.MaterialSpoolID).AsParallel().ToList();
+
+                                        foreach (int material in Entregados)
+                                        {
+                                            mmEntregados = mmEntregados + (from ms in ctx2.MaterialSpool
+                                                                           where ms.MaterialSpoolID == material
+                                                                           select ms.Cantidad).AsParallel().SingleOrDefault();
+                                        }
+
+                                        if ((mmDespachados / 100) - (mmEntregados / 100) > 0)
+                                        {
+                                            listadoPorEntregar.Add(new ListadoEntregaDash
+                                            {
+                                                IC = (from ic in ctx.Sam3_ItemCode
+                                                      where ic.Activo && ic.ItemCodeID == itemCode
+                                                      select ic.Codigo).AsParallel().SingleOrDefault(),
+                                                DescripcionIC = (from ic in ctx.Sam3_ItemCode
+                                                                 where ic.Activo && ic.ItemCodeID == itemCode
+                                                                 select ic.DescripcionEspanol).AsParallel().SingleOrDefault(),
+                                                D1 = (from ic in ctx.Sam3_ItemCode
+                                                      join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                      join d in ctx.Sam3_Diametro on di.Diametro1ID equals d.DiametroID
+                                                      where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                      select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                D2 = (from ic in ctx.Sam3_ItemCode
+                                                      join di in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals di.ItemCodeID
+                                                      join d in ctx.Sam3_Diametro on di.Diametro2ID equals d.DiametroID
+                                                      where ic.Activo && di.Activo && ic.ItemCodeID == itemCode
+                                                      select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                                                Cedula = "",
+                                                CantidadEntregada = (mmEntregados / 100).ToString(),
+                                                CantidadPorEntregar = ((mmDespachados / 100) - (mmEntregados / 100)).ToString(),
+                                                CantidadTotal = (mmDespachados / 100).ToString()
+                                            });
+                                        }
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return listadoPorEntregar.GroupBy(x => x.IC).Select(x => x.First()).Count();
+                                    }
+                                    else
+                                    {
+                                        return listadoPorEntregar.GroupBy(x => x.IC).Select(x => x.First()).ToList();
+                                    }
+                                }
+                                break;
+                                #endregion
                                 break;
                             default:
                                 throw new Exception("Unidad de medida invalida");
@@ -3431,7 +5517,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoPorDespachar(FiltrosJson filtros, Sam3_Usuario usuario)
+        public object ListadoTravelerPendiente(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
         {
             try
             {
@@ -3442,17 +5528,39 @@ namespace BackEndSAM.DataAcces
                         #region filtros
                         int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
                         int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
-                        int folioPackingList = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int folioCuantificacionID = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                         int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
                         int unidadDeMedida = 0;
                         List<int> patiosUsuario;
                         List<int> proyectosUsuario;
+                        List<int> proyectosSam2;
+                        List<int> patiosSam2;
+                        int proyectoIDSam2 = 0;
 
                         DateTime fechaInicial = new DateTime();
                         DateTime fechaFinal = new DateTime();
                         DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                         DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
                         UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+
+                        proyectosSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                         where eq.Activo
+                                         && proyectosUsuario.Contains(eq.Sam3_ProyectoID)
+                                         select eq.Sam2_ProyectoID).AsParallel().Distinct().ToList();
+
+                        patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                      where eq.Activo
+                                      && patiosUsuario.Contains(eq.Sam3_PatioID)
+                                      select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
+
+                        if (proyectoID > 0)
+                        {
+                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                        }
+
 
                         if (fechaFinal.ToShortDateString() == "1/1/0001")
                         {
@@ -3466,13 +5574,13 @@ namespace BackEndSAM.DataAcces
                             fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
                         }
 
-                        if (filtros.UnidadDeMedida != null && filtros.UnidadDeMedida != "")
+                        if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
                         {
                             unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
                         }
                         else
                         {
-                            throw new Exception("La unida de Medida es requerida");
+                            throw new Exception("La unidad de Medida es requerida");
                         }
 
                         #endregion
@@ -3480,106 +5588,176 @@ namespace BackEndSAM.DataAcces
                         switch (unidadDeMedida)
                         {
                             case 1: // pieza. Numeros Unicos
-                                List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                                                       join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
-                                                                       join p in ctx.Sam3_Proyecto on nu.ProveedorID equals p.ProyectoID
-                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                                       where nu.Activo && pred.Activo
-                                                                       && proyectosUsuario.Contains(p.ProyectoID)
-                                                                       && patiosUsuario.Contains(pa.PatioID)
-                                                                       select nu).AsParallel().Distinct().ToList();
+                                #region Numeros Unicos
+                                {
+                                    List<CantidadSpools> porSpool = new List<CantidadSpools>();
+                                    if (conteo)
+                                    {
+                                        return porSpool.Count();
+                                    }
+                                    else
+                                    {
+                                        return porSpool;
+                                    }
+                                }
+                                #endregion
                                 break;
                             case 2: // Spool
+                                #region Spool
+                                {
+                                    List<CantidadSpools> listaCantidadesSpool = (from ot in ctx2.OrdenTrabajo
+                                                                                 join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
+                                                                                 join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                                                 //join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                                                 join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                                                 join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
+                                                                                 where proyectosSam2.Contains(ot.ProyectoID) && ic.TipoMaterialID == tipoMaterialID
+                                                                                 && (ot.FechaOrden >= fechaInicial && ot.FechaOrden <= fechaFinal)
+                                                                                 select new CantidadSpools
+                                                                                 {
+                                                                                     ItemCodeIDSam2 = ic.ItemCodeID,
+                                                                                     MaterialSpoolID = otm.MaterialSpoolID,
+                                                                                     OrdenTrabajoSpoolID = ots.OrdenTrabajoSpoolID,
+                                                                                     SpoolID = ots.SpoolID,
+                                                                                     OrdenTrabajoID = ot.OrdenTrabajoID
+                                                                                 }).AsParallel().Distinct().ToList();
+
+                                    List<int> conImpresion = (from imp in ctx.Sam3_FolioImpresionDocumental
+                                                              where imp.Activo //&& listaCantidadesSpool.Any(x => x.OrdenTrabajoSpoolID == imp.SpoolID)
+                                                              select imp.SpoolID).AsParallel().ToList();
+
+                                    listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                            where !conImpresion.Contains(lst.OrdenTrabajoSpoolID)
+                                                            select lst).AsParallel().ToList();
+
+                                    if (proyectoID > 0)
+                                    {
+                                        listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                                join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                                where ot.ProyectoID == proyectoID
+                                                                select lst).AsParallel().ToList();
+                                    }
+
+                                    if (clienteID > 0)
+                                    {
+                                        listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                                join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                                join p in ctx2.Proyecto on ot.ProyectoID equals p.ProyectoID
+                                                                join c in ctx2.Cliente on p.ClienteID equals c.ClienteID
+                                                                where c.ClienteID == clienteID
+                                                                select lst).AsParallel().ToList();
+                                    }
+
+                                    if (folioAvisoEntrada > 0)
+                                    {
+                                        List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                                   where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                                   select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                        List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
+                                                              join fc in ctx.Sam3_FolioCuantificacion on fae.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                              join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                              join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                              join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                              where fae.Activo && fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                              && itemCodesSam3.Contains(ic.ItemCodeID) && fae.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                              select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                        List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                                   where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                                   select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                        listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                                where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                                select lst).AsParallel().ToList();
+                                    }
+                                    if (folioCuantificacionID > 0)
+                                    {
+                                        List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                                   where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                                                   select eq.Sam3_ItemCodeID).AsParallel().ToList();
+
+                                        List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
+                                                              join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
+                                                              join rdic in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rdic.Rel_ItemCode_Diametro_ID
+                                                              join ic in ctx.Sam3_ItemCode on rdic.ItemCodeID equals ic.ItemCodeID
+                                                              where fc.Activo && rfc.Activo && rdic.Activo && ic.Activo
+                                                              && fc.FolioCuantificacionID == folioCuantificacionID
+                                                              && itemCodesSam3.Contains(ic.ItemCodeID)
+                                                              select ic.ItemCodeID).AsParallel().Distinct().ToList();
+
+                                        List<int> itemCodesSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                                                   where eq.Activo && foliosIC.Contains(eq.Sam3_ItemCodeID)
+                                                                   select eq.Sam2_ItemCodeID).AsParallel().ToList();
+
+                                        listaCantidadesSpool = (from lst in listaCantidadesSpool
+                                                                where itemCodesSam2.Contains(lst.ItemCodeIDSam2)
+                                                                select lst).AsParallel().ToList();
+                                    }
+
+                                    List<ListadoTravelerPendientePorSpool> porSpool = new List<ListadoTravelerPendientePorSpool>();
+
+                                    List<int> OTspoolsRepetidos = listaCantidadesSpool.GroupBy(x => x.OrdenTrabajoSpoolID).Select(x => x.Key).ToList();
+
+                                    foreach (int item in OTspoolsRepetidos)
+                                    {
+                                        ListadoTravelerPendientePorSpool traveler = new ListadoTravelerPendientePorSpool();
+
+                                        traveler = (from odts in ctx2.OrdenTrabajoSpool
+                                                    join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                    join sp in ctx2.Spool on odts.SpoolID equals sp.SpoolID
+                                                    where odts.OrdenTrabajoSpoolID == item
+                                                    select new ListadoTravelerPendientePorSpool
+                                                    {
+                                                        ProyectoID = sp.ProyectoID,
+                                                        Spool = sp.Nombre,
+                                                        SpoolID = odts.NumeroControl,
+                                                        NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
+                                                    }).Distinct().AsParallel().SingleOrDefault();
+
+                                        porSpool.Add(traveler);
+                                    }
+
+                                    if (conteo)
+                                    {
+                                        return porSpool.Count();
+                                    }
+                                    else
+                                    {
+                                        return porSpool;
+                                    }
+                                #endregion
+                                }
                                 break;
                             case 3: // Toneladas
+                                #region Toneladas
+                                {
+                                    List<CantidadSpools> porSpool = new List<CantidadSpools>();
+                                    if (conteo)
+                                    {
+                                        return porSpool.Count();
+                                    }
+                                    else
+                                    {
+                                        return porSpool;
+                                    }
+                                }
+                                #endregion
                                 break;
                             case 4: // MM
-                                break;
-                            default:
-                                throw new Exception("Unidad de medida invalida");
-                        }
-                    }
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                LoggerBd.Instance.EscribirLog(ex);
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-        public object ListadoPorEntregar(FiltrosJson filtros, Sam3_Usuario usuario)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    using (Sam2Context ctx2 = new Sam2Context())
-                    {
-                        #region filtros
-                        int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                        int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
-                        int folioPackingList = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
-                        int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
-                        int unidadDeMedida = 0;
-                        List<int> patiosUsuario;
-                        List<int> proyectosUsuario;
-
-                        DateTime fechaInicial = new DateTime();
-                        DateTime fechaFinal = new DateTime();
-                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
-                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
-                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
-
-                        if (fechaFinal.ToShortDateString() == "1/1/0001")
-                        {
-                            fechaFinal = DateTime.Now;
-                        }
-
-                        if (fechaInicial.ToShortDateString() == "1/1/0001")
-                        {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
-                        }
-
-                        if (filtros.UnidadDeMedida != null && filtros.UnidadDeMedida != "")
-                        {
-                            unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
-                        }
-                        else
-                        {
-                            throw new Exception("La unida de Medida es requerida");
-                        }
-
-                        #endregion
-
-                        switch (unidadDeMedida)
-                        {
-                            case 1: // pieza. Numeros Unicos
-                                List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                                                       join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
-                                                                       join p in ctx.Sam3_Proyecto on nu.ProveedorID equals p.ProyectoID
-                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                                       where nu.Activo && pred.Activo
-                                                                       && proyectosUsuario.Contains(p.ProyectoID)
-                                                                       && patiosUsuario.Contains(pa.PatioID)
-                                                                       select nu).AsParallel().Distinct().ToList();
-                                break;
-                            case 2: // Spool
-                                break;
-                            case 3: // Toneladas
-                                break;
-                            case 4: // MM
+                                #region MM
+                                {
+                                    List<CantidadSpools> porSpool = new List<CantidadSpools>();
+                                    if (conteo)
+                                    {
+                                        return porSpool.Count();
+                                    }
+                                    else
+                                    {
+                                        return porSpool;
+                                    }
+                                }
+                                #endregion
                                 break;
                             default:
                                 throw new Exception("Unidad de medida invalida");
