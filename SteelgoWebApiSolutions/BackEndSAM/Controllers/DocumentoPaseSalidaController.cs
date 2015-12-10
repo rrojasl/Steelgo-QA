@@ -45,7 +45,8 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegada, string tipoArchivo, string IncidenciaID, string token)
+
+        public object Post(int folioAvisoLlegada, string tipoArchivo, int incidenciaID, string token)
         {
             try
             {
@@ -115,7 +116,8 @@ namespace BackEndSAM.Controllers
                                 FolioAvisoLlegadaID = folioAvisoLlegada,
                                 UserId = usuario.UsuarioID,
                                 TipoArchivoPaseSalida = tipoArchivo,
-                                Extencion = extencion
+                                Extencion = extencion,
+                                IncidenciaID = incidenciaID
                             });
 
                             postedFile.SaveAs(path);
