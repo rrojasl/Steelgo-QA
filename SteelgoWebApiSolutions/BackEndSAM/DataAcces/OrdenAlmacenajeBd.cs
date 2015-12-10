@@ -597,25 +597,22 @@ namespace BackEndSAM.DataAcces
                     ctx.Sam3_OrdenAlmacenaje.Add(ordenAlmacenaje);
                     ctx.SaveChanges();
 
+                    List<int> proyectos = (from fc in ctx.Sam3_FolioCuantificacion
+                                           where listaDatos.listaFoliosCuantificacion.Select(x => x.ID).Contains(fc.FolioCuantificacionID) && fc.Activo
+                                           select fc.ProyectoID).AsParallel().ToList();
+
+                    Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                        where rel.Proyecto == proyectos.Min() && rel.Activo == 1
+                                                                        select rel).AsParallel().SingleOrDefault();
+
+                    Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.OrdenAlmacenajeID == ordenAlmacenaje.OrdenAlmacenajeID && x.Activo).AsParallel().SingleOrDefault();
+                    orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
+                    orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenAlmacenaje;
+                    rel_proy.ConsecutivoFolioOrdenAlmacenaje += 1;
+                    ctx.SaveChanges();
+
                     if (activarFolioConfiguracion)
                     {
-                        List<int> proyectos = (from fc in ctx.Sam3_FolioCuantificacion
-                                               where listaDatos.listaFoliosCuantificacion.Select(x=> x.ID).Contains(fc.FolioCuantificacionID) && fc.Activo
-                                               select fc.ProyectoID).AsParallel().ToList();
-
-                        Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                            where rel.Proyecto == proyectos.Min() && rel.Activo == 1
-                                                                            select rel).AsParallel().SingleOrDefault();
-
-                            Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.OrdenAlmacenajeID == ordenAlmacenaje.OrdenAlmacenajeID && x.Activo).AsParallel().SingleOrDefault();
-
-                            orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
-                            orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenAlmacenaje;
-
-                            rel_proy.ConsecutivoFolioOrdenAlmacenaje += 1;
-
-                            ctx.SaveChanges();
-
                             ordenAlmacenajeFolio = rel_proy.PreFijoFolioOrdenAlmacenaje + ","
                                 + rel_proy.CantidadCerosFolioOrdenAlmacenaje.ToString() + ","
                                 + rel_proy.ConsecutivoFolioOrdenAlmacenaje.ToString() + ","

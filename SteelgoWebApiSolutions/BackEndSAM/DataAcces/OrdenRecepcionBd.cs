@@ -787,27 +787,27 @@ namespace BackEndSAM.DataAcces
                         ctx.Sam3_OrdenRecepcion.Add(nuevaOrden);
                         ctx.SaveChanges();
 
+                        List<int> avisos = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                            join fll in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals fll.FolioAvisoLlegadaID
+                                            where foliosEntrada.Contains(fe.FolioAvisoEntradaID) && fe.Activo && fll.Activo
+                                            select fll.ProyectoID).AsParallel().ToList();
+
+                        //Obtenemos el proyecto con el id mas pequeno
+                        Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                            where rel.Proyecto == avisos.Min() && rel.Activo == 1
+                                                                            select rel).AsParallel().SingleOrDefault();
+
+                        Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == nuevaOrden.OrdenRecepcionID && x.Activo).AsParallel().SingleOrDefault();
+
+                        orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
+                        orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenRecepcion;
+
+                        rel_proy.ConsecutivoFolioOrdenRecepcion += 1;
+
+                        ctx.SaveChanges();
+
                         if (activarFolioConfiguracion)
                         {
-                            List<int> avisos = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                join fll in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals fll.FolioAvisoLlegadaID
-                                                where foliosEntrada.Contains(fe.FolioAvisoEntradaID) && fe.Activo && fll.Activo
-                                                select fll.ProyectoID).AsParallel().ToList();
-
-                            //Obtenemos el proyecto con el id mas pequeno
-                            Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                where rel.Proyecto == avisos.Min() && rel.Activo == 1
-                                                                                    select rel).AsParallel().SingleOrDefault();
-
-                            Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == nuevaOrden.OrdenRecepcionID && x.Activo).AsParallel().SingleOrDefault();
-
-                            orden.Rel_Proyecto_Entidad_Configuracion_ID = rel_proy.Rel_Proyecto_Entidad_Configuracion_ID;
-                            orden.Consecutivo = rel_proy.ConsecutivoFolioOrdenRecepcion;
-
-                            rel_proy.ConsecutivoFolioOrdenRecepcion += 1;
-
-                            ctx.SaveChanges();
-
                             ordenRecepcionFolio = rel_proy.PreFijoFolioOrdenRecepcion + ","
                                 + rel_proy.CantidadCerosFolioOrdenRecepcion.ToString() + ","
                                 + rel_proy.ConsecutivoFolioOrdenRecepcion.ToString() + ","
