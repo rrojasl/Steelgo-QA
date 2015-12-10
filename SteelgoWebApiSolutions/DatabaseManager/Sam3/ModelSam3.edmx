@@ -768,6 +768,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="TipoAvisoID" Type="int" />
           <Property Name="Entidad" Type="int" Nullable="false" />
           <Property Name="ProyectoNombrado" Type="int" Nullable="false" />
+          <Property Name="CuadrillaDescarga" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_FolioCuantificacion">
           <Key>
@@ -1561,6 +1562,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
+          <Property Name="IncidenciaID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Proyecto">
           <Key>
@@ -3424,6 +3426,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
               <PropertyRef Name="IncidenciaID" />
             </Principal>
             <Dependent Role="Sam3_Rel_Incidencia_NumeroUnico">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__7108AC61">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
               <PropertyRef Name="IncidenciaID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5522,6 +5536,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
             <End Role="Sam3_Rel_Incidencia_NumeroUnico" EntitySet="Sam3_Rel_Incidencia_NumeroUnico" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__7108AC61" Association="Self.FK__Sam3_Rel___Incid__7108AC61">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___ItemC__2D87AABC" Association="Self.FK__Sam3_Rel___ItemC__2D87AABC">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_Rel_Itemcode_Colada" EntitySet="Sam3_Rel_Itemcode_Colada" />
@@ -6325,6 +6343,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="ProyectoNombrado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_Entidad" Relationship="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Entidad" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Entidad" />
           <NavigationProperty Name="Sam3_Proyecto" Relationship="ModelSam3.FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Proyecto" />
+          <Property Name="CuadrillaDescarga" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Sam3_Incidencia">
           <Key>
@@ -6379,6 +6398,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Consecutivo" Type="Int32" />
           <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" FromRole="Sam3_Incidencia" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Relationship="ModelSam3.FK__Sam3_Rel___Incid__7108AC61" FromRole="Sam3_Incidencia" ToRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
         </EntityType>
         <EntityType Name="Sam3_ItemCode">
           <Key>
@@ -9421,6 +9441,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__7108AC61" Association="ModelSam3.FK__Sam3_Rel___Incid__7108AC61">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -9551,6 +9575,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoArchivo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__222B06A9" FromRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" ToRole="Sam3_TipoArchivo" />
+          <Property Name="IncidenciaID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Incidencia" Relationship="ModelSam3.FK__Sam3_Rel___Incid__7108AC61" FromRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" ToRole="Sam3_Incidencia" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Folio__4B422AD5">
           <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
@@ -12492,6 +12518,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Rel___Incid__7108AC61">
+          <End Type="ModelSam3.Sam3_Incidencia" Role="Sam3_Incidencia" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12725,6 +12763,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_FolioAvisoLlegada">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioAvisoLlegada">
               <MappingFragment StoreEntitySet="Sam3_FolioAvisoLlegada">
+                <ScalarProperty Name="CuadrillaDescarga" ColumnName="CuadrillaDescarga" />
                 <ScalarProperty Name="ProyectoNombrado" ColumnName="ProyectoNombrado" />
                 <ScalarProperty Name="Entidad" ColumnName="Entidad" />
                 <ScalarProperty Name="TipoAvisoID" ColumnName="TipoAvisoID" />
@@ -13603,6 +13642,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
               <MappingFragment StoreEntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
+                <ScalarProperty Name="IncidenciaID" ColumnName="IncidenciaID" />
                 <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="Url" ColumnName="Url" />

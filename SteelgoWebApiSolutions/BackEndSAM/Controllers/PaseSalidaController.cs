@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegadaID, string token)
+        public object Post(int folioAvisoLlegadaID, string cuadrillaDescarga, string token)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +49,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PaseSalidaBd.Instance.GenerarPaseSalida(folioAvisoLlegadaID, usuario);
+                return PaseSalidaBd.Instance.GenerarPaseSalida(folioAvisoLlegadaID, cuadrillaDescarga, usuario);
             }
             else
             {

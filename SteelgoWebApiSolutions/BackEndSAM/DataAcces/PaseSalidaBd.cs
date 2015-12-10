@@ -129,7 +129,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GenerarPaseSalida(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        public object GenerarPaseSalida(int folioAvisoLlegadaID, string cuadrillaDescarga, Sam3_Usuario usuario)
         {
             try
             {
@@ -140,6 +140,7 @@ namespace BackEndSAM.DataAcces
                     foliollegadaBd.PaseSalidaEnviado = true;
                     foliollegadaBd.FechaModificacion = DateTime.Now;
                     foliollegadaBd.UsuarioModificacion = usuario.UsuarioID;
+                    foliollegadaBd.CuadrillaDescarga = cuadrillaDescarga;
 
                     Sam3_FolioAvisoEntrada folioEntradaBd = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID)
                         .AsParallel().SingleOrDefault();
