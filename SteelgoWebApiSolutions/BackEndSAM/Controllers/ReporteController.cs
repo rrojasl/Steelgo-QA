@@ -46,7 +46,6 @@ namespace BackEndSAM.Controllers
                         result.IsAuthenicated = true;
                         return result;
                 }
-                
             }
             else
             {

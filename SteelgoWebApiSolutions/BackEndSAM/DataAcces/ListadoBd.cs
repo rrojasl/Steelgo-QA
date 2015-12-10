@@ -285,6 +285,7 @@ namespace BackEndSAM.DataAcces
                                         && !(from fe in ctx.Sam3_FolioAvisoEntrada
                                              where fe.Activo
                                              select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                                        && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
                                         select fa).AsParallel().Distinct().Count();
 
                     result.SinOrdenDescarga = (from r in registrosBd
