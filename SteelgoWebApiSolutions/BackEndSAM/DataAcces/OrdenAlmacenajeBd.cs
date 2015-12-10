@@ -651,6 +651,7 @@ namespace BackEndSAM.DataAcces
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnMessage.Add(activarFolioConfiguracion ? ordenAlmacenajeFolio : ordenAlmacenaje.Folio.ToString());
+                    result.ReturnMessage.Add(ordenAlmacenaje.Folio.ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
