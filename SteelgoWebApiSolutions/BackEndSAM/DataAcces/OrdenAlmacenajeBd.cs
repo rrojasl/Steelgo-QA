@@ -738,7 +738,7 @@ namespace BackEndSAM.DataAcces
                         if (activarFolioConfiguracion)
                         {
                             Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                where rel.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID && rel.Activo == 1
+                                                                                where rel.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                 select rel).AsParallel().SingleOrDefault();
                             if (rel_proy != null)
                             {
