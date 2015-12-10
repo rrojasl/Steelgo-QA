@@ -2726,6 +2726,14 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "PaseDeSalida0021": {
+        "es-MX": "Incidencia Asociada",
+        "en-US": "Associated Incidence"
+    },
+    "PaseDeSalida0022": {
+        "es-MX": "Incidencia Asociada",
+        "en-US": "Associated Incidence"
+    },
     //
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
@@ -6486,6 +6494,10 @@ _dictionary = {
     "notificationslabel0092": {
         "es-MX": "Mensaje de error: No hay datos",
         "en-US": "Error messsage: There is no data"
+    },
+    "notificationslabel0093": {
+        "es-MX": "Favor de seleccionar una incidencia asociada",
+        "en-US": "Please select an incidence associated."
     },
     //Default to copy
     "label9999": {

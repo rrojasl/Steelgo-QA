@@ -96,6 +96,10 @@
                                     <label id="PaseDeSalida0013"></label>
                                     <input id="TipoArchivo" class="" />
                                 </div>
+                                <div id="IncidenciaAsociadaDiv" class="form-group col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                                    <label id="PaseDeSalida0021"></label>
+                                    <input id="IncidenciaAsociada" class="" />
+                                </div>
                                 <div id="PackingListDiv" class="form-group col-xs-12 col-sm-7 col-md-8 col-lg-5">
                                     <label id="PaseDeSalida0014"></label>
                                     <input name="files" id="PackingList" type="file" class="" />
@@ -113,6 +117,9 @@
                                                 </td>
                                                 <td>
                                                     <label id="PaseDeSalida0016"></label>
+                                                </td>
+                                                <td>
+                                                    <label id="PaseDeSalida0022"></label>
                                                 </td>
                                                 <td>
                                                     <label id="PaseDeSalida0017"></label>
@@ -147,7 +154,7 @@
     }
 
     @section JavascriptGlobalVariables {
-    var FolioPaseSalida = {};
+    var FolioPaseSalida = {}, IncidenciaAsociada = {}, ArregloIncidencias = [], ArregloIncidenciasFirmadas = [];
     var creacionArchivos = 0;
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _UrlReporte = $UrlReportingServices;
@@ -184,6 +191,11 @@
                 visible: "#ListaIncidenciasDiv",
                 editable: "#ListaIncidencias",
                 required: "#ListaIncidencias"
+            },
+            incidenciaAsociada: {
+                visible: "#IncidenciaAsociadaDiv",
+                editable: "#IncidenciaAsociada",
+                required: "#IncidenciaAsociada"
             }
         }
     };
@@ -211,7 +223,7 @@
         });
 
         $("#GenerarPaseSalida").click(function () {
-            validateSecurity();
+            validateSecurityGenerarPaseSalida();
 
             if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
                 displayMessage("notificationslabel0034", "", '1');
@@ -317,13 +329,40 @@
             },
             change: function (e) {
                 var value = this.value();
+                IncidenciaAsociada = {};
+                $("#IncidenciaAsociada").data("kendoComboBox").value("");
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     TipoArchivo = {};
                     this.value("");
+                } else {
+                    if (this.value() == "Incidencias Firmadas") {
+                        $("#IncidenciaAsociadaDiv").removeClass("hidden");
+                    } else {
+                        $("#IncidenciaAsociadaDiv").addClass("hidden");
+                        
+                    };
                 };
             },
         });
+
+        $("#IncidenciaAsociada").kendoComboBox({
+            dataTextField: "FolioIncidenciaID",
+            dataValueField: "FolioIncidenciaID",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarIncidenciaAsociada(dataItem.FolioIncidenciaID);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    this.value("");
+                };
+            },
+        });
+        $("#IncidenciaAsociadaDiv").addClass("hidden");
 
         $('#PackingList').kendoUpload({
             async: {
@@ -350,17 +389,34 @@
     function GenerarPaseSalida() {
         //loadingStart();
 
-        $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
-            if (Error(result)) {
-                //loadingStop();
-                //DesahabilitarControles();
-                $("#GenerarPaseSalida").css("display", "none");
-                $("#ImprimirPaseSalida").css("display", "block");
-                DeshabilitarObtenerDocumentosPaseSalida();
-            }
-        });
+        if(!validarIncidenciasFirmadas()){
+
+            //$PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+            //    if (Error(result)) {
+            //        //loadingStop();
+            //        //DesahabilitarControles();
+            //        $("#GenerarPaseSalida").css("display", "none");
+            //        $("#ImprimirPaseSalida").css("display", "block");
+            //        DeshabilitarObtenerDocumentosPaseSalida();
+            //    }
+            //});
+    }
     };
 
+    function validarIncidenciasFirmadas() {
+        var boolean = true;
+            if ($('#ListaIncidencias > tbody  > tr').length) {
+
+                $.each(ArregloIncidencias, function (i, val) {
+                    //val.IncidenciaID
+                    $.each(ArregloIncidenciasFirmadas[i], function (x, value) {
+                        alert(x);
+                    });
+                    
+                });
+            } 
+        return boolean;
+    };
     function limpiarUploadFiles() {
         FolioPaseSalida = {};
         TipoArchivo = {};
@@ -398,6 +454,17 @@
         TipoArchivo = { TipoArchivoID: id, Nombre: value };
     };
 
+    function CargarIncidenciaAsociada(id) {
+        IncidenciaAsociada = {};
+        IncidenciaAsociada = { IncidenciaAsociadaID: id };
+    };
+
+    function ObtenerFoliosAvisoLlegada() {
+        $folioEntradaMaterial.Listado.read({ tipoListado: 6, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
+        });
+    };
+
     function ObtenerFoliosAvisoLlegada() {
         $folioEntradaMaterial.Listado.read({ tipoListado: 6, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
             ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
@@ -412,10 +479,18 @@
         });
     };
 
+    function CargarArregloIncidencias(result) {
+        $.each(result, function (i,val) {
+            ArregloIncidencias[i] = { IncidenciaID: val.FolioIncidenciaID };
+        });
+    };
+
     function ObtenerIncidencias(id) {
         $('#ListaIncidencias tbody').empty();
         $IncidenciaPaseSalida.IncidenciaPaseSalida.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
+                CargarArregloIncidencias(result);
+                ControlErroresObjetosComboBox("IncidenciaAsociada", result);
                 $.each(result, function (index, value) {
                     $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.FolioIncidenciaID + "' class='l' type='checkbox' /></td><td>" + value.FolioIncidenciaID + "</td><td>" + value.Descripcion + "</td></tr>");
                 });
@@ -429,7 +504,42 @@
             };
         });
     }
-
+    function validateSecurityIncidenciaFirmada() {
+        var bool = false;
+        $("#formPaseSalida .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if ($(elem).attr("id") == "IncidenciaAsociada") {
+                    if (!$(this).val()) {
+                        bool = true;
+                        $(this).closest("div").find("label").addClass("error");
+                        $(this).closest("div").addClass("clearfix");
+                    } else {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                }
+            };
+        });
+        return bool;
+    };
+    function validateSecurityGenerarPaseSalida() {
+        var bool = false;
+        $("#formPaseSalida .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if ($(elem).attr("id") == "FolioAvisoLlegadaID") {
+                    if (!$(this).val()) {
+                        bool = true;
+                        $(this).closest("div").find("label").addClass("error");
+                        $(this).closest("div").addClass("clearfix");
+                    } else {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                }
+            };
+        });
+        return bool;
+    };
     function validateSecurity(){
         var bool=false;
         $("#formPaseSalida .security_required").each(function (i, elem) {
@@ -457,21 +567,48 @@
                 displayMessage("notificationslabel0031", "", '1');
                 e.preventDefault();
             }
+        }else{
+            if (!$("#IncidenciaAsociadaDiv").is(':hidden')) {
+                if ($('#ListaIncidencias > tbody  > tr').length == 0) {
+                    displayMessage("notificationslabel0033", "", '1');
+                    e.preventDefault();
+                }else{
+                    bool = validateSecurityIncidenciaFirmada();
+                    if (bool) {
+                        if (!$("#IncidenciaAsociada").data("kendoComboBox").value()) {
+                            displayMessage("notificationslabel0093", "", '1');
+                            e.preventDefault();
+                        };
+                    }
+                };
+            };
         }
 
-        $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + FolioPaseSalida.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
+        $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + FolioPaseSalida.FolioAvisoLlegadaID + "&IncidenciaID=" + (IncidenciaAsociada.IncidenciaAsociadaID?IncidenciaAsociada.IncidenciaAsociadaID:"" ) + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
     };
 
     function ObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
+        ArregloIncidenciasFirmadas = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
                 var contador = 0;
                 if (result.length > 0) {
                     $.each(result, function (index, value) {
+                        
+                        //Dummy OJO
+                        if (contador == 0) {
+                            value.IncidenciaID = 2267;
+                        }
+                        if (contador == 1) {
+                            value.IncidenciaID = 2268;
+                        }
+                        if (value.TipoArchivo == "Incidencias firmadas") {
+                            ArregloIncidenciasFirmadas[contador] = { IncidenciaID: value.IncidenciaID };
+                        }
                         contador += 1;
-                        $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>" + value.IncidenciaID + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                     $("#hdnCantidadArchivos").val(contador);
                 }
@@ -482,14 +619,26 @@
 
     function DeshabilitarObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
+        ArregloIncidenciasFirmadas = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
                 var contador = 0;
                 if (result.length > 0) {
                     $.each(result, function (index, value) {
+                       
+                        //Dummy OJO
+                        if (contador == 0) {
+                            value.IncidenciaID = 2267;
+                        }
+                        if (contador == 1) {
+                            value.IncidenciaID = 2268;
+                        }
+                        if (value.TipoArchivo == "Incidencias firmadas") {
+                            ArregloIncidenciasFirmadas[contador] = { IncidenciaID: value.IncidenciaID };
+                        }
                         contador += 1;
-                        $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>"+ value.IncidenciaID +"</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
                     $("#hdnCantidadArchivos").val(contador);
                 }
@@ -499,6 +648,7 @@
     };
 
     function HabilitarObtenerDocumentosPaseSalidaUploadFile() {
+        ArregloIncidenciasFirmadas = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
@@ -506,13 +656,24 @@
                 if (result.length > 0) {
                     $("#listaArchivosPaseSalida tbody").empty();
                     $.each(result, function (index, value) {
+                        
+                        //Dummy OJO
+                        if (contador == 0) {
+                            value.IncidenciaID = 2267;
+                        }
+                        if (contador == 1) {
+                            value.IncidenciaID = 2268;
+                        }
+                        if (value.TipoArchivo == "Incidencias firmadas")
+                        {
+                            ArregloIncidenciasFirmadas[contador] = { IncidenciaID: value.IncidenciaID };
+                        }
                         contador += 1;
-                        $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>"+ value.IncidenciaID +"</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                     if (contador > $("#hdnCantidadArchivos").val()) {
                         $("#hdnCantidadArchivos").val(contador);
                     } else if ($("#hdnCantidadArchivos").val() == contador) {
-                        //limpiarUploadFiles();
                         limpiarFailedFiles();
                         displayMessage("notificationslabel0084", '', '2');
                     }

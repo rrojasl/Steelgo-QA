@@ -13,6 +13,7 @@ namespace BackEndSAM.Models
         public string TipoArchivo { get; set; }
         public string Url { get; set; }
         public string Descripcion { get; set; }
+        public string IncidenciaID { get; set; }
     }
 
     public class DocumentoPermisoAduana

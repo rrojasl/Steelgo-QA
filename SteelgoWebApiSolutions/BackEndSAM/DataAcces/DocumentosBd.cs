@@ -330,7 +330,8 @@ namespace BackEndSAM.DataAcces
                                                             Nombre = d.Nombre,
                                                             Extencion = d.Extencion,
                                                             Url = d.Url,
-                                                            TipoArchivo = t.Nombre
+                                                            TipoArchivo = t.Nombre,
+                                                            IncidenciaID= ""//dummy OJO
                                                         }).AsParallel().ToList();
                     return documentos;
                 }
