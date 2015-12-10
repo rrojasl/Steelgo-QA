@@ -168,6 +168,7 @@
             Peso: { type: "number", validation: { required: true }, editable: true },
             Area: { type: "number", validation: { required: true }, editable: true },
             TieneD2: { type: "string", validation: { required: true } },
+            Asociado: { type: "boolean", validation: { required: false }, editable: false },
         }
     };
 
@@ -601,6 +602,10 @@
                 }
             },
             edit: function (e) {
+                if(e.model.Asociado===true){
+                    grid.cancelRow();
+                    e.stopImmediatePropagation();
+                }
                 if (e.model.TieneD2 == "No") {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
                     e.model.Diametro1ID = DiametroCero.id;
