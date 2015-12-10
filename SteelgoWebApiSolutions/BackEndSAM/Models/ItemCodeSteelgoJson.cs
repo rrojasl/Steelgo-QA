@@ -39,6 +39,8 @@ namespace BackEndSAM.Models
         public string Diametro2 { get; set; }
         public string Grupo { get; set; }
         public string GrupoID { get; set; }
+        public string FamiliaMaterialID { get; set; }
+        public string FamiliaMaterial { get; set; }
         public string Acero { get; set; }
         public string AceroID { get; set; }
         public string CedulaID { get; set; }
