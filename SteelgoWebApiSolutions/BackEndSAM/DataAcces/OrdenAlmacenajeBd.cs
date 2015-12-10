@@ -597,9 +597,9 @@ namespace BackEndSAM.DataAcces
                     ctx.Sam3_OrdenAlmacenaje.Add(ordenAlmacenaje);
                     ctx.SaveChanges();
 
-                    List<int> proyectos = (from fc in ctx.Sam3_FolioCuantificacion
-                                           where listaDatos.listaFoliosCuantificacion.Select(x => x.ID).Contains(fc.FolioCuantificacionID) && fc.Activo
-                                           select fc.ProyectoID).AsParallel().ToList();
+                    List<int> proyectos = (from nu in ctx.Sam3_NumeroUnico
+                                           where nu.Activo && numerosunicos.Contains(nu.NumeroUnicoID)
+                                           select nu.ProyectoID).AsParallel().ToList();
 
                     Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                         where rel.Proyecto == proyectos.Min() && rel.Activo == 1
