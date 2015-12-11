@@ -1,9 +1,11 @@
-﻿using BackEndSAM.DataAcces.ServiciosTecnicosBD.RequisicionesAsignadasBD;
+﻿using BackEndSAM.DataAcces.ServiciosTecnicosBD.ImpresionPruebasBD;
+using BackEndSAM.Models.ServiciosTecnicos.ImpresionPruebas;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,9 +16,9 @@ using System.Web.Script.Serialization;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class RequisicionesAsignadasController : ApiController
+    public class ImpresionPruebasController : ApiController
     {
-        public object Get(string lenguaje, string token)
+        public object Get( string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -26,7 +28,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return RequisicionesAsignadasBD.Instance.ObtenerListaStatusRequisiciones(lenguaje, usuario.ProveedorID.GetValueOrDefault());
+                return ImpresionPruebasBD.Instance.ObtenerListaImpresionPruebas( lenguaje);
             }
             else
             {
@@ -39,17 +41,21 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string lenguaje, string token, int idStatus)
+        public object Post(Captura listaCaptura, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
+
+
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                return RequisicionesAsignadasBD.Instance.ObtenerInformacionRequisicionXStatus(lenguaje,usuario.ProveedorID.GetValueOrDefault(), idStatus);
+                DataTable dtDetalle = ArmadoController.ToDataTable(listaCaptura.Detalles);
+                return ImpresionPruebasBD.Instance.GenerarFolioReporte(dtDetalle, usuario, lenguaje);
             }
             else
             {

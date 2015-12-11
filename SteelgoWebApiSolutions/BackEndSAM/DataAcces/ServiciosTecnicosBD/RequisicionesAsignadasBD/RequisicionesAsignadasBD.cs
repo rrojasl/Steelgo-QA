@@ -27,7 +27,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.RequisicionesAsignadasBD
             }
         }
 
-        public object ObtenerListaStatusRequisiciones(string lenguaje)
+        public object ObtenerListaStatusRequisiciones(string lenguaje,int ProveedorID)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.RequisicionesAsignadasBD
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ServiciosTecnicos_Get_EstatusRequisicionesAsignadas_Result> result = ctx.Sam3_ServiciosTecnicos_Get_EstatusRequisicionesAsignadas(lenguaje).ToList();
+                    List<Sam3_ServiciosTecnicos_Get_EstatusRequisicionesAsignadas_Result> result = ctx.Sam3_ServiciosTecnicos_Get_EstatusRequisicionesAsignadas(lenguaje, ProveedorID).ToList();
                     List<StatusRequisicion> ListadoStatusRequisicionesAsignada = new List<StatusRequisicion>();
                     foreach (Sam3_ServiciosTecnicos_Get_EstatusRequisicionesAsignadas_Result item in result)
                     {
