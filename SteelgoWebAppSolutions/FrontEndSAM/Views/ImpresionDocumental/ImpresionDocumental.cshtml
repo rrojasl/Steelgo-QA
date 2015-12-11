@@ -253,6 +253,10 @@
                     $("#hdnImprimirDocumentos").val("1");
                     $("#ImprimirTraveler").removeAttr("disabled", "disabled");
                     $("#ImprimirPickingTicket").removeAttr("disabled", "disabled");
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    $("#grid").data("kendoGrid").dataSource.page(0);
+                    AsignarPaginaActualCookie();
+                    applySecurityPolicy(false);
                 } else {
                     $("#hdnImprimirDocumentos").val("0");
                     if (Error(result)) {
