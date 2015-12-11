@@ -418,7 +418,7 @@
             },
             success: function (data) {
                 //ChecarPaseSalidaEnviado();
-                ChecarPaseSalidaEnviadoUploadFile();
+                ChecarPaseSalidaEnviadoUploadFile(data);
             },
             error: function (data) { },
             upload: onUploadArchivoPaseSalida,
@@ -751,18 +751,17 @@
         });
     };
 
-    function HabilitarObtenerDocumentosPaseSalidaUploadFile() {
+    function HabilitarObtenerDocumentosPaseSalidaUploadFile(data) {
+        var contador = 0, i = 0, x = 0, boolean = false;
         ArregloIncidenciasFirmadas = [];
         ArregloPackingListFirmado = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
-                var contador = 0, i = 0, x = 0;
                 if (result.length > 0) {
                     $("#listaArchivosPaseSalida tbody").empty();
                     $.each(result, function (index, value) {
-                        if (value.TipoArchivo == "Incidencias firmadas")
-                        {
+                        if (value.TipoArchivo == "Incidencias firmadas") {
                             ArregloIncidenciasFirmadas[i] = { IncidenciaID: value.IncidenciaID };
                             i++;
                         }
@@ -772,20 +771,32 @@
                         }
                         contador += 1;
                         $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>" + (value.IncidenciaID ? value.IncidenciaID : "") + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+
+                        var files = data.files;
+                        var strnamefile = files[0].name.replace(/ /g, '_');
+                        if (strnamefile == value.Nombre) {
+                            boolean = true;
+                            //limpiarFailedFiles();
+                            //displayMessage("notificationslabel0084", '', '2');
+                        };
+
                     });
-                    if (contador > $("#hdnCantidadArchivos").val()) {
-                        $("#hdnCantidadArchivos").val(contador);
-                    } else if ($("#hdnCantidadArchivos").val() == contador) {
+                    if (boolean == false) {
                         limpiarFailedFiles();
                         displayMessage("notificationslabel0084", '', '2');
-                    }
+                    };
+                    //if (contador > $("#hdnCantidadArchivos").val()) {
+                    //    $("#hdnCantidadArchivos").val(contador);
+                    //} else if ($("#hdnCantidadArchivos").val() == contador) {
+                   
+                    //}
                 } else {
-                    if ($("#hdnCantidadArchivos").val() == contador) {
+                    //if ($("#hdnCantidadArchivos").val() == contador) {
                         limpiarFailedFiles();
                         displayMessage("notificationslabel0084", '', '2');
-                    } else {
-                        $("#hdnCantidadArchivos").val(contador);
-                    }
+                    //} else {
+                    //    $("#hdnCantidadArchivos").val(contador);
+                    //}
                 }
             };
             //loadingStop();
@@ -809,7 +820,7 @@
         $("#PackingList").data("kendoUpload").enable(false);
     }
 
-    function ChecarPaseSalidaEnviadoUploadFile() {
+    function ChecarPaseSalidaEnviadoUploadFile(data) {
         //loadingStart();
         $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
@@ -817,12 +828,12 @@
                     //DesahabilitarControles();
                     $("#GenerarPaseSalida").css("display", "none");
                     $("#ImprimirPaseSalida").css("display", "block");
-                    HabilitarObtenerDocumentosPaseSalidaUploadFile();
+                    HabilitarObtenerDocumentosPaseSalidaUploadFile(data);
                 } else {
                     habilitarControles();
                     $("#GenerarPaseSalida").css("display", "block");
                     $("#ImprimirPaseSalida").css("display", "none");
-                    HabilitarObtenerDocumentosPaseSalidaUploadFile();
+                    HabilitarObtenerDocumentosPaseSalidaUploadFile(data);
                 }
                 //loadingStop();
             }
