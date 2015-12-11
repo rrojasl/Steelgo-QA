@@ -532,6 +532,7 @@
         $AvisoLlegada.AvisoLlegada.read({ folioID: id, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 $("#CuadrillaDescarga").data("kendoComboBox").value(result.CuadrillaDescarga);
+                CargarCuadrillaDescarga(result.CuadrillaDescarga, result.CuadrillaDescarga);
             };
         });
     };
