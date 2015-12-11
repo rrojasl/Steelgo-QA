@@ -599,7 +599,7 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.TipoArchivoID = tipoArchivoId;
                         nuevoDoc.Url = d.Path;
                         nuevoDoc.UsuarioModificacion = d.UserId;
-                        nuevoDoc.IncidenciaID = d.IncidenciaID;
+                        nuevoDoc.IncidenciaID = d.IncidenciaID == -1 ? null : d.IncidenciaID;
 
                         ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo.Add(nuevoDoc);
                     }
