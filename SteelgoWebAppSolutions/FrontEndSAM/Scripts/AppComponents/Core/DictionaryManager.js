@@ -5987,6 +5987,10 @@ _dictionary = {
         "es-MX": "Fecha de Entrega",
         "en-US": "Delivery Date"
     },
+    "Entrega0015": {
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
+    },
     //ConvertirSpoolAGranel
     "ConvertirSpoolAGranel0001": {
         "es-MX": "Transacciones",
