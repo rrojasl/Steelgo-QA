@@ -59,6 +59,25 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string proyectoID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return FoliosCuantificacionBd.Instance.ObtenerTipoPackingListConfiguracion(proyectoID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
         public object Get(int folioAvisoLlegadaID, int proyectoID, string token)
         {
             string payload = "";
