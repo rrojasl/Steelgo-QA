@@ -2730,6 +2730,18 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+    "PaseDeSalida0021": {
+        "es-MX": "Incidencia Asociada",
+        "en-US": "Associated Incidence"
+    },
+    "PaseDeSalida0022": {
+        "es-MX": "Incidencia Asociada",
+        "en-US": "Associated Incidence"
+    },
+    "PaseDeSalida0023": {
+        "es-MX": "Cuadrilla de Descarga",
+        "en-US": "Group Download"
+    },
     //
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
@@ -5975,6 +5987,10 @@ _dictionary = {
         "es-MX": "Fecha de Entrega",
         "en-US": "Delivery Date"
     },
+    "Entrega0015": {
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
+    },
     //ConvertirSpoolAGranel
     "ConvertirSpoolAGranel0001": {
         "es-MX": "Transacciones",
@@ -6490,6 +6506,14 @@ _dictionary = {
     "notificationslabel0092": {
         "es-MX": "Mensaje de error: No hay datos",
         "en-US": "Error messsage: There is no data"
+    },
+    "notificationslabel0093": {
+        "es-MX": "Favor de seleccionar una incidencia asociada.",
+        "en-US": "Please select an incidence associated."
+    },
+    "notificationslabel0094": {
+        "es-MX": "Es necesario que todas las incidencia tengan un archivo de incidencia firmada.",
+        "en-US": "It is necessary that all have incidence incidence signed file."
     },
     //Default to copy
     "label9999": {

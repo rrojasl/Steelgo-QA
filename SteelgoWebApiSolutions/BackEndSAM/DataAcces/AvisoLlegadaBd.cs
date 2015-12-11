@@ -547,6 +547,41 @@ namespace BackEndSAM.DataAcces
             }
         }
         /// <summary>
+        /// Obtiene la cuadrilla de descarga de un aviso de llegada
+        /// </summary>
+        /// <param name="avisoLlegadaID"></param>
+        /// <returns>Cuadrilla de descarga</returns>
+        public object ObtenerCuadrillaDescarga(string avisoLlegadaID) {
+            try
+            {
+                int avisoID = avisoLlegadaID != "" ? Convert.ToInt32(avisoLlegadaID) : 0;
+                using (SamContext ctx = new SamContext())
+                {
+                    AvisoLlegadaJson aviso = new AvisoLlegadaJson();
+
+                    Sam3_FolioAvisoLlegada registroBd = ctx.Sam3_FolioAvisoLlegada.Where(x =>
+                        x.FolioAvisoLlegadaID == avisoID && x.Activo)
+                        .AsParallel().SingleOrDefault();
+
+                    aviso.CuadrillaDescarga = registroBd.CuadrillaDescarga;
+                    return aviso;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        /// <summary>
         /// Obtiene el detalle de un aviso de Llegada
         /// </summary>
         /// <param name="avisoLlegadaID"></param>

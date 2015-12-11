@@ -41,6 +41,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                     <li><a id="RedirectDashboard" href="#"><span id="Entrega0015"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -103,6 +104,8 @@
         lastEditedCellIDSPickingTicket = "";
 
     var _UrlEntrega = "@Url.Action("Entrega", "Entrega")";
+    var _UrlDashboardDespachoCorte = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
+
     var $EntregaModel = {
         listContainer: {
             create: ".save-group",
@@ -149,6 +152,7 @@
         //$("#1a1").click(function () { GuardarUnoAUno(); });
         $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
+        $("#RedirectDashboard").click(function () { window.location.href = _UrlDashboardDespachoCorte + "?leng=" + $("#language").data("kendoDropDownList").value(); });
 
         $("#EmpleadoEntrega").kendoComboBox({
             dataTextField: "value",

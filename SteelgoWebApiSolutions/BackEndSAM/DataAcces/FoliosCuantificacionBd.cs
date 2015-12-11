@@ -831,5 +831,41 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerTipoPackingListConfiguracion(string proyectoID)
+        {
+            try
+            {
+                int proyecto = proyectoID != "" ? Convert.ToInt32(proyectoID) : 0;
+
+                using (SamContext ctx = new SamContext())
+                {
+                    //TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
+                    //                   join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
+                    //                   where pc.ProyectoID == proyecto && pc.Activo && tu.Activo
+                    //                   select new TipoUso
+                    //                   {
+                    //                       id = tu.TipoUsoID.ToString(),
+                    //                       Nombre = tu.Nombre
+                    //                   }).AsParallel().SingleOrDefault();
+
+
+                    return true;//Si se muestra o no el campo tipo packing List.
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }
