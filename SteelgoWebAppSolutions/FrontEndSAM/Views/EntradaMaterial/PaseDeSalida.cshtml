@@ -60,7 +60,7 @@
                         </div>
                         <div id="CuadrillaDescargaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="PaseDeSalida0023"></label>
-                            <input id="CuadrillaDescarga" class="general-input" />
+                            <input id="CuadrillaDescarga" />
                         </div>
                     </div>
                     <div class="row">
@@ -158,7 +158,8 @@
     }
 
     @section JavascriptGlobalVariables {
-    var FolioPaseSalida = {}, IncidenciaAsociada = {}, ArregloIncidencias = [], ArregloIncidenciasFirmadas = [];
+    var FolioPaseSalida = {}, IncidenciaAsociada = {}, ArregloIncidencias = [],
+        ArregloIncidenciasFirmadas = [], CuadrillaDescarga = {}, ArregloPackingListFirmado = [];
     var creacionArchivos = 0;
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _UrlReporte = $UrlReportingServices;
@@ -239,7 +240,7 @@
                 return false;
             }
 
-            if ($('#listaArchivosPaseSalida > tbody  > tr').length == 0) {
+            if (ArregloPackingListFirmado.length == 0) {
                 displayMessage("notificationslabel0027", "", '1');
                 return false;
             };
@@ -307,13 +308,19 @@
                 limpiarUploadFiles();
                 var dataItem = this.dataItem(e.item.index());
                 CargarFolio(dataItem.id);
-                ObtenerIncidencias(dataItem.id);
             },
             change: function (e) {
                 var value = this.value();
-                $("#CuadrillaDescarga").val("");
+                $("#CuadrillaDescarga").data("kendoComboBox").value("");
                 $("#IncidenciaAsociada").data("kendoComboBox").value("");
+                
                 IncidenciaAsociada = {};
+                CuadrillaDescarga = {};
+                ArregloIncidencias = [];
+                ArregloIncidenciasFirmadas = [];
+                ArregloPackingListFirmado = [];
+                LimpriarvalidacionRequeridos();
+
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     limpiarUploadFiles();
@@ -321,11 +328,36 @@
                         $("#ImprimirIncidencias").attr("disabled", "disabled");
                     };
                     this.value("");
+                } else {
+                    ObtenerIncidencias(value);
+                    ObtenerCuadrillaDescarda(value);
                 };
             },
         });
 
         ObtenerFoliosAvisoLlegada();
+
+        $("#CuadrillaDescarga").kendoComboBox({
+            dataSource: [
+                { Nombre: "Cuadrilla 1", id: "Cuadrilla 1" },
+                { Nombre: "Cuadrilla 2", id: "Cuadrilla 2" }
+            ],
+            dataTextField: "Nombre",
+            dataValueField: "id",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCuadrillaDescarga(dataItem.id, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    CuadrillaDescarga = {};
+                    this.value("");
+                }
+            },
+        });
 
         $("#TipoArchivo").kendoComboBox({
             dataSource: [
@@ -401,7 +433,7 @@
     function GenerarPaseSalida() {
         //loadingStart();
         if (validarIncidenciasFirmadas()) {
-            $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID,cuadrillaDescarga:$("#CuadrillaDescarga").val(), token: Cookies.get("token") }).done(function (result) {
+            $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, cuadrillaDescarga: CuadrillaDescarga.Nombre, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     //loadingStop();
                     //DesahabilitarControles();
@@ -486,9 +518,21 @@
         IncidenciaAsociada = { IncidenciaAsociadaID: id };
     };
 
+    function CargarCuadrillaDescarga(id, value) {
+        CuadrillaDescarga = {};
+        CuadrillaDescarga = { CuadrillaDescargaID: id, Nombre: value };
+    };
+    
     function ObtenerFoliosAvisoLlegada() {
         $folioEntradaMaterial.Listado.read({ tipoListado: 6, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
             ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
+        });
+    };
+    function ObtenerCuadrillaDescarda(id) {
+        $AvisoLlegada.AvisoLlegada.read({ folioID: id, token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                $("#CuadrillaDescarga").data("kendoComboBox").value(result.CuadrillaDescarga);
+            };
         });
     };
 
@@ -514,6 +558,9 @@
 
     function ObtenerIncidencias(id) {
         $('#ListaIncidencias tbody').empty();
+        ArregloIncidencias = [];
+        ArregloIncidenciasFirmadas = [];
+        ArregloPackingListFirmado = [];
         $IncidenciaPaseSalida.IncidenciaPaseSalida.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 CargarArregloIncidencias(result);
@@ -531,6 +578,7 @@
             };
         });
     }
+
     function validateSecurityIncidenciaFirmada() {
         var bool = false;
         $("#formPaseSalida .security_required").each(function (i, elem) {
@@ -549,6 +597,8 @@
         });
         return bool;
     };
+
+
     function validateSecurityGenerarPaseSalida() {
         var bool = false;
         $("#formPaseSalida .security_required").each(function (i, elem) {
@@ -586,6 +636,15 @@
         return bool;
     }
 
+    function LimpriarvalidacionRequeridos() {
+        $("#formPaseSalida .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                $(this).closest("div").find("label").removeClass("error");
+                $(this).closest("div").removeClass("clearfix");
+            };
+        });
+    };
+
     function onUploadArchivoPaseSalida(e) {
         var bool = validateSecurity();
         
@@ -617,15 +676,20 @@
     function ObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
         ArregloIncidenciasFirmadas = [];
+        ArregloPackingListFirmado = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
-                var contador = 0, i = 0;
+                var contador = 0, i = 0, x = 0;
                 if (result.length > 0) {
                     $.each(result, function (index, value) {
                         if (value.TipoArchivo == "Incidencias firmadas") {
                             ArregloIncidenciasFirmadas[i] = { IncidenciaID: value.IncidenciaID };
                             i++;
+                        }
+                        if (value.TipoArchivo == "Packing List Firmado") {
+                            ArregloPackingListFirmado[x] = { TienePackingList: "Si" };
+                            x++;
                         }
                         contador += 1;
                         $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>" + (value.IncidenciaID? value.IncidenciaID:"") + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
@@ -639,14 +703,19 @@
 
     function CargarArregloArregloIncidenciasFirmadas() {
         ArregloIncidenciasFirmadas = [];
+        ArregloPackingListFirmado = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                var contador = 0, i = 0;
+                var contador = 0, i = 0, x = 0;
                 if (result.length > 0) {
                     $.each(result, function (index, value) {
                         if (value.TipoArchivo == "Incidencias firmadas") {
                             ArregloIncidenciasFirmadas[i] = { IncidenciaID: value.IncidenciaID };
                             i++;
+                        }
+                        if (value.TipoArchivo == "Packing List Firmado") {
+                            ArregloPackingListFirmado[x] = { TienePackingList: "Si" };
+                            x++;
                         }
                     });
                 }
@@ -657,15 +726,20 @@
     function DeshabilitarObtenerDocumentosPaseSalida() {
         $("#listaArchivosPaseSalida tbody").empty();
         ArregloIncidenciasFirmadas = [];
+        ArregloPackingListFirmado = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
-                var contador = 0, i = 0;
+                var contador = 0, i = 0, x = 0;
                 if (result.length > 0) {
                     $.each(result, function (index, value) {
                         if (value.TipoArchivo == "Incidencias firmadas") {
                             ArregloIncidenciasFirmadas[i] = { IncidenciaID: value.IncidenciaID };
                             i++;
+                        }
+                        if (value.TipoArchivo == "Packing List Firmado") {
+                            ArregloPackingListFirmado[x] = { TienePackingList: "Si" };
+                            x++;
                         }
                         contador += 1;
                         $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>" + (value.IncidenciaID ? value.IncidenciaID : "") + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
@@ -679,10 +753,11 @@
 
     function HabilitarObtenerDocumentosPaseSalidaUploadFile() {
         ArregloIncidenciasFirmadas = [];
+        ArregloPackingListFirmado = [];
         $DocumentoPaseSalida.DocumentoPaseSalida.read({ folio: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
             //loadingStart();
             if (Error(result)) {
-                var contador = 0, i = 0;
+                var contador = 0, i = 0, x = 0;
                 if (result.length > 0) {
                     $("#listaArchivosPaseSalida tbody").empty();
                     $.each(result, function (index, value) {
@@ -690,6 +765,10 @@
                         {
                             ArregloIncidenciasFirmadas[i] = { IncidenciaID: value.IncidenciaID };
                             i++;
+                        }
+                        if (value.TipoArchivo == "Packing List Firmado") {
+                            ArregloPackingListFirmado[x] = { TienePackingList: "Si" };
+                            x++;
                         }
                         contador += 1;
                         $("#listaArchivosPaseSalida tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td>" + (value.IncidenciaID ? value.IncidenciaID : "") + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");

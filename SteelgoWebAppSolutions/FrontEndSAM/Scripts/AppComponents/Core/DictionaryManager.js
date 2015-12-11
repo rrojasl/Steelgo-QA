@@ -6240,8 +6240,8 @@ _dictionary = {
         "en-US": "Entry folio / Arrival folio"
     },
     "notificationslabel0027": {
-        "es-MX": "Por lo menos un packing list/Incidencia firmada debe estar anexado para poder generar el pase de salida",
-        "en-US": "At least a signed packing list/incidence should be attached to generate the departure pass"
+        "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder generar el pase de salida",
+        "en-US": "At least a signed packing list should be attached to generate the departure pass"
     },
     "notificationslabel0028": {
         "es-MX": "complemento",
@@ -6508,7 +6508,7 @@ _dictionary = {
         "en-US": "Please select an incidence associated."
     },
     "notificationslabel0094": {
-        "es-MX": "Es necesario que todas las incidencia tengo un archivo de incidencia firmada.",
+        "es-MX": "Es necesario que todas las incidencia tengan un archivo de incidencia firmada.",
         "en-US": "It is necessary that all have incidence incidence signed file."
     },
     //Default to copy
