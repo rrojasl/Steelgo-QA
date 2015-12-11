@@ -76,6 +76,7 @@ namespace BackEndSAM.DataAcces
                                                      join ot in ctx2.OrdenTrabajo on ots.OrdenTrabajoID equals ot.OrdenTrabajoID
                                                      join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
                                                      join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                     join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                                      join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
                                                      where ots.OrdenTrabajoSpoolID == spoolID
                                                      && proyectos.Contains(ot.ProyectoID)

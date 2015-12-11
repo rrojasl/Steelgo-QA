@@ -154,7 +154,7 @@
             Diametro1: { type: "number", validation: { required: true } },
             Diametro2ID: { editable: false, nullable: true },
             Diametro2: { type: "number", validation: { required: true } },
-            FamiliaMaterialID: {type: "number", validation: { required: true },editable: false},
+            //FamiliaMaterialID: {type: "number", validation: { required: true },editable: false},
             FamiliaMaterial: { type: "string", validation: { required: true },editable: false},
             Acero: { type: "string", validation: { required: true } },
             AceroID: { editable: false, nullable: false },
@@ -343,10 +343,11 @@
                                 $("#grid").data("kendoGrid")._data[data.posicion].Acero = data.nombre;
                                 var uid=$("#grid").data("kendoGrid")._data[data.posicion].uid;
                                 $CatalogoICSteelgo.CatalogoICSteelgo.read({},{familiaAceroID:data.id,token:Cookies.get("token")}).done(function(r){
-                                    $("#grid").data("kendoGrid")._data[data.posicion].FamiliaMaterial = r.value;
-                                    $("#grid").data("kendoGrid")._data[data.posicion].FamiliaMaterialID = r.id;
-                                    $("#grid").data("kendoGrid").refresh();
-                                    $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + uid + "]"));
+                                    if(Error(r)){
+                                        $("#grid").data("kendoGrid")._data[data.posicion].FamiliaMaterial = r;
+                                        $("#grid").data("kendoGrid").refresh();
+                                        $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + uid + "]"));
+                                    }
                                 });
                             },
                             dataTextField: "Nombre",
@@ -461,6 +462,7 @@
                             rowError[0].Diametro2 = rowEditada.Diametro2;
                             rowError[0].Inch = rowEditada.Inch;
                             rowError[0].MM = rowEditada.MM;
+                            rowError[0].FamiliaMaterial = rowEditada.FamiliaMaterial;
                             //rowError[0].Espesor = rowEditada.Espesor;
                             rowError[0].Rel_ICS_DiametroID = rowEditada.Rel_ICS_DiametroID;
                             rowError[0].Descripcion = rowEditada.Descripcion;
@@ -507,7 +509,7 @@
                     {
                         displayMessage("ItemCodeSteelGo0025", "", '1');
                         e.preventDefault();
-                        //e.stopPropagation();
+                        ////e.stopPropagation();
                         return false;
                     }
                     creado = 0;
@@ -532,6 +534,7 @@
                     rowEditada.Diametro2 = e.model.Diametro2;
                     rowEditada.Inch = e.model.Inch;
                     rowEditada.MM = e.model.MM;
+                    rowEditada.FamiliaMaterial = e.model.FamiliaMaterial;
                     //rowEditada.Espesor = e.model.Espesor;
                     rowEditada.Rel_ICS_DiametroID = e.model.Rel_ICS_DiametroID;
                     rowEditada.Descripcion = e.model.Descripcion;
@@ -557,7 +560,7 @@
                     if (data["Acero"] === "" || data["AceroID"] === "") {
                         displayMessage("ItemCodeSteelGo0025", "", '1');
                         e.preventDefault();
-                        //e.stopPropagation();
+                        ////e.stopPropagation();
                         return false;
                     }
 
@@ -583,6 +586,7 @@
                     rowEditada.Diametro2 = e.model.Diametro2;
                     rowEditada.Inch = e.model.Inch;
                     rowEditada.MM = e.model.MM;
+                    rowEditada.FamiliaMaterial = e.model.FamiliaMaterial;
                     //rowEditada.Espesor = e.model.Espesor;
                     rowEditada.Rel_ICS_DiametroID = e.model.Rel_ICS_DiametroID;
                     rowEditada.Descripcion = e.model.Descripcion;
@@ -603,16 +607,19 @@
             },
             edit: function (e) {
                 if(e.model.Asociado===true){
-                    grid.cancelRow();
-                    e.stopImmediatePropagation();
+                    $("[name='Grupo']").data("kendoComboBox").enable(false);
+                    $("[name='Diametro1']").data("kendoComboBox").enable(false);
+                    $("[name='Diametro2']").data("kendoComboBox").enable(false);
+                    displayMessage("ItemCodeSteelGo0027","","1");
+                    e.preventDefault();
                 }
                 if (e.model.TieneD2 == "No") {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
                     e.model.Diametro1ID = DiametroCero.id;
                     e.model.Diametro1 = 0;
-                } else {
-                    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
-                };
+                }// else {
+                //    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(true);
+                //};
 
                 if (e.model.id) {
                     $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change", function () {
@@ -660,7 +667,7 @@
                                     displayMessage("ItemCodeSteelGo0021", "", '2');
                                     //$("[name='" + lastEditedDocument + "']").focus();
 									e.preventDefault();
-									e.stopPropagation();
+									//e.stopPropagation();
 									return false;
                                 } else {
                                     //data = data[0];
@@ -692,7 +699,7 @@
                                 displayMessage("ItemCodeSteelGo0021", "", '2');
                                 //$("[name='" + lastEditedDocument + "']").focus();
 								e.preventDefault();
-								e.stopPropagation();
+								//e.stopPropagation();
                                 return false;
                             }
                         });
@@ -706,7 +713,7 @@
                         displayMessage("ItemCodeSteelGo0022", "", '1');
                         //$("[name='Diametro1']").data("kendoComboBox").focus();
 						e.preventDefault();
-						e.stopPropagation();
+						//e.stopPropagation();
                         return false;
                     }
                 });

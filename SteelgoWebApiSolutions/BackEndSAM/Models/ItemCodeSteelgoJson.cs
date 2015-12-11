@@ -54,5 +54,6 @@ namespace BackEndSAM.Models
         public string Area { get; set; }
         public string TipoMaterial { get; set; }
         public string TieneD2 { get; set; }
+        public Boolean Asociado { get; set; }
     }
 }

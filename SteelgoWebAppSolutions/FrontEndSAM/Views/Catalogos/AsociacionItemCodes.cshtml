@@ -103,6 +103,7 @@
 @section JavascriptGlobalVariables {
     once=true;
     editado=false;
+    shouldSee=false;
     itemActual={};
     var $AsociacionItemCodesModel = {
         listContainer: {
@@ -175,6 +176,7 @@
             //CargarPatio(dataItem.PatioID, dataItem.Nombre);
         },
         change: function (e) {
+            shouldSee=false;
             var value = this.value();
             //$("#ClienteID").data("kendoComboBox").value("");
             //$("#ClienteID").data("kendoComboBox").dataSource.data([]);
@@ -213,6 +215,7 @@
 
     $("#icinput").kendoComboBox({
         change: function (e) {
+            shouldSee=false;
             var value = this.value();
             if (!value || !e.sender.current()) {
                 messageindexKendoCombobox(this);
@@ -244,6 +247,7 @@
                                 if (Error(result)) {
                                     if (result.length == 1)
                                     {
+                                        shouldSee=true;
                                         $("#Guardar span").attr("id", "LlegadaMaterial0011");
                                         $("#D2").data("kendoComboBox").value(result[0].value);
                                         $("#D2").data("kendoComboBox").enable(false);
@@ -309,6 +313,7 @@
     
     $("#D1").kendoComboBox({
         change: function (e) {
+            shouldSee=false;
             var value = this.value();
             if (!value || !e.sender.current()) {
                 messageindexKendoCombobox(this);
@@ -319,6 +324,7 @@
                 $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
                     if (Error(data)) {
                         if (data.length == 1) {
+                            shouldSee=true;
                             $("#Guardar span").attr("id", "LlegadaMaterial0011");
                             $("#D2").data("kendoComboBox").value(data[0].value);
                             $("#D2").data("kendoComboBox").enable(false);
@@ -393,7 +399,7 @@
                         $("#grid").data("kendoGrid").options.dataSource.transport.read.url = $AsociacionICS.AsociacionICS.urlNoId + "?item=" + $("#icinput").data("kendoComboBox").value() + "&diametro1=" + $("#D1").data("kendoComboBox").value() + "&diametro2=" + $("#D2").data("kendoComboBox").value() + "&token=" + Cookies.get("token");
                         $("#grid").data("kendoGrid").dataSource.read();
                         $("#grid").data("kendoGrid").refresh();
-                        0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
+                        0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : shouldSee=true;
                         if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
                             $("#GuardarICS").css("display", "none");
                             $("#EditarICS").css("display", "block");
@@ -581,7 +587,7 @@
                         }
                     },
                 })
-                if(!$("#grid").data("kendoGrid").dataSource.filter()){
+                if(!shouldSee){
                     $("#grid").data("kendoGrid").tbody.hide();
                 }else{
                     $("#grid").data("kendoGrid").tbody.show()
