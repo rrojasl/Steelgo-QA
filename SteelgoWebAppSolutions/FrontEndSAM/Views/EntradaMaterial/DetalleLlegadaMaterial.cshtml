@@ -285,7 +285,8 @@
                GenerarOrdenDescarga();
             });
 
-            $("#Guardar").click(function (e) {
+            $("#Guardar").on("click",function (e) {
+                this.disabled=true;
                 if(validarRequeridosFormaLlegadaMaterial()){
                     GuardarLlegadaMaterial(false);
                 } else
@@ -294,7 +295,8 @@
                 }
             });
 
-            $("#GuardarNuevo").click(function (e) {
+            $("#GuardarNuevo").on("click",function (e) {
+                this.disabled=true;
                 if (validarRequeridosFormaLlegadaMaterial()) {
                     GuardarLlegadaMaterial(true);
                 } else {
@@ -348,6 +350,7 @@
                     CargarDetalleFolio(dataItem.id);
                 },
                 change: function (e) {
+                    validarRequeridosFormaLlegadaMaterial() ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -372,6 +375,7 @@
                     CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                 },
                 change: function (e) {
+                    validarRequeridosFormaLlegadaMaterial() ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -456,6 +460,7 @@
                     }
                 },
                 change: function (e) {
+                    validarRequeridosFormaLlegadaMaterial() ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -464,6 +469,7 @@
                         $("#PatioID").data("kendoComboBox").value("");
                         Patio = {};
                         $("#GenerarOrdenDescarga").attr("disabled", "disabled");
+                        $("#Guardar")
                     };
                 },
                 filter: "contains",
