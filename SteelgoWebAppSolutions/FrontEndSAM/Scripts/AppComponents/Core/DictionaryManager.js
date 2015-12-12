@@ -6519,6 +6519,10 @@ _dictionary = {
         "es-MX": "Es necesario que todas las incidencia tengan un archivo de incidencia firmada.",
         "en-US": "It is necessary that all have incidence incidence signed file."
     },
+    "notificationslabel0095": {
+        "es-MX": "Usuario y/o contraseña incorrectos",
+        "en-US": "The user name or password is incorrect "
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

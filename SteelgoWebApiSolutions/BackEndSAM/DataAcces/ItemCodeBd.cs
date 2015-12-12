@@ -68,24 +68,44 @@ namespace BackEndSAM.DataAcces
 
                         IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto", D1 = 0, D2 = 0 });
 
-                        //int sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
-                        //                       where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                        //                       select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                        if (tipoPackingListID == 0)
+                        {
+                            itemCodeS2 = (from ic in ctx.Sam3_ItemCode
+                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                          join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                          join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                          where ic.Activo && rid.Activo
+                                          //&& ic.TipoMaterialID == tipoPackingListID
+                                          && ic.ProyectoID == proyectoID
+                                          select new BackEndSAM.Models.ItemCode
+                                          {
+                                              ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                              Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                              D1 = d1.Valor,
+                                              D2 = d2.Valor
+                                          }).AsParallel().Distinct().ToList();
+                        }
+                        else
+                        {
+                            //int sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                            //                       where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                            //                       select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
 
-                        itemCodeS2 = (from ic in ctx.Sam3_ItemCode
-                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
-                                      join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
-                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                      where ic.Activo && rid.Activo 
-                                      && ic.TipoMaterialID == tipoPackingListID
-                                      && ic.ProyectoID == proyectoID
-                                      select new BackEndSAM.Models.ItemCode
-                                      {
-                                          ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
-                                          Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
-                                          D1 = d1.Valor,
-                                          D2 = d2.Valor 
-                                      }).AsParallel().Distinct().ToList();
+                            itemCodeS2 = (from ic in ctx.Sam3_ItemCode
+                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                          join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                          join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                          where ic.Activo && rid.Activo
+                                          && ic.TipoMaterialID == tipoPackingListID
+                                          && ic.ProyectoID == proyectoID
+                                          select new BackEndSAM.Models.ItemCode
+                                          {
+                                              ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                              Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                              D1 = d1.Valor,
+                                              D2 = d2.Valor
+                                          }).AsParallel().Distinct().ToList();
+                        }
 
                         //si tienen orden de recepcion
                         //List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
