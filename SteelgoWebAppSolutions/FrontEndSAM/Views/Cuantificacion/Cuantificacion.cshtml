@@ -1859,6 +1859,7 @@
                 if(control==="TipoPackingListID"){
                     result.shift();
                     $tipoPL=result;
+                    $("#" + control).data("kendoComboBox").dataSource.data(result);
                 }
             } else {
                 $("#" + control).data("kendoComboBox").dataSource.data([]);
