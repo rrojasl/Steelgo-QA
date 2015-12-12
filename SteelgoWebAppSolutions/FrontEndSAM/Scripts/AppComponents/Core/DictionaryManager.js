@@ -2343,6 +2343,10 @@ _dictionary = {
         "es-MX": "Añadir ITCS",
         "en-US": "Add ITCS"
     },
+    "Cuantificacion0100": {
+        "es-MX": "Tipo Packing List",
+        "en-US": "Packing List Type"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

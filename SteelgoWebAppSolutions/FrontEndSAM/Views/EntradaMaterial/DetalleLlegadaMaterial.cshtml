@@ -350,7 +350,7 @@
                     CargarDetalleFolio(dataItem.id);
                 },
                 change: function (e) {
-                    validarRequeridosFormaLlegadaMaterial() ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
+                    validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -375,7 +375,7 @@
                     CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                 },
                 change: function (e) {
-                    validarRequeridosFormaLlegadaMaterial() ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
+                    validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -460,7 +460,7 @@
                     }
                 },
                 change: function (e) {
-                    validarRequeridosFormaLlegadaMaterial() ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
+                    validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -978,6 +978,7 @@
                         $.each(result, function (index, value) {
                             contador += 1;
                             $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + (value.Descripcion ? value.Descripcion : "") + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                            $("#Guardar")[0].disabled=false;
                         });
                         if ($("#hdnCantidadArchivos").val() == contador) {
                             limpiarUploadFiles();
@@ -1398,6 +1399,7 @@
                     
                 };
             });
+            bool ? $("#Guardar")[0].disabled=false : $("#Guardar")[0].disabled=true;
             return bool;
         };
 
