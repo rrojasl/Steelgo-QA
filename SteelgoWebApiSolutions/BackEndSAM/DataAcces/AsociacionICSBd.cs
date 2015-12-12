@@ -50,13 +50,14 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListaCombos> itemCodes = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
+                    List<ListaCombosICC> itemCodes = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
                                                    join ic in ctx.Sam3_ItemCode on icd.ItemCodeID equals ic.ItemCodeID
                                                    where icd.Activo && ic.Activo && ic.ProyectoID.ToString() == proyectoID
-                                                   select new ListaCombos
+                                                   select new ListaCombosICC
                                                    {
                                                        id = icd.ItemCodeID.ToString(),
-                                                       value = ic.Codigo
+                                                       value = ic.Codigo,
+                                                       tipoGrupo = ic.TipoMaterialID
                                                    }).AsParallel().GroupBy(x => x.value).Select(x => x.First()).ToList();
                     return itemCodes;
                 }
@@ -233,7 +234,7 @@ namespace BackEndSAM.DataAcces
                                  join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
                                  where ics.Activo && g.Activo && d1.Activo && d2.Activo
                                  && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
-                                 && ic.ItemCodeID == items && g.TipoMaterialID == ic.TipoMaterialID
+                                 /*&& ic.ItemCodeID == items*/ && g.TipoMaterialID == ic.TipoMaterialID
                                  select new ICSDatosAsociacion
                                  {
                                      ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
