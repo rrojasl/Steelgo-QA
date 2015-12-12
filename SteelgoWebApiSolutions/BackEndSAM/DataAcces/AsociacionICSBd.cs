@@ -264,7 +264,7 @@ namespace BackEndSAM.DataAcces
                                      MM = catced.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString()
-                                 }).AsParallel().ToList();
+                                 }).Distinct().AsParallel().ToList();
 
                         lista.ForEach(x =>
                         {
