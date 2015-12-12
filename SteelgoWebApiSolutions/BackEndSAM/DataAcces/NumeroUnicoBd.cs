@@ -264,6 +264,7 @@ namespace BackEndSAM.DataAcces
                                    join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam3_NumeroUnicoID
                                    where nu.Activo && nueq.Activo
                                    && sam2_NumerosUnicosIDs.Contains(nueq.Sam2_NumeroUnicoID)
+                                   && nu.EstatusFisico == "Aprobado" && nu.EstatusDocumental == "Aprobado"
                                    select new ListaCombos
                                    {
                                        id = nu.NumeroUnicoID.ToString(),
