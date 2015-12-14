@@ -467,3 +467,31 @@ function detectSafari() {
 function isInPopUp() {
     return window.location !== window.parent.location;
 }
+
+function Error(data) {
+    if (data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return false;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+};
+
+function checkIfOne(w) {
+    if (w !== undefined && w.dataSource.data()!==undefined) {
+        w.dataSource.data().length == 1 ? w.select(0) : w.select(-1);
+    }
+}

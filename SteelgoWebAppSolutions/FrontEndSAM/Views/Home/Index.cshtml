@@ -95,7 +95,8 @@
         alert("Sesión expirada");
         window.parent.location.href=window.parent.location.origin;
     }
-    window.onresize= screenSize;
+
+    window.onresize=screenSize;
     window.onload=screenSize;
 
     function screenSize(){

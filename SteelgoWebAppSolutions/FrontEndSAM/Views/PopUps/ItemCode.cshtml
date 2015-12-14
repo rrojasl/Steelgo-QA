@@ -38,10 +38,10 @@
                     <label id="Cuantificacion0031"></label>
                     <input id="D2_ItemCode" class="" />
                 </div>
-                @*<div id="TipoPackingList_ItemCodeDiv" class="form-group">
+                <div id="TipoPackingList_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0100"></label>
                     <input id="TipoPackingList_ItemCode" class="" />
-                </div>*@
+                </div>
             </div>
             <div class="buttonSave">
                 <a id="GuardarItemCode" href="#" class="btn btn-primary">
@@ -399,7 +399,7 @@
         ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
         ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
-       // ItemCode.TipoPackingList = !Todos ? window.parent.TipoPackingList.TipoPackingListID : $("#TipoPackingList_ItemCode").data("kendoComboBox").value();
+        //ItemCode.TipoPackingList = !Todos ? window.parent.TipoPackingList.TipoPackingListID : $("#TipoPackingList_ItemCode").data("kendoComboBox").value();
         ItemCode.ColadaID = 1;
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
@@ -444,23 +444,6 @@
         };
     };
 
-    function Error(data) {
-        if (data.ReturnCode) {
-            if (data.ReturnCode != 200) {
-                if (data.ReturnCode == 401) {
-                    removeUserSession();
-                    return false;
-                } else {
-                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
-                    return false;
-                }
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
-    };
     }
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Item Code"] = $ItemCodeModel;
@@ -469,16 +452,28 @@
 
     $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
     $("#language").data("kendoDropDownList").trigger("change");
-    //if(window.parent.$("#TipoPackingListID").data("kendoComboBox").value()==0){
-    //    $("#TipoPackingList_ItemCode").kendoComboBox({
-    //        dataTextField: "Nombre",
-    //        dataValueField: "id",
-    //    });
-    //    $("#TipoPackingList_ItemCode").data("kendoComboBox").dataSource.data(window.parent.$tipoPL);
-    //    Todos=true;
-    //}else{
-    //    $("#TipoPackingList_ItemCode").parent().remove();
-    //}
+    if(!window.parent.$("#TipoPackingListID").parent().is(":visible")){
+        $("#TipoPackingList_ItemCode").kendoComboBox({
+            dataSource:{
+                transport:{
+                    read:{
+                        url:$TipoPackingList.TipoPackingList.urlNoId+"?token="+Cookies.get("token"),
+                        type:"GET",
+                        dataType:"json",
+                    }
+                },
+                requestEnd:function(e){
+                    Error(e.response);
+                }
+            },
+            dataTextField: "Nombre",
+            dataValueField: "id",
+        });
+        //$("#TipoPackingList_ItemCode").data("kendoComboBox").dataSource.data(window.parent.$tipoPL);
+        Todos=true;
+    }else{
+        $("#TipoPackingList_ItemCode").parent().remove();
+    }
     applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
