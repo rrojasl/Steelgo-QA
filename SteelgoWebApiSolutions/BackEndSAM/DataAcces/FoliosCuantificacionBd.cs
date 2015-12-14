@@ -839,6 +839,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
+                    TipoPackingList tipoPackingList = new TipoPackingList();
                     //TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
                     //                   join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
                     //                   where pc.ProyectoID == proyecto && pc.Activo && tu.Activo
@@ -848,8 +849,8 @@ namespace BackEndSAM.DataAcces
                     //                       Nombre = tu.Nombre
                     //                   }).AsParallel().SingleOrDefault();
 
-
-                    return true;//Si se muestra o no el campo tipo packing List.
+                    tipoPackingList.MostrarTipoPackingList = false;
+                    return tipoPackingList;//Si se muestra o no el campo tipo packing List.
                 }
             }
             catch (Exception ex)

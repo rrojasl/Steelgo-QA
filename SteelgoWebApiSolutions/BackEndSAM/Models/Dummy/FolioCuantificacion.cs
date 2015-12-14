@@ -43,6 +43,7 @@ namespace BackEndSAM.Models
     {
         public string id { get; set; }
         public string Nombre { get; set; }
+        public bool MostrarTipoPackingList { get; set; }
     }
 
     public class TipoUso

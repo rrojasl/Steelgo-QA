@@ -2347,6 +2347,10 @@ _dictionary = {
         "es-MX": "Tipo Packing List",
         "en-US": "Packing List Type"
     },
+    "Cuantificacion0101": {
+        "es-MX": "Tipo Packing List",
+        "en-US": "Packing List Type"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -6526,6 +6530,10 @@ _dictionary = {
     "notificationslabel0095": {
         "es-MX": "Usuario y/o contraseña incorrectos",
         "en-US": "The user name or password is incorrect "
+    },
+    "notificationslabel0096": {
+        "es-MX": "Favor de validar el tipo de packing list de los item codes marcados en rojo.",
+        "en-US": "Please confirm the type of packing list of item codes marked in red."
     },
     //Default to copy
     "label9999": {
