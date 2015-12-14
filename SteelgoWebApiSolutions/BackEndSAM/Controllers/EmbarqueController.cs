@@ -84,7 +84,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EmbarqueBD.Instance.ObtenerTractos();
+                return EmbarqueBD.Instance.ObtenerChoferes();
             }
             else
             {
