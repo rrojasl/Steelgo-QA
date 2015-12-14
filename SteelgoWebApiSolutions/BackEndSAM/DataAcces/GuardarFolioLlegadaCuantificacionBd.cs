@@ -214,6 +214,20 @@ namespace BackEndSAM.DataAcces
                         int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada
                             .Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
 
+                        int? consecutivofc = (from fc in ctx.Sam3_FolioCuantificacion
+                                            where fc.Activo
+                                            && fc.FolioAvisoEntradaID == avisoEntradaID
+                                            select fc.Consecutivo).Max();
+
+                        if (consecutivofc == null)
+                        {
+                            consecutivofc = 1;
+                        }
+                        else
+                        {
+                            consecutivofc += 1;
+                        }
+
                         Sam3_FolioCuantificacion folioCuantificacion = new Sam3_FolioCuantificacion();
 
                         folioCuantificacion.FolioAvisoEntradaID = avisoEntradaID;
@@ -226,6 +240,7 @@ namespace BackEndSAM.DataAcces
                         folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                         folioCuantificacion.Activo = true;
                         folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
+                        folioCuantificacion.Consecutivo = consecutivofc;
 
                         ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
                         ctx.SaveChanges();

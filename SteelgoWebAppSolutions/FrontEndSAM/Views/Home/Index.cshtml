@@ -91,7 +91,7 @@
     </div>
 </footer>
 <script>
-    if ( window.location !== window.parent.location ) {
+    if ( isInPopUp() ) {
         alert("Sesión expirada");
         window.parent.location.href=window.parent.location.origin;
     }

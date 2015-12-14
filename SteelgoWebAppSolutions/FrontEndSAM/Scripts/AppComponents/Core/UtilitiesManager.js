@@ -463,3 +463,7 @@ function detectSafari() {
     }
     return false;
 };
+
+function isInPopUp() {
+    return window.location !== window.parent.location;
+}
