@@ -1482,6 +1482,14 @@ header .menu > div {
 /* Media Queries */
 
 /* xs viewport */
+@media screen and (max-width: 320px) {
+    /*$_notifications*/
+    .notifications .notification-menu {
+        right: -246px!important;
+        width: 320px!important;
+    }
+}
+
 @media screen and (max-width: 767px) {
 
     /*$_login*/
@@ -1535,9 +1543,14 @@ header .menu > div {
     }
 
     .notifications .notification-menu {
-        right: -261px;
-        width: 400px;
+        right: -240px;
+        width: 400px;     
     }
+
+        .notifications .notification-menu li {
+            height: auto;
+            max-height: none;
+        }
 
     /*$_sidebar*/
     .sidebar {
