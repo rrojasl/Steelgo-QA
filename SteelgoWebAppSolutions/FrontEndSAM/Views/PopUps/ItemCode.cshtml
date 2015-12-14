@@ -38,10 +38,10 @@
                     <label id="Cuantificacion0031"></label>
                     <input id="D2_ItemCode" class="" />
                 </div>
-                <div id="TipoPackingList_ItemCodeDiv" class="form-group">
+                @*<div id="TipoPackingList_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0100"></label>
                     <input id="TipoPackingList_ItemCode" class="" />
-                </div>
+                </div>*@
             </div>
             <div class="buttonSave">
                 <a id="GuardarItemCode" href="#" class="btn btn-primary">
@@ -188,8 +188,6 @@
                 CargarDiametro1(dataItem.id, dataItem.value);
             },
             change: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarDiametro1(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (this.selectedIndex == -1) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
@@ -226,8 +224,6 @@
                 CargarDiametro2(dataItem.id, dataItem.value);
             },
             change: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarDiametro2(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (this.selectedIndex == -1) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
@@ -266,8 +262,6 @@
                 CargarFamiliaItemCode(dataItem.FamiliaAceroID);
             },
             change: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFamiliaItemCode(dataItem.FamiliaAceroID);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -404,7 +398,8 @@
         //loadingStart();
         ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
-        ItemCode.TipoPackingList = !Todos ? window.parent.TipoPackingList.TipoPackingListID : $("#TipoPackingList_ItemCode").data("kendoComboBox").value();
+        ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
+       // ItemCode.TipoPackingList = !Todos ? window.parent.TipoPackingList.TipoPackingListID : $("#TipoPackingList_ItemCode").data("kendoComboBox").value();
         ItemCode.ColadaID = 1;
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
@@ -474,16 +469,16 @@
 
     $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
     $("#language").data("kendoDropDownList").trigger("change");
-    if(window.parent.$("#TipoPackingListID").data("kendoComboBox").value()==0){
-        $("#TipoPackingList_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "id",
-        });
-        $("#TipoPackingList_ItemCode").data("kendoComboBox").dataSource.data(window.parent.$tipoPL);
-        Todos=true;
-    }else{
-        $("#TipoPackingList_ItemCode").parent().remove();
-    }
+    //if(window.parent.$("#TipoPackingListID").data("kendoComboBox").value()==0){
+    //    $("#TipoPackingList_ItemCode").kendoComboBox({
+    //        dataTextField: "Nombre",
+    //        dataValueField: "id",
+    //    });
+    //    $("#TipoPackingList_ItemCode").data("kendoComboBox").dataSource.data(window.parent.$tipoPL);
+    //    Todos=true;
+    //}else{
+    //    $("#TipoPackingList_ItemCode").parent().remove();
+    //}
     applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {

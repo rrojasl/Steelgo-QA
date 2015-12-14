@@ -514,14 +514,14 @@
             LoadGridQuantification();
             $("#grid").data("kendoGrid").dataSource.data(tmp);
 
-            var arr = arregloKendoCombobox();
-            modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
+            //var arr = arregloKendoCombobox();
+            //modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
         }
 
-        function arregloKendoCombobox() {
-            var arr = new Array($("#TipoPackingListID"));
-            return arr;
-        };
+        //function arregloKendoCombobox() {
+        //    var arr = new Array($("#TipoPackingListID"));
+        //    return arr;
+        //};
 
         function cargaInicial() {
             //$("#Ciclo").click(function () {
@@ -644,7 +644,7 @@
                         this.value("");
                     } else {
                         ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
-                        ObtenerTipoPackingListProyectoConfiguracion(Proyecto.ProyectoID);
+                        //ObtenerTipoPackingListProyectoConfiguracion(Proyecto.ProyectoID);
                     }
                     //ObtenerColada("Colada", 0, 0);
                 },
@@ -702,8 +702,8 @@
                 },
                 filter: "contains",
             });
-            ObtenerTipoPackingListTodos();
-            //obtenerTipoPackingList("TipoPackingListID");
+            //ObtenerTipoPackingListTodos();
+            obtenerTipoPackingList("TipoPackingListID");
 
             $("#TipoUsoID").kendoComboBox({
                 dataTextField: "Nombre",
@@ -1591,26 +1591,26 @@
 
         };
         
-        function ObtenerTipoPackingListTodos() {
-            $TipoPackingList.TipoPackingList.read({ idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("TipoPackingListID", result);
-            });
-        };
+        //function ObtenerTipoPackingListTodos() {
+        //    $TipoPackingList.TipoPackingList.read({ idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+        //        ControlErroresObjetosComboBox("TipoPackingListID", result);
+        //    });
+        //};
 
-        function ObtenerTipoPackingListProyectoConfiguracion(proyecto) {
-            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ proyectoID: proyecto, token: Cookies.get("token") }).done(function (result) {
-                if (Error(result)) {
-                    if (result) {
-                        $("#TipoPackingListID").data("kendoComboBox").value(0);
-                        $("#TipoPackingListDiv").removeClass("hidden");
-                    } else {
-                        $("#TipoPackingListDiv").addClass("hidden");
-                    };
-                } else {
-                    limpiarfiltrosFolioAvisoEntrada();
-                };
-            });
-        };
+        //function ObtenerTipoPackingListProyectoConfiguracion(proyecto) {
+        //    $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ proyectoID: proyecto, token: Cookies.get("token") }).done(function (result) {
+        //        if (Error(result)) {
+        //            if (result) {
+        //                $("#TipoPackingListID").data("kendoComboBox").value(0);
+        //                $("#TipoPackingListDiv").removeClass("hidden");
+        //            } else {
+        //                $("#TipoPackingListDiv").addClass("hidden");
+        //            };
+        //        } else {
+        //            limpiarfiltrosFolioAvisoEntrada();
+        //        };
+        //    });
+        //};
 
         function ObtenerTipoUsoPorProyecto(folio, proyecto)
         {
@@ -1857,8 +1857,8 @@
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
                 if(control==="TipoPackingListID"){
-                    result.shift();
-                    $tipoPL=result;
+                    //result.shift();
+                    //$tipoPL=result;
                     $("#" + control).data("kendoComboBox").dataSource.data(result);
                 }
             } else {
