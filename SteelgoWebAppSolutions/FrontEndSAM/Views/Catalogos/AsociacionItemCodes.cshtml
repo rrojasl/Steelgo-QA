@@ -706,17 +706,16 @@
     });
 
 
-    if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() == "1") {
         hideElementsItemCodeSteelgo();
     }
 };
     
 @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() != "1") {
+    if (!isInPopUp()) {
         Cookies.set("navegacion", "46", { path: '/' });
-    }
-    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() == "1") {
+    }else if (window.parent.$("#hdnOcultarMenus").val() == "1") {
         window.parent.$(".k-i-close").click(function (e) {
             window.parent.AsignarPaginaActualCookie();
             window.parent.RecargarFilaSeleccionada();
