@@ -184,10 +184,11 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarDiametro1(dataItem.id, dataItem.value);
+                
             },
             change: function (e) {
+                var dataItem = $("#D1_ItemCode").data("kendoComboBox").dataSource.at($("#D1_ItemCode").data("kendoComboBox").select());
+                CargarDiametro1(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (this.selectedIndex == -1) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
@@ -220,10 +221,11 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarDiametro2(dataItem.id, dataItem.value);
+                
             },
             change: function (e) {
+                var dataItem = $("#D2_ItemCode").data("kendoComboBox").dataSource.at($("#D2_ItemCode").data("kendoComboBox").select());
+                CargarDiametro2(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (this.selectedIndex == -1) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
@@ -258,10 +260,11 @@
             dataTextField: "Nombre",
             dataValueField: "FamiliaAceroID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFamiliaItemCode(dataItem.FamiliaAceroID);
+                
             },
             change: function (e) {
+                var dataItem = $("#Familia_ItemCode").data("kendoComboBox").dataSource.at($("#Familia_ItemCode").data("kendoComboBox").select());
+                CargarFamiliaItemCode(dataItem.FamiliaAceroID);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
