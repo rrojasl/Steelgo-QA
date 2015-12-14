@@ -235,6 +235,7 @@ namespace BackEndSAM.DataAcces
                                  where ics.Activo && g.Activo && d1.Activo && d2.Activo
                                  && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
                                  /*&& ic.ItemCodeID == items*/ && g.TipoMaterialID == ic.TipoMaterialID
+
                                  select new ICSDatosAsociacion
                                  {
                                      ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
@@ -264,7 +265,7 @@ namespace BackEndSAM.DataAcces
                                      MM = catced.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString()
-                                 }).AsParallel().ToList();
+                                 }).Distinct().AsParallel().ToList();
 
                         lista.ForEach(x =>
                         {
