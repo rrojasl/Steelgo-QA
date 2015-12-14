@@ -193,8 +193,6 @@ namespace BackEndSAM.Controllers
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
-
 
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
@@ -216,11 +214,7 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-        /// </summary>
-        /// <param name="id">Spool ID</param>
-        /// <param name="sinCaptura">muestra lso datos con o sin capturas</param>
-        /// <param name="token">token</param>
-        /// <returns></returns>
+
         public object Get(string id, string sinCaptura, string token, string lenguaje)
         {
 
@@ -231,25 +225,12 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                //return 
 
                 DetalleJuntaDimension detalleJuntaDimension = new DetalleJuntaDimension();
 
-                // List<Sam3_Steelgo_Get_JuntaSpool_Result> lista = (List < Sam3_Steelgo_Get_JuntaSpool_Result >) CapturasRapidasBd.Instance.ObtenerJuntasXSpoolID(id, sinCaptura == "todos" ? 1 : 0);
-
                 List<Sam3_Inspeccion_Get_DetalleDimensional_Result> listaObtenerDetalleDimensional = (List<Sam3_Inspeccion_Get_DetalleDimensional_Result>)CapturasRapidasBd.Instance.ObtenerDetalleDimensional(int.Parse(id), lenguaje);
-
-                //List<JuntaXSpoolID> listaJuntaXSpoolID = new List<JuntaXSpoolID>();
+                
                 List<DetalleDimensional> listaDetalleDimensional = new List<DetalleDimensional>();
-
-                //foreach (Sam3_Steelgo_Get_JuntaSpool_Result item in lista)
-                //{
-                //    JuntaXSpoolID juntaXSpoolID = new JuntaXSpoolID
-                //    {
-                //        Etiqueta = item.Etiqueta,
-                //        JuntaSpoolID = item.JuntaSpoolID
-                //    };
-                //}
 
                 foreach (Sam3_Inspeccion_Get_DetalleDimensional_Result item in listaObtenerDetalleDimensional)
                 {
@@ -269,9 +250,6 @@ namespace BackEndSAM.Controllers
 
                     listaDetalleDimensional.Add(detalleDimensional);
                 }
-
-
-                //detalleJuntaDimension.ListaJuntaXSpoolID = listaJuntaXSpoolID;
 
                 detalleJuntaDimension.ListaDetalleDimensional = listaDetalleDimensional;
 

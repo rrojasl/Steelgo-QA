@@ -1,8 +1,5 @@
 ﻿using BackEndSAM.Models.Inspeccion;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.Models.InspeccionDimensional
 {

@@ -1,13 +1,11 @@
 ﻿using BackEndSAM.Models.Armado;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 
 
 namespace BackEndSAM.DataAcces.ArmadoBD
@@ -117,10 +115,6 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                     var oMyString = new ObjectParameter("Retorna", typeof(string));
                     var result = ctx.Sam3_Steelgo_Get_CampoPredeterminado(idCampoPredeterminado, lenguaje, oMyString);
                     var data = oMyString.Value.ToString();
-
-                    //ObjectParameter objectParameter = new ObjectParameter("Retorna", typeof(String));
-
-
                     return data;
                 }
             }
@@ -275,12 +269,10 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-
-                    // ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() } , { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARCAPTURAARMADO, dtTrabajosAdicionales, "@TrabajosAdicionales", dtDetalleCaptura, "@Armado", parametro);
 
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAARMADO, dtTrabajosAdicionales, "@TrabajosAdicionales", dtDetalleCaptura, "@Armado", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");

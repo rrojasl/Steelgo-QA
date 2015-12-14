@@ -1,12 +1,10 @@
-﻿using BackEndSAM.Models;
-using DatabaseManager.Sam3;
+﻿using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
@@ -246,11 +244,10 @@ namespace BackEndSAM.DataAcces
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID",requisicionID.ToString() } , {"@Folio",folio }, {"@PruebasProyectoID",pruebasID.ToString() }, { "@FechaRequisicion",fechaRequisicion.Trim() }, { "@Observacion", observacion}, { "@EstatusID",estatusID.ToString() } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARGENERARREQUISICICION, dtDetalleRequisicion, "@Tabla", parametro);
+                     _SQL.Ejecuta(Stords.GUARDARGENERARREQUISICICION, dtDetalleRequisicion, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
-                    result.ReturnMessage.Add("xd");
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

@@ -69,14 +69,11 @@ namespace BackEndSAM.Controllers
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
 
 
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-
-                DataTable TabajosAdicionales = null;
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalle = ArmadoController.ToDataTable(listaCaptura.Detalles);
                 return AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.DataAcces.InspeccionDimensionalBD
 {
@@ -69,7 +68,8 @@ namespace BackEndSAM.DataAcces.InspeccionDimensionalBD
                     // ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARINSPECCIONDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", parametro);
+
+                    _SQL.Ejecuta(Stords.GUARDARINSPECCIONDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

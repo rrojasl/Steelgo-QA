@@ -1,5 +1,4 @@
 ﻿using BackEndSAM.DataAcces;
-using BackEndSAM.Models;
 using BackEndSAM.Models.Soldadura;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -7,9 +6,6 @@ using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -177,8 +173,6 @@ namespace BackEndSAM.Controllers
                 JsonCaptura = JsonCaptura.Replace("},", "}°");
 
                 string[] jsonArray = JsonCaptura.Split('°');
-                //string json= serializer.Serialize(CapturaArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario));
-                //return json;
                 List<DetalleDatosJsonSoldadura> listaDetalleDatos = new List<DetalleDatosJsonSoldadura>();
 
                 foreach (string itemCaptura in jsonArray)
@@ -273,8 +267,6 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DetalleDatosJsonSoldadura capturaDatosJson = serializer.Deserialize<DetalleDatosJsonSoldadura>(JsonEditar);
                 capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
-                //string json= serializer.Serialize(CapturaArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario));
-                //return json;
                 List<DetalleDatosJsonSoldadura> listaDetalleDatos = new List<DetalleDatosJsonSoldadura>();
                 List<Sam3_Soldadura_Get_DetalleJunta_Result> detalle = (List<Sam3_Soldadura_Get_DetalleJunta_Result>)CapturaSoldaduraBD.Instance.ObtenerDetalleSoldadura(capturaDatosJson, usuario, lenguaje);
 
@@ -605,8 +597,6 @@ namespace BackEndSAM.Controllers
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
-
 
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)

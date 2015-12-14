@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
 {
@@ -105,7 +104,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARCAPTURAENTREGARESULTADOS, dtDetalleCaptura, "@EntregaResultados", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAENTREGARESULTADOS, dtDetalleCaptura, "@EntregaResultados", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;

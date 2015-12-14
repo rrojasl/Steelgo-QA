@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
 {
@@ -94,7 +93,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
 
                     List<RequisicionAsignacion> ListadoRequisicionAsignacion = new List<RequisicionAsignacion>();
 
-                    List<Proveedor> ListadoProveedores = (List<Proveedor>)ObtenerListaProveedores(lenguaje, idPrueba,1);
+                    List<Proveedor> ListadoProveedores = (List<Proveedor>)ObtenerListaProveedores(lenguaje, idPrueba, 1);
 
                     //List<HerramientaPrueba> ListadoHerramientasPrueba = 
 
@@ -151,10 +150,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                     {
                         ListadoHerramientaPrueba.Add(new HerramientaPrueba
                         {
-                            DescHerramientaPrueba=item.DescHerramientaPrueba,
-                            HerramientadePruebaID=item.HerramientaDePruebaID,
-                            Modelo=item.Modelo,
-                            HerramientadePrueba=item.Nombre
+                            DescHerramientaPrueba = item.DescHerramientaPrueba,
+                            HerramientadePruebaID = item.HerramientaDePruebaID,
+                            Modelo = item.Modelo,
+                            HerramientadePrueba = item.Nombre
                         });
                     }
 
@@ -180,14 +179,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                 {
                     List<Sam3_ServiciosTecnicos_Get_TurnoLaboral_Result> result = ctx.Sam3_ServiciosTecnicos_Get_TurnoLaboral(lenguaje, idPrueba, idProveedor).ToList();
 
-                    List<TurnoLaboral> ListadoTurnoLaboral = new List<TurnoLaboral> ();
+                    List<TurnoLaboral> ListadoTurnoLaboral = new List<TurnoLaboral>();
 
                     foreach (Sam3_ServiciosTecnicos_Get_TurnoLaboral_Result item in result)
                     {
                         ListadoTurnoLaboral.Add(new TurnoLaboral
                         {
-                           Turno=item.Turno,
-                           TurnoLaboralID=item.TurnoLaboralID
+                            Turno = item.Turno,
+                            TurnoLaboralID = item.TurnoLaboralID
                         });
                     }
                     return ListadoTurnoLaboral;
@@ -212,7 +211,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARCAPTURAREQUISICIONASIGNACION, dtDetalleCaptura, "@AsignarRequisicion", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAREQUISICIONASIGNACION, dtDetalleCaptura, "@AsignarRequisicion", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;

@@ -121,7 +121,7 @@ namespace BackEndSAM.DataAcces
                         { "@DefectoID", defectoID.ToString() }
                        
                     };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

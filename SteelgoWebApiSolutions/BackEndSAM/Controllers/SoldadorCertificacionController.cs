@@ -4,10 +4,6 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
@@ -129,9 +125,6 @@ namespace BackEndSAM.Controllers
                 return result;
             }
 
-
-
-
         }
 
         //Agrega Soldador Certificacion
@@ -148,7 +141,6 @@ namespace BackEndSAM.Controllers
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                     return SoldadorCertificacionBd.Instance.AgregarSoldadorCertificacion(AddSC, Lenguaje, PasosSoldadura, Usuario);
-                    // return new object();
                 }
                 else
                 {

@@ -151,8 +151,6 @@ namespace BackEndSAM.Controllers
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
-
 
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)

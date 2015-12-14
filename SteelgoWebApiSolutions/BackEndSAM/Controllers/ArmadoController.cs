@@ -1,16 +1,11 @@
-﻿using BackEndSAM.DataAcces;
-using BackEndSAM.DataAcces.ArmadoBD;
+﻿using BackEndSAM.DataAcces.ArmadoBD;
 using BackEndSAM.Models.Armado;
 using DatabaseManager.Sam3;
-using Newtonsoft.Json;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -141,8 +136,6 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DetalleDatosJson capturaDatosJson = serializer.Deserialize<DetalleDatosJson>(JsonCaptura);
                 capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
-                //string json= serializer.Serialize(CapturaArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario));
-                //return json;
                 List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
 
 
@@ -286,24 +279,6 @@ namespace BackEndSAM.Controllers
         public List<DetalleTrabajoAdicional> GenerarDetalleAdicionalJson(List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaTrabajoAdicional, Sam3_Usuario usuario)
         {
             List<DetalleTrabajoAdicional> listaDetalleAdicional = new List<DetalleTrabajoAdicional>();
-
-            //if (listaTrabajoAdicional.Count == 0)
-            //{
-            //    DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
-            //    {
-            //        Accion = 1,
-            //        Observacion ="",
-            //        ArmadoTrabajoAdicionalID = 0,
-            //        JuntaArmadoID = 0,
-            //        ObreroID = 0,
-            //        TrabajoAdicional ="",
-            //        TrabajoAdicionalID = 0,
-            //        Tubero = ""
-            //    };
-            //    listaDetalleAdicional.Add(detalleAdicional);
-            //}
-            //else
-            //{
                 foreach (Sam3_Armado_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
                 {
                     DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
@@ -319,7 +294,6 @@ namespace BackEndSAM.Controllers
                     };
                     listaDetalleAdicional.Add(detalleAdicional);
                 }
-            //}
             
             return listaDetalleAdicional;
         }
@@ -395,8 +369,6 @@ namespace BackEndSAM.Controllers
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
-
 
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
@@ -417,14 +389,10 @@ namespace BackEndSAM.Controllers
 
                         }
 
-                        //foreach (DetalleGuardarJson itemDetalle in listaCapturaArmado.Detalles)
-                        //{
                             if (TabajosAdicionales == null)
                                 TabajosAdicionales = ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional);
                             else
                                 TabajosAdicionales.Merge(ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional));
-
-                        //}
 
                     }
                  

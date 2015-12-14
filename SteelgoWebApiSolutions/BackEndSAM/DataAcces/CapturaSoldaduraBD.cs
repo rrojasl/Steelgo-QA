@@ -530,7 +530,8 @@ namespace BackEndSAM.DataAcces
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARCAPTURASOLDADURA, dtDetalleCaptura, "@Soldadura", dtSoldaduraSoldado, "@SoldaduraSoldador", dtTrabajosAdicionales, "@TrabajosAdicionales", parametro);
+
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURASOLDADURA, dtDetalleCaptura, "@Soldadura", dtSoldaduraSoldado, "@SoldaduraSoldador", dtTrabajosAdicionales, "@TrabajosAdicionales", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
