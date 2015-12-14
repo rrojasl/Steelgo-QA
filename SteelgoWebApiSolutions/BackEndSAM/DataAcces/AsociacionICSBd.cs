@@ -230,11 +230,11 @@ namespace BackEndSAM.DataAcces
                                  join catced in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals catced.CatalogoCedulasID
                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                  join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                                 join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
-                                 join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
+                                 //join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                 //join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
                                  where ics.Activo && g.Activo && d1.Activo && d2.Activo
                                  && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
-                                 /*&& ic.ItemCodeID == items*/ && g.TipoMaterialID == ic.TipoMaterialID
+                                 /*&& ic.ItemCodeID == items && g.TipoMaterialID == ic.TipoMaterialID */
 
                                  select new ICSDatosAsociacion
                                  {
