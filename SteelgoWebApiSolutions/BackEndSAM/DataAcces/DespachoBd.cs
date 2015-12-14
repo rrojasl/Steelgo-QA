@@ -128,6 +128,14 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
+                        List<int> numerosUnicosAprobadosSam3 = (from nu in ctx.Sam3_NumeroUnico
+                                                                where nu.Activo && nu.EstatusDocumental == "Aprobado" && nu.EstatusFisico == "Aprobado"
+                                                                select nu.NumeroUnicoID).AsParallel().ToList();
+
+                        List<int> numerosUnicosAprobadosSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                                where eq.Activo && numerosUnicosAprobadosSam3.Contains(eq.Sam3_NumeroUnicoID)
+                                                                select eq.Sam2_NumeroUnicoID).AsParallel().ToList();
+
 
                         List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -140,7 +148,7 @@ namespace BackEndSAM.DataAcces
                                                                  where d.Cancelado == false
                                                                  select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
                                                             && proyectos.Contains(odt.ProyectoID)
-                                                            && it.TipoMaterialID == 2
+                                                            && it.TipoMaterialID == 2 && numerosUnicosAprobadosSam2.Contains(nu.NumeroUnicoID)
                                                             select new LstGenerarDespacho
                                                             {
                                                                 Descripcion = it.DescripcionEspanol,

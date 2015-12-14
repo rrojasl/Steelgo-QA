@@ -102,7 +102,6 @@ namespace BackEndSAM.DataAcces
                                               D2 = d2.Valor
                                           }).AsParallel().Distinct().ToList();
                         }
-
                     }
                 }
 

@@ -2343,6 +2343,10 @@ _dictionary = {
         "es-MX": "Añadir ITCS",
         "en-US": "Add ITCS"
     },
+    "Cuantificacion0100": {
+        "es-MX": "Tipo Packing List",
+        "en-US": "Packing List Type"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -2742,7 +2746,11 @@ _dictionary = {
         "es-MX": "Cuadrilla de Descarga",
         "en-US": "Group Download"
     },
-    //
+    "PaseDeSalida0024": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    //Formato Incicencias
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
         "en-US": "numRFI"
@@ -5987,6 +5995,10 @@ _dictionary = {
         "es-MX": "Fecha de Entrega",
         "en-US": "Delivery Date"
     },
+    "Entrega0015": {
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
+    },
     //ConvertirSpoolAGranel
     "ConvertirSpoolAGranel0001": {
         "es-MX": "Transacciones",
@@ -6510,6 +6522,10 @@ _dictionary = {
     "notificationslabel0094": {
         "es-MX": "Es necesario que todas las incidencia tengan un archivo de incidencia firmada.",
         "en-US": "It is necessary that all have incidence incidence signed file."
+    },
+    "notificationslabel0095": {
+        "es-MX": "Usuario y/o contraseña incorrectos",
+        "en-US": "The user name or password is incorrect "
     },
     //Default to copy
     "label9999": {

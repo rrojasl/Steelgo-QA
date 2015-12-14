@@ -182,6 +182,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+            var $tipoPL=null;
             var recentlyAdded=false;
             var isOpen=false;
             var fromButton=false;
@@ -512,7 +513,15 @@
             var tmp=removeGrid($("#grid"));
             LoadGridQuantification();
             $("#grid").data("kendoGrid").dataSource.data(tmp);
+
+            //var arr = arregloKendoCombobox();
+            //modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
         }
+
+        //function arregloKendoCombobox() {
+        //    var arr = new Array($("#TipoPackingListID"));
+        //    return arr;
+        //};
 
         function cargaInicial() {
             //$("#Ciclo").click(function () {
@@ -635,6 +644,7 @@
                         this.value("");
                     } else {
                         ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
+                        //ObtenerTipoPackingListProyectoConfiguracion(Proyecto.ProyectoID);
                     }
                     //ObtenerColada("Colada", 0, 0);
                 },
@@ -692,6 +702,7 @@
                 },
                 filter: "contains",
             });
+            //ObtenerTipoPackingListTodos();
             obtenerTipoPackingList("TipoPackingListID");
 
             $("#TipoUsoID").kendoComboBox({
@@ -1579,6 +1590,27 @@
             ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion);
 
         };
+        
+        //function ObtenerTipoPackingListTodos() {
+        //    $TipoPackingList.TipoPackingList.read({ idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+        //        ControlErroresObjetosComboBox("TipoPackingListID", result);
+        //    });
+        //};
+
+        //function ObtenerTipoPackingListProyectoConfiguracion(proyecto) {
+        //    $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ proyectoID: proyecto, token: Cookies.get("token") }).done(function (result) {
+        //        if (Error(result)) {
+        //            if (result) {
+        //                $("#TipoPackingListID").data("kendoComboBox").value(0);
+        //                $("#TipoPackingListDiv").removeClass("hidden");
+        //            } else {
+        //                $("#TipoPackingListDiv").addClass("hidden");
+        //            };
+        //        } else {
+        //            limpiarfiltrosFolioAvisoEntrada();
+        //        };
+        //    });
+        //};
 
         function ObtenerTipoUsoPorProyecto(folio, proyecto)
         {
@@ -1824,6 +1856,11 @@
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
+                if(control==="TipoPackingListID"){
+                    //result.shift();
+                    //$tipoPL=result;
+                    $("#" + control).data("kendoComboBox").dataSource.data(result);
+                }
             } else {
                 $("#" + control).data("kendoComboBox").dataSource.data([]);
             };
@@ -2790,7 +2827,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"-1")
+                            read: $URLItemCode + "TipoPackingListID=" + $("#TipoPackingListID").data("kendoComboBox").value() + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"-1")
                         }
                     },
                     dataBound: function dataBound(e) {
