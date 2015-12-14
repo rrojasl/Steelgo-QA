@@ -342,7 +342,11 @@ namespace BackEndSAM.DataAcces
                                                                                                   select pc.PreFijoFolioPackingList + ","
                                                                                                    + pc.CantidadCerosFolioPackingList.ToString() + ","
                                                                                                    + t.Consecutivo.ToString() + ","
-                                                                                                   + pc.PostFijoFolioPackingList).FirstOrDefault() : t.FolioCuantificacionID.ToString()
+                                                                                                   + pc.PostFijoFolioPackingList).FirstOrDefault() : t.FolioCuantificacionID.ToString(),
+                                MostrarComboPackingList = (from p in ctx.Sam3_ProyectoConfiguracion
+                                                           where p.Activo
+                                                           && p.ProyectoID == t.ProyectoID
+                                                           select p.RequiereTipoPackingList).FirstOrDefault()
 
                             }).AsParallel().FirstOrDefault();
 
@@ -839,17 +843,13 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    //TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
-                    //                   join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
-                    //                   where pc.ProyectoID == proyecto && pc.Activo && tu.Activo
-                    //                   select new TipoUso
-                    //                   {
-                    //                       id = tu.TipoUsoID.ToString(),
-                    //                       Nombre = tu.Nombre
-                    //                   }).AsParallel().SingleOrDefault();
+                    bool mostrarCombo = (from p in ctx.Sam3_ProyectoConfiguracion
+                                         where p.Activo
+                                         && p.ProyectoID.ToString() == proyectoID
+                                         select p.RequiereTipoPackingList).AsParallel().SingleOrDefault();
 
 
-                    return true;//Si se muestra o no el campo tipo packing List.
+                    return mostrarCombo;
                 }
             }
             catch (Exception ex)

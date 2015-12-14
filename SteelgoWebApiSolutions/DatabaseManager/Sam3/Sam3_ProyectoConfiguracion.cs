@@ -42,6 +42,7 @@ namespace DatabaseManager.Sam3
         public int DigitosFolioOrdenAlmacenaje { get; set; }
         public int DigitosFolioPermisoAduana { get; set; }
         public int TipoUsoID { get; set; }
+        public bool RequiereTipoPackingList { get; set; }
     
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
     }

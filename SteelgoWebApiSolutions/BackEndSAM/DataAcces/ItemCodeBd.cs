@@ -58,6 +58,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                // tpo packinglist = 3 traer todos los itemcodes
                 List<BackEndSAM.Models.ItemCode> IC = new List<BackEndSAM.Models.ItemCode>();
                 List<BackEndSAM.Models.ItemCode> itemCodeS2 = new List<BackEndSAM.Models.ItemCode>();
 
@@ -68,14 +69,13 @@ namespace BackEndSAM.DataAcces
 
                         IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto", D1 = 0, D2 = 0 });
 
-                        if (tipoPackingListID == 0)
+                        if (tipoPackingListID == 3)
                         {
                             itemCodeS2 = (from ic in ctx.Sam3_ItemCode
                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
                                           join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                           join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                           where ic.Activo && rid.Activo
-                                          //&& ic.TipoMaterialID == tipoPackingListID
                                           && ic.ProyectoID == proyectoID
                                           select new BackEndSAM.Models.ItemCode
                                           {
@@ -87,10 +87,6 @@ namespace BackEndSAM.DataAcces
                         }
                         else
                         {
-                            //int sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
-                            //                       where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                            //                       select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
-
                             itemCodeS2 = (from ic in ctx.Sam3_ItemCode
                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
                                           join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
@@ -106,17 +102,6 @@ namespace BackEndSAM.DataAcces
                                               D2 = d2.Valor
                                           }).AsParallel().Distinct().ToList();
                         }
-
-                        //si tienen orden de recepcion
-                        //List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
-                        //                      join or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on eq.Sam3_ItemCodeID equals or.ItemCodeID
-                        //                      join nu in ctx.Sam3_NumeroUnico on eq.Sam3_ItemCodeID equals nu.ItemCodeID
-                        //                      where eq.Activo && or.Activo && nu.Activo
-                        //                      select eq.Sam2_ItemCodeID.ToString()).AsParallel().Distinct().ToList();
-
-                        //itemCodeS2 = itemCodeS2.Where(x => !conOR.Contains(x.ItemCodeID)).AsParallel().Distinct().ToList();
-
-                        //itemCodeS2 = itemCodeS2.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
                     }
                 }
 

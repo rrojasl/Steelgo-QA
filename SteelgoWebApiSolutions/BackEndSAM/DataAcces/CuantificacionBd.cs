@@ -168,7 +168,8 @@ namespace BackEndSAM.DataAcces
                                        TieneNU = ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == fc.Rel_FolioCuantificacion_ItemCode_ID)
                                                     .Count() == fc.Cantidad ? "SI" : "NO", 
                                        RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
-                                       ItemCodeOrigenID = ic.ItemCodeID.ToString()
+                                       ItemCodeOrigenID = ic.ItemCodeID.ToString(),
+                                       TipoMaterial = ic.TipoMaterialID
                                    }).AsParallel().ToList();
 
                         listadoBultos = (from b in ctx.Sam3_Bulto
@@ -292,7 +293,8 @@ namespace BackEndSAM.DataAcces
 
                                        TieneNU = ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_Bulto_ItemCode_ID == rbic.Rel_Bulto_ItemCode_ID).Count() == rbic.Cantidad ? "SI":"NO",
                                        RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString(),
-                                       ItemCodeOrigenID = ic.ItemCodeID.ToString()
+                                       ItemCodeOrigenID = ic.ItemCodeID.ToString(),
+                                       TipoMaterial = ic.TipoMaterialID
                                    }).AsParallel().ToList();
                     }
                 }
