@@ -627,7 +627,7 @@
                     $(".k-grid .k-input").attr("disabled", "disabled");
                     $(".k-grid .k-filter").hide();
                     displayMessage("AsociacionICS0005", "", '0');
-                    if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+                    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() == "1") {
                         window.parent.RecargarFilaSeleccionada();
                     }
                     applySecurityPolicy(false);
@@ -648,7 +648,9 @@
                         $("#icsasociado").val("");
                         $("#DesasociarDiv").addClass("hidden");
                         botonDefault();
-                        window.parent.RecargarFilaSeleccionada();
+                        if(isInPopUp()){
+                            window.parent.RecargarFilaSeleccionada();
+                        }
                     }else{
                         displayMessage("",data.ReturnMessage[0], '2');
                     }
@@ -711,10 +713,10 @@
     
 @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    if (window.parent.$("#hdnOcultarMenus").val() != "1") {
+    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() != "1") {
         Cookies.set("navegacion", "46", { path: '/' });
     }
-    if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() == "1") {
         window.parent.$(".k-i-close").click(function (e) {
             window.parent.AsignarPaginaActualCookie();
             window.parent.RecargarFilaSeleccionada();
