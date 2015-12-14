@@ -2000,8 +2000,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "Cuantificacion0014": {
-        "es-MX": "Folio Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Recepción",
+        "en-US": "Reception Folio"
     },
     "Cuantificacion0015": {
         "es-MX": "Bulto",
@@ -2348,8 +2348,8 @@ _dictionary = {
         "en-US": "Packing List Type"
     },
     "Cuantificacion0101": {
-        "es-MX": "Tipo Packing List",
-        "en-US": "Packing List Type"
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {

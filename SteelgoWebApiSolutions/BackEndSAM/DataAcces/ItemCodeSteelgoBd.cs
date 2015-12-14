@@ -293,7 +293,8 @@ namespace BackEndSAM.DataAcces
                                                 && rics.Rel_ItemCode_ItemCodeSteelgo == riit.Rel_ItemCode_ItemCodeSteelgo
                                                 select fm.Nombre).FirstOrDefault(),
                                    //ColadaID = r.ColadaID
-                                   ItemCodeOrigenID = r.ItemCodeID
+                                   ItemCodeOrigenID = r.ItemCodeID,
+                                   TipoPackingList = r.TipoMaterialID
                                }).AsParallel().SingleOrDefault();
                     
 
@@ -320,7 +321,8 @@ namespace BackEndSAM.DataAcces
                                        Cantidad = r.Cantidad,
                                        MM = mm,
                                        Descripcion = r.DescripcionEspanol,
-                                       ItemCodeOrigenID = r.ItemCodeID
+                                       ItemCodeOrigenID = r.ItemCodeID,
+                                       TipoPackingList = r.TipoMaterialID
                                    }).AsParallel().SingleOrDefault();
                         return detalle;
                     }
