@@ -70,7 +70,10 @@ namespace BackEndSAM.DataAcces
                         folioCuantificacion.FechaModificacion = DateTime.Now;
                         folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                         folioCuantificacion.Activo = true;
-                        folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
+                        if (datosCuantificacion.TipoPackingList != null)
+                        {
+                            folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
+                        }
                         ctx.SaveChanges();
 
                         #region Proyectos
@@ -239,7 +242,10 @@ namespace BackEndSAM.DataAcces
                         folioCuantificacion.FechaModificacion = DateTime.Now;
                         folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                         folioCuantificacion.Activo = true;
-                        folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
+                        if (datosCuantificacion.TipoPackingList != null)
+                        {
+                            folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
+                        }
                         folioCuantificacion.Consecutivo = consecutivofc;
 
                         ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
