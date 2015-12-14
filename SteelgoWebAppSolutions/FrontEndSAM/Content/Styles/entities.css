@@ -87,6 +87,7 @@
         .login form input[type="password"] {
             width: 70%;
             color: #202020;
+            background-color: transparent;
             font-size: 16px;
             letter-spacing: 0.6px;
             vertical-align: baseline;
@@ -1481,10 +1482,19 @@ header .menu > div {
 /* Media Queries */
 
 /* xs viewport */
+@media screen and (max-width: 320px) {
+    /*$_notifications*/
+    .notifications .notification-menu {
+        right: -246px!important;
+        width: 320px!important;
+    }
+}
+
 @media screen and (max-width: 767px) {
 
     /*$_login*/
     .login {
+        position: relative;
         width: 100%;
         max-width: 510px;
         top: 0%;
@@ -1505,7 +1515,7 @@ header .menu > div {
         }
 
         .login img {
-            margin: 20px 0;
+            margin: 0 0 20px 0;
         }
 
     /*$_header*/
@@ -1522,16 +1532,25 @@ header .menu > div {
         position: relative;
         top: -16px;
         margin: 0; 
-        padding-left: 38%;
+        padding-left: 44%;
         width: 100%;
         max-width: 100%;      
     }
 
     /*$_notifications*/
-    .notifications .notification-menu {
-        right: -261px;
-        width: 400px;
+    .notifications {
+        margin-right: 10px;
     }
+
+    .notifications .notification-menu {
+        right: -243px;
+        width: 369px;     
+    }
+
+        .notifications .notification-menu li {
+            height: auto;
+            max-height: none;
+        }
 
     /*$_sidebar*/
     .sidebar {

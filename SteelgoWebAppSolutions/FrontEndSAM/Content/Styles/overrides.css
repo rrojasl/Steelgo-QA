@@ -797,6 +797,12 @@
 
 /* xs viewport */
 @media screen and (max-width: 767px) {
+
+    /*$_languageSelector*/
+    .languageSelector {
+        margin-left: 0px;
+    }
+
     /*$_input-group*/
     /*Override bootstrap input group display for mobiles*/
     .form .input-group {
