@@ -1384,6 +1384,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
             
             
             
+            <PropertyRef Name="RequiereTipoPackingList" />
           </Key>
           <Property Name="ProyectoID" Type="int" Nullable="false" />
           <Property Name="PrefijoNumeroUnico" Type="nvarchar" MaxLength="10" Nullable="false" />
@@ -1413,6 +1414,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DigitosFolioOrdenAlmacenaje" Type="int" Nullable="false" />
           <Property Name="DigitosFolioPermisoAduana" Type="int" Nullable="false" />
           <Property Name="TipoUsoID" Type="int" Nullable="false" />
+          <Property Name="RequiereTipoPackingList" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_ProyectoConsecutivo">
           <Key>
@@ -5157,7 +5159,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
     [Sam3_ProyectoConfiguracion].[DigitosFolioCuantifiacion] AS [DigitosFolioCuantifiacion], 
     [Sam3_ProyectoConfiguracion].[DigitosFolioOrdenAlmacenaje] AS [DigitosFolioOrdenAlmacenaje], 
     [Sam3_ProyectoConfiguracion].[DigitosFolioPermisoAduana] AS [DigitosFolioPermisoAduana], 
-    [Sam3_ProyectoConfiguracion].[TipoUsoID] AS [TipoUsoID]
+    [Sam3_ProyectoConfiguracion].[TipoUsoID] AS [TipoUsoID], 
+    [Sam3_ProyectoConfiguracion].[RequiereTipoPackingList] AS [RequiereTipoPackingList]
     FROM [dbo].[Sam3_ProyectoConfiguracion] AS [Sam3_ProyectoConfiguracion]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Sam3_Rel_Perfil_Entidad_Pagina" EntityType="Self.Sam3_Rel_Perfil_Entidad_Pagina" store:Type="Tables" store:Schema="dbo">
@@ -10320,6 +10323,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         <EntityType Name="Sam3_ProyectoConfiguracion">
           <Key>
             <PropertyRef Name="ProyectoID" />
+            <PropertyRef Name="RequiereTipoPackingList" />
           </Key>
           <Property Name="ProyectoID" Type="Int32" Nullable="false" />
           <Property Name="PrefijoNumeroUnico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -10350,6 +10354,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DigitosFolioPermisoAduana" Type="Int32" Nullable="false" />
           <Property Name="TipoUsoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_ProyectoConfiguracion" ToRole="Sam3_TipoUso" />
+          <Property Name="RequiereTipoPackingList" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Sam3_NumeroUnico_Sam3_NumeroUnico">
           <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
@@ -13973,6 +13978,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_ProyectoConfiguracion">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_ProyectoConfiguracion">
               <MappingFragment StoreEntitySet="Sam3_ProyectoConfiguracion">
+                <ScalarProperty Name="RequiereTipoPackingList" ColumnName="RequiereTipoPackingList" />
                 <ScalarProperty Name="TipoUsoID" ColumnName="TipoUsoID" />
                 <ScalarProperty Name="DigitosFolioPermisoAduana" ColumnName="DigitosFolioPermisoAduana" />
                 <ScalarProperty Name="DigitosFolioOrdenAlmacenaje" ColumnName="DigitosFolioOrdenAlmacenaje" />
