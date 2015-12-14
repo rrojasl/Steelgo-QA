@@ -52,6 +52,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ImpresionPruebasBD
                         });
                     }
 
+
                     return ListadoImpresionPruebas;
                 }
             }

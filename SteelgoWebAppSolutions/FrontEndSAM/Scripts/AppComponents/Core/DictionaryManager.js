@@ -4403,29 +4403,7 @@ _dictionary = {
         "en-US": "The Field 'PERCENTAGE OF MEETINGS REQUIRED', accepts only numeric values"
     },
 
-    "SoldadorCertificacionProcesoSoldaduraPQR": {
-        "es-MX": "Proceso Soldadura",
-        "en-US": "Welding process"
-    },
 
-    "SoldadorCertificacionTipoDePruebaPQR": {
-        "es-MX": "Tipo de Prueba",
-        "en-US": "Test Type"
-    },
-
-    "SoldadorCertificacionPosicionPQR": {
-        "es-MX": "Posición",
-        "en-US": "Position"
-    },
-
-    "SoldadorCertificacionCedulaTuboPQR": {
-        "es-MX": "Cedula tubo",
-        "en-US": "tube"
-    },
-    "SoldadorCertificacionDiametroCalificadoPQR": {
-        "es-MX": "Diametro Calificado",
-        "en-US": "Qualified diameter"
-    },
 
     //#endregion
 
@@ -4648,158 +4626,112 @@ _dictionary = {
     },
     //#endregion
 
-
-    //#region WPS
-
-    "WPSEliminar": {
-    "es-MX": "¿Está seguro de eliminar este WPS?",
-    "en-US": "You are sure to delete the WPS?"
-},
-
-    "WPSMenu": {
-    "es-MX": "WPS",
-    "en-US": "WPS"
-},
-    "WPSID": {
-    "es-MX": "WPSID",
-    "en-US": "WPSID"
-},
-    "WPSNombre": {
-    "es-MX": "Nombre",
-    "en-US": "Name"
-},
-    "WPSpqrraizId": {
-    "es-MX": "PQR RAIZ ID",
-    "en-US": "--"
-},
-    "WPSPQRRAIZ": {
-    "es-MX": "PQR raiz",
-    "en-US": "PQR root"
-},
-    "WPSpqrrellenoId": {
-    "es-MX": "PQR Relleno ID",
-    "en-US": "--"
-},
-    "WPSPQRRelleno": {
-    "es-MX": "PQR relleno",
-    "en-US": "PQR filling"
-},
-    "WPSGrupoPId": {
-    "es-MX": "GrupoPID",
-    "en-US": "--"
-},
-    "WPSPQRGrupoP": {
-    "es-MX": "Material base",
-    "en-US": "Base material"
-},
-    "WPSpwhtid": {
-    "es-MX": "PWHTID",
-    "en-US": "--"
-},
-    "WPSPWHT": {
-    "es-MX": "PWHT",
-    "en-US": "PWHT"
-},
-    "WPSEspesorMinimoRaiz": {
-    "es-MX": "Espesor mínimo raiz",
-    "en-US": "Root minimum thickness"
-},
-    "WPSEspesorMaximoRaiz": {
-    "es-MX": "Espesor máximo raiz",
-    "en-US": "Root maximum thickness"
-},
-    "WPSEspesorMinimoRelleno": {
-    "es-MX": "Espesor mínimo relleno",
-    "en-US": "Filler maximum thickness"
-},
-    "WPSEspesorMaximoRelleno": {
-    "es-MX": "Espesor máximo relleno",
-    "en-US": "Filler maximum thickness"
-},
-
-    "WPSPQRGrupoPRelleno": {
-    "es-MX": "Material base relleno",
-    "en-US": "Filler base material"
-},
-
-    "WPSPQRGrupoPRaiz": {
-    "es-MX": "Material base raiz",
-    "en-US": "Root base material"
-},
-
-    "WPSPWHTRaiz": {
-    "es-MX": "PWHT Raiz",
-    "en-US": "Root PWHT"
-},
-    "WPSPWHTRelleno": {
-    "es-MX": "PWHT Relleno",
-    "en-US": "Filler PWHT"
-},
-    
-    
-
-//MENSAJES DE VALIDACIONES
-
-    "WPSPWHTNoCoinciden": {
-    "es-MX": "El valor 'PWHT', no es igual para espesor y relleno",
-    "en-US": "The 'PWHT' value, it's not equal to thickness and filling"
-},
-
-    "WPSGrupoPNoCoinciden": {
-    "es-MX": "El valor 'Material Base' no es igual para espesor y relleno ",
-    "en-US": "The 'Base Material' value, it's not equal to thickness and filling"
-},
-    "lblExisteNombreWPS": {
-    "es-MX": "El nombre del WPS ya existe",
-    "en-US": "WPS name already exists"
+    //#region ListadoRequisicion
+    "CapturaHeaderMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
     },
+    "CapturaSinAsinar": {
+        "es-MX": "Sin Asignar",
+        "en-US": "Not assigned"
+    },
+    "CapturaTodos": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "AsignarRequisicionHeaderProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "AsignarRequisicionHeaderCantidadJuntas": {
+        "es-MX": "Cantidad Juntas",
+        "en-US": "Total Joint"
+    },
+    "AsignarRequisicionHeaderPrueba": {
+        "es-MX": "Pruebas",
+        "en-US": "Test"
+    },
+    "AsignarRequisicionHeaderHerramientaPruebas": {
+        "es-MX": "Herramientas de prueba",
+        "en-US": "Test tools"
+    },
+    "AsignarRequisicionHeaderTurnoLaboral": {
+        "es-MX": "Turno Laboral",
+        "en-US": "Work shift"
+    },
+
+
     //#endregion
-    //#region GenerarRequisicion
 
-    "MensajeJuntasSoldadasReguisicion": {
-        "es-MX": "No hay juntas soldadas",
-        "en-US": "no welded joint"
+    "ServiciosTecnicosFolio": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
     },
-    "MensajeSeleccioneRequisiciones": {
-        "es-MX": "Debe seleccionar al menos 1 item",
-        "en-US": "You must select at least 1 item"
+    "ServiciosTecnicosDescripcion": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
     },
-    "GenerarRequisicionClasificacion": {
-        "es-MX": "Clasificación",
-        "en-US": "Clasification"
+    "ServiciosTecnicosRECIBIDO": {
+        "es-MX": "Recibido",
+        "en-US": "Received"
     },
-    "GenerarRequisicionCuadrante": {
-        "es-MX": "Cuadrante",
-        "en-US": "Quadrant"
+    "ServiciosTecnicosCondicionesFisicas": {
+        "es-MX": "CondicionesFisicas",
+        "en-US": "Physical conditions"
     },
-    "GenerarRequisicionPrioridad": {
-        "es-MX": "Prioridad",
-        "en-US": "Priority"
+    "ServiciosTecnicosDefectos": {
+        "es-MX": "Defectos",
+        "en-US": "Defects"
     },
-    "GenerarRequisicionProyecto": {
-        "es-MX": "Proyecto",
-        "en-US": "Proyect"
+    //#region ListadoRequisicion
+    "ImpresionPruebasMostrarTodo": {
+    "es-MX": "Mostrar Todo",
+    "en-US": "Show all"
     },
-    "GenerarRequisicionMuestraSinCaptura": {
-        "es-MX": "Sin Captura",
-        "en-US": "Without Capture"
+    "ImpresionPruebasNoMostrarTodo": {
+        "es-MX": "No impresos",
+        "en-US": "unprinted"
     },
-    "GenerarRequisicionNumeroControl": {
-        "es-MX": "Numero de control",
-        "en-US": "Control number"
-    },
-    "GenerarRequisicionAsignarRequisicion": {
-        "es-MX": "Asignar Requisicion",
-        "en-US": "Assign Requisition"
-    },
-    "GenerarRequisicionMensajeJuntaAgregada": {
-        "es-MX": "Junta agregada",
-        "en-US": "Agree Joint"
+    "ImpresionPruebasNoMostrarTodo": {
+        "es-MX": "No impresos",
+        "en-US": "unprinted"
     }
-    //#endregion
-
-}
+    ,
+    "ImpresionPruebasSpoolJunta": {
+        "es-MX": "SpoolJunta",
+        "en-US": "SpoolJunta"
+    },
+    "ImpresionPruebasCantidadPruebas": {
+        "es-MX": "Cantidad Pruebas",
+        "en-US": "Number of tests"
+    },
+    "ImpresionPruebasTipoPrueba": {
+        "es-MX": "Tipo Pruebas",
+        "en-US": "Type tests"
+    },
+    "ImpresionPruebasNombrePrueba": {
+        "es-MX": "Prueba",
+        "en-US": "Test"
+    },
+    "ImpresionPruebasReporteID": {
+        "es-MX": "Reporte ID",
+        "en-US": "ID Report"
+    },
+    "ImpresionPruebasSeleccionado": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    "botonGenerarReporte": {
+        "es-MX": "GenerarReporte",
+        "en-US": "Create Reporte"
+    },
+    "CapturaMensajeJuntasErroneas": {
+        "es-MX": "No puedes seleccionar 2 o mas reportes distintos para imprimir",
+        "en-US": "You can not select two or more different reports for printing"
+    }
     
-
+    
+    //#endregion
+};
 
 

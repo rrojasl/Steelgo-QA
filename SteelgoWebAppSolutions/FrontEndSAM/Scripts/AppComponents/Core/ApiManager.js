@@ -37,7 +37,10 @@ var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
 
 //ServiciosTecnicos
 var $ListadoRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $AsignarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $RequisicionesAsignadas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $EntregaResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -131,6 +134,10 @@ $BackEndSAM.add('SoldadorCertificacion');
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');
+$AsignarRequisicion.add('AsignarRequisicion');
+$RequisicionesAsignadas.add('RequisicionesAsignadas');
+$EntregaResultados.add('EntregaResultados');
+$ImpresionPruebas.add('ImpresionPruebas');
 
 //captura armado
 $CapturaArmado.add('Armado');
