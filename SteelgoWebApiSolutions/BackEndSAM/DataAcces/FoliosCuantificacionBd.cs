@@ -843,13 +843,15 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    bool mostrarCombo = (from p in ctx.Sam3_ProyectoConfiguracion
+                    TipoPackingList tipoPackingList = new TipoPackingList();
+
+                   tipoPackingList.MostrarTipoPackingList = (from p in ctx.Sam3_ProyectoConfiguracion
                                          where p.Activo
                                          && p.ProyectoID.ToString() == proyectoID
                                          select p.RequiereTipoPackingList).AsParallel().SingleOrDefault();
 
 
-                    return mostrarCombo;
+                    return tipoPackingList;
                 }
             }
             catch (Exception ex)

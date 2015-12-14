@@ -2000,8 +2000,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "Cuantificacion0014": {
-        "es-MX": "Folio Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Recepción",
+        "en-US": "Reception Folio"
     },
     "Cuantificacion0015": {
         "es-MX": "Bulto",
@@ -2346,6 +2346,10 @@ _dictionary = {
     "Cuantificacion0100": {
         "es-MX": "Tipo Packing List",
         "en-US": "Packing List Type"
+    },
+    "Cuantificacion0101": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
@@ -6526,6 +6530,10 @@ _dictionary = {
     "notificationslabel0095": {
         "es-MX": "Usuario y/o contraseña incorrectos",
         "en-US": "The user name or password is incorrect "
+    },
+    "notificationslabel0096": {
+        "es-MX": "Favor de validar el tipo de packing list de los item codes marcados en rojo.",
+        "en-US": "Please confirm the type of packing list of item codes marked in red."
     },
     //Default to copy
     "label9999": {
