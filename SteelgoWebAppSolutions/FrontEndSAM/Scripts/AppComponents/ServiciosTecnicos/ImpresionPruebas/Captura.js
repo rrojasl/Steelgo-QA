@@ -1,10 +1,95 @@
-﻿function changeLanguageCall() {
+﻿var ReporteIDConsecutivo;
+
+function changeLanguageCall() {
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
 };
 
+IniciarImpresionPruebas();
+function IniciarImpresionPruebas() {
 
 
+    SuscribirEventos();
+    setTimeout(function () { AjaxCargarDatos(); }, 1000);
+
+
+}
+
+function JuntasSeleccionadasConIDUnico(arregloJuntas) {
+    //arregloJuntas[index].Seleccionado
+    //arregloJuntas[index].ReporteID
+    var cantidadJuntasSeleccionadasDiferentes = 0, cantidadJuntasSeleccionadas, IdReporteMaximo = 0;
+
+    for (index = 0; index < arregloJuntas.length; index++) {
+       
+        if (arregloJuntas[index].Seleccionado) {
+
+            for (var j = 0; j < arregloJuntas.length; j++) {
+                if (arregloJuntas[index].ReporteID != null && arregloJuntas[j].Seleccionado && arregloJuntas[index].ReporteID != arregloJuntas[j].ReporteID && arregloJuntas[j].ReporteID != null) {
+                    cantidadJuntasSeleccionadasDiferentes++;
+                }
+            }
+        }
+    }
+
+    if (cantidadJuntasSeleccionadasDiferentes == 0) {
+
+        return true;
+
+    }
+    return false;
+}
+
+
+
+function AsignarIDUnicoXJuntaSeleccionada(arregloJuntas) {
+    var IDReporteSeleccionado;
+    var cantidadJuntasSeleccionadasVacias = 0, cantidadJuntasSeleccionadasAsignadas = 0;
+
+    for (a = 0; a < arregloJuntas.length; a++) {
+        if (arregloJuntas[a].Seleccionado && (arregloJuntas[a].ReporteID == null || arregloJuntas[a].ReporteID == undefined)) {           
+            cantidadJuntasSeleccionadasVacias++;
+        }
+    }
+
+    for (a = 0; a < arregloJuntas.length; a++) {
+        if (arregloJuntas[a].Seleccionado && (arregloJuntas[a].ReporteID != null || arregloJuntas[a].ReporteID != undefined)) {
+            cantidadJuntasSeleccionadasAsignadas++;
+        }
+    }
+
+    if (cantidadJuntasSeleccionadasAsignadas == 0) {
+        //caso 1 solo es un registro y es nuevo
+
+        if (cantidadJuntasSeleccionadasVacias == 1) {
+            for (a = 0; a < arregloJuntas.length; a++) {
+                if (arregloJuntas[a].Seleccionado && (arregloJuntas[a].ReporteID == null || arregloJuntas[a].ReporteID == undefined)) {
+                    arregloJuntas[a].Status = 'N'
+                }
+            }
+        } else if (cantidadJuntasSeleccionadasVacias > 1) {
+            for (a = 0; a < arregloJuntas.length; a++) {
+                if (arregloJuntas[a].Seleccionado && (arregloJuntas[a].ReporteID == null || arregloJuntas[a].ReporteID == undefined)) {
+                    arregloJuntas[a].Status = 'NR'
+                }
+            }
+
+        }
+    }
+    else {
+        for (a = 0; a < arregloJuntas.length; a++) {
+            if (arregloJuntas[a].Seleccionado && (arregloJuntas[a].ReporteID != null || arregloJuntas[a].ReporteID != undefined)) {
+                for (var i = 0; i < arregloJuntas.length; i++) {
+                    if (arregloJuntas[i].Seleccionado && (arregloJuntas[i].ReporteID == null || arregloJuntas[i].ReporteID == undefined)) {
+                        arregloJuntas[i].ReporteID = arregloJuntas[a].ReporteID;
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
+}
 
 function CargarGrid() {
 
@@ -12,25 +97,15 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [
-                     { TipoPrueba: "RT", Prioridad: "1", Cuadrante: "Cuadrante 1", Proyecto: "ETILENO XXI", Requisicion: "Requisicion 1", SpoolID: "003-4", Junta: "4", Agregar:true },
-                     { TipoPrueba: "RT", Prioridad: "Prioridad 2", Cuadrante: "Cuadrante 2", Proyecto: "CROSSOVER PIPING", Requisicion: "Requisicion 2", SpoolID: "004-4", Junta: "5", Agregar: false },
-                     { TipoPrueba: "VI", Prioridad: "Prioridad 3", Cuadrante: "Cuadrante 3", Proyecto: "DUPONT ALTAMIRA2", Requisicion: "Requisicion 3", SpoolID: "005-4", Junta: "6", Agregar: false },
-                     { TipoPrueba: "Neumática", Prioridad: "Prioridad 4", Cuadrante: "Cuadrante 4", Proyecto: "CB LITORAL", Requisicion: "Requisicion 4", SpoolID: "006-6", Junta: "7", Agregar: false }
-            ],
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
-                        Prioridad: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
-                        Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false },
-                        CodigoAplicar: { type: "string", editable: false },
-                        observacion: { type: "string", editable: false },
-                        Agregar:{ type: "bool", editable: true }
+                        RequisicionPruebaElementoID: { type: "int", editable: false },
+                        SpoolJunta: { type: "string", editable: false },
+                        NumeroPruebas: { type: "int", editable: false },
+                        Clave: { type: "string", editable: false },
+                        Nombre: { type: "string", editable: false },
+                        ReporteID: { type: "string", editable: false }
                     }
                 }
             },
@@ -43,7 +118,7 @@ function CargarGrid() {
         filterable: {
             extra: false
         },
-        editable:true,
+        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
@@ -55,21 +130,19 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "TipoPrueba", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true},
-            { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "SpoolID", title: "Spool - Junta", filterable: true },
-             { field: "CodigoAplicar",title: "Codigo a aplicar", filterable: true},
-             { field: "observacion", title: "Observacion", filterable: true },
-             { field: "Agregar", title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= Agregar ? "checked=checked" : "" # disabled="disabled" ></input>' }
-            
-            
-
+            { field: "SpoolJunta", title: _dictionary.ImpresionPruebasSpoolJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "NumeroPruebas", title: _dictionary.ImpresionPruebasCantidadPruebas[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Clave", title: _dictionary.ImpresionPruebasTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
+             { field: "Nombre", title: _dictionary.ImpresionPruebasNombrePrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
+             { field: "ReporteID", title: _dictionary.ImpresionPruebasReporteID[$("#language").data("kendoDropDownList").value()], filterable: true },
+             { field: "Seleccionado", title: _dictionary.ImpresionPruebasSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
         ]
+    });
+
+    $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
+        var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+        dataItem.set("Seleccionado", this.checked);
     });
 };
 
-function AgregarCaptura() {
-};
-
-function eliminarCaptura() {
-};
