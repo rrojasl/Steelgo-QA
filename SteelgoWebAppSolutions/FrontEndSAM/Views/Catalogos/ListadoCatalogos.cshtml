@@ -201,7 +201,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token")
                                     }
                                 },
                                 requestEnd:function(e){
@@ -266,7 +266,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                        url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&token=" + Cookies.get("token")
                                     }
                                 },
                                 requestEnd:function(e){
@@ -292,7 +292,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token")
                                     }
                                 },
                                 requestEnd:function(e){
@@ -313,7 +313,7 @@
             "6": [
                 {field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
                 {field:"Unidad", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
-                {field:"Modelo", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
+                {field:"Modelo", title:_dictionary.ListadoCatalogos0033[$("#language").data("kendoDropDownList").value()]},
                 {
                     field: "choferNombre",
                     title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
@@ -323,7 +323,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                        url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&token=" + Cookies.get("token")
                                     }
                                 },
                                 requestEnd:function(e){
@@ -349,7 +349,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token")
                                     }
                                 },
                                 requestEnd:function(e){
