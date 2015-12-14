@@ -784,7 +784,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
-          <Property Name="TipoMaterialID" Type="int" Nullable="false" />
+          <Property Name="TipoMaterialID" Type="int" />
           <Property Name="Consecutivo" Type="int" />
           <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="int" />
         </EntityType>
@@ -2665,7 +2665,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Sam3_Foli__TipoM__7B9B496D">
-          <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="1" />
+          <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="0..1" />
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_TipoMaterial">
@@ -10058,7 +10058,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Proyecto" Relationship="ModelSam3.FK__Sam3_Foli__Proye__65E11278" FromRole="Sam3_FolioCuantificacion" ToRole="Sam3_Proyecto" />
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Foli__TipoU__66D536B1" FromRole="Sam3_FolioCuantificacion" ToRole="Sam3_TipoUso" />
           <NavigationProperty Name="Sam3_Recepcion" Relationship="ModelSam3.FK_Sam3_Recepcion_Sam3_FolioCuantificacion" FromRole="Sam3_FolioCuantificacion" ToRole="Sam3_Recepcion" />
-          <Property Name="TipoMaterialID" Type="Int32" Nullable="false" />
+          <Property Name="TipoMaterialID" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Sam3_TipoMaterial" Relationship="ModelSam3.FK__Sam3_Foli__TipoM__7B9B496D" FromRole="Sam3_FolioCuantificacion" ToRole="Sam3_TipoMaterial" />
           <NavigationProperty Name="Sam3_Rel_Incidencia_FolioCuantificacion" Relationship="ModelSam3.FK__Sam3_Rel___Folio__255C790F" FromRole="Sam3_FolioCuantificacion" ToRole="Sam3_Rel_Incidencia_FolioCuantificacion" />
           <Property Name="Consecutivo" Type="Int32" />
@@ -10472,7 +10472,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Sam3_Foli__TipoM__7B9B496D">
-          <End Type="ModelSam3.Sam3_TipoMaterial" Role="Sam3_TipoMaterial" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_TipoMaterial" Role="Sam3_TipoMaterial" Multiplicity="0..1" />
           <End Type="ModelSam3.Sam3_FolioCuantificacion" Role="Sam3_FolioCuantificacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_TipoMaterial">

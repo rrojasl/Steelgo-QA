@@ -32,7 +32,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public bool Activo { get; set; }
-        public int TipoMaterialID { get; set; }
+        public Nullable<int> TipoMaterialID { get; set; }
         public Nullable<int> Consecutivo { get; set; }
         public Nullable<int> Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
     
