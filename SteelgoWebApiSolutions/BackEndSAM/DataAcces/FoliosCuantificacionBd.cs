@@ -342,7 +342,11 @@ namespace BackEndSAM.DataAcces
                                                                                                   select pc.PreFijoFolioPackingList + ","
                                                                                                    + pc.CantidadCerosFolioPackingList.ToString() + ","
                                                                                                    + t.Consecutivo.ToString() + ","
-                                                                                                   + pc.PostFijoFolioPackingList).FirstOrDefault() : t.FolioCuantificacionID.ToString()
+                                                                                                   + pc.PostFijoFolioPackingList).FirstOrDefault() : t.FolioCuantificacionID.ToString(),
+                                MostrarComboPackingList = (from p in ctx.Sam3_ProyectoConfiguracion
+                                                           where p.Activo
+                                                           && p.ProyectoID == t.ProyectoID
+                                                           select p.RequiereTipoPackingList).FirstOrDefault()
 
                             }).AsParallel().FirstOrDefault();
 
