@@ -31,9 +31,13 @@
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="GenerarPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0005"></span></button>
-                                <button id="ImprimirPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="PaseDeSalida0018"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0024"></span></button>
                             </div>
+                           
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="PaseDeSalida0006"></span></a>
+                        </div>
+                        <div id="ImprimirPaseSalidaDiv" class="button-section">
+                             <a id="ImprimirPaseSalida" href="#" class="btn btn-black"><span id="PaseDeSalida0018"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -42,7 +46,6 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a><span id="DetalleAvisoLlegada0065"></span></a></li>*@
                                     <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                 </ul>
                             </div>
@@ -162,6 +165,8 @@
         ArregloIncidenciasFirmadas = [], CuadrillaDescarga = {}, ArregloPackingListFirmado = [];
     var creacionArchivos = 0;
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
+    var _paseSalidaURL = "@Url.Action("PaseDeSalida", "EntradaMaterial")";
+
     var _UrlReporte = $UrlReportingServices;
     var $PaseSalidaModel = {
         listContainer: {
@@ -206,6 +211,11 @@
                 visible: "#CuadrillaDescargaDiv",
                 editable: "#CuadrillaDescarga",
                 required: "#CuadrillaDescarga"
+            },
+            imprimirPaseSalida: {
+                visible: "#ImprimirPaseSalidaDiv",
+                editable: "#ImprimirPaseSalida",
+                required: "#ImprimirPaseSalida"
             }
         }
     };
@@ -221,15 +231,11 @@
     };
 
     function CargaInicial() {
+        $("#ImprimirPaseSalida").attr("disabled", "disabled");
+        $("#Editar").addClass("hidden");
         $("#IrIncidencia").click(function () { Incidencias(); });
         $("#Cancelar").click(function () {
-            FolioPaseSalida = {};
-            $('#ListaIncidencias tbody').empty();
-            $("#listaArchivosPaseSalida tbody").empty();
-            habilitarControles();
-            $("#GenerarPaseSalida").css("display", "block");
-            $("#ImprimirPaseSalida").css("display", "none");
-            $("#FolioAvisoLlegadaID").data("kendoComboBox").value("");
+            window.location.href = _paseSalidaURL + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
 
         $("#GenerarPaseSalida").click(function () {
@@ -259,6 +265,7 @@
             });
            // window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
+        $("#Editar").click(function () { Editar();});
 
         if ($('#ListaIncidencias > tbody  > tr').length == 0) {
             $("#ImprimirIncidencias").attr("disabled", "disabled");
@@ -313,7 +320,8 @@
                 var value = this.value();
                 $("#CuadrillaDescarga").data("kendoComboBox").value("");
                 $("#IncidenciaAsociada").data("kendoComboBox").value("");
-                
+                $("#IncidenciaAsociadaDiv").addClass("hidden");
+
                 IncidenciaAsociada = {};
                 CuadrillaDescarga = {};
                 ArregloIncidencias = [];
@@ -417,7 +425,6 @@
                 batch: true
             },
             success: function (data) {
-                //ChecarPaseSalidaEnviado();
                 ChecarPaseSalidaEnviadoUploadFile(data);
             },
             error: function (data) { },
@@ -426,19 +433,44 @@
         });
     }
 
+    function Editar() {
+        $("#Editar").addClass("hidden");
+        $("#GenerarPaseSalida").removeClass("hidden");
+        $("#FolioAvisoLlegadaID").data("kendoComboBox").enable(true);
+        $("#CuadrillaDescarga").data("kendoComboBox").enable(true);
+        $("#TipoArchivo").data("kendoComboBox").enable(true);
+        $("#IncidenciaAsociada").data("kendoComboBox").enable(true);
+        $("#PackingList").data("kendoUpload").enable(true);
+        $("#ImprimirIncidencias").removeAttr("disabled");
+        $("#ImprimirPaseSalida").removeAttr("disabled");
+        $("input[type='checkbox']").removeAttr("disabled");
+    };
+
+    function Guardar() {
+        $("#Editar").removeClass("hidden");
+        $("#GenerarPaseSalida").addClass("hidden");
+        $("#FolioAvisoLlegadaID").data("kendoComboBox").enable(false);
+        $("#CuadrillaDescarga").data("kendoComboBox").enable(false);
+        $("#TipoArchivo").data("kendoComboBox").enable(false);
+        $("#IncidenciaAsociada").data("kendoComboBox").enable(false);
+        $("#PackingList").data("kendoUpload").enable(false);
+        $("#ImprimirIncidencias").attr("disabled", "disabled");
+        $("#ImprimirPaseSalida").attr("disabled", "disabled");
+        $("input[type='checkbox']").attr("disabled", "disabled");
+    };
+
     function ArregloPDF(tiporeporte, id, cadena) {
         var PDF = { TipoReporte: tiporeporte, FolioAvisoLlegadaID: id, Cadena: cadena };
         return PDF;
-    }
+    };
+
     function GenerarPaseSalida() {
         //loadingStart();
         if (validarIncidenciasFirmadas()) {
             $PaseSalida.PaseSalida.create({}, { folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, cuadrillaDescarga: CuadrillaDescarga.Nombre, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     //loadingStop();
-                    //DesahabilitarControles();
-                    $("#GenerarPaseSalida").css("display", "none");
-                    $("#ImprimirPaseSalida").css("display", "block");
+                    Guardar();
                     DeshabilitarObtenerDocumentosPaseSalida();
                 }
             });
@@ -483,8 +515,8 @@
         habilitarControles();
         $('#ListaIncidencias tbody').empty();
         $("#listaArchivosPaseSalida tbody").empty();
-        $("#GenerarPaseSalida").css("display", "block");
-        $("#ImprimirPaseSalida").css("display", "none");
+        $("#GenerarPaseSalida").removeAttr("disabled");
+        $("#ImprimirPaseSalida").attr("disabled", "disabled");
         $(".k-upload-files").remove();
         $(".k-upload-status").remove();
         $(".k-upload-selected").remove();
@@ -827,13 +859,13 @@
             if (Error(result)) {
                 if (result) {
                     //DesahabilitarControles();
-                    $("#GenerarPaseSalida").css("display", "none");
-                    $("#ImprimirPaseSalida").css("display", "block");
+                    //$("#GenerarPaseSalida").attr("disabled", "disabled");
+                    $("#ImprimirPaseSalida").removeAttr("disabled");
                     HabilitarObtenerDocumentosPaseSalidaUploadFile(data);
                 } else {
                     habilitarControles();
-                    $("#GenerarPaseSalida").css("display", "block");
-                    $("#ImprimirPaseSalida").css("display", "none");
+                    //$("#GenerarPaseSalida").removeAttr("disabled");
+                    $("#ImprimirPaseSalida").attr("disabled", "disabled");
                     HabilitarObtenerDocumentosPaseSalidaUploadFile(data);
                 }
                 //loadingStop();
@@ -846,15 +878,14 @@
         $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: id, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if (result) {
-                    //DesahabilitarControles();
-                    $("#GenerarPaseSalida").css("display", "none");
-                    $("#ImprimirPaseSalida").css("display", "block");
+                    //$("#GenerarPaseSalida").attr("disabled", "disabled");
+                    $("#ImprimirPaseSalida").removeAttr("disabled");
                     CargarFolio(id);
                     DeshabilitarObtenerDocumentosPaseSalida();
                 } else {
                     habilitarControles();
-                    $("#GenerarPaseSalida").css("display", "block");
-                    $("#ImprimirPaseSalida").css("display", "none");
+                    //$("#GenerarPaseSalida").removeAttr("disabled");
+                    $("#ImprimirPaseSalida").attr("disabled", "disabled");
                     CargarFolio(id);
                     ObtenerDocumentosPaseSalida();
                 }

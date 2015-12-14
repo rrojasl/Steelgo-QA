@@ -2742,7 +2742,11 @@ _dictionary = {
         "es-MX": "Cuadrilla de Descarga",
         "en-US": "Group Download"
     },
-    //
+    "PaseDeSalida0024": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    //Formato Incicencias
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
         "en-US": "numRFI"
