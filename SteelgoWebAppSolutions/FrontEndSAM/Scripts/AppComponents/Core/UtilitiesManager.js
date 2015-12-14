@@ -491,5 +491,7 @@ function Error(data) {
 };
 
 function checkIfOne(w) {
-    w.dataSource.data().length == 1 ? w.select(0) : w.select(-1);
+    if (w !== undefined && w.dataSource.data()!==undefined) {
+        w.dataSource.data().length == 1 ? w.select(0) : w.select(-1);
+    }
 }
