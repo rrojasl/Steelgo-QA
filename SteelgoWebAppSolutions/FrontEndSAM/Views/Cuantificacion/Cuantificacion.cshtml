@@ -182,6 +182,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+            var $tipoPL=null;
             var recentlyAdded=false;
             var isOpen=false;
             var fromButton=false;
@@ -1855,6 +1856,11 @@
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
+                if(control==="TipoPackingListID"){
+                    result.shift();
+                    $tipoPL=result;
+                    $("#" + control).data("kendoComboBox").dataSource.data(result);
+                }
             } else {
                 $("#" + control).data("kendoComboBox").dataSource.data([]);
             };
@@ -2821,7 +2827,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"-1")
+                            read: $URLItemCode + "TipoPackingListID=" + $("#TipoPackingListID").data("kendoComboBox").value() + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"-1")
                         }
                     },
                     dataBound: function dataBound(e) {

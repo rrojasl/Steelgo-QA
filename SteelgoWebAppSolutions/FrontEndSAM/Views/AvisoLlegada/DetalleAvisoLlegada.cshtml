@@ -384,6 +384,7 @@
                 };
             };
         });
+        bool ? $("#Guardar")[0].disabled=false:$("#Guardar")[0].disabled=true;
         return bool;
     };
 
@@ -396,9 +397,13 @@
         ocultarStatus();
 
         FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
+        FechaRecepcion.bind("change",function(){
+            validarRequeridosFormaAvisoLlegada();
+        })
 
         //**Eventos
         $("#Guardar").click(function (e) {
+            this.disabled=true;
             if (validarRequeridosFormaAvisoLlegada()) {
                 GuardarAvisoLlegada(false);
             } else {
@@ -407,6 +412,7 @@
         });
 
         $("#GuardarNuevo").click(function (e) {
+            this.disabled=true;
             if (validarRequeridosFormaAvisoLlegada()) {
                 GuardarAvisoLlegada(true);
 
@@ -476,6 +482,7 @@
                         CargarPatio(dataItem.PatioID, dataItem.Nombre);
                     },
                     change: function (e) {
+                        validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         $("#ClienteID").data("kendoComboBox").value("");
                         $("#ClienteID").data("kendoComboBox").dataSource.data([]);
@@ -500,6 +507,7 @@
                         CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                     },
                     change: function (e) {
+                        validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
@@ -520,6 +528,7 @@
                         CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre);
                     },
                     change: function (e) {
+                        validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
@@ -653,6 +662,7 @@
                         batch: true
                     },
                     success: function (data) {
+                        validarRequeridosFormaAvisoLlegada();
                         if (creacionArchivos) {
                             CargaInicialEdicion(folio);
                         } else {
@@ -819,6 +829,7 @@
                     if (!tienePackinglist) {
                         $("#DetalleAvisoLlegada0010").addClass("security_required error");
                         displayMessage("notificationslabel0031", "", '1');
+                        $("#Guardar")[0].disabled=true;
                         //loadingStop();
                         return;
                     };

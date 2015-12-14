@@ -50,13 +50,14 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListaCombos> itemCodes = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
+                    List<ListaCombosICC> itemCodes = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
                                                    join ic in ctx.Sam3_ItemCode on icd.ItemCodeID equals ic.ItemCodeID
                                                    where icd.Activo && ic.Activo && ic.ProyectoID.ToString() == proyectoID
-                                                   select new ListaCombos
+                                                   select new ListaCombosICC
                                                    {
                                                        id = icd.ItemCodeID.ToString(),
-                                                       value = ic.Codigo
+                                                       value = ic.Codigo,
+                                                       tipoGrupo = ic.TipoMaterialID
                                                    }).AsParallel().GroupBy(x => x.value).Select(x => x.First()).ToList();
                     return itemCodes;
                 }
@@ -229,11 +230,12 @@ namespace BackEndSAM.DataAcces
                                  join catced in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals catced.CatalogoCedulasID
                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                  join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                                 join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
-                                 join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
+                                 //join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
+                                 //join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
                                  where ics.Activo && g.Activo && d1.Activo && d2.Activo
                                  && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
-                                 && ic.ItemCodeID == items && g.TipoMaterialID == ic.TipoMaterialID
+                                 /*&& ic.ItemCodeID == items && g.TipoMaterialID == ic.TipoMaterialID */
+
                                  select new ICSDatosAsociacion
                                  {
                                      ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
@@ -263,7 +265,7 @@ namespace BackEndSAM.DataAcces
                                      MM = catced.EspesorMM.ToString(),
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString()
-                                 }).AsParallel().ToList();
+                                 }).Distinct().AsParallel().ToList();
 
                         lista.ForEach(x =>
                         {

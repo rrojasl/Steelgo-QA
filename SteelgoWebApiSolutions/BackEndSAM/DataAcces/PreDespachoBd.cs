@@ -70,6 +70,14 @@ namespace BackEndSAM.DataAcces
 
                     patios = patios.Where(x => x > 0).ToList();
 
+                    List<int> numerosUnicosAprobadosSam3 = (from nu in ctx.Sam3_NumeroUnico
+                                                        where nu.Activo && nu.EstatusDocumental == "Aprobado" && nu.EstatusFisico == "Aprobado"
+                                                        select nu.NumeroUnicoID).AsParallel().ToList();
+
+                    List<int> numerosUnicosAprobadosSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                            where eq.Activo && numerosUnicosAprobadosSam3.Contains(eq.Sam3_NumeroUnicoID)
+                                                            select eq.Sam2_NumeroUnicoID).AsParallel().ToList();
+
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
                         List<PreDespacho> listado = (from ots in ctx2.OrdenTrabajoSpool
@@ -81,13 +89,14 @@ namespace BackEndSAM.DataAcces
                                                      where ots.OrdenTrabajoSpoolID == spoolID
                                                      && proyectos.Contains(ot.ProyectoID)
                                                      && ic.TipoMaterialID == 2
-                                                     && !otm.TieneDespacho 
+                                                     && !otm.TieneDespacho && numerosUnicosAprobadosSam2.Contains(nu.NumeroUnicoID)
                                                      select new PreDespacho
                                                      {
                                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                                          ItemCode = ic.Codigo,
                                                          NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
                                                          NumeroControl = ots.NumeroControl,
+                                                         NumeroUnico = nu.Codigo,
                                                          Descripcion = ic.DescripcionEspanol,
                                                          Etiqueta = ms.Etiqueta,
                                                          MaterialSpoolID = otm.MaterialSpoolID
@@ -349,13 +358,13 @@ namespace BackEndSAM.DataAcces
                                                            && ms.Diametro2 == nu.Diametro2
                                                            && proyectos.Contains(odt.ProyectoID)
                                                            && patios.Contains(pa.PatioID)
-
                                                            select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
 
                         listado = (from nu in ctx.Sam3_NumeroUnico
                                    join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam3_NumeroUnicoID
                                    where nu.Activo && nueq.Activo
                                    && sam2_NumerosUnicosIDs.Contains(nueq.Sam2_NumeroUnicoID)
+                                   && nu.EstatusFisico == "Aprobado" && nu.EstatusDocumental == "Aprobado"
                                    select new ListaCombos
                                    {
                                        id = nu.NumeroUnicoID.ToString(),
