@@ -192,8 +192,8 @@ _dictionary = {
         "en-US": "Dispatches of Material"
     },
     "menuLabel0020": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "menuLabel0021": {
         "es-MX": "Complemento de la Recepción",
@@ -212,8 +212,8 @@ _dictionary = {
         "en-US": "Listing of Packing List"
     },
     "menuLabel0026": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "menuLabel0027": {
         "es-MX": "Consulta y Edición de Cuantificacion",
@@ -417,8 +417,8 @@ _dictionary = {
         "en-US": "Dispatches of Material"
     },
     "quickLabel0020": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "quickLabel0021": {
         "es-MX": "Complemento de la Recepción",
@@ -437,8 +437,8 @@ _dictionary = {
         "en-US": "Listing of Packing List"
     },
     "quickLabel0026": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "quickLabel0027": {
         "es-MX": "Consulta y Edición de Cuantificacion",
@@ -1565,8 +1565,8 @@ _dictionary = {
         "en-US": "Arrival notice"
     },
     "Busqueda0005": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "Busqueda0006": {
         "es-MX": "Número único",
@@ -1952,8 +1952,8 @@ _dictionary = {
         "en-US": "Dealings"
     },
     "Cuantificacion0002": {
-        "es-MX": "Cuantificacion",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "Cuantificacion0003": {
         "es-MX": "Guardar",
@@ -3315,10 +3315,10 @@ _dictionary = {
     "ListadoOrdenAlmacenaje0019": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
-    },
+    }, 
     "ListadoOrdenAlmacenaje0020": {
-        "es-MX": "Folio Cuantificacion",
-        "en-US": "Quantification Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Packing List Folio"
     },
     "ListadoOrdenAlmacenaje0021": {
         "es-MX": "Item Code",
@@ -3382,8 +3382,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "GenerarOrdenAlmacenaje0013": {
-        "es-MX": "Folio Cuantificación",
-        "en-US": "Quantification Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Packing List Folio"
     },
     "GenerarOrdenAlmacenaje0014": {
         "es-MX": "Item Code",
@@ -3837,8 +3837,8 @@ _dictionary = {
         "en-US": "Reception & Storage List"
     },
     "ListadoRecepcionAlmacenajeTuberia0025": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "ListadoRecepcionAlmacenajeTuberia0026": {
         "es-MX": "Folio Aviso Entrada",
