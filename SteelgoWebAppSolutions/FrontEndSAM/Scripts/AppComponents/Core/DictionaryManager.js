@@ -4728,10 +4728,136 @@ _dictionary = {
     "CapturaMensajeJuntasErroneas": {
         "es-MX": "No puedes seleccionar 2 o mas reportes distintos para imprimir",
         "en-US": "You can not select two or more different reports for printing"
-    }
+    },
     
     
     //#endregion
+
+    
+ "btnAcciones1": {
+    "es-MX": "Acciones",
+    "en-US": "Actions"
+},
+
+"botonCancelar2": {
+    "es-MX": "Cancelar",
+    "en-US": "Cancel"
+},
+
+//#region EmbarqueConsulta
+    "EmbarqueConsultaSpoolID": {
+    "es-MX": "Spool ID ",
+    "en-US": "Spool ID "
+},
+    "EmbarqueConsultaPaso": {
+    "es-MX": "Paso ",
+    "en-US": "Step "
+},
+    "EmbarqueConsultaCuadrante": {
+    "es-MX": "Cuadrante ",
+    "en-US": "Quadrant"
+},
+    "EmbarqueConsultaTraveler": {
+    "es-MX": "Traveler",
+    "en-US": "Traveler"
+},
+    "EmbarqueConsultaDetalle": {
+    "es-MX": "Detalle",
+    "en-US": "Detail"
+},
+    "EmbarqueConsultaVer": {
+    "es-MX": "Ver",
+    "en-US": "Show"
+},
+    "EmbarqueConsultaArea": {
+    "es-MX": "Area",
+    "en-US": "Area"
+},
+    "EmbarqueConsultaLinkShop": {
+    "es-MX": "Link shop",
+    "en-US": "Link shop"
+},
+//#endregion
+
+//#region EmbarqueMarcado
+    "EmbarqueMarcadoBtnCarga": {
+    "es-MX": "Carga",
+    "en-US": "Charge"
+},
+    "EmbarqueMarcadoBtnCarga2": {
+    "es-MX": "Carga",
+    "en-US": "Charge"
+},
+    "EmbarqueMarcadoImprimirEtiquetaSpool": {
+    "es-MX": "Imprimir etiqueta Spool",
+    "en-US": "Print Spool Label"
+},
+    "EmbarqueMarcadoImprimirTravelMasivo": {
+    "es-MX": "Imprimir travel masivo",
+    "en-US": "Print Masive Travel"
+},
+    "EmbarqueMarcadoArea": {
+    "es-MX": "Área",
+    "en-US": "Area"
+},
+    "EmbarqueMarcadoCuadrante": {
+    "es-MX": "Cuadrante",
+    "en-US": "Quadrant"
+},
+    "EmbarqueMarcadoImpreso": {
+    "es-MX": "Impreso",
+    "en-US": "Printed"
+},
+    "EmbarqueMarcadoBtnVer": {
+    "es-MX": "Ver",
+    "en-US": "Show"
+},
+    "EmbarqueMarcadoRadioSi": {
+    "es-MX": "Sí",
+    "en-US": "Yes"
+},
+    "EmbarqueMarcadoRadioNo": {
+    "es-MX": "No",
+    "en-US": "No"
+},
+    "EmbarqueMarcadoCabeceraSpoolID": {
+    "es-MX": "Spool ID",
+    "en-US": "Spool ID"
+},
+    "EmbarqueMarcadoCabeceraCuadrante": {
+    "es-MX": "Cuadrante",
+    "en-US": "Quadrant"
+},
+    "EmbarqueMarcadoCabeceraTraveler": {
+    "es-MX": "Traveler",
+    "en-US": "Traveler"
+},
+    "EmbarqueMarcadoCabeceraEtiquetado": {
+    "es-MX": "Etiquetado",
+    "en-US": "Labeled"
+},
+    "EmbarqueMarcadoCabeceraConCinta": {
+    "es-MX": "Con Cinta",
+    "en-US": "With Tape"
+},
+    "EmbarqueMarcadoCabeceraCinta": {
+    "es-MX": "Cinta",
+    "en-US": "Tape"
+},
+    "EmbarqueMarcadoMensajeGuardadoExitoso": {
+    "es-MX": "Datos guardados correctamente",
+    "en-US": "Save data correctly"
+},
+    "EmbarqueMarcadoMensajeCuadrante": {
+    "es-MX": "Selecciona el cuadrante",
+    "en-US": "Select a quadrant"
+},
+    "EmbarqueMarcadoMensajeArea": {
+    "es-MX": "Selecciona el area",
+    "en-US": "Select an area"
+},
+//#endregion
+
 };
 
 

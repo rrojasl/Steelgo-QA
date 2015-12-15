@@ -60,6 +60,9 @@ namespace DatabaseManager.Sam3
         public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ServiciosTecnicos_Guardar_RequisicionAsignacion";
         public static string GUARDARGENERARREQUISICICION = "Sam3_ServiciosTecnicos_Requisicion";
         public static string GENERARFOLIOREPORTESIMPRESION = "Sam3_ServiciosTecnicos_GeneraIDReporteImpresion";
+        public static string GUARDAREMBARQUEMARCADO = "Sam3_Embarque_Marcado";
+        public static string GUARDARDEFECTOSVALIDACIONRESULTADOS = "Sam3_ServiciosTecnicos_Guardar_DefectosValidacionResultados";
+        public static string GUARDARVALIDACIONRESULTADOS = "dbo.Sam3_ServiciosTecnicos_Guardar_ValidacionResultados";
     }
 
     public static class ConstantesSteelGo
