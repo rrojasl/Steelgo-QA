@@ -2049,7 +2049,6 @@ namespace BackEndSAM.DataAcces
                             }
 
                         }
-
                     }
 
                     registros = registros.GroupBy(x => x.id).Select(x => x.First()).ToList();
