@@ -424,8 +424,8 @@
             $("#UnidadMedida").data("kendoComboBox").value(2);
 
             $("#PackingList").kendoComboBox({
-                dataTextField: "id",
-                dataValueField: "value",
+                dataTextField: "value",
+                dataValueField: "id",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
                     CargarPackingList(dataItem.id);

@@ -3894,8 +3894,8 @@ _dictionary = {
         "en-US": "Packing List"
     },
     "ListadoPackingList0011": {
-        "es-MX": "Folio Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Capture Packing List Folio"
     },
     "ListadoPackingList0012": {
         "es-MX": "Tipo Packing List",
@@ -4296,8 +4296,8 @@ _dictionary = {
         "en-US": "Arrival Folio"
     },
     "ListaMateriales0005": {
-        "es-MX": "Folio Packing List",
-        "en-US": "Packing List Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Capture Packing List Folio"
     },
     "ListaMateriales0006": {
         "es-MX": "Mostrar",
@@ -5151,8 +5151,8 @@ _dictionary = {
         "en-US": "Notice Folio Entry"
     },
     "DashboardDespachoCorte0006": {
-        "es-MX": "Packing List",
-        "en-US": "Packing List"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "DashboardDespachoCorte0007": {
         "es-MX": "Fecha Inicial",
@@ -6269,8 +6269,8 @@ _dictionary = {
         "en-US": "The folio has authorized customs permission"
     },
     "notificationslabel0017": {
-        "es-MX": "Se termino el proceso de cuantificación",
-        "en-US": "The quantification process finished"
+        "es-MX": "Se termino el proceso de captura packing list.",
+        "en-US": "The capture packing list process finished."
     },
     "notificationslabel0018": {
         "es-MX": "Debes seleccionar sólo un archivo CSV",
@@ -6413,8 +6413,8 @@ _dictionary = {
         "en-US": "Records have been kept."
     },
     "notificationslabel0053": {
-        "es-MX": "El folio cuantificacion no tiene registros para realizar la acción.",
-        "en-US": "Folio quantification has no records to perform the action."
+        "es-MX": "El folio captura packing list no tiene registros para realizar la acción.",
+        "en-US": "Folio capture packing list has no records to perform the action."
     }, 
     "notificationslabel0054": {
         "es-MX": "Favor de seleccionar un Folio de llegada.",
