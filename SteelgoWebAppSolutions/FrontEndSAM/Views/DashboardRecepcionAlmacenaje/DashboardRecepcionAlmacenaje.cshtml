@@ -114,18 +114,18 @@
             <label id="DashboardRecepcionAlmacenaje0011"></label>
             <div class="row">
                 <div class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
-                    <button id="btnEntradaPorCuantificarAccesorios" class="btn btn-tab Accesorios">
+                    @*<button id="btnEntradaPorCuantificarAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardRecepcionAlmacenaje0012"></label>
                         <span id="spanEntradaPorCuantificarAccesorios"></span>
-                    </button>
-                    <button id="btnPLporCuantificarAccesorios" class="btn btn-tab Accesorios">
+                    </button>*@
+                    @*<button id="btnPLporCuantificarAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardRecepcionAlmacenaje0013"></label>
                         <span id="spannPLporCuantificarAccesorios"></span>
-                    </button>
-                    <button id="btnMTLsinICSAccesorios" class="btn btn-tab Accesorios">
+                    </button>*@
+                    @*<button id="btnMTLsinICSAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardRecepcionAlmacenaje0014"></label>
                         <span id="spanMTLsinICSAccesorios"></span>
-                    </button>
+                    </button>*@
                     <button id="btnMTLsinORAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardRecepcionAlmacenaje0015"></label>
                         <span id="spanMTLsinORAccesorios"></span>
@@ -163,18 +163,18 @@
             <label id="DashboardRecepcionAlmacenaje0020"></label>
             <div class="row">
                 <div class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
-                    <button id="btnEntradaPorCuantificarTubos" class="btn btn-tab Tubos">
+                   @* <button id="btnEntradaPorCuantificarTubos" class="btn btn-tab Tubos">
                         <label id="DashboardRecepcionAlmacenaje0021"></label>
                         <span id="spanEntradaPorCuantificarTubos"></span>
-                    </button>
-                    <button id="btnPLporCuantificarTubos" class="btn btn-tab Tubos">
+                    </button>*@
+                    @*<button id="btnPLporCuantificarTubos" class="btn btn-tab Tubos">
                         <label id="DashboardRecepcionAlmacenaje0022"></label>
                         <span id="spannPLporCuantificarTubos"></span>
-                    </button>
-                    <button id="btnMTLsinICSTubos" class="btn btn-tab Tubos">
+                    </button>*@
+                    @*<button id="btnMTLsinICSTubos" class="btn btn-tab Tubos">
                         <label id="DashboardRecepcionAlmacenaje0023"></label>
                         <span id="spanMTLsinICSTubos"></span>
-                    </button>
+                    </button>*@
                     <button id="btnMTLsinORTubos" class="btn btn-tab Tubos">
                         <label id="DashboardRecepcionAlmacenaje0024"></label>
                         <span id="spanMTLsinORTubos"></span>
@@ -863,6 +863,7 @@
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("1");
+                            $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
@@ -870,6 +871,7 @@
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("1");
+                            $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
@@ -877,6 +879,7 @@
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("1");
+                            $("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
                             break;
                     };
                 };
@@ -957,6 +960,8 @@
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("2");
+                            $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
+                            $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
@@ -964,6 +969,8 @@
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("2");
+                            $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
+                            $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
@@ -971,6 +978,8 @@
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("2");
+                            $("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
+                            $("#LevantarIncidenciaPackingListGeneral").removeClass("hidden");
                             break;
                     };
                 };
@@ -1034,6 +1043,7 @@
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("3");
+                            $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
@@ -1041,6 +1051,7 @@
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("3");
+                            $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
@@ -1048,6 +1059,7 @@
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("3");
+                            $("#LevantarIncidenciaPackingListGeneral").removeClass("hidden");
                             break;
                     };
                 };
@@ -1108,6 +1120,7 @@
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("5");
+                            $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
@@ -1115,6 +1128,7 @@
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("5");
+                            $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
@@ -1122,6 +1136,7 @@
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("5");
+                            $("#LevantarIncidenciaOrdenRecepcionGeneral").removeClass("hidden");
                             break;
                     };
                 };
@@ -1177,6 +1192,7 @@
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("7");
+                            $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
@@ -1184,6 +1200,7 @@
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("7");
+                            $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
@@ -1191,6 +1208,7 @@
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("7");
+                            $("#LevantarIncidenciaOrdenRecepcionGeneral").removeClass("hidden");
                             break;
                     };
                 };
@@ -1204,9 +1222,9 @@
                 schema: {
                     model: {
                         fields: {
-                            NumeroUnicoID: { type: "string" },
                             NumeroUnico: { type: "string" },
                             CantidadIncidenciasAbiertas: { type: "number" },
+                            NumeroUnicoID: { type: "string" },
                         }
                     }
                 },
@@ -1222,7 +1240,7 @@
             var columnas =
            [
                { field: "NumeroUnico", title: _dictionary.DashboardRecepcionAlmacenaje0045[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               { field: "CantidadIncidencias", title: _dictionary.DashboardRecepcionAlmacenaje0046[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "CantidadIncidenciasAbiertas", title: _dictionary.DashboardRecepcionAlmacenaje0046[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarIncidenciasAbiertas }, title: " ", width: "99px" }
                { field: "NumeroUnicoID", title: _dictionary.DashboardRecepcionAlmacenaje0053[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
            ];
@@ -1248,6 +1266,7 @@
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("8");
+                            $("#LevantarIncidenciaNumeroUnicoTubos").removeClass("hidden");
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
@@ -1255,6 +1274,7 @@
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("8");
+                            $("#LevantarIncidenciaNumeroUnicoAccesorios").removeClass("hidden");
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
@@ -1262,6 +1282,7 @@
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("8");
+                            $("#LevantarIncidenciaNumeroUnicoGeneral").removeClass("hidden");
                             break;
                     };
                 };
@@ -1294,53 +1315,56 @@
 
         function AccionesListado(accion, tipomaterial) {
             //loadingStart();
-            OcultarOpcionesMenuGeneral();
-            OcultarOpcionesMenuAccesorios();
-            OcultarOpcionesMenuTubos();
+            switch (tipomaterial) {
+                case 1:
+                    OcultarOpcionesMenuTubos();
+                    break;
+                case 2:
+                    OcultarOpcionesMenuAccesorios();
+                    break;
+                case 3:
+                    OcultarOpcionesMenuGeneral();
+                    break;
+            };
+           
             switch (accion) {
                 case "1":
-                    $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
+                    //$("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
+                    //$("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
                     EntradaPorCuantificar(tipomaterial);
                     break;
                 case "2":
-                    $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
-                    $("#LevantarIncidenciaPackingListGeneral").removeClass("hidden");
+                    //$("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
+                    //$("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
                     PLporCuantificar(tipomaterial);
                     break;
                 case "3":
-                    $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaPackingListGeneral").removeClass("hidden");
+                    //$("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
                     MTLsinICS(tipomaterial);
                     break;
                 case "4":
                     MTLsinOR(tipomaterial);
                     break;
                 case "5":
-                    $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaOrdenRecepcionGeneral").removeClass("hidden");
+                    //$("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
                     NUporRecepcionar(tipomaterial);
                     break;
                 case "6":
                     NUsinOA(tipomaterial);
                     break;
                 case "7":
-                    $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaOrdenRecepcionGeneral").removeClass("hidden");
+                    //$("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
                     NUsinAlmacenar(tipomaterial);
                     break;
                 case "8":
-                    $("#LevantarIncidenciaNumeroUnicoTubos").removeClass("hidden");
-                    $("#LevantarIncidenciaNumeroUnicoAccesorios").removeClass("hidden");
-                    $("#LevantarIncidenciaNumeroUnicoGeneral").removeClass("hidden");
+                    //$("#LevantarIncidenciaNumeroUnicoTubos").removeClass("hidden");
+                    //$("#LevantarIncidenciaNumeroUnicoAccesorios").removeClass("hidden");
                     IncidenciasAbiertas(tipomaterial);
                     break;
             }
