@@ -4856,7 +4856,99 @@ _dictionary = {
     "es-MX": "Selecciona el area",
     "en-US": "Select an area"
 },
-//#endregion
+    //#endregion
+
+    //#region ValidacionResultados
+    "ValidacionResultadosMensajeCampoRequisicionVacio": {
+        "es-MX": "Ingrese la requisicion",
+        "en-US": "Enter the requisition"
+    },
+    "ValidacionResultadosMensajeGuardado": {
+        "es-MX": "Datos guardados correctamente",
+        "en-US": "Save data correctly"
+    },
+    "ValidacionResultadosMensajeEliminarDefecto": {
+        "es-MX": "Esta seguro de eliminar el defecto",
+        "en-US": "Are you sure want to delete the defect"
+    },
+    "ValidacionResultadosMensajeNoHayDatos": {
+        "es-MX": "No hay datos para la requisicion",
+        "en-US": "No data fot the requisition"
+    },
+    "ValidacionResultadosCabeceraDatosJunta": {
+        "es-MX": "Datos Junta",
+        "en-US": "Joint Data"
+    },
+    "ValidacionResultadosCabeceraDefectos": {
+        "es-MX": "Defectos",
+        "en-US": "Defects"
+    },
+    "ValidacionResultadosCabeceraUbicacion": {
+        "es-MX": "Ubicacion",
+        "en-US": "Location"
+    },
+    "ValidacionResultadosCabeceraConciliacion": {
+        "es-MX": "Conciliacion",
+        "en-US": "Conciliation"
+    },
+    "ValidacionResultadosCabeceraRazonesRechazo": {
+        "es-MX": "Razones de rechazo",
+        "en-US": "Reasons for rejection"
+    },
+    "ValidacionResultadosCabeceraComentario": {
+        "es-MX": "Comentario",
+        "en-US": "Comment"
+    },
+    "ValidacionResultadosCabeceraAccion": {
+        "es-MX": "Accion",
+        "en-US": "Action"
+    },
+    "ValidacionResultadosVerOpciones": {
+        "es-MX": "Ver opciones",
+        "en-US": "See options"
+    },
+    "ValidacionResultadosRequisicion": {
+        "es-MX": "Requisicion",
+        "en-US": "Requisition"
+    },
+    "ValidacionResultadosBtnVer": {
+        "es-MX": "Ver",
+        "en-US": "Show"
+    },
+    "ValidacionResultadosBtnImprimirResultados": {
+        "es-MX": "Imprimir Resultados",
+        "en-US": "Print results"
+    },
+    "ValidacionResultadosEnlaceEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "ValidacionResultadosCabeceraDefecto": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
+    "ValidacionResultadosCabeceraInicio": {
+        "es-MX": "Inicio",
+        "en-US": "Start"
+    },
+    "ValidacionResultadosCabeceraFin": {
+        "es-MX": "Fin",
+        "en-US": "End"
+    },
+    "ValidacionResultadosComboAceptado": {
+        "es-MX": "Aceptado",
+        "en-US": "Accept"
+    },
+    "ValidacionResultadosComboRechazado": {
+        "es-MX": "Rechazado",
+        "en-US": "Reject"
+    },
+    "ValidacionResultadosSpoolJunta": {
+        "es-MX": "Spool Junta: ",
+        "en-US": "Joint Spool: "
+    },
+    //#endregion
+
 
 };
 

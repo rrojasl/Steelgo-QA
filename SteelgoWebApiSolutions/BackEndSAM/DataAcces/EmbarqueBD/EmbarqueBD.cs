@@ -49,13 +49,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerTractos(int transportistaID)
+        public object ObtenerPlanasGuardadas(int embarqueID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Placa_Result> result = ctx.Sam3_Steelgo_Get_Placa("Tracto",transportistaID).ToList();
+                    List<Sam3_Embarque_Get_EmbarqueDetalle_Result > result = ctx.Sam3_Embarque_Get_EmbarqueDetalle(embarqueID, lenguaje).ToList();
                     return result;
                 }
             }
@@ -71,13 +71,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerChoferes()
+        public object ObtenerPlacas(int transportistaID, string plana)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Chofer_Result> result = ctx.Sam3_Steelgo_Get_Chofer().ToList();
+                    List<Sam3_Steelgo_Get_Placa_Result> result = ctx.Sam3_Steelgo_Get_Placa(plana,transportistaID).ToList();
                     return result;
                 }
             }
@@ -93,13 +93,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerPlanas(int transportistaID)
+        public object ObtenerChoferes(int vehiculoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Placa_Result> result = ctx.Sam3_Steelgo_Get_Placa("Plana", transportistaID).ToList();
+                    List<Sam3_Steelgo_Get_ChoferPorVehiculo_Result> result = ctx.Sam3_Steelgo_Get_ChoferPorVehiculo(vehiculoID).ToList();
                     return result;
                 }
             }
@@ -114,5 +114,6 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
                 return result;
             }
         }
+        
     }
 }
