@@ -59,6 +59,57 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <label id="DashboardRecepcionAlmacenaje0068"></label>
+            <div class="row">
+                <div class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+                    <button id="btnEntradaPorCuantificarGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0060"></label>
+                        <span id="spanEntradaPorCuantificarGeneral"></span>
+                    </button>
+                    <button id="btnPLporCuantificarGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0061"></label>
+                        <span id="spannPLporCuantificarGeneral"></span>
+                    </button>
+                    <button id="btnMTLsinICSGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0062"></label>
+                        <span id="spanMTLsinICSGeneral"></span>
+                    </button>
+                    <button id="btnMTLsinORGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0063"></label>
+                        <span id="spanMTLsinORGeneral"></span>
+                    </button>
+                    <button id="btnNUporRecepcionarGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0064"></label>
+                        <span id="spanNUporRecepcionarGeneral"></span>
+                    </button>
+                    <button id="btnNUsinOAGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0065"></label>
+                        <span id="spanNUsinOAGeneral"></span>
+                    </button>
+                    <button id="btnNUsinAlmacenarGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0066"></label>
+                        <span id="spanNUsinAlmacenarGeneral"></span>
+                    </button>
+                    <button id="btnIncidenciasAbiertasGeneral" class="btn btn-tab General">
+                        <label id="DashboardRecepcionAlmacenaje0067"></label>
+                        <span id="spanIncidenciasAbiertasGeneral"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="divGeneral" class="hidden grid">
+                 <div class="row">
+                        <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                    </div>
+                <div id="gridGeneral" ></div>
+            </div>
+        </div>
+
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <label id="DashboardRecepcionAlmacenaje0011"></label>
             <div class="row">
@@ -172,11 +223,20 @@
         <li id="LevantarIncidenciaOrdenRecepcionTubos"><span id="DashboardRecepcionAlmacenaje0057"></span></li>
         <li id="LevantarIncidenciaNumeroUnicoTubos"><span id="DashboardRecepcionAlmacenaje0058"></span></li>
     </ul>
+
+    <ul id="menuGeneral" class="incidencia" >
+        <li id="LevantarIncidenciaFolioAvisoEntradaGeneral"><span id="DashboardRecepcionAlmacenaje0069"></span></li>
+        <li id="LevantarIncidenciaPackingListGeneral"><span id="DashboardRecepcionAlmacenaje0070"></span></li>
+        <li id="LevantarIncidenciaOrdenRecepcionGeneral"><span id="DashboardRecepcionAlmacenaje0071"></span></li>
+        <li id="LevantarIncidenciaNumeroUnicoGeneral"><span id="DashboardRecepcionAlmacenaje0072"></span></li>
+    </ul>
 </div>
 
 
 <input id="hdAccionFiltradoTubos" type="hidden" />
 <input id="hdAccionFiltradoAccesorios" type="hidden" />
+<input id="hdAccionFiltradoGeneral" type="hidden" />
+
 <script>
     @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
@@ -203,23 +263,28 @@
 
     @section JavascriptGlobalFunctions {
         
-        function changeLanguageCall() {
-            var tmpT = removeGrid($("#gridTubos"));
-            var tmpA = removeGrid($("#gridAccesorios"));
-            CargarGridTubos();
-            CargarGridAccesorios();
-            createPeriodoTiempo();
-            $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
-            $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
-            Filtros();
-        };
+    function changeLanguageCall() {
+        var tmpT = removeGrid($("#gridTubos"));
+        var tmpA = removeGrid($("#gridAccesorios"));
+        var tmpG = removeGrid($("#gridGeneral"));
+
+        CargarGridGeneral();
+        CargarGridTubos();
+        CargarGridAccesorios();
+        createPeriodoTiempo();
+        $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
+        $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
+        $("#gridGeneral").data("kendoGrid").dataSource.data(tmpG);
+        Filtros();
+    };
+
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaInicial.setOptions(datePickerOptions);
         FechaFinal.setOptions(datePickerOptions);
     };
 
     function CargaInicial() {
-        $("#Nuevo").click(function () {
+            $("#Nuevo").click(function () {
             var url = "@Url.Action("Cuantificacion", "Cuantificacion")";
                 window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
@@ -245,6 +310,16 @@
             $("#btnNUsinAlmacenarTubos").click(function () { MostrarGrid(1); tabActivoTubos("7"); AccionesListado("7", 1); });
             $("#btnIncidenciasAbiertasTubos").click(function () { MostrarGrid(1); tabActivoTubos("8"); AccionesListado("8", 1); });
 
+
+            //General
+            $("#btnEntradaPorCuantificarGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("1"); AccionesListado("1", 3); });
+            $("#btnPLporCuantificarGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("2"); AccionesListado("2", 3); });
+            $("#btnMTLsinICSGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("3"); AccionesListado("3", 3); });
+            $("#btnMTLsinORGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("4"); AccionesListado("4", 3); });
+            $("#btnNUporRecepcionarGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("5"); AccionesListado("5", 3); });
+            $("#btnNUsinOAGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("6"); AccionesListado("6", 3); });
+            $("#btnNUsinAlmacenarGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("7"); AccionesListado("7", 3); });
+            $("#btnIncidenciasAbiertasGeneral").click(function () { MostrarGrid(3); tabActivoGeneral("8"); AccionesListado("8", 3); });
 
             $("#ProyectoID").kendoComboBox({
                 dataTextField: "Nombre",
@@ -352,17 +427,76 @@
             });
 
             ObtenerFechasporDefecto();
-            CantidadesDelMenuDashboardTubos();
-            CantidadesDelMenuDashboardAccesorios();
+            //CantidadesDelMenuDashboardTubos();
+            //CantidadesDelMenuDashboardAccesorios();
+            //CorrerProcesosCantidadesTubosAccesorios();
         };
 
     
 
+    function CargarGridGeneral(dataSource, columnas) {
+        if ($("#gridGeneral").data("kendoGrid"))
+            removeGrid($("#gridGeneral"));
+
+        $("#gridGeneral").kendoGrid({
+            dataSource: dataSource,
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            selectable: true,
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            columns: columnas,
+            dataBound: function (e) {
+                //$(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                checkTH($("#gridGeneral").data("kendoGrid"));
+                quickHeadFilter($("#gridGeneral").data("kendoGrid"));
+                stringifyDate(this);
+            }
+        });
+
+        $("#divTubos .row .clearfix").empty();
+
+        $("#gridGeneral").data("kendoGrid").refresh();
+        $("#menuGeneral").kendoContextMenu({
+            target: "#gridGeneral",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#gridGeneral").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+
+                if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaGeneral") {
+                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
+                };
+
+                if (e.item.id == "LevantarIncidenciaPackingListGeneral") {
+                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
+                };
+
+                if (e.item.id == "LevantarIncidenciaOrdenRecepcionGeneral") {
+                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
+                };
+
+                if (e.item.id == "LevantarIncidenciaNumeroUnicoGeneral") {
+                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+                };
+            }
+        });
+
+    };
+
         function CargarGridTubos(dataSource, columnas) {
             if ($("#gridTubos").data("kendoGrid"))
                 removeGrid($("#gridTubos"));
-           
-          
 
             $("#gridTubos").kendoGrid({
                 dataSource: dataSource,
@@ -587,13 +721,31 @@
 
             });
         };
+
+        function ObtenerAccionesListadoGeneral(Listado) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+                Error(result);
+
+                $("#spanEntradaPorCuantificarGeneral").html(result.EntradaPorCuantificar ? result.EntradaPorCuantificar : 0);
+                $("#spannPLporCuantificarGeneral").html(result.PLPorCuantificar ? result.PLPorCuantificar : 0);
+                $("#spanMTLsinICSGeneral").html(result.MTLSinICS ? result.MTLSinICS : 0);
+                $("#spanMTLsinORGeneral").html(result.MTLSinOrdenRecepcion ? result.MTLSinOrdenRecepcion : 0);
+                $("#spanNUporRecepcionarGeneral").html(result.NUPorRecepcionar ? result.NUPorRecepcionar : 0);
+                $("#spanNUsinOAGeneral").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
+                $("#spanNUsinAlmacenarGeneral").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
+                $("#spanIncidenciasAbiertasGeneral").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
+
+            });
+        };
         function Filtros() {
             var Listado;
             var accionTubos = $("#hdAccionFiltradoTubos").val() ? $("#hdAccionFiltradoTubos").val() : "1";
             var accionAccesorios = $("#hdAccionFiltradoAccesorios").val() ? $("#hdAccionFiltradoAccesorios").val() : "1";
+            var accionGeneral = $("#hdAccionFiltradoGeneral").val() ? $("#hdAccionFiltradoGeneral").val() : "1";
 
             AccionesListado(accionTubos, 1);
             AccionesListado(accionAccesorios, 2);
+            AccionesListado(accionGeneral, 3);
         };
 
         function ArregloListado(tipolistado, tipomaterial) {
@@ -650,6 +802,19 @@
             };
         };
 
+        function CargaDatosGridGeneral() {
+            if ($("#gridGeneral").data("kendoGrid")) {
+                if (resultadoJson.length > 0) {
+                    $("#gridGeneral").data("kendoGrid").dataSource.data(resultadoJson);
+                    $("#gridGeneral").data("kendoGrid").dataSource.page(1);
+                } else {
+                    $("#gridGeneral").data("kendoGrid").dataSource.data([]);
+                    $("#gridGeneral").data("kendoGrid").dataSource.page(0);
+                };
+                //applySecurityPolicy(false);
+            };
+        };
+
         function DefinicionModeloEntradaPorCuantificar() {
             var dataSource = new kendo.data.DataSource({
                 data: resultadoJson,
@@ -691,23 +856,29 @@
                     var dataSource = DefinicionModeloEntradaPorCuantificar();
                     var columnas = DefinicionColumnasEntradasPorCuantificar();
 
-                    if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
-                        CantidadesDelMenuDashboardTubos();
-                        CargaDatosGridTubos();
-                        bindeareventogrid("#gridTubos");
-                        //$("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
-                        $("#hdAccionFiltradoTubos").val("1");
-                    } else {
-                        CargarGridAccesorios(dataSource, columnas);
-                        CantidadesDelMenuDashboardAccesorios();
-                        CargaDatosGridAccesorios();
-                        bindeareventogrid("#gridAccesorios");
-                        //$("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
-                        $("#hdAccionFiltradoAccesorios").val("1");
+                    switch (tipomaterial) {
+                        case 1:
+                            CargarGridTubos(dataSource, columnas);
+                            CantidadesDelMenuDashboardTubos();
+                            CargaDatosGridTubos();
+                            bindeareventogrid("#gridTubos");
+                            $("#hdAccionFiltradoTubos").val("1");
+                            break;
+                        case 2:
+                            CargarGridAccesorios(dataSource, columnas);
+                            CantidadesDelMenuDashboardAccesorios();
+                            CargaDatosGridAccesorios();
+                            bindeareventogrid("#gridAccesorios");
+                            $("#hdAccionFiltradoAccesorios").val("1");
+                            break;
+                        case 3:
+                            CargarGridGeneral(dataSource, columnas);
+                            CantidadesDelMenuDashboardGeneral();
+                            CargaDatosGridGeneral();
+                            bindeareventogrid("#gridGeneral");
+                            $("#hdAccionFiltradoGeneral").val("1");
+                            break;
                     };
-
-
                 };
                 //loadingStop();
             });
@@ -779,21 +950,29 @@
                     var dataSource = DefinicionModeloPLporCuantificar();
                     var columnas = DefinicionColumnasPLporCuantificar();
 
-                    if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
-                        CantidadesDelMenuDashboardTubos();
-                        CargaDatosGridTubos();
-                        bindeareventogrid("#gridTubos");
-                        $("#hdAccionFiltradoTubos").val("2");
-                    } else {
-                        CargarGridAccesorios(dataSource, columnas);
-                        CantidadesDelMenuDashboardAccesorios();
-                        CargaDatosGridAccesorios();
-                        bindeareventogrid("#gridAccesorios");
-                        $("#hdAccionFiltradoAccesorios").val("2");
+                    switch (tipomaterial) {
+                        case 1:
+                            CargarGridTubos(dataSource, columnas);
+                            CantidadesDelMenuDashboardTubos();
+                            CargaDatosGridTubos();
+                            bindeareventogrid("#gridTubos");
+                            $("#hdAccionFiltradoTubos").val("2");
+                            break;
+                        case 2:
+                            CargarGridAccesorios(dataSource, columnas);
+                            CantidadesDelMenuDashboardAccesorios();
+                            CargaDatosGridAccesorios();
+                            bindeareventogrid("#gridAccesorios");
+                            $("#hdAccionFiltradoAccesorios").val("2");
+                            break;
+                        case 3:
+                            CargarGridGeneral(dataSource, columnas);
+                            CantidadesDelMenuDashboardGeneral();
+                            CargaDatosGridGeneral();
+                            bindeareventogrid("#gridGeneral");
+                            $("#hdAccionFiltradoGeneral").val("2");
+                            break;
                     };
-
-
                 };
                 //loadingStop();
             });
@@ -848,18 +1027,28 @@
                     var dataSource = DefinicionModeloMTLsinICS();
                     var columnas = DefinicionColumnasMTLsinICS();
 
-                    if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
-                        CantidadesDelMenuDashboardTubos();
-                        CargaDatosGridTubos();
-                        bindeareventogrid("#gridTubos");
-                        $("#hdAccionFiltradoTubos").val("3");
-                    } else {
-                        CargarGridAccesorios(dataSource, columnas);
-                        CantidadesDelMenuDashboardAccesorios();
-                        CargaDatosGridAccesorios();
-                        bindeareventogrid("#gridAccesorios");
-                        $("#hdAccionFiltradoAccesorios").val("3");
+                    switch (tipomaterial) {
+                        case 1:
+                            CargarGridTubos(dataSource, columnas);
+                            CantidadesDelMenuDashboardTubos();
+                            CargaDatosGridTubos();
+                            bindeareventogrid("#gridTubos");
+                            $("#hdAccionFiltradoTubos").val("3");
+                            break;
+                        case 2:
+                            CargarGridAccesorios(dataSource, columnas);
+                            CantidadesDelMenuDashboardAccesorios();
+                            CargaDatosGridAccesorios();
+                            bindeareventogrid("#gridAccesorios");
+                            $("#hdAccionFiltradoAccesorios").val("3");
+                            break;
+                        case 3:
+                            CargarGridGeneral(dataSource, columnas);
+                            CantidadesDelMenuDashboardGeneral();
+                            CargaDatosGridGeneral();
+                            bindeareventogrid("#gridGeneral");
+                            $("#hdAccionFiltradoGeneral").val("3");
+                            break;
                     };
                 };
                 //loadingStop();
@@ -912,18 +1101,28 @@
                     var dataSource = DefinicionModeloNUporRecepcionar();
                     var columnas = DefinicionColumnasNUporRecepcionar();
 
-                    if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
-                        CantidadesDelMenuDashboardTubos();
-                        CargaDatosGridTubos();
-                        bindeareventogrid("#gridTubos");
-                        $("#hdAccionFiltradoTubos").val("5");
-                    } else {
-                        CargarGridAccesorios(dataSource, columnas);
-                        CantidadesDelMenuDashboardAccesorios();
-                        CargaDatosGridAccesorios();
-                        bindeareventogrid("#gridAccesorios");
-                        $("#hdAccionFiltradoAccesorios").val("5");
+                    switch (tipomaterial) {
+                        case 1:
+                            CargarGridTubos(dataSource, columnas);
+                            CantidadesDelMenuDashboardTubos();
+                            CargaDatosGridTubos();
+                            bindeareventogrid("#gridTubos");
+                            $("#hdAccionFiltradoTubos").val("5");
+                            break;
+                        case 2:
+                            CargarGridAccesorios(dataSource, columnas);
+                            CantidadesDelMenuDashboardAccesorios();
+                            CargaDatosGridAccesorios();
+                            bindeareventogrid("#gridAccesorios");
+                            $("#hdAccionFiltradoAccesorios").val("5");
+                            break;
+                        case 3:
+                            CargarGridGeneral(dataSource, columnas);
+                            CantidadesDelMenuDashboardGeneral();
+                            CargaDatosGridGeneral();
+                            bindeareventogrid("#gridGeneral");
+                            $("#hdAccionFiltradoGeneral").val("5");
+                            break;
                     };
                 };
                 //loadingStop();
@@ -971,18 +1170,28 @@
                     var dataSource = DefinicionModeloNUsinAlmacenar();
                     var columnas = DefinicionColumnasNUsinAlmacenar();
 
-                    if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
-                        CantidadesDelMenuDashboardTubos();
-                        CargaDatosGridTubos();
-                        bindeareventogrid("#gridTubos");
-                        $("#hdAccionFiltradoTubos").val("7");
-                    } else {
-                        CargarGridAccesorios(dataSource, columnas);
-                        CantidadesDelMenuDashboardAccesorios();
-                        CargaDatosGridAccesorios();
-                        bindeareventogrid("#gridAccesorios");
-                        $("#hdAccionFiltradoAccesorios").val("7");
+                    switch (tipomaterial) {
+                        case 1:
+                            CargarGridTubos(dataSource, columnas);
+                            CantidadesDelMenuDashboardTubos();
+                            CargaDatosGridTubos();
+                            bindeareventogrid("#gridTubos");
+                            $("#hdAccionFiltradoTubos").val("7");
+                            break;
+                        case 2:
+                            CargarGridAccesorios(dataSource, columnas);
+                            CantidadesDelMenuDashboardAccesorios();
+                            CargaDatosGridAccesorios();
+                            bindeareventogrid("#gridAccesorios");
+                            $("#hdAccionFiltradoAccesorios").val("7");
+                            break;
+                        case 3:
+                            CargarGridGeneral(dataSource, columnas);
+                            CantidadesDelMenuDashboardGeneral();
+                            CargaDatosGridGeneral();
+                            bindeareventogrid("#gridGeneral");
+                            $("#hdAccionFiltradoGeneral").val("7");
+                            break;
                     };
                 };
                 //loadingStop();
@@ -1032,18 +1241,28 @@
                     var dataSource = DefinicionModeloIncidenciasAbiertas();
                     var columnas = DefinicionColumnasIncidenciasAbiertas();
 
-                    if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
-                        CantidadesDelMenuDashboardTubos();
-                        CargaDatosGridTubos();
-                        bindeareventogrid("#gridTubos");
-                        $("#hdAccionFiltradoTubos").val("8");
-                    } else {
-                        CargarGridAccesorios(dataSource, columnas);
-                        CantidadesDelMenuDashboardAccesorios();
-                        CargaDatosGridAccesorios();
-                        bindeareventogrid("#gridAccesorios");
-                        $("#hdAccionFiltradoAccesorios").val("8");
+                    switch (tipomaterial) {
+                        case 1:
+                            CargarGridTubos(dataSource, columnas);
+                            CantidadesDelMenuDashboardTubos();
+                            CargaDatosGridTubos();
+                            bindeareventogrid("#gridTubos");
+                            $("#hdAccionFiltradoTubos").val("8");
+                            break;
+                        case 2:
+                            CargarGridAccesorios(dataSource, columnas);
+                            CantidadesDelMenuDashboardAccesorios();
+                            CargaDatosGridAccesorios();
+                            bindeareventogrid("#gridAccesorios");
+                            $("#hdAccionFiltradoAccesorios").val("8");
+                            break;
+                        case 3:
+                            CargarGridGeneral(dataSource, columnas);
+                            CantidadesDelMenuDashboardGeneral();
+                            CargaDatosGridGeneral();
+                            bindeareventogrid("#gridGeneral");
+                            $("#hdAccionFiltradoGeneral").val("8");
+                            break;
                     };
                 };
                 //loadingStop();
@@ -1060,21 +1279,29 @@
         };
 
         function MostrarGrid(tipomaterial) {
-            if (tipomaterial == 1) {
-                $("#divTubos").removeClass("hidden");
-            } else {
-                $("#divAccesorios").removeClass("hidden");
+            switch (tipomaterial) {
+                case 1:
+                    $("#divTubos").removeClass("hidden");
+                    break;
+                case 2:
+                    $("#divAccesorios").removeClass("hidden");
+                    break;
+                case 3:
+                    $("#divGeneral").removeClass("hidden");
+                    break;
             };
         };
 
         function AccionesListado(accion, tipomaterial) {
             //loadingStart();
+            OcultarOpcionesMenuGeneral();
             OcultarOpcionesMenuAccesorios();
             OcultarOpcionesMenuTubos();
             switch (accion) {
                 case "1":
                     $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
                     $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
                     EntradaPorCuantificar(tipomaterial);
                     break;
                 case "2":
@@ -1082,32 +1309,38 @@
                     $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
                     $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
                     $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaFolioAvisoEntradaGeneral").removeClass("hidden");
+                    $("#LevantarIncidenciaPackingListGeneral").removeClass("hidden");
                     PLporCuantificar(tipomaterial);
                     break;
                 case "3":
                     $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
                     $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaPackingListGeneral").removeClass("hidden");
                     MTLsinICS(tipomaterial);
                     break;
                 case "4":
-                    MTLsinOR(tipomaterial);//PENDIENTE
+                    MTLsinOR(tipomaterial);
                     break;
                 case "5":
                     $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
                     $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaOrdenRecepcionGeneral").removeClass("hidden");
                     NUporRecepcionar(tipomaterial);
                     break;
                 case "6":
-                    NUsinOA(tipomaterial);//PENDIENTE
+                    NUsinOA(tipomaterial);
                     break;
                 case "7":
                     $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
                     $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaOrdenRecepcionGeneral").removeClass("hidden");
                     NUsinAlmacenar(tipomaterial);
                     break;
                 case "8":
                     $("#LevantarIncidenciaNumeroUnicoTubos").removeClass("hidden");
                     $("#LevantarIncidenciaNumeroUnicoAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaNumeroUnicoGeneral").removeClass("hidden");
                     IncidenciasAbiertas(tipomaterial);
                     break;
             }
@@ -1125,6 +1358,46 @@
             $("#LevantarIncidenciaPackingListTubos").addClass("hidden");
             $("#LevantarIncidenciaOrdenRecepcionTubos").addClass("hidden");
             $("#LevantarIncidenciaNumeroUnicoTubos").addClass("hidden");
+        };
+
+        function OcultarOpcionesMenuGeneral() {
+            $("#LevantarIncidenciaFolioAvisoEntradaGeneral").addClass("hidden");
+            $("#LevantarIncidenciaPackingListGeneral").addClass("hidden");
+            $("#LevantarIncidenciaOrdenRecepcionGeneral").addClass("hidden");
+            $("#LevantarIncidenciaNumeroUnicoGeneral").addClass("hidden");
+        };
+
+        function tabActivoGeneral(AccionListado) {
+            $(".btn-tab.General").removeClass("active");
+            switch (AccionListado) {
+                case "1":
+                    $("#btnEntradaPorCuantificarGeneral").addClass("active");
+                    break;
+                case "2":
+                    $("#btnPLporCuantificarGeneral").addClass("active");
+                    break;
+                case "3":
+                    $("#btnMTLsinICSGeneral").addClass("active");
+                    break;
+                case "4":
+                    $("#btnMTLsinORGeneral").addClass("active");
+                    break;
+                case "5":
+                    $("#btnNUporRecepcionarGeneral").addClass("active");
+                    break;
+                case "6":
+                    $("#btnNUsinOAGeneral").addClass("active");
+                    break;
+                case "7":
+                    $("#btnNUsinAlmacenarGeneral").addClass("active");
+                    break;
+                case "8":
+                    $("#btnIncidenciasAbiertasGeneral").addClass("active");
+                    break;
+                default:
+                    $("#btnEntradaPorCuantificarGeneral").addClass("active");
+                    break;
+            };
         };
 
         function tabActivoTubos(AccionListado) {
@@ -1359,7 +1632,14 @@
                 return true;
             }
         };
-        function CantidadesDelMenuDashboardTubos() {
+
+        function CorrerProcesosCantidadesTubosAccesorios() {
+            var ListadoTubos = ArregloCantidadesTubos();
+            var ListadoAccesorios = ArregloCantidadesAccesorios();
+            ObtenerAccionesListadosTubosAccesorios(ListadoTubos, ListadoAccesorios);
+        };
+
+        function ArregloCantidadesTubos() {
             var Listado;
             Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
 
@@ -1383,11 +1663,11 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 7;
-            //console.log("CantidadesDelMenuDashboardTubos: " + JSON.stringify(Listado));
 
-            ObtenerAccionesListadoTubos(Listado);
+            return Listado;
         };
-        function CantidadesDelMenuDashboardAccesorios() {
+
+        function ArregloCantidadesAccesorios() {
             var Listado;
             Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
 
@@ -1405,17 +1685,92 @@
             Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "-1";
             Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "-1";
             Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
-            Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";;
+            Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";
             Listado.TipoMaterialID = 2;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 7;
+
+            return Listado;
+        };
+
+        function ArregloCantidadesGeneral() {
+            var Listado;
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
+
+            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+            if (d.getFullYear() == "1969") {
+                d = new Date();
+                d.setDate(d.getDate() - 30);
+            }
+            if (d1.getFullYear() == "1969") {
+                d1 = new Date();
+            }
+
+            Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "-1";
+            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "-1";
+            Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+            Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";
+            Listado.TipoMaterialID = 3;
+            Listado.FechaInicial = obtenerFormatoFechaConHora(d);
+            Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
+            Listado.token = Cookies.get("token");
+            Listado.TipoListado = 7;
+
+            return Listado;
+        };
+
+        function ObtenerAccionesListadosTubosAccesorios(ListadoTubos,ListadoAccesorios) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(ListadoTubos) }).done(function (result) {
+                Error(result);
+
+                $("#spanEntradaPorCuantificarTubos").html(result.EntradaPorCuantificar ? result.EntradaPorCuantificar : 0);
+                $("#spannPLporCuantificarTubos").html(result.PLPorCuantificar ? result.PLPorCuantificar : 0);
+                $("#spanMTLsinICSTubos").html(result.MTLSinICS ? result.MTLSinICS : 0);
+                $("#spanMTLsinORTubos").html(result.MTLSinOrdenRecepcion ? result.MTLSinOrdenRecepcion : 0);
+                $("#spanNUporRecepcionarTubos").html(result.NUPorRecepcionar ? result.NUPorRecepcionar : 0);
+                $("#spanNUsinOATubos").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
+                $("#spanNUsinAlmacenarTubos").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
+                $("#spanIncidenciasAbiertasTubos").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
+
+                $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(ListadoAccesorios) }).done(function (result) {
+                    Error(result);
+
+                    $("#spanEntradaPorCuantificarAccesorios").html(result.EntradaPorCuantificar ? result.EntradaPorCuantificar : 0);
+                    $("#spannPLporCuantificarAccesorios").html(result.PLPorCuantificar ? result.PLPorCuantificar : 0);
+                    $("#spanMTLsinICSAccesorios").html(result.MTLSinICS ? result.MTLSinICS : 0);
+                    $("#spanMTLsinORAccesorios").html(result.MTLSinOrdenRecepcion ? result.MTLSinOrdenRecepcion : 0);
+                    $("#spanNUporRecepcionarAccesorios").html(result.NUPorRecepcionar ? result.NUPorRecepcionar : 0);
+                    $("#spanNUsinOAAccesorios").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
+                    $("#spanNUsinAlmacenarAccesorios").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
+                    $("#spanIncidenciasAbiertasAccesorios").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
+                });
+
+            });
+        };
+
+        function CantidadesDelMenuDashboardTubos() {
+            var Listado = ArregloCantidadesTubos();
+            //console.log("CantidadesDelMenuDashboardTubos: " + JSON.stringify(Listado));
+
+            ObtenerAccionesListadoTubos(Listado);
+        };
+
+        
+        function CantidadesDelMenuDashboardAccesorios() {
+            var Listado = ArregloCantidadesAccesorios();
             //console.log("CantidadesDelMenuDashboardAccesorios: " + JSON.stringify(Listado));
 
             ObtenerAccionesListadoAccesorios(Listado);
         };
 
+        function CantidadesDelMenuDashboardGeneral() {
+            var Listado = ArregloCantidadesGeneral();
+            ObtenerAccionesListadoGeneral(Listado);
+        };
 
         function obtenerFormatoFechaSinHoras(d) {
             var curr_date = d.getDate();

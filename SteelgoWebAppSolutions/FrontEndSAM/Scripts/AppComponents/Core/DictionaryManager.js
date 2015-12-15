@@ -3495,12 +3495,12 @@ _dictionary = {
         "en-US": "Accessories"
     },
     "DashboardRecepcionAlmacenaje0012": {
-        "es-MX": "Entrada por cuantificar",
-        "en-US": "Entry to quantify"
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
     },
     "DashboardRecepcionAlmacenaje0013": {
-        "es-MX": "PL por cuantificar",
-        "en-US": "PL quantify "
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
     },
     "DashboardRecepcionAlmacenaje0014": {
         "es-MX": "MTL sin ICS",
@@ -3531,12 +3531,12 @@ _dictionary = {
         "en-US": "Tubes"
     },
     "DashboardRecepcionAlmacenaje0021": {
-        "es-MX": "Entrada por cuantificar",
-        "en-US": "Entry to quantify"
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
     },
     "DashboardRecepcionAlmacenaje0022": {
-        "es-MX": "PL por cuantificar",
-        "en-US": "To quantify PL"
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
     },
     "DashboardRecepcionAlmacenaje0023": {
         "es-MX": "MTL sin ICS",
@@ -3686,6 +3686,59 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+
+    "DashboardRecepcionAlmacenaje0060": {
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
+    },
+    "DashboardRecepcionAlmacenaje0061": {
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
+    },
+    "DashboardRecepcionAlmacenaje0062": {
+        "es-MX": "MTL sin ICS",
+        "en-US": "MTL without ICS"
+    },
+    "DashboardRecepcionAlmacenaje0063": {
+        "es-MX": "MTL sin Orden de Recepción",
+        "en-US": "MTL without Reception Order"
+    },
+    "DashboardRecepcionAlmacenaje0064": {
+        "es-MX": "NU por recepcionar",
+        "en-US": "To receive NU"
+    },
+    "DashboardRecepcionAlmacenaje0065": {
+        "es-MX": "NU sin Orden de Almacenaje",
+        "en-US": "Without Nu Order Storage"
+    },
+    "DashboardRecepcionAlmacenaje0066": {
+        "es-MX": "NU sin almacenar",
+        "en-US": "Not Stored Nu"
+    },
+    "DashboardRecepcionAlmacenaje0067": {
+        "es-MX": "Incidencias abiertas",
+        "en-US": "Open issues"
+    },
+    "DashboardRecepcionAlmacenaje0068": {
+        "es-MX": "General",
+        "en-US": "General"
+    },
+    "DashboardRecepcionAlmacenaje0069": {
+        "es-MX": "Levantar Incidencia Aviso Entrada",
+        "en-US": "Fill Notice Entry Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0070": {
+        "es-MX": "Levantar Incidencia Packing List",
+        "en-US": "Fill Packing List Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0071": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0072": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
@@ -3716,12 +3769,12 @@ _dictionary = {
         "en-US": "Time Frame"
     },
     "ListadoRecepcionAlmacenajeTuberia0008": {
-        "es-MX": "Entrada por cuantificar",
-        "en-US": "Entry to quantify"
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
     },
     "ListadoRecepcionAlmacenajeTuberia0009": {
-        "es-MX": "PL por cuantificar",
-        "en-US": "PL quantify "
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
     },
     "ListadoRecepcionAlmacenajeTuberia0010": {
         "es-MX": "MTL sin ICS",
