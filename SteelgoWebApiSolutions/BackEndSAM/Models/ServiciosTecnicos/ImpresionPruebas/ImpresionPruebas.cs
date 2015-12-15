@@ -15,6 +15,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ImpresionPruebas
         public string ReporteID { get; set; }
         public bool Seleccionado { get; set; }
         public string Status { get; set; }
+        public string ReportePath { get; set; }
 
     }
 
