@@ -219,6 +219,9 @@ namespace BackEndSAM.DataAcces
 
                                 item.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
+                            else {
+                                item.FolioConfiguracionCuantificacionID = item.FolioCuantificacionID.ToString();
+                            }
                         }
                     }
 
@@ -362,6 +365,9 @@ namespace BackEndSAM.DataAcces
                             string formato = "D" + digitos.ToString();
 
                             info.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                        else {
+                            info.FolioConfiguracionCuantificacionID = info.FolioCuantificacionID.ToString();
                         }
                     }
                 }
@@ -558,6 +564,9 @@ namespace BackEndSAM.DataAcces
 
                                 item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
+                            else {
+                                item.value = folioCuantificacion.FolioCuantificacionID.ToString();
+                            }
                         }
                     }
                     
@@ -742,6 +751,9 @@ namespace BackEndSAM.DataAcces
                                 string formato = "D" + digitos.ToString();
 
                                 item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
                             }
                         }
                     }

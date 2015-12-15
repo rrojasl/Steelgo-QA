@@ -1956,6 +1956,9 @@ namespace BackEndSAM.DataAcces
 
                                     elemento.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                                 }
+                                else {
+                                    elemento.FolioConfiguracionCuantificacionID = elemento.FolioCuantificacion.ToString();
+                                }
                             }
 
                             listado.Add(elemento);
@@ -2047,9 +2050,11 @@ namespace BackEndSAM.DataAcces
 
                                 item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
+                            else {
+                                item.value = folioCuantificacion.FolioCuantificacionID.ToString();
+                            }
 
                         }
-
                     }
 
                     registros = registros.GroupBy(x => x.id).Select(x => x.First()).ToList();
@@ -2805,6 +2810,9 @@ namespace BackEndSAM.DataAcces
 
                                         item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                                     }
+                                    else {
+                                        item.value = folioCuantificacion.FolioCuantificacionID.ToString();
+                                    }
                                 }
                             }
                             break;
@@ -3087,6 +3095,9 @@ namespace BackEndSAM.DataAcces
                                         string formato = "D" + digitos.ToString();
 
                                         item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                    }
+                                    else {
+                                        item.value = folioCuantificacion.FolioCuantificacionID.ToString();
                                     }
                                 }
                             }

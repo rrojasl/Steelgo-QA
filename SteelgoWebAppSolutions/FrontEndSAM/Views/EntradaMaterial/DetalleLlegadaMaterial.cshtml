@@ -86,6 +86,10 @@
                             <label id="LlegadaMaterial0002"></label>
                             <input id="ProyectoID" />
                         </div>
+                        <div id="IdentificadorClienteDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <label id="LlegadaMaterial0067"></label>
+                            <input id="IdentificadorCliente" class="general-input"/>
+                        </div>
                         <div id="ProveedorIDDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0035"></label>
                             <input id="ProveedorID" class="" />
@@ -193,6 +197,11 @@
                     visible: "#ProyectoIDDiv",
                     editable: "#ProyectoID",
                     required: "#ProyectoID"
+                },
+                identificadorcliente: {
+                    visible: "#IdentificadorClienteDiv",
+                    editable: "#IdentificadorCliente",
+                    required: "#IdentificadorCliente"
                 },
                 proveedor: {
                     visible: "#ProveedorIDDiv",
@@ -589,10 +598,15 @@
                         $("#OrdenDeCompra").val(data.OrdenCompra);
                     };
 
+                    if (data.IdentificadorCliente) {
+                        $("#IdentificadorCliente").val(data.IdentificadorCliente);
+                    };
+
                     if (data.Factura) {
                         $("#Factura").val(data.Factura);
                     };
 
+                  
                     if (data.Proveedor) {
                         CargarProveedor(data.Proveedor.ProveedorID, data.Proveedor.Nombre);
                         $("#ProveedorID").data("kendoComboBox").value(data.Proveedor.Nombre);
@@ -626,6 +640,7 @@
                     $("#PatioIDDiv").hide();
                     $("#hdnOrdenDescargada").val("false");
                     $("#OrdenDeCompra").val("");
+                    $("#IdentificadorCliente").val("");
                     $("#Factura").val("");
                     $("#Descripcion").val("");
                     $("#ProveedorID").data("kendoComboBox").value("");
@@ -741,6 +756,10 @@
 
                     if (data.OrdenCompra) {
                         $("#OrdenDeCompra").val(data.OrdenCompra);
+                    };
+
+                    if (data.IdentificadorCliente) {
+                        $("#IdentificadorCliente").val(data.IdentificadorCliente);
                     };
 
                     if (data.Factura) {
@@ -1012,7 +1031,7 @@
 
         function GuardarLlegadaMaterial(bool) {
             //Arreglo Llegada Material
-            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", Proyectos: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "", ComboEstatus: "" };
+            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", Proyectos: "", ProveedorID: "", OrdenCompra: "", IdentificadorCliente: "", Factura: "", Estatus: "", PatioID: "", Archivos: "", ComboEstatus: "" };
             Documentos = [];
             ProyectoIDs = [];
 
@@ -1038,8 +1057,9 @@
             FolioLlegada.FolioAvisollegadaId = folioAvisoLlegada != -1 ? folioAvisoLlegada : Folio.FolioAvisoLlegadaID;
             FolioLlegada.ClienteId = Cliente.ClienteID;
             FolioLlegada.Proyectos = ProyectoIDs;
-            FolioLlegada.ProveedorID = $("#ProveedorID").data("kendoComboBox").value();
+            FolioLlegada.ProveedorID = Proveedor.ProveedorID;//$("#ProveedorID").data("kendoComboBox").value() ? $("#ProveedorID").data("kendoComboBox").value() : 1;
             FolioLlegada.OrdenCompra = $("#OrdenDeCompra").val();
+            FolioLlegada.IdentificadorCliente = $("#IdentificadorCliente").val();
             FolioLlegada.Factura = $("#Factura").val();
             FolioLlegada.Estatus = $("#hdnOrdenDescargada").val() == "true" ? Estatus.Nombre == _estatusCierreDevolucion ? _estatusCierreDevolucion : _estatusDescargada : Estatus.Nombre;
             FolioLlegada.PatioID = Patio.PatioID;
@@ -1122,7 +1142,7 @@
                             }
                             break;
                         case 'ProveedorID':
-                            if (!$("#ProveedorID").data("kendoComboBox").value()) {
+                            if (!$("#ProveedorID").data("kendoComboBox").value() || $("#ProveedorID").data("kendoComboBox").value() == 1) {
                                 CargarProveedor(1, "");
                             }
                             break;
@@ -1161,6 +1181,7 @@
             $("#ProyectoID").data("kendoMultiSelect").enable();
             $("#ProveedorID").data("kendoComboBox").enable();
             $("#OrdenDeCompra").removeAttr('disabled');
+            $("#IdentificadorCliente").removeAttr('disabled');
             $("#Factura").removeAttr('disabled');
             $("#Estatus").data("kendoComboBox").enable();
             $("#PatioID").data("kendoComboBox").enable();
@@ -1186,6 +1207,7 @@
             $("#ProyectoID").data("kendoMultiSelect").enable(false);
             $("#ProveedorID").data("kendoComboBox").enable(false);
             $("#OrdenDeCompra").attr('disabled', 'disabled');
+            $("#IdentificadorCliente").attr('disabled', 'disabled');
             $("#Factura").attr('disabled', 'disabled');
             $("#Estatus").data("kendoComboBox").enable(false);
             $("#PatioID").data("kendoComboBox").enable(false);

@@ -318,6 +318,7 @@ namespace BackEndSAM.DataAcces
                         detalle.FechaInicioDescarga = registro.FechainicioDescarga;
                         detalle.FolioDescarga = registro.FolioDescarga;
                         detalle.ComboEstatus = registro.ComboEstatus;
+                        detalle.IdentificadorCliente = registro.IdentificadorCliente;
 
                         detalle.Patio = (from p in ctx.Sam3_Patio
                                          where p.Activo && p.PatioID == registro.Sam3_FolioAvisoLlegada.PatioID
@@ -412,6 +413,7 @@ namespace BackEndSAM.DataAcces
                     nuevo.FechaModificacion = DateTime.Now;
                     nuevo.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
                     nuevo.OrdenCompra = json.OrdenCompra;
+                    nuevo.IdentificadorCliente = json.IdentificadorCliente;
                     nuevo.PatioID = (from fa in ctx.Sam3_FolioAvisoLlegada
                                      where fa.Activo && fa.FolioAvisoLlegadaID == json.FolioAvisollegadaId
                                      select fa.PatioID).AsParallel().SingleOrDefault();
@@ -507,6 +509,7 @@ namespace BackEndSAM.DataAcces
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
                         registroBd.OrdenCompra = json.OrdenCompra;
+                        registroBd.IdentificadorCliente = json.IdentificadorCliente;
                         registroBd.PatioID = json.PatioID;
                         registroBd.ProveedorID = json.ProveedorID;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
@@ -785,6 +788,9 @@ namespace BackEndSAM.DataAcces
                                 string formato = "D" + digitos.ToString();
 
                                 item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
                             }
                         }
                     }
