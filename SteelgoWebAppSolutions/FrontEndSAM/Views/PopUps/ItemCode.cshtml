@@ -401,8 +401,8 @@
         //loadingStart();
         ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
-        ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
-        //ItemCode.TipoPackingList = !Todos ? window.parent.TipoPackingList.TipoPackingListID : $("#TipoPackingList_ItemCode").data("kendoComboBox").value();
+        //ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
+        ItemCode.TipoPackingList = !Todos ? window.parent.TipoPackingList.TipoPackingListID : $("#TipoPackingList_ItemCode").data("kendoComboBox").value();
         ItemCode.ColadaID = 1;
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
