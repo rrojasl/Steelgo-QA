@@ -432,6 +432,7 @@
                 if (_detalleBulto != "-1") {
                     idguardado = 5;
                 }
+                
                 if (validarRequeridosFormaCuantificacion()) {
                     if(!ValidarTipoPackingList()){
                         GuardarParcial(false, idguardado);
@@ -932,17 +933,31 @@
 
         function validarRequeridosFormaCuantificacion() {
             var bool = true;
-
-            $("#formCuantificacion .security_required").each(function (i, elem) {
-                if (elem.tagName.toLowerCase() != 'label') {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
+            if (!$("#TipoPackingListDiv").is(":hidden")) {//Si no esta oculto
+                $("#formCuantificacion .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
                     };
-                };
-            });
+                });
+            } else {
+                $("#formCuantificacion .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if ($(elem).attr("id") == "FolioAvisoEntradaID" || $(elem).attr("id") == "ProyectoID" || $(elem).attr("id") == "TipoUsoID") {
+                            if (!$(this).val()) {
+                                bool = false;
+                                $(this).closest("div").find("label").addClass("error");
+                            } else {
+                                $(this).closest("div").find("label").removeClass("error");
+                            };
+                        }
+                    };
+                });
+            };
             return bool;
         };
 

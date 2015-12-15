@@ -3999,8 +3999,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "ComplementoRecepcion0014": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "ComplementoRecepcion0015": {
         "es-MX": "Mostrar",
