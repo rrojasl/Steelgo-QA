@@ -131,7 +131,9 @@ namespace BackEndSAM.DataAcces
                                                                        join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                                                        join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                       where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
+                                                                       join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                                       join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                       where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
                                                                        && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                        && !rfi.TieneNumerosUnicos
                                                                        && rfi.Cantidad > 0
@@ -165,7 +167,9 @@ namespace BackEndSAM.DataAcces
                                                                       join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                      where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
+                                                                      join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                                      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                      where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
                                                                       && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                       && !rbi.TieneNumerosUnicos
                                                                       && rbi.Cantidad > 0
@@ -207,7 +211,9 @@ namespace BackEndSAM.DataAcces
                                                                             join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                                                             join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                                                             join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                            where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
+                                                                            join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                            where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
                                                                             && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                             && !rfi.TieneNumerosUnicos
                                                                             && rfi.Cantidad > 0
@@ -241,7 +247,9 @@ namespace BackEndSAM.DataAcces
                                                                            join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                                                            join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                                                            join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                           where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
+                                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                           where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
                                                                            && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                                            && !rbi.TieneNumerosUnicos
                                                                            && rbi.Cantidad > 0
