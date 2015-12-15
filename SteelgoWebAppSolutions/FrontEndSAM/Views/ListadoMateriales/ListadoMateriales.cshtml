@@ -359,10 +359,10 @@
             dataTextField: "Nombre",
             dataValueField: "PatioID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarPatio(dataItem.PatioID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 var value = this.value();
                 LimpiarCamposPatio();
                 if (!value || this.selectedIndex == -1) {
@@ -381,10 +381,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -395,6 +395,7 @@
                     ObtenerLosFolioAvisoLlegada();
                 };
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -402,10 +403,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioAvisoLlegada(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFolioAvisoLlegada(dataItem.id, dataItem.value);
                 var value = this.value();
                 LimpiarCamposFolioLlegada();
                 if (!value || this.selectedIndex == -1) {
@@ -416,6 +417,7 @@
                     ObtenerLosFolioPackingList();
                 };
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -423,10 +425,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioPackingList(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFolioPackingList(dataItem.id, dataItem.value);
                 var value = this.value();
                 LimpiarCamposFolioPackingList();
                 if (!value || this.selectedIndex == -1) {
@@ -435,6 +437,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 

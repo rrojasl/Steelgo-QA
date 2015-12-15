@@ -325,10 +325,10 @@
                 dataTextField: "Nombre",
                 dataValueField: "ProyectoID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -345,10 +345,10 @@
                 dataTextField: "Nombre",
                 dataValueField: "ClienteID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -365,11 +365,10 @@
                 dataTextField: "value",
                 dataValueField: "id",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarFolioAvisoEntrada(dataItem.id, dataItem.value);
-
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarFolioAvisoEntrada(dataItem.id, dataItem.value);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -386,11 +385,10 @@
                 dataTextField: "id",
                 dataValueField: "value",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarPackingList(dataItem.id);
-
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarPackingList(dataItem.id);
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -672,11 +670,10 @@
                     { "PeriodoID": "5", "Periodo": _dictionary.DashboardLlegadaMaterial0020[$("#language").data("kendoDropDownList").value()] }
                 ],
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-
-                    CargarPeriodoTiempo(dataItem.PeriodoID);
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarPeriodoTiempo(dataItem.PeriodoID);
                     var value = this.value();
 
                     if (!value || this.selectedIndex == -1) {

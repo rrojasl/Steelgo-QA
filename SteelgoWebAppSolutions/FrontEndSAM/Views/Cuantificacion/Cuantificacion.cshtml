@@ -520,6 +520,7 @@
                         }
                     
                     },
+                    dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
             });
             ObtenerFoliosAvisoLlegada();
@@ -547,6 +548,7 @@
                     }
                     //ObtenerColada("Colada", 0, 0);
                 },
+                dataBound: function(e){checkIfOne(this);},
                 filter: "contains",
             });
             
@@ -554,10 +556,11 @@
                 dataTextField: "FolioConfiguracionCuantificacionID",
                 dataValueField: "FolioCuantificacionID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
+                    
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
                     recentlyAdded=false;
                     var dataItem = this.dataItem();
                     var value = this.value();
@@ -570,18 +573,18 @@
                     } else {
                         ObtenerDatosDelFolioAvisoLlegadaCuantificacion(FolioAvisoEntrada.FolioAvisoEntradaID, Cuantificacion.FolioCuantificacionID);// debe de ponerse el folio de llegada de material
                     }
-            },
+                },
+                //dataBound: function(e){checkIfOne(this);},
                 filter: "contains",
             });
 
             $("#TipoPackingListID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "id",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
-                },
+                select: function (e) {},
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
                     recentlyAdded=false;
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -600,6 +603,7 @@
                         ValidarTipoPackingList();
                     };
                 },
+                dataBound: function(e){checkIfOne(this);},
                 filter: "contains",
             });
             //ObtenerTipoPackingListTodos();
@@ -624,6 +628,7 @@
                     };
                 },
                 filter: "contains",
+                dataBound: function(e){checkIfOne(this);},
             });
             ObtenerTipoUso();
 
@@ -2946,13 +2951,13 @@
                             }
                     },
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                         if (dataItem.ColadaID == 0) {
                             VentanaModal(3);
                             e.preventDefault();
                         }
-                    },
-                    change: function (e) {
                         recentlyAdded=false;
                         var value = this.text();
                         if (this.selectedIndex == -1) {

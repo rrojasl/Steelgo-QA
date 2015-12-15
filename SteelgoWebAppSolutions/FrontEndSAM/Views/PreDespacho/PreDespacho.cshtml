@@ -415,12 +415,11 @@
                                }
                            },
                            select: function (e) {
-                               var dataItem = this.dataItem(e.item.index());
-                               lastEditedCellID.NumeroUnico = dataItem.value;
-                               $('#grid').data('kendoGrid').refresh();
                            },
                            change: function (e) {
-
+                               var dataItem = this.dataItem();
+                               lastEditedCellID.NumeroUnico = dataItem.value;
+                               $('#grid').data('kendoGrid').refresh();
                            }
                        });
         lastEditedCellID = options.model;

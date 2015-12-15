@@ -119,10 +119,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 if (!value) {
                     Proyecto = {};
@@ -215,10 +215,10 @@
                 { "PeriodoID": "5", "Periodo": _dictionary.ListadoCorte0012[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarPeriodoTiempo(dataItem.PeriodoID);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarPeriodoTiempo(dataItem.PeriodoID);
                 var value = this.value();
 
                 if (!value) {

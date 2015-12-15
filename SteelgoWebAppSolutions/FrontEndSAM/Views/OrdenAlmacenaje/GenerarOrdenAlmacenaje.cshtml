@@ -180,10 +180,11 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
@@ -197,6 +198,7 @@
                 //CargarDatosGrid();
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
 
         ObtenerProyecto();
@@ -206,10 +208,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFolio(dataItem.id);
                 var value = this.value();
                 limpiarFiltroCuantificacion();
 
@@ -221,8 +224,8 @@
                     ObtenerItemCodes();
                 };
                 //CargarDatosGrid();
-                
             },
+            dataBound: function(e){checkIfOne(this);},
         });
        
         $("#ItemCode").kendoComboBox({
@@ -230,10 +233,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarItemCode(dataItem.id);
                 var value = this.value();
                 limpiarFiltroItemCode();
 
@@ -246,6 +250,7 @@
                 };
                 CargarDatosGrid();
             },
+            dataBound: function(e){checkIfOne(this);},
         });
 
         $("#NumeroUnico").kendoComboBox({
@@ -253,10 +258,11 @@
             dataValueField: "NumeroUnicoID",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarNumeroUnico(dataItem.NumeroUnicoID);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarNumeroUnico(dataItem.NumeroUnicoID);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -265,6 +271,7 @@
                 }
                 CargarDatosGrid();
             },
+            dataBound: function(e){checkIfOne(this);},
         });
 
         $("#Mostrar").click(function () {

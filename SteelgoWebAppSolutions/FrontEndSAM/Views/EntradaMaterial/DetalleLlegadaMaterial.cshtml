@@ -345,11 +345,12 @@
                 dataValueField: "id",
                 filter: "contains",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarFolio(dataItem.id);
-                    CargarDetalleFolio(dataItem.id);
+                    
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarFolio(dataItem.id);
+                    CargarDetalleFolio(dataItem.id);
                     validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -358,6 +359,7 @@
                         this.value("");
                     };
                 },
+                dataBound: function(e){checkIfOne(this);},
             });
             ObtenerFoliosAvisoLlegada();
 
@@ -371,10 +373,11 @@
                 dataTextField: "Nombre",
                 dataValueField: "ClienteID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                    
                 },
                 change: function (e) {
+                    var dataItem = this.dataItem();
+                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                     validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -385,6 +388,7 @@
                         ObtenerProyectos();
                     };
                 },
+                dataBound: function(e){checkIfOne(this);},
                 filter: "contains",
             });
             ObtenerCliente();
@@ -393,14 +397,15 @@
                 dataTextField: "Nombre",
                 dataValueField: "ProveedorID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
+                    
+                },
+                change: function (e) {
+                    var dataItem = this.dataItem();
                     if (dataItem.ProveedorID == 0) {
                         VentanaModal(2);
                         e.preventDefault();
                     }
                     CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-                },
-                change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -409,6 +414,7 @@
                     };
                 },
                 filter: "contains",
+                dataBound: function(e){checkIfOne(this);},
             });
             ObtenerProveedor();
 
@@ -416,14 +422,15 @@
                 dataTextField: "Nombre",
                 dataValueField: "PatioID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
+                    
+                },
+                change: function (e) {
+                    var dataItem = this.dataItem();
                     if (dataItem.PatioID == 0) {
                         VentanaModal(1);
                         e.preventDefault();
                     }
                     CargarPatio(dataItem.PatioID, dataItem.Nombre);
-                },
-                change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -432,6 +439,7 @@
                     };
                 },
                 filter: "contains",
+                dataBound: function(e){checkIfOne(this);},
             });
             ObtenerPatio();
 
@@ -443,7 +451,10 @@
                 dataTextField: "Nombre",
                 dataValueField: "EstatusID",
                 select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
+                    
+                },
+                change: function (e) {
+                    var dataItem = this.dataItem();
                     CargarEstatus(dataItem.EstatusID, dataItem.Nombre);
                     if (dataItem.Nombre == _estatus) {//En Patio
                         $("#PatioIDDiv").show();
@@ -458,8 +469,6 @@
                         Patio = {};
                         //$("#GenerarOrdenDescarga").attr("disabled", "disabled");
                     }
-                },
-                change: function (e) {
                     validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -473,6 +482,7 @@
                     };
                 },
                 filter: "contains",
+                dataBound: function(e){checkIfOne(this);},
             });
 
             $('#AdjuntarArchivos').kendoUpload({

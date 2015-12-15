@@ -375,10 +375,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 limpiarfiltrosProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -396,6 +396,7 @@
                     //ObtenerColada("EdicionColada", 0, 1);
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerProyecto("ProyectoID");
@@ -405,10 +406,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioCuantificacion(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFolioCuantificacion(dataItem.id);
                 var value = this.value();
                 limpiarfiltrosFolioCuantificacion();
                 if (!value || this.selectedIndex == -1) {
@@ -417,6 +418,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -467,6 +469,7 @@
                 }
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
         ObtenerTipoUso();
 
@@ -1695,13 +1698,13 @@
                         serverFiltering: true
                     },
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                         if (dataItem.ColadaID == 0) {
                             VentanaEdicionColada(3);
                             e.preventDefault();
                         }
-                    },
-                    change: function (e) {
                         var value = this.text();
                         lastEditedCellIDSColada.Colada = value;
 
@@ -1736,14 +1739,14 @@
                         serverFiltering: true
                     },
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                        
                         if (dataItem.id == 0) {
                             VentanaModal(2);
                             e.preventDefault();
                         }
-                    },
-                    change: function (e) {
                         var value = this.text();
                         if (this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);

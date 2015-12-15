@@ -474,14 +474,15 @@
                     dataTextField: "Nombre",
                     dataValueField: "PatioID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                        
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                         if (dataItem.PatioID == 0) {
                             VentanaModal(4);
                             e.preventDefault();
                         }
                         CargarPatio(dataItem.PatioID, dataItem.Nombre);
-                    },
-                    change: function (e) {
                         validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         $("#ClienteID").data("kendoComboBox").value("");
@@ -495,6 +496,7 @@
                         ObtenerCliente();
 
                     },
+                    dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
                 });
                 ObtenerPatio();
@@ -503,10 +505,11 @@
                     dataTextField: "Nombre",
                     dataValueField: "ClienteID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                        
                     },
                     change: function (e) {
+                        var dataItem = this.dataItem();
+                        CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                         validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
@@ -517,6 +520,7 @@
                             ObtenerProyectos();
                         };
                     },
+                    dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
                 });
 
@@ -524,10 +528,11 @@
                     dataTextField: "Nombre",
                     dataValueField: "TipoAvisoID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre);
+                        
                     },
                     change: function (e) {
+                        var dataItem = this.dataItem();
+                        CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre);
                         validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
@@ -536,6 +541,7 @@
                             this.value("");
                         };
                     },
+                    dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
                 });
                 ObtenerTipoAviso();
@@ -544,14 +550,15 @@
                     dataTextField: "Nombre",
                     dataValueField: "TransportistaID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                        
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                         if (dataItem.TransportistaID == 0) {
                             VentanaModal(1);
                             e.preventDefault();
                         }
                         CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
-                    },
-                    change: function (e) {
                         var value = this.value();
                         $("#Tracto").data("kendoComboBox").value("");
                         $("#Tracto").data("kendoComboBox").dataSource.data([]);
@@ -575,6 +582,7 @@
                             ObtenerPlanas();
                         };
                     },
+                    dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
                 });
                 ObtenerTransportista();
@@ -598,15 +606,14 @@
                     //dataTextField: "Nombre",
                     //dataValueField: "ChoferID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                         if (dataItem.ChoferID == 0) {
                             VentanaModal(5);
                             e.preventDefault();
                         }
                         CargarChofer(dataItem.ChoferID, dataItem.Nombre);
-
-                    },
-                    change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
@@ -614,6 +621,7 @@
                             this.value("");
                         };
                     },
+                    dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
                 });
                 ObtenerChofer(0);
@@ -631,13 +639,11 @@
                     dataTextField: "Nombre",
                     dataValueField: "TipoArchivoID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        _tipoArchivo = dataItem.Nombre;
-                        CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
-
-
                     },
                     change: function (e) {
+                        var dataItem = this.dataItem();
+                        _tipoArchivo = dataItem.Nombre;
+                        CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
                         if (this.selectedIndex == -1) {
                             this.value("");
                             _tipoArchivo = {};
@@ -701,14 +707,14 @@
                     dataTextField: "Placas",
                     dataValueField: "VehiculoID",
                     select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
+                    },
+                    change: function (e) {
+                        var dataItem = this.dataItem();
                         if (dataItem.VehiculoID == 0) {
                             VentanaModal(6);
                             e.preventDefault();
                         }
                         CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas);
-                    },
-                    change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
@@ -717,6 +723,7 @@
                         };
                     },
                     filter: "contains",
+                    dataBound: function(e){checkIfOne(this);},
                 });
 
                 ObtenerFechaDefault();

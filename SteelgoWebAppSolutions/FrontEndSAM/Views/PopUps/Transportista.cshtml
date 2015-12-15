@@ -116,10 +116,10 @@
             dataTextField: "Nombre",
             dataValueField: "ContactoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarContacto(dataItem.ContactoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarContacto(dataItem.ContactoID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

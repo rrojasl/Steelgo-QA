@@ -586,10 +586,10 @@
             dataTextField: "Nombre",
             dataValueField: "PatioID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarPatio(dataItem.PatioID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 var value = this.value();
                 try{
                     LimpiarCamposPatio();
@@ -623,10 +623,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -647,6 +647,7 @@
                         }
                     });
                 }
+                checkIfOne(this);
             },
             filter: "contains",
         });

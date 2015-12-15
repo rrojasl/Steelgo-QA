@@ -170,11 +170,12 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
-                ChecarAutorizacion(dataItem.id);
+                
             },
             change: function () {
+                var dataItem = this.dataItem();
+                CargarFolio(dataItem.id);
+                ChecarAutorizacion(dataItem.id);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -188,6 +189,7 @@
                 $(".k-upload.k-header").addClass("k-upload-empty");
                 $(".k-upload-button").removeClass("k-state-focused");
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains"
         });
 

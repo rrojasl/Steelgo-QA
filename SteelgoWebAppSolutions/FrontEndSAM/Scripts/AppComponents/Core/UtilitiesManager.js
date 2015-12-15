@@ -491,7 +491,10 @@ function Error(data) {
 };
 
 function checkIfOne(w) {
-    if (w !== undefined && w.dataSource.data()!==undefined) {
-        w.dataSource.data().length == 1 ? w.select(0) : w.select(-1);
+    if (w !== undefined && w.dataSource !== undefined && w.dataSource.data().length!== 0) {
+        if (w.dataSource.data().length === 1) {
+            w.select(0);
+            w.dataItem()[w.options.dataValueField] === "0" || w.dataItem()[w.options.dataValueField] === 0 ? w.value("") : w.trigger("change"); //Verifies if the first option is "Add new"
+        }else w.select(-1);
     }
 }
