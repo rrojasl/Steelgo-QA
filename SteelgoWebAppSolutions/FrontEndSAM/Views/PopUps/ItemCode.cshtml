@@ -26,10 +26,10 @@
                     <label id="Cuantificacion0046"></label>
                     <input id="Descripcion_ItemCode" class="general-input" />
                 </div>
-                <div id="Familia_ItemCodeDiv" class="form-group">
+                @*<div id="Familia_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0047"></label>
                     <input id="Familia_ItemCode" class="" />
-                </div>
+                </div>*@
                 <div id="D1_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0030"></label>
                     <input id="D1_ItemCode" class="" />
@@ -93,11 +93,11 @@
                 editable: "#Descripcion_ItemCode",
                 required: "#Descripcion_ItemCode"
             },
-            familia: {
-                visible: "#Familia_ItemCodeDiv",
-                editable: "#Familia_ItemCode",
-                required: "#Familia_ItemCode"
-            },
+            //familia: {
+            //    visible: "#Familia_ItemCodeDiv",
+            //    editable: "#Familia_ItemCode",
+            //    required: "#Familia_ItemCode"
+            //},
             diametro1: {
                 visible: "#D1_ItemCodeDiv",
                 editable: "#D1_ItemCode",
@@ -187,7 +187,7 @@
                 
             },
             change: function (e) {
-                var dataItem = $("#D1_ItemCode").data("kendoComboBox").dataSource.at($("#D1_ItemCode").data("kendoComboBox").select());
+                var dataItem = this.dataItem();
                 CargarDiametro1(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (this.selectedIndex == -1) {
@@ -224,7 +224,7 @@
                 
             },
             change: function (e) {
-                var dataItem = $("#D2_ItemCode").data("kendoComboBox").dataSource.at($("#D2_ItemCode").data("kendoComboBox").select());
+                var dataItem = this.dataItem();
                 CargarDiametro2(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (this.selectedIndex == -1) {
@@ -256,25 +256,25 @@
             };
         });
 
-        $("#Familia_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "FamiliaAceroID",
-            select: function (e) {
+        //$("#Familia_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "FamiliaAceroID",
+        //    select: function (e) {
                 
-            },
-            change: function (e) {
-                var dataItem = $("#Familia_ItemCode").data("kendoComboBox").dataSource.at($("#Familia_ItemCode").data("kendoComboBox").select());
-                CargarFamiliaItemCode(dataItem.FamiliaAceroID);
-                var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    messageindexKendoCombobox(this);
-                    familiaItemCode = {};
-                    this.value("");
-                };
-            },
-            filter: "contains",
-        });
-        ObtenerFamiliaItemCode();
+        //    },
+        //    change: function (e) {
+        //        var dataItem = $("#Familia_ItemCode").data("kendoComboBox").dataSource.at($("#Familia_ItemCode").data("kendoComboBox").select());
+        //        CargarFamiliaItemCode(dataItem.FamiliaAceroID);
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            messageindexKendoCombobox(this);
+        //            familiaItemCode = {};
+        //            this.value("");
+        //        };
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerFamiliaItemCode();
 
         $("#GuardarItemCode").click(function () {
             if (validarRequeridosModalItemCode()) {
@@ -324,10 +324,10 @@
         D2_ItemCode = { Diametro2ID: id, Valor: value };
     };
 
-    function CargarFamiliaItemCode(id) {
-        familiaItemCode = {};
-        familiaItemCode = { FamiliaID: id };
-    };
+    //function CargarFamiliaItemCode(id) {
+    //    familiaItemCode = {};
+    //    familiaItemCode = { FamiliaID: id };
+    //};
 
     function ObtenerProyecto(id) {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
@@ -347,11 +347,11 @@
         });
     };
 
-    function ObtenerFamiliaItemCode() {
-        $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("Familia_ItemCode", result);
-        });
-    };
+    //function ObtenerFamiliaItemCode() {
+    //    $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
+    //        ControlErroresObjetosComboBox("Familia_ItemCode", result);
+    //    });
+    //};
     function ObtenerDiametros(id) {
         $Diametros.Diametros.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox(id, result);
@@ -382,14 +382,14 @@
     function LimpiarModalItemCode() {
         $("#ItemCode_ItemCode").val("");
         $("#Descripcion_ItemCode").val("");
-        $("#Familia_ItemCode").data("kendoComboBox").value("");
+        //$("#Familia_ItemCode").data("kendoComboBox").value("");
         $("#D1_ItemCode").data("kendoComboBox").value("");
         $("#D2_ItemCode").data("kendoComboBox").value("");
         //$("#Proyecto_ItemCode").data("kendoComboBox").value("");
         //$("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
         //$("#Colada_ItemCode").data("kendoComboBox").value("");
 
-        familiaItemCode = {};
+        //familiaItemCode = {};
         ProyectoItemCode = {};
         TipoPackingListItemCode = {};
         ColadaItemCode = {};
@@ -406,7 +406,7 @@
         ItemCode.ColadaID = 1;
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
-        ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
+        //ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
         ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID ? D1_ItemCode.Diametro1ID : "0";
         ItemCode.Diametro2ID = D2_ItemCode.Diametro2ID ? D2_ItemCode.Diametro2ID : "0";

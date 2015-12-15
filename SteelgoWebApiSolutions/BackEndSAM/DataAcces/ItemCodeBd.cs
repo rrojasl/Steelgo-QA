@@ -164,10 +164,10 @@ namespace BackEndSAM.DataAcces
                                     itemS2.DescripcionInterna = DatosItemCode.DescripcionInterna;
                                     itemS2.Diametro1 = Diametro1;
                                     itemS2.Diametro2 = Diametro2;
-                                    itemS2.FamiliaAceroID = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
-                                                             where eq.Activo
-                                                             && eq.Sam3_FamiliaAceroID == DatosItemCode.FamiliaID
-                                                             select eq.Sam2_FamiliaAceroID).AsParallel().SingleOrDefault();
+                                    //itemS2.FamiliaAceroID = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
+                                    //                         where eq.Activo
+                                    //                         && eq.Sam3_FamiliaAceroID == DatosItemCode.FamiliaID
+                                    //                         select eq.Sam2_FamiliaAceroID).AsParallel().SingleOrDefault();
 
                                     ctx2.ItemCode.Add(itemS2);
                                     ctx2.SaveChanges();
@@ -235,7 +235,7 @@ namespace BackEndSAM.DataAcces
                                     itemS3.Codigo = DatosItemCode.ItemCode;//
                                     itemS3.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
                                     itemS3.DescripcionEspanol = DatosItemCode.Descripcion;//
-                                    itemS3.FamiliaAceroID = DatosItemCode.FamiliaID;//
+                                    //itemS3.FamiliaAceroID = DatosItemCode.FamiliaID;//
                                     itemS3.Activo = true;
                                     itemS3.UsuarioModificacion = usuario.UsuarioID;
                                     itemS3.FechaModificacion = DateTime.Now;
