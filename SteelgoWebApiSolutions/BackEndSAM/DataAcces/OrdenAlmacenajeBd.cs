@@ -81,6 +81,9 @@ namespace BackEndSAM.DataAcces
 
                                 item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
+                            else {
+                                item.value = FolioCuantificacion.FolioCuantificacionID.ToString();
+                            }
                         }
                     }
                     return lstFolios;
@@ -320,6 +323,9 @@ namespace BackEndSAM.DataAcces
                                 string formato = "D" + digitos.ToString();
 
                                 orden.FolioConfiguracionCuantificacion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                orden.FolioConfiguracionCuantificacion = orden.FolioCuantificacion;
                             }
                         }
 
@@ -1074,6 +1080,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Boolean activarFolioConfiguracionOA = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                     ListadoDetalleOrdenAlmacenaje listadoDetalleOrdenAlmacenaje = new ListadoDetalleOrdenAlmacenaje();
                     List<ListadoGenerarOrdenAlmacenaje> listado = new List<ListadoGenerarOrdenAlmacenaje>();
 
@@ -1116,6 +1123,14 @@ namespace BackEndSAM.DataAcces
                         ListadoGenerarOrdenAlmacenaje listadoOrdenAlmacenaje = new ListadoGenerarOrdenAlmacenaje();
 
                         listadoOrdenAlmacenaje.FolioCuantificacion = item.FolioCuantificacionID.ToString();
+                        listadoOrdenAlmacenaje.FolioConfiguracionCuantificacion = activarFolioConfiguracionCuantificacion?(from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                   where pc.Rel_Proyecto_Entidad_Configuracion_ID == item.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                   select pc.PreFijoFolioPackingList + ","
+                                                                                    + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                                    + item.Consecutivo.ToString() + ","
+                                                                                    + pc.PostFijoFolioPackingList).FirstOrDefault() : item.FolioCuantificacionID.ToString();
+                        listadoOrdenAlmacenaje.FolioConfiguracionCuantificacion = string.IsNullOrEmpty(listadoOrdenAlmacenaje.FolioConfiguracionCuantificacion) 
+                                                                                ? item.FolioCuantificacionID.ToString() : listadoOrdenAlmacenaje.FolioConfiguracionCuantificacion;
 
                         listadoOrdenAlmacenaje.ItemCodes = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                             join num in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals num.NumeroUnicoID
@@ -1366,6 +1381,9 @@ namespace BackEndSAM.DataAcces
                                 string formato = "D" + digitos.ToString();
 
                                 item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
                             }
                         }
                     }

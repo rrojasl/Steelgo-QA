@@ -1453,6 +1453,9 @@ namespace BackEndSAM.DataAcces
 
                                     detalle.ValorReferencia = elemntos[0].Trim() + consecutivoP.ToString(formatoP).Trim() + elemntos[3].Trim();
                                 }
+                                else {
+                                    detalle.ValorReferencia = folioCuantificacion.FolioCuantificacionID.ToString();
+                                }
                             }
 
                             break;

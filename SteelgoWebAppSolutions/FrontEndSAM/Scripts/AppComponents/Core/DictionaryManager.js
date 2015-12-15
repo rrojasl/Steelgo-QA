@@ -3176,8 +3176,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "DetalleOrdenAlmacenaje0009": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "DetalleOrdenAlmacenaje0010": {
         "es-MX": "Item Code ID",
@@ -3317,8 +3317,8 @@ _dictionary = {
         "en-US": "Cancel"
     }, 
     "ListadoOrdenAlmacenaje0020": {
-        "es-MX": "Folio Captura Packing List",
-        "en-US": "Packing List Folio"
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
     },
     "ListadoOrdenAlmacenaje0021": {
         "es-MX": "Item Code",
@@ -3394,8 +3394,8 @@ _dictionary = {
         "en-US": "Unique Number"
     },
     "GenerarOrdenAlmacenaje0016": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "GenerarOrdenAlmacenaje0017": {
         "es-MX": "Folio Cuantificacion ID",

@@ -171,6 +171,9 @@ namespace BackEndSAM.DataAcces
 
                                 item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
+                            else {
+                                item.value = FolioCuantificacion.FolioCuantificacionID.ToString();
+                            }
                         }
                     }
 

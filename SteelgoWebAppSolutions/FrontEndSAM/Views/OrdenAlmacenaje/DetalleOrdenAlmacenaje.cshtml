@@ -369,7 +369,8 @@
                 schema: {
                     model: {
                         fields: {
-                            FolioCuantificacion: { type: "string" },
+                            FolioConfiguracionCuantificacion: { type: "string" },
+                            FolioCuantificacion: { type: "string" }
                         }
                     }
                 },
@@ -392,8 +393,8 @@
             detailInit: detailInit,
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
-                { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
-                //{ field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
+                { field: "FolioConfiguracionCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
+                { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden:true },
             ],
             dataBound: function (e) {
                 //$(".k-grid input.k-textbox").prop('readonly', true);
