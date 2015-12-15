@@ -1849,6 +1849,10 @@ _dictionary = {
         "es-MX": "Generado",
         "en-US": "Generated"
     },
+    "LlegadaMaterial0067": {
+        "es-MX": "Identificador Cliente",
+        "en-US": "Client ID"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
