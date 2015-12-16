@@ -376,7 +376,8 @@
             background-color: #FCEED9;
         }
 
-    .k-grid .k-grid-header tr {
+    .k-grid .k-grid-header tr,
+    .k-grid tbody .k-grouping-row > td {
         min-height: 39px;
         height: 39px;
     }
@@ -389,7 +390,8 @@
         }
 
             .k-grid .k-grid-header tr th a.k-link,
-            .k-grid .k-grid-header tr th.k-header {
+            .k-grid .k-grid-header tr th.k-header,
+            .k-grid tbody .k-grouping-row p.k-reset {
                 font-size: 11.5px;
                 font-weight: 600;
                 text-transform: uppercase;
