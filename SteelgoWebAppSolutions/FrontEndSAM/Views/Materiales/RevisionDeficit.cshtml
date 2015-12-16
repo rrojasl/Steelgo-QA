@@ -260,12 +260,12 @@
             },
             scrollable: true,
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
-            columns: addTo([
+            columns:[
                 {field:"ItemCode",title:"Item Code"},
                 {field:"Diametro1",title:"Diametro 1"},
                 {field:"Diametro2",title:"Diametro 2"},
                 {field:"Cantidad"},
-            ],getDetFields())
+            ],
         });
     }
 

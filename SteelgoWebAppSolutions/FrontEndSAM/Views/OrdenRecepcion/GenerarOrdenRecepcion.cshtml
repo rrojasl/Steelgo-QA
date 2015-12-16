@@ -716,7 +716,11 @@
             checked = "checked disabled";
         }
         if (e.data.Accesorios.length > 0) {
-            $("<div id='detail"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
+            var tmpID=detailID++;
+            var show="showAccesorios"+tmpID;
+            var detail="detailAccesorios"+tmpID;
+            $("<div id='"+ show +"' class='k-alt' style='height:40px;margin:15px 0px 0px 0px;line-height:40px;padding-left:10px;border:1px solid #c5c5c5;' role='row'/>").text("Accesorios").appendTo(e.detailCell);
+            $("<div id='"+ detail +"'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.Accesorios,
                     schema: {
@@ -745,9 +749,17 @@
                     { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0027[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
                 ],
             });
+            $("#"+show).on("click",function(){
+                $("#"+detail).toggle();
+            })
+            $("#"+detail).hide();
         }
         if (e.data.Tubos.length > 0) {
-            $("<div id='detail1-"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
+            var tmpID=detailID++;
+            var show="showTubos"+tmpID;
+            var detail1="detailTubos"+tmpID;
+            $("<div id='"+ show +"' class='k-alt' style='height:40px;margin:15px 0px 0px 0px;line-height:40px;padding-left:10px;border:1px solid #c5c5c5;' role='row'/>").text("Tubos").appendTo(e.detailCell);
+            $("<div id='"+ detail1 +"'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.Tubos,
                     schema: {
@@ -776,6 +788,10 @@
                     { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0027[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
                 ],
             });
+            $("#"+show).on("click",function(){
+                $("#"+detail1).toggle();
+            })
+            $("#"+detail1).hide();
         }
         
     }
