@@ -294,7 +294,10 @@ namespace BackEndSAM.DataAcces
                                                 select fm.Nombre).FirstOrDefault(),
                                    //ColadaID = r.ColadaID
                                    ItemCodeOrigenID = r.ItemCodeID,
-                                   TipoPackingList = r.TipoMaterialID
+                                   TipoPackingList = r.TipoMaterialID,
+                                   TextoTipoPackingList=(from tm in ctx.Sam3_TipoMaterial
+                                                             where tm.TipoMaterialID==r.TipoMaterialID
+                                                             select tm.Nombre).FirstOrDefault()
                                }).AsParallel().SingleOrDefault();
                     
 
@@ -322,7 +325,10 @@ namespace BackEndSAM.DataAcces
                                        MM = mm,
                                        Descripcion = r.DescripcionEspanol,
                                        ItemCodeOrigenID = r.ItemCodeID,
-                                       TipoPackingList = r.TipoMaterialID
+                                       TipoPackingList = r.TipoMaterialID,
+                                       TextoTipoPackingList=(from tm in ctx.Sam3_TipoMaterial
+                                                             where tm.TipoMaterialID==r.TipoMaterialID
+                                                             select tm.Nombre).FirstOrDefault()
                                    }).AsParallel().SingleOrDefault();
                         return detalle;
                     }

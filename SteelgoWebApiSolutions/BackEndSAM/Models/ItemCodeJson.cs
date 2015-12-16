@@ -10,6 +10,7 @@ namespace BackEndSAM.Models
         public int ItemCodeID { get; set; }
         public int ProyectoID { get; set; }
         public int TipoPackingList { get; set; }
+        public string TextoTipoPackingList { get; set; }
         public string ItemCode { get; set; }
         public string ItemCodeCliente { get; set; }
         public string Descripcion { get; set; }

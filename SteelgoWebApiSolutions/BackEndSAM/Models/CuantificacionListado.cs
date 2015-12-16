@@ -35,5 +35,6 @@ namespace BackEndSAM.Models
         public string RelBID { get; set; }
         public string ItemCodeOrigenID { get; set; }
         public string ProyectoID { get; set; }
+        public string TextoTipoMaterial { get; set; }
     }
 }

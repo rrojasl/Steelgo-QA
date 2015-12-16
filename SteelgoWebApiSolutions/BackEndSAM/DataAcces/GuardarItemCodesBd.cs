@@ -168,6 +168,9 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
+                                    datosItemCode.TextoTipoMaterial = (from tm in ctx.Sam3_TipoMaterial
+                                                                       where tm.TipoMaterialID == datosItemCode.TipoMaterial
+                                                                       select tm.Nombre).AsParallel().FirstOrDefault();
 
                                     datosItemCode.D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
                                                         join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
@@ -256,6 +259,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID, //IC.ItemCodeID.ToString(),
                                         TipoMaterial = IC.TipoMaterialID,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
@@ -322,6 +326,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             ItemCodeID = datosItemCode.ItemCodeID,//IC.ItemCodeID.ToString(),
                                             TipoMaterial = IC.TipoMaterialID,
+                                            TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                             ItemCode = datosItemCode.ItemCode,//IC.Codigo,
                                             ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,//ICS.Codigo,
                                             ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,//ICS.ItemCodeSteelgoID.ToString(),
@@ -437,6 +442,10 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
+                                    datosItemCode.TextoTipoMaterial = (from tm in ctx.Sam3_TipoMaterial
+                                                                       where tm.TipoMaterialID == datosItemCode.TipoMaterial
+                                                                       select tm.Nombre).AsParallel().FirstOrDefault();
+
                                     //si el diametro1 es nulo, es por que el Itemcode no tiene asociado un ItemCode Steelgo. Asi que asignamos los diametros del Itemcode
                                     datosItemCode.D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
                                                         join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
@@ -522,6 +531,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID, //IC.ItemCodeID.ToString(),
                                         TipoMaterial = IC.TipoMaterialID,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
@@ -580,6 +590,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             ItemCodeID = datosItemCode.ItemCodeID,//IC.ItemCodeID.ToString(),
                                             TipoMaterial = IC.TipoMaterialID,
+                                            TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                             ItemCode = datosItemCode.ItemCode,//IC.Codigo,
                                             ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,//ICS.Codigo,
                                             ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,//ICS.ItemCodeSteelgoID.ToString(),
@@ -697,6 +708,10 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
+                                    datosItemCode.TextoTipoMaterial = (from tm in ctx.Sam3_TipoMaterial
+                                                                       where tm.TipoMaterialID == datosItemCode.TipoMaterial
+                                                                       select tm.Nombre).AsParallel().FirstOrDefault();
+
                                     if (datosItemCode.TipoMaterial <= 0)
                                     {
                                         //valor por default
@@ -793,6 +808,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID, //IC.ItemCodeID.ToString(),
                                         TipoMaterial = IC.TipoMaterialID,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
@@ -843,6 +859,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID,
                                         TipoMaterial = datosItemCode.TipoMaterial,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,
@@ -912,6 +929,10 @@ namespace BackEndSAM.DataAcces
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
+                                    datosItemCode.TextoTipoMaterial = (from tm in ctx.Sam3_TipoMaterial
+                                                                       where tm.TipoMaterialID == datosItemCode.TipoMaterial
+                                                                       select tm.Nombre).AsParallel().FirstOrDefault();
 
                                     //si el diametro1 es nulo, es por que el Itemcode no tiene asociado un ItemCode Steelgo. Asi que asignamos los diametros del Itemcode
 
@@ -1003,6 +1024,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID, //IC.ItemCodeID.ToString(),
                                         TipoMaterial = IC.TipoMaterialID,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
@@ -1049,6 +1071,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID,
                                         TipoMaterial = datosItemCode.TipoMaterial,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,
@@ -1093,6 +1116,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID,
                                         TipoMaterial = datosItemCode.TipoMaterial,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,
@@ -1162,6 +1186,10 @@ namespace BackEndSAM.DataAcces
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
+                                    datosItemCode.TextoTipoMaterial = (from tm in ctx.Sam3_TipoMaterial
+                                                                       where tm.TipoMaterialID == datosItemCode.TipoMaterial
+                                                                       select tm.Nombre).AsParallel().FirstOrDefault();
 
                                     //si el diametro1 es nulo, es por que el Itemcode no tiene asociado un ItemCode Steelgo. Asi que asignamos los diametros del Itemcode
                                     //if (datosItemCode.D1 <= 0)
@@ -1257,6 +1285,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         ItemCodeID = datosItemCode.ItemCodeID, //IC.ItemCodeID.ToString(),
                                         TipoMaterial = IC.TipoMaterialID,
+                                        TextoTipoMaterial = datosItemCode.TextoTipoMaterial,
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
