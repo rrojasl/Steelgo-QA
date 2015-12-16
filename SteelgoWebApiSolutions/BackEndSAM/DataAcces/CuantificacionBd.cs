@@ -169,7 +169,10 @@ namespace BackEndSAM.DataAcces
                                                     .Count() == fc.Cantidad ? "SI" : "NO", 
                                        RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                        ItemCodeOrigenID = ic.ItemCodeID.ToString(),
-                                       TipoMaterial = ic.TipoMaterialID
+                                       TipoMaterial = ic.TipoMaterialID,
+                                       TextoTipoMaterial=(from tm in ctx.Sam3_TipoMaterial
+                                                              where tm.TipoMaterialID== ic.TipoMaterialID
+                                                              select tm.Nombre).FirstOrDefault()
                                    }).AsParallel().ToList();
 
                         listadoBultos = (from b in ctx.Sam3_Bulto
