@@ -753,6 +753,7 @@
                 $("#"+detail).toggle();
             })
             $("#"+detail).hide();
+            $("#"+detail).data("kendoGrid").dataSource.group({field:"Codigo"})
         }
         if (e.data.Tubos.length > 0) {
             var tmpID=detailID++;
@@ -792,6 +793,7 @@
                 $("#"+detail1).toggle();
             })
             $("#"+detail1).hide();
+            $("#"+detail1).data("kendoGrid").dataSource.group({field:"Codigo"})
         }
         
     }
