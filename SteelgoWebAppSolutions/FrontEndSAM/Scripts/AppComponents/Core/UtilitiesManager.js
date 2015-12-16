@@ -366,9 +366,9 @@ function quickFilter(g, i) {
         var f = g.dataSource.filter();
         var fname = $(i).attr("data-filter");
         if ($(i).val().length === 0 && f.filters.length > 0) {
-            f.filters.forEach(function (n, i, t) {
+            f.filters.forEach(function (n, p, t) {
                 if (n.field === fname) {
-                    t.splice(i, 1);
+                    t.splice(p, 1);
                     g.dataSource.filter(t);
                     f = t;
                 }
@@ -377,7 +377,7 @@ function quickFilter(g, i) {
         var tmp = { field: fname, value: $.trim($(i).val()) }
         modelType(g, fname) === "number" ? tmp.operator = function (item, value) { var u = false; (item !== null && item !== undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
         if (f !== undefined) {
-            if (!$.isNumeric(String.fromCharCode(event.which))) {
+            if (modelType(g, fname) === "number" && !$.isNumeric(String.fromCharCode(event.which))) {
                 throw -1;
             }
             var found = false;
@@ -392,7 +392,9 @@ function quickFilter(g, i) {
         } else {
             g.dataSource.filter(tmp)
         }
-    } catch (e) { }
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 function stringifyDate(g) {
