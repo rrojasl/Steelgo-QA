@@ -28,7 +28,7 @@ function AjaxCargarChofer(vehiculoID) {
 
 function AjaxCargarPlana(transportistaID) {
     loadingStart();
-    $Embarque.Embarque.read({ token: Cookies.get("token"), TransportistaID: transportistaID, Plana: "Plana" }).done(function (data) {
+    $Embarque.Embarque.read({ token: Cookies.get("token"), TransportistaID: transportistaID }).done(function (data) {
         $("#Plana").data("kendoComboBox").value("");
         $("#Plana").data("kendoComboBox").dataSource.data(data);
         loadingStop();
@@ -38,7 +38,7 @@ function AjaxCargarPlana(transportistaID) {
 
 function AjaxCargarDatos(embarqueID) {
     loadingStart();
-    $Embarque.Embarque.read({ token: Cookies.get("token"), EmbarqueID: embarqueID, lenguaje: $("#language").val() }).done(function (data) {
+    $Embarque.Embarque.read({ token: Cookies.get("token"), EmbarqueID: parseInt(embarqueID), lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
@@ -54,27 +54,46 @@ function AjaxCargarDatos(embarqueID) {
 
 function AjaxGuardarPlanas(arregloCaptura) {
     if (arregloCaptura.length != 0) {
-        var accionPlanaID2, planaID3, planaID4, planaID1, planaID2;
-        var embarqueID = $('#embarqueID').val();
-        var TractoID = $("#Tracto").data("kendoComboBox").value();
-        var ChoferID = $("#Chofer").data("kendoComboBox").value();
-        var accionPlanaID1 = arregloCaptura[0].Accion;
+
+        CapturaEmbarque = [];
+        CapturaEmbarque[0] = { Lista: "" };
+        ListaDetalles = [];
+
+        ListaDetalles[0] = {
+            
+            embarqueID: "",
+            tractoID: "",
+            choferID: "",
+            accionPlanaID1: "",
+            accionPlanaID2: "",
+            planaID1: "",
+            planaID2: "",
+            planaID3: "",
+            planaID4: ""
+        };
+
+
         
-         planaID1 = arregloCaptura[0].PlanaID;
-         planaID2 = arregloCaptura[1].PlanaID;
+        ListaDetalles[0].embarqueID = parseInt($('#embarqueID').val());
+        ListaDetalles[0].tractoID = parseInt($("#Tracto").data("kendoComboBox").value());
+        ListaDetalles[0].choferID = parseInt($("#Chofer").data("kendoComboBox").value());
+        ListaDetalles[0].accionPlanaID1 = arregloCaptura[0].Accion;
+        
+         
         if (arregloCaptura[1].Accion) {
-            accionPlanaID2 = arregloCaptura[1].Accion;
+            ListaDetalles[0].accionPlanaID2 = arregloCaptura[1].Accion;
         }
 
-        planaID3 = "0";
-        planaID4 = "0";
+        ListaDetalles[0].planaID1 = parseInt(arregloCaptura[0].PlanaID);
+        ListaDetalles[0].planaID2 = parseInt(arregloCaptura[1].PlanaID);
+        ListaDetalles[0].planaID3 = 0;
+        ListaDetalles[0].planaID4 = 0;
+
+
+        CapturaEmbarque[0].Lista = ListaDetalles;
 
         loadingStart();
-        alert("moco");
-        $Embarque.Embarque.create({
-            EmbarqueID: embarqueID, TractoID: TractoID, ChoferID: ChoferID, AccionPlanaID1AccionPlanaID1: accionPlanaID1,
-            AccionPlanaID2: accionPlanaID2, PlanaID1: planaID1, PlanaID2: planaID2, PlanaID3: planaID3, PlanaID4: planaID4, token: Cookies.get("token")
-        }).done(function (data) {
+        $Embarque.Embarque.create(CapturaEmbarque[0], { token: Cookies.get("token")}).done(function (data) {
             loadingStop();
             displayMessage("EmbarqueMarcadoMensajeGuardadoExitoso", "", "0");
         });

@@ -87,7 +87,7 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpGet]
-        public object GetTracto(string token, int TransportistaID, string Tracto)
+        public object GetPlacasTracto(string token, int TransportistaID, string Tracto)
         {
             string payload = "";
             string newToken = "";
@@ -96,7 +96,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EmbarqueBD.Instance.ObtenerPlacas(TransportistaID, Tracto);
+                return EmbarqueBD.Instance.ObtenerTracto(TransportistaID);
             }
             else
             {
@@ -110,7 +110,7 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpGet]
-        public object GetPlana(string token, int TransportistaID, string Plana)
+        public object GetPlacasPlana(string token, int TransportistaID)
         {
             string payload = "";
             string newToken = "";
@@ -119,7 +119,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EmbarqueBD.Instance.ObtenerPlacas(TransportistaID, Plana);
+                return EmbarqueBD.Instance.ObtenerPlana(TransportistaID);
             }
             else
             {
@@ -157,8 +157,8 @@ namespace BackEndSAM.Controllers
 
         }
 
-        [HttpPost]
-        public object post(int EmbarqueID, int TractoID, int ChoferID, int AccionPlanaID1, int AccionPlanaID2, int PlanaID1, int PlanaID2, int PlanaID3,int PlanaID4, string token)
+        
+        public object Post(CapturaEmbarque captura, string token)
         {
             string payload = "";
             string newToken = "";
@@ -167,13 +167,33 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                using (SamContext ctx = new SamContext())
-                {
-                    ctx.Sam3_Embarque_Set_Embarque(EmbarqueID,TractoID,ChoferID,usuario.UsuarioID,AccionPlanaID1,AccionPlanaID2,PlanaID1, PlanaID2,PlanaID3,PlanaID4);
-                }
                 TransactionalInformation result = new TransactionalInformation();
+                try {
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    using (SamContext ctx = new SamContext())
+                    {
+                        ctx.Sam3_Embarque_Set_Embarque(captura.Lista[0].embarqueID,
+                            captura.Lista[0].tractoID,
+                            captura.Lista[0].choferID,
+                            usuario.UsuarioID,
+                            captura.Lista[0].accionPlanaID1,
+                            captura.Lista[0].accionPlanaID2,
+                            captura.Lista[0].planaID1,
+                            captura.Lista[0].planaID2,
+                            captura.Lista[0].planaID3,
+                            captura.Lista[0].planaID4);
+                    }
+                }catch(Exception e)
+                {
+                    
+                    result.ReturnMessage.Add(e.Message);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+                
                 result.ReturnMessage.Add("OK");
                 result.ReturnCode = 200;
                 result.ReturnStatus = false;
