@@ -993,6 +993,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    where r.Activo
                                                    select new ListaCombos

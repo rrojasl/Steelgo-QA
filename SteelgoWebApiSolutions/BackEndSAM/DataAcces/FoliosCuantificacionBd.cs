@@ -176,7 +176,8 @@ namespace BackEndSAM.DataAcces
         {
             List<Proyecto> proyectos = new List<Proyecto>();
             List<FolioLlegada1> cuantificacion = new List<FolioLlegada1>();
-            Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
+            Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ?
+                (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
             try
             {
                 using (SamContext ctx = new SamContext())
@@ -194,34 +195,43 @@ namespace BackEndSAM.DataAcces
 
                     cuantificacion = (from t in ctx.Sam3_FolioCuantificacion
                                       join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
-                                      where t.Activo && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID && avll.Activo
+                                      join fa in ctx.Sam3_FolioAvisoLlegada on avll.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                      where t.Activo && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID && avll.Activo && fa.Activo
                                       select new FolioLlegada1
                                            {
                                                FolioCuantificacionID = t.FolioCuantificacionID,
                                                FolioAvisoEntradaID = t.FolioCuantificacionID,
-                                               FolioConfiguracionCuantificacionID = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID==t.Rel_Proyecto_Entidad_Configuracion_ID
-                                                                                                                 select pc.PreFijoFolioPackingList + ","
-                                                                                                                  + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                                                                                                  + t.Consecutivo.ToString() + ","
-                                                                                                                  + pc.PostFijoFolioPackingList).FirstOrDefault() : t.FolioCuantificacionID.ToString()
+                                               FolioConfiguracionCuantificacionID =
+                                                    activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID == t.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                 select pc.PreFijoFolioPackingList + ","
+                                                                                 + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                                 + t.Consecutivo.ToString() + ","
+                                                                                 + pc.PostFijoFolioPackingList).FirstOrDefault() :
+                                                    (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                     where pc.Proyecto == fa.ProyectoNombrado
+                                                     && pc.Entidad == fa.Entidad
+                                                     select pc.PreFijoFolioAvisoLlegada + ","
+                                                     + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                     + fa.Consecutivo + ","
+                                                     + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
+                                                     + t.Consecutivo.ToString().Trim()).FirstOrDefault()
                                            }).AsParallel().ToList();
 
-                    if (activarFolioConfiguracion)
-                    {
-                        foreach (FolioLlegada1 item in cuantificacion) {
-                            if (!string.IsNullOrEmpty(item.FolioConfiguracionCuantificacionID))
-                            {
-                                string[] elemntos = item.FolioConfiguracionCuantificacionID.Split(',').ToArray();
-                                int digitos = Convert.ToInt32(elemntos[1]);
-                                int consecutivo = Convert.ToInt32(elemntos[2]);
-                                string formato = "D" + digitos.ToString();
 
-                                item.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            }
-                            else {
-                                item.FolioConfiguracionCuantificacionID = item.FolioCuantificacionID.ToString();
-                            }
+                    foreach (FolioLlegada1 item in cuantificacion)
+                    {
+                        if (!string.IsNullOrEmpty(item.FolioConfiguracionCuantificacionID) && item.FolioConfiguracionCuantificacionID.Contains(","))
+                        {
+                            string[] elemntos = item.FolioConfiguracionCuantificacionID.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+                            item.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                        else
+                        {
+                            item.FolioConfiguracionCuantificacionID = item.FolioCuantificacionID.ToString();
                         }
                     }
 
@@ -315,6 +325,7 @@ namespace BackEndSAM.DataAcces
                 {
                     info = (from t in ctx.Sam3_FolioCuantificacion
                             join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
+                            join fa in ctx.Sam3_FolioAvisoLlegada on avll.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
                             join Bul in ctx.Sam3_Bulto on t.FolioCuantificacionID equals Bul.FolioCuantificacionID into b1
                             from subBul in b1.DefaultIfEmpty()
@@ -340,12 +351,23 @@ namespace BackEndSAM.DataAcces
                                 Estatus = detalleBulto == "-1" ? t.Estatus : subBul.Estatus,
 
                                 FolioLlegadaHijo = 0,
-                                FolioConfiguracionCuantificacionID = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                  where pc.Rel_Proyecto_Entidad_Configuracion_ID == t.Rel_Proyecto_Entidad_Configuracion_ID
-                                                                                                  select pc.PreFijoFolioPackingList + ","
-                                                                                                   + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                                                                                   + t.Consecutivo.ToString() + ","
-                                                                                                   + pc.PostFijoFolioPackingList).FirstOrDefault() : t.FolioCuantificacionID.ToString(),
+                                FolioConfiguracionCuantificacionID =
+                                    activarFolioConfiguracion ?
+                                        (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                         where pc.Rel_Proyecto_Entidad_Configuracion_ID == t.Rel_Proyecto_Entidad_Configuracion_ID
+                                         select pc.PreFijoFolioPackingList + ","
+                                         + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                         + t.Consecutivo.ToString() + ","
+                                         + pc.PostFijoFolioPackingList).FirstOrDefault() :
+                                         (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                          where pc.Proyecto == fa.ProyectoNombrado && pc.Entidad == fa.Entidad
+                                          select pc.PreFijoFolioAvisoLlegada + ","
+                                          + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                          + fa.Consecutivo.ToString() + ","
+                                          + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
+                                          + t.Consecutivo.ToString().Trim()).FirstOrDefault(),
+
+
                                 MostrarComboPackingList = (from p in ctx.Sam3_ProyectoConfiguracion
                                                            where p.Activo
                                                            && p.ProyectoID == t.ProyectoID
@@ -355,20 +377,18 @@ namespace BackEndSAM.DataAcces
 
 
 
-                    if (activarFolioConfiguracion)
-                    {
-                        if (!string.IsNullOrEmpty(info.FolioConfiguracionCuantificacionID))
-                        {
-                            string[] elemntos = info.FolioConfiguracionCuantificacionID.Split(',').ToArray();
-                            int digitos = Convert.ToInt32(elemntos[1]);
-                            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            string formato = "D" + digitos.ToString();
 
-                            info.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                        }
-                        else {
-                            info.FolioConfiguracionCuantificacionID = info.FolioCuantificacionID.ToString();
-                        }
+                    if (!string.IsNullOrEmpty(info.FolioConfiguracionCuantificacionID))
+                    {
+                        string[] elemntos = info.FolioConfiguracionCuantificacionID.Split(',').ToArray();
+                        int digitos = Convert.ToInt32(elemntos[1]);
+                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                        string formato = "D" + digitos.ToString();
+                        info.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                    }
+                    else
+                    {
+                        info.FolioConfiguracionCuantificacionID = info.FolioCuantificacionID.ToString();
                     }
                 }
 
@@ -411,8 +431,8 @@ namespace BackEndSAM.DataAcces
                                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                                   where rbi.BultoID == bulto
                                                   select rid.Rel_ItemCode_Diametro_ID).AsParallel().ToList());
-                            
-                         //ctx.Sam3_Rel_Bulto_ItemCode
+
+                        //ctx.Sam3_Rel_Bulto_ItemCode
                         //.Where(x => x.BultoID == bulto && x.Activo)
                         //.Select(b => b.ItemCodeID).AsParallel().ToList());
                     }
@@ -422,9 +442,9 @@ namespace BackEndSAM.DataAcces
                                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                             where rfi.FolioCuantificacionID == folioCuant
                                             select rid.Rel_ItemCode_Diametro_ID).AsParallel().ToList();
-                        //ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                        //.Where(x => x.FolioCuantificacionID == folioCuant)
-                        //.Select(i => i.ItemCodeID).AsParallel().ToList();
+                    //ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                    //.Where(x => x.FolioCuantificacionID == folioCuant)
+                    //.Select(i => i.ItemCodeID).AsParallel().ToList();
 
                     List<bool> tieneNU = null;
 
@@ -532,44 +552,66 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
+                Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ?
+                    (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
+
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListaCombos> listado = ctx.Sam3_FolioCuantificacion.Where(x => x.ProyectoID == proyectoID)
-                        .Select(x => new ListaCombos
-                                        {
-                                            id = x.FolioCuantificacionID.ToString(),
-                                            value = x.FolioCuantificacionID.ToString()
-                                        })
-                        .AsParallel().Distinct().ToList();
+                    List<ListaCombos> listado = (from fc in ctx.Sam3_FolioCuantificacion
+                                                 join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                 join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                 where fc.Activo && fe.Activo && fa.Activo
+                                                 && fc.ProyectoID == proyectoID
+                                                 select new ListaCombos
+                                                 {
+                                                     id = fc.FolioCuantificacionID.ToString(),
+                                                     value = fc.FolioCuantificacionID.ToString()
+                                                 }).AsParallel().Distinct().ToList();
 
-                    if (activarFolioConfiguracionCuantificacion) {
-                        foreach (ListaCombos item in listado) {
-                            int foliocuantificacionid = Convert.ToInt32(item.id);
-                            Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
 
-                            item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
-                                          select pc.PreFijoFolioPackingList + ","
-                                           + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                           + folioCuantificacion.Consecutivo.ToString() + ","
-                                           + pc.PostFijoFolioPackingList).FirstOrDefault();
+                    foreach (ListaCombos item in listado)
+                    {
+                        int foliocuantificacionid = Convert.ToInt32(item.id);
+                        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
+                        Sam3_FolioAvisoLlegada folioLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                                               join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                                               join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                               where fa.Activo && fe.Activo && fc.Activo
+                                                               && fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
+                                                               select fa).AsParallel().FirstOrDefault();
 
-                            if (!string.IsNullOrEmpty(item.value))
-                            {
-                                string[] elemntos = item.value.Split(',').ToArray();
-                                int digitos = Convert.ToInt32(elemntos[1]);
-                                int consecutivo = Convert.ToInt32(elemntos[2]);
-                                string formato = "D" + digitos.ToString();
 
-                                item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            }
-                            else {
-                                item.value = folioCuantificacion.FolioCuantificacionID.ToString();
-                            }
+                        item.value = activarFolioConfiguracionCuantificacion ?
+                            (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                             where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                             select pc.PreFijoFolioPackingList + ","
+                             + pc.CantidadCerosFolioPackingList.ToString() + ","
+                             + folioCuantificacion.Consecutivo.ToString() + ","
+                             + pc.PostFijoFolioPackingList).FirstOrDefault() :
+                             (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                              where pc.Proyecto == folioLlegada.ProyectoNombrado && pc.Entidad == folioLlegada.Entidad
+                              select pc.PreFijoFolioAvisoLlegada + ","
+                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                              + folioLlegada.Consecutivo.ToString() + ","
+                              + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
+                              + folioCuantificacion.Consecutivo.ToString().Trim()).FirstOrDefault();
+
+
+                        if (!string.IsNullOrEmpty(item.value))
+                        {
+                            string[] elemntos = item.value.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
+
+                            item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                        else
+                        {
+                            item.value = folioCuantificacion.FolioCuantificacionID.ToString();
                         }
                     }
-                    
+
 
                     return listado.OrderBy(x => x.value).ToList();
                 }
@@ -670,7 +712,8 @@ namespace BackEndSAM.DataAcces
             try
             {
                 List<ListadoIncidencias> listado;
-                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
+                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ?
+                    (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -678,16 +721,16 @@ namespace BackEndSAM.DataAcces
                     if (proyectoID > 0)
                     {
                         registros = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                    join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
-                                                                    join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                                    where fc.Activo && fc.Activo
-                                                                    && proyectos.Contains(p.ProyectoID)
-                                                                    && patios.Contains(pa.PatioID)
-                                                                    && p.ProyectoID == proyectoID
-                                                                    && foliosCuantificacionIDs.Contains(fc.FolioCuantificacionID)
-                                                                    select fc).AsParallel().Distinct().ToList();
+                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where fc.Activo && fc.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && p.ProyectoID == proyectoID
+                                     && foliosCuantificacionIDs.Contains(fc.FolioCuantificacionID)
+                                     select fc).AsParallel().Distinct().ToList();
                     }
                     else
                     {
@@ -732,7 +775,7 @@ namespace BackEndSAM.DataAcces
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    TipoIncidencia = tpi.Nombre,
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                          where  pc.Rel_Proyecto_Entidad_Configuracion_ID==inc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID == inc.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                           select pc.PreFijoFolioIncidencias + ","
                                                                                                            + pc.CantidadCerosFolioIncidencias.ToString() + ","
                                                                                                            + inc.Consecutivo.ToString() + ","
@@ -752,7 +795,8 @@ namespace BackEndSAM.DataAcces
 
                                 item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
-                            else {
+                            else
+                            {
                                 item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
                             }
                         }
@@ -857,10 +901,10 @@ namespace BackEndSAM.DataAcces
                 {
                     TipoPackingList tipoPackingList = new TipoPackingList();
 
-                   tipoPackingList.MostrarTipoPackingList = (from p in ctx.Sam3_ProyectoConfiguracion
-                                         where p.Activo
-                                         && p.ProyectoID.ToString() == proyectoID
-                                         select p.RequiereTipoPackingList).AsParallel().SingleOrDefault();
+                    tipoPackingList.MostrarTipoPackingList = (from p in ctx.Sam3_ProyectoConfiguracion
+                                                              where p.Activo
+                                                              && p.ProyectoID.ToString() == proyectoID
+                                                              select p.RequiereTipoPackingList).AsParallel().SingleOrDefault();
 
 
                     return tipoPackingList;

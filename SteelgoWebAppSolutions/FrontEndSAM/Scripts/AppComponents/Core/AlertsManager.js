@@ -70,3 +70,26 @@ function displayMessage(message, messageComplement, type) {
         cleanDisplayMessage();
     }, alertTimeOut);
 }
+
+//Method to display a message when the user inserts an invalid username or password
+function displayError(message, messageComplement, type) {
+    cleanDisplayMessage();
+
+    $(".NotAuthenticated").removeClass("hidden");
+    $(".NotAuthenticated").addClass("active");
+    $(".NotAuthenticated").addClass("message");
+
+    var messageText = "";
+    if (message.length > 0) {
+        messageText = _dictionary[message][$("#language").data("kendoDropDownList").value()];
+    }
+
+    messageText = messageText + messageComplement;
+
+    $(".message").text(messageText);
+    $(".message").addClass("error");
+
+    setTimeout(function () {
+        cleanDisplayMessage();
+    }, alertTimeOut);
+}

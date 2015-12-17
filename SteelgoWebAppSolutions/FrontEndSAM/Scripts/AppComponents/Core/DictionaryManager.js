@@ -41,6 +41,10 @@ _dictionary = {
         "es-MX": "Iniciar Sesión",
         "en-US": "Log In"
     },
+    "loginLabel0010": {
+        "es-MX": "Usuario y/o contraseña incorrectos",
+        "en-US": "The user name or password is incorrect "
+    },
     //Layout Page Labels
     "layoutLabel0001": {
         "es-MX": "Buscar en todo el sitio...",
@@ -6477,7 +6481,7 @@ _dictionary = {
         "en-US": "No data to dispatch."
     },
     "notificationslabel0068": {
-        "es-MX": "Favor de ingresar el nombre de usuario y contraseña",
+        "es-MX": "Favor de ingresar usuario y contraseña",
         "en-US": "Please enter a username and password"
     },
     "notificationslabel0069": {
