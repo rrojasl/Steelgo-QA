@@ -127,10 +127,10 @@
             dataTextField: "Nombre",
             dataValueField: "FabricanteID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -146,10 +146,10 @@
             dataTextField: "Nombre",
             dataValueField: "FamiliaAceroID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFamiliaAceroColada(dataItem.FamiliaAceroID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFamiliaAceroColada(dataItem.FamiliaAceroID, dataItem.Nombre);
                 var value = this.value();
                 AceroColada = {};
                 $("#Acero_Colada").data("kendoComboBox").value("");
@@ -170,10 +170,10 @@
             dataTextField: "Nomenclatura",
             dataValueField: "AceroID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -189,10 +189,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

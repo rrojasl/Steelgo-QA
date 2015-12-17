@@ -1111,10 +1111,10 @@
             dataTextField: "Nombre",
             dataValueField: "ClasificacionID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1123,6 +1123,7 @@
                 }
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
         ObtenerClasificacion();
 
@@ -1131,11 +1132,10 @@
             dataTextField: "Nombre",
             dataValueField: "TipoIncidenciaID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
-
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
                 var value = this.value();
                 limpiarRegistro();
 
@@ -1147,6 +1147,7 @@
                 else { ObtenerRegistro(this.value()); }
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
         ObtenerTipoIncidencia();
 
@@ -1154,10 +1155,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarRegistro(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarRegistro(dataItem.id);
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -1167,6 +1168,7 @@
                 }
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
 
 
@@ -1175,10 +1177,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarRegistradoPor(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarRegistradoPor(dataItem.id);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1186,6 +1188,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerUsuarios("RegistradoPor");
@@ -1195,10 +1198,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarResueltoPor(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarResueltoPor(dataItem.id);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1206,6 +1209,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -1216,10 +1220,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarRespondidoPor(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarRespondidoPor(dataItem.id);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1227,6 +1231,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerUsuarios("RespondidoPor");

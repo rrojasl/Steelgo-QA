@@ -147,11 +147,10 @@
             dataTextField: "Nombre",
             dataValueField: "ClienteID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
-
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -168,10 +167,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -181,6 +180,7 @@
                 }
                 Filtros();
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -192,10 +192,10 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarFolio(dataItem.id);
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -433,11 +433,10 @@
                 { "PeriodoID": "5", "Periodo": _dictionary.ListadoOrdenRecepcion0018[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-
-                CargarPeriodoTiempo(dataItem.PeriodoID);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarPeriodoTiempo(dataItem.PeriodoID);
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {

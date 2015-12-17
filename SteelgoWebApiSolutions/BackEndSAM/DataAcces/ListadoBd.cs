@@ -2034,8 +2034,7 @@ namespace BackEndSAM.DataAcces
                                       + pc.PostFijoFolioAvisoLlegada.ToString().Trim() + "-"
                                       + fc.Consecutivo.ToString().Trim()).FirstOrDefault();
 
-                            //if (activarFolioConfiguracionCuantificacion)
-                            //{
+
                             if (!string.IsNullOrEmpty(elemento.FolioConfiguracionCuantificacionID))
                             {
                                 string[] elemntos = elemento.FolioConfiguracionCuantificacionID.Split(',').ToArray();
@@ -2045,7 +2044,6 @@ namespace BackEndSAM.DataAcces
 
                                 elemento.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
-                            //}
 
                             listado.Add(elemento);
                         }
@@ -2145,10 +2143,8 @@ namespace BackEndSAM.DataAcces
                             int digitos = Convert.ToInt32(elemntos[1]);
                             int consecutivo = Convert.ToInt32(elemntos[2]);
                             string formato = "D" + digitos.ToString();
-
                             item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                         }
-
                     }
 
 
@@ -2916,7 +2912,6 @@ namespace BackEndSAM.DataAcces
                                     int digitos = Convert.ToInt32(elemntos[1]);
                                     int consecutivo = Convert.ToInt32(elemntos[2]);
                                     string formato = "D" + digitos.ToString();
-
                                     item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                                 }
                             }
@@ -3217,10 +3212,8 @@ namespace BackEndSAM.DataAcces
                                     int digitos = Convert.ToInt32(elemntos[1]);
                                     int consecutivo = Convert.ToInt32(elemntos[2]);
                                     string formato = "D" + digitos.ToString();
-
                                     item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                                 }
-                                //}
                             }
 
                             break;

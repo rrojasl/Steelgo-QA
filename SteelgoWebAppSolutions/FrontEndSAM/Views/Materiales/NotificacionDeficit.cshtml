@@ -362,7 +362,8 @@
             ocultarSpool();
         },
         dataTextField: "value",
-        dataValueField: "id"
+        dataValueField: "id",
+        dataBound: function(e){checkIfOne(this);},
     });
 
     $("#itemcode").kendoComboBox({
@@ -386,7 +387,8 @@
             })
         },
         dataTextField: "value",
-        dataValueField: "id"
+        dataValueField: "id",
+        dataBound: function(e){checkIfOne(this);}
     });
 
     $("#notificar").on("click",function(){

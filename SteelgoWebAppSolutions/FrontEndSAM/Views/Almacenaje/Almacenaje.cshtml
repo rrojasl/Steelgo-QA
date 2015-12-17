@@ -211,10 +211,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -226,6 +226,7 @@
                 };
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
         ObtenerProyecto();
 
@@ -233,10 +234,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarOrdenAlmacenaje(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarOrdenAlmacenaje(dataItem.id, dataItem.value);
                 var value = this.value();
                 LimpiarCamposOrdenAlmacenaje();
 
@@ -249,6 +250,7 @@
                 };
                 FiltrarDatos();
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -256,10 +258,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarItemCode(dataItem.id, dataItem.value);
                 var value = this.value();
                 LimpiarCamposItemCode();
                 if (!value || this.selectedIndex == -1) {
@@ -272,6 +274,7 @@
                 };
                 FiltrarDatos();
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -279,10 +282,10 @@
             dataTextField: "NumeroUnico",
             dataValueField: "NumeroUnicoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarNumeroUnico(dataItem.NumeroUnicoID, dataItem.NumeroUnico);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarNumeroUnico(dataItem.NumeroUnicoID, dataItem.NumeroUnico);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -292,6 +295,7 @@
                 FiltrarDatos();
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
 
         $("#Rack").keydown(function (e) {

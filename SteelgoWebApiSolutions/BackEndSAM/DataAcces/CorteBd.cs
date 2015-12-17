@@ -534,6 +534,9 @@ namespace BackEndSAM.DataAcces
 
                                 item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
+                            }
                         }
                     }
                 }

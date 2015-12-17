@@ -41,6 +41,10 @@ _dictionary = {
         "es-MX": "Iniciar Sesión",
         "en-US": "Log In"
     },
+    "loginLabel0010": {
+        "es-MX": "Usuario y/o contraseña incorrectos",
+        "en-US": "The user name or password is incorrect "
+    },
     //Layout Page Labels
     "layoutLabel0001": {
         "es-MX": "Buscar en todo el sitio...",
@@ -192,8 +196,8 @@ _dictionary = {
         "en-US": "Dispatches of Material"
     },
     "menuLabel0020": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "menuLabel0021": {
         "es-MX": "Complemento de la Recepción",
@@ -212,8 +216,8 @@ _dictionary = {
         "en-US": "Listing of Packing List"
     },
     "menuLabel0026": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "menuLabel0027": {
         "es-MX": "Consulta y Edición de Cuantificacion",
@@ -417,8 +421,8 @@ _dictionary = {
         "en-US": "Dispatches of Material"
     },
     "quickLabel0020": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "quickLabel0021": {
         "es-MX": "Complemento de la Recepción",
@@ -437,8 +441,8 @@ _dictionary = {
         "en-US": "Listing of Packing List"
     },
     "quickLabel0026": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "quickLabel0027": {
         "es-MX": "Consulta y Edición de Cuantificacion",
@@ -1565,8 +1569,8 @@ _dictionary = {
         "en-US": "Arrival notice"
     },
     "Busqueda0005": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "Busqueda0006": {
         "es-MX": "Número único",
@@ -1849,6 +1853,10 @@ _dictionary = {
         "es-MX": "Generado",
         "en-US": "Generated"
     },
+    "LlegadaMaterial0067": {
+        "es-MX": "Identificador Cliente",
+        "en-US": "Client ID"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
@@ -1952,8 +1960,8 @@ _dictionary = {
         "en-US": "Dealings"
     },
     "Cuantificacion0002": {
-        "es-MX": "Cuantificacion",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "Cuantificacion0003": {
         "es-MX": "Guardar",
@@ -3176,8 +3184,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "DetalleOrdenAlmacenaje0009": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "DetalleOrdenAlmacenaje0010": {
         "es-MX": "Item Code ID",
@@ -3315,10 +3323,10 @@ _dictionary = {
     "ListadoOrdenAlmacenaje0019": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
-    },
+    }, 
     "ListadoOrdenAlmacenaje0020": {
-        "es-MX": "Folio Cuantificacion",
-        "en-US": "Quantification Folio"
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
     },
     "ListadoOrdenAlmacenaje0021": {
         "es-MX": "Item Code",
@@ -3382,8 +3390,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "GenerarOrdenAlmacenaje0013": {
-        "es-MX": "Folio Cuantificación",
-        "en-US": "Quantification Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Packing List Folio"
     },
     "GenerarOrdenAlmacenaje0014": {
         "es-MX": "Item Code",
@@ -3394,8 +3402,8 @@ _dictionary = {
         "en-US": "Unique Number"
     },
     "GenerarOrdenAlmacenaje0016": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "GenerarOrdenAlmacenaje0017": {
         "es-MX": "Folio Cuantificacion ID",
@@ -3495,12 +3503,12 @@ _dictionary = {
         "en-US": "Accessories"
     },
     "DashboardRecepcionAlmacenaje0012": {
-        "es-MX": "Entrada por cuantificar",
-        "en-US": "Entry to quantify"
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
     },
     "DashboardRecepcionAlmacenaje0013": {
-        "es-MX": "PL por cuantificar",
-        "en-US": "PL quantify "
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
     },
     "DashboardRecepcionAlmacenaje0014": {
         "es-MX": "MTL sin ICS",
@@ -3531,12 +3539,12 @@ _dictionary = {
         "en-US": "Tubes"
     },
     "DashboardRecepcionAlmacenaje0021": {
-        "es-MX": "Entrada por cuantificar",
-        "en-US": "Entry to quantify"
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
     },
     "DashboardRecepcionAlmacenaje0022": {
-        "es-MX": "PL por cuantificar",
-        "en-US": "To quantify PL"
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
     },
     "DashboardRecepcionAlmacenaje0023": {
         "es-MX": "MTL sin ICS",
@@ -3686,6 +3694,59 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
+
+    "DashboardRecepcionAlmacenaje0060": {
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
+    },
+    "DashboardRecepcionAlmacenaje0061": {
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
+    },
+    "DashboardRecepcionAlmacenaje0062": {
+        "es-MX": "MTL sin ICS",
+        "en-US": "MTL without ICS"
+    },
+    "DashboardRecepcionAlmacenaje0063": {
+        "es-MX": "MTL sin Orden de Recepción",
+        "en-US": "MTL without Reception Order"
+    },
+    "DashboardRecepcionAlmacenaje0064": {
+        "es-MX": "NU por recepcionar",
+        "en-US": "To receive NU"
+    },
+    "DashboardRecepcionAlmacenaje0065": {
+        "es-MX": "NU sin Orden de Almacenaje",
+        "en-US": "Without Nu Order Storage"
+    },
+    "DashboardRecepcionAlmacenaje0066": {
+        "es-MX": "NU sin almacenar",
+        "en-US": "Not Stored Nu"
+    },
+    "DashboardRecepcionAlmacenaje0067": {
+        "es-MX": "Incidencias abiertas",
+        "en-US": "Open issues"
+    },
+    "DashboardRecepcionAlmacenaje0068": {
+        "es-MX": "General",
+        "en-US": "General"
+    },
+    "DashboardRecepcionAlmacenaje0069": {
+        "es-MX": "Levantar Incidencia Aviso Entrada",
+        "en-US": "Fill Notice Entry Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0070": {
+        "es-MX": "Levantar Incidencia Packing List",
+        "en-US": "Fill Packing List Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0071": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0072": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
@@ -3716,12 +3777,12 @@ _dictionary = {
         "en-US": "Time Frame"
     },
     "ListadoRecepcionAlmacenajeTuberia0008": {
-        "es-MX": "Entrada por cuantificar",
-        "en-US": "Entry to quantify"
+        "es-MX": "Entradas por Capturar PL",
+        "en-US": "Capture entries PL"
     },
     "ListadoRecepcionAlmacenajeTuberia0009": {
-        "es-MX": "PL por cuantificar",
-        "en-US": "PL quantify "
+        "es-MX": "PL por Completar",
+        "en-US": "PL by Complete"
     },
     "ListadoRecepcionAlmacenajeTuberia0010": {
         "es-MX": "MTL sin ICS",
@@ -3784,8 +3845,8 @@ _dictionary = {
         "en-US": "Reception & Storage List"
     },
     "ListadoRecepcionAlmacenajeTuberia0025": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Captura Packing List",
+        "en-US": "Capture Packing List"
     },
     "ListadoRecepcionAlmacenajeTuberia0026": {
         "es-MX": "Folio Aviso Entrada",
@@ -3841,8 +3902,8 @@ _dictionary = {
         "en-US": "Packing List"
     },
     "ListadoPackingList0011": {
-        "es-MX": "Folio Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Capture Packing List Folio"
     },
     "ListadoPackingList0012": {
         "es-MX": "Tipo Packing List",
@@ -3946,8 +4007,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "ComplementoRecepcion0014": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "ComplementoRecepcion0015": {
         "es-MX": "Mostrar",
@@ -4243,8 +4304,8 @@ _dictionary = {
         "en-US": "Arrival Folio"
     },
     "ListaMateriales0005": {
-        "es-MX": "Folio Packing List",
-        "en-US": "Packing List Folio"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Capture Packing List Folio"
     },
     "ListaMateriales0006": {
         "es-MX": "Mostrar",
@@ -5098,8 +5159,8 @@ _dictionary = {
         "en-US": "Notice Folio Entry"
     },
     "DashboardDespachoCorte0006": {
-        "es-MX": "Packing List",
-        "en-US": "Packing List"
+        "es-MX": "Folio Captura Packing List",
+        "en-US": "Folio Capture Packing List"
     },
     "DashboardDespachoCorte0007": {
         "es-MX": "Fecha Inicial",
@@ -6216,8 +6277,8 @@ _dictionary = {
         "en-US": "The folio has authorized customs permission"
     },
     "notificationslabel0017": {
-        "es-MX": "Se termino el proceso de cuantificación",
-        "en-US": "The quantification process finished"
+        "es-MX": "Se termino el proceso de captura packing list.",
+        "en-US": "The capture packing list process finished."
     },
     "notificationslabel0018": {
         "es-MX": "Debes seleccionar sólo un archivo CSV",
@@ -6360,8 +6421,8 @@ _dictionary = {
         "en-US": "Records have been kept."
     },
     "notificationslabel0053": {
-        "es-MX": "El folio cuantificacion no tiene registros para realizar la acción.",
-        "en-US": "Folio quantification has no records to perform the action."
+        "es-MX": "El folio captura packing list no tiene registros para realizar la acción.",
+        "en-US": "Folio capture packing list has no records to perform the action."
     }, 
     "notificationslabel0054": {
         "es-MX": "Favor de seleccionar un Folio de llegada.",
@@ -6420,7 +6481,7 @@ _dictionary = {
         "en-US": "No data to dispatch."
     },
     "notificationslabel0068": {
-        "es-MX": "Favor de ingresar el nombre de usuario y contraseña",
+        "es-MX": "Favor de ingresar usuario y contraseña",
         "en-US": "Please enter a username and password"
     },
     "notificationslabel0069": {

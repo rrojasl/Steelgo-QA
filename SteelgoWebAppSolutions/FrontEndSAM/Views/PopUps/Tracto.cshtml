@@ -115,10 +115,10 @@
             dataTextField: "Nombre",
             dataValueField: "TipoVehiculoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -134,10 +134,10 @@
             dataTextField: "Nombre",
             dataValueField: "TransportistaID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

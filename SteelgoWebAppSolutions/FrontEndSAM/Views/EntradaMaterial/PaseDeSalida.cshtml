@@ -312,11 +312,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                limpiarUploadFiles();
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
             },
             change: function (e) {
+                limpiarUploadFiles();
+                var dataItem = this.dataItem();
+                CargarFolio(dataItem.id);
                 var value = this.value();
                 $("#CuadrillaDescarga").data("kendoComboBox").value("");
                 $("#IncidenciaAsociada").data("kendoComboBox").value("");
@@ -341,6 +341,7 @@
                     ObtenerCuadrillaDescarda(value);
                 };
             },
+            dataBound: function(e){checkIfOne(this);},
         });
 
         ObtenerFoliosAvisoLlegada();
@@ -354,10 +355,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarCuadrillaDescarga(dataItem.id, dataItem.Nombre);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarCuadrillaDescarga(dataItem.id, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -376,10 +378,11 @@
             dataValueField: "TipoArchivoID",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
                 var value = this.value();
                 IncidenciaAsociada = {};
                 $("#IncidenciaAsociada").data("kendoComboBox").value("");
@@ -403,10 +406,11 @@
             dataValueField: "FolioIncidenciaID",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarIncidenciaAsociada(dataItem.FolioIncidenciaID);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarIncidenciaAsociada(dataItem.FolioIncidenciaID);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

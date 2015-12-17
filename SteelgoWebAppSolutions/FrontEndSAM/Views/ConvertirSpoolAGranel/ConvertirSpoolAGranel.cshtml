@@ -95,10 +95,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarSpool(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarSpool(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

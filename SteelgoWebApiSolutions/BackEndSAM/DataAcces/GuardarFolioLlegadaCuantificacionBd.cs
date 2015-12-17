@@ -53,6 +53,7 @@ namespace BackEndSAM.DataAcces
                 {
                     using (var ctx_tran = ctx.Database.BeginTransaction())
                     {
+                        Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                         int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
 
                         Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion
@@ -175,12 +176,41 @@ namespace BackEndSAM.DataAcces
 
                         ctx_tran.Commit();
 
-                        return new FolioLlegadaCuantificacion
+                        FolioLlegadaCuantificacion foliollegadacuantificacion= new FolioLlegadaCuantificacion();
+                        foliollegadacuantificacion.FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID;
+                        foliollegadacuantificacion.ProyectoID=folioCuantificacion.ProyectoID;
+                        foliollegadacuantificacion.Nombre=nombre;
+                        foliollegadacuantificacion.FolioConfiguracionCuantificacionID= activarFolioConfiguracionCuantificacion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                     where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                                     select pc.PreFijoFolioPackingList + ","
+                                                                                                                      + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                                                                      + folioCuantificacion.Consecutivo.ToString() + ","
+                                                                                                                      + pc.PostFijoFolioPackingList).FirstOrDefault() : folioCuantificacion.FolioCuantificacionID.ToString();
+
+                        if (activarFolioConfiguracionCuantificacion)
                         {
-                            FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID,
-                            ProyectoID = folioCuantificacion.ProyectoID,
-                            Nombre = nombre
-                        };
+                            if (!string.IsNullOrEmpty(foliollegadacuantificacion.FolioConfiguracionCuantificacionID))
+                            {
+                                string[] elemntos = foliollegadacuantificacion.FolioConfiguracionCuantificacionID.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                foliollegadacuantificacion.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                foliollegadacuantificacion.FolioConfiguracionCuantificacionID = folioCuantificacion.FolioCuantificacionID.ToString();
+                            }
+                        }
+
+                        return foliollegadacuantificacion;
+                        //return new FolioLlegadaCuantificacion
+                        //{
+                        //    FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID,
+                        //    FolioConfiguracionCuantificacionID=activarFolioConfiguracionCuantificacion?
+                        //    ProyectoID = folioCuantificacion.ProyectoID,
+                        //    Nombre = nombre
+                        //};
                     }
                 }
             }

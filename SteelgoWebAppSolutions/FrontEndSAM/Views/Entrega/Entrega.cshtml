@@ -158,10 +158,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarEmpleado(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarEmpleado(dataItem.id, dataItem.value);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -172,8 +172,8 @@
                     //AgregarRow();
                     changeValueColumnEmpleadoEntrega(value);
                 }
-                
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerEmpleadoEntrega();
@@ -188,7 +188,6 @@
                 if (d.getFullYear() == "1969") {
                     d = new Date();
                 };
-
                 var FechaEntrega = obtenerFormatoFechaPlanchado(d);
                 changeValueColumnFechaEntrega(FechaEntrega);
             };

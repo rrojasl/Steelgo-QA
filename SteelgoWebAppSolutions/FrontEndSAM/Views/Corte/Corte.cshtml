@@ -377,10 +377,10 @@
             dataTextField: "Nombre",
             dataValueField: "MaquinaID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarMaquina(dataItem.MaquinaID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarMaquina(dataItem.MaquinaID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -392,6 +392,7 @@
                     ObtenerMerma();
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerMaquina();
@@ -400,10 +401,10 @@
             dataTextField: "Nombre",
             dataValueField: "OperadorID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarOperador(dataItem.OperadorID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarOperador(dataItem.OperadorID, dataItem.Nombre);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -411,6 +412,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerOperador();
@@ -419,10 +421,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -431,6 +433,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerProyecto();

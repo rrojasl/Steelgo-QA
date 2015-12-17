@@ -227,8 +227,11 @@ namespace BackEndSAM.DataAcces
                             int digitos = Convert.ToInt32(elemntos[1]);
                             int consecutivo = Convert.ToInt32(elemntos[2]);
                             string formato = "D" + digitos.ToString();
-
                             item.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                        }
+                        else
+                        {
+                            item.FolioConfiguracionCuantificacionID = item.FolioCuantificacionID.ToString();
                         }
                     }
 
@@ -381,8 +384,11 @@ namespace BackEndSAM.DataAcces
                         int digitos = Convert.ToInt32(elemntos[1]);
                         int consecutivo = Convert.ToInt32(elemntos[2]);
                         string formato = "D" + digitos.ToString();
-
                         info.FolioConfiguracionCuantificacionID = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                    }
+                    else
+                    {
+                        info.FolioConfiguracionCuantificacionID = info.FolioCuantificacionID.ToString();
                     }
                 }
 
@@ -554,53 +560,57 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> listado = (from fc in ctx.Sam3_FolioCuantificacion
                                                  join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                  join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                                 where fc.Activo && fe.Activo && fa.Activo 
+                                                 where fc.Activo && fe.Activo && fa.Activo
                                                  && fc.ProyectoID == proyectoID
-                                                select new ListaCombos
-                                                {
-                                                    id = fc.FolioCuantificacionID.ToString(),
-                                                    value = fc.FolioCuantificacionID.ToString()
-                                                }).AsParallel().Distinct().ToList();
+                                                 select new ListaCombos
+                                                 {
+                                                     id = fc.FolioCuantificacionID.ToString(),
+                                                     value = fc.FolioCuantificacionID.ToString()
+                                                 }).AsParallel().Distinct().ToList();
 
-                    
-                        foreach (ListaCombos item in listado)
+
+                    foreach (ListaCombos item in listado)
+                    {
+                        int foliocuantificacionid = Convert.ToInt32(item.id);
+                        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
+                        Sam3_FolioAvisoLlegada folioLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                                               join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                                               join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                               where fa.Activo && fe.Activo && fc.Activo
+                                                               && fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
+                                                               select fa).AsParallel().FirstOrDefault();
+
+
+                        item.value = activarFolioConfiguracionCuantificacion ?
+                            (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                             where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                             select pc.PreFijoFolioPackingList + ","
+                             + pc.CantidadCerosFolioPackingList.ToString() + ","
+                             + folioCuantificacion.Consecutivo.ToString() + ","
+                             + pc.PostFijoFolioPackingList).FirstOrDefault() :
+                             (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                              where pc.Proyecto == folioLlegada.ProyectoNombrado && pc.Entidad == folioLlegada.Entidad
+                              select pc.PreFijoFolioAvisoLlegada + ","
+                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                              + folioLlegada.Consecutivo.ToString() + ","
+                              + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
+                              + folioCuantificacion.Consecutivo.ToString().Trim()).FirstOrDefault();
+
+
+                        if (!string.IsNullOrEmpty(item.value))
                         {
-                            int foliocuantificacionid = Convert.ToInt32(item.id);
-                            Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
-                            Sam3_FolioAvisoLlegada folioLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada
-                                                                   join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                                   join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                                   where fa.Activo && fe.Activo && fc.Activo 
-                                                                   && fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
-                                                                   select fa).AsParallel().FirstOrDefault();
+                            string[] elemntos = item.value.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elemntos[1]);
+                            int consecutivo = Convert.ToInt32(elemntos[2]);
+                            string formato = "D" + digitos.ToString();
 
-
-                            item.value = activarFolioConfiguracionCuantificacion ?
-                                (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
-                                 select pc.PreFijoFolioPackingList + ","
-                                 + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                 + folioCuantificacion.Consecutivo.ToString() + ","
-                                 + pc.PostFijoFolioPackingList).FirstOrDefault() :
-                                 (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                  where pc.Proyecto == folioLlegada.ProyectoNombrado && pc.Entidad == folioLlegada.Entidad
-                                  select pc.PreFijoFolioAvisoLlegada + ","
-                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                  + folioLlegada.Consecutivo.ToString() + ","
-                                  + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
-                                  + folioCuantificacion.Consecutivo.ToString().Trim()).FirstOrDefault();
-                                 
-
-                            if (!string.IsNullOrEmpty(item.value))
-                            {
-                                string[] elemntos = item.value.Split(',').ToArray();
-                                int digitos = Convert.ToInt32(elemntos[1]);
-                                int consecutivo = Convert.ToInt32(elemntos[2]);
-                                string formato = "D" + digitos.ToString();
-
-                                item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
-                            }
+                            item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                         }
+                        else
+                        {
+                            item.value = folioCuantificacion.FolioCuantificacionID.ToString();
+                        }
+                    }
 
 
                     return listado.OrderBy(x => x.value).ToList();
@@ -784,6 +794,10 @@ namespace BackEndSAM.DataAcces
                                 string formato = "D" + digitos.ToString();
 
                                 item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else
+                            {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
                             }
                         }
                     }

@@ -141,11 +141,10 @@
                 { "PeriodoID": "5", "Periodo": _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-
-                CargarPeriodoTiempo(dataItem.PeriodoID);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                CargarPeriodoTiempo(dataItem.PeriodoID);
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -695,11 +694,10 @@
         dataTextField: "Nombre",
         dataValueField: "ClienteID",
         select: function (e) {
-            var dataItem = this.dataItem(e.item.index());
-            CargarCliente(dataItem.ClienteID, dataItem.Nombre);
-
         },
         change: function (e) {
+            var dataItem = this.dataItem();
+            CargarCliente(dataItem.ClienteID, dataItem.Nombre);
             var value = this.value();
             if (!value || this.selectedIndex == -1) {
                 messageindexKendoCombobox(this);
@@ -716,10 +714,10 @@
         dataTextField: "Nombre",
         dataValueField: "PatioID",
         select: function (e) {
-            var dataItem = this.dataItem(e.item.index());
-            CargarPatio(dataItem.PatioID, dataItem.Nombre);
         },
         change: function (e) {
+            var dataItem = this.dataItem();
+            CargarPatio(dataItem.PatioID, dataItem.Nombre);
             var value = this.value();
             if (!value || this.selectedIndex == -1) {
                 messageindexKendoCombobox(this);

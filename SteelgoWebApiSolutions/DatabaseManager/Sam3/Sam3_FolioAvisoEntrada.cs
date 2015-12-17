@@ -41,6 +41,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechainicioDescarga { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string ComboEstatus { get; set; }
+        public string IdentificadorCliente { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
         public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
