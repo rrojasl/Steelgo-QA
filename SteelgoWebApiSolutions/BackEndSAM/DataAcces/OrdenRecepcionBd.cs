@@ -113,7 +113,8 @@ namespace BackEndSAM.DataAcces
                                                                                     + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                                                     + FolioAvisoLlegada.Consecutivo.ToString() + ","
                                                                                     + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : f.FolioAvisoLlegadaID.ToString();
-                        if (activarFolioConfiguracion) {
+                        if (activarFolioConfiguracion)
+                        {
                             string[] elemntos = elemento.FolioConfiguracion.Split(',').ToArray();
                             int digitos = Convert.ToInt32(elemntos[1]);
                             int consecutivo = Convert.ToInt32(elemntos[2]);
@@ -122,147 +123,147 @@ namespace BackEndSAM.DataAcces
                             elemento.FolioConfiguracion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                         }
 
-                        List<ElementoItemCodeGenerarOrden> tubosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
-                                                                       join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
-                                                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                                       join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
-                                                                       join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
-                                                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
-                                                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                       where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
-                                                                       && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
-                                                                       && !rfi.TieneNumerosUnicos
-                                                                       && rfi.Cantidad > 0
-                                                                       && !(from co in ctx.Sam3_Colada
-                                                                            where co.Activo && co.NumeroColada == ""
-                                                                            && co.ProyectoID == i.ProyectoID
-                                                                            select co.ColadaID).Contains(rfi.ColadaID)
-                                                                       && rfi.ColadaID > 0
-                                                                       select new ElementoItemCodeGenerarOrden
-                                                                       {
-                                                                           ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
-                                                                           Cantidad = rfi.Cantidad.ToString(),
-                                                                           Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
-                                                                           D1 = d1.Valor.ToString(),
-                                                                           D2 = d2.Valor.ToString(),
-                                                                           Descripcion = i.DescripcionEspanol,
-                                                                           TipoMaterial = t.Nombre,
-                                                                           FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                                           RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
-                                                                           ItemCodeIDOriginal = i.ItemCodeID
-                                                                       }).AsParallel().Distinct().ToList();
+                        List<ElementoItemCodeGenerarOrden> tubosRFC = new List<ElementoItemCodeGenerarOrden>();
+                        List<ElementoItemCodeGenerarOrden> tubosRB = new List<ElementoItemCodeGenerarOrden>();
+                        List<ElementoItemCodeGenerarOrden> AccesoriosRFC = new List<ElementoItemCodeGenerarOrden>();
+                        List<ElementoItemCodeGenerarOrden> AccesoriosRB = new List<ElementoItemCodeGenerarOrden>();
+
+                        tubosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
+                                    join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                    join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                    join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                    join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                    join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                    where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
+                                    && i.TipoMaterialID == 1
+                                    && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                    && !rfi.TieneNumerosUnicos
+                                    && rfi.Cantidad > 0
+                                    && !(from co in ctx.Sam3_Colada
+                                         where co.Activo && co.NumeroColada == ""
+                                         && co.ProyectoID == i.ProyectoID
+                                         select co.ColadaID).Contains(rfi.ColadaID)
+                                    && rfi.ColadaID > 0
+                                    && rfi.MM > 0
+                                    select new ElementoItemCodeGenerarOrden
+                                    {
+                                        ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                        Cantidad = rfi.Cantidad.ToString(),
+                                        Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                        D1 = d1.Valor.ToString(),
+                                        D2 = d2.Valor.ToString(),
+                                        Descripcion = i.DescripcionEspanol,
+                                        TipoMaterial = t.Nombre,
+                                        FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
+                                        RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                        ItemCodeIDOriginal = i.ItemCodeID
+                                    }).AsParallel().Distinct().ToList();
 
 
 
-                        List<ElementoItemCodeGenerarOrden> tubosRB = (from r in ctx.Sam3_FolioAvisoEntrada
-                                                                      join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
-                                                                      join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
-                                                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                                      join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
-                                                                      join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
-                                                                      join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
-                                                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                      where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
-                                                                      && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
-                                                                      && !rbi.TieneNumerosUnicos
-                                                                      && rbi.Cantidad > 0
-                                                                      && !(from co in ctx.Sam3_Colada
-                                                                           where co.Activo && co.NumeroColada == ""
-                                                                           && co.ProyectoID == i.ProyectoID
-                                                                           select co.ColadaID).Contains(rbi.ColadaID)
-                                                                      && rbi.ColadaID > 0
-                                                                      select new ElementoItemCodeGenerarOrden
-                                                                      {
-                                                                          ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
-                                                                          Cantidad = rbi.Cantidad.ToString(),
-                                                                          Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
-                                                                          D1 = d1.Valor.ToString(),
-                                                                          D2 = d2.Valor.ToString(),
-                                                                          Descripcion = i.DescripcionEspanol,
-                                                                          TipoMaterial = t.Nombre,
-                                                                          FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                                          RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
-                                                                          ItemCodeIDOriginal = i.ItemCodeID
-                                                                      }).AsParallel().Distinct().ToList();
+                        tubosRB = (from r in ctx.Sam3_FolioAvisoEntrada
+                                   join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                   join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                   join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                   join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                   join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                   join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                   where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
+                                   && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                   && !rbi.TieneNumerosUnicos
+                                   && rbi.Cantidad > 0
+                                   && !(from co in ctx.Sam3_Colada
+                                        where co.Activo && co.NumeroColada == ""
+                                        && co.ProyectoID == i.ProyectoID
+                                        select co.ColadaID).Contains(rbi.ColadaID)
+                                   && rbi.ColadaID > 0
+                                   && rbi.MM > 0
+                                   select new ElementoItemCodeGenerarOrden
+                                   {
+                                       ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                       Cantidad = rbi.Cantidad.ToString(),
+                                       Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                       D1 = d1.Valor.ToString(),
+                                       D2 = d2.Valor.ToString(),
+                                       Descripcion = i.DescripcionEspanol,
+                                       TipoMaterial = t.Nombre,
+                                       FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
+                                       RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                       ItemCodeIDOriginal = i.ItemCodeID
+                                   }).AsParallel().Distinct().ToList();
+
+                        AccesoriosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
+                                         join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                         join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                         join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                         join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                         join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                         join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                         join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                         where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
+                                         && i.TipoMaterialID == 2
+                                         && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                         && !rfi.TieneNumerosUnicos
+                                         && rfi.Cantidad > 0
+                                         && !(from co in ctx.Sam3_Colada
+                                              where co.Activo && co.NumeroColada == ""
+                                              && co.ProyectoID == i.ProyectoID
+                                              select co.ColadaID).Contains(rfi.ColadaID)
+                                         && rfi.ColadaID > 0
+                                         select new ElementoItemCodeGenerarOrden
+                                         {
+                                             ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                             Cantidad = rfi.Cantidad.ToString(),
+                                             Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                             D1 = d1.Valor.ToString(),
+                                             D2 = d2.Valor.ToString(),
+                                             Descripcion = i.DescripcionEspanol,
+                                             TipoMaterial = t.Nombre,
+                                             FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
+                                             RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                             ItemCodeIDOriginal = i.ItemCodeID
+                                         }).AsParallel().Distinct().ToList();
 
 
 
-                        //codigo cortado del query anterior
-                        //&& !(from nu in ctx.Sam3_NumeroUnico
-                        //                              where nu.Activo
-                        //                              select nu.ItemCodeID).Contains(i.ItemCodeID)
-                        //                         && !(from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                        //                              where roi.Activo
-                        //                              select roi.ItemCodeID).Contains(i.ItemCodeID)
-
-                        List<ElementoItemCodeGenerarOrden> AccesoriosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
-                                                                            join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
-                                                                            join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                                            join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                                            join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
-                                                                            join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
-                                                                            join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
-                                                                            join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                            where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
-                                                                            && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
-                                                                            && !rfi.TieneNumerosUnicos
-                                                                            && rfi.Cantidad > 0
-                                                                            && !(from co in ctx.Sam3_Colada
-                                                                                 where co.Activo && co.NumeroColada == ""
-                                                                                 && co.ProyectoID == i.ProyectoID
-                                                                                 select co.ColadaID).Contains(rfi.ColadaID)
-                                                                            && rfi.ColadaID > 0
-                                                                            select new ElementoItemCodeGenerarOrden
-                                                                            {
-                                                                                ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
-                                                                                Cantidad = rfi.Cantidad.ToString(),
-                                                                                Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
-                                                                                D1 = d1.Valor.ToString(),
-                                                                                D2 = d2.Valor.ToString(),
-                                                                                Descripcion = i.DescripcionEspanol,
-                                                                                TipoMaterial = t.Nombre,
-                                                                                FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                                                RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
-                                                                                ItemCodeIDOriginal = i.ItemCodeID
-                                                                            }).AsParallel().Distinct().ToList();
-
-
-
-                        List<ElementoItemCodeGenerarOrden> AccesoriosRB = (from r in ctx.Sam3_FolioAvisoEntrada
-                                                                           join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
-                                                                           join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
-                                                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                                           join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
-                                                                           join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
-                                                                           join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
-                                                                           join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                                                           where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
-                                                                           && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
-                                                                           && !rbi.TieneNumerosUnicos
-                                                                           && rbi.Cantidad > 0
-                                                                           && !(from co in ctx.Sam3_Colada
-                                                                                where co.Activo && co.NumeroColada == ""
-                                                                                && co.ProyectoID == i.ProyectoID
-                                                                                select co.ColadaID).Contains(rbi.ColadaID)
-                                                                           && rbi.ColadaID > 0
-                                                                           select new ElementoItemCodeGenerarOrden
-                                                                           {
-                                                                               ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
-                                                                               Cantidad = rbi.Cantidad.ToString(),
-                                                                               Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
-                                                                               D1 = d1.Valor.ToString(),
-                                                                               D2 = d2.Valor.ToString(),
-                                                                               Descripcion = i.DescripcionEspanol,
-                                                                               TipoMaterial = t.Nombre,
-                                                                               FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                                               RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
-                                                                               ItemCodeIDOriginal = i.ItemCodeID
-                                                                           }).AsParallel().Distinct().ToList();
+                        AccesoriosRB = (from r in ctx.Sam3_FolioAvisoEntrada
+                                        join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                        join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                        join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                        join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                        join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                        join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                        join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                        where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
+                                        && i.TipoMaterialID == 2
+                                        && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                        && !rbi.TieneNumerosUnicos
+                                        && rbi.Cantidad > 0
+                                        && !(from co in ctx.Sam3_Colada
+                                             where co.Activo && co.NumeroColada == ""
+                                             && co.ProyectoID == i.ProyectoID
+                                             select co.ColadaID).Contains(rbi.ColadaID)
+                                        && rbi.ColadaID > 0
+                                        select new ElementoItemCodeGenerarOrden
+                                        {
+                                            ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                            Cantidad = rbi.Cantidad.ToString(),
+                                            Codigo = i.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                            D1 = d1.Valor.ToString(),
+                                            D2 = d2.Valor.ToString(),
+                                            Descripcion = i.DescripcionEspanol,
+                                            TipoMaterial = t.Nombre,
+                                            FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
+                                            RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                            ItemCodeIDOriginal = i.ItemCodeID
+                                        }).AsParallel().Distinct().ToList();
 
 
                         tubosRB = tubosRB.GroupBy(x => x.RelBID).Select(x => x.First()).ToList();
@@ -430,7 +431,7 @@ namespace BackEndSAM.DataAcces
                         elemento.FechaOrdenRecepcion = o.FechaCreacion.ToString("dd/MM/yyyy");
                         elemento.OrdenRecepcion = o.Folio.ToString();
                         elemento.OrdenRecepcionID = o.Folio.ToString();
-                        
+
                         if (activarFolioConfiguracionOR)
                         {
                             Sam3_Rel_Proyecto_Entidad_Configuracion rel_proy = (from rel in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
@@ -473,7 +474,7 @@ namespace BackEndSAM.DataAcces
                         {
                             foreach (ElementoItemCode row in items)
                             {
-                                int folioAvisoLlegadaID=Convert.ToInt32(row.AvisoEntrada);
+                                int folioAvisoLlegadaID = Convert.ToInt32(row.AvisoEntrada);
                                 Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).FirstOrDefault();
 
                                 row.FolioConfiguracion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
@@ -500,7 +501,7 @@ namespace BackEndSAM.DataAcces
                         }
                     }
 
-                    
+
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
@@ -557,13 +558,13 @@ namespace BackEndSAM.DataAcces
 
                         Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == r.FolioAvisoLlegadaID).FirstOrDefault();
                         elemento.FolioConfiguracion = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                                 where pc.Entidad == FolioAvisoLlegada.Entidad && pc.Proyecto == FolioAvisoLlegada.ProyectoNombrado
-                                                                                                                 select pc.PreFijoFolioAvisoLlegada + ","
-                                                                                                                  + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                                                                                                  + FolioAvisoLlegada.Consecutivo.ToString() + ","
-                                                                                                                  + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString();
-                       
-                        
+                                                                                   where pc.Entidad == FolioAvisoLlegada.Entidad && pc.Proyecto == FolioAvisoLlegada.ProyectoNombrado
+                                                                                   select pc.PreFijoFolioAvisoLlegada + ","
+                                                                                    + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                                    + FolioAvisoLlegada.Consecutivo.ToString() + ","
+                                                                                    + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString();
+
+
                         if (activarFolioConfiguracion)
                         {
                             string[] elemntos = elemento.FolioConfiguracion.Split(',').ToArray();
@@ -577,11 +578,11 @@ namespace BackEndSAM.DataAcces
                         elemento.FolioConfiguracionOrdenRecepcion = activarFolioConfiguracionOR ?
                             orden.Rel_Proyecto_Entidad_Configuracion_ID != null ?
                             (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
-                                select pc.PreFijoFolioOrdenRecepcion + ","
-                                + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
-                                + orden.Consecutivo.ToString() + ","
-                                + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault() : orden.Folio.ToString() : orden.Folio.ToString();
+                             where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
+                             select pc.PreFijoFolioOrdenRecepcion + ","
+                             + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
+                             + orden.Consecutivo.ToString() + ","
+                             + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault() : orden.Folio.ToString() : orden.Folio.ToString();
 
                         if (activarFolioConfiguracionOR && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
                         {
@@ -973,11 +974,11 @@ namespace BackEndSAM.DataAcces
                                     if (milimetros <= 0)
                                     {
                                         milimetros = (from it in ctx.Sam3_ItemCode
-                                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
-                                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
-                                                    where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
-                                                    && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
-                                                    select rbi.MM.Value).AsParallel().SingleOrDefault();
+                                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
+                                                      where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
+                                                      && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
+                                                      select rbi.MM.Value).AsParallel().SingleOrDefault();
                                     }
 
                                     if (milimetros <= 0)

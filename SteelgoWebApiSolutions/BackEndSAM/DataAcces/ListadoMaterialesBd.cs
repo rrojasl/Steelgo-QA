@@ -148,19 +148,32 @@ namespace BackEndSAM.DataAcces
                                             value = fc.FolioCuantificacionID.ToString()
                                         }).AsParallel().ToList();
 
-                    if (activarFolioConfiguracionCuantificacion)
-                    {
+                    
                         foreach (ListaCombos item in folios)
                         {
                             int folioCuantificacionID = Convert.ToInt32(item.id);
                             Sam3_FolioCuantificacion FolioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID).FirstOrDefault();
+                            Sam3_FolioAvisoLlegada folioLl = (from fc in ctx.Sam3_FolioCuantificacion
+                                                              join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                              join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                              where fc.Activo && fe.Activo && fa.Activo
+                                                              && fc.FolioCuantificacionID == folioCuantificacionID
+                                                              select fa).AsParallel().FirstOrDefault();
 
-                            item.value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID == FolioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
-                                          select pc.PreFijoFolioPackingList + ","
-                                           + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                           + FolioCuantificacion.Consecutivo.ToString() + ","
-                                           + pc.PostFijoFolioPackingList).FirstOrDefault();
+                            item.value = activarFolioConfiguracionCuantificacion ?
+                                    (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                     where pc.Rel_Proyecto_Entidad_Configuracion_ID == FolioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                                     select pc.PreFijoFolioPackingList + ","
+                                     + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                     + FolioCuantificacion.Consecutivo.ToString() + ","
+                                     + pc.PostFijoFolioPackingList).FirstOrDefault() :
+                                    (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                     where pc.Proyecto == folioLl.ProyectoNombrado && pc.Entidad == folioLl.Entidad
+                                     select pc.PreFijoFolioAvisoLlegada + ","
+                                     + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                     + folioLl.Consecutivo.ToString() + ","
+                                     + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
+                                     + FolioCuantificacion.Consecutivo.ToString().Trim()).FirstOrDefault();
 
                             if (!string.IsNullOrEmpty(item.value))
                             {
@@ -172,8 +185,6 @@ namespace BackEndSAM.DataAcces
                                 item.value = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
                             }
                         }
-                    }
-
                     return folios;
                 }
             }
