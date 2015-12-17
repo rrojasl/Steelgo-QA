@@ -73,7 +73,6 @@ function displayMessage(message, messageComplement, type) {
 
 //Method to display a message when the user inserts an invalid username or password
 function displayError(message, messageComplement, type) {
-    console.log("display");
     cleanDisplayMessage();
 
     $(".NotAuthenticated").removeClass("hidden");
