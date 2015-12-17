@@ -74,6 +74,7 @@
             },
             localization: getKendoUploadLocalization(window.parent.$("#language").data("kendoDropDownList").value()),
             error: function (data) { },
+            select: notDotName,
         });
 
         $("#Tipo_Archivo").kendoDropDownList({

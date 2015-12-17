@@ -508,7 +508,8 @@
                 },
                 error: function (data) { },
                 upload: onUploadAdjuntarArchivos,
-                localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
+                localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
+                select: notDotName,
             });
             //$("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
