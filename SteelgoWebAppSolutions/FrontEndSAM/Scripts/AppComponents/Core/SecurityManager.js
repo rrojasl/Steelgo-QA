@@ -378,7 +378,8 @@ function createUserSession(username, password) {
             document.location.href = $homeURI;
         } else {
             //loadingStop();
-            displayMessage("notificationslabel0095", "", '2');
+            console.log("errir");
+            displayError("notificationslabel0095", "", '2');
         }
     });
 }

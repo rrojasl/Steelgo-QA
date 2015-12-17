@@ -41,6 +41,10 @@ _dictionary = {
         "es-MX": "Iniciar Sesión",
         "en-US": "Log In"
     },
+    "loginLabel0010": {
+        "es-MX": "Usuario y/o contraseña incorrectos",
+        "en-US": "The user name or password is incorrect "
+    },
     //Layout Page Labels
     "layoutLabel0001": {
         "es-MX": "Buscar en todo el sitio...",
