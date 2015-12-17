@@ -431,6 +431,7 @@
             success: function (data) {
                 ChecarPaseSalidaEnviadoUploadFile(data);
             },
+            select:notDotName,
             error: function (data) { },
             upload: onUploadArchivoPaseSalida,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())

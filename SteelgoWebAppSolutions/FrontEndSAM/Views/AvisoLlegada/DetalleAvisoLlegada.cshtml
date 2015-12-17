@@ -459,7 +459,7 @@
                     $("#hdPaseSalida").val(1);
                     $("#PackingList").kendoUpload({
                         enabled: false,
-                        localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
+                        localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
                     });
                     window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
                 });
@@ -668,15 +668,17 @@
                         batch: true
                     },
                     success: function (data) {
-                        validarRequeridosFormaAvisoLlegada();
-                        if (creacionArchivos) {
-                            CargaInicialEdicion(folio);
-                        } else {
-                            HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
-                        };
+                        if(Error(data)){
+                            validarRequeridosFormaAvisoLlegada();
+                            if (creacionArchivos) {
+                                CargaInicialEdicion(folio);
+                            } else {
+                                HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
+                            };
+                        }
                     },
                     select: function (e) {
-                        if (folio == "-1") {
+                        if (notDotName(e)  && folio == "-1") {
                             $("<style>")
                                 .prop("type", "text/css")
                                 .html("\

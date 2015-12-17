@@ -540,17 +540,12 @@
 
        
     };
-    function MostrarUpload(e) {
-            $("#ArchivoAutorizar").show();
-    };
-
 
     function singleFile(e) {
-        //console.log(e);
-        if (e.files.length == 1) {
+        if (notDotName(e) && e.files.length == 1) {
             $("#divLinkAutorizar").empty();
             this.element.hide();
-            $("#Guardar")[0].disabled=false;
+            $("#Guardar")[0].disabled=false;            
         } 
     }
 

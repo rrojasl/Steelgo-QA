@@ -500,3 +500,15 @@ function checkIfOne(w) {
         }else w.select(-1);
     }
 }
+
+function notDotName(e) {
+    var tmp = true;
+    e.files.forEach(function (n) {
+        if (n.name.split(".").length > 2) {
+            displayMessage("notificationslabel0097", "", "2");
+            tmp = false;
+            e.preventDefault();
+        }
+    })
+    return tmp;
+}

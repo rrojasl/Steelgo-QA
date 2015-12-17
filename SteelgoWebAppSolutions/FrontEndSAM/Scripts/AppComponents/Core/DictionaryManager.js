@@ -6592,6 +6592,10 @@ _dictionary = {
         "es-MX": "Favor de validar el tipo de packing list de los item codes marcados en rojo.",
         "en-US": "Please confirm the type of packing list of item codes marked in red."
     },
+    "notificationslabel0097": {
+        "es-MX": "El nombre de archivo no puede contener puntos.",
+        "en-US": "The file name can not contain dots."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

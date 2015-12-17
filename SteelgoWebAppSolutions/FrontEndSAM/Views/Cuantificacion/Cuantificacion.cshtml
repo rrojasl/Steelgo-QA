@@ -3317,6 +3317,10 @@
             if (!detectIE()) {
                 observer=new MutationObserver(function(n){
                     $("#grid").data("kendoGrid").current().focus();
+                    $(".mutationSelectedRow").each(function(){
+                        $(this).removeClass("mutationSelectedRow");
+                    })
+                    $("#grid").data("kendoGrid").current().closest("tr").addClass("mutationSelectedRow");
                 })
             }
             $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
