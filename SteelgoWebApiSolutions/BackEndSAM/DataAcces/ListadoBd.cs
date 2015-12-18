@@ -3817,8 +3817,8 @@ namespace BackEndSAM.DataAcces
 
                                 if (folioAvisoEntrada > 0)
                                 {
-                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                    List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                               join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                     List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
@@ -3840,8 +3840,8 @@ namespace BackEndSAM.DataAcces
                                 }
                                 if (folioCuantificacionID > 0)
                                 {
-                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                    List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                               join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                     List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
@@ -4549,8 +4549,8 @@ namespace BackEndSAM.DataAcces
 
                                 if (folioAvisoEntrada > 0)
                                 {
-                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                    List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                               join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                     List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
@@ -4572,8 +4572,8 @@ namespace BackEndSAM.DataAcces
                                 }
                                 if (folioCuantificacionID > 0)
                                 {
-                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                    List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                               join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                     List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
@@ -5302,8 +5302,8 @@ namespace BackEndSAM.DataAcces
 
                                 if (folioAvisoEntrada > 0)
                                 {
-                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                    List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                               join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                     List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
@@ -5325,8 +5325,8 @@ namespace BackEndSAM.DataAcces
                                 }
                                 if (folioCuantificacionID > 0)
                                 {
-                                    List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                               where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                    List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                               join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                     List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
@@ -5925,8 +5925,8 @@ namespace BackEndSAM.DataAcces
 
                                     if (folioAvisoEntrada > 0)
                                     {
-                                        List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                                   where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                        List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                                   join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                    select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                         List<int> foliosIC = (from fae in ctx.Sam3_FolioAvisoEntrada
@@ -5948,8 +5948,8 @@ namespace BackEndSAM.DataAcces
                                     }
                                     if (folioCuantificacionID > 0)
                                     {
-                                        List<int> itemCodesSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                                                   where eq.Activo && listaCantidadesSpool.Any(x => x.ItemCodeIDSam2 == eq.Sam2_ItemCodeID)
+                                        List<int> itemCodesSam3 = (from lst in listaCantidadesSpool
+                                                                   join eq in ctx.Sam3_EquivalenciaItemCode on lst.ItemCodeIDSam2 equals eq.Sam2_ItemCodeID
                                                                    select eq.Sam3_ItemCodeID).AsParallel().ToList();
 
                                         List<int> foliosIC = (from fc in ctx.Sam3_FolioCuantificacion
