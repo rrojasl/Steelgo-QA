@@ -512,3 +512,23 @@ function notDotName(e) {
     })
     return tmp;
 }
+
+function dateValidation(start,end) {
+    var tmp = true;
+    var final = false;
+    if (typeof end === 'undefined') {
+        end = new Date();
+        end.setHours(0, 0, 0, 0)
+        final = true;
+    }
+    if (start.getTime() > end.getTime() && final) {
+        displayMessage("notificationslabel0098", "", "1");
+        event.preventDefault();
+        tmp = false;
+    } else if (start.getTime() > end.getTime() && !final) {
+        displayMessage("notificationslabel0099", "", "1");
+        tmp = false;
+        event.preventDefault();
+    }
+    
+}

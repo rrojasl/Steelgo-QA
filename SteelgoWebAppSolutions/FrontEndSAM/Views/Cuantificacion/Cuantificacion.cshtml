@@ -3267,7 +3267,7 @@
             //};
             $("#grid tbody td:visible").each(function(i,n){$(this).attr("tabindex",i)});
             //Gets the current focused cell
-            if ($("#grid").data("kendoGrid").dataSource.data().length > 1 && !detectIE() ) {
+            if ($("#grid").data("kendoGrid").dataSource.data().length > 0 && !detectIE() ) {
                 $("#grid").data("kendoGrid").tbody.find("td").each(function () {
                     if (!detectIE()) {
                         observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ["class"] })

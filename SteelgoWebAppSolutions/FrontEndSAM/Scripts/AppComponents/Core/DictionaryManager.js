@@ -1392,6 +1392,10 @@ _dictionary = {
         "es-MX": "Desasociar",
         "en-US": "Disassociate"
     },
+    "AsociacionICS0011": {
+        "es-MX": "Tipo acero",
+        "en-US": "Steel type"
+    },
 
     //Notificacion Deficit
     "NotificacionDeficit0001": {
@@ -6599,6 +6603,14 @@ _dictionary = {
     "notificationslabel0097": {
         "es-MX": "El nombre de archivo no puede contener puntos.",
         "en-US": "The file name can not contain dots."
+    },
+    "notificationslabel0098": {
+        "es-MX": "La fecha final no puede ser mayor a hoy",
+        "en-US": "The final date can not be greater than today"
+    },
+    "notificationslabel0098": {
+        "es-MX": "La fecha inicial no puede ser mayor que la fecha final",
+        "en-US": "The starter date can not be greater than final date"
     },
     //Default to copy
     "label9999": {
