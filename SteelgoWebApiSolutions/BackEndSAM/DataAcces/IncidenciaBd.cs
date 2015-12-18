@@ -6,6 +6,7 @@ using DatabaseManager.Sam3;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Configuration;
+using BackEndSAM.Utilities;
 
 namespace BackEndSAM.DataAcces
 {
@@ -1442,29 +1443,46 @@ namespace BackEndSAM.DataAcces
                                                                    && fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
                                                                    select fa).AsParallel().FirstOrDefault();
 
-                            detalle.ValorReferencia = activarFolioConfiguracionCuantificacion ?
-                                (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                 where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
-                                 select pc.PreFijoFolioPackingList + ","
-                                  + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                  + folioCuantificacion.Consecutivo.ToString() + ","
-                                  + pc.PostFijoFolioPackingList).FirstOrDefault() :
-                                  (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                   where pc.Proyecto == folioLl.ProyectoNombrado && pc.Entidad == folioLl.Entidad
-                                   select pc.PreFijoFolioAvisoLlegada + ","
-                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                   + folioLl.Consecutivo.ToString() + ","
-                                   + pc.PostFijoFolioAvisoLlegada.Trim() + "-"
-                                   + folioCuantificacion.Consecutivo.ToString().Trim()).FirstOrDefault();
+                            string NombreFolioAvisoLlegada = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                     where pc.Proyecto == folioLl.ProyectoNombrado
+                                                     && pc.Entidad == folioLl.Entidad
+                                                     select pc.PreFijoFolioAvisoLlegada + ","
+                                                     + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                     + folioLl.Consecutivo + ","
+                                                     + pc.PostFijoFolioAvisoLlegada.Trim()).FirstOrDefault();
 
-                            if (!string.IsNullOrEmpty(detalle.ValorReferencia))
+                            string NombreFolioCuantificacion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                            where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                                                            select pc.PreFijoFolioPackingList + ","
+                                                            + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                            + folioCuantificacion.ConsecutivoConfiguracion.ToString() + ","
+                                                            + pc.PostFijoFolioPackingList).FirstOrDefault();
+
+                            int FolioAvisoLlegadaID = folioLl.FolioAvisoLlegadaID;
+                            int ConsecutivoFolioCuanificacion = folioCuantificacion.Consecutivo.Value;
+                            int ConsecutivoFolioLlegada = folioLl.Consecutivo.Value;
+
+                            NombreFolioAvisoLlegada = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioAvisoLlegada);
+                            NombreFolioCuantificacion = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioCuantificacion);
+
+                            if (activarFolioConfiguracion && activarFolioConfiguracionCuantificacion)
                             {
-                                string[] elemntos = detalle.ValorReferencia.Split(',').ToArray();
-                                int digitosP = Convert.ToInt32(elemntos[1]);
-                                int consecutivoP = Convert.ToInt32(elemntos[2]);
-                                string formatoP = "D" + digitosP.ToString();
+                                detalle.ValorReferencia = NombreFolioAvisoLlegada + "-" + NombreFolioCuantificacion;
+                            }
 
-                                detalle.ValorReferencia = elemntos[0].Trim() + consecutivoP.ToString(formatoP).Trim() + elemntos[3].Trim();
+                            if (activarFolioConfiguracion && !activarFolioConfiguracionCuantificacion)
+                            {
+                                detalle.ValorReferencia = NombreFolioAvisoLlegada + "-" + ConsecutivoFolioCuanificacion;
+                            }
+
+                            if (!activarFolioConfiguracion && activarFolioConfiguracionCuantificacion)
+                            {
+                                detalle.ValorReferencia = FolioAvisoLlegadaID + "-" + NombreFolioCuantificacion;
+                            }
+
+                            if (!activarFolioConfiguracion && !activarFolioConfiguracionCuantificacion)
+                            {
+                                detalle.ValorReferencia = FolioAvisoLlegadaID + "-" + ConsecutivoFolioCuanificacion;
                             }
 
                             break;

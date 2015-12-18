@@ -35,6 +35,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> TipoMaterialID { get; set; }
         public Nullable<int> Consecutivo { get; set; }
         public Nullable<int> Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
+        public Nullable<int> ConsecutivoConfiguracion { get; set; }
     
         public virtual ICollection<Sam3_Bulto> Sam3_Bulto { get; set; }
         public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }

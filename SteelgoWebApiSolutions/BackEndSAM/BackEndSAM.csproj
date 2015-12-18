@@ -573,6 +573,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Conversiones.cs" />
     <Compile Include="Utilities\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
