@@ -513,22 +513,22 @@ function notDotName(e) {
     return tmp;
 }
 
-function dateValidation(start,end) {
+function kendoDateValidation(start,end) {
     var tmp = true;
-    var final = false;
+    var startDate = start.value().getTime();
+    var endDate=null;
     if (typeof end === 'undefined') {
-        end = new Date();
-        end.setHours(0, 0, 0, 0)
-        final = true;
-    }
-    if (start.getTime() > end.getTime() && final) {
+        endDate = new Date();
+        endDate.setHours(0, 0, 0, 0)
+    } else endDate=end.value().getTime();
+    if (startDate > end.getTime() && final) {
         displayMessage("notificationslabel0098", "", "1");
         event.preventDefault();
         tmp = false;
-    } else if (start.getTime() > end.getTime() && !final) {
+    } else if (start.getTime() > end.getTime() && end === 'undefined') {
         displayMessage("notificationslabel0099", "", "1");
         tmp = false;
         event.preventDefault();
     }
-    
+    return tmp;
 }
