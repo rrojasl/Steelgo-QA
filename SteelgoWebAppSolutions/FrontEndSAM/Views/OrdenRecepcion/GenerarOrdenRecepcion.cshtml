@@ -441,7 +441,11 @@
 
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
             var checked = val.checked;
-            var value = "id:" + id + "," + $(val).closest("tr").children()[1].innerHTML + "," + $(val).closest("tr").children()[9].innerHTML + "," + $(val).closest("tr").children()[10].innerHTML + "," + $(val).closest("tr").children()[11].innerHTML;
+            var dataItem = $(row.closest("div")).data("kendoGrid").dataItem($(val).closest("tr"));
+            //var value = "id:" + id + "," + $(val).closest("tr").children()[1].innerHTML + "," + $(val).closest("tr").children()[9].innerHTML + "," + $(val).closest("tr").children()[10].innerHTML + "," + $(val).closest("tr").children()[11].innerHTML;
+            var value = "id:" + id + "," + dataItem.ItemCodeID + "," + (dataItem.RelFCId !== null ? dataItem.RelFCId : "") + "," + (dataItem.RelBID !== null ? dataItem.RelBID : "") + "," + dataItem.Cantidad;
+
+
             boolexiste = false;
             for (var check in checkItemCodesID) {
                 if (checkItemCodesID[check].indexOf(value) != -1) {
