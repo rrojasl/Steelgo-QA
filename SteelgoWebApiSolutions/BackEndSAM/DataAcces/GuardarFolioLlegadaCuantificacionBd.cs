@@ -412,6 +412,20 @@ namespace BackEndSAM.DataAcces
                         Sam3_Rel_Proyecto_Entidad_Configuracion rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                             .Where(x => x.Activo == 1 && x.Proyecto == folioCuantificacion.ProyectoID).FirstOrDefault();
 
+                       
+                        
+                        int consecutivofoliopl = rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList;
+                        Sam3_FolioCuantificacion folioCuantificacionConsecutivo = ctx.Sam3_FolioCuantificacion
+                            .Where(x => x.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID).FirstOrDefault();
+                        folioCuantificacionConsecutivo.ConsecutivoConfiguracion = consecutivofoliopl;
+                        folioCuantificacionConsecutivo.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
+                        ctx.SaveChanges();
+
+
+                        rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList = consecutivofoliopl + 1;
+                        ctx.SaveChanges();
+
+
                         Sam3_FolioAvisoLlegada foliollegada = (from fa in ctx.Sam3_FolioAvisoLlegada
                                                                where fa.Activo && fa.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId
                                                                select fa).AsParallel().SingleOrDefault();
@@ -449,7 +463,7 @@ namespace BackEndSAM.DataAcces
                             folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = NombreFolioAvisoLlegada + "-" + ConsecutivoFolioCuanificacion;
                         }
 
-                        if (!activarFolioConfiguracion && activarFolioConfiguracion)
+                        if (!activaConfigFolioLlegada && activarFolioConfiguracion)
                         {
                             folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = FolioAvisoLlegadaID + "-" + NombreFolioCuantificacion;
                         }
@@ -459,17 +473,6 @@ namespace BackEndSAM.DataAcces
                             folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = FolioAvisoLlegadaID + "-" + ConsecutivoFolioCuanificacion;
                         }
                         
-                        
-                        int consecutivofoliopl = rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList;
-                        Sam3_FolioCuantificacion folioCuantificacionConsecutivo = ctx.Sam3_FolioCuantificacion
-                            .Where(x => x.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID).FirstOrDefault();
-                        folioCuantificacionConsecutivo.ConsecutivoConfiguracion = consecutivofoliopl;
-                        folioCuantificacionConsecutivo.Rel_Proyecto_Entidad_Configuracion_ID = rel_proyecto_entidad_configuracion.Rel_Proyecto_Entidad_Configuracion_ID;
-                        ctx.SaveChanges();
-
-
-                        rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList = consecutivofoliopl + 1;
-                        ctx.SaveChanges();
 
                         ctx_tran.Commit();
                        
