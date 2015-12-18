@@ -549,13 +549,6 @@
                     }
                     //ObtenerColada("Colada", 0, 0);
                 },
-                //dataBound: function(e){checkIfOne(this);},
-                dataBound:function(e){
-                    if(this.dataSource.data().length===1){
-                        this.select(0);
-                        this.trigger("change");
-                    }
-                },
                 filter: "contains",
             });
             
@@ -712,13 +705,15 @@
            // CargarTipoPackingList(1, "");
            //$("#TipoPackingListID").data("kendoComboBox").value(1);
             $(document).bind("contextmenu", function (e) {
-                var elemento = e.target.attributes[10].value;
-                var index = elemento.indexOf("_");
-                var valor = elemento.substring(0, index);
+                if(e.target.attributes[10]){
+                    var elemento = e.target.attributes[10].value;
+                    var index = elemento.indexOf("_");
+                    var valor = elemento.substring(0, index);
 
-                if (valor == "TipoUsoID") {
-                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
-                        VentanaModal(4);
+                    if (valor == "TipoUsoID") {
+                        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
+                            VentanaModal(4);
+                        }
                     }
                 }
                 return false;
@@ -1424,6 +1419,11 @@
                     if (result.Proyecto.length == 0) {
                         ObtenerProyecto("ProyectoID");
                     } else {
+                        if (result.Proyecto.length == 1) {
+                            $("#ProyectoID").data("kendoComboBox").value(result.Proyecto[0].ProyectoID);
+                            CargarProyecto(result.Proyecto[0].ProyectoID, result.Proyecto[0].Nombre);
+                            ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
+                        };
                         ControlErroresObjetosComboBox("ProyectoID", result.Proyecto);
                     };
                     ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada);
