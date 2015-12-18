@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -788,6 +788,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="TipoMaterialID" Type="int" />
           <Property Name="Consecutivo" Type="int" />
           <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="int" />
+          <Property Name="ConsecutivoConfiguracion" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_FolioImpresionDocumental">
           <Key>
@@ -10066,6 +10067,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Consecutivo" Type="Int32" />
           <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK_FolioCuantificacion_Rel_Proyecto_Entidad_Configuracion" FromRole="Sam3_FolioCuantificacion" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+          <Property Name="ConsecutivoConfiguracion" Type="Int32" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Bulto_ItemCode">
           <Key>
@@ -13843,6 +13845,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_FolioCuantificacion">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioCuantificacion">
               <MappingFragment StoreEntitySet="Sam3_FolioCuantificacion">
+                <ScalarProperty Name="ConsecutivoConfiguracion" ColumnName="ConsecutivoConfiguracion" />
                 <ScalarProperty Name="Rel_Proyecto_Entidad_Configuracion_ID" ColumnName="Rel_Proyecto_Entidad_Configuracion_ID" />
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
                 <ScalarProperty Name="TipoMaterialID" ColumnName="TipoMaterialID" />
