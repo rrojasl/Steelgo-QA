@@ -1420,6 +1420,7 @@
                         if (result.Proyecto.length == 1) {
                             $("#ProyectoID").data("kendoComboBox").value(result.Proyecto[0].ProyectoID);
                             CargarProyecto(result.Proyecto[0].ProyectoID, result.Proyecto[0].Nombre);
+                            ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
                         };
                         ControlErroresObjetosComboBox("ProyectoID", result.Proyecto);
                     };
