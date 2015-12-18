@@ -2049,6 +2049,8 @@ namespace BackEndSAM.DataAcces
                         Grupo = datos.Grupo,
                         GrupoID = datos.GrupoID,
                         AceroID = datos.AceroID,
+                        FamiliaMaterial = datos.FamiliaMaterial,
+                        FamiliaMaterialID = "0",
                         Acero = datos.Acero,
                         CedulaID = datos.CedulaID,
                         CedulaA = datos.CedulaA,

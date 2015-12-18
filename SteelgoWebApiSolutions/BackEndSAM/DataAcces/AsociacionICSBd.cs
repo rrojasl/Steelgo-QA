@@ -230,6 +230,8 @@ namespace BackEndSAM.DataAcces
                                  join catced in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals catced.CatalogoCedulasID
                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                  join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
+                                 join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                 join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                                  //join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ics.ItemCodeSteelgoID equals rics.ItemCodeSteelgoID
                                  //join ic in ctx.Sam3_ItemCode on rics.ItemCodeID  equals ic.ItemCodeID
                                  where ics.Activo && g.Activo && d1.Activo && d2.Activo
@@ -251,6 +253,8 @@ namespace BackEndSAM.DataAcces
                                      Grupo = g.Nombre,
                                      GrupoID = ics.GrupoID.ToString(),
                                      AceroID = ics.FamiliaAceroID.ToString(),
+                                     FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
+                                     FamiliaMaterial = fm.Nombre,
                                      CedulaID = ics.CedulaID.ToString(),
                                      CedulaA = (from ced in ctx.Sam3_Cedula
                                                     where ced.Activo && catced.CedulaA == ced.CedulaID
