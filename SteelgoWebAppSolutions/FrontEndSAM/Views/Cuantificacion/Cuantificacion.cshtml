@@ -705,13 +705,15 @@
            // CargarTipoPackingList(1, "");
            //$("#TipoPackingListID").data("kendoComboBox").value(1);
             $(document).bind("contextmenu", function (e) {
-                var elemento = e.target.attributes[10].value;
-                var index = elemento.indexOf("_");
-                var valor = elemento.substring(0, index);
+                if(e.target.attributes[10]){
+                    var elemento = e.target.attributes[10].value;
+                    var index = elemento.indexOf("_");
+                    var valor = elemento.substring(0, index);
 
-                if (valor == "TipoUsoID") {
-                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
-                        VentanaModal(4);
+                    if (valor == "TipoUsoID") {
+                        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"] != 'undefined') && (typeof returnOfSecurityCheck["Tipo Uso"]["create"] != 'undefined') && returnOfSecurityCheck["Tipo Uso"]["create"]) {
+                            VentanaModal(4);
+                        }
                     }
                 }
                 return false;
