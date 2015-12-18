@@ -1796,12 +1796,12 @@
             if (!$("#TipoPackingListDiv").is(":hidden")) {
                 if (datasource.length) {
                     $(datasource).each(function () {
-                        if (TipoPackingList.TipoPackingListID != this.get("TipoMaterial")) {
+                        if (TipoPackingList.TipoPackingListID != this.get("TipoMaterial") && this.get("ItemCode") != "Bulto") {
                             this.TieneError = true;
                             Errorbool = true;
                         } else {
                             this.TieneError = false;
-                        }
+                        };
                     });
                     ordenamientoGrid();
                 };
@@ -1931,7 +1931,7 @@
                 var ItemCodeID = datasource[i].ItemCodeID;
                 var ItemCodeSteelgoID = datasource[i].ItemCodeSteelgoID;
                 var ItemCodeOrigenID = datasource[i].ItemCodeOrigenID;
-                var TipoMaterial = datasource[i].TipoMaterial;
+                var TipoMaterial = datasource[i].TipoMaterial?datasource[i].TipoMaterial:0 ;
                 var TextoTipoMaterial = datasource[i].TextoTipoMaterial;
 
                 if (_detalleBulto != "-1") {
@@ -2112,7 +2112,7 @@
                 var ItemCodeID = datasource[i].ItemCodeID;
                 var ItemCodeSteelgoID = datasource[i].ItemCodeSteelgoID;
                 var ItemCodeOrigenID = datasource[i].ItemCodeOrigenID;
-                var TipoMaterial = datasource[i].TipoMaterial;
+                var TipoMaterial = datasource[i].TipoMaterial ? datasource[i].TipoMaterial : 0;
                 var TextoTipoMaterial = datasource[i].TextoTipoMaterial;
 
                 if (_detalleBulto != "-1") {
@@ -2297,7 +2297,7 @@
             var ItemCodeID = datasource[i].ItemCodeID;
             var ItemCodeSteelgoID = datasource[i].ItemCodeSteelgoID;
             var ItemCodeOrigenID = datasource[i].ItemCodeOrigenID;
-            var TipoMaterial = datasource[i].TipoMaterial;
+            var TipoMaterial = datasource[i].TipoMaterial ? datasource[i].TipoMaterial : 0;
             var TextoTipoMaterial = datasource[i].TextoTipoMaterial;
 
             if (_detalleBulto != "-1") {
@@ -2485,7 +2485,7 @@
                 var ItemCodeID = datasource[i].ItemCodeID;
                 var ItemCodeSteelgoID = datasource[i].ItemCodeSteelgoID;
                 var ItemCodeOrigenID = datasource[i].ItemCodeOrigenID;
-                var TipoMaterial = datasource[i].TipoMaterial;
+                var TipoMaterial = datasource[i].TipoMaterial ? datasource[i].TipoMaterial : 0;
                 var TextoTipoMaterial = datasource[i].TextoTipoMaterial;
 
                 if (_detalleBulto != "-1") {
