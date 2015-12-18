@@ -1392,6 +1392,10 @@ _dictionary = {
         "es-MX": "Desasociar",
         "en-US": "Disassociate"
     },
+    "AsociacionICS0011": {
+        "es-MX": "Tipo acero",
+        "en-US": "Steel type"
+    },
 
     //Notificacion Deficit
     "NotificacionDeficit0001": {
