@@ -521,14 +521,13 @@ function kendoDateValidation(start,end) {
         endDate = new Date();
         endDate.setHours(0, 0, 0, 0)
     } else endDate=end.value().getTime();
-    if (startDate > end.getTime() && final) {
+    if (startDate > endDate && end !== 'undefined') {
         displayMessage("notificationslabel0098", "", "1");
-        event.preventDefault();
         tmp = false;
-    } else if (start.getTime() > end.getTime() && end === 'undefined') {
+    } else if (startDate > endDate && end === 'undefined') {
         displayMessage("notificationslabel0099", "", "1");
         tmp = false;
-        event.preventDefault();
     }
+    !tmp ? start.value(new Date(endDate)) : null;
     return tmp;
 }
