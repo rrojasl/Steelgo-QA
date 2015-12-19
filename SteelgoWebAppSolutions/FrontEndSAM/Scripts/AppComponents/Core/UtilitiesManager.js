@@ -514,7 +514,7 @@ function notDotName(e) {
 }
 
 function kendoDateValidation(start,end) {
-    var tmp = true;
+    var tmp = false;
     var startDate = start.value().getTime();
     var endDate=null;
     if (typeof end === 'undefined') {
@@ -523,10 +523,10 @@ function kendoDateValidation(start,end) {
     } else endDate=end.value().getTime();
     if (startDate > endDate && end !== 'undefined') {
         displayMessage("notificationslabel0098", "", "1");
-        tmp = false;
+        tmp = true;
     } else if (startDate > endDate && end === 'undefined') {
         displayMessage("notificationslabel0099", "", "1");
-        tmp = false;
+        tmp = true;
     }
     !tmp ? start.value(new Date(endDate)) : null;
     return tmp;
