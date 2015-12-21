@@ -3560,7 +3560,7 @@ namespace BackEndSAM.DataAcces
                         List<int> proyectosUsuario;
                         List<int> proyectosSam2;
                         List<int> patiosSam2;
-                        int proyectoIDSam2 = 0;
+                        //int proyectoIDSam2 = 0;
 
                         DateTime fechaInicial = new DateTime();
                         DateTime fechaFinal = new DateTime();
@@ -3577,14 +3577,6 @@ namespace BackEndSAM.DataAcces
                                       where eq.Activo
                                       && patiosUsuario.Contains(eq.Sam3_PatioID)
                                       select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
-
-                        if (proyectoID > 0)
-                        {
-                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
-                        }
-
 
                         if (fechaFinal.ToShortDateString() == "1/1/0001")
                         {
@@ -3619,6 +3611,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoPreDespacho> listadoPorPredespachar = new List<ListadoPreDespacho>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -3799,9 +3795,13 @@ namespace BackEndSAM.DataAcces
 
                                 if (proyectoID > 0)
                                 {
+                                    int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                          where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                          select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                     listaCantidadesSpool = (from lst in listaCantidadesSpool
                                                             join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
-                                                            where ot.ProyectoID == proyectoID
+                                                            where ot.ProyectoID == proyectoIDSam2
                                                             select lst).AsParallel().ToList();
                                 }
 
@@ -3908,6 +3908,11 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoPreDespacho> listadoPorPredespachar = new List<ListadoPreDespacho>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -4079,6 +4084,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoPreDespacho> listadoPorPredespachar = new List<ListadoPreDespacho>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -4291,7 +4300,7 @@ namespace BackEndSAM.DataAcces
                         List<int> proyectosUsuario;
                         List<int> proyectosSam2;
                         List<int> patiosSam2;
-                        int proyectoIDSam2 = 0;
+                        //int proyectoIDSam2 = 0;
 
                         DateTime fechaInicial = new DateTime();
                         DateTime fechaFinal = new DateTime();
@@ -4308,14 +4317,6 @@ namespace BackEndSAM.DataAcces
                                       where eq.Activo
                                       && patiosUsuario.Contains(eq.Sam3_PatioID)
                                       select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
-
-                        if (proyectoID > 0)
-                        {
-                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
-                        }
-
 
                         if (fechaFinal.ToShortDateString() == "1/1/0001")
                         {
@@ -4351,6 +4352,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoDespacho> listadoPorDespachar = new List<ListadoDespacho>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -4531,9 +4536,13 @@ namespace BackEndSAM.DataAcces
 
                                 if (proyectoID > 0)
                                 {
+                                    int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                          where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                          select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                     listaCantidadesSpool = (from lst in listaCantidadesSpool
                                                             join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
-                                                            where ot.ProyectoID == proyectoID
+                                                            where ot.ProyectoID == proyectoIDSam2
                                                             select lst).AsParallel().ToList();
                                 }
 
@@ -4639,6 +4648,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoDespacho> listadoPorDespachar = new List<ListadoDespacho>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -4815,6 +4828,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoDespacho> listadoPorDespachar = new List<ListadoDespacho>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -5035,7 +5052,7 @@ namespace BackEndSAM.DataAcces
                         List<int> proyectosUsuario;
                         List<int> proyectosSam2;
                         List<int> patiosSam2;
-                        int proyectoIDSam2 = 0;
+                        //int proyectoIDSam2 = 0;
 
                         DateTime fechaInicial = new DateTime();
                         DateTime fechaFinal = new DateTime();
@@ -5052,14 +5069,6 @@ namespace BackEndSAM.DataAcces
                                       where eq.Activo
                                       && patiosUsuario.Contains(eq.Sam3_PatioID)
                                       select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
-
-                        if (proyectoID > 0)
-                        {
-                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
-                        }
-
 
                         if (fechaFinal.ToShortDateString() == "1/1/0001")
                         {
@@ -5095,6 +5104,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoEntregaDash> listadoPorEntregar = new List<ListadoEntregaDash>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -5284,9 +5297,14 @@ namespace BackEndSAM.DataAcces
 
                                 if (proyectoID > 0)
                                 {
+                                    int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                          where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                          select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
+
                                     listaCantidadesSpool = (from lst in listaCantidadesSpool
                                                             join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
-                                                            where ot.ProyectoID == proyectoID
+                                                            where ot.ProyectoID == proyectoIDSam2
                                                             select lst).AsParallel().ToList();
                                 }
 
@@ -5400,6 +5418,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoEntregaDash> listadoPorEntregar = new List<ListadoEntregaDash>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -5585,6 +5607,10 @@ namespace BackEndSAM.DataAcces
                                     List<ListadoEntregaDash> listadoPorEntregar = new List<ListadoEntregaDash>();
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
                                                              join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
                                                              join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -5811,7 +5837,7 @@ namespace BackEndSAM.DataAcces
                         List<int> proyectosUsuario;
                         List<int> proyectosSam2;
                         List<int> patiosSam2;
-                        int proyectoIDSam2 = 0;
+                        //int proyectoIDSam2 = 0;
 
                         DateTime fechaInicial = new DateTime();
                         DateTime fechaFinal = new DateTime();
@@ -5828,14 +5854,6 @@ namespace BackEndSAM.DataAcces
                                       where eq.Activo
                                       && patiosUsuario.Contains(eq.Sam3_PatioID)
                                       select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
-
-                        if (proyectoID > 0)
-                        {
-                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
-                        }
-
 
                         if (fechaFinal.ToShortDateString() == "1/1/0001")
                         {
@@ -5907,9 +5925,13 @@ namespace BackEndSAM.DataAcces
 
                                     if (proyectoID > 0)
                                     {
+                                        int proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                                         listaCantidadesSpool = (from lst in listaCantidadesSpool
                                                                 join ot in ctx2.OrdenTrabajo on lst.OrdenTrabajoID equals ot.OrdenTrabajoID
-                                                                where ot.ProyectoID == proyectoID
+                                                                where ot.ProyectoID == proyectoIDSam2
                                                                 select lst).AsParallel().ToList();
                                     }
 
