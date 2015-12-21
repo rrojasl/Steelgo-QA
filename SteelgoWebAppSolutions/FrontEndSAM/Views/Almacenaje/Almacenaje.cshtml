@@ -134,6 +134,8 @@
     var Proyecto = {}, OrdenAlmacenaje = {},
         ItemCode = {}, NumeroUnico = {},
         resultadoJson = "";
+    var params={};
+    window.location.search!=="" ? window.location.href.split("?")[1].split("&").forEach(function(n){params[n.split("=")[0]]=n.split("=")[1]}) : params=null;
     var _almacenaje = "@Url.Action("Almacenaje", "Almacenaje")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
@@ -338,6 +340,7 @@
     function ObtenerProyecto() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
+            fromParam($("#ProyectoID").data("kendoComboBox"),"ProyectoID",params!==null && params.ProyectoID!==null ? params.ProyectoID : null);
         });
     };
 
@@ -346,6 +349,7 @@
         $Almacenaje.Almacenaje.read({ ProyectoID: Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 ControlErroresObjetosComboBox("OrdenAlmacenaje", result);
+                fromParam($("#OrdenAlmacenaje").data("kendoComboBox"),"id",params!==null && params.OrdenAlmacenajeID!==null ? params.OrdenAlmacenajeID : null);
             }
             //loadingStop();
         });
@@ -635,8 +639,14 @@
         return Listado;
     };
     
-
-
+    function fromParam(widget,paramname,param){
+        if(param!==null){
+            widget.select(function(dataItem) {
+                return dataItem[paramname] === param;
+            });
+            widget.trigger("change");
+        }
+    }
 
     @section JavascriptDocumentReadyFunctions {
         $authorizationModel["Almacenaje"] = $AlmacenajeModel;
