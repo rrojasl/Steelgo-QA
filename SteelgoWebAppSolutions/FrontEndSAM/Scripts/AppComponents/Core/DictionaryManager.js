@@ -3252,8 +3252,8 @@ _dictionary = {
         "en-US": "Canceled"
     },
     "DetalleOrdenAlmacenaje0025": {
-        "es-MX": "Siguiente paso",
-        "en-US": "Next step"
+        "es-MX": "Almacenaje",
+        "en-US": "Storage"
     },
 //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
