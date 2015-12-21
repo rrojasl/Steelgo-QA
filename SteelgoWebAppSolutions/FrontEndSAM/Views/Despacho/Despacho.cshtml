@@ -339,25 +339,28 @@
     function ObtenerDatosGrid() {
         //loadingStart();
         var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : "";
-        
-        $Despacho.Despacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
-            if (Error(result)) {
-                resultadoJson = result;
-                if ($("#grid").data("kendoGrid")) {
-                    if (resultadoJson.length > 0) {
-                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                        $("#grid").data("kendoGrid").dataSource.page(1);
-                    } else {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        $("#grid").data("kendoGrid").dataSource.page(0);
+        if(NumeroControl.NumeroControlID!==null && NumeroControl.NumeroControlID!==undefined && NumeroControl.NumeroControlID!==""){
+            $Despacho.Despacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
+                if (Error(result)) {
+                    resultadoJson = result;
+                    if ($("#grid").data("kendoGrid")) {
+                        if (resultadoJson.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                            $("#grid").data("kendoGrid").dataSource.page(1);
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            $("#grid").data("kendoGrid").dataSource.page(0);
+                        };
                     };
-                };
-                AsignarPaginaActualCookie();
-                applySecurityPolicy(false);
-                FiltrarDatos();
-            }
-            //loadingStop();
-        });
+                    AsignarPaginaActualCookie();
+                    applySecurityPolicy(false);
+                    FiltrarDatos();
+                }
+                //loadingStop();
+            });
+        }else{
+            displayMessage("Despacho0028","","2")
+        }
     };
     function AsignarPaginaActualCookie() {
         Cookies.set("navegacion", "25", { path: '/' });

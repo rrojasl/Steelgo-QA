@@ -4875,6 +4875,10 @@ _dictionary = {
         "es-MX": "ProyectoID",
         "en-US": "ProyectoID"
     },
+    "Despacho0028": {
+        "es-MX": "Selecciona un spool",
+        "en-US": "Select a spool"
+    },
     "Despacho0027": {
         "es-MX": "Materiales",
         "en-US": "Materials"
