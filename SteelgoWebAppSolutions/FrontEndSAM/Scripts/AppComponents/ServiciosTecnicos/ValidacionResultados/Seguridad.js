@@ -1,8 +1,8 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "48", { path: '/' });
+Cookies.set("navegacion", "46", { path: '/' });
 
-var $ConsultaModel = {
+var $ValidacionResultadosModel = {
     listContainer: {
         create: "",
         list: "",
@@ -11,10 +11,7 @@ var $ConsultaModel = {
     },
     properties: {
 
-        Area: {
-            visible: "#containerDiv",
-        },
-        Cuadrante: {
+        Requisicion: {
             visible: "#containerDiv",
         }
     }

@@ -1,5 +1,6 @@
 ﻿function SuscribirEventos() {
     suscribirEventoCambioTab();
+    suscribirEventoModal();
 }
 
 SuscribirEventos();
@@ -21,10 +22,13 @@ function suscribirEventoCambioTab() {
 
 
 function suscribirEventoModal() {
-    $(".botonEnviar").click(function(e) {
+
+    $(document).on('click', '.botonEnviar', function () {
         VentanaModalFecha();
     });
-    $(".botonFolio").click(function (e) {
+
+    $(document).on('click', '.botonFolio', function () {
         VentanaModalFolio();
     });
+
 }

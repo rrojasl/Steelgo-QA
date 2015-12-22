@@ -41,6 +41,7 @@ var $AsignarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RequisicionesAsignadas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EntregaResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
 
@@ -154,6 +155,7 @@ $AsignarRequisicion.add('AsignarRequisicion');
 $RequisicionesAsignadas.add('RequisicionesAsignadas');
 $EntregaResultados.add('EntregaResultados');
 $ImpresionPruebas.add('ImpresionPruebas');
+$ValidacionResultados.add('ValidacionResultados');
 
 //captura armado
 $CapturaArmado.add('Armado');
