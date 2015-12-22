@@ -31,12 +31,12 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        @*<div class="button-section">
                             <div class="btn-group">
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar"><span id="DetalleOrdenAlmacenaje0002"></span></button>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenAlmacenaje0003"></span></a>
-                        </div>
+                        </div>*@
                         <div class="button-section listado">
                             <div class="btn-group">
                                 <button id="toAlmacenaje" type="button" class="btn btn-blue"><span id="DetalleOrdenAlmacenaje0025"></span></button>
@@ -131,7 +131,7 @@
     
     function CargaInicial() {
         //$("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
-        $("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
+        //$("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
         $("#IrIncidencia").click(function () { Incidencias(); });
         $("#CancelarOrden").click(function () { CancelarOrden(); });
         $("#ProyectoID").kendoComboBox({
@@ -152,7 +152,7 @@
                 } else {
                     ObtenerFoliosCuantificacion();
                 }
-                Filtros();
+                //Filtros();
             },
             filter: "contains",
         });
@@ -178,7 +178,7 @@
                 } else {
                     ObtenerItemCodes();
                 };
-                Filtros();
+                //Filtros();
 
             },
         });
@@ -202,7 +202,7 @@
                 } else {
                     ObtenerNumerosUnicos();
                 };
-                Filtros();
+                //Filtros();
             },
         });
 
@@ -221,7 +221,7 @@
                     NumeroUnico = {};
                     this.value("");
                 }
-                Filtros();
+                //Filtros();
             },
         });
 
@@ -496,28 +496,6 @@
     }
     function AsignarPaginaActualCookie() {
         Cookies.set("navegacion", "17", { path: '/' });
-    };
-
-    function Filtros() {
-        //loadingStart();
-        var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
-        var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
-        var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
-        var NumeroUnicoID = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : ""
-
-        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID, NumeroUnicoID: NumeroUnicoID };
-
-        $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (result) {
-            if (Error(result)) {
-                _resultadoJson = result;
-                if (_resultadoJson.length > 0) {
-                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
-                } else {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                };
-            }
-            //loadingStop();
-        });
     };
 
     function CargarDatosGridInicial() {
