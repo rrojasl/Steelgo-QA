@@ -1,26 +1,23 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
 };
+
+
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [{ Embarque: 1, Plana: 18, Proyecto: "Ramones", PapelesCliente: true, paplelesAduana: true, SolicitarPermiso: true, AporbadoCliente: true, AprobadoAduana: true, OKEmbarque: true, FechaEnvio:"12/12/2015" },
-                  { Embarque: 2, Plana: 19, Proyecto: "Ramones", PapelesCliente: false, paplelesAduana: false, SolicitarPermiso: false, AporbadoCliente: false, AprobadoAduana: false, OKEmbarque: false, FechaEnvio: "" }],
+            data: [],
             schema: {
                 model: {
                     fields: {
-                        Embarque: { type: "string", editable: false },
+                        EmbarqueID: { type: "string", editable: false },
                         Plana: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
-                        PapelesCliente: { type: "bool", editable: false },
-                        paplelesAduana: { type: "bool", editable: false },
-                        SolicitarPermiso: { type: "bool", editable: false },
-                        AporbadoCliente: { type: "bool", editable: false },
-                        AprobadoAduana: { type: "bool", editable: false },
-                        OKEmbarque: { type: "bool", editable: false },
-                        FechaEnvio: { type: "bool", editable: false },
-                       
+                        PapelesCliente: {  editable: false },
+                        paplelesAduana: { editable: false },
+                        FolioSolicitarPermisos: { editable: false },
+                        FolioAprobadoAduana: { editable: false },
                     }
                 }
             },
@@ -45,17 +42,71 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Embarque", title: "Embarque", filterable: true, width:"125px" },
+            { field: "EmbarqueID", title: "Embarque", filterable: true, width:"125px" },
             { field: "Plana", title: "Plana", filterable: true, width: "100px" },
             { field: "Proyecto", title: "Proyecto", filterable: true, width: "125px" },
-            { field: "PapelesCliente", title: "Papeles cliente", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: PapelesCliente' #= PapelesCliente ? checked='checked' : '' #/>", width: "125px" },
-            { field: "paplelesAduana", title: "Papeles aduana", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: paplelesAduana' #= paplelesAduana ? checked='checked' : '' #/>", width: "125px" },
-            { field: "SolicitarPermiso", title: "Solicitar permisos", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: SolicitarPermiso' #= SolicitarPermiso ? checked='checked' : '' #/>", width: "125px" },
-            { field: "AporbadoCliente", title: "Aprobado cliente", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: AporbadoCliente' #= AporbadoCliente ? checked='checked' : '' #/>", width: "125px" },
-            { field: "AprobadoAduana", title: "Aprobado aduana", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: AprobadoAduana' #= AprobadoAduana ? checked='checked' : '' #/>", width: "125px" },
-            { field: "OKEmbarque", title: "OK embaruqe", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: OKEmbarque' #= OKEmbarque ? checked='checked' : '' #/>", width: "125px" },
-            { field: "FechaEnvio", title: "Fecha Envío", filterable: true, width: "125px" },
-            { field: "", title: " ", filterable: true, template: "<button  type='button' class='btn btn-blue'> <span>Enviar</span></button>", width: "125px" },
+            { field: "PapelesCliente", title: "Papeles cliente", filterable: true, template: "<button  type='button' class='btn btn-blue'> <span>Imprimir</span></button>", width: "125px" },
+            { field: "paplelesAduana", title: "Papeles aduana", filterable: true, template: "<button  type='button' class='btn btn-blue'> <span>Imprimir</span></button>", width: "125px" },
+            { field: "FolioSolicitarPermisos", title: "Solicitar permisos", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio'> <span>Capturar</span></button>", width: "125px" },
+            { field: "FolioAprobadoAduana", title: "Aprobado cliente", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio'> <span>Capturar</span></button>", width: "125px" },
+            { field: "", title: " ", filterable: true, template: "<button  type='button' class='btn btn-blue botonEnviar'> <span>Enviar</span></button>", width: "125px" },
         ]
     });
+};
+
+function VentanaModalFecha() {
+
+    var modalTitle = "";
+    modalTitle = _dictionary.ValidacionResultadosRequisicion[$("#language").data("kendoDropDownList").value()];
+    var window = $("#windowFecha");
+    var win = window.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "50%",
+        minWidth: 30,
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        actions: [
+            "Pin",
+            "Minimize",
+            "Maximize",
+            "Close"
+        ],
+    }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
+};
+
+
+function VentanaModalFolio() {
+
+    var modalTitle = "";
+    modalTitle = "Ingresar Folio";
+    var window = $("#windowFolio");
+    var win = window.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "50%",
+        minWidth: 30,
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        actions: [
+            "Pin",
+            "Minimize",
+            "Maximize",
+            "Close"
+        ],
+    }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
 };

@@ -20,8 +20,9 @@ namespace FrontEndSAM.Controllers.Embarque
         {
             return View();
         }
-        public ActionResult Embarque()
+        public ActionResult Embarque(int embarqueID = 0)
         {
+            ViewBag.embarqueID = embarqueID;
             return View();
         }
         public ActionResult ListadoEmbarque()

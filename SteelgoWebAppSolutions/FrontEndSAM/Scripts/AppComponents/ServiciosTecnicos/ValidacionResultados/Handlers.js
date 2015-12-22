@@ -49,7 +49,6 @@ function Limpiar() {
 
 function suscribirEventoRequisicion() {
     $("#Requisicion").keydown(function (e) {
-
         if (e.keyCode == 13) {
             if ($("#Requisicion").val() != "") {
                 AjaxObtenerJuntas();

@@ -41,6 +41,14 @@ var $AsignarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RequisicionesAsignadas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EntregaResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
+//Embarque
+
+var $Consulta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Marcado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Embarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -108,6 +116,9 @@ var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SoldadorCertificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Area = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Cuadrante = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 
 var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -131,6 +142,12 @@ $BackEndSAM.add('TipoJunta');
 $BackEndSAM.add('ListadoCamposPredeterminados');
 $BackEndSAM.add('PQR');
 $BackEndSAM.add('SoldadorCertificacion');
+$Consulta.add("Consulta");
+$Marcado.add("Marcado");
+$Area.add("Area");
+$Cuadrante.add("Cuadrante");
+$Embarque.add("Embarque");
+$ListadoEmbarque.add("ListadoEmbarque");
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');
@@ -138,6 +155,7 @@ $AsignarRequisicion.add('AsignarRequisicion');
 $RequisicionesAsignadas.add('RequisicionesAsignadas');
 $EntregaResultados.add('EntregaResultados');
 $ImpresionPruebas.add('ImpresionPruebas');
+$ValidacionResultados.add('ValidacionResultados');
 
 //captura armado
 $CapturaArmado.add('Armado');

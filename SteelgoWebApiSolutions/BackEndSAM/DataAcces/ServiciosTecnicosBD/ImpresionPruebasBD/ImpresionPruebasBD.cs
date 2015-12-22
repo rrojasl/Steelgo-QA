@@ -48,7 +48,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ImpresionPruebasBD
                             RequisicionPruebaElementoID = item.RequisicionPruebaElementoID,
                             ReporteID = item.ReporteID,
                             Seleccionado = false,
-                            Status= item.ReporteID != null ? "A" : "SA"
+                            Status= item.ReporteID != null ? "A" : "SA",
+                            ReportePath=item.ReportePath
                         });
                     }
 
@@ -76,7 +77,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ImpresionPruebasBD
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GENERARFOLIOREPORTESIMPRESION, dtDetalleCaptura, "@GenerarReporteID", parametro);
+                    _SQL.Coleccion(Stords.GENERARFOLIOREPORTESIMPRESION, dtDetalleCaptura, "@GenerarReporteID", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;

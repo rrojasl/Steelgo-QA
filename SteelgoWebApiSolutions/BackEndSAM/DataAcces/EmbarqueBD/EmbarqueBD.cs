@@ -49,13 +49,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerTractos(int transportistaID)
+        public object ObtenerPlanasGuardadas(int embarqueID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Placa_Result> result = ctx.Sam3_Steelgo_Get_Placa("Tracto",transportistaID).ToList();
+                    List<Sam3_Embarque_Get_EmbarqueDetalle_Result > result = ctx.Sam3_Embarque_Get_EmbarqueDetalle(embarqueID, lenguaje).ToList();
                     return result;
                 }
             }
@@ -71,13 +71,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerChoferes()
+        public object ObtenerPlana(int transportistaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Chofer_Result> result = ctx.Sam3_Steelgo_Get_Chofer().ToList();
+                    List<Sam3_Embarque_Get_PlanaEmbarque_Result> result = ctx.Sam3_Embarque_Get_PlanaEmbarque(transportistaID).ToList();
                     return result;
                 }
             }
@@ -93,13 +93,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerPlanas(int transportistaID)
+        public object ObtenerTracto(int transportistaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Placa_Result> result = ctx.Sam3_Steelgo_Get_Placa("Plana", transportistaID).ToList();
+                    List<Sam3_Steelgo_Get_Tracto_Result> result = ctx.Sam3_Steelgo_Get_Tracto(transportistaID).ToList();
                     return result;
                 }
             }
@@ -114,5 +114,29 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
                 return result;
             }
         }
+
+
+        public object ObtenerChoferes(int vehiculoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_ChoferPorVehiculo_Result> result = ctx.Sam3_Steelgo_Get_ChoferPorVehiculo(vehiculoID).ToList();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        
     }
 }

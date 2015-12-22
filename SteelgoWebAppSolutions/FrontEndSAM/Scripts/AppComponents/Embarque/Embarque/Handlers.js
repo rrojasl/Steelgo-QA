@@ -1,11 +1,34 @@
 ﻿function SuscribirEventos() {
-    suscribirEventoArea();
-    suscribirEventoCuadrante();
+    suscribirEventoProveedor();
+    suscribirEventoTracto();
+    suscribirEventoChofer();
+    suscribirEventoPlana();
+    suscribirEventoAgregar();
+    suscribirEventoGuardar();
 }
 
 SuscribirEventos();
 
-function suscribirEventoArea() {
+
+function suscribirEventoGuardar() {
+
+    $('#btnGuardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarPlanas(ds._data);
+    });
+}
+
+function suscribirEventoAgregar() {
+
+    $('#btnAgregar').click(function (e) {
+        if ($("#Plana").val() != "") {
+            AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+        }
+    });
+}
+
+
+function suscribirEventoProveedor() {
     $("#Proveedor").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "TransportistaID",
@@ -13,7 +36,55 @@ function suscribirEventoArea() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
+            AjaxCargarTracto($("#Proveedor").data("kendoComboBox").value());
         }
     });
+}
+
+function suscribirEventoTracto() {
+    $("#Tracto").kendoComboBox({
+        dataTextField: "Placas",
+        dataValueField: "VehiculoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            AjaxCargarChofer($("#Tracto").data("kendoComboBox").value());
+        }
+    });
+}
+
+function suscribirEventoChofer() {
+    $("#Chofer").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ChoferID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            AjaxCargarPlana($("#Proveedor").data("kendoComboBox").value());
+        }
+    });
+}
+
+function suscribirEventoPlana() {
+    $("#Plana").kendoComboBox({
+        dataTextField: "Placas",
+        dataValueField: "EmbarquePlanaID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+        }
+    });
+
+    $('#Plana').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if ($("#Plana").val() != "") {
+                AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+            }
+            
+        }
+    });
+
 }

@@ -11,6 +11,50 @@ function AjaxCargarDatos() {
     });
 };
 
+
+function AjaxImprimir(arregloJuntas) {
+    loadingStart();
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    contador = 0;
+    ReporteIDConsecutivo;
+
+
+    for (var i = 0; i < arregloJuntas.length; i++) {
+        if (arregloJuntas[i].Seleccionado && (arregloJuntas[i].ReporteID != null || arregloJuntas[i].ReporteID != undefined)) {
+            ListaDetalles[contador] = { RequisicionPruebaElementoID: "", ReporteID: "", ReportePath:"" };
+            ListaDetalles[contador].RequisicionPruebaElementoID = arregloJuntas[i].RequisicionPruebaElementoID;
+            ListaDetalles[contador].ReporteID = arregloJuntas[i].ReporteID;
+            ListaDetalles[contador].Status = arregloJuntas[i].Status;
+            ListaDetalles[contador].ReportePath = arregloJuntas[i].ReportePath;
+            contador++;
+        }
+    }
+
+
+
+    Captura[0].Detalles = ListaDetalles;
+    if (Captura[0].Detalles.length > 0) {
+        for (var m = 0; m < Captura[0].Detalles.length; m++) {
+            SolicitarImpresion(Captura[0].Detalles[m].ReportePath.replace('?1', $("#language").val()).replace('?2', Captura[0].Detalles[m].ReporteID));
+        }
+        loadingStop();
+    }
+    else {
+        loadingStop();
+    }
+}
+
+function SolicitarImpresion(url) {
+    window.open(url, "_blank");
+   
+
+    //document.location.target = "_blank";
+    //document.location.href = url
+};
+
+
 function AjaxGenerarReporte(arregloJuntas)
 {
     loadingStart();
