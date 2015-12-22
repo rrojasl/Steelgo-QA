@@ -189,7 +189,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARVALIDACIONRESULTADOS, dtDetalleRequisicion, "@Tabla", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARVALIDACIONRESULTADOS, dtDetalleRequisicion, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -224,7 +224,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARDEFECTOSVALIDACIONRESULTADOS, dtDetalleDefectos, "@Tabla", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARDEFECTOSVALIDACIONRESULTADOS, dtDetalleDefectos, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");

@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() } };
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDAREMBARQUEMARCADO, dtDetalleRequisicion, "@Tabla", parametro);
+                     _SQL.Ejecuta(Stords.GUARDAREMBARQUEMARCADO, dtDetalleRequisicion, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
