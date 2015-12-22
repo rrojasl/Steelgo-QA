@@ -6620,6 +6620,10 @@ _dictionary = {
         "es-MX": "La fecha inicial no puede ser mayor que la fecha final",
         "en-US": "The starter date can not be greater than final date"
     },
+    "notificationslabel0100": {
+        "es-MX": "La descarga comenzará en breve, si no es así",
+        "en-US": "The starter date can not be greater than final date"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
