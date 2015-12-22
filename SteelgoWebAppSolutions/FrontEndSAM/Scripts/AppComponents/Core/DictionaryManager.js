@@ -6621,8 +6621,8 @@ _dictionary = {
         "en-US": "The starter date can not be greater than final date"
     },
     "notificationslabel0100": {
-        "es-MX": "La descarga comenzará en breve, si no es así",
-        "en-US": "The starter date can not be greater than final date"
+        "es-MX": "La descarga comenzará en breve, si no es así intentalo nuevamente",
+        "en-US": "The download will start soon, if not, try it again"
     },
     //Default to copy
     "label9999": {

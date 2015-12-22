@@ -469,6 +469,7 @@
         var link = document.createElement("a");
         link.href=url+"?data="+encodeURI(JSON.stringify(pdf))+"&token="+Cookies.get("token");
         link.target = "_blank";
+        displayMessage("notificationslabel0100","","2")
         link.dispatchEvent(new Event("click"));
     }
 
