@@ -160,7 +160,7 @@
         ObtenerProyecto();
 
         $("#FolioCuantificacionID").kendoComboBox({
-            dataTextField: "id",
+            dataTextField: "value",
             dataValueField: "value",
             filter: "contains",
             select: function (e) {
@@ -496,7 +496,30 @@
     }
     function AsignarPaginaActualCookie() {
         Cookies.set("navegacion", "17", { path: '/' });
-    }
+    };
+
+    function Filtros() {
+        //loadingStart();
+        var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
+        var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
+        var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
+        var NumeroUnicoID = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : ""
+
+        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID, NumeroUnicoID: NumeroUnicoID };
+
+        $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                _resultadoJson = result;
+                if (_resultadoJson.length > 0) {
+                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                };
+            }
+            //loadingStop();
+        });
+    };
+
     function CargarDatosGridInicial() {
         //loadingStart();
 
@@ -586,12 +609,13 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Orden Almacenaje"] = $GenerarOrdenAlmacenajeModel;
     CargaInicial();
-    $("#toAlmacenaje").on("click",function(){
-        window.location.href=window.location.origin+"/Almacenaje/Almacenaje?ProyectoID="+$("#ProyectoID").data("kendoComboBox").value()+"&OrdenAlmacenajeID="+getUrlParameter("OrdenAlmacenajeID", "0");
+    $("#toAlmacenaje").on("click", function () {
+        window.location.href = window.location.origin + "/Almacenaje/Almacenaje?ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&OrdenAlmacenajeID=" + getUrlParameter("OrdenAlmacenajeID", "0");
     })
-    if(getUrlParameter("OrdenAlmacenajeID", null) === null){
+    if (getUrlParameter("OrdenAlmacenajeID", null) === null) {
         $("#toAlmacenaje").hide();
     }
+
     }
      @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
