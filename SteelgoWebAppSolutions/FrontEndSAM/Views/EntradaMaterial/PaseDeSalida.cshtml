@@ -256,13 +256,16 @@
 
         $("#ImprimirPaseSalida").click(function () {
             var pdf = ArregloPDF(3,FolioPaseSalida.FolioAvisoLlegadaID, "");
-            
-            $Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
-                if (result) {
-                    if (Error(result)) {
-                    }
-                }
-            });
+            var link = document.createElement("a");
+            link.href=$Reporte.Reporte.urlNoId+"?data="+encodeURI(JSON.stringify(pdf))+"&token="+Cookies.get("token");
+            link.target = "_blank";
+            link.dispatchEvent(new Event("click"));
+            //$Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
+            //    if (result) {
+            //        if (Error(result)) {
+            //        }
+            //    }
+            //});
            // window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
         $("#Editar").click(function () { Editar();});
