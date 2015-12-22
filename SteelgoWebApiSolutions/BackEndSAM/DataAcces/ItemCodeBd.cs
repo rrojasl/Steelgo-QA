@@ -362,25 +362,6 @@ namespace BackEndSAM.DataAcces
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor, 
                                        FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(), 
-                                       Cedula = (from cat in ctx.Sam3_CatalogoCedulas 
-                                                     join d in ctx.Sam3_Diametro on cat.DiametroID equals d.DiametroID
-                                                     where cat.Activo && d.Activo && ics.CedulaID == cat.CatalogoCedulasID
-                                                     select d.Valor).FirstOrDefault() +
-                                                     "-" +
-                                                     (from cat in ctx.Sam3_CatalogoCedulas
-                                                      join ced in ctx.Sam3_Cedula on cat.CedulaA equals ced.CedulaID
-                                                      where cat.Activo && ced.Activo && ics.CedulaID == cat.CatalogoCedulasID
-                                                      select ced.Codigo).FirstOrDefault() +
-                                                      "-" +
-                                                      (from cat in ctx.Sam3_CatalogoCedulas
-                                                       join ced in ctx.Sam3_Cedula on cat.CedulaB equals ced.CedulaID
-                                                       where cat.Activo && ced.Activo && ics.CedulaID == cat.CatalogoCedulasID
-                                                       select ced.Codigo).FirstOrDefault() +
-                                                       "-" +
-                                                       (from cat in ctx.Sam3_CatalogoCedulas
-                                                        join ced in ctx.Sam3_Cedula on cat.CedulaC equals ced.CedulaID
-                                                        where cat.Activo && ced.Activo && ics.CedulaID == cat.CatalogoCedulasID
-                                                        select ced.Codigo).FirstOrDefault(),
                                        ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                        ItemCodeSteelgo = ics.Codigo,
                                        TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
@@ -398,6 +379,39 @@ namespace BackEndSAM.DataAcces
                                                                  where tm.TipoMaterialID==r.TipoMaterialID
                                                                  select tm.Nombre).FirstOrDefault()
                                    }).AsParallel().SingleOrDefault();
+
+                        if (detalle != null)
+                        {
+                            string diametro = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                               join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                               join d in ctx.Sam3_Diametro on cat.DiametroID equals d.DiametroID
+                                               where ics.ItemCodeSteelgoID.ToString() == detalle.ItemCodeSteelgoID
+                                               && ics.Activo && cat.Activo && d.Activo
+                                               select d.Valor.ToString()).AsParallel().SingleOrDefault();
+
+                            string cedulaA = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                              join ced in ctx.Sam3_Cedula on cat.CedulaA equals ced.CedulaID
+                                              where ics.ItemCodeSteelgoID.ToString() == detalle.ItemCodeSteelgoID
+                                              && ics.Activo && cat.Activo && ced.Activo
+                                              select ced.Codigo).AsParallel().SingleOrDefault();
+
+                            string cedulaB = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                              join ced in ctx.Sam3_Cedula on cat.CedulaB equals ced.CedulaID
+                                              where ics.ItemCodeSteelgoID.ToString() == detalle.ItemCodeSteelgoID
+                                              && ics.Activo && cat.Activo && ced.Activo
+                                              select ced.Codigo).AsParallel().SingleOrDefault();
+
+                            string cedulaC = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                              join ced in ctx.Sam3_Cedula on cat.CedulaC equals ced.CedulaID
+                                              where ics.ItemCodeSteelgoID.ToString() == detalle.ItemCodeSteelgoID
+                                              && ics.Activo && cat.Activo && ced.Activo
+                                              select ced.Codigo).AsParallel().SingleOrDefault();
+
+                            detalle.Cedula = diametro + " - " + cedulaA + " - " + cedulaB + " - " + cedulaC;
+                        }
                     }
                     else
                     {
