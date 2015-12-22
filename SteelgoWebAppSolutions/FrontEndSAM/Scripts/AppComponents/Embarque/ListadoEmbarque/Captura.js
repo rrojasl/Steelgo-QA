@@ -2,6 +2,7 @@
 
 function changeLanguageCall() {
     CargarGrid();
+    AjaxCargarListadoEmbarque('Enviados', $("#language").val());
 };
 
 

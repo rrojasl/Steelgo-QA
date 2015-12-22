@@ -1,6 +1,8 @@
 ﻿function SuscribirEventos() {
     suscribirEventoCambioTab();
     suscribirEventoModal();
+    suscribirEventoGuardarFolio();
+    
 }
 
 SuscribirEventos();
@@ -30,7 +32,19 @@ function suscribirEventoModal() {
     $(document).on('click', '.botonFolio', function (e) {
         var grid = $("#grid").data("kendoGrid"),
         dataItem = grid.dataItem($(e.target).closest("tr"));
+
+        $("#Folio").val(dataItem.FolioAprobadoAduana);
         VentanaModalFolio(dataItem);
     });
 
+}
+
+
+function suscribirEventoGuardarFolio() {
+    $("#GuardarFolio").click(function () {
+        if ($("#Folio").val() != "") {
+            ObjetoRenglon.FolioAprobadoAduana = $("#Folio").val();
+        }
+        $("#windowFolio").data("kendoWindow").close();
+    });
 }
