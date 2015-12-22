@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers
             }
 
         }
-        public object Get(string ordenTrabajo, int tipo, string token)
+        public object Get(string ordenTrabajo, int tipo, string token,string lenguaje)
         {
             //Create a generic return object
             string payload = "";
@@ -53,7 +53,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 IdOrdenTrabajo idOrdenTrabajo = new IdOrdenTrabajo();
 
-                List<Sam3_Steelgo_Get_SpoolID_Result> lista = (List<Sam3_Steelgo_Get_SpoolID_Result>)CapturaArmadoBD.Instance.ObtenerIDOrdenTrabajo(usuario, ordenTrabajo, tipo);
+                List<Sam3_Steelgo_Get_SpoolID_Result> lista = (List<Sam3_Steelgo_Get_SpoolID_Result>)CapturaArmadoBD.Instance.ObtenerIDOrdenTrabajo(usuario, ordenTrabajo, tipo, lenguaje);
                 List<IDS> listaAtatus = new List<IDS>();
                 if (lista.Count > 0)
                 {

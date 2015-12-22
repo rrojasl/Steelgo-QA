@@ -30,14 +30,14 @@
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
                             </div>
-                            <a  class="btn btn-yellow"><span >Cerrar Plana</span></a>
+                            <a  class="btn btn-yellow"><span id="EmbarqueCargaPlana">Cerrar Plana</span></a>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span>Embarque</span></a>
+                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="EmbarqueCargaEmbarque">Embarque</span></a>
                         </div>
                         <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
-                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
+                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="EmbarqueCargaAutorizarPermiso"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -46,9 +46,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a><span>Imprimir etiqueta Spool</span></a></li>
-                                    <li><a><span>Imprimir travel masivo</span></a></li>
-
+                                    <li><a><span id="EmbarqueCargaImprimirEtiquetaSpool"></span></a></li>
+                                    <li><a><span id="EmbarqueCargaImprimirTravelMasivo"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -59,43 +58,62 @@
         </div>
     </div>
     <div id="FieldSetView">
-        <div class="row" style="display:none;">
+        <div class="row" style="display:normal;">
 
             <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">Proveedor</label>
-                <input />
+                <label id="EmbarqueCargaProveedor"></label>
+                <input id="inputProveedor" />
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">Placa</label>
-                <input />
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">&nbsp;</label>
-                <label id="">Total de Peizas: 5</label>
+                <label id="EmbarqueCargaPLaca"></label>
+                <input id="inputEmbarqueCargaPLacaPlana" />
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <label id="">&nbsp;</label>
-                <label id="">Toneladas cargadas: 15</label>
+                <label id="EmbarqueCargaTotalPiezas">5</label>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <label id="">&nbsp;</label>
+                <label id="EmbarqueCargaToneladasCargadas"> 15</label>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <label id="LabelProyecto" style="display:none;"> </label>
             </div>
             <hr />
         </div>
        
         <div class="row">
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">Spool</label>
+
+            <div class="col-sm-2 col-md-2 col-lg-3">
+                <div class="btn-group "  role="group">
+                    <label id="EmbarqueCargaSelecciona"></label>
+                    <label  id="styleReporte">
+                        <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
+                    </label>
+                    <label  id="styleListado">
+                        <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionPaquete"> </span>
+                    </label>
+                    <label id="styleListado">
+                        <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionCodigo"> </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-sm-3 col-md-3 col-lg-3" id="divSpool">
+                <label id="EmbarqueCargaSpool"></label>
                 <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
             </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">Paquete</label>
-                <input />
+            <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete">
+                <label id="EmbarqueCargaPaquete"></label>
+                <input id="inputPaquete" />
             </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">Codigo</label>
-                <input />
+            <div class="col-sm-3 col-md-3 col-lg-2" id="divCodigo">
+                <label id="EmbarqueCargaCodigo"></label>
+                <input id="inputCodigo"/>
             </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="col-sm-3 col-md-3 col-lg-1">
                 <label id="">&nbsp;</label>
-                <button type="button" id="btnAgregar" class="btn btn-blue"><span>Agregar</span></button>
+                <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueCargaAgregar"></span></button>
 
             </div>
         </div>
@@ -111,8 +129,8 @@
                       
                     </div>
                    <div class="col-sm-4 col-md-4 col-lg-4">
-                       <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Crear Paquete</span></button>
-                       <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Agregar a paquete</span></button>
+                       <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EmbarqueCargaCrearPaquete"></span></button>
+                       <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EmbarqueCargaAgregarAPaquete"></span></button>
                        <br /><br />
                    </div>
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
@@ -126,8 +144,8 @@
 
                     </div>
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                        <button  type="button" class="btn btn-yellow"><span>Crear paquete</span></button>
-                        <button  type="button" class="btn btn-yellow"><span>Agregar a paquete</span></button>
+                        <button  type="button" class="btn btn-yellow"><span id="EmbarqueCargaCrearPaquete"></span></button>
+                        <button  type="button" class="btn btn-yellow"><span id="EmbarqueCargaAgregarPaquete"></span></button>
                         <br /><br />
                     </div>
                 </div>
@@ -177,6 +195,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Render.js"></script>

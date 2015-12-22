@@ -257,11 +257,7 @@
 
             if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
                 try {
-                    $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
-                        $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
-                        $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
-                        Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
-                    });
+                    AjaxObtenerSpoolID();
                 } catch (e) {
                     displayMessage("Mensajes_error", e.message, '0');
 

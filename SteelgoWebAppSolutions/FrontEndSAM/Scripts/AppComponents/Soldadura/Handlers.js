@@ -200,7 +200,7 @@ function SuscribirEventoSpoolID() {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
                 loadingStart();
-                $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
+                $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                     $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                     $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
                     Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });

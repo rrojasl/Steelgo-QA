@@ -75,7 +75,7 @@ function AjaxObtenerSpoolID() {
     try {
 
         loadingStart();
-        $CapturasRapidas.CapturasRapidas.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
+        $CapturasRapidas.CapturasRapidas.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
            
             $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
             $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus)

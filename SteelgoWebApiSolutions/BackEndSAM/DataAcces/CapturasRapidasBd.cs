@@ -41,13 +41,13 @@ namespace BackEndSAM.DataAcces
         /// <param name="ordentrabajo">Orden de trabajo</param>
         /// <param name="tipo">Tipo de ejecucion en el stord</param>
         /// <returns></returns>
-        public object ObtenerIDOrdenTrabajo(string ordentrabajo, int tipo)
+        public object ObtenerIDOrdenTrabajo(string ordentrabajo, int tipo,string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SpoolID_Result> lista = ctx.Sam3_Steelgo_Get_SpoolID(tipo, ordentrabajo).ToList();
+                    List<Sam3_Steelgo_Get_SpoolID_Result> lista = ctx.Sam3_Steelgo_Get_SpoolID(tipo, ordentrabajo, lenguaje).ToList();
                     return lista;
 
                 }

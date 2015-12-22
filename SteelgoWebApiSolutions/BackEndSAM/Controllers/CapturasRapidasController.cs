@@ -20,7 +20,7 @@ namespace BackEndSAM.Controllers
         /// <param name="tipo">Tipo de ejecución en el stord</param>
         /// <param name="token">token</param>
         /// <returns></returns>
-        public object Get(string ordenTrabajo, int tipo, string token)
+        public object Get(string ordenTrabajo, int tipo, string token,string lenguaje)
         {
             //Create a generic return object
             string payload = "";
@@ -32,7 +32,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 IdOrdenTrabajo idOrdenTrabajo = new IdOrdenTrabajo();
 
-                List<Sam3_Steelgo_Get_SpoolID_Result> lista = (List<Sam3_Steelgo_Get_SpoolID_Result>)CapturasRapidasBd.Instance.ObtenerIDOrdenTrabajo(ordenTrabajo, tipo);
+                List<Sam3_Steelgo_Get_SpoolID_Result> lista = (List<Sam3_Steelgo_Get_SpoolID_Result>)CapturasRapidasBd.Instance.ObtenerIDOrdenTrabajo(ordenTrabajo, tipo, lenguaje);
                 List<IDS> listaAtatus = new List<IDS>();
                 if (lista.Count > 0)
                 {
