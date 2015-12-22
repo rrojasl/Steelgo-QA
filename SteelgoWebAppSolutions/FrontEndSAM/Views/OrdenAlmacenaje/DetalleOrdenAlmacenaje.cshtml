@@ -38,6 +38,9 @@
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenAlmacenaje0003"></span></a>
                         </div>
                         <div class="button-section listado">
+                            <div class="btn-group">
+                                <button id="toAlmacenaje" type="button" class="btn btn-blue"><span id="DetalleOrdenAlmacenaje0025"></span></button>
+                            </div>
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleOrdenAlmacenaje0004"></span>
@@ -606,6 +609,12 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Orden Almacenaje"] = $GenerarOrdenAlmacenajeModel;
     CargaInicial();
+    $("#toAlmacenaje").on("click", function () {
+        window.location.href = window.location.origin + "/Almacenaje/Almacenaje?ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&OrdenAlmacenajeID=" + getUrlParameter("OrdenAlmacenajeID", "0");
+    })
+    if (getUrlParameter("OrdenAlmacenajeID", null) === null) {
+        $("#toAlmacenaje").hide();
+    }
 
     }
      @section JavascriptDocumentReadyHomeCookie {
