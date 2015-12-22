@@ -1,9 +1,12 @@
-﻿function changeLanguageCall() {
+﻿var ObjetoRenglon;
+
+function changeLanguageCall() {
     CargarGrid();
 };
 
 
 function CargarGrid() {
+
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
@@ -30,6 +33,7 @@ function CargarGrid() {
         filterable: {
             extra: false
         },
+        
         editable: true,
         autoHeight: true,
         sortable: true,
@@ -55,7 +59,6 @@ function CargarGrid() {
 };
 
 function VentanaModalFecha() {
-
     var modalTitle = "";
     modalTitle = _dictionary.ValidacionResultadosRequisicion[$("#language").data("kendoDropDownList").value()];
     var window = $("#windowFecha");
@@ -83,8 +86,8 @@ function VentanaModalFecha() {
 };
 
 
-function VentanaModalFolio() {
-
+function VentanaModalFolio(dataItem) {
+    ObjetoRenglon = dataItem;
     var modalTitle = "";
     modalTitle = "Ingresar Folio";
     var window = $("#windowFolio");

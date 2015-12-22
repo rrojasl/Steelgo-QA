@@ -23,12 +23,14 @@ function suscribirEventoCambioTab() {
 
 function suscribirEventoModal() {
 
-    $(document).on('click', '.botonEnviar', function () {
+    $(document).on('click', '.botonEnviar', function (e) {
         VentanaModalFecha();
     });
 
-    $(document).on('click', '.botonFolio', function () {
-        VentanaModalFolio();
+    $(document).on('click', '.botonFolio', function (e) {
+        var grid = $("#grid").data("kendoGrid"),
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        VentanaModalFolio(dataItem);
     });
 
 }
