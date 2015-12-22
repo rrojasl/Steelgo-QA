@@ -256,10 +256,7 @@
 
         $("#ImprimirPaseSalida").click(function () {
             var pdf = ArregloPDF(3,FolioPaseSalida.FolioAvisoLlegadaID, "");
-            var link = document.createElement("a");
-            link.href=$Reporte.Reporte.urlNoId+"?data="+encodeURI(JSON.stringify(pdf))+"&token="+Cookies.get("token");
-            link.target = "_blank";
-            link.dispatchEvent(new Event("click"));
+            downloadPDF($Reporte.Reporte.urlNoId,pdf);
             //$Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
             //    if (result) {
             //        if (Error(result)) {
@@ -301,12 +298,13 @@
                 strincidencias = strALLincidencias;
             }
             var pdf = ArregloPDF(2,FolioPaseSalida.FolioAvisoLlegadaID, strincidencias);
-            $Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
-                if(result){
-                    if (Error(result)) {
-                    }
-                }
-            });
+            downloadPDF($Reporte.Reporte.urlNoId,pdf);
+            //$Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
+            //    if(result){
+            //        if (Error(result)) {
+            //        }
+            //    }
+            //});
            //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Incidencias&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&cadena=" + strincidencias + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
 
@@ -466,6 +464,13 @@
         $("#ImprimirPaseSalida").attr("disabled", "disabled");
         $("input[type='checkbox']").attr("disabled", "disabled");
     };
+
+    function downloadPDF(url,pdf){
+        var link = document.createElement("a");
+        link.href=url+"?data="+encodeURI(JSON.stringify(pdf))+"&token="+Cookies.get("token");
+        link.target = "_blank";
+        link.dispatchEvent(new Event("click"));
+    }
 
     function ArregloPDF(tiporeporte, id, cadena) {
         var PDF = { TipoReporte: tiporeporte, FolioAvisoLlegadaID: id, Cadena: cadena };
