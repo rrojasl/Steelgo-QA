@@ -3678,6 +3678,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "botonCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     "botonGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
@@ -3762,6 +3766,10 @@ _dictionary = {
     "botonCancelar1": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
+    },
+    "botonAcciones1": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -4685,8 +4693,8 @@ _dictionary = {
     },
     //#region ListadoRequisicion
     "ImpresionPruebasMostrarTodo": {
-    "es-MX": "Mostrar Todo",
-    "en-US": "Show all"
+        "es-MX": "Mostrar Todo",
+        "en-US": "Show all"
     },
     "ImpresionPruebasNoMostrarTodo": {
         "es-MX": "No impresos",
@@ -4729,133 +4737,133 @@ _dictionary = {
         "es-MX": "No puedes seleccionar 2 o mas reportes distintos para imprimir",
         "en-US": "You can not select two or more different reports for printing"
     },
-    
-    
+
+
     //#endregion
 
-    
- "btnAcciones1": {
-    "es-MX": "Acciones",
-    "en-US": "Actions"
-},
 
-"botonCancelar2": {
-    "es-MX": "Cancelar",
-    "en-US": "Cancel"
-},
+    "btnAcciones1": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
 
-//#region EmbarqueConsulta
+    "botonCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+
+    //#region EmbarqueConsulta
     "EmbarqueConsultaSpoolID": {
-    "es-MX": "Spool ID ",
-    "en-US": "Spool ID "
-},
+        "es-MX": "Spool ID ",
+        "en-US": "Spool ID "
+    },
     "EmbarqueConsultaPaso": {
-    "es-MX": "Paso ",
-    "en-US": "Step "
-},
+        "es-MX": "Paso ",
+        "en-US": "Step "
+    },
     "EmbarqueConsultaCuadrante": {
-    "es-MX": "Cuadrante ",
-    "en-US": "Quadrant"
-},
+        "es-MX": "Cuadrante ",
+        "en-US": "Quadrant"
+    },
     "EmbarqueConsultaTraveler": {
-    "es-MX": "Traveler",
-    "en-US": "Traveler"
-},
+        "es-MX": "Traveler",
+        "en-US": "Traveler"
+    },
     "EmbarqueConsultaDetalle": {
-    "es-MX": "Detalle",
-    "en-US": "Detail"
-},
+        "es-MX": "Detalle",
+        "en-US": "Detail"
+    },
     "EmbarqueConsultaVer": {
-    "es-MX": "Ver",
-    "en-US": "Show"
-},
+        "es-MX": "Ver",
+        "en-US": "Show"
+    },
     "EmbarqueConsultaArea": {
-    "es-MX": "Area",
-    "en-US": "Area"
-},
+        "es-MX": "Area",
+        "en-US": "Area"
+    },
     "EmbarqueConsultaLinkShop": {
-    "es-MX": "Link shop",
-    "en-US": "Link shop"
-},
-//#endregion
+        "es-MX": "Link shop",
+        "en-US": "Link shop"
+    },
+    //#endregion
 
-//#region EmbarqueMarcado
+    //#region EmbarqueMarcado
     "EmbarqueMarcadoBtnCarga": {
-    "es-MX": "Carga",
-    "en-US": "Charge"
-},
+        "es-MX": "Carga",
+        "en-US": "Charge"
+    },
     "EmbarqueMarcadoBtnCarga2": {
-    "es-MX": "Carga",
-    "en-US": "Charge"
-},
+        "es-MX": "Carga",
+        "en-US": "Charge"
+    },
     "EmbarqueMarcadoImprimirEtiquetaSpool": {
-    "es-MX": "Imprimir etiqueta Spool",
-    "en-US": "Print Spool Label"
-},
+        "es-MX": "Imprimir etiqueta Spool",
+        "en-US": "Print Spool Label"
+    },
     "EmbarqueMarcadoImprimirTravelMasivo": {
-    "es-MX": "Imprimir travel masivo",
-    "en-US": "Print Masive Travel"
-},
+        "es-MX": "Imprimir travel masivo",
+        "en-US": "Print Masive Travel"
+    },
     "EmbarqueMarcadoArea": {
-    "es-MX": "Área",
-    "en-US": "Area"
-},
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
     "EmbarqueMarcadoCuadrante": {
-    "es-MX": "Cuadrante",
-    "en-US": "Quadrant"
-},
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
     "EmbarqueMarcadoImpreso": {
-    "es-MX": "Impreso",
-    "en-US": "Printed"
-},
+        "es-MX": "Impreso",
+        "en-US": "Printed"
+    },
     "EmbarqueMarcadoBtnVer": {
-    "es-MX": "Ver",
-    "en-US": "Show"
-},
+        "es-MX": "Ver",
+        "en-US": "Show"
+    },
     "EmbarqueMarcadoRadioSi": {
-    "es-MX": "Sí",
-    "en-US": "Yes"
-},
+        "es-MX": "Sí",
+        "en-US": "Yes"
+    },
     "EmbarqueMarcadoRadioNo": {
-    "es-MX": "No",
-    "en-US": "No"
-},
+        "es-MX": "No",
+        "en-US": "No"
+    },
     "EmbarqueMarcadoCabeceraSpoolID": {
-    "es-MX": "Spool ID",
-    "en-US": "Spool ID"
-},
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
     "EmbarqueMarcadoCabeceraCuadrante": {
-    "es-MX": "Cuadrante",
-    "en-US": "Quadrant"
-},
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
     "EmbarqueMarcadoCabeceraTraveler": {
-    "es-MX": "Traveler",
-    "en-US": "Traveler"
-},
+        "es-MX": "Traveler",
+        "en-US": "Traveler"
+    },
     "EmbarqueMarcadoCabeceraEtiquetado": {
-    "es-MX": "Etiquetado",
-    "en-US": "Labeled"
-},
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
+    },
     "EmbarqueMarcadoCabeceraConCinta": {
-    "es-MX": "Con Cinta",
-    "en-US": "With Tape"
-},
+        "es-MX": "Con Cinta",
+        "en-US": "With Tape"
+    },
     "EmbarqueMarcadoCabeceraCinta": {
-    "es-MX": "Cinta",
-    "en-US": "Tape"
-},
+        "es-MX": "Cinta",
+        "en-US": "Tape"
+    },
     "EmbarqueMarcadoMensajeGuardadoExitoso": {
-    "es-MX": "Datos guardados correctamente",
-    "en-US": "Save data correctly"
-},
+        "es-MX": "Datos guardados correctamente",
+        "en-US": "Save data correctly"
+    },
     "EmbarqueMarcadoMensajeCuadrante": {
-    "es-MX": "Selecciona el cuadrante",
-    "en-US": "Select a quadrant"
-},
+        "es-MX": "Selecciona el cuadrante",
+        "en-US": "Select a quadrant"
+    },
     "EmbarqueMarcadoMensajeArea": {
-    "es-MX": "Selecciona el area",
-    "en-US": "Select an area"
-},
+        "es-MX": "Selecciona el area",
+        "en-US": "Select an area"
+    },
     //#endregion
 
     //#region ValidacionResultados
@@ -4949,7 +4957,56 @@ _dictionary = {
     },
     //#endregion
 
-
+    //#region Embarque
+    "EmbarquePlana": {
+        "es-MX": "Plana",
+        "en-US": "Flat"
+    },
+    "EmbarqueProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "EmbarqueTracto": {
+        "es-MX": "Tracto",
+        "en-US": "Tracto"
+    },
+    "EmbarqueChofer": {
+        "es-MX": "Chofer",
+        "en-US": "Driver"
+    },
+    "EmbarqueMensajeEliminarPlana": {
+        "es-MX": "¿Estas seguro de eliminar la plana?",
+        "en-US": "Are you sure to remove the flat?"
+    },
+    "EmbarqueMensajePlanaExistente": {
+        "es-MX": "La plana ya existe",
+        "en-US": "Flat already exist"
+    },
+    "EmbarqueMensajeAgregaPlanas": {
+        "es-MX": "Agrega una plana al menos para guardar",
+        "en-US": "Add a flat at least to save"
+    },
+    "EmbarqueMensajeMaximoDosPlanas": {
+        "es-MX": "Se pueden insertar maximo dos planas",
+        "en-US": "You can insert maximum two flat"
+    },
+    "EmbarqueMensajeNoEliminarPlanas": {
+        "es-MX": "No se puede eliminar la plana, no esta cerrada",
+        "en-US": "You can´t delete the flat, isn't closed"
+    },
+    "EmbarqueMensajeGuardadoExitoso": {
+        "es-MX": "El embarque se guardo correctamente",
+        "en-US": "The shipment was successfully saved"
+    },
+    "EmbarqueBotonRevisionEmbarque": {
+        "es-MX": "Revision de Embarque",
+        "en-US": "Boarding review"
+    },
+    "EmbarqueBotonRevisionEmbarque2": {
+        "es-MX": "Revision de Embarque",
+        "en-US": "Boarding review"
+    }
+    //#endregion
 };
 
 

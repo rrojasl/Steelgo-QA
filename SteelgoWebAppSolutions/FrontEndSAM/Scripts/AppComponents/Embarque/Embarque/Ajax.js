@@ -3,6 +3,9 @@
     $Embarque.Embarque.read({ token: Cookies.get("token") }).done(function (data) {
         $("#Proveedor").data("kendoComboBox").value("");
         $("#Proveedor").data("kendoComboBox").dataSource.data(data);
+        if ($('#embarqueID').val() != 0 ) {
+            AjaxCargarDatos($('#embarqueID').val());
+        }
         loadingStop();
     });
 
@@ -13,6 +16,10 @@ function AjaxCargarTracto(transportistaID) {
     $Embarque.Embarque.read({ token: Cookies.get("token"), TransportistaID: transportistaID, Tracto: "Tracto" }).done(function (data) {
         $("#Tracto").data("kendoComboBox").value("");
         $("#Tracto").data("kendoComboBox").dataSource.data(data);
+        if ($('#embarqueID').val() != 0 && bandera == true) {
+            $("#Tracto").data("kendoComboBox").value(tractoEmb);
+            $("#Tracto").data("kendoComboBox").trigger("change");
+        }
         loadingStop();
     });
 }
@@ -22,6 +29,11 @@ function AjaxCargarChofer(vehiculoID) {
     $Embarque.Embarque.read({ token: Cookies.get("token"), VehiculoID: vehiculoID }).done(function (data) {
         $("#Chofer").data("kendoComboBox").value("");
         $("#Chofer").data("kendoComboBox").dataSource.data(data);
+        if ($('#embarqueID').val() != 0 && bandera == true) {
+            $("#Chofer").data("kendoComboBox").value(choferEmb);
+            $("#Chofer").data("kendoComboBox").trigger("change");
+            bandera = false;
+        }
         loadingStop();
     });
 }
@@ -38,14 +50,22 @@ function AjaxCargarPlana(transportistaID) {
 
 function AjaxCargarDatos(embarqueID) {
     loadingStart();
-    $Embarque.Embarque.read({ token: Cookies.get("token"), EmbarqueID: parseInt(embarqueID), lenguaje: $("#language").val() }).done(function (data) {
+    $Embarque.Embarque.read({ token: Cookies.get("token"), EmbarqueID: embarqueID, lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
+        
+        if (array.length != 0) {
+            transportistaEmb = data[0].TransportistaID;
+            choferEmb = data[0].ChoferID;
+            tractoEmb = data[0].TractoID;
+            bandera = true;
+            $("#Proveedor").data("kendoComboBox").value(transportistaEmb);
+            $("#Proveedor").data("kendoComboBox").trigger("change");
+        }
+        
+        
         for (var i = 0; i < array.length; i++) {
-            if (array[0].Estatus != "Cerrada") {
-                $("#grid").find("table th").eq(1).hide();
-            }
                 ds.add(array[i]);
         }
         loadingStop();
@@ -74,20 +94,40 @@ function AjaxGuardarPlanas(arregloCaptura) {
 
 
         
-        ListaDetalles[0].embarqueID = parseInt($('#embarqueID').val());
+        ListaDetalles[0].embarqueID = 0;
         ListaDetalles[0].tractoID = parseInt($("#Tracto").data("kendoComboBox").value());
         ListaDetalles[0].choferID = parseInt($("#Chofer").data("kendoComboBox").value());
-        ListaDetalles[0].accionPlanaID1 = arregloCaptura[0].Accion;
-        
-         
-        if (arregloCaptura[1].Accion) {
-            ListaDetalles[0].accionPlanaID2 = arregloCaptura[1].Accion;
-        }
-
-        ListaDetalles[0].planaID1 = parseInt(arregloCaptura[0].PlanaID);
-        ListaDetalles[0].planaID2 = parseInt(arregloCaptura[1].PlanaID);
+        ListaDetalles[0].accionPlanaID1 = 0;
+        ListaDetalles[0].accionPlanaID2 = 0;
+        ListaDetalles[0].planaID1 = 0;
+        ListaDetalles[0].planaID2 = 0;
         ListaDetalles[0].planaID3 = 0;
         ListaDetalles[0].planaID4 = 0;
+        
+        var cont = 0, contEliminar = 0;
+        for (var i = 0 ; i < arregloCaptura.length; i++) {
+            if (arregloCaptura[i].Accion != 2 && cont == 0) {
+                ListaDetalles[0].accionPlanaID1 = arregloCaptura[i].Accion;
+                ListaDetalles[0].planaID1 = parseInt(arregloCaptura[i].PlanaID);
+                ListaDetalles[0].embarqueID = arregloCaptura[i].EmbarqueID;
+                cont++;
+            }
+            else if (arregloCaptura[i].Accion != 2 && cont == 1) {
+                ListaDetalles[0].accionPlanaID2 = arregloCaptura[i].Accion;
+                ListaDetalles[0].planaID2 = parseInt(arregloCaptura[i].PlanaID);
+                cont++;
+            }
+            else if (arregloCaptura[i].Accion == 2 && contEliminar == 0) {
+                ListaDetalles[0].planaID3 = parseInt(arregloCaptura[i].PlanaID);
+                contEliminar++;
+            }
+            else if (arregloCaptura[i].Accion == 2 && contEliminar == 1) {
+                ListaDetalles[0].planaID4 = parseInt(arregloCaptura[i].PlanaID);
+                contEliminar++;
+            }
+        }
+
+
 
 
         CapturaEmbarque[0].Lista = ListaDetalles;
@@ -95,11 +135,11 @@ function AjaxGuardarPlanas(arregloCaptura) {
         loadingStart();
         $Embarque.Embarque.create(CapturaEmbarque[0], { token: Cookies.get("token")}).done(function (data) {
             loadingStop();
-            displayMessage("EmbarqueMarcadoMensajeGuardadoExitoso", "", "0");
+            displayMessage("EmbarqueMensajeGuardadoExitoso", "", "0");
         });
 
     }
     else {
-        displayMessage("", "Debe tener al menos un renglon", "1");
+        displayMessage("EmbarqueMensajeAgregaPlanas", "", "1");
     }
 }

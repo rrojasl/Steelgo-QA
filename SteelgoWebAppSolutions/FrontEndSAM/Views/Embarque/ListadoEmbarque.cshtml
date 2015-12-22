@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Consulta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,7 +22,7 @@
         <div class="row clearfix">
             <div class="addedSection col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
-                    <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" id="divStatusRequisiciones" arial-label="tabList">
+                    <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" id="divStatusEmbarque" arial-label="tabList">
 
                         <button id="btnSinPermiso" class="btn btn-tabList"><span id="">Todos </span><span id="">0</span></button>
                         <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="">Enviados </span><span id="">0</span>10</button>
@@ -39,6 +40,26 @@
             </div>
         </div>
         <input id="hdAccionFiltrado" type="hidden" />
+        <div id="windowFecha" style="display: none; z-index:inherit;">
+            <div class="form-group">
+                <label class="col-sm-4 col-md-4 col-lg-4 "><span id="">Fecha</span></label>
+                <input id="Fecha"/>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <a class=" btn btn-blue " id="GuardarFolio"><span id="botonGuardar3"></span></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="windowFolio" style="display: none; z-index:inherit;">
+            <div class="form-group">
+                <label class="col-sm-4 col-md-4 col-lg-4 "><span id="">Folio</span></label>
+                <input id="Folio" />
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <a class=" btn btn-blue " id="GuardarFolio"><span id="botonGuardar4"></span></a>
+                </div>
+            </div>
+            <input class="" type="hidden" id="RowRequisicionID" />
+        </div>
     </div>
     
 </div>

@@ -60,15 +60,16 @@ namespace BackEndSAM.Controllers
                 {
                     Embarque elemento = new Embarque
                     {
-                        Accion = 2,
+                        Accion = 0,
                         Chofer = item.Chofer,
                         ChoferID =  int.Parse(item.ChoferID.ToString()),
                         EmbarqueID = item.EmbarqueID,
-                        EmbarquePlanaID = item.EmbarquePlanaID,
+                        PlanaID = item.EmbarquePlanaID,
                         Estatus = item.Estatus,
                         Plana = item.Plana,
                         Tracto = item.Tracto,
-                        TractoID =int.Parse( item.TractoID.ToString())
+                        TractoID =int.Parse( item.TractoID.ToString()),
+                        TransportistaID = item.TransportistaID
                     };
                     result.Add(elemento);
                 }

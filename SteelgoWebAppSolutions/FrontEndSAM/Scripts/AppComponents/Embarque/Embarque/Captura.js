@@ -1,9 +1,9 @@
-﻿function changeLanguageCall() {
+﻿var transportistaEmb, choferEmb, tractoEmb;
+var bandera = false;
+
+function changeLanguageCall() {
     CargarGrid();
     AjaxCargarProveedor();
-    if ($('#embarqueID').val() != 0) {
-        AjaxCargarDatos($('#embarqueID').val());
-    } 
 };
 
 
@@ -23,7 +23,6 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 },
                     { field: "Accion", operator: "eq", value: 0 },
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
@@ -49,7 +48,7 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Plana", title: "Plana", filterable: true },
+            { field: "Plana", title: _dictionary.EmbarquePlana[$("#language").data("kendoDropDownList").value()], filterable: true },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
@@ -57,14 +56,19 @@ function CargarGrid() {
                          e.preventDefault();
                          var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                          var dataSource = this.dataSource;
-                         if (confirm(_dictionary.ValidacionResultadosMensajeEliminarDefecto[$("#language").data("kendoDropDownList").value()])) {
+                         if (dataItem.Estatus == "Cerrada") {
+                             if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
 
-                             if (dataItem.Accion == 2) {
-                                 dataItem.Accion = 3;
+                                 if (dataItem.Accion == 0) {
+                                     dataItem.Accion = 2;
+                                 }
+                                 else {
+                                     dataSource.remove(dataItem);
+                                 }
                              }
-                             else {
-                                 dataSource.remove(dataItem);
-                             }
+                         }
+                         else {
+                             displayMessage("EmbarqueMensajeNoEliminarPlanas", "", "0");
                          }
                          dataSource.sync();
                      }
@@ -89,21 +93,28 @@ function AgregaRenglon(planaID, plana) {
     };
 
     ArregloNuevoRenglon[0].Accion = 1;
+    ArregloNuevoRenglon[0].EmbarqueID = 0;
     ArregloNuevoRenglon[0].PlanaID = planaID;
     ArregloNuevoRenglon[0].Plana = plana;
 
     var ds = $("#grid").data("kendoGrid").dataSource;
+    var cont = 0;
+    for (var i = 0 ; i < ds._data.length; i++) {
+        if (ds._data[i].Accion != 2) {
+            cont++;
+        }
+    }
     
-    if (ds._data.length < 2) {
+    if (cont < 2) {
         if (!existePlana(ds, ArregloNuevoRenglon[0].Plana)) {
             ds.add(ArregloNuevoRenglon[0]);
         }
         else {
-            displayMessage("", "La plana ya se agrego", "1");
+            displayMessage("EmbarqueMensajePlanaExistente", "", "1");
         }
     }
     else {
-        displayMessage("", "Solo se pueden agregar 2 planas", "1");
+        displayMessage("EmbarqueMensajeMaximoDosPlanas", "", "1");
     }
 }
 
@@ -111,7 +122,7 @@ function AgregaRenglon(planaID, plana) {
 function existePlana(contenidoGrid,plana) {
     var existe = false;
     for (var i = 0; i < contenidoGrid._data.length ; i++) {
-        if (contenidoGrid._data[i].Plana == plana) {
+        if (contenidoGrid._data[i].Plana == plana && contenidoGrid._data[i].Accion != 2) {
             existe = true;
         }
     }

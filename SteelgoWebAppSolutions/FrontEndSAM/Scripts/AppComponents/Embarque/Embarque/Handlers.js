@@ -21,7 +21,9 @@ function suscribirEventoGuardar() {
 function suscribirEventoAgregar() {
 
     $('#btnAgregar').click(function (e) {
-        AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+        if ($("#Plana").val() != "") {
+            AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+        }
     });
 }
 
@@ -68,12 +70,21 @@ function suscribirEventoChofer() {
 function suscribirEventoPlana() {
     $("#Plana").kendoComboBox({
         dataTextField: "Placas",
-        dataValueField: "VehiculoID",
+        dataValueField: "EmbarquePlanaID",
         suggest: true,
         filter: "contains",
         index: 3,
         change: function (e) {
-            //AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
         }
     });
+
+    $('#Plana').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if ($("#Plana").val() != "") {
+                AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+            }
+            
+        }
+    });
+
 }

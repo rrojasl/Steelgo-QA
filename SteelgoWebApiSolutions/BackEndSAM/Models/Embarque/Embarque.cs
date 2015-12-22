@@ -15,7 +15,8 @@ namespace BackEndSAM.Models.Embarque
         public string Chofer { get; set; }
         public string Plana { get; set; }
         public string Estatus { get; set; }
-        public int EmbarquePlanaID { get; set; }
+        public int PlanaID { get; set; }
+        public int TransportistaID { get; set; }
     }
 
     public class CapturaEmbarque

@@ -47,6 +47,7 @@ var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Consulta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Marcado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Embarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -145,6 +146,7 @@ $Marcado.add("Marcado");
 $Area.add("Area");
 $Cuadrante.add("Cuadrante");
 $Embarque.add("Embarque");
+$ListadoEmbarque.add("ListadoEmbarque");
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');

@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Plana_Result> result = ctx.Sam3_Steelgo_Get_Plana(transportistaID).ToList();
+                    List<Sam3_Embarque_Get_PlanaEmbarque_Result> result = ctx.Sam3_Embarque_Get_PlanaEmbarque(transportistaID).ToList();
                     return result;
                 }
             }
