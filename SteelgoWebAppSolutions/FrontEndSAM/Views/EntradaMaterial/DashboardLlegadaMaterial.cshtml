@@ -117,7 +117,7 @@
                 var dataItem = this.dataItem(e.item.index());
                 //console.log("dataItem");
                 //console.log(dataItem);
-                CargarPeriodoTiempo(dataItem.PeriodoID);
+                dataItem!==undefined ? CargarPeriodoTiempo(dataItem.PeriodoID):CargarPeriodoTiempo("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -398,7 +398,7 @@
         },
         change: function (e) {
             var dataItem = this.dataItem();
-            CargarPatio(dataItem.PatioID, dataItem.Nombre);
+            dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre):CargarPatio("", "");
             var value = this.value();
             if (!value || this.selectedIndex == -1) {
                 messageindexKendoCombobox(this);
@@ -420,7 +420,7 @@
             var dataItem = this.dataItem();
             //console.log("dataItem");
             //console.log(dataItem);
-            CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+            dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre):CargarCliente("", "");
             var value = this.value();
 
             if (!value || this.selectedIndex == -1) {

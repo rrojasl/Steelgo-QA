@@ -141,7 +141,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
@@ -167,7 +167,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFolio(dataItem.id);
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 var value = this.value();
                 limpiarFiltroCuantificacion();
 
@@ -188,10 +188,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarItemCode(dataItem.id):CargarItemCode("");
                 var value = this.value();
                 limpiarFiltroItemCode();
 
@@ -214,7 +215,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarNumeroUnico(dataItem.id);
+                dataItem!==undefined ? CargarNumeroUnico(dataItem.id):CargarNumeroUnico("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

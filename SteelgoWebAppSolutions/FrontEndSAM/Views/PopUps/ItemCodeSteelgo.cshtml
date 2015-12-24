@@ -118,7 +118,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID);
+                dataItem!==undefined ? CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID):CargarFamiliaItemCodeSteelgo("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -137,7 +137,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarCedulasItemCodeSteelgo(dataItem.id);
+                dataItem!==undefined ? CargarCedulasItemCodeSteelgo(dataItem.id):CargarCedulasItemCodeSteelgo("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

@@ -1118,7 +1118,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
+                dataItem!==undefined ? CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre):CargarClasificacion("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1139,7 +1139,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
+                dataItem!==undefined ? CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre):CargarTipoIncidencia("", "");
                 var value = this.value();
                 limpiarRegistro();
 
@@ -1162,7 +1162,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarRegistro(dataItem.id);
+                dataItem!==undefined ? CargarRegistro(dataItem.id):CargarRegistro("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -1184,7 +1184,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarRegistradoPor(dataItem.id);
+                dataItem!==undefined ? CargarRegistradoPor(dataItem.id):CargarRegistradoPor("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1205,7 +1205,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarResueltoPor(dataItem.id);
+                dataItem!==undefined ? CargarResueltoPor(dataItem.id):CargarResueltoPor("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1227,7 +1227,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarRespondidoPor(dataItem.id);
+                dataItem!==undefined ? CargarRespondidoPor(dataItem.id):CargarRespondidoPor("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

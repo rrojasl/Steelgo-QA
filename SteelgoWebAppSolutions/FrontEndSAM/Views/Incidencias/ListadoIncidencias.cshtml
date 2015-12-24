@@ -195,7 +195,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre):CargarCliente("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -215,7 +215,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {

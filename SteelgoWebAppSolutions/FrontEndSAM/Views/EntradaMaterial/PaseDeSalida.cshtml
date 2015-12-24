@@ -317,7 +317,7 @@
             change: function (e) {
                 limpiarUploadFiles();
                 var dataItem = this.dataItem();
-                CargarFolio(dataItem.id);
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 var value = this.value();
                 $("#CuadrillaDescarga").data("kendoComboBox").value("");
                 $("#IncidenciaAsociada").data("kendoComboBox").value("");
@@ -360,7 +360,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarCuadrillaDescarga(dataItem.id, dataItem.Nombre);
+                dataItem!==undefined ? CargarCuadrillaDescarga(dataItem.id, dataItem.Nombre):CargarCuadrillaDescarga("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -383,7 +383,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre):CargarTipoArchivo("", "");
                 var value = this.value();
                 IncidenciaAsociada = {};
                 $("#IncidenciaAsociada").data("kendoComboBox").value("");
@@ -411,7 +411,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarIncidenciaAsociada(dataItem.FolioIncidenciaID);
+                dataItem!==undefined ? CargarIncidenciaAsociada(dataItem.FolioIncidenciaID):CargarIncidenciaAsociada("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

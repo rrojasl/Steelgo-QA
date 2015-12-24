@@ -174,7 +174,7 @@
             },
             change: function () {
                 var dataItem = this.dataItem();
-                CargarFolio(dataItem.id);
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 ChecarAutorizacion(dataItem.id);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {

@@ -378,7 +378,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 limpiarfiltrosProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -409,7 +409,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFolioCuantificacion(dataItem.id);
+                dataItem!==undefined ? CargarFolioCuantificacion(dataItem.id):CargarFolioCuantificacion("");
                 var value = this.value();
                 limpiarfiltrosFolioCuantificacion();
                 if (!value || this.selectedIndex == -1) {

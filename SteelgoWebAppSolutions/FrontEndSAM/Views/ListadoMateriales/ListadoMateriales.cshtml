@@ -362,7 +362,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre):CargarPatio("", "");
                 var value = this.value();
                 LimpiarCamposPatio();
                 if (!value || this.selectedIndex == -1) {
@@ -384,7 +384,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -406,7 +406,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFolioAvisoLlegada(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarFolioAvisoLlegada(dataItem.id, dataItem.value):CargarFolioAvisoLlegada("", "");
                 var value = this.value();
                 LimpiarCamposFolioLlegada();
                 if (!value || this.selectedIndex == -1) {
@@ -428,7 +428,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFolioPackingList(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarFolioPackingList(dataItem.id, dataItem.value):CargarFolioPackingList("", "");
                 var value = this.value();
                 LimpiarCamposFolioPackingList();
                 if (!value || this.selectedIndex == -1) {

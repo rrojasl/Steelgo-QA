@@ -109,7 +109,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre):CargarTipoVehiculoPlana("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -146,7 +146,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+                dataItem!==undefined ? CargarTransportista(dataItem.TransportistaID, dataItem.Nombre):CargarTransportista("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

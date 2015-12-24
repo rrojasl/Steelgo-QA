@@ -92,7 +92,7 @@
             filter: "contains",
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarContacto(dataItem.ContactoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarContacto(dataItem.ContactoID, dataItem.Nombre):CargarContacto("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

@@ -380,7 +380,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarMaquina(dataItem.MaquinaID, dataItem.Nombre);
+                dataItem!==undefined ? CargarMaquina(dataItem.MaquinaID, dataItem.Nombre):CargarMaquina("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -404,7 +404,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarOperador(dataItem.OperadorID, dataItem.Nombre);
+                dataItem!==undefined ? CargarOperador(dataItem.OperadorID, dataItem.Nombre):CargarOperador("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

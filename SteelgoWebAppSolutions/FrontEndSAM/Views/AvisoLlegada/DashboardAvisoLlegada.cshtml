@@ -156,7 +156,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarPeriodoTiempo(dataItem.PeriodoID);
+                dataItem!==undefined ? CargarPeriodoTiempo(dataItem.PeriodoID) : CargarPeriodoTiempo("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {

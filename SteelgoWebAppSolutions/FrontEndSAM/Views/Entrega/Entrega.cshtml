@@ -161,7 +161,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarEmpleado(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarEmpleado(dataItem.id, dataItem.value):CargarEmpleado("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

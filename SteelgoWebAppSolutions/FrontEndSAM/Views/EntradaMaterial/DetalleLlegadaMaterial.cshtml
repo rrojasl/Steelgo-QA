@@ -358,8 +358,8 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarFolio(dataItem.id);
-                    CargarDetalleFolio(dataItem.id);
+                    dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
+                    dataItem!==undefined ? CargarDetalleFolio(dataItem.id):CargarDetalleFolio("");
                     validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -386,7 +386,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre):CargarCliente("", "");
                     validarRequeridosFormaLlegadaMaterial();
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -414,7 +414,7 @@
                         VentanaModal(2);
                         e.preventDefault();
                     }
-                    CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarProveedor(dataItem.ProveedorID, dataItem.Nombre):CargarProveedor("", "");;
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -439,7 +439,7 @@
                         VentanaModal(1);
                         e.preventDefault();
                     }
-                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre):CargarPatio("", "");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -464,7 +464,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarEstatus(dataItem.EstatusID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarEstatus(dataItem.EstatusID, dataItem.Nombre)?CargarEstatus("", "");
                     if (dataItem.Nombre == _estatus) {//En Patio
                         $("#PatioIDDiv").show();
                         if ($("#hdnOrdenDescargada").val() == "false" || !$("#hdnOrdenDescargada").val()) {

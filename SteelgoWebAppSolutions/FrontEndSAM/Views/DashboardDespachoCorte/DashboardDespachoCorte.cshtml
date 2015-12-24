@@ -342,7 +342,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -362,7 +362,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre):CargarCliente("", "");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -382,7 +382,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarFolioAvisoEntrada(dataItem.id, dataItem.value);
+                    dataItem!==undefined ? CargarFolioAvisoEntrada(dataItem.id, dataItem.value):CargarFolioAvisoEntrada("", "");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -408,7 +408,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarUnidadMedida(dataItem.UnidadMedidaID);
+                    dataItem!==undefined ? CargarUnidadMedida(dataItem.UnidadMedidaID):CargarUnidadMedida("");
                     var value = this.value();
 
                     if (!value || this.selectedIndex == -1) {
@@ -429,7 +429,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarPackingList(dataItem.id);
+                    dataItem!==undefined ? CargarPackingList(dataItem.id):CargarPackingList("");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -544,7 +544,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarPeriodoTiempo(dataItem.PeriodoID);
+                dataItem!==undefined ? CargarPeriodoTiempo(dataItem.PeriodoID):CargarPeriodoTiempo("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {

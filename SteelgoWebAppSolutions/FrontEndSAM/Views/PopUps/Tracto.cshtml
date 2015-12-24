@@ -118,7 +118,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre):CargarTipoVehiculoTracto("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -137,7 +137,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre);
+                dataItem!==undefined ? CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre):CargarTransportistaCamion("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

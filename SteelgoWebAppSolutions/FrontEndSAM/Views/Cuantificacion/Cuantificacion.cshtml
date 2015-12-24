@@ -509,7 +509,7 @@
                         recentlyAdded=false;
                         var value = this.value();
                         var dataItem = this.dataItem();
-                        CargarFolioAvisoEntrada(dataItem.id,dataItem.value);
+                        dataItem!==undefined ? CargarFolioAvisoEntrada(dataItem.id,dataItem.value):CargarFolioAvisoEntrada("","");
                         limpiarfiltrosFolioAvisoEntrada();
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
                         if (!value || this.selectedIndex == -1) {
@@ -537,7 +537,7 @@
                 change: function (e) {
                     recentlyAdded=false;
                     var dataItem = this.dataItem();
-                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                    dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -560,7 +560,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarFolioCuantificacion(dataItem.FolioCuantificacionID);
+                    dataItem!==undefined ? CargarFolioCuantificacion(dataItem.FolioCuantificacionID):CargarFolioCuantificacion("");
                     recentlyAdded=false;
                     var dataItem = this.dataItem();
                     var value = this.value();
@@ -584,7 +584,7 @@
                 select: function (e) {},
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
+                    dataItem!==undefined ? CargarTipoPackingList(dataItem.id, dataItem.Nombre):CargarTipoPackingList("", "");
                     recentlyAdded=false;
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
@@ -619,7 +619,7 @@
                 change: function (e) {
                     recentlyAdded=false;
                     var dataItem = this.dataItem();
-                    CargarTipoUso(dataItem.id, dataItem.Nombre);
+                    dataItem!==undefined ? CargarTipoUso(dataItem.id, dataItem.Nombre):CargarTipoUso("", "");
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);

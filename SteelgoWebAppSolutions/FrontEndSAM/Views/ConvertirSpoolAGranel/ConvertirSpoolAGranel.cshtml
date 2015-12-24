@@ -98,7 +98,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarSpool(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarSpool(dataItem.id, dataItem.value) : CargarSpool("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

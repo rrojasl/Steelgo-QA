@@ -482,7 +482,7 @@
                             VentanaModal(4);
                             e.preventDefault();
                         }
-                        CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                        dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre) : CargarPatio("", "");
                         validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         $("#ClienteID").data("kendoComboBox").value("");
@@ -509,7 +509,7 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                        dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre) : CargarCliente("", "");
                         validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
@@ -532,7 +532,7 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre);
+                        dataItem!==undefined ? CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre):CargarTipoAviso("", "");
                         validarRequeridosFormaAvisoLlegada();
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
@@ -558,7 +558,7 @@
                             VentanaModal(1);
                             e.preventDefault();
                         }
-                        CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+                        dataItem!==undefined ? CargarTransportista(dataItem.TransportistaID, dataItem.Nombre):CargarTransportista("", "");
                         var value = this.value();
                         $("#Tracto").data("kendoComboBox").value("");
                         $("#Tracto").data("kendoComboBox").dataSource.data([]);
@@ -613,7 +613,7 @@
                             VentanaModal(5);
                             e.preventDefault();
                         }
-                        CargarChofer(dataItem.ChoferID, dataItem.Nombre);
+                        dataItem!==undefined ? CargarChofer(dataItem.ChoferID, dataItem.Nombre) : CargarChofer("", "");;
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
@@ -643,7 +643,7 @@
                     change: function (e) {
                         var dataItem = this.dataItem();
                         _tipoArchivo = dataItem.Nombre;
-                        CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
+                        dataItem!==undefined ? CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre):CargarTipoArchivo("", "");
                         if (this.selectedIndex == -1) {
                             this.value("");
                             _tipoArchivo = {};
@@ -716,7 +716,7 @@
                             VentanaModal(6);
                             e.preventDefault();
                         }
-                        CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas);
+                        dataItem!==undefined ? CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas):CargarCamionEntradaMaterial("", "");
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);

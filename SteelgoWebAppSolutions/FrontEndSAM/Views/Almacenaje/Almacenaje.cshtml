@@ -216,7 +216,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -239,7 +239,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarOrdenAlmacenaje(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarOrdenAlmacenaje(dataItem.id, dataItem.value):CargarOrdenAlmacenaje("", "");
                 var value = this.value();
                 LimpiarCamposOrdenAlmacenaje();
 
@@ -263,7 +263,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarItemCode(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarItemCode(dataItem.id, dataItem.value):CargarItemCode("", "");
                 var value = this.value();
                 LimpiarCamposItemCode();
                 if (!value || this.selectedIndex == -1) {
@@ -287,7 +287,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarNumeroUnico(dataItem.NumeroUnicoID, dataItem.NumeroUnico);
+                dataItem!==undefined ? CargarNumeroUnico(dataItem.NumeroUnicoID, dataItem.NumeroUnico):CargarNumeroUnico("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);

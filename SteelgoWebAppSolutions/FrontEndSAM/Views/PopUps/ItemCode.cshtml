@@ -188,7 +188,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarDiametro1(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarDiametro1(dataItem.id, dataItem.value):CargarDiametro1("", "");
                 var value = this.value();
                 if (this.selectedIndex == -1) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {
@@ -225,7 +225,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarDiametro2(dataItem.id, dataItem.value);
+                dataItem!==undefined ? CargarDiametro2(dataItem.id, dataItem.value):CargarDiametro2("", "");
                 var value = this.value();
                 if (this.selectedIndex == -1) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Diametros"] != 'undefined') && (typeof returnOfSecurityCheck["Diametros"]["create"] != 'undefined') && !returnOfSecurityCheck["Diametros"]["create"]) {

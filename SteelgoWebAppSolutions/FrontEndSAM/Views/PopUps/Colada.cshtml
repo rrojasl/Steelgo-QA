@@ -130,7 +130,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre);
+                dataItem!==undefined ? CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre):CargarFabricanteColada("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -149,7 +149,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarFamiliaAceroColada(dataItem.FamiliaAceroID, dataItem.Nombre);
+                dataItem!==undefined ? CargarFamiliaAceroColada(dataItem.FamiliaAceroID, dataItem.Nombre):CargarFamiliaAceroColada("", "");
                 var value = this.value();
                 AceroColada = {};
                 $("#Acero_Colada").data("kendoComboBox").value("");
@@ -173,7 +173,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura);
+                dataItem!==undefined ? CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura):CargarAceroColada("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -192,7 +192,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
+                dataItem!==undefined ? CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre):CargarProyectoColada("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
