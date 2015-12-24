@@ -949,7 +949,6 @@
                     resultadoJson = result;
                     var dataSource = DefinicionModeloPLporCuantificar();
                     var columnas = DefinicionColumnasPLporCuantificar();
-
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
@@ -1150,7 +1149,7 @@
                             FechaOrdenRecepcion: { type: "date" },
                             OrdenRecepcion: { type: "string" },
                             CantidadNUEnOrdenRecepcion: { type: "number" },
-                            CantidadNUPorAlmacenar: { type: "number" },
+                            CantidadNUporAlmacenar: { type: "number" },
                         }
                     }
                 },
@@ -1167,7 +1166,7 @@
                { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
                { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadNUEnOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0042[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               { field: "CantidadNUPorAlmacenar", title: _dictionary.DashboardRecepcionAlmacenaje0044[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "CantidadNUporAlmacenar", title: _dictionary.DashboardRecepcionAlmacenaje0044[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarNUporRecepcionar }, title: " ", width: "99px" }
            ];
             return columnas;
@@ -1220,7 +1219,7 @@
                     model: {
                         fields: {
                             NumeroUnico: { type: "string" },
-                            CantidadIncidenciasAbiertas: { type: "number" },
+                            CantidadIncidencias: { type: "number" },
                             NumeroUnicoID: { type: "string" },
                         }
                     }
@@ -1237,7 +1236,7 @@
             var columnas =
            [
                { field: "NumeroUnico", title: _dictionary.DashboardRecepcionAlmacenaje0045[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
-               { field: "CantidadIncidenciasAbiertas", title: _dictionary.DashboardRecepcionAlmacenaje0046[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "CantidadIncidencias", title: _dictionary.DashboardRecepcionAlmacenaje0046[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarIncidenciasAbiertas }, title: " ", width: "99px" }
                { field: "NumeroUnicoID", title: _dictionary.DashboardRecepcionAlmacenaje0053[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
            ];

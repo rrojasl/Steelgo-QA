@@ -778,6 +778,9 @@ namespace BackEndSAM.DataAcces
                         {
                             DateTime temp = Convert.ToDateTime(lst.FechaDescarga);
                             lst.FechaDescarga = temp.ToString("dd/MM/yyyy");
+
+                            DateTime fechaPL = Convert.ToDateTime(lst.FechaCreacionPackingList);
+                            lst.FechaCreacionPackingList = fechaPL.ToString("dd/MM/yyyy");
                         }
 
                         return listado;
@@ -1522,7 +1525,7 @@ namespace BackEndSAM.DataAcces
                         foreach (Sam3_OrdenRecepcion orden in ordenes)
                         {
                             elemento = new ListadoNUSinAlmacenar();
-                            elemento.FechaOrdenRecepcion = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd//MM/yyyy") : "";
+                            elemento.FechaOrdenRecepcion = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
                             elemento.OrdenRecepcion = orden.Folio.ToString();
 
 
