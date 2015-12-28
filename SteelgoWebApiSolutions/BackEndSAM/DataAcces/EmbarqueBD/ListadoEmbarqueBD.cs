@@ -48,5 +48,28 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
                 return result;
             }
         }
+
+        public object getListadoEmbarquePathReporte(int usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_ListadoEmbarque_PathReporte_Result> result = ctx.Sam3_Embarque_ListadoEmbarque_PathReporte(usuario).ToList();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

@@ -63,7 +63,7 @@ namespace DatabaseManager.Sam3
             using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
-                    for (int i = Numeros.CERO; i < Parametros.Rank / Numeros.DOS; i++)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
                         cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
@@ -100,7 +100,7 @@ namespace DatabaseManager.Sam3
             using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
-                    for (int i = Numeros.CERO; i < Parametros.Rank / Numeros.DOS; i++)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
                         cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
                 cmd.Parameters.Add(new SqlParameter(NombreTabla, TablaSube));
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -135,7 +135,7 @@ namespace DatabaseManager.Sam3
             using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
             {
                 if (Parametros != null)
-                    for (int i = Numeros.CERO; i < Parametros.Rank / Numeros.DOS; i++)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
                         cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

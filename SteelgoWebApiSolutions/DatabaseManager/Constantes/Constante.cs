@@ -63,6 +63,7 @@ namespace DatabaseManager.Sam3
         public static string GUARDAREMBARQUEMARCADO = "Sam3_Embarque_Marcado";
         public static string GUARDARDEFECTOSVALIDACIONRESULTADOS = "Sam3_ServiciosTecnicos_Guardar_DefectosValidacionResultados";
         public static string GUARDARVALIDACIONRESULTADOS = "dbo.Sam3_ServiciosTecnicos_Guardar_ValidacionResultados";
+        public static string GUARDARLISTADOEMBARQUE = "Sam3_Embarque_Set_ListadoEmbarque";
     }
 
     public static class ConstantesSteelGo

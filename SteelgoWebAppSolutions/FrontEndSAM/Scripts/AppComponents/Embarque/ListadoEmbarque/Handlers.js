@@ -2,7 +2,8 @@
     suscribirEventoCambioTab();
     suscribirEventoModal();
     suscribirEventoGuardarFolio();
-    
+    suscribirEventoEnviarEmbarque();
+    agregarEventoImprimir();
 }
 
 SuscribirEventos();
@@ -26,25 +27,96 @@ function suscribirEventoCambioTab() {
 function suscribirEventoModal() {
 
     $(document).on('click', '.botonEnviar', function (e) {
-        VentanaModalFecha();
+        var grid = $("#grid").data("kendoGrid"),
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        if (dataItem.Estatus != "Enviada") {
+            if (!dataItem.RequierePermisoAduana) {
+                VentanaModalFecha(dataItem);
+            }
+            else {
+                displayMessage("", "No se puede enviar, por que requiere permiso de aduana", "1");
+            }
+        }
+        else {
+            displayMessage("", "La plana ya fue enviada", "1");
+        }
+        
     });
 
     $(document).on('click', '.botonFolio', function (e) {
         var grid = $("#grid").data("kendoGrid"),
         dataItem = grid.dataItem($(e.target).closest("tr"));
-
-        $("#Folio").val(dataItem.FolioAprobadoAduana);
-        VentanaModalFolio(dataItem);
+        var columnIndex = $(e.target).closest("tr")[0].cells.grid_active_cell.cellIndex;
+        if (columnIndex == 5) {
+            $("#Folio").val(dataItem.FolioSolicitarPermisos);
+        }
+        else if (columnIndex == 6) {
+            $("#Folio").val(dataItem.FolioAprobadoAduana);
+        }
+        else if (columnIndex == 7) {
+            $("#Folio").val(dataItem.FolioAprobadoCliente);
+        }
+        VentanaModalFolio(dataItem, columnIndex);
     });
 
 }
+
+function agregarEventoImprimir() {
+    $(document).on('click', '.imprimirPapelesCliente', function (e) {
+        AjaxImprimir();
+    });
+
+    $(document).on('click', '.imprimirPapelesAduana', function (e) {
+        AjaxImprimir();
+    });
+}
+
 
 
 function suscribirEventoGuardarFolio() {
     $("#GuardarFolio").click(function () {
         if ($("#Folio").val() != "") {
-            ObjetoRenglon.FolioAprobadoAduana = $("#Folio").val();
+            if (IndiceRenglon == 5) {
+                ObjetoRenglon.FolioSolicitarPermisos = $("#Folio").val();
+            }
+            else if (IndiceRenglon == 6) {
+                ObjetoRenglon.FolioAprobadoAduana = $("#Folio").val();
+            }
+            else if (IndiceRenglon == 7) {
+                ObjetoRenglon.FolioAprobadoCliente = $("#Folio").val();
+            }
         }
         $("#windowFolio").data("kendoWindow").close();
     });
+}
+
+
+function suscribirEventoEnviarEmbarque() {
+    $("#EnviarEmbarque").click(function () {
+        if(isDate($("#Fecha").val())){
+            if ($("#Fecha").val() != "") {
+                ObjetoRenglon.FechaEnvio = $("#Fecha").val();
+                AjaxGuardarPlanas(ObjetoRenglon);
+            }
+            $("#windowFecha").data("kendoWindow").close();
+        }
+        else{
+            displayMessage("", "La fecha no tiene el formato correcto", "1");
+        }
+    });
+}
+
+
+function isDate(string) 
+{ //string estará en formato dd/mm/yyyy (dí­as < 32 y meses < 13)
+    var expReg;
+    if ($("#language").val() == "es-MX") {
+        expReg = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
+    }
+    else {
+        expReg = /([1-9]|1[012])[- /.]([1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/;
+    }
+    
+    var res = expReg.test(string);
+    return res;
 }

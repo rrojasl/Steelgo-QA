@@ -3710,6 +3710,15 @@ _dictionary = {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
+    "botonEnviar": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
+    },
+    "botonEnviar2": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
+    },
+
     "botonAplicar": {
         "es-MX": "Aplicar",
         "en-US": "Apply"
@@ -5050,8 +5059,72 @@ _dictionary = {
     "EmbarqueBotonRevisionEmbarque2": {
         "es-MX": "Revision de Embarque",
         "en-US": "Boarding review"
-    }
+    },
     //#endregion
+
+    //#region Listado Embarque
+    "ListadoEmbarqueBotonImprimir": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
+    "ListadoEmbarqueBotonCapturar": {
+        "es-MX": "Capturar",
+        "en-US": "Capture"
+    },
+    "ListadoEmbarqueBotonEnviar": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
+    },
+    "ListadoEmbarqueHeaderEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "ListadoEmbarqueHeaderPlana": {
+        "es-MX": "Plana",
+        "en-US": "Flat"
+    },
+    "ListadoEmbarqueHeaderProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoEmbarqueHeaderPapelesCliente": {
+        "es-MX": "Papeles Cliente",
+        "en-US": "Customer Roles"
+    },
+    "ListadoEmbarqueHeaderPapelesAduana": {
+        "es-MX": "Papeles Aduana",
+        "en-US": "Custom Roles"
+    },
+    "ListadoEmbarqueHeaderSolicitarPermisos": {
+        "es-MX": "Solicitar Permisos",
+        "en-US": "Print"
+    },
+    "ListadoEmbarqueHeaderAprobadoAduana": {
+        "es-MX": "Aprobado Aduana",
+        "en-US": "Customs Approved"
+    },
+    "ListadoEmbarqueHeaderAprobadoCliente": {
+        "es-MX": "Aprobado Cliente",
+        "en-US": "Customer Approved "
+    },
+    "ListadoEmbarqueEnviados": {
+        "es-MX": "Enviados ",
+        "en-US": "Send "
+    },
+    "ListadoEmbarqueTodos": {
+        "es-MX": "Todos ",
+        "en-US": "All "
+    },
+    "ListadoEmbarqueFecha": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "ListadoEmbarqueFolio": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    //#endregion
+
 };
 
 
