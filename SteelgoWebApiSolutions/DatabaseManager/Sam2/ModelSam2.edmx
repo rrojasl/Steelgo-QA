@@ -4440,7 +4440,7 @@ warning 6002: The table/view 'SAM.dbo.TMP_UpdateSpoolID' does not have a primary
             <PropertyRef Name="ProyectoID" />
           </Key>
           <Property Name="ProyectoID" Type="int" Nullable="false" />
-          <Property Name="Proyecto" Type="nvarchar(max)" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
           <Property Name="URLProyecto" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -18660,8 +18660,8 @@ warning 6002: The table/view 'SAM.dbo.TMP_UpdateSpoolID' does not have a primary
             <PropertyRef Name="ProyectoID" />
           </Key>
           <Property Name="ProyectoID" Type="Int32" Nullable="false" />
-          <Property Name="Proyecto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="URLProyecto1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -32279,8 +32279,8 @@ warning 6002: The table/view 'SAM.dbo.TMP_UpdateSpoolID' does not have a primary
           <EntitySetMapping Name="UrlProyecto">
             <EntityTypeMapping TypeName="ModelSam2.UrlProyecto">
               <MappingFragment StoreEntitySet="UrlProyecto">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="ProyectoID" ColumnName="ProyectoID" />
-                <ScalarProperty Name="Proyecto" ColumnName="Proyecto" />
                 <ScalarProperty Name="URLProyecto1" ColumnName="URLProyecto" />
               </MappingFragment>
             </EntityTypeMapping>
