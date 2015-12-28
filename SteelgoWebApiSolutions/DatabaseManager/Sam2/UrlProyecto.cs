@@ -15,7 +15,7 @@ namespace DatabaseManager.Sam2
     public partial class UrlProyecto
     {
         public int ProyectoID { get; set; }
-        public string Proyecto { get; set; }
         public string URLProyecto1 { get; set; }
+        public string Nombre { get; set; }
     }
 }
