@@ -415,8 +415,10 @@
                         messageindexKendoCombobox(this);
                         UnidadMedida = {};
                         this.value("");
-                    }
+                    } 
                     Filtros();
+                    
+                    
                 },
                 filter: "contains",
             });
@@ -656,6 +658,11 @@
             var Listado;
             var accionTubos = $("#hdAccionFiltradoTubos").val() ? $("#hdAccionFiltradoTubos").val() : "1";
             var accionAccesorios = $("#hdAccionFiltradoAccesorios").val() ? $("#hdAccionFiltradoAccesorios").val() : "1";
+
+            if (!$("#UnidadMedida").data("kendoComboBox").value()) {
+                displayMessage("notificationslabel0101", "", '2');
+                return;
+            }
 
             AccionesListado(accionTubos,1,0);
             AccionesListado(accionAccesorios,2,0);

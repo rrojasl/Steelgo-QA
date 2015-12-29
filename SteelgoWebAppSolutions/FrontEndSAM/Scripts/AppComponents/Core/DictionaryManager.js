@@ -6624,6 +6624,10 @@ _dictionary = {
         "es-MX": "La descarga comenzará en breve, si no es así intentalo nuevamente",
         "en-US": "The download will start soon, if not, try it again"
     },
+    "notificationslabel0101": {
+        "es-MX": "La unidad de medida es requerida.",
+        "en-US": "The unit of measurement is required."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
