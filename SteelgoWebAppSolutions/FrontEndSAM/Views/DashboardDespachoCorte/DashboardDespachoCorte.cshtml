@@ -754,7 +754,9 @@
         };
 
         function MostrarDetalleOrdenesTrabajo(spoolID) {
-            alert("Por definir pantalla pre-despacho");
+            var detalleIdeaUrl = "@Url.Action("PreDespacho", "PreDespacho")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + spoolID;
+
         };
 
         function OrdenesTrabajo(tipomaterial, esBoton) {
@@ -816,7 +818,9 @@
         };
 
         function MostrarDetalleOrdenesTrabajoActivas(spoolID) {
-            alert("Por definir pantalla pre-despacho");
+            var detalleIdeaUrl = "@Url.Action("PreDespacho", "PreDespacho")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + spoolID;
+
         };
 
         function OrdenesTrabajoActivas(tipomaterial, esBoton) {
