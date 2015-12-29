@@ -705,8 +705,12 @@
            // CargarTipoPackingList(1, "");
            //$("#TipoPackingListID").data("kendoComboBox").value(1);
             $(document).bind("contextmenu", function (e) {
-                if(e.target.attributes[10]){
-                    var elemento = e.target.attributes[10].value;
+                var indexAttr = 10;
+                if (detectisExplorer) {
+                    indexAttr = 8;
+                };
+                if (e.target.attributes[indexAttr]) {
+                    var elemento = e.target.attributes[indexAttr].value;
                     var index = elemento.indexOf("_");
                     var valor = elemento.substring(0, index);
 
