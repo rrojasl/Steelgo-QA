@@ -245,7 +245,7 @@ namespace BackEndSAM.DataAcces
 
 
                                     //verificamos si el numero unico que se esta despachando es el mismo que estaba congelado para orden
-                                    if (odtsMaterial.NumeroUnicoCongeladoID != sam2_numeroUnicoID) // es el mismo
+                                    if (odtsMaterial.NumeroUnicoCongeladoID != sam2_numeroUnicoID)
                                     {
                                         //buscamos en sam2 el numero unico que estaba congelado
                                         NumeroUnico numeroCongelado = ctx2.NumeroUnico
