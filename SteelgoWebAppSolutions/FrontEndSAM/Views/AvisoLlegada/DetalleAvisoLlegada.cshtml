@@ -487,6 +487,8 @@
                         var value = this.value();
                         $("#ClienteID").data("kendoComboBox").value("");
                         $("#ClienteID").data("kendoComboBox").dataSource.data([]);
+                        $("#ProyectoID").data("kendoMultiSelect").value("");
+                        $("#ProyectoID").data("kendoMultiSelect").dataSource.data([]);
                         Cliente = {};
                         if (!value || this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
