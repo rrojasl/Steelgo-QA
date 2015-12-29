@@ -464,7 +464,7 @@
                 },
                 change: function (e) {
                     var dataItem = this.dataItem();
-                    dataItem!==undefined ? CargarEstatus(dataItem.EstatusID, dataItem.Nombre):CargarEstatus("", "");
+                    dataItem !== undefined ? CargarEstatus(dataItem.EstatusID, dataItem.Nombre) : CargarEstatus("", "");
                     if (dataItem.Nombre == _estatus) {//En Patio
                         $("#PatioIDDiv").show();
                         if ($("#hdnOrdenDescargada").val() == "false" || !$("#hdnOrdenDescargada").val()) {

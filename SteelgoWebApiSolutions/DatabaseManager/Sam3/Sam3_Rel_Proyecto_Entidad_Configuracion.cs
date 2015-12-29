@@ -53,11 +53,11 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual Sam3_Entidad Sam3_Entidad { get; set; }
-        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
         public virtual ICollection<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
         public virtual ICollection<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia { get; set; }
+        public virtual Sam3_Entidad Sam3_Entidad { get; set; }
+        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }
 }

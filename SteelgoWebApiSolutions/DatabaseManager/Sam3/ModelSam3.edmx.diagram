@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="100">
+      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="ModelSam3.Sam3_Acero" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Chofer" Width="1.5" PointX="3" PointY="43.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Cliente" Width="1.5" PointX="3.75" PointY="40.75" IsExpanded="true" />
@@ -394,6 +394,8 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__443605EA" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Incid__7108AC61" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Entid__11757BF3" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__108157BA" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
