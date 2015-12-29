@@ -457,6 +457,16 @@ function detectIE() {
     return false;
 }
 
+function detectisExplorer() {
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return true;
+    };
+    return false;
+};
+
 function detectSafari() {
     var ua = window.navigator.userAgent;
     var msSafari = ua.indexOf('Safari');
