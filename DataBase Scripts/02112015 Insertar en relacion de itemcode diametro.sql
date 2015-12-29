@@ -5,18 +5,29 @@ begin tran
 
 	DECLARE RecorrerRegistros CURSOR FOR
 	SELECT ItemCodeID FROM Sam3_ItemCode where Activo = 1
+	and ItemCodeID in (Select ItemCodeID from Sam3_NumeroUnico)
 	OPEN RecorrerRegistros
 	FETCH NEXT FROM RecorrerRegistros INTO @itemCodeID
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 		
 		set @diametro1ID = (
-			select DiametroID from Sam3_Diametro
-			where Valor = 4
+			select DiametroID 
+			from Sam3_Diametro
+			where Valor = (
+				select top 1 Diametro1
+				from Sam3_NumeroUnico
+				where ItemCodeID = @itemCodeID
+			)
 		)
 		set @diametro2ID = (
-			select DiametroID from Sam3_Diametro
-			where Valor = 2
+			select DiametroID 
+			from Sam3_Diametro
+			where Valor = (
+				select top 1 Diametro2
+				from Sam3_NumeroUnico
+				where ItemCodeID = @itemCodeID
+			)
 		)
 
 		insert into Sam3_Rel_ItemCode_Diametro(
