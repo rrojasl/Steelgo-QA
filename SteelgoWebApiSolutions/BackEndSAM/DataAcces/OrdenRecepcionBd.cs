@@ -1011,7 +1011,15 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.UsuarioModificacion = usuario.UsuarioID;
                                     nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
                                     nuevoNU.Consecutivo = folio;
-                                    nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
+                                    int fabricanteID = (from c in ctx.Sam3_Colada
+                                                        where c.ColadaID == coladaID
+                                                        select c.FabricanteID.Value).SingleOrDefault();
+
+                                    if (fabricanteID > 0)
+                                    {
+                                        nuevoNU.FabricanteID = fabricanteID;
+                                    }
+
                                     nuevoNU.Factura = folioEntrada.Factura;
                                     nuevoNU.OrdenDeCompra = folioEntrada.OrdenCompra;
                                     nuevoNU.ProveedorID = folioEntrada.ProveedorID;
@@ -1138,7 +1146,14 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.UsuarioModificacion = usuario.UsuarioID;
                                     nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
                                     nuevoNU.Consecutivo = folio;
-                                    nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
+                                    int fabricanteID = (from c in ctx.Sam3_Colada
+                                                        where c.ColadaID == coladaID
+                                                        select c.FabricanteID.Value).SingleOrDefault();
+
+                                    if (fabricanteID > 0)
+                                    {
+                                        nuevoNU.FabricanteID = fabricanteID;
+                                    }
                                     nuevoNU.Factura = folioEntrada.Factura;
                                     nuevoNU.OrdenDeCompra = folioEntrada.OrdenCompra;
                                     nuevoNU.ProveedorID = folioEntrada.ProveedorID;

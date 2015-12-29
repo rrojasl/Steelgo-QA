@@ -1954,9 +1954,6 @@ namespace BackEndSAM.DataAcces
                                                  join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
                                                  where fe.Activo && fc.Activo && rfi.Activo && it.Activo
                                                  && fe.FolioAvisoLlegadaID == folioAvisoLlegada
-                                                 && !(from nu in ctx.Sam3_NumeroUnico
-                                                      where nu.Activo
-                                                      select nu.ItemCodeID).Contains(it.ItemCodeID)
                                                  select new ListaCombos
                                                  {
                                                      id = it.ItemCodeID.ToString(),
