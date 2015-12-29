@@ -85,7 +85,7 @@ namespace BackEndSAM.DataAcces
 
                         datosItemCode.ItemCodeSteelgo = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgo) ? "ICS-Default" : datosItemCode.ItemCodeSteelgo;
                         datosItemCode.ItemCodeSteelgoID = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgoID) || datosItemCode.ItemCodeSteelgoID == "0" ? "1" : datosItemCode.ItemCodeSteelgoID;
-                        datosItemCode.Familia = string.IsNullOrEmpty(datosItemCode.Familia) ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
+                        datosItemCode.Familia = string.IsNullOrEmpty(datosItemCode.Familia) ? datosItemCode.Familia = "Sin Trazabilidad" : datosItemCode.Familia;
                         datosItemCode.TipoAcero = string.IsNullOrEmpty(datosItemCode.TipoAcero) ? datosItemCode.TipoAcero = "Familia Material Default" : datosItemCode.TipoAcero;
 
                         switch (tipoGuardado)
@@ -134,7 +134,9 @@ namespace BackEndSAM.DataAcces
                                     if (datosItemCode.FamiliaMaterial == "0")
                                     {
                                         //valor por default
-                                        datosItemCode.FamiliaMaterial = "1";
+                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                         where fa.Nombre == "Sin Trazabilidad" && fa.Activo
+                                                                         select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
                                     }
 
                                     datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
@@ -420,7 +422,9 @@ namespace BackEndSAM.DataAcces
                                     if (datosItemCode.FamiliaMaterial == "0")
                                     {
                                         //valor por default
-                                        datosItemCode.FamiliaMaterial = "1";
+                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                         where fa.Nombre == "Sin Trazabilidad" && fa.Activo
+                                                                         select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
                                     }
 
                                     datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
@@ -698,7 +702,9 @@ namespace BackEndSAM.DataAcces
                                     if (datosItemCode.FamiliaMaterial == "0")
                                     {
                                         //valor por default
-                                        datosItemCode.FamiliaMaterial = "1";
+                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                         where fa.Nombre == "Sin Trazabilidad" && fa.Activo
+                                                                         select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
                                     }
 
                                     datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
@@ -936,7 +942,9 @@ namespace BackEndSAM.DataAcces
                                     if (datosItemCode.FamiliaMaterial == "0")
                                     {
                                         //valor por default
-                                        datosItemCode.FamiliaMaterial = "1";
+                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                         where fa.Nombre == "Sin Trazabilidad" && fa.Activo
+                                                                         select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
                                     }
 
                                     datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
@@ -1205,7 +1213,9 @@ namespace BackEndSAM.DataAcces
                                     if (datosItemCode.FamiliaMaterial == "0")
                                     {
                                         //valor por default
-                                        datosItemCode.FamiliaMaterial = "1";
+                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                         where fa.Nombre == "Sin Trazabilidad" && fa.Activo
+                                                                         select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
                                     }
 
                                     datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
