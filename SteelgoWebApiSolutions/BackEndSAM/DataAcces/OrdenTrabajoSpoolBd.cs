@@ -106,7 +106,8 @@ namespace BackEndSAM.DataAcces
 
                     List<ComboNumeroControl> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                         join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                        join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.MaterialSpoolID
+                                                        join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                        join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
                                                         join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
                                                         where !(from d in ctx2.Despacho
                                                                 where d.Cancelado == false
@@ -117,6 +118,7 @@ namespace BackEndSAM.DataAcces
                                                              select sh).Any()
                                                         && proyectos.Contains(odt.ProyectoID)
                                                         && it.TipoMaterialID == 2
+                                                        && !odtm.TieneDespacho
                                                         select new ComboNumeroControl
                                                         {
                                                             NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
