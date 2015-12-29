@@ -719,7 +719,7 @@ namespace BackEndSAM.DataAcces
 
                     aviso.Plana = (from r in ctx.Sam3_Vehiculo
                                    join p in ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo on r.VehiculoID equals p.VehiculoID
-                                   where (p.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID)
+                                   where p.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID && r.Activo && p.Activo
                                    select new PlanaAV
                                    {
                                        PlanaID = r.VehiculoID
@@ -848,11 +848,24 @@ namespace BackEndSAM.DataAcces
                             avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
                             avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
 
+                            List<int> iPlanas = cambios.Plana.Select(x => x.PlanaID).ToList();
+
+                            List<Sam3_Rel_FolioAvisoLlegada_Vehiculo> aviso = (from av in ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo
+                                                                               where av.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID && !iPlanas.Contains(av.VehiculoID) && av.Activo
+                                                                               select av).AsParallel().ToList();
+
+                            foreach (Sam3_Rel_FolioAvisoLlegada_Vehiculo av in aviso)
+                            {
+                                av.Activo = false;
+                                av.FechaModificacion = DateTime.Now;
+                                av.UsuarioModificacion = usuario.UsuarioID;
+                            }
+
                             //Actualizar informacion de las planas
                             foreach (PlanaAV plana in cambios.Plana)
                             {
                                 if (!avisoBd.Sam3_Rel_FolioAvisoLlegada_Vehiculo
-                                    .Where(x => x.VehiculoID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any()) // varificamos si existe la plana
+                                    .Where(x => x.VehiculoID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID && x.Activo).Any()) // varificamos si existe la plana
                                 {
                                     //agregamos una nuevo registro a la relacion de aviso y planas
                                     Sam3_Rel_FolioAvisoLlegada_Vehiculo nuevoRegistro = new Sam3_Rel_FolioAvisoLlegada_Vehiculo();
