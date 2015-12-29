@@ -534,9 +534,13 @@ namespace BackEndSAM.DataAcces
                                     else // si no existe la colada hay que crearla
                                     {
                                         Sam3_Colada nuevaColada = new Sam3_Colada();
-                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.AceroID = (from ac in ctx.Sam3_Acero
+                                                               where ac.Activo && ac.Nomenclatura == "Sin Trazabilidad"
+                                                               select ac.AceroID).AsParallel().SingleOrDefault();
                                         nuevaColada.Activo = true;
-                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FabricanteID = (from f in ctx.Sam3_Fabricante
+                                                                    where f.Activo && f.Nombre == "N/A"
+                                                                    select f.FabricanteID).FirstOrDefault();
                                         nuevaColada.FechaModificacion = DateTime.Now;
                                         nuevaColada.HoldCalidad = false;
                                         nuevaColada.NumeroCertificado = "";
@@ -558,7 +562,9 @@ namespace BackEndSAM.DataAcces
                                         nuevaColadaSam2.HoldCalidad = false;
                                         nuevaColadaSam2.NumeroCertificado = "";
                                         nuevaColadaSam2.NumeroColada = "";
-                                        nuevaColadaSam2.ProyectoID = proyectoID;
+                                        nuevaColadaSam2.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                                      where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                                      select eq.Sam2_ProyectoID).AsParallel().FirstOrDefault();
 
                                         ctx2.Colada.Add(nuevaColadaSam2);
                                         ctx2.SaveChanges();
@@ -591,9 +597,13 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         Sam3_Colada nuevaColada = new Sam3_Colada();
-                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.AceroID = (from ac in ctx.Sam3_Acero
+                                                               where ac.Activo && ac.Nomenclatura == "Sin Trazabilidad"
+                                                               select ac.AceroID).AsParallel().SingleOrDefault();
                                         nuevaColada.Activo = true;
-                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FabricanteID = (from f in ctx.Sam3_Fabricante
+                                                                    where f.Activo && f.Nombre == "N/A"
+                                                                    select f.FabricanteID).FirstOrDefault();
                                         nuevaColada.FechaModificacion = DateTime.Now;
                                         nuevaColada.HoldCalidad = false;
                                         nuevaColada.NumeroCertificado = "";
@@ -616,7 +626,9 @@ namespace BackEndSAM.DataAcces
                                         nuevaColadaSam2.HoldCalidad = false;
                                         nuevaColadaSam2.NumeroCertificado = "";
                                         nuevaColadaSam2.NumeroColada = "Sin Colada PL";
-                                        nuevaColadaSam2.ProyectoID = proyectoID;
+                                        nuevaColadaSam2.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                                      where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                                                      select eq.Sam2_ProyectoID).AsParallel().FirstOrDefault(); ;
 
                                         ctx2.Colada.Add(nuevaColadaSam2);
                                         ctx2.SaveChanges();
