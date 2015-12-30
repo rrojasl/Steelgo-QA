@@ -3,6 +3,7 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -29,23 +30,38 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
             }
         }
 
-        public  object ObtenerPlacasPlana(int TransportistaID)
+        public  object ObtenerPlacasPlana(int TransportistaID, int embarquePlanaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Plana_Result> result = ctx.Sam3_Steelgo_Get_Plana(TransportistaID).ToList();
-
                     List<PlacaPlana> ListadoPlacaPlana = new List<PlacaPlana>();
-
-                    foreach (Sam3_Steelgo_Get_Plana_Result item in result)
+                    if (embarquePlanaID != 0)
                     {
-                        ListadoPlacaPlana.Add(new PlacaPlana
+                        List<Sam3_Steelgo_Get_PlacasXEmbarquePlanaID_Result> result = ctx.Sam3_Steelgo_Get_PlacasXEmbarquePlanaID(embarquePlanaID, TransportistaID).ToList();
+
+                        foreach (Sam3_Steelgo_Get_PlacasXEmbarquePlanaID_Result item in result)
                         {
-                            Placas = item.Placas,
-                            VehiculoID=item.VehiculoID 
-                        });
+                            ListadoPlacaPlana.Add(new PlacaPlana
+                            {
+                                Placas = item.Placas,
+                                VehiculoID = item.VehiculoID.GetValueOrDefault()
+                            });
+                        }
+                    }
+                    else
+                    {
+                        List<Sam3_Steelgo_Get_Plana_Result> result = ctx.Sam3_Steelgo_Get_Plana(TransportistaID).ToList();
+
+                        foreach (Sam3_Steelgo_Get_Plana_Result item in result)
+                        {
+                            ListadoPlacaPlana.Add(new PlacaPlana
+                            {
+                                Placas = item.Placas,
+                                VehiculoID = item.VehiculoID
+                            });
+                        }
                     }
                     return ListadoPlacaPlana;
                 }
@@ -95,7 +111,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
             }
         }
 
-        public object ObtieneDetalle(int TipoConsulta, int OrdenTrabajoSpoolID, int Paquete, string Codigo, string lenguaje)
+        public object ObtieneDetalle(int TipoConsulta, int OrdenTrabajoSpoolID, int Paquete, string Codigo, string lenguaje, int embarquePlanaID)
         {
             try
             {
@@ -111,6 +127,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
                     {
                         ListadoDetalleCargaCaptura.Add(new DetalleCargaCaptura
                         {
+                            Accion= embarquePlanaID ==0 ?1: embarquePlanaID,
                             Consecutivo = consecutivo,
                             Cuadrante = item.Cuadrante,
                             CuadranteID = item.CuadranteID,
@@ -139,6 +156,102 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
                 return result;
             }
         }
+
+        public object ActualizarCuadrante(int EmpaquetadoPaqueteID,DataTable dtNuevoCuadrante,int usuarioID)
+        {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@EmbarquePaqueteID", EmpaquetadoPaqueteID.ToString() }, { "@Usuario", usuarioID.ToString() } };
+
+                   return  _SQL.EjecutaDataAdapter(Stords.ACTUALIZARCUADRANTE, dtNuevoCuadrante, "@Tabla", parametro);
+
+                   
+                    //TransactionalInformation result = new TransactionalInformation();
+                    //result.ReturnMessage.Add("Ok");
+
+                    //result.ReturnCode = 200;
+                    //result.ReturnStatus = true;
+                    //result.IsAuthenicated = true;
+                    
+                    //return result;
+                }
+        }
+
+        
+        public object GuardarEmbarqueCarga(DataTable dtEmbarqueCargaSpool, int usuarioID, int proveedorID, int vehiculoID, int embarquePlanaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuarioID.ToString() }, { "@ProveedorID", proveedorID.ToString() }, { "@VehiculoID", vehiculoID.ToString() }, { "@EmbarquePlanaID", embarquePlanaID.ToString() } };
+
+                    _SQL.Ejecuta(Stords.EMBARQUECARGA, dtEmbarqueCargaSpool, "@Tabla", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object CerrarPlana(int usuarioID , int embarquePlanaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    TransactionalInformation result = new TransactionalInformation();
+                    string[,] parametro = { { "@Usuario", usuarioID.ToString() }, { "@EmbarquePlanaID", embarquePlanaID.ToString() }};
+
+                    if (_SQL.EjecutaStoreExecuteReader(Stords.CierraPlana, parametro) > 0)
+                    {
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add("Error");
+                        result.ReturnCode = 400;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = false;
+                    }
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        
     }
 
 }

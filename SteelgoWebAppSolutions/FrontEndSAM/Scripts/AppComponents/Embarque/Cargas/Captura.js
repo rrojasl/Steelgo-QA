@@ -1,14 +1,49 @@
-﻿function changeLanguageCall() {
+﻿var ventanaPopup;
+var ventanaAgregarPaquetePopup;
+var dataItemSeleccionadoPopup;
+var EmbarquePlanaID=0;
+
+function changeLanguageCall() {
     CargarGrid();
 };
 
+if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val()!="0") {
+    EmbarquePlanaID = $("#inputHiddenEmbarquePlanaID").val();
+}
+else {
+    EmbarquePlanaID = 0;
+    $('#btnEmbarqueCerrarPlana').attr("disabled", true);
+}
 
 IniciarCapturaEmbarqueCarga();
+
 function IniciarCapturaEmbarqueCarga() {
     SuscribirEventos();
     setTimeout(function () { AjaxEmbarqueCargaProveedores(); }, 1000);
     setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 2000);
-    
+    setTimeout(function () { CrearPopup(); }, 2200);
+    setTimeout(function () { CrearPaquetePopup(); }, 2300);
+    setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
+}
+
+function CrearPaquetePopup() {
+    ventanaAgregarPaquetePopup = $("#ventanaPaquetePopup").kendoWindow({
+        title: _dictionary.EmbarqueCargaTituloPopupPaquete[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "565px",
+        height: "182px",
+        modal: true
+    }).data("kendoWindow");
+}
+
+function CrearPopup() {
+    ventanaPopup = $("#ventanaPopup").kendoWindow({
+        title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "565px",
+        height: "182px",
+        modal: true
+    }).data("kendoWindow");
 }
 
 function CargarGrid() {
@@ -39,7 +74,7 @@ function CargarGrid() {
         filterable: {
             extra: false
         },
-        editable: true,
+        editable: false,
         autoHeight: true,
         sortable: true,
         scrollable: true,
@@ -68,57 +103,118 @@ function CargarGrid() {
 
 function eliminarCaptura(e) {
     e.preventDefault();
-    var filterValue = $(e.currentTarget).val();
-    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    var spoolIDRegistro = dataItem.SpoolID;
 
+    dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-    windowTemplate = kendo.template($("#windowTemplate").html());
+    if ($('#botonGuardar').text() == "Guardar") {
+        ventanaPopup.open().center();
+    }
 
-    ventanaConfirm = $("#window").kendoWindow({
-        iframe: true,
-        title: _dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()],
-        visible: false, //the window will not appear before its .open method is called
-        width: "400px",
-        height: "200px",
-        modal: true
-    }).data("kendoWindow");
-
-    ventanaConfirm.content(windowTemplate(this.dataSource, dataItem));
-
-    ventanaConfirm.open().center();
-
-    $("#yesButton").click(function () {
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
-
-        if (dataItem.JuntaArmadoID === 0)
-        { dataSource.remove(dataItem); }
-
-        dataSource.sync();
-        ventanaConfirm.close();
-    });
-    $("#noButton").click(function () {
-        ventanaConfirm.close();
-    });
+    var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoDropDownList");
+    cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteID);
+    $("#inputPopupPaqueteID").text(dataItemSeleccionadoPopup.EmbarquePaqueteID);
+    $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
 
 }
 
-function validarInformacion( array)
-{
+function validarInformacion(row) {
     var ds = $("#grid").data("kendoGrid").dataSource;
-    var existe=false;
-   
+    var existe = false;
+
     for (var i = 0; i < ds._data.length; i++) {
-        for (var j = 0; j < array.length; j++) {
-            if (ds._data[i]["NumeroControl"] == array[j]["NumeroControl"]) {
+
+        if (ds._data[i]["NumeroControl"] == row.NumeroControl) {
+            existe = true;
+            break;
+        }
+
+
+    }
+    return existe;
+}
+
+function validarExisteSpoolSeleccionadoSinPaquete() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var existe = false;
+    if (ds._data.length == 0) {
+        displayMessage("EmbarqueCargaSeleccionaSpool", "", '2');
+        return true;
+    }
+    else {
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i]["Seleccionado"] && ds._data[i]["Paquete"] != "") {
                 existe = true;
                 break;
             }
         }
+        if (existe)
+            displayMessage("EmbarqueCargaSeTieneEmpaquetado", "", '2');
+        return existe;
+    }
+}
 
+function validarExistaSoloUnpaqueteSeleccionado() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var PaqueteIDSeleccionado;
+    var filaConPaqueteSinAsignar = false;
+    var contador = 0;
+    for (var i = 0; i < ds._data.length; i++) {
+        if (ds._data[i]["Seleccionado"]) {
+            for (var j = 0; j < ds._data.length; j++) {
+                if (ds._data[i]["EmbarquePaqueteID"] != 0 && i != j && ds._data[i]["EmbarquePaqueteID"] != ds._data[j]["EmbarquePaqueteID"] && ds._data[j]["EmbarquePaqueteID"] != 0)
+                    contador++;
+            }
+        }
     }
 
-           
-    return existe;
+    if (contador == 0) {//no hay mas de un paquete seleccionado
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i]["Seleccionado"] && ds._data[i]["EmbarquePaqueteID"] == 0) {
+                filaConPaqueteSinAsignar = true;
+            }
+            else if (ds._data[i]["Seleccionado"] && ds._data[i]["EmbarquePaqueteID"] != 0) {
+                filaConPaqueteSinAsignar = false;
+                break;
+            }
+        }
+
+        return (true && !filaConPaqueteSinAsignar);
+    }
+    return false;
+}
+
+function validarSoloSeleccionadoSinPaquete() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var PaqueteIDSeleccionado;
+    var contador = 0;
+    for (var i = 0; i < ds._data.length; i++) {
+        if (ds._data[i]["Seleccionado"] && ds._data[i]["EmbarquePaqueteID"] != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function AsignarValorPaqueteASinPaquete() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var asigando = false;
+    for (var i = 0; i < ds._data.length; i++) {
+        if (ds._data[i]["Seleccionado"] && ds._data[i]["NumeroControl"] != "") {
+            for (var j = 0; j < ds._data.length; j++) {
+                if (ds._data[j]["Seleccionado"] && ds._data[j]["Paquete"] == "") {
+                    ds._data[j]["Paquete"] = ds._data[i]["Paquete"];
+                    ds._data[j]["EmbarquePaqueteID"] = ds._data[i]["EmbarquePaqueteID"];
+                    asigando = true;
+                }
+            }
+
+            break;
+        }
+    }
+
+    ds.sync();
+
+    if (!asigando)
+        return false;
+    return true;
 }

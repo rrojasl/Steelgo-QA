@@ -287,7 +287,7 @@ function eliminarCaptura(e) {
 
     windowTemplate = kendo.template($("#windowTemplate").html());
 
-    ventanaConfirm = $("#window").kendoWindow({
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
         iframe: true,
         title: _dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()],
         visible: false, //the window will not appear before its .open method is called
