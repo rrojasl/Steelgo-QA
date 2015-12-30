@@ -380,17 +380,19 @@
         var ordenRecepcionID = dataItem.OrdenRecepcion
 
         var pdf = ArregloPDF(ordenRecepcionID);
-        $Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
-            if (result) {
-                if (Error(result)) {
-                }
-            }
-        });
+        downloadPDF($Reporte.Reporte.urlNoId, pdf);
+        
 
         //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
     };
 
-
+    function downloadPDF(url, pdf) {
+        var link = document.createElement("a");
+        link.href = url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token");
+        link.target = "_blank";
+        displayMessage("notificationslabel0100", "", "2")
+        link.dispatchEvent(new Event("click"));
+    }
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));

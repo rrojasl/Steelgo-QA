@@ -724,7 +724,7 @@
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 //loadingStop();
                 if (Error(result)) {
-                    window.open("http://www.asp.net");//Webservice
+                    //window.open("http://www.asp.net");//Webservice
                     window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[2];
                 }
             });

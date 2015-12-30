@@ -257,12 +257,7 @@
         $("#ImprimirPaseSalida").click(function () {
             var pdf = ArregloPDF(3,FolioPaseSalida.FolioAvisoLlegadaID, "");
             downloadPDF($Reporte.Reporte.urlNoId,pdf);
-            //$Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
-            //    if (result) {
-            //        if (Error(result)) {
-            //        }
-            //    }
-            //});
+            
            // window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
         $("#Editar").click(function () { Editar();});
@@ -299,12 +294,7 @@
             }
             var pdf = ArregloPDF(2,FolioPaseSalida.FolioAvisoLlegadaID, strincidencias);
             downloadPDF($Reporte.Reporte.urlNoId,pdf);
-            //$Reporte.Reporte.read({}, { data: JSON.stringify(pdf), token: Cookies.get("token") }).done(function (result) {
-            //    if(result){
-            //        if (Error(result)) {
-            //        }
-            //    }
-            //});
+            
            //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Incidencias&rs:Command=Render" + "&FolioAvisoLlegadaID=" + FolioPaseSalida.FolioAvisoLlegadaID + "&cadena=" + strincidencias + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
         });
 
