@@ -353,7 +353,7 @@
         $("#grid table tbody").on("keydown", "tr", function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
             if (code == 13) { //If key is ENTER
-                if (!ValidarTolerancia(parseInt($(e.currentTarget).closest("tr").find("input").val()), parseInt($(e.currentTarget).closest("tr").find("td")[3].innerHTML))) {
+                if (!ValidarTolerancia(parseInt($(e.currentTarget).closest("tr").find("INPUT[name=Cantidad]").val()), parseInt($(e.currentTarget).closest("tr").find("td")[3].innerHTML))) {
                     displayMessage("notificationslabel0064", "", '2');
                 }
                 CalcularCantidad();
@@ -738,6 +738,7 @@
                         $("#hdnTolerancia").val(result.Tolerancia);
                         resultadoJson = result.ListadoCortes;
                         AgregarRegistroGrid(result.ListadoCortes);
+                        ValidarInformacion();
                         $("#grid").data("kendoGrid").refresh()
                         //if ($("#grid").data("kendoGrid")) {
                         //    if (resultadoJson.length > 0) {
@@ -788,7 +789,7 @@
         //$("#OrdenTrabajo").data("kendoAutoComplete").enable(false);
         //$("#Consecutivo").data("kendoAutoComplete").enable(false);
         //$("#Etiqueta").data("kendoComboBox").enable(false);
-        $("#TramoCompleto").attr("disabled", "disabled");
+        //$("#TramoCompleto").attr("disabled", "disabled");
         $("#Maquina").data("kendoComboBox").enable(false);
     };
 
@@ -845,10 +846,15 @@
 
         if (!info.EsTramoCompleto) {
             if (!Maquina.MaquinaID) {
+                LimpiarMaquina();
+                $("#Maquina").data("kendoComboBox").enable(true);
                 //Favor de seleccionar una maquina
                 displayMessage("notificationslabel0063", "", '2');
                 return false;
             };
+        } else {
+            LimpiarMaquina();
+            $("#Maquina").data("kendoComboBox").enable(false);
         };
 
         if (!info.NumerUnicoID) {
@@ -923,18 +929,8 @@
 
         Listado.DatosODT = info;
 
-        if (ValidarErrores(info)) {
-            $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
-                    if ($("#TramoCompleto").is(":checked")) {
-                        LimpiarMaquina();
-                        DesahabilitarBotonesAgregar();
-                        LimpiarGrid();
-                    };
-                    AgregarRegistroGrid(result);
-                }
-            });
-        }
+        ValidarErrores(info);
+        
     };
 
     function LimpiarMaquina() {
