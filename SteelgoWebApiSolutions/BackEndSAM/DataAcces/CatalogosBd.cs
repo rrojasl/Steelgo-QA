@@ -2060,7 +2060,8 @@ namespace BackEndSAM.DataAcces
                         MM = datos.MM,
                         Espesor = datos.Espesor,
                         Peso = ICSteelgo.Peso.ToString(),
-                        Area = ICSteelgo.Area.ToString()
+                        Area = ICSteelgo.Area.ToString(),
+                        TieneD2= datos.TieneD2
                     };
                 }
             }
@@ -2231,7 +2232,8 @@ namespace BackEndSAM.DataAcces
                         MM = datos.MM,
                         Espesor = datos.Espesor,
                         Peso = ics.Peso.ToString(),
-                        Area = ics.Area.ToString()
+                        Area = ics.Area.ToString(),
+                        TieneD2 = datos.TieneD2
                     };
 
                 }
