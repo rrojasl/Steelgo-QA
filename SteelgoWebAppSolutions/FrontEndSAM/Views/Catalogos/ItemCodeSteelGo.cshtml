@@ -345,8 +345,12 @@
                                 $CatalogoICSteelgo.CatalogoICSteelgo.read({},{familiaAceroID:data.id,token:Cookies.get("token")}).done(function(r){
                                     if(Error(r)){
                                         $("#grid").data("kendoGrid")._data[data.posicion].FamiliaMaterial = r;
+                                        var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
                                         $("#grid").data("kendoGrid").refresh();
                                         $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + uid + "]"));
+                                        if (disabledDiametro2) {
+                                            $("[name='Diametro2']").data("kendoComboBox").enable(false);
+                                        };
                                     }
                                 });
                             },
