@@ -505,6 +505,7 @@
             toolbar: ["create"],
             editable: "inline",
             save: function (e) {
+                var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
                 if ((e.model.id === null || e.model.id === "" || e.model.id === undefined) /*&& (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))*/) {
                     var grid = $("#grid").data("kendoGrid");
                     var data = {};
@@ -551,7 +552,8 @@
                     rowEditada.Peso = e.model.Peso;
                     rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
                     rowEditada.dirty=e.model.dirty;
-                    rowEditada.uid=e.model.uid;
+                    rowEditada.uid = e.model.uid;
+                    rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
                     grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
                     grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
 
@@ -604,6 +606,7 @@
                     rowEditada.GrupoID = e.model.GrupoID;
                     rowEditada.Peso = e.model.Peso;
                     rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
+                    rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
                     grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
                     editado = false;
                 } else {
@@ -613,6 +616,7 @@
                 }
             },
             edit: function (e) {
+                var obtenerObjetoD2 = $("[name='Diametro2']", e.container).data("kendoComboBox");
                 if(e.model.Asociado===true){
                     $("[name='Grupo']").data("kendoComboBox").enable(false);
                     $("[name='Diametro1']").data("kendoComboBox").enable(false);
@@ -620,6 +624,7 @@
                     displayMessage("ItemCodeSteelGo0027","","1");
                     e.preventDefault();
                 }
+                
                 if (e.model.TieneD2 == "No") {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
                     e.model.Diametro1ID = DiametroCero.id;
@@ -653,6 +658,7 @@
                     lastEditedDocument=$(this).attr("name");
                     var data = {};
                     var i = $(this);
+                    var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
                     if (e.model.Diametro1 !== 0 && e.model.Diametro1 !== "") {
                         data['CedulaA'] = e.model.CedulaA;
                         data['CedulaB'] = e.model.CedulaB;
@@ -664,12 +670,14 @@
 
                         $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
                             if (Error(data)) {
+                               
                                 if (data === null) {
                                     e.model.CedulaA = "";
                                     e.model.CedulaB = "";
                                     e.model.CedulaC = "";
                                     e.model.Libra = "";
                                     $("#grid").data("kendoGrid").refresh();
+                                    e.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
                                     $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                     displayMessage("ItemCodeSteelGo0021", "", '2');
                                     //$("[name='" + lastEditedDocument + "']").focus();
@@ -688,6 +696,10 @@
                                     //e.model.Peso=data.Peso;
                                     //e.model.Area=data.Area;
                                     $("#grid").data("kendoGrid").refresh();
+                                    e.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
+                                    //if (disabledDiametro2) {
+                                    //    obtenerObjetoD2.enable(false);
+                                    //};
                                     $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                     $("[data-container-for='Peso'] input:first").focus();
                                 }
@@ -702,6 +714,10 @@
                                 e.model.Peso = "";
                                 e.model.Area = "";
                                 $("#grid").data("kendoGrid").refresh();
+                                e.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
+                                //if (disabledDiametro2) {
+                                //    obtenerObjetoD2.enable(false);
+                                //};
                                 $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                 displayMessage("ItemCodeSteelGo0021", "", '2');
                                 //$("[name='" + lastEditedDocument + "']").focus();
@@ -716,6 +732,10 @@
                         e.model.CedulaC = "";
                         e.model.Libra = "";
                         $("#grid").data("kendoGrid").refresh();
+                        e.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
+                        //if (disabledDiametro2) {
+                        //    obtenerObjetoD2.enable(false);
+                        //};
                         $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                         displayMessage("ItemCodeSteelGo0022", "", '1');
                         //$("[name='Diametro1']").data("kendoComboBox").focus();
