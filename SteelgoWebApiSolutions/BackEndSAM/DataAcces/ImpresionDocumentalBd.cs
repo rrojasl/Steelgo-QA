@@ -96,7 +96,7 @@ namespace BackEndSAM.DataAcces
                                                    where it.Codigo == l.ItemCodeSteelgo
                                                    select its.Codigo).AsParallel().SingleOrDefault();
 
-                                    l.ItemCodeSteelgo = temp;
+                                    l.ItemCodeSteelgo = string.IsNullOrEmpty(temp) ? "" : temp;
                                 }
                             }
 
