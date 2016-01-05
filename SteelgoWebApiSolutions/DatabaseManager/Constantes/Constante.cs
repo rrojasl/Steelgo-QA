@@ -67,7 +67,7 @@ namespace DatabaseManager.Sam3
         public static string ACTUALIZARCUADRANTE = "dbo.Sam3_Embarque_Set_Paquete";
         public static string EMBARQUECARGA = "dbo.Sam3_Embarque_Set_Carga";
         public static string CierraPlana = "dbo.Sam3_Embarque_CierraPlana";
-        
+        public static string ACTUALIZARREVISIONEMBARQUESPOOL = "Sam3_Embarque_Set_RevisionSpool";
     }
 
     public static class ConstantesSteelGo

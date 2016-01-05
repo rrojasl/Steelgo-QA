@@ -122,7 +122,7 @@ namespace BackEndSAM.Controllers
 
         }
 
-        //actualiza  el cuadrante y / o crea paquetes a partir de un paquete id
+        //Guarda la plana
         public object Post(Captura listaCapturaArmado, string token, int proveedorID,int vehiculoID, int embarquePlanaID)
         {
             string payload = "";
