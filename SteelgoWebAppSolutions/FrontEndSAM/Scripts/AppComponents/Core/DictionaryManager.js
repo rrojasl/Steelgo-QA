@@ -3674,6 +3674,11 @@ _dictionary = {
         "en-US": ""
     },
     //#region Genericos
+    "BotonCerrar1": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+
     "botonCancelar": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -5128,7 +5133,89 @@ _dictionary = {
         "en-US": "Folio"
     },
     //#endregion
+    //#region CapturaReportePruebas
+    "CapturaReportePruebasHeaderSpoolJunta": {
+        "es-MX": "Spool-Junta",
+        "en-US": "Spool-Joint"
+    },
+    "CapturaReportePruebasHeaderNumeroPlacas": {
+        "es-MX": "Número de Placas",
+        "en-US": "Number plates"
+    },
+    "CapturaReportePruebasHeaderTamano": {
+        "es-MX": "Tamaño",
+        "en-US": "Size"
+    },
+    "CapturaReportePruebasHeaderDensidad": {
+        "es-MX": "Densidad",
+        "en-US": "Density"
+    },
+    "CapturaReportePruebasHeaderDetallePruebas": {
+        "es-MX": "Detalle Pruebas",
+        "en-US": "Testing Detail"
+    },
+    "CapturaReportePruebasHeaderUbicacion": {
+        "es-MX": "Ubicación",
+        "en-US": "Location"
+    },
+    "CapturaReportePruebasHeaderResultado": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "CapturaReportePruebasHeaderDetalleDefectos": {
+        "es-MX": "Detalle Defectos",
+        "en-US": "Defect Detail"
+    },
+    "CapturaReportePruebasHeaderDefecto": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
+    "CapturaReportePruebasHeaderInicio": {
+        "es-MX": "Inicio",
+        "en-US": "Begin"
+    },
+    "CapturaReportePruebasHeaderFin": {
+        "es-MX": "Fin",
+        "en-US": "End"
+    },
+    "CapturaReportePruebasTipoPrueba": {
+        "es-MX": "Tipo Prueba:",
+        "en-US": "Testing Type:"
+    },
+    "CapturaReportePruebasRequisicion": {
+        "es-MX": "Requisición:",
+        "en-US": "Requisition:"
+    },
+    "CapturaReportePruebasFuente": {
+        "es-MX": "Fuente",
+        "en-US": "Source"
+    },
+    "CapturaReportePruebasTurno": {
+        "es-MX": "Turno",
+        "en-US": "Inning"
+    },
+    "CapturaReportePruebasMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaReportePruebasMensajeEliminarDefecto": {
+        "es-MX": "Esta seguro de eliminar el defecto",
+        "en-US": "Are you sure want to delete the defect"
+    },
+    "CapturaReportePruebasMensajeErrorPlacas": {
+        "es-MX": "Algunos datos del numero de placas no son correctos",
+        "en-US": ""
+    },
+    "CapturaReportePruebasMensajeErrorTamanoDensidad": {
+        "es-MX": "Algunos datos de Tamaño o Densidad no son correctos",
+        "en-US": ""
+    },
+    "CapturaReportePruebasMensajeErrorDefectos": {
+        "es-MX": "Algunos datos de los Defectos no son correctos",
+        "en-US": ""
+    },
 
+    //#endregion
 };
 
 

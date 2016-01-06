@@ -92,7 +92,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result> listaTipoPrueba = (List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result>)ValidacionResultadosBD.Instance.getListadoTipoPrueba(requisicionID);
+                    List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result> listaTipoPrueba = (List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result>)ValidacionResultadosBD.Instance.getListadoTipoPrueba(requisicionID,lenguaje);
 
                     foreach (Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result item in listaTipoPrueba)
                     {
@@ -154,13 +154,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
         }
 
 
-        public object getListadoTipoPrueba(int requisicionID)
+        public object getListadoTipoPrueba(int requisicionID,string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result> result = ctx.Sam3_ServiciosTecnicos_Get_RequisicionDetalle(requisicionID).ToList();
+                    List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result> result = ctx.Sam3_ServiciosTecnicos_Get_RequisicionDetalle(requisicionID,lenguaje).ToList();
                     return result;
                 }
             }

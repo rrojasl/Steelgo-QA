@@ -112,4 +112,17 @@ function changeheaderInputs(language) {
             CargarGrid();//tiene que ser el mismo nombre del metodo que manda a llamar el llenado del grid.
         };
     }
+
+    var entityGridPopup = $("#gridPopUp").data("kendoGrid");
+
+    if (entityGridPopup != undefined) {
+
+        $('#ContenedorGridPopUp').find('div').remove();
+        $('#ContenedorGridPopUp').append($('<div id="gridPopUp" data-role="grid" class="k-grid k-widget">'));
+
+        function changeLanguageCall() {
+            CargarGridPopUp();//tiene que ser el mismo nombre del metodo que manda a llamar el llenado del grid.
+        };
+    }
+
 };

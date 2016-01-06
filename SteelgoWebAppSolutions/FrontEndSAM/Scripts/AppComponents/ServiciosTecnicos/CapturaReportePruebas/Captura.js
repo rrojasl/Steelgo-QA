@@ -1,50 +1,115 @@
-﻿function changeLanguageCall() {
+﻿var requisicionID;
+var ItemSeleccionado;
+var comboDefectos;
+var modeloRenglon;
+var NumeroPlacasActual;
+function changeLanguageCall() {
     CargarGrid();
+    CargarGridPopUp();
     $('#grid').data('kendoGrid').dataSource.read();
+    $('#gridPopUp').data('kendoGrid').dataSource.read();
+    requisicionID = $("#RequisicionID").val();
+    AjaxRequisicionDetalle(requisicionID);
+    
 };
 
 
 
 
 function CargarGrid() {
+    
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
 
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
-        autoBind: true,
+        save: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (fieldName == "NumeroPlacas") {
+                if (parseInt(e.values.NumeroPlacas) < parseInt(NumeroPlacasActual)) {
+                    e.preventDefault();
+                }
+                else {
+                    var longitudActual = e.model.listaDetallePruebas.length;
+                    
+
+                    
+                    var longitudNuevos = parseInt(e.values.NumeroPlacas) - longitudActual;
+                    if (isNaN(longitudNuevos)) {
+                        e.preventDefault();
+                    }
+                    var ds = e.model.listaDetallePruebas;
+                    detallePruebas = [];
+                    for (var index = 0; index < longitudNuevos; index++) {
+
+                        detallePruebas[index] = {
+                            Accion: "",
+                            RequisicionPruebaElementoID: "",
+                            PruebaElementoResultadoID: "",
+                            Ubicacion: "",
+                            Resultado: "",
+                            Nombre: "",
+                            ListaDefectos: "",
+                            ListaDetalleDefectos: ""
+                        }
+                        detallePruebas[index].Accion = 1;
+                        detallePruebas[index].RequisicionPruebaElementoID = e.model.RequisicionPruebaElementoID;
+                        detallePruebas[index].PruebaElementoResultadoID = 0;
+                        detallePruebas[index].Resultado = 1;
+                        detallePruebas[index].Nombre = "Aceptado";
+
+                        var aux = 0;
+                        for (var i = 0 ; i < ds.length; i++) {
+                            var res = ds[i].Ubicacion.split("-");
+                            if (aux <= res[1]) {
+                                aux = parseInt(res[1]);
+                            }
+                        }
+                        detallePruebas[index].Ubicacion = aux+"-"+(aux+1);
+
+                        ds.push(detallePruebas[index]);
+                    }
+                    
+                    
+                }
+            }
+        },
         dataSource: {
-            data: [
-                     { TipoPrueba: "RT", SpoolJunta: "X001-001", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 3, Tamano: "25mm", Densidad: "22mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"0-1","Resultado":"Aprobado"},{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"1-2","Resultado":"Rechazado"},{"TemplateMensajeDetalles":"ver detalle","Ubicacion":"2-3","Resultado":"Aprobado"}]' },
-                     { TipoPrueba: "RT", SpoolJunta: "X001-002", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 10, Tamano: "10mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "RT","JuntaSpool":"X002-01","NumeroPlacas":"3","Tamano":"25","Densidad":"22mm","Resultado":"Rechazado"}]' },
-                     { TipoPrueba: "RT", SpoolJunta: "X001-003", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 4, Tamano: "15mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "VD","JuntaSpool":"X003-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Rechazado"}]' },
-                     { TipoPrueba: "RT", SpoolJunta: "X001-004", TemplateMensajeTrabajosAdicionales: "ver detalle", NumeroPlacas: 1, Tamano: "25mm", Densidad: "10mm", ListaDetalleTrabajoAdicional: '[{"TemplateMensajeDetalles":"ver detalle","TipoPrueba": "VD","JuntaSpool":"X004-01","NumeroPlacas":"0","Tamano":"0","Densidad":"0","Resultado":"Aprobado"}]' }
-            ],
+            data: [],
             schema: {
                 model: {
                     fields: {
-                        TipoPrueba: { type: "string", editable: false },
                         SpoolJunta: { type: "string", editable: false },
-                        NumeroPlacas: { type: "string", editable: false },
-                        Densidad: { type: "string", editable: false },
-                        NumeroPlacas: { type: "string", editable: false },
+                        NumeroPlacas: { type: "string", editable: true },
+                        Densidad: { type: "string", editable: true },
+                        Tamano: { type: "string", editable: true },
                         InformacionResultados: { type: "string", editable: true },
-                        TemplateMensajeTrabajosAdicionales: { type: "string", editable: true },
-
                     }
                 }
             },
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false
         },
-        navigatable: true,
-        filterable: {
-            extra: false
-        },
-        editable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: true,
+        selectable: true,
         pageable: {
             refresh: false,
             pageSizes: [10, 15, 20],
@@ -52,21 +117,32 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (fieldName == "NumeroPlacas") {
+                NumeroPlacasActual = e.model.NumeroPlacas;
+            }
+        },
         columns: [
-          
-            { field: "SpoolJunta", title: "Spool - Junta", filterable: true, width: "100px" },
-             { field: "NumeroPlacas", title: "Número Placas", filterable: true, width: "90px" },
-             { field: "Tamano", title: "Tamaño", filterable: true, width: "90px" },
-             { field: "Densidad", title: "Densidad", filterable: true, width: "100px" },
-              
-            { field: "InformacionResultados", title: "Detalle Pruebas", filterable: false, width: "500px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
 
-        ]
+            { field: "SpoolJunta", title: _dictionary.CapturaReportePruebasHeaderSpoolJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+             { field: "NumeroPlacas", title: _dictionary.CapturaReportePruebasHeaderNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
+             { field: "Tamano", title: _dictionary.CapturaReportePruebasHeaderTamano[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
+             { field: "Densidad", title: _dictionary.CapturaReportePruebasHeaderDensidad[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "InformacionResultados", title: _dictionary.CapturaReportePruebasHeaderDetallePruebas[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: RenderGridDetalle, template: "Tiene:  Numero de placas" },
+
+        ],
+        editable: true,
+        navigatable: true,
     });
 };
 
-function AgregarCaptura() {
-};
 
-function eliminarCaptura() {
-};
+function isEditable(fieldName, model) {
+    if (fieldName === "NumeroPlacas") {
+
+        return model.NumeroPlacas !== 1;
+    }
+    return true;
+}

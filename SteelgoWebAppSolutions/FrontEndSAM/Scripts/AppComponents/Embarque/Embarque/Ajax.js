@@ -1,6 +1,6 @@
 ﻿function AjaxCargarProveedor() {
     loadingStart();
-    $Embarque.Embarque.read({ token: Cookies.get("token") }).done(function (data) {
+    $Embarque.Embarque.read({ token: Cookies.get("token"), embarquePlanaID: 0 }).done(function (data) {
         $("#Proveedor").data("kendoComboBox").value("");
         $("#Proveedor").data("kendoComboBox").dataSource.data(data);
         if ($('#embarqueID').val() != 0 ) {
