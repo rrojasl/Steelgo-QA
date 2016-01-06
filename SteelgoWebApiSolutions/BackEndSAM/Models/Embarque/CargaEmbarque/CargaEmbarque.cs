@@ -25,6 +25,7 @@ namespace BackEndSAM.Models.Embarque.CargaEmbarque
 
     public class DetalleCargaCaptura
     {
+        public int Accion { get; set; }
         public int Consecutivo { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public int SpoolID { get; set; }
@@ -38,4 +39,27 @@ namespace BackEndSAM.Models.Embarque.CargaEmbarque
         public bool Seleccionado { get; set; }
     }
 
+    public class Captura
+    {
+        public List<EmbarqueCargaSpool> Detalles { get; set; }
+    }
+
+    public class EmbarqueCargaSpool
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public int CuadranteID { get; set; }
+    }
+
+    public class CierraPlana
+    {
+        public int EmbarquePlanaID { get; set; }
+    }
+
+    public class NuevoPaquete
+    {
+        public int EmbarquePaqueteID { get; set; }
+
+        public string Folio { get; set; }
+    }
 }

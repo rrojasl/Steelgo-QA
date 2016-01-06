@@ -20,7 +20,7 @@ namespace BackEndSAM.Controllers
     public class EmbarqueController : ApiController
     {
         [HttpGet]
-        public object GetProveedores(string token)
+        public object GetProveedores(string token, int embarquePlanaID)
         {
             string payload = "";
             string newToken = "";
@@ -29,7 +29,9 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EmbarqueBD.Instance.ObtenerProveedores();
+               
+                    
+                return EmbarqueBD.Instance.ObtenerProveedores(embarquePlanaID);
             }
             else
             {

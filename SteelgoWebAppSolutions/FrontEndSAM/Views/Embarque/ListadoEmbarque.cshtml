@@ -20,19 +20,21 @@
 
 
         <div class="row clearfix">
-            <div class="addedSection col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" id="divStatusEmbarque" arial-label="tabList">
+            <div id="containerDiv">
+                <div class="addedSection col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" id="divStatusEmbarque" arial-label="tabList">
 
-                        <button id="btnSinPermiso" class="btn btn-tabList"><span id="">Todos </span><span id="">0</span></button>
-                        <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="">Enviados </span><span id="">0</span>10</button>
+                            <button id="btnSinPermiso" class="btn btn-tabList"><span id="ListadoEmbarqueTodos"> </span><span id="nTodos">0</span></button>
+                            <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="ListadoEmbarqueEnviados"> </span><span id="nEnviados">0</span>10</button>
 
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                        <div id="ContenedorGrid" class="row">
-                            <div id="grid" data-role="grid" class="k-grid k-widget">
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <div id="ContenedorGrid" class="row">
+                                <div id="grid" data-role="grid" class="k-grid k-widget">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -43,12 +45,13 @@
         <div id="windowFecha" style="display: none; z-index:inherit;">
             <div class="form-group col-sm-12 col-md-12 col-lg-11">
                 <div class="row">
-                    <label class="col-sm-4 col-md-4 col-lg-4 "><span id="">Fecha</span></label>
-                    <input id="Fecha" />
-                </div>
-                <div class="row">
-                    <div class="col-sm-3 col-md-3 col-lg-3">
-                        <a class=" btn btn-blue " id="GuardarFecha"><span id="botonGuardar3"></span></a>
+                    <div class="form-group  col-sm-5 col-md-5 col-lg-5">
+                        <label><span id="ListadoEmbarqueFecha"></span></label>
+                        <input id="Fecha" />
+                    </div>
+                    <div class="form-group  col-sm-3 col-md-3 col-lg-3">
+                        <br />
+                        <a class=" btn btn-blue " id="EnviarEmbarque"><span id="botonEnviar"></span></a>
                     </div>
                 </div>
             </div>
@@ -57,15 +60,14 @@
         <div id="windowFolio" style="display: none; z-index:inherit;">
             <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
                 <div class="row">
-                    <div class="form-group  col-sm-6 col-md-8 col-lg-3" id="TipoObreroIDDiv">
+                    <div class="form-group  col-sm-5 col-md-5 col-lg-5">
                         <label id=""><span>Folio</span></label>
                         <input id="Folio" class="k-input" />
                     </div>
-                    <div class="form-group  col-sm-6 col-md-8 col-lg-3" id="NumeroEmpleadoDiv">
+                    <div class="form-group  col-sm-3 col-md-3 col-lg-3">
                         <a class=" btn btn-blue " href="#" id="GuardarFolio"><span id="botonGuardar4"></span></a>
                     </div>
                 </div>
-                <input class="" type="hidden" id="" />
             </div>
         </div>
     </div>
@@ -75,5 +77,10 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Seguridad.js"></script>
 
-
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Listado Embarque"] = $ListadoEmbarqueModel;
+    }
+</script>

@@ -1,24 +1,62 @@
-﻿/// <reference path="Captura.js" />
+﻿
+
+var EmbarquePlanaID = 0;
+
 function changeLanguageCall() {
     CargarGrid();
 };
+
+if ($("#inputEmbarqueBuscar").val() != null && $("#inputEmbarqueBuscar").val() != undefined && $("#inputEmbarqueBuscar").val() != "0") {
+    EmbarquePlanaID = $("#inputEmbarqueBuscar").val();
+    setTimeout(function () { ajaxBuscar(); }, 2100);
+}
+else {
+    EmbarquePlanaID = 0;
+}
+
+
+IniciarCapturaEmbarqueCarga();
+function IniciarCapturaEmbarqueCarga() {
+
+    SuscribirEventos();
+
+    setTimeout(function () { AjaxCargarPaquetes(); }, 1000);
+    setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 2000);
+}
+
+
+function validarInformacion(row) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var existe = false;
+
+    for (var i = 0; i < ds._data.length; i++) {
+
+        if (ds._data[i]["NumeroControl"] == row.NumeroControl) {
+            existe = true;
+            break;
+        }
+
+
+    }
+    return existe;
+}
+
 function CargarGrid() {
+
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [{ SpoolID: "X001-01", Cuadrante: "cc-1a", Traveler: "ver", Etiquetado: false, ConCinta: false, ColorCinta: "" },
-                    { SpoolID: "X001-02", Cuadrante: "cc-1a", Traveler: "ver", Etiquetado: true, ConCinta: true, ColorCinta: "Azul" },
-                    { SpoolID: "X001-03", Paquete: "", llego: true, comentario: "" },
-                    { SpoolID: "X001-04", Paquete: "28", llego: true, comentario: "" },
-                    { SpoolID: "X001-05", Paquete: "28", llego: true, comentario: "Despintado" }],
             schema: {
                 model: {
                     fields: {
-                        SpoolID: { type: "string", editable: false },
+                        NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
-                        llego: { type: "bool", editable: false },
-                        comentario: { type: "string", editable: false },
-                       
+                        Comentario: {
+                            type: "string", editable: true
+                        },
+                        Llego: { type: "boolean", editable: true },
+                        NoLlego: { type: "boolean", editable: true },
+                        LlegoMas: { type: "boolean", editable: true }
                     }
                 }
             },
@@ -43,10 +81,42 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolID", title: "Spool ID", filterable: true },
-            { field: "Paquete", title: "Paqueteadrante", filterable: true },
-            { field: "llego", title: "¿llegó?", filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: llego' #= llego ? checked='checked' : '' #/>" },
-            { field: "comentario", title: "Comentario", filterable: true },
+            { field: "NumeroControl", title: _dictionary.RevisionEmbarqueGridHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Paquete", title: _dictionary.RevisionEmbarqueGridHeaderPaqueteID[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Llego", title: _dictionary.RevisionEmbarqueGridHeaderLLego[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input name="Llego"  type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "NoLlego", title: _dictionary.RevisionEmbarqueGridHeaderNoLLego[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input name="NoLlego" type="checkbox" #= NoLlego ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "LlegoMas", title: _dictionary.RevisionEmbarqueGridHeaderLlegoConComentarios[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input name="LlegoComentarios" type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "Comentario", title: _dictionary.RevisionEmbarqueGridHeaderComentario[$("#language").data("kendoDropDownList").value()], filterable: true, template: kendo.template('<div  style="height=10px; border: #= LlegoComentarios && (String(Comentario) == ""|| Comentario == null )  ? " 1px solid red" : LlegoComentarios==false  && Comentario == null ? " 1px solid red" : " none" # ; z-index=9999;">#=Comentario==null ?"": Comentario #</div>') },
         ]
     });
+
+    $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
+        var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+        //dataItem.set(this.name, this.checked);
+
+        switch (this.name) {
+            case 'Llego':
+                dataItem.set("Llego", this.checked);
+                dataItem.set("NoLlego", false);
+                dataItem.set("LlegoComentarios", false);
+                break;
+            case 'NoLlego':
+                dataItem.set("Llego", false);
+                dataItem.set("NoLlego", this.checked);
+                dataItem.set("LlegoComentarios", false);
+                break;
+            case 'LlegoComentarios':
+                dataItem.set("Llego", false);
+                dataItem.set("NoLlego", false);
+                dataItem.set("LlegoComentarios", this.checked);
+                break;
+        }
+        grid.dataSource.sync();
+
+        
+       // grid.editable.validatable.validate();
+    });
+
+
 };

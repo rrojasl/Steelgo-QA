@@ -63,6 +63,11 @@ namespace DatabaseManager.Sam3
         public static string GUARDAREMBARQUEMARCADO = "Sam3_Embarque_Marcado";
         public static string GUARDARDEFECTOSVALIDACIONRESULTADOS = "Sam3_ServiciosTecnicos_Guardar_DefectosValidacionResultados";
         public static string GUARDARVALIDACIONRESULTADOS = "dbo.Sam3_ServiciosTecnicos_Guardar_ValidacionResultados";
+        public static string GUARDARLISTADOEMBARQUE = "Sam3_Embarque_Set_ListadoEmbarque";
+        public static string ACTUALIZARCUADRANTE = "dbo.Sam3_Embarque_Set_Paquete";
+        public static string EMBARQUECARGA = "dbo.Sam3_Embarque_Set_Carga";
+        public static string CierraPlana = "dbo.Sam3_Embarque_CierraPlana";
+        public static string ACTUALIZARREVISIONEMBARQUESPOOL = "Sam3_Embarque_Set_RevisionSpool";
     }
 
     public static class ConstantesSteelGo

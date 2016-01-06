@@ -18,6 +18,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
+                   
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
@@ -58,14 +59,14 @@
     <div id="FieldSetView">
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2">
-                <label id="">Numero de embarque</label>
-                <input />
+                <label id="labelEmbarqueRevisionEmbarqueNumeroDeEmbarque"></label>
+                <input id="inputEmbarqueBuscar" value="@ViewBag.EmbarquePlanaID"/>
             </div>
 
             <div class="col-sm-2 col-md-2 col-lg-2">
                 <label id="">&nbsp;</label>
-                <button type="button" id="btnAgregar" class="btn btn-blue"><span>Ver</span></button>
-
+                <button type="button" id="btnBuscar" class="btn btn-blue"><span id="spanRevisionEmbarqueBuscar"></span></button>
+                
             </div>
         </div>
         <div class="row clearfix">
@@ -73,25 +74,40 @@
         </div>
         <div class="row clearfix">
             <div class="addedSection col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    
-                        <div class="col-sm-3 col-md-3 col-lg-3">
-                            <label id="">Spool</label>
-                            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
-                        </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3">
-                            <label id="">Paquete</label>
-                            <input />
-                        </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3">
-                            <label id="">Codigo</label>
-                            <input />
-                        </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3">
-                            <label id="">&nbsp;</label>
-                            <button type="button" id="btnAgregar" class="btn btn-blue"><span>Agregar</span></button>
 
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-3">
+                        <div class="btn-group " role="group">
+                            <label id="EmbarqueCargaSelecciona"></label>
+                            <label id="styleReporte">
+                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" /><span id="RevisionEmbarqueOpcionSpool"></span>
+                            </label>
+                            <label id="styleListado">
+                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Paquete" /><span id="RevisionEmbarqueOpcionPaquete"> </span>
+                            </label>
+                            <label id="styleListado">
+                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Codigo" /><span id="RevisionEmbarqueOpcionCodigo"> </span>
+                            </label>
                         </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3 col-lg-3" id="divSpool">
+                        <label id="RevisionEmbarqueSpool"></label>
+                        <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete">
+                        <label id="RevisionEmbarquePaquete"></label>
+                        <input id="inputPaquete" />
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-2" id="divCodigo">
+                        <label id="RevisionEmbarqueCodigo"></label>
+                        <input id="inputCodigo" />
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-1">
+                        <label id="">&nbsp;</label>
+                        <button type="button" id="btnAgregar" class="btn btn-blue"><span id="RevisionEmbarqueAgregar"></span></button>
+
+                    </div>
                     
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <div id="ContenedorGrid" class="row">
@@ -113,7 +129,7 @@
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
+                                    <span class="caretWhite" ></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
@@ -143,9 +159,12 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Seguridad.js"></script>
+
 
 

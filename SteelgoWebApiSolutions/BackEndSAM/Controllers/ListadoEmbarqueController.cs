@@ -32,9 +32,10 @@ namespace BackEndSAM.Controllers
                         EmbarqueID = item.EmbarqueID,
                         EmbarquePlanaID = item.EmbarquePlanaID,
                         Estatus = item.Estatus,
-                        FechaEnvio = "",
-                        FolioAprobadoAduana = "",
-                        FolioSolicitarPermisos = "",
+                        FechaEnvio = item.FechaEnvio,
+                        FolioAprobadoAduana = item.AprobadoAduana,
+                        FolioAprobadoCliente = item.AprobadoCliente,
+                        FolioSolicitarPermisos = item.SolicitarPermisos,
                         Plana = item.Plana,
                         RequierePermisoAduana = item.RequierePermisoAduana == null ? false : bool.Parse(item.RequierePermisoAduana.ToString()),
                         NombreProyecto = item.Nombre == null ? "" : item.Nombre,
@@ -54,6 +55,83 @@ namespace BackEndSAM.Controllers
                 return result;
             }
 
+        }
+
+        [HttpGet]
+        public object ObtienePathReporte(string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                List<Sam3_Embarque_ListadoEmbarque_PathReporte_Result> lista = (List<Sam3_Embarque_ListadoEmbarque_PathReporte_Result>)ListadoEmbarqueBD.Instance.getListadoEmbarquePathReporte(usuario.UsuarioID);
+                List<Path> result = new List<Path>();
+                foreach (Sam3_Embarque_ListadoEmbarque_PathReporte_Result item in lista)
+                {
+                    Path elemento = new Path
+                    {
+                        ProveedorID = int.Parse(item.ProveedorID.ToString()),
+                        ReportePath = item.ReportePath,
+                        TipoReporte = item.TipoReporte,
+                        TipoReporteID = int.Parse(item.TipoReporteID.ToString())
+                    };
+                    result.Add(elemento);
+                }
+                return result;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
+        [HttpPost]
+        public object GuardaListadoEmbarque(CapturaListadoEmbarque captura, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    using (SamContext ctx = new SamContext())
+                    {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@EmbarquePlanaID", captura.Lista[0].EmbarquePlanaID.ToString() },{ "@SolicitarPermisos", captura.Lista[0].FolioSolicitarPermisos },{ "@AprobadoCliente",captura.Lista[0].FolioAprobadoCliente },{ "@AprobadoAduana", captura.Lista[0].FolioAprobadoAduana }, { "@FechaEnvio", captura.Lista[0].FechaEnvio.Trim()},{ "@Usuario", usuario.UsuarioID.ToString() },{ "@Lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARLISTADOEMBARQUE, parametro);
+                    }
+                
+                
+                result.ReturnMessage.Add("OK");
+                result.ReturnCode = 200;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }

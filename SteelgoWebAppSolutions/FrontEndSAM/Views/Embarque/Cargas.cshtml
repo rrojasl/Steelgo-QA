@@ -13,11 +13,14 @@
         <a href="@Url.Action("Dimensional", "Inspeccion")"><span id="">Cargas</span></a>
     </li>
 }
+
+
 <div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
+                    <input type="hidden" value=@ViewBag.EmbarquePlanaID id="inputHiddenEmbarquePlanaID" />
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
@@ -30,7 +33,7 @@
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
                             </div>
-                            <a  class="btn btn-yellow"><span id="EmbarqueCargaPlana">Cerrar Plana</span></a>
+                            <button class="btn btn-yellow" id="btnEmbarqueCerrarPlana"  type="button"><span id="EmbarqueCargaPlana">Cerrar Plana</span></button>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
@@ -58,43 +61,45 @@
         </div>
     </div>
     <div id="FieldSetView">
-        <div class="row" style="display:normal;">
+        <div id="divPlana">
+            <div class="row" style="display:normal;">
 
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="EmbarqueCargaProveedor"></label>
-                <input id="inputProveedor" />
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="EmbarqueCargaProveedor"></label>
+                    <input id="inputProveedor" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="EmbarqueCargaPLaca"></label>
+                    <input id="inputEmbarqueCargaPLacaPlana" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <label id="EmbarqueCargaTotalPiezas">5</label>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <label id="EmbarqueCargaToneladasCargadas"> 15</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <label id="LabelProyecto" style="display:none;"> </label>
+                </div>
+                <hr />
             </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="EmbarqueCargaPLaca"></label>
-                <input id="inputEmbarqueCargaPLacaPlana" />
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">&nbsp;</label>
-                <label id="EmbarqueCargaTotalPiezas">5</label>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="">&nbsp;</label>
-                <label id="EmbarqueCargaToneladasCargadas"> 15</label>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <label id="LabelProyecto" style="display:none;"> </label>
-            </div>
-            <hr />
         </div>
-       
+        <hr />
         <div class="row">
 
             <div class="col-sm-2 col-md-2 col-lg-3">
-                <div class="btn-group "  role="group">
+                <div class="btn-group " role="group">
                     <label id="EmbarqueCargaSelecciona"></label>
-                    <label  id="styleReporte">
+                    <label id="styleReporte">
                         <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
                     </label>
-                    <label  id="styleListado">
+                    <label id="styleListado">
                         <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionPaquete"> </span>
                     </label>
                     <label id="styleListado">
-                        <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionCodigo"> </span>
+                        <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueCargaOpcionCodigo"> </span>
                     </label>
                 </div>
             </div>
@@ -109,7 +114,7 @@
             </div>
             <div class="col-sm-3 col-md-3 col-lg-2" id="divCodigo">
                 <label id="EmbarqueCargaCodigo"></label>
-                <input id="inputCodigo"/>
+                <input id="inputCodigo" />
             </div>
             <div class="col-sm-3 col-md-3 col-lg-1">
                 <label id="">&nbsp;</label>
@@ -117,8 +122,8 @@
 
             </div>
         </div>
-       
-      
+
+
         <div class="row clearfix">
             &nbsp;
         </div>
@@ -126,15 +131,15 @@
             <div class="addedSection col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
                     <div class="col-sm-8 col-md-8 col-lg-8">
-                      
+
                     </div>
-                   <div class="col-sm-4 col-md-4 col-lg-4">
-                       <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EmbarqueCargaCrearPaquete"></span></button>
-                       <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EmbarqueCargaAgregarAPaquete"></span></button>
-                       <br /><br />
-                   </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <button id="ButtonCrearPaquete" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EmbarqueCargaCrearPaquete"></span></button>
+                        <button id="ButtonAgregarPAquete" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EmbarqueCargaAgregarAPaquete"></span></button>
+                        <br /><br />
+                    </div>
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                       
+
                         <div id="ContenedorGrid" class="row">
                             <div id="grid" data-role="grid" class="k-grid k-widget">
                             </div>
@@ -144,8 +149,8 @@
 
                     </div>
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                        <button  type="button" class="btn btn-yellow"><span id="EmbarqueCargaCrearPaquete"></span></button>
-                        <button  type="button" class="btn btn-yellow"><span id="EmbarqueCargaAgregarPaquete"></span></button>
+                        <button type="button" class="btn btn-yellow"><span id="EmbarqueCargaCrearPaquete"></span></button>
+                        <button type="button" class="btn btn-yellow"><span id="EmbarqueCargaAgregarPaquete"></span></button>
                         <br /><br />
                     </div>
                 </div>
@@ -169,7 +174,7 @@
                                     <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
                                 </ul>
                             </div>
-                            
+
                             <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
                         </div>
                         <div id="RequisicionDiv" class="button-section">
@@ -194,11 +199,68 @@
             </div>
         </div>
     </div>
+
+   
+
+
+</div>
+
+
+
+<div id="ventanaPopup" style="display: none; z-index:inherit;">
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-3">
+
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <label id="EmbarqueCargaPopupCuadrante"></label>
+        <input id="inputPopupCuadrante" />
+
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-5 col-lg-3">
+
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <button id="btnActualizarCuadrantePopUp" type="button" class="btn btn-yellow"><span id="EmbarqueCargaActualizarCuadrantePopup"></span></button>
+        <button id="btnCancelarPopUp" type="button" class="btn btn-yellow"><span id="EmbarqueCargaCancelarPopup"></span></button>
+        <input type="hidden" id="inputPopupPaqueteID" />
+        <input type="hidden" id="inputPopupSpoolID" />
+        
+    </div>
+</div>
+
+<div id="ventanaPaquetePopup" style="display: none; z-index:inherit;">
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-3">
+
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <label id="EmbarqueCargaPopupPaquete"></label>
+        <input id="inputPopupPaquete" />
+
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-5 col-lg-3">
+
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <button id="btnActualizarPaquetePopUp" type="button" class="btn btn-yellow"><span id="EmbarqueCargaActualizarPaquetePopup"></span></button>
+        <button id="btnCancelarPaquetePopUp" type="button" class="btn btn-yellow"><span id="EmbarqueCargaCancelarPaquetePopup"></span></button>
+    </div>
 </div>
 
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Seguridad.js"></script>
 
 
+<script>
+    @section JavascriptDocumentReadyFunctions {
+        $authorizationModel["CargaEmbarque"] = $EmbarqueCargaModel;
+    }
+</script>

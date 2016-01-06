@@ -27,14 +27,23 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerProveedores()
+        public object ObtenerProveedores(int embarquePlanaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Transportistas_Result> result = ctx.Sam3_Steelgo_Get_Transportistas().ToList();
-                    return result;
+                    if (embarquePlanaID != 0)
+                    {
+                        List<Sam3_Steelgo_Get_TransportistasXEmbarquePlanaID_Result> result = ctx.Sam3_Steelgo_Get_TransportistasXEmbarquePlanaID(embarquePlanaID).ToList();
+                        
+                        return result;
+                    }
+                    else
+                    {
+                        List<Sam3_Steelgo_Get_Transportistas_Result> result = ctx.Sam3_Steelgo_Get_Transportistas().ToList();
+                        return result;
+                    }
                 }
             }
             catch (Exception ex)
@@ -137,6 +146,29 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
                 return result;
             }
         }
+
         
+        public object ObtenerPlacasPlana(int transportistaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_Plana_Result> result = ctx.Sam3_Steelgo_Get_Plana(transportistaID).ToList();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

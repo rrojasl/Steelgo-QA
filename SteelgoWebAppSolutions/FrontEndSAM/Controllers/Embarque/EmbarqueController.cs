@@ -12,8 +12,9 @@ namespace FrontEndSAM.Controllers.Embarque
         {
             return View();
         }
-        public ActionResult Cargas()
+        public ActionResult Cargas(int embarquePlanaID = 0)
         {
+            ViewBag.EmbarquePlanaID = embarquePlanaID;
             return View();
         }
         public ActionResult Empaquetado()
@@ -29,8 +30,9 @@ namespace FrontEndSAM.Controllers.Embarque
         {
             return View();
         }
-        public ActionResult RevisionEmbarque()
+        public ActionResult RevisionEmbarque(int embarquePlanaID = 0)
         {
+            ViewBag.EmbarquePlanaID = embarquePlanaID;
             return View();
         }
     }
