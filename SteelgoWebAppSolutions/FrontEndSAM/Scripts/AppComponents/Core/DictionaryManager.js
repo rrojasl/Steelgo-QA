@@ -3674,6 +3674,7 @@ _dictionary = {
         "en-US": ""
     },
     //#region Genericos
+
     "BotonCerrar1": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -3723,7 +3724,6 @@ _dictionary = {
         "es-MX": "Enviar",
         "en-US": "Send"
     },
-
     "botonAplicar": {
         "es-MX": "Aplicar",
         "en-US": "Apply"
@@ -4620,7 +4620,6 @@ _dictionary = {
         "en-US": "Root welding process it's not permissable"
     },
     //#endregion
-
     //#region GenerarRequisicion
 
     "MensajeJuntasSoldadasReguisicion": {
@@ -4664,7 +4663,6 @@ _dictionary = {
         "en-US": "Agree Joint"
     },
     //#endregion
-
     //#region ListadoRequisicion
     "ListaRequisicionFolio": {
         "es-MX": "Folio",
@@ -5019,7 +5017,6 @@ _dictionary = {
         "en-US": "Joint Spool: "
     },
     //#endregion
-
     //#region Embarque
     "EmbarquePlana": {
         "es-MX": "Plana",
@@ -5214,6 +5211,254 @@ _dictionary = {
         "es-MX": "Algunos datos de los Defectos no son correctos",
         "en-US": ""
     },
+
+    //#endregion
+    //#region carga
+
+
+    "EmbarqueCargaCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close flat"
+    },
+    "EmbarqueCargaCerrarEmbarque": {
+        "es-MX": "Cerrar Embarque",
+        "en-US": "Select an area"
+    },
+    "EmbarqueCargaAutorizarPermiso": {
+        "es-MX": "Autorizar Permiso",
+        "en-US": "authorize Permit"
+    },
+    "EmbarqueCargaImprimirEtiquetaSpool": {
+        "es-MX": "Imprimir Etiqueta Spool",
+        "en-US": "Print Label Spool"
+    },
+    "EmbarqueCargaImprimirTravelMasivo": {
+        "es-MX": "Imprimir Travel Masivo",
+        "en-US": "Print Travel Masico"
+    },
+    "EmbarqueCargaMarcadoMensajeArea": {
+        "es-MX": "Marcado Mensaje Area",
+        "en-US": "Message marked Area"
+    },
+    "EmbarqueCargaSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "EmbarqueCargaPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    }
+    ,
+    "EmbarqueCargaCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueCargaAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    }
+    ,
+    "EmbarqueCargaCrearPaquete": {
+        "es-MX": "Crear Paquete",
+        "en-US": "Create Package"
+    },
+    "EmbarqueCargaAgregarAPaquete": {
+        "es-MX": "Agregar a Paquete",
+        "en-US": "Add To Package"
+    }
+    ,
+    "EmbarqueCargaSelecciona": {
+        "es-MX": "Selecciona una opcion",
+        "en-US": "Select a option"
+    }
+    ,
+    "EmbarqueCargaOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    }
+    ,
+    "EmbarqueCargaOpcionCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueCargaOpcionPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    }
+     ,
+    "EmbarqueCargaProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Previder"
+    }
+     ,
+    "EmbarqueCargaPLaca": {
+        "es-MX": "Placa",
+        "en-US": "License Plate"
+    }
+      ,
+    "EmbarqueCargaTotalPiezas": {
+        "es-MX": "Total Piezas:",
+        "en-US": "Total pieces:"
+    }
+      ,
+    "EmbarqueCargaToneladasCargadas": {
+        "es-MX": "ToneladasCargadas:",
+        "en-US": "Tons Loaded:"
+    }
+    ,
+    "EmbarqueCargaInformacionExistente": {
+        "es-MX": "La informacion ya existe",
+        "en-US": "The information already exists"
+    },
+    "EmbarqueCargaSeTieneEmpaquetado": {
+        "es-MX": "No se puede crear el paquete por que ya esta empaquetado el spool.",
+        "en-US": "You can not create the package that is already packaged"
+    },
+    "EmbarqueCargaSeleccionaSpool": {
+        "es-MX": "No tienes agregado ningun spool",
+        "en-US": "You dont have added any spool"
+    },
+    "EmbarqueCargaSeAgregaPaquete": {
+        "es-MX": "No se puede agregar al paquete existen varios paquetes diferentes o no se ha seleccionando algun spool",
+        "en-US": "You can not add to the package you selected more than one package or not selecting spool"
+    },
+    "EmbarqueCargaPopupCuadrante": {
+        "es-MX": "Selecciona un Cuadrante",
+        "en-US": "Select Quadrant"
+    },
+    "EmbarqueCargaTituloPopupCuadrante": {
+        "es-MX": "Selecciona un nuevo Cuadrante",
+        "en-US": "Select new Quadrant"
+    },
+    "EmbarqueCargaTituloPopupPaquete": {
+        "es-MX": "Selecciona un nuevo Paquete",
+        "en-US": "Select new Package"
+    },
+    "EmbarqueCargaActualizarPaquetePopup": {
+        "es-MX": "Actualizar",
+        "en-US": "Update"
+    },
+    "EmbarqueCargaCancelarPopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EmbarqueCargaCuadranteActualizado": {
+        "es-MX": "El cuadrante fue actualizado con exito",
+        "en-US": "The quadrant was updated successfully"
+    },
+    "EmbarqueCargaErrorCuadranteActualizado": {
+        "es-MX": "Existio un error al actualizar el cuadrante",
+        "en-US": "There was an error updating the quadrant"
+    },
+    "EmbarqueCargaActualizarCuadrantePopup": {
+        "es-MX": "Actualizar",
+        "en-US": "Update"
+    },
+    "EmbarqueCargaCancelarPaquetePopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EmbarqueCargaGuardar": {
+        "es-MX": "Embarque guardado exitosamente",
+        "en-US": "Boarding successfully saved"
+    },
+    "EmbarqueCargaErrorGuardar": {
+        "es-MX": "El embarque no se pudo guardar",
+        "en-US": "The shipment could not be saved"
+    },
+    "EmbarqueCargaCerrarPlana": {
+        "es-MX": "Se cerro la plana satisfactoriamente",
+        "en-US": "Successfully closed flat"
+    },
+    "EmbarqueCargaErrorCerrarPlana": {
+        "es-MX": "Existio un problema al cerrar la plana",
+        "en-US": "There was a problem closing the flat"
+    }
+
+    //#endregion
+
+    //#region revisionEmbarque
+
+    ,
+    "labelEmbarqueRevisionEmbarqueNumeroDeEmbarque": {
+        "es-MX": "Numero de Embarque",
+        "en-US": "Number of lading"
+    },
+    "spanRevisionEmbarqueBuscar": {
+        "es-MX": "Buscar",
+        "en-US": "Search"
+    },
+    "RevisionEmbarqueSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "RevisionEmbarquePaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    },
+    "RevisionEmbarqueCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "RevisionEmbarqueAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    "RevisionEmbarqueGridHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "RevisionEmbarqueGridHeaderPaqueteID": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    },
+    "RevisionEmbarqueGridHeaderLLego": {
+        "es-MX": "¿LLego?",
+        "en-US": "Arrive?"
+    },
+    "RevisionEmbarqueGridHeaderLlegoConComentarios": {
+        "es-MX": "¿LLego con comentarios?",
+        "en-US": "Arrived with comments?"
+    },
+    "RevisionEmbarqueGridHeaderNoLLego": {
+        "es-MX": "¿No llego?",
+        "en-US": "Dont Arrive?"
+    },
+    "RevisionEmbarqueGridHeaderComentario": {
+        "es-MX": "Comentario",
+        "en-US": "Comment"
+    }
+     ,
+    "RevisionEmbarqueOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    }
+    ,
+    "RevisionEmbarqueOpcionPaquete": {
+        "es-MX": "Paquete ",
+        "en-US": "Package "
+    }
+    ,
+    "RevisionEmbarqueOpcionCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueRevisionNoSeleccionaOpcion": {
+        "es-MX": "En todos los spools tiene que seleccionar una opcion : Llego, Llego con comentario, No Llego.",
+        "en-US": "In all spools select an option: Arrived, Arrived with comment, Didnt Arrive "
+    }
+    ,
+    "EmbarqueRevisionGuardar": {
+        "es-MX": "Se guardo correctamente",
+        "en-US": "saved successfully "
+    },
+    "EmbarqueRevisionErrorGuardar": {
+        "es-MX": "No se guardo correctamente",
+        "en-US": "error saving the information "
+    }
 
     //#endregion
 };

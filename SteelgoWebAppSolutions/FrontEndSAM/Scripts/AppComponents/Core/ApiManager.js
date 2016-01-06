@@ -42,15 +42,16 @@ var $RequisicionesAsignadas = new $.RestClient($BackEndSAMUri + '/backendsam/api
 var $EntregaResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
 
 var $Consulta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Marcado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Embarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CargaEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaReportePruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
 
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -151,7 +152,8 @@ $Cuadrante.add("Cuadrante");
 $Embarque.add("Embarque");
 $ListadoEmbarque.add("ListadoEmbarque");
 $CapturaReportePruebas.add('CapturaReportePruebas');
-
+$CargaEmbarque.add("CargaEmbarque");
+$RevisionEmbarque.add("RevisionEmbarque");
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');
 $AsignarRequisicion.add('AsignarRequisicion');
