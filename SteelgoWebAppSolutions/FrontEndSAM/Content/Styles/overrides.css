@@ -447,6 +447,10 @@
     .k-grid tbody tr td a.k-button.k-grid-Quantification {
         background-image: url("/Content/images/SAMC_CuantificacionIcon.png");
     }
+     .k-grid tbody tr td a.k-button.k-grid-Descarga,
+    .k-grid tbody tr td a.k-button.k-grid-Discharging {
+        background-image: url("/Content/images/SAMC_DischargingIcon.png");
+    }
 
     .k-grid tbody tr td a.k-button.k-grid-Imprimir,
     .k-grid tbody tr td a.k-button.k-grid-Print,

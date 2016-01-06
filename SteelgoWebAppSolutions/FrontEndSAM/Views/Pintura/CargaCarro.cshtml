@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Caega de carro";
+    ViewBag.Title = "Carga de carro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
-<li>
-    <a href="@Url.Action("landing", "Home")"><span id="">Pimntura</span></a>
-</li>
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="">Pintura</span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Carga de carro</span></a>
     </li>
@@ -35,11 +35,13 @@
                                     <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
+
                             </div>
+                            <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Cerrar Carro</span></button>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span>Entrega de pruebas</span></a>
+                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span>Captura avance</span></a>
                         </div>
                         <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
                             <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
@@ -50,9 +52,7 @@
                                     <span id="DetalleAvisoLlegada0064"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                    
-                                </ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -61,25 +61,33 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label id="">Carro</label>
+            <input id="inputPrueba" class="" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label id="">M2 Cargados</label>
+            <label id="">150 m2</label>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label id="">Ton Cargados</label>
+            <label id="">15</label>
+        </div>
+    </div>
+    <br />
     <div class="row addedSection">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
             <div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="CapturaHeaderMostrar"></label>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaSinAsinar"></span>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaTodos"> </span>
-
+                <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+                    <label id="CapturaArmadoHeaderSpoolID"></label>
+                    <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="AsignarRequisicionHeaderPrueba"></label>
-                    <input id="inputPrueba" class="" />
+                <div class="col-sm-2 col-md-2 col-lg-2" id="">
+                    <label id="">&nbsp;</label>
+                    <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="AsignarRequisicionHeaderProveedor"></label>
-                    <input id="inputProveedor" class="" />
-                </div>
-
 
             </div>
             <br />
@@ -115,10 +123,11 @@
                                     <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
                                 </ul>
                             </div>
+
                             <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
                         </div>
                         <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Entrega de pruebas</span></a>
+                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Captura Avance</span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -126,9 +135,7 @@
                                     <span id="">Acciones</span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            
-                                </ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
