@@ -3723,6 +3723,10 @@ _dictionary = {
         "es-MX": "Aplicar",
         "en-US": "Apply"
     },
+    "botonDescarga": {
+        "es-MX": "Descarga",
+        "en-US": "Discharging"
+    },
     "MensajeRequisicion": {
         "es-MX": "Requisicion",
         "en-US": "Requisicion"
