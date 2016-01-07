@@ -5461,6 +5461,31 @@ _dictionary = {
     }
 
     //#endregion
+   
+
+    //#region PinturaCarga
+    ,
+    "PinturaCargaCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "PinturaCargaM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "PinturaCargaToneladas": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
+    "PinturaCargaSpoolID": {
+        "es-MX": "SpoolID",
+        "en-US": "SpoolID"
+    },
+    "PinturaCargaCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    //#endregion
 };
 
 
