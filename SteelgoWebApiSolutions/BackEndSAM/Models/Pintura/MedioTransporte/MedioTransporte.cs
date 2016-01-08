@@ -9,10 +9,16 @@ namespace BackEndSAM.Models.Pintura.MedioTransporte
     {
         public int MedioTransporteID { get; set; }
         public string NombreMedioTransporte { get; set; }
-        public decimal PesoMaximo { get; set; }
+        public decimal PesoMaximoPermitido { get; set; }
+        public decimal PesoMaximoOcupado { get; set; }
         public int AreaPermitidoMedioTransporte { get; set; }
         public int NumeroUsosPermitidos { get; set; }
         public int NumeroUsosOcupados { get; set; }
         
+    }
+
+    public class DetalleSpool
+    {
+
     }
 }

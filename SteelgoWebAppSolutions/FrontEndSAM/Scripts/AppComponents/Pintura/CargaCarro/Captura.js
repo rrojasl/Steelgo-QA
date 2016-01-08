@@ -1,6 +1,15 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
 }
+
+IniciarCapturaPinturaCarga();
+function IniciarCapturaPinturaCarga() {
+    SuscribirEventos();
+    setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1000);
+    setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
+    
+    
+}
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
