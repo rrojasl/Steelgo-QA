@@ -102,7 +102,7 @@ namespace BackEndSAM.DataAcces
                     registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
 
                     List<ListadoGenerarOrdenRecepcion> listado = new List<ListadoGenerarOrdenRecepcion>();
-
+                    
                     foreach (Sam3_FolioAvisoEntrada f in registros)
                     {
                         ListadoGenerarOrdenRecepcion elemento = new ListadoGenerarOrdenRecepcion();
@@ -313,14 +313,36 @@ namespace BackEndSAM.DataAcces
                         }
 
                     }
-
+                    int TotalTubos = 0;
+                    int TotalAccesorios = 0;
+                    foreach (ListadoGenerarOrdenRecepcion f in listado)
+                    {
+                        TotalAccesorios += f.Accesorios.Count();
+                        TotalTubos += f.Tubos.Count();
+                    };
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
                     if (conteo)
                     {
-                        return listado.Count;
+                        switch (tipoMaterialID) { 
+                            case 1:
+                                return TotalTubos;
+                                break;
+                            case 2:
+                                return TotalAccesorios;
+                                break;
+                            case 3:
+                                return listado.Count;
+                                break;
+                            default:
+                                return listado.Count;
+                                break;
+
+                        }
+                      
+                        
                     }
                     else
                     {

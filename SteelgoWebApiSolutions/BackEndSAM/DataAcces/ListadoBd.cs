@@ -1351,7 +1351,10 @@ namespace BackEndSAM.DataAcces
                                                                      select nu.NumeroUnicoID).AsParallel().Count().ToString();
                             }
 
-                            listado.Add(elemento);
+                            if (elemento.CantidadNUEnOrdenRecepcion != "0")
+                            {
+                                listado.Add(elemento);
+                            }
                         }
 
                     }
@@ -1567,7 +1570,7 @@ namespace BackEndSAM.DataAcces
                                                           join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                           where roi.Activo && rid.Activo && nu.Activo && it.Activo
                                                           && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                          && nu.Rack == ""
+                                                           && (nu.Rack == "" || nu.Rack == null)
                                                           select nu.NumeroUnicoID).AsParallel().Count();
                             }
                             else 
@@ -1588,7 +1591,7 @@ namespace BackEndSAM.DataAcces
                                                           join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                           where roi.Activo && rid.Activo && nu.Activo && it.Activo
                                                           && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                          && nu.Rack == ""
+                                                          && (nu.Rack == "" || nu.Rack==null)
                                                           && it.TipoMaterialID == tipoMaterialID
                                                           select nu.NumeroUnicoID).AsParallel().Count();
                             }
@@ -1597,10 +1600,10 @@ namespace BackEndSAM.DataAcces
 
                             elemento.CantidadNUporAlmacenar = cantidadNuPorAlmacenar.ToString();
 
-                            if (cantidadNUEnOR > 0)
+                            if (cantidadNUEnOR > 0 && cantidadNuPorAlmacenar > 0 )
                             {
                                 listado.Add(elemento);
-                            }
+                            };
                         }
                     }
 
@@ -1731,16 +1734,18 @@ namespace BackEndSAM.DataAcces
                                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
                                                  where nu.Activo && rin.Activo && it.Activo && rfi.Activo && rid.Activo
                                                  && rfi.FolioCuantificacionID == packingListID
+                                                 && rin.IncidenciaID == f.IncidenciaID
                                                  select nu).AsParallel().ToList();
 
                                 numerosUnicos.AddRange((from nu in ctx.Sam3_NumeroUnico
                                                         join rin in ctx.Sam3_Rel_Incidencia_NumeroUnico on nu.NumeroUnicoID equals rin.NumeroUnicoID
                                                         join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
-                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                         join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                         where nu.Activo && rin.Activo && it.Activo && rbi.Activo && rid.Activo
                                                         && b.FolioCuantificacionID == packingListID
+                                                        && rin.IncidenciaID == f.IncidenciaID
                                                         select nu).AsParallel().ToList());
                             }
                             else
@@ -1753,17 +1758,19 @@ namespace BackEndSAM.DataAcces
                                                  where nu.Activo && rin.Activo && it.Activo && rfi.Activo && rid.Activo
                                                  && rfi.FolioCuantificacionID == packingListID
                                                  && it.TipoMaterialID == tipoMaterialID
+                                                 && rin.IncidenciaID == f.IncidenciaID
                                                  select nu).AsParallel().ToList();
 
                                 numerosUnicos.AddRange((from nu in ctx.Sam3_NumeroUnico
                                                         join rin in ctx.Sam3_Rel_Incidencia_NumeroUnico on nu.NumeroUnicoID equals rin.NumeroUnicoID
                                                         join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
-                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                         join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                         where nu.Activo && rin.Activo && it.Activo && rbi.Activo && rid.Activo
                                                         && b.FolioCuantificacionID == packingListID
                                                         && it.TipoMaterialID == tipoMaterialID
+                                                        && rin.IncidenciaID == f.IncidenciaID
                                                         select nu).AsParallel().ToList());
                             }
                         }
@@ -1777,15 +1784,17 @@ namespace BackEndSAM.DataAcces
                                                  join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
                                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
                                                  where nu.Activo && rin.Activo && it.Activo && rfi.Activo && rid.Activo
+                                                 && rin.IncidenciaID == f.IncidenciaID
                                                  select nu).AsParallel().ToList();
 
                                 numerosUnicos.AddRange((from nu in ctx.Sam3_NumeroUnico
                                                         join rin in ctx.Sam3_Rel_Incidencia_NumeroUnico on nu.NumeroUnicoID equals rin.NumeroUnicoID
                                                         join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
-                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                         join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                         where nu.Activo && rin.Activo && it.Activo && rbi.Activo
+                                                        && rin.IncidenciaID == f.IncidenciaID
                                                         select nu).AsParallel().ToList());
                             }
                             else
@@ -1797,15 +1806,17 @@ namespace BackEndSAM.DataAcces
                                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
                                                  where nu.Activo && rin.Activo && it.Activo && rfi.Activo && rid.Activo
                                                  && it.TipoMaterialID == tipoMaterialID
+                                                 && rin.IncidenciaID == f.IncidenciaID
                                                  select nu).AsParallel().ToList();
 
                                 numerosUnicos.AddRange((from nu in ctx.Sam3_NumeroUnico
                                                         join rin in ctx.Sam3_Rel_Incidencia_NumeroUnico on nu.NumeroUnicoID equals rin.NumeroUnicoID
                                                         join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
-                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                         join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                         where nu.Activo && rin.Activo && it.Activo && rbi.Activo
+                                                        && rin.IncidenciaID==f.IncidenciaID
                                                         && it.TipoMaterialID == tipoMaterialID
                                                         select nu).AsParallel().ToList());
                             }
