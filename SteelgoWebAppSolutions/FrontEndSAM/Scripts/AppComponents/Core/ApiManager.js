@@ -12,11 +12,11 @@
 
 //LOCALHOST BASE URL's
 
-var $BackEndSAMUri = 'http://localhost:60960';
-var $SecuritySAMUri = 'http://localhost:60921';
-var $MessagesSAMUri = 'http://localhost:60966';
+var $BackEndSAMUri = 'http://localhost:55447';
+var $SecuritySAMUri = 'http://localhost:50816';
+var $MessagesSAMUri = 'http://localhost:60417';
 var $SearchSAMUri = 'http://localhost:61066';
-var $FilesSAMUri = 'http://localhost:60971';
+var $FilesSAMUri = 'http://localhost:61135';
 
 //DEVELOPMENT Steelgo BASE URL's
 //var $BackEndSAMUri = 'http://192.168.1.7:60960';

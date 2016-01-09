@@ -3882,6 +3882,63 @@ _dictionary = {
         "es-MX": "Validación de resultados",
         "en-US": "Validation of results "
     },
+    "menuPintura": {
+        "es-MX": "Pintura",
+        "en-US": "painting "
+    },
+    "menuPinturaCargaCarro": {
+        "es-MX": "carga de carro",
+        "en-US": "load carriage"
+    },
+    "menuPinturaCargaCarroBack": {
+        "es-MX": "carga de carro backlog",
+        "en-US": "truck load backlog"
+    },
+    "menuPinturaCargaAvance": {
+        "es-MX": "avance",
+        "en-US": "progress"
+    },
+    "menuPinturaDescargaCarro": {
+        "es-MX": "descarga de carro",
+        "en-US": "descarga de carro"
+    },
+    "menuPinturaCapturaAvanceIntAcabado": {
+        "es-MX": "intermedio - avanzado",
+        "en-US": "Intermediate - Advanced"
+    },
+    "menuPinturaLotesCapturaReporte": {
+        "es-MX": "Captura reporte",
+        "en-US": "Capture report "
+    },
+    "menuEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment "
+    },
+    "menuEmbarqueConsulta": {
+        "es-MX": "Consulta",
+        "en-US": "Query "
+    },
+    "menuEmbarqueMarcado": {
+        "es-MX": "Marcado",
+        "en-US": "Marked "
+    },
+    "menuEmbarqueCargas": {
+        "es-MX": "Cargas",
+        "en-US": "loads "
+    },
+    "menuEmbarqueEbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment "
+    },
+    "menuEmbarqueListadoEmbarque": {
+        "es-MX": "Listado cargas",
+        "en-US": "Loads list "
+    },
+    "menuEmbarqueRevisionEmbarque": {
+        "es-MX": "revision embarque",
+        "en-US": "shipment review "
+    },
+
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
