@@ -5541,8 +5541,67 @@ _dictionary = {
     "PinturaCargaCodigo": {
         "es-MX": "Codigo",
         "en-US": "Code"
-    }
+    },
     //#endregion
+
+    //#region PinturaCargaBackLog
+    "PinturaCargaBackLogCarro": {
+    "es-MX": "Carro",
+    "en-US": "Car"
+},
+    "PinturaCargaBackLogOrdenImportancia": {
+    "es-MX": "Orden Importancia",
+    "en-US": "Importance Order"
+},
+    "PinturaCargaBackLogSpool": {
+    "es-MX": "Spool",
+    "en-US": "Spool"
+},
+    "PinturaCargaBackLogSistemaPintura": {
+    "es-MX": "Sistema Pintura",
+    "en-US": "Paint System"
+},
+    "PinturaCargaBackLogColor": {
+    "es-MX": "Color",
+    "en-US": "Color"
+},
+    "PinturaCargaBackLogQuadrant": {
+    "es-MX": "Cuadrante",
+    "en-US": "Quadrant"
+},
+    "PinturaCargaBackLogM2": {
+    "es-MX": "M2",
+    "en-US": "M2"
+},
+    "PinturaCargaBackLogPeso": {
+    "es-MX": "Peso",
+    "en-US": "Weight"
+},
+    "PinturaCargaBackLogProyecto": {
+    "es-MX": "Proyecto",
+    "en-US": "Project"
+},
+    "PinturaCargaBackLogSeleccionado": {
+    "es-MX": "Seleccionado",
+    "en-US": "Selected"
+},
+    "PinturaCargaBackLogBtnSubirCarro": {
+    "es-MX": "Subir a carro",
+    "en-US": "Upload to car"
+},
+    "PinturaCargaBackLogMensajeGuardadoExitoso": {
+    "es-MX": "Se subio al carro correctamente",
+    "en-US": "uploaded to car correctly"
+},
+    "PinturaCargaBackLogMensajeSeleccionaSpool": {
+    "es-MX": "Selecciona al menos un spool",
+    "en-US": "Select at least one Spool"
+},
+    "PinturaCargaBackLogMensajeErrorServicioPintura": {
+    "es-MX": "El servicio de pintura debe ser el mismo para los spools",
+    "en-US": "The paint service should be equals for all spools"
+},
+//#endregion
 };
 
 

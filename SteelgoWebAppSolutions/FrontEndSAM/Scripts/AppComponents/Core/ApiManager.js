@@ -45,6 +45,10 @@ var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/'
 var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MedioTransporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Pintura
+
+var $CargaCarroBackLog = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //Embarque
 
 var $Consulta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -156,6 +160,10 @@ $CapturaReportePruebas.add('CapturaReportePruebas');
 $CargaEmbarque.add("CargaEmbarque");
 $RevisionEmbarque.add("RevisionEmbarque");
 $MedioTransporte.add("MedioTransporte");
+
+//Pintura
+$CargaCarroBackLog.add('CargaCarroBackLog');
+
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');

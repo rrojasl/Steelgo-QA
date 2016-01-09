@@ -69,6 +69,7 @@ namespace DatabaseManager.Sam3
         public static string CierraPlana = "dbo.Sam3_Embarque_CierraPlana";
         public static string ACTUALIZARREVISIONEMBARQUESPOOL = "Sam3_Embarque_Set_RevisionSpool";
         public static string GUARDACAPTURAREPORTEPRUEBAS = "Sam3_ServiciosTecnicos_Guardar_CapturaReportePruebas";
+        public static string GUARDACARGACARROBACKLOG= "Sam3_Pintura_Guardar_CargaCarroBackLog";
     }
 
     public static class ConstantesSteelGo

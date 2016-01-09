@@ -22,22 +22,33 @@
 
     <div class="row addedSection">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Subir a Carro</span></button>
+            <div id="containerDiv">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <label id=""><span id="PinturaCargaBackLogCarro"></span></label>
+                            <input id="inputCarro" class="" />
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <br />
+                            <button id="btnSubir" type="button" class="btn btn-yellow"><span id="PinturaCargaBackLogBtnSubirCarro"></span></button>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <label id="">Cerrar carro</label>
+                            <input type="checkbox" name="Cerrar" style=" width:auto;" id="chkCerrar" />
+                        </div>
+                    </div>
+                </div>
                 <br /><br />
-            </div>
-          
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="ContenedorGrid" class="row">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="ContenedorGrid" class="row">
+                            <div id="grid" data-role="grid" class="k-grid k-widget">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -50,8 +61,16 @@
 
 
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Seguridad.js"></script>
+
+
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["CargaCarroBackLog"] = $CargaCarroBackLogModel;
+    }
+</script>
 
