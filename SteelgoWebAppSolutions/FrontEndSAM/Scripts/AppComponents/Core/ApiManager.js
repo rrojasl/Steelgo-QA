@@ -12,11 +12,11 @@
 
 //LOCALHOST BASE URL's
 
-var $BackEndSAMUri = 'http://localhost:55447';
-var $SecuritySAMUri = 'http://localhost:50816';
-var $MessagesSAMUri = 'http://localhost:60417';
+var $BackEndSAMUri = 'http://localhost:60960';
+var $SecuritySAMUri = 'http://localhost:60921';
+var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:61066';
-var $FilesSAMUri = 'http://localhost:61135';
+var $FilesSAMUri = 'http://localhost:60971';
 
 //DEVELOPMENT Steelgo BASE URL's
 //var $BackEndSAMUri = 'http://192.168.1.7:60960';
@@ -46,7 +46,7 @@ var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MedioTransporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Pintura
-
+var $CapturaAvance= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaCarroBackLog = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
@@ -163,7 +163,7 @@ $MedioTransporte.add("MedioTransporte");
 
 //Pintura
 $CargaCarroBackLog.add('CargaCarroBackLog');
-
+$CapturaAvance.add('CapturaAvance');
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');

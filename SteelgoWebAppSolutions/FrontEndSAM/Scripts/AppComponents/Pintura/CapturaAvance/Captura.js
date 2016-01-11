@@ -1,26 +1,53 @@
-﻿function changeLanguageCall() {
+﻿var endRangeDate;
+var endRangeDate2;
+
+IniciarCapturaArmado();
+function IniciarCapturaArmado() {
+    AltaFecha();
+}
+
+function changeLanguageCall() {
     CargarGrid();
+    AjaxCargarCamposPredeterminados();
+    AjaxCargarCarrosCargados();
+    AjaxCargarPintor();
+    AjaxCargarShotBlastero();
 };
+
+
+function AltaFecha() {
+    endRangeDate = $("#FechaShotBlast").kendoDatePicker({
+        max: new Date()
+    });
+    endRangeDate2 = $("#Fechaprimario").kendoDatePicker({
+        max: new Date()
+    });
+}
+
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [{ SpoolID: "X001-01", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Pintor: "X", ShotBlastero: "Y", Color:"Rojo" },
-                    { SpoolID: "X001-02", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Pintor: "X", ShotBlastero: "Y", Color: "Rojo" },
-                    { SpoolID: "X001-03", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Pintor: "X", ShotBlastero: "Y", Color: "Amarillo" },
-                    { SpoolID: "X001-04", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Pintor: "X", ShotBlastero: "Y", Color: "Amarillo" }],
+            data: [],
             schema: {
                 model: {
                     fields: {
-                        SpoolID: { type: "string", editable: false },
+                        Spool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Metros2: { type: "string", editable: false },
                         Peso: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
-                        Pintor: { type: "string", editable: false },
-                        ShotBlastero: { type: "string", editable: false }
+                        pintor: { type: "string", editable: true },
+                        Shotblastero: { type: "string", editable: true }
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
             },
             pageSize: 20,
             serverPaging: false,
@@ -43,16 +70,19 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolID", title: "Spool", filterable: true },
+            { field: "Spool", title: "Spool", filterable: true },
             { field: "SistemaPintura", title: "Sistema pintura", filterable: true },
             { field: "Color", title: "Color", filterable: true },
             { field: "Metros2", title: "M2", filterable: true },
-            { field: "Pintor", title: "Pintor", filterable: true },
-            { field: "ShotBlastero", title: "ShotBlastero", filterable: true },
+            { field: "pintor", title: "Pintor", filterable: true, editor: RendercomboBoxPintor },
+            { field: "Shotblastero", title: "ShotBlastero", filterable: true, editor: RendercomboBoxShotBlastero },
              { command: { text: "Descarga", click: eliminarCaptura }, title: "Descargar" }
 
         ]
     });
 };
-function eliminarCaptura()
-{ }
+
+
+function eliminarCaptura() {
+
+}
