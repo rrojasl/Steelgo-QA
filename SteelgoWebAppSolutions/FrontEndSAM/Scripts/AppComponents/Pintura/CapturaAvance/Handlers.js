@@ -14,7 +14,7 @@ function suscribirEventoGuardarCarro() {
 
     $('#btnGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        
+        AjaxGuardarCarro(ds._data)
     });
 }
 
@@ -23,7 +23,7 @@ function suscribirEventoCarro() {
 
     $("#inputCarro").kendoDropDownList({
         dataTextField: "NombreMedioTransporte",
-        dataValueField: "MedioTransporteCargaID",
+        dataValueField: "MedioTransporteID",
         suggest: true,
         filter: "contains",
         change: function (e) {

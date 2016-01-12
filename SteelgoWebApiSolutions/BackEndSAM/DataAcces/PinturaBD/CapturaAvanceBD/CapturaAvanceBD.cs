@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using BackEndSAM.Models.Pintura.CapturaAvance;
+using System.Data;
 
 namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 {
@@ -70,7 +71,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     {
                         ListadoMedioTransporte.Add(new MedioTransporte
                         {
-                            MedioTransporteCargaID = item.MedioTransporteID.GetValueOrDefault(),
+                            MedioTransporteID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             NombreMedioTransporte = item.NombreMedioTransporte
                         });
 
@@ -107,6 +108,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                         ListadoMedioTransporte.Add(new CapturaAvance
                         {
                             Accion = 2,
+                            MedioTransporteSpoolID = item.MedioTransporteSpoolID,
                             MedioTransporteCargaID = item.MedioTransporteCargaID,
                             MedioTransporteID = item.MedioTransporteID.GetValueOrDefault(),
                             Metros2 = item.Area.GetValueOrDefault(),
@@ -224,6 +226,38 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                         });
                     }
                     return ListadoPintores;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object InsertarCargaSpool(DataTable dtDetalleCaptura, Sam3_Usuario usuario, int medioTransporteCargaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteCargaID", medioTransporteCargaID.ToString() } };
+                    _SQL.Ejecuta(Stords.GUARDACAPTURAAVANCE, dtDetalleCaptura, "@Tabla", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)

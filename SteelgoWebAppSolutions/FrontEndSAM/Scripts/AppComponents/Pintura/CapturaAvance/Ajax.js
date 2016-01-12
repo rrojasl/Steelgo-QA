@@ -17,6 +17,7 @@ function AjaxCargarCarrosCargados() {
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) {
         $("#inputCarro").data("kendoDropDownList").value("");
         $("#inputCarro").data("kendoDropDownList").dataSource.data(data);
+        $("#inputCarro").data("kendoDropDownList").trigger("change");
         loadingStop();
     });
 }
@@ -96,6 +97,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
         });
 }
 
+
 function existeSpool(spool, array) {
     for (var index = 0; index < array._data.length; index++) {
         if (array._data[index].Spool == spool) {
@@ -103,4 +105,49 @@ function existeSpool(spool, array) {
         }
     }
     return false;
+}
+
+function AjaxGuardarCarro(arregloCaptura) {
+    Captura = [];
+    Captura[0] = { listaDetalleSpool: "" };
+    listaDetalleSpool = [];
+
+    
+
+    for (index = 0; index < arregloCaptura.length; index++) {
+        listaDetalleSpool[index] = {
+            Accion: "",
+            MedioTransporteSpoolID: "",
+            MedioTransporteCargaID: "",
+            SpoolID: "",
+            ShotBlastero: "",
+            Pintor: "",
+        };
+
+
+        listaDetalleSpool[index].Accion = arregloCaptura[index].Accion;
+        listaDetalleSpool[index].MedioTransporteSpoolID = arregloCaptura[index].MedioTransporteSpoolID;
+        
+        
+        listaDetalleSpool[index].SpoolID = arregloCaptura[index].SpoolID;
+        listaDetalleSpool[index].ShotBlastero = arregloCaptura[index].ShotblasteroID;
+        listaDetalleSpool[index].Pintor = arregloCaptura[index].pintorID;
+
+        if (arregloCaptura[index].Accion == 1)  {
+            listaDetalleSpool[index].MedioTransporteCargaID = parseInt($("#inputCarro").data("kendoDropDownList").value());
+        }
+        else {
+            listaDetalleSpool[index].MedioTransporteCargaID = arregloCaptura[index].MedioTransporteCargaID;
+        }
+
+    }
+
+    Captura[0].listaDetalleSpool = listaDetalleSpool;
+
+    loadingStart();
+    $CapturaAvance.CapturaAvance.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteCargaID: $("#inputCarro").data("kendoDropDownList").value() }).done(function (data) {
+        loadingStop();
+        AjaxCargarSpool($("#inputCarro").data("kendoDropDownList").value());
+        displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+    });
 }

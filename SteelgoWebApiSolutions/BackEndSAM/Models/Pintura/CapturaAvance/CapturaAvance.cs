@@ -8,6 +8,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     public class CapturaAvance
     {
         public int Accion { get; set; }
+        public int MedioTransporteSpoolID { get; set; }
         public string Spool { get; set; }
         public string SistemaPintura { get; set; }
         public decimal Metros2 { get; set; }
@@ -29,7 +30,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 
     public class CamposPredeterminados
     {
-       public string FechaShotblast { get; set; }
+        public string FechaShotblast { get; set; }
         public string FechaPrimario { get; set; }
     }
     public class Pintor
@@ -49,5 +50,20 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     {
         public List<CapturaAvance> listaCapturaAvance { get; set; }
         public List<ComponenteDetalle> listaComponenteDetalle { get; set; }
+    }
+
+    public class Captura
+    {
+        public List<DetalleSpool> listaDetalleSpool { get; set; }
+    }
+
+    public class DetalleSpool
+    {
+        public int Accion { get; set; }
+        public int MedioTransporteSpoolID { get; set; }
+        public int MedioTransporteCargaID { get; set; }
+        public int SpoolID { get; set; }
+        public int ShotBlastero { get; set; }
+        public int Pintor { get; set; }
     }
 }

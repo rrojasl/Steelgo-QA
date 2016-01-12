@@ -9,8 +9,7 @@ function RendercomboBoxPintor(container, options) {
             template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.pintorID = dataItem.ObreroID;
-                options.model.pintor = dataItem.Codigo;
+                
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -33,8 +32,7 @@ function RendercomboBoxShotBlastero(container, options) {
             template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.ShotblasteroID = dataItem.ObreroID;
-                options.model.Shotblastero = dataItem.Codigo;
+                
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);

@@ -72,6 +72,7 @@ namespace DatabaseManager.Sam3
         public static string GUARDACARGACARROBACKLOG = "Sam3_Pintura_Guardar_CargaCarroBackLog";
         public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_Guardar_CargaMedioTransporte";
         public static string GUARDACAPTURAPINTURASPOOLDESCARGA = "Sam3_Pintura_Guardar_DesCargaMedioTransporte";
+        public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_Guarda_CapturaAvance";
     }
 
     public static class ConstantesSteelGo
