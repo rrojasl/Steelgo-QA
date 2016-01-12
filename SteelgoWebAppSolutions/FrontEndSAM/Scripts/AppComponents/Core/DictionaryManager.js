@@ -3883,9 +3883,9 @@ _dictionary = {
         "en-US": "Validation of results "
     },
     "menuPintura": {
-        "es-MX": "Pintura",
-        "en-US": "painting "
-    },
+    "es-MX": "Pintura",
+    "en-US": "painting "
+},
     "menuPinturaCargaCarro": {
         "es-MX": "carga de carro",
         "en-US": "load carriage"
@@ -3938,7 +3938,6 @@ _dictionary = {
         "es-MX": "revision embarque",
         "en-US": "shipment review "
     },
-
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
@@ -5518,7 +5517,7 @@ _dictionary = {
     }
 
     //#endregion
-   
+
 
     //#region PinturaCarga
     ,
@@ -5542,9 +5541,57 @@ _dictionary = {
         "es-MX": "Codigo",
         "en-US": "Code"
     },
+    "PinturaCargaAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    }
+    ,
+    "PinturaCargaSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    }
+    ,
+    "PinturaCargaSistemaPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    }
+    ,
+    "PinturaCargaArea": {
+        "es-MX": "Area",
+        "en-US": "Area"
+    }
+    ,
+    "PinturaCargaPeso": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
+    "PinturaCargaSpoolNoEncontrado": {
+        "es-MX": "El spool fue embarcado",
+        "en-US": "the spool  was embarked"
+    }
+    ,
+    "PinturaCargaSpoolToneladaSuperiorPermididoCarro": {
+        "es-MX": "Las toneladas son mayores a las permitidas por el Carro",
+        "en-US": "Tons are greater than allowed by truck"
+    }
+    ,
+    "PinturaCargaSpoolAreaSuperiorPermididoCarro": {
+        "es-MX": "El area es superior al permitido por el carro",
+        "en-US": "The area is greater than allowed by the car"
+    }
+     ,
+    "PinturaGuardarGuardar": {
+        "es-MX": "Se guardo la informacion correctamente",
+        "en-US": "saved information"
+    }
+     ,
+    "PinturaGuardarErrorGuardar": {
+        "es-MX": "No se guardo la informacion",
+        "en-US": "no information was saved"
+    }
     //#endregion
 
-    //#region PinturaCargaBackLog
+     //#region PinturaCargaBackLog
     "PinturaCargaBackLogCarro": {
     "es-MX": "Carro",
     "en-US": "Car"
@@ -5602,6 +5649,49 @@ _dictionary = {
     "en-US": "The paint service should be equals for all spools"
 },
 //#endregion
+    //#region PinturaCarga
+     ,
+    "PinturaDescargaCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    }
+    ,
+    "PinturaDescargaCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "no information was saved"
+    }
+    ,
+    "PinturaDescargaSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    }
+    ,
+    "PinturaDescargaArea": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    }
+    ,
+    "PinturaDescargaCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "quadrant"
+    }
+    ,
+    "PinturaDescargaDescarga": {
+        "es-MX": "Descarga",
+        "en-US": "Download"
+    }
+    ,
+    "PinturaGuardarDescarga": {
+        "es-MX": "Se actualizo correctamente los spools",
+        "en-US": "updated was done sucesfull"
+    }
+    ,
+    "PinturaGuardarErrorDesGuardar": {
+        "es-MX": "Hay un error en la actualizacion de la informacion",
+        "en-US": "no information was saved"
+    }
+
+    //#endregion
 };
 
 

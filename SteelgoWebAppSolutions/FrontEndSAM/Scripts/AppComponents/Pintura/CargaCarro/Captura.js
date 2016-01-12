@@ -7,26 +7,28 @@ function IniciarCapturaPinturaCarga() {
     SuscribirEventos();
     setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1000);
     setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
-    
-    
 }
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [{ SpoolID: "X001-01", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2" },
-                    { SpoolID: "X001-02", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2" },
-                    { SpoolID: "X001-03", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2" },
-                    { SpoolID: "X001-04", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2" }],
+
             schema: {
                 model: {
                     fields: {
                         SpoolID: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "string", editable: false },
-                        Peso:{ type: "string", editable: false }
+                        Area: { type: "string", editable: false },
+                        Peso: { type: "string", editable: false }
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
             },
             pageSize: 20,
             serverPaging: false,
@@ -49,13 +51,66 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolID", title: "Spool", filterable: true },
-            { field: "SistemaPintura", title: "Sistema pintura", filterable: true },
-            { field: "Metros2", title: "M2", filterable: true },
+            { field: "SpoolJunta", title: _dictionary.PinturaCargaSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "SistemaPintura", title: _dictionary.PinturaCargaSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Area", title: _dictionary.PinturaCargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Peso", title: _dictionary.PinturaCargaPeso[$("#language").data("kendoDropDownList").value()], filterable: true },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
-        
+
         ]
     });
 }
-function eliminarCaptura()
-{ }
+
+
+function eliminarCaptura(e) {
+    e.preventDefault();
+    var filterValue = $(e.currentTarget).val();
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+   
+
+
+    windowTemplate = kendo.template($("#windowTemplate").html());
+
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        iframe: true,
+        title: _dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "400px",
+        height: "200px",
+        modal: true
+    }).data("kendoWindow");
+
+    ventanaConfirm.content(windowTemplate(this.dataSource, dataItem));
+
+    ventanaConfirm.open().center();
+
+    $("#yesButton").click(function () {
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+       
+
+        if ( dataItem.Accion === 1)
+        { dataSource.remove(dataItem); }
+        else
+            dataItem.Accion = 3
+
+        dataSource.sync();
+        ventanaConfirm.close();
+    });
+    $("#noButton").click(function () {
+        ventanaConfirm.close();
+    });
+
+}
+
+function validarInformacion(row) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var existe = false;
+
+    for (var i = 0; i < ds._data.length; i++) {
+        if (ds._data[i]["SpoolID"] == row.SpoolID) {
+            existe = true;
+            break;
+        }
+    }
+    return existe;
+}

@@ -66,24 +66,107 @@ function AjaxAgregarCarga() {
 
     }
 
-    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), TipoConsulta: ListaDetalles[index].TipoConsulta, OrdenTrabajoSpoolID: ListaDetalles[index].OrdenTrabajoSpoolID, Codigo: ListaDetalles[index].Codigo, lenguaje: $("#language").val() }).done(function (data) {
+    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), TipoConsulta: ListaDetalles[index].TipoConsulta, OrdenTrabajoSpoolID: ListaDetalles[index].OrdenTrabajoSpoolID, Codigo: ListaDetalles[index].Codigo, lenguaje: $("#language").val(), medioTransporteID: $("#inputCarro").val() }).done(function (data) {
 
         var ds = $("#grid").data("kendoGrid").dataSource;
-
+        var carDataSourceSelected = $("#inputCarro").data("kendoDropDownList").dataItem($("#inputCarro").data("kendoDropDownList").select())
         var array = data;
-        var totalToneladasCargadas = 0;
-        var totalAreaCargada = 0;
 
+        if (array.length > 0) {
 
-        for (var i = 0; i < array.length; i++) {
-            totalAreaCargada += array[i]["AreaSpool"];
-            totalToneladasCargadas += array[i]["ToneladasSpool"]
-            ds.add(array[i]);
-        }
+            for (var i = 0; i < array.length; i++) {
+                if (!validarInformacion(array[i])) {
+                    if (carDataSourceSelected.AreaPermitidoMedioTransporte > (SumarArea() + array[i].Area))
+                        if (carDataSourceSelected.PesoMaximoPermitido > (SumarTonelada() + array[i].Peso))
+                            ds.add(array[i]);
+                        else {
+                            displayMessage("PinturaCargaSpoolToneladaSuperiorPermididoCarro", "", '2');
+                        }
+                    else {
+                        displayMessage("PinturaCargaSpoolAreaSuperiorPermididoCarro", "", '2');
+                    }
 
-        $("#labelM2").text(totalAreaCargada);
-        $("#labelToneladas").text(totalToneladasCargadas);
+                }
+            }
+
+            ImprimirAreaTonelada();
+        } else
+            displayMessage("PinturaCargaSpoolNoEncontrado", "", '2');
+
 
         loadingStop();
     });
 }
+
+function ImprimirAreaTonelada() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var array = ds._data;
+    var totalAreaCargada = 0;
+    var totalToneladasCargadas = 0;
+    for (var i = 0; i < array.length; i++) {
+        totalAreaCargada += array[i]["Area"];
+        totalToneladasCargadas += array[i]["Peso"];
+    }
+    $("#labelM2").text(totalAreaCargada);
+    $("#labelToneladas").text(totalToneladasCargadas);
+    return totalAreaCargada;
+}
+
+function SumarArea() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var array = ds._data;
+    var totalAreaCargada = 0;
+    for (var i = 0; i < array.length; i++) {
+        totalAreaCargada += array[i]["Area"];
+    }
+
+    return totalAreaCargada;
+}
+
+
+function SumarTonelada() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var array = ds._data;
+    var totalToneladasCargadas = 0;
+    for (var i = 0; i < array.length; i++) {
+
+        totalToneladasCargadas += array[i]["Peso"];
+    }
+
+    return totalToneladasCargadas;
+}
+
+function ajaxGuardar(arregloCaptura) {
+    try {
+        loadingStart();
+        Captura = [];
+        Captura[0] = { Detalles: "" };
+        ListaDetalles = [];
+
+
+
+        for (index = 0; index < arregloCaptura.length; index++) {
+            ListaDetalles[index] = { SpoolID: "", Accion:"" };
+            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+            ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
+        }
+
+
+        Captura[0].Detalles = ListaDetalles;
+        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: $("#inputCarro").val(), cerrar: 0 }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                displayMessage("PinturaGuardarGuardar", "", '1');
+            }
+            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                displayMessage("PinturaGuardarErrorGuardar", "", '2');
+            }
+
+            $("#grid").data("kendoGrid").dataSource.sync();
+            loadingStop();
+        });
+    } catch (e) {
+        loadingStop();
+        displayMessage("Mensajes_error", e.message, '0');
+
+    }
+};

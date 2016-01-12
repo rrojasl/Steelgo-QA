@@ -1,23 +1,34 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
 }
+
+IniciarCapturaPinturaDescarga();
+function IniciarCapturaPinturaDescarga() {
+    SuscribirEventos();
+    setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
+    setTimeout(function () { AjaxPinturaDescargaMedioTransporte(); }, 1100);
+}
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [{ SpoolID: "X001-01", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Cuadrante: "A2" },
-                    { SpoolID: "X001-02", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Cuadrante: "A2" },
-                    { SpoolID: "X001-03", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Cuadrante: "A2" },
-                    { SpoolID: "X001-04", SistemaPintura: "18.1", Metros2: "2", Peso: "1.2", Cuadrante: "A2" }],
+
             schema: {
                 model: {
                     fields: {
                         SpoolID: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false }
+                        Area: { type: "string", editable: false },
+                        Cuadrante: { type: "string", editable: true }
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
             },
             pageSize: 20,
             serverPaging: false,
@@ -40,13 +51,23 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolID", title: "Spool", filterable: true },
-            { field: "Metros2", title: "M2", filterable: true },
-            { field: "Cuadrante", title: "Cuadrante", filterable: true },
-            { command: { text: "Descarga", click: eliminarCaptura }, title: "Descargar"}
+            { field: "SpoolID", title: _dictionary.PinturaDescargaSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Area", title: _dictionary.PinturaDescargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Cuadrante", title: _dictionary.PinturaDescargaCuadrante[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCuadrante, filterable: true },
+            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "Descargar" }
 
         ]
     });
 }
-function eliminarCaptura()
-{ }
+
+
+function eliminarCaptura(e) {
+    e.preventDefault();
+    var filterValue = $(e.currentTarget).val();
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    dataItem.Accion = 3;
+    dataSource.sync();
+
+}
