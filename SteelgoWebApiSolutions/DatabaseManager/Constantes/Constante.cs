@@ -49,13 +49,13 @@ namespace DatabaseManager.Sam3
         public static int DIESINUEVE = 19;
         public static int VEINTE = 20;
     }
-    
+
     public static class Stords
     {
         public static string GUARDARCAPTURAENTREGARESULTADOS = "Sam3_ServiciosTecnicos_Guardar_EntregaResultados";
         public static string GUARDARCAPTURAARMADO = "Sam3_Armado_JuntaArmado";
         public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_Inspeccion_VisualDimensional";
-        public static string GUARDARINSPECCIONDIMENSIONAL= "Sam3_Inspeccion_Dimensional";
+        public static string GUARDARINSPECCIONDIMENSIONAL = "Sam3_Inspeccion_Dimensional";
         public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
         public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ServiciosTecnicos_Guardar_RequisicionAsignacion";
         public static string GUARDARGENERARREQUISICICION = "Sam3_ServiciosTecnicos_Requisicion";
@@ -69,7 +69,9 @@ namespace DatabaseManager.Sam3
         public static string CierraPlana = "dbo.Sam3_Embarque_CierraPlana";
         public static string ACTUALIZARREVISIONEMBARQUESPOOL = "Sam3_Embarque_Set_RevisionSpool";
         public static string GUARDACAPTURAREPORTEPRUEBAS = "Sam3_ServiciosTecnicos_Guardar_CapturaReportePruebas";
-        public static string GUARDACARGACARROBACKLOG= "Sam3_Pintura_Guardar_CargaCarroBackLog";
+        public static string GUARDACARGACARROBACKLOG = "Sam3_Pintura_Guardar_CargaCarroBackLog";
+        public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_Guardar_CargaMedioTransporte";
+        public static string GUARDACAPTURAPINTURASPOOLDESCARGA = "Sam3_Pintura_Guardar_DesCargaMedioTransporte";
     }
 
     public static class ConstantesSteelGo

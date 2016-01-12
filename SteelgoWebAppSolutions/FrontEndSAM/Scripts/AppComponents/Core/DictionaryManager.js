@@ -5588,7 +5588,7 @@ _dictionary = {
     "PinturaGuardarErrorGuardar": {
         "es-MX": "No se guardo la informacion",
         "en-US": "no information was saved"
-    }
+    },
     //#endregion
 
      //#region PinturaCargaBackLog
@@ -5650,7 +5650,7 @@ _dictionary = {
 },
 //#endregion
     //#region PinturaCarga
-     ,
+     
     "PinturaDescargaCarro": {
         "es-MX": "Carro",
         "en-US": "Car"
