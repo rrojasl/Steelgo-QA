@@ -516,6 +516,9 @@
                             messageindexKendoCombobox(this);
                             FolioAvisoEntrada = {};
                             this.value("");
+                            $("#TipoPackingListID").data("kendoComboBox").value("");
+                            $("#TipoPackingListDiv").removeClass("hidden");
+                            TipoPackingList = {};
                         } else {
                             ObtenerDatosDelFolioAvisoLlegada();
                         }
@@ -1427,6 +1430,7 @@
                             $("#ProyectoID").data("kendoComboBox").value(result.Proyecto[0].ProyectoID);
                             CargarProyecto(result.Proyecto[0].ProyectoID, result.Proyecto[0].Nombre);
                             ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
+                            ObtenerTipoPackingListProyectoConfiguracion(result.Proyecto[0].ProyectoID);
                         };
                         ControlErroresObjetosComboBox("ProyectoID", result.Proyecto);
                     };
