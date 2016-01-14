@@ -472,11 +472,11 @@
     function obtenerCSV(){
         var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
         var datos=$("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data();
-        var csvMimeType = "data:text/csv;charset=utf-8,";
+        var csvMimeType = "data:text/csv;charset=utf-8";
         var encabezados=[]
-        for(tmp in $("#grid").data("kendoGrid").dataSource.options.schema.model.fields){
-            tmp!=$("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp) ? encabezados.push(tmp) : 0;
-        }
+        $("#grid").data("kendoGrid").columns.forEach(function(tmp){
+            tmp.field!==$("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp.field) ? encabezados.push(parseWord(tmp.title)) : 0;
+        })
         csvMimeType+=encabezados.join(",")+"\n";
         try{
             datos.forEach(function(modelo){
@@ -491,6 +491,20 @@
             if(e===1) return csvMimeType;
         }
         
+    }
+
+    function parseWord(n){
+        n=n.replace(/[ÁÄ]/g,"A");
+        n=n.replace(/[áä]/g,"a");
+        n=n.replace(/[ÉË]/g,"E");
+        n=n.replace(/[éë]/g,"e");
+        n=n.replace(/[ÍÏ]/g,"I");
+        n=n.replace(/[íï]/g,"i");
+        n=n.replace(/[ÓÖ]/g,"O");
+        n=n.replace(/[óö]/g,"o");
+        n=n.replace(/[ÚÜ]/g,"U");
+        n=n.replace(/[úü]/g,"u");
+        return n;
     }
 
     function getUrl() {
