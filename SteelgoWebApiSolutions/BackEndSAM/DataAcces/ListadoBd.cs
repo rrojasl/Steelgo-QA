@@ -1366,7 +1366,12 @@ namespace BackEndSAM.DataAcces
 
                     if (conteo)
                     {
-                        return listado.Count();
+                        int porRecepcionarSuma = 0;
+                        foreach (ListadoNUPorRecepcionar item in listado)
+                        {
+                            porRecepcionarSuma = porRecepcionarSuma + Convert.ToInt32(item.CantidadNUSinComplemento);                        
+                        }
+                        return porRecepcionarSuma;
                     }
                     else
                     {
