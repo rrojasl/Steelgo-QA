@@ -1357,6 +1357,7 @@
                     var grid = $("#grid").data("kendoGrid");
                     var tr = $(e.currentTarget).closest("tr");
                     grid.removeRow(tr);
+                    recentlyAdded = false;
                     //loadingStop();
                     return;
                 } 
@@ -1366,7 +1367,7 @@
                 } else {
                     validarBulto = bultoID
                 }
-
+                
                 $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, bultoID: validarBulto, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
                     if (!data) {
                         if (confirm("Estas seguro de cancelar el Item Code?")) {
@@ -1374,7 +1375,7 @@
                                 var grid = $("#grid").data("kendoGrid");
                                 var tr = $(e.currentTarget).closest("tr");
                                 grid.removeRow(tr);
-
+                                recentlyAdded = false;
                                 if (_detalleBulto == "-1") {
                                     var datasource = $("#grid").data("kendoGrid").dataSource.data();
                                     if (!datasource.length) {
@@ -3260,9 +3261,13 @@
         function OndataBound(e) {
             $(".k-button.k-button-icontext.k-grid-add").on("click", function () {
                 fromButton = true;
-                recentlyAdded=true;
+                recentlyAdded = true;
                 alInicio();
-            })
+            });
+
+            $(".k-button.k-button-icontext.k-grid-cancelar").on("click", function () {
+                recentlyAdded = false;
+            });
             $('td:nth-child(5):contains("ICS-Default")').each(function () {
                 tmp = this;
                 for (var i = 0; 4 > i; i++) {
