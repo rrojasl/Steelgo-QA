@@ -742,28 +742,32 @@ namespace BackEndSAM.DataAcces
                                                              select new ListadoPLporCuantificar
                                                              {
                                                                  Proyecto = p.Nombre,
-                                                                 FolioAvisoEntrada = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                                                  where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
-                                                                                                                  select pc.PreFijoFolioAvisoLlegada + ","
-                                                                                                                   + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                                                                                                   + fa.Consecutivo.ToString() + ","
-                                                                                                                   + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString(),
+                                                                 FolioAvisoEntrada = r.FolioAvisoLlegadaID.ToString(),
                                                                  FechaDescarga = r.FechaFolioDescarga != null ? r.FechaFolioDescarga.Value.ToString() : "",
                                                                  FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString() : "",
                                                                  PackingList = fc.PackingList,
-                                                                 FolioCuantificacionID = fc.FolioCuantificacionID.ToString()
+                                                                 FolioCuantificacionID = fc.FolioCuantificacionID.ToString(),
+                                                                 FolioConfiguracion = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                                   where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
+                                                                                                                   select pc.PreFijoFolioAvisoLlegada + ","
+                                                                                                                    + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                                                                    + fa.Consecutivo.ToString() + ","
+                                                                                                                    + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString()
                                                              }).AsParallel().ToList();
 
                     if (activarFolioConfiguracion)
                     {
                         foreach (ListadoPLporCuantificar item in listado)
                         {
-                            string[] elemntos = item.FolioAvisoEntrada.Split(',').ToArray();
-                            int digitos = Convert.ToInt32(elemntos[1]);
-                            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            string formato = "D" + digitos.ToString();
+                            if (activarFolioConfiguracion)
+                            {
+                                string[] elemntos = item.FolioConfiguracion.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
 
-                            item.FolioAvisoEntrada = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                                item.FolioConfiguracion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
                         }
                     }
 

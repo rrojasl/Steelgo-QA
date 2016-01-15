@@ -24,6 +24,7 @@ namespace BackEndSAM.Models
         public string FechaCreacionPackingList { get; set; }
         public string PackingList { get; set; }
         public string FolioCuantificacionID { get; set; }
+        public string FolioConfiguracion { get; set; }
     }
 
     /// <summary>
