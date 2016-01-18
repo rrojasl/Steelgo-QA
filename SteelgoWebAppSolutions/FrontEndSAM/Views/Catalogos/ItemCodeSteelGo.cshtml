@@ -473,6 +473,11 @@
                                 $("[name='MM']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].Inch / 0.0393701).toFixed(4));
                             },
                             change: function (e) {
+                                var value = this.value();
+                                if ((!value || this.selectedIndex == -1) && value != "") {
+                                    displayMessage("notificationslabel0083", "Espesor IN", '1');
+                                    this.value("");
+                                }
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].InchID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Inch = data.nombre;
@@ -499,6 +504,11 @@
                                     $("[name='Inch']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].MM * 0.0393701).toFixed(4));
                                 },
                                 change: function (e) {
+                                    var value = this.value();
+                                    if ((!value || this.selectedIndex == -1) && value != "") {
+                                        displayMessage("notificationslabel0083", "Espesor MM", '1');
+                                        this.value("");
+                                    }
                                     var data = getDropData(e);
                                     $("#grid").data("kendoGrid")._data[data.posicion].MMID = data.id;
                                     $("#grid").data("kendoGrid")._data[data.posicion].MM = data.nombre;
