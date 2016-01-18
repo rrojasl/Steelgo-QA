@@ -55,6 +55,7 @@ var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho
 var $DiametrosCatalogos = $BackEndSAMUri + '/backendsam/api/Diametros?';
 var $UrlOrdenTrabajo = $BackEndSAMUri + '/backendsam/api/OrdenTrabajo?';
 var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
+var $CatalogoEspesor = $BackEndSAMUri + '/backendsam/api/Espesor?';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -151,6 +152,7 @@ var $Spool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FamiliaAcero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -258,3 +260,4 @@ $Spool.add("Spool");
 $FamiliaAcero.add("FamiliaAcero");
 $Proxy.add("Proxy");
 $Reporte.add("Reporte");
+$Espesor.add("Espesor");

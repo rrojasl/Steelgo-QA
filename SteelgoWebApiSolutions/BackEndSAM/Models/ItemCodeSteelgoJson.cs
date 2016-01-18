@@ -48,6 +48,7 @@ namespace BackEndSAM.Models
         public string CedulaB { get; set; }
         public string Libra { get; set; }
         public string Inch { get; set; }
+        public string InchID { get; set; }
         public string MM { get; set; }
         public string Espesor { get; set; }
         public string Peso { get; set; }

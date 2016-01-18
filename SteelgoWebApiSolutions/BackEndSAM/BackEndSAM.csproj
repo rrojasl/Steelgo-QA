@@ -291,6 +291,7 @@
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyMaquinaController.cs" />
     <Compile Include="Controllers\EntregaController.cs" />
+    <Compile Include="Controllers\EspesorController.cs" />
     <Compile Include="Controllers\IncidenciaPaseSalidaController.cs" />
     <Compile Include="Controllers\MaterialPendienteController.cs" />
     <Compile Include="Controllers\MaterialSpoolController.cs" />
@@ -418,6 +419,7 @@
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EntregaBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
+    <Compile Include="DataAcces\EspesorBd.cs" />
     <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
     <Compile Include="DataAcces\FabricantesBd.cs" />
     <Compile Include="DataAcces\FamiliaBd.cs" />
