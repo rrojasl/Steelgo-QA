@@ -5,16 +5,37 @@
     suscribirEventoPintor();
     suscribirEventoComponente();
     SuscribirEventoSpoolID();
+    suscribirEventoCuadrante();
+    suscribirEventoDescargar();
 }
 
 SuscribirEventos();
 
+function suscribirEventoDescargar() {
+
+    $('#btnDescargar').click(function (e) {
+        ajaxAplicarDescarga(currentDataItemGridDownload)
+        
+        win.close();
+    });
+}
 
 function suscribirEventoGuardarCarro() {
 
     $('#btnGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardarCarro(ds._data)
+    });
+}
+
+
+function suscribirEventoCuadrante() {
+
+    $("#inputCuadrante").kendoDropDownList({
+        dataTextField: "Nombre",
+        dataValueField: "CuadranteID",
+        suggest: true,
+        filter: "contains"
     });
 }
 
@@ -35,8 +56,8 @@ function suscribirEventoCarro() {
 function suscribirEventoComponente() {
 
     $("#inputComponente").kendoDropDownList({
-        dataTextField: "Componente",
-        dataValueField: "ComponenteID",
+        dataTextField: "Nombre",
+        dataValueField: "PinturaComponenteComposicionID",
         suggest: true,
         filter: "contains",
         change: function (e) {
@@ -47,7 +68,8 @@ function suscribirEventoComponente() {
 
 function suscribirEventoPintor() {
 
-    $("#inputPintor").kendoDropDownList({
+    $("#inputPintor").kendoMultiSelect({
+        dataSource: '',
         dataTextField: "Codigo",
         dataValueField: "ObreroID",
         suggest: true,
@@ -55,12 +77,23 @@ function suscribirEventoPintor() {
         change: function (e) {
 
         }
+    }).data("kendoMultiSelect");
+    $('#inputPintor').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
+                PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
+            }
+        }
+
     });
+
+    
 }
 
 function suscribirEventoShotBlastero() {
 
-    $("#inputShotBlastero").kendoDropDownList({
+    $("#inputShotBlastero").kendoMultiSelect({
+        dataSource: '',
         dataTextField: "Codigo",
         dataValueField: "ObreroID",
         suggest: true,
@@ -68,6 +101,15 @@ function suscribirEventoShotBlastero() {
         change: function (e) {
 
         }
+    }).data("kendoMultiSelect");
+
+    $('#inputShotBlastero').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
+                PlancharShotBlastero($("#grid").data("kendoGrid").dataSource._data);
+            }
+        }
+
     });
 }
 
@@ -81,14 +123,14 @@ function SuscribirEventoSpoolID() {
         index: 3,
         select: function (e) {
             dataItem = this.dataItem(e.item.index());
-            
+
             if (dataItem.Status != "1") {
                 e.preventDefault();
                 $("#InputID").val("");
             }
             else {
                 $("#InputID").val(dataItem.IDValido);
-                
+
             }
         }
         ,
@@ -101,7 +143,7 @@ function SuscribirEventoSpoolID() {
                 if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
 
                 }
-                
+
             }
         }
     });
@@ -115,7 +157,7 @@ function SuscribirEventoSpoolID() {
                 $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                     $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                     $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
-                    
+
                     loadingStop();
                 });
             } catch (e) {
@@ -127,7 +169,7 @@ function SuscribirEventoSpoolID() {
         }
     });
 
-    
+
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
@@ -147,6 +189,8 @@ function SuscribirEventoSpoolID() {
                 AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
             }
         }
-            
+
     });
 };
+
+

@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models.Cuadrante;
+using BackEndSAM.Models.Embarque.CargaEmbarque;
 using BackEndSAM.Models.Pintura.MedioTransporte;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -163,7 +164,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                     {
                         ListadoMedioTransporteCarga.Add(new MedioTransporteCarga
                         {
-                            MedioTransporteCargaID = item.MedioTransporteCargaID,
+                            MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             NombreMedioTransporte = item.NombreMedioTransporte,
                             
                           
@@ -199,7 +200,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
 
                     List<DetalleMedioTransporteCarga> ListadoDetalleMedioTransporteCarga = new List<DetalleMedioTransporteCarga>();
 
-                    List<Cuadrante> ListaCuandrantes = new List<Cuadrante>();
+                    List< Cuadrante> ListaCuandrantes = new List<Cuadrante>();
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in GetlistaCuandrantes)
                     {
                         ListaCuandrantes.Add(

@@ -11,10 +11,20 @@
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Resultado = dataItem._Resultado;
+                if (options.model.Resultado == "Aprobado") {
+                    options.model.DefectosID = "";
+                    options.model.Defectos = "";
+                }
             },
             change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Resultado = dataItem._Resultado;
                 options.model.ResultadoID = dataItem._ResultadoID;
+                if (options.model.Resultado == "Aprobado") {
+                    options.model.DefectosID = "";
+                    options.model.Defectos = "";
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
 
 
             }
@@ -39,6 +49,7 @@ function RenderComboBoxDefectos(container, options) {
                 options.model.DefectosID = dataItem.DefectoID;
             },
             change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Defectos = dataItem.Nombre;
                 options.model.DefectosID = dataItem.DefectoID;
             }
@@ -65,6 +76,7 @@ function RenderComboBoxInspector(container, options) {
                 options.model.InspectorID = dataItem.ObreroID;
             },
             change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Inspector = dataItem.Codigo;
                 options.model.InspectorID = dataItem.ObreroID;
             }

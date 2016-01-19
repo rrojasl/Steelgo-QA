@@ -84,7 +84,12 @@ function SuscribirEventoSpoolID() {
         else if (e.keyCode == 40)
             $("#InputID").data("kendoComboBox").select();
         else if (e.keyCode == 13) {
+            //var ds = $("#grid").data("kendoGrid").dataSource;
+            //for (var i = 0 ; i < ds._data.length ; i++) {
+            //    if (ds._data[i].SpoolID) {
 
+            //    }
+            //}
             AjaxobtenerDetalleDimensional($("#InputID").val());
             
             AjaxObtenerJSonGrid();

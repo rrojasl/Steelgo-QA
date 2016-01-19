@@ -99,8 +99,8 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
-        [HttpGet]
-        public object ObtenerDetalleSpoolAgregar(string token,int OrdenTrabajoSpoolID, string lenguaje, int shotblasteroID, string shotblastero, int pintorID, string pintor)
+        [HttpPost]
+        public object ObtenerDetalleSpoolAgregar(CapturaNuevo spoolNuevo, string token,int OrdenTrabajoSpoolID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -109,7 +109,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, shotblasteroID, shotblastero, pintorID, pintor);
+                return CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, spoolNuevo.ListaShotblasteroGuargado, spoolNuevo.ListaPintorGuargado);
             }
             else
             {
@@ -146,7 +146,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         
-        public object Post(Captura listaCapturasRequisicion, string token, int medioTransporteCargaID)
+        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int medioTransporteCargaID)
         {
             string payload = "";
             string newToken = "";
@@ -159,12 +159,25 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 DataTable dtDetalleSpool = new DataTable();
+                DataTable dtDetalleObreros = new DataTable();
+
+
+                foreach (DetalleSpool item in listaCapturasRequisicion.listaDetalleSpool)
+                {
+                    if (dtDetalleObreros == null)
+                        dtDetalleObreros = ToDataTable(item.ListaObreros);
+                    else
+                        dtDetalleObreros.Merge(ToDataTable(item.ListaObreros));
+                }
+
                 if (listaCapturasRequisicion.listaDetalleSpool != null)
                 {
                     dtDetalleSpool = ToDataTable(listaCapturasRequisicion.listaDetalleSpool);
                 }
 
-                return CapturaAvanceBD.Instance.InsertarCargaSpool(dtDetalleSpool, usuario, medioTransporteCargaID);
+                dtDetalleSpool.Columns.Remove("ListaObreros");
+
+                return CapturaAvanceBD.Instance.InsertarCargaSpool(dtDetalleSpool,dtDetalleObreros, usuario, lenguaje, medioTransporteCargaID);
             }
             else
             {

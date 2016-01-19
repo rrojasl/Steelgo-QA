@@ -36,7 +36,7 @@
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span>Decarga carro</span></a>
+                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="CapturaAvancebtnDescargaCarro"></span></a>
                         </div>
                         <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
                             <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
@@ -58,19 +58,19 @@
     </div>
     <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Carro</label>
+            <label><span id="CapturaAvanceCarro"></span></label>
             <input id="inputCarro"/>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Fecha ShotBlast</label>
+            <label><span id="CapturaAvanceFechaShotblast"></span></label>
             <input id="FechaShotBlast"/>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Fecha Primario</label>
+            <label><span id="CapturaAvanceFechaPrimario"></span></label>
             <input id="Fechaprimario"/>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Componente</label>
+            <label><span id="CapturaAvanceComponente"></span></label>
             <input id="inputComponente"/>
         </div>
     
@@ -79,13 +79,13 @@
     <div class="row addedSection">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label>ShotBlastero</label>
+                <div class="col-sm-5 col-md-5 col-lg-5">
+                    <label><span id="CapturaAvanceShotBlastero"></span></label>
                     <input id="inputShotBlastero"/>
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label>Pintor</label>
-                    <input id="inputPintor"/>
+                <div class="col-sm-5 col-md-5 col-lg-5">
+                    <label><span id="CapturaAvancePintor"></span></label>
+                    <input id="inputPintor" />
                 </div>
               
             </div>
@@ -115,7 +115,24 @@
         </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />
-    <div id="window">
+    <div id="windowDownload" style="display:none;">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <input id="inputCuadrante" />
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <input type="button" class="btn btn-blue" id="CapturaAvanceDescargar" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
     <br /><br />
     <div class="row ">
@@ -125,25 +142,25 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
+                                    <li><a href="#" id="btnGuardar4"><span id="">Guardar</span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevo2"><span id=""></span></a></li>
                                 </ul>
                             </div>
 
-                            <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                            <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2">Cancelar</span></a>
                         </div>
                         <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Descarga Carro</span></a>
+                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="CapturaAvancebtnDescargaCarro2"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="">Acciones</span>
+                                    <span id="botonAcciones1">Acciones</span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>

@@ -3883,9 +3883,9 @@ _dictionary = {
         "en-US": "Validation of results "
     },
     "menuPintura": {
-    "es-MX": "Pintura",
-    "en-US": "painting "
-},
+        "es-MX": "Pintura",
+        "en-US": "painting "
+    },
     "menuPinturaCargaCarro": {
         "es-MX": "carga de carro",
         "en-US": "load carriage"
@@ -5591,66 +5591,66 @@ _dictionary = {
     },
     //#endregion
 
-     //#region PinturaCargaBackLog
+    //#region PinturaCargaBackLog
     "PinturaCargaBackLogCarro": {
-    "es-MX": "Carro",
-    "en-US": "Car"
-},
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
     "PinturaCargaBackLogOrdenImportancia": {
-    "es-MX": "Orden Importancia",
-    "en-US": "Importance Order"
-},
+        "es-MX": "Orden Importancia",
+        "en-US": "Importance Order"
+    },
     "PinturaCargaBackLogSpool": {
-    "es-MX": "Spool",
-    "en-US": "Spool"
-},
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
     "PinturaCargaBackLogSistemaPintura": {
-    "es-MX": "Sistema Pintura",
-    "en-US": "Paint System"
-},
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System"
+    },
     "PinturaCargaBackLogColor": {
-    "es-MX": "Color",
-    "en-US": "Color"
-},
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
     "PinturaCargaBackLogQuadrant": {
-    "es-MX": "Cuadrante",
-    "en-US": "Quadrant"
-},
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
     "PinturaCargaBackLogM2": {
-    "es-MX": "M2",
-    "en-US": "M2"
-},
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
     "PinturaCargaBackLogPeso": {
-    "es-MX": "Peso",
-    "en-US": "Weight"
-},
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
     "PinturaCargaBackLogProyecto": {
-    "es-MX": "Proyecto",
-    "en-US": "Project"
-},
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     "PinturaCargaBackLogSeleccionado": {
-    "es-MX": "Seleccionado",
-    "en-US": "Selected"
-},
+        "es-MX": "Seleccionado",
+        "en-US": "Selected"
+    },
     "PinturaCargaBackLogBtnSubirCarro": {
-    "es-MX": "Subir a carro",
-    "en-US": "Upload to car"
-},
+        "es-MX": "Subir a carro",
+        "en-US": "Upload to car"
+    },
     "PinturaCargaBackLogMensajeGuardadoExitoso": {
-    "es-MX": "Se subio al carro correctamente",
-    "en-US": "uploaded to car correctly"
-},
+        "es-MX": "Se subio al carro correctamente",
+        "en-US": "uploaded to car correctly"
+    },
     "PinturaCargaBackLogMensajeSeleccionaSpool": {
-    "es-MX": "Selecciona al menos un spool",
-    "en-US": "Select at least one Spool"
-},
+        "es-MX": "Selecciona al menos un spool",
+        "en-US": "Select at least one Spool"
+    },
     "PinturaCargaBackLogMensajeErrorServicioPintura": {
-    "es-MX": "El servicio de pintura debe ser el mismo para los spools",
-    "en-US": "The paint service should be equals for all spools"
-},
-//#endregion
+        "es-MX": "El servicio de pintura debe ser el mismo para los spools",
+        "en-US": "The paint service should be equals for all spools"
+    },
+    //#endregion
     //#region PinturaCarga
-     
+
     "PinturaDescargaCarro": {
         "es-MX": "Carro",
         "en-US": "Car"
@@ -5689,9 +5689,75 @@ _dictionary = {
     "PinturaGuardarErrorDesGuardar": {
         "es-MX": "Hay un error en la actualizacion de la informacion",
         "en-US": "no information was saved"
-    }
+    },
 
     //#endregion
+
+    //#region PinturaCarga
+
+    "CapturaAvanceSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "CapturaAvanceSistemaPintura": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System"
+    },
+    "CapturaAvanceColor": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "CapturaAvanceShotBlastero": {
+        "es-MX": "Shotblastero",
+        "en-US": "Shotblastero"
+    },
+    "CapturaAvancePintor": {
+        "es-MX": "Pintor",
+        "en-US": "Painter"
+    },
+    "CapturaAvanceM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "CapturaAvanceDescargar": {
+        "es-MX": "Descargar",
+        "en-US": "Discharge"
+    },
+    "CapturaAvanceCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "CapturaAvanceFechaShotblast": {
+        "es-MX": "Fecha ShotBlast",
+        "en-US": "ShotBlast Date"
+    },
+    "CapturaAvanceFechaPrimario": {
+        "es-MX": "Fecha Primario",
+        "en-US": "Primary Date"
+    },
+    "CapturaAvanceComponente": {
+        "es-MX": "Componenente",
+        "en-US": "Component"
+    },
+    "CapturaAvanceGuardadoCorrecto": {
+        "es-MX": "Datos guardados correctamente",
+        "en-US": "Save data correctly"
+    },
+    "CapturaAvancebtnDescargaCarro": {
+        "es-MX": "Descarga Carro",
+        "en-US": "Car Discharge"
+    },
+    "CapturaAvancebtnDescargaCarro2": {
+        "es-MX": "Descarga Carro",
+        "en-US": "Car Discharge"
+    },
+
+    "CapturaAvanceCuadrante": {
+        "es-MX": "Cuadrante de descarga",
+        "en-US": "Quadrant of discharge"
+    },
+    //#endregion
+
 };
 
 

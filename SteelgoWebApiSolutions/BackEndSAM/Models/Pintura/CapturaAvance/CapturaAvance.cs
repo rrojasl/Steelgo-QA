@@ -8,23 +8,27 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     public class CapturaAvance
     {
         public int Accion { get; set; }
-        public int MedioTransporteSpoolID { get; set; }
+        public int PinturaSpoolIDShotblastero { get; set; }
+        public int PinturaSpoolIDShotPrimario { get; set; }
         public string Spool { get; set; }
         public string SistemaPintura { get; set; }
         public decimal Metros2 { get; set; }
         public decimal Peso { get; set; }
         public string Color { get; set; }
-        public int pintorID { get; set; }
-        public int ShotblasteroID { get; set; }
-        public string pintor { get; set; }
-        public string Shotblastero { get; set; }
+        public int ColorPinturaID { get; set; }
         public int OrdenImportancia { get; set; }
         public int SpoolID { get; set; }
         public int SistemaPinturaID { get; set; }
         public int MedioTransporteID { get; set; }
         public int MedioTransporteCargaID { get; set; }
-        public List<Pintor> ListaPintores { get; set; }
-        public List<Pintor> ListaShotblasteros { get; set; }
+        public string plantillaShotblastero { get; set; }
+        public string plantillaPintor { get; set; }
+        public List<PintorSpool> ListaPintorGuargado { get; set; }
+        public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
+        public List<PintorSpool> ListaPintorInicial { get; set; }
+        public List<PintorSpool> ListaShotblasteroInicial { get; set; }
+        public List<PintorSpool> ListaPintores { get; set; }
+        public List<PintorSpool> ListaShotblasteros { get; set; }
 
     }
 
@@ -42,8 +46,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 
     public class ComponenteDetalle
     {
-        public int ComponenteID { get; set; }
-        public string Componente { get; set; }
+        public int PinturaComponenteComposicionID { get; set; }
+        public string Nombre { get; set; }
     }
 
     public class RetornaDetalles
@@ -60,10 +64,40 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     public class DetalleSpool
     {
         public int Accion { get; set; }
-        public int MedioTransporteSpoolID { get; set; }
-        public int MedioTransporteCargaID { get; set; }
         public int SpoolID { get; set; }
-        public int ShotBlastero { get; set; }
-        public int Pintor { get; set; }
+        public int PinturaSpoolID { get; set; }
+        public int PasoID { get; set; }
+        public int SistemaPinturaID { get; set; }
+        public int ColorPinturaID { get; set; }
+        public int LotePinturaID { get; set; }
+        public int PinturaComponenteComposicionID { get; set; }
+        public string Fecha { get; set; }
+        public List<ObrerosGuardar> ListaObreros  { get;set;}
+    }
+
+    public class CapturaNuevo
+    {
+        public List<PintorSpool> ListaPintorGuargado { get; set; }
+        public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
+    }
+
+
+    public class PintorSpool
+    {
+        public int Accion { get; set; }
+        public int PinturaSpoolObreroID { get; set; }
+        public int ObreroID { get; set; }
+        public string Codigo { get; set; }
+    }
+
+
+    public class ObrerosGuardar
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public int PasoID { get; set; }
+        public int PinturaSpoolID { get; set; }
+        public int PinturaSpoolObreroID { get; set; }
+        public int ObreroID { get; set; }
     }
 }

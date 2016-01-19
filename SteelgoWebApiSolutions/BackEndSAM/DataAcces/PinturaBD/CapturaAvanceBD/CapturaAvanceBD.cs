@@ -15,6 +15,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 
         private static readonly object _mutex = new object();
         private static CapturaAvanceBD _instance;
+        string pintores= "", shotblasteros = "";
 
         public static CapturaAvanceBD Instance
         {
@@ -100,31 +101,36 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
                     RetornaDetalles detalles = new RetornaDetalles();
                     int sPinturaID = 0;
-                    List<Sam3_Pintura_Get_DetalleCarrosCargados_Result> result = ctx.Sam3_Pintura_Get_DetalleCarrosCargados(medioTransporteCargaID).ToList();
+                    List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolCapturaAvance(medioTransporteCargaID).ToList();
                     List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
 
-                    foreach (Sam3_Pintura_Get_DetalleCarrosCargados_Result item in result)
+                    foreach (Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result item in result)
                     {
+                        
                         ListadoMedioTransporte.Add(new CapturaAvance
                         {
-                            Accion = 2,
-                            MedioTransporteSpoolID = item.MedioTransporteSpoolID,
+                            Accion = item.PinturaSpoolIDShotblastero == null ? 1 : 2,
+                            PinturaSpoolIDShotblastero = item.PinturaSpoolIDShotblastero == null ? 0: item.PinturaSpoolIDShotblastero.GetValueOrDefault(),
+                            PinturaSpoolIDShotPrimario = item.PinturaSpoolIDShotPrimario == null ? 0 : item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),
                             MedioTransporteCargaID = item.MedioTransporteCargaID,
                             MedioTransporteID = item.MedioTransporteID.GetValueOrDefault(),
                             Metros2 = item.Area.GetValueOrDefault(),
                             Color = item.ColorPintura,
+                            ColorPinturaID = item.ColorPinturaID,
                             OrdenImportancia = item.OrdenImportancia.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
-                            pintorID = item.PintorID,
-                            ShotblasteroID = item.ShotblasteroID,
-                            pintor = item.Pintor,
-                            Shotblastero = item.Shotblastero,
                             SistemaPintura = item.SistemaPintura,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SpoolID = item.SpoolID,
                             Spool = item.SpoolJunta,
-                            ListaPintores = (List<Pintor>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
-                            ListaShotblasteros = (List<Pintor>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "ShotBlastero")
+                            ListaPintores = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
+                            ListaShotblasteros = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "ShotBlastero"),
+                            ListaPintorGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje,item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),2 ),
+                            ListaShotblasteroGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1),
+                            ListaPintorInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotPrimario.GetValueOrDefault(), 2),
+                            ListaShotblasteroInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1),
+                            plantillaPintor = pintores,
+                            plantillaShotblastero = shotblasteros
                         });
                         sPinturaID = item.SistemaPinturaID;
                     }
@@ -136,8 +142,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     {
                         listaComponentes.Add(new ComponenteDetalle
                         {
-                            Componente = item.Componente,
-                            ComponenteID = item.ComponenteID
+                            Nombre = item.Nombre,
+                            PinturaComponenteComposicionID = item.PinturaComponenteComposicionID
                         });
                     }
                     detalles.listaComponenteDetalle = listaComponentes;
@@ -157,37 +163,55 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje, int shotblasteroID, string shotblastero, int pintorID, string pintor)
+        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje, List<PintorSpool> shotblastero, List<PintorSpool> pintor)
         {
             try
             {
+                pintores = "";
+                shotblasteros = "";
                 using (SamContext ctx = new SamContext())
                 {
-                    
+                    foreach (PintorSpool item in shotblastero)
+                    { 
+                            shotblasteros = shotblasteros + item.Codigo+ ", ";  
+                    }
+
+                    foreach (PintorSpool item in pintor)
+                    {
+                        pintores = pintores + item.Codigo+", ";
+                    }
+
                     List<Sam3_Pintura_Get_DetalleSpoolAgregar_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolAgregar(OrdenTrabajoSpoolID).ToList();
                     List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
 
                     foreach (Sam3_Pintura_Get_DetalleSpoolAgregar_Result item in result)
                     {
+                        
                         ListadoMedioTransporte.Add(new CapturaAvance
                         {
                             Accion = 1,
+                            PinturaSpoolIDShotblastero = 0,
+                            PinturaSpoolIDShotPrimario = 0,
                             MedioTransporteCargaID = 0,
                             MedioTransporteID = 0,
                             Metros2 = item.Area.GetValueOrDefault(),
                             Color = item.ColorPintura,
+                            ColorPinturaID = item.ColorPinturaID,
                             OrdenImportancia = item.OrdenImportancia.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
-                            pintorID = pintorID,
-                            ShotblasteroID = shotblasteroID,
-                            pintor = pintor,
-                            Shotblastero = shotblastero,
                             SistemaPintura = item.SistemaPintura,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SpoolID = item.SpoolID,
                             Spool = item.SpoolJunta,
-                            ListaPintores = (List<Pintor>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
-                            ListaShotblasteros = (List<Pintor>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "ShotBlastero")
+                            ListaPintores = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
+                            ListaShotblasteros = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 1, "ShotBlastero"),
+                            ListaPintorGuargado = pintor,
+                            ListaShotblasteroGuargado = shotblastero,
+                            ListaPintorInicial = pintor,
+                            ListaShotblasteroInicial = shotblastero,
+                            plantillaPintor = pintores,
+                            plantillaShotblastero = shotblasteros
+
                         });
                     }
                     return ListadoMedioTransporte;
@@ -214,17 +238,22 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
 
                     List<Sam3_Steelgo_Get_Obrero_Result> result = ctx.Sam3_Steelgo_Get_Obrero(tipo,tipoObrero,null,null).ToList();
-                    List<Pintor> ListadoPintores = new List<Pintor>();
+                    List<PintorSpool> ListadoPintores = new List<PintorSpool>();
 
                     foreach (Sam3_Steelgo_Get_Obrero_Result item in result)
                     {
-                        ListadoPintores.Add(new Pintor
+                        ListadoPintores.Add(new PintorSpool
                         {
+                            Accion = 1,
                             Codigo = item.Codigo,
                             ObreroID = item.ObreroID,
-                            TipoObrero = item.TipoObrero
+                            PinturaSpoolObreroID = 0
                         });
                     }
+
+                    
+
+
                     return ListadoPintores;
                 }
             }
@@ -240,7 +269,58 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object InsertarCargaSpool(DataTable dtDetalleCaptura, Sam3_Usuario usuario, int medioTransporteCargaID)
+        public object ObtenerObrerosGuardados(string lenguaje, int pinturaSpoolID, int pasoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    pintores = pasoID == 2 ? "":  pintores;
+                    shotblasteros = pasoID == 1 ? "": shotblasteros;
+                    List<Sam3_Pintura_Get_DetalleSpoolObreroPaso_Result > result = ctx.Sam3_Pintura_Get_DetalleSpoolObreroPaso(pinturaSpoolID,pasoID,lenguaje).ToList();
+                    List<PintorSpool> ListadoPintores = new List<PintorSpool>();
+
+                    foreach (Sam3_Pintura_Get_DetalleSpoolObreroPaso_Result item in result)
+                    {
+                        ListadoPintores.Add(new PintorSpool
+                        {
+                            Accion = 2,
+                            ObreroID = item.ObreroID.GetValueOrDefault(),
+                            Codigo = item.Codigo,
+                            PinturaSpoolObreroID = item.PinturaSpoolObreroId,
+                        });
+                    }
+
+                    foreach(PintorSpool item in ListadoPintores)
+                    {
+                        if(pasoID == 2)
+                        {
+                            pintores = pintores + item.Codigo + ", ";
+                        }
+                        else if (pasoID == 1)
+                        {
+                            shotblasteros = shotblasteros + item.Codigo + ", ";
+                        }
+                    }
+
+                    return ListadoPintores;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+
+        public object InsertarCargaSpool(DataTable dtDetalleCaptura,DataTable dtDetalleObreros, Sam3_Usuario usuario, string lenguaje, int medioTransporteCargaID)
         {
             try
             {
@@ -248,8 +328,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
 
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteCargaID", medioTransporteCargaID.ToString() } };
-                    _SQL.Ejecuta(Stords.GUARDACAPTURAAVANCE, dtDetalleCaptura, "@Tabla", parametro);
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@medioTransporteCargaID", medioTransporteCargaID.ToString() } };
+                    _SQL.Ejecuta(Stords.GUARDACAPTURAAVANCE, dtDetalleCaptura, "@Tabla",dtDetalleObreros, "@TablaObreros", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
