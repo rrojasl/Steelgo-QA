@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces
                                          select new Models.Cliente
                                          {
                                              Nombre = c.Nombre,
-                                             ClienteID = c.ClienteID.ToString()
+                                             ClienteID = "-1"//c.ClienteID.ToString()
                                          }).SingleOrDefault());
                                          
                         }

@@ -1900,17 +1900,42 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? 
+                        (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+
                     List<ListaCombos> folios = (from fe in ctx.Sam3_FolioAvisoEntrada
                                                 join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                where fe.Activo && rfp.Activo && fc.Activo
+                                                join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                where fe.Activo && rfp.Activo && fc.Activo && rfi.Activo
                                                 && rfp.ProyectoID == proyectoID
+                                                && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                     where rel.Activo 
+                                                     && rel.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                     select rel).Any()
                                                 select new ListaCombos
                                                 {
                                                     id = fe.FolioAvisoLlegadaID.ToString(),
                                                     value = fe.FolioAvisoLlegadaID.ToString()
                                                 }).AsParallel().ToList();
+
+                    //Agregar folios que tienen pendientes en bultos
+                    folios.AddRange((from fe in ctx.Sam3_FolioAvisoEntrada
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                     join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                     where fe.Activo && rfp.Activo && fc.Activo && rbi.Activo
+                                     && rfp.ProyectoID == proyectoID
+                                     && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                          where rel.Activo
+                                          && rel.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
+                                          select rel).Any()
+                                     select new ListaCombos
+                                     {
+                                         id = fe.FolioAvisoLlegadaID.ToString(),
+                                         value = fe.FolioAvisoLlegadaID.ToString()
+                                     }).AsParallel().ToList());
 
                     if (activarFolioConfiguracion)
                     {
@@ -1974,11 +1999,34 @@ namespace BackEndSAM.DataAcces
                                                  join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
                                                  where fe.Activo && fc.Activo && rfi.Activo && it.Activo
                                                  && fe.FolioAvisoLlegadaID == folioAvisoLlegada
+                                                 && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                      where rel.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                      && rel.Activo
+                                                      select rel).Any()
                                                  select new ListaCombos
                                                  {
                                                      id = it.ItemCodeID.ToString(),
                                                      value = it.Codigo
                                                  }).AsParallel().ToList();
+
+                    //incluir los itemcodes que se encuentran en bultos
+                    listado.AddRange((from fe in ctx.Sam3_FolioAvisoEntrada
+                                      join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                      join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                      join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                      where fe.Activo && fc.Activo && rbi.Activo && it.Activo
+                                      && fe.FolioAvisoLlegadaID == folioAvisoLlegada
+                                      && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                           where rel.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
+                                           && rel.Activo
+                                           select rel).Any()
+                                      select new ListaCombos
+                                      {
+                                          id = it.ItemCodeID.ToString(),
+                                          value = it.Codigo
+                                      }).AsParallel().ToList());
 
                     listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
