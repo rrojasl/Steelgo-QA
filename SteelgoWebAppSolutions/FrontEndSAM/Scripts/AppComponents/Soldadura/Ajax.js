@@ -3,8 +3,8 @@ function AjaxJunta(spoolID) {
     loadingStart();
     $CapturasRapidas.CapturasRapidas.read({ id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token"), proceso: 2 }).done(function (data) {
         console.log("fecha nueva" + data.FechaSoldadura);
-        $("#Junta").data("kendoComboBox").value("");
-        $("#Junta").data("kendoComboBox").dataSource.data(data)
+        $("#Junta").data("kendoDropDownList").value("");
+        $("#Junta").data("kendoDropDownList").dataSource.data(data)
         loadingStop();
     });
 }
@@ -18,6 +18,18 @@ function AjaxObtenerListaTaller() {
     });
 }
 
+
+function AjaxObtenerListaProcesos() {
+    loadingStart();
+    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token") }).done(function (data) {
+        $("#inputProcesoRelleno").data("kendoDropDownList").value("");
+        $("#inputProcesoRaiz").data("kendoDropDownList").value("");
+        $("#inputProcesoRaiz").data("kendoDropDownList").setDataSource(data);
+        $("#inputProcesoRelleno").data("kendoDropDownList").setDataSource(data);
+
+        loadingStop();
+    });
+}
 
 function ObtenerJSonGridSoldadura() {
 

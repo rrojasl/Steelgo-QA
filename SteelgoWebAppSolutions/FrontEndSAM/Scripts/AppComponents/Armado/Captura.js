@@ -54,7 +54,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text();
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
-    JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
+    JsonCaptura[0].Junta = $("#Junta").data("kendoDropDownList").text();
     JsonCaptura[0].FechaArmado = $("#FechaArmado").val();
     JsonCaptura[0].TuberoID = $("#inputTubero").val();
     JsonCaptura[0].Tubero = $("#inputTubero").data("kendoComboBox").text();
@@ -386,7 +386,7 @@ function PlanchaFecha() {
 }
 function ArregloListadoReporte() {
     JsonCaptura = [];
-    var lista = $("#Junta").data("kendoComboBox").dataSource._data;
+    var lista = $("#Junta").data("kendoDropDownList").dataSource._data;
 
     for (var i = 0; i < lista.length ; i++) {
         JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };

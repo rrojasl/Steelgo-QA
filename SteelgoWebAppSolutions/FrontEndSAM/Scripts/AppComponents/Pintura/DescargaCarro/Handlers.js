@@ -28,6 +28,12 @@ function SuscribirEventoCuadrante() {
         filter: "contains",
         index: 3
     });
+
+    $('#inputCuadrante').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            PlanchaCuadrante();
+        }
+    });
 }
 
 function SuscribirEventoGuardar() {
@@ -52,14 +58,19 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-     
+        $("#inputCarro").data("kendoDropDownList").enable(false);
+        $("#inputCuadrante").data("kendoDropDownList").enable(false);
         $('#botonGuardar').text("Editar");
         $("#DetalleAvisoLlegada0017").text("Editar");
+        
+        
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-     
+        $("#inputCarro").data("kendoDropDownList").enable(true);
+        $("#inputCuadrante").data("kendoDropDownList").enable(true);
         $('#botonGuardar').text("Guardar");
         $("#DetalleAvisoLlegada0017").text("Guardar");
+        
     }
 }

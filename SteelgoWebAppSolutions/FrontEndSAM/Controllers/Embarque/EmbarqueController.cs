@@ -17,10 +17,7 @@ namespace FrontEndSAM.Controllers.Embarque
             ViewBag.EmbarquePlanaID = embarquePlanaID;
             return View();
         }
-        public ActionResult Empaquetado()
-        {
-            return View();
-        }
+      
         public ActionResult Embarque(int embarqueID = 0)
         {
             ViewBag.embarqueID = embarqueID;

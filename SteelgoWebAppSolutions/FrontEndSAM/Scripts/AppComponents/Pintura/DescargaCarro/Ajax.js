@@ -71,6 +71,5 @@ function ajaxGuardar(arregloCaptura) {
     } catch (e) {
         loadingStop();
         displayMessage("Mensajes_error", e.message, '0');
-
     }
 };

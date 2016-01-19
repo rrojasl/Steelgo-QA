@@ -10,6 +10,58 @@ var listaRellenoFiltro;
 
 IniciarCapturaSoldadura();
 
+function PlanchaRelleno() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if (data[i].PermiteTerminadoRelleno) {
+                data[i].procesoSoldaduraRellenoID = $("#inputProcesoRelleno").data("kendoDropDownList").value();
+                data[i].procesoSoldaduraRelleno = $("#inputProcesoRelleno").data("kendoDropDownList").text();
+            }
+        }
+        else {
+            if (data[i].procesoSoldaduraRelleno == "" || data[i].procesoSoldaduraRelleno == null || data[i].procesoSoldaduraRelleno == undefined) {
+                if (data[i].PermiteTerminadoRelleno) {
+                    data[i].procesoSoldaduraRellenoID = $("#inputProcesoRelleno").data("kendoDropDownList").value();
+                    data[i].procesoSoldaduraRelleno = $("#inputProcesoRelleno").data("kendoDropDownList").text();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
+
+function PlanchaRaiz() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if (data[i].PermiteTerminadoRaiz) {
+                data[i].procesoSoldaduraRaizID = $("#inputProcesoRaiz").data("kendoDropDownList").value();
+                data[i].procesoSoldaduraRaiz = $("#inputProcesoRaiz").data("kendoDropDownList").text();
+            }
+        }
+        else {
+            if (data[i].procesoSoldaduraRaiz == "" || data[i].procesoSoldaduraRaiz == null || data[i].procesoSoldaduraRaiz == undefined) {
+                if (data[i].PermiteTerminadoRaiz) {
+                    data[i].procesoSoldaduraRaizID = $("#inputProcesoRaiz").data("kendoDropDownList").value();
+                    data[i].procesoSoldaduraRaiz = $("#inputProcesoRaiz").data("kendoDropDownList").text();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
+
 function IniciarCapturaSoldadura() {
 
     AltaFecha();
@@ -41,7 +93,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].idText = $("#InputID").data("kendoComboBox").text()
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
-    JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
+    JsonCaptura[0].Junta = $("#Junta").data("kendoDropDownList").text();
     JsonCaptura[0].FechaSoldadura = $("#FechaSoldadura").val();
     JsonCaptura[0].tallerID = $("#inputTaller").val();
     JsonCaptura[0].Taller = $("#inputTaller").data("kendoComboBox").text();
@@ -52,7 +104,7 @@ function ArregloListadoCaptura() {
 
 function ArregloListadoReporte() {
     JsonCaptura = [];
-    var lista = $("#Junta").data("kendoComboBox").dataSource._data;
+    var lista = $("#Junta").data("kendoDropDownList").dataSource._data;
 
     for (var i = 0; i < lista.length ; i++) {
         JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "" };

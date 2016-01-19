@@ -4,7 +4,15 @@
     SuscribirEventoCarro();
     SuscribirEventoAgregar();
     SuscribirEventoGuardar();
+    SuscribirEventoCerrarMedioTransporte();
 };
+
+function SuscribirEventoCerrarMedioTransporte()
+{
+    $('#btnAgregar').click(function (e) {
+        AjaxAgregarCarga()
+    });
+}
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {

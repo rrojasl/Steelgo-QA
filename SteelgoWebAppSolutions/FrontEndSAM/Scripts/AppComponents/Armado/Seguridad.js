@@ -23,9 +23,9 @@ var $ArmadoModel = {
             visible: "#JuntaDiv",
             editable: "#Junta",
         },
-        FechaSoldadura: {
+        FechaArmado: {
             visible: "#FechaArmadoDiv",
-            editable: "#FechaSoldadura",
+            editable: "#FechaArmado",
         },
         inputTaller: {
             visible: "#inputTallerDiv",

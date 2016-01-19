@@ -71,3 +71,18 @@ function eliminarCaptura(e) {
     dataSource.sync();
 
 }
+
+function PlanchaCuadrante()
+{
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        data[i].CuadranteID = $("#inputCuadrante").val();
+        data[i].Cuadrante = $("#inputCuadrante").data("kendoDropDownList").text();
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
