@@ -63,21 +63,20 @@ function AjaxCargaCamposPredeterminados() {
         var NewDate2 = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         endRangeDateV.val(NewDate2);
     });
-    $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoResultadoDimensionalPredeterminada }).done(function (data) {
+    //$ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoResultadoDimensionalPredeterminada }).done(function (data) {
         
-        if (data == "Aprobado") {
-            $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', true);
-            $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', false);
-            $("input:radio[name=ResultadoDimensional]:checked").change();
+        //if (data == "Aprobado") {
+        //    $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', true);
+        //    $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', false);
+        //    $("input:radio[name=ResultadoDimensional]:checked").change();
            
-        }
-        else if (data == "Rechazado") {
-            $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', false);
-            $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', true);
-            $("input:radio[name=ResultadoDimensional]:checked").change();
-           
-        }
-    });
+        //}
+        //else if (data == "Rechazado") {
+        //    $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', false);
+        //    $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', true);
+        //    $("input:radio[name=ResultadoDimensional]:checked").change();
+        //}
+    //});
     $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoResultadoVisualPredeterminada }).done(function (data) {
         if (data == "Aprobado") {
             $('input:radio[name=ResultadoVisual]:nth(0)').attr('checked', true);
@@ -177,9 +176,12 @@ function AjaxObtenerJSonGrid() {
             var array = JSON.parse(data);
 
             for (var i = 0; i < array.length; i++) {
-                array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
-                array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
-                ds.add(array[i]);
+                if (ExisteJunta(array[i].JuntaID)) {
+                    array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
+                    array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                    ds.add(array[i]);
+                }
+                
 
             }
         });
@@ -225,21 +227,13 @@ function AjaxGuardar(jSonCaptura) {
     }
 
     inspeccionDimensional[0] = { Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "" }
-
     inspeccionDimensional[0].Lenguaje = $("#language").val();
-
     inspeccionDimensional[0].InspeccionDimensionalID = $("#InspeccionDimensionalID").val();
-
     inspeccionDimensional[0].OrdenTrabajoSpoolID = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
-
     inspeccionDimensional[0].FechaInspeccion = kendo.toString(new Date($("#FechaInspeccion").data("kendoDatePicker").value()), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
-
     inspeccionDimensional[0].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
-
     inspeccionDimensional[0].ObreroID = $("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()).ObreroID;
-
     inspeccionDimensional[0].DefectoID = $("#inputDefecto").data("kendoComboBox").select() == -1 ? null : $("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).DefectoID;
-
     inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarInspeccionVisual;
 
     Captura[0].Detalles = inspeccionDimensional;

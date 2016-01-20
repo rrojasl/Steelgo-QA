@@ -43,10 +43,10 @@ function CargarFecha() {
     });
 
 };
-function ExisteJunta() {
+function ExisteJunta(Spool) {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
     for (var i = 0; i < jsonGrid.length; i++) {
-        if (jsonGrid[i].OrdenTrabajoID + '-' + jsonGrid[i].OrdenTrabajoSpoolID == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGrid[i].JuntaID == $("#Junta").val()) {
+        if ( jsonGrid[i].JuntaID == Spool) {
             return false;
         }
     }
@@ -116,7 +116,7 @@ function CargarGrid() {
                         Resultado: { type: "string", editable: true },
                         ResultadoID: { type: "string", editable: true },
                         TallerID: { type: "string", editable: true },
-                        Taller: { type: "string", editable: true },
+                        Taller: { type: "string", editable: true},
                         DefectosID: { type: "string", editable: true },
                         Defectos: { type: "string", editable: true },
                         InspectorID: { type: "string", editable: true },
@@ -131,6 +131,13 @@ function CargarGrid() {
 
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
             },
             pageSize: 20,
             serverPaging: false,
@@ -187,6 +194,8 @@ function isEditable(fieldName, model) {
 
     return true; // default to editable
 }
+
+
 function ArregloListadoCaptura() {
 
     JsonCaptura = [];
@@ -300,9 +309,12 @@ function cancelarCaptura(e) {
     e.preventDefault();
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     var spoolIDRegistro = dataItem.SpoolID;
-    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+    if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
         var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataSource.remove(dataItem);
+        dataItem.Accion = 3;
+        if (dataItem.InspeccionVisualID == 0)
+            dataSource.remove(dataItem);
+        $("#grid").data("kendoGrid").dataSource.sync();
 
     }
 };
