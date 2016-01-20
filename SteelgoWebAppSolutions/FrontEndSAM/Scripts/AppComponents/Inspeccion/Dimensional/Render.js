@@ -11,6 +11,7 @@
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Resultado = dataItem._Resultado;
+                options.model.ResultadoID = dataItem._ResultadoID;
                 if (options.model.Resultado == "Aprobado") {
                     options.model.DefectosID = "";
                     options.model.Defectos = "";

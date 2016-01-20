@@ -207,13 +207,18 @@ function PlanchaDefecto() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].DefectosID = $("#inputDefecto").val();
-            data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
+            if (data[i].Resultado != "Aprobado") {
+                data[i].DefectosID = $("#inputDefecto").val();
+                data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
+            }
+            
         }
         else {
             if (data[i].Defectos == "" || data[i].Defectos == null || data[i].Defectos == undefined) {
-                data[i].DefectosID = $("#inputDefecto").val();
-                data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
+                if (data[i].Resultado != "Aprobado") {
+                    data[i].DefectosID = $("#inputDefecto").val();
+                    data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
+                }
             }
         }
     }

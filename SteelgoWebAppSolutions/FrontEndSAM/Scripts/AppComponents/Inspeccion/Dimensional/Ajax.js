@@ -106,33 +106,52 @@ function AjaxobtenerDetalleDimensional(spoolID) {
 
 function AjaxObtenerJSonGrid() {
 
-    loadingStart();
-    try {
+    
+    if (ExisteJunta()) {
+        
+        try {
+            loadingStart();
+            $InspeccionDimensional.InspeccionDimensional.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
 
-        $InspeccionDimensional.InspeccionDimensional.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                var array = JSON.parse(data);
+                if (array.length > 0) {
+                    for (var i = 0; i < array.length; i++) {
+                        array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
+                        array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                        ds.add(array[i]);
 
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            var array = JSON.parse(data);
-            if (array.length > 0) {
-                for (var i = 0; i < array.length; i++) {
-                    array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
-                    array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
-                    ds.add(array[i]);
+                    }
+                }
+                else {
 
                 }
-            }
-            else {
+                loadingStop();
+            });
 
-            }
-            loadingStop();
-        });
+        } catch (e) {
+            displayMessage("Mensajes_error", e.message, '2');
+        }
 
-    } catch (e) {
-        displayMessage("Mensajes_error", e.message, '2');
     }
-
+    else {
+        
+        loadingStop();
+    }
    
 
+}
+
+function ExisteJunta() {
+    var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGridArmado.length; i++) {
+        if (jsonGridArmado[i].OrdenTrabajoSpool  == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").data("kendoComboBox").text())) {
+            
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -143,39 +162,45 @@ function AjaxGuardar(jSonCaptura) {
 
     var mensaje = '';
     inspeccionDimensional = [];
-    for (index = 0; index < jSonCaptura.length; index++) {
-        inspeccionDimensional[index] = { Accion: "", InspeccionDimensionalID: "", FechaInspeccion: "", ResultadoID: "", Resultado: "", InspectorID: "", Inspector: "", DefectosID: "", Defectos: "", OrdenTrabajoSpoolID: "" }
+    if (InspectorCorrecto(jSonCaptura)) {
+        for (index = 0; index < jSonCaptura.length; index++) {
+            inspeccionDimensional[index] = { Accion: "", InspeccionDimensionalID: "", FechaInspeccion: "", ResultadoID: "", Resultado: "", InspectorID: "", Inspector: "", DefectosID: "", Defectos: "", OrdenTrabajoSpoolID: "" }
+            inspeccionDimensional[index].Accion = jSonCaptura[index].Accion;
+            inspeccionDimensional[index].InspeccionDimensionalID = jSonCaptura[index].InspeccionDimensionalID;
+            inspeccionDimensional[index].OrdenTrabajoSpoolID = jSonCaptura[index].OrdenTrabajoSpoolID;
+            inspeccionDimensional[index].ResultadoID = jSonCaptura[index].ResultadoID;
+            inspeccionDimensional[index].DefectosID = jSonCaptura[index].DefectosID;
+            inspeccionDimensional[index].InspectorID = jSonCaptura[index].InspectorID;
+            inspeccionDimensional[index].FechaInspeccion = kendo.toString(jSonCaptura[index].FechaInspeccion, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+        }
+        Captura[0].Detalles = inspeccionDimensional;
 
-        inspeccionDimensional[index].Accion = jSonCaptura[index].Accion;
+        $InspeccionDimensional.InspeccionDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                mensaje = "Se guardo correctamente la informacion" + "-0";
+                displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+            }
+            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+            }
+            loadingStop();
 
-        inspeccionDimensional[index].InspeccionDimensionalID = jSonCaptura[index].InspeccionDimensionalID;
-
-        inspeccionDimensional[index].OrdenTrabajoSpoolID = jSonCaptura[index].OrdenTrabajoSpoolID;
-
-        inspeccionDimensional[index].ResultadoID = jSonCaptura[index].ResultadoID;
-
-        inspeccionDimensional[index].DefectosID = jSonCaptura[index].DefectosID;
-
-        inspeccionDimensional[index].InspectorID = jSonCaptura[index].InspectorID;
-
-        inspeccionDimensional[index].FechaInspeccion = kendo.toString(jSonCaptura[index].FechaInspeccion, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
-
-
+        });
     }
-    Captura[0].Detalles = inspeccionDimensional;
-
-    $InspeccionDimensional.InspeccionDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            mensaje = "Se guardo correctamente la informacion" + "-0";
-            displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
-        }
-        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-            displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
-        }
+    else {
         loadingStop();
-       
-    });
+        displayMessage("InpeccionDimensionalErrorInspectorMensaje", "", '1');
+    }
+}
 
-    
+
+
+function InspectorCorrecto(array) {
+    for (var i= 0 ; i < array.length ; i++) {
+        if (array[i].InspectorID == "" || array[i].InspectorID == undefined || array[i].InspectorID == null) {
+            return false;
+        }
+    }
+    return true;
 }
