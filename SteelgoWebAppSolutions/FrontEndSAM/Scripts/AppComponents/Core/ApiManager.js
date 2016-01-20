@@ -13,7 +13,7 @@
 //LOCALHOST BASE URL's
 
 var $BackEndSAMUri = 'http://localhost:60960';
-var $SecuritySAMUri = 'http://localhost:50816';
+var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:61066';
 var $FilesSAMUri = 'http://localhost:60971';
@@ -48,7 +48,6 @@ var $MedioTransporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Pintura
 var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaCarroBackLog = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $LotesCapturaReporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
 
@@ -165,7 +164,7 @@ $MedioTransporte.add("MedioTransporte");
 //Pintura
 $CargaCarroBackLog.add('CargaCarroBackLog');
 $CapturaAvance.add('CapturaAvance');
-$LotesCapturaReporte.add('LotesCapturaReporte');
+
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');
 $AsignarRequisicion.add('AsignarRequisicion');

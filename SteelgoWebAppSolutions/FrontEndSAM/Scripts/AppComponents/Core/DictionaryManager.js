@@ -3821,51 +3821,49 @@ _dictionary = {
     },
     //#endregion
     //#endregion
-
-    "JuntaSinSeleccionar": {
-        "es-MX": "se necesita una junta",
-        "en-US": "you need a board"
-    },
-    
-    //#region menu
+    //#menu
     "menuFabricacion": {
         "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+        "en-US": "manufacturing"
     },
     "menuArmado": {
         "es-MX": "Armado",
-        "en-US": "Assembly"
+        "en-US": "assembly"
     },
     "menuSoldadura": {
         "es-MX": "Soldadura",
-        "en-US": "Welding"
+        "en-US": "welding"
     },
     "menuInspeccion": {
         "es-MX": "Inspección",
-        "en-US": "Inspection"
+        "en-US": "inspection"
     },
     "menuInspeccionDimensional": {
         "es-MX": "Dimensional",
         "en-US": "Dimensional"
     },
     "menuInspeccionVisualDimensional": {
-        "es-MX": "Visual Dimensional",
-        "en-US": "Visual and Dimensional"
+        "es-MX": "Visual dimensional",
+        "en-US": "Visual and dimensional"
+    },
+    "mensajeEliminarInspeccionVisualDimensional": {
+        "es-MX": "¿Esta seguro de  Eliminar los datos para la junta?",
+        "en-US": "Are you sure to delete data for the joint?"
     },
     "menuServiciosTecnicos": {
-        "es-MX": "Servicios Técnicos",
-        "en-US": "Technical Services"
+        "es-MX": "Servicios técnicos",
+        "en-US": "Technical services"
     },
     "menuServiciosTecnicosAsignarRequisicion": {
-        "es-MX": "Asignar Requisición",
-        "en-US": "Assign Requisition"
+        "es-MX": "Asignar requisición",
+        "en-US": "assign requisition"
     },
     "menuServiciosTecnicosCapturaReportePruebas": {
-        "es-MX": "Captura Reporte",
+        "es-MX": "Captura reporte",
         "en-US": "Report Capture"
     },
     "menuServiciosTecnicosEntregaResultados": {
-        "es-MX": "Entrega de Resultados",
+        "es-MX": "Entrega de resultados",
         "en-US": "Delivering Results"
     },
     "menuServiciosTecnicosGenerarRequisicion": {
@@ -3873,48 +3871,48 @@ _dictionary = {
         "en-US": "Requisition"
     },
     "menuServiciosTecnicosGenerarImpresion": {
-        "es-MX": "Impresion de Resultados",
-        "en-US": "Print Results"
+        "es-MX": "Impresion de resultados",
+        "en-US": "Print results"
     },
     "menuServiciosTecnicosGenerarListadoRequisicion": {
-        "es-MX": "Listado de Requisiciones",
-        "en-US": "List of Requisitions"
+        "es-MX": "Listado de requisiciones",
+        "en-US": "List of requisitions"
     },
     "menuServiciosTecnicosGenerarRequisicionesAsignadas": {
-        "es-MX": "Requisiciones Asignadas",
-        "en-US": "Assigned Requisitions"
+        "es-MX": "Requisiciones asignadas",
+        "en-US": "assigned requisitions"
     },
     "menuServiciosTecnicosGenerarValidacionResultados": {
-        "es-MX": "Validación de Resultados",
-        "en-US": "Validation of Results "
+        "es-MX": "Validación de resultados",
+        "en-US": "Validation of results "
     },
     "menuPintura": {
         "es-MX": "Pintura",
-        "en-US": "Painting "
+        "en-US": "painting "
     },
     "menuPinturaCargaCarro": {
-        "es-MX": "Carga de Carro",
-        "en-US": "Load Carriage"
+        "es-MX": "carga de carro",
+        "en-US": "load carriage"
     },
     "menuPinturaCargaCarroBack": {
-        "es-MX": "Carga de Carro Backlog",
-        "en-US": "Truck Load Backlog"
+        "es-MX": "carga de carro backlog",
+        "en-US": "truck load backlog"
     },
     "menuPinturaCargaAvance": {
-        "es-MX": "Avance",
-        "en-US": "Progress"
+        "es-MX": "avance",
+        "en-US": "progress"
     },
     "menuPinturaDescargaCarro": {
-        "es-MX": "Descarga de Carro",
-        "en-US": "Descarga de Carro"
+        "es-MX": "descarga de carro",
+        "en-US": "descarga de carro"
     },
     "menuPinturaCapturaAvanceIntAcabado": {
-        "es-MX": "Intermedio - Avanzado",
+        "es-MX": "intermedio - avanzado",
         "en-US": "Intermediate - Advanced"
     },
     "menuPinturaLotesCapturaReporte": {
-        "es-MX": "Captura Reporte",
-        "en-US": "Capture Report "
+        "es-MX": "Captura reporte",
+        "en-US": "Capture report "
     },
     "menuEmbarque": {
         "es-MX": "Embarque",
@@ -3930,19 +3928,19 @@ _dictionary = {
     },
     "menuEmbarqueCargas": {
         "es-MX": "Cargas",
-        "en-US": "Loads"
+        "en-US": "loads "
     },
     "menuEmbarqueEbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment "
     },
     "menuEmbarqueListadoEmbarque": {
-        "es-MX": "Listado Cargas",
-        "en-US": "Loads List "
+        "es-MX": "Listado cargas",
+        "en-US": "Loads list "
     },
     "menuEmbarqueRevisionEmbarque": {
-        "es-MX": "Revision Embarque",
-        "en-US": "Shipment Review "
+        "es-MX": "revision embarque",
+        "en-US": "shipment review "
     },
     //#endregion
     //#region Trabajos adicionales
@@ -4178,12 +4176,7 @@ _dictionary = {
     },
     //#endregion
     //#endregion
-    //#region Armado 
-    
-    "CapturaMensajeArmadoDatosIncompletos": {
-            "es-MX": "Existen spools incompletos , porfavor borralos o captura la informacion faltante",
-            "en-US": "There are incomplete spools please delete them or capture the missing information"
-        },
+    //#region Armado  
     "CapturaArmadoArmadoSpool": {
         "es-MX": "Armado de Spool",
         "en-US": "spool assembly"
@@ -4609,11 +4602,6 @@ _dictionary = {
         "es-MX": "Aplicar",
         "en-US": "Apply"
     },
-    
-    "btnGuardarPiePagina": {
-            "es-MX": "Guardar",
-            "en-US": "Save"
-        },
     "CapturaSoldaduraGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
@@ -5705,59 +5693,75 @@ _dictionary = {
     "PinturaGuardarErrorDesGuardar": {
         "es-MX": "Hay un error en la actualizacion de la informacion",
         "en-US": "no information was saved"
-    }
+    },
 
     //#endregion
 
-    //#region LotesCapturaReporte
-    ,
-    "LotesCapturaReporteSistema": {
-        "es-MX": "Sistema Pintura",
-        "en-US": "Paint system"
-    }
-    ,
-    "LotesCapturaReporteLote": {
-        "es-MX": "Lote",
-        "en-US": "Lot"
-    }
-    ,
-    "LotesCapturaReporteBuscar": {
-        "es-MX": "Buscar",
-        "en-US": "Search"
-    }
-    ,
-    "PinturaLotesCapturaReporteNombreSpool": {
+    //#region PinturaCarga
+
+    "CapturaAvanceSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
-    }
-    ,
-    "PinturaLotesCapturaReporteSistemaPintura": {
+    },
+    "CapturaAvanceSistemaPintura": {
         "es-MX": "Sistema Pintura",
         "en-US": "Paint System"
-    }
-    ,
-    "PinturaLotesCapturaReporteColor": {
+    },
+    "CapturaAvanceColor": {
         "es-MX": "Color",
-        "en-US": "color"
-    }
-        ,
-    "PinturaLotesCapturaReporteNombreCuadrante": {
-        "es-MX": "Cuadrante",
-        "en-US": "Quadrant"
-    }
-        ,
-    "PinturaLotesCapturaReporteCapturaPrueba": {
-        "es-MX": "¿Se realizo alguna prueba?",
-        "en-US": "did you make any proof?"
+        "en-US": "Color"
     },
-    "CapturaAvanceTitulo": {
-        "es-MX": "Alerta!!!",
-        "en-US": "Warning!!!"
+    "CapturaAvanceShotBlastero": {
+        "es-MX": "Shotblastero",
+        "en-US": "Shotblastero"
+    },
+    "CapturaAvancePintor": {
+        "es-MX": "Pintor",
+        "en-US": "Painter"
+    },
+    "CapturaAvanceM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "CapturaAvanceDescargar": {
+        "es-MX": "Descargar",
+        "en-US": "Discharge"
+    },
+    "CapturaAvanceCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "CapturaAvanceFechaShotblast": {
+        "es-MX": "Fecha ShotBlast",
+        "en-US": "ShotBlast Date"
+    },
+    "CapturaAvanceFechaPrimario": {
+        "es-MX": "Fecha Primario",
+        "en-US": "Primary Date"
+    },
+    "CapturaAvanceComponente": {
+        "es-MX": "Componenente",
+        "en-US": "Component"
+    },
+    "CapturaAvanceGuardadoCorrecto": {
+        "es-MX": "Datos guardados correctamente",
+        "en-US": "Save data correctly"
+    },
+    "CapturaAvancebtnDescargaCarro": {
+        "es-MX": "Descarga Carro",
+        "en-US": "Car Discharge"
+    },
+    "CapturaAvancebtnDescargaCarro2": {
+        "es-MX": "Descarga Carro",
+        "en-US": "Car Discharge"
     },
 
-}
+    "CapturaAvanceCuadrante": {
+        "es-MX": "Cuadrante de descarga",
+        "en-US": "Quadrant of discharge"
+    },
+    //#endregion
 
-//#endregion
-
+};
 
 
