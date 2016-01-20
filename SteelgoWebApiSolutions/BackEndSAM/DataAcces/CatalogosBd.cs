@@ -2000,10 +2000,21 @@ namespace BackEndSAM.DataAcces
                                     ctx.Sam3_Diametro.Add(diam1);
                                     ctx.SaveChanges();
                                     datos.Diametro1ID = diam1.DiametroID.ToString();
+
+                                        //Se inserta el espesor para el nuevo diametro
+                                        decimal espesorMM = Convert.ToDecimal(datos.MM);
+                                        Sam3_Espesor espesor = new Sam3_Espesor();
+                                        espesor.CedulaID = null;
+                                        espesor.DiametroID = Convert.ToInt32(datos.Diametro1ID);
+                                        espesor.Valor = Convert.ToDecimal(datos.MM);
+                                        espesor.Activo = 1;
+                                        espesor.UsuarioModificacion = usuario.UsuarioID;
+                                        espesor.FechaModificacion = DateTime.Now;
+                                        ctx.Sam3_Espesor.Add(espesor);
+                                        ctx.SaveChanges();
                                 }
 
                                 //Insertamos diametro 2 en Sam3
-
                                 if (!ctx.Sam3_Diametro.Where(x => x.Valor == diametro2 && x.Activo).Any())
                                 {
                                     Sam3_Diametro diam2 = new Sam3_Diametro();
@@ -2536,6 +2547,37 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
             
+        }
+
+        public object validarDiametroExistente(string diametro)
+        {
+            try {
+                using (SamContext ctx = new SamContext())
+                {
+                    decimal valor = Convert.ToDecimal(diametro);
+                    if (ctx.Sam3_Diametro.Where(x => x.Valor == valor && x.Activo).Any())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
         }
     }
 }

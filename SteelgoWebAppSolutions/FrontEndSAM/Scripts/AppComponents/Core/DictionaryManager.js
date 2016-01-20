@@ -1352,6 +1352,14 @@ _dictionary = {
         "es-MX": "El ItemCode Steelgo seleccionado se encuentra asociado",
         "en-US": "Steel Type"
     },
+    "ItemCodeSteelGo0028": {
+        "es-MX": "El espesorIN y espesorMM son requeridos",
+        "en-US": "You must enter a thicknessIN and thicknessMM"
+    },
+    "ItemCodeSteelGo0029": {
+        "es-MX": "El peso es requerido",
+        "en-US": "You must enter a Weight"
+    },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
