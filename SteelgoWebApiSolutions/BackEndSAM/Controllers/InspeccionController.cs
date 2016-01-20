@@ -12,9 +12,10 @@ using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class InspeccionController : ApiController
     {
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        
         public object Get(string JsonCaptura, string token, string Lenguaje)
         {
             string payload = "";

@@ -5777,7 +5777,6 @@ _dictionary = {
     //#endregion
 
     //#region LotesCapturaReporte
-    ,
     "LotesCapturaReporteSistema": {
         "es-MX": "Sistema Pintura",
         "en-US": "Paint system"

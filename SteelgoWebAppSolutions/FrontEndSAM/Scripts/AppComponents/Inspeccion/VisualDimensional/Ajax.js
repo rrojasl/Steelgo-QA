@@ -17,11 +17,16 @@ function AjaxObtenerListaInspector() {
     });
 }
 function AjaxObtenerListaTaller() {
+    try{
+        $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
+            $("#inputTaller").data("kendoComboBox").value("");
+            $("#inputTaller").data("kendoComboBox").dataSource.data(data);
+        });
+    }
+    catch (e) {
 
-    $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
-        $("#inputTaller").data("kendoComboBox").value("");
-        $("#inputTaller").data("kendoComboBox").dataSource.data(data);
-    });
+    }
+    
 }
 function AjaxObtenerListaInspectorVisual() {
     
