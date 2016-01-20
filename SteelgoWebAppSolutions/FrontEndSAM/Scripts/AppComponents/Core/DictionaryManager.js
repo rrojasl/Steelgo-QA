@@ -5846,6 +5846,165 @@ _dictionary = {
         "en-US": " Dimensional Inspection"
     },
 
+    //#region CapturaAvanceIntAcabado
+
+    
+    "lblCapturaAvanceIntAcabadoInicio": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "lblPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "lblCapturaAvanceIntAcabado": {
+        "es-MX": "Captura Avance",
+        "en-US": "Capture Progress"
+    },
+    "lblGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "lblGuardarYNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "lblCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "lblCapturaDePruebas": {
+        "es-MX": "Captura de Pruebas",
+        "en-US": "Capturing Test"
+    },
+    "lblCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrants"
+    },
+    "lblPaso": {
+        "es-MX": "Paso",
+        "en-US": "Footprint"
+    },
+    "lblPasoIntermedio": {
+        "es-MX": "Intermedio",
+        "en-US": "Medium"
+    },
+    "lblPasoAcabado": {
+        "es-MX": "Acabado",
+        "en-US": "Finishes"
+    },
+    "lblMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "lblCapturaAvanceIntAcabadoColor": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "lblCapturaAvanceIntAcabadoFecha": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "lblCapturaAvanceIntAcabadoPintor": {
+        "es-MX": "Pintor",
+        "en-US": "Painter"
+    },
+    "lblCapturaAvanceIntAcabadoLote": {
+        "es-MX": "Lote",
+        "en-US": "Lot"
+    },
+    "lblCapturaAvanceIntAcabadoSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "ID spool"
+    },
+    "CapturaAvanceIntAcabadoHeaderSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "CapturaAvanceIntAcabadoHeaderSistemaPintura": {
+        "es-MX": "Sistema pintura",
+        "en-US": "Paint System"
+    },
+    "CapturaAvanceIntAcabadoHeaderColor": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "CapturaAvanceIntAcabadoHeaderMetros2": {
+        "es-MX": "Metros2",
+        "en-US": "Meters2"
+    },
+    "CapturaAvanceIntAcabadoHeaderLote": {
+        "es-MX": "Lote",
+        "en-US": "Lot"
+    },
+    "CapturaAvanceIntAcabadoHeaderPinturaComponenteComposicion": {
+        "es-MX": "Componente",
+        "en-US": "Component"
+    },
+    "CapturaAvanceIntAcabadoHeaderPintor": {
+        "es-MX": "Pintor",
+        "en-US": "Painter"
+    },
+
+    "CapturaAvanceIntAcabadoHeaderFechaPintura": {
+        "es-MX": "Fecha Pintura",
+        "en-US": "Painting Date"
+    },
+
+    "CapturaAvanceIntAcabadoPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de pintura?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of painting ?"
+    },
+
+    "CapturaAvanceIntAcabadoPintores": {
+        "es-MX": "Pintores",
+        "en-US": "Painters"
+    },
+
+    "CapturaAvanceIntAcabadoMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+
+    "CapturaAvanceIntAcabadoMensajeErrorGuardadoColores": {
+        "es-MX": "Seleccione un color para cada spool.",
+        "en-US": "Set a color per spool."
+    },
+    "CapturaAvanceIntAcabadoMensajeErrorGuardado": {
+        "es-MX": "Error al guardar",
+        "en-US": "Error"
+    },
+    "CapturaAvanceIntAcabadoMensajePreguntaGuardado": {
+        "es-MX": "Sólo se guardarán los registros que estén completos. ¿Desea continuar?", 
+        "en-US": "Only will be saved complete fields. Continue anyway?"
+    },
+    "CapturaAvanceIntAcabadoMensajeErrorGuardadoComponente": {
+        "es-MX": "Seleccione un componente para cada spool.",
+        "en-US": "Set a component per spool."
+    },
+    "lblCapturaAvanceIntAcabadoPinturaComponenteComposicion": {
+        "es-MX": "Componente.",
+        "en-US": "Component"
+    },
+    "lblCapturaAvanceIntAcabadoSistemaPintura": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System"
+    },
+    "CapturaAvanceIntAcabadoHeaderLlenadoMasivo": {
+        "es-MX": "Llenado masivo",
+        "en-US": "Filling mass" 
+    },
+    "CapturaAvanceIntAcabadoPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de pintura?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of paint ?"
+
+    },
+    "WarningTitle": {
+        "es-MX": "Advertencia",
+        "en-US": "Warning"
+    }
+    //#endregion
+
 }
 
 //#endregion
