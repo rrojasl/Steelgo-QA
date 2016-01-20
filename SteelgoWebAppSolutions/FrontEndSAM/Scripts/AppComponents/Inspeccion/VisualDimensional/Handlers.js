@@ -40,8 +40,12 @@ function SuscribirEventoSpoolID() {
         }
         ,
         change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
             if ($("#InputID").val().length == 1) {
                 $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
+            }
+            if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
             }
             AjaxObtenerListaTaller();
 
