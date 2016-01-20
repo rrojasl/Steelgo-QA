@@ -239,7 +239,12 @@ function SuscribirEventoEliminar(idtable) {
 };
 function suscribirEventoGuardar() {
 
-    
+    $('#Guardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardar(ds._data);
+    });
+
+
     $('#btnGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         
@@ -252,6 +257,7 @@ function suscribirEventoGuardar() {
 
 
     });
+
 
     $('#btnGuardarYNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;

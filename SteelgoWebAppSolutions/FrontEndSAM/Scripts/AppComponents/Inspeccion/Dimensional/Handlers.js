@@ -157,7 +157,10 @@ function suscribirEventoAgregar() {
 }
 function suscribirEventoGuardar() {
 
-   
+    $('#Guardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardar(ds._data);
+    });
 
 
     $('#btnGuardar').click(function (e) {
