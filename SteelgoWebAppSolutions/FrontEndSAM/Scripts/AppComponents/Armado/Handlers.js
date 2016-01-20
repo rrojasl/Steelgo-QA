@@ -33,11 +33,13 @@ function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
             AjaxJunta($("#InputID").val());
+            FiltroMostrar(0);
         }
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
         if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
             AjaxJunta($("#InputID").val());
+            FiltroMostrar(1);
         }
     });
 
@@ -75,7 +77,7 @@ function suscribirEventoGuardar() {
 }
 
 function opcionHabilitarRadioTipoCaptura(valor) {
-    var combobox = $("#InputID").data("kendoComboBox");
+    var combobox = $("#InputID").data("kendoDropDownList");
     if (valor) {
     }
     else {
@@ -87,10 +89,10 @@ function Limpiar() {
 
     $("#InputOrdenTrabajo").val("");
 
+    
+    $("#InputID").data("kendoDropDownList").dataSource.data([]);
 
-    $("#InputID").data("kendoComboBox").value("");
-
-    $("#Junta").data("kendoDropDownList").value("");
+    $("#Junta").data("kendoDropDownList").dataSource.data([]);
 
     var radioButtons = document.getElementsByName('Muestra');
 
@@ -185,7 +187,7 @@ function SuscribirEventosJunta() {
     $('#Junta').closest('.k-widget').keydown(function (e) {
 
         if (e.keyCode == 37) {
-            $("#InputID").data("kendoComboBox").input.focus();
+            $("#InputID").data("kendoDropDownList").input.focus();
             $("#Junta").val("");
         }
         else if (e.keyCode == 39) {
@@ -220,20 +222,20 @@ function SuscribirEventosJunta() {
 
 function deshabilitaSpool() {
     $("#InputOrdenTrabajo").prop("disabled", true);
-    $("#InputID").data("kendoComboBox").enable(false);
+    $("#InputID").data("kendoDropDownList").enable(false);
 
 }
 
 function habilitaSpool() {
     $("#InputOrdenTrabajo").prop("disabled", false);
-    $("#InputID").data("kendoComboBox").enable(true);
+    $("#InputID").data("kendoDropDownList").enable(true);
 
 }
 
 
 function SuscribirEventoSpoolID() {
     var dataItem;
-    $("#InputID").kendoComboBox({
+    $("#InputID").kendoDropDownList({
         dataTextField: "IDValido",
         dataValueField: "Valor",
         suggest: true,
@@ -242,21 +244,22 @@ function SuscribirEventoSpoolID() {
         select: function (e) {
 
             dataItem = this.dataItem(e.item.index());
+            if (dataItem != undefined) {
+                if (dataItem.Status != "1") {
+                    e.preventDefault();
+                    $("#InputID").val("");
+                    console.log("borrar datos");
 
-            if (dataItem.Status != "1") {
-                e.preventDefault();
-                $("#InputID").val("");
-                console.log("borrar datos");
+                    displayMessage("Mensajes_error", dataItem.Status, '1');
 
-                displayMessage("Mensajes_error", dataItem.Status, '1');
-
-            }
-            else {
-                $("#InputID").val(dataItem.IDValido);
-                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                $("#LabelProyecto").text(dataItem.Proyecto);
-                AjaxObtenerListaTubero();
-                AjaxObtenerListaTaller();
+                }
+                else {
+                    $("#InputID").val(dataItem.IDValido);
+                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                    $("#LabelProyecto").text(dataItem.Proyecto);
+                    AjaxObtenerListaTubero();
+                    AjaxObtenerListaTaller();
+                }
             }
 
         }
@@ -264,7 +267,7 @@ function SuscribirEventoSpoolID() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if ($("#InputID").val().length == 1) {
-                $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
+                $("#InputID").data("kendoDropDownList").value(("00" + $("#InputID").val()).slice(-3));
             }
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
@@ -294,8 +297,8 @@ function SuscribirEventoSpoolID() {
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
-        $("#InputID").data("kendoComboBox").value("");
-        $("#InputID").data("kendoComboBox").setDataSource();
+        $("#InputID").data("kendoDropDownList").value("");
+        $("#InputID").data("kendoDropDownList").setDataSource();
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -308,7 +311,7 @@ function SuscribirEventoSpoolID() {
             $("#Junta").data("kendoDropDownList").input.focus();
         }
         else if (e.keyCode == 40)
-            $("#InputID").data("kendoComboBox").select();
+            $("#InputID").data("kendoDropDownList").select();
         else if (e.keyCode == 13) {
             if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
                 AjaxCargarReporteJuntas();
@@ -338,10 +341,12 @@ function eventoCambioTipoListado() {
         $("#JuntaDiv").css('display', 'none');
         $("#MuestraDiv").css('display', 'none');
         AjaxCargarCamposPredeterminadosOcultaJunta();
+        Limpiar();
     }
     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         $("#JuntaDiv").css('display', 'block');
         $("#MuestraDiv").css('display', 'block');
+        Limpiar();
     }
 }
 
@@ -374,7 +379,7 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $("#InputID").data("kendoComboBox").enable(false);
+        $("#InputID").data("kendoDropDownList").enable(false);
         $("#inputTubero").data("kendoComboBox").enable(false);
         $("#inputTaller").data("kendoComboBox").enable(false);
         $("#FechaArmado").data("kendoDatePicker").enable(false);
@@ -383,7 +388,7 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $("#InputID").data("kendoComboBox").enable(true);
+        $("#InputID").data("kendoDropDownList").enable(true);
         $("#inputTubero").data("kendoComboBox").enable(true);
         $("#inputTaller").data("kendoComboBox").enable(true);
         $("#FechaArmado").data("kendoDatePicker").enable(true);

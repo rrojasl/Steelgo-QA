@@ -106,11 +106,11 @@ function AjaxGuardarCaptura(arregloCaptura) {
                 if (ListaDetalles[index].ProcesoSoldaduraRaizID == null || ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == undefined || ListaDetalles[index].ProcesoSoldaduraRaizID == 0)
                     banderaProcesoRaiz = false;
             }
-            if(arregloCaptura[index].PermiteTerminadoRelleno){
-                if (ListaDetalles[index].ProcesoSoldaduraRellenoID == null || ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == undefined || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 )
-                    banderaProcesoRelleno = false;    
+            if (arregloCaptura[index].PermiteTerminadoRelleno) {
+                if (ListaDetalles[index].ProcesoSoldaduraRellenoID == null || ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == undefined || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0)
+                    banderaProcesoRelleno = false;
             }
-            
+
 
 
             ListaTrabajosAdicionalesEditados = [];
@@ -175,7 +175,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
                     ListaRellenoEditados[j].Accion = arregloCaptura[index].Relleno[j].Accion;
                 }
 
-                
+
                 ListaRellenoEditados[j].JuntaSoldaduraSoldadoID = arregloCaptura[index].Relleno[j].JuntaSoldaduraSoldadoID;
                 ListaRellenoEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
                 ListaRellenoEditados[j].TipoSoldaduraID = arregloCaptura[index].procesoSoldaduraRellenoID;
@@ -225,20 +225,25 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
 
 function AjaxCargarReporteJuntas() {
-    var listadoReporte = ArregloListadoReporte();
+    if (ExisteJunta()) {
+        var listadoReporte = ArregloListadoReporte();
 
-    for (var i = 0; i < listadoReporte.length; i++) {
-        if (ExisteJuntaReporte(listadoReporte[i].JuntaID)) {
-            loadingStart();
-            $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                var array = JSON.parse(data);
-                for (var i = 0; i < array.length; i++) {
-                    ds.add(array[i]);
-                }
-                loadingStop();
-            });
+        for (var i = 0; i < listadoReporte.length; i++) {
+            if (ExisteJuntaReporte(listadoReporte[i].JuntaID)) {
+                loadingStart();
+                $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+                    var ds = $("#grid").data("kendoGrid").dataSource;
+                    var array = JSON.parse(data);
+                    for (var i = 0; i < array.length; i++) {
+                        ds.add(array[i]);
+                    }
+                    loadingStop();
+                });
+            }
         }
+    }
+    else {
+        displayMessage("CapturaArmadoMensajeJuntaExistente", "", '1');
     }
 }
 

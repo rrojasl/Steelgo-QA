@@ -10,6 +10,22 @@ var listaRellenoFiltro;
 
 IniciarCapturaSoldadura();
 
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+    }
+    else {
+        var filters = ds.filter();
+        filters.logic = "or"
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        ds.sync();
+    }
+}
+
 function PlanchaRelleno() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
@@ -282,13 +298,37 @@ function cancelarCaptura(e) {
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     var spoolIDRegistro = dataItem.SpoolID;
 
-    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+    windowTemplate = kendo.template($("#windowTemplate").html());
+
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        iframe: true,
+        title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "auto",
+        height: "auto",
+        modal: true
+    }).data("kendoWindow");
+
+    ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                 "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+    ventanaConfirm.open().center();
+
+    $("#yesButton").click(function () {
+       
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataItem.Accion = 3;
         if (dataItem.JuntaSoldaduraID == 0)
             dataSource.remove(dataItem);
         $("#grid").data("kendoGrid").dataSource.sync();
-    }
+
+        ventanaConfirm.close();
+    });
+    $("#noButton").click(function () {
+        ventanaConfirm.close();
+    });
+
+   
 };
 
 function changeLanguageCall() {

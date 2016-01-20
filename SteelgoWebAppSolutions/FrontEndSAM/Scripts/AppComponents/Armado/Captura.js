@@ -46,12 +46,12 @@ function ArregloListadoCaptura() {
     JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", SinCaptura: "" };
     //combobox.text()
     var fechaArmado = new Date($("#FechaArmado").data("kendoDatePicker").value());
-    JsonCaptura[0].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
-    JsonCaptura[0].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
+    JsonCaptura[0].IDProyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).ProyectoID;
+    JsonCaptura[0].Proyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).Proyecto;
     JsonCaptura[0].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
     JsonCaptura[0].OrdenTrabajo = $("#InputOrdenTrabajo").val();
     JsonCaptura[0].IdVal = $("#InputID").val();
-    JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text();
+    JsonCaptura[0].IdText = $("#InputID").data("kendoDropDownList").text();
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
     JsonCaptura[0].Junta = $("#Junta").data("kendoDropDownList").text();
@@ -64,7 +64,27 @@ function ArregloListadoCaptura() {
 
     return JsonCaptura[0];
 }
+
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+    }
+    else {
+        var filters = ds.filter();
+        filters.logic = "or"
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        ds.sync();
+    }
+}
+
+
+
 function CargarGrid() {
+   
     $("#grid").kendoGrid({
         autoBind: true,
         edit: function (e) {
@@ -84,13 +104,11 @@ function CargarGrid() {
             ItemSeleccionado = this.dataSource.view()[this.select().index()];
         },
         dataSource: {
-            data: '',
             schema: {
                 model: {
                     fields: {
                         Accion: { type: "int", editable: false },
-                        JuntaTrabajoID: { type: "int", editable: false },
-                        JuntaArmadoID: { type: "int", editable: false },
+                       
                         IDProyecto: { type: "int", editable: false },
                         SinCaptura: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
@@ -289,14 +307,15 @@ function eliminarCaptura(e) {
 
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
         iframe: true,
-        title: _dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()],
+        title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
         visible: false, //the window will not appear before its .open method is called
-        width: "400px",
-        height: "200px",
+        width: "auto",
+        height: "auto",
         modal: true
     }).data("kendoWindow");
 
-    ventanaConfirm.content(windowTemplate(this.dataSource, dataItem));
+    ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                 "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
     ventanaConfirm.open().center();
 
@@ -390,12 +409,12 @@ function ArregloListadoReporte() {
 
     for (var i = 0; i < lista.length ; i++) {
         JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };
-        JsonCaptura[i].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
-        JsonCaptura[i].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
+        JsonCaptura[i].IDProyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).ProyectoID;
+        JsonCaptura[i].Proyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).Proyecto;
         JsonCaptura[i].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].OrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].idVal = $("#InputID").val();
-        JsonCaptura[i].idText = $("#InputID").data("kendoComboBox").text();
+        JsonCaptura[i].idText = $("#InputID").data("kendoDropDownList").text();
         JsonCaptura[i].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
         JsonCaptura[i].JuntaID = lista[i].JuntaSpoolID;
         JsonCaptura[i].Junta = lista[i].Etiqueta;
@@ -416,12 +435,12 @@ function ArregloListadoJuntasCapturadas() {
 
 
     JsonCaptura = [];
-    
+
 
     for (var i = 0; i < data.length ; i++) {
         JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };
         JsonCaptura[i].IDProyecto = data[i].IDProyecto;
-        JsonCaptura[i].Proyecto =data[i].Proyecto;
+        JsonCaptura[i].Proyecto = data[i].Proyecto;
         JsonCaptura[i].IdOrdenTrabajo = data[i].IdOrdenTrabajo;
         JsonCaptura[i].OrdenTrabajo = data[i].OrdenTrabajo;
         JsonCaptura[i].idVal = data[i].IdVal;
