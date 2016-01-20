@@ -3840,6 +3840,15 @@ _dictionary = {
         "es-MX": "Soldadura",
         "en-US": "Welding"
     },
+    "menuSoldadur": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    
+    "menuSoldaduraPie": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
     "menuInspeccion": {
         "es-MX": "Inspección",
         "en-US": "Inspection"
