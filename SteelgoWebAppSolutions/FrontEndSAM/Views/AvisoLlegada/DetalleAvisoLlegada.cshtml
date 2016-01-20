@@ -479,6 +479,7 @@
                     change: function (e) {
                         var dataItem = this.dataItem();
                         if (dataItem.PatioID == 0) {
+                            this.value("");
                             VentanaModal(4);
                             e.preventDefault();
                         }
@@ -557,6 +558,7 @@
                     change: function (e) {
                         var dataItem = this.dataItem();
                         if (dataItem.TransportistaID == 0) {
+                            this.value("");
                             VentanaModal(1);
                             e.preventDefault();
                         }
@@ -596,6 +598,7 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         if (dataItem.PlanaID == 0) {
+                            this.value("");
                             VentanaModal(3);
                             e.preventDefault();
                         }
@@ -612,6 +615,7 @@
                     change: function (e) {
                         var dataItem = this.dataItem();
                         if (dataItem.ChoferID == 0) {
+                            this.value("");
                             VentanaModal(5);
                             e.preventDefault();
                         }
@@ -715,6 +719,7 @@
                     change: function (e) {
                         var dataItem = this.dataItem();
                         if (dataItem.VehiculoID == 0) {
+                            this.value("");
                             VentanaModal(6);
                             e.preventDefault();
                         }

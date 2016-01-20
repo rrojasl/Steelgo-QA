@@ -411,6 +411,7 @@
                 change: function (e) {
                     var dataItem = this.dataItem();
                     if (dataItem.ProveedorID == 0) {
+                        this.value("");
                         VentanaModal(2);
                         e.preventDefault();
                     }
@@ -436,6 +437,7 @@
                 change: function (e) {
                     var dataItem = this.dataItem();
                     if (dataItem.PatioID == 0) {
+                        this.value("");
                         VentanaModal(1);
                         e.preventDefault();
                     }
