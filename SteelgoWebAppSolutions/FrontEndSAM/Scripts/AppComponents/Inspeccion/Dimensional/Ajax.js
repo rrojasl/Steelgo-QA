@@ -169,7 +169,7 @@ function AjaxGuardar(jSonCaptura) {
             inspeccionDimensional[index].InspeccionDimensionalID = jSonCaptura[index].InspeccionDimensionalID;
             inspeccionDimensional[index].OrdenTrabajoSpoolID = jSonCaptura[index].OrdenTrabajoSpoolID;
             inspeccionDimensional[index].ResultadoID = jSonCaptura[index].ResultadoID;
-            inspeccionDimensional[index].DefectosID = jSonCaptura[index].DefectosID;
+            inspeccionDimensional[index].DefectosID = jSonCaptura[index].DefectosID == "" ? 0 : jSonCaptura[index].DefectosID;
             inspeccionDimensional[index].InspectorID = jSonCaptura[index].InspectorID;
             inspeccionDimensional[index].FechaInspeccion = kendo.toString(jSonCaptura[index].FechaInspeccion, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
         }

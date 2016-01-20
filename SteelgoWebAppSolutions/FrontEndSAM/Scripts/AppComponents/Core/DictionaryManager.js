@@ -5820,6 +5820,10 @@ _dictionary = {
         "es-MX": "Alerta!!!",
         "en-US": "Warning!!!"
     },
+    "InpeccionDimensionalErrorInspectorMensaje": {
+        "es-MX": "El inspector es obligatorio",
+        "en-US": "The inspector is mandatory"
+    }
 
 }
 
