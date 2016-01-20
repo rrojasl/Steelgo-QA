@@ -338,6 +338,7 @@ function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
     CargarGridSoldadura();
     SuscribirEventoMuestraJunta();
+    AjaxObtenerListaTaller();
 };
 
 function AltaFecha() {

@@ -9,11 +9,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoLlegadaMaterial0020"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("Soldadura", "capturaSoldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
+        <a href="@Url.Action("capturaSoldadura", "Soldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
+        
     </li>
-    <li class="active">
-        <a href="@Url.Action("Soldadura", "capturaSoldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
-    </li>
+    
 }
 
 <div id="FormCapturaArmado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -117,7 +116,7 @@
             </div>
 
             <br />
-            <div class="row">
+            @*<div class="row">
                 <div class="col-sm-3 col-md-3 col-lg-3">
                     <label id="CapturaSoldaduraProcesoRaiz"></label>
                     <input id="inputProcesoRaiz" />
@@ -126,7 +125,7 @@
                     <label id="CapturaSoldaduraProcesoRelleno"></label>
                     <input id="inputProcesoRelleno" class="" />
                 </div>
-            </div>
+            </div>*@
 
             
             <div class="row">
@@ -150,14 +149,14 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection ">
                             <div class="btn-group save-group ">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="btnGuardarPiePagina"></span></button>
+                                <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="btnGuardarPiePagina"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar3"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo1"></span></a></li>
+                                    <li><a href="#" id="btnGuardarPie"><span id="botonGuardar3"></span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevoPie"><span id="botonGuardarYNuevo1"></span></a></li>
                                 </ul>
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>

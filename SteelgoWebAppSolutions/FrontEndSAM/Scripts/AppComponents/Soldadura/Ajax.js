@@ -11,11 +11,13 @@ function AjaxJunta(spoolID) {
 
 function AjaxObtenerListaTaller() {
     loadingStart();
-    $Taller.Taller.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
-        $("#inputTaller").data("kendoComboBox").value("");
-        $("#inputTaller").data("kendoComboBox").dataSource.data(data);
-        loadingStop();
-    });
+    if (Cookies.get("Proyecto") != undefined) {
+        $Taller.Taller.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
+            $("#inputTaller").data("kendoComboBox").value("");
+            $("#inputTaller").data("kendoComboBox").dataSource.data(data);
+            loadingStop();
+        });
+    }
 }
 
 
@@ -192,19 +194,22 @@ function AjaxGuardarCaptura(arregloCaptura) {
         if (banderaProcesoRaiz) {
             if (banderaProcesoRelleno) {
                 if (bandera) {
-                    loadingStart();
-                    $CapturaSoldadura.Soldadura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                        $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(ArregloListadoSpoolID()), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (result) {
-                            $("#grid").data('kendoGrid').dataSource.data([]);
-                            var ds = $("#grid").data("kendoGrid").dataSource;
-                            var array = JSON.parse(result);
-                            for (var i = 0; i < array.length; i++) {
-                                ds.add(array[i]);
-                            }
-                            displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-                            loadingStop();
+                    if (Captura[0].Detalles.length > 0) {
+                        loadingStart();
+                        $CapturaSoldadura.Soldadura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                            $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(ArregloListadoSpoolID()), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (result) {
+                                $("#grid").data('kendoGrid').dataSource.data([]);
+                                var ds = $("#grid").data("kendoGrid").dataSource;
+                                var array = JSON.parse(result);
+                                for (var i = 0; i < array.length; i++) {
+                                    ds.add(array[i]);
+                                }
+                                displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+                                loadingStop();
+                            });
                         });
-                    });
+                    }
+                    
                 }
                 else {
                     displayMessage("CapturaSoldaduraMensajeErrorTaller", "", '1');

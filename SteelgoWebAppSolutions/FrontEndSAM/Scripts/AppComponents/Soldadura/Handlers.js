@@ -76,6 +76,27 @@ function suscribirEventoGuardar() {
         AjaxGuardarCaptura(ds._data);
         Limpiar();
     });
+
+
+    //pie pagina
+    $('#GuardarPie').click(function (e) {
+        //var ds = $("#grid").data("kendoGrid").dataSource;
+        //console.log(JSON.stringify(ds._data));
+        //AjaxGuardarCaptura(ds._data);
+        EventoGuardar();
+    });
+
+    $("#btnGuardarPie").click(function () {
+        EventoGuardar();
+    });
+
+
+    $('#btnGuardarYNuevoPie').click(function (e) {
+
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data);
+        Limpiar();
+    });
 }
 
 function suscribirEventoCancelar() {
@@ -328,10 +349,12 @@ function eventoCambioTipoListado() {
         $("#JuntaDiv").css('display', 'none');
         $("#MuestraDiv").css('display', 'none');
         AjaxCargarCamposPredeterminadosOcultaJunta();
+        AjaxObtenerListaTaller();
     }
     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         $("#JuntaDiv").css('display', 'block');
         $("#MuestraDiv").css('display', 'block');
+        AjaxObtenerListaTaller();
     }
 }
 
@@ -351,7 +374,7 @@ function suscribirEventoChangeRadioTipoListado() {
 function Limpiar() {
 
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").data("kendoDropDownList").dataSource.data([]);
+    $("#InputID").data("kendoComboBox").dataSource.data([]);
 
     $("#Junta").data("kendoDropDownList").dataSource.data([]);
 
@@ -407,6 +430,10 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text("Editar");
         $("#DetalleAvisoLlegada0017").text("Editar");
         $('#ButtonAplicar').attr("disabled", true);
+
+        $('#btnGuardarPiePagina').text("Editar");
+        $("#botonGuardar3").text("Editar");
+
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -417,5 +444,7 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text("Guardar");
         $("#DetalleAvisoLlegada0017").text("Guardar");
         $('#ButtonAplicar').attr("disabled", false);
+        $('#btnGuardarPiePagina').text("Guardar");
+        $("#botonGuardar3").text("Guardar");
     }
 }
