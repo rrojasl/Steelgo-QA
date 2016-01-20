@@ -340,6 +340,9 @@ function changeLanguageCall() {
     });
     AjaxCargarCamposPredeterminados();
     CargarGrid();
+    Limpiar();
+    AjaxObtenerListaTubero();
+    AjaxObtenerListaTaller();
     $('#grid').data('kendoGrid').dataSource.read();
 }
 function PlanchaTubero() {

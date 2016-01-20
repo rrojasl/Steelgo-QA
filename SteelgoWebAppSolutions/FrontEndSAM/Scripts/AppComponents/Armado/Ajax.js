@@ -83,7 +83,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
             ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
             ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
             ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
-            ListaDetalles[index].FechaArmado = kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+            ListaDetalles[index].FechaArmado = kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
 
             ListaTrabajosAdicionalesEditados = [];
             for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
@@ -165,27 +165,23 @@ function AjaxCargarCamposPredeterminados() {
         if (data.Muestra == "sin captura") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
-            $("#styleSinCaptura").addClass("active");
-            $("#styleTodos").removeClass("active");
+           
         }
         else if (data.Muestra == "Todos") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
-            $("#styleTodos").addClass("active");
-            $("#styleSinCaptura").removeClass("active");
+           
         }
 
         if (data.Llena == "Todos") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
             $('input:radio[name=LLena]:nth(1)').attr('checked', false);
-            $("#StylePlanchaTodos").addClass("active");
-            $("#StylePlanchaVacios").removeClass("active");
+           
         }
         else if (data.Llena == "Vacios") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
-            $("#StylePlanchaVacios").addClass("active");
-            $("#StylePlanchaTodos").removeClass("active");
+           
         }
 
         if (data.TipoCaptura == "Reporte") {
@@ -206,10 +202,17 @@ function AjaxCargarCamposPredeterminados() {
 }
 
 
+
+
+
 function AjaxCargarCamposPredeterminadosOcultaJunta() {
 
     loadingStart();
     $CapturaArmado.Armado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+        var NewDate = kendo.toString(data.FechaArmado, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+
+        endRangeDate.val(NewDate);
 
         if (data.Muestra == "sin captura") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked');
@@ -219,6 +222,17 @@ function AjaxCargarCamposPredeterminadosOcultaJunta() {
         else if (data.Muestra == "Todos") {
             $('input:radio[name=Muestra]:nth(0)').removeAttr('checked');
             $('input:radio[name=Muestra]:nth(1)').attr('checked');
+
+        }
+
+        if (data.Llena == "Todos") {
+            $('input:radio[name=LLena]:nth(0)').attr('checked', true);
+            $('input:radio[name=LLena]:nth(1)').attr('checked', false);
+
+        }
+        else if (data.Llena == "Vacios") {
+            $('input:radio[name=LLena]:nth(0)').attr('checked', false);
+            $('input:radio[name=LLena]:nth(1)').attr('checked', true);
 
         }
 

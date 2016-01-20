@@ -94,14 +94,14 @@ function Limpiar() {
 
     $("#Junta").data("kendoDropDownList").dataSource.data([]);
 
-    var radioButtons = document.getElementsByName('Muestra');
+    //var radioButtons = document.getElementsByName('Muestra');
 
-    for (var x = 0; x < radioButtons.length; x++) {
-        if (radioButtons[x].checked) {
-            radioButtons[x].checked = false;
+    //for (var x = 0; x < radioButtons.length; x++) {
+    //    if (radioButtons[x].checked) {
+    //        radioButtons[x].checked = false;
 
-        }
-    }
+    //    }
+    //}
 
     $("#FechaArmado").data("kendoDatePicker").value("");
 
@@ -110,14 +110,14 @@ function Limpiar() {
     $("#inputTaller").data("kendoComboBox").value("");
 
 
-    var radioButtonsLLena = document.getElementsByName('LLena');
+    //var radioButtonsLLena = document.getElementsByName('LLena');
 
-    for (var x = 0; x < radioButtonsLLena.length; x++) {
-        if (radioButtonsLLena[x].checked) {
-            radioButtonsLLena[x].checked = false;
+    //for (var x = 0; x < radioButtonsLLena.length; x++) {
+    //    if (radioButtonsLLena[x].checked) {
+    //        radioButtonsLLena[x].checked = false;
 
-        }
-    }
+    //    }
+    //}
 
 
 
@@ -242,7 +242,6 @@ function SuscribirEventoSpoolID() {
         filter: "contains",
         index: 3,
         select: function (e) {
-
             dataItem = this.dataItem(e.item.index());
             if (dataItem != undefined) {
                 if (dataItem.Status != "1") {
@@ -261,7 +260,6 @@ function SuscribirEventoSpoolID() {
                     AjaxObtenerListaTaller();
                 }
             }
-
         }
         ,
         change: function (e) {
@@ -272,7 +270,7 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                 $("#LabelProyecto").text(dataItem.Proyecto);
-                AjaxJunta($("#InputID").val());
+                AjaxJunta($("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).Valor);
             }
 
             AjaxObtenerListaTubero();
@@ -305,13 +303,14 @@ function SuscribirEventoSpoolID() {
 
         if (e.keyCode == 37) {
             $("#InputOrdenTrabajo").focus();
-
         }
         else if (e.keyCode == 39) {
             $("#Junta").data("kendoDropDownList").input.focus();
         }
-        else if (e.keyCode == 40)
+        else if (e.keyCode == 40) {
             $("#InputID").data("kendoDropDownList").select();
+            AjaxJunta($("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).Valor);
+        }
         else if (e.keyCode == 13) {
             if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
                 AjaxCargarReporteJuntas();
@@ -340,13 +339,16 @@ function eventoCambioTipoListado() {
     if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
         $("#JuntaDiv").css('display', 'none');
         $("#MuestraDiv").css('display', 'none');
-        AjaxCargarCamposPredeterminadosOcultaJunta();
         Limpiar();
+        AjaxCargarCamposPredeterminadosOcultaJunta();
+        
     }
     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         $("#JuntaDiv").css('display', 'block');
         $("#MuestraDiv").css('display', 'block');
+        
         Limpiar();
+        AjaxCargarCamposPredeterminadosOcultaJunta();
     }
 }
 
