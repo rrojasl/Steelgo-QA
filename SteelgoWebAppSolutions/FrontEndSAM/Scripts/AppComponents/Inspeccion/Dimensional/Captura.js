@@ -21,6 +21,7 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
     AjaxObtenerListaDefectos();
+    limpiar();
 };
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
@@ -91,7 +92,7 @@ function CargarGrid() {
                         Defectos: { type: "string", editable: true },
                         InspectorID: { type: "string", editable: true },
                         Inspector: { type: "string", editable: true },
-                        FechaInspeccion: { type: "date", editable: true }
+                        FechaInspeccion: { type: "string", editable: true }
                     }
                 }
             },

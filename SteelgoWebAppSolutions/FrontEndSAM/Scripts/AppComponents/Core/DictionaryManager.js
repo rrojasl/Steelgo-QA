@@ -3734,11 +3734,11 @@ _dictionary = {
     },
     "MensajeRequisicion": {
         "es-MX": "Requisicion",
-        "en-US": "Requisicion"
+        "en-US": "Requisition"
     },
     "MensajeRequisicion1": {
         "es-MX": "Requisicion",
-        "en-US": "Requisicion"
+        "en-US": "Requisition"
     },
 
     "FormatoFecha": {
@@ -5823,7 +5823,19 @@ _dictionary = {
     "InpeccionDimensionalErrorInspectorMensaje": {
         "es-MX": "El inspector es obligatorio",
         "en-US": "The inspector is mandatory"
-    }
+    },
+    "InpeccionVisualEnlaceInspeccion": {
+        "es-MX": "Inspeccion visual dimensional",
+        "en-US": "Visual Dimensional Inspection"
+    },
+    "InpeccionVisualHeaderVisual": {
+        "es-MX": "Inspeccion Visual ",
+        "en-US": "Visual Inspection"
+    },
+    "InpeccionVisualHeaderDimensional": {
+        "es-MX": "Inspeccion Dimensional ",
+        "en-US": " Dimensional Inspection"
+    },
 
 }
 
