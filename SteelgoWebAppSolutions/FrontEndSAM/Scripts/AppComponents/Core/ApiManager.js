@@ -13,7 +13,7 @@
 //LOCALHOST BASE URL's
 
 var $BackEndSAMUri = 'http://localhost:60960';
-var $SecuritySAMUri = 'http://localhost:60921';
+var $SecuritySAMUri = 'http://localhost:50816';
 var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:61066';
 var $FilesSAMUri = 'http://localhost:60971';

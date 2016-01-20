@@ -165,27 +165,23 @@ function AjaxCargarCamposPredeterminados() {
         if (data.Muestra == "sin captura") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
-            $("#styleSinCaptura").addClass("active");
-            $("#styleTodos").removeClass("active");
+           
         }
         else if (data.Muestra == "Todos") {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
-            $("#styleTodos").addClass("active");
-            $("#styleSinCaptura").removeClass("active");
+           
         }
 
         if (data.Llena == "Todos") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
             $('input:radio[name=LLena]:nth(1)').attr('checked', false);
-            $("#StylePlanchaTodos").addClass("active");
-            $("#StylePlanchaVacios").removeClass("active");
+           
         }
         else if (data.Llena == "Vacios") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
-            $("#StylePlanchaVacios").addClass("active");
-            $("#StylePlanchaTodos").removeClass("active");
+           
         }
 
         if (data.TipoCaptura == "Reporte") {
@@ -206,6 +202,9 @@ function AjaxCargarCamposPredeterminados() {
 }
 
 
+
+
+
 function AjaxCargarCamposPredeterminadosOcultaJunta() {
 
     loadingStart();
@@ -219,6 +218,17 @@ function AjaxCargarCamposPredeterminadosOcultaJunta() {
         else if (data.Muestra == "Todos") {
             $('input:radio[name=Muestra]:nth(0)').removeAttr('checked');
             $('input:radio[name=Muestra]:nth(1)').attr('checked');
+
+        }
+
+        if (data.Llena == "Todos") {
+            $('input:radio[name=LLena]:nth(0)').attr('checked', true);
+            $('input:radio[name=LLena]:nth(1)').attr('checked', false);
+
+        }
+        else if (data.Llena == "Vacios") {
+            $('input:radio[name=LLena]:nth(0)').attr('checked', false);
+            $('input:radio[name=LLena]:nth(1)').attr('checked', true);
 
         }
 

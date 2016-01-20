@@ -94,14 +94,14 @@ function Limpiar() {
 
     $("#Junta").data("kendoDropDownList").dataSource.data([]);
 
-    var radioButtons = document.getElementsByName('Muestra');
+    //var radioButtons = document.getElementsByName('Muestra');
 
-    for (var x = 0; x < radioButtons.length; x++) {
-        if (radioButtons[x].checked) {
-            radioButtons[x].checked = false;
+    //for (var x = 0; x < radioButtons.length; x++) {
+    //    if (radioButtons[x].checked) {
+    //        radioButtons[x].checked = false;
 
-        }
-    }
+    //    }
+    //}
 
     $("#FechaArmado").data("kendoDatePicker").value("");
 
@@ -110,14 +110,14 @@ function Limpiar() {
     $("#inputTaller").data("kendoComboBox").value("");
 
 
-    var radioButtonsLLena = document.getElementsByName('LLena');
+    //var radioButtonsLLena = document.getElementsByName('LLena');
 
-    for (var x = 0; x < radioButtonsLLena.length; x++) {
-        if (radioButtonsLLena[x].checked) {
-            radioButtonsLLena[x].checked = false;
+    //for (var x = 0; x < radioButtonsLLena.length; x++) {
+    //    if (radioButtonsLLena[x].checked) {
+    //        radioButtonsLLena[x].checked = false;
 
-        }
-    }
+    //    }
+    //}
 
 
 
@@ -346,7 +346,9 @@ function eventoCambioTipoListado() {
     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         $("#JuntaDiv").css('display', 'block');
         $("#MuestraDiv").css('display', 'block');
+        
         Limpiar();
+        AjaxCargarCamposPredeterminadosOcultaJunta();
     }
 }
 
