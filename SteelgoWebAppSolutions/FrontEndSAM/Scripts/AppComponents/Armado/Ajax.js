@@ -18,19 +18,23 @@ function AjaxObtenerSpoolID() {
 
 function AjaxObtenerListaTubero() {
     loadingStart();
-    $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], tipo: 4, token: Cookies.get("token") }).done(function (data) {
+    if (Cookies.get("Proyecto") != undefined) {
+        $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], tipo: 4, token: Cookies.get("token") }).done(function (data) {
 
-        $("#inputTubero").data("kendoComboBox").value("");
-        $("#inputTubero").data("kendoComboBox").dataSource.data(data);
-        loadingStop();
-    });
+            $("#inputTubero").data("kendoComboBox").value("");
+            $("#inputTubero").data("kendoComboBox").dataSource.data(data);
+            loadingStop();
+        });
+    }
 }
 
 function AjaxObtenerListaTaller() {
-    $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
-        $("#inputTaller").data("kendoComboBox").value("");
-        $("#inputTaller").data("kendoComboBox").dataSource.data(data);
-    });
+    if (Cookies.get("Proyecto") != undefined) {
+        $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
+            $("#inputTaller").data("kendoComboBox").value("");
+            $("#inputTaller").data("kendoComboBox").dataSource.data(data);
+        });
+    }
 }
 
 function ObtenerJSonGridArmado() {
@@ -125,19 +129,24 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
         if (!estaIncompleto) {
             Captura[0].Detalles = ListaDetalles;
+            if (Captura[0].Detalles.length > 0) {
+               
 
-            $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                    AjaxCambiarAccionAModificacion();
-                    mensaje = "Se guardo correctamente la informacion" + "-0";
-                    displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
-                }
-                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
-                }
+                $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                        AjaxCambiarAccionAModificacion();
+                        mensaje = "Se guardo correctamente la informacion" + "-0";
+                        displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+                    }
+                    else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                        mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                        displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                    }
+                    loadingStop();
+                });
+            }
+            else
                 loadingStop();
-            });
         }
         else {
             displayMessage("CapturaMensajeArmadoDatosIncompletos", "", '1');

@@ -102,13 +102,11 @@ function RenderComboBoxNumeroUnico2(container, options) {
          });
 }
 
-
 function grid_saveChanges(e) {
     if (!confirm("Are you sure you want to save all changes?")) {
         e.preventDefault();
     }
 }
-
 
 function RenderGridDetalle(container, options) {
     //container  contiene las propiedades de la celda
@@ -186,8 +184,6 @@ function RenderGridDetalle(container, options) {
 
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
-                    //windowTemplate = kendo.template($("#windowTemplate").html());
-
                     if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()]))
                     {
                             var dataSource = this.dataSource;
@@ -211,44 +207,12 @@ function RenderGridDetalle(container, options) {
                             this.dataSource.sync();
                     }
 
+                    ///////////////////
 
 
-                    //ventanaConfirm = $("#window").kendoWindow({
-                    //    title: "Are you sure you want to delete this record?",
-                    //    visible: false, //the window will not appear before its .open method is called
-                    //    width: "400px",
-                    //    height: "200px",
-                    //    modal: true
-                    //}).data("kendoWindow");
-
-                    //ventanaConfirm.content(windowTemplate(dataItem));
-
-                    //ventanaConfirm.open().center();
-
-                    //$("#yesButton").click(function () {
-                    //    var dataSource = this.dataSource;
-
-                    //    if (dataItem.JuntaArmadoID == "1")
-                    //        dataSource.remove(dataItem);
-
-                    //    dataItem.Accion = 3;
+                    //////////////////
 
 
-
-                    //    var filters = dataSource.filter();
-                    //    var allData = dataSource.data();
-                    //    var query = new kendo.data.Query(allData);
-                    //    var data = query.filter(filters).data;
-
-                    //    actuallongitudTrabajosAdicionales = data.length;
-
-                    //    options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
-
-                    //    this.dataSource.sync();
-                    //})
-                    //$("#noButton").click(function () {
-                    //    ventanaConfirm.close();
-                    //})
 
                   
                 }
@@ -299,9 +263,6 @@ function RenderComboBoxTrabajoAdicional(container, options) {
 
 }
 
-
 function onChange(e) {
 
 }
-
-

@@ -319,7 +319,7 @@ function eliminarCaptura(e) {
 
     ventanaConfirm.open().center();
 
-    $("#yesButton").click(function () {
+    $("#yesButton").click(function (handler) {
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataItem.Accion = 3;
 
@@ -329,7 +329,7 @@ function eliminarCaptura(e) {
         dataSource.sync();
         ventanaConfirm.close();
     });
-    $("#noButton").click(function () {
+    $("#noButton").click(function (handler) {
         ventanaConfirm.close();
     });
 
