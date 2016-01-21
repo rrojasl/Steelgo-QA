@@ -13,7 +13,7 @@ function IniciarCapturaInspecion() {
     CargarFecha();
     asignarProyecto();
     SuscribirEventos();
-    AjaxCargaCamposPredetrminados();
+    
 };
 function changeLanguageCall() {
     CargarGrid();
@@ -21,6 +21,7 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
     AjaxObtenerListaDefectos();
+    AjaxCargaCamposPredetrminados();
     limpiar();
 };
 function asignarProyecto() {

@@ -17,6 +17,41 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class InspeccionDimensionalController : ApiController
     {
+
+        [HttpGet]
+        public object ObtieneCamposPredeterminados(string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+
+                InspeccionDimensional.CamposPred CamposPredeterminados = new InspeccionDimensional.CamposPred();
+
+                CamposPredeterminados = new InspeccionDimensional.CamposPred
+                {
+                    Fecha = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 24),
+                    Resultado = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 25),
+                    Llena = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 26),
+                };
+
+                return CamposPredeterminados;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         public object Get(string JsonCaptura, string token, string Lenguaje)
         {
             string payload = "";

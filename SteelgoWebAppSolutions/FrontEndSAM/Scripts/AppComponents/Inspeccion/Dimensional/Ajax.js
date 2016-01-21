@@ -20,42 +20,29 @@ function AjaxObtenerListaDefectos() {
     });
 }
 function AjaxCargaCamposPredetrminados() {
-    $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaPredeterminada }).done(function (data) {
-        var NewDate = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+    $InspeccionDimensional.InspeccionDimensional.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaPredeterminada }).done(function (data) {
+        var NewDate = kendo.toString(data.Fecha, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         endRangeDate.val(NewDate);
-    });
-    $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoResultadoPredetrminado }).done(function (data) {
-        if (data == "Aprobado") {
-            $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', true);
-            $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', false);
-            $("input:radio[name=ResultadoDimensional]:checked").change();
-            $("#StyleResultadoDimensionalA").addClass("active");
-            $("#StyleResultadoDimensionalR").removeClass("active");
+    
+        if (data.Resultado == "Aprobado") {
+            $('input#ResultadoDimensionalAprobado[name="ResultadoDimensional"]').click();
         }
-        else if (data == "Rechazado") {
-            $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', false);
-            $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', true);
-            $("input:radio[name=ResultadoDimensional]:checked").change();
-            $("#StyleResultadoDimensionalR").addClass("active");
-            $("#StyleResultadoDimensionalA").removeClass("active");
+        else if (data.Resultado == "Rechazado") {
+            
+            $('input#ResultadoDimensionalRechazado[name="ResultadoDimensional"]').click();
+            
         }
         else {
-            $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', true);
-            $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', false);
-            $("input:radio[name=ResultadoDimensional]:checked").change();
-            $("#StyleResultadoDimensionalA").addClass("active");
-            $("#StyleResultadoDimensionalR").removeClass("active");
+            $('input#ResultadoDimensionalAprobado[name="ResultadoDimensional"]').click();
         }
-    });
-
-    $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoLlenadoPredeterminado }).done(function (data) {
-        if (data == "Todos") {
+    
+        if (data.Llena == "Todos") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', true);
             $('input:radio[name=LLena]:nth(1)').attr('checked', false);
             $("input:radio[name=LLena]:checked").change();
            
         }
-        else if (data == "Vacios") {
+        else if (data.Llena == "Vacios") {
             $('input:radio[name=LLena]:nth(0)').attr('checked', false);
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
             $("input:radio[name=LLena]:checked").change();

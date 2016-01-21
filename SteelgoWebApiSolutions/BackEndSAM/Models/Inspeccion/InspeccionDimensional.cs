@@ -5,6 +5,12 @@ namespace BackEndSAM.Models.InspeccionDimensional
 {
     public class InspeccionDimensional
     {
+        public class CamposPred
+        {
+            public string Fecha { get; set; }
+            public string Resultado  { get; set; }
+            public string Llena { get; set; }
+        }
         public class Captura
         {
             public List<DetalleGuardarJson> Detalles { get; set; }

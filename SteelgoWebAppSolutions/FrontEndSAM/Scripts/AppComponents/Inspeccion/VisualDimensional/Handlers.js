@@ -33,8 +33,6 @@ function SuscribirEventoSpoolID() {
             else {
                 $("#InputID").val(dataItem.IDValido);
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                
-                $("#LabelProyecto").text(dataItem.Proyecto);
                 AjaxObtenerListaTaller();
             }
         }
@@ -46,9 +44,9 @@ function SuscribirEventoSpoolID() {
             }
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                AjaxObtenerListaTaller();
             }
-            AjaxObtenerListaTaller();
-
+            
         }
     });
 
