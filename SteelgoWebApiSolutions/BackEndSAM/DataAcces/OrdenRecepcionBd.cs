@@ -334,7 +334,7 @@ namespace BackEndSAM.DataAcces
                                 return TotalAccesorios;
                                 break;
                             case 3:
-                                return listado.Count;
+                                return TotalAccesorios + TotalTubos;
                                 break;
                             default:
                                 return listado.Count;

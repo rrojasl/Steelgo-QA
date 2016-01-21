@@ -1049,6 +1049,8 @@ namespace BackEndSAM.DataAcces
                                                where f.Activo && rbi.Activo && it.Activo && rid.Activo && b.Activo
                                                && f.FolioCuantificacionID == fc.FolioCuantificacionID
                                                select it.ItemCodeID).AsParallel().Count();
+
+                                return totalItems;
                                 #endregion
                             }
                             else
@@ -1330,7 +1332,7 @@ namespace BackEndSAM.DataAcces
                                                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
                                                                      where roi.Activo && nu.Activo && it.Activo
                                                                      && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                                     && it.TieneComplementoRecepcion == false
+                                                                     && (nu.EstatusDocumental == "" || nu.EstatusFisico == "")
                                                                      select nu.NumeroUnicoID).AsParallel().Count().ToString();
                             }
                             else
@@ -1351,7 +1353,7 @@ namespace BackEndSAM.DataAcces
                                                                      where roi.Activo && nu.Activo && it.Activo
                                                                      && roi.OrdenRecepcionID == orden.OrdenRecepcionID
                                                                      && it.TipoMaterialID == tipoMaterialID
-                                                                     && it.TieneComplementoRecepcion == false
+                                                                     && (nu.EstatusDocumental == "" || nu.EstatusFisico == "")
                                                                      select nu.NumeroUnicoID).AsParallel().Count().ToString();
                             }
 
