@@ -1820,6 +1820,19 @@
                     });
                     ordenamientoGrid();
                 };
+            }
+            else {
+                if (datasource.length) {
+                    $(datasource).each(function () {
+                        if (this.get("TipoMaterial") == undefined && this.get("ItemCode") != "Bulto") {
+                            this.TieneError = true;
+                            Errorbool = true;
+                        } else {
+                            this.TieneError = false;
+                        };
+                    });
+                    ordenamientoGrid();
+                };
             };
 
             if (Errorbool) {
