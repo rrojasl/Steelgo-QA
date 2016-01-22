@@ -9,11 +9,11 @@
         }
         if (Todos == "todos"){
             $("#nTodos").text(array.length);
-            $("#nEnviados").text("0");
+            
         }
         else {
             $("#nEnviados").text(array.length);
-            $("#nTodos").text("0");
+            
         }
         loadingStop();
     });
@@ -48,9 +48,7 @@ function AjaxGuardarPlanas(ObjetoRenglon) {
         ListaDetalles[0].FolioAprobadoCliente = ObjetoRenglon.FolioAprobadoCliente;
         ListaDetalles[0].FechaEnvio = ObjetoRenglon.FechaEnvio;
 
-        if (ListaDetalles[0].FolioAprobadoCliente != ""){
-            if (ListaDetalles[0].FolioSolicitarPermisos != "") {
-                if (ListaDetalles[0].FolioSolicitarPermisos != "") {
+        
 
                     CapturaListadoEmbarque[0].Lista = ListaDetalles;
 
@@ -60,18 +58,7 @@ function AjaxGuardarPlanas(ObjetoRenglon) {
                         displayMessage("EmbarqueMensajeGuardadoExitoso", "", "0");
                     });
 
-                }
-                else {
-                    displayMessage("", "Falta el folio de aprobacion de aduana", "1");
-                }
-            }
-            else {
-                displayMessage("", "Falta el folio de solicitud de permisos", "1");
-            }
-        }
-        else {
-            displayMessage("", "Falta el folio de aprobacion por el cliente", "1");
-        }        
+                 
 }
 
 

@@ -269,3 +269,40 @@ function ajaxCerrarPlana()
 
     }
 }
+
+
+
+function ajaxCargarSpoolXPlaca() {
+    loadingStart();
+    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), proveedorID: $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value(), placaID: $("#inputProveedor").data("kendoDropDownList").value(), lenguaje: $("#language").val() }).done(function (data) {
+        $("#grid").data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        var CantidadRegistrosOriginales = ds._data.length;
+        var array = data;
+        var totalToneladasCargadas = 0;
+        var totalToneladasCargadasGeneral = 0;
+
+
+        for (var i = 0; i < array.length; i++) {
+            if (!validarInformacion(array[i])) {
+                totalToneladasCargadas += array[i]["Peso"];
+                array[i]["Consecutivo"] += CantidadRegistrosOriginales;
+                ds.add(array[i]);
+            }
+            else
+                displayMessage("EmbarqueCargaInformacionExistente", "", '2');
+        }
+
+        var piezas = $("#EmbarqueCargaTotalPiezas").text().split(':')[0];
+        piezas += ":" + String(ds._data.length);
+        $("#EmbarqueCargaTotalPiezas").text(piezas);
+
+        var textoToneladasCargadas = $("#EmbarqueCargaToneladasCargadas").text().split(':')[0];
+        totalToneladasCargadasGeneral += $("#EmbarqueCargaToneladasCargadas").text().split(':')[1] == "" ? 0 : parseInt($("#EmbarqueCargaToneladasCargadas").text().split(':')[1]);
+        textoToneladasCargadas += ":" + String(totalToneladasCargadasGeneral + totalToneladasCargadas);
+
+        $("#EmbarqueCargaToneladasCargadas").text(textoToneladasCargadas);
+
+        loadingStop();
+    });
+}

@@ -31,11 +31,27 @@ function SuscribirEventoGuardar() {
        
     });
 
+    $('#btnGuardarYNuevo1').click(function (e) {
+        ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+
+    });
+
     $('#btnGuardar').click(function (e) {
 
         if ($('#botonGuardar').text() == "Guardar") {
             
             if( ajaxGuardar($("#grid").data("kendoGrid").dataSource._data))
+                opcionHabilitarView(true, "FieldSetView");
+        }
+        else if ($('#botonGuardar').text() == "Editar")
+            opcionHabilitarView(false, "FieldSetView")
+    });
+
+    $('#Guardar').click(function (e) {
+
+        if ($('#botonGuardar').text() == "Guardar") {
+
+            if (ajaxGuardar($("#grid").data("kendoGrid").dataSource._data))
                 opcionHabilitarView(true, "FieldSetView");
         }
         else if ($('#botonGuardar').text() == "Editar")
@@ -175,8 +191,15 @@ function SuscribirEventoSpoolID() {
             $("#InputOrdenTrabajo").focus();
 
         }
-        else if (e.keyCode == 40)
+        else if (e.keyCode == 40) {
             $("#InputID").data("kendoComboBox").select();
+        }
+        else if (e.keyCode == 13) {
+            if ($('#InputID').data("kendoComboBox").value() != "") {
+                AjaxAgregarCarga();
+            }
+            
+        }
     });
 
 };

@@ -48,7 +48,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
                         {
                             Comentario = item.Comentario,
                             Llego = (item.Llego == true && (item.Comentario == null || item.Comentario.Trim() == "")) ? true : false,
-                            LlegoMas = item.LlegoMas.GetValueOrDefault(),
+                            LlegoMas = false,
                             NumeroControl = item.NumeroControl,
                             Paquete = item.Paquete,
                             NoLlego = item.Llego != null && item.Llego == false ? true : false,

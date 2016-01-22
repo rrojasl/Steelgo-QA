@@ -14,9 +14,7 @@ function AjaxCargarPaquetes() {
         if (data.length > 0) {
             $("#inputPaquete").data("kendoDropDownList").value("");
             $("#inputPaquete").data("kendoDropDownList").dataSource.data(data);
-        } else {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value("");
-        };
+        } 
         loadingStop();
     });
 }

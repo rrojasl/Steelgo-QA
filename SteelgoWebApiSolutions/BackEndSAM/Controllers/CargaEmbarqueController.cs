@@ -43,6 +43,31 @@ namespace BackEndSAM.Controllers
 
         }
 
+        [HttpGet]
+        public object ObtenerDetalleXPlana(string token, int proveedorID, int placaID, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CargaEmbarqueBD.Instance.ObtieneDetalleXPlaca(proveedorID, placaID,lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
+
         //obtiene los paquetes
         public object Get(string token, string tipo)
         {
@@ -146,6 +171,9 @@ namespace BackEndSAM.Controllers
             }
 
         }
+
+
+
 
         public object Put(CierraPlana  cierraPlana , string token)
         {

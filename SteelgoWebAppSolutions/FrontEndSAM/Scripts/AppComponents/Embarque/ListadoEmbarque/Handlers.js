@@ -29,16 +29,31 @@ function suscribirEventoModal() {
     $(document).on('click', '.botonEnviar', function (e) {
         var grid = $("#grid").data("kendoGrid"),
         dataItem = grid.dataItem($(e.target).closest("tr"));
-        if (dataItem.Estatus != "Enviada") {
+        if (dataItem.Estatus != "Enviada" && dataItem.Estatus != "sent") {
             if (!dataItem.RequierePermisoAduana) {
-                VentanaModalFecha(dataItem);
+                if (dataItem.FolioAprobadoCliente != "") {
+                    if (dataItem.FolioSolicitarPermisos != "") {
+                        if (dataItem.FolioAprobadoAduana!= "") {
+                            VentanaModalFecha(dataItem);
+                        }
+                        else {
+                            displayMessage("ListadoEmbarqueMensajeFaltaFolioAduana", "", "1");
+                        }
+                    }
+                    else {
+                        displayMessage("ListadoEmbarqueMensajeFaltaSolicitudPermisos", "", "1");
+                    }
+                }
+                else {
+                    displayMessage("ListadoEmbarqueMensajeFaltaFolioCliente", "", "1");
+                }
             }
             else {
-                displayMessage("", "No se puede enviar, por que requiere permiso de aduana", "1");
+                displayMessage("ListadoEmbarqueMensajeRequierePermisoAduana", "", "1");
             }
         }
         else {
-            displayMessage("", "La plana ya fue enviada", "1");
+            displayMessage("ListadoEmbarqueMensajePlanaEnviada", "", "1");
         }
         
     });
