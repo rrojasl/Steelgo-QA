@@ -20,7 +20,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GenerarRequisicionController : ApiController
     {
-        
+
 
         [HttpGet]
         public object ObtenerListaProyectos(string token)
@@ -66,14 +66,14 @@ namespace BackEndSAM.Controllers
 
 
         [HttpGet]
-        public object ObtenerRequisicion(string token,string lenguaje,int requisicionID)
+        public object ObtenerRequisicion(string token, string lenguaje, int requisicionID)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return GenerarRequisicionBD.Instance.getRequisicion(lenguaje,requisicionID);
+                return GenerarRequisicionBD.Instance.getRequisicion(lenguaje, requisicionID);
             }
             else
             {
@@ -94,7 +94,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return GenerarRequisicionBD.Instance.getNuevaJunta(juntaTrabajoID,pruebaID,proyectoID);
+                return GenerarRequisicionBD.Instance.getNuevaJunta(juntaTrabajoID, pruebaID, proyectoID);
             }
             else
             {
@@ -109,39 +109,50 @@ namespace BackEndSAM.Controllers
 
 
         [HttpGet]
-        public object obtenerListaJuntasSoldadas(string token, int pruebaID, string todos, string lenguaje)
+        public object obtenerListaJuntasSoldadas(string token, int pruebaID, string todos, string lenguaje,int reqID)
         {
             string payload = "";
             string newToken = "";
-            int all = todos.ToLower() == "todos" ? 1: 0;
+            int all = todos.ToLower() == "todos" ? 1 : 0;
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
                 List<JsonRequisicion> listaJson = new List<JsonRequisicion>();
-                    List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> lista =  GenerarRequisicionBD.Instance.getDetalleJuntas(pruebaID, all);
+                List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> lista = GenerarRequisicionBD.Instance.getDetalleJuntas(pruebaID, all,reqID);
                 foreach (Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result item in lista)
                 {
-                    JsonRequisicion elemento = new JsonRequisicion
-                    { 
-                        Accion = 2,
-                        Agregar = false,
-                        Clasificacion = item.Clasificacion,
-                        Cuadrante = item.Cuadrante,
-                        EtiquetaJunta = item.EtiquetaJunta,
-                        Folio = item.Folio == null ? "": item.Folio,
-                        IdentificadorForaneo = item.IdentificadorForaneo,
-                        NumeroControl = item.NumeroControl,
-                        Prioridad = int.Parse (item.Prioridad.ToString()),
-                        Proyecto = item.Proyecto,
-                        ProyectoID = item.ProyectoID,
-                        PruebaElementoID = item.PruebaElementoID,
-                        PruebasClasificacionID = int.Parse(item.PruebasClasificacionID.ToString()),
-                        PruebasID = item.PruebasID,
-                        PruebasProyectoID = item.PruebasProyectoID,
-                        RequisicionID = item.RequisicionID == null ? 0 : int.Parse(item.RequisicionID.ToString()),
-                        RequisicionPruebaElementoID = item.RequisicionPruebaElementoID == null ? 0 : int.Parse(item.RequisicionPruebaElementoID.ToString()),
-                        listaClasificaciones = (List<Sam3_Steelgo_Get_Calsificaciones_Result>)GenerarRequisicionBD.Instance.getListaClasificaciones(item.PruebasProyectoID,lenguaje)
-                    };
+                    JsonRequisicion elemento;
+                    try
+                    {
+
+
+                         elemento = new JsonRequisicion
+                        {
+                            Accion = item.RequisicionPruebaElementoID == null ? 1 : 2,
+                            Agregar = false,
+                            Clasificacion = item.Clasificacion,
+                            Cuadrante = item.Cuadrante,
+                            EtiquetaJunta = item.EtiquetaJunta,
+                            Folio = item.Folio == null ? "" : item.Folio,
+                            IdentificadorForaneo = item.IdentificadorForaneo,
+                            NumeroControl = item.NumeroControl,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            Proyecto = item.Proyecto,
+                            ProyectoID = item.ProyectoID,
+                            PruebaElementoID = item.PruebaElementoID,
+                            PruebasClasificacionID = int.Parse(item.PruebasClasificacionID.ToString()),
+                            PruebasID = item.PruebasID,
+                            PruebasProyectoID = item.PruebasProyectoID,
+                            RequisicionID = item.RequisicionID == null ? 0 : int.Parse(item.RequisicionID.ToString()),
+                            RequisicionPruebaElementoID = item.RequisicionPruebaElementoID == null ? 0 : int.Parse(item.RequisicionPruebaElementoID.ToString()),
+                            listaClasificaciones = (List<Sam3_Steelgo_Get_Calsificaciones_Result>)GenerarRequisicionBD.Instance.getListaClasificaciones(item.PruebasProyectoID, lenguaje)
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
                     listaJson.Add(elemento);
                 }
                 return listaJson;
@@ -209,14 +220,14 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpGet]
-        public object ObtenerPruebaProyectoID(string token,int pruebaID, int requisicionID) 
+        public object ObtenerPruebaProyectoID(string token, int pruebaID, int requisicionID)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return GenerarRequisicionBD.Instance.getPruebaProyectoID(pruebaID,requisicionID);
+                return GenerarRequisicionBD.Instance.getPruebaProyectoID(pruebaID, requisicionID);
             }
             else
             {
@@ -241,10 +252,10 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 IdOrdenTrabajo idOrdenTrabajo = new IdOrdenTrabajo();
 
-                
+
                 string muestra = (string)CapturaSoldaduraBD.Instance.ObtenerValorFecha(usuario, lenguaje, 30);
 
-                
+
                 CamposPredeterminados GenerarRequisicionCamposPredeterminados = new CamposPredeterminados();
 
                 GenerarRequisicionCamposPredeterminados = new CamposPredeterminados
@@ -279,17 +290,17 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-               
+
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                
+
                 DataTable dtDetalleCaptura = new DataTable();
                 if (listaCapturasRequisicion.listaRequisiciones != null)
                 {
                     dtDetalleCaptura = ToDataTable(listaCapturasRequisicion.listaRequisiciones);
                 }
 
-                return GenerarRequisicionBD.Instance.InsertarGenerarRequisicion(dtDetalleCaptura, usuario, lenguaje,listaCapturasRequisicion.RequisicionID,
-                    listaCapturasRequisicion.Folio,listaCapturasRequisicion.PruebasID,listaCapturasRequisicion.FechaRequisicion,listaCapturasRequisicion.Observacion,listaCapturasRequisicion.EstatusID);
+                return GenerarRequisicionBD.Instance.InsertarGenerarRequisicion(dtDetalleCaptura, usuario, lenguaje, listaCapturasRequisicion.RequisicionID,
+                    listaCapturasRequisicion.Folio, listaCapturasRequisicion.PruebasID, listaCapturasRequisicion.FechaRequisicion, listaCapturasRequisicion.Observacion, listaCapturasRequisicion.EstatusID);
             }
             else
             {

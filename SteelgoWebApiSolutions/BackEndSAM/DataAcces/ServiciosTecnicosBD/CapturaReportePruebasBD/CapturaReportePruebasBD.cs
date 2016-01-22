@@ -90,18 +90,38 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.CapturaReportePruebasBD
                     }
                     List<DetallePruebas> lista = new List<DetallePruebas>();
                     List<Sam3_ServiciosTecnicos_Get_PruebasResultadoDetalle_Result> result = ctx.Sam3_ServiciosTecnicos_Get_PruebasResultadoDetalle(requisicionPruebaElementoID,lenguaje).ToList();
-                    foreach(Sam3_ServiciosTecnicos_Get_PruebasResultadoDetalle_Result item in result)
+
+                    List<Defectos> listaDefectos= (List<Defectos>)getListadoDefectos(lenguaje, tipoPrueba);
+                    if (result.Count > 0)
+                    {
+                        foreach (Sam3_ServiciosTecnicos_Get_PruebasResultadoDetalle_Result item in result)
+                        {
+                            DetallePruebas elemento = new DetallePruebas
+                            {
+                                Accion = 2,
+                                PruebaElementoResultadoID = item.PruebaElementoResultadoID,
+                                Ubicacion = item.Ubicacion,
+                                Resultado = item.Resultado.GetValueOrDefault() == true ? 1 : 0,
+                                Nombre = item.Nombre,
+                                RequisicionPruebaElementoID = item.RequisicionPruebaElementoID.GetValueOrDefault(),
+                                ListaDetalleDefectos = (List<DetalleDefectos>)getListaDetalleDefectos(item.PruebaElementoResultadoID, lenguaje),
+                                ListaDefectos = listaDefectos
+                            };
+                            lista.Add(elemento);
+                        }
+                    }
+                    else
                     {
                         DetallePruebas elemento = new DetallePruebas
                         {
-                            Accion = 2,
-                            PruebaElementoResultadoID = item.PruebaElementoResultadoID,
-                            Ubicacion = item.Ubicacion,
-                            Resultado = item.Resultado.GetValueOrDefault() == true ? 1:0,
-                            Nombre = item.Nombre,
-                            RequisicionPruebaElementoID = item.RequisicionPruebaElementoID.GetValueOrDefault(),
-                            ListaDetalleDefectos = (List<DetalleDefectos>)getListaDetalleDefectos(item.PruebaElementoResultadoID, lenguaje),
-                            ListaDefectos = (List<Defectos>)getListadoDefectos(lenguaje,tipoPrueba)     
+                            Accion = 1,
+                            PruebaElementoResultadoID = 0,
+                            Ubicacion = "",
+                            Resultado = 0,
+                            Nombre = "",
+                            RequisicionPruebaElementoID = 0,
+                           
+                            ListaDefectos = listaDefectos
                         };
                         lista.Add(elemento);
                     }

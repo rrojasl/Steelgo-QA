@@ -162,14 +162,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> getDetalleJuntas(int pruebaID, int todos)
+        public List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> getDetalleJuntas(int pruebaID, int todos,int reqID)
         {
             List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> listaResult = null;
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                     listaResult = ctx.Sam3_ServiciosTecnicos_Get_JuntasXPrueba(pruebaID,todos).ToList();
+                     listaResult = ctx.Sam3_ServiciosTecnicos_Get_JuntasXPrueba(pruebaID,todos, reqID).ToList();
                     return listaResult;
                 }
             }
@@ -243,11 +243,11 @@ namespace BackEndSAM.DataAcces
 
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID",requisicionID.ToString() } , {"@Folio",folio }, {"@PruebasProyectoID",pruebasID.ToString() }, { "@FechaRequisicion",fechaRequisicion.Trim() }, { "@Observacion", observacion}, { "@EstatusID",estatusID.ToString() } };
-                     _SQL.Ejecuta(Stords.GUARDARGENERARREQUISICICION, dtDetalleRequisicion, "@Tabla", parametro);
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID",requisicionID.ToString() } , {"@Folio",folio }, {"@PruebasProyectoID",pruebasID.ToString() }, { "@FechaRequisicion",fechaRequisicion.Trim() }, { "@Observacion", observacion==null?"": observacion }, { "@EstatusID",estatusID.ToString() } };
+                    DataTable dt = _SQL.Tabla(Stords.GUARDARGENERARREQUISICICION, dtDetalleRequisicion, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
+                    result.ReturnMessage.Add("Ok"+"|"+dt.Rows[0][0].ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

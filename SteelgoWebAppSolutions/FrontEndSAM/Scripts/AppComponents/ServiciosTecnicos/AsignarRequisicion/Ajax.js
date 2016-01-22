@@ -22,7 +22,8 @@ function AjaxProveedor(TipoConsulta) {
 
 function AjaxCargarRequisicionAsignacion() {
     loadingStart();
-    $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: "Todos", idPrueba: $("#inputPrueba").val(), idProveedor: $("#inputProveedor").val() }).done(function (data) {
+    $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), idPrueba: $("#inputPrueba").val(), idProveedor: $("#inputProveedor").val() }).done(function (data) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.data(data);
         loadingStop();
     });
@@ -44,6 +45,7 @@ function AjaxCargarCamposPredeterminados() {
             $("#styleTodos").addClass("active");
             $("#styleSinCaptura").removeClass("active");
         }
+        AjaxCargarRequisicionAsignacion();
     });
 
 }
@@ -54,22 +56,26 @@ function AjaxGuardarCaptura(arregloCaptura) {
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
-
+        var i = 0;
 
         for (index = 0; index < arregloCaptura.length; index++) {
             ListaDetalles[index] = { Accion:"", RequisicionID: "", ProveedorID: "", HerramientadePruebaID: "", TurnoLaboralID: "", Fecha: "" };
-            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
-            ListaDetalles[index].RequisicionID = arregloCaptura[index].RequisicionID;
-            ListaDetalles[index].ProveedorID = arregloCaptura[index].ProveedorID;
-            ListaDetalles[index].HerramientadePruebaID = arregloCaptura[index].HerramientadePruebaID;
-            ListaDetalles[index].TurnoLaboralID = arregloCaptura[index].TurnoLaboralID;
-            ListaDetalles[index].Fecha = arregloCaptura[index].Fecha;
+            if (arregloCaptura[index].ProveedorID != "" && arregloCaptura[index].HerramientadePruebaID != "" && arregloCaptura[index].TurnoLaboralID != "") {
+                ListaDetalles[i].Accion = arregloCaptura[index].Accion;
+                ListaDetalles[i].RequisicionID = arregloCaptura[index].RequisicionID;
+                ListaDetalles[i].ProveedorID = arregloCaptura[index].ProveedorID;
+                ListaDetalles[i].HerramientadePruebaID = arregloCaptura[index].HerramientadePruebaID;
+                ListaDetalles[i].TurnoLaboralID = arregloCaptura[index].TurnoLaboralID;
+                ListaDetalles[i].Fecha = arregloCaptura[index].Fecha;
+                i++;
+            }
         }
 
         Captura[0].Detalles = ListaDetalles;
 
         $AsignarRequisicion.AsignarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 AjaxCargarRequisicionAsignacion();
                 mensaje = "Se guardo correctamente la informacion" + "-0";
                 displayMessage("CapturaMensajeGuardadoExitoso", "", '1');

@@ -334,7 +334,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceIntAcabado
                             PinturaSpoolID = item.PinturaSpoolID.GetValueOrDefault(),
                             SpoolID = item.SpoolID,
                             Spool = item.NombreSpool,
-                            SistemaPinturaID = item.SistemaPinturaID,
+                            SistemaPinturaID = item.SistemaPinturaID.GetValueOrDefault(),
                             SistemaPintura = item.SistemaPintura,
                             listaColores = listaColores,
                             ColorID =item.ColorID.GetValueOrDefault(),

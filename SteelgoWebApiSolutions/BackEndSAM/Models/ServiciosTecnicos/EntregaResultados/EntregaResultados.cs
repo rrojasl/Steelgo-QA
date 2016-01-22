@@ -4,13 +4,16 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaResultados
 {
     public class EntregaResultados
     {
-        public int FOLIO { get; set; }
+        public int Accion { get; set; }
+        public string FOLIO { get; set; }
         public string DESCRIPCION { get; set; }
         public bool RECIBIDO { get; set; }
         public int CONDICIONESFISICASID { get; set; }
         public string CONDICIONESFISICAS { get; set; }
         public int DEFECTOSID { get; set; }
         public string DEFECTOS { get; set; }
+        public int EntregaResultadosID { get; set; }
+        public int RequisicionPruebaElementoID { get; set; }
         public List<CondicionesFisicas> ListCondicionesFisicas { get; set; }
         public List<Defectos> ListDefectos { get; set; }
         public List<Defectos> ListDefectosGeneral { get; set; }
@@ -30,11 +33,13 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaResultados
 
     public class GuardarEntregaResultados
     {
-        public int FOLIO { get; set; }
+        public string Accion { get; set; }  
+        public int EntregaResultadosID { get; set; }
         public bool RECIBIDO { get; set; }
         public int CONDICIONESFISICASID { get; set; }
         public int? DEFECTOSID { get; set; }
-     
+        public int RequisicionPruebaElementoID { get; set; }
+
     }
 
     public class Captura

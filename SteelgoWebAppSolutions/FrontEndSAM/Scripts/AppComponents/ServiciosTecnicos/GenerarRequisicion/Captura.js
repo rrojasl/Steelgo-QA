@@ -92,7 +92,7 @@ function CargarGrid() {
             { field: "Cuadrante", title: _dictionary.GenerarRequisicionCuadrante[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Prioridad", title: _dictionary.GenerarRequisicionPrioridad[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Proyecto", title: _dictionary.GenerarRequisicionProyecto[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Folio", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "NumeroControl", title: _dictionary.GenerarRequisicionNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Agregar", title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>" }
         ],
@@ -100,13 +100,13 @@ function CargarGrid() {
             $(".ob-paid").bind("change", function (e) {
                 var grid = $("#grid").data("kendoGrid"),
                     dataItem = grid.dataItem($(e.target).closest("tr"));
-                if (e.target.checked == true) {
+                if (dataItem.Folio=="" &&  e.target.checked == true) {
                     dataItem.Agregar = true;
                 }
                 else {
                     dataItem.Agregar = false;
                 }
-                    
+                grid.dataSource.sync();
 
             });
         }

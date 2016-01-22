@@ -18,11 +18,14 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
 
         for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[index] = { FOLIO: "", RECIBIDO: "", CondicionesFisicasID: "", DEFECTOSID: "" };
-            ListaDetalles[index].FOLIO = arregloCaptura[index].FOLIO;
+            ListaDetalles[index] = { Accion: "", EntregaResultadosID: "", RECIBIDO: "", CONDICIONESFISICASID: "", DEFECTOSID: "", RequisicionPruebaElementoID: "" };
+            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+            ListaDetalles[index].EntregaResultadosID = arregloCaptura[index].EntregaResultadosID;
             ListaDetalles[index].RECIBIDO = arregloCaptura[index].RECIBIDO;
-            ListaDetalles[index].CondicionesFisicasID = arregloCaptura[index].CONDICIONESFISICASID;
-            ListaDetalles[index].DEFECTOSID = arregloCaptura[index].DEFECTOSID == 0 ? undefined : arregloCaptura[index].DEFECTOSID;
+            ListaDetalles[index].CONDICIONESFISICASID = arregloCaptura[index].DEFECTOSID == 0 ? undefined : arregloCaptura[index].CONDICIONESFISICASID;
+            ListaDetalles[index].DEFECTOSID = arregloCaptura[index].DEFECTOSID;
+            ListaDetalles[index].RequisicionPruebaElementoID = arregloCaptura[index].RequisicionPruebaElementoID;
+
         }
 
         Captura[0].Detalles = ListaDetalles;

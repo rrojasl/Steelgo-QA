@@ -10,7 +10,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Asigna requisición</span></a>
+        <a href="@Url.Action("AsignarRequisicion", "ServiciosTecnicos")"><span id="AsignarRequisicion"></span></a>
     </li>
 }
 
@@ -62,38 +62,40 @@
             </div>
         </div>
     </div>
-    <div class="row addedSection">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="FieldSetView">
+        <div class="row addedSection">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            <div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="CapturaHeaderMostrar"></label>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaSinAsinar"></span>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaTodos"> </span>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label id="CapturaHeaderMostrar"></label>
+                        <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaSinAsinar"></span>
+                        <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaTodos"> </span>
+
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <label id="AsignarRequisicionHeaderPrueba"></label>
+                        <input id="inputPrueba" class="" />
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <label id="AsignarRequisicionHeaderProveedor"></label>
+                        <input id="inputProveedor" class="" />
+                    </div>
+
 
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="AsignarRequisicionHeaderPrueba"></label>
-                    <input id="inputPrueba" class="" />
-                </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="AsignarRequisicionHeaderProveedor"></label>
-                    <input id="inputProveedor" class="" />
-                </div>
-              
-                
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="ContenedorGrid" class="row">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                <br />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="ContenedorGrid" class="row">
+                            <div id="grid" data-role="grid" class="k-grid k-widget">
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
-
-
         </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />
@@ -107,16 +109,16 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
+                                <button id="Guardar4" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="CapturaSoldaduraGuardar"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
+                                    <li><a href="#" id="btnGuardar1"><span id="btnGuardarPiePagina"></span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="DetalleAvisoLlegada0062"></span></a></li>
                                 </ul>
                             </div>
-                            <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                            <a id="btnCancelar" class="btn btn-black"><span id="CapturaSoldaduraCancelar"></span></a>
                         </div>
                         <div id="RequisicionDiv" class="button-section">
                             <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Entrega de pruebas</span></a>

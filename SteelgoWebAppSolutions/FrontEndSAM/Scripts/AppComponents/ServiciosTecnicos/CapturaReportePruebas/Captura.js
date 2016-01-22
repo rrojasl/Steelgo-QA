@@ -10,14 +10,14 @@ function changeLanguageCall() {
     $('#gridPopUp').data('kendoGrid').dataSource.read();
     requisicionID = $("#RequisicionID").val();
     AjaxRequisicionDetalle(requisicionID);
-    
+
 };
 
 
 
 
 function CargarGrid() {
-    
+
     kendo.ui.Grid.fn.editCell = (function (editCell) {
         return function (cell) {
             cell = $(cell);
@@ -51,33 +51,23 @@ function CargarGrid() {
                     e.preventDefault();
                 }
                 else {
-                    var longitudActual = e.model.listaDetallePruebas.length;
-                    
+                    var longitudActual = e.model.NumeroPlacas == 0 ? 0 : e.model.listaDetallePruebas.length;
 
-                    
+
+
                     var longitudNuevos = parseInt(e.values.NumeroPlacas) - longitudActual;
                     if (isNaN(longitudNuevos)) {
                         e.preventDefault();
                     }
                     var ds = e.model.listaDetallePruebas;
                     detallePruebas = [];
-                    for (var index = 0; index < longitudNuevos; index++) {
 
-                        detallePruebas[index] = {
-                            Accion: "",
-                            RequisicionPruebaElementoID: "",
-                            PruebaElementoResultadoID: "",
-                            Ubicacion: "",
-                            Resultado: "",
-                            Nombre: "",
-                            ListaDefectos: "",
-                            ListaDetalleDefectos: ""
-                        }
-                        detallePruebas[index].Accion = 1;
-                        detallePruebas[index].RequisicionPruebaElementoID = e.model.RequisicionPruebaElementoID;
-                        detallePruebas[index].PruebaElementoResultadoID = 0;
-                        detallePruebas[index].Resultado = 1;
-                        detallePruebas[index].Nombre = "Aceptado";
+                    if (e.model.NumeroPlacas == 0) {
+                        ds[0].Accion = 1;
+                        ds[0].RequisicionPruebaElementoID = e.model.RequisicionPruebaElementoID;
+                        ds[0].PruebaElementoResultadoID = 0;
+                        ds[0].Resultado = 1;
+                        ds[0].Nombre = "Aceptado";
 
                         var aux = 0;
                         for (var i = 0 ; i < ds.length; i++) {
@@ -86,12 +76,74 @@ function CargarGrid() {
                                 aux = parseInt(res[1]);
                             }
                         }
-                        detallePruebas[index].Ubicacion = aux+"-"+(aux+1);
+                        ds[0].Ubicacion = aux + "-" + (aux + 1);
+                        e.model.NumeroPlacas = longitudNuevos;
 
-                        ds.push(detallePruebas[index]);
+                        for (var index = 1; index < longitudNuevos; index++) {
+
+                            detallePruebas[index] = {
+                                Accion: "",
+                                RequisicionPruebaElementoID: "",
+                                PruebaElementoResultadoID: "",
+                                Ubicacion: "",
+                                Resultado: "",
+                                Nombre: "",
+                                ListaDefectos: "",
+                                ListaDetalleDefectos: ""
+                            }
+                            detallePruebas[index].Accion = 1;
+                            detallePruebas[index].RequisicionPruebaElementoID = e.model.RequisicionPruebaElementoID;
+                            detallePruebas[index].PruebaElementoResultadoID = 0;
+                            detallePruebas[index].Resultado = 1;
+                            detallePruebas[index].Nombre = "Aceptado";
+
+                            var aux = 0;
+                            for (var i = 0 ; i < ds.length; i++) {
+                                var res = ds[i].Ubicacion.split("-");
+                                if (aux <= res[1]) {
+                                    aux = parseInt(res[1]);
+                                }
+                            }
+                            detallePruebas[index].Ubicacion = aux + "-" + (aux + 1);
+
+                            ds.push(detallePruebas[index]);
+                        }
+
                     }
-                    
-                    
+                    else {
+                        for (var index = 0; index < longitudNuevos; index++) {
+
+                            detallePruebas[index] = {
+                                Accion: "",
+                                RequisicionPruebaElementoID: "",
+                                PruebaElementoResultadoID: "",
+                                Ubicacion: "",
+                                Resultado: "",
+                                Nombre: "",
+                                ListaDefectos: "",
+                                ListaDetalleDefectos: ""
+                            }
+                            detallePruebas[index].Accion = 1;
+                            detallePruebas[index].RequisicionPruebaElementoID = e.model.RequisicionPruebaElementoID;
+                            detallePruebas[index].PruebaElementoResultadoID = 0;
+                            detallePruebas[index].Resultado = 1;
+                            detallePruebas[index].Nombre = "Aceptado";
+
+                            var aux = 0;
+                            for (var i = 0 ; i < ds.length; i++) {
+                                var res = ds[i].Ubicacion.split("-");
+                                if (aux <= res[1]) {
+                                    aux = parseInt(res[1]);
+                                }
+                            }
+                            detallePruebas[index].Ubicacion = aux + "-" + (aux + 1);
+
+                            ds.push(detallePruebas[index]);
+                        }
+                    }
+
+
+
                 }
             }
         },

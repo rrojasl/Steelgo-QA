@@ -141,9 +141,7 @@ function RenderGridDetalle(container, options) {
         logic: "or",
         filters: [
           { field: "Accion", operator: "eq", value: 1 },
-          { field: "Accion", operator: "eq", value: 2 },
-            { field: "Accion", operator: "eq", value: 0 },
-            { field: "Accion", operator: "eq", value: undefined }
+          { field: "Accion", operator: "eq", value: 2 }
         ]
     }
           

@@ -68,16 +68,19 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                     {
                         ListadoEntregaResultados.Add(new EntregaResultados
                         {
+                            Accion = item.EntregaResultadosID == null ? 1 : 2,
                             CONDICIONESFISICAS = item.CondicionFisica,
                             DESCRIPCION = item.DESCRIPCION,
                             FOLIO = item.FOLIO,
                             RECIBIDO = item.RECIBIDO.GetValueOrDefault(),
-                            CONDICIONESFISICASID = item.CondicionesFisicasID,
+                            CONDICIONESFISICASID = item.CondicionesFisicasID.GetValueOrDefault(),
                             DEFECTOSID = item.CondicionesFisicasID == 1 ? 0 : item.DefectoID.GetValueOrDefault(),
                             DEFECTOS = item.CondicionesFisicasID == 1 ? null : item.DEFECTOS,
                             ListCondicionesFisicas = ListadoCondicionesFisicas,
                             ListDefectos = item.CondicionesFisicasID == 1 ? null : ListadoDefectos,
-                            ListDefectosGeneral = ListadoDefectos
+                            ListDefectosGeneral = ListadoDefectos,
+                            EntregaResultadosID=item.EntregaResultadosID.GetValueOrDefault(),
+                            RequisicionPruebaElementoID=item.RequisicionPruebaElementoID
                         });
                     }
 

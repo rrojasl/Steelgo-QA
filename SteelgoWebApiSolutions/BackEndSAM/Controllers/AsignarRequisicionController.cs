@@ -49,7 +49,8 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, idPrueba,idProveedor);
+                int tipoVista = mostrar == "Todos" ? 1 : 2;
+                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, idPrueba,idProveedor);
             }
             else
             {

@@ -1,13 +1,15 @@
 ﻿function changeLanguageCall() {
+    AjaxCargarCamposPredeterminados();
     CargarGrid();
+    
 };
 
 IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
     SuscribirEventos();
-    AjaxCargarCamposPredeterminados();
-    //setTimeout(function () { alert("Hello"); }, 3000);
+   
+   
 };
 
 function CargarGrid() {
@@ -50,7 +52,8 @@ function CargarGrid() {
         },
         columns: [
             { field: "Clave", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Observacion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Observacion", title: _dictionary.ServiciosTecnicosObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Fecha", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "CantidadJuntas", title: _dictionary.AsignarRequisicionHeaderCantidadJuntas[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Proveedor", title: _dictionary.AsignarRequisicionHeaderProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: true },
@@ -79,6 +82,9 @@ function PlanchaProveedor() {
             if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoDropDownList").text() == data[i].Clave) {
                 data[i].ProveedorID = $("#inputProveedor").val();
                 data[i].Proveedor = $("#inputProveedor").data("kendoDropDownList").text();
+                var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);
+                data[i].ListaHerramientaPrueba = Proveedor.ListaHerramientaPrueba;
+                data[i].ListaTurnoLaboral = Proveedor.ListaTurnoLaboral;
             }
         }
     }

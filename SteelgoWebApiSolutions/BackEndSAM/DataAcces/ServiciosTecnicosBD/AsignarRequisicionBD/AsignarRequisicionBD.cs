@@ -83,13 +83,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                 return _instance;
             }
         }
-        public object ObtenerRequisicionAsignacion(string lenguaje, int idPrueba, int idProveedor)
+        public object ObtenerRequisicionAsignacion(string lenguaje,int tipoVista, int idPrueba, int idProveedor)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ServiciosTecnicos_Get_RequisicionAsignacion_Result> result = ctx.Sam3_ServiciosTecnicos_Get_RequisicionAsignacion(lenguaje).ToList();
+                    List<Sam3_ServiciosTecnicos_Get_RequisicionAsignacion_Result> result = ctx.Sam3_ServiciosTecnicos_Get_RequisicionAsignacion(lenguaje, tipoVista).ToList();
 
                     List<RequisicionAsignacion> ListadoRequisicionAsignacion = new List<RequisicionAsignacion>();
 
@@ -107,10 +107,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                             Clave = item.Clave,
                             Observacion = item.Observacion,
                             Fecha = item.Fecha,
-                            CantidadJuntas = item.CantidadJuntas.GetValueOrDefault(),
+                            CantidadJuntas = item.CantidadJuntas,
                             ProveedorID = item.ProveedorID.GetValueOrDefault(),
                             Proveedor = item.Proveedor == null ? "" : item.Proveedor,
                             RequisicionID = item.RequisicionID,
+                            Requisicion=item.Requisicion,
                             ListaProveedor = ListadoProveedores,
                             HerramientadePrueba = item.HerramientadePrueba,
                             HerramientadePruebaID = item.HerramientaDePruebaID.GetValueOrDefault(),

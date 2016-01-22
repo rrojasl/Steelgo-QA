@@ -3,11 +3,11 @@
   .appendTo(container)
   .kendoGrid({
       dataSource: {
-          data: options.model.listaDetallePruebas,
+          data:options.model.NumeroPlacas=="0" ?"": options.model.listaDetallePruebas,
           schema: {
               model: {
                   fields: {
-                      Ubicacion: { type: "string", editable: false },
+                      Ubicacion: { type: "string", editable: true },
                       Nombre: { type: "string", editable: true },
                       DetalleResultados: { type: "string", editable: true },
                   }
@@ -17,9 +17,29 @@
       selectable: true,
       columns: [
       
-        { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraDefecto[$("#language").data("kendoDropDownList").value()], filterable: true },
+        { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: true },
         { field: "Nombre", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxResultado },
         { field: "DetalleResultados", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "400px", editor: renderEnlaceEditar, template: "Click para ver los defectos" },
+       
+        {
+            command: {
+                text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                click: function (e) {
+                    e.preventDefault();
+                    dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+                   
+                    if (confirm(_dictionary.CapturaEliminar[$("#language").data("kendoDropDownList").value()])) {
+                        var dataSource = this.dataSource;
+                        dataSource.remove(dataItem);
+                    }
+                    options.model.NumeroPlacas =String(dataSource._data.length);
+                    
+                    this.dataSource.sync();
+                }
+            }, width: "100px"
+        }
+
       ],
       editable: true,
       navigatable: true,

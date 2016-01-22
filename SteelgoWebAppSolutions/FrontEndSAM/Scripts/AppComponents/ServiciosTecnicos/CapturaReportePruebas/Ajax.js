@@ -35,8 +35,10 @@ function AjaxObtenerRenglonEdicionDefectos(model) {
     $("#gridPopUp").data('kendoGrid').dataSource.data([]);
     var ds = $("#gridPopUp").data("kendoGrid").dataSource;
     var array = model.ListaDetalleDefectos;
-    for (var i = 0; i < array.length; i++) {
-        ds.add(array[i]);
+    if (array != null) {
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
     }
     VentanaModal();
     loadingStop();
@@ -194,7 +196,7 @@ function NumeroPlacasCorrecto(ListaNumeroPlacas) {
         else {
             try{
                 if (parseInt(ListaNumeroPlacas[index].NumeroPlacas) > 0) {
-                    bandera = false;
+                    bandera = true;
                 }
             }
             catch (e) {
