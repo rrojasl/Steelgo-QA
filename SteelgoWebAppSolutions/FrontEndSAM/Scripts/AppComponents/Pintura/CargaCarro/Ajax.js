@@ -53,6 +53,7 @@ function AjaxPinturaCargaMedioTransporte() {
         } else {
             $("#inputCarro").data("kendoDropDownList").value("");
         };
+        AjaxObtenerDetalleCarroCargado();
         loadingStop();
     });
 }
