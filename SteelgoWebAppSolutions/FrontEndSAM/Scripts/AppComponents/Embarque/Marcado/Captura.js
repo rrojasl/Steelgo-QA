@@ -1,5 +1,7 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
+    $("#Area").data("kendoComboBox").value("");
+    $("#Cuadrante").data("kendoComboBox").value("");
     AjaxCargarArea();
     AjaxCampoPredeterminadoImpreso();
 };

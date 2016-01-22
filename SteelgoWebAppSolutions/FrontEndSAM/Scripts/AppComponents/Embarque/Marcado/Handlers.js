@@ -4,10 +4,30 @@
     suscribirEventoGuardar();
     suscribirEventoImprimirEtiqueta();
     suscribirEventoVer();
+    suscribirEventoCambioImpreso();
 }
 
 
 SuscribirEventos();
+
+function suscribirEventoCambioImpreso(){
+    $('.radioBtnImpreso').change(function () {
+        if ($('.radioBtnImpreso')[0].checked) {
+            if ($("#Area").val() != "") {
+                if ($("#Cuadrante").val() != "") {
+                    AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                }  
+            }
+        }
+        else if ($('.radioBtnImpreso')[1].checked) {
+            if ($("#Area").val() != "") {
+                if ($("#Cuadrante").val() != "") {
+                    AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                }
+            }
+        }
+    });
+}
 
 function suscribirEventoArea() {
     $("#Area").kendoComboBox({
@@ -42,6 +62,20 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardarCaptura(ds._data, "0");
     });
+    $('#Guardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data, "0");
+    });
+
+    $('#btnGuardar1').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data, "0");
+    });
+    $('#Guardar1').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data, "0");
+    });
+
 }
 
 function suscribirEventoVer() {

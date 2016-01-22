@@ -5,6 +5,8 @@ var EmbarquePlanaID=0;
 
 function changeLanguageCall() {
     CargarGrid();
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
 };
 
 if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val()!="0") {
@@ -86,9 +88,9 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Consecutivo", title: "Consecutivo", filterable: true },
-            { field: "NumeroControl", title: "Spool ID", filterable: true },
-            { field: "Paquete", title: "Paquete", filterable: true },
+            { field: "Consecutivo", title: _dictionary.EmbarqueCargaHeaderConsecutivo[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "NumeroControl", title: _dictionary.EmbarqueCargaHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Paquete", title: _dictionary.EmbarqueCargaHeaderPaquete[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Seleccionado", title: " ", filterable: true, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
@@ -141,16 +143,28 @@ function validarExisteSpoolSeleccionadoSinPaquete() {
         return true;
     }
     else {
-        for (var i = 0; i < ds._data.length; i++) {
-            if (ds._data[i]["Seleccionado"] && ds._data[i]["Paquete"] != "") {
-                existe = true;
-                break;
+            for (var i = 0; i < ds._data.length; i++) {
+                if (ds._data[i]["Seleccionado"] && ds._data[i]["Paquete"] != "") {
+                    existe = true;
+                    break;
+                }
             }
+            if (existe)
+                displayMessage("EmbarqueCargaSeTieneEmpaquetado", "", '2');
+            return existe;
         }
-        if (existe)
-            displayMessage("EmbarqueCargaSeTieneEmpaquetado", "", '2');
-        return existe;
+        
     }
+
+
+
+function ExistenSeleccionados(ds) {
+    for (var i = 0; i < ds.length; i++) {
+        if (ds[i].Seleccionado) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function validarExistaSoloUnpaqueteSeleccionado() {

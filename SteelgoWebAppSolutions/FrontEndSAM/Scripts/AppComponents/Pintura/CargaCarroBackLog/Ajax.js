@@ -26,16 +26,7 @@ function AjaxPinturaCargaMedioTransporte() {
 
 
 function AjaxSubirSpool(listaSpool) {
-    $grid = $("#grid").data("kendoGrid");
-    $("tr", $grid).each(function (index) {
-        var $row = $(this);
-        $("td", $(this)).each(function (index) {
-            alert($(this).ComponenteID);
-            if ($(this).text() == "" || $(this).text() == "0") {
-                $row.css("background-color", "#ffcccc");
-            }
-        });
-    });
+    
 
     var contSave = 0;
     var medioTransporteID;
@@ -62,13 +53,13 @@ function AjaxSubirSpool(listaSpool) {
             MedioTransporteID = $("#inputCarro").data("kendoDropDownList").value();
             Captura[0].ListaDetalles = ListaDetalles;
 
-            //loadingStart();
-            //$CargaCarroBackLog.CargaCarroBackLog.create(Captura[0], { token: Cookies.get("token"), medioTransporteID: MedioTransporteID, cerrar: cerrado }).done(function (data) {
-            //    displayMessage("PinturaCargaBackLogMensajeGuardadoExitoso", "", "0");
-            //    AjaxCargarSpool();
-            //    AjaxPinturaCargaMedioTransporte();
-            //    loadingStop();
-            //});
+            loadingStart();
+            $CargaCarroBackLog.CargaCarroBackLog.create(Captura[0], { token: Cookies.get("token"), medioTransporteID: MedioTransporteID, cerrar: cerrado }).done(function (data) {
+                displayMessage("PinturaCargaBackLogMensajeGuardadoExitoso", "", "0");
+                AjaxCargarSpool();
+                AjaxPinturaCargaMedioTransporte();
+                loadingStop();
+            });
         }
         else {
             displayMessage("PinturaCargaBackLogMensajeErrorServicioPintura", "", "1");

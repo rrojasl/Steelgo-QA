@@ -43,7 +43,7 @@ function AjaxCampoPredeterminadoImpreso() {
             $('.radioBtnImpreso')[0].checked = false;
             $('.radioBtnImpreso')[1].checked = true;
         }
-        
+
         loadingStop();
     });
 }
@@ -53,45 +53,81 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
     Captura = [];
     Captura[0] = { ListaDetalles: "" };
     ListaDetalles = [];
-
+    var ColorCintaCorrecto = true;
+    var contGuardar = 0;
     for (index = 0; index < arregloCaptura.length; index++) {
-        ListaDetalles[index] = {
-            EmbarqueMarcadoID: "",
-            SpoolID: "",
-            Impreso: "",
-            Etiquetado: "",
-            ColorCintaID: ""
-        };
+        if (arregloCaptura[index].Etiquetado || arregloCaptura[index].ConCinta) {
 
-        ListaDetalles[index].EmbarqueMarcadoID = arregloCaptura[index].EmbarqueMarcadoID;
-        ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
-        ListaDetalles[index].Etiquetado = arregloCaptura[index].Etiquetado;
-        ListaDetalles[index].ColorCintaID = arregloCaptura[index].ColorCintaID; 
+            ListaDetalles[contGuardar] = {
+                EmbarqueMarcadoID: "",
+                SpoolID: "",
+                Impreso: "",
+                Etiquetado: "",
+                ColorCintaID: ""
+            };
 
-        if (impreso == "0") {
-            ListaDetalles[index].Impreso = 0;
+            ListaDetalles[contGuardar].EmbarqueMarcadoID = arregloCaptura[index].EmbarqueMarcadoID;
+            ListaDetalles[contGuardar].SpoolID = arregloCaptura[index].SpoolID;
+            ListaDetalles[contGuardar].Etiquetado = arregloCaptura[index].Etiquetado;
+            ListaDetalles[contGuardar].ColorCintaID = arregloCaptura[index].ColorCintaID;
+
+            if (arregloCaptura[index].ConCinta) {
+                if (arregloCaptura[index].ColorCintaID == 0) {
+                    ColorCintaCorrecto = false;
+                }
+            }
+
+            if (impreso == "0") {
+                ListaDetalles[contGuardar].Impreso = 0;
+            }
+            else {
+                if (arregloCaptura[index].Etiquetado) {
+                    ListaDetalles[contGuardar].Impreso = 1;
+                }
+                else {
+                    ListaDetalles[contGuardar].Impreso = 0;
+                }
+            }
+
+            if (arregloCaptura[index].Etiquetado) {
+                ListaDetalles[contGuardar].Etiquetado = 1;
+            }
+            else {
+                ListaDetalles[contGuardar].Etiquetado = 0;
+            }
+            contGuardar++;
+
         }
-        else {
-            ListaDetalles[index].Impreso = 1;
-        }
-         
-        if ( arregloCaptura[index].Etiquetado) {
-            ListaDetalles[index].Etiquetado = 1;
-        }
-        else {
-            ListaDetalles[index].Etiquetado = 0;
-        }
+
 
     }
 
     Captura[0].ListaDetalles = ListaDetalles;
-
-    loadingStart();
-    $Marcado.Marcado.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-        loadingStop();
-        displayMessage("EmbarqueMarcadoMensajeGuardadoExitoso", "", "0");
-        if (impreso == "0") {
-            AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+    if (Captura[0].ListaDetalles.length > 0) {
+        if (ColorCintaCorrecto) {
+            loadingStart();
+            $Marcado.Marcado.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+                loadingStop();
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                    displayMessage("EmbarqueMarcadoMensajeGuardadoExitoso", "", "0");
+                    if (impreso == "0") {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                    }
+                    displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+                }
+                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                }
+            });
         }
-    });
+        else {
+            displayMessage("", "Debe capturar el color de la cinta si se selecciono que va con cinta", "1");
+        }
+    }
+    else {
+        displayMessage("", "No hay registros a guardar", "1");
+    }
+    
+    
 }

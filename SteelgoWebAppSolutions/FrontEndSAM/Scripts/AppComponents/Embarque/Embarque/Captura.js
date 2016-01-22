@@ -56,7 +56,7 @@ function CargarGrid() {
                          e.preventDefault();
                          var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                          var dataSource = this.dataSource;
-                         if (dataItem.Estatus == "Cerrada") {
+                         
                              if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
 
                                  if (dataItem.Accion == 0) {
@@ -66,11 +66,7 @@ function CargarGrid() {
                                      dataSource.remove(dataItem);
                                  }
                              }
-                         }
-                         else {
-                             displayMessage("EmbarqueMensajeNoEliminarPlanas", "", "0");
-                         }
-                         dataSource.sync();
+                        dataSource.sync();
                      }
                  },
                  title: "",

@@ -190,10 +190,13 @@ function SuscribirEventoSpoolID() {
 
         if (e.keyCode == 37) {
             $("#InputOrdenTrabajo").focus();
-
         }
-        else if (e.keyCode == 40)
+        else if (e.keyCode == 40) {
             $("#InputID").data("kendoComboBox").select();
+        }
+        else if (e.keyCode == 13){
+            AjaxAgregarCarga();
+        }
     });
 
 };
@@ -258,15 +261,23 @@ function SuscribirEventoPaquete() {
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
-        AjaxAgregarCarga()
+        AjaxAgregarCarga();
     });
 }
 
 function SuscribirEventoCrearPaquete() {
     $('#ButtonCrearPaquete').click(function (e) {
-        if (!validarExisteSpoolSeleccionadoSinPaquete()) {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            AjaxCrearPaquete(ds._data,undefined,0);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if (ExistenSeleccionados(ds._data)) {
+            if (!validarExisteSpoolSeleccionadoSinPaquete()) {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                AjaxCrearPaquete(ds._data, undefined, 0);
+            }
+        }
+        else {
+            displayMessage("", "Seleccione al menos un item", '1');
+            existe = true;
+            return existe;
         }
     });
 
