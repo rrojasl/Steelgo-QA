@@ -5,6 +5,23 @@
 
 _dictionary = {
     //Login Page Labels
+
+    "CapturaEliminar": {
+        "es-MX": "Estas seguro de eliminar la informacion?",
+        "en-US": "do you want delete the row?"
+    },
+    "RequisicionesAsignadas": {
+        "es-MX": "Requisiciones Asignadas",
+        "en-US": "Assigned Request"
+    },
+    "AsignarRequisicion": {
+        "es-MX": "Asignar Requisicion",
+        "en-US": "Set Request"
+    },
+    "ServiciosTecnicosGenerarRequisicion": {
+        "es-MX": "Generar Requisicion",
+        "en-US": "Generate Request"
+    },
     "loginLabel0001": {
         "es-MX": "Inicio de Sesión",
         "en-US": "Login"
@@ -3991,9 +4008,9 @@ _dictionary = {
         "en-US": "Shipment Review "
     },
     "EmbarqueCargaPlana": {
-            "es-MX": "Cerrar Plana",
-            "en-US": "Close Plate"
-        },
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
@@ -4454,6 +4471,10 @@ _dictionary = {
     "ServiciosTecnicosRequisicion": {
         "es-MX": "Requisicion",
         "en-US": "Requisition"
+    },
+    "ServiciosTecnicosObservacion": {
+        "es-MX": "Observacion",
+        "en-US": "Observation"
     },
     "ServiciosTecnicosSpoolID": {
         "es-MX": "SpoolID",
@@ -5073,6 +5094,11 @@ _dictionary = {
     "ValidacionResultadosCabeceraDefectos": {
         "es-MX": "Defectos",
         "en-US": "Defects"
+    },
+
+    "ValidacionResultadosCabeceraUbicacion": {
+        "es-MX": "Ubicacion",
+        "en-US": "Location"
     },
     "ValidacionResultadosCabeceraUbicacion": {
         "es-MX": "Ubicacion",
@@ -5808,7 +5834,42 @@ _dictionary = {
     //#endregion
 
     //#region PinturaCarga
-
+    "PinturaGuardarNuevoCarro": {
+        "es-MX": "El carro fue creado satisfactoriamente",
+        "en-US": "The carr was created sucessfull"
+    },
+    "PinturaErrorGuardarNuevoCarro": {
+        "es-MX": "¿Cuantas veces puede ser ocupado el carro?",
+        "en-US": "how many times the car can be used?"
+    },
+    "labelNumeroVeces": {
+        "es-MX": "¿Cuantas veces puede ser ocupado el carro?",
+        "en-US": "how many times the car can be used?"
+    },
+    "labelPesoMaximo": {
+        "es-MX": "Peso Maximo",
+        "en-US": "Maximum weight"
+    },
+    "labelArea": {
+        "es-MX": "Area",
+        "en-US": "Area"
+    },
+    "CrearNuevoCarro": {
+        "es-MX": "Crear nuevo carro",
+        "en-US": "Create new car"
+    },
+    "labelNuevoMedioTransporte": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "labelClasificion": {
+        "es-MX": "Clasificacion",
+        "en-US": "Classification"
+    },
+    "labelPersisitencia": {
+        "es-MX": "Persistencia",
+        "en-US": "Persistence"
+    },
     "CapturaAvanceSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"

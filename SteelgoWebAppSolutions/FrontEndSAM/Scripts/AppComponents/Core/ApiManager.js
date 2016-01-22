@@ -44,6 +44,8 @@ var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionResultados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MedioTransporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $LotesCapturaReporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 
 //Pintura
 var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
