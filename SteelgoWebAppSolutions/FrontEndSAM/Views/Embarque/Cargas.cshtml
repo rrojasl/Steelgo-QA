@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Consulta";
+    ViewBag.Title = "Cargas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -7,10 +7,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="">Embarque</span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Dimensional", "Inspeccion")"><span id="">Cargas</span></a>
+        <a href=@Url.Action("Cargas", "Embarque")><span id="lblCargas"></span></a>
     </li>
 }
 
@@ -37,7 +37,7 @@
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="EmbarqueCargaEmbarque">Embarque</span></a>
+                            <a id="TramitarPermiso" href=@Url.Action("Embarque", "Embarque") class="btn btn-primary"><span id="botonEmbarque"></span></a>
                         </div>
                         <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
                             <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="EmbarqueCargaAutorizarPermiso"></span></a>
@@ -165,25 +165,25 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
+                                    <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                                 </ul>
                             </div>
 
-                            <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                            <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>
                         </div>
                         <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Embarque</span></a>
+                            <a id="Requisicion" href=@Url.Action("Embarque", "Embarque") class="btn btn-primary"><span id="botonEmbarque2"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="">Acciones</span>
+                                    <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">

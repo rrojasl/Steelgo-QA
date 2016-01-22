@@ -185,7 +185,7 @@ function AjaxCrearPaquete(arregloCaptura, accion, paqueteID) {
                        
                     }
                 }
-
+                AjaxCargarPaquetes();
                 displayMessage("EmbarqueCargaCuadranteActualizado", "", '1');
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {

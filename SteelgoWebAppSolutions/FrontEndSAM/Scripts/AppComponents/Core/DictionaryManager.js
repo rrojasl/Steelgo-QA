@@ -3675,6 +3675,11 @@ _dictionary = {
     },
     //#region Genericos
 
+    "botonBuscar": {
+        "es-MX": "Buscar",
+        "en-US": "Find"
+    },
+
     "BotonCerrar1": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -3752,6 +3757,26 @@ _dictionary = {
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
+    },
+    "lblMarcado": {
+        "es-MX": "Marcado",
+        "en-US": "Marked"
+    },
+    "lblEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipping"
+    },
+    "lblEmbarque2": {
+        "es-MX": "Embarque",
+        "en-US": "Shipping"
+    },
+    "lblCargas": {
+        "es-MX": "Cargas",
+        "en-US": "Shipment"
+    },
+    "lblConsulta": {
+        "es-MX": "Consulta",
+        "en-US": "Query"
     },
     "TipoAgregado": {
         "es-MX": "Tipo Captura",
@@ -3844,7 +3869,7 @@ _dictionary = {
         "es-MX": "Soldadura",
         "en-US": "Welding"
     },
-    
+
     "menuSoldaduraPie": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
@@ -3925,6 +3950,14 @@ _dictionary = {
         "es-MX": "Captura Reporte",
         "en-US": "Capture Report "
     },
+    "botonEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment "
+    },
+    "botonEmbarque2": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment "
+    },
     "menuEmbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment "
@@ -3953,6 +3986,10 @@ _dictionary = {
         "es-MX": "Revision Embarque",
         "en-US": "Shipment Review "
     },
+    "EmbarqueCargaPlana": {
+            "es-MX": "Cerrar Plana",
+            "en-US": "Close Plate"
+        },
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
@@ -5456,6 +5493,18 @@ _dictionary = {
     "EmbarqueCargaErrorCerrarPlana": {
         "es-MX": "Existio un problema al cerrar la plana",
         "en-US": "There was a problem closing the flat"
+    },
+    "EmbarqueCargaHeaderSpool": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "EmbarqueCargaHeaderConsecutivo": {
+        "es-MX": "Consecutivo",
+        "en-US": "Consecutive"
+    },
+    "EmbarqueCargaHeaderPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
     }
 
     //#endregion
@@ -5848,7 +5897,7 @@ _dictionary = {
 
     //#region CapturaAvanceIntAcabado
 
-    
+
     "lblCapturaAvanceIntAcabadoInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -5975,7 +6024,7 @@ _dictionary = {
         "en-US": "Error"
     },
     "CapturaAvanceIntAcabadoMensajePreguntaGuardado": {
-        "es-MX": "Sólo se guardarán los registros que estén completos. ¿Desea continuar?", 
+        "es-MX": "Sólo se guardarán los registros que estén completos. ¿Desea continuar?",
         "en-US": "Only will be saved complete fields. Continue anyway?"
     },
     "CapturaAvanceIntAcabadoMensajeErrorGuardadoComponente": {
@@ -5992,7 +6041,7 @@ _dictionary = {
     },
     "CapturaAvanceIntAcabadoHeaderLlenadoMasivo": {
         "es-MX": "Llenado masivo",
-        "en-US": "Filling mass" 
+        "en-US": "Filling mass"
     },
     "CapturaAvanceIntAcabadoPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de pintura?",
