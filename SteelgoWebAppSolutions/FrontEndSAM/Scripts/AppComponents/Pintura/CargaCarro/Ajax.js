@@ -44,6 +44,7 @@ function AjaxPinturaCargaMedioTransporte() {
     loadingStart();
 
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        debugger;
         if (data.length > 0) {
             $("#inputCarro").data("kendoDropDownList").value("");
             $("#inputCarro").data("kendoDropDownList").dataSource.data(data);
@@ -187,25 +188,26 @@ function AjaxAgregarCarga() {
 }
 
 function ImprimirAreaTonelada() {
-    var ds = $("#grid").data("kendoGrid").dataSource;
+    var ds = $("#grid").data("kendoGrid");
     var array = ds._data;
     var totalAreaCargada = 0;
     var totalToneladasCargadas = 0;
     for (var i = 0; i < array.length; i++) {
-        totalAreaCargada += array[i]["Area"];
-        totalToneladasCargadas += array[i]["Peso"];
+        totalAreaCargada += parseFloat(array[i]["Area"], 10);
+        totalToneladasCargadas += parseFloat(array[i]["Peso"], 10);
     }
-    $("#labelM2").text(totalAreaCargada);
-    $("#labelToneladas").text(totalToneladasCargadas);
+    $("#labelM2").text(totalAreaCargada.toFixed(2));
+    $("#labelToneladas").text(totalToneladasCargadas.toFixed(2));
+
     return totalAreaCargada;
 }
 
 function SumarArea() {
-    var ds = $("#grid").data("kendoGrid").dataSource;
+    var ds = $("#grid").data("kendoGrid");
     var array = ds._data;
     var totalAreaCargada = 0;
     for (var i = 0; i < array.length; i++) {
-        totalAreaCargada += array[i]["Area"];
+        totalAreaCargada += parseFloat(array[i]["Area"]);
     }
 
     return totalAreaCargada;
@@ -239,7 +241,7 @@ function AjaxObtenerDetalleCarroCargado() {
 
             ImprimirAreaTonelada();
         } else
-            displayMessage("PinturaCargaSpoolNoEncontrado", "", '2');
+         //   displayMessage("PinturaCargaSpoolNoEncontrado", "", '2');
 
 
         loadingStop();
@@ -247,12 +249,12 @@ function AjaxObtenerDetalleCarroCargado() {
 }
 
 function SumarTonelada() {
-    var ds = $("#grid").data("kendoGrid").dataSource;
+    var ds = $("#grid").data("kendoGrid");
     var array = ds._data;
     var totalToneladasCargadas = 0;
     for (var i = 0; i < array.length; i++) {
 
-        totalToneladasCargadas += array[i]["Peso"];
+        totalToneladasCargadas += parseFloat(array[i]["Peso"]);
     }
 
     return totalToneladasCargadas;

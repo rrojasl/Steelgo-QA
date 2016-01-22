@@ -9,16 +9,15 @@
 IniciarCapturaPinturaCarga();
 function IniciarCapturaPinturaCarga() {
     SuscribirEventos();
-   
-    
+
+
 }
 
-function LimpiarCarro()
-{
-     $("#inputMedioTransporte").val('');
-     $("#inputNumeroVeces").val('');
-     $("#inputPesoMaximo").val('');
-     $("#inputArea").val('');
+function LimpiarCarro() {
+    $("#inputMedioTransporte").val('');
+    $("#inputNumeroVeces").val('');
+    $("#inputPesoMaximo").val('');
+    $("#inputArea").val('');
 }
 
 function CargarGrid() {
@@ -78,7 +77,7 @@ function eliminarCaptura(e) {
     e.preventDefault();
     var filterValue = $(e.currentTarget).val();
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-   
+
 
 
     windowTemplate = kendo.template($("#windowTemplate").html());
@@ -98,14 +97,16 @@ function eliminarCaptura(e) {
 
     $("#yesButton").click(function () {
         var dataSource = $("#grid").data("kendoGrid").dataSource;
-       
 
-        if ( dataItem.Accion === 1)
+
+        if (dataItem.Accion === 1)
         { dataSource.remove(dataItem); }
-        else
+        else {
             dataItem.Accion = 3
-
+        }
+        
         dataSource.sync();
+        ImprimirAreaTonelada();
         ventanaConfirm.close();
     });
     $("#noButton").click(function () {

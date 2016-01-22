@@ -3,17 +3,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="">Pintura</span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="PinturaHeaderCargaCarroPintura"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Carga de carro</span></a>
+        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="PinturaHeaderCargaCarro"></span></a>
     </li>
 }
 
@@ -37,11 +35,11 @@
                                 </ul>
 
                             </div>
-                            <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Cerrar Carro</span></button>
+                            <button id="CerrarCarro" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PinturaBotonCerrarCarro1"></span></button>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span>Captura avance</span></a>
+                            <a id="TramitarPermiso" href="~/Pintura/CapturaAvance" class="btn btn-primary"><span id="PinturaBotonCapturaAvance1"></span></a>
                         </div>
                         <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
                             <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
@@ -91,7 +89,7 @@
                     <label id="styleReporte">
                         <input type="radio" name="PinturaCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
                     </label>
-                   
+
                     <label id="styleListado">
                         <input type="radio" name="PinturaCargaTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueCargaOpcionCodigo"> </span>
                     </label>
@@ -111,8 +109,8 @@
                     <button type="button" id="btnAgregar" class="btn btn-blue"><span id="PinturaCargaAgregar"></span></button>
                 </div>
 
-                
-               
+
+
 
 
             </div>
@@ -140,25 +138,25 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
+                                    <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                                 </ul>
                             </div>
-
-                            <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                            <button id="CerrarCarro2" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PinturaBotonCerrarCarro2"></span></button>
+                            <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
                         </div>
                         <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Captura Avance</span></a>
+                            <a id="Requisicion" href="~/Pintura/CapturaAvance" class="btn btn-primary"><span id="PinturaBotonCapturaAvance2"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="">Acciones</span>
+                                    <span id="botonAcciones2"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
@@ -179,7 +177,7 @@
             <label id="labelNuevoMedioTransporte"></label>
             <input id="inputMedioTransporte" class="item-select" />
         </div>
-      
+
 
     </div>
     <div class="row">
@@ -219,6 +217,7 @@
         </button>
     </div>
 </div>
+
 
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Ajax.js"></script>
