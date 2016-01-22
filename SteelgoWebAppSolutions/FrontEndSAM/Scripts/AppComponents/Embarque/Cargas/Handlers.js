@@ -242,7 +242,14 @@ function SuscribirEventoPlacasPlana() {
         dataValueField: "VehiculoID",
         suggest: true,
         filter: "contains",
-        index: 3
+        index: 3,
+    });
+    $('#inputEmbarqueCargaPLacaPlana').closest('.k-widget').keydown(function (e) {
+
+        
+         if (e.keyCode == 13) {
+             ajaxCargarSpoolXPlaca();
+        }
     });
 }
 

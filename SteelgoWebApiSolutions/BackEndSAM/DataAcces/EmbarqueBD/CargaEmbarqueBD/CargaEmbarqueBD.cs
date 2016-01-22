@@ -157,6 +157,54 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
             }
         }
 
+
+        public object ObtieneDetalleXPlaca(int TransportistaID, int embarquePlanaID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Get_CargaSpoolCargado_Result> result = ctx.Sam3_Embarque_Get_CargaSpoolCargado(TransportistaID,embarquePlanaID,lenguaje).ToList();
+
+                    List<DetalleCargaCaptura> ListadoDetalleCargaCaptura = new List<DetalleCargaCaptura>();
+
+                    int consecutivo = 1;
+
+                    foreach (Sam3_Embarque_Get_CargaSpoolCargado_Result item in result)
+                    {
+                        ListadoDetalleCargaCaptura.Add(new DetalleCargaCaptura
+                        {
+                            Accion = embarquePlanaID == 0 ? 1 : embarquePlanaID,
+                            Consecutivo = consecutivo,
+                            Cuadrante = item.Cuadrante,
+                            CuadranteID = item.CuadranteID,
+                            EmbarquePaqueteID = item.EmbarquePaqueteID,
+                            Mensaje = item.Mensaje,
+                            NumeroControl = item.NumeroControl,
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            Paquete = item.Paquete,
+                            Peso = double.Parse(item.Peso.ToString()),
+                            SpoolID = item.SpoolID,
+                            Seleccionado = false
+                        });
+                        consecutivo++;
+                    }
+                    return ListadoDetalleCargaCaptura;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
         public object ActualizarCuadrante(int EmpaquetadoPaqueteID,DataTable dtNuevoCuadrante,int usuarioID)
         {
                 using (SamContext ctx = new SamContext())
