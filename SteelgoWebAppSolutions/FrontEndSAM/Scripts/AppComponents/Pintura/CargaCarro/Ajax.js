@@ -1,4 +1,46 @@
-﻿function AjaxPinturaCargaMedioTransporte() {
+﻿function AjaxGuardarNuevoCarro()
+{
+    
+
+   
+    try {
+        loadingStart();
+        Captura = [];
+        Captura[0] = { Detalles: "" };
+        ListaDetalles = [];
+
+
+        var index = 0;
+
+        ListaDetalles[index] = { Nombre: "", ClasificacionID: "", PersistenciaID: "", NumeroVecesUsoMaximo: "", PesoMaximo: "", Area: "", ClasificacionMedioTransporteID:"" };
+        ListaDetalles[index].Nombre = $("#inputMedioTransporte").val();
+        ListaDetalles[index].ClasificacionMedioTransporteID = 1;
+        ListaDetalles[index].ClasificacionID = $("#inputClasificacion").val();
+        ListaDetalles[index].PersistenciaID = $("#inputPersistencia").val();
+        ListaDetalles[index].NumeroVecesUsoMaximo = $("#inputNumeroVeces").val();
+        ListaDetalles[index].PesoMaximo = $("#inputPesoMaximo").val();
+        ListaDetalles[index].Area = $("#inputArea").val();
+        
+
+
+        Captura[0].Detalles = ListaDetalles;
+        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token")}).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                displayMessage("PinturaGuardarNuevoCarro", "", '1');
+            }
+            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                displayMessage("PinturaErrorGuardarNuevoCarro", "", '2');
+            }
+            loadingStop();
+        });
+    } catch (e) {
+        loadingStop();
+        displayMessage("Mensajes_error", e.message, '0');
+
+    }
+}
+
+function AjaxPinturaCargaMedioTransporte() {
     loadingStart();
 
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
@@ -10,6 +52,32 @@
 
         } else {
             $("#inputCarro").data("kendoDropDownList").value("");
+        };
+        loadingStop();
+    });
+}
+
+function AjaxObtenerCatalogoClasificacion()
+{
+    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), idCatalogo:0 }).done(function (data) {
+        if (data.length > 0) {
+            $("#inputClasificacion").data("kendoDropDownList").value("");
+            $("#inputClasificacion").data("kendoDropDownList").dataSource.data(data);
+        } else {
+            $("#inputClasificacion").data("kendoDropDownList").value("");
+        };
+        loadingStop();
+    });
+}
+
+function AjaxObtenerCatalogoPersistencia()
+{
+    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), idCatalogo:1 }).done(function (data) {
+        if (data.length > 0) {
+            $("#inputPersistencia").data("kendoDropDownList").value("");
+            $("#inputPersistencia").data("kendoDropDownList").dataSource.data(data);
+        } else {
+            $("#inputPersistencia").data("kendoDropDownList").value("");
         };
         loadingStop();
     });

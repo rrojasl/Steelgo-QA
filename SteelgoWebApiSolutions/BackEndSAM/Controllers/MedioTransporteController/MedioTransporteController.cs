@@ -139,7 +139,54 @@ namespace BackEndSAM.Controllers.MedioTransporteController
 
         }
 
+        //obtiene los catalogos de clasificacion y persistencia
+        public object Get(string token, int idCatalogo)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+               if( idCatalogo==0 )
+                    return MedioTransporteBD.Instance.ObteneCatalogoClasificacion();
+                else
+                    return MedioTransporteBD.Instance.ObtenerCatalogoPersistencia();
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
+        public object Post(CapturaNuevoMedioTransporte listaCaptura, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtNuevoMedioTransporte = ArmadoController.ToDataTable(listaCaptura.Detalles);
+                return MedioTransporteBD.Instance.GuardarNuevoMedioTransporte(dtNuevoMedioTransporte, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
 
+        }
     }
 }

@@ -70,6 +70,11 @@ namespace BackEndSAM.Models.Pintura.MedioTransporte
     {
         public List<GuardarDescarga> Detalles { get; set; }
     }
+    public class CapturaNuevoMedioTransporte
+    {
+        public List<NuevoMedioTransporte> Detalles { get; set; }
+    }
+
 
     public class GuardarDescarga
     {
@@ -77,5 +82,29 @@ namespace BackEndSAM.Models.Pintura.MedioTransporte
         public int SpoolID { get; set; }
         public int MedioTransporteID { get; set; }
         public int CuadranteID { get; set; }
+    }
+
+    public class NuevoMedioTransporte
+    {
+        public string Nombre { get; set; }
+        public int ClasificacionMedioTransporteID { get; set; }
+        public int ClasificacionID { get; set; }
+        public int PersistenciaID { get; set; }
+        public int NumeroVecesUsoMaximo { get; set; }
+        public double PesoMaximo { get; set; }
+        public double Area { get; set; }
+
+    }
+
+    public class TipoPersistencia
+    {
+        public int TipoPersistenciaID { get; set; }
+        public string Tipo { get; set; }
+    }
+
+    public class Clasificacion
+    {
+        public int ClasificacionPersistenciaID { get; set; }
+        public string NombreClasificacion { get; set; }
     }
 }

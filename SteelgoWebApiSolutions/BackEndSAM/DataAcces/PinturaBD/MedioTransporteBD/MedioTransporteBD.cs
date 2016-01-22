@@ -285,7 +285,121 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
+        public object GuardarNuevoMedioTransporte(DataTable dtCarga, int usuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuarioID.ToString() } };
 
+                    DataTable dt= _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtCarga, "@Tabla", parametro);
+                    TransactionalInformation result = new TransactionalInformation();
+                    if (dt.Rows.Count == 0)
+                    {
+                       
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    else
+                    {
+                        
+                        result.ReturnMessage.Add(dt.Rows[0][0].ToString());
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
+                    }
+                    
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObteneCatalogoClasificacion()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //
+                    List<Sam_Pintura_Get_Clasificacion_Result> result = ctx.Sam_Pintura_Get_Clasificacion().ToList();
+
+                    List<Clasificacion> ListadoClasificacion = new List<Clasificacion>();
+
+                    foreach (Sam_Pintura_Get_Clasificacion_Result item in result)
+                    {
+                        ListadoClasificacion.Add(new Clasificacion
+                        {
+                            ClasificacionPersistenciaID = item.ClasificacionPersistenciaID,
+                            NombreClasificacion = item.Clasificacion,
+                           
+                        });
+
+                    }
+                    return ListadoClasificacion;
+                    //
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerCatalogoPersistencia()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //
+                    List<Sam3_Pintura_Get_TipoPersistencia_Result> result = ctx.Sam3_Pintura_Get_TipoPersistencia().ToList();
+
+                    List<TipoPersistencia> ListadoPersistencia = new List<TipoPersistencia>();
+
+                    foreach (Sam3_Pintura_Get_TipoPersistencia_Result item in result)
+                    {
+                        ListadoPersistencia.Add(new TipoPersistencia
+                        {
+                            TipoPersistenciaID = item.TipoPersistenciaID,
+                            Tipo = item.Tipo
+                        });
+
+                    }
+                    return ListadoPersistencia;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 
 

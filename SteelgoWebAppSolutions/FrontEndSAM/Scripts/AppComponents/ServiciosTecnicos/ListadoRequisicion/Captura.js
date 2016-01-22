@@ -1,18 +1,19 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
+    AjaxObtenerStatus();
+  
 };
 
 IniciarListaRequisicion();
 
 function IniciarListaRequisicion() {
     SuscribirEventos();
-    AjaxObtenerStatus();
-   
 };
 
 function AgregarStatusDinamicos(listaStatus)
 {
+    document.getElementById('divStatusRequisiciones').innerHTML = '';
     for (var i = 0; i < listaStatus.length; i++) {
         $("#divStatusRequisiciones").append("<button onclick='ActivarRefrescarGrid(" + listaStatus[i].EstatusID + ")' id='" + listaStatus[i].EstatusID + "' class='btn btn-tabList'><span id='" + listaStatus[i].EstatusID + "'>" + listaStatus[i].Estatus + " </span><span id='" + listaStatus[i].CantidadRegistros + "'>" + listaStatus[i].CantidadRegistros + "</span></button>");
         if (i == 0)

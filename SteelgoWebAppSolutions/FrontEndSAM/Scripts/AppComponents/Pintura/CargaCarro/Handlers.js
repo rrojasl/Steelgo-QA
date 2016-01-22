@@ -1,12 +1,84 @@
-﻿function SuscribirEventos() {
+﻿var windowNewCarriage;
+function SuscribirEventos() {
     SuscribirEventoSpoolID();
     SuscribirEventoChangeRadioTipoListado();
     SuscribirEventoCarro();
     SuscribirEventoAgregar();
     SuscribirEventoGuardar();
     SuscribirEventoCerrarMedioTransporte();
+    SuscribirEventoCrearNuevoMedioTransporte();
+    SuscribirEventoClasificacion();
+    SuscribirEventoPersistencia();
+    SuscribirEventoGuardarCrearMedioTransporte();
+    SuscribirEventoCerrarCrearMedioTransporte();
 };
 
+function SuscribirEventoGuardarCrearMedioTransporte()
+{
+    $('#btnGuardarCrearMedioTransporte').click(function (e) {
+        AjaxGuardarNuevoCarro()
+        setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
+        windowNewCarriage.close();
+    });
+}
+
+function SuscribirEventoCerrarCrearMedioTransporte()
+{
+    $('#btnCerrarVentanaCrearMedioTransporte').click(function (e) {
+        windowNewCarriage.close();
+    });
+}
+
+function SuscribirEventoPersistencia() {
+    $('#inputPersistencia').kendoDropDownList({
+        dataTextField: "Tipo",
+        dataValueField: "TipoPersistenciaID ",
+        suggest: true,
+        filter: "contains",
+        index: 3
+    });
+}
+
+function SuscribirEventoClasificacion() {
+    $('#inputClasificacion').kendoDropDownList({
+        dataTextField: "NombreClasificacion",
+        dataValueField: "ClasificacionPersistenciaID ",
+        suggest: true,
+        filter: "contains",
+        index: 3
+    });
+}
+
+
+
+function SuscribirEventoCrearNuevoMedioTransporte()
+{
+   
+    $('#btnAgregarMedioTransporte').click(function (e) {
+        LimpiarCarro();
+            windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
+                modal: true,
+               // title:,
+                resizable: false,
+                visible: true,
+                width: "40%",
+                minWidth: "20%",
+                
+                position: {
+                    top: "1%",
+                    left: "1%"
+                },
+                actions: [
+                    "Close"
+                ],
+            }).data("kendoWindow");
+            $("#divNuevoMedioTransporte").data("kendoWindow").title( _dictionary.CrearNuevoCarro[$("#language").data("kendoDropDownList").value()]);
+            $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
+            
+       
+    });
+    
+}
 function SuscribirEventoCerrarMedioTransporte()
 {
     $('#btnAgregar').click(function (e) {

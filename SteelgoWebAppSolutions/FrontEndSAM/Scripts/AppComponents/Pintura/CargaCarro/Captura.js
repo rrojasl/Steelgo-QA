@@ -1,13 +1,26 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
+    AjaxObtenerCatalogoClasificacion();
+    AjaxObtenerCatalogoPersistencia();
+    setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
+    setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1000);
 }
 
 IniciarCapturaPinturaCarga();
 function IniciarCapturaPinturaCarga() {
     SuscribirEventos();
-    setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1000);
-    setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
+   
+    
 }
+
+function LimpiarCarro()
+{
+     $("#inputMedioTransporte").val('');
+     $("#inputNumeroVeces").val('');
+     $("#inputPesoMaximo").val('');
+     $("#inputArea").val('');
+}
+
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
@@ -56,7 +69,6 @@ function CargarGrid() {
             { field: "Area", title: _dictionary.PinturaCargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Peso", title: _dictionary.PinturaCargaPeso[$("#language").data("kendoDropDownList").value()], filterable: true },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
-
         ]
     });
 }
