@@ -106,6 +106,25 @@ function AjaxObtenerSpoolID() {
     });
 }
 
+function AjaxCerrarCarro() {
+    loadingStart();
+
+    var Captura = [];
+    Captura[0] = { Detalles: "" };
+
+    var ListaDetalles = [];
+    ListaDetalles[0] = { SpoolID: "", Accion: "" };
+
+    Captura[0].Detalles = ListaDetalles;
+    $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), medioTransporteID: $("#inputCarro").val() }).done(function (data) {
+
+        displayMessage("PinturaCerrarCarro", "", '1');
+        AjaxPinturaCargaMedioTransporte();
+
+        $("#grid").data("kendoGrid").dataSource.sync();
+        loadingStop();
+    });
+}
 
 function AjaxAgregarCarga() {
     loadingStart();
@@ -191,6 +210,40 @@ function SumarArea() {
     return totalAreaCargada;
 }
 
+function AjaxObtenerDetalleCarroCargado() {
+    loadingStart();
+    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), idMedioTransporteCarga: $("#inputCarro").val(), id: 0 }).done(function (data) {
+        $("#grid").data("kendoGrid").dataSource.data(data);
+
+        var carDataSourceSelected = $("#inputCarro").data("kendoDropDownList").dataItem($("#inputCarro").data("kendoDropDownList").select())
+        var array = data;
+
+        if (array.length > 0) {
+
+            for (var i = 0; i < array.length; i++) {
+                if (!validarInformacion(array[i])) {
+                    if (carDataSourceSelected.AreaPermitidoMedioTransporte > (SumarArea() + array[i].Area))
+                        if (carDataSourceSelected.PesoMaximoPermitido > (SumarTonelada() + array[i].Peso)) {
+                            ds.add(array[i]);
+                        }
+                        else {
+                            displayMessage("PinturaCargaSpoolToneladaSuperiorPermididoCarro", "", '2');
+                        }
+                    else {
+                        displayMessage("PinturaCargaSpoolAreaSuperiorPermididoCarro", "", '2');
+                    }
+
+                }
+            }
+
+            ImprimirAreaTonelada();
+        } else
+            displayMessage("PinturaCargaSpoolNoEncontrado", "", '2');
+
+
+        loadingStop();
+    });
+}
 
 function SumarTonelada() {
     var ds = $("#grid").data("kendoGrid").dataSource;

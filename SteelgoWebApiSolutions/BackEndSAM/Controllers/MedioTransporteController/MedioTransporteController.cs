@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MedioTransporteController : ApiController
     {
-        public object Get(string token,string lenguaje)
+        public object Get(string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
         }
 
         //obtiene el detalle
-        public object Get(string token, int TipoConsulta, int OrdenTrabajoSpoolID, string Codigo, string lenguaje,int medioTransporteID)
+        public object Get(string token, int TipoConsulta, int OrdenTrabajoSpoolID, string Codigo, string lenguaje, int medioTransporteID)
         {
             string payload = "";
             string newToken = "";
@@ -65,7 +65,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
         }
 
         //Guarda la carga
-        public object Post(Captura listaCaptura, string token,string lenguaje, int medioTransporteID,int cerrar=0)
+        public object Post(Captura listaCaptura, string token, string lenguaje, int medioTransporteID, int cerrar = 0)
         {
             string payload = "";
             string newToken = "";
@@ -100,8 +100,8 @@ namespace BackEndSAM.Controllers.MedioTransporteController
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 if (idMedioTransporteCarga == 0)
                     return MedioTransporteBD.Instance.ObtenerMedioTransporteCargado(lenguaje);
-                else  
-                return MedioTransporteBD.Instance.ObtenerMedioTransporteDetalleCargado(lenguaje, idMedioTransporteCarga);
+                else
+                    return MedioTransporteBD.Instance.ObtenerMedioTransporteDetalleCargado(lenguaje, idMedioTransporteCarga);
             }
             else
             {
@@ -149,7 +149,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-               if( idCatalogo==0 )
+                if (idCatalogo == 0)
                     return MedioTransporteBD.Instance.ObteneCatalogoClasificacion();
                 else
                     return MedioTransporteBD.Instance.ObtenerCatalogoPersistencia();
@@ -187,6 +187,31 @@ namespace BackEndSAM.Controllers.MedioTransporteController
                 return result;
             }
 
+        }
+
+        [HttpPost]
+        public object CerrarCarro(CapturaDescarga listaCaptura, string token, int medioTransporteID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return MedioTransporteBD.Instance.CierraCarro(usuario, medioTransporteID, 0);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }

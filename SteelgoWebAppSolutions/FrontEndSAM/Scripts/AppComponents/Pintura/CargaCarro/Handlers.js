@@ -86,6 +86,12 @@ function SuscribirEventoCerrarMedioTransporte()
     });
 }
 
+function SuscribirEventoCerrarMedioTransporte() {
+    $('#CerrarCarro').click(function (e) {
+        AjaxCerrarCarro();
+    });
+}
+
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
         AjaxAgregarCarga()

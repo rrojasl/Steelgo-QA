@@ -18,9 +18,8 @@
     @Styles.Render("~/Content/Styles/entities.css")
     @Styles.Render("~/Content/Styles/overrides.css")
 
-    
+
     <!-- Scripts -->
-    
     @Scripts.Render("~/Scripts/xdomain.js")
     @Scripts.Render("~/Scripts/jquery-2.1.4.js")
     @Scripts.Render("~/Scripts/jquery.validate.js")
@@ -46,11 +45,16 @@
     @Scripts.Render("~/Scripts/AppComponents/Core/TranslationManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/UtilitiesManager.js")
 
+
+    <!--App Scripts widgets-->
+    @Scripts.Render("~/Scripts/Widgets/Notify/src/pnotify.js")
+    @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.css")
+    @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.brighttheme.css")
+
     @RenderSection("HtmlHead", required: false)
     <script type="text/x-kendo-template" id="windowTemplate">
-      
-        <button class="confirm_yes btn btn-blue" style="width: 70px;" id="yesButton">Yes</button>
-        <button class="confirm_yes btn btn-blue" style="width: 70px;" id="noButton"> No</button>
+        <button class="confirm_yes btn btn-blu" id="yesButton">Yes</button>
+        <button class="confirm_yes btn btn-blu" id="noButton"> No</button>
     </script>
 </head>
 <body>
@@ -86,35 +90,35 @@
                                         <span id="messagesCounter">( <span class="counter"></span> )<span id="" class="counterTag">Notificaciones</span></span>
                                         <div class="message-header clearfix hidden">
                                             @*<span class="backIcon">
-                                                <img id="" src="~/Content/images/SC_back.png" />
-                                            </span>*@
+                                                    <img id="" src="~/Content/images/SC_back.png" />
+                                                </span>*@
                                             @*<span>Susana Garza</span>
-                                            <span class="deleteMessage">
-                                                <img id="" src="~/Content/images/SC_delete_Icon.png" />
-                                            </span>
-                                            <span class="messageDate">20/07/2015</span>*@
+                                                <span class="deleteMessage">
+                                                    <img id="" src="~/Content/images/SC_delete_Icon.png" />
+                                                </span>
+                                                <span class="messageDate">20/07/2015</span>*@
                                         </div>
                                     </div>
                                     <div class="message-frame">
-                                       @* <li>
-                                            <a href="#" class="read">
-                                                <div class="notification-container">
-                                                    <div class="sender-info">
-                                                        <span class="senderName">Rogelio Martinez</span>
-                                                        <span class="deleteMessage">
-                                                            <img id="" src="~/Content/images/SC_delete_Icon.png" /></span>
-                                                        <span class="messageDate">20/07/2015</span>
+                                        @* <li>
+                                                <a href="#" class="read">
+                                                    <div class="notification-container">
+                                                        <div class="sender-info">
+                                                            <span class="senderName">Rogelio Martinez</span>
+                                                            <span class="deleteMessage">
+                                                                <img id="" src="~/Content/images/SC_delete_Icon.png" /></span>
+                                                            <span class="messageDate">20/07/2015</span>
+                                                        </div>
+                                                        <div class="message-info">Curabitur accumsam, risus vitae tincidunt rhoncus, metus neque</div>
                                                     </div>
-                                                    <div class="message-info">Curabitur accumsam, risus vitae tincidunt rhoncus, metus neque</div>
-                                                </div>
-                                            </a>
-                                        </li>*@
-                                       @* <div class="notifications-footer hidden">
-                                            <a href="#" class="btn btn-primary"><span>Ver más</span></a>
-                                        </div>*@
+                                                </a>
+                                            </li>*@
+                                        @* <div class="notifications-footer hidden">
+                                                <a href="#" class="btn btn-primary"><span>Ver más</span></a>
+                                            </div>*@
                                         @*<li class="messageBody hidden">
-                                            <span id="">Curabitur accumsam, risus vitae tincidunt rhoncus, metus neque</span>
-                                        </li>*@
+                                                <span id="">Curabitur accumsam, risus vitae tincidunt rhoncus, metus neque</span>
+                                            </li>*@
                                     </div>
                                 </ul>
                             </div>
@@ -152,7 +156,7 @@
                 <div id="sidebar" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
                     <!-- main-nav -->
                     <nav class="main-nav">
-                        <ul class="main-menu" id ="main-menu">
+                        <ul class="main-menu" id="main-menu">
                             <!-- The main menu is generated automatically here -->
                         </ul>
                     </nav>
@@ -171,10 +175,8 @@
 
                 </div>
                 <!-- end sidebar -->
-
-
                 <!-- content-wrapper -->
-                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">                   
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
                     <div class="row">
                         <!-- breadcrumb-->
                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 breadcrumb-container">
@@ -366,7 +368,7 @@
             //Hide elements for Login
             hideElements();
 
-            //Menu Interactions Code 
+            //Menu Interactions Code
             menuManagerToBeExecutedOnDocumentReady();
 
             //Context Menu Interactions Code
@@ -384,7 +386,7 @@
 			//Set on the dropdownlist the url language and change the current language
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
-			
+
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
 
@@ -394,13 +396,13 @@
             //Hide side menu for all pages except landing and home
             toggleSideMenu();
 
-            //Set the user name to the 
+            //Set the user name to the
             if (Cookies.get("user") != null) {
                 $("#nameSpan").text(decrypt(Cookies.get("user")));
             }
 
             loadMessages();
-            
+
             //Show message body when notification is clicked
             $("#notifications").click(function(){
                 $(this).parent().toggleClass("open");
@@ -426,7 +428,7 @@
             //});
 
         });
-       
+
         function loadMessages() {
             $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (data) {
                 if (ValidateError(data)) {
@@ -481,14 +483,14 @@
                     strhtml += "</span>";
                     strhtml += "<span class='messageDate'>" + obtenerFormatoFechaMensajes(d) + "</span>";
 
-                   
+
                     $(".message-header").empty();
                     $(".message-header").append(strhtml);
                     $("#message").html(data.Mensaje);
                 }
             });
 
-            
+
 
             $(".notification-menu li:not('.messageBody')").addClass("hidden");
             $(".notifications .dropdown").addClass("open");

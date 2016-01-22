@@ -30,17 +30,6 @@ function CargarGridCapturaAvanceIntAcabado() {
     $("#grid").kendoGrid({
         autoBind: true,
         edit: function (e) {
-            var input = e.container.find(".k-input");
-            var value = input.val();
-            try {
-                //anteriorlongitudPintores = e.model.DetalleAdicional.length;
-
-                //console.log(ItemSeleccionado.Accion);
-                //if (ItemSeleccionado.PinturaSpoolID != 0)
-                //    ItemSeleccionado.Accion = 2;
-                //console.log(ItemSeleccionado.Accion);
-            }
-            catch (e) { }
 
         },
         change: function () {
@@ -114,13 +103,13 @@ function PlanchaPintor(detallePintoresSeleccionados, pintoresSeleccionados) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             if (detallePintoresSeleccionados != undefined) {
                 data[i].ListaDetallePintoresPorSpool = detallePintoresSeleccionados;
-                data[i].TemplatePintoresPorSpool = "Existen " + data[i].ListaDetallePintoresPorSpool.length + " pintores";
+                data[i].TemplatePintoresPorSpool = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + data[i].ListaDetallePintoresPorSpool.length + " pintores" : "There are " + data[i].ListaDetallePintoresPorSpool.length + " painters";
             }
         }
         else {
             if ((data[i].ListaDetallePintoresPorSpool === "" || data[i].ListaDetallePintoresPorSpool === null || data[i].ListaDetallePintoresPorSpool === undefined || data[i].ListaDetallePintoresPorSpool.length == 0) && detallePintoresSeleccionados != undefined) {
                 data[i].ListaDetallePintoresPorSpool = detallePintoresSeleccionados;
-                data[i].TemplatePintoresPorSpool = "Existen " + data[i].ListaDetallePintoresPorSpool.length + " pintores";
+                data[i].TemplatePintoresPorSpool = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + data[i].ListaDetallePintoresPorSpool.length + " pintores" : "There are " + data[i].ListaDetallePintoresPorSpool.length + " painters";
             }
         }
     }
@@ -166,6 +155,7 @@ function PlanchaSistemaPintura() {
             data[i].ComponenteID = $("#inputPinturaComponenteComposicion").val();
             data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").text();
             data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoDropDownList").text();
+            data[i].ListaPinturaComponenteCompEspecifica = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").dataSource._data;
         }
         else {
             if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
@@ -275,7 +265,6 @@ function eliminarCaptura(e) {
         modal: true
     }).data("kendoWindow");
 
-    //    ventanaConfirm.content(windowTemplate(this.dataSource, dataItem));
     ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
                 "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 

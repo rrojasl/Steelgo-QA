@@ -18,7 +18,7 @@
                 select: function (e) {
                 },
                 change: function (e) {
-                    options.model.TemplatePintoresPorSpool = "Existen " + this.value().length + " pintores";
+                    options.model.TemplatePintoresPorSpool = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + options.model.ListaDetallePintoresPorSpool.length + " pintores" : "There are " + options.model.ListaDetallePintoresPorSpool.length + " painters";
                     this.dataSource.sync();
                 },
                 value: options.model.ListaDetallePintoresPorSpool

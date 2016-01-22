@@ -74,7 +74,37 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
+        public object CierraCarro(Sam3_Usuario usuario, int medioTransporteID, int cerrar)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
 
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() }, { "@Cerrar", cerrar.ToString() } };
+                    _SQL.Ejecuta(Stords.SETCIERRACARRO, parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
         public object ObtieneDetalle(int medioTransporteID, int TipoConsulta, int OrdenTrabajoSpoolID, string Codigo, string lenguaje)
         {

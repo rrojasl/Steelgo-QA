@@ -1,8 +1,7 @@
 ﻿var ajaxCompleted;
 
-function AjaxCargarCamposPredeterminados() {
-    //    loadingStart();
 
+function AjaxCargarCamposPredeterminados() {
     $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({
         id: "0",
         predeterminado: "predeterminado",
@@ -31,7 +30,6 @@ function AjaxCargarCamposPredeterminados() {
         }
         loadingStop();
     });
-
 }
 
 function AjaxObtenerCuadrante() {
@@ -43,13 +41,10 @@ function AjaxObtenerCuadrante() {
         } else {
             $("#inputCuadrante").data("kendoDropDownList").value("");
         };
-        //loadingStop();
     });
 }
 
 function AjaxObtenerColor() {
-    //  loadingStart();
-
     $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
             var color = $("#inputColor");
@@ -120,201 +115,206 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
 
+        if (arregloCaptura.length > 0) {
+            for (index = 0; index < arregloCaptura.length; index++) {
 
-        for (index = 0; index < arregloCaptura.length; index++) {
+                ListaDetalles[index] = {
+                    Accion: "",
+                    ColorPinturaID: "",
+                    FechaPintura: "",
+                    LotePinturaID: "",
+                    PasoID: "",
+                    PinturaComponenteComposicionID: "",
+                    PinturaSpoolID: "",
+                    SistemaPinturaID: "",
+                    SpoolID: "",
+                    ListaPintores: "",
+                    Estatus: 1 //1:Completo, 0:Incompleto
+                };
 
-            ListaDetalles[index] = {
-                Accion: "",
-                ColorPinturaID: "",
-                FechaPintura: "",
-                LotePinturaID: "",
-                PasoID: "",
-                PinturaComponenteComposicionID: "",
-                PinturaSpoolID: "",
-                SistemaPinturaID: "",
-                SpoolID: "",
-                ListaPintores: "",
-                Estatus: 1 //1:Completo, 0:Incompleto
-            };
+                ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+                ListaDetalles[index].ColorPinturaID = arregloCaptura[index].ColorID;
 
-            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
-            ListaDetalles[index].ColorPinturaID = arregloCaptura[index].ColorID;
-
-            if (arregloCaptura[index].FechaPintura != null) {
-                ListaDetalles[index].FechaPintura = kendo.toString(arregloCaptura[index].FechaPintura,
-                    String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim(" ", '')
-            }
-            ListaDetalles[index].LotePinturaID = arregloCaptura[index].LoteID;
-            ListaDetalles[index].PasoID = pasoId;
-            ListaDetalles[index].PinturaComponenteComposicionID = arregloCaptura[index].ComponenteID;
-            ListaDetalles[index].PinturaSpoolID = arregloCaptura[index].PinturaSpoolID;
-            ListaDetalles[index].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
-            ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
-
-            if (ListaDetalles[index].ColorPinturaID == null || ListaDetalles[index].ColorPinturaID == "" ||
-                ListaDetalles[index].FechaPintura == null || ListaDetalles[index].FechaPintura == "" ||
-                ListaDetalles[index].LotePinturaID == null || ListaDetalles[index].LotePinturaID == "" ||
-                ListaDetalles[index].PinturaComponenteComposicionID == null || ListaDetalles[index].PinturaComponenteComposicionID == "" ||
-                ListaDetalles[index].SistemaPinturaID == null || ListaDetalles[index].SistemaPinturaID == "") {
-                banderaDatosCompletos = false;
-                ListaDetalles[index].Estatus = 0;
-
-            }
-
-            //-----------------------------------Comparar listas--------------------------------------------
-            var listaPintoresNueva = arregloCaptura[index].ListaDetallePintoresPorSpool;
-            var listaPintoresInicial = arregloCaptura[index].ListaDetallePintoresPorSpoolInicial;
-            var listaPintoresFinal = [];
-
-
-            for (var i = 0; i < listaPintoresInicial.length; i++) {
-                var bandera = false;
-                for (var j = 0 ; j < listaPintoresNueva.length ; j++) {
-                    if (listaPintoresInicial[i].ObreroID == listaPintoresNueva[j].ObreroID) {
-                        listaPintoresFinal.push(listaPintoresInicial[i]);
-                        bandera = true;
-                    }
-                    if ((listaPintoresNueva.length - 1) == j && bandera == false) {
-                        listaPintoresInicial[i].Accion = 3;
-                        listaPintoresFinal.push(listaPintoresInicial[i]);
-                    }
+                if (arregloCaptura[index].FechaPintura != null) {
+                    ListaDetalles[index].FechaPintura = kendo.toString(arregloCaptura[index].FechaPintura,
+                        String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim(" ", '')
                 }
-            }
+                ListaDetalles[index].LotePinturaID = arregloCaptura[index].LoteID;
+                ListaDetalles[index].PasoID = pasoId;
+                ListaDetalles[index].PinturaComponenteComposicionID = arregloCaptura[index].ComponenteID;
+                ListaDetalles[index].PinturaSpoolID = arregloCaptura[index].PinturaSpoolID;
+                ListaDetalles[index].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
+                ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
 
-            if (listaPintoresInicial.length == 0) {
-                listaPintoresFinal = listaPintoresNueva;
-            }
-            else {
-                for (var i = 0; i < listaPintoresNueva.length; i++) {
+                if (ListaDetalles[index].ColorPinturaID == null || ListaDetalles[index].ColorPinturaID == "" ||
+                    ListaDetalles[index].FechaPintura == null || ListaDetalles[index].FechaPintura == "" ||
+                    ListaDetalles[index].LotePinturaID == null || ListaDetalles[index].LotePinturaID == "" ||
+                    ListaDetalles[index].PinturaComponenteComposicionID == null || ListaDetalles[index].PinturaComponenteComposicionID == "" ||
+                    ListaDetalles[index].SistemaPinturaID == null || ListaDetalles[index].SistemaPinturaID == "") {
+                    banderaDatosCompletos = false;
+                    ListaDetalles[index].Estatus = 0;
+
+                }
+
+                //-----------------------------------Comparar listas--------------------------------------------
+                var listaPintoresNueva = arregloCaptura[index].ListaDetallePintoresPorSpool;
+                var listaPintoresInicial = arregloCaptura[index].ListaDetallePintoresPorSpoolInicial;
+                var listaPintoresFinal = [];
+
+
+                for (var i = 0; i < listaPintoresInicial.length; i++) {
                     var bandera = false;
-                    var banderaExistePintor = false;
-                    for (var j = 0 ; j < listaPintoresInicial.length ; j++) {
-                        if (listaPintoresNueva[i].ObreroID != listaPintoresInicial[j].ObreroID) {
+                    for (var j = 0 ; j < listaPintoresNueva.length ; j++) {
+                        if (listaPintoresInicial[i].ObreroID == listaPintoresNueva[j].ObreroID) {
+                            listaPintoresFinal.push(listaPintoresInicial[i]);
                             bandera = true;
                         }
-                        else {
-                            banderaExistePintor = true;
+                        if ((listaPintoresNueva.length - 1) == j && bandera == false) {
+                            listaPintoresInicial[i].Accion = 3;
+                            listaPintoresFinal.push(listaPintoresInicial[i]);
                         }
-                        if ((listaPintoresInicial.length - 1) == j && !banderaExistePintor && bandera == true && listaPintoresNueva[i].Accion == 1) {
-                            listaPintoresFinal.push(listaPintoresNueva[i]);
-                        }
-
-                    }
-
-                }
-            }
-
-            ListaPintoresEditados = [];
-
-            for (j = 0; j < listaPintoresFinal.length; j++) {
-
-                ListaPintoresEditados[j] = {
-                    Accion: "",
-                    SpoolID: "",
-                    PasoID: "",
-                    PinturaSpoolID: "",
-                    PinturaSpoolObreroID: "",
-                    ObreroID: ""
-                }
-
-
-                ListaPintoresEditados[j].Accion = listaPintoresFinal[j].Accion;
-                ListaPintoresEditados[j].SpoolID = arregloCaptura[index].SpoolID;
-                ListaPintoresEditados[j].PasoID = pasoId;
-                ListaPintoresEditados[j].PinturaSpoolID = arregloCaptura[index].PinturaSpoolID;
-                ListaPintoresEditados[j].PinturaSpoolObreroID = listaPintoresFinal[j].PinturaSpoolObreroID;
-                ListaPintoresEditados[j].ObreroID = listaPintoresFinal[j].ObreroID;
-
-            }
-            ListaDetalles[index].ListaPintores = ListaPintoresEditados;
-
-            if (ListaDetalles[index].ListaPintores.length == 0) {
-                banderaDatosCompletos = false;
-                ListaDetalles[index].Estatus = 0;
-            }
-            ////----------------------------------------------------------------------------------
-        }
-
-        if (banderaDatosCompletos) {
-            loadingStart();
-            Captura[0].Detalles = ListaDetalles;
-            $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                $("#btnMostrar").trigger("click");
-                displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-                loadingStop();
-
-            });
-        }
-        else {
-            loadingStop();
-            windowTemplate = kendo.template($("#windowTemplate").html());
-
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                modal: true
-            }).data("kendoWindow");
-
-            ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-            ventanaConfirm.open().center();
-
-            var $grid = $("#grid");
-
-            $("tr", $grid).each(function (index) {
-                var $row = $(this);
-                $row.css("background-color", "");
-                $("td", $(this)).each(function (index) {
-                    if ($(this).text() == "" || $(this).text() == "0" || $(this).text().indexOf("No") >= 0 || $(this).text().indexOf("Existen 0") >= 0) {
-                        $row.css("background-color", "#ffcccc");
-                    }
-                });
-            });
-
-            $("#yesButton").click(function () {
-                loadingStart();
-                var ArregloGuardado = new Array();
-
-                Captura[0].Detalles = ListaDetalles;
-                for (var i = 0; i < Captura[0].Detalles.length; i++) {
-                    if (Captura[0].Detalles[i].Estatus == 1) {
-
-                        ArregloGuardado.push(Captura[0].Detalles[i]);
                     }
                 }
 
-                Captura[0].Detalles = [];
-                Captura[0].Detalles = ArregloGuardado;
-
-
-                if (ArregloGuardado.length > 0) {
-                    $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-
-                        $("#btnMostrar").trigger("click");
-
-                        displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-                        loadingStop();
-                    });
+                if (listaPintoresInicial.length == 0) {
+                    listaPintoresFinal = listaPintoresNueva;
                 }
                 else {
-                    loadingStop();
-                    displayMessage("Mensajes_error", "No hay cambios por guardar", '2');
+                    for (var i = 0; i < listaPintoresNueva.length; i++) {
+                        var bandera = false;
+                        var banderaExistePintor = false;
+                        for (var j = 0 ; j < listaPintoresInicial.length ; j++) {
+                            if (listaPintoresNueva[i].ObreroID != listaPintoresInicial[j].ObreroID) {
+                                bandera = true;
+                            }
+                            else {
+                                banderaExistePintor = true;
+                            }
+                            if ((listaPintoresInicial.length - 1) == j && !banderaExistePintor && bandera == true && listaPintoresNueva[i].Accion == 1) {
+                                listaPintoresFinal.push(listaPintoresNueva[i]);
+                            }
+
+                        }
+
+                    }
                 }
 
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-            });
+                ListaPintoresEditados = [];
+
+                for (j = 0; j < listaPintoresFinal.length; j++) {
+
+                    ListaPintoresEditados[j] = {
+                        Accion: "",
+                        SpoolID: "",
+                        PasoID: "",
+                        PinturaSpoolID: "",
+                        PinturaSpoolObreroID: "",
+                        ObreroID: ""
+                    }
+
+
+                    ListaPintoresEditados[j].Accion = listaPintoresFinal[j].Accion;
+                    ListaPintoresEditados[j].SpoolID = arregloCaptura[index].SpoolID;
+                    ListaPintoresEditados[j].PasoID = pasoId;
+                    ListaPintoresEditados[j].PinturaSpoolID = arregloCaptura[index].PinturaSpoolID;
+                    ListaPintoresEditados[j].PinturaSpoolObreroID = listaPintoresFinal[j].PinturaSpoolObreroID;
+                    ListaPintoresEditados[j].ObreroID = listaPintoresFinal[j].ObreroID;
+
+                }
+                ListaDetalles[index].ListaPintores = ListaPintoresEditados;
+
+                if (ListaDetalles[index].ListaPintores.length == 0) {
+                    banderaDatosCompletos = false;
+                    ListaDetalles[index].Estatus = 0;
+                }
+                ////----------------------------------------------------------------------------------
+            }
+
+            if (banderaDatosCompletos) {
+                loadingStart();
+                Captura[0].Detalles = ListaDetalles;
+                $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                    $("#btnMostrar").trigger("click");
+                    displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+                    loadingStop();
+
+                });
+            }
+            else {
+                loadingStop();
+                windowTemplate = kendo.template($("#windowTemplate").html());
+
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                ventanaConfirm.open().center();
+
+                var $grid = $("#grid");
+
+                $("tr", $grid).each(function (index) {
+                    var $row = $(this);
+                    $row.css("background-color", "");
+                    $("td", $(this)).each(function (index) {
+                        if ($(this).text() == "" || $(this).text() == "0" || $(this).text().indexOf("No") >= 0 || $(this).text().indexOf("Existen 0") >= 0) {
+                            $row.css("background-color", "#ffcccc");
+                        }
+                    });
+                });
+
+                $("#yesButton").click(function () {
+                    loadingStart();
+                    var ArregloGuardado = new Array();
+
+                    Captura[0].Detalles = ListaDetalles;
+                    for (var i = 0; i < Captura[0].Detalles.length; i++) {
+                        if (Captura[0].Detalles[i].Estatus == 1) {
+
+                            ArregloGuardado.push(Captura[0].Detalles[i]);
+                        }
+                    }
+
+                    Captura[0].Detalles = [];
+                    Captura[0].Detalles = ArregloGuardado;
+
+
+                    if (ArregloGuardado.length > 0) {
+                        $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+                            $("#btnMostrar").trigger("click");
+
+                            displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+                            loadingStop();
+                        });
+                    }
+                    else {
+                        loadingStop();
+                        displayNotify("AlertaAdvertencia", "AdverteciaExcepcionGuardado", "", '1');
+                    }
+
+                    ventanaConfirm.close();
+                });
+                $("#noButton").click(function () {
+                    ventanaConfirm.close();
+                });
+            }
         }
 
+        else {
+            loadingStop();
+            displayNotify("AlertaAdvertencia", "AdverteciaExcepcionGuardado", "", '1');
+        }
     } catch (e) {
         loadingStop();
-        displayMessage("Mensajes_error", e.message, '2');
+        displayNotify("AlertaError", "", e.message, '2');
     }
 
 }

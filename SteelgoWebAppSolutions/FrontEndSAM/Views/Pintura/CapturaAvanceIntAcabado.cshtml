@@ -1,8 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Captura Avance Intermedio Acabado";
+    ViewBag.Title = "Captura avance";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblCapturaAvanceIntAcabadoInicio"></span></a>
@@ -23,20 +22,19 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="lblGuardar"></span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow Guardar"><span id="lblGuardar"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="lblGuardar"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="lblGuardarYNuevo"></span></a></li>
+                                    <li><a href="#" id="btnGuardar" class="btnGuardar"><span id="lblGuardarYNuevo"></span></a></li>
                                 </ul>
                             </div>
 
-                            <a id="btnCancelar" class="btn btn-black"><span id="lblCancelar"></span></a>
+                            <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="lblCancelar"></span></a>
                         </div>
                         <div id="CapturaDePruebasDiv" class="button-section">
-                            <a id="CapturaDePruebas" href="#" class="btn btn-primary"><span id="lblCapturaDePruebas"></span></a>
+                            <a id="CapturaDePruebas" href="pintura/LotesCapturaReporte" class="btn btn-primary"><span id="lblCapturaDePruebas"></span></a>
                         </div>
 
                         <div class="button-section actionButtonSection">
@@ -133,24 +131,19 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="lblGuardar">Guardar</span></button>
+                                <button id="GuardarFooter" onclick="javascript:void(0);" type="button" class="btn btn-yellow GuardarFooter"><span id="lblGuardarFooter"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="lblGuardar">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="lblGuardarYNuevo">Guardar y Nuevo</span></a></li>
+                                    <li><a href="#" id="btnGuardarFooter" class="btnGuardarFooter"><span id="lblGuardarYNuevoFooter"></span></a></li>
                                 </ul>
                             </div>
-
-                            <a id="btnCancelar" class="btn btn-black"><span id="lblCancelar">Cancelar</span></a>
+                            <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="lblCancelarFooter"></span></a>
                         </div>
                         <div id="CapturaDePruebasDiv" class="button-section">
-                            <a id="CapturaDePruebas" href="#" class="btn btn-primary"><span id="lblCapturaDePruebas">Captura de Pruebas</span></a>
+                            <a id="CapturaDePruebas" href="pintura/LotesCapturaReporte" class="btn btn-primary CapturaDePruebas"><span id="lblCapturaDePruebasFooter"></span></a>
                         </div>
-                        @*<div id="AutorizarPermisoDiv" class="button-section" style="display:none">
-                                <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="CapturaAvanceIntAcabado0008"></span></a>
-                            </div>*@
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -174,3 +167,8 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaAvanceIntAcabado/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaAvanceIntAcabado/Seguridad.js"></script>
 
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["CapturaAvanceIntAcabado"] = $CapturaAvanceIntAcabadoModel;
+    }
+</script>

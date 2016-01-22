@@ -3814,6 +3814,10 @@ _dictionary = {
         "es-MX": "Acciones",
         "en-US": "Actions"
     },
+    "botonAcciones2": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
     //#region Mensajes
     "Mensajes_error": {
         "es-MX": "Mensaje de error: ",
@@ -3940,11 +3944,11 @@ _dictionary = {
     },
     "menuPinturaDescargaCarro": {
         "es-MX": "Descarga de Carro",
-        "en-US": "Descarga de Carro"
+        "en-US": "Empty cart"
     },
     "menuPinturaCapturaAvanceIntAcabado": {
-        "es-MX": "Intermedio - Avanzado",
-        "en-US": "Intermediate - Advanced"
+        "es-MX": "Intermedio - Acabado",
+        "en-US": "Intermediate - Finishes"
     },
     "menuPinturaLotesCapturaReporte": {
         "es-MX": "Captura Reporte",
@@ -5221,7 +5225,7 @@ _dictionary = {
     },
     "ListadoEmbarqueHeaderSolicitarPermisos": {
         "es-MX": "Solicitar Permisos",
-        "en-US": "Print"
+        "en-US": "Apply for permits"
     },
     "ListadoEmbarqueHeaderAprobadoAduana": {
         "es-MX": "Aprobado Aduana",
@@ -5659,9 +5663,45 @@ _dictionary = {
         "en-US": "saved information"
     }
      ,
+    "PinturaCerrarCarro": {
+        "es-MX": "Se cerró el carro correctamente",
+        "en-US": "Cart closed successfuly"
+    },
     "PinturaGuardarErrorGuardar": {
         "es-MX": "No se guardo la informacion",
         "en-US": "no information was saved"
+    },
+    "PinturaBotonCapturaAvance1": {
+        "es-MX": "Captura avance",
+        "en-US": "Capture progress"
+    },
+    "PinturaBotonCapturaAvance2": {
+        "es-MX": "Captura avance",
+        "en-US": "Capture progress"
+    },
+    "PinturaBotonCerrarCarro1": {
+        "es-MX": "Cerrar carro",
+        "en-US": "Close cart"
+    },
+    "PinturaBotonCerrarCarro2": {
+        "es-MX": "Cerrar carro",
+        "en-US": "Close cart"
+    },
+    "PinturaHeaderCargaCarro": {
+        "es-MX": "Cargar Carro",
+        "en-US": "Car Load"
+    },
+    "PinturaHeaderCargaCarroPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "PinturaHeaderDescargaCarroPintura": {
+        "es-MX": "Descargar carro",
+        "en-US": "Empty cart"
+    },
+    "PinturaHeaderLotesCapturaReporte": {
+        "es-MX": "Lotes Captura Reporte",
+        "en-US": "Batch Capture Report"
     },
     //#endregion
 
@@ -5835,6 +5875,14 @@ _dictionary = {
     //#endregion
 
     //#region LotesCapturaReporte
+    "BtnLotesCapturaConsultaEmbarque": {
+        "es-MX": "Consulta Embarque",
+        "en-US": "Query Shipment"
+    },
+    "BtnLotesCapturaConsultaEmbarque1": {
+        "es-MX": "Consulta Embarque",
+        "en-US": "Query Shipment"
+    },
     "LotesCapturaReporteSistema": {
         "es-MX": "Sistema Pintura",
         "en-US": "Paint system"
@@ -6051,9 +6099,72 @@ _dictionary = {
     "WarningTitle": {
         "es-MX": "Advertencia",
         "en-US": "Warning"
-    }
+    },
     //#endregion
-
+    "lblCapturaAvanceIntAcabado": {
+        "es-MX": "Captura Avance Intermedio Acabado",
+        "en-US": "Capture Progress Intermediate Finishes"
+    },
+    "lblCapturaAvanceIntAcabado2": {
+        "es-MX": "Captura Avance Intermedio Acabado",
+        "en-US": "Capture Progress Intermediate Finishes"
+    },
+    "AlertaExitosa": {
+        "es-MX": "Acción realizada con éxito",
+        "en-US": "Action completed successfully"
+    },
+    "AlertaAdvertencia": {
+        "es-MX": "Advertencia",
+        "en-US": "Warning"
+    },
+    "AlertaError": {
+        "es-MX": "Error!",
+        "en-US": "Error!"
+    },
+    "AdverteciaExcepcionGuardado": {
+        "es-MX": "No hay cambios por guardar",
+        "en-US": "There aren´t any change"
+    },
+    "lblGuardarFooter": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "lblGuardarYNuevoFooter": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "lblCancelarFooter": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "lblCapturaDePruebasFooter": {
+        "es-MX": "Captura de Pruebas",
+        "en-US": "Capturing Test"
+    },
+    "lblListadoEmbarque": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
+    "ListadoEmbarqueMensajeFaltaFolioAduana": {
+        "es-MX": "Falta el folio de aprobacion de aduana",
+        "en-US": "Missing customs approval Folio"
+    },
+    "ListadoEmbarqueMensajeFaltaSolicitudPermisos": {
+        "es-MX": "Falta el folio de solicitud de permisos",
+        "en-US": "No folio of permission solicitude"
+    },
+    "ListadoEmbarqueMensajeFaltaFolioCliente": {
+        "es-MX": "Falta el folio de aprobacion por el cliente",
+        "en-US": "No Folio of approval by the client"
+    },
+    "ListadoEmbarqueMensajeRequierePermisoAduana": {
+        "es-MX": "No se puede enviar, por que requiere permiso de aduana",
+        "en-US": "It can not be sent, customs requires permission"
+    },
+    "ListadoEmbarqueMensajePlanaEnviada": {
+        "es-MX": "La plana ya fue enviada",
+        "en-US": "The flat was sent"
+    },
 }
 
 //#endregion
