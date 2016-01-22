@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers
     public class ValidacionResultadosController : ApiController
     {
         [HttpGet]
-        public object ObtenerListadoJuntas(string token,string lenguaje, int requisicionID)
+        public object ObtenerListadoJuntas(string token,string lenguaje, string requisicionID)
         {
             string payload = "";
             string newToken = "";
@@ -28,8 +28,8 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 List<DetalleJuntasValidacion> listaResult = new List<DetalleJuntasValidacion>();
 
-                List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result> result = (List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result>)ValidacionResultadosBD.Instance.getListadoJuntas(requisicionID, lenguaje);
-                foreach(Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result item in result)
+                List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporteValidacionResultados_Result> result = (List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporteValidacionResultados_Result>)ValidacionResultadosBD.Instance.getListadoJuntas(requisicionID, lenguaje);
+                foreach(Sam3_ServiciosTecnicos_Get_JuntasValidarReporteValidacionResultados_Result item in result)
                 {
                     resultado = new DetalleJuntasValidacion
                     {

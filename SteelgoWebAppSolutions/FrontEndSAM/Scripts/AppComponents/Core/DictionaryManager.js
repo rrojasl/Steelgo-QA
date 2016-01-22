@@ -3771,6 +3771,10 @@ _dictionary = {
         "es-MX": "dd/MM/yyyy",
         "en-US": "MM/dd/yyyy"
     },
+    "lblValidacionResultados": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Result Validation"
+    },
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"

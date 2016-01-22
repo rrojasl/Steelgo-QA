@@ -32,13 +32,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
         }
 
 
-        public object getListadoJuntas(int requisicionID, string lenguaje)
+        public object getListadoJuntas(string requisicionID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporte_Result> result = ctx.Sam3_ServiciosTecnicos_Get_JuntasValidarReporte(requisicionID, lenguaje).ToList();
+                    List<Sam3_ServiciosTecnicos_Get_JuntasValidarReporteValidacionResultados_Result> result = ctx.Sam3_ServiciosTecnicos_Get_JuntasValidarReporteValidacionResultados(requisicionID, lenguaje).ToList();
                     return result;
                 }
             }
