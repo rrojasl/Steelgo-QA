@@ -12,7 +12,7 @@
                 dataItem = this.dataItem(e.item.index());
                 options.model.Resultado = dataItem._Resultado;
                 options.model.ResultadoID = dataItem._ResultadoID;
-                if (options.model.Resultado == "Aprobado") {
+                if (options.model.ResultadoID == "1") {
                     options.model.DefectosID = 0;
                     options.model.Defectos = "";
                 }
@@ -21,7 +21,7 @@
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Resultado = dataItem._Resultado;
                 options.model.ResultadoID = dataItem._ResultadoID;
-                if (options.model.Resultado == "Aprobado") {
+                if (options.model.ResultadoID == "1") {
                     options.model.DefectosID = 0;
                     options.model.Defectos = "";
                     $("#grid").data("kendoGrid").dataSource.sync();

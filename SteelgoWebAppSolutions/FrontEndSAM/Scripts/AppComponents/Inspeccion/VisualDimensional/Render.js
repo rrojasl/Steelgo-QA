@@ -7,7 +7,7 @@
         .kendoDropDownList({
             autoBind: false,
             dataSource: options.model.ListaTaller,
-            template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
+            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Taller = dataItem.Nombre
@@ -53,7 +53,7 @@ function RenderComboBoxInspector(container, options) {
         .kendoDropDownList({
             autoBind: false,
             dataSource: options.model.ListaInspector,
-            template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+            template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Inspector = dataItem.Codigo;
@@ -85,7 +85,7 @@ function RenderComboBoxDefectos(container, options) {
         .kendoDropDownList({
             autoBind: false,
             dataSource: options.model.ListaDefectos,
-            template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
+            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Defectos = dataItem.Nombre;
@@ -182,7 +182,7 @@ function RenderOptionResultado(container, options) {
         .kendoDropDownList({
             autoBind: false,
             dataSource: options.model.ListaResultados,
-            template: "<i class=\"fa fa-#=data._Resultado.toLowerCase()#\"></i> #=data._Resultado#",
+            template: "<i class=\"fa fa-#=data._Resultado#\"></i> #=data._Resultado#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Resultado = dataItem._Resultado;

@@ -3839,6 +3839,14 @@ _dictionary = {
         "es-MX": "Acciones",
         "en-US": "Actions"
     },
+    "textoEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "textoGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     //#region Mensajes
     "Mensajes_error": {
         "es-MX": "Mensaje de error: ",
