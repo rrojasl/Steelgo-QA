@@ -13,6 +13,10 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
             AjaxGuardarCaptura(ds._data);
     });
+    $('#Guardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data);
+    });
 
     $('#GuardarDefectos').click(function (e) {
         var ds = $("#gridPopUp").data("kendoGrid").dataSource;

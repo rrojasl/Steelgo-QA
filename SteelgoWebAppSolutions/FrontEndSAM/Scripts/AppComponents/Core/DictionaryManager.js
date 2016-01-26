@@ -3771,6 +3771,10 @@ _dictionary = {
         "es-MX": "dd/MM/yyyy",
         "en-US": "MM/dd/yyyy"
     },
+    "lblValidacionResultados": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Result Validation"
+    },
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -3807,6 +3811,10 @@ _dictionary = {
         "es-MX": "Lista",
         "en-US": "List"
     },
+    "lblInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
     "CapturaLlenadoMasivo": {
         "es-MX": "Llenado masivo",
         "en-US": "filling mass"
@@ -3834,6 +3842,14 @@ _dictionary = {
     "botonAcciones2": {
         "es-MX": "Acciones",
         "en-US": "Actions"
+    },
+    "textoEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "textoGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -4445,8 +4461,8 @@ _dictionary = {
         "en-US": "Are you sure you want to cancel the detail of the capture of Inspection?"
     },
     "DimensionalVisualInspeccionDimensional": {
-        "es-MX": "Inspeccion Dimensional",
-        "en-US": "Dimensional inspection"
+        "es-MX": "Dimensional",
+        "en-US": "Dimensional"
     },
 
     //#endregion
@@ -5992,8 +6008,8 @@ _dictionary = {
         "en-US": "The inspector is mandatory"
     },
     "InpeccionVisualEnlaceInspeccion": {
-        "es-MX": "Inspeccion visual dimensional",
-        "en-US": "Visual Dimensional Inspection"
+        "es-MX": "Visual dimensional",
+        "en-US": "Visual Dimensional"
     },
     "InpeccionVisualHeaderVisual": {
         "es-MX": "Inspeccion Visual ",
