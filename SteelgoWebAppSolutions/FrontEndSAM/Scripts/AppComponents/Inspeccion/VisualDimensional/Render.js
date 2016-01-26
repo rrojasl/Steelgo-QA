@@ -4,9 +4,11 @@
     var dataItem;
     $('<input required data-text-field="Nombre" data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.ListaTaller,
+            suggest: true,
+            filter: "contains",
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -23,7 +25,7 @@
         }
         );
     loadingStop();
-    $(".k-dropdown").on('mouseleave', function (send) {
+    $(".k-combobox").on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = this;
         if (!tieneClase(item)) {
@@ -50,9 +52,11 @@ function RenderComboBoxInspector(container, options) {
 
     $('<input required data-text-field="Codigo" data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.ListaInspector,
+            suggest: true,
+            filter: "contains",
             template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -67,7 +71,7 @@ function RenderComboBoxInspector(container, options) {
         }
         );
     loadingStop();
-    $(".k-dropdown").on('mouseleave', function (send) {
+    $(".k-combobox").on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = this;
         if (!tieneClase(item)) {
@@ -82,9 +86,11 @@ function RenderComboBoxDefectos(container, options) {
 
     $('<input required data-text-field="Nombre" data-value-field="DefectoID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.ListaDefectos,
+            suggest: true,
+            filter: "contains",
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -99,7 +105,7 @@ function RenderComboBoxDefectos(container, options) {
         }
         );
     loadingStop();
-    $(".k-dropdown").on('mouseleave', function (send) {
+    $(".k-combobox").on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = this;
         if (!tieneClase(item)) {
@@ -113,9 +119,11 @@ function RenderComboBoxNumeroUnico1(container, options) {
     var textAnterior;
     $('<input required data-text-field="Clave" data-value-field="NumeroUnicoID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.ListaNumerosUnicos1,
+            suggest: true,
+            filter: "contains",
             template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -132,7 +140,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
-    $(".k-dropdown").on('mouseleave', function (send) {
+    $(".k-combobox").on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = this;
         if (!tieneClase(item)) {
@@ -146,9 +154,11 @@ function RenderComboBoxNumeroUnico2(container, options) {
     var textAnterior;
     $('<input required data-text-field="Clave" data-value-field="NumeroUnicoID" data-bind="value:' + options.field + '"/>')
          .appendTo(container)
-         .kendoDropDownList({
+         .kendoComboBox({
              autoBind: false,
              dataSource: options.model.ListaNumerosUnicos2,
+             suggest: true,
+             filter: "contains",
              template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
              select: function (e) {
                  dataItem = this.dataItem(e.item.index());
@@ -164,7 +174,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
                  $("#grid").data("kendoGrid").dataSource.sync();
              }
          });
-    $(".k-dropdown").on('mouseleave', function (send) {
+    $(".k-combobox").on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = this;
         if (!tieneClase(item)) {
@@ -179,9 +189,11 @@ function RenderOptionResultado(container, options) {
     console.log(options);
     $('<input required data-text-field="_Resultado" data-value-field="DefectoID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.ListaResultados,
+            suggest: true,
+            filter: "contains",
             template: "<i class=\"fa fa-#=data._Resultado#\"></i> #=data._Resultado#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -208,7 +220,7 @@ function RenderOptionResultado(container, options) {
         }
         );
     loadingStop();
-    $(".k-dropdown").on('mouseleave', function (send) {
+    $(".k-combobox").on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = this;
         if (!tieneClase(item)) {

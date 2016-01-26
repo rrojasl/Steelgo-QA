@@ -243,12 +243,14 @@ function suscribirEventoGuardar() {
 
     $('.accionGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-            opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardar(ds._data);
-        }
-        else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-            opcionHabilitarView(false, "FieldSetView")
+        if (ds._data.length > 0) {
+            if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
+                opcionHabilitarView(true, "FieldSetView");
+                AjaxGuardar(ds._data);
+            }
+            else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
         }
     });
 
@@ -331,6 +333,7 @@ function opcionHabilitarView(valor, name) {
 
         $('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid tbody tr").attr("disabled", true);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -339,11 +342,11 @@ function opcionHabilitarView(valor, name) {
         $("#inputFechaVisual").data("kendoDatePicker").enable(true);
         $("#inputTaller").data("kendoComboBox").enable(true);
         
-
         $("#FechaInspeccion").data("kendoDatePicker").enable(true);
         $("#inputInspector").data("kendoComboBox").enable(true);
         
         $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid tbody tr").attr("disabled", false);
     }
 }

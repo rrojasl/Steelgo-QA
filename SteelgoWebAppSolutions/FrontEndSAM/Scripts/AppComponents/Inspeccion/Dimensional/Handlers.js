@@ -151,13 +151,17 @@ function suscribirEventoGuardar() {
 
     $('.accionGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-            opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardar(ds._data);
+
+        if (ds._data.length > 0) {
+            if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
+                opcionHabilitarView(true, "FieldSetView");
+                AjaxGuardar(ds._data);
+            }
+            else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
         }
-        else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-            opcionHabilitarView(false, "FieldSetView")
-        }
+
     });
 
 
@@ -219,8 +223,9 @@ function opcionHabilitarView(valor, name) {
         $("#inputInspector").data("kendoComboBox").enable(false);
         $("#FechaInspeccion").data("kendoDatePicker").enable(false);
         
-        $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid").children().prop('readonly', true);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -230,5 +235,6 @@ function opcionHabilitarView(valor, name) {
         $("#FechaInspeccion").data("kendoDatePicker").enable(true);
         $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid").children().prop('readonly', false);
     }
 }

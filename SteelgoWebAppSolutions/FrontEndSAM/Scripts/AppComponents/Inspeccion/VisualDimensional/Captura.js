@@ -16,6 +16,8 @@ function changeLanguageCall() {
     AjaxObtenerListaDefectosVisuales();
     CargarGrid();
     limpiar();
+    $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
 };
 function IniciarCapturaInspecion() {
     CargarFecha();
@@ -122,7 +124,7 @@ function CargarGrid() {
                         Defectos: { type: "string", editable: true },
                         InspectorID: { type: "string", editable: true },
                         Inspector: { type: "string", editable: true },
-                        FechaInspeccion: { type: "string", editable: true },
+                        FechaInspeccion: { type: "date", editable: true },
                         NumeroUnico1: { type: "string", editable: true },
                         NumeroUnico2: { type: "string", editable: true },
                         NumeroUnicoIID: { type: "int", editable: false },
