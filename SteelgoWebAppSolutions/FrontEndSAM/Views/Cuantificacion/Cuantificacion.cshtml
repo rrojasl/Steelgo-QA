@@ -1164,10 +1164,12 @@
 									}else{
 										console.log("222" + $(e.target).is("input") + "-" + $(e.target).is("td"));
 										_deboEntrarAlEditor = true;
+										setTimeout(function () {
 										$(e.target).trigger("click");
 										$(e.target).find("input").trigger("click");
 										$(e.target).find("input").focus();
-										//grids.editCell($(e.target));
+										    //grids.editCell($(e.target));
+										}, 0);
 									}
 								}else{
 									grids.addRow();
