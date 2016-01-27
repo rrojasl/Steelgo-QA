@@ -46,7 +46,7 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpGet]
-        public object GetPlanasGuardadas(string token, int EmbarqueID, string lenguaje)
+        public object GetPlanasGuardadasXEmbarque(string token, int EmbarqueID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -88,6 +88,52 @@ namespace BackEndSAM.Controllers
             }
 
         }
+
+
+        [HttpGet]
+        public object GetPlanasGuardadasXChofer(string token, int vehiculoID, int choferID, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                List<Sam3_Embarque_Get_EmbarqueDetalleChofer_Result> lista = (List<Sam3_Embarque_Get_EmbarqueDetalleChofer_Result>)EmbarqueBD.Instance.ObtenerPlanasGuardadasChofer(vehiculoID,choferID, lenguaje);
+
+                List<Embarque> result = new List<Embarque>();
+                foreach (Sam3_Embarque_Get_EmbarqueDetalleChofer_Result item in lista)
+                {
+                    Embarque elemento = new Embarque
+                    {
+                        Accion = 0,
+                        Chofer = item.Chofer,
+                        ChoferID = int.Parse(item.ChoferID.ToString()),
+                        EmbarqueID = item.EmbarqueID,
+                        PlanaID = item.EmbarquePlanaID,
+                        Estatus = item.Estatus,
+                        Plana = item.Plana,
+                        Tracto = item.Tracto,
+                        TractoID = int.Parse(item.TractoID.ToString()),
+                        TransportistaID = item.TransportistaID
+                    };
+                    result.Add(elemento);
+                }
+                return result;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
 
         [HttpGet]
         public object GetPlacasTracto(string token, int TransportistaID, string Tracto)
@@ -197,7 +243,7 @@ namespace BackEndSAM.Controllers
                     return result;
                 }
                 
-                result.ReturnMessage.Add("OK");
+                result.ReturnMessage.Add("Ok");
                 result.ReturnCode = 200;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = false;

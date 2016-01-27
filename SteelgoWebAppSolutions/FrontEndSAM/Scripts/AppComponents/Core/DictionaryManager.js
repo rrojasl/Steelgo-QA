@@ -4023,6 +4023,7 @@ _dictionary = {
         "es-MX": "Revision Embarque",
         "en-US": "Shipment Review "
     },
+    
     "EmbarqueCargaPlana": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
@@ -5012,6 +5013,16 @@ _dictionary = {
         "es-MX": "Carga",
         "en-US": "Charge"
     },
+    "EmbarqueMarcadoMensajeCapturarCinta": {
+        "es-MX": "Debe capturar el color de la cinta si se selecciono que va con cinta",
+        "en-US": "You must capture the color of tape, if was selected to go with tape"
+    },
+    "EmbarqueMarcadoMensajeNoHayRegistrosGuardar": {
+        "es-MX": "No hay registros a guardar",
+        "en-US": "No records to keep"
+    },
+    
+
     "EmbarqueMarcadoBtnCarga2": {
         "es-MX": "Carga",
         "en-US": "Charge"

@@ -118,15 +118,16 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
                     displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                    opcionHabilitarView(true, "FieldSetView");
                 }
             });
         }
         else {
-            displayMessage("", "Debe capturar el color de la cinta si se selecciono que va con cinta", "1");
+            displayMessage("EmbarqueMarcadoMensajeCapturarCinta", "", "1");
         }
     }
     else {
-        displayMessage("", "No hay registros a guardar", "1");
+        displayMessage("EmbarqueMarcadoMensajeNoHayRegistrosGuardar", "", "1");
     }
     
     
