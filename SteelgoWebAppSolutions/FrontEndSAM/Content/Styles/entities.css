@@ -923,14 +923,17 @@ header .menu > div {
  Class name:    $_addedSection
  Description:   Customize section added to a page.
 **********************************************************************************/
-.addedSection {
-    margin: 3px -15px 32px;
+.addedSectionInLine {
+    margin: 20px 0;
     padding-top: 31px;
-    padding-bottom: 5px;
+    padding-bottom: 20px;
     border-top: 1px solid #CCCCCC;
     border-bottom: 1px solid #CCCCCC;
     background-color: #F8F8F8;
 }
+    .addedSectionInLine div {
+        margin-bottom:10px;
+    }
 /**********************************************************************************/
 
 
@@ -1089,7 +1092,10 @@ header .menu > div {
         min-width: 110px;
         text-align: left;
     }
-
+    .formNav .save-group #Guardar1 {
+        min-width: 110px;
+        text-align: left;
+    }
     .formNav .save-group.open button {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;

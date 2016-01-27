@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Visual Dimensional";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListadoLlegadaMaterial0020"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInspeccion"></span></a>
@@ -14,188 +14,155 @@
         <a href=@Url.Action("Visualdimensional", "inspeccion")><span id="InpeccionVisualEnlaceInspeccion"></span></a>
     </li>
 }
-<div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="FormVisualDimensional" class="form col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    @*Menu superior*@
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar2"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
-                                </ul>
-                            </div>
-                            <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
-                        </div>
-                        <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href=@Url.Action("GenerarRequisicion","ServiciosTecnicos") class="btn btn-primary"><span id="MensajeRequisicion"></span></a>
-                        </div>
-                        <div class="button-section actionButtonSection">
-                            <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="DetalleAvisoLlegada0064"></span>
-                                    <span class="caretBlue"></span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                        <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                        <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
-                                </ul>
-                            </div>
-                        </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+                </div>
+                <div id="RequisicionDiv" class="button-section">
+                    <a id="Requisicion" href=@Url.Action("GenerarRequisicion","ServiciosTecnicos") class="btn btn-primary"><span id="MensajeRequisicion"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones1"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
+                        </ul>
                     </div>
                 </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
         </div>
     </div>
-    <div id="FieldSetView">
-        <div class="row">
-            <div class="col-sm-5 col-md-5 col-lg-5">
-                <h3><span id="InpeccionVisualHeaderDimensional"></span></h3>
-            </div>
+    @*Controles Superior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h6> <span id="InpeccionVisualHeaderDimensional"></span></h6>
         </div>
-        <br />
-        <div class="row">
-            <div class="col-sm-2 col-md-2 col-lg-2">
+        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 altoControl">
+            <label id="DimensionalVisualHeaderSpoolID"></label><input type="hidden" id="InspeccionDimensionalID" />
+            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
 
-                <label id="DimensionalVisualHeaderSpoolID"></label>
-                <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
-                <input type="hidden" id="InspeccionDimensionalID" />
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <label id="DimensionalVisualHeaderResultadoDimesional"></label>
-                <input type="radio" name="ResultadoDimensional" style=" width:auto;" id="ResultadoDimensional" value="Aprobado" /><span id="DimensionalVisualAporbadoDimensional"> </span>
-                <input type="radio" name="ResultadoDimensional" style=" width:auto;" value="Rechazdo" /><span id="DimensionalVisualRechazadoDimensional"> </span>
-
-
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <label id="DimensionalVisualHeaderDefectoDimesional"></label>
-                <input id="inputDefecto" class="" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <label id="DimensionalVisualHeaderInspectorDimesional"></label>
-                <input id="inputInspector" class="" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <label id="DimensionalVisualHeaderFechaDimesional"></label>
-                <input id="FechaInspeccion" />
-            </div>
-            <div class="col-sm-1 col-md-1 col-lg-1">
-                <label id="">&nbsp;</label>
-                <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
-            </div>
         </div>
-        <div class="row clearfix">
-            &nbsp;
+        <div class="col-xs-12 col-sm-8 col-md-3 col-lg-3 altoControl">
+            <label id="DimensionalVisualHeaderResultadoDimesional"></label>
+            <input type="radio" name="ResultadoDimensional" style="width:auto;" id="ResultadoDimensional" value="Aprobado" /><span id="DimensionalVisualAporbadoDimensional"></span>
+            <input type="radio" name="ResultadoDimensional" style="width:auto;" value="Rechazdo" /><span id="DimensionalVisualRechazadoDimensional"></span>
+
         </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 altoControl">
+            <label id="DimensionalVisualHeaderDefectoDimesional"></label>
+            <input id="inputDefecto" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 altoControl">
+            <label id="DimensionalVisualHeaderInspectorDimesional"></label>
+            <input id="inputInspector" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 altoControl">
+            <label id="DimensionalVisualHeaderFechaDimesional"></label>
+            <input id="FechaInspeccion" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 altoControl">
+            <label id="">&nbsp;</label>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
+        </div>
+    </div>
+    @*GRID*@
+    <div class="row addedSectionInLine">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h6><span id="InpeccionVisualHeaderVisual"></span></h6>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <label id="DimensionalVisualHeadeTaller"></label>
+            <input id="inputTaller" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <label id="DimensionalVisualHeaderResultadoVisual"></label>
+            <input type="radio" name="ResultadoVisual" id="ResultadoVisual" style=" width:auto;" value="Aprobado" /><span id="DimensionalVisualAporbadoVisual"> </span>
+            <input type="radio" name="ResultadoVisual" style=" width:auto;" value="Rechazdo" /><span id="DimensionalVisualRechazadoVisual"> </span>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <label id="DimensionalVisualHeaderDefectoVisual"></label>
+            <input id="inputDefectosVisual" class="" />
 
-        <div class="row clearfix">
-            <div class="addedSection col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="col-sm-5 col-md-5 col-lg-5">
-                        <h3><span id="InpeccionVisualHeaderVisual"></span></h3>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <label id="DimensionalVisualHeadeTaller"></label>
-                        <input id="inputTaller" class="" />
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <label id="DimensionalVisualHeaderResultadoVisual"></label>
-                        <input type="radio" name="ResultadoVisual" id="ResultadoVisual" style=" width:auto;" value="Aprobado" /><span id="DimensionalVisualAporbadoVisual"> </span>
-                        <input type="radio" name="ResultadoVisual" style=" width:auto;" value="Rechazdo" /><span id="DimensionalVisualRechazadoVisual"> </span>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <label id="DimensionalVisualHeaderInspectorVisual"></label>
+            <input id="inputInspectorVisual" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <label id="DimensionalVisualHeaderFechaVisual"></label>
+            <input id="inputFechaVisual" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
+            <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+            <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
 
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <label id="DimensionalVisualHeaderDefectoVisual"></label>
-                        <input id="inputDefectosVisual" class="" />
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <label id="DimensionalVisualHeaderInspectorVisual"></label>
-                        <input id="inputInspectorVisual" class="" />
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <label id="DimensionalVisualHeaderFechaVisual"></label>
-                        <input id="inputFechaVisual" class="" />
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-3">
-                        <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
-                        <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
-                        <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
-
-                    </div>
-
-                    <div class="col-sm-4 col-md-4 col-lg-1">
-                        <label id="">&nbsp;</label>
-                        <button type="button" id="btnAplicarCapturaRapida" class="btn btn-blue"><span id="botonAplicar"></span></button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                        <div id="ContenedorGrid" class="row">
-                            <div id="grid" data-role="grid" class="k-grid k-widget">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <label id="">&nbsp;</label>
+            <button type="button" id="btnAplicarCapturaRapida" class="btn btn-blue"><span id="botonAplicar"></span></button>
+        </div>
+        <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid" data-role="grid" class="k-grid k-widget">
             </div>
-        </div>
-        <div id="window">
         </div>
         <input id="hdAccionFiltrado" type="hidden" />
     </div>
+
+    @*Menu Inferior*@
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
-                                <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
-                                </ul>
-                            </div>
-                            <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
-                        </div>
-                        <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href=@Url.Action("GenerarRequisicion","ServiciosTecnicos") class="btn btn-primary"><span id="MensajeRequisicion1"></span></a>
-                        </div>
-                        <div class="button-section actionButtonSection">
-                            <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="MensajeAcciones"></span>
-                                    <span class="caretBlue"></span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                        <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                        <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
-                                </ul>
-                            </div>
-                        </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
+                </div>
+                <div id="RequisicionDiv" class="button-section">
+                    <a id="Requisicion" href=@Url.Action("GenerarRequisicion","ServiciosTecnicos") class="btn btn-primary"><span id="MensajeRequisicion1"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
+                        </ul>
                     </div>
                 </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
         </div>
     </div>
@@ -204,4 +171,3 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Inspeccion/VisualDimensional/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Inspeccion/VisualDimensional/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Inspeccion/VisualDimensional/Captura.js"></script>
-

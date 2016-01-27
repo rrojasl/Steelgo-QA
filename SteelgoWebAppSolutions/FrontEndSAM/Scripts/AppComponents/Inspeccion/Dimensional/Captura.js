@@ -25,6 +25,7 @@ function changeLanguageCall() {
     limpiar();
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    document.title = _dictionary.DimensionalVisualInspeccionDimensional[$("#language").data("kendoDropDownList").value()];
 };
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));

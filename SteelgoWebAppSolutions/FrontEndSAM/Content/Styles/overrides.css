@@ -776,3 +776,14 @@
 .k-grid-header th.k-header {
     white-space:normal !important;
 }
+
+.altoControl {
+   height:80px !important;
+   overflow:hidden !important;
+}
+h6 {
+    margin:0;
+    font-weight:600;
+    font-size:larger;
+    line-height:40px;
+}

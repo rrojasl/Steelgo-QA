@@ -6008,15 +6008,15 @@ _dictionary = {
         "en-US": "The inspector is mandatory"
     },
     "InpeccionVisualEnlaceInspeccion": {
-        "es-MX": "Visual dimensional",
-        "en-US": "Visual Dimensional"
+        "es-MX": "Visual Dimensional",
+        "en-US": "Visual and Dimensional"
     },
     "InpeccionVisualHeaderVisual": {
-        "es-MX": "Inspeccion Visual ",
+        "es-MX": "Inspección Visual ",
         "en-US": "Visual Inspection"
     },
     "InpeccionVisualHeaderDimensional": {
-        "es-MX": "Inspeccion Dimensional ",
+        "es-MX": "Inspección Dimensional ",
         "en-US": " Dimensional Inspection"
     },
 

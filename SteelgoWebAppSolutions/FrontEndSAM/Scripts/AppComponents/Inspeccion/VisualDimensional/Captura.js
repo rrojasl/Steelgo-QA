@@ -18,6 +18,7 @@ function changeLanguageCall() {
     limpiar();
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    document.title = _dictionary.InpeccionVisualEnlaceInspeccion[$("#language").data("kendoDropDownList").value()];
 };
 function IniciarCapturaInspecion() {
     CargarFecha();
