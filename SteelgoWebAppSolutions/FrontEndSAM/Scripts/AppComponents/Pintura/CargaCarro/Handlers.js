@@ -6,24 +6,20 @@ function SuscribirEventos() {
     SuscribirEventoAgregar();
     SuscribirEventoGuardar();
     SuscribirEventoCerrarMedioTransporte();
-    SuscribirEventoCrearNuevoMedioTransporte();
+    //SuscribirEventoCrearNuevoMedioTransporte();
     SuscribirEventoClasificacion();
     SuscribirEventoPersistencia();
     SuscribirEventoGuardarCrearMedioTransporte();
     SuscribirEventoCerrarCrearMedioTransporte();
 };
 
-function SuscribirEventoGuardarCrearMedioTransporte()
-{
+function SuscribirEventoGuardarCrearMedioTransporte() {
     $('#btnGuardarCrearMedioTransporte').click(function (e) {
         AjaxGuardarNuevoCarro()
-        setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
-        windowNewCarriage.close();
     });
 }
 
-function SuscribirEventoCerrarCrearMedioTransporte()
-{
+function SuscribirEventoCerrarCrearMedioTransporte() {
     $('#btnCerrarVentanaCrearMedioTransporte').click(function (e) {
         windowNewCarriage.close();
     });
@@ -35,7 +31,28 @@ function SuscribirEventoPersistencia() {
         dataValueField: "TipoPersistenciaID ",
         suggest: true,
         filter: "contains",
-        index: 3
+        index: 3,
+        select: function (e) {
+            var dataItem = this.dataItem(e.item.index());
+
+            if (dataItem.Tipo.toLowerCase() == "cantidad") {
+                $("#divNumeroVeces").show();
+            }
+            else {
+                $("#divNumeroVeces").hide();
+            }
+        },
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem.Tipo.toLowerCase() == "cantidad") {
+                $("#divNumeroVeces").show();
+            }
+            else {
+                $("#divNumeroVeces").hide();
+            }
+
+
+        }
     });
 }
 
@@ -49,52 +66,29 @@ function SuscribirEventoClasificacion() {
     });
 }
 
-
-
-function SuscribirEventoCrearNuevoMedioTransporte()
-{
-   
-    $('#btnAgregarMedioTransporte').click(function (e) {
-        LimpiarCarro();
-            windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
-                modal: true,
-               // title:,
-                resizable: false,
-                visible: true,
-                width: "40%",
-                minWidth: "20%",
-                
-                position: {
-                    top: "1%",
-                    left: "1%"
-                },
-                actions: [
-                    "Close"
-                ],
-            }).data("kendoWindow");
-            $("#divNuevoMedioTransporte").data("kendoWindow").title( _dictionary.CrearNuevoCarro[$("#language").data("kendoDropDownList").value()]);
-            $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
-            
-       
-    });
-    
-}
-function SuscribirEventoCerrarMedioTransporte()
-{
-    $('#btnAgregar').click(function (e) {
-        AjaxAgregarCarga()
-    });
-}
+//function SuscribirEventoCerrarMedioTransporte()
+//{
+//    $('#btnAgregar').click(function (e) {
+//        if ($("#InputCarro").val() > 0) {
+//            AjaxAgregarCarga();
+//        }
+//        else {
+//            displayMessage("PinturaSeleccionarCarro", "", '2');
+//        }
+//    });
+//}
 
 function SuscribirEventoCerrarMedioTransporte() {
-    $('#CerrarCarro').click(function (e) {
+    $('#btnCerrarCarro, #btnCerrarCarro1').click(function (e) {
         AjaxCerrarCarro();
     });
 }
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
-        AjaxAgregarCarga()
+
+        AjaxAgregarCarga();
+
     });
 }
 
@@ -102,16 +96,16 @@ function SuscribirEventoAgregar() {
 
 function SuscribirEventoGuardar() {
 
-    $('#btnGuardarYNuevo').click(function (e) {
+    $('#btnGuardarYNuevo,#btnGuardarYNuevo1').click(function (e) {
         ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
         Limpiar();
     });
 
-    $('#btnGuardar').click(function (e) {
-
+    $('#Guardar, #btnGuardar, #botonGuardar, #Guardar1').click(function (e) {
+        e.stopPropagation();
         if ($('#botonGuardar').text() == "Guardar") {
-            opcionHabilitarView(true, "FieldSetView");
             ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -119,18 +113,19 @@ function SuscribirEventoGuardar() {
 };
 
 function opcionHabilitarView(valor, name) {
+    var $menu = $('.save-group');
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $("#InputID").data("kendoComboBox").enable(false);
-        $('#botonGuardar').text("Editar");
-        $("#DetalleAvisoLlegada0017").text("Editar");
+        $(".botonDeplegaMenu").attr("disabled", true);
+        $("#Guardar").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar3').text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $("#InputID").data("kendoComboBox").enable(true);
-        $('#botonGuardar').text("Guardar");
-        $("#DetalleAvisoLlegada0017").text("Guardar");
+        $(".botonDeplegaMenu").attr("disabled", false);
+        $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar3').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
 
@@ -222,21 +217,50 @@ function SuscribirEventoChangeRadioTipoListado() {
         $("#divSpool").show();
         $("#divCodigo").hide();
     });
-   
+
     $('input:radio[name=PinturaCargaTipoSeleccion]:nth(1)').change(function () {
         $("#divSpool").hide();
         $("#divCodigo").show();
     });
 }
 
-function SuscribirEventoCarro()
-{
+function SuscribirEventoCarro() {
     $('#inputCarro').kendoDropDownList({
         dataTextField: "NombreMedioTransporte",
-        dataValueField: "MedioTransporteID ",
+        dataValueField: "MedioTransporteCargaID ",
         suggest: true,
         filter: "contains",
-        index: 3
+        index: 3,
+        select: function (e) {
+            var dataItem = this.dataItem(e.item.index());
+
+            $('#inputCarro').attr("mediotransporteid", dataItem.MedioTransporteID);
+            if (dataItem.MedioTransporteID == "-1") {
+                LimpiarCarro();
+                windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
+                    modal: true,
+                    // title:,
+                    resizable: false,
+                    visible: true,
+                    width: "auto",
+                    minWidth: "20%",
+
+                    position: {
+                        top: "1%",
+                        left: "1%"
+                    },
+                    actions: [
+                        "Close"
+                    ],
+                }).data("kendoWindow");
+                $("#divNuevoMedioTransporte").data("kendoWindow").title(_dictionary.CrearNuevoCarro[$("#language").data("kendoDropDownList").value()]);
+                $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
+            }
+            else {
+
+                AjaxObtenerDetalleCarroCargado(dataItem.MedioTransporteCargaID);
+            }
+        }
     });
 }
 
@@ -310,3 +334,10 @@ function SuscribirEventoSpoolID() {
     });
 
 };
+
+function Limpiar() {
+    $("#InputCarro").val("");
+    $("#InputID").data("kendoComboBox").dataSource.data([]);
+    AjaxPinturaCargaMedioTransporte();
+    $("#grid").data('kendoGrid').dataSource.data([]);
+}

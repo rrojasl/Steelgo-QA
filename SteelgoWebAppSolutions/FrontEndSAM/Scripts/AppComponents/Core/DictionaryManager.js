@@ -3878,6 +3878,10 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "ErrorGuardadoGuardarCarro": {
+        "es-MX": "Por favor guarde primero el carro",
+        "en-US": "Plase, save the car first"
+    },
     "ErrorFechaInicio": {
         "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
         "en-US": "The field ' DATE START ' , does not have the correct format"
