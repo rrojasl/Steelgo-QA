@@ -49,7 +49,7 @@ function ObtenerJSonGridArmado() {
                 for (var i = 0; i < array.length; i++) {
                     array[i].NumeroUnico1 = array[i].NumeroUnico1 === "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
                     array[i].NumeroUnico2 = array[i].NumeroUnico2 === "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
-                    //array[i].FechaArmado = new Date(FechaArmado);
+                    array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                     ds.add(array[i]);
                 }
             });
@@ -320,6 +320,7 @@ function AjaxCambiarAccionAModificacion() {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
             for (var i = 0; i < array.length; i++) {
+                array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                 ds.add(array[i]);
             }
             loadingStop();

@@ -345,6 +345,7 @@ function changeLanguageCall() {
     Limpiar();
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
+    opcionHabilitarView(false, "FieldSetView")
     //$('#grid').data('kendoGrid').dataSource.read();
 }
 function PlanchaTubero() {
@@ -398,11 +399,13 @@ function PlanchaFecha() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaArmado = String(endRangeDate.val()).trim();
+            //data[i].FechaArmado = String(endRangeDate.val()).trim();
+            data[i].FechaArmado = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia
         }
         else {
             if (data[i].FechaArmado === "" || data[i].FechaArmado === null || data[i].FechaArmado === undefined) {
-                data[i].FechaArmado = String(endRangeDate.val()).trim();
+                //data[i].FechaArmado = String(endRangeDate.val()).trim();
+                data[i].FechaArmado = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia
             }
         }
     }
