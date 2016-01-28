@@ -4,6 +4,7 @@ var bandera = false;
 function changeLanguageCall() {
     CargarGrid();
     AjaxCargarProveedor();
+    document.title = _dictionary.lblEmbarque2[$("#language").data("kendoDropDownList").value()];
 };
 
 

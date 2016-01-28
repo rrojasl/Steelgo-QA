@@ -3,6 +3,7 @@
     $("#Area").data("kendoComboBox").value("");
     $("#Cuadrante").data("kendoComboBox").value("");
     AjaxCargarArea();
+    document.title = _dictionary.lblConsulta[$("#language").data("kendoDropDownList").value()];
 };
 
 

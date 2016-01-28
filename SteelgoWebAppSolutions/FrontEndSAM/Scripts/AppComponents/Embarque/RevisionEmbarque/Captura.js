@@ -4,6 +4,7 @@ var EmbarquePlanaID = 0;
 
 function changeLanguageCall() {
     CargarGrid();
+    document.title = _dictionary.EmbarqueBotonRevisionEmbarque[$("#language").data("kendoDropDownList").value()];
 };
 
 if ($("#inputEmbarqueBuscar").val() != null && $("#inputEmbarqueBuscar").val() != undefined && $("#inputEmbarqueBuscar").val() != "0") {

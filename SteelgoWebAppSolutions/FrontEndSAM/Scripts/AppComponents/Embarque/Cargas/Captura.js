@@ -7,6 +7,7 @@ function changeLanguageCall() {
     CargarGrid();
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
+    document.title = _dictionary.lblCargas[$("#language").data("kendoDropDownList").value()];
 };
 
 if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val()!="0") {
@@ -32,8 +33,8 @@ function CrearPaquetePopup() {
     ventanaAgregarPaquetePopup = $("#ventanaPaquetePopup").kendoWindow({
         title: _dictionary.EmbarqueCargaTituloPopupPaquete[$("#language").data("kendoDropDownList").value()],
         visible: false, //the window will not appear before its .open method is called
-        width: "565px",
-        height: "182px",
+        width: "300px",
+        height: "140px",
         modal: true
     }).data("kendoWindow");
 }
@@ -42,8 +43,8 @@ function CrearPopup() {
     ventanaPopup = $("#ventanaPopup").kendoWindow({
         title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
         visible: false, //the window will not appear before its .open method is called
-        width: "565px",
-        height: "182px",
+        width: "300px",
+        height: "140px",
         modal: true
     }).data("kendoWindow");
 }

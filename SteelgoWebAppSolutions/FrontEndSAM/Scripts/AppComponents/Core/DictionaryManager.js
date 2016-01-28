@@ -4016,15 +4016,23 @@ _dictionary = {
         "en-US": "Shipment "
     },
     "menuEmbarqueListadoEmbarque": {
-        "es-MX": "Listado Cargas",
-        "en-US": "Loads List "
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipment List "
     },
     "menuEmbarqueRevisionEmbarque": {
-        "es-MX": "Revision Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Shipment Review "
     },
     
     "EmbarqueCargaPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana1": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
     },
@@ -5031,7 +5039,15 @@ _dictionary = {
         "es-MX": "Imprimir etiqueta Spool",
         "en-US": "Print Spool Label"
     },
+    "EmbarqueMarcadoImprimirEtiquetaSpool2": {
+        "es-MX": "Imprimir etiqueta Spool",
+        "en-US": "Print Spool Label"
+    },
     "EmbarqueMarcadoImprimirTravelMasivo": {
+        "es-MX": "Imprimir travel masivo",
+        "en-US": "Print Masive Travel"
+    },
+    "EmbarqueMarcadoImprimirTravelMasivo2": {
         "es-MX": "Imprimir travel masivo",
         "en-US": "Print Masive Travel"
     },
@@ -5234,11 +5250,11 @@ _dictionary = {
         "en-US": "The shipment was successfully saved"
     },
     "EmbarqueBotonRevisionEmbarque": {
-        "es-MX": "Revision de Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Boarding review"
     },
     "EmbarqueBotonRevisionEmbarque2": {
-        "es-MX": "Revision de Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Boarding review"
     },
     //#endregion
@@ -5479,7 +5495,7 @@ _dictionary = {
     }
       ,
     "EmbarqueCargaToneladasCargadas": {
-        "es-MX": "ToneladasCargadas:",
+        "es-MX": "Toneladas Cargadas:",
         "en-US": "Tons Loaded:"
     }
     ,
@@ -5652,6 +5668,19 @@ _dictionary = {
 
     //#region PinturaCarga
     ,
+
+    "PinturaCargaAgregarNuevoCarro": {
+        "es-MX": "Agregar nuevo carro",
+        "en-US": "Add new car"
+    },
+    "PinturaCargaNoHaySpoolsEnElCarro": {
+        "es-MX": "No hay spools en el carro",
+        "en-US": "There aren't any spool in the car"
+    },
+    "PinturaCargaEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     "PinturaCargaCarro": {
         "es-MX": "Carro",
         "en-US": "Car"
@@ -6230,6 +6259,10 @@ _dictionary = {
         "en-US": "Capturing Test"
     },
     "lblListadoEmbarque": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
+    "lblListadoEmbarque2": {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
     },

@@ -4,6 +4,7 @@
     $("#Cuadrante").data("kendoComboBox").value("");
     AjaxCargarArea();
     AjaxCampoPredeterminadoImpreso();
+    document.title = _dictionary.lblMarcado[$("#language").data("kendoDropDownList").value()];
 };
 
 
