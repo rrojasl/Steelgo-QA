@@ -1,12 +1,6 @@
-﻿
-
-
-
-@{
-    ViewBag.Title = "CapturaArmado";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
@@ -18,165 +12,138 @@
         <a href="@Url.Action("CapturaArmado", "Armado")"><span id="CapturaArmadoArmadoSpool"></span></a>
     </li>
 }
-
-<div></div>
-<script src="~/Scripts/Confirm/jquery.confirm.js"></script>
-
 <div id="FormCapturaArmado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
+    @*Menu superior*@
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
-                <div class="row">
-                    <div class="button-section editButtonSection">
-                        <div class="btn-group save-group">
-                            <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
-                            <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
-                            <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caretWhite"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
-                                <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
-                            </ul>
-                        </div>
-                        <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="botonEdtar"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                        </ul>
                     </div>
-                    <div id="TramitarPermisoDiv" class="button-section">
-                        <a id="TramitarPermiso" href="~/Soldadura/CapturaSoldadura" class="btn btn-primary"><span id="menuSoldadur"></span></a>
-                    </div>
-
-                    <div class="button-section actionButtonSection">
-                        <div class="dropdown action-group">
-                            <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                <span id="DetalleAvisoLlegada0064"></span>
-                                <span class="caretBlue"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
-                        </div>
-                    </div>
-                    <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
+                <div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                    <a id="ArmadoSoldaduraSuperior" href="@Url.Action("GenerarRequisicion","ServiciosTecnicos")" class="btn btn-primary"><span id="menuSoldadur"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones1"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
         </div>
     </div>
-    <div id="FieldSetView">
-        <div class=" row">
-            <div class="col-sm-2 col-md-2 col-lg-3">
-                <div class="btn-group " data-toggle="buttons" role="group">
-                    <label>&nbsp;</label>
-                    <label class="btn btn-info" id="styleReporte">
-                        <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
-                    </label>
-                    <label class="btn btn-info" id="styleListado">
-                        <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
-                    </label>
-                </div>
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
-                <label id="CapturaArmadoHeaderSpoolID"></label>
-                <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2 " id="JuntaDiv">
-                <label id="CapturaArmadoHeaderJunta"></label>
-                <input id="Junta" class="" />
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3" id="MuestraDiv">
-                <label id="CapturaArmadoHeaderMostrar"></label>
-                <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
-                <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
-
-            </div>
-            <div class="col-sm-1 col-md-1 col-lg-1">
-                <label id="">&nbsp;</label>
-                <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
-
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <label id="LabelProyecto" style="display:none;"> </label>
-            </div>
-        </div>
-        <br />
-        <br />
-        <div class="row addedSection">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="col-sm-3 col-md-3 col-lg-3" id="FechaArmadoDiv">
-                        <label id="CapturaArmadoHeaderFechaArmado"></label>
-                        <input id="FechaArmado" />
-                    </div>
-                    <div class="col-sm-3 col-md-3 col-lg-3" id="inputTuberoDiv">
-                        <label id="CapturaArmadoHeaderTubero"></label>
-                        <input id="inputTubero" class="" />
-                    </div>
-                    <div class="col-sm-3 col-md-3 col-lg-3" id="inputTallerDiv">
-                        <label id="CapturaArmadoHeaderTaller"></label>
-                        <input id="inputTaller" class="" />
-                    </div>
-                    <div class="col-sm-3 col-md-3 col-lg-3">
-                        <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
-                        <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
-                        <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="ContenedorGrid" class="row">
-                            <div id="grid" data-role="grid" class="k-grid k-widget">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-
-            </div>
-        </div>
-
-    </div>
+    @*Controles Superior*@
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection ">
-                            <div class="btn-group save-group ">
-                                <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="CapturaSoldaduraGuardar"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="CapturaSoldaduraGuardar"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="btnGuardarPiePagina"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
-                                </ul>
-                            </div>
-                            <a id="btnCancelar" class="btn btn-black"><span id="CapturaSoldaduraCancelar"></span></a>
-
-                        </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="~/Soldadura/CapturaSoldadura" class="btn btn-primary"><span id="menuSoldaduraPie"></span></a>
-                        </div>
-
-                        <div class="button-section actionButtonSection">
-                            <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="CapturaSoldaduraAcciones"></span>
-                                    <span class="caretBlue"></span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
-                            </div>
-                        </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
-                    </div>
-                </div>
+        <div class="col-sm-2 col-md-2 col-lg-3">
+            <div class="btn-group " data-toggle="buttons" role="group">
+                <label>&nbsp;</label>
+                <label class="btn btn-info" id="styleReporte">
+                    <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
+                </label>
+                <label class="btn btn-info" id="styleListado">
+                    <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
+                </label>
             </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+            <label id="CapturaArmadoHeaderSpoolID"></label>
+            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 " id="JuntaDiv">
+            <label id="CapturaArmadoHeaderJunta"></label>
+            <input id="Junta" class="" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3" id="MuestraDiv">
+            <label id="CapturaArmadoHeaderMostrar"></label>
+            <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
+            <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
 
         </div>
-    </div>
-    <input id="hdAccionFiltrado" type="hidden" />
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <label id="">&nbsp;</label>
+            <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
 
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <label id="LabelProyecto" style="display:none;"> </label>
+        </div>
+    </div>
+    @*GRID*@
+    <div class="row addedSectionInLine">
+        <div class="col-sm-3 col-md-3 col-lg-3" id="FechaArmadoDiv">
+            <label id="CapturaArmadoHeaderFechaArmado"></label>
+            <input id="FechaArmado" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3" id="inputTuberoDiv">
+            <label id="CapturaArmadoHeaderTubero"></label>
+            <input id="inputTubero" class="" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3" id="inputTallerDiv">
+            <label id="CapturaArmadoHeaderTaller"></label>
+            <input id="inputTaller" class="" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
+            <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+            <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+        </div>
+        <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+        <input id="hdAccionFiltrado" type="hidden" />
+    </div>
+
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection ">
+                    <div class="btn-group save-group ">
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="CapturaSoldaduraGuardar"></span></button>
+                        <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="CapturaSoldaduraGuardar"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar"><span id="btnGuardarPiePagina"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="CapturaSoldaduraCancelar"></span></a>
+
+                </div>
+                <div id="ArmadoSoldaduraDivInferior" class="button-section">
+                    <a id="ArmadoSoldaduraInferior" href="~/Soldadura/CapturaSoldadura" class="btn btn-primary"><span id="menuSoldaduraPie"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="CapturaSoldaduraAcciones"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Ajax.js"></script>
@@ -184,7 +151,7 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Captura.js"> </script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Armado/Seguridad.js"></script>
-
+<script type="text/javascript" src="~/Scripts/Confirm/jquery.confirm.js"></script>
 <script>
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Armado"] = $ArmadoModel;

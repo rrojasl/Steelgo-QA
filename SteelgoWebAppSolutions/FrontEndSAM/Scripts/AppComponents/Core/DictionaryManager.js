@@ -6,8 +6,8 @@
 _dictionary = {
     //Login Page Labels
     "LinkFabricacion": {
-        "es-MX": "Fabricacion",
-        "en-US": "Fabricacion"
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
     },
     "NoExisteSpoolID": {
         "es-MX": "No existe el spool",
@@ -3703,7 +3703,14 @@ _dictionary = {
         "es-MX": "Buscar",
         "en-US": "Find"
     },
-
+    "botonEdtar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "botonEdtar2": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     "BotonCerrar1": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -4283,7 +4290,7 @@ _dictionary = {
         "en-US": "There are incomplete spools please delete them or capture the missing information"
     },
     "CapturaArmadoArmadoSpool": {
-        "es-MX": "Armado de Spool",
+        "es-MX": "Armado",
         "en-US": "spool assembly"
     },
     "LabelHeaderArmado": {

@@ -177,7 +177,7 @@ function CargarGrid() {
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
             { field: "Junta", title: _dictionary.CapturaArmadoHeaderJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "94px" },
             { field: "DetalleJunta", title: _dictionary.CapturaArmadoHeaderDetalle[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-            { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", format: _dictionary.FormatoFecha3[$("#language").data("kendoDropDownList").value()] },
+            { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Tubero", title: _dictionary.CapturaArmadoHeaderTubero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTubero, width: "105px" },
             { field: "Taller", title: _dictionary.CapturaArmadoHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "105px" },
             { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico1, width: "135px" },
@@ -345,8 +345,9 @@ function changeLanguageCall() {
     Limpiar();
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
-    opcionHabilitarView(false, "FieldSetView")
-    //$('#grid').data('kendoGrid').dataSource.read();
+    opcionHabilitarView(false, "FieldSetView");
+    document.title = _dictionary.CapturaArmadoArmadoSpool[$("#language").data("kendoDropDownList").value()];
+
 }
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;

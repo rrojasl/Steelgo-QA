@@ -1096,6 +1096,11 @@ header .menu > div {
         min-width: 110px;
         text-align: left;
     }
+    .formNav .save-group #GuardarPie {
+        min-width: 110px;
+        text-align: left;
+    }
+    
     .formNav .save-group.open button {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
