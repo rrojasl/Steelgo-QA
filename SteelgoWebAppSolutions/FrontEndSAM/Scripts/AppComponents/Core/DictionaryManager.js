@@ -5,7 +5,14 @@
 
 _dictionary = {
     //Login Page Labels
-
+    "LinkFabricacion": {
+        "es-MX": "Fabricacion",
+        "en-US": "Fabricacion"
+    },
+    "NoExisteSpoolID": {
+        "es-MX": "No existe el spool",
+        "en-US": "No spool"
+    },
     "CapturaEliminar": {
         "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"
@@ -4023,7 +4030,6 @@ _dictionary = {
         "es-MX": "Revisión Embarque",
         "en-US": "Shipment Review "
     },
-    
     "EmbarqueCargaPlana": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
@@ -5029,8 +5035,6 @@ _dictionary = {
         "es-MX": "No hay registros a guardar",
         "en-US": "No records to keep"
     },
-    
-
     "EmbarqueMarcadoBtnCarga2": {
         "es-MX": "Carga",
         "en-US": "Charge"
@@ -5668,7 +5672,6 @@ _dictionary = {
 
     //#region PinturaCarga
     ,
-
     "PinturaCargaAgregarNuevoCarro": {
         "es-MX": "Agregar nuevo carro",
         "en-US": "Add new car"
