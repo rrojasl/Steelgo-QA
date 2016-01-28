@@ -284,7 +284,7 @@ function SuscribirEventoSpoolID() {
             }
         } else {
             displayMessage("CapturaSoldaduraMensajeOrdenTrabajo", "", '1');
-            $("#InputOrdenTrabajo").focus();
+            //$("#InputOrdenTrabajo").focus();
         }
     });
 
@@ -332,6 +332,7 @@ function suscribirEventoChangeRadio() {
         if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
             AjaxJunta($("#InputID").val());
             FiltroMostrar(0);
+            
         }
 
     });
@@ -339,6 +340,7 @@ function suscribirEventoChangeRadio() {
         if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
             AjaxJunta($("#InputID").val());
             FiltroMostrar(1);
+            
         }
     });
 }
@@ -363,10 +365,12 @@ function suscribirEventoChangeRadioTipoListado() {
     $('input:radio[name=TipoAgregado]:nth(0)').change(function () {
         eventoCambioTipoListado();
         $("#grid").data("kendoGrid").dataSource.data([]);
+        Limpiar();
     });
     $('input:radio[name=TipoAgregado]:nth(1)').change(function () {
         eventoCambioTipoListado();
         $("#grid").data("kendoGrid").dataSource.data([]);
+        Limpiar();
     });
 }
 
@@ -374,7 +378,7 @@ function suscribirEventoChangeRadioTipoListado() {
 function Limpiar() {
 
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").data("kendoComboBox").dataSource.data([]);
+    $("#InputID").data("kendoComboBox").value("");
 
     $("#Junta").data("kendoDropDownList").dataSource.data([]);
 

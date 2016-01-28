@@ -133,6 +133,7 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
+                
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DetalleDatosJson capturaDatosJson = serializer.Deserialize<DetalleDatosJson>(JsonCaptura);
                 capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
@@ -156,6 +157,9 @@ namespace BackEndSAM.Controllers
 
                 List<TrabajosAdicionalesXJunta> listaDetalleAdicionalXJuntaConvertida = listaTrabajoAdicionalXJunta.ConvertAll(new Converter<Sam3_Steelgo_Get_TrabajoAdicional_Result, TrabajosAdicionalesXJunta>(DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta));
 
+                IFormatProvider culture = new System.Globalization.CultureInfo("es-MX", true);
+
+
 
                 foreach (Sam3_Armado_Get_DetalleJunta_Result item in detalle)
                 {
@@ -177,7 +181,7 @@ namespace BackEndSAM.Controllers
                         TipoJunta = item.TipoJunta,
                         Diametro = item.Diametro.ToString(),
                         Cedula = item.Cedula,
-                        FechaArmado = item.FechaArmado == null ? capturaDatosJson.FechaArmado : item.FechaArmado.ToString(),
+                        FechaArmado = item.FechaArmado == null ? capturaDatosJson.FechaArmado: item.FechaArmado,
                         TipoJuntaID = item.TipoJuntaID,
                         TuberoID = item.Tubero == null ? capturaDatosJson.TuberoID : item.ObreroID.ToString(),
                         Tubero = item.Tubero == null ? capturaDatosJson.Tubero : item.Tubero,

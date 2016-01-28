@@ -3,6 +3,7 @@
     $('<input required data-text-field="Nombre" data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
             autoBind: false,
             dataSource: options.model.ListaTaller,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
@@ -18,6 +19,13 @@
             }
         }
         );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 
 
 }
@@ -30,6 +38,7 @@ function RenderComboBoxTubero(container, options) {
     $('<input required data-text-field="Codigo" data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
             autoBind: false,
             dataSource: options.model.ListaTubero,
             template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
@@ -45,6 +54,13 @@ function RenderComboBoxTubero(container, options) {
             }
         }
         );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 }
 
 function RenderComboBoxNumeroUnico1(container, options) {
@@ -55,6 +71,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
     $('<input required data-text-field="Clave" data-value-field="NumeroUnicoID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
             autoBind: false,
             dataSource: options.model.ListaNumerosUnicos1,
             template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
@@ -72,6 +89,13 @@ function RenderComboBoxNumeroUnico1(container, options) {
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 }
 
 function RenderComboBoxNumeroUnico2(container, options) {
@@ -82,6 +106,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
     $('<input required data-text-field="Clave" data-value-field="NumeroUnicoID" data-bind="value:' + options.field + '"/>')
          .appendTo(container)
          .kendoComboBox({
+             suggest: true,
              autoBind: false,
              dataSource: options.model.ListaNumerosUnicos2,
              template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
@@ -100,6 +125,13 @@ function RenderComboBoxNumeroUnico2(container, options) {
 
              }
          });
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 }
 
 function grid_saveChanges(e) {
@@ -137,13 +169,15 @@ function RenderGridDetalle(container, options) {
                       Observacion: { type: "string", editable: true }
                   }
               }
-          }, filter:{
-        logic: "or",
-        filters: [
-          { field: "Accion", operator: "eq", value: 1 },
-          { field: "Accion", operator: "eq", value: 2 }
-        ]
-    }
+          }, filter: {
+              logic: "or",
+              filters: [
+                { field: "Accion", operator: "eq", value: 1 },
+                { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: undefined }
+              ]
+          }
           
          
       },
@@ -151,6 +185,18 @@ function RenderGridDetalle(container, options) {
       selectable: true,
       dataBinding: function (e) {
           console.log("dataBinding");
+      },
+      edit:function(e)
+      {
+          //alert('xd');
+          //$(".k-grid").on('mouseleave', function (send) {
+              //var e = $.Event("keydown", { keyCode: 27 });
+              //var item = this;
+              //if (!tieneClase(item)) {
+              //    $(container).trigger(e);
+              //}
+
+          //});
       },
       change: function (e) {
 
@@ -165,8 +211,8 @@ function RenderGridDetalle(container, options) {
           
           actuallongitudTrabajosAdicionales = data.length;;
           options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
-          if (ItemSeleccionado.JuntaArmadoID != 0)
-              ItemSeleccionado.Accion = 2;
+         // if (ItemSeleccionado.JuntaArmadoID != 0)
+         //     ItemSeleccionado.Accion = 2;
 
       },
       columns: [
@@ -186,7 +232,7 @@ function RenderGridDetalle(container, options) {
                     {
                             var dataSource = this.dataSource;
 
-                            if (dataItem.JuntaArmadoID == "1")
+                            if (dataItem.JuntaArmadoID == "1" || dataItem.JuntaArmadoID==undefined)
                                 dataSource.remove(dataItem);
 
                             dataItem.Accion = 3;
@@ -221,12 +267,14 @@ function RenderGridDetalle(container, options) {
               e.preventDefault();
           }
       },
-      editable: "incell",
+      editable: true,
       navigatable: true,
       toolbar: [{ name: "create" }]
   });
 
+   
 
+    
 
 
 }
@@ -242,25 +290,40 @@ function RenderComboBoxTrabajoAdicional(container, options) {
     $('<input required data-text-field="NombreCorto" id=' + options.model.uid + ' data-value-field="NombreCorto" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
-            autoBind: false,
+            suggest: true,
+            autoBind: true,
             dataSource: ItemSeleccionado.listadoTrabajosAdicionalesXJunta,
             template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
             select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                options.model.TrabajoAdicional = dataItem.NombreCorto;
-            }
-            ,
+                //dataItem = this.dataItem(e.item.index());
+                //options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
+                //options.model.TrabajoAdicional = dataItem.NombreCorto;
+            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.TrabajoAdicionalID = options.model.TrabajoAdicionalID;
+                options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
                 options.model.TrabajoAdicional = dataItem.NombreCorto;
-               // options.model.Observacion = dataItem.Observacion;
+                //$("#grid").data("kendoGrid").dataSource.sync();
             }
         });
+   
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+        
+    });
+  
 
 }
 
-function onChange(e) {
-
+function tieneClase(item) {
+    for (var i = 0; i < item.classList.length; i++) {
+        if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
+            return true;
+        }
+    }
+    return false
 }
