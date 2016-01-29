@@ -55,12 +55,12 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                             NumeroUsosOcupados = item.NumeroUsosOcupados,
                             NumeroUsosPermitidos = item.NumeroUsosPermitidas,
                             PesoMaximoPermitido = item.PesoMaximoPermitiido.GetValueOrDefault(),
-                            PesoMaximoOcupado = item.PesoMaximoOcupado.GetValueOrDefault()
+                            PesoMaximoOcupado = item.PesoMaximoOcupado.GetValueOrDefault(),
+                            AreaMaximoOcupado = item.AreaMaximaOcupada.GetValueOrDefault()
                         });
 
                     }
-                    return ListadoMedioTransporte;
-                    //
+                    return ListadoMedioTransporte; 
                 }
             }
             catch (Exception ex)
@@ -146,16 +146,21 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
-        public object GuardarMedioTransporte(DataTable dtCarga, int usuarioID, string lenguaje, int medioTransporteID)
+        public object GuardarMedioTransporte(DataTable dtCarga, Sam3_Usuario usuario, string lenguaje, int medioTransporteID, int cerrar)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() } };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() } };
 
                     _SQL.Ejecuta(Stords.GUARDACAPTURAPINTURASPOOLCARGA, dtCarga, "@Tabla", parametro);
+
+                    if(cerrar == 0)
+                    {
+                        CierraCarro(usuario, medioTransporteID, cerrar);
+                    } 
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -263,7 +268,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                             Cuadrante = item.Cuadrante,
                             ListaCuandrantes = ListaCuandrantes
 
-
+                           
                         });
 
                     }

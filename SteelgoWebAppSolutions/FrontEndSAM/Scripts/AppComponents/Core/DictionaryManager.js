@@ -5787,6 +5787,10 @@ _dictionary = {
         "es-MX": "Cargar Carro",
         "en-US": "Car Load"
     },
+    "PinturaHeaderCargaCarroBacklog": {
+        "es-MX": "Carga de Carro Backlog",
+        "en-US": "Backlog Load Carriage"
+    },
     "PinturaHeaderCargaCarroPintura": {
         "es-MX": "Pintura",
         "en-US": "Paint"

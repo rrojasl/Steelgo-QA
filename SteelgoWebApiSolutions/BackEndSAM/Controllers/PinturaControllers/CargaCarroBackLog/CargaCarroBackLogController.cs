@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces.PinturaBD.CargaCarroBackLogBD;
+using BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD;
 using BackEndSAM.Models.Pintura.CargaCarroBackLog;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -20,7 +21,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CargaCarroBackLog
     public class CargaCarroBackLogController : ApiController
     {
         [HttpGet]
-        public object ObtieneListadoSpool(string token)
+        public object ObtieneListadoSpool(string medioTransporteID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -29,7 +30,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CargaCarroBackLog
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CargaCarroBackLogBD.Instance.ObtenerListadoSpool();
+                return CargaCarroBackLogBD.Instance.ObtenerListadoSpool(22);
             }
             else
             {
@@ -77,12 +78,13 @@ namespace BackEndSAM.Controllers.PinturaControllers.CargaCarroBackLog
 
 
         [HttpPost]
-        public object GuardarCargaCarroBackLog(Captura listaCapturasRequisicion, string token, int medioTransporteID, int cerrar)
+        public object GuardarCargaCarroBackLog(Captura listaCapturasRequisicion, string token, string lenguaje, int medioTransporteID, int cerrar)
         {
             string payload = "";
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
+             
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
@@ -95,7 +97,8 @@ namespace BackEndSAM.Controllers.PinturaControllers.CargaCarroBackLog
                     dtDetalleSpool = ToDataTable(listaCapturasRequisicion.ListaDetalles);
                 }
 
-                return CargaCarroBackLogBD.Instance.InsertarCargaCarroBackLog(dtDetalleSpool, usuario,medioTransporteID,cerrar);
+                //return CargaCarroBackLogBD.Instance.InsertarCargaCarroBackLog(dtDetalleSpool, usuario,medioTransporteID,cerrar);
+                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleSpool, usuario, lenguaje, medioTransporteID, cerrar);
             }
             else
             {

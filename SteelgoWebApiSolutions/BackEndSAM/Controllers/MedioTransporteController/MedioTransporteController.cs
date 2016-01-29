@@ -65,7 +65,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
         }
 
         //Guarda la carga
-        public object Post(Captura listaCaptura, string token, string lenguaje, int medioTransporteID)
+        public object Post(Captura listaCaptura, string token, string lenguaje, int medioTransporteID, int cerrar)
         {
             string payload = "";
             string newToken = "";
@@ -75,7 +75,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCaptura.Detalles);
-                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleCaptura, usuario.UsuarioID, lenguaje, medioTransporteID);
+                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleCaptura, usuario, lenguaje, medioTransporteID,cerrar);
             }
             else
             {

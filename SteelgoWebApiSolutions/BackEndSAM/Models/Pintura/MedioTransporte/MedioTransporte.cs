@@ -14,6 +14,7 @@ namespace BackEndSAM.Models.Pintura.MedioTransporte
         public decimal PesoMaximoPermitido { get; set; }
         public decimal PesoMaximoOcupado { get; set; }
         public int AreaPermitidoMedioTransporte { get; set; }
+        public decimal AreaMaximoOcupado { get; set; }
         public int NumeroUsosPermitidos { get; set; }
         public int NumeroUsosOcupados { get; set; }
 
