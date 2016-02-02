@@ -101,7 +101,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
                     RetornaDetalles detalles = new RetornaDetalles();
                     int sPinturaID = 0;
-                    List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolCapturaAvance(medioTransporteCargaID).ToList();
+                    List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolCapturaAvance(medioTransporteCargaID, lenguaje).ToList();
                     List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
 
                     foreach (Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result item in result)
@@ -123,6 +123,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             SistemaPinturaID = item.SistemaPinturaID,
                             SpoolID = item.SpoolID,
                             Spool = item.SpoolJunta,
+                            FechaShotblast = item.FechaShootblast,
+                            FechaPrimario = item.FechaPrimario,
                             ListaPintores = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
                             ListaShotblasteros = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "ShotBlastero"),
                             ListaPintorGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje,item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),2 ),
