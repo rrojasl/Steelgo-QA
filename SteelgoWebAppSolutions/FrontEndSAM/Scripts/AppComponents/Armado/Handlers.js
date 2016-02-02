@@ -102,7 +102,7 @@ function Limpiar() {
 
     $("#InputID").data("kendoComboBox").value("");
 
-    $("#Junta").data("kendoDropDownList").dataSource.data([]);
+    $("#Junta").data("kendoComboBox").dataSource.data([]);
 
     //var radioButtons = document.getElementsByName('Muestra');
 
@@ -139,13 +139,17 @@ function suscribirEventoCancelar() {
 
 function suscribirEventoAgregar() {
     $('#ButtonAgregar').click(function (e) {
-
-        if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+        
+        if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte" ) {
             AjaxCargarReporteJuntas();
         }
         else {
-            if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado" && $("#Junta").val() != "") {
-                ObtenerJSonGridArmado();
+            if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado" && $("#Junta").val() != "" ) {
+                if ($("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()) != undefined) {
+                    ObtenerJSonGridArmado();
+                }
+                else
+                    displayMessage("NoExisteJunta", '', '2');
             }
             else
                 displayMessage("JuntaSinSeleccionar", "", '2');
@@ -184,7 +188,7 @@ function SuscribirEventoTaller() {
 }
 
 function SuscribirEventosJunta() {
-    $('#Junta').kendoDropDownList({
+    $('#Junta').kendoComboBox({
         dataTextField: "Etiqueta",
         dataValueField: "JuntaSpoolID",
         suggest: true,
@@ -202,28 +206,32 @@ function SuscribirEventosJunta() {
             $("#ButtonAgregar").focus();
         }
         else if (e.keyCode == 13) {
+            if ($("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()) != undefined) {
 
 
-            if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
-                deshabilitaSpool();
-                ObtenerJSonGridArmado();
-                opcionHabilitarRadioTipoCaptura(false);
-            }
-            else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
-
-
-                if ($("#Junta").val() != "") {
-                    habilitaSpool();
-                    opcionHabilitarRadioTipoCaptura(false);
+                if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+                    deshabilitaSpool();
                     ObtenerJSonGridArmado();
+                    opcionHabilitarRadioTipoCaptura(false);
                 }
-                else
-                    displayMessage("JuntaSinSeleccionar", "", '2');
-            }
-            else {
-                displayMessage("Mensajes_error", "Favor de seleccionar un Tipo de Captura", '2');
-            }
+                else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
 
+
+                    if ($("#Junta").val() != "") {
+                        habilitaSpool();
+                        opcionHabilitarRadioTipoCaptura(false);
+                        ObtenerJSonGridArmado();
+                    }
+                    else
+                        displayMessage("JuntaSinSeleccionar", "", '2');
+                }
+                else {
+                    displayMessage("Mensajes_error", "Favor de seleccionar un Tipo de Captura", '2');
+                }
+            }
+            else
+            
+                displayMessage("NoExisteJunta", '', '2');
         }
     });
 }
@@ -322,10 +330,14 @@ function SuscribirEventoSpoolID() {
             AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
         }
         else if (e.keyCode == 13) {
-            if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
-                if ($("#InputID").data("kendoComboBox").select() != -1)
-                    AjaxCargarReporteJuntas();
+            if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+                if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+                    if ($("#InputID").data("kendoComboBox").select() != -1)
+                        AjaxCargarReporteJuntas();
+                }
             }
+            else
+            displayMessage("NoExisteSpoolID", '', '2');
         }
     });
 

@@ -1,8 +1,8 @@
 ﻿function AjaxJunta(spoolID) {
     $('input:radio[name=Muestra]:checked').val();
     $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
-        $("#Junta").data("kendoDropDownList").value("");
-        $("#Junta").data("kendoDropDownList").dataSource.data(data);
+        $("#Junta").data("kendoComboBox").value("");
+        $("#Junta").data("kendoComboBox").dataSource.data(data);
 
 
     });
@@ -26,15 +26,20 @@ function AjaxObtenerListaTubero() {
             loadingStop();
         });
     }
+    else
+        loadingStop();
 }
 
 function AjaxObtenerListaTaller() {
+    loadingStart();
     if (Cookies.get("Proyecto") != undefined) {
         $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
             $("#inputTaller").data("kendoComboBox").value("");
             $("#inputTaller").data("kendoComboBox").dataSource.data(data);
         });
     }
+    else
+        loadingStop();
 }
 
 function ObtenerJSonGridArmado() {
@@ -139,8 +144,10 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
                         //mensaje = "Se guardo correctamente la informacion" + "-0";
                         displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
                         
-                        if (tipoGuardar == 1)
+                        if (tipoGuardar == 1) {
                             Limpiar();
+                            AjaxCargarCamposPredeterminados();
+                        }
                         else {
                             opcionHabilitarView(true, "FieldSetView");
                             AjaxCambiarAccionAModificacion();

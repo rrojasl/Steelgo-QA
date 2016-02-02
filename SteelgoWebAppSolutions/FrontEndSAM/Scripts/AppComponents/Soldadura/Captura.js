@@ -88,7 +88,7 @@ function IniciarCapturaSoldadura() {
 function aplicarFiltro(listaRespaldo, listaConFiltro) {
     for (var i = 0; i < listaRespaldo.length ; i++) {
         for (var j = 0 ; j < listaConFiltro.length; j++) {
-            
+
         }
     }
 }
@@ -100,7 +100,7 @@ function asignarProyecto() {
 
 function ArregloListadoCaptura() {
     JsonCaptura = [];
-    JsonCaptura[0] = {IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "", IDProyecto: "" };
+    JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "", IDProyecto: "" };
     JsonCaptura[0].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
     JsonCaptura[0].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
     JsonCaptura[0].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
@@ -141,7 +141,6 @@ function ArregloListadoReporte() {
     return JsonCaptura;
 };
 
-
 function ArregloListadoSpoolID() {
     JsonCaptura = [];
     var dataSource = $("#grid").data("kendoGrid").dataSource;
@@ -150,7 +149,7 @@ function ArregloListadoSpoolID() {
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
 
-    for(var index = 0 ; index < data.length ; index ++ ){
+    for (var index = 0 ; index < data.length ; index++) {
         JsonCaptura[index] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "" };
         JsonCaptura[index].IDProyecto = data[index].IDProyecto;
         JsonCaptura[index].Proyecto = data[index].Proyecto;
@@ -172,21 +171,26 @@ function ArregloListadoSpoolID() {
 
 function CargarGridSoldadura() {
 
-   $ ("#grid").kendoGrid({
-        
+    $("#grid").kendoGrid({
+
         autoBind: false,
         edit: function (e) {
-            var input = e.container.find(".k-input");
-            var value = input.val();
-            try{
-                anteriorlongitudTrabajosAdicionales = e.model.DetalleAdicional.length;
-                
+
+            if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+
+                var input = e.container.find(".k-input");
+                var value = input.val();
+                try {
+                    anteriorlongitudTrabajosAdicionales = e.model.DetalleAdicional.length;
+
                     console.log(ItemSeleccionado.Accion);
                     if (ItemSeleccionado.JuntaSoldaduraID != 0)
                         ItemSeleccionado.Accion = 2;
                     console.log(ItemSeleccionado.Accion);
-            }
-                catch(e){}
+                }
+                catch (e) { }
+            } else
+                this.closeCell();
 
         },
         change: function () {
@@ -212,9 +216,9 @@ function CargarGridSoldadura() {
                         Junta: { type: "string", editable: false },
                         TipoJunta: { type: "string", editable: false },
                         Cedula: { type: "string", editable: false },
-                        FechaSoldadura: { type: "date", editable: true},
-                        TallerID: { type: "string", editable: true},
-                        Taller: { type: "string", editable: true, validation: { required: true }},
+                        FechaSoldadura: { type: "date", editable: true },
+                        TallerID: { type: "string", editable: true },
+                        Taller: { type: "string", editable: true, validation: { required: true } },
                         Localizacion: { type: "string", editable: false },
                         juntaSpoolID: { type: "int", editable: true },
                         DetalleJunta: { type: "string", editable: false },
@@ -250,7 +254,7 @@ function CargarGridSoldadura() {
             numeric: true,
         },
         columns: [
-            
+
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
             { field: "JuntaID", title: "", filterable: true, width: "110px", hidden: true },
             { field: "Junta", title: _dictionary.CapturaSoldaduraJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "95px" },
@@ -294,41 +298,43 @@ function AddRow(idTable) {
 }
 
 function cancelarCaptura(e) {
-    e.preventDefault();
-    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    var spoolIDRegistro = dataItem.SpoolID;
+    if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-    windowTemplate = kendo.template($("#windowTemplate").html());
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var spoolIDRegistro = dataItem.SpoolID;
 
-    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-        iframe: true,
-        title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-        visible: false, //the window will not appear before its .open method is called
-        width: "auto",
-        height: "auto",
-        modal: true
-    }).data("kendoWindow");
+        windowTemplate = kendo.template($("#windowTemplate").html());
 
-    ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                 "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            iframe: true,
+            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+            visible: false, //the window will not appear before its .open method is called
+            width: "auto",
+            height: "auto",
+            modal: true
+        }).data("kendoWindow");
 
-    ventanaConfirm.open().center();
+        ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
-    $("#yesButton").click(function () {
-       
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
-        if (dataItem.JuntaSoldaduraID == 0)
-            dataSource.remove(dataItem);
-        $("#grid").data("kendoGrid").dataSource.sync();
+        ventanaConfirm.open().center();
 
-        ventanaConfirm.close();
-    });
-    $("#noButton").click(function () {
-        ventanaConfirm.close();
-    });
+        $("#yesButton").click(function () {
 
-   
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataItem.Accion = 3;
+            if (dataItem.JuntaSoldaduraID == 0)
+                dataSource.remove(dataItem);
+            $("#grid").data("kendoGrid").dataSource.sync();
+
+            ventanaConfirm.close();
+        });
+        $("#noButton").click(function () {
+            ventanaConfirm.close();
+        });
+    }
+
 };
 
 function changeLanguageCall() {
@@ -337,8 +343,7 @@ function changeLanguageCall() {
     });
     AjaxCargarCamposPredeterminados();
     CargarGridSoldadura();
-    SuscribirEventoMuestraJunta();
-    AjaxObtenerListaTaller();
+    opcionHabilitarView(false, "FieldSetView");
 };
 
 function AltaFecha() {
@@ -427,7 +432,7 @@ function ExisteJuntaReporte(juntaVal) {
 
     for (var i = 0; i < jsonGridArmado.length; i++) {
         if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].idVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID == juntaVal) {
-            
+
             $("#grid").data("kendoGrid").dataSource.sync();
             return false;
         }

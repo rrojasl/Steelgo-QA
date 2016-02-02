@@ -64,7 +64,6 @@ function ArregloListadoCaptura() {
 
     return JsonCaptura[0];
 }
-
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
 
@@ -80,16 +79,13 @@ function FiltroMostrar(mostrar) {
         ds.sync();
     }
 }
-
-
-
 function CargarGrid() {
 
     $("#grid").kendoGrid({
 
         edit: function (e) {
 
-            if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+            if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
                 var input = e.container.find(".k-input");
                 var value = input.val();
@@ -128,7 +124,7 @@ function CargarGrid() {
                         TipoJunta: { type: "string", editable: false },
                         Diametro: { type: "string", editable: false },
                         Cedula: { type: "string", editable: false },
-                        FechaArmado: {type: "date", editable: true},
+                        FechaArmado: { type: "date", editable: true },
                         TuberoID: { type: "string", editable: true },
                         Tubero: { type: "string", editable: true },
                         TallerID: { type: "string", editable: true },
@@ -345,9 +341,8 @@ function changeLanguageCall() {
     Limpiar();
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
-    opcionHabilitarView(false, "FieldSetView");
-    document.title = _dictionary.CapturaArmadoArmadoSpool[$("#language").data("kendoDropDownList").value()];
-
+    opcionHabilitarView(false, "FieldSetView")
+    //$('#grid').data('kendoGrid').dataSource.read();
 }
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
@@ -414,7 +409,7 @@ function PlanchaFecha() {
 }
 function ArregloListadoReporte() {
     JsonCaptura = [];
-    var lista = $("#Junta").data("kendoDropDownList").dataSource._data;
+    var lista = $("#Junta").data("kendoComboBox").dataSource._data;
 
     for (var i = 0; i < lista.length ; i++) {
         JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };

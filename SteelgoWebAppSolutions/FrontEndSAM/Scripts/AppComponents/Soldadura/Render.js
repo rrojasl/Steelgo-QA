@@ -65,19 +65,19 @@
                    dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
                    var dataSource = this.dataSource;
-                   
-                       if (confirm(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaTrabajoAdicional[$("#language").data("kendoDropDownList").value()])) {
-                           dataItem.Accion = 3;
-                       }
-                       var filters = dataSource.filter();
-                       var allData = dataSource.data();
-                       var query = new kendo.data.Query(allData);
-                       var data = query.filter(filters).data;
 
-                       actuallongitudTrabajosAdicionales = data.length;
-                       options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-                       dataSource.sync();
-                   
+                   if (confirm(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaTrabajoAdicional[$("#language").data("kendoDropDownList").value()])) {
+                       dataItem.Accion = 3;
+                   }
+                   var filters = dataSource.filter();
+                   var allData = dataSource.data();
+                   var query = new kendo.data.Query(allData);
+                   var data = query.filter(filters).data;
+
+                   actuallongitudTrabajosAdicionales = data.length;
+                   options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+                   dataSource.sync();
+
                }
            }, width: "100px"
        }],
@@ -297,24 +297,26 @@ function RenderComboBoxSoldador(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                var existe = false;
-                for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
-                    if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
-                        existe = true;
-                        break;
+                if (dataItem != undefined) {
+                    var existe = false;
+                    for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
+                        if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
+                            existe = true;
+                            break;
+                        }
                     }
-                }
-                if (!existe) {
-                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                    options.model.Soldador = dataItem.Soldador;
-                    options.model.ObreroID = dataItem.ObreroID;
-                }
-                else {
-                    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
-                    options.model.Soldador = "";
-                    options.model.ObreroID = "";
+                    if (!existe) {
+                        options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                        options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                        options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                        options.model.Soldador = dataItem.Soldador;
+                        options.model.ObreroID = dataItem.ObreroID;
+                    }
+                    else {
+                        displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                        options.model.Soldador = "";
+                        options.model.ObreroID = "";
+                    }
                 }
             }
         }
@@ -340,24 +342,26 @@ function RenderComboBoxSoldadorRelleno(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                var existe = false;
-                for (var i = 0 ; i < ItemSeleccionado.Relleno.length ; i++) {
-                    if (dataItem.ObreroID == ItemSeleccionado.Relleno[i].ObreroID) {
-                        existe = true;
-                        break;
+                if (dataItem != undefined) {
+                    var existe = false;
+                    for (var i = 0 ; i < ItemSeleccionado.Relleno.length ; i++) {
+                        if (dataItem.ObreroID == ItemSeleccionado.Relleno[i].ObreroID) {
+                            existe = true;
+                            break;
+                        }
                     }
-                }
-                if (!existe) {
-                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                    options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                    options.model.Soldador = dataItem.Soldador;
-                    options.model.ObreroID = dataItem.ObreroID;
-                }
-                else {
-                    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
-                    options.model.Soldador = "";
-                    options.model.ObreroID = "";
+                    if (!existe) {
+                        options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                        options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                        options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+                        options.model.Soldador = dataItem.Soldador;
+                        options.model.ObreroID = dataItem.ObreroID;
+                    }
+                    else {
+                        displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                        options.model.Soldador = "";
+                        options.model.ObreroID = "";
+                    }
                 }
             }
         }
@@ -379,25 +383,28 @@ function RenderComboBoxSoldadorTrabajos(container, options) {
             select: function (e) {
             },
             change: function (e) {
+
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                var existe = false;
-                for (var i = 0 ; i < ItemSeleccionado.DetalleAdicional.length ; i++) {
-                    if (dataItem.ObreroID == ItemSeleccionado.DetalleAdicional[i].ObreroID) {
-                        existe = true;
-                        break;
+                if (dataItem != undefined) {
+                    var existe = false;
+                    for (var i = 0 ; i < ItemSeleccionado.DetalleAdicional.length ; i++) {
+                        if (dataItem.ObreroID == ItemSeleccionado.DetalleAdicional[i].ObreroID) {
+                            existe = true;
+                            break;
+                        }
                     }
-                }
-                if (!existe) {
-                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                    options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                    options.model.Soldador = dataItem.Soldador;
-                    options.model.ObreroID = dataItem.ObreroID;
-                    //options.model.Observacion = options.model.Observacion;
-                }
-                else {
-                    displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
-                    options.model.Soldador = "";
-                    options.model.ObreroID = "";
+                    if (!existe) {
+                        options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                        options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+                        options.model.Soldador = dataItem.Soldador;
+                        options.model.ObreroID = dataItem.ObreroID;
+                        //options.model.Observacion = options.model.Observacion;
+                    }
+                    else {
+                        displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                        options.model.Soldador = "";
+                        options.model.ObreroID = "";
+                    }
                 }
 
             }
@@ -427,12 +434,14 @@ function RenderComboBoxTrabajos(container, options) {
                 },
                 change: function (e) {
                     dataItem = this.dataItem(e.sender.selectedIndex);
-                    options.model.Accion = options.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                    options.model.TrabajoAdicional = dataItem.TrabajoAdicional;
-                    options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                    //options.model.Observacion = options.model.Observacion;
-                    options.model.Soldador = options.model.Soldador;
-                    options.model.ObreroID = options.model.ObreroID;
+                    if (dataItem != undefined) {
+                        options.model.Accion = options.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                        options.model.TrabajoAdicional = dataItem.TrabajoAdicional;
+                        options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
+                        //options.model.Observacion = options.model.Observacion;
+                        options.model.Soldador = options.model.Soldador;
+                        options.model.ObreroID = options.model.ObreroID;
+                    }
                 }
             }
             );
@@ -457,9 +466,11 @@ function RenderComboBoxTaller(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Taller = dataItem.Nombre;
-                options.model.TallerID = dataItem.TallerID;
-                options.model.tallerID = dataItem.TallerID;
+                if (dataItem != undefined) {
+                    options.model.Taller = dataItem.Nombre;
+                    options.model.TallerID = dataItem.TallerID;
+                    options.model.tallerID = dataItem.TallerID;
+                }
             }
         }
         );
@@ -470,7 +481,7 @@ function RenderComboBoxTaller(container, options) {
 function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
     loadingStart();
     if (ItemSeleccionado.PermiteTerminadoRaiz) {
-        
+
         var dataItem;
         $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
@@ -485,9 +496,11 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                 },
                 change: function (e) {
                     dataItem = this.dataItem(e.sender.selectedIndex);
-                    options.model.procesoSoldaduraRaiz = dataItem.Codigo
-                    options.model.procesoSoldaduraRaizID = dataItem.ProcesoSoldaduraID
-                    AjaxActualizaSoldadoresRaiz(dataItem.ProcesoSoldaduraID, ItemSeleccionado.TipoJunta, ItemSeleccionado.Diametro, ItemSeleccionado.Espesor, ItemSeleccionado.Cedula);
+                    if (dataItem != undefined) {
+                        options.model.procesoSoldaduraRaiz = dataItem.Codigo
+                        options.model.procesoSoldaduraRaizID = dataItem.ProcesoSoldaduraID
+                        AjaxActualizaSoldadoresRaiz(dataItem.ProcesoSoldaduraID, ItemSeleccionado.TipoJunta, ItemSeleccionado.Diametro, ItemSeleccionado.Espesor, ItemSeleccionado.Cedula);
+                    }
                 },
 
             }
@@ -502,7 +515,7 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
 function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
     loadingStart();
     if (ItemSeleccionado.PermiteTerminadoRelleno) {
-        
+
         var dataItem;
         $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
@@ -517,10 +530,12 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                 },
                 change: function (e) {
                     dataItem = this.dataItem(e.sender.selectedIndex);
-                    options.model.procesoSoldaduraRelleno = dataItem.Codigo;
-                    options.model.procesoSoldaduraRellenoID = dataItem.ProcesoSoldaduraID;
-                    AjaxActualizaSoldadoresRelleno(dataItem.ProcesoSoldaduraID, ItemSeleccionado.TipoJunta, ItemSeleccionado.Diametro, ItemSeleccionado.Espesor, ItemSeleccionado.Cedula);
-                },
+                    if (dataItem != undefined) {
+                        options.model.procesoSoldaduraRelleno = dataItem.Codigo;
+                        options.model.procesoSoldaduraRellenoID = dataItem.ProcesoSoldaduraID;
+                        AjaxActualizaSoldadoresRelleno(dataItem.ProcesoSoldaduraID, ItemSeleccionado.TipoJunta, ItemSeleccionado.Diametro, ItemSeleccionado.Espesor, ItemSeleccionado.Cedula);
+                    }
+                }
             }
             );
     }

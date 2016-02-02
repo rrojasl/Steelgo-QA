@@ -5,9 +5,22 @@
 
 _dictionary = {
     //Login Page Labels
+    "MensajeGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "MensajeGuardarPiePagina": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "LinkFabricacion": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+        "es-MX": "Fabricacion",
+        "en-US": "Fabricacion"
+    },
+
+    "NoExisteJunta": {
+        "es-MX": "No existe Junta",
+        "en-US": "No Board"
     },
     "NoExisteSpoolID": {
         "es-MX": "No existe el spool",
@@ -3703,14 +3716,7 @@ _dictionary = {
         "es-MX": "Buscar",
         "en-US": "Find"
     },
-    "botonEdtar": {
-        "es-MX": "Editar",
-        "en-US": "Edit"
-    },
-    "botonEdtar2": {
-        "es-MX": "Editar",
-        "en-US": "Edit"
-    },
+
     "BotonCerrar1": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -3877,10 +3883,6 @@ _dictionary = {
     "OrdenTrabajoNoValida": {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
-    },
-    "ErrorGuardadoGuardarCarro": {
-        "es-MX": "Por favor guarde primero el carro",
-        "en-US": "Plase, save the car first"
     },
     "ErrorFechaInicio": {
         "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
@@ -4294,7 +4296,7 @@ _dictionary = {
         "en-US": "There are incomplete spools please delete them or capture the missing information"
     },
     "CapturaArmadoArmadoSpool": {
-        "es-MX": "Armado",
+        "es-MX": "Armado de Spool",
         "en-US": "spool assembly"
     },
     "LabelHeaderArmado": {
@@ -5786,10 +5788,6 @@ _dictionary = {
     "PinturaHeaderCargaCarro": {
         "es-MX": "Cargar Carro",
         "en-US": "Car Load"
-    },
-    "PinturaHeaderCargaCarroBacklog": {
-        "es-MX": "Carga de Carro Backlog",
-        "en-US": "Backlog Load Carriage"
     },
     "PinturaHeaderCargaCarroPintura": {
         "es-MX": "Pintura",

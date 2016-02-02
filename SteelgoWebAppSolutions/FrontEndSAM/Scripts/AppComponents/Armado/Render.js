@@ -4,6 +4,7 @@
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaTaller,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
@@ -39,6 +40,7 @@ function RenderComboBoxTubero(container, options) {
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaTubero,
             template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
@@ -72,6 +74,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaNumerosUnicos1,
             template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
@@ -107,6 +110,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
          .appendTo(container)
          .kendoComboBox({
              suggest: true,
+             filter: "contains",
              autoBind: false,
              dataSource: options.model.ListaNumerosUnicos2,
              template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
@@ -291,6 +295,7 @@ function RenderComboBoxTrabajoAdicional(container, options) {
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
+            filter: "contains",
             autoBind: true,
             dataSource: ItemSeleccionado.listadoTrabajosAdicionalesXJunta,
             template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
