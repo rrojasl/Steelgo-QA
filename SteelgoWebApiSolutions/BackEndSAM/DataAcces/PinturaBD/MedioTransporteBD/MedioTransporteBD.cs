@@ -50,16 +50,17 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                         {
                             AreaPermitidoMedioTransporte = item.AreaPermitidoMedioTransporte.GetValueOrDefault(),
                             MedioTransporteID = item.MedioTransporteID,
+                            MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             NombreMedioTransporte = item.NombreMedioTransporte,
-                            NumeroUsosOcupados = item.NumeroUsosOcupados.GetValueOrDefault(),
-                            NumeroUsosPermitidos = item.NumeroUsosPermitidas.GetValueOrDefault(),
+                            NumeroUsosOcupados = item.NumeroUsosOcupados,
+                            NumeroUsosPermitidos = item.NumeroUsosPermitidas,
                             PesoMaximoPermitido = item.PesoMaximoPermitiido.GetValueOrDefault(),
-                            PesoMaximoOcupado = item.PesoMaximoOcupado.GetValueOrDefault()
+                            PesoMaximoOcupado = item.PesoMaximoOcupado.GetValueOrDefault(),
+                            AreaMaximoOcupado = item.AreaMaximaOcupada.GetValueOrDefault()
                         });
 
                     }
-                    return ListadoMedioTransporte;
-                    //
+                    return ListadoMedioTransporte; 
                 }
             }
             catch (Exception ex)
@@ -145,16 +146,21 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
-        public object GuardarMedioTransporte(DataTable dtCarga, int usuarioID, string lenguaje, int medioTransporteID, int cerrar)
+        public object GuardarMedioTransporte(DataTable dtCarga, Sam3_Usuario usuario, string lenguaje, int medioTransporteID, int cerrar)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuarioID.ToString() }, { "@medioTransporteID", medioTransporteID.ToString() }, { "@cerrar", cerrar.ToString() } };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() } };
 
                     _SQL.Ejecuta(Stords.GUARDACAPTURAPINTURASPOOLCARGA, dtCarga, "@Tabla", parametro);
+
+                    if(cerrar == 0)
+                    {
+                        CierraCarro(usuario, medioTransporteID, cerrar);
+                    } 
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -196,8 +202,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                         {
                             MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             NombreMedioTransporte = item.NombreMedioTransporte,
-                            
-                          
+
+
                         });
 
                     }
@@ -230,7 +236,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
 
                     List<DetalleMedioTransporteCarga> ListadoDetalleMedioTransporteCarga = new List<DetalleMedioTransporteCarga>();
 
-                    List< Cuadrante> ListaCuandrantes = new List<Cuadrante>();
+                    List<Cuadrante> ListaCuandrantes = new List<Cuadrante>();
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in GetlistaCuandrantes)
                     {
                         ListaCuandrantes.Add(
@@ -247,7 +253,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                     {
                         ListadoDetalleMedioTransporteCarga.Add(new DetalleMedioTransporteCarga
                         {
-                            Accion=1, //no es nuevo solo se pone para tener una bandera por si el usuario hace un cambio se actualiza la accion.
+                            Accion = 2, //no es nuevo solo se pone para tener una bandera por si el usuario hace un cambio se actualiza la accion.
                             MedioTransporteID = item.MedioTransporteID.GetValueOrDefault(),
                             Area = item.Area.GetValueOrDefault(),
                             ColorPintura = item.ColorPintura,
@@ -261,8 +267,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                             CuadranteID = item.CuadranteID.GetValueOrDefault(),
                             Cuadrante = item.Cuadrante,
                             ListaCuandrantes = ListaCuandrantes
-                            
 
+                           
                         });
 
                     }
@@ -324,11 +330,11 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuarioID.ToString() } };
 
-                    DataTable dt= _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtCarga, "@Tabla", parametro);
+                    DataTable dt = _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtCarga, "@Tabla", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     if (dt.Rows.Count == 0)
                     {
-                       
+
                         result.ReturnMessage.Add("Ok");
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
@@ -336,13 +342,13 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                     }
                     else
                     {
-                        
+
                         result.ReturnMessage.Add(dt.Rows[0][0].ToString());
                         result.ReturnCode = 500;
                         result.ReturnStatus = false;
                         result.IsAuthenicated = true;
                     }
-                    
+
 
                     return result;
                 }
@@ -376,7 +382,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                         {
                             ClasificacionPersistenciaID = item.ClasificacionPersistenciaID,
                             NombreClasificacion = item.Clasificacion,
-                           
+
                         });
 
                     }

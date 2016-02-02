@@ -33,6 +33,8 @@ function AjaxObtenerListaProcesos() {
     });
 }
 
+
+
 function ObtenerJSonGridSoldadura() {
 
     if (ExisteJunta()) {
@@ -40,7 +42,8 @@ function ObtenerJSonGridSoldadura() {
             getGridSoldadura();
 
         } catch (e) {
-            alert("error:" + e.message);
+            loadingStop();
+           // alert("error:" + e.message);
         }
     }
     else
@@ -57,7 +60,7 @@ function getGridSoldadura() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = JSON.parse(data);
         for (var i = 0; i < array.length; i++) {
-
+            array[i].FechaSoldadura  = new Date(ObtenerDato(array[i].FechaSoldadura, 1), ObtenerDato(array[i].FechaSoldadura, 2), ObtenerDato(array[i].FechaSoldadura, 3));//año, mes, dia
             ds.add(array[i]);
             if (!array[i].PermiteTerminadoRaiz)
                 ds._data[i].procesoSoldaduraRaiz;
@@ -69,7 +72,30 @@ function getGridSoldadura() {
     });
 }
 
-function AjaxGuardarCaptura(arregloCaptura) {
+function ObtenerDato(fecha,tipoDatoObtener)
+{
+    var cultura = $("#language").val();
+  
+    switch (tipoDatoObtener) {
+        case 1://anho
+            return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura = 'es-MX')
+                return fecha.split('/')[1]
+            else
+                return fecha.split('/')[0]
+            break;
+        case 3://dia
+            if (cultura = 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
+}
+
+function AjaxGuardarCaptura(arregloCaptura,tipoGuardar){
     try {
         var bandera = true, banderaProcesoRaiz = true, banderaProcesoRelleno = true;
         Captura = [];
@@ -198,14 +224,34 @@ function AjaxGuardarCaptura(arregloCaptura) {
                         loadingStart();
                         $CapturaSoldadura.Soldadura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                             $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(ArregloListadoSpoolID()), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (result) {
-                                $("#grid").data('kendoGrid').dataSource.data([]);
-                                var ds = $("#grid").data("kendoGrid").dataSource;
-                                var array = JSON.parse(result);
-                                for (var i = 0; i < array.length; i++) {
-                                    ds.add(array[i]);
+                                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                                    //mensaje = "Se guardo correctamente la informacion" + "-0";
+                                    displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+
+                                    if (tipoGuardar == 1) {
+                                        Limpiar();
+                                        AjaxCargarCamposPredeterminados();
+                                    }
+
+                                    else {
+                                        opcionHabilitarView(true, "FieldSetView");
+                                        $("#grid").data("kendoGrid").dataSource.data([]);
+                                        var ds = $("#grid").data("kendoGrid").dataSource;
+                                        var array = JSON.parse(result);
+                                        for (var i = 0; i < array.length; i++) {
+                                            array[i].FechaSoldadura  = new Date(ObtenerDato(array[i].FechaSoldadura, 1), ObtenerDato(array[i].FechaSoldadura, 2), ObtenerDato(array[i].FechaSoldadura, 3));//año, mes, dia
+                                            ds.add(array[i]);
+                                        }
+                                    }
+                                    loadingStop();
+
                                 }
-                                displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-                                loadingStop();
+                                else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+                                    //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                                    loadingStop();
+
+                                }
                             });
                         });
                     }
@@ -230,31 +276,68 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
 
 function AjaxCargarReporteJuntas() {
+    loadingStart();
     if (ExisteJunta()) {
         var listadoReporte = ArregloListadoReporte();
-
-        for (var i = 0; i < listadoReporte.length; i++) {
-            if (ExisteJuntaReporte(listadoReporte[i].JuntaID)) {
-                loadingStart();
-                $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
-                    var ds = $("#grid").data("kendoGrid").dataSource;
-                    var array = JSON.parse(data);
-                    for (var i = 0; i < array.length; i++) {
-                        ds.add(array[i]);
-                    }
-                    loadingStop();
-                });
+        var todosRepetidos = false;
+       
+            for (var i = 0; i < listadoReporte.length; i++) {
+                if (ExisteJuntaReporte(listadoReporte[i].JuntaID)) {
+                    todosRepetidos = true;
+                    $CapturaSoldadura.Soldadura.read({ JsonCaptura: JSON.stringify(listadoReporte[i]), lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+                        var ds = $("#grid").data("kendoGrid").dataSource;
+                        var array = JSON.parse(data);
+                        for (var i = 0; i < array.length; i++) {
+                            array[i].FechaSoldadura = new Date(ObtenerDato(array[i].FechaSoldadura, 1), ObtenerDato(array[i].FechaSoldadura, 2), ObtenerDato(array[i].FechaSoldadura, 3));//año, mes, dia
+                            ds.add(array[i]);
+                        }
+                        loadingStop();
+                    });
+                }
             }
-        }
+            if(!todosRepetidos)
+                loadingStop();
+       
     }
     else {
         displayMessage("CapturaArmadoMensajeJuntaExistente", "", '1');
+        loadingStop();
     }
 }
 
 
 function AjaxCargarCamposPredeterminados() {
+    
+    loadingStart();
+    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
+        var NewDate = kendo.toString(data.FechaSoldadura, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+
+        endRangeDate.val(NewDate);
+
+      
+        if (data.TipoCaptura == "Reporte") {
+            $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', true);
+            $('input:radio[name=TipoAgregado]:nth(1)').removeAttr('checked');
+            $("#styleReporte").addClass("active");
+            $("#styleListado").removeClass("active");
+            $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', true).trigger("change");
+        }
+        else if (data.TipoCaptura == "Lista") {
+            $('input:radio[name=TipoAgregado]:nth(0)').removeAttr('checked');
+            $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', true);
+            $("#styleListado").addClass("active");
+            $("#styleReporte").removeClass("active");
+            $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', true).trigger("change");
+        }
+        //eventoCambioTipoListado();
+        loadingStop();
+    });
+
+};
+
+function AjaxCargarCamposPredeterminadosCambiaTipoVista() {
+    
     loadingStart();
     $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
@@ -283,39 +366,9 @@ function AjaxCargarCamposPredeterminados() {
             $('input:radio[name=LLena]:nth(1)').attr('checked', true);
 
         }
-        if (data.TipoCaptura == "Reporte") {
-            $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', true);
-            $('input:radio[name=TipoAgregado]:nth(1)').removeAttr('checked');
-            $("#styleReporte").addClass("active");
-            $("#styleListado").removeClass("active");
-        }
-        else if (data.TipoCaptura == "Lista") {
-            $('input:radio[name=TipoAgregado]:nth(0)').removeAttr('checked');
-            $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', true);
-            $("#styleListado").addClass("active");
-            $("#styleReporte").removeClass("active");
-        }
-        eventoCambioTipoListado();
-        loadingStop();
-    });
-
-};
-
-function AjaxCargarCamposPredeterminadosOcultaJunta() {
-
-    loadingStart();
-    $CapturaSoldadura.Soldadura.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-
-        if (data.Muestra == "Sincaptura") {
-            $('input:radio[name=Muestra]:nth(0)').attr('checked');
-            $('input:radio[name=Muestra]:nth(1)').removeAttr('checked');
-
-        }
-        else if (data.Muestra == "Todos") {
-            $('input:radio[name=Muestra]:nth(0)').removeAttr('checked');
-            $('input:radio[name=Muestra]:nth(1)').attr('checked');
-
-        }
+        
+        //
+       
 
         loadingStop();
     });

@@ -80,6 +80,28 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
+        public object ObtenerPlanasGuardadasChofer(int vehiculoID,int choferID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Get_EmbarqueDetalleChofer_Result> result = ctx.Sam3_Embarque_Get_EmbarqueDetalleChofer(vehiculoID,choferID, lenguaje).ToList();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerPlana(int transportistaID)
         {
             try

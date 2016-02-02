@@ -1,8 +1,8 @@
 ﻿function AjaxJunta(spoolID) {
     $('input:radio[name=Muestra]:checked').val();
     $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
-        $("#Junta").data("kendoDropDownList").value("");
-        $("#Junta").data("kendoDropDownList").dataSource.data(data);
+        $("#Junta").data("kendoComboBox").value("");
+        $("#Junta").data("kendoComboBox").dataSource.data(data);
 
 
     });
@@ -11,7 +11,7 @@
 function AjaxObtenerSpoolID() {
     $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
-        $("#InputID").data("kendoDropDownList").dataSource.data(data.idStatus);
+        $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
         Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
     });
 }
@@ -26,15 +26,20 @@ function AjaxObtenerListaTubero() {
             loadingStop();
         });
     }
+    else
+        loadingStop();
 }
 
 function AjaxObtenerListaTaller() {
+    loadingStart();
     if (Cookies.get("Proyecto") != undefined) {
         $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
             $("#inputTaller").data("kendoComboBox").value("");
             $("#inputTaller").data("kendoComboBox").dataSource.data(data);
         });
     }
+    else
+        loadingStop();
 }
 
 function ObtenerJSonGridArmado() {
@@ -49,6 +54,7 @@ function ObtenerJSonGridArmado() {
                 for (var i = 0; i < array.length; i++) {
                     array[i].NumeroUnico1 = array[i].NumeroUnico1 === "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
                     array[i].NumeroUnico2 = array[i].NumeroUnico2 === "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                    array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                     ds.add(array[i]);
                 }
             });
@@ -62,8 +68,9 @@ function ObtenerJSonGridArmado() {
     }
 }
 
-function AjaxGuardarCaptura(arregloCaptura) {
+function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
     try {
+        var seGuardoCorrectamente = false;
         loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
@@ -115,7 +122,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
            ListaDetalles[index].NumeroUnico2ID != "" &&
            ListaDetalles[index].TallerID != "" &&
            ListaDetalles[index].TuberoID != "" &&
-           ListaDetalles[index].FechaArmado != "" && ListaDetalles[index].ListaDetalleTrabajoAdicional.length>0
+           ListaDetalles[index].FechaArmado != "" 
                ) {
                 estaIncompleto = false;
             }
@@ -130,34 +137,47 @@ function AjaxGuardarCaptura(arregloCaptura) {
         if (!estaIncompleto) {
             Captura[0].Detalles = ListaDetalles;
             if (Captura[0].Detalles.length > 0) {
-               
+
 
                 $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                     if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                        AjaxCambiarAccionAModificacion();
-                        mensaje = "Se guardo correctamente la informacion" + "-0";
+                        //mensaje = "Se guardo correctamente la informacion" + "-0";
                         displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+                        
+                        if (tipoGuardar == 1) {
+                            Limpiar();
+                            AjaxCargarCamposPredeterminados();
+                        }
+                        else {
+                            opcionHabilitarView(true, "FieldSetView");
+                            AjaxCambiarAccionAModificacion();
+                        }
+                        loadingStop();
+                        
                     }
-                    else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                        mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                    else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */{
+                        //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
                         displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                        loadingStop();
+                        
                     }
-                    loadingStop();
                 });
             }
-            else
+            else {
                 loadingStop();
+               
+            }
         }
         else {
             displayMessage("CapturaMensajeArmadoDatosIncompletos", "", '1');
             loadingStop();
+            
         }
 
-
+        
     } catch (e) {
         loadingStop();
         displayMessage("Mensajes_error", e.message, '0');
-
     }
 
 }
@@ -249,6 +269,28 @@ function AjaxCargarCamposPredeterminadosOcultaJunta() {
     });
 }
 
+function ObtenerDato(fecha,tipoDatoObtener)
+{
+    var cultura = $("#language").val();
+  
+    switch (tipoDatoObtener) {
+        case 1://anho
+                return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura = 'es-MX')
+                return fecha.split('/')[1]
+            else
+                return fecha.split('/')[0]
+            break;
+        case 3://dia
+            if (cultura = 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
+}
 
 function AjaxCargarReporteJuntas() {
     if (ExisteJunta()) {
@@ -261,6 +303,7 @@ function AjaxCargarReporteJuntas() {
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 var array = JSON.parse(data);
                 for (var i = 0; i < array.length; i++) {
+                    array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado,2), ObtenerDato(array[i].FechaArmado,3));//año, mes, dia
                     ds.add(array[i]);
                 }
                 loadingStop();
@@ -284,6 +327,7 @@ function AjaxCambiarAccionAModificacion() {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
             for (var i = 0; i < array.length; i++) {
+                array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                 ds.add(array[i]);
             }
             loadingStop();

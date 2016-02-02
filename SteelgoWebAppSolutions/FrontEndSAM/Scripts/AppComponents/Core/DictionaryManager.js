@@ -5,7 +5,26 @@
 
 _dictionary = {
     //Login Page Labels
-
+    "MensajeGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "MensajeGuardarPiePagina": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "LinkFabricacion": {
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
+    },
+    "NoExisteJunta": {
+        "es-MX": "No existe Junta",
+        "en-US": "No Board"
+    },
+    "NoExisteSpoolID": {
+        "es-MX": "No existe el spool",
+        "en-US": "No spool"
+    },
     "CapturaEliminar": {
         "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"
@@ -3696,7 +3715,14 @@ _dictionary = {
         "es-MX": "Buscar",
         "en-US": "Find"
     },
-
+    "botonEdtar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "botonEdtar2": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     "BotonCerrar1": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -3811,6 +3837,10 @@ _dictionary = {
         "es-MX": "Lista",
         "en-US": "List"
     },
+    "lblInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
     "CapturaLlenadoMasivo": {
         "es-MX": "Llenado masivo",
         "en-US": "filling mass"
@@ -3839,6 +3869,14 @@ _dictionary = {
         "es-MX": "Acciones",
         "en-US": "Actions"
     },
+    "textoEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "textoGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     //#region Mensajes
     "Mensajes_error": {
         "es-MX": "Mensaje de error: ",
@@ -3852,11 +3890,18 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "ErrorGuardadoGuardarCarro": {
+        "es-MX": "Por favor guarde primero el carro",
+        "en-US": "Plase, save the car first"
+    },
     "ErrorFechaInicio": {
         "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
         "en-US": "The field ' DATE START ' , does not have the correct format"
     },
-
+    "ErrorGuardarAntesElCarro": {
+        "es-MX": "Por favor guarde primero el carro",
+        "en-US": "Plase, save the car first"
+    },
     "ErrorFechaFin": {
         "es-MX": "El Campo 'FECHA FIN', no tiene el formato correcto'",
         "en-US": "The field ' DATE END ' , does not have the correct format"
@@ -4004,14 +4049,22 @@ _dictionary = {
         "en-US": "Shipment "
     },
     "menuEmbarqueListadoEmbarque": {
-        "es-MX": "Listado Cargas",
-        "en-US": "Loads List "
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipment List "
     },
     "menuEmbarqueRevisionEmbarque": {
-        "es-MX": "Revision Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Shipment Review "
     },
     "EmbarqueCargaPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana1": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
     },
@@ -4256,8 +4309,8 @@ _dictionary = {
         "en-US": "There are incomplete spools please delete them or capture the missing information"
     },
     "CapturaArmadoArmadoSpool": {
-        "es-MX": "Armado de Spool",
-        "en-US": "spool assembly"
+        "es-MX": "Armado",
+        "en-US": "Assembly"
     },
     "LabelHeaderArmado": {
         "es-MX": "Detalle Armado",
@@ -4449,8 +4502,8 @@ _dictionary = {
         "en-US": "Are you sure you want to cancel the detail of the capture of Inspection?"
     },
     "DimensionalVisualInspeccionDimensional": {
-        "es-MX": "Inspeccion Dimensional",
-        "en-US": "Dimensional inspection"
+        "es-MX": "Dimensional",
+        "en-US": "Dimensional"
     },
 
     //#endregion
@@ -5000,6 +5053,14 @@ _dictionary = {
         "es-MX": "Carga",
         "en-US": "Charge"
     },
+    "EmbarqueMarcadoMensajeCapturarCinta": {
+        "es-MX": "Debe capturar el color de la cinta si se selecciono que va con cinta",
+        "en-US": "You must capture the color of tape, if was selected to go with tape"
+    },
+    "EmbarqueMarcadoMensajeNoHayRegistrosGuardar": {
+        "es-MX": "No hay registros a guardar",
+        "en-US": "No records to keep"
+    },
     "EmbarqueMarcadoBtnCarga2": {
         "es-MX": "Carga",
         "en-US": "Charge"
@@ -5008,7 +5069,15 @@ _dictionary = {
         "es-MX": "Imprimir etiqueta Spool",
         "en-US": "Print Spool Label"
     },
+    "EmbarqueMarcadoImprimirEtiquetaSpool2": {
+        "es-MX": "Imprimir etiqueta Spool",
+        "en-US": "Print Spool Label"
+    },
     "EmbarqueMarcadoImprimirTravelMasivo": {
+        "es-MX": "Imprimir travel masivo",
+        "en-US": "Print Masive Travel"
+    },
+    "EmbarqueMarcadoImprimirTravelMasivo2": {
         "es-MX": "Imprimir travel masivo",
         "en-US": "Print Masive Travel"
     },
@@ -5211,11 +5280,11 @@ _dictionary = {
         "en-US": "The shipment was successfully saved"
     },
     "EmbarqueBotonRevisionEmbarque": {
-        "es-MX": "Revision de Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Boarding review"
     },
     "EmbarqueBotonRevisionEmbarque2": {
-        "es-MX": "Revision de Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Boarding review"
     },
     //#endregion
@@ -5456,7 +5525,7 @@ _dictionary = {
     }
       ,
     "EmbarqueCargaToneladasCargadas": {
-        "es-MX": "ToneladasCargadas:",
+        "es-MX": "Toneladas Cargadas:",
         "en-US": "Tons Loaded:"
     }
     ,
@@ -5629,6 +5698,26 @@ _dictionary = {
 
     //#region PinturaCarga
     ,
+    "PinturaCargaAgregarNuevoCarro": {
+        "es-MX": "Agregar nuevo carro",
+        "en-US": "Add new car"
+    },
+    "PinturaCargaSeleccionaSpool": {
+        "es-MX": "Por favor selecciona un spool",
+        "en-US": "Select a spool please"
+    },
+    "PinturaCargaNoHaySpoolsEnElCarro": {
+        "es-MX": "No hay spools en el carro",
+        "en-US": "There aren't any spool in the car"
+    },
+    "PinturaCargaSeleccionaCodigo": {
+        "es-MX": "Por favor selecciona un código",
+        "en-US": "Select a code please"
+    },
+    "PinturaCargaEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     "PinturaCargaCarro": {
         "es-MX": "Carro",
         "en-US": "Car"
@@ -5665,7 +5754,7 @@ _dictionary = {
     }
     ,
     "PinturaCargaArea": {
-        "es-MX": "Area",
+        "es-MX": "Área",
         "en-US": "Area"
     }
     ,
@@ -5720,6 +5809,10 @@ _dictionary = {
     "PinturaHeaderCargaCarro": {
         "es-MX": "Cargar Carro",
         "en-US": "Car Load"
+    },
+    "PinturaHeaderCargaCarroBacklog": {
+        "es-MX": "Carga de Carro Backlog",
+        "en-US": "Backlog Load Carriage"
     },
     "PinturaHeaderCargaCarroPintura": {
         "es-MX": "Pintura",
@@ -5867,7 +5960,7 @@ _dictionary = {
         "en-US": "Name"
     },
     "labelClasificion": {
-        "es-MX": "Clasificacion",
+        "es-MX": "Clasificación",
         "en-US": "Classification"
     },
     "labelPersisitencia": {
@@ -5996,15 +6089,15 @@ _dictionary = {
         "en-US": "The inspector is mandatory"
     },
     "InpeccionVisualEnlaceInspeccion": {
-        "es-MX": "Inspeccion visual dimensional",
-        "en-US": "Visual Dimensional Inspection"
+        "es-MX": "Visual Dimensional",
+        "en-US": "Visual and Dimensional"
     },
     "InpeccionVisualHeaderVisual": {
-        "es-MX": "Inspeccion Visual ",
+        "es-MX": "Inspección Visual ",
         "en-US": "Visual Inspection"
     },
     "InpeccionVisualHeaderDimensional": {
-        "es-MX": "Inspeccion Dimensional ",
+        "es-MX": "Inspección Dimensional ",
         "en-US": " Dimensional Inspection"
     },
 
@@ -6207,6 +6300,10 @@ _dictionary = {
         "en-US": "Capturing Test"
     },
     "lblListadoEmbarque": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
+    "lblListadoEmbarque2": {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
     },

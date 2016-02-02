@@ -3,23 +3,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="">Pintura</span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="lblPintura"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="">Carga de carro</span></a>
+        <a href="@Url.Action("CargaCarro", "Pintura")"><span id="PinturaHeaderCargaCarro"></span></a>
     </li>
 }
 
-
 <div id="FormListadoRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
@@ -27,32 +23,31 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar2"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
+                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
 
                             </div>
-                            <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Cerrar Carro</span></button>
+
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span>Captura avance</span></a>
-                        </div>
-                        <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
-                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
+                        <div id="CapturaAvanceDiv" class="button-section">
+                            <a id="CapturaAvance1" href="~/Pintura/CapturaAvance" class="btn btn-primary"><span id="PinturaBotonCapturaAvance1"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a href="#" id="btnCerrarCarro"><span id="PinturaBotonCerrarCarro1"></span></li>
+                                </ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -63,17 +58,11 @@
     </div>
     <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <label id="PinturaCargaCarro">Carro</label>
+            <label id="PinturaCargaCarro"></label>
             <input id="inputCarro" />
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3">
-            <label id="">&nbsp;</label>
-            <button class="btn btn-yellow" type="button" id="btnAgregarMedioTransporte">
-                <span class="glyphicon  glyphicon-plus"></span>
-            </button>
-        </div>
-        <div class="col-sm-3 col-md-3 col-lg-3">
-            <label id="PinturaCargaM2"></label>
+            <label id="PinturaCargaArea"></label>
             <label id="labelM2" />
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3">
@@ -82,7 +71,7 @@
         </div>
     </div>
     <br />
-    <div class="row addedSection">
+    <div class="row addedSection" id="FieldSetView">
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-2 col-md-2 col-lg-3">
@@ -91,7 +80,7 @@
                     <label id="styleReporte">
                         <input type="radio" name="PinturaCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
                     </label>
-                   
+
                     <label id="styleListado">
                         <input type="radio" name="PinturaCargaTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueCargaOpcionCodigo"> </span>
                     </label>
@@ -110,11 +99,6 @@
                     <label id="">&nbsp;</label>
                     <button type="button" id="btnAgregar" class="btn btn-blue"><span id="PinturaCargaAgregar"></span></button>
                 </div>
-
-                
-               
-
-
             </div>
             <br />
             <div class="row">
@@ -125,100 +109,91 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />
     <div id="window">
     </div>
     <br /><br />
-    <div class="row ">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="">Guardar</span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="">Guardar</span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="">Guardar y Nuevo</span></a></li>
-                                </ul>
-                            </div>
 
-                            <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="row"> 
+                    <div class="button-section editButtonSection">
+                        <div class="btn-group save-group">
+                            <button id="botonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                            <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caretWhite"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="Guardar1"><span id="botonGuardar4"></span></a></li>
+                                <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                            </ul>
                         </div>
-                        <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="">Captura Avance</span></a>
-                        </div>
-                        <div class="button-section actionButtonSection">
-                            <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="">Acciones</span>
-                                    <span class="caretBlue"></span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
-                            </div>
-                        </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+
+                        <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
                     </div>
-                </div>
+                    <div id="CapturaAvanceDiv" class="button-section">
+                        <a id="CapturaAvance" href="~/Pintura/CapturaAvance" class="btn btn-primary"><span id="PinturaBotonCapturaAvance2"></span></a>
+                    </div>
+                    <div class="button-section actionButtonSection">
+                        <div class="dropdown action-group">
+                            <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                <span id="botonAcciones2"></span>
+                                <span class="caretBlue"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                <li><a href="#" id="btnCerrarCarro1"><span id="PinturaBotonCerrarCarro2"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+              
             </div>
         </div>
     </div>
 </div>
-<div id="divNuevoMedioTransporte" style="display:none">
-    <div class="row">
-
-
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divMedioTransporte">
-            <label id="labelNuevoMedioTransporte"></label>
-            <input id="inputMedioTransporte" class="item-select" />
-        </div>
-      
-
-    </div>
-    <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divClasificacion">
-            <label id="labelClasificion"></label>
-            <input id="inputClasificacion" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divPersistencia">
-            <label id="labelPersisitencia"></label>
-            <input id="inputPersistencia" />
-        </div>
-        <div class="col-sm-5 col-md-7 col-lg-7" id="divNumeroVeces">
-            <label id="labelNumeroVeces"></label>
-            <input id="inputNumeroVeces" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divPesoMaximo">
-            <label id="labelPesoMaximo"></label>
-            <input id="inputPesoMaximo" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divArea">
-            <label id="labelArea"></label>
-            <input id="inputArea" />
-        </div>
-    </div>
-    <div class="row">
-        <button class="btn btn-yellow" type="button" id="btnGuardarCrearMedioTransporte">
-            <span class="glyphicon glyphicon-ok"> </span>
-        </button>
-        <button class="btn btn-black" type="button" id="btnCerrarVentanaCrearMedioTransporte">
-            <span class="glyphicon glyphicon-remove" style="font-size:large"></span>
-        </button>
-    </div>
 </div>
+<form id="divNuevoMedioTransporte" style="display:none">
+    <div class="row">
+        <div class="container" style="padding:15px;">
+            <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <label id="labelNuevoMedioTransporte"></label>
+                <input id="inputMedioTransporte" class="form-control" type="text" />
+            </div>
+
+            <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label id="labelClasificion"></label>
+                <input id="inputClasificacion" class="form-control" />
+            </div>
+
+            <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label id="labelPersisitencia"></label>
+                <input id="inputPersistencia" class="form-control" />
+            </div>
+
+            <div class="form-inline col-xs-3 col-sm-3 col-md-3 col-lg-3" id="divNumeroVeces">
+                <label id="labelNumeroVeces" style="width:160px;"></label>
+                <input id="inputNumeroVeces" class="form-control" style="width:100px;" />
+            </div>
+
+            <div class="form-inline col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label id="labelPesoMaximo"></label>
+                <input id="inputPesoMaximo" class="form-control" type="text" style="width:100px;" />
+            </div>
+
+            <div class="form-inline col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label id="labelArea"></label>
+                <input id="inputArea" class="form-control" type="text" style="width:100px;" />
+            </div>
+
+        </div>
+        <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
+            <button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="lblGuardar"></span></button>
+            <button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="BotonCerrar1"></span></button>
+        </div>
+    </div>
+</form>
 
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Ajax.js"></script>

@@ -65,7 +65,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
         }
 
         //Guarda la carga
-        public object Post(Captura listaCaptura, string token, string lenguaje, int medioTransporteID, int cerrar = 0)
+        public object Post(Captura listaCaptura, string token, string lenguaje, int medioTransporteID, int cerrar)
         {
             string payload = "";
             string newToken = "";
@@ -75,7 +75,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCaptura.Detalles);
-                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleCaptura, usuario.UsuarioID, lenguaje, medioTransporteID, cerrar);
+                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleCaptura, usuario, lenguaje, medioTransporteID,cerrar);
             }
             else
             {
@@ -89,7 +89,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
 
         }
 
-        public object Get(string token, string lenguaje, int idMedioTransporteCarga)
+        public object Get(int idMedioTransporteCarga, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -98,10 +98,10 @@ namespace BackEndSAM.Controllers.MedioTransporteController
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                if (idMedioTransporteCarga == 0)
-                    return MedioTransporteBD.Instance.ObtenerMedioTransporteCargado(lenguaje);
-                else
-                    return MedioTransporteBD.Instance.ObtenerMedioTransporteDetalleCargado(lenguaje, idMedioTransporteCarga);
+                //if (idMedioTransporteCarga == 0)
+                //    return MedioTransporteBD.Instance.ObtenerMedioTransporteCargado(lenguaje);
+                //else
+                return MedioTransporteBD.Instance.ObtenerMedioTransporteDetalleCargado(lenguaje, idMedioTransporteCarga);
             }
             else
             {
@@ -189,8 +189,33 @@ namespace BackEndSAM.Controllers.MedioTransporteController
 
         }
 
-        [HttpPost]
-        public object CerrarCarro(CapturaDescarga listaCaptura, string token, int medioTransporteID)
+        //[HttpPost]
+        //public object CerrarCarro(CapturaDescarga listaCaptura, string token, int medioTransporteID)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+        //        return MedioTransporteBD.Instance.CierraCarro(usuario, medioTransporteID, 0);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
+
+        [HttpPut]
+        public object CerrarCarro(CerrarMedioTransporte medioTransporte, string token)
         {
             string payload = "";
             string newToken = "";
@@ -201,7 +226,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
             {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return MedioTransporteBD.Instance.CierraCarro(usuario, medioTransporteID, 0);
+                return MedioTransporteBD.Instance.CierraCarro(usuario, medioTransporte.MedioTransporteID, medioTransporte.CerrarCarro);
             }
             else
             {

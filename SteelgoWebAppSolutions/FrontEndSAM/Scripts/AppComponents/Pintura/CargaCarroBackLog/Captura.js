@@ -1,7 +1,7 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
     AjaxPinturaCargaMedioTransporte();
-    AjaxCargarSpool();
+    //AjaxCargarSpool();
     AjaxCargarCamposPredeterminados();
 };
 
@@ -44,8 +44,8 @@ function CargarGrid() {
                         Color: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Nombre: { type: "string", editable: false },
-                        Metros2: { type: "string", editable: false },
-                        Peso: { type: "string", editable: false },
+                        Metros2: { type: "number", editable: false },
+                        Peso: { type: "number", editable: false },
                         Seleccionado: { type: "bool", editable: false }
                     }
                 }
@@ -60,7 +60,7 @@ function CargarGrid() {
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");
             var modelo = e.model;
         },
-        navigatable: true,
+        navigatable: false,
         filterable: {
             extra: false
         },

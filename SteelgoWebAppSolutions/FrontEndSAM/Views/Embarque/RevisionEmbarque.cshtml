@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "Consulta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -7,10 +6,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("landing", "Home")"><span>Embarque</span></a>
+        <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Dimensional", "Inspeccion")"><span>Revision Embarque</span></a>
+        <a href="@Url.Action("RevisionEmbarque", "Embarque")"><span id="EmbarqueBotonRevisionEmbarque"></span></a>
     </li>
 }
 <div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">

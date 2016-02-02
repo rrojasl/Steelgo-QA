@@ -72,6 +72,21 @@ function AjaxCargarDatos(embarqueID) {
     });
 }
 
+function AjaxCargarDatosChofer(vehiculoID, choferID) {
+    loadingStart();
+    $Embarque.Embarque.read({ token: Cookies.get("token"), vehiculoID: vehiculoID,choferID: choferID, lenguaje: $("#language").val() }).done(function (data) {
+        $("#grid").data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        var array = data;
+
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
+        loadingStop();
+    });
+}
+
+
 function AjaxGuardarPlanas(arregloCaptura) {
     if (arregloCaptura.length != 0) {
 
@@ -134,8 +149,15 @@ function AjaxGuardarPlanas(arregloCaptura) {
 
         loadingStart();
         $Embarque.Embarque.create(CapturaEmbarque[0], { token: Cookies.get("token")}).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                displayMessage("EmbarqueMensajeGuardadoExitoso", "", "0");
+            }
+            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                opcionHabilitarView(true, "FieldSetView");
+            }
             loadingStop();
-            displayMessage("EmbarqueMensajeGuardadoExitoso", "", "0");
         });
 
     }

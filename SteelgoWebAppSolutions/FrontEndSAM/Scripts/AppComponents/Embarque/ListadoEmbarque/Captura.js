@@ -13,6 +13,7 @@ function changeLanguageCall() {
     CargarGrid();
     AjaxCargarListadoEmbarque('Enviados', $("#language").val());
     AjaxCargarPath();
+    document.title = _dictionary.lblListadoEmbarque[$("#language").data("kendoDropDownList").value()];
 };
 
 

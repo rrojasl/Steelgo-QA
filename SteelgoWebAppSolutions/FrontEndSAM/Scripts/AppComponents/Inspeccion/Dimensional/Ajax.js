@@ -159,6 +159,7 @@ function AjaxGuardar(jSonCaptura) {
             inspeccionDimensional[index].DefectosID = jSonCaptura[index].DefectosID == "" ? 0 : jSonCaptura[index].DefectosID;
             inspeccionDimensional[index].InspectorID = jSonCaptura[index].InspectorID;
             inspeccionDimensional[index].FechaInspeccion = kendo.toString(jSonCaptura[index].FechaInspeccion, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+            inspeccionDimensional[index].FechaInspeccion = inspeccionDimensional[index].FechaInspeccion.trim();
         }
         Captura[0].Detalles = inspeccionDimensional;
 
@@ -170,6 +171,7 @@ function AjaxGuardar(jSonCaptura) {
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                 mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
                 displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                opcionHabilitarView(true, "FieldSetView");
             }
             loadingStop();
 

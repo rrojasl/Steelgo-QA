@@ -46,15 +46,15 @@ function ArregloListadoCaptura() {
     JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", SinCaptura: "" };
     //combobox.text()
     var fechaArmado = new Date($("#FechaArmado").data("kendoDatePicker").value());
-    JsonCaptura[0].IDProyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).ProyectoID;
-    JsonCaptura[0].Proyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).Proyecto;
+    JsonCaptura[0].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
+    JsonCaptura[0].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
     JsonCaptura[0].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
     JsonCaptura[0].OrdenTrabajo = $("#InputOrdenTrabajo").val();
     JsonCaptura[0].IdVal = $("#InputID").val();
-    JsonCaptura[0].IdText = $("#InputID").data("kendoDropDownList").text();
+    JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text();
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
-    JsonCaptura[0].Junta = $("#Junta").data("kendoDropDownList").text();
+    JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
     JsonCaptura[0].FechaArmado = $("#FechaArmado").val();
     JsonCaptura[0].TuberoID = $("#inputTubero").val();
     JsonCaptura[0].Tubero = $("#inputTubero").data("kendoComboBox").text();
@@ -64,7 +64,6 @@ function ArregloListadoCaptura() {
 
     return JsonCaptura[0];
 }
-
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
 
@@ -80,24 +79,26 @@ function FiltroMostrar(mostrar) {
         ds.sync();
     }
 }
-
-
-
 function CargarGrid() {
-   
+
     $("#grid").kendoGrid({
-        autoBind: true,
+
         edit: function (e) {
-            var input = e.container.find(".k-input");
-            var value = input.val();
 
-            anteriorlongitudTrabajosAdicionales = e.model.ListaDetalleTrabajoAdicional.length;
+            if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-            input.focus(function () {
-                console.log(ItemSeleccionado.Accion);
-                if (ItemSeleccionado.JuntaArmadoID !== 0)
-                { ItemSeleccionado.Accion = 2; }
-            });
+                var input = e.container.find(".k-input");
+                var value = input.val();
+
+                anteriorlongitudTrabajosAdicionales = e.model.ListaDetalleTrabajoAdicional.length;
+
+                input.focus(function () {
+                    console.log(ItemSeleccionado.Accion);
+                    if (ItemSeleccionado.JuntaArmadoID !== 0)
+                    { ItemSeleccionado.Accion = 2; }
+                });
+            } else
+                this.closeCell();
 
         },
         change: function () {
@@ -108,7 +109,7 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "int", editable: false },
-                       
+
                         IDProyecto: { type: "int", editable: false },
                         SinCaptura: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
@@ -172,21 +173,15 @@ function CargarGrid() {
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
             { field: "Junta", title: _dictionary.CapturaArmadoHeaderJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "94px" },
             { field: "DetalleJunta", title: _dictionary.CapturaArmadoHeaderDetalle[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-            { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Tubero", title: _dictionary.CapturaArmadoHeaderTubero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTubero, width: "105px" },
             { field: "Taller", title: _dictionary.CapturaArmadoHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "105px" },
-            { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RenderComboBoxNumeroUnico1, width: "135px" },
-            { field: "NumeroUnico2", title: _dictionary.CapturaArmadoHeaderNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RenderComboBoxNumeroUnico2, width: "135px" },
+            { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico1, width: "135px" },
+            { field: "NumeroUnico2", title: _dictionary.CapturaArmadoHeaderNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico2, width: "135px" },
             { field: "InformacionDetalle", title: _dictionary.CapturaArmadoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "300px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
 
-        ],
-        dataBound: function (e) {
-            $(".k-grid input.k-textbox").prop('readonly', true);
-            $(".k-grid td .k-button").text('');
-            $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-
-        }
+        ]
     });
 }
 function AddRow(idTable) {
@@ -297,41 +292,44 @@ function agregarFila(idGrid) {
 
 }
 function eliminarCaptura(e) {
-    e.preventDefault();
-    var filterValue = $(e.currentTarget).val();
-    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    var spoolIDRegistro = dataItem.SpoolID;
+    if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+
+        e.preventDefault();
+        var filterValue = $(e.currentTarget).val();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var spoolIDRegistro = dataItem.SpoolID;
 
 
-    windowTemplate = kendo.template($("#windowTemplate").html());
+        windowTemplate = kendo.template($("#windowTemplate").html());
 
-    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-        iframe: true,
-        title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-        visible: false, //the window will not appear before its .open method is called
-        width: "auto",
-        height: "auto",
-        modal: true
-    }).data("kendoWindow");
+        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            iframe: true,
+            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+            visible: false, //the window will not appear before its .open method is called
+            width: "auto",
+            height: "auto",
+            modal: true
+        }).data("kendoWindow");
 
-    ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                 "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+        ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
-    ventanaConfirm.open().center();
+        ventanaConfirm.open().center();
 
-    $("#yesButton").click(function (handler) {
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
+        $("#yesButton").click(function (handler) {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataItem.Accion = 3;
 
-        if (dataItem.JuntaArmadoID === 0)
-        { dataSource.remove(dataItem); }
+            if (dataItem.JuntaArmadoID === 0)
+            { dataSource.remove(dataItem); }
 
-        dataSource.sync();
-        ventanaConfirm.close();
-    });
-    $("#noButton").click(function (handler) {
-        ventanaConfirm.close();
-    });
+            dataSource.sync();
+            ventanaConfirm.close();
+        });
+        $("#noButton").click(function (handler) {
+            ventanaConfirm.close();
+        });
+    }
 
 }
 function changeLanguageCall() {
@@ -343,7 +341,8 @@ function changeLanguageCall() {
     Limpiar();
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
-    $('#grid').data('kendoGrid').dataSource.read();
+    opcionHabilitarView(false, "FieldSetView")
+    document.title = _dictionary.CapturaArmadoArmadoSpool[$("#language").data("kendoDropDownList").value()];
 }
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
@@ -396,11 +395,13 @@ function PlanchaFecha() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaArmado = String(endRangeDate.val()).trim();
+            //data[i].FechaArmado = String(endRangeDate.val()).trim();
+            data[i].FechaArmado = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia
         }
         else {
             if (data[i].FechaArmado === "" || data[i].FechaArmado === null || data[i].FechaArmado === undefined) {
-                data[i].FechaArmado = String(endRangeDate.val()).trim();
+                //data[i].FechaArmado = String(endRangeDate.val()).trim();
+                data[i].FechaArmado = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia
             }
         }
     }
@@ -408,16 +409,16 @@ function PlanchaFecha() {
 }
 function ArregloListadoReporte() {
     JsonCaptura = [];
-    var lista = $("#Junta").data("kendoDropDownList").dataSource._data;
+    var lista = $("#Junta").data("kendoComboBox").dataSource._data;
 
     for (var i = 0; i < lista.length ; i++) {
         JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };
-        JsonCaptura[i].IDProyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).ProyectoID;
-        JsonCaptura[i].Proyecto = $("#InputID").data("kendoDropDownList").dataItem($("#InputID").data("kendoDropDownList").select()).Proyecto;
+        JsonCaptura[i].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
+        JsonCaptura[i].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
         JsonCaptura[i].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].OrdenTrabajo = $("#InputOrdenTrabajo").val();
         JsonCaptura[i].idVal = $("#InputID").val();
-        JsonCaptura[i].idText = $("#InputID").data("kendoDropDownList").text();
+        JsonCaptura[i].idText = $("#InputID").data("kendoComboBox").text();
         JsonCaptura[i].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
         JsonCaptura[i].JuntaID = lista[i].JuntaSpoolID;
         JsonCaptura[i].Junta = lista[i].Etiqueta;
