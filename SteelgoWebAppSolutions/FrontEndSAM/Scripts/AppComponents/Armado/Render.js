@@ -15,8 +15,10 @@
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Taller = dataItem.Nombre;
-                options.model.TallerID = dataItem.TallerID;
+                if (dataItem != undefined) {
+                    options.model.Taller = dataItem.Nombre;
+                    options.model.TallerID = dataItem.TallerID;
+                }
             }
         }
         );
@@ -35,7 +37,7 @@ function RenderComboBoxTubero(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
-
+    
     $('<input required data-text-field="Codigo" data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -44,15 +46,23 @@ function RenderComboBoxTubero(container, options) {
             autoBind: false,
             dataSource: options.model.ListaTubero,
             template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+            
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Tubero = dataItem.Codigo;
-                options.model.TuberoID = dataItem.ObreroID;
+                if (dataItem != undefined) {
+                    options.model.Tubero = dataItem.Codigo;
+                    options.model.TuberoID = dataItem.ObreroID;
+                }
             },
             change: function (e) {
+                
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Tubero = dataItem.Codigo;
-                options.model.TuberoID = dataItem.ObreroID;
+                if (dataItem != undefined) {
+                    options.model.Tubero = dataItem.Codigo;
+                    options.model.TuberoID = dataItem.ObreroID;
+                }
+                
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         );
@@ -86,10 +96,13 @@ function RenderComboBoxNumeroUnico1(container, options) {
             }
             ,
             change: function (e) {
-                options.model.NumeroUnico1 = String(dataItem.Clave);
-                options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
-                AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
-                $("#grid").data("kendoGrid").dataSource.sync();
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined) {
+                    options.model.NumeroUnico1 = String(dataItem.Clave);
+                    options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
+                    AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
             }
         });
     $(".k-combobox").on('mouseleave', function (send) {
@@ -122,10 +135,13 @@ function RenderComboBoxNumeroUnico2(container, options) {
              },
              change: function (e) {
                  dataItem = this.dataItem(e.sender.selectedIndex);
-                 options.model.NumeroUnico2 = String(dataItem.Clave);
-                 options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
-                 AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
-                 $("#grid").data("kendoGrid").dataSource.sync();
+                
+                 if (dataItem != undefined) {
+                     options.model.NumeroUnico2 = String(dataItem.Clave);
+                     options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
+                     AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                     $("#grid").data("kendoGrid").dataSource.sync();
+                 }
 
              }
          });
@@ -306,9 +322,12 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                options.model.TrabajoAdicional = dataItem.NombreCorto;
-                //$("#grid").data("kendoGrid").dataSource.sync();
+                
+                if (dataItem != undefined) {
+                    options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
+                    options.model.TrabajoAdicional = dataItem.NombreCorto;
+                    //$("#grid").data("kendoGrid").dataSource.sync();
+                }
             }
         });
    

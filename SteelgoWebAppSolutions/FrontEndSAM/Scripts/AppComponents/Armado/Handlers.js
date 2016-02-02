@@ -167,7 +167,10 @@ function SuscribirEventoTubero() {
     });
     $('#inputTubero').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            PlanchaTubero();
+            if ($("#inputTubero").data("kendoComboBox").dataItem($("#inputTubero").data("kendoComboBox").select()) != undefined) {
+
+                PlanchaTubero();
+            }
         }
     });
 }
@@ -182,7 +185,9 @@ function SuscribirEventoTaller() {
     });
     $('#inputTaller').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            PlanchaTaller();
+            if ($("#inputTaller").data("kendoComboBox").dataItem($("#inputTaller").data("kendoComboBox").select()) != undefined) {
+                PlanchaTaller();
+            }
         }
     });
 }

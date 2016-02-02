@@ -54,7 +54,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text();
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
-    JsonCaptura[0].Junta = $("#Junta").data("kendoDropDownList").text();
+    JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
     JsonCaptura[0].FechaArmado = $("#FechaArmado").val();
     JsonCaptura[0].TuberoID = $("#inputTubero").val();
     JsonCaptura[0].Tubero = $("#inputTubero").data("kendoComboBox").text();
@@ -342,7 +342,7 @@ function changeLanguageCall() {
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
     opcionHabilitarView(false, "FieldSetView")
-    //$('#grid').data('kendoGrid').dataSource.read();
+    document.title = _dictionary.CapturaArmadoArmadoSpool[$("#language").data("kendoDropDownList").value()];
 }
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
