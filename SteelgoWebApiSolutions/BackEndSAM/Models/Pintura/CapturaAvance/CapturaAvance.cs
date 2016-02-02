@@ -23,6 +23,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public int MedioTransporteCargaID { get; set; }
         public string plantillaShotblastero { get; set; }
         public string plantillaPintor { get; set; }
+        public string FechaShotblast { get; set; }
+        public string FechaPrimario { get; set; }
         public List<PintorSpool> ListaPintorGuargado { get; set; }
         public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
         public List<PintorSpool> ListaPintorInicial { get; set; }
