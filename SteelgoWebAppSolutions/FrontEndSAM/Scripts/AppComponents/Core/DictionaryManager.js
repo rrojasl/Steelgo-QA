@@ -14,10 +14,9 @@ _dictionary = {
         "en-US": "Save"
     },
     "LinkFabricacion": {
-        "es-MX": "Fabricacion",
-        "en-US": "Fabricacion"
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
     },
-
     "NoExisteJunta": {
         "es-MX": "No existe Junta",
         "en-US": "No Board"
@@ -3716,7 +3715,14 @@ _dictionary = {
         "es-MX": "Buscar",
         "en-US": "Find"
     },
-
+    "botonEdtar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "botonEdtar2": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     "BotonCerrar1": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -3884,6 +3890,10 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida. ",
         "en-US": "The work order is not valid."
     },
+    "ErrorGuardadoGuardarCarro": {
+        "es-MX": "Por favor guarde primero el carro",
+        "en-US": "Plase, save the car first"
+    },
     "ErrorFechaInicio": {
         "es-MX": "El Campo 'FECHA INICIO', no tiene el formato correcto'",
         "en-US": "The field ' DATE START ' , does not have the correct format"
@@ -4039,8 +4049,8 @@ _dictionary = {
         "en-US": "Shipment "
     },
     "menuEmbarqueListadoEmbarque": {
-        "es-MX": "Listado Cargas",
-        "en-US": "Loads List "
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipment List "
     },
     "menuEmbarqueRevisionEmbarque": {
         "es-MX": "Revisión Embarque",
@@ -4299,7 +4309,7 @@ _dictionary = {
         "en-US": "There are incomplete spools please delete them or capture the missing information"
     },
     "CapturaArmadoArmadoSpool": {
-        "es-MX": "Armado de Spool",
+        "es-MX": "Armado",
         "en-US": "spool assembly"
     },
     "LabelHeaderArmado": {
@@ -4492,8 +4502,8 @@ _dictionary = {
         "en-US": "Are you sure you want to cancel the detail of the capture of Inspection?"
     },
     "DimensionalVisualInspeccionDimensional": {
-        "es-MX": "Inspeccion Dimensional",
-        "en-US": "Dimensional inspection"
+        "es-MX": "Dimensional",
+        "en-US": "Dimensional"
     },
 
     //#endregion
@@ -5270,11 +5280,11 @@ _dictionary = {
         "en-US": "The shipment was successfully saved"
     },
     "EmbarqueBotonRevisionEmbarque": {
-        "es-MX": "Revision de Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Boarding review"
     },
     "EmbarqueBotonRevisionEmbarque2": {
-        "es-MX": "Revision de Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Boarding review"
     },
     //#endregion
@@ -5688,14 +5698,6 @@ _dictionary = {
 
     //#region PinturaCarga
     ,
-    "PinturaCargaCarro": {
-        "es-MX": "Carro",
-        "en-US": "Car"
-    },
-    "PinturaCargaEditar": {
-        "es-MX": "Editar",
-        "en-US": "Edit"
-    },
     "PinturaCargaAgregarNuevoCarro": {
         "es-MX": "Agregar nuevo carro",
         "en-US": "Add new car"
@@ -5712,13 +5714,17 @@ _dictionary = {
         "es-MX": "Por favor selecciona un código",
         "en-US": "Select a code please"
     },
+    "PinturaCargaEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "PinturaCargaCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
     "PinturaCargaM2": {
         "es-MX": "M2",
         "en-US": "M2"
-    },
-    "PinturaCargaArea": {
-        "es-MX": "Área",
-        "en-US": "Area"
     },
     "PinturaCargaToneladas": {
         "es-MX": "Toneladas",
@@ -5748,17 +5754,13 @@ _dictionary = {
     }
     ,
     "PinturaCargaArea": {
-        "es-MX": "Area",
+        "es-MX": "Área",
         "en-US": "Area"
     }
     ,
     "PinturaCargaPeso": {
         "es-MX": "Toneladas",
         "en-US": "Tons"
-    },
-    "PinturaCargaNoHaySpoolsEnElCarro": {
-        "es-MX": "No hay spools en el carro",
-        "en-US": "There aren't any spool in the car"
     },
     "PinturaCargaSpoolNoEncontrado": {
         "es-MX": "El spool fue embarcado",
@@ -5805,8 +5807,8 @@ _dictionary = {
         "en-US": "Close cart"
     },
     "PinturaHeaderCargaCarro": {
-        "es-MX": "Carga de Carro",
-        "en-US": "Load Carriage"
+        "es-MX": "Cargar Carro",
+        "en-US": "Car Load"
     },
     "PinturaHeaderCargaCarroBacklog": {
         "es-MX": "Carga de Carro Backlog",
@@ -5823,10 +5825,6 @@ _dictionary = {
     "PinturaHeaderLotesCapturaReporte": {
         "es-MX": "Lotes Captura Reporte",
         "en-US": "Batch Capture Report"
-    },
-    "PinturaSeleccionarCarro": {
-        "es-MX": "Por favor seleccione un carro",
-        "en-US": "Select a car please"
     },
     //#endregion
 
@@ -6091,15 +6089,15 @@ _dictionary = {
         "en-US": "The inspector is mandatory"
     },
     "InpeccionVisualEnlaceInspeccion": {
-        "es-MX": "Inspeccion visual dimensional",
-        "en-US": "Visual Dimensional Inspection"
+        "es-MX": "Visual Dimensional",
+        "en-US": "Visual and Dimensional"
     },
     "InpeccionVisualHeaderVisual": {
-        "es-MX": "Inspeccion Visual ",
+        "es-MX": "Inspección Visual ",
         "en-US": "Visual Inspection"
     },
     "InpeccionVisualHeaderDimensional": {
-        "es-MX": "Inspeccion Dimensional ",
+        "es-MX": "Inspección Dimensional ",
         "en-US": " Dimensional Inspection"
     },
 
