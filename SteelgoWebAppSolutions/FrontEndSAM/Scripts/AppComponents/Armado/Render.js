@@ -19,6 +19,10 @@
                     options.model.Taller = dataItem.Nombre;
                     options.model.TallerID = dataItem.TallerID;
                 }
+                else {
+                    options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
+
+                }
             }
         }
         );
@@ -32,6 +36,15 @@
 
 
 }
+
+function ObtenerDescCorrectaTaller(lista, TallerID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].TallerID == TallerID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
+
 
 function RenderComboBoxTubero(container, options) {
     //container  contiene las propiedades de la celda
@@ -61,7 +74,12 @@ function RenderComboBoxTubero(container, options) {
                     options.model.Tubero = dataItem.Codigo;
                     options.model.TuberoID = dataItem.ObreroID;
                 }
-                
+                else {
+                    options.model.Tubero = ObtenerDescCorrectaTubero(options.model.ListaTubero, options.model.TuberoID);
+                   
+                }
+                //    this.data('kendoComboBox').select(options.model.TuberoID)
+                //$("#MyComboBox").data("kendoComboBox").value(id);
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
@@ -75,6 +93,14 @@ function RenderComboBoxTubero(container, options) {
     });
 }
 
+function ObtenerDescCorrectaTubero(lista, TuberoID)
+{
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == TuberoID)
+            return lista[i].Codigo;
+    }
+    return "";
+}
 function RenderComboBoxNumeroUnico1(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
