@@ -4310,7 +4310,7 @@ _dictionary = {
     },
     "CapturaArmadoArmadoSpool": {
         "es-MX": "Armado",
-        "en-US": "spool assembly"
+        "en-US": "Assembly"
     },
     "LabelHeaderArmado": {
         "es-MX": "Detalle Armado",
