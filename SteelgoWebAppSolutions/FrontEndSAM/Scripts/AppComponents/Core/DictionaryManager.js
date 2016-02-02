@@ -5,7 +5,27 @@
 
 _dictionary = {
     //Login Page Labels
+    "MensajeGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "MensajeGuardarPiePagina": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "LinkFabricacion": {
+        "es-MX": "Fabricacion",
+        "en-US": "Fabricacion"
+    },
 
+    "NoExisteJunta": {
+        "es-MX": "No existe Junta",
+        "en-US": "No Board"
+    },
+    "NoExisteSpoolID": {
+        "es-MX": "No existe el spool",
+        "en-US": "No spool"
+    },
     "CapturaEliminar": {
         "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"
@@ -3811,6 +3831,10 @@ _dictionary = {
         "es-MX": "Lista",
         "en-US": "List"
     },
+    "lblInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
     "CapturaLlenadoMasivo": {
         "es-MX": "Llenado masivo",
         "en-US": "filling mass"
@@ -3838,6 +3862,14 @@ _dictionary = {
     "botonAcciones2": {
         "es-MX": "Acciones",
         "en-US": "Actions"
+    },
+    "textoEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "textoGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -4011,10 +4043,18 @@ _dictionary = {
         "en-US": "Loads List "
     },
     "menuEmbarqueRevisionEmbarque": {
-        "es-MX": "Revision Embarque",
+        "es-MX": "Revisión Embarque",
         "en-US": "Shipment Review "
     },
     "EmbarqueCargaPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana1": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
     },
@@ -5003,6 +5043,14 @@ _dictionary = {
         "es-MX": "Carga",
         "en-US": "Charge"
     },
+    "EmbarqueMarcadoMensajeCapturarCinta": {
+        "es-MX": "Debe capturar el color de la cinta si se selecciono que va con cinta",
+        "en-US": "You must capture the color of tape, if was selected to go with tape"
+    },
+    "EmbarqueMarcadoMensajeNoHayRegistrosGuardar": {
+        "es-MX": "No hay registros a guardar",
+        "en-US": "No records to keep"
+    },
     "EmbarqueMarcadoBtnCarga2": {
         "es-MX": "Carga",
         "en-US": "Charge"
@@ -5011,7 +5059,15 @@ _dictionary = {
         "es-MX": "Imprimir etiqueta Spool",
         "en-US": "Print Spool Label"
     },
+    "EmbarqueMarcadoImprimirEtiquetaSpool2": {
+        "es-MX": "Imprimir etiqueta Spool",
+        "en-US": "Print Spool Label"
+    },
     "EmbarqueMarcadoImprimirTravelMasivo": {
+        "es-MX": "Imprimir travel masivo",
+        "en-US": "Print Masive Travel"
+    },
+    "EmbarqueMarcadoImprimirTravelMasivo2": {
         "es-MX": "Imprimir travel masivo",
         "en-US": "Print Masive Travel"
     },
@@ -5459,7 +5515,7 @@ _dictionary = {
     }
       ,
     "EmbarqueCargaToneladasCargadas": {
-        "es-MX": "ToneladasCargadas:",
+        "es-MX": "Toneladas Cargadas:",
         "en-US": "Tons Loaded:"
     }
     ,
@@ -5647,6 +5703,10 @@ _dictionary = {
     "PinturaCargaSeleccionaSpool": {
         "es-MX": "Por favor selecciona un spool",
         "en-US": "Select a spool please"
+    },
+    "PinturaCargaNoHaySpoolsEnElCarro": {
+        "es-MX": "No hay spools en el carro",
+        "en-US": "There aren't any spool in the car"
     },
     "PinturaCargaSeleccionaCodigo": {
         "es-MX": "Por favor selecciona un código",
@@ -5872,7 +5932,7 @@ _dictionary = {
 
     //#endregion
 
-    //#region PinturaCarga 
+    //#region PinturaCarga
     "PinturaGuardarNuevoCarro": {
         "es-MX": "El carro fue creado satisfactoriamente",
         "en-US": "The carr was created sucessfull"
@@ -6044,6 +6104,7 @@ _dictionary = {
     },
 
     //#region CapturaAvanceIntAcabado
+
 
     "lblCapturaAvanceIntAcabadoInicio": {
         "es-MX": "Inicio",
@@ -6241,6 +6302,10 @@ _dictionary = {
         "en-US": "Capturing Test"
     },
     "lblListadoEmbarque": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
+    "lblListadoEmbarque2": {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
     },
