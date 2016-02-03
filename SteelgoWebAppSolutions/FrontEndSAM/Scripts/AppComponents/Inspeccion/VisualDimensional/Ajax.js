@@ -170,11 +170,13 @@ function AjaxObtenerJSonGrid() {
                 if (ExisteJunta(array[i].JuntaID)) {
                     array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
                     array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                    array[i].FechaInspeccion = new Date(ObtenerDato(array[i].FechaInspeccion, 1), ObtenerDato(array[i].FechaInspeccion, 2), ObtenerDato(array[i].FechaInspeccion, 3));//año, mes, dia
                     ds.add(array[i]);
                 }
                 
 
             }
+            loadingStop();
         });
 
     } catch (e) {
@@ -182,7 +184,7 @@ function AjaxObtenerJSonGrid() {
     }
 
 
-    loadingStop();
+    
 
 }
 
@@ -243,13 +245,35 @@ function AjaxGuardar(jSonCaptura) {
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
             mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
             displayMessage("CapturaMensajeGuardadoErroneo", "", '2');
-            opcionHabilitarView(true, "FieldSetView");
+            opcionHabilitarView(false, "FieldSetView")
 
         }
         loadingStop();
 
-        console.log("se guardo correctamente la informacion");
     });
 
     loadingStop();
+}
+
+
+function ObtenerDato(fecha, tipoDatoObtener) {
+    var cultura = $("#language").val();
+
+    switch (tipoDatoObtener) {
+        case 1://anho
+            return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura = 'es-MX')
+                return fecha.split('/')[1]
+            else
+                return fecha.split('/')[0]
+            break;
+        case 3://dia
+            if (cultura = 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
 }

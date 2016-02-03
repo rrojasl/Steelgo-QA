@@ -12,13 +12,20 @@
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Taller = dataItem.Nombre
-                options.model.TallerID = dataItem.TallerID
+                if (dataItem != undefined) {
+                    options.model.Taller = dataItem.Nombre
+                    options.model.TallerID = dataItem.TallerID
+                }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Taller = dataItem.Nombre
-                options.model.TallerID = dataItem.TallerID
+                if (dataItem != undefined) {
+                    options.model.Taller = dataItem.Nombre
+                    options.model.TallerID = dataItem.TallerID
+                }
+                else {
+                    options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
+                }
             },
             open: function (e) {
             }
@@ -30,7 +37,7 @@
         var item = this;
         if (!tieneClase(item)) {
             $(container).trigger(e);
-        }     
+        }
     });
 
 }
@@ -60,13 +67,20 @@ function RenderComboBoxInspector(container, options) {
             template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Inspector = dataItem.Codigo;
-                options.model.InspectorID = dataItem.ObreroID;
+                if (dataItem != undefined) {
+                    options.model.Inspector = dataItem.Codigo;
+                    options.model.InspectorID = dataItem.ObreroID;
+                }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Inspector = dataItem.Codigo;
-                options.model.InspectorID = dataItem.ObreroID;
+                if (dataItem != undefined) {
+                    options.model.Inspector = dataItem.Codigo;
+                    options.model.InspectorID = dataItem.ObreroID;
+                }
+                else {
+                    options.model.Inspector = ObtenerDescCorrectaInspector(options.model.ListaInspector, options.model.InspectorID);
+                }
             }
         }
         );
@@ -94,13 +108,21 @@ function RenderComboBoxDefectos(container, options) {
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Defectos = dataItem.Nombre;
-                options.model.DefectosID = dataItem.DefectoID;
+                if (dataItem != undefined) {
+                    options.model.Defectos = dataItem.Nombre;
+                    options.model.DefectosID = dataItem.DefectoID;
+                }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Defectos = dataItem.Nombre;
-                options.model.DefectosID = dataItem.DefectoID;
+                if (dataItem != undefined) {
+                    options.model.Defectos = dataItem.Nombre;
+                    options.model.DefectosID = dataItem.DefectoID;
+                }
+                else {
+                    options.model.Defectos = ObtenerDescCorrectaDefectos(options.model.ListaDefectos, options.model.DefectoID);
+                }
+
             }
         }
         );
@@ -127,17 +149,24 @@ function RenderComboBoxNumeroUnico1(container, options) {
             template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.NumeroUnico1 = String(dataItem.Clave);
-                options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
-                textAnterior = e.sender._prev;
+                if (dataItem != undefined) {
+                    options.model.NumeroUnico1 = String(dataItem.Clave);
+                    options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
+                    textAnterior = e.sender._prev;
+                }
             }
             ,
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.NumeroUnico1 = String(dataItem.Clave)
+                if (dataItem != undefined) {
+                    options.model.NumeroUnico1 = String(dataItem.Clave)
 
-                AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
-                $("#grid").data("kendoGrid").dataSource.sync();
+                    AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
+                else {
+                    options.model.NumeroUnico1 = ObtenerDescCorrectaNumeroUnico(options.model.ListaNumerosUnicos1, options.model.NumeroUnico1ID);
+                }
             }
         });
     $(".k-combobox").on('mouseleave', function (send) {
@@ -162,16 +191,23 @@ function RenderComboBoxNumeroUnico2(container, options) {
              template: "<i class=\"fa fa-#=data.Clave#\"></i> #=data.Clave#",
              select: function (e) {
                  dataItem = this.dataItem(e.item.index());
-                 options.model.NumeroUnico2 = String(dataItem.Clave);
-                 options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
-                 textAnterior = e.sender._prev;
+                 if (dataItem != undefined) {
+                     options.model.NumeroUnico2 = String(dataItem.Clave);
+                     options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
+                     textAnterior = e.sender._prev;
+                 }
              },
              change: function (e) {
                  dataItem = this.dataItem(e.sender.selectedIndex);
-                 options.model.NumeroUnico2 = String(dataItem.Clave)
+                 if (dataItem != undefined) {
+                     options.model.NumeroUnico2 = String(dataItem.Clave)
 
-                 AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
-                 $("#grid").data("kendoGrid").dataSource.sync();
+                     AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                     $("#grid").data("kendoGrid").dataSource.sync();
+                 }
+                 else {
+                     options.model.NumeroUnico1 = ObtenerDescCorrectaNumeroUnico(options.model.ListaNumerosUnicos2, options.model.NumeroUnico2ID);
+                 }
              }
          });
     $(".k-combobox").on('mouseleave', function (send) {
@@ -197,25 +233,31 @@ function RenderOptionResultado(container, options) {
             template: "<i class=\"fa fa-#=data._Resultado#\"></i> #=data._Resultado#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Resultado = dataItem._Resultado;
-                options.model.ResultadoID = dataItem._ResultadoID;
-                if (options.model.Resultado == "Aprobado") {
-                    options.model.DefectosID = "";
-                    options.model.Defectos = "";
-                    $("#grid").data("kendoGrid").dataSource.sync();
+                if (dataItem != undefined) {
+                    options.model.Resultado = dataItem._Resultado;
+                    options.model.ResultadoID = dataItem._ResultadoID;
+                    if (options.model.ResultadoID == "1") {
+                        options.model.DefectosID = "";
+                        options.model.Defectos = "";
+                        $("#grid").data("kendoGrid").dataSource.sync();
+                    }
                 }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Resultado = dataItem._Resultado;
-                options.model.ResultadoID = dataItem._ResultadoID;
-                if (options.model.Resultado == "Aprobado") {
-                    options.model.DefectosID = "";
-                    options.model.Defectos = "";
-                    $("#grid").data("kendoGrid").dataSource.sync();
+                if (dataItem != undefined) {
+                    options.model.Resultado = dataItem._Resultado;
+                    options.model.ResultadoID = dataItem._ResultadoID;
+                    if (options.model.ResultadoID == "1") {
+                        options.model.DefectosID = 0;
+                        options.model.Defectos = "";
+                        $("#grid").data("kendoGrid").dataSource.sync();
+                    }
+                }
+                else {
+                    options.model.Resultado = ObtenerDescCorrectaResultado(options.model.ListaResultados, options.model.ResultadoID);
                 }
 
-             
             }
         }
         );
@@ -228,3 +270,45 @@ function RenderOptionResultado(container, options) {
         }
     });
 };
+
+
+function ObtenerDescCorrectaTaller(lista, TallerID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].TallerID == TallerID)
+            return lista[i].Taller;
+    }
+    return "";
+}
+function ObtenerDescCorrectaResultado(lista, ResultadoID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ResultadoID == ResultadoID)
+            return lista[i].Resultado;
+    }
+    return "";
+}
+
+
+function ObtenerDescCorrectaDefectos(lista, DefectoID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].DefectoID == DefectoID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
+
+function ObtenerDescCorrectaInspector(lista, InspectorID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == InspectorID)
+            return lista[i].Codigo;
+    }
+    return "";
+}
+
+
+function ObtenerDescCorrectaNumeroUnico(lista, NumeroUnicoID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].NumeroUnicoID == NumeroUnicoID)
+            return String(lista[i].Clave);
+    }
+    return "";
+}

@@ -11,8 +11,10 @@ namespace BackEndSAM.Models.Embarque.CargaEmbarque
 
     public class PlacaPlana
     {
+        public int EmbarquePlanaID { get; set; }
         public int VehiculoID { get; set; }
         public string Placas { get; set; }
+        public string estatus { get; set; }
     }
 
     public class Paquete
@@ -25,6 +27,7 @@ namespace BackEndSAM.Models.Embarque.CargaEmbarque
 
     public class DetalleCargaCaptura
     {
+        public int EmbarquePlanaSpoolID { get; set; }
         public int Accion { get; set; }
         public int Consecutivo { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }

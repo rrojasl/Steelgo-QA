@@ -19,6 +19,7 @@ function changeLanguageCall() {
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     document.title = _dictionary.InpeccionVisualEnlaceInspeccion[$("#language").data("kendoDropDownList").value()];
+    opcionHabilitarView(false, "FieldSetView");
 };
 function IniciarCapturaInspecion() {
     CargarFecha();
@@ -94,8 +95,9 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
-            var input = e.container.find(".k-input");
-            var value = input.val();
+            if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                this.closeCell();
+            }
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
@@ -394,11 +396,11 @@ function PlanchaFecha() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaInspeccion = String(endRangeDateV.val()).trim();
+            data[i].FechaInspeccion = new Date(ObtenerDato(endRangeDateV.val(), 1), ObtenerDato(endRangeDateV.val(), 2), ObtenerDato(endRangeDateV.val(), 3));//año, mes, dia;
         }
         else {
             if (data[i].FechaInspeccion == "" || data[i].FechaInspeccion == null || data[i].FechaInspeccion == undefined) {
-                data[i].FechaInspeccion =String(endRangeDateV.val()).trim();
+                data[i].FechaInspeccion = new Date(ObtenerDato(endRangeDateV.val(), 1), ObtenerDato(endRangeDateV.val(), 2), ObtenerDato(endRangeDateV.val(), 3));//año, mes, dia;
             }
         }
     }

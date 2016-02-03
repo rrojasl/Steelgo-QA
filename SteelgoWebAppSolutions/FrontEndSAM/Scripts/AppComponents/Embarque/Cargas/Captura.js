@@ -15,7 +15,7 @@ if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePla
 }
 else {
     EmbarquePlanaID = 0;
-    $('#btnEmbarqueCerrarPlana').attr("disabled", true);
+    //$('#btnEmbarqueCerrarPlana').attr("disabled", true);
 }
 
 IniciarCapturaEmbarqueCarga();
@@ -60,6 +60,7 @@ function CargarGrid() {
                         SpoolID: { type: "string", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
+                        Seleccionado: { type: "boolean", editable: false },
                         EmbarquePaqueteID: { type: "int", editable: false },
                         Peso: { type: "int", editable: false },
                         CuadranteID: { type: "int", editable: false },
@@ -67,6 +68,15 @@ function CargarGrid() {
                         Mensaje: { type: "string", editable: false }
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: 2},
+                    { field: "Accion", operator: "eq", value: undefined }
+                ]
             },
             pageSize: 20,
             serverPaging: false,
@@ -88,11 +98,21 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterMenuInit: function (e) {
+            if (e.field === "UnitPrice" || e.field === "UnitsInStock") {
+                var filterMultiCheck = this.thead.find("[data-field=" + e.field + "]").data("kendoFilterMultiCheck")
+                filterMultiCheck.container.empty();
+                filterMultiCheck.checkSource.sort({ field: e.field, dir: "asc" });
+
+                filterMultiCheck.checkSource.data(filterMultiCheck.checkSource.view().toJSON());
+                filterMultiCheck.createCheckBoxes();
+            }
+        },
         columns: [
             { field: "Consecutivo", title: _dictionary.EmbarqueCargaHeaderConsecutivo[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "NumeroControl", title: _dictionary.EmbarqueCargaHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Paquete", title: _dictionary.EmbarqueCargaHeaderPaquete[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Seleccionado", title: " ", filterable: true, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "Seleccionado", title: " ", filterable:  { multi: true, dataSource: [{ Seleccionado: true }, { Seleccionado: false }] }, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });
@@ -101,6 +121,14 @@ function CargarGrid() {
         var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
         dataItem.set("Seleccionado", this.checked);
+        if (this.checked) {
+            dataItem.Seleccionado = true;
+        }
+        else {
+            dataItem.Seleccionado = false;
+        }
+            
+        grid.dataSource.sync();
     });
 };
 
@@ -213,15 +241,41 @@ function validarSoloSeleccionadoSinPaquete() {
 function AsignarValorPaqueteASinPaquete() {
     var ds = $("#grid").data("kendoGrid").dataSource;
     var asigando = false;
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    var embarquePaqueteID;
+    var indice = 0;
     for (var i = 0; i < ds._data.length; i++) {
         if (ds._data[i]["Seleccionado"] && ds._data[i]["NumeroControl"] != "") {
             for (var j = 0; j < ds._data.length; j++) {
                 if (ds._data[j]["Seleccionado"] && ds._data[j]["Paquete"] == "") {
+                    ListaDetalles[indice] = { Accion: "", SpoolID: "", CuadranteID: "" };
+                    ListaDetalles[indice].Accion = 1;
+                    ListaDetalles[indice].SpoolID = ds._data[j].SpoolID;
+                    ListaDetalles[indice].CuadranteID = ds._data[j].CuadranteID;
                     ds._data[j]["Paquete"] = ds._data[i]["Paquete"];
                     ds._data[j]["EmbarquePaqueteID"] = ds._data[i]["EmbarquePaqueteID"];
+                    embarquePaqueteID = ds._data[i]["EmbarquePaqueteID"];
                     asigando = true;
+                    indice++;
                 }
             }
+            Captura[0].Detalles = ListaDetalles;
+
+            $CargaEmbarque.CargaEmbarque.create(Captura[0], { token: Cookies.get("token"), EmpaquetadoPaqueteID: embarquePaqueteID }).done(function (data) {
+                if (data.Folio != "error") {
+
+                    AjaxCargarPaquetes();
+                    displayMessage("EmbarqueCargaCuadranteActualizado", "", '1');
+                }
+                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                    displayMessage("EmbarqueCargaErrorCuadranteActualizado", "", '3');
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+                loadingStop();
+            });
+
 
             break;
         }

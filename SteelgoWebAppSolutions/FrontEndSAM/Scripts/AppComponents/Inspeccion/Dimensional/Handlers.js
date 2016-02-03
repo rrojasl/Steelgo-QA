@@ -89,8 +89,10 @@ function SuscribirEventoSpoolID() {
         else if (e.keyCode == 40)
             $("#InputID").data("kendoComboBox").select();
         else if (e.keyCode == 13) {
-            AjaxobtenerDetalleDimensional($("#InputID").val());
-            AjaxObtenerJSonGrid();
+            if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
+                AjaxobtenerDetalleDimensional($("#InputID").val());
+                AjaxObtenerJSonGrid();
+            }
           
         }
     });
@@ -105,7 +107,12 @@ function SuscribirEventoInspector() {
     });
     $('#inputInspector').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            PlanchaInspector();
+            if ($("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()) != undefined) {
+                PlanchaInspector();
+            }
+            else {
+                $("#inputInspector").data("kendoComboBox").value("");
+            }
         }
     });
 
@@ -122,7 +129,13 @@ function SuscribirEventoDefecto() {
     });
     $('#inputDefecto').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            PlanchaDefecto();
+            if ($("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()) != undefined) {
+                PlanchaDefecto();
+            }
+            else {
+                $("#inputDefecto").data("kendoComboBox").value("");
+            }
+            
         }
     });
     AjaxObtenerListaDefectos();
@@ -143,8 +156,10 @@ function SuscribirEventoResultadoDimensional() {
 };
 function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
-        AjaxobtenerDetalleDimensional($("#InputID").val());
-        AjaxObtenerJSonGrid();
+        if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
+            AjaxobtenerDetalleDimensional($("#InputID").val());
+            AjaxObtenerJSonGrid();
+        }
     });
 }
 function suscribirEventoGuardar() {

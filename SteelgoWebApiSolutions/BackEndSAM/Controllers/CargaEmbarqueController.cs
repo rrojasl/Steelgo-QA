@@ -20,7 +20,7 @@ namespace BackEndSAM.Controllers
     public class CargaEmbarqueController : ApiController
     {
         //obtiene las placas de las planas.
-        public object Get(string token, int TransportistaID,int embarquePlanaID)
+        public object Get(string token, int TransportistaID,int embarquePlanaID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -29,7 +29,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CargaEmbarqueBD.Instance.ObtenerPlacasPlana(TransportistaID, embarquePlanaID);
+                return CargaEmbarqueBD.Instance.ObtenerPlacasPlana(TransportistaID, embarquePlanaID, lenguaje);
             }
             else
             {

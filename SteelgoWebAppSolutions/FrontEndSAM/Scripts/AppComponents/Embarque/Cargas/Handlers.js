@@ -78,8 +78,7 @@ function SuscribirEventoActualizarCuadrante() {
         dataItemSeleccionadoPopup.Accion = 3;
         //accion=3 es para eliminar 
         AjaxCrearPaquete(dataItemSeleccionadoPopup,undefined, $("#inputPopupPaqueteID").text() == "" ? 0 : parseInt($("#inputPopupPaqueteID").text()));
-
-       
+        $("#grid").data("kendoGrid").dataSource.sync();
         ventanaPopup.close();
     });
 }
@@ -243,6 +242,10 @@ function SuscribirEventoPlacasPlana() {
         suggest: true,
         filter: "contains",
         index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#lblEstatus").text(dataItem.estatus);
+        }
     });
     $('#inputEmbarqueCargaPLacaPlana').closest('.k-widget').keydown(function (e) {
 

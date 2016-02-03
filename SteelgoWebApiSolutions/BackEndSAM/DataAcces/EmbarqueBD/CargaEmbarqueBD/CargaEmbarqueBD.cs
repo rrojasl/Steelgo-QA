@@ -30,7 +30,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
             }
         }
 
-        public  object ObtenerPlacasPlana(int TransportistaID, int embarquePlanaID)
+        public  object ObtenerPlacasPlana(int TransportistaID, int embarquePlanaID, string lenguaje)
         {
             try
             {
@@ -52,14 +52,16 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
                     }
                     else
                     {
-                        List<Sam3_Steelgo_Get_Plana_Result> result = ctx.Sam3_Steelgo_Get_Plana(TransportistaID).ToList();
+                        List<Sam3_Embarque_Get_Planas_CargaEmb_Result> result = ctx.Sam3_Embarque_Get_Planas_CargaEmb(TransportistaID,lenguaje).ToList();
 
-                        foreach (Sam3_Steelgo_Get_Plana_Result item in result)
+                        foreach (Sam3_Embarque_Get_Planas_CargaEmb_Result item in result)
                         {
                             ListadoPlacaPlana.Add(new PlacaPlana
                             {
+                                EmbarquePlanaID = item.EmbarquePlanaID,
                                 Placas = item.Placas,
-                                VehiculoID = item.VehiculoID
+                                VehiculoID = item.VehiculoID,
+                                estatus = item.Estatus
                             });
                         }
                     }
@@ -174,6 +176,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
                     {
                         ListadoDetalleCargaCaptura.Add(new DetalleCargaCaptura
                         {
+                            EmbarquePlanaSpoolID = item.EmbarquePlanaSpoolID,
                             Accion = embarquePlanaID == 0 ? 1 : embarquePlanaID,
                             Consecutivo = consecutivo,
                             Cuadrante = item.Cuadrante,

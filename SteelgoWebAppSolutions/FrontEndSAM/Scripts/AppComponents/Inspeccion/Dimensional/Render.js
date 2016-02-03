@@ -12,23 +12,29 @@
             template: "<i class=\"fa fa-#=data._Resultado.toLowerCase()#\"></i> #=data._Resultado#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Resultado = dataItem._Resultado;
-                options.model.ResultadoID = dataItem._ResultadoID;
-                if (options.model.ResultadoID == "1") {
-                    options.model.DefectosID = 0;
-                    options.model.Defectos = "";
+                if (dataItem != undefined) {
+                    options.model.Resultado = dataItem._Resultado;
+                    options.model.ResultadoID = dataItem._ResultadoID;
+                    if (options.model.ResultadoID == "1") {
+                        options.model.DefectosID = 0;
+                        options.model.Defectos = "";
+                    }
                 }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Resultado = dataItem._Resultado;
-                options.model.ResultadoID = dataItem._ResultadoID;
-                if (options.model.ResultadoID == "1") {
-                    options.model.DefectosID = 0;
-                    options.model.Defectos = "";
-                    $("#grid").data("kendoGrid").dataSource.sync();
+                if (dataItem != undefined) {
+                    options.model.Resultado = dataItem._Resultado;
+                    options.model.ResultadoID = dataItem._ResultadoID;
+                    if (options.model.ResultadoID == "1") {
+                        options.model.DefectosID = 0;
+                        options.model.Defectos = "";
+                        $("#grid").data("kendoGrid").dataSource.sync();
+                    }
                 }
-
+                else {
+                    options.model.Resultado = ObtenerDescCorrectaResultado(options.model.ListaResultados, options.model.ResultadoID);
+                }
 
             }
         }
@@ -42,6 +48,9 @@
         }
     });
 };
+
+
+
 
 function RenderComboBoxDefectos(container, options) {
     loadingStart();
@@ -57,13 +66,20 @@ function RenderComboBoxDefectos(container, options) {
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Defectos = dataItem.Nombre;
-                options.model.DefectosID = dataItem.DefectoID;
+                if (dataItem != undefined) {
+                    options.model.Defectos = dataItem.Nombre;
+                    options.model.DefectosID = dataItem.DefectoID;
+                }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Defectos = dataItem.Nombre;
-                options.model.DefectosID = dataItem.DefectoID;
+                if (dataItem != undefined) {
+                    options.model.Defectos = dataItem.Nombre;
+                    options.model.DefectosID = dataItem.DefectoID;
+                }
+                else {
+                    options.model.Defectos = ObtenerDescCorrectaDefectos(options.model.ListaDefectos, options.model.DefectoID);
+                }
             }
         }
         );
@@ -93,13 +109,20 @@ function RenderComboBoxInspector(container, options) {
             template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Inspector = dataItem.Codigo;
-                options.model.InspectorID = dataItem.ObreroID;
+                if (dataItem != undefined) {
+                    options.model.Inspector = dataItem.Codigo;
+                    options.model.InspectorID = dataItem.ObreroID;
+                }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Inspector = dataItem.Codigo;
-                options.model.InspectorID = dataItem.ObreroID;
+                if (dataItem != undefined) {
+                    options.model.Inspector = dataItem.Codigo;
+                    options.model.InspectorID = dataItem.ObreroID;
+                }
+                else {
+                    options.model.Inspector = ObtenerDescCorrectaInspector(options.model.ListaInspector, options.model.InspectorID);
+                }
             }
         }
         );
@@ -123,4 +146,30 @@ function tieneClase(item) {
         }
     }
     return false
+}
+
+
+function ObtenerDescCorrectaDefectos(lista, DefectoID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].DefectoID == DefectoID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
+
+function ObtenerDescCorrectaInspector(lista, InspectorID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == InspectorID)
+            return lista[i].Codigo;
+    }
+    return "";
+}
+
+
+function ObtenerDescCorrectaResultado(lista, ResultadoID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ResultadoID == ResultadoID)
+            return lista[i].Resultado;
+    }
+    return "";
 }

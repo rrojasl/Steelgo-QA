@@ -26,6 +26,7 @@ function changeLanguageCall() {
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     document.title = _dictionary.DimensionalVisualInspeccionDimensional[$("#language").data("kendoDropDownList").value()];
+    opcionHabilitarView(false, "FieldSetView");
 };
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
@@ -73,9 +74,10 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
-            var input = e.container.find(".k-input");
-            var value = input.val();
-            anteriorlongitudTrabajosAdicionales = e.model.InspeccionDimensionalID.length;
+            if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                this.closeCell();
+            }
+            
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
@@ -239,13 +241,18 @@ function PlanchaInspector() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].InspectorID = $("#inputInspector").val();
-            data[i].Inspector = $("#inputInspector").data("kendoComboBox").text();
+            if ($("#inputInspector").data("kendoComboBox").selectedIndex != -1) {
+                data[i].InspectorID = $("#inputInspector").val();
+                data[i].Inspector = $("#inputInspector").data("kendoComboBox").text();
+            }
+            
         }
         else {
             if (data[i].Inspector == "" || data[i].Inspector == undefined || data[i].Inspector == null) {
-                data[i].InspectorID = $("#inputInspector").val();
-                data[i].Inspector = $("#inputInspector").data("kendoComboBox").text();
+                if ($("#inputInspector").data("kendoComboBox").selectedIndex != -1) {
+                    data[i].InspectorID = $("#inputInspector").val();
+                    data[i].Inspector = $("#inputInspector").data("kendoComboBox").text();
+                }
             }
         }
     }
@@ -297,11 +304,11 @@ function PlanchaFecha() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaInspeccion = endRangeDate.val().trim();
+            data[i].FechaInspeccion = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia;
         }
         else {
             if (data[i].FechaInspeccion == "" || data[i].FechaInspeccion == null || data[i].FechaInspeccion == undefined) {
-                data[i].FechaInspeccion = endRangeDate.val().trim();
+                data[i].FechaInspeccion = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia;
             }
         }
     }
