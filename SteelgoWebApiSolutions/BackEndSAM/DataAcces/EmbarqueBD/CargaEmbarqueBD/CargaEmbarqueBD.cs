@@ -160,13 +160,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
         }
 
 
-        public object ObtieneDetalleXPlaca(int TransportistaID, int embarquePlanaID, string lenguaje)
+        public object ObtieneDetalleXPlaca(int TransportistaID, int VehiuloID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_Get_CargaSpoolCargado_Result> result = ctx.Sam3_Embarque_Get_CargaSpoolCargado(TransportistaID,embarquePlanaID,lenguaje).ToList();
+                    List<Sam3_Embarque_Get_CargaSpoolCargado_Result> result = ctx.Sam3_Embarque_Get_CargaSpoolCargado(VehiuloID, TransportistaID,lenguaje).ToList();
 
                     List<DetalleCargaCaptura> ListadoDetalleCargaCaptura = new List<DetalleCargaCaptura>();
 
@@ -177,7 +177,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
                         ListadoDetalleCargaCaptura.Add(new DetalleCargaCaptura
                         {
                             EmbarquePlanaSpoolID = item.EmbarquePlanaSpoolID,
-                            Accion = embarquePlanaID == 0 ? 1 : embarquePlanaID,
+                            Accion = 2,
                             Consecutivo = consecutivo,
                             Cuadrante = item.Cuadrante,
                             CuadranteID = item.CuadranteID,

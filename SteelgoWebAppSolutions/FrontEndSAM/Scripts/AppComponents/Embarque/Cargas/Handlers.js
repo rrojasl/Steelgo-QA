@@ -19,7 +19,7 @@ function SuscribirEventos() {
 }
 
 function SuscribirEventoCerrarPlana() {
-    $('#btnEmbarqueCerrarPlana').click(function (e) {
+    $('.btnCerrarPlana').click(function (e) {
          ajaxCerrarPlana();
     });
 }

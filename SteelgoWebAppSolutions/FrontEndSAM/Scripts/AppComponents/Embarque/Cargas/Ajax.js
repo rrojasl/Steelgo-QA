@@ -22,6 +22,9 @@ function AjaxCargarPlanasPlacas() {
             $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value("");
             $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").dataSource.data(data);
             $("#lblEstatus").text(data[0].estatus)
+            if (data[0].estatus != "Abierta" && data[0].estatus != "Open") {
+                $('.btnCerrarPlana').css('display', 'none');
+            }
         } else {
             $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").text("");
             $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value("");
@@ -262,9 +265,10 @@ function ajaxCerrarPlana() {
             embarquePlanaID: ""
         };
         EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoDropDownList").dataSource._data[0].EmbarquePlanaID;
+        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoDropDownList").dataSource._data[0].estatus;
         CierraPlana.embarquePlanaID = EmbarquePlanaID;
 
-        if (EmbarquePlanaID != 0) {
+        if (EmbarquePlanaID != 0 && (EstatusPlanaCerrar == "Abierta" || EstatusPlanaCerrar == "Open")) {
             $CargaEmbarque.CargaEmbarque.update(CierraPlana, { token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     displayMessage("EmbarqueCargaCerrarPlana", "", '1');
@@ -293,7 +297,7 @@ function ajaxCerrarPlana() {
 
 function ajaxCargarSpoolXPlaca() {
     loadingStart();
-    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), proveedorID: $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value(), placaID: $("#inputProveedor").data("kendoDropDownList").value(), lenguaje: $("#language").val() }).done(function (data) {
+    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"),placaID : $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value(), proveedorID: $("#inputProveedor").data("kendoDropDownList").value(), lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var CantidadRegistrosOriginales = ds._data.length;

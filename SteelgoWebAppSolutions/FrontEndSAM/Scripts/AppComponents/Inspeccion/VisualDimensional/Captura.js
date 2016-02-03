@@ -313,15 +313,17 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
 }
 function cancelarCaptura(e) {
     e.preventDefault();
-    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    var spoolIDRegistro = dataItem.SpoolID;
-    if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
-        if (dataItem.InspeccionVisualID == 0)
-            dataSource.remove(dataItem);
-        $("#grid").data("kendoGrid").dataSource.sync();
+    if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var spoolIDRegistro = dataItem.SpoolID;
+        if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataItem.Accion = 3;
+            if (dataItem.InspeccionVisualID == 0)
+                dataSource.remove(dataItem);
+            $("#grid").data("kendoGrid").dataSource.sync();
 
+        }
     }
 };
 function PlanchaTaller() {
