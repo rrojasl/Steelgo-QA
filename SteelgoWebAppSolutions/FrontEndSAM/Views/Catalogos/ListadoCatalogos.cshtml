@@ -472,7 +472,7 @@
     function obtenerCSV(){
         var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
         var datos=$("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data();
-        var csvMimeType = "data:text/csv;charset=utf-8";
+        var csvMimeType = "data:text/csv;charset=utf-8,";
         var encabezados=[]
         $("#grid").data("kendoGrid").columns.forEach(function(tmp){
             tmp.field!==$("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp.field) ? encabezados.push(parseWord(tmp.title)) : 0;
