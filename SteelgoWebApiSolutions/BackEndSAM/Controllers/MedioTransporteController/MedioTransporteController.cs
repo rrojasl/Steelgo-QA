@@ -114,7 +114,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
             }
         }
 
-        //Guarda la carga
+        //Guarda la descarga
         public object Post(CapturaDescarga listaCaptura, string token, string lenguaje)
         {
             string payload = "";

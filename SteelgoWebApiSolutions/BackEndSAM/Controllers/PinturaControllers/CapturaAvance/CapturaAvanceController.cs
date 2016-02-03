@@ -31,13 +31,15 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 string fechaShot = (string)CapturaAvanceBD.Instance.ObtenerCamposPredeterminados(usuario, lenguaje, 35);
                 string fechaprim = (string)CapturaAvanceBD.Instance.ObtenerCamposPredeterminados(usuario, lenguaje, 36);
+                string llenado = (string)CapturaAvanceBD.Instance.ObtenerCamposPredeterminados(usuario, lenguaje, 43);
 
                 CamposPredeterminados CapturaAvanceCamposPredeterminados = new CamposPredeterminados();
 
                 CapturaAvanceCamposPredeterminados = new CamposPredeterminados
                 {
                     FechaShotblast = fechaShot,
-                    FechaPrimario = fechaprim
+                    FechaPrimario = fechaprim,
+                    Llenado = llenado
                 };
 
                 return CapturaAvanceCamposPredeterminados;

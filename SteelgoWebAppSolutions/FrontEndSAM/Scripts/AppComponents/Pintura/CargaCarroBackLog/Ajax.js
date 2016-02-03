@@ -22,7 +22,7 @@ function AjaxPinturaCargaMedioTransporte() {
         $("#inputCarro").data("kendoDropDownList").value("");
         $("#inputCarro").data("kendoDropDownList").dataSource.data(data);
 
-      //  AjaxCargarSpool();
+        $("#inputCarro").data("kendoDropDownList").trigger("change");
 
         loadingStop();
     });

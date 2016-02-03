@@ -24,7 +24,7 @@ function LimpiarCarro() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
-            if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+            if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
             }
             else {
@@ -87,22 +87,22 @@ function CargarGrid() {
 
 function eliminarCaptura(e) {
     e.preventDefault();
-    if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+     
+    if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         var filterValue = $(e.currentTarget).val();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-        windowTemplate = kendo.template($("#windowTemplate").html());
-
+         
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
-            title: _dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()],
+            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
             visible: false, //the window will not appear before its .open method is called
             width: "400px",
-            height: "200px",
+            height: "auto",
             modal: true
         }).data("kendoWindow");
-
-        ventanaConfirm.content(windowTemplate(this.dataSource, dataItem));
+          
+        ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
         ventanaConfirm.open().center();
 
