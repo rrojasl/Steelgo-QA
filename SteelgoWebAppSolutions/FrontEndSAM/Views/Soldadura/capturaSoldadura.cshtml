@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "capturaSoldadura";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,10 +9,13 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoLlegadaMaterial0020"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("capturaSoldadura", "Soldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
-        
+        <a href="#"><span id="LinkFabricacion"></span></a>
     </li>
-    
+    <li>
+        <a href="@Url.Action("capturaSoldadura", "Soldadura")"><span id="CapturaSoldaduraSoldaduraSpool"></span></a>
+
+    </li>
+
 }
 
 <div id="FormCapturaArmado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -34,7 +37,7 @@
                                 </ul>
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
-                            
+
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
                             <a id="TramitarPermiso" href="~/inspeccion/VisualDimensional" class="btn btn-primary"><span id="CapturaSoldaduraInspeccion"></span></a>
@@ -46,8 +49,7 @@
                                     <span id="DetalleAvisoLlegada0064"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                </ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -88,8 +90,8 @@
                 <label id="">&nbsp;</label>
                 <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
             </div>
-            </div>
         </div>
+    </div>
     <br />
     <br />
     <div class="row addedSection" id="AgregadoDiv">
@@ -117,17 +119,17 @@
 
             <br />
             @*<div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="CapturaSoldaduraProcesoRaiz"></label>
-                    <input id="inputProcesoRaiz" />
-                </div>
-                <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="CapturaSoldaduraProcesoRelleno"></label>
-                    <input id="inputProcesoRelleno" class="" />
-                </div>
-            </div>*@
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label id="CapturaSoldaduraProcesoRaiz"></label>
+                        <input id="inputProcesoRaiz" />
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <label id="CapturaSoldaduraProcesoRelleno"></label>
+                        <input id="inputProcesoRelleno" class="" />
+                    </div>
+                </div>*@
 
-            
+
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="ContenedorGrid" class="row">
@@ -138,7 +140,7 @@
             </div>
             <br>
             <br>
-            
+
         </div>
     </div>
     <input id="hdAccionFiltrado" type="hidden" />

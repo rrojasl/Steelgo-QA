@@ -344,6 +344,7 @@ function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
     CargarGridSoldadura();
     opcionHabilitarView(false, "FieldSetView");
+    document.title = _dictionary.CapturaSoldaduraSoldaduraSpool[$("#language").data("kendoDropDownList").value()];
 };
 
 function AltaFecha() {

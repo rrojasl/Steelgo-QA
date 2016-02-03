@@ -1,4 +1,5 @@
-﻿_languageOrder = {
+﻿/// <reference path="DictionaryManager.js" />
+_languageOrder = {
     "es-MX": 0,
     "en-US": 1
 }
@@ -34,11 +35,11 @@ _dictionary = {
         "en-US": "Assigned Request"
     },
     "AsignarRequisicion": {
-        "es-MX": "Asignar Requisicion",
+        "es-MX": "Asignar Requisición",
         "en-US": "Set Request"
     },
     "ServiciosTecnicosGenerarRequisicion": {
-        "es-MX": "Generar Requisicion",
+        "es-MX": "Generar Requisición",
         "en-US": "Generate Request"
     },
     "loginLabel0001": {
@@ -3781,11 +3782,11 @@ _dictionary = {
         "en-US": "Discharging"
     },
     "MensajeRequisicion": {
-        "es-MX": "Requisicion",
+        "es-MX": "Requisición",
         "en-US": "Requisition"
     },
     "MensajeRequisicion1": {
-        "es-MX": "Requisicion",
+        "es-MX": "Requisición",
         "en-US": "Requisition"
     },
 
@@ -3973,7 +3974,7 @@ _dictionary = {
         "en-US": "Delivering Results"
     },
     "menuServiciosTecnicosGenerarRequisicion": {
-        "es-MX": "Requisicion",
+        "es-MX": "Requisición",
         "en-US": "Requisition"
     },
     "menuServiciosTecnicosGenerarImpresion": {
@@ -4526,7 +4527,7 @@ _dictionary = {
         "en-US": "Proyect"
     },
     "ServiciosTecnicosRequisicion": {
-        "es-MX": "Requisicion",
+        "es-MX": "Requisición",
         "en-US": "Requisition"
     },
     "ServiciosTecnicosObservacion": {
@@ -4630,8 +4631,8 @@ _dictionary = {
 
     //#region Soldadura
     "CapturaSoldaduraSoldaduraSpool": {
-        "es-MX": "Soldadura de Spool",
-        "en-US": "Spool Welding"
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
     },
     "CapturaSoldaduraTipoJunta": {
         "es-MX": "Tipo Junta",
@@ -4855,7 +4856,7 @@ _dictionary = {
         "en-US": "Control number"
     },
     "GenerarRequisicionAsignarRequisicion": {
-        "es-MX": "Asignar Requisicion",
+        "es-MX": "Asignar Requisición",
         "en-US": "Assign Requisition"
     },
     "GenerarRequisicionMensajeJuntaAgregada": {
@@ -4890,7 +4891,7 @@ _dictionary = {
     }
     ,
     "spanAddReguisicion": {
-        "es-MX": "Agregar Requisicion",
+        "es-MX": "Agregar Requisición",
         "en-US": "Add requisition"
     },
     //#endregion
@@ -5145,7 +5146,7 @@ _dictionary = {
 
     //#region ValidacionResultados
     "ValidacionResultadosMensajeCampoRequisicionVacio": {
-        "es-MX": "Ingrese la requisicion",
+        "es-MX": "Ingrese la requisición",
         "en-US": "Enter the requisition"
     },
     "ValidacionResultadosMensajeGuardado": {
@@ -5157,7 +5158,7 @@ _dictionary = {
         "en-US": "Are you sure want to delete the defect"
     },
     "ValidacionResultadosMensajeNoHayDatos": {
-        "es-MX": "No hay datos para la requisicion",
+        "es-MX": "No hay datos para la requisición",
         "en-US": "No data fot the requisition"
     },
     "ValidacionResultadosCabeceraDatosJunta": {
@@ -5198,7 +5199,7 @@ _dictionary = {
         "en-US": "See options"
     },
     "ValidacionResultadosRequisicion": {
-        "es-MX": "Requisicion",
+        "es-MX": "Requisición",
         "en-US": "Requisition"
     },
     "ValidacionResultadosBtnVer": {
