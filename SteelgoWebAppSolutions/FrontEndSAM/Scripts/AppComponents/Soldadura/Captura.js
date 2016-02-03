@@ -203,8 +203,8 @@ function CargarGridSoldadura() {
                     fields: {
                         procesoSoldaduraRaizID: { type: "int", editable: false },
                         procesoSoldaduraRellenoID: { type: "int", editable: false },
-                        procesoSoldaduraRaiz: { type: "int", editable: true },
-                        procesoSoldaduraRelleno: { type: "int", editable: true },
+                        procesoSoldaduraRaiz: { type: "string", editable: true },
+                        procesoSoldaduraRelleno: { type: "string", editable: true },
                         Proyecto: { type: "string", editable: false },
                         IDProyecto: { type: "int", editable: false },
                         IdOrdenTrabajo: { type: "string", editable: false },

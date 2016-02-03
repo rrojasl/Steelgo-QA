@@ -163,7 +163,14 @@ function SuscribirEventoTubero() {
         dataValueField: "ObreroID",
         suggest: true,
         filter: "contains",
-        index: 3
+        index: 3,
+        change: function (e)
+        {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem == undefined) {
+                $("#inputTubero").data("kendoComboBox").value("");
+            }
+        }
     });
     $('#inputTubero').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
@@ -171,7 +178,10 @@ function SuscribirEventoTubero() {
 
                 PlanchaTubero();
             }
+            else
+                $("#inputTubero").data("kendoComboBox").value("");
         }
+             
     });
 }
 

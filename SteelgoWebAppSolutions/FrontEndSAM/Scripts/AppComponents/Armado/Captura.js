@@ -31,12 +31,22 @@ function AltaFecha() {
 }
 function ExisteJunta() {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
-
-    for (var i = 0; i < jsonGridArmado.length; i++) {
-        if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID === $("#Junta").val()) {
-            jsonGridArmado.Accion = 2;
-            $("#grid").data("kendoGrid").dataSource.sync();
-            return false;
+    if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+        for (var i = 0; i < jsonGridArmado.length; i++) {
+            if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID === $("#Junta").val()) {
+                jsonGridArmado.Accion = 2;
+                $("#grid").data("kendoGrid").dataSource.sync();
+                return false;
+            }
+        }
+    }
+    else {
+        for (var i = 0; i < jsonGridArmado.length; i++) {
+            if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val())) {
+                jsonGridArmado.Accion = 2;
+                $("#grid").data("kendoGrid").dataSource.sync();
+                return false;
+            }
         }
     }
     return true;
