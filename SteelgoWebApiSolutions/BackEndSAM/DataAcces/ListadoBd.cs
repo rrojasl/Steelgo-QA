@@ -435,7 +435,7 @@ namespace BackEndSAM.DataAcces
                                                        && !(from ord in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                             where ord.Activo
                                                             select ord.NumeroUnicoID).Contains(nu.NumeroUnicoID)
-                                                       select nu).AsParallel().Count();
+                                                       select nu).AsParallel().Distinct().Count();
                     }
                     else
                     {
@@ -452,7 +452,7 @@ namespace BackEndSAM.DataAcces
                                                        && !(from ord in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                             where ord.Activo
                                                             select ord.NumeroUnicoID).Contains(nu.NumeroUnicoID)
-                                                       select nu).AsParallel().Count();
+                                                       select nu).AsParallel().Distinct().Count();
                     }
 
 
