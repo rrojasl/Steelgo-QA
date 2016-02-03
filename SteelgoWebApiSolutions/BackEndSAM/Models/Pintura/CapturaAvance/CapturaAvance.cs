@@ -38,6 +38,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     {
         public string FechaShotblast { get; set; }
         public string FechaPrimario { get; set; }
+        public string Llenado { get; set; }
     }
     public class Pintor
     {
@@ -73,7 +74,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public int ColorPinturaID { get; set; }
         public int LotePinturaID { get; set; }
         public int PinturaComponenteComposicionID { get; set; }
-        public string Fecha { get; set; }
+        public string Fecha { get; set; } 
         public List<ObrerosGuardar> ListaObreros  { get;set;}
     }
 

@@ -48,12 +48,15 @@ function AjaxPinturaCargaMedioTransporte() {
 
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
-            $("#inputCarro").data("kendoDropDownList").value("");
+            //$("#inputCarro").data("kendoDropDownList").value("");
+            $("#inputCarro").data("kendoComboBox").value("");
 
             data.unshift({ MedioTransporteID: -1, NombreMedioTransporte: _dictionary.PinturaCargaAgregarNuevoCarro[$("#language").data("kendoDropDownList").value()] });
-            $("#inputCarro").data("kendoDropDownList").dataSource.data(data);
+            //$("#inputCarro").data("kendoDropDownList").dataSource.data(data);
+            $("#inputCarro").data("kendoComboBox").dataSource.data(data);
         } else {
-            $("#inputCarro").data("kendoDropDownList").value("");
+            //$("#inputCarro").data("kendoDropDownList").value("");
+            $("#inputCarro").data("kendoComboBox").value("");
         };
 
         loadingStop();
@@ -63,11 +66,13 @@ function AjaxPinturaCargaMedioTransporte() {
 function AjaxObtenerCatalogoClasificacion() {
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), idCatalogo: 0 }).done(function (data) {
         if (data.length > 0) {
-            $("#inputClasificacion").data("kendoDropDownList").value("");
-
-            $("#inputClasificacion").data("kendoDropDownList").dataSource.data(data);
+            //$("#inputClasificacion").data("kendoDropDownList").value(""); 
+            //$("#inputClasificacion").data("kendoDropDownList").dataSource.data(data);
+            $("#inputClasificacion").data("kendoComboBox").value("");
+            $("#inputClasificacion").data("kendoComboBox").dataSource.data(data);
         } else {
-            $("#inputClasificacion").data("kendoDropDownList").value("");
+            //$("#inputClasificacion").data("kendoDropDownList").value("");
+            $("#inputClasificacion").data("kendoComboBox").value("");
         };
 
         loadingStop();
@@ -77,14 +82,13 @@ function AjaxObtenerCatalogoClasificacion() {
 function AjaxObtenerCatalogoPersistencia() {
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), idCatalogo: 1 }).done(function (data) {
         if (data.length > 0) {
-            $("#inputPersistencia").data("kendoDropDownList").value("");
-
-            $("#inputPersistencia").data("kendoDropDownList").dataSource.data(data);
-
-
-
+            //$("#inputPersistencia").data("kendoDropDownList").value(""); 
+            //$("#inputPersistencia").data("kendoDropDownList").dataSource.data(data);
+            $("#inputPersistencia").data("kendoComboBox").value("");
+            $("#inputPersistencia").data("kendoComboBox").dataSource.data(data);
         } else {
-            $("#inputPersistencia").data("kendoDropDownList").value("");
+            //$("#inputPersistencia").data("kendoDropDownList").value("");
+            $("#inputPersistencia").data("kendoComboBox").value("");
         };
         loadingStop();
     });
@@ -99,7 +103,7 @@ function AjaxCargarCamposPredeterminados() {
         else if (data.toLowerCase() == "codigo") {
             $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', true).trigger("change");
         }
-
+         
         loadingStop();
     });
 
@@ -144,7 +148,7 @@ function AjaxCerrarCarro() {
 }
 
 function AjaxAgregarCarga() {
-    if ($("#inputCarro").val() != "-1") {
+    if ($("#inputCarro").data("kendoComboBox").value() != "-1") {
         if (ObtenerTipoConsulta() == 1 && $("#InputID").val() > -1 || ObtenerTipoConsulta() == 2 && $("#inputCodigo").val() != "") {
             loadingStart();
 
@@ -175,7 +179,8 @@ function AjaxAgregarCarga() {
             $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), TipoConsulta: ListaDetalles[index].TipoConsulta, OrdenTrabajoSpoolID: ListaDetalles[index].OrdenTrabajoSpoolID, Codigo: ListaDetalles[index].Codigo, lenguaje: $("#language").val(), medioTransporteID: $("#inputCarro").val() }).done(function (data) {
 
                 var ds = $("#grid").data("kendoGrid").dataSource;
-                var carDataSourceSelected = $("#inputCarro").data("kendoDropDownList").dataItem($("#inputCarro").data("kendoDropDownList").select())
+                //var carDataSourceSelected = $("#inputCarro").data("kendoDropDownList").dataItem($("#inputCarro").data("kendoDropDownList").select())
+                var carDataSourceSelected = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select())
                 var array = data;
 
                 if (array.length > 0) {
@@ -253,7 +258,8 @@ function AjaxObtenerDetalleCarroCargado(MedioTransporteID) {
         $("#labelM2").text('');
         $("#labelToneladas").text('');
         var ds = $("#grid").data("kendoGrid").dataSource;
-        var carDataSourceSelected = $("#inputCarro").data("kendoDropDownList").dataItem($("#inputCarro").data("kendoDropDownList").select())
+        //var carDataSourceSelected = $("#inputCarro").data("kendoDropDownList").dataItem($("#inputCarro").data("kendoDropDownList").select())
+        var carDataSourceSelected = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select())
         var array = data;
 
         if (array.length > 0) {
@@ -315,7 +321,12 @@ function ajaxGuardar(arregloCaptura) {
 
             Captura[0].Detalles = ListaDetalles;
 
-            $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: $('#inputCarro').attr("mediotransporteid") }).done(function (data) {
+            $MedioTransporte.MedioTransporte.create(Captura[0], {
+                token: Cookies.get("token"),
+                lenguaje: $("#language").val(),
+                medioTransporteID: $('#inputCarro').attr("mediotransporteid"),
+                cerrar: 1
+            }).done(function (data) {
                 AjaxPinturaCargaMedioTransporte();
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     displayMessage("PinturaGuardarGuardar", "", '1');

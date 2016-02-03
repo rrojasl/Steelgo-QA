@@ -126,7 +126,7 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar){
             ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
             ListaDetalles[index].ProcesoSoldaduraRaizID = arregloCaptura[index].procesoSoldaduraRaizID;
             ListaDetalles[index].ProcesoSoldaduraRellenoID = arregloCaptura[index].procesoSoldaduraRellenoID;
-            ListaDetalles[index].FechaSoldadura = kendo.toString(arregloCaptura[index].FechaSoldadura, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+            ListaDetalles[index].FechaSoldadura = kendo.toString(arregloCaptura[index].FechaSoldadura, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
 
             if (ListaDetalles[index].TallerID == null || ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == undefined)
                 bandera = false;
@@ -248,7 +248,7 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar){
                                 }
                                 else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
                                     //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                                    displayMessage("CapturaMensajeGuardadoErroneo", data.ReturnMessage[0], '1');
                                     loadingStop();
 
                                 }

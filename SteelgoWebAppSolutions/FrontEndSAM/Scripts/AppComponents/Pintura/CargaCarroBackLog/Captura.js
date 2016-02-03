@@ -101,3 +101,8 @@ function CargarGrid() {
         $("#grid").data("kendoGrid").dataSource.sync();
     });
 };
+ 
+function Limpiar() {
+    $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#grid").data("kendoGrid").dataSource.sync();
+}

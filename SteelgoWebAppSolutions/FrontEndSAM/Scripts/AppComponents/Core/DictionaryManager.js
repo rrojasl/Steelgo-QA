@@ -26,6 +26,14 @@ _dictionary = {
         "es-MX": "No existe el spool",
         "en-US": "No spool"
     },
+    "NoExistePersistencia": {
+        "es-MX": "No existe la persistencia",
+        "en-US": "No persistence"
+    },
+    "NoExisteCarro": {
+        "es-MX": "No existe carro",
+        "en-US": "No car"
+    },
     "CapturaEliminar": {
         "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"

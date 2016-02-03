@@ -290,6 +290,8 @@ function RenderComboBoxSoldador(container, options) {
     $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: ItemSeleccionado.ListadoRaiz,
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
@@ -318,11 +320,31 @@ function RenderComboBoxSoldador(container, options) {
                         options.model.ObreroID = "";
                     }
                 }
+                else {
+                    options.model.Soldador = ObtenerDescCorrectaSoldador(ItemSeleccionado.ListadoRaiz, options.model.ObreroID);
+
+                }
             }
         }
         );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
+
     loadingStop();
 };
+
+function ObtenerDescCorrectaSoldador(lista, ObreroID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == ObreroID)
+            return lista[i].Soldador;
+    }
+    return "";
+}
 
 
 function RenderComboBoxSoldadorRelleno(container, options) {
@@ -333,6 +355,8 @@ function RenderComboBoxSoldadorRelleno(container, options) {
     $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: ItemSeleccionado.ListadoRelleno,
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
@@ -363,11 +387,31 @@ function RenderComboBoxSoldadorRelleno(container, options) {
                         options.model.ObreroID = "";
                     }
                 }
+                else {
+                    options.model.Soldador = ObtenerDescCorrectaSoldadorRelleno(ItemSeleccionado.ListadoRelleno, options.model.ObreroID);
+
+                }
             }
         }
         );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
     loadingStop();
 };
+
+function ObtenerDescCorrectaSoldadorRelleno(lista, ObreroID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == ObreroID)
+            return lista[i].Soldador;
+    }
+    return "";
+}
+
 
 function RenderComboBoxSoldadorTrabajos(container, options) {
     loadingStart();
@@ -377,6 +421,8 @@ function RenderComboBoxSoldadorTrabajos(container, options) {
     $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: ItemSeleccionado.ListadoSoldadoresTrabajos,
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
@@ -406,13 +452,31 @@ function RenderComboBoxSoldadorTrabajos(container, options) {
                         options.model.ObreroID = "";
                     }
                 }
+                else {
+                    options.model.Soldador = ObtenerDescCorrectaSoldadorTrabajos(ItemSeleccionado.ListadoSoldadoresTrabajos, options.model.ObreroID);
+
+                }
 
             }
         }
         );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
     loadingStop();
 }
 
+function ObtenerDescCorrectaSoldadorTrabajos(lista, ObreroID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == ObreroID)
+            return lista[i].Soldador;
+    }
+    return "";
+}
 function RenderComboBoxTrabajos(container, options) {
     loadingStart();
     var dataItem;
@@ -420,6 +484,8 @@ function RenderComboBoxTrabajos(container, options) {
     $('<input required data-text-field="TrabajoAdicional" data-value-field="TrabajoAdicional" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoComboBox({
+                suggest: true,
+                filter: "contains",
                 autoBind: false,
                 dataSource: ItemSeleccionado.listaTrabajosAdicionalesSoldadura,
                 template: '<span class="#: data.SignoInformativo #">#: data.TrabajoAdicional #</span> ',
@@ -442,10 +508,29 @@ function RenderComboBoxTrabajos(container, options) {
                         options.model.Soldador = options.model.Soldador;
                         options.model.ObreroID = options.model.ObreroID;
                     }
+                    else {
+                        options.model.Soldador = ObtenerDescCorrectaTrabajos(ItemSeleccionado.listaTrabajosAdicionalesSoldadura, options.model.ObreroID);
+
+                    }
                 }
             }
             );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
     loadingStop();
+}
+
+function ObtenerDescCorrectaSoldadorTrabajos(lista, ObreroID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ObreroID == ObreroID)
+            return lista[i].Soldador;
+    }
+    return "";
 }
 
 function RenderComboBoxTaller(container, options) {
@@ -454,6 +539,8 @@ function RenderComboBoxTaller(container, options) {
     $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: ItemSeleccionado.ListaTaller,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
@@ -469,12 +556,31 @@ function RenderComboBoxTaller(container, options) {
                 if (dataItem != undefined) {
                     options.model.Taller = dataItem.Nombre;
                     options.model.TallerID = dataItem.TallerID;
-                    options.model.tallerID = dataItem.TallerID;
+                    
+                }
+                else {
+                    options.model.Taller = ObtenerDescCorrectaTaller(ItemSeleccionado.ListaTaller, options.model.TallerID);
+
                 }
             }
         }
         );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
     loadingStop();
+}
+
+function ObtenerDescCorrectaSoldadorTrabajos(lista, TallerID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].TallerID == TallerID)
+            return lista[i].Nombre;
+    }
+    return "";
 }
 
 
@@ -486,6 +592,8 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
         $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoComboBox({
+                suggest: true,
+                filter: "contains",
                 autoBind: false,
                 dataSource: ItemSeleccionado.ListadoProcesoSoldadura,
                 template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
@@ -501,14 +609,33 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                         options.model.procesoSoldaduraRaizID = dataItem.ProcesoSoldaduraID
                         AjaxActualizaSoldadoresRaiz(dataItem.ProcesoSoldaduraID, ItemSeleccionado.TipoJunta, ItemSeleccionado.Diametro, ItemSeleccionado.Espesor, ItemSeleccionado.Cedula);
                     }
-                },
+                    else {
+                        options.model.procesoSoldaduraRaiz = ObtenerDescCorrectaSoldaduraRaiz(ItemSeleccionado.ListadoProcesoSoldadura, options.model.procesoSoldaduraRaizID);
+
+                    }
+                }
 
             }
             );
+        $(".k-combobox").on('mouseleave', function (send) {
+            var e = $.Event("keydown", { keyCode: 27 });
+            var item = this;
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        });
     }
     else
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRaiz", "", "1");
     loadingStop();
+}
+
+function ObtenerDescCorrectaSoldaduraRaiz(lista, procesoSoldaduraRaizID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].Codigo == procesoSoldaduraRaizID)
+            return lista[i].Codigo;
+    }
+    return "";
 }
 
 
@@ -520,6 +647,8 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
         $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoComboBox({
+                suggest: true,
+                filter: "contains",
                 autoBind: false,
                 dataSource: ItemSeleccionado.ListadoProcesoSoldadura,
                 template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
@@ -538,8 +667,24 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                 }
             }
             );
+        $(".k-combobox").on('mouseleave', function (send) {
+            var e = $.Event("keydown", { keyCode: 27 });
+            var item = this;
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        });
     }
     else
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRelleno", "", "1");
     loadingStop();
+}
+
+function tieneClase(item) {
+    for (var i = 0; i < item.classList.length; i++) {
+        if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
+            return true;
+        }
+    }
+    return false
 }

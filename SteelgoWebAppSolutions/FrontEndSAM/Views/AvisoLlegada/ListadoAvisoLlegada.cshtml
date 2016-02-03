@@ -341,8 +341,7 @@
 
             Client.ValidacionesFolioAvisoLlegada.read({ folio: folioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
                 TienePermiso = data;
-                if (!TienePermiso) {
-                    //debugger;
+                if (!TienePermiso) { 
                     if (confirm("Estas seguro de cancelar el folio de entrada?")) {
                         //aki debe estar el de filtros()
                         var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
