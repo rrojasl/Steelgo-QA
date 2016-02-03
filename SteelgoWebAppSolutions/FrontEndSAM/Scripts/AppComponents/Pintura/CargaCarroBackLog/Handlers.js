@@ -9,13 +9,15 @@ SuscribirEventos();
 function suscribirEventoSubirCarro() {
 
     $('#Guardar, #btnGuardar, #botonGuardar, #Guardar1').click(function (e) { 
-            e.stopPropagation();
-            if ($('#botonGuardar').text() == "Guardar") {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                AjaxSubirSpool(ds._data); 
-            }
-            else if ($('#botonGuardar').text() == "Editar")
-                opcionHabilitarView(false, "FieldSetView")
+        e.stopPropagation();
+        if ($('#botonGuardar').text() == "Guardar") {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            AjaxSubirSpool(ds._data); 
+        }
+        else if ($('#botonGuardar').text() == "Editar"){
+            opcionHabilitarView(false, "FieldSetView")
+        }
+        
     });
 
     $('#btnGuardarYNuevo, #btnGuardarYNuevo1').click(function (e) {
@@ -27,7 +29,7 @@ function suscribirEventoSubirCarro() {
 
 function suscribirEventoCarro() {
     
-    $("#inputCarro").kendoDropDownList({
+    $("#inputCarro").kendoComboBox({
         dataTextField: "NombreMedioTransporte",
         dataValueField: "MedioTransporteID",
         suggest: true,
@@ -37,8 +39,20 @@ function suscribirEventoCarro() {
 
             $('#inputCarro').attr("mediotransporteid", dataItem.MedioTransporteID);
             AjaxCargarSpool();
+        },
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined ) {
+                $('#inputCarro').attr("mediotransporteid", dataItem.MedioTransporteID);
+                AjaxCargarSpool();
+            }
+            else if($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                displayMessage("NoExisteCarro", '', '2');
+            } 
         }
     });
+
+
 }
 
 function opcionHabilitarView(valor, name) {
@@ -49,6 +63,7 @@ function opcionHabilitarView(valor, name) {
         $(".botonDeplegaMenu").attr("disabled", true);
         $("#Guardar").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar').text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid").data('kendoGrid').dataSource.data([]);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -57,3 +72,4 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
+

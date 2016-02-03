@@ -5,8 +5,7 @@ function SuscribirEventos() {
     SuscribirEventoCarro();
     SuscribirEventoAgregar();
     SuscribirEventoGuardar();
-    SuscribirEventoCerrarMedioTransporte();
-    //SuscribirEventoCrearNuevoMedioTransporte();
+    SuscribirEventoCerrarMedioTransporte(); 
     SuscribirEventoClasificacion();
     SuscribirEventoPersistencia();
     SuscribirEventoGuardarCrearMedioTransporte();
@@ -26,34 +25,7 @@ function SuscribirEventoCerrarCrearMedioTransporte() {
 }
 
 function SuscribirEventoPersistencia() {
-    //$('#inputPersistencia').kendoDropDownList({
-    //    dataTextField: "Tipo",
-    //    dataValueField: "TipoPersistenciaID ",
-    //    suggest: true,
-    //    filter: "contains",
-    //    index: 3,
-    //    select: function (e) {
-    //        var dataItem = this.dataItem(e.item.index());
-
-    //        if (dataItem.Tipo.toLowerCase() == "cantidad") {
-    //            $("#divNumeroVeces").show();
-    //        }
-    //        else {
-    //            $("#divNumeroVeces").hide();
-    //        }
-    //    },
-    //    change: function (e) {
-    //        var dataItem = this.dataItem(e.sender.selectedIndex);
-    //        if (dataItem.Tipo.toLowerCase() == "cantidad") {
-    //            $("#divNumeroVeces").show();
-    //        }
-    //        else {
-    //            $("#divNumeroVeces").hide();
-    //        } 
-    //    }
-    //});
-
-    $('#inputPersistencia').kendoComboBox({
+     $('#inputPersistencia').kendoComboBox({
         dataTextField: "Tipo",
         dataValueField: "TipoPersistenciaID ",
         suggest: true,
@@ -91,14 +63,7 @@ function SuscribirEventoPersistencia() {
 }
 
 function SuscribirEventoClasificacion() {
-    //$('#inputClasificacion').kendoDropDownList({
-    //    dataTextField: "NombreClasificacion",
-    //    dataValueField: "ClasificacionPersistenciaID ",
-    //    suggest: true,
-    //    filter: "contains",
-    //    index: 3
-    //});
-
+     
     $('#inputClasificacion').kendoComboBox({
         dataTextField: "NombreClasificacion",
         dataValueField: "ClasificacionPersistenciaID ",
@@ -116,15 +81,11 @@ function SuscribirEventoCerrarMedioTransporte() {
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) { 
-            AjaxAgregarCarga();
-      
+            AjaxAgregarCarga();  
     });
 }
-
-
-
-function SuscribirEventoGuardar() {
-
+ 
+function SuscribirEventoGuardar() { 
     $('#btnGuardarYNuevo,#btnGuardarYNuevo1').click(function (e) {
         ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
         Limpiar();
@@ -261,45 +222,7 @@ function SuscribirEventoChangeRadioTipoListado() {
     });
 }
 
-function SuscribirEventoCarro() {
-    //$('#inputCarro').kendoDropDownList({
-    //    dataTextField: "NombreMedioTransporte",
-    //    dataValueField: "MedioTransporteCargaID ",
-    //    suggest: true,
-    //    filter: "contains",
-    //    index: 3,
-    //    select: function (e) {
-    //        var dataItem = this.dataItem(e.item.index());
-
-    //        $('#inputCarro').attr("mediotransporteid", dataItem.MedioTransporteID);
-    //        if (dataItem.MedioTransporteID == "-1") {
-    //            LimpiarCarro();
-    //            windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
-    //                modal: true,
-    //                // title:,
-    //                resizable: false,
-    //                visible: true,
-    //                width: "auto",
-    //                minWidth: "20%",
-
-    //                position: {
-    //                    top: "1%",
-    //                    left: "1%"
-    //                },
-    //                actions: [
-    //                    "Close"
-    //                ],
-    //            }).data("kendoWindow");
-    //            $("#divNuevoMedioTransporte").data("kendoWindow").title(_dictionary.CrearNuevoCarro[$("#language").data("kendoDropDownList").value()]);
-    //            $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
-    //        }
-    //        else {
-
-    //            AjaxObtenerDetalleCarroCargado(dataItem.MedioTransporteCargaID);
-    //        }
-    //    }
-    //});
-
+function SuscribirEventoCarro() { 
     $('#inputCarro').kendoComboBox({
         dataTextField: "NombreMedioTransporte",
         dataValueField: "MedioTransporteCargaID ",
