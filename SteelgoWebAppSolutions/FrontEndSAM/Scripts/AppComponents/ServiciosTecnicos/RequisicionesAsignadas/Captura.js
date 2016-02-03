@@ -1,6 +1,7 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
+    document.title = _dictionary.RequisicionesAsignadas[$("#language").data("kendoDropDownList").value()];
 };
 
 

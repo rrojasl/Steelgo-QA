@@ -35,6 +35,7 @@ function changeLanguageCall() {
     
     ajaxObtenerProyectos();
     setTimeout(function () { AjaxCargarCamposPredeterminados() }, 1000);
+    document.title = _dictionary.ServiciosTecnicosGenerarRequisicion[$("#language").data("kendoDropDownList").value()];
 };
 
 

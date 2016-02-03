@@ -1,7 +1,7 @@
 ﻿function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
     CargarGrid();
-    
+    document.title = _dictionary.AsignarRequisicion[$("#language").data("kendoDropDownList").value()];
 };
 
 IniciarAsignarRequisicion();

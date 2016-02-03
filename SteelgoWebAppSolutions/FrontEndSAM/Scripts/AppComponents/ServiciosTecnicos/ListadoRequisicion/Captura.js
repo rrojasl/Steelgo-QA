@@ -2,7 +2,7 @@
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
     AjaxObtenerStatus();
-  
+    document.title = _dictionary.ListadodeRequisicion[$("#language").data("kendoDropDownList").value()];
 };
 
 IniciarListaRequisicion();
