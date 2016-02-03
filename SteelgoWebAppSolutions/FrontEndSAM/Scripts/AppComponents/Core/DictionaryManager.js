@@ -3982,8 +3982,8 @@ _dictionary = {
         "en-US": "Delivering Results"
     },
     "menuServiciosTecnicosGenerarRequisicion": {
-        "es-MX": "Requisición",
-        "en-US": "Requisition"
+        "es-MX": "Generar Requisición",
+        "en-US": "Generate Request"
     },
     "menuServiciosTecnicosGenerarImpresion": {
         "es-MX": "Impresion de Resultados",
@@ -4539,7 +4539,7 @@ _dictionary = {
         "en-US": "Requisition"
     },
     "ServiciosTecnicosObservacion": {
-        "es-MX": "Observacion",
+        "es-MX": "Observación",
         "en-US": "Observation"
     },
     "ServiciosTecnicosSpoolID": {
@@ -4867,6 +4867,10 @@ _dictionary = {
         "es-MX": "Asignar Requisición",
         "en-US": "Assign Requisition"
     },
+    "GenerarRequisicionAsignarRequisicion2": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Assign Requisition"
+    },
     "GenerarRequisicionMensajeJuntaAgregada": {
         "es-MX": "Junta agregada",
         "en-US": "Agree Joint"
@@ -4886,7 +4890,7 @@ _dictionary = {
         "en-US": "Date"
     },
     "ListaRequisicionObservacion": {
-        "es-MX": "Observacion",
+        "es-MX": "Observación",
         "en-US": "Observation"
     },
     "ListaRequisicionVerDetalle": {
@@ -4905,6 +4909,10 @@ _dictionary = {
     //#endregion
 
     //#region ListadoRequisicion
+    "ListadodeRequisicion": {
+        "es-MX": "Listado de Requisiciones",
+        "en-US": "List of Requisitions"
+    },
     "CapturaHeaderMostrar": {
         "es-MX": "Mostrar",
         "en-US": "Show"
@@ -4916,6 +4924,14 @@ _dictionary = {
     "CapturaTodos": {
         "es-MX": "Todos",
         "en-US": "All"
+    },
+    "AsignarRequisicionEntregaResultados": {
+        "es-MX": "Entrega de Resultados",
+        "en-US": "Delivering Results"
+    },
+    "AsignarRequisicionEntregaResultados2": {
+        "es-MX": "Entrega de Resultados",
+        "en-US": "Delivering Results"
     },
     "AsignarRequisicionHeaderProveedor": {
         "es-MX": "Proveedor",
