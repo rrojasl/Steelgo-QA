@@ -20,9 +20,7 @@ function RendercomboBoxPintor(container, options) {
         }
         );
 }
-
-
-
+ 
 function RendercomboBoxShotBlastero(container, options) {
     var dataItem;
     $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')

@@ -31,7 +31,7 @@ function suscribirEventoCarro() {
     
     $("#inputCarro").kendoComboBox({
         dataTextField: "NombreMedioTransporte",
-        dataValueField: "MedioTransporteID",
+        dataValueField: "MedioTransporteCargaID",
         suggest: true,
         filter: "contains",
         select: function (e) {

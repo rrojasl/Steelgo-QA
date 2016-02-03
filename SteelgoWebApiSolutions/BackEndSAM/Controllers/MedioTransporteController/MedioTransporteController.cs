@@ -66,7 +66,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
 
         //Guarda la carga
         public object Post(Captura listaCaptura, string token, string lenguaje, int medioTransporteID, int cerrar)
-        {
+        { 
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
@@ -75,7 +75,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCaptura.Detalles);
-                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleCaptura, usuario, lenguaje, medioTransporteID,cerrar);
+                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleCaptura, usuario, lenguaje, medioTransporteID, listaCaptura.Detalles[0].MedioTransporteCargaID,cerrar);
             }
             else
             {
@@ -226,7 +226,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
             {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return MedioTransporteBD.Instance.CierraCarro(usuario, medioTransporte.MedioTransporteID, medioTransporte.CerrarCarro);
+                return MedioTransporteBD.Instance.CierraCarro(usuario, medioTransporte.MedioTransporteID, 0, medioTransporte.CerrarCarro);
             }
             else
             {

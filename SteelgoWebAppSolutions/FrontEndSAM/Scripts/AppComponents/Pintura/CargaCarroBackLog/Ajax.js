@@ -21,9 +21,7 @@ function AjaxPinturaCargaMedioTransporte() {
         loadingStart();
         $("#inputCarro").data("kendoComboBox").value("");
         $("#inputCarro").data("kendoComboBox").dataSource.data(data);
-
-    //    $("#inputCarro").data("kendoComboBox").trigger("change");
-
+         
         loadingStop();
     });
 }
@@ -48,10 +46,11 @@ function AjaxSubirSpool(listaSpool) {
                     Peso: "",
                     Area: ""
                 };
-
+                
                 ListaGuardarDetalles[contSave] = {
                     Accion: 1,
-                    SpoolID: ""
+                    SpoolID: "",
+                    MedioTransporteCargaID: $('#inputCarro').val()
                 };
 
                 ListaDetalles[contSave].Spool = listaSpool[index].SpoolID;

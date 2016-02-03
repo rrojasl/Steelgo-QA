@@ -75,7 +75,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
-        public object CierraCarro(Sam3_Usuario usuario, int medioTransporteID, int cerrar)
+        public object CierraCarro(Sam3_Usuario usuario, int medioTransporteID, int medioTransporteCargaID, int cerrar)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                 {
 
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() }, { "@Cerrar", cerrar.ToString() } };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() }, { "@MedioTransporteCargaID", medioTransporteCargaID.ToString() }, { "@Cerrar", cerrar.ToString() } };
                     _SQL.Ejecuta(Stords.SETCIERRACARRO, parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
@@ -146,7 +146,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
-        public object GuardarMedioTransporte(DataTable dtCarga, Sam3_Usuario usuario, string lenguaje, int medioTransporteID, int cerrar)
+        public object GuardarMedioTransporte(DataTable dtCarga, Sam3_Usuario usuario, string lenguaje, int medioTransporteID, int medioTransporteCargaID, int cerrar)
         {
             try
             {
@@ -159,7 +159,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
 
                     if(cerrar == 0)
                     {
-                        CierraCarro(usuario, medioTransporteID, cerrar);
+                        CierraCarro(usuario, medioTransporteID, medioTransporteCargaID, cerrar);
                     } 
 
                     TransactionalInformation result = new TransactionalInformation();

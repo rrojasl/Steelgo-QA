@@ -34,6 +34,14 @@ _dictionary = {
         "es-MX": "No existe carro",
         "en-US": "No car"
     },
+    "NoExisteCuadrante": {
+        "es-MX": "No existe cuadrante",
+        "en-US": "No quadrant"
+    },
+    "NoExisteComponente": {
+        "es-MX": "No existe componente",
+        "en-US": "No component"
+    },
     "CapturaEliminar": {
         "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"
@@ -6033,7 +6041,7 @@ _dictionary = {
         "en-US": "Primary Date"
     },
     "CapturaAvanceComponente": {
-        "es-MX": "Componenente",
+        "es-MX": "Componente",
         "en-US": "Component"
     },
     "CapturaAvanceGuardadoCorrecto": {
@@ -6052,6 +6060,10 @@ _dictionary = {
     "CapturaAvanceCuadrante": {
         "es-MX": "Cuadrante de descarga",
         "en-US": "Quadrant of discharge"
+    },
+    "PinturaGuardarErrorComponente": {
+        "es-MX": "Seleccione un componente",
+        "en-US": "Select a component"
     },
     //#endregion
 

@@ -29,6 +29,7 @@ namespace BackEndSAM.Models.Pintura.CargaCarroBackLog
     public class SpoolCarga
     {
         public int Spool { get; set; }
+        public int MedioTransporteCargaID { get; set; }
     }
 
     public class CamposPredeterminados

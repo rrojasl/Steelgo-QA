@@ -1,5 +1,5 @@
-﻿var endRangeDate;
-var endRangeDate2;
+﻿var endRangeDateShotblast;
+var endRangeDatePrimario;
 var plantillaShotblastero = "";
 var plantillaPintor = "";
 var currentDataItemGridDownload;
@@ -20,16 +20,38 @@ function changeLanguageCall() {
 
 
 function AltaFecha() {
-    endRangeDate = $("#FechaShotBlast").kendoDatePicker({
+    endRangeDateShotblast = $("#FechaShotBlast").kendoDatePicker({
         max: new Date()
     });
-    endRangeDate2 = $("#Fechaprimario").kendoDatePicker({
+
+    endRangeDateShotblast.on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            PlanchaFechaShotblast();
+        }
+    });
+
+    endRangeDatePrimario = $("#Fechaprimario").kendoDatePicker({
         max: new Date()
+    });
+
+    endRangeDatePrimario.on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            PlanchaFechaPrimario();
+        }
     });
 }
 
 function CargarGrid() {
     $("#grid").kendoGrid({
+        edit: function (e) { 
+            if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            }
+            else {
+                this.closeCell();
+            }
+
+        },
         autoBind: true,
         dataSource: {
             data: [],
@@ -41,7 +63,8 @@ function CargarGrid() {
                         Metros2: { type: "string", editable: false },
                         Peso: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
-                        
+                        FechaShotblast: { type: "date", editable: true },
+                        FechaPrimario: { type: "date", editable: true }
                     }
                 }
             },
@@ -77,6 +100,8 @@ function CargarGrid() {
             { field: "SistemaPintura", title: _dictionary.CapturaAvanceSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Color", title: _dictionary.CapturaAvanceColor[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Metros2", title: _dictionary.CapturaAvanceM2[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FechaShotblast", title: _dictionary.CapturaAvanceFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "FechaPrimario", title: _dictionary.CapturaAvanceFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaShotblasteroGuargado", title: _dictionary.CapturaAvanceShotBlastero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#" },
             { field: "ListaPintorGuargado", title: _dictionary.CapturaAvancePintor[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RendercomboBoxPintor, template: "#:plantillaPintor#" },
              { command: { text: "Descarga", click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
@@ -91,29 +116,28 @@ function CargarGrid() {
 
 function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
+    if ($("#Guardar").text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
+         
+        win = $("#windowDownload").kendoWindow({
+            modal: true,
+            title: "",
+            resizable: false,
+            visible: true,
+            width: "50%",
+            minWidth: 30,
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            actions: [
+                "Close"
+            ],
+        }).data("kendoWindow");
 
-     currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
-
-    var modalTitle = "";
-    modalTitle = _dictionary.CapturaAvanceCuadrante[$("#language").data("kendoDropDownList").value()];
-    
-     win = $("#windowDownload").kendoWindow({
-        modal: true,
-        title: modalTitle,
-        resizable: false,
-        visible: true,
-        width: "50%",
-        minWidth: 30,
-        position: {
-            top: "1%",
-            left: "1%"
-        },
-        actions: [
-            "Close"
-        ],
-    }).data("kendoWindow");
-    
-     $("#windowDownload").data("kendoWindow").center().open();
+        $("#windowDownload").data("kendoWindow").center().open();
+  
+    }
 
 };
 
@@ -163,13 +187,53 @@ function PlancharShotBlastero(arregloCaptura) {
     }
 
     if (dataShotBlast.length > 0) {
-        
+
         for (var i = 0; i < arregloCaptura.length; i++) {
-            
+
             arregloCaptura[i].ListaShotblasteroGuargado = dataShotBlast;
         }
         $("#grid").data("kendoGrid").dataSource.sync();
     }
 
+
+}
+
+function PlanchaFechaShotblast() { 
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].FechaShotblast = String(endRangeDateShotblast.val()).trim();
+        }
+        else {
+            if (data[i].FechaShotblast === "" || data[i].FechaShotblast === null || data[i].FechaShotblast === undefined) {
+                data[i].FechaShotblast = String(endRangeDateShotblast.val()).trim();
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
  
+function PlanchaFechaPrimario() { 
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].FechaPrimario = String(endRangeDatePrimario.val()).trim();
+        }
+        else {
+            if (data[i].FechaPrimario === "" || data[i].FechaPrimario === null || data[i].FechaPrimario === undefined) {
+                data[i].FechaPrimario = String(endRangeDatePrimario.val()).trim();
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 }

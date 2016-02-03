@@ -87,6 +87,7 @@ function SuscribirEventoAgregar() {
  
 function SuscribirEventoGuardar() { 
     $('#btnGuardarYNuevo,#btnGuardarYNuevo1').click(function (e) {
+       
         ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
         Limpiar();
     });

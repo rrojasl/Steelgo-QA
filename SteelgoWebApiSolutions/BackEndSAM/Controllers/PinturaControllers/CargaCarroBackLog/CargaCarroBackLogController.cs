@@ -98,7 +98,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CargaCarroBackLog
                 }
 
                 //return CargaCarroBackLogBD.Instance.InsertarCargaCarroBackLog(dtDetalleSpool, usuario,medioTransporteID,cerrar);
-                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleSpool, usuario, lenguaje, medioTransporteID, cerrar);
+                return MedioTransporteBD.Instance.GuardarMedioTransporte(dtDetalleSpool, usuario, lenguaje, medioTransporteID,listaCapturasRequisicion.ListaDetalles[0].MedioTransporteCargaID, cerrar);
             }
             else
             {

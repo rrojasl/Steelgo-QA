@@ -1,11 +1,20 @@
 ﻿function AjaxCargarCamposPredeterminados() {
 
     loadingStart();
+     
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         var NewDate = kendo.toString(data.FechaShotblast, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
-        endRangeDate.val(NewDate);
+        endRangeDateShotblast.val(NewDate);
         var NewDate2 = kendo.toString(data.FechaPrimario, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
-        endRangeDate2.val(NewDate2);
+        endRangeDatePrimario.val(NewDate2);
+         
+        if (data.Llenado.toLowerCase() == "todos") {
+            $('input#LlenaTodos').attr('checked', true).trigger("change");
+        }
+        else if (data.Llenado.toLowerCase() == "vacios") {
+            $('input#LlenaVacios').attr('checked', true).trigger("change");
+        }
+
         loadingStop();
     });
 }
@@ -13,8 +22,8 @@
 function AjaxCargarCuadrante(area) {
     loadingStart();
     $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), AreaID: area }).done(function (data) {
-        $("#inputCuadrante").data("kendoDropDownList").value("");
-        $("#inputCuadrante").data("kendoDropDownList").dataSource.data(data);
+        $("#inputCuadrante").data("kendoComboBox").value("");
+        $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
         loadingStop();
     });
 }
@@ -22,10 +31,11 @@ function AjaxCargarCuadrante(area) {
 function AjaxCargarCarrosCargados() {
 
     loadingStart();
+     
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) {
-        $("#inputCarro").data("kendoDropDownList").value("");
-        $("#inputCarro").data("kendoDropDownList").setDataSource(data);
-        $("#inputCarro").data("kendoDropDownList").trigger("change");
+        $("#inputCarro").data("kendoComboBox").value("");
+        $("#inputCarro").data("kendoComboBox").setDataSource(data);
+        //$("#inputCarro").data("kendoComboBox").trigger("change");
         loadingStop();
     });
 }
@@ -34,6 +44,7 @@ function AjaxCargarCarrosCargados() {
 function AjaxCargarPintor() {
 
     loadingStart();
+     
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "Pintor" }).done(function (data) {
 
         $("#inputPintor").data("kendoMultiSelect").setDataSource(data);
@@ -45,6 +56,7 @@ function AjaxCargarPintor() {
 function AjaxCargarShotBlastero() {
 
     loadingStart();
+     
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "ShotBlastero" }).done(function (data) {
 
         $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
@@ -63,7 +75,7 @@ function AjaxCargarOrdenTrabajo() {
 
 function AjaxCargarSpool(medioTransporteCargaID) {
     loadingStart();
-
+    debugger;
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -72,8 +84,8 @@ function AjaxCargarSpool(medioTransporteCargaID) {
             ds.add(array[i]);
         }
 
-        $("#inputComponente").data("kendoDropDownList").value("");
-        $("#inputComponente").data("kendoDropDownList").dataSource.data(data.listaComponenteDetalle);
+        $("#inputComponente").data("kendoComboBox").value("");
+        $("#inputComponente").data("kendoComboBox").dataSource.data(data.listaComponenteDetalle);
 
         loadingStop();
     });
@@ -143,7 +155,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
 
     CapturaNuevo[0].ListaPintorGuargado = ListaPintorGuargado;
     CapturaNuevo[0].ListaShotblasteroGuargado = ListaShotblasteroGuargado;
-
+     
     $CapturaAvance.CapturaAvance.create(CapturaNuevo[0], { token: Cookies.get("token"), OrdenTrabajoSpoolID: ordenTrabajoSpoolID, lenguaje: $("#language").val() }).done(function (data) {
 
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -169,7 +181,7 @@ function existeSpool(spool, array) {
     return false;
 }
 
-function AjaxGuardarCarro(arregloCaptura) {
+function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
     Captura = [];
     Captura[0] = { listaDetalleSpool: "" };
     listaDetalleSpool = [];
@@ -187,7 +199,7 @@ function AjaxGuardarCarro(arregloCaptura) {
             ColorPinturaID: "",
             LotePinturaID: "",
             PinturaComponenteComposicionID: "",
-            Fecha: "",
+            Fecha: "", 
             ListaObreros: ""
         };
 
@@ -372,8 +384,12 @@ function AjaxGuardarCarro(arregloCaptura) {
         listaDetalleSpool[contIndice].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
         listaDetalleSpool[contIndice].ColorPinturaID = arregloCaptura[index].ColorPinturaID;
         listaDetalleSpool[contIndice].LotePinturaID = 0;
-        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = $("#inputComponente").data("kendoDropDownList").value();
-        listaDetalleSpool[contIndice].Fecha = $("#FechaShotBlast").val();
+        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = $("#inputComponente").data("kendoComboBox").value();
+         
+        if (arregloCaptura[index].FechaShotblast != null) {
+            listaDetalleSpool[contIndice].Fecha = kendo.toString(arregloCaptura[index].FechaShotblast,
+                String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim(" ", '')
+        }
         listaDetalleSpool[contIndice].ListaObreros = guardarShotblast;
         contIndice++;
 
@@ -387,7 +403,7 @@ function AjaxGuardarCarro(arregloCaptura) {
             ColorPinturaID: "",
             LotePinturaID: "",
             PinturaComponenteComposicionID: "",
-            Fecha: "",
+            Fecha: "", 
             ListaObreros: ""
         };
 
@@ -398,20 +414,29 @@ function AjaxGuardarCarro(arregloCaptura) {
         listaDetalleSpool[contIndice].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
         listaDetalleSpool[contIndice].ColorPinturaID = arregloCaptura[index].ColorPinturaID;
         listaDetalleSpool[contIndice].LotePinturaID = 0;
-        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = $("#inputComponente").data("kendoDropDownList").value();
-        listaDetalleSpool[contIndice].Fecha = $("#Fechaprimario").val();
+        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = $("#inputComponente").data("kendoComboBox").value();
+         
+        if (arregloCaptura[index].FechaPrimario != null) {
+            listaDetalleSpool[contIndice].Fecha = kendo.toString(arregloCaptura[index].FechaPrimario,
+                String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim(" ", '')
+        } 
         listaDetalleSpool[contIndice].ListaObreros = guardarPrimario;
         contIndice++;
 
     }
 
     Captura[0].listaDetalleSpool = listaDetalleSpool;
-
+     
     loadingStart();
-    $CapturaAvance.CapturaAvance.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteCargaID: $("#inputCarro").data("kendoDropDownList").value() }).done(function (data) {
+    $CapturaAvance.CapturaAvance.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteCargaID: $("#inputCarro").data("kendoComboBox").value() }).done(function (data) {
 
-        AjaxCargarSpool($("#inputCarro").data("kendoDropDownList").value());
+        if (!guardarYNuevo) {
+            debugger;
+            AjaxCargarSpool($("#inputCarro").data("kendoComboBox").value());
+            opcionHabilitarView(true, "FieldSetView");
+        } 
         displayMessage("CapturaAvanceGuardadoCorrecto", "", "0");
+        
         loadingStop();
     });
 }
@@ -452,8 +477,9 @@ function ajaxAplicarDescarga(arregloCaptura) {
         Captura[0].Detalles = ListaDetalles;
 
         $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            debugger;
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxCargarSpool($("#inputCarro").data("kendoDropDownList").value());
+                AjaxCargarSpool($("#inputCarro").data("kendoComboBox").value());
                 displayMessage("PinturaGuardarDescarga", "", '1');
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
