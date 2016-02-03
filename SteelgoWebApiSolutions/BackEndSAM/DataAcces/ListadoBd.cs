@@ -1332,7 +1332,7 @@ namespace BackEndSAM.DataAcces
                                                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
                                                                      where roi.Activo && nu.Activo && it.Activo
                                                                      && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                                     && (nu.EstatusDocumental == "" || nu.EstatusFisico == "")
+                                                                     && (nu.EstatusDocumental == null || nu.EstatusDocumental == "" || nu.EstatusFisico == "" || nu.EstatusFisico == null)
                                                                      select nu.NumeroUnicoID).AsParallel().Count().ToString();
                             }
                             else
@@ -1353,7 +1353,7 @@ namespace BackEndSAM.DataAcces
                                                                      where roi.Activo && nu.Activo && it.Activo
                                                                      && roi.OrdenRecepcionID == orden.OrdenRecepcionID
                                                                      && it.TipoMaterialID == tipoMaterialID
-                                                                     && (nu.EstatusDocumental == "" || nu.EstatusFisico == "")
+                                                                     && (nu.EstatusDocumental == null || nu.EstatusDocumental == "" || nu.EstatusFisico == "" || nu.EstatusFisico == null)
                                                                      select nu.NumeroUnicoID).AsParallel().Count().ToString();
                             }
 

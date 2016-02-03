@@ -286,7 +286,7 @@
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro1 = data.nombre;
 
                                 var value = this.value();
-                                if ((!value || this.selectedIndex == -1 || !isNumeric(value)) && value != "") {
+                                if (!isNumeric(value) && value != "") {
                                     displayMessage("notificationslabel0083", "Diametro 1", '1');
                                     this.value("");
                                 }
@@ -416,7 +416,7 @@
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = data.nombre;
 
                                 var value = this.value();
-                                if ((!value || this.selectedIndex == -1 || !isNumeric(value)) && value != "") {
+                                if (!isNumeric(value) && value != "") {
                                     displayMessage("notificationslabel0083", "Diametro 2", '1');
                                     this.value("");
                                 }
