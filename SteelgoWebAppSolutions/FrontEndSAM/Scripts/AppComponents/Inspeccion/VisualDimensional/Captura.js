@@ -313,7 +313,7 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
 }
 function cancelarCaptura(e) {
     e.preventDefault();
-    if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+    if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var spoolIDRegistro = dataItem.SpoolID;
         if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
