@@ -15,7 +15,9 @@ var $GenerarRequisicionModel = {
             visible: "#containerDiv",
         },
         InputID: {
-            visible: "#containerDiv",
+            visible: "#CapturaArmadoHeaderSpoolIDDiv",
+            editable: "#InputID",
+            required: "#InputID",
         },
         Junta: {
             visible: "#containerDiv",
