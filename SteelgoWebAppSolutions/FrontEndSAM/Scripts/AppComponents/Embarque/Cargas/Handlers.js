@@ -49,16 +49,16 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#InputID").data("kendoComboBox").enable(false);
-        $("#inputProveedor").data("kendoDropDownList").enable(false);
-        $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").enable(false);
+        $("#inputProveedor").data("kendoComboBox").enable(false);
+        $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").enable(false);
         $('#botonGuardar').text("Editar");
         $("#DetalleAvisoLlegada0017").text("Editar");
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#InputID").data("kendoComboBox").enable(true);
-        $("#inputProveedor").data("kendoDropDownList").enable(true);
-        $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").enable(true);
+        $("#inputProveedor").data("kendoComboBox").enable(true);
+        $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").enable(true);
         $('#botonGuardar').text("Guardar");
         $("#DetalleAvisoLlegada0017").text("Guardar");
     }
@@ -67,7 +67,7 @@ function opcionHabilitarView(valor, name) {
 function SuscribirEventoActualizarPaquete() {
     $('#btnActualizarPaquetePopUp').click(function (e) {
         //accion=2 es para actualizar paquete
-        AjaxCrearPaquete($("#grid").data("kendoGrid").dataSource._data, 2, $("#inputPopupPaquete").val());
+        AjaxCrearPaquete($("#grid").data("kendoGrid").dataSource._data, 1, $("#inputPopupPaquete").val());
         ventanaAgregarPaquetePopup.close();
     });
 }
@@ -96,17 +96,17 @@ function SuscribirEventoCancelar() {
 }
 
 function SuscribirEventoPopupCuadrante() {
-    $('#inputPopupCuadrante').kendoDropDownList({
+    $('#inputPopupCuadrante').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "CuadranteID",
         suggest: true,
         filter: "contains",
-        index: 3
+        index: 3,
     });
 }
 
 function SuscribirEventoPopupPaquete() {
-    $('#inputPopupPaquete').kendoDropDownList({
+    $('#inputPopupPaquete').kendoComboBox({
         dataTextField: "Folio",
         dataValueField: "EmbarquePaqueteID",
         suggest: true,
@@ -222,7 +222,7 @@ function SuscribirEventoChangeRadioTipoListado() {
 }
 
 function SuscribirEventoProveedor() {
-    $('#inputProveedor').kendoDropDownList({
+    $('#inputProveedor').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "TransportistaID",
         suggest: true,
@@ -236,7 +236,7 @@ function SuscribirEventoProveedor() {
 }
 
 function SuscribirEventoPlacasPlana() {
-    $('#inputEmbarqueCargaPLacaPlana').kendoDropDownList({
+    $('#inputEmbarqueCargaPLacaPlana').kendoComboBox({
         dataTextField: "Placas",
         dataValueField: "VehiculoID",
         suggest: true,
@@ -248,8 +248,6 @@ function SuscribirEventoPlacasPlana() {
         }
     });
     $('#inputEmbarqueCargaPLacaPlana').closest('.k-widget').keydown(function (e) {
-
-        
          if (e.keyCode == 13) {
              ajaxCargarSpoolXPlaca();
         }
@@ -257,7 +255,7 @@ function SuscribirEventoPlacasPlana() {
 }
 
 function SuscribirEventoPaquete() {
-    $('#inputPaquete').kendoDropDownList({
+    $('#inputPaquete').kendoComboBox({
         dataTextField: "Folio",
         dataValueField: "EmbarquePaqueteID",
         suggest: true,

@@ -189,8 +189,7 @@ function AjaxObtenerJSonGrid() {
 }
 
 function AjaxGuardar(jSonCaptura) {
-    loadingStart();
-    //if (ExisteJunta()) {
+    
     Captura = [];
     Captura[0] = { Detalles: "" };
 
@@ -219,40 +218,157 @@ function AjaxGuardar(jSonCaptura) {
         ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion = ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion.trim();
         
     }
-
-    inspeccionDimensional[0] = { Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "" }
-    inspeccionDimensional[0].Lenguaje = $("#language").val();
-    inspeccionDimensional[0].InspeccionDimensionalID = $("#InspeccionDimensionalID").val();
-    inspeccionDimensional[0].OrdenTrabajoSpoolID = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
-    inspeccionDimensional[0].FechaInspeccion = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
-    inspeccionDimensional[0].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
-    inspeccionDimensional[0].ObreroID = $("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()).ObreroID;
-    inspeccionDimensional[0].DefectoID = $("#inputDefecto").data("kendoComboBox").select() == -1 ? null : $("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).DefectoID;
-    inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarInspeccionVisual;
     
+    
+    if ($('input:radio[name=ResultadoDimensional]:checked').val() != undefined) {
+        if ($("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()) != undefined) {
+            
+                inspeccionDimensional[0] = { Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "" }
+                inspeccionDimensional[0].Lenguaje = $("#language").val();
+                inspeccionDimensional[0].InspeccionDimensionalID = $("#InspeccionDimensionalID").val();
+                inspeccionDimensional[0].OrdenTrabajoSpoolID = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
+                inspeccionDimensional[0].FechaInspeccion = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+                inspeccionDimensional[0].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
+                inspeccionDimensional[0].ObreroID = $("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()).ObreroID;
+                inspeccionDimensional[0].DefectoID = $("#inputDefecto").data("kendoComboBox").select() == -1 ? null : $("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).DefectoID;
+                inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarInspeccionVisual;
 
-    Captura[0].Detalles = inspeccionDimensional;
 
-    $Inspeccion.Inspeccion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            mensaje = "Se guardo correctamente la informacion" + "-0";
-            displayMessage("CapturaMensajeGuardadoExitoso", "", '0');
-            AjaxobtenerDetalleDimensional($("#InputID").val());
-            AjaxObtenerJSonGrid();
+                if (validaTaller(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                    if (validaDefectos(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                        if (validaResultado(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                            if (validaInspector(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                                if (validaNumeroUnico1(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                                    if (validaNumeroUnico2(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                                        Captura[0].Detalles = inspeccionDimensional;
+                                        loadingStart();
+                                        $Inspeccion.Inspeccion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+                                            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                                                mensaje = "Se guardo correctamente la informacion" + "-0";
+                                                displayMessage("CapturaMensajeGuardadoExitoso", "", '0');
+                                                AjaxobtenerDetalleDimensional($("#InputID").val());
+                                                AjaxObtenerJSonGrid();
+
+                                            }
+                                            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                                                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                                                displayMessage("CapturaMensajeGuardadoErroneo", "", '2');
+                                                opcionHabilitarView(false, "FieldSetView")
+
+                                            }
+                                            loadingStop();
+
+                                        });        
+                                    }
+                                    else {
+                                        displayMessage("", "El numero unico 2 es requerido", '2');
+                                        opcionHabilitarView(false, "FieldSetView")
+                                    }
+                                }
+                                else {
+                                    displayMessage("", "El numero unico 1 es requerido", '2');
+                                    opcionHabilitarView(false, "FieldSetView")
+                                }
+                            }
+                            else {
+                                displayMessage("", "El inspector es requerido", '2');
+                                opcionHabilitarView(false, "FieldSetView")
+                            }
+                        }
+                        else {
+                            displayMessage("", "El resultado es requerido", '2');
+                            opcionHabilitarView(false, "FieldSetView")
+                        }
+                    }
+                    else {
+                        displayMessage("", "Los defectos son requeridos", '2');
+                        opcionHabilitarView(false, "FieldSetView")
+                    }
+                }
+                else {
+                    displayMessage("", "El taller es requerido", '2');
+                    opcionHabilitarView(false, "FieldSetView")
+                }
             
         }
-        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-            displayMessage("CapturaMensajeGuardadoErroneo", "", '2');
-            opcionHabilitarView(false, "FieldSetView")
-
+        else {
+            displayMessage("", "El inspector es requerido", '2');
+            opcionHabilitarView(false, "FieldSetView");
         }
-        loadingStop();
+    }
+    else {
+        inspeccionDimensional[0] = { Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "" }
+        inspeccionDimensional[0].Lenguaje = $("#language").val();
+        inspeccionDimensional[0].InspeccionDimensionalID = 0;
+        inspeccionDimensional[0].OrdenTrabajoSpoolID = 0;
+        inspeccionDimensional[0].FechaInspeccion = "";
+        inspeccionDimensional[0].ResultadoID = 0;
+        inspeccionDimensional[0].ObreroID = 0;
+        inspeccionDimensional[0].DefectoID = 0;
+        inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarInspeccionVisual;
 
-    });
+        if (validaTaller(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+            if (validaDefectos(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                if (validaResultado(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                    if (validaInspector(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                        if (validaNumeroUnico1(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                            if (validaNumeroUnico2(inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual)) {
+                                Captura[0].Detalles = inspeccionDimensional;
+                                loadingStart();
+                                $Inspeccion.Inspeccion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
-    loadingStop();
+                                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                                        mensaje = "Se guardo correctamente la informacion" + "-0";
+                                        displayMessage("CapturaMensajeGuardadoExitoso", "", '0');
+                                        AjaxobtenerDetalleDimensional($("#InputID").val());
+                                        AjaxObtenerJSonGrid();
+
+                                    }
+                                    else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                                        mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                                        displayMessage("CapturaMensajeGuardadoErroneo", "", '2');
+                                        opcionHabilitarView(false, "FieldSetView")
+
+                                    }
+                                    loadingStop();
+
+                                });        
+                            }
+                            else {
+                                displayMessage("", "El numero unico 2 es requerido", '2');
+                                opcionHabilitarView(false, "FieldSetView")
+                            }
+                        }
+                        else {
+                            displayMessage("", "El numero unico 1 es requerido", '2');
+                            opcionHabilitarView(false, "FieldSetView")
+                        }
+                    }
+                    else {
+                        displayMessage("", "El inspector es requerido", '2');
+                        opcionHabilitarView(false, "FieldSetView")
+                    }
+                }
+                else {
+                    displayMessage("", "El resultado es requerido", '2');
+                    opcionHabilitarView(false, "FieldSetView")
+                }
+            }
+            else {
+                displayMessage("", "Los defectos son requeridos", '2');
+                opcionHabilitarView(false, "FieldSetView")
+            }
+        }
+        else {
+            displayMessage("", "El taller es requerido", '2');
+            opcionHabilitarView(false, "FieldSetView")
+        }
+
+    }
+
+    
 }
 
 
@@ -276,4 +392,59 @@ function ObtenerDato(fecha, tipoDatoObtener) {
                 return fecha.split('/')[1]
             break;
     }
+}
+
+
+function validaTaller(ListaDetalleGuardar) {
+    for (var i = 0; i < ListaDetalleGuardar.length; i++) {
+        if (ListaDetalleGuardar[i].TallerID == null) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validaDefectos(ListaDetalleGuardar) {
+    for (var i = 0; i < ListaDetalleGuardar.length; i++) {
+        if (ListaDetalleGuardar[i].DefectosID == null && ListaDetalleGuardar[i].ResultadoID == 2) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validaResultado(ListaDetalleGuardar) {
+    for (var i = 0; i < ListaDetalleGuardar.length; i++) {
+        if (ListaDetalleGuardar[i].ResultadoID == null) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validaInspector(ListaDetalleGuardar) {
+    for (var i = 0; i < ListaDetalleGuardar.length; i++) {
+        if (ListaDetalleGuardar[i].InspectorID == "") {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validaNumeroUnico1(ListaDetalleGuardar) {
+    for (var i = 0; i < ListaDetalleGuardar.length; i++) {
+        if (ListaDetalleGuardar[i].NumeroUnico1ID == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validaNumeroUnico2(ListaDetalleGuardar) {
+    for (var i = 0; i < ListaDetalleGuardar.length; i++) {
+        if (ListaDetalleGuardar[i].NumeroUnico2ID == 0) {
+            return false;
+        }
+    }
+    return true;
 }

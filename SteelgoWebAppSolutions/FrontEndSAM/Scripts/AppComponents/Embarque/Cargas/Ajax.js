@@ -3,12 +3,12 @@
 
     $Embarque.Embarque.read({ token: Cookies.get("token"), embarquePlanaID: EmbarquePlanaID }).done(function (data) {
         if (data.length > 0) {
-            $("#inputProveedor").data("kendoDropDownList").value("");
-            $("#inputProveedor").data("kendoDropDownList").dataSource.data(data);
-            $("#inputProveedor").data("kendoDropDownList").trigger("change");
+            $("#inputProveedor").data("kendoComboBox").value("");
+            $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+            $("#inputProveedor").data("kendoComboBox").trigger("change");
             AjaxCargarPaquetes();
         } else {
-            $("#inputProveedor").data("kendoDropDownList").value("");
+            $("#inputProveedor").data("kendoComboBox").value("");
         };
         loadingStop();
     });
@@ -19,16 +19,15 @@ function AjaxCargarPlanasPlacas() {
     EmbarquePlanaID = 0;
     $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), transportistaID: $("#inputProveedor").val(), embarquePlanaID: EmbarquePlanaID, lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value("");
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").dataSource.data(data);
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data(data);
             $("#lblEstatus").text(data[0].estatus)
             if (data[0].estatus != "Abierta" && data[0].estatus != "Open") {
                 $('.btnCerrarPlana').css('display', 'none');
             }
         } else {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").text("");
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value("");
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").dataSource.data([]);;
+            
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
         };
         loadingStop();
     });
@@ -39,14 +38,14 @@ function AjaxCargarPaquetes() {
 
     $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), tipo: '1' }).done(function (data) {
         if (data.length > 0) {
-            $("#inputPaquete").data("kendoDropDownList").value("");
-            $("#inputPaquete").data("kendoDropDownList").dataSource.data(data);
+            $("#inputPaquete").data("kendoComboBox").value("");
+            $("#inputPaquete").data("kendoComboBox").dataSource.data(data);
 
-            $("#inputPopupPaquete").data("kendoDropDownList").value("");
-            $("#inputPopupPaquete").data("kendoDropDownList").dataSource.data(data);
+            $("#inputPopupPaquete").data("kendoComboBox").value("");
+            $("#inputPopupPaquete").data("kendoComboBox").dataSource.data(data);
 
         } else {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value("");
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
         };
         loadingStop();
     });
@@ -55,8 +54,8 @@ function AjaxCargarPaquetes() {
 function AjaxCargarCuadrante(area) {
     loadingStart();
     $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), AreaID: area }).done(function (data) {
-        $("#inputPopupCuadrante").data("kendoDropDownList").value("");
-        $("#inputPopupCuadrante").data("kendoDropDownList").dataSource.data(data);
+        $("#inputPopupCuadrante").data("kendoComboBox").value("");
+        $("#inputPopupCuadrante").data("kendoComboBox").dataSource.data(data);
         loadingStop();
     });
 }
@@ -105,35 +104,51 @@ function AjaxAgregarCarga() {
     }
 
     $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), TipoConsulta: ListaDetalles[index].TipoConsulta, OrdenTrabajoSpoolID: ListaDetalles[index].OrdenTrabajoSpoolID, Paquete: ListaDetalles[index].Paquete, Codigo: ListaDetalles[index].Codigo, lenguaje: $("#language").val(), embarquePlanaID: EmbarquePlanaID }).done(function (data) {
-        if (data[0].Mensaje == null) {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            var CantidadRegistrosOriginales = ds._data.length;
-            var array = data;
-            var totalToneladasCargadas = 0;
-            var totalToneladasCargadasGeneral = 0;
-
-
-            for (var i = 0; i < array.length; i++) {
-                if (!validarInformacion(array[i])) {
-                    totalToneladasCargadas += array[i]["Peso"];
-                    array[i]["Consecutivo"] += CantidadRegistrosOriginales;
-                    ds.add(array[i]);
+        var bandera = true;
+        if (ObtenerTipoConsulta() == 1){
+            if (data.length > 0) {
+                if (data[0].EmbarquePaqueteID != 0) {
+                    bandera = false;
                 }
-                else
-                    displayMessage("EmbarqueCargaInformacionExistente", "", '2');
             }
+        }
+        if (bandera) {
+            if (data.length > 0) {
 
-            var piezas = String(ds._data.length);
-            $("#lblEmbarqueCargaTotalPiezas").text(piezas);
+                if (data[0].Mensaje == null) {
+                    var ds = $("#grid").data("kendoGrid").dataSource;
+                    var CantidadRegistrosOriginales = ds._data.length;
+                    var array = data;
+                    var totalToneladasCargadas = 0;
+                    var totalToneladasCargadasGeneral = 0;
 
-            var textoToneladasCargadas = $("#lblEmbarqueCargaToneladasCargadas").text();
-            totalToneladasCargadasGeneral = $("#lblEmbarqueCargaToneladasCargadas").text() == "" ? 0 : parseInt($("#lblEmbarqueCargaToneladasCargadas").text());
-            textoToneladasCargadas = String(parseFloat((totalToneladasCargadasGeneral + totalToneladasCargadas) * 0.001).toFixed(4));
 
-            $("#lblEmbarqueCargaToneladasCargadas").text(textoToneladasCargadas);
+                    for (var i = 0; i < array.length; i++) {
+                        if (!validarInformacion(array[i])) {
+                            totalToneladasCargadas += array[i]["Peso"];
+                            array[i]["Consecutivo"] += CantidadRegistrosOriginales;
+                            ds.add(array[i]);
+                        }
+                        else
+                            displayMessage("EmbarqueCargaInformacionExistente", "", '2');
+                    }
+
+                    var piezas = String(ds._data.length);
+                    $("#lblEmbarqueCargaTotalPiezas").text(piezas);
+
+                    var textoToneladasCargadas = $("#lblEmbarqueCargaToneladasCargadas").text();
+                    totalToneladasCargadasGeneral = $("#lblEmbarqueCargaToneladasCargadas").text() == "" ? 0 : parseInt($("#lblEmbarqueCargaToneladasCargadas").text());
+                    textoToneladasCargadas = String(parseFloat((totalToneladasCargadasGeneral + totalToneladasCargadas) * 0.001).toFixed(4));
+
+                    $("#lblEmbarqueCargaToneladasCargadas").text(textoToneladasCargadas);
+                }
+                else {
+                    displayMessage("", data[0].Mensaje, '2');
+                }
+            }
         }
         else {
-            displayMessage("", data[0].Mensaje, '2');
+            displayMessage("", "El spool ya esta empaquetado en: " + data[0].Paquete, '2');
         }
         loadingStop();
     });
@@ -236,7 +251,7 @@ function ajaxGuardar(arregloCaptura) {
         }
 
         
-        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoDropDownList").dataSource._data[0].EmbarquePlanaID;
+        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].EmbarquePlanaID;
 
         Captura[0].Detalles = ListaDetalles;
         $CargaEmbarque.CargaEmbarque.create(Captura[0], { token: Cookies.get("token"), proveedorID: $("#inputProveedor").val(), vehiculoID: $("#inputEmbarqueCargaPLacaPlana").val(), embarquePlanaID: EmbarquePlanaID }).done(function (data) {
@@ -264,8 +279,8 @@ function ajaxCerrarPlana() {
         CierraPlana = {
             embarquePlanaID: ""
         };
-        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoDropDownList").dataSource._data[0].EmbarquePlanaID;
-        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoDropDownList").dataSource._data[0].estatus;
+        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].EmbarquePlanaID;
+        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].estatus;
         CierraPlana.embarquePlanaID = EmbarquePlanaID;
 
         if (EmbarquePlanaID != 0 && (EstatusPlanaCerrar == "Abierta" || EstatusPlanaCerrar == "Open")) {
@@ -297,7 +312,7 @@ function ajaxCerrarPlana() {
 
 function ajaxCargarSpoolXPlaca() {
     loadingStart();
-    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"),placaID : $("#inputEmbarqueCargaPLacaPlana").data("kendoDropDownList").value(), proveedorID: $("#inputProveedor").data("kendoDropDownList").value(), lenguaje: $("#language").val() }).done(function (data) {
+    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), placaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), proveedorID: $("#inputProveedor").data("kendoComboBox").value(), lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var CantidadRegistrosOriginales = ds._data.length;
