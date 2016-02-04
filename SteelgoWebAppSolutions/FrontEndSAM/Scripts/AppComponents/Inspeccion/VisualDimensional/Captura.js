@@ -313,18 +313,33 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
 }
 function cancelarCaptura(e) {
     e.preventDefault();
-    if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var spoolIDRegistro = dataItem.SpoolID;
-        if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            dataItem.Accion = 3;
-            if (dataItem.InspeccionVisualID == 0)
-                dataSource.remove(dataItem);
-            $("#grid").data("kendoGrid").dataSource.sync();
-
+    if ($("#language").val() == "es-MX") {
+        if ($('#Guardar').text().trim() != "Editar") {
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var spoolIDRegistro = dataItem.SpoolID;
+            if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                dataItem.Accion = 3;
+                if (dataItem.InspeccionVisualID == 0)
+                    dataSource.remove(dataItem);
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
         }
     }
+    else {
+        if ($('#Guardar').text().trim() != "Edit") {
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var spoolIDRegistro = dataItem.SpoolID;
+            if (confirm(_dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()])) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                dataItem.Accion = 3;
+                if (dataItem.InspeccionVisualID == 0)
+                    dataSource.remove(dataItem);
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+        }
+    }
+        
 };
 function PlanchaTaller() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;

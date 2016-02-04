@@ -188,22 +188,44 @@ function cancelarCaptura(e) {
     e.preventDefault();
     var filterValue = $(e.currentTarget).val();
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
+    if ($("#language").val() == "es-MX") {
+        if ($('#Guardar').text().trim() != "Editar") {
 
-        if (confirm(_dictionary.CapturaInspeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            if (confirm(_dictionary.CapturaInspeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-            if (dataItem.Accion == 1)
-                dataSource.remove(dataItem);
-            else
-                dataItem.Accion = 3;
+                if (dataItem.Accion == 1)
+                    dataSource.remove(dataItem);
+                else
+                    dataItem.Accion = 3;
 
 
 
-            $("#grid").data("kendoGrid").dataSource.sync();
+                $("#grid").data("kendoGrid").dataSource.sync();
 
+            }
         }
     }
+    else {
+        if ($('#Guardar').text().trim() != "Edit") {
+
+            if (confirm(_dictionary.CapturaInspeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+
+                if (dataItem.Accion == 1)
+                    dataSource.remove(dataItem);
+                else
+                    dataItem.Accion = 3;
+
+
+
+                $("#grid").data("kendoGrid").dataSource.sync();
+
+            }
+        }
+    }
+
+    
 };
 
 function PlanchaDefecto() {

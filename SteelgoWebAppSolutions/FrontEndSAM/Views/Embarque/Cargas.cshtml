@@ -23,12 +23,12 @@
                 <div class="button-section editButtonSection">
                     <input type="hidden" value=@ViewBag.EmbarquePlanaID id="inputHiddenEmbarquePlanaID" />
                     <div class="btn-group save-group">
-                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
                             <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                         </ul>
                     </div>
@@ -84,13 +84,13 @@
             <div class="btn-group " role="group">
                 <label id="EmbarqueCargaSelecciona"></label>
                 <label id="styleReporte">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
+                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
                 </label>
                 <label id="styleListado">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionPaquete"> </span>
+                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionPaquete"> </span>
                 </label>
                 <label id="styleListado">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueCargaOpcionCodigo"> </span>
+                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueCargaOpcionCodigo"> </span>
                 </label>
             </div>
         </div>
@@ -134,12 +134,12 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
                             <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
