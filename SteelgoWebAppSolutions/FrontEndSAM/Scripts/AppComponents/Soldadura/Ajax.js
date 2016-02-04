@@ -3,8 +3,8 @@ function AjaxJunta(spoolID) {
     loadingStart();
     $CapturasRapidas.CapturasRapidas.read({ id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token"), proceso: 2 }).done(function (data) {
         console.log("fecha nueva" + data.FechaSoldadura);
-        $("#Junta").data("kendoDropDownList").value("");
-        $("#Junta").data("kendoDropDownList").dataSource.data(data)
+        $("#Junta").data("kendoComboBox").value("");
+        $("#Junta").data("kendoComboBox").dataSource.data(data)
         loadingStop();
     });
 }

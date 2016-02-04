@@ -424,7 +424,7 @@ function RenderComboBoxSoldadorTrabajos(container, options) {
             suggest: true,
             filter: "contains",
             autoBind: false,
-            dataSource: ItemSeleccionado.ListadoSoldadoresTrabajos,
+            dataSource: ItemSeleccionado.Raiz,
             template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
             select: function (e) {
             },
@@ -575,7 +575,7 @@ function RenderComboBoxTaller(container, options) {
     loadingStop();
 }
 
-function ObtenerDescCorrectaSoldadorTrabajos(lista, TallerID) {
+function ObtenerDescCorrectaTaller(lista, TallerID) {
     for (var i = 0; i < lista.length; i++) {
         if (lista[i].TallerID == TallerID)
             return lista[i].Nombre;
@@ -632,7 +632,7 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
 
 function ObtenerDescCorrectaSoldaduraRaiz(lista, procesoSoldaduraRaizID) {
     for (var i = 0; i < lista.length; i++) {
-        if (lista[i].Codigo == procesoSoldaduraRaizID)
+        if (lista[i].ProcesoSoldaduraID == procesoSoldaduraRaizID)
             return lista[i].Codigo;
     }
     return "";
