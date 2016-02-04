@@ -13,7 +13,12 @@ function suscribirEventoArea() {
             filter: "contains",
             index: 3,
             change: function (e) {
-                AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
+                if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                    AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
+                }
+                else {
+                    $("#Area").data("kendoComboBox").value("");
+                }
             }
         });
 }
@@ -26,7 +31,13 @@ function suscribirEventoCuadrante() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value());
+            if ($("#Cuadrante").data("kendoComboBox").dataItem($("#Cuadrante").data("kendoComboBox").select()) != undefined) {
+                AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value());
+            }
+            else {
+                $("#Cuadrante").data("kendoComboBox").value("");
+            }
+            
         }
     });
 }
