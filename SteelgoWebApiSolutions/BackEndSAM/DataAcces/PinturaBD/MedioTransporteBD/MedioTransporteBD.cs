@@ -223,14 +223,14 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
-        public object ObtenerMedioTransporteDetalleCargado(string lenguaje, int idMedioTransporteCarga)
+        public object ObtenerMedioTransporteDetalleCargado(string lenguaje, int idMedioTransporteCarga, int statusCarga)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     //
-                    List<Sam3_Pintura_Get_DetalleCarrosCargados_Result> result = ctx.Sam3_Pintura_Get_DetalleCarrosCargados(idMedioTransporteCarga).ToList();
+                    List<Sam3_Pintura_Get_DetalleCarrosCargados_Result> result = ctx.Sam3_Pintura_Get_DetalleCarrosCargados(idMedioTransporteCarga, statusCarga).ToList();
 
                     List<Sam3_Steelgo_Get_Cuadrante_Result> GetlistaCuandrantes = (List<Sam3_Steelgo_Get_Cuadrante_Result>)CuadranteBD.Instance.ObtenerCuadrante(0);
 

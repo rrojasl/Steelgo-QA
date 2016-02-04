@@ -34,8 +34,7 @@ function AjaxCargarCarrosCargados() {
      
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) {
         $("#inputCarro").data("kendoComboBox").value("");
-        $("#inputCarro").data("kendoComboBox").setDataSource(data);
-        //$("#inputCarro").data("kendoComboBox").trigger("change");
+        $("#inputCarro").data("kendoComboBox").setDataSource(data); 
         loadingStop();
     });
 }
@@ -75,7 +74,7 @@ function AjaxCargarOrdenTrabajo() {
 
 function AjaxCargarSpool(medioTransporteCargaID) {
     loadingStart();
-    debugger;
+ 
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;

@@ -89,7 +89,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
 
         }
 
-        public object Get(int idMedioTransporteCarga, string token, string lenguaje)
+        public object Get(int idMedioTransporteCarga, string token, string lenguaje, int statusCarga)
         {
             string payload = "";
             string newToken = "";
@@ -101,7 +101,7 @@ namespace BackEndSAM.Controllers.MedioTransporteController
                 //if (idMedioTransporteCarga == 0)
                 //    return MedioTransporteBD.Instance.ObtenerMedioTransporteCargado(lenguaje);
                 //else
-                return MedioTransporteBD.Instance.ObtenerMedioTransporteDetalleCargado(lenguaje, idMedioTransporteCarga);
+                return MedioTransporteBD.Instance.ObtenerMedioTransporteDetalleCargado(lenguaje, idMedioTransporteCarga, statusCarga);
             }
             else
             {

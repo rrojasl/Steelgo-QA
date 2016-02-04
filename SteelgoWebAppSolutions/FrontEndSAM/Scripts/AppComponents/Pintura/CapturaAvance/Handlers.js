@@ -65,10 +65,8 @@ function opcionHabilitarView(valor, name) {
         $("#botonGuardar3").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
-
-
-function suscribirEventoCuadrante() {
-
+ 
+function suscribirEventoCuadrante() { 
     $("#inputCuadrante").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "CuadranteID",
@@ -88,8 +86,7 @@ function suscribirEventoCuadrante() {
         $("#inputCuadrante").data("kendoComboBox").trigger("change");
     }); 
 }
-
-
+ 
 function suscribirEventoCarro() {
 
     $("#inputCarro").kendoComboBox({

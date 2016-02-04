@@ -5824,8 +5824,8 @@ _dictionary = {
         "en-US": "no information was saved"
     },
     "PinturaBotonCapturaAvance1": {
-        "es-MX": "Captura avance",
-        "en-US": "Capture progress"
+        "es-MX": "Avance",
+        "en-US": "Progress"
     },
     "PinturaBotonCapturaAvance2": {
         "es-MX": "Captura avance",
@@ -5852,7 +5852,7 @@ _dictionary = {
         "en-US": "Paint"
     },
     "PinturaHeaderDescargaCarroPintura": {
-        "es-MX": "Descargar carro",
+        "es-MX": "Descarga de carro",
         "en-US": "Empty cart"
     },
     "PinturaHeaderLotesCapturaReporte": {

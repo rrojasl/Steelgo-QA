@@ -1,30 +1,27 @@
 ﻿function AjaxCargarCuadrante(area) {
     loadingStart();
+    debugger;
     $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), AreaID: area }).done(function (data) {
-        $("#inputCuadrante").data("kendoDropDownList").value("");
-        $("#inputCuadrante").data("kendoDropDownList").dataSource.data(data);
+        $("#inputCuadrante").data("kendoComboBox").value("");
+        $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
         loadingStop();
     });
 }
 
-function AjaxPinturaDescargaMedioTransporte() {
+function AjaxCargarCarrosCargados() {
+
     loadingStart();
-
-    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), idMedioTransporteCarga: 0 }).done(function (data) {
-        if (data.length > 0) {
-            $("#inputCarro").data("kendoDropDownList").value("");
-            $("#inputCarro").data("kendoDropDownList").dataSource.data(data);
-            $("#inputCarro").data("kendoDropDownList").trigger("change");
-        } else {
-            $("#inputCarro").data("kendoDropDownList").value("");
-        };
+    debugger;
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) {
+        $("#inputCarro").data("kendoComboBox").value("");
+        $("#inputCarro").data("kendoComboBox").setDataSource(data); 
         loadingStop();
     });
 }
-
+  
 function ajaxObtenerDetalleMedioTransporteID(MedioTransporteCargaID)
-{
-    $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), idMedioTransporteCarga: MedioTransporteCargaID }).done(function (data) {
+{ 
+    $MedioTransporte.MedioTransporte.read({ idMedioTransporteCarga: MedioTransporteCargaID, token: Cookies.get("token"), lenguaje: $("#language").val(), statusCarga: 1 }).done(function (data) {
         if (data.length > 0) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             var ds = $("#grid").data("kendoGrid").dataSource;

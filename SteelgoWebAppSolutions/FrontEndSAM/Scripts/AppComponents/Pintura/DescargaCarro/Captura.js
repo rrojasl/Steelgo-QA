@@ -5,11 +5,21 @@
 IniciarCapturaPinturaDescarga();
 function IniciarCapturaPinturaDescarga() {
     SuscribirEventos();
-    setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
-    setTimeout(function () { AjaxPinturaDescargaMedioTransporte(); }, 1100);
+    setTimeout(function () { AjaxCargarCuadrante(0); }, 2400); 
+    setTimeout(function () { AjaxCargarCarrosCargados(); }, 1500);
+    
 }
 function CargarGrid() {
     $("#grid").kendoGrid({
+        edit: function (e) {
+            if ($('#botonGuardar2').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            }
+            else {
+                this.closeCell();
+            }
+
+        },
         autoBind: true,
         dataSource: {
 
@@ -59,17 +69,18 @@ function CargarGrid() {
         ]
     });
 }
-
-
+ 
 function eliminarCaptura(e) {
     e.preventDefault();
-    var filterValue = $(e.currentTarget).val();
-    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    debugger;
+    if ($('#botonGuardar2').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var filterValue = $(e.currentTarget).val();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    dataItem.Accion = 3;
-    dataSource.sync();
-
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataItem.Accion = 3;
+        dataSource.sync();
+    }
 }
 
 function PlanchaCuadrante()
@@ -82,7 +93,7 @@ function PlanchaCuadrante()
 
     for (var i = 0; i < data.length; i++) {
         data[i].CuadranteID = $("#inputCuadrante").val();
-        data[i].Cuadrante = $("#inputCuadrante").data("kendoDropDownList").text();
+        data[i].Cuadrante = $("#inputCuadrante").data("kendoComboBox").text();
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }

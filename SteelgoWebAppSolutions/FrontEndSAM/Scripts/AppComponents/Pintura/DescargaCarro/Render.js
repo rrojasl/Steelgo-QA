@@ -1,5 +1,6 @@
 ﻿function RenderComboBoxCuadrante(container, options) {
     var dataItem;
+    debugger;
     $('<input required data-text-field="Nombre" data-value-field="CuadranteID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
