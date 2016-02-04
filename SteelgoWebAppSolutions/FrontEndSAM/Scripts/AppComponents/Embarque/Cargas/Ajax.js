@@ -21,10 +21,7 @@ function AjaxCargarPlanasPlacas() {
         if (data.length > 0) {
             $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
             $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data(data);
-            $("#lblEstatus").text(data[0].estatus)
-            if (data[0].estatus != "Abierta" && data[0].estatus != "Open") {
-                $('.btnCerrarPlana').css('display', 'none');
-            }
+            
         } else {
             
             $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
@@ -261,6 +258,7 @@ function ajaxGuardar(arregloCaptura) {
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                 displayMessage("EmbarqueCargaErrorGuardar", "", '2');
+                opcionHabilitarView(false, "FieldSetView");
             }
             $("#grid").data("kendoGrid").dataSource.sync();
             loadingStop();
@@ -297,7 +295,7 @@ function ajaxCerrarPlana() {
             });
         }
         else {
-            displayMessage("", "La plana debe estar abierta para poder cerrarla", "1");
+            displayMessage("", "", "1");
             loadingStop();
         }
         

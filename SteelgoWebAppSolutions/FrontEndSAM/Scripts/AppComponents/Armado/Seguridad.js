@@ -18,10 +18,12 @@ var $ArmadoModel = {
         InputID: {
             visible: "#InputIDDiv",
             editable: "#InputID",
+            required: "#InputID",
         },
         Junta: {
             visible: "#JuntaDiv",
             editable: "#Junta",
+            required: "#Junta",
         },
         FechaArmado: {
             visible: "#FechaArmadoDiv",

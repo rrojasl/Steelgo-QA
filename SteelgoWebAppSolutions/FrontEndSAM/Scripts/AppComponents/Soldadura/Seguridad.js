@@ -15,10 +15,14 @@ var $SoldaduraModel = {
             visible: "#containerDiv",
         },
         InputID: {
-            visible: "#containerDiv",
+            visible: "#InputIDDiv",
+            editable: "#InputID",
+            required: "#InputID",
         },
         Junta: {
-            visible: "#containerDiv",
+            visible: "#JuntaDiv",
+            editable: "#Junta",
+            required: "#Junta",
         },
         FechaSoldadura: {
             visible: "#AgregadoDiv",

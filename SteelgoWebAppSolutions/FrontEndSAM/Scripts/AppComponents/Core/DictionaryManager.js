@@ -4089,6 +4089,20 @@ _dictionary = {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
     },
+    "EmbarqueCargaMensajeErrorPlana": {
+        "es-MX": "Seleccione una placa",
+        "en-US": "Select license plate"
+    },
+    "EmbarqueCargaMensajeErrorProveedor": {
+        "es-MX": "Seleccione un proveedor",
+        "en-US": "Select a provider"
+    },
+    "EmbarqueCargaMensajeErrorPlanaNoCerrada": {
+        "es-MX": "La plana debe estar abierta para poder cerrarla",
+        "en-US": "The flat must be open to close"
+    },
+    
+
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
@@ -4527,12 +4541,12 @@ _dictionary = {
         "en-US": "Dimensional"
     },
     "DimensionalVisualMensajeErrorNumeroUnico2": {
-        "es-MX": "El numero unico 2 es requerido",
-        "en-US": "The unique number 2 is required"
+        "es-MX": "Falta capturar Numero unico 2",
+        "en-US": "Foul capture only Number 2"
     },
     "DimensionalVisualMensajeErrorNumeroUnico1": {
-        "es-MX": "El numero unico 1 es requerido",
-        "en-US": "The unique number 1 is required"
+        "es-MX": "Falta capturar Numero unico 1",
+        "en-US": "Foul capture only Number 1"
     },
     "DimensionalVisualMensajeErrorInspector": {
         "es-MX": "El inspector es requerido",
