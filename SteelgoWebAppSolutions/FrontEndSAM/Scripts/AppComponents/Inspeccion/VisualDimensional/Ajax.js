@@ -263,38 +263,38 @@ function AjaxGuardar(jSonCaptura) {
                                         });        
                                     }
                                     else {
-                                        displayMessage("", "El numero unico 2 es requerido", '2');
+                                        displayMessage("", "DimensionalVisualMensajeErrorNumeroUnico2", '2');
                                         opcionHabilitarView(false, "FieldSetView")
                                     }
                                 }
                                 else {
-                                    displayMessage("", "El numero unico 1 es requerido", '2');
+                                    displayMessage("", "DimensionalVisualMensajeErrorNumeroUnico2", '2');
                                     opcionHabilitarView(false, "FieldSetView")
                                 }
                             }
                             else {
-                                displayMessage("", "El inspector es requerido", '2');
+                                displayMessage("DimensionalVisualMensajeErrorInspector", "", '2');
                                 opcionHabilitarView(false, "FieldSetView")
                             }
                         }
                         else {
-                            displayMessage("", "El resultado es requerido", '2');
+                            displayMessage("DimensionalVisualMensajeErrorResultado", "", '2');
                             opcionHabilitarView(false, "FieldSetView")
                         }
                     }
                     else {
-                        displayMessage("", "Los defectos son requeridos", '2');
+                        displayMessage("DimensionalVisualMensajeErrorDefectos", "", '2');
                         opcionHabilitarView(false, "FieldSetView")
                     }
                 }
                 else {
-                    displayMessage("", "El taller es requerido", '2');
+                    displayMessage("DimensionalVisualMensajeErrorTaller", "", '2');
                     opcionHabilitarView(false, "FieldSetView")
                 }
             
         }
         else {
-            displayMessage("", "El inspector es requerido", '2');
+            displayMessage("DimensionalVisualMensajeErrorInspector", "", '2');
             opcionHabilitarView(false, "FieldSetView");
         }
     }
@@ -337,32 +337,32 @@ function AjaxGuardar(jSonCaptura) {
                                 });        
                             }
                             else {
-                                displayMessage("", "El numero unico 2 es requerido", '2');
+                                displayMessage("", "DimensionalVisualMensajeErrorNumeroUnico2", '2');
                                 opcionHabilitarView(false, "FieldSetView")
                             }
                         }
                         else {
-                            displayMessage("", "El numero unico 1 es requerido", '2');
+                            displayMessage("", "DimensionalVisualMensajeErrorNumeroUnico2", '2');
                             opcionHabilitarView(false, "FieldSetView")
                         }
                     }
                     else {
-                        displayMessage("", "El inspector es requerido", '2');
+                        displayMessage("DimensionalVisualMensajeErrorInspector", "", '2');
                         opcionHabilitarView(false, "FieldSetView")
                     }
                 }
                 else {
-                    displayMessage("", "El resultado es requerido", '2');
+                    displayMessage("DimensionalVisualMensajeErrorResultado", "", '2');
                     opcionHabilitarView(false, "FieldSetView")
                 }
             }
             else {
-                displayMessage("", "Los defectos son requeridos", '2');
+                displayMessage("DimensionalVisualMensajeErrorDefectos", "", '2');
                 opcionHabilitarView(false, "FieldSetView")
             }
         }
         else {
-            displayMessage("", "El taller es requerido", '2');
+            displayMessage("DimensionalVisualMensajeErrorTaller", "", '2');
             opcionHabilitarView(false, "FieldSetView")
         }
 

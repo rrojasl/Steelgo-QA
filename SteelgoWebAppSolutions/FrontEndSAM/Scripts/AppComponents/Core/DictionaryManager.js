@@ -4522,6 +4522,30 @@ _dictionary = {
         "es-MX": "Dimensional",
         "en-US": "Dimensional"
     },
+    "DimensionalVisualMensajeErrorNumeroUnico2": {
+        "es-MX": "El numero unico 2 es requerido",
+        "en-US": "The unique number 2 is required"
+    },
+    "DimensionalVisualMensajeErrorNumeroUnico1": {
+        "es-MX": "El numero unico 1 es requerido",
+        "en-US": "The unique number 1 is required"
+    },
+    "DimensionalVisualMensajeErrorInspector": {
+        "es-MX": "El inspector es requerido",
+        "en-US": "The inspector is required"
+    },
+    "DimensionalVisualMensajeErrorResultado": {
+        "es-MX": "El resultado es requerido",
+        "en-US": "The result is required"
+    },
+    "DimensionalVisualMensajeErrorDefectos": {
+        "es-MX": "Los defectos son requeridos",
+        "en-US": "The defects are required"
+    },
+    "DimensionalVisualMensajeErrorTaller": {
+        "es-MX": "El taller es requerido",
+        "en-US": "The workshop is required"
+    },
 
     //#endregion
 
