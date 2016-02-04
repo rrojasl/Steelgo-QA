@@ -4526,6 +4526,11 @@ _dictionary = {
     //#endregion
 
     //#region ServiciosTecnicos
+    "ServiciosTecnicosHeader": {
+        "es-MX": "Servicios Técnicos",
+        "en-US": "Technical Services"
+    },
+
     "ServiciosTecnicosTipoPrueba": {
         "es-MX": "Tipo Prueba",
         "en-US": "Test Type"
@@ -5385,6 +5390,10 @@ _dictionary = {
     },
     //#endregion
     //#region CapturaReportePruebas
+    "CapturaReporteHeader": {
+        "es-MX": "Captura Reporte",
+        "en-US": "Report Capture"
+    },
     "CapturaReportePruebasHeaderSpoolJunta": {
         "es-MX": "Spool-Junta",
         "en-US": "Spool-Joint"
@@ -5828,8 +5837,8 @@ _dictionary = {
         "en-US": "Progress"
     },
     "PinturaBotonCapturaAvance2": {
-        "es-MX": "Captura avance",
-        "en-US": "Capture progress"
+        "es-MX": "Avance",
+        "en-US": "Progress"
     },
     "PinturaBotonCerrarCarro1": {
         "es-MX": "Cerrar carro",
@@ -5852,7 +5861,7 @@ _dictionary = {
         "en-US": "Paint"
     },
     "PinturaHeaderDescargaCarroPintura": {
-        "es-MX": "Descarga de carro",
+        "es-MX": "Descargar carro",
         "en-US": "Empty cart"
     },
     "PinturaHeaderLotesCapturaReporte": {
