@@ -298,6 +298,7 @@ function AddRow(idTable) {
 }
 
 function cancelarCaptura(e) {
+    e.preventDefault();
     if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         e.preventDefault();

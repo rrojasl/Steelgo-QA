@@ -109,7 +109,7 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
                 ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
             }
 
-            ListaDetalles[index].ListaDetalleTrabajoAdicional = arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 1 && arregloCaptura[index].ListaDetalleTrabajoAdicional[0].Accion == 3 ? undefined : ListaTrabajosAdicionalesEditados;
+            ListaDetalles[index].ListaDetalleTrabajoAdicional = arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0 ? undefined : ListaTrabajosAdicionalesEditados;
             if (
 
            ListaDetalles[index].IdVal != "" &&
