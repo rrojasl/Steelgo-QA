@@ -46,6 +46,10 @@ _dictionary = {
         "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"
     },
+    "mensajeEliminarInspeccionVisualDimensional":{
+ "es-MX": "Estas seguro de eliminar la informacion?",
+        "en-US": "do you want delete the row?"
+    },
     "RequisicionesAsignadas": {
         "es-MX": "Requisiciones Asignadas",
         "en-US": "Assigned Request"

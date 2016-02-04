@@ -52,6 +52,11 @@ function CrearPopup() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+            if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                this.closeCell();
+            }
+        },
         dataSource: {
             schema: {
                 model: {
@@ -118,34 +123,47 @@ function CargarGrid() {
     });
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
-        var grid = $("#grid").data("kendoGrid"),
+        if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
+            var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-        dataItem.set("Seleccionado", this.checked);
-        if (this.checked) {
-            dataItem.Seleccionado = true;
+            dataItem.set("Seleccionado", this.checked);
+            if (this.checked) {
+                dataItem.Seleccionado = true;
+            }
+            else {
+                dataItem.Seleccionado = false;
+            }
+
+            grid.dataSource.sync();
         }
         else {
-            dataItem.Seleccionado = false;
+            var grid = $("#grid").data("kendoGrid");
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+            grid.dataSource.sync();
         }
-            
-        grid.dataSource.sync();
+        
     });
 };
 
 function eliminarCaptura(e) {
     e.preventDefault();
+    if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
+        dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-    dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        if ($('#botonGuardar').text() == "Guardar") {
+            ventanaPopup.open().center();
+        }
 
-    if ($('#botonGuardar').text() == "Guardar") {
-        ventanaPopup.open().center();
+        var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
+        cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteID);
+        $("#inputPopupPaqueteID").text(dataItemSeleccionadoPopup.EmbarquePaqueteID);
+        $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
     }
-
-    var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoDropDownList");
-    cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteID);
-    $("#inputPopupPaqueteID").text(dataItemSeleccionadoPopup.EmbarquePaqueteID);
-    $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
-
 }
 
 function validarInformacion(row) {
