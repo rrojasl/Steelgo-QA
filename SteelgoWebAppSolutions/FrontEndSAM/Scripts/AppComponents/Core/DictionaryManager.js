@@ -5373,7 +5373,7 @@ _dictionary = {
     },
     "EmbarqueBotonRevisionEmbarque": {
         "es-MX": "Revisión Embarque",
-        "en-US": "Boarding review"
+        "en-US": "Shipping review"
     },
     "EmbarqueBotonRevisionEmbarque2": {
         "es-MX": "Revisión Embarque",
@@ -6420,6 +6420,10 @@ _dictionary = {
     "ListadoEmbarqueMensajeFaltaFolioAduana": {
         "es-MX": "Falta el folio de aprobacion de aduana",
         "en-US": "Missing customs approval Folio"
+    },
+    "ListadoEmbarqueMensajeErrorFormatoFecha": {
+        "es-MX": "La fecha no tiene el formato correcto",
+        "en-US": "The date does not have the correct format"
     },
     "ListadoEmbarqueMensajeFaltaSolicitudPermisos": {
         "es-MX": "Falta el folio de solicitud de permisos",

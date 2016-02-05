@@ -198,9 +198,6 @@ function cancelarCaptura(e) {
                     dataSource.remove(dataItem);
                 else
                     dataItem.Accion = 3;
-
-
-
                 $("#grid").data("kendoGrid").dataSource.sync();
 
             }
@@ -216,8 +213,6 @@ function cancelarCaptura(e) {
                     dataSource.remove(dataItem);
                 else
                     dataItem.Accion = 3;
-
-
 
                 $("#grid").data("kendoGrid").dataSource.sync();
 

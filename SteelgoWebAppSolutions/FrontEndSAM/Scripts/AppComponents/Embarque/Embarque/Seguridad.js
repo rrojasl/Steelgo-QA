@@ -12,16 +12,23 @@ var $EmbarqueModel = {
     properties: {
 
         Proveedor: {
-            visible: "#containerDiv",
+            visible: "#ProveedorDiv",
+            editable: "#Proveedor",
+            required: "#Proveedor"
         },
         Tracto: {
-            visible: "#containerDiv",
+            visible: "#TractoDiv",
+            editable: "#Tracto",
+            required: "#Tracto"
         },
         Chofer: {
-            visible: "#containerDiv",
+            visible: "#ChoferDiv",
+            editable: "#Chofer",
+            required: "#Chofer"
         },
         Plana: {
-            visible: "#containerDiv",
+            visible: "#PlanaDiv",
+            editable: "#Plana",
         }
     }
 };

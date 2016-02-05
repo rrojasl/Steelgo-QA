@@ -118,16 +118,18 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
                     displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
-                    opcionHabilitarView(true, "FieldSetView");
+                    opcionHabilitarView(false, "FieldSetView");
                 }
             });
         }
         else {
             displayMessage("EmbarqueMarcadoMensajeCapturarCinta", "", "1");
+            opcionHabilitarView(false, "FieldSetView");
         }
     }
     else {
         displayMessage("EmbarqueMarcadoMensajeNoHayRegistrosGuardar", "", "1");
+        opcionHabilitarView(false, "FieldSetView");
     }
     
     

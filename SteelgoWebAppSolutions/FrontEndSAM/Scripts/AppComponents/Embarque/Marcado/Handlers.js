@@ -15,14 +15,25 @@ function suscribirEventoCambioImpreso(){
         if ($('.radioBtnImpreso')[0].checked) {
             if ($("#Area").val() != "") {
                 if ($("#Cuadrante").val() != "") {
-                    AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                    if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                    }
+                    else {
+                        $("#Area").data("kendoComboBox").value("");
+                    }
+                    
                 }  
             }
         }
         else if ($('.radioBtnImpreso')[1].checked) {
             if ($("#Area").val() != "") {
                 if ($("#Cuadrante").val() != "") {
-                    AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                    if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                    }
+                    else {
+                        $("#Area").data("kendoComboBox").value("");
+                    }
                 }
             }
         }
@@ -37,7 +48,13 @@ function suscribirEventoArea() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
+            if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
+            }
+            else {
+                $("#Area").data("kendoComboBox").value("");
+            }
+            
         }
     });
 }
@@ -50,7 +67,13 @@ function suscribirEventoCuadrante() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+            if ($("#Cuadrante").data("kendoComboBox").dataItem($("#Cuadrante").data("kendoComboBox").select()) != undefined) {
+                AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+            }
+            else {
+                $("#Cuadrante").data("kendoComboBox").value("");
+            }
+            
         }
     });
 }

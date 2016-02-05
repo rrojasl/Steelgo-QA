@@ -37,9 +37,9 @@ namespace BackEndSAM.Controllers
                         FolioAprobadoCliente = item.AprobadoCliente,
                         FolioSolicitarPermisos = item.SolicitarPermisos,
                         Plana = item.Plana,
-                        RequierePermisoAduana = item.RequierePermisoAduana == null ? false : bool.Parse(item.RequierePermisoAduana.ToString()),
-                        NombreProyecto = item.Nombre == null ? "" : item.Nombre,
-                        ProyectoID = item.ProyectoID == null ? 0 : int.Parse(item.ProyectoID.ToString())
+                        RequierePermisoAduana = item.RequierePermisoAduana,
+                        NombreProyecto = item.Nombre ,
+                        ProyectoID = item.ProyectoID 
                     };
                     result.Add(elemento);
                 }
@@ -100,6 +100,8 @@ namespace BackEndSAM.Controllers
             string payload = "";
             string newToken = "";
 
+            captura.Lista[0].FolioAprobadoAduana = captura.Lista[0].FolioAprobadoAduana == null ? "" : captura.Lista[0].FolioAprobadoAduana;
+            captura.Lista[0].FolioSolicitarPermisos = captura.Lista[0].FolioSolicitarPermisos == null ? "" : captura.Lista[0].FolioSolicitarPermisos;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)

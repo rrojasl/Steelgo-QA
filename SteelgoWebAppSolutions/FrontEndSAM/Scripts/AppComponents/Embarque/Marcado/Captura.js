@@ -5,6 +5,9 @@
     AjaxCargarArea();
     AjaxCampoPredeterminadoImpreso();
     document.title = _dictionary.lblMarcado[$("#language").data("kendoDropDownList").value()];
+    $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    opcionHabilitarView(false, "FieldSetView")
 };
 
 
@@ -37,7 +40,13 @@ function CargarGrid() {
 
 
      $("#grid").kendoGrid({
-        autoBind: true,
+         autoBind: true,
+         edit: function (e) {
+             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                 this.closeCell();
+             }
+
+         },
         dataSource: {
             data: [],
             schema: {
@@ -101,29 +110,101 @@ function CargarGrid() {
 
 
      $("#grid .k-grid-content").on("change", "input.chk-conCinta", function (e) {
-         var grid = $("#grid").data("kendoGrid"),
-         dataItem = grid.dataItem($(e.target).closest("tr"));
-         if ($(this)[0].checked) {
-             dataItem.ConCinta = true;
+         if ($("#language").val() == "es-MX") {
+             if ($('#Guardar').text() != "Editar") {
+                 var grid = $("#grid").data("kendoGrid")
+                 dataItem = grid.dataItem($(e.target).closest("tr"));
+                 if ($(this)[0].checked) {
+                     dataItem.ConCinta = true;
+                 }
+                 else {
+                     dataItem.ConCinta = false;
+                     dataItem.ColorCintaID = 0;
+                     dataItem.ColorCinta = "";
+                 }
+                 $("#grid").data("kendoGrid").dataSource.sync();
+             }
+             else {
+                 if ($(this)[0].checked) {
+                     $(this)[0].checked = false;
+                 }
+                 else {
+                     $(this)[0].checked = true;
+                 }
+             }
          }
          else {
-             dataItem.ConCinta = false;
-             dataItem.ColorCintaID = 0;
-             dataItem.ColorCinta = "";
+             if ($('#Guardar').text() != "Edit") {
+                 var grid = $("#grid").data("kendoGrid")
+                 dataItem = grid.dataItem($(e.target).closest("tr"));
+                 if ($(this)[0].checked) {
+                     dataItem.ConCinta = true;
+                 }
+                 else {
+                     dataItem.ConCinta = false;
+                     dataItem.ColorCintaID = 0;
+                     dataItem.ColorCinta = "";
+                 }
+                 $("#grid").data("kendoGrid").dataSource.sync();
+             }
+             else {
+                 if ($(this)[0].checked) {
+                     $(this)[0].checked = false;
+                 }
+                 else {
+                     $(this)[0].checked = true;
+                 }
+             }
          }
-         $("#grid").data("kendoGrid").dataSource.sync();
      });
 
      $("#grid .k-grid-content").on("change", "input.chk-etiquetado", function (e) {
-         var grid = $("#grid").data("kendoGrid"),
-         dataItem = grid.dataItem($(e.target).closest("tr"));
-         if ($(this)[0].checked) {
-             dataItem.Etiquetado = true;
+         
+         if ($("#language").val() == "es-MX") {
+             if ($('#Guardar').text() != "Editar") {
+                 var grid = $("#grid").data("kendoGrid");
+                 dataItem = grid.dataItem($(e.target).closest("tr"));
+                 if ($(this)[0].checked) {
+                     dataItem.Etiquetado = true;
+                 }
+                 else {
+                     dataItem.Etiquetado = false;
+                 }
+                 $("#grid").data("kendoGrid").dataSource.sync();
+             }
+             else {
+                 
+                 if ($(this)[0].checked) {
+                     $(this)[0].checked = false;
+                 }
+                 else {
+                     $(this)[0].checked = true;
+                 }
+             }
          }
          else {
-             dataItem.Etiquetado = false;
+             if ($('#Guardar').text() != "Edit") {
+                 var grid = $("#grid").data("kendoGrid");
+                 dataItem = grid.dataItem($(e.target).closest("tr"));
+                 if ($(this)[0].checked) {
+                     dataItem.Etiquetado = true;
+                 }
+                 else {
+                     dataItem.Etiquetado = false;
+                 }
+                 $("#grid").data("kendoGrid").dataSource.sync();
+             }
+             else {
+                 var grid = $("#grid").data("kendoGrid");
+                 dataItem = grid.dataItem($(e.target).closest("tr"));
+                 if ($(this)[0].checked) {
+                     $(this)[0].checked = false;
+                 }
+                 else {
+                     $(this)[0].checked = true;
+                 }
+             }
          }
-         $("#grid").data("kendoGrid").dataSource.sync();
      });
 };
 

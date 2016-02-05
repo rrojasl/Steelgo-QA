@@ -55,19 +55,40 @@ function CargarGrid() {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                      click: function (e) {
                          e.preventDefault();
-                         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                         var dataSource = this.dataSource;
-                         
-                             if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
+                         if ($("#language").val() == "es-MX") {
+                             if ($('#Guardar').text().trim() != "Editar") {
+                                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                                 var dataSource = this.dataSource;
 
-                                 if (dataItem.Accion == 0) {
-                                     dataItem.Accion = 2;
+                                 if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
+
+                                     if (dataItem.Accion == 0) {
+                                         dataItem.Accion = 2;
+                                     }
+                                     else {
+                                         dataSource.remove(dataItem);
+                                     }
                                  }
-                                 else {
-                                     dataSource.remove(dataItem);
-                                 }
+                                 dataSource.sync();
                              }
-                        dataSource.sync();
+                         }
+                         else {
+                             if ($('#Guardar').text().trim() != "Edit") {
+                                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                                 var dataSource = this.dataSource;
+
+                                 if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
+
+                                     if (dataItem.Accion == 0) {
+                                         dataItem.Accion = 2;
+                                     }
+                                     else {
+                                         dataSource.remove(dataItem);
+                                     }
+                                 }
+                                 dataSource.sync();
+                             }
+                         }
                      }
                  },
                  title: "",

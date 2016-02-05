@@ -8,6 +8,9 @@ function changeLanguageCall() {
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
     document.title = _dictionary.lblCargas[$("#language").data("kendoDropDownList").value()];
+    $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    opcionHabilitarView(false, "FieldSetView")
 };
 
 if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val()!="0") {

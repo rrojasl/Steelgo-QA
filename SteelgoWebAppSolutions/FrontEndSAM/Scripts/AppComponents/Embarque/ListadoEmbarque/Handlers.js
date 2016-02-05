@@ -30,10 +30,13 @@ function suscribirEventoModal() {
         var grid = $("#grid").data("kendoGrid"),
         dataItem = grid.dataItem($(e.target).closest("tr"));
         if (dataItem.Estatus != "Enviada" && dataItem.Estatus != "sent") {
-            if (!dataItem.RequierePermisoAduana) {
-                if (dataItem.FolioAprobadoCliente != "") {
-                    if (dataItem.FolioSolicitarPermisos != "") {
-                        if (dataItem.FolioAprobadoAduana!= "") {
+            if (dataItem.FolioAprobadoCliente != "" ) {
+                if (dataItem.FolioSolicitarPermisos != "" || dataItem.RequierePermisoAduana == 0) {
+                    if (dataItem.FolioAprobadoAduana != "" || dataItem.RequierePermisoAduana == 0) {
+                        if (dataItem.RequierePermisoAduana == 0) {
+                            dataItem.FolioSolicitarPermisos = "";
+                            dataItem.FolioAprobadoAduana = "";
+                        }
                             VentanaModalFecha(dataItem);
                         }
                         else {
@@ -47,10 +50,6 @@ function suscribirEventoModal() {
                 else {
                     displayMessage("ListadoEmbarqueMensajeFaltaFolioCliente", "", "1");
                 }
-            }
-            else {
-                displayMessage("ListadoEmbarqueMensajeRequierePermisoAduana", "", "1");
-            }
         }
         else {
             displayMessage("ListadoEmbarqueMensajePlanaEnviada", "", "1");
@@ -116,7 +115,7 @@ function suscribirEventoEnviarEmbarque() {
             $("#windowFecha").data("kendoWindow").close();
         }
         else{
-            displayMessage("", "La fecha no tiene el formato correcto", "1");
+            displayMessage("", "", "1");
         }
     });
 }
