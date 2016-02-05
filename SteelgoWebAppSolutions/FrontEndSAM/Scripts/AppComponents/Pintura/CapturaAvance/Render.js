@@ -14,7 +14,7 @@ function RendercomboBoxPintor(container, options) {
             },
             change: function (e) {
                 
-                options.model.plantillaPintor = this._values.toString();
+                options.model.plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaPintorGuargado.length;
                 
             }
         }
@@ -35,9 +35,8 @@ function RendercomboBoxShotBlastero(container, options) {
                 dataItem = this.dataItem(e.item.index());
 
             },
-            change: function (e) {
-                
-                options.model.plantillaShotblastero = this._values.toString();
+            change: function (e) { 
+                options.model.plantillaShotblastero = _dictionary.CargaCarroPintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaShotblasteroGuargado.length;
             }
         });
 }

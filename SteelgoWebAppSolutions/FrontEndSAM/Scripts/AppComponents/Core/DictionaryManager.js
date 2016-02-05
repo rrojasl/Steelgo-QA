@@ -5910,6 +5910,7 @@ _dictionary = {
         "es-MX": "Lotes Captura Reporte",
         "en-US": "Batch Capture Report"
     },
+
     //#endregion
 
     //#region PinturaCargaBackLog
@@ -6111,6 +6112,15 @@ _dictionary = {
     "CapturaAvanceCuadrante": {
         "es-MX": "Cuadrante de descarga",
         "en-US": "Quadrant of discharge"
+    },
+
+    "CapturaAvancePintoresShotblastExistentes": {
+        "es-MX": "Pintores shotblast existentes:",
+        "en-US": "Existing shotblast painters:"
+    },
+    "CapturaAvancePintoresPrimariosExistentes": {
+        "es-MX": "Pintores primarios existentes:",
+        "en-US": "Existing primary painters:"
     },
     "PinturaGuardarErrorComponente": {
         "es-MX": "Seleccione un componente",

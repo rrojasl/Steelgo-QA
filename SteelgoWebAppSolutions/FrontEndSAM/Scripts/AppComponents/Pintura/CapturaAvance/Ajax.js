@@ -79,7 +79,10 @@ function AjaxCargarSpool(medioTransporteCargaID) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data.listaCapturaAvance;
+  
         for (var i = 0; i < array.length; i++) {
+            array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
+            array[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaPintorGuargado.length;
             ds.add(array[i]);
         }
 
@@ -475,8 +478,7 @@ function ajaxAplicarDescarga(arregloCaptura) {
         ListaDetalles[index].CuadranteID = $("#inputCuadrante").val();
         Captura[0].Detalles = ListaDetalles;
 
-        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            debugger;
+        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) { 
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 AjaxCargarSpool($("#inputCarro").data("kendoComboBox").value());
                 displayMessage("PinturaGuardarDescarga", "", '1');
