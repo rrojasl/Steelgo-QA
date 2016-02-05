@@ -305,7 +305,7 @@ function ajaxGuardar(arregloCaptura) {
 
 
             for (index = 0; index < arregloCaptura.length; index++) {
-                ListaDetalles[index] = { SpoolID: "", Accion: "" };
+                ListaDetalles[index] = { SpoolID: "", MedioTransporteCargaID: $("#inputCarro").val(), Accion: "" };
                 ListaDetalles[index].Accion = arregloCaptura[index].Accion;
                 ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
             }

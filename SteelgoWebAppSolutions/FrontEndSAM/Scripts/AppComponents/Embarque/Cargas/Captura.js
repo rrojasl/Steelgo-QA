@@ -15,7 +15,7 @@ if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePla
 }
 else {
     EmbarquePlanaID = 0;
-    //$('#btnEmbarqueCerrarPlana').attr("disabled", true);
+    
 }
 
 IniciarCapturaEmbarqueCarga();
@@ -123,29 +123,57 @@ function CargarGrid() {
     });
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
-        if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
-            var grid = $("#grid").data("kendoGrid");
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-            dataItem.set("Seleccionado", this.checked);
-            if (this.checked) {
-                dataItem.Seleccionado = true;
+        if ($("#language").val() == "es-MX") {
+            if ($('#Guardar').text() != "Editar") {
+                var grid = $("#grid").data("kendoGrid");
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                dataItem.set("Seleccionado", this.checked);
+                if (this.checked) {
+                    dataItem.Seleccionado = true;
+                }
+                else {
+                    dataItem.Seleccionado = false;
+                }
+
+                grid.dataSource.sync();
             }
             else {
-                dataItem.Seleccionado = false;
+                var grid = $("#grid").data("kendoGrid");
+                if (this.checked) {
+                    e.target.checked = false;
+                }
+                else {
+                    e.target.checked = true;
+                }
+                grid.dataSource.sync();
             }
-
-            grid.dataSource.sync();
         }
         else {
-            var grid = $("#grid").data("kendoGrid");
-            if (this.checked) {
-                this.checked = false;
+            if ($('#Guardar').text() != "Edit") {
+                var grid = $("#grid").data("kendoGrid");
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                dataItem.set("Seleccionado", this.checked);
+                if (this.checked) {
+                    dataItem.Seleccionado = true;
+                }
+                else {
+                    dataItem.Seleccionado = false;
+                }
+
+                grid.dataSource.sync();
             }
             else {
-                this.checked = true;
+                var grid = $("#grid").data("kendoGrid");
+                if (this.checked) {
+                    e.ta.checked = false;
+                }
+                else {
+                    this.checked = true;
+                }
+                grid.dataSource.sync();
             }
-            grid.dataSource.sync();
         }
+        
         
     });
 };

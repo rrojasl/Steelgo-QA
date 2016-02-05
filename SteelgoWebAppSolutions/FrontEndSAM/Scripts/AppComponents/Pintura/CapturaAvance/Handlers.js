@@ -97,7 +97,7 @@ function suscribirEventoCarro() {
         change: function (e) { 
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-                 
+                debugger;
                 AjaxCargarSpool(dataItem.MedioTransporteID);
                 $("#inputCarro").focusout();
             }
@@ -108,9 +108,9 @@ function suscribirEventoCarro() {
         }
     });
 
-    $("#inputCarro").blur(function () {
-        $("#inputCarro").data("kendoComboBox").trigger("change");
-    });
+    //$("#inputCarro").blur(function () {
+    //    $("#inputCarro").data("kendoComboBox").trigger("change");
+    //});
 }
 
 function suscribirEventoComponente() {
@@ -149,6 +149,7 @@ function suscribirEventoPintor() {
     $('#inputPintor').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
+                debugger;
                 PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
             }
         }

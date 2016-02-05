@@ -100,7 +100,7 @@ function PlanchaPintor(detallePintoresSeleccionados, pintoresSeleccionados) {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+        if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
             if (detallePintoresSeleccionados != undefined) {
                 data[i].ListaDetallePintoresPorSpool = detallePintoresSeleccionados;
                 data[i].TemplatePintoresPorSpool = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + data[i].ListaDetallePintoresPorSpool.length + " pintores" : "There are " + data[i].ListaDetallePintoresPorSpool.length + " painters";
