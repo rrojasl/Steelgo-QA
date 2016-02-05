@@ -32,7 +32,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
                 <div id="ArmadoSoldaduraDivSuperior" class="button-section">
-                    <a id="ArmadoSoldaduraSuperior" href="@Url.Action("GenerarRequisicion","ServiciosTecnicos")" class="btn btn-primary"><span id="menuSoldadur"></span></a>
+                    <a id="ArmadoSoldaduraSuperior" href="@Url.Action("capturaSoldadura","Soldadura")" class="btn btn-primary"><span id="menuSoldadur"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -48,7 +48,7 @@
         </div>
     </div>
     @*Controles Superior*@
-    <div class="row">
+    <div class="row" id="FieldSetView">
         <div class="col-sm-2 col-md-2 col-lg-3">
             <div class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
@@ -129,7 +129,7 @@
 
                 </div>
                 <div id="ArmadoSoldaduraDivInferior" class="button-section">
-                    <a id="ArmadoSoldaduraInferior" href="~/Soldadura/CapturaSoldadura" class="btn btn-primary"><span id="menuSoldaduraPie"></span></a>
+                    <a id="ArmadoSoldaduraInferior" href="@Url.Action("capturaSoldadura","Soldadura")" class="btn btn-primary"><span id="menuSoldaduraPie"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">

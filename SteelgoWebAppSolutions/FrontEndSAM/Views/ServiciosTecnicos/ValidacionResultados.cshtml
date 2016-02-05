@@ -1,13 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Validación de Resultados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+    </li>
+    <li>
+        <a href="#"><span id="ServiciosTecnicosHeader"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("ValidacionResultados", "ServiciosTecnicos")"><span id="lblValidacionResultados"></span></a>
@@ -65,7 +65,7 @@
                 <label id=""><span id="ValidacionResultadosRequisicion"></span></label>
                 <input id="Requisicion" class="" />
             </div>
-            <div class="col-sm-2 col-md-2 col-lg-2 " >
+            <div class="col-sm-2 col-md-2 col-lg-2 ">
                 <label id="">&nbsp;</label>
                 <a id="btnVer" href="#" class="btn btn-blue"><span id="ValidacionResultadosBtnVer"></span></a>
             </div>

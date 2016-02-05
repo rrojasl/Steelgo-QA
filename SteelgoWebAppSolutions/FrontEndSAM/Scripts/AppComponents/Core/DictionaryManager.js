@@ -3819,8 +3819,8 @@ _dictionary = {
         "en-US": "MM/dd/yyyy"
     },
     "lblValidacionResultados": {
-        "es-MX": "Validación Resultados",
-        "en-US": "Result Validation"
+        "es-MX": "Validación de Resultados",
+        "en-US": "Validation of Results "
     },
     "lblInicio": {
         "es-MX": "Inicio",
@@ -4980,6 +4980,10 @@ _dictionary = {
         "es-MX": "Todos",
         "en-US": "All"
     },
+    "EntregaResultadosHeader": {
+        "es-MX": "Entrega de Resultados",
+        "en-US": "Delivering Results"
+    },
     "AsignarRequisicionEntregaResultados": {
         "es-MX": "Entrega de Resultados",
         "en-US": "Delivering Results"
@@ -5224,6 +5228,14 @@ _dictionary = {
     //#endregion
 
     //#region ValidacionResultados
+    "ValidacionResultadosHeader": {
+        "es-MX": "Validación de Resultados",
+        "en-US": "Validation of Results "
+    },
+    "ValidacionResultadosHeader2": {
+        "es-MX": "Validación de Resultados",
+        "en-US": "Validation of Results "
+    },
     "ValidacionResultadosMensajeCampoRequisicionVacio": {
         "es-MX": "Ingrese la requisición",
         "en-US": "Enter the requisition"
