@@ -288,14 +288,14 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
             }
         }
 
-        public object GuardarDescarga(DataTable dtCarga, int usuarioID, string lenguaje)
+        public object GuardarDescarga(DataTable dtCarga, int usuarioID, int medioTransporteCargaID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuarioID.ToString() } };
+                    string[,] parametro = { { "@Usuario", usuarioID.ToString() }, { "@MedioTransporteCargaID", medioTransporteCargaID.ToString() } };
 
                     _SQL.Ejecuta(Stords.GUARDACAPTURAPINTURASPOOLDESCARGA, dtCarga, "@Tabla", parametro);
 

@@ -82,9 +82,9 @@ function suscribirEventoCuadrante() {
         }
     });
 
-    $("#inputCuadrante").blur(function () {
-        $("#inputCuadrante").data("kendoComboBox").trigger("change");
-    }); 
+    //$("#inputCuadrante").blur(function () {
+    //    $("#inputCuadrante").data("kendoComboBox").trigger("change");
+    //}); 
 }
  
 function suscribirEventoCarro() {

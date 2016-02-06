@@ -4,6 +4,7 @@
     SuscribirEventoCarro();
     SuscribirEventoCuadrante();
     SuscribirEventoGuardar();
+    suscribirEventoDescargar();
 };
 
 function SuscribirEventoCarro() {
@@ -33,18 +34,24 @@ function SuscribirEventoCarro() {
 }
 
 function SuscribirEventoCuadrante() {
-    $('#inputCuadrante').kendoComboBox({
+    $('#inputCuadrante, #inputCuadrantePopup').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "CuadranteID",
         suggest: true,
-        filter: "contains",
-        index: 3
+        filter: "contains" 
     });
 
     $('#inputCuadrante').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             PlanchaCuadrante();
         }
+    });
+}
+
+function suscribirEventoDescargar() {
+    $('#CapturaAvanceDescargar').click(function (e) {
+        ajaxAplicarDescarga(currentDataItemGridDownload)
+        win.close();
     });
 }
 
@@ -67,7 +74,7 @@ function SuscribirEventoGuardar() {
 };
 
 function opcionHabilitarView(valor, name) {
-    debugger;
+
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $(".botonDeplegaMenu").attr("disabled", true);

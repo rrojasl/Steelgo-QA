@@ -28,7 +28,7 @@ function CargarGrid() {
                     fields: {
                         SpoolID: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Area: { type: "string", editable: false },
+                        Metros2: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: true }
                     }
                 }
@@ -62,27 +62,40 @@ function CargarGrid() {
         },
         columns: [
             { field: "SpoolID", title: _dictionary.PinturaDescargaSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Area", title: _dictionary.PinturaDescargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Metros2", title: _dictionary.PinturaDescargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Cuadrante", title: _dictionary.PinturaDescargaCuadrante[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCuadrante, filterable: true },
-            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "Descargar" }
+            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
 
         ]
     });
 }
- 
-function eliminarCaptura(e) {
+
+function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
-    debugger;
-    if ($('#botonGuardar2').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-        var filterValue = $(e.currentTarget).val();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    if ($("#botonGuardar2").text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
 
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
-        dataSource.sync();
+        win = $("#windowDownload").kendoWindow({
+            modal: true,
+            title: "",
+            resizable: false,
+            visible: true,
+            width: "50%",
+            minWidth: 30,
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            actions: [
+                "Close"
+            ],
+        }).data("kendoWindow");
+
+        $("#windowDownload").data("kendoWindow").center().open();
     }
-}
 
+};
+ 
 function PlanchaCuadrante()
 {
     var dataSource = $("#grid").data("kendoGrid").dataSource;

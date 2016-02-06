@@ -90,6 +90,7 @@ namespace BackEndSAM.Models.Pintura.MedioTransporte
         public int Accion { get; set; }
         public int SpoolID { get; set; }
         public int MedioTransporteID { get; set; }
+        public int MedioTransporteCargaID { get; set; }
         public int CuadranteID { get; set; }
     }
 

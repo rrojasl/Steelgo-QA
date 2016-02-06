@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic; 
 
 namespace BackEndSAM.Models.Pintura.CapturaAvance
 {
@@ -19,6 +16,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public int OrdenImportancia { get; set; }
         public int SpoolID { get; set; }
         public int SistemaPinturaID { get; set; }
+        public string Cuadrante { get; set; }
+        public int CuadranteID { get; set; }
         public int MedioTransporteID { get; set; }
         public int MedioTransporteCargaID { get; set; }
         public string plantillaShotblastero { get; set; }

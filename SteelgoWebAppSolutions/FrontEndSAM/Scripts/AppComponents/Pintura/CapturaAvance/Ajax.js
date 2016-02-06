@@ -33,13 +33,14 @@ function AjaxCargarCarrosCargados() {
     loadingStart();
      
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) {
+
+        debugger;
         $("#inputCarro").data("kendoComboBox").value("");
         $("#inputCarro").data("kendoComboBox").setDataSource(data); 
         loadingStop();
     });
 }
-
-
+ 
 function AjaxCargarPintor() {
 
     loadingStart();
@@ -50,8 +51,7 @@ function AjaxCargarPintor() {
         loadingStop();
     });
 }
-
-
+ 
 function AjaxCargarShotBlastero() {
 
     loadingStart();
@@ -442,8 +442,7 @@ function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
         loadingStop();
     });
 }
-
-
+ 
 function removerRepetidos(origArr) {
     var newArr = [],
         origLen = origArr.length,
@@ -466,15 +465,17 @@ function removerRepetidos(origArr) {
 
 function ajaxAplicarDescarga(arregloCaptura) {
     try {
+        debugger;
         loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
         var index = 0;
-        ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", CuadranteID: "" };
+        ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", MedioTransporteCargaID: "",CuadranteID: "" };
         ListaDetalles[index].Accion = arregloCaptura.Accion;
         ListaDetalles[index].SpoolID = arregloCaptura.SpoolID;
         ListaDetalles[index].medioTransporteID = arregloCaptura.MedioTransporteID;
+        ListaDetalles[index].MedioTransporteCargaID = 0;
         ListaDetalles[index].CuadranteID = $("#inputCuadrante").val();
         Captura[0].Detalles = ListaDetalles;
 

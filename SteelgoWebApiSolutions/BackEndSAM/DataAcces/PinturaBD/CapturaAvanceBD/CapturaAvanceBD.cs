@@ -138,6 +138,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             Peso = item.Peso.GetValueOrDefault(),
                             SistemaPintura = item.SistemaPintura,
                             SistemaPinturaID = item.SistemaPinturaID,
+                            Cuadrante = item.Cuadrante,
+                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
                             SpoolID = item.SpoolID,
                             Spool = item.SpoolJunta,
                             FechaShotblast = item.FechaShootblast,
@@ -147,13 +149,10 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             ListaPintorGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje,item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),2 ),
                             ListaShotblasteroGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1),
                             ListaPintorInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotPrimario.GetValueOrDefault(), 2),
-                            ListaShotblasteroInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1),
-
+                            ListaShotblasteroInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1), 
                             plantillaPintor = pintores,
                             plantillaShotblastero = shotblasteros
-
-                            //plantillaPintor = pintores,
-                            //plantillaShotblastero = shotblasteros
+                            
                         });
                         sPinturaID = item.SistemaPinturaID;
                     }
@@ -251,8 +250,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 return result;
             }
         }
-
-
+         
         public object ObtenerObreros(string lenguaje, int tipo, string tipoObrero)
         {
             try
@@ -340,9 +338,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 return result;
             }
         }
-
-
-
+         
         public object InsertarCargaSpool(DataTable dtDetalleCaptura,DataTable dtDetalleObreros, Sam3_Usuario usuario, string lenguaje, int medioTransporteCargaID)
         {
             try

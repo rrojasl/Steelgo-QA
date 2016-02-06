@@ -104,16 +104,12 @@ function CargarGrid() {
             { field: "FechaPrimario", title: _dictionary.CapturaAvanceFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaShotblasteroGuargado", title: _dictionary.CapturaAvanceShotBlastero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#" },
             { field: "ListaPintorGuargado", title: _dictionary.CapturaAvancePintor[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RendercomboBoxPintor, template: "#:plantillaPintor#" },
-             { command: { text: "Descarga", click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
+            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
 
         ]
     });
 };
-
-
-
-
-
+ 
 function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
     if ($("#Guardar").text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -140,8 +136,7 @@ function VentanaModalDescargarMedioTransporte(e) {
     }
 
 };
-
-
+ 
 function PlancharPintor(arregloCaptura) {
     ListaPintorGuargado = [];
     

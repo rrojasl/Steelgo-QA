@@ -14,6 +14,7 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+
     "LinkFabricacion": {
         "es-MX": "Fabricación",
         "en-US": "Manufacturing"
@@ -6024,7 +6025,10 @@ _dictionary = {
         "es-MX": "Hay un error en la actualizacion de la informacion",
         "en-US": "no information was saved"
     },
-
+    "DescargarCarroEnCuadrante": {
+        "es-MX": "Cuadrante de descarga",
+        "en-US": "Quadrant of discharge"
+    },
     //#endregion
 
     //#region PinturaCarga
