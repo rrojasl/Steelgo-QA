@@ -201,8 +201,14 @@ function SuscribirEventoSpoolID() {
             $("#InputOrdenTrabajo").focus();
 
         }
-        else if (e.keyCode == 40)
+        else if (e.keyCode == 40){
             $("#InputID").data("kendoComboBox").select();
+        }
+        else if (e.keyCode == 13) {
+         
+            AjaxAgregarCarga();
+         
+        }
     });
     $("#InputID").blur(function () {
         $("#InputID").data("kendoComboBox").trigger("change");
@@ -263,7 +269,7 @@ function SuscribirEventoCarro() {
             else
                 displayMessage("NoExisteCarro", '', '2');
         },
-        change: function (e) { 
+        change: function (e) {  
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 $('#inputCarro').attr("mediotransporteid", dataItem.MedioTransporteID);
@@ -377,8 +383,17 @@ function SuscribirEventoSpoolID() {
             $("#InputOrdenTrabajo").focus();
 
         }
-        else if (e.keyCode == 40)
+        else if (e.keyCode == 40) {
             $("#InputID").data("kendoComboBox").select();
+        }
+        else if (e.keyCode == 13) {
+            if ($('#inputCarro').attr("mediotransporteid") > 0) {
+                AjaxAgregarCarga();
+            }
+            else {
+                displayMessage("NoExisteCarro", '', '2');
+            } 
+        }
     });
 
 };

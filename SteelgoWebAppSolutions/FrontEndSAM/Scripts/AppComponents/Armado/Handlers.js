@@ -11,10 +11,7 @@
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
 };
-
-
-
-
+ 
 function SuscribeEventosTipoCaptura() {
     $("#presentationReporte").addClass("active");
 
@@ -29,6 +26,7 @@ function SuscribeEventosTipoCaptura() {
 
     });
 }
+
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
