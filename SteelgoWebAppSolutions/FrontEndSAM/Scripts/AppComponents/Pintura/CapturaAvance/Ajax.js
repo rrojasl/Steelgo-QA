@@ -464,8 +464,7 @@ function removerRepetidos(origArr) {
 }
 
 function ajaxAplicarDescarga(arregloCaptura) {
-    try {
-        debugger;
+    try { 
         loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
@@ -474,8 +473,7 @@ function ajaxAplicarDescarga(arregloCaptura) {
         ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", MedioTransporteCargaID: "",CuadranteID: "" };
         ListaDetalles[index].Accion = arregloCaptura.Accion;
         ListaDetalles[index].SpoolID = arregloCaptura.SpoolID;
-        ListaDetalles[index].medioTransporteID = arregloCaptura.MedioTransporteID;
-        ListaDetalles[index].MedioTransporteCargaID = 0;
+        ListaDetalles[index].medioTransporteID = arregloCaptura.MedioTransporteID; 
         ListaDetalles[index].CuadranteID = $("#inputCuadrante").val();
         Captura[0].Detalles = ListaDetalles;
 

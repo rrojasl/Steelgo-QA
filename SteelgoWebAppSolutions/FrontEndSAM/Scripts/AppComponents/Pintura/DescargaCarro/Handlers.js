@@ -27,10 +27,7 @@ function SuscribirEventoCarro() {
             }
         }
     });
-
-    $("#inputCarro").blur(function () {
-        $("#inputCarro").data("kendoComboBox").trigger("change");
-    });
+ 
 }
 
 function SuscribirEventoCuadrante() {
@@ -65,7 +62,7 @@ function SuscribirEventoGuardar() {
     $('#btnGuardar, #btnGuardar1, #Guardar1, #Guardar').click(function (e) {
 
         if ($('#botonGuardar2').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            opcionHabilitarView(true, "FieldSetView");
+            
             ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
         }
         else if ($('#botonGuardar2').text() == _dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()])

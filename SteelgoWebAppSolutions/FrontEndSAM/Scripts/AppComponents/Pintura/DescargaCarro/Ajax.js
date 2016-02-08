@@ -44,23 +44,23 @@ function ajaxGuardar(arregloCaptura) {
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
-
-
-
+         
         for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", MedioTransporteCargaID: "", CuadranteID:"" };
+            ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", CuadranteID:"" };
             ListaDetalles[index].Accion = arregloCaptura[index].Accion;
             ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
-            ListaDetalles[index].medioTransporteID = arregloCaptura[index].MedioTransporteID;
-            ListaDetalles[index].MedioTransporteCargaID = $("#inputCarro").val();
+            ListaDetalles[index].medioTransporteID = arregloCaptura[index].MedioTransporteID; 
             ListaDetalles[index].CuadranteID = arregloCaptura[index].CuadranteID;
         }
-
-
+         
         Captura[0].Detalles = ListaDetalles;
-        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+ 
+        $MedioTransporte.MedioTransporte.create(Captura[0], { medioTransporteCargaID: arregloCaptura[0].MedioTransporteCargaID, token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 displayMessage("PinturaGuardarDescarga", "", '1');
+                AjaxCargarCarrosCargados();
+                opcionHabilitarView(true, "FieldSetView");
+
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                 displayMessage("PinturaGuardarErrorDesGuardar", "", '2');
@@ -76,8 +76,7 @@ function ajaxGuardar(arregloCaptura) {
 };
 
 function ajaxAplicarDescarga(arregloCaptura) {
-    try {
-        debugger;
+    try { 
         loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
@@ -85,9 +84,7 @@ function ajaxAplicarDescarga(arregloCaptura) {
         var index = 0;
         ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", MedioTransporteCargaID: "", CuadranteID: "" };
         ListaDetalles[index].Accion = arregloCaptura.Accion;
-        ListaDetalles[index].SpoolID = arregloCaptura.SpoolID;
-        ListaDetalles[index].medioTransporteID = arregloCaptura.MedioTransporteID;
-        ListaDetalles[index].MedioTransporteCargaID = $("inputCarro").val();
+        ListaDetalles[index].SpoolID = arregloCaptura.SpoolID; 
         ListaDetalles[index].CuadranteID = $("#inputCuadrante").val();
         Captura[0].Detalles = ListaDetalles;
 
