@@ -7,6 +7,7 @@ namespace BackEndSAM.Models.Embarque
 {
     public class ListadoEmbarque
     {
+        public string Folio { get; set; }
         public int EmbarqueID { get; set; }
         public string Plana { get; set; }
         public string Estatus { get; set; }

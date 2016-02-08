@@ -13,7 +13,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RevisionEmbarqueController : ApiController
     {
-        public object Get(string token, int paqueteID,string lenguaje)
+        public object Get(string token, string embFolio,string lenguaje)
         {
 
             string payload = "";
@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return RevisionEmbarqueBD.Instance.ObtenerDetalleEmbarque(paqueteID, lenguaje);
+                return RevisionEmbarqueBD.Instance.ObtenerDetalleEmbarque(embFolio, lenguaje);
             }
             else
             {

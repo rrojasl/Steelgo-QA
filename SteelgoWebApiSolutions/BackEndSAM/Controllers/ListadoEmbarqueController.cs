@@ -29,6 +29,7 @@ namespace BackEndSAM.Controllers
                 {
                     ListadoEmbarque elemento = new ListadoEmbarque
                     {
+                        Folio = item.Folio,
                         EmbarqueID = item.EmbarqueID,
                         EmbarquePlanaID = item.EmbarquePlanaID,
                         Estatus = item.Estatus,

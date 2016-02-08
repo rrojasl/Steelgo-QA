@@ -39,7 +39,7 @@ function AjaxCargarCamposPredeterminados() {
 
 function ajaxBuscar() {
 
-    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), paqueteID: $("#inputEmbarqueBuscar").val(), lenguaje: $("#language").val() }).done(function (data) {
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), embFolio: $("#inputEmbarqueBuscar").val(), lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             var ds = $("#grid").data("kendoGrid").dataSource;

@@ -52,9 +52,7 @@ function CargarGrid() {
                     fields: {
                         NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
-                        Comentario: {
-                            type: "string", editable: true
-                        },
+                        Comentario: {type: "string", editable: true},
                         Llego: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
                         LlegoMas: { type: "boolean", editable: true }

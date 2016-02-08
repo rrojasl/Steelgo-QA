@@ -29,7 +29,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
             }
         }
 
-        public object ObtenerDetalleEmbarque(int paqueteID, string lenguaje)
+        public object ObtenerDetalleEmbarque(string embFolio, string lenguaje)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
                     ObjetosSQL _SQL = new ObjetosSQL();
 
 
-                    List<Sam3_Embarque_Get_DetalleEmbarqueID_Result> result = ctx.Sam3_Embarque_Get_DetalleEmbarqueID(paqueteID, lenguaje).ToList();
+                    List<Sam3_Embarque_Get_DetalleEmbarqueID_Result> result = ctx.Sam3_Embarque_Get_DetalleEmbarqueID(embFolio, lenguaje).ToList();
 
                     List<DetalleRevisionEmbarque> ListadoDetalleCargaCaptura = new List<DetalleRevisionEmbarque>();
 
@@ -53,7 +53,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
                             Paquete = item.Paquete,
                             NoLlego = item.Llego != null && item.Llego == false ? true : false,
                             LlegoComentarios = (item.Llego == true && (item.Comentario != null && item.Comentario.Trim() != "")) ? true : false,
-                            EmbarquePlanaID = paqueteID,
+                            EmbarquePlanaID = item.EmbarquePlanaID,
                             EmbarquePaqueteID = item.EmbarquePaqueteID,
                             SpoolID = item.SpoolID
 

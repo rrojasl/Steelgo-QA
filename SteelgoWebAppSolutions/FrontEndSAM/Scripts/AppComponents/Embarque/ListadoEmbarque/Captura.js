@@ -26,9 +26,9 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        EmbarqueID: { type: "string", editable: false },
+                        Folio: { type: "string", editable: false },
                         Plana: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
+                        NombreProyecto: { type: "string", editable: false },
                         PapelesCliente: {  editable: false },
                         paplelesAduana: { editable: false },
                         FolioSolicitarPermisos: { editable: false },
@@ -60,9 +60,9 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "EmbarqueID", title: _dictionary.ListadoEmbarqueHeaderEmbarque[$("#language").data("kendoDropDownList").value()], filterable: true, width: "125px" },
+            { field: "Folio", title: _dictionary.ListadoEmbarqueHeaderEmbarque[$("#language").data("kendoDropDownList").value()], filterable: true, width: "125px" },
             { field: "Plana", title: _dictionary.ListadoEmbarqueHeaderPlana[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Proyecto", title: _dictionary.ListadoEmbarqueHeaderProyecto[$("#language").data("kendoDropDownList").value()], filterable: true, width: "125px" },
+            { field: "NombreProyecto", title: _dictionary.ListadoEmbarqueHeaderProyecto[$("#language").data("kendoDropDownList").value()], filterable: true, width: "125px" },
             { field: "PapelesCliente", title: _dictionary.ListadoEmbarqueHeaderPapelesCliente[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + _dictionary.ListadoEmbarqueBotonImprimir[$("#language").data("kendoDropDownList").value()] + "</span></button>", width: "125px" },
             { field: "paplelesAduana", title: _dictionary.ListadoEmbarqueHeaderPapelesAduana[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + _dictionary.ListadoEmbarqueBotonImprimir[$("#language").data("kendoDropDownList").value()] + "</span></button>", width: "125px" },
             { field: "FolioSolicitarPermisos", title: _dictionary.ListadoEmbarqueHeaderSolicitarPermisos[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + _dictionary.ListadoEmbarqueBotonCapturar[$("#language").data("kendoDropDownList").value()] + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "125px" },

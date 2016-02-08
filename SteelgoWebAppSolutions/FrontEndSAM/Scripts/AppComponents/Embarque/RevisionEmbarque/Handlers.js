@@ -103,9 +103,7 @@ function SuscribirEventoBuscar()
         ajaxBuscar();
     });
 
-    $('#btnBuscar').click(function () {
-        ajaxBuscar();
-    });
+    
 }
 
 function SuscribirEventoAgregar() {
