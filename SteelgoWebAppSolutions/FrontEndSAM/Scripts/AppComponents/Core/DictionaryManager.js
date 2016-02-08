@@ -4046,6 +4046,10 @@ _dictionary = {
         "es-MX": "Intermedio - Acabado",
         "en-US": "Intermediate - Finishes"
     },
+    "menuPinturaCapturaAvanceIntAcabadoTop": {
+        "es-MX": "Intermedio - Acabado",
+        "en-US": "Intermediate - Finishes"
+    },
     "menuPinturaLotesCapturaReporte": {
         "es-MX": "Captura Reporte",
         "en-US": "Capture Report "
