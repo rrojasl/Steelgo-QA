@@ -1,8 +1,8 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
-    AjaxPinturaCargaMedioTransporte();
-    //AjaxCargarSpool();
+    AjaxPinturaCargaMedioTransporte(); 
     AjaxCargarCamposPredeterminados();
+    document.title = _dictionary.PinturaHeaderCargaCarroBacklog[$("#language").data("kendoDropDownList").value()];
 };
 
 function CargarGrid() {

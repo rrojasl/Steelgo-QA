@@ -4022,13 +4022,17 @@ _dictionary = {
         "es-MX": "Carga de Carro",
         "en-US": "Load Carriage"
     },
+    "menuPinturaCargaCarroTop": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
+    },
     "menuPinturaCargaCarroPie": {
         "es-MX": "Carga de Carro",
         "en-US": "Load Carriage"
     },
     "menuPinturaCargaCarroBack": {
         "es-MX": "Carga de Carro Backlog",
-        "en-US": "Truck Load Backlog"
+        "en-US": "Backlog Load Carriage"
     },
     "menuPinturaCargaAvance": {
         "es-MX": "Avance",
@@ -5891,11 +5895,11 @@ _dictionary = {
         "es-MX": "No se guardo la informacion",
         "en-US": "no information was saved"
     },
-    "PinturaBotonCapturaAvance1": {
+    "PinturaBotonCapturaAvanceTop": {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
-    "PinturaBotonCapturaAvance2": {
+    "PinturaBotonCapturaAvancePie": {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
@@ -5909,7 +5913,7 @@ _dictionary = {
     },
     "PinturaHeaderCargaCarro": {
         "es-MX": "Carga de Carro",
-        "en-US": "Car Load"
+        "en-US": "Load Carriage"
     },
     "PinturaHeaderCargaCarroBacklog": {
         "es-MX": "Carga de Carro Backlog",
