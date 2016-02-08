@@ -13,7 +13,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RevisionEmbarqueController : ApiController
     {
-        public object Get(string token, string embFolio,string lenguaje)
+        public object Get(string token, int embarquePlanaID,string lenguaje)
         {
 
             string payload = "";
@@ -23,7 +23,31 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return RevisionEmbarqueBD.Instance.ObtenerDetalleEmbarque(embFolio, lenguaje);
+                return RevisionEmbarqueBD.Instance.ObtenerDetalleEmbarque(embarquePlanaID, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+        [HttpGet]
+        public object ObtenerEmbarquesEnviados(string token, string lenguaje)
+        {
+
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return RevisionEmbarqueBD.Instance.ObtieneEmbarquesEnviados(lenguaje);
             }
             else
             {

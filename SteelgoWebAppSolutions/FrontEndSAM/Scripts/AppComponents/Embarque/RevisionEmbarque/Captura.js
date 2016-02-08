@@ -7,7 +7,7 @@ function changeLanguageCall() {
     document.title = _dictionary.EmbarqueBotonRevisionEmbarque[$("#language").data("kendoDropDownList").value()];
 };
 
-if ($("#inputEmbarqueBuscar").val() != null && $("#inputEmbarqueBuscar").val() != undefined && $("#inputEmbarqueBuscar").val() != "0") {
+if ($("#inputEmbarqueBuscar").val() != null && $("#inputEmbarqueBuscar").val() != undefined && $("#inputEmbarqueBuscar").val() != "") {
     EmbarquePlanaID = $("#inputEmbarqueBuscar").val();
     setTimeout(function () { ajaxBuscar(); }, 2100);
 }
@@ -23,6 +23,7 @@ function IniciarCapturaEmbarqueCarga() {
 
     setTimeout(function () { AjaxCargarPaquetes(); }, 1000);
     setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 2000);
+    setTimeout(function () { AjaxCargarEmbarques(); }, 3000);
 }
 
 
