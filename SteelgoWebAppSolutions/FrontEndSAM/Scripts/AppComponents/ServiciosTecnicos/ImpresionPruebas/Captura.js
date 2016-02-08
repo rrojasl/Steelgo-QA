@@ -3,6 +3,7 @@
 function changeLanguageCall() {
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
+    document.title = _dictionary.lblImpresionPruebas[$("#language").data("kendoDropDownList").value()];
 };
 
 IniciarImpresionPruebas();

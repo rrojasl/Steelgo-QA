@@ -3,9 +3,10 @@ var comboDefectos;
 function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUp();
+    document.title = _dictionary.lblValidacionResultados[$("#language").data("kendoDropDownList").value()];
     $('#grid').data('kendoGrid').dataSource.read();
     $('#gridPopUp').data('kendoGrid').dataSource.read();
-    document.title = _dictionary.lblValidacionResultados[$("#language").data("kendoDropDownList").value()];
+  
 };
 function CargarGrid() {
 
