@@ -161,9 +161,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                    
                 }
                 else {
+                    requisicionID = data.ReturnMessage[0].split('|')[1];
                     ajaxObtenerJuntasSoldadas($("#tipoPrueba").data("kendoComboBox").value());
                     opcionHabilitarView(true, "FieldSetView");
-                    requisicionID = data.ReturnMessage[0].split('|')[1];
+                   
                     
                 }
                 ajaxRequisicion();

@@ -20,22 +20,28 @@ var $GenerarRequisicionModel = {
             required: "#InputID",
         },
         Junta: {
-            
+
             visible: "#CapturaRequisicionJunta",
             editable: "#Junta",
             required: "#Junta",
         },
         Fecha: {
-            visible: "#AgregadoDiv",
+            visible: "#FechaDiv",
+            editable: "#Fecha",
+            required: "#Fecha",
         },
         Observacion: {
             visible: "#AgregadoDiv",
         },
         Proyecto: {
-            visible: "#AgregadoDiv",
+            visible: "#ProyectoDiv",
+            editable: "#Proyecto",
+            required: "#Proyecto",
         },
         tipoPrueba: {
-            visible: "#AgregadoDiv",
+            visible: "#PruebaDiv",
+            editable: "#tipoPrueba",
+            required: "#tipoPrueba",
         },
     }
 };
