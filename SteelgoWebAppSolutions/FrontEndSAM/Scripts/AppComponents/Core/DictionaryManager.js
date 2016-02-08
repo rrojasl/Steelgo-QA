@@ -3999,8 +3999,8 @@ _dictionary = {
         "en-US": "Generate Request"
     },
     "menuServiciosTecnicosGenerarImpresion": {
-        "es-MX": "Impresion de Resultados",
-        "en-US": "Print Results"
+        "es-MX": "Impresión de Resultados",
+        "en-US": "Printing Results"
     },
     "menuServiciosTecnicosGenerarListadoRequisicion": {
         "es-MX": "Listado de Requisiciones",
@@ -5307,8 +5307,12 @@ _dictionary = {
         "en-US": "Show"
     },
     "ValidacionResultadosBtnImprimirResultados": {
-        "es-MX": "Imprimir Resultados",
-        "en-US": "Print results"
+        "es-MX": "Impresión de Resultados",
+        "en-US": "Printing Results" 
+    },
+    "ValidacionResultadosBtnImprimirResultados2": {
+        "es-MX": "Impresión de Resultados",
+        "en-US": "Printing Results"
     },
     "ValidacionResultadosEnlaceEditar": {
         "es-MX": "Editar",

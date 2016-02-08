@@ -5,11 +5,8 @@ function changeLanguageCall() {
     CargarGridPopUp();
     $('#grid').data('kendoGrid').dataSource.read();
     $('#gridPopUp').data('kendoGrid').dataSource.read();
+    document.title = _dictionary.lblValidacionResultados[$("#language").data("kendoDropDownList").value()];
 };
-
-
-
-
 function CargarGrid() {
 
     kendo.ui.Grid.fn.editCell = (function (editCell) {

@@ -12,49 +12,42 @@
         <a href="@Url.Action("ValidacionResultados", "ServiciosTecnicos")"><span id="lblValidacionResultados"></span></a>
     </li>
 }
-<div id="containerDiv" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="FormValidacionResultados" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    @*Menu superior*@
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar2"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
-                                </ul>
-                            </div>
-                            <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
-                        </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="~/ServiciosTecnicos/ImpresionPruebas" class="btn btn-primary"><span id="ValidacionResultadosBtnImprimirResultados"></span></a>
-                        </div>
-
-                        <div class="button-section actionButtonSection">
-                            <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="DetalleAvisoLlegada0064"></span>
-                                    <span class="caretBlue"></span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                        <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                        <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
-                                </ul>
-                            </div>
-                        </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+                </div>
+                <div id="ValidacionTresultadosImprimirResultadosDivSup" class="button-section">
+                    <a id="ValidacionTresultadosImprimirResultadosSup" href="@Url.Action("ImpresionPruebas", "ServiciosTecnicos")" class="btn btn-primary"><span id="ValidacionResultadosBtnImprimirResultados"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones1"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                     </div>
                 </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
         </div>
     </div>
-    <div class="row">
+    @*Controles Superior*@
+    <div class="row" id="FieldSetView">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-2 col-md-2 col-lg-2 " id="containerDiv">
                 <label id=""><span id="ValidacionResultadosRequisicion"></span></label>
@@ -66,39 +59,48 @@
             </div>
         </div>
     </div>
-    <hr />
-    <div class="row">
+    @*GRID*@
+    <div class="row addedSectionInLine">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                    <div id="ContenedorGrid">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
-                        </div>
-                    </div>
+            <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="grid" data-role="grid" class="k-grid k-widget">
                 </div>
             </div>
+
         </div>
     </div>
-    <input id="hdAccionFiltrado" type="hidden" />
-    <div id="windowGrid" style="display: none; z-index:inherit;">
-        <div class="form-group">
-            <label class="col-sm-4 col-md-4 col-lg-4 " id="lblSpoolJunta"></label><label class="col-sm-3 col-md-3 col-lg-3" id="lblUbicacion"></label>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <a class=" btn btn-blue " id="GuardarDefectos"><span id="botonGuardar3"></span></a>
-            </div>
-        </div>
-        <input class="" type="hidden" id="hdnPruebaElementoResultadoID" />
-        <input class=" " type="hidden" id="hdnRequisicionID" />
-        <br />
-        <div class="form-group">
-            <div id="ContenedorGridPopUp">
-                <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar2"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo2"><span id="botonGuardarYNuevo2"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
                 </div>
+                <div id="ValidacionTresultadosImprimirResultadosDivInf" class="button-section">
+                    <a id="ValidacionTresultadosImprimirResultadosInf" href="@Url.Action("ImpresionPruebas", "ServiciosTecnicos")" class="btn btn-primary"><span id="ValidacionResultadosBtnImprimirResultados2"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
         </div>
-
     </div>
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/ServiciosTecnicos/ValidacionResultados/Ajax.js"></script>
