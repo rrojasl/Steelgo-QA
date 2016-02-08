@@ -56,4 +56,10 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public string Comentario { get; set; }
 
     }
+
+    public class EmbarqueEnviado
+    {
+        public string Folio { get; set; }
+        public int EmbarquePlanaID { get; set; }
+    }
 }

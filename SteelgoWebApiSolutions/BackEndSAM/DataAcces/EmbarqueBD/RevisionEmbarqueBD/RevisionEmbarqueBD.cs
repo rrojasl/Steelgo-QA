@@ -29,7 +29,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
             }
         }
 
-        public object ObtenerDetalleEmbarque(string embFolio, string lenguaje)
+        public object ObtenerDetalleEmbarque(int EmbarquePlanaID, string lenguaje)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
                     ObjetosSQL _SQL = new ObjetosSQL();
 
 
-                    List<Sam3_Embarque_Get_DetalleEmbarqueID_Result> result = ctx.Sam3_Embarque_Get_DetalleEmbarqueID(int.Parse(embFolio), lenguaje).ToList();
+                    List<Sam3_Embarque_Get_DetalleEmbarqueID_Result> result = ctx.Sam3_Embarque_Get_DetalleEmbarqueID(EmbarquePlanaID, lenguaje).ToList();
 
                     List<DetalleRevisionEmbarque> ListadoDetalleCargaCaptura = new List<DetalleRevisionEmbarque>();
 
@@ -76,7 +76,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
             }
         }
 
-        public object ObtieneDetalle(int TipoConsulta, int OrdenTrabajoSpoolID, int Paquete, string Codigo, string lenguaje, int embarquePlanaID,bool opcionAgregar)
+        public object ObtieneDetalle(int TipoConsulta, int OrdenTrabajoSpoolID, int Paquete, string Codigo, string lenguaje, int embarquePlanaID, bool opcionAgregar)
         {
             try
             {
@@ -119,6 +119,40 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
             }
         }
 
+        public object ObtieneEmbarquesEnviados(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Get_EmbarqueEnviado_Result> result = ctx.Sam3_Embarque_Get_EmbarqueEnviado(lenguaje).ToList();
+
+                    List<EmbarqueEnviado> ListadoEmbarqueEnviado = new List<EmbarqueEnviado>();
+
+                    foreach (Sam3_Embarque_Get_EmbarqueEnviado_Result item in result)
+                    {
+                        EmbarqueEnviado detalleRevisionEmbarque = new EmbarqueEnviado
+                        {
+                            EmbarquePlanaID = item.EmbarquePlanaID,
+                            Folio = item.Folio
+                        };
+                        ListadoEmbarqueEnviado.Add(detalleRevisionEmbarque);
+                    }
+
+                    return ListadoEmbarqueEnviado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
 
         public object ActualizarDetalle(DataTable dtDetalle, int usuarioID)

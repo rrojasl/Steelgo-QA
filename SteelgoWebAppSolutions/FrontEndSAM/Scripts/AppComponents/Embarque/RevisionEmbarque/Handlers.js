@@ -1,6 +1,6 @@
 ﻿function SuscribirEventos()
 {
-    
+    SuscribirEventoEmbarquePlana();
     SuscribirEventoSpoolID();
     SuscribirEventoPaquete();
     SuscribirEventoBuscar();
@@ -12,7 +12,6 @@
 
 function ObtenerTipoConsulta() {
     var radioButtonsLLena = document.getElementsByName('RevisionEmbarqueTipoSeleccion');
-
     for (var x = 0; x < radioButtonsLLena.length; x++) {
         if (radioButtonsLLena[x].checked) {
             return (x + 1);
@@ -102,8 +101,6 @@ function SuscribirEventoBuscar()
     $('#btnBuscar').click(function (e) {
         ajaxBuscar();
     });
-
-    
 }
 
 function SuscribirEventoAgregar() {
@@ -114,14 +111,39 @@ function SuscribirEventoAgregar() {
 
 
 function SuscribirEventoPaquete() {
-    $('#inputPaquete').kendoDropDownList({
+    $('#inputPaquete').kendoComboBox({
         dataTextField: "Folio",
         dataValueField: "EmbarquePaqueteID",
         suggest: true,
         filter: "contains",
-        index: 3
+        index: 3,
     });
 }
+
+
+
+function SuscribirEventoEmbarquePlana() {
+    $('#inputEmbarqueBuscar').kendoComboBox({
+        dataTextField: "Folio",
+        dataValueField: "EmbarquePlanaID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            ajaxBuscar();
+        },
+        selectedIndex: function (e) {
+            if ($("#inputEmbarqueBuscar").data("kendoComboBox").dataItem($("#inputEmbarqueBuscar").data("kendoComboBox").select()) != undefined) {
+                ajaxBuscar();
+            }
+            else {
+                $("#inputEmbarqueBuscar").data("kendoComboBox").value("");
+            }
+            
+        }
+    });
+}
+
 
 function SuscribirEventoSpoolID() {
     

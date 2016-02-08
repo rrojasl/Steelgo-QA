@@ -9,11 +9,10 @@
 
 function AjaxCargarPaquetes() {
     loadingStart();
-
     $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), tipo: '1' }).done(function (data) {
         if (data.length > 0) {
-            $("#inputPaquete").data("kendoDropDownList").value("");
-            $("#inputPaquete").data("kendoDropDownList").dataSource.data(data);
+            $("#inputPaquete").data("kendoComboBox").value("");
+            $("#inputPaquete").data("kendoComboBox").dataSource.data(data);
         } 
         loadingStop();
     });
@@ -38,8 +37,8 @@ function AjaxCargarCamposPredeterminados() {
 }
 
 function ajaxBuscar() {
-
-    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), embFolio: $("#inputEmbarqueBuscar").val(), lenguaje: $("#language").val() }).done(function (data) {
+    loadingStart();
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), embarquePlanaID: $("#inputEmbarqueBuscar").val(), lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             var ds = $("#grid").data("kendoGrid").dataSource;
@@ -159,6 +158,18 @@ function ajaxGuardar(arregloCaptura) {
     } catch (e) {
         loadingStop();
         displayMessage("Mensajes_error", e.message, '0');
-
     }
 }
+
+
+function AjaxCargarEmbarques() {
+    loadingStart();
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        if (data.length > 0) {
+            $("#inputEmbarqueBuscar").data("kendoComboBox").value("");
+            $("#inputEmbarqueBuscar").data("kendoComboBox").dataSource.data(data);
+        }
+        loadingStop();
+    });
+}
+
