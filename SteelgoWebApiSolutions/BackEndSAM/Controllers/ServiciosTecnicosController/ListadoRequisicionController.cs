@@ -11,12 +11,12 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers
+namespace BackEndSAM.Controllers.ServiciosTecnicosController
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListadoRequisicionController : ApiController
     {
-        public object Get( string lenguaje, string token)
+        public object Get(string lenguaje, string token)
         {
             string payload = "";
             string newToken = "";
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
 
                 return ListadoRequisicionBD.Instance.ObtenerListaStatusRequisiciones(lenguaje);
 
-                
+
             }
             else
             {
@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string lenguaje, string token,int idStatus)
+        public object Get(string lenguaje, string token, int idStatus)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ListadoRequisicionBD.Instance.ObtenerInformacionRequisicionXStatus(lenguaje,idStatus);
+                return ListadoRequisicionBD.Instance.ObtenerInformacionRequisicionXStatus(lenguaje, idStatus);
             }
             else
             {

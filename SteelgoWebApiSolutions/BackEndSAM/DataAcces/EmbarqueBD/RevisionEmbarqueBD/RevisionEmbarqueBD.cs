@@ -38,7 +38,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.RevisionEmbarqueBD
                     ObjetosSQL _SQL = new ObjetosSQL();
 
 
-                    List<Sam3_Embarque_Get_DetalleEmbarqueID_Result> result = ctx.Sam3_Embarque_Get_DetalleEmbarqueID(embFolio, lenguaje).ToList();
+                    List<Sam3_Embarque_Get_DetalleEmbarqueID_Result> result = ctx.Sam3_Embarque_Get_DetalleEmbarqueID(int.Parse(embFolio), lenguaje).ToList();
 
                     List<DetalleRevisionEmbarque> ListadoDetalleCargaCaptura = new List<DetalleRevisionEmbarque>();
 

@@ -4916,8 +4916,8 @@ _dictionary = {
         "en-US": "Without Capture"
     },
     "GenerarRequisicionNumeroControl": {
-        "es-MX": "Numero de control",
-        "en-US": "Control number"
+        "es-MX": "Spool ID/Junta",
+        "en-US": "Spool ID/Board "
     },
     "GenerarRequisicionAsignarRequisicion": {
         "es-MX": "Asignar Requisición",

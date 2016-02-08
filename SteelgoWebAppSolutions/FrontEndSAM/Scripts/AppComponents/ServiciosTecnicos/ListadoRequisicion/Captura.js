@@ -39,7 +39,7 @@ function CargarGrid() {
                         Folio: { type: "string", editable: false },
                         PruebasID: { type: "int", editable: false },
                         Prueba: { type: "string", editable: false },
-                        FechaRequisicion: { type: "string", editable: false },
+                        FechaRequisicion:  { type: "date", editable: false },
                         Observacion: { type: "string", editable: false },
                         EstatusID: { type: "int", editable: false },
                         Estatus: { type: "string", editable: false },
@@ -70,7 +70,7 @@ function CargarGrid() {
         columns: [
             { field: "Folio", title: _dictionary.ListaRequisicionFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Prueba", title: _dictionary.ListaRequisicionPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "FechaRequisicion", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FechaRequisicion", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]  },
             { field: "Observacion", title: _dictionary.ListaRequisicionObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: VerDetalle }, title: _dictionary.ListaRequisicionVerDetalle[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]

@@ -15,12 +15,12 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers
+
+namespace BackEndSAM.Controllers.ServiciosTecnicosController
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GenerarRequisicionController : ApiController
     {
-
 
         [HttpGet]
         public object ObtenerListaProyectos(string token)
@@ -109,7 +109,7 @@ namespace BackEndSAM.Controllers
 
 
         [HttpGet]
-        public object obtenerListaJuntasSoldadas(string token, int pruebaID, string todos, string lenguaje,int reqID)
+        public object obtenerListaJuntasSoldadas(string token, int pruebaID, string todos, string lenguaje, int reqID)
         {
             string payload = "";
             string newToken = "";
@@ -118,7 +118,7 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 List<JsonRequisicion> listaJson = new List<JsonRequisicion>();
-                List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> lista = GenerarRequisicionBD.Instance.getDetalleJuntas(pruebaID, all,reqID);
+                List<Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result> lista = GenerarRequisicionBD.Instance.getDetalleJuntas(pruebaID, all, reqID);
                 foreach (Sam3_ServiciosTecnicos_Get_JuntasXPrueba_Result item in lista)
                 {
                     JsonRequisicion elemento;
@@ -126,7 +126,7 @@ namespace BackEndSAM.Controllers
                     {
 
 
-                         elemento = new JsonRequisicion
+                        elemento = new JsonRequisicion
                         {
                             Accion = item.RequisicionPruebaElementoID == null ? 1 : 2,
                             Agregar = false,

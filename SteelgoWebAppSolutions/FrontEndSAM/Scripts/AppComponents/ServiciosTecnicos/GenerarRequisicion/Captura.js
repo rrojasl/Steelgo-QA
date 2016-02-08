@@ -48,6 +48,12 @@ function cargaInicialRequisicionEditar() {
 
 function CargarGrid() {
     $("#grid").kendoGrid({
+        edit: function (e) {
+
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+            }
+        },
         autoBind: true,
         dataSource: {
             data: '',
@@ -63,6 +69,7 @@ function CargarGrid() {
                         Junta: { type: "string", editable: false },
                         CodigoAplicar: { type: "string", editable: false },
                         observacion: { type: "string", editable: false },
+                        Folio: { type: "string", editable: false },
                         Agregar: { type: "int", editable: false },
                         NumeroControl: {editable: false}
                     }
@@ -99,19 +106,28 @@ function CargarGrid() {
         ],
         dataBound: function (a) {
             $(".ob-paid").bind("change", function (e) {
-                var grid = $("#grid").data("kendoGrid"),
-                    dataItem = grid.dataItem($(e.target).closest("tr"));
-                if (dataItem.Folio=="" &&  e.target.checked == true) {
-                    dataItem.Agregar = true;
+                if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+
+                    var grid = $("#grid").data("kendoGrid"),
+                        dataItem = grid.dataItem($(e.target).closest("tr"));
+                    if (dataItem.Folio == "" && e.target.checked == true) {
+                        dataItem.Agregar = true;
+                    }
+                    else {
+                        dataItem.Agregar = false;
+                    }
                 }
-                else {
-                    dataItem.Agregar = false;
-                }
-                grid.dataSource.sync();
+                else
+                    $("#grid").data("kendoGrid").closeCell();
+
+                $("#grid").data("kendoGrid").dataSource.sync();
 
             });
         }
     });
+
+   
 
 };
 
