@@ -21,12 +21,12 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar2"></span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar2"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
+                                    <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
                             </div>
@@ -57,7 +57,7 @@
     </div>
     <div id="FieldSetView">
         <div class="row">
-            <div class="col-sm-2 col-md-2 col-lg-2">
+            <div class="col-sm-2 col-md-2 col-lg-2" id="divEmbarque">
                 <label id="labelEmbarqueRevisionEmbarqueNumeroDeEmbarque"></label>
                 <input id="inputEmbarqueBuscar" value="@{var inputEmbarque = ViewBag.EmbarquePlanaID == 0 ? "" : ViewBag.EmbarquePlanaID; }"/>
             </div>
@@ -125,12 +125,12 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar4"></span></button>
+                                <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar4"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite" ></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="botonGuardar3"></span></a></li>
+                                    <li><a href="#" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar3"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                                 </ul>
                             </div>
@@ -164,5 +164,9 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Seguridad.js"></script>
 
-
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Revision Embarque"] = $RevisionEmbarqueModel;
+    }
+</script>
 

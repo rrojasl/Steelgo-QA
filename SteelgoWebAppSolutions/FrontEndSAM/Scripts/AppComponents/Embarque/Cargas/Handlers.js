@@ -53,11 +53,11 @@ function SuscribirEventoGuardar() {
                 }
             }
             else {
-                displayMessage("", "EmbarqueCargaMensajeErrorPlana", '2');
+                displayMessage("EmbarqueCargaMensajeErrorPlana", "", '2');
             }
         }
         else {
-            displayMessage("", "EmbarqueCargaMensajeErrorProveedor", '2');
+            displayMessage("EmbarqueCargaMensajeErrorProveedor", "", '2');
         }
     });
 

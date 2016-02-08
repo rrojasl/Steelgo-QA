@@ -130,8 +130,9 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#Area").data("kendoComboBox").enable(false);
         $("#Cuadrante").data("kendoComboBox").enable(false);
+        $("#btnAgregar").prop('disabled', true);
+        $(".radioImpreso").prop('disabled', true);
         
-
         $('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
 
@@ -140,6 +141,8 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#Area").data("kendoComboBox").enable(true);
         $("#Cuadrante").data("kendoComboBox").enable(true);
+        $("#btnAgregar").prop('disabled', false);
+        $(".radioImpreso").prop('disabled', false);
         $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
 

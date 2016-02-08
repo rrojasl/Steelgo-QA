@@ -12,10 +12,14 @@ var $ConsultaModel = {
     properties: {
 
         Area: {
-            visible: "#containerDiv",
+            visible: "#AreaDiv",
+            editable: "#Area",
+            required: "#Area",
         },
         Cuadrante: {
-            visible: "#containerDiv",
+            visible: "#CuadranteDiv",
+            editable: "#Cuadrante",
+            required: "#Cuadrante",
         }
     }
 };

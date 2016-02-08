@@ -4,7 +4,11 @@ var EmbarquePlanaID = 0;
 
 function changeLanguageCall() {
     CargarGrid();
+    opcionHabilitarView(false, "FieldSetView");
+    $("#inputEmbarqueBuscar").data("kendoComboBox").value("");
     document.title = _dictionary.EmbarqueBotonRevisionEmbarque[$("#language").data("kendoDropDownList").value()];
+    $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
 };
 
 if ($("#inputEmbarqueBuscar").val() != null && $("#inputEmbarqueBuscar").val() != undefined && $("#inputEmbarqueBuscar").val() != "") {
@@ -91,32 +95,78 @@ function CargarGrid() {
     });
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
-        var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-        //dataItem.set(this.name, this.checked);
+        if ($("#language").val() == "es-MX") {
+            if ($('#Guardar').text() != "Editar") {
+                var grid = $("#grid").data("kendoGrid"),
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+                //dataItem.set(this.name, this.checked);
 
-        switch (this.name) {
-            case 'Llego':
-                dataItem.set("Llego", this.checked);
-                dataItem.set("NoLlego", false);
-                dataItem.set("LlegoComentarios", false);
-                break;
-            case 'NoLlego':
-                dataItem.set("Llego", false);
-                dataItem.set("NoLlego", this.checked);
-                dataItem.set("LlegoComentarios", false);
-                break;
-            case 'LlegoComentarios':
-                dataItem.set("Llego", false);
-                dataItem.set("NoLlego", false);
-                dataItem.set("LlegoComentarios", this.checked);
-                break;
+                switch (this.name) {
+                    case 'Llego':
+                        dataItem.set("Llego", this.checked);
+                        dataItem.set("NoLlego", false);
+                        dataItem.set("LlegoComentarios", false);
+                        break;
+                    case 'NoLlego':
+                        dataItem.set("Llego", false);
+                        dataItem.set("NoLlego", this.checked);
+                        dataItem.set("LlegoComentarios", false);
+                        break;
+                    case 'LlegoComentarios':
+                        dataItem.set("Llego", false);
+                        dataItem.set("NoLlego", false);
+                        dataItem.set("LlegoComentarios", this.checked);
+                        break;
+                }
+                grid.dataSource.sync();
+            }
+            else {
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
         }
-        grid.dataSource.sync();
+        else {
+            if ($('#Guardar').text() != "Edit") {
+                var grid = $("#grid").data("kendoGrid"),
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+                //dataItem.set(this.name, this.checked);
+
+                switch (this.name) {
+                    case 'Llego':
+                        dataItem.set("Llego", this.checked);
+                        dataItem.set("NoLlego", false);
+                        dataItem.set("LlegoComentarios", false);
+                        break;
+                    case 'NoLlego':
+                        dataItem.set("Llego", false);
+                        dataItem.set("NoLlego", this.checked);
+                        dataItem.set("LlegoComentarios", false);
+                        break;
+                    case 'LlegoComentarios':
+                        dataItem.set("Llego", false);
+                        dataItem.set("NoLlego", false);
+                        dataItem.set("LlegoComentarios", this.checked);
+                        break;
+                }
+                grid.dataSource.sync();
+            }
+            else {
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
+        }
 
         
-       // grid.editable.validatable.validate();
-    });
+            // grid.editable.validatable.validate();
+        });
 
 
-};
+    };

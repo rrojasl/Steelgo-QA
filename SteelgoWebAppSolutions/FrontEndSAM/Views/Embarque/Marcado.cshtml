@@ -52,12 +52,12 @@
         </div>
     </div>
     @*Controles Superior*@
-    <div class="row">
-        <div class="col-sm-2 col-md-2 col-lg-2">
+    <div class="row" id="FieldSetView">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="AreaDiv">
             <label id=""><span id="EmbarqueMarcadoArea"></span></label>
             <input id="Area" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="CuadranteDiv">
             <label id=""><span id="EmbarqueMarcadoCuadrante"></span></label>
             <input id="Cuadrante" />
         </div>
@@ -121,5 +121,10 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Seguridad.js"></script>
 
-
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Marcado"] = $MarcadoModel;
+    }
+</script>

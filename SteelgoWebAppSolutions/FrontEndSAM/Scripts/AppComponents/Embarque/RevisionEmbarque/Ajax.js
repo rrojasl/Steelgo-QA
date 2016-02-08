@@ -107,7 +107,7 @@ function AjaxAgregarCarga() {
 
 function validarOpcionSeleccionada(row)
 {
-    if (row.Llego || row.NoLlego || row.LlegoConComentarios)
+    if (row.Llego || row.NoLlego || row.LlegoComentarios)
         return true;
     return false;
 }
@@ -149,6 +149,7 @@ function ajaxGuardar(arregloCaptura) {
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                 displayMessage("EmbarqueRevisionErrorGuardar", "", '2');
+                opcionHabilitarView(false, "FieldSetView")
             }
             $("#grid").data("kendoGrid").dataSource.sync();
             loadingStop();

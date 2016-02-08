@@ -19,6 +19,7 @@ function AjaxCargarCuadrante(area) {
 
 function AjaxCargarDatos(area, cuadrante) {
     loadingStart();
+    
     $Consulta.Consulta.read({ token: Cookies.get("token"), AreaID: area, CuadranteID: cuadrante }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;

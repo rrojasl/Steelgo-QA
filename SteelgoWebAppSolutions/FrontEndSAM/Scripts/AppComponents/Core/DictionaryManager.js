@@ -1956,7 +1956,7 @@ _dictionary = {
         "en-US": "Generate order of receipt and print fomat"
     },
     "GenerarOrdenRecepcion0019": {
-        "es-MX": "Generar Orden de Recepcion, Imprimir Formato y etiquetas de numeros unicos",
+        "es-MX": "Generar Orden de Recepcion, Imprimir Formato y etiquetas de números unicos",
         "en-US": "Generate order of receipt, print fomat and tags unique numbers"
     },
     "GenerarOrdenRecepcion0020": {
@@ -2252,11 +2252,11 @@ _dictionary = {
         "en-US": "Quantity"
     },
     "DetalleOrdenAlmacenaje0016": {
-        "es-MX": "Numero Unico ID",
+        "es-MX": "Número Unico ID",
         "en-US": "Unique Number ID"
     },
     "DetalleOrdenAlmacenaje0017": {
-        "es-MX": "Numero Unico",
+        "es-MX": "Número Unico",
         "en-US": "Unique Number"
     },
     "DetalleOrdenAlmacenaje0018": {
@@ -2361,7 +2361,7 @@ _dictionary = {
         "en-US": "Item Code"
     },
     "ListadoOrdenAlmacenaje0022": {
-        "es-MX": "Numero Unico",
+        "es-MX": "Número Unico",
         "en-US": "Unique Number"
     },
     //Generar Orden Almacenaje
@@ -2466,11 +2466,11 @@ _dictionary = {
         "en-US": "Item Code ID"
     },
     "GenerarOrdenAlmacenaje0026": {
-        "es-MX": "Numero Unico ID",
+        "es-MX": "Número Unico ID",
         "en-US": "Unique Number ID"
     },
     "GenerarOrdenAlmacenaje0027": {
-        "es-MX": "Numero Unico",
+        "es-MX": "Número Unico",
         "en-US": "Unique Number"
     },
     //Dashboard Recepcion y Almacenaje
@@ -3527,7 +3527,7 @@ _dictionary = {
         "en-US": ""
     },
     "notificationslabel0006": {
-        "es-MX": "Por favor, seleccionar el numero de permiso",
+        "es-MX": "Por favor, seleccionar el número de permiso",
         "en-US": ""
     },
     "notificationslabel0007": {
@@ -3547,7 +3547,7 @@ _dictionary = {
         "en-US": ""
     },
     "notificationslabel0011": {
-        "es-MX": "Por favor, seleccionar el numero de permiso",
+        "es-MX": "Por favor, seleccionar el número de permiso",
         "en-US": ""
     },
     "notificationslabel0012": {
@@ -3591,7 +3591,7 @@ _dictionary = {
         "en-US": "Unable to read the file: "
     },
     "notificationslabel0022": {
-        "es-MX": "Los item codes no tienen asignado un numero unico",
+        "es-MX": "Los item codes no tienen asignado un número unico",
         "en-US": ""
     },
     "notificationslabel0023": {
@@ -3833,11 +3833,11 @@ _dictionary = {
     },
     "lblEmbarque": {
         "es-MX": "Embarque",
-        "en-US": "Shipping"
+        "en-US": "Shipment"
     },
     "lblEmbarque2": {
         "es-MX": "Embarque",
-        "en-US": "Shipping"
+        "en-US": "Shipment"
     },
     "lblCargas": {
         "es-MX": "Cargas",
@@ -4554,11 +4554,11 @@ _dictionary = {
         "en-US": "Dimensional"
     },
     "DimensionalVisualMensajeErrorNumeroUnico2": {
-        "es-MX": "Falta capturar Numero unico 2",
+        "es-MX": "Falta capturar Número unico 2",
         "en-US": "Foul capture only Number 2"
     },
     "DimensionalVisualMensajeErrorNumeroUnico1": {
-        "es-MX": "Falta capturar Numero unico 1",
+        "es-MX": "Falta capturar Número unico 1",
         "en-US": "Foul capture only Number 1"
     },
     "DimensionalVisualMensajeErrorInspector": {
@@ -5140,7 +5140,7 @@ _dictionary = {
         "en-US": "Show"
     },
     "EmbarqueConsultaArea": {
-        "es-MX": "Area",
+        "es-MX": "Área",
         "en-US": "Area"
     },
     "EmbarqueConsultaLinkShop": {
@@ -5239,7 +5239,7 @@ _dictionary = {
         "en-US": "Select a quadrant"
     },
     "EmbarqueMarcadoMensajeArea": {
-        "es-MX": "Selecciona el area",
+        "es-MX": "Selecciona el área",
         "en-US": "Select an area"
     },
     //#endregion
@@ -5394,7 +5394,7 @@ _dictionary = {
     },
     "EmbarqueBotonRevisionEmbarque": {
         "es-MX": "Revisión Embarque",
-        "en-US": "Shipping review"
+        "en-US": "Shipment review"
     },
     "EmbarqueBotonRevisionEmbarque2": {
         "es-MX": "Revisión Embarque",
@@ -5538,7 +5538,7 @@ _dictionary = {
         "en-US": "Are you sure want to delete the defect"
     },
     "CapturaReportePruebasMensajeErrorPlacas": {
-        "es-MX": "Algunos datos del numero de placas no son correctos",
+        "es-MX": "Algunos datos del número de placas no son correctos",
         "en-US": ""
     },
     "CapturaReportePruebasMensajeErrorTamanoDensidad": {
@@ -5575,7 +5575,7 @@ _dictionary = {
         "en-US": "Print Travel Masico"
     },
     "EmbarqueCargaMarcadoMensajeArea": {
-        "es-MX": "Marcado Mensaje Area",
+        "es-MX": "Marcado Mensaje Área",
         "en-US": "Message marked Area"
     },
     "EmbarqueCargaSpool": {
@@ -5607,7 +5607,7 @@ _dictionary = {
     }
     ,
     "EmbarqueCargaSelecciona": {
-        "es-MX": "Selecciona una opcion",
+        "es-MX": "Selecciona una opción",
         "en-US": "Select a option"
     }
     ,
@@ -5733,7 +5733,7 @@ _dictionary = {
 
     ,
     "labelEmbarqueRevisionEmbarqueNumeroDeEmbarque": {
-        "es-MX": "Numero de Embarque",
+        "es-MX": "Número de Embarque",
         "en-US": "Number of lading"
     },
     "spanRevisionEmbarqueBuscar": {
@@ -5797,7 +5797,7 @@ _dictionary = {
     }
     ,
     "EmbarqueRevisionNoSeleccionaOpcion": {
-        "es-MX": "En todos los spools tiene que seleccionar una opcion : Llego, Llego con comentario, No Llego.",
+        "es-MX": "En todos los spools tiene que seleccionar una opción : Llego, Llego con comentario, No Llego.",
         "en-US": "In all spools select an option: Arrived, Arrived with comment, Didnt Arrive "
     }
     ,
@@ -5890,7 +5890,7 @@ _dictionary = {
     }
     ,
     "PinturaCargaSpoolAreaSuperiorPermididoCarro": {
-        "es-MX": "El area es superior al permitido por el carro",
+        "es-MX": "El área es superior al permitido por el carro",
         "en-US": "The area is greater than allowed by the car"
     }
      ,
@@ -6069,7 +6069,7 @@ _dictionary = {
         "en-US": "Maximum weight"
     },
     "labelArea": {
-        "es-MX": "Area",
+        "es-MX": "Área",
         "en-US": "Area"
     },
     "CrearNuevoCarro": {
@@ -6435,11 +6435,11 @@ _dictionary = {
     },
     "lblListadoEmbarque": {
         "es-MX": "Listado Embarque",
-        "en-US": "Shipping list"
+        "en-US": "Shipment list"
     },
     "lblListadoEmbarque2": {
         "es-MX": "Listado Embarque",
-        "en-US": "Shipping list"
+        "en-US": "Shipment list"
     },
     "ListadoEmbarqueMensajeFaltaFolioAduana": {
         "es-MX": "Falta el folio de aprobacion de aduana",
