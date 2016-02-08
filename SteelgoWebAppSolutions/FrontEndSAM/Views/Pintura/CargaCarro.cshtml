@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "Carga de carro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,16 +7,16 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="lblPintura"></span></a>
+        <a href="#"><span id="lblPintura"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("CargaCarro", "Pintura")"><span id="PinturaHeaderCargaCarro"></span></a>
     </li>
 }
-
-<div id="FormListadoRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="FormCargaCarro" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    @*Menu superior*@
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">

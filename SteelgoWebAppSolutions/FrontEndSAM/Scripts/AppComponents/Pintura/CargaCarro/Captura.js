@@ -4,6 +4,7 @@
     AjaxObtenerCatalogoPersistencia();
     setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
     setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1000);
+    document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
 }
 
 IniciarCapturaPinturaCarga();
