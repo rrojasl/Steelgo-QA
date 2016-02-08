@@ -8,7 +8,7 @@ SuscribirEventos();
 
 function suscribirEventoSubirCarro() {
 
-    $('#Guardar, #btnGuardar, #botonGuardar, #Guardar1').click(function (e) { 
+    $('#Guardar, #btnGuardar, #GuardarPie, #Guardar1').click(function (e) {
         e.stopPropagation();
         if ($('#botonGuardar').text() == "Guardar") {
             var ds = $("#grid").data("kendoGrid").dataSource;

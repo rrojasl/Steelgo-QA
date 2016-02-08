@@ -9,13 +9,10 @@ var $CargaCarroBackLogModel = {
         detail: "",
         destroy: ""
     },
-    properties: {
-
-        grid: {
-            visible: "#containerDiv",
-        },
-        carro: {
-            visible: "#containerDiv",
+    properties: { 
+        InputCarroDiv: {
+            visible: "InputCarroDiv",
+            editable: "inputCarro"
         },
         
     }
