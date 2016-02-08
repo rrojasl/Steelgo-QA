@@ -70,7 +70,7 @@ function CargarGrid() {
                         CodigoAplicar: { type: "string", editable: false },
                         observacion: { type: "string", editable: false },
                         Folio: { type: "string", editable: false },
-                        Agregar: { type: "int", editable: false },
+                        Agregar: { type: "boolean", editable: false },
                         NumeroControl: {editable: false}
                     }
                 }

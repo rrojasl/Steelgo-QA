@@ -3,9 +3,9 @@
 function AjaxPruebas() {
    
     $Pruebas.Pruebas.read({ token: Cookies.get("token"), proyectoID: 0, lenguaje: $("#language").val() }).done(function (data) {
-        $("#inputPrueba").data("kendoDropDownList").value("");
-        $("#inputPrueba").data("kendoDropDownList").dataSource.data(data);
-        $("#inputPrueba").data("kendoDropDownList").trigger("change");
+        $("#inputPrueba").data("kendoComboBox").value("");
+        $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
+        //$("#inputPrueba").data("kendoComboBox").trigger("change");
     });
     
 };
@@ -13,10 +13,11 @@ function AjaxPruebas() {
 function AjaxProveedor(TipoConsulta) {
     loadingStart();
     $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), idPrueba: $("#inputPrueba").val(), ConsultaDetalle: TipoConsulta }).done(function (data) {
-            $("#inputProveedor").data("kendoDropDownList").value("");
-            $("#inputProveedor").data("kendoDropDownList").dataSource.data(data);
+        $("#inputProveedor").data("kendoComboBox").value("");
+        $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+        AjaxCargarRequisicionAsignacion();
             loadingStop();
-            AjaxCargarRequisicionAsignacion();
+            
         });
 }
 
@@ -45,7 +46,7 @@ function AjaxCargarCamposPredeterminados() {
             $("#styleTodos").addClass("active");
             $("#styleSinCaptura").removeClass("active");
         }
-        AjaxCargarRequisicionAsignacion();
+       // AjaxCargarRequisicionAsignacion();
     });
 
 }

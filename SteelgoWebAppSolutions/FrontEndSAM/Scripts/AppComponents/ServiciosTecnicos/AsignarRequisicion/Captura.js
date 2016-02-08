@@ -23,6 +23,7 @@ function CargarGrid() {
                         Observacion: { type: "string", editable: false },
                         Fecha: { type: "string", editable: false },
                         RequisicionID: { type: "int", editable: false },
+                        Requisicion: { type: "string", editable: false },
                         CantidadJuntas: { type: "int", editable: false },
                         Proveedor: { type: "string", editable: true },
                         HerramientadePrueba: { type: "string", editable: true },
@@ -71,17 +72,17 @@ function PlanchaProveedor() {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputPrueba").data("kendoDropDownList").text() == data[i].Clave) {
+        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputPrueba").data("kendoComboBox").text() == data[i].Clave) {
             data[i].ProveedorID = $("#inputProveedor").val();
-            data[i].Proveedor = $("#inputProveedor").data("kendoDropDownList").text();
+            data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
             var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);
             data[i].ListaHerramientaPrueba = Proveedor.ListaHerramientaPrueba;
             data[i].ListaTurnoLaboral = Proveedor.ListaTurnoLaboral;
         }
         else {
-            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoDropDownList").text() == data[i].Clave) {
+            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoComboBox").text() == data[i].Clave) {
                 data[i].ProveedorID = $("#inputProveedor").val();
-                data[i].Proveedor = $("#inputProveedor").data("kendoDropDownList").text();
+                data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
                 var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);
                 data[i].ListaHerramientaPrueba = Proveedor.ListaHerramientaPrueba;
                 data[i].ListaTurnoLaboral = Proveedor.ListaTurnoLaboral;
