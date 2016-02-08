@@ -5046,6 +5046,10 @@ _dictionary = {
         "en-US": "Defects"
     },
     //#region ListadoRequisicion
+    "lblImpresionPruebas": {
+        "es-MX": "Impresión de Resultados",
+        "en-US": "Printing Results"
+    },
     "ImpresionPruebasMostrarTodo": {
         "es-MX": "Mostrar Todo",
         "en-US": "Show all"

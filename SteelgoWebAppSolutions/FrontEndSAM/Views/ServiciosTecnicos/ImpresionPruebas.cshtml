@@ -1,59 +1,44 @@
 ﻿
 @{
-    ViewBag.Title = "ImpresionPruebas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+    </li>
+    <li>
+        <a href="#"><span id="ServiciosTecnicosHeader"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ImpresionPruebas", "ServiciosTecnicos")"><span id="lblImpresionPruebas"></span></a>
+    </li>
+}
+<div id="FormImpresionPruebas" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-
-
-
-
-<div id="FormListadoRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
-                         
-                            <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
-                        </div>
-                        
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
-
-                    </div>
-                </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-12">
+            <div class="btn-group " data-toggle="buttons" role="group">
+                <label>&nbsp;</label>
+                <label class="btn btn-info" id="styleReporte">
+                    <input type="radio" name="MostrarToodo" style="width:auto;" value="Si" /><span id="ImpresionPruebasMostrarTodo"></span>
+                </label>
+                <label class="btn btn-info" id="styleListado">
+                    <input type="radio" name="MostrarToodo" style="width:auto;" value="No" /><span id="ImpresionPruebasNoMostrarTodo"> </span>
+                </label>
             </div>
         </div>
     </div>
-    <div class="row">
-
-    </div>
-    <div class="row">
+    <div class="row addedSectionInLine">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div>
-                <div class="btn-group " data-toggle="buttons" role="group">
-                    <label>&nbsp;</label>
-                    <label class="btn btn-info" id="styleReporte">
-                        <input type="radio" name="MostrarToodo" style="width:auto;" value="Si" /><span id="ImpresionPruebasMostrarTodo"></span>
-                    </label>
-                    <label class="btn btn-info" id="styleListado">
-                        <input type="radio" name="MostrarToodo" style="width:auto;" value="No" /><span id="ImpresionPruebasNoMostrarTodo"> </span>
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="ContenedorGrid" class="row">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
-                        </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="ContenedorGrid" class="row">
+                    <div id="grid" data-role="grid" class="k-grid k-widget">
                     </div>
                 </div>
-               
             </div>
         </div>
+        <input id="hdAccionFiltrado" type="hidden" />
     </div>
-    <input id="hdAccionFiltrado" type="hidden" />
     <div id="window">
     </div>
 </div>
