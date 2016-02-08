@@ -4022,6 +4022,10 @@ _dictionary = {
         "es-MX": "Carga de Carro",
         "en-US": "Load Carriage"
     },
+    "menuPinturaCargaCarroPie": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
+    },
     "menuPinturaCargaCarroBack": {
         "es-MX": "Carga de Carro Backlog",
         "en-US": "Truck Load Backlog"
@@ -5904,7 +5908,7 @@ _dictionary = {
         "en-US": "Close cart"
     },
     "PinturaHeaderCargaCarro": {
-        "es-MX": "Cargar Carro",
+        "es-MX": "Carga de Carro",
         "en-US": "Car Load"
     },
     "PinturaHeaderCargaCarroBacklog": {

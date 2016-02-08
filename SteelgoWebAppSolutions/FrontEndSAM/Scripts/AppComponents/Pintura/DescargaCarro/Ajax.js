@@ -24,7 +24,7 @@ function AjaxCargarCarrosCargados() {
 function ajaxObtenerDetalleMedioTransporteID(MedioTransporteCargaID)
 { 
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: MedioTransporteCargaID, lenguaje: $("#language").val() }).done(function (data) {
-     
+ 
         if (data.listaCapturaAvance.length > 0) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             var ds = $("#grid").data("kendoGrid").dataSource;

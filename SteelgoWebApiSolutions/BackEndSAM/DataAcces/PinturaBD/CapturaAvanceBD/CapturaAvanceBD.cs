@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using BackEndSAM.Models.Pintura.CapturaAvance;
 using System.Data;
+using BackEndSAM.Models.Cuadrante;
 
 namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 {
@@ -104,10 +105,22 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolCapturaAvance(medioTransporteCargaID, lenguaje).ToList();
                     List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> spoolsCargados = new List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result>();
+                    List<Sam3_Steelgo_Get_Cuadrante_Result> GetlistaCuandrantes = (List<Sam3_Steelgo_Get_Cuadrante_Result>)CuadranteBD.Instance.ObtenerCuadrante(0);
 
-                   
+                    List<Cuadrante> ListaCuandrantes = new List<Cuadrante>();
+                    foreach (Sam3_Steelgo_Get_Cuadrante_Result item in GetlistaCuandrantes)
+                    {
+                        ListaCuandrantes.Add(
+                             new Cuadrante
+                             {
+                                 AreaID = item.AreaID,
+                                 CuadranteID = item.CuadranteID,
+                                 Nombre = item.Nombre,
+                                 PatioID = item.PatioID
+                             });
+                    }
 
-                    foreach(Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result item in result)
+                    foreach (Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result item in result)
                     {
                          
                         bool existe = spoolsCargados.Exists(element => element.SpoolID == item.SpoolID);
@@ -151,8 +164,10 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             ListaPintorInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotPrimario.GetValueOrDefault(), 2),
                             ListaShotblasteroInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1), 
                             plantillaPintor = pintores,
-                            plantillaShotblastero = shotblasteros
-                            
+                            plantillaShotblastero = shotblasteros,
+                            ListaCuandrantes = ListaCuandrantes
+
+
                         });
                         sPinturaID = item.SistemaPinturaID;
                     }

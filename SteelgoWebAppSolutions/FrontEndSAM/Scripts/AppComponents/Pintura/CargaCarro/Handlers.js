@@ -92,7 +92,7 @@ function SuscribirEventoGuardar() {
         Limpiar();
     });
 
-    $('#Guardar, #btnGuardar, #botonGuardar, #Guardar1').click(function (e) {
+    $('#Guardar, #btnGuardar, #GuardarPie, #Guardar1').click(function (e) {
         e.stopPropagation(); 
         if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);

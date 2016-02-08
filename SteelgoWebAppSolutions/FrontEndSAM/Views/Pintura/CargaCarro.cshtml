@@ -35,8 +35,8 @@
 
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
-                        <div id="CapturaAvanceDiv" class="button-section">
-                            <a id="CapturaAvance1" href="~/Pintura/CapturaAvance" class="btn btn-primary"><span id="PinturaBotonCapturaAvance1"></span></a>
+                        <div id="CargaCarroDivSuperior" class="button-section">
+                            <a id="CargaCarroSuperior" href="@Url.Action("CapturaAvance","Pintura")" class="btn btn-primary"><span id="menuPinturaCargaCarro"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -55,8 +55,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-2 col-md-2 col-lg-2">
+    @*Controles Superior*@
+    <div class="row"  id="FieldSetView">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="InputCarroDiv">
             <label id="PinturaCargaCarro"></label>
             <input id="inputCarro" />
         </div>
@@ -69,9 +70,8 @@
             <label id="labelToneladas" />
         </div>
     </div>
-    <br />
-    <div class="row addedSection" id="FieldSetView">
-
+    @*GRID*@
+    <div class="row addedSectionInLine"> 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-2 col-md-2 col-lg-3">
                 <div class="btn-group " role="group">
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2 col-md-2 col-lg-2" id="divSpool">
+                <div class="col-sm-2 col-md-2 col-lg-2" id="InputIDDiv">
                     <label id="PinturaCargaSpoolID"></label>
                     <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
                 </div>
@@ -99,60 +99,56 @@
                     <button type="button" id="btnAgregar" class="btn btn-blue"><span id="PinturaCargaAgregar"></span></button>
                 </div>
             </div>
-            <br />
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="ContenedorGrid" class="row">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
-                        </div>
+   
+            <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                <div id="grid" data-role="grid" class="k-grid k-widget"></div>
+            </div> 
+        </div>
+        <input id="hdAccionFiltrado" type="hidden" />
+    </div>
+
+    
+    <div id="window"></div>
+     
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix"> 
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="Guardar1"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+
+                    <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
+                </div>
+                <div id="CargaCarroDivInferior" class="button-section">
+                    <a id="CargaCarroInferior" href="@Url.Action("CapturaAvance","Pintura")" class="btn btn-primary"><span id="menuPinturaCargaCarroPie"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a href="#" id="btnCerrarCarro1"><span id="PinturaBotonCerrarCarro2"></span></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <input id="hdAccionFiltrado" type="hidden" />
-    <div id="window">
-    </div>
-    <br /><br />
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="formNav clearfix">
-            <div class="row"> 
-                    <div class="button-section editButtonSection">
-                        <div class="btn-group save-group">
-                            <button id="botonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
-                            <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caretWhite"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" id="Guardar1"><span id="botonGuardar4"></span></a></li>
-                                <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
-                            </ul>
-                        </div>
-
-                        <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
-                    </div>
-                    <div id="CapturaAvanceDiv" class="button-section">
-                        <a id="CapturaAvance" href="~/Pintura/CapturaAvance" class="btn btn-primary"><span id="PinturaBotonCapturaAvance2"></span></a>
-                    </div>
-                    <div class="button-section actionButtonSection">
-                        <div class="dropdown action-group">
-                            <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                <span id="botonAcciones2"></span>
-                                <span class="caretBlue"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                <li><a href="#" id="btnCerrarCarro1"><span id="PinturaBotonCerrarCarro2"></span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
-              
             </div>
         </div>
     </div>
 </div>
-</div>
+ 
 <form id="divNuevoMedioTransporte" style="display:none">
     <div class="row">
         <div class="container" style="padding:15px;">
@@ -199,4 +195,10 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarro/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["CargaCarro"] = $CargaCarroModel;
+    }
+</script>
 
