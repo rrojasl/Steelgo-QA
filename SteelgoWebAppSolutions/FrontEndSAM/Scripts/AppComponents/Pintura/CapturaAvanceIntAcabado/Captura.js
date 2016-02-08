@@ -7,6 +7,7 @@ function IniciarCapturaAvanceIntAcabado() {
     asignarProyecto();
     SuscribirEventos();
     AltaFecha();
+    
 }
 
 function asignarProyecto() {
@@ -22,7 +23,7 @@ function changeLanguageCall() {
     setTimeout(function () { AjaxObtenerColor(); }, 2500);
     setTimeout(function () { AjaxObtenerPintores(); }, 3000);
     setTimeout(function () { AjaxSistemaPintura(); }, 3500);
-
+    document.title = _dictionary.menuPinturaCapturaAvanceIntAcabadoTop[$("#language").data("kendoDropDownList").value()];
 }
 
 function CargarGridCapturaAvanceIntAcabado() {

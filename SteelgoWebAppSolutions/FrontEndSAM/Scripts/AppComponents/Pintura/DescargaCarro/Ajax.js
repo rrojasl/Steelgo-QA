@@ -1,7 +1,6 @@
 ﻿function AjaxCargarCuadrante(area) {
     loadingStart(); 
-    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), AreaID: area }).done(function (data) {
-        debugger;
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), AreaID: area }).done(function (data) { 
         $("#inputCuadrante").data("kendoComboBox").value("");
         $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
 

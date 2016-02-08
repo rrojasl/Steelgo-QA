@@ -193,7 +193,7 @@ function SuscribirEventoMostrar() {
 }
 
 function SuscribirEventoGuardar() {
-    $("#Guardar, #GuardarFooter, #btnGuardarFooter, #btnGuardar").click(function () {
+    $("#Guardar, #GuardarPie, #Guardar1, #btnGuardar").click(function () {
         var ds = $("#grid").data("kendoGrid").dataSource;
         var _pasoId;
         if ($("input:radio[name='PasoTipo']:checked").val() == "intermedio") {
@@ -204,6 +204,10 @@ function SuscribirEventoGuardar() {
         }
 
         AjaxGuardarCaptura(ds._data, _pasoId);
+    });
+
+    $("").click(function () {
+
     });
 }
 
@@ -225,23 +229,40 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $("#InputID").data("kendoComboBox").enable(false);
-        $("#Junta").data("kendoComboBox").enable(false);
-        $("#inputTaller").data("kendoComboBox").enable(false);
-        $("#FechaSoldadura").data("kendoDatePicker").enable(false);
-        $('#botonGuardar').text("Editar");
-        $("#DetalleAvisoLlegada0017").text("Editar");
-        $('#ButtonAplicar').attr("disabled", true);
+        $(".botonDeplegaMenu").attr("disabled", true);
+     
+        $("#InputCuadrante").data("kendoComboBox").enable(false);
+        $("#InputColor").data("kendoComboBox").enable(false);
+        $("#InputFechaCapturaAvanceIntAcabado").data("kendoComboBox").enable(false);
+        $("#InputPintor").data("kendoComboBox").enable(false);
+        $("#InputSistemaPintura").data("kendoComboBox").enable(false);
+        $("#InputPinturaComponenteComposicion").data("kendoComboBox").enable(false);
+        
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $("#InputID").data("kendoComboBox").enable(true);
-        $("#inputTaller").data("kendoComboBox").enable(true);
-        $("#FechaSoldadura").data("kendoDatePicker").enable(true);
-        $("#Junta").data("kendoComboBox").enable(true);
-        $('#botonGuardar').text("Guardar");
-        $("#DetalleAvisoLlegada0017").text("Guardar");
-        $('#ButtonAplicar').attr("disabled", false);
+        $(".botonDeplegaMenu").attr("disabled", true);
+        $("#InputCuadrante").data("kendoComboBox").enable(true);
+        $("#InputColor").data("kendoComboBox").enable(true);
+        $("#InputFechaCapturaAvanceIntAcabado").data("kendoComboBox").enable(true);
+        $("#InputPintor").data("kendoComboBox").enable(true);
+        $("#InputSistemaPintura").data("kendoComboBox").enable(true);
+        $("#InputPinturaComponenteComposicion").data("kendoComboBox").enable(true);
     }
 }
 
+function Limpiar() {
+    $("#InputCuadrante").val("");
+    $("#InputColor").val("");
+    $("#InputFechaCapturaAvanceIntAcabado").val("");
+    $("#InputPintor").val("");
+    $("#InputSistemaPintura").val("");
+    $("#InputPinturaComponenteComposicion").val("");
+    $("#InputID").data("kendoComboBox").dataSource.data([]);
+    //AjaxObtenerCuadrante(); 
+    //setTimeout(function () { AjaxObtenerLote(); }, 2000);
+    //setTimeout(function () { AjaxObtenerColor(); }, 2500);
+    //setTimeout(function () { AjaxObtenerPintores(); }, 3000);
+    //setTimeout(function () { AjaxSistemaPintura(); }, 3500);
+    $("#grid").data('kendoGrid').dataSource.data([]);
+}

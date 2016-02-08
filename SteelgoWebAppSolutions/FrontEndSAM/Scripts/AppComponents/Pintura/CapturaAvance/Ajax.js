@@ -32,9 +32,7 @@ function AjaxCargarCarrosCargados() {
 
     loadingStart();
      
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) {
-
-        debugger;
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), cargado: 1 }).done(function (data) { 
         $("#inputCarro").data("kendoComboBox").value("");
         $("#inputCarro").data("kendoComboBox").setDataSource(data); 
         loadingStop();
@@ -432,8 +430,7 @@ function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
     loadingStart();
     $CapturaAvance.CapturaAvance.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteCargaID: $("#inputCarro").data("kendoComboBox").value() }).done(function (data) {
 
-        if (!guardarYNuevo) {
-            debugger;
+        if (!guardarYNuevo) { 
             AjaxCargarSpool($("#inputCarro").data("kendoComboBox").value());
             opcionHabilitarView(true, "FieldSetView");
         } 

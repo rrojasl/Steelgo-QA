@@ -290,7 +290,7 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
                         $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
                             $("#btnMostrar").trigger("click");
-
+                            opcionHabilitarView(true, "FieldSetView");
                             displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
                             loadingStop();
                         });

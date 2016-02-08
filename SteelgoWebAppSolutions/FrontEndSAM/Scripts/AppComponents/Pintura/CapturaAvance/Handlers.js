@@ -96,8 +96,7 @@ function suscribirEventoCarro() {
         filter: "contains", 
         change: function (e) { 
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
-                debugger;
+            if (dataItem != undefined) { 
                 AjaxCargarSpool(dataItem.MedioTransporteID);
                 $("#inputCarro").focusout();
             }
@@ -148,8 +147,7 @@ function suscribirEventoPintor() {
     }).data("kendoMultiSelect");
     $('#inputPintor').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
-                debugger;
+            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) { 
                 PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
             }
         }
