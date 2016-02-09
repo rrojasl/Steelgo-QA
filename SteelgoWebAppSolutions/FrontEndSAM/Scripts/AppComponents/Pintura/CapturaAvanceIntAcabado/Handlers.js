@@ -167,28 +167,30 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $(".botonDeplegaMenu").attr("disabled", true);
      
-        $("#InputCuadrante").data("kendoComboBox").enable(false);
-        $("#InputColor").data("kendoComboBox").enable(false);
-        $("#InputFechaCapturaAvanceIntAcabado").data("kendoComboBox").enable(false);
-        $("#InputPintor").data("kendoComboBox").enable(false);
-        $("#InputSistemaPintura").data("kendoComboBox").enable(false);
-        $("#InputPinturaComponenteComposicion").data("kendoComboBox").enable(false);
-        
-        $("#Guardar").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#GuardarPie').text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#inputCuadrante").data("kendoComboBox").enable(false);
+        $("#inputColor").data("kendoComboBox").enable(false);
+        $("#inputLote").data("kendoComboBox").enable(false);
+        $("#inputFechaCapturaAvanceIntAcabado").data("kendoDatePicker").enable(false);
+        $("#inputPintor").data("kendoMultiSelect").enable(false);
+        $("#inputSistemaPintura").data("kendoComboBox").enable(false);
+        $("#inputPinturaComponenteComposicion").data("kendoComboBox").enable(false);
+      
+        $("#lblGuardar").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#lblGuardarFooter').text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
         $(".botonDeplegaMenu").attr("disabled", true);
-        $("#InputCuadrante").data("kendoComboBox").enable(true);
-        $("#InputColor").data("kendoComboBox").enable(true);
-        $("#InputFechaCapturaAvanceIntAcabado").data("kendoComboBox").enable(true);
-        $("#InputPintor").data("kendoComboBox").enable(true);
-        $("#InputSistemaPintura").data("kendoComboBox").enable(true);
-        $("#InputPinturaComponenteComposicion").data("kendoComboBox").enable(true);
+        $("#inputCuadrante").data("kendoComboBox").enable(true);
+        $("#inputColor").data("kendoComboBox").enable(true);
+        $("#inputLote").data("kendoComboBox").enable(true);
+        $("#inputFechaCapturaAvanceIntAcabado").data("kendoDatePicker").enable(true);
+        $("#inputPintor").data("kendoMultiSelect").enable(true);
+        $("#inputSistemaPintura").data("kendoComboBox").enable(true);
+        $("#inputPinturaComponenteComposicion").data("kendoComboBox").enable(true);
 
-        $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-        $('#GuardarPie').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#lblGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#lblGuardarFooter').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
 
@@ -198,11 +200,7 @@ function Limpiar() {
     $("#InputFechaCapturaAvanceIntAcabado").val("");
     $("#InputPintor").val("");
     $("#InputSistemaPintura").val("");
-    $("#InputPinturaComponenteComposicion").val(""); 
-    //AjaxObtenerCuadrante(); 
-    //setTimeout(function () { AjaxObtenerLote(); }, 2000);
-    //setTimeout(function () { AjaxObtenerColor(); }, 2500);
-    //setTimeout(function () { AjaxObtenerPintores(); }, 3000);
-    //setTimeout(function () { AjaxSistemaPintura(); }, 3500);
+    $("#InputPinturaComponenteComposicion").val("");
+
     $("#grid").data('kendoGrid').dataSource.data([]);
 }

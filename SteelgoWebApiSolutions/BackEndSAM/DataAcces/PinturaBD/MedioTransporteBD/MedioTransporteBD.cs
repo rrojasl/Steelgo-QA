@@ -259,7 +259,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                             ColorPintura = item.ColorPintura,
                             MedioTransporteCargaID = item.MedioTransporteCargaID,
                             OrdenImportancia = item.OrdenImportancia.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault(),
+                            Peso = item.Peso.GetValueOrDefault()/1000,
                             SistemaPintura = item.SistemaPintura,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SpoolID = item.SpoolID,

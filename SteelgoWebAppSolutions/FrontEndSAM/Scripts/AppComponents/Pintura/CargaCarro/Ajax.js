@@ -5,8 +5,7 @@
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
-
-
+         
         var index = 0;
 
         ListaDetalles[index] = { Nombre: "", ClasificacionID: "", PersistenciaID: "", NumeroVecesUsoMaximo: "", PesoMaximo: "", Area: "", ClasificacionMedioTransporteID: "" };
@@ -140,7 +139,7 @@ function AjaxCerrarCarro() {
 }
 
 function AjaxAgregarCarga() {
-    if ($("#inputCarro").data("kendoComboBox").value() != "-1") {
+    if ($("#inputCarro").data("kendoComboBox").value() != "-1" && $("#inputCarro").data("kendoComboBox").value() != "") {
         if (ObtenerTipoConsulta() == 1 && $("#InputID").val() > -1 || ObtenerTipoConsulta() == 2 && $("#inputCodigo").val() != "") {
             loadingStart();
 
@@ -225,7 +224,7 @@ function ImprimirAreaTonelada() {
             totalToneladasCargadas += parseFloat(array[i]["Peso"], 10);
         }
     }
-    totalToneladasCargadas /= 1000;
+ 
     $("#labelM2").text(totalAreaCargada.toFixed(2));
     $("#labelToneladas").text(totalToneladasCargadas.toFixed(4));
     return totalAreaCargada;
@@ -292,7 +291,7 @@ function SumarTonelada() {
     return totalToneladasCargadas;
 }
 
-function ajaxGuardar(arregloCaptura) {
+function ajaxGuardar(arregloCaptura, guardarYNuevo) {
     try {
         var guardadoExitoso = false;
         var mediosDeTransporteEnElGrid = $("#grid").data("kendoGrid").dataSource._data;
@@ -309,8 +308,7 @@ function ajaxGuardar(arregloCaptura) {
                 ListaDetalles[index].Accion = arregloCaptura[index].Accion;
                 ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
             }
-
-
+             
             Captura[0].Detalles = ListaDetalles;
 
             $MedioTransporte.MedioTransporte.create(Captura[0], {
@@ -318,8 +316,7 @@ function ajaxGuardar(arregloCaptura) {
                 lenguaje: $("#language").val(),
                 medioTransporteID: $('#inputCarro').attr("mediotransporteid"),
                 cerrar: 1
-            }).done(function (data) {
-                AjaxPinturaCargaMedioTransporte();
+            }).done(function (data) { 
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     displayMessage("PinturaGuardarGuardar", "", '1');
                 }
@@ -328,7 +325,8 @@ function ajaxGuardar(arregloCaptura) {
                 }
 
                 $("#grid").data("kendoGrid").dataSource.sync();
-                opcionHabilitarView(true, "FieldSetView");
+
+                if(!guardarYNuevo) opcionHabilitarView(true, "FieldSetView");
                 loadingStop();
             });
         }

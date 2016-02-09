@@ -24,18 +24,11 @@ function LimpiarCarro() {
 
 function CargarGrid() {
     $("#grid").kendoGrid({
-        edit: function (e) {
-            if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-
-            }
-            else {
-                this.closeCell();
-            }
-
+        edit: function (e) { 
+            this.closeCell(); 
         },
         autoBind: true,
-        dataSource: {
-
+        dataSource: { 
             schema: {
                 model: {
                     fields: {
@@ -87,9 +80,8 @@ function CargarGrid() {
 
 
 function eliminarCaptura(e) {
-    e.preventDefault();
-     
-    if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+    e.preventDefault(); 
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         var filterValue = $(e.currentTarget).val();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
          

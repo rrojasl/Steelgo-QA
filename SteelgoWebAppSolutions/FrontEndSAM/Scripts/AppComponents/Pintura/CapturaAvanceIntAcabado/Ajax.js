@@ -234,7 +234,7 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
                 loadingStart();
                 Captura[0].Detalles = ListaDetalles;
                 $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                    $("#btnMostrar").trigger("click");
+                    opcionHabilitarView(true, "FieldSetView");
                     displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
                     loadingStop();
 
@@ -288,8 +288,7 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
 
                     if (ArregloGuardado.length > 0) {
                         $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-
-                            $("#btnMostrar").trigger("click");
+                             
                             opcionHabilitarView(true, "FieldSetView");
                             displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
                             loadingStop();
