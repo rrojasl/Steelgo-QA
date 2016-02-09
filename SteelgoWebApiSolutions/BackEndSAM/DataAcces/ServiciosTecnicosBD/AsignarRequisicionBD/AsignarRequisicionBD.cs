@@ -108,7 +108,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                             Clave = item.Clave,
                             Observacion = item.Observacion,
                             Fecha = item.Fecha,
-                            CantidadJuntas = item.CantidadJuntas.ToString(),
+                            CantidadJuntas = item.CantidadJuntas,
                             ProveedorID = item.ProveedorID.GetValueOrDefault(),
                             Proveedor = item.Proveedor == null ? "" : item.Proveedor,
                             RequisicionID = item.RequisicionID,

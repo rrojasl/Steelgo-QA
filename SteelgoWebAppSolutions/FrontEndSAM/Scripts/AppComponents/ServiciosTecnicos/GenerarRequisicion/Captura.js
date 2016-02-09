@@ -61,7 +61,7 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Clasificacion: { type: "string", editable: true },
-                        Prioridad: { type: "string", editable: false },
+                        Prioridad: { type: "number", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
                         Requisicion: { type: "string", editable: false },

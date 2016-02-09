@@ -26,7 +26,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public int RequisicionID { get; set; }
 
         public string Requisicion { get; set; }
-        public string CantidadJuntas { get; set; }
+        public int CantidadJuntas { get; set; }
         public int ProveedorID { get; set; }
         public string Proveedor { get; set; }
         public List<Proveedor> ListaProveedor { get; set; }
