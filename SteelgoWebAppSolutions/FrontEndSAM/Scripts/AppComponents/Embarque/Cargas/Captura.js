@@ -1,24 +1,29 @@
 ﻿var ventanaPopup;
 var ventanaAgregarPaquetePopup;
 var dataItemSeleccionadoPopup;
-var EmbarquePlanaID=0;
+var EmbarquePlanaID = 0;
 
 function changeLanguageCall() {
     CargarGrid();
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
+    $("#lblEstatus").text("");
+    $("#lblEmbarqueCargaTotalPiezas").text("");
+    $("#lblEmbarqueCargaToneladasCargadas").text("");
+    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
+    $("#inputProveedor").data("kendoComboBox").value("");
     document.title = _dictionary.lblCargas[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     opcionHabilitarView(false, "FieldSetView")
 };
 
-if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val()!="0") {
+if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val() != "0") {
     EmbarquePlanaID = $("#inputHiddenEmbarquePlanaID").val();
 }
 else {
     EmbarquePlanaID = 0;
-    
+
 }
 
 IniciarCapturaEmbarqueCarga();
@@ -82,7 +87,7 @@ function CargarGrid() {
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
                     { field: "Accion", operator: "eq", value: 0 },
-                    { field: "Accion", operator: "eq", value: 2},
+                    { field: "Accion", operator: "eq", value: 2 },
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
@@ -106,28 +111,19 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
-        filterMenuInit: function (e) {
-            if (e.field === "UnitPrice" || e.field === "UnitsInStock") {
-                var filterMultiCheck = this.thead.find("[data-field=" + e.field + "]").data("kendoFilterMultiCheck")
-                filterMultiCheck.container.empty();
-                filterMultiCheck.checkSource.sort({ field: e.field, dir: "asc" });
 
-                filterMultiCheck.checkSource.data(filterMultiCheck.checkSource.view().toJSON());
-                filterMultiCheck.createCheckBoxes();
-            }
-        },
         columns: [
             { field: "Consecutivo", title: _dictionary.EmbarqueCargaHeaderConsecutivo[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "NumeroControl", title: _dictionary.EmbarqueCargaHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Paquete", title: _dictionary.EmbarqueCargaHeaderPaquete[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Seleccionado", title: " ", filterable:  { multi: true, dataSource: [{ Seleccionado: true }, { Seleccionado: false }] }, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "Seleccionado", title: " ", filterable: { multi: true, dataSource: [{ Seleccionado: true }, { Seleccionado: false }] }, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         if ($("#language").val() == "es-MX") {
-            if ($('#Guardar').text() != "Editar") {
+            if ($('#Guardar').text() != "Editar" && $("#lblEstatus").text().toLowerCase() != "cerrada") {
                 var grid = $("#grid").data("kendoGrid");
                 dataItem = grid.dataItem($(e.target).closest("tr"));
                 dataItem.set("Seleccionado", this.checked);
@@ -152,7 +148,7 @@ function CargarGrid() {
             }
         }
         else {
-            if ($('#Guardar').text() != "Edit") {
+            if ($('#Guardar').text() != "Edit" && $("#lblEstatus").text().toLowerCase() != "closed") {
                 var grid = $("#grid").data("kendoGrid");
                 dataItem = grid.dataItem($(e.target).closest("tr"));
                 dataItem.set("Seleccionado", this.checked);
@@ -168,7 +164,7 @@ function CargarGrid() {
             else {
                 var grid = $("#grid").data("kendoGrid");
                 if (this.checked) {
-                    e.ta.checked = false;
+                    this.checked = false;
                 }
                 else {
                     this.checked = true;
@@ -176,24 +172,35 @@ function CargarGrid() {
                 grid.dataSource.sync();
             }
         }
-        
-        
+
+
     });
 };
 
 function eliminarCaptura(e) {
     e.preventDefault();
-    if ($('#Guardar').text() != "Editar" || $('#Guardar').text() != "Edit") {
-        dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-        if ($('#botonGuardar').text() == "Guardar") {
+    if ($("#language").val() == "es-MX") {
+        if ($('#Guardar').text() != "Editar" && $("#lblEstatus").text().toLowerCase() != "cerrada") {
+            dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             ventanaPopup.open().center();
-        }
 
-        var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
-        cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteID);
-        $("#inputPopupPaqueteID").text(dataItemSeleccionadoPopup.EmbarquePaqueteID);
-        $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+            var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
+            cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteID);
+            $("#inputPopupPaqueteID").text(dataItemSeleccionadoPopup.EmbarquePaqueteID);
+            $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+        }
+    }
+    else {
+        if ($('#Guardar').text() != "Edit" && $("#lblEstatus").text().toLowerCase() != "closed") {
+            dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            
+                ventanaPopup.open().center();
+
+            var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
+            cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteID);
+            $("#inputPopupPaqueteID").text(dataItemSeleccionadoPopup.EmbarquePaqueteID);
+            $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+        }
     }
 }
 
@@ -221,18 +228,18 @@ function validarExisteSpoolSeleccionadoSinPaquete() {
         return true;
     }
     else {
-            for (var i = 0; i < ds._data.length; i++) {
-                if (ds._data[i]["Seleccionado"] && ds._data[i]["Paquete"] != "") {
-                    existe = true;
-                    break;
-                }
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i]["Seleccionado"] && ds._data[i]["Paquete"] != "") {
+                existe = true;
+                break;
             }
-            if (existe)
-                displayMessage("EmbarqueCargaSeTieneEmpaquetado", "", '2');
-            return existe;
         }
-        
+        if (existe)
+            displayMessage("EmbarqueCargaSeTieneEmpaquetado", "", '2');
+        return existe;
     }
+
+}
 
 
 

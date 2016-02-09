@@ -5658,6 +5658,15 @@ _dictionary = {
         "es-MX": "No tienes agregado ningun spool",
         "en-US": "You dont have added any spool"
     },
+    "EmbarqueCargaErrorAgregar": {
+        "es-MX": "No se pueden agregar spools, la plana esta cerrada",
+        "en-US": "Can't add spools, the plain is closed"
+    },
+    "EmbarqueCargaErrorSeleccionarItem": {
+        "es-MX": "Seleccione al menos un item",
+        "en-US": "Select at least one item"
+    },
+    
     "EmbarqueCargaSeAgregaPaquete": {
         "es-MX": "No se puede agregar al paquete existen varios paquetes diferentes o no se ha seleccionando algun spool",
         "en-US": "You can not add to the package you selected more than one package or not selecting spool"

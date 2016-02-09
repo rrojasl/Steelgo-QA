@@ -237,14 +237,19 @@ function SuscribirEventoSpoolID() {
             $("#InputID").data("kendoComboBox").select();
         }
         else if (e.keyCode == 13) {
-            if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
-                AjaxAgregarCarga();
+            if ($("#lblEstatus").text().toLowerCase() != "cerrada" && $("#lblEstatus").text().toLowerCase() != "closed") {
+                if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+                    AjaxAgregarCarga();
+                }
+                else {
+                    $("#InputID").data("kendoComboBox").value("");
+                }
             }
             else {
-                $("#InputID").data("kendoComboBox").value("");
+                displayMessage("EmbarqueCargaErrorAgregar", "", '1');
             }
-
         }
+        
     });
 
 };
@@ -354,6 +359,7 @@ function SuscribirEventoPaquete() {
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
+        if ($("#lblEstatus").text().toLowerCase() != "cerrada" && $("#lblEstatus").text().toLowerCase() != "closed") {
         if (ObtenerTipoConsulta() == 1) {
             if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                 AjaxAgregarCarga();
@@ -373,7 +379,10 @@ function SuscribirEventoAgregar() {
         else {
             AjaxAgregarCarga();
         }
-
+        }
+        else {
+            displayMessage("EmbarqueCargaErrorAgregar", "", '1');
+        }
     });
 }
 
@@ -387,7 +396,7 @@ function SuscribirEventoCrearPaquete() {
             }
         }
         else {
-            displayMessage("", "Seleccione al menos un item", '1');
+            displayMessage("", "", '1');
             existe = true;
             return existe;
         }

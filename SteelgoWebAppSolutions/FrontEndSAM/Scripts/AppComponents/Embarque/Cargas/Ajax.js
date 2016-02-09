@@ -286,6 +286,9 @@ function ajaxCerrarPlana() {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     displayMessage("EmbarqueCargaCerrarPlana", "", '1');
                     $('#btnEmbarqueCerrarPlana').attr("disabled", true);
+                    var labelCerrada = $("#language").val() == "es-MX" ? "Cerrada" : "Closed";
+                    $("#lblEstatus").text(labelCerrada);
+                    $('.btnCerrarPlana').css('display', 'none');
                 }
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     displayMessage("EmbarqueCargaErrorCerrarPlana", "", '2');
