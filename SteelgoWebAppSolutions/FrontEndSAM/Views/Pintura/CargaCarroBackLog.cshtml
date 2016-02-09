@@ -123,7 +123,48 @@
 
 </div>
 
+@*Popup nuevo carro*@
+<form id="divNuevoMedioTransporte" style="display:none">
+    <div class="row">
+        <div class="container" style="padding:15px;">
+            <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <label id="labelNuevoMedioTransporte"></label>
+                <input id="inputMedioTransporte" class="form-control" type="text" />
+            </div>
 
+            <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label id="labelClasificion"></label>
+                <input id="inputClasificacion" class="form-control" />
+            </div>
+
+            <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label id="labelPersisitencia"></label>
+                <input id="inputPersistencia" class="form-control" />
+            </div>
+
+            <div class="form-inline col-xs-3 col-sm-3 col-md-3 col-lg-3" id="divNumeroVeces">
+                <label id="labelNumeroVeces" style="width:160px;"></label>
+                <input id="inputNumeroVeces" class="form-control" style="width:100px;" />
+            </div>
+
+            <div class="form-inline col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label id="labelPesoMaximo"></label>
+                <input id="inputPesoMaximo" class="form-control" type="text" style="width:100px;" />
+            </div>
+
+            <div class="form-inline col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label id="labelArea"></label>
+                <input id="inputArea" class="form-control" type="text" style="width:100px;" />
+            </div>
+
+        </div>
+        <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
+            <button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="lblGuardar"></span></button>
+            <button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="BotonCerrar1"></span></button>
+        </div>
+    </div>
+</form>
+ 
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CargaCarroBackLog/Ajax.js"></script>

@@ -1,5 +1,7 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
+    AjaxObtenerCatalogoClasificacion();
+    AjaxObtenerCatalogoPersistencia();
     AjaxPinturaCargaMedioTransporte(); 
     AjaxCargarCamposPredeterminados();
     document.title = _dictionary.PinturaHeaderCargaCarroBacklog[$("#language").data("kendoDropDownList").value()];
@@ -32,13 +34,22 @@ function CargarGrid() {
     })(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
+        edit: function (e) {
+            if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            }
+            else {
+                this.closeCell();
+            }
+
+        },
         autoBind: true,
         dataSource: {
             data: [],
             schema: {
                 model: {
                     fields: {
-                        OrdenImportancia: { type: "int", editable: false },
+                        OrdenImportancia: { type: "number", editable: false },
                         SpoolJunta: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
@@ -102,6 +113,39 @@ function CargarGrid() {
     });
 };
  
+function ValidarDatosNuevoCarro(ListaDetalles) {
+    var error = false;
+
+    if (ListaDetalles.Nombre == "") {
+        displayMessage("Mensajes_error", "Escriba nombre de carro", '2');
+        error = true;
+    }
+
+    if (ListaDetalles.NumeroVecesUsoMaximo == "" && ListaDetalles.PersistenciaID == 1) {
+        displayMessage("Mensajes_error", "Escriba número de veces que puede ser utilizado el carro", '2');
+        error = true;
+    }
+
+    if (ListaDetalles.PesoMaximo == "") {
+        displayMessage("Mensajes_error", "Escriba peso de carro", '2');
+        error = true;
+    }
+
+    if (ListaDetalles.Area == "") {
+        displayMessage("Mensajes_error", "Escriba área de carro", '2');
+        error = true;
+    }
+    return error;
+}
+
+function LimpiarCarro() {
+    $("#inputMedioTransporte").val('');
+    $("#inputNumeroVeces").val('');
+    $("#inputPesoMaximo").val('');
+    $("#inputArea").val('');
+
+}
+
 function Limpiar() {
     $("#grid").data('kendoGrid').dataSource.data([]);
     $("#grid").data("kendoGrid").dataSource.sync();

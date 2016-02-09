@@ -46,16 +46,12 @@ function AjaxPinturaCargaMedioTransporte() {
     loadingStart();
 
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        $("#inputCarro").data("kendoComboBox").value("");
         if (data.length > 0) { 
-            $("#inputCarro").data("kendoComboBox").value("");
-
             data.unshift({ MedioTransporteID: -1, NombreMedioTransporte: _dictionary.PinturaCargaAgregarNuevoCarro[$("#language").data("kendoDropDownList").value()] });
              
             $("#inputCarro").data("kendoComboBox").dataSource.data(data);
-        } else { 
-            $("#inputCarro").data("kendoComboBox").value("");
-        };
-
+        } 
         loadingStop();
     });
 }
