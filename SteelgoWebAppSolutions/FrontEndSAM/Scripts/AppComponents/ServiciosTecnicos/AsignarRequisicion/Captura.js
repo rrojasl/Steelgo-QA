@@ -31,7 +31,7 @@ function CargarGrid() {
                         Fecha: { type: "date", editable: true },
                         RequisicionID: { type: "int", editable: false },
                         Requisicion: { type: "string", editable: false },
-                        CantidadJuntas: { type: "string", editable: false },
+                        CantidadJuntas: { type: "number", editable: false },
                         Proveedor: { type: "string", editable: true },
                         HerramientadePrueba: { type: "string", editable: true },
                         TurnoLaboral: { type: "string", editable: true }

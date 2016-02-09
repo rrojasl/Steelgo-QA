@@ -124,7 +124,6 @@ function suscribirEventoAgregar() {
     });
 }
 
-
 function suscribirEventoProyecto() {
     var dataItem;
     $("#Proyecto").kendoComboBox({
@@ -137,6 +136,10 @@ function suscribirEventoProyecto() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 ajaxObtenerTipoPruebas();
+            }
+            else {
+                $("#Proyecto").data("kendoComboBox").value("");
+
             }
         }
     });
@@ -154,6 +157,10 @@ function suscribirEventoTipoPrueba() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 ajaxObtenerJuntasSoldadas($("#tipoPrueba").data("kendoComboBox").value());
+            }
+            else {
+                $("#tipoPrueba").data("kendoComboBox").value("");
+
             }
         }
        
@@ -231,8 +238,6 @@ function SuscribirEventoSpoolID() {
     });
 };
 
-
-
 function SuscribirEventosJunta() {
     $('#Junta').kendoComboBox({
         dataTextField: "Etiqueta",
@@ -257,12 +262,11 @@ function SuscribirEventosJunta() {
                 AgregarJuntaNueva();
             }
             else
-
+                $("#Junta").data("kendoComboBox").value("");
                 displayMessage("NoExisteJunta", '', '2');
         }
     });
 }
-
 
 function Limpiar() {
 
