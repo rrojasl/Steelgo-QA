@@ -2314,7 +2314,9 @@ namespace BackEndSAM.DataAcces
                         Espesor = datos.Espesor,
                         Peso = ics.Peso.ToString(),
                         Area = ics.Area.ToString(),
-                        TieneD2 = datos.TieneD2
+                        TieneD2 = datos.TieneD2, 
+                        FamiliaMaterial = datos.FamiliaMaterial, 
+                        FamiliaMaterialID = datos.FamiliaMaterialID
                     };
 
                 }

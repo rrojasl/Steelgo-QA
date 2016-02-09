@@ -736,9 +736,10 @@ namespace BackEndSAM.DataAcces
 
                     List<ListadoPLporCuantificar> listado = (from r in registros
                                                              join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                             join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
                                                              join fc in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                                              join fa in ctx.Sam3_FolioAvisoLlegada on rfp.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                             join p in ctx.Sam3_Proyecto on fc.ProyectoID equals p.ProyectoID
+                                                             where r.Activo && rfp.Activo && fc.Activo && fa.Activo && p.Activo
                                                              select new ListadoPLporCuantificar
                                                              {
                                                                  Proyecto = p.Nombre,
