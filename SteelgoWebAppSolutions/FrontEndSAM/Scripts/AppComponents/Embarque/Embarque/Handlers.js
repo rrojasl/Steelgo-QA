@@ -17,7 +17,6 @@ function suscribirEventoGuardar() {
 
         if ($("#Tracto").data("kendoComboBox").dataItem($("#Tracto").data("kendoComboBox").select()) != undefined) {
             if ($("#Chofer").data("kendoComboBox").dataItem($("#Chofer").data("kendoComboBox").select()) != undefined) {
-                if (ds._data.length > 0) {
                     if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
                         opcionHabilitarView(true, "FieldSetView");
                         AjaxGuardarPlanas(ds._data);
@@ -25,10 +24,6 @@ function suscribirEventoGuardar() {
                     else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                         opcionHabilitarView(false, "FieldSetView")
                     }
-                }
-                else {
-                    displayMessage("EmbarqueMensajeAgregaPlanas", "", "1");
-                }
             }
             else {
                 displayMessage("", "Debe seleccionar un Chofer", "1");

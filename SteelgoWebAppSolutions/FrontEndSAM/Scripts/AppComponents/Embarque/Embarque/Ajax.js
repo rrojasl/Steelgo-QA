@@ -56,6 +56,7 @@ function AjaxCargarDatos(embarqueID) {
         var array = data;
         
         if (array.length != 0) {
+            EmbarqueID = data[0].EmbarqueID;
             transportistaEmb = data[0].TransportistaID;
             choferEmb = data[0].ChoferID;
             tractoEmb = data[0].TractoID;
@@ -64,10 +65,9 @@ function AjaxCargarDatos(embarqueID) {
             $("#Proveedor").data("kendoComboBox").trigger("change");
         }
         
-        
-        for (var i = 0; i < array.length; i++) {
+            for (var i = 0; i < array.length; i++) {
                 ds.add(array[i]);
-        }
+            }
         loadingStop();
     });
 }
@@ -78,10 +78,16 @@ function AjaxCargarDatosChofer(vehiculoID, choferID) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
-
-        for (var i = 0; i < array.length; i++) {
-            ds.add(array[i]);
+        if (data.length > 0) {
+            EmbarqueID = data[0].EmbarqueID;
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
         }
+        else {
+            EmbarqueID = 0;
+        }
+        
         loadingStop();
     });
 }
@@ -118,10 +124,11 @@ function AjaxGuardarPlanas(arregloCaptura) {
         
         var cont = 0, contEliminar = 0;
         for (var i = 0 ; i < arregloCaptura.length; i++) {
+            ListaDetalles[0].embarqueID = EmbarqueID;
             if (arregloCaptura[i].Accion != 2 && cont == 0) {
                 ListaDetalles[0].accionPlanaID1 = arregloCaptura[i].Accion;
                 ListaDetalles[0].planaID1 = parseInt(arregloCaptura[i].PlanaID);
-                ListaDetalles[0].embarqueID = arregloCaptura[i].EmbarqueID;
+                
                 cont++;
             }
             else if (arregloCaptura[i].Accion != 2 && cont == 1) {

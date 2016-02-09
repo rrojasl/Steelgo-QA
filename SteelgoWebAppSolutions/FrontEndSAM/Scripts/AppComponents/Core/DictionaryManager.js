@@ -5825,8 +5825,8 @@ _dictionary = {
     }
     ,
     "EmbarqueRevisionNoSeleccionaOpcion": {
-        "es-MX": "En todos los spools tiene que seleccionar una opción : Llego, Llego con comentario, No Llego.",
-        "en-US": "In all spools select an option: Arrived, Arrived with comment, Didnt Arrive "
+        "es-MX": "Seleccionar al menos un spool con alguna opción : Llego, Llego con comentario, No Llego.",
+        "en-US": "Selecting at least one spool with an option: Arrived, Arrived with comment, Didnt Arrive "
     }
     ,
     "EmbarqueRevisionGuardar": {

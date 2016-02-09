@@ -133,29 +133,29 @@ function ajaxGuardar(arregloCaptura) {
                 ListaDetalles[row].Comentario = arregloCaptura[index].Comentario;
                 row++;
             }
-            else {
-                displayMessage("EmbarqueRevisionNoSeleccionaOpcion", "", '2');
-                loadingStop();
-                return false;
-            }
         }
+        if (ListaDetalles.length > 0) {
+            Captura[0].Detalles = ListaDetalles;
 
-        Captura[0].Detalles = ListaDetalles;
+            $RevisionEmbarque.RevisionEmbarque.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                    displayMessage("EmbarqueRevisionGuardar", "", '1');
+                    ajaxBuscar();
+                }
+                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                    displayMessage("EmbarqueRevisionErrorGuardar", "", '2');
+                    opcionHabilitarView(false, "FieldSetView")
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+                loadingStop();
+            });
 
-        $RevisionEmbarque.RevisionEmbarque.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                displayMessage("EmbarqueRevisionGuardar", "", '1');
-                ajaxBuscar();
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                displayMessage("EmbarqueRevisionErrorGuardar", "", '2');
-                opcionHabilitarView(false, "FieldSetView")
-            }
-            $("#grid").data("kendoGrid").dataSource.sync();
+            return true;
+        }
+        else {
+            displayMessage("EmbarqueRevisionNoSeleccionaOpcion", "", '2');
             loadingStop();
-        });
-
-        return true;
+        }
     } catch (e) {
         loadingStop();
         displayMessage("Mensajes_error", e.message, '0');

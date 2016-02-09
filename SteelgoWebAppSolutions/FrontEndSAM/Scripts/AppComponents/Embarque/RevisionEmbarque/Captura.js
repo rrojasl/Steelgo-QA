@@ -106,11 +106,13 @@ function CargarGrid() {
                         dataItem.set("Llego", this.checked);
                         dataItem.set("NoLlego", false);
                         dataItem.set("LlegoComentarios", false);
+                        dataItem.Comentario = "";
                         break;
                     case 'NoLlego':
                         dataItem.set("Llego", false);
                         dataItem.set("NoLlego", this.checked);
                         dataItem.set("LlegoComentarios", false);
+                        dataItem.Comentario = "";
                         break;
                     case 'LlegoComentarios':
                         dataItem.set("Llego", false);
