@@ -47,7 +47,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CargaCarroBackLogBD
                             Cuadrante = item.Cuadrante,
                             Nombre = item.Nombre,
                             OrdenImportancia = item.OrdenImportancia.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault(),
+                            Peso = item.Peso.GetValueOrDefault()/1000,
                             ProyectoID = item.ProyectoID,
                             SistemaPintura = item.SistemaPintura,
                             SistemaPinturaID = item.SistemaPinturaID,
