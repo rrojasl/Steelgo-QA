@@ -8,20 +8,29 @@ function RenderComboBoxClasificacion(container, options) {
             autoBind: false,
             dataSource: options.model.listaClasificaciones,
             template: "<i class=\"fa fa-#=data.Clave.toLowerCase()#\"></i> #=data.Clave#",
-            select: function (e) {
-
-                dataItem = this.dataItem(e.item.index());
-                options.model.Clave = dataItem.Clave;
-                options.model.PruebasClasificacionID = dataItem.PruebasClasificacionID;
-                options.model.TipoClave = dataItem.TipoClave;
-            },
+           
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Clave = dataItem.Clave;
-                options.model.PruebasClasificacionID = dataItem.PruebasClasificacionID;
-                options.model.TipoClave = dataItem.TipoClave;
+                if (dataItem != undefined) {
+                    options.model.Clasificacion = dataItem.Clave;
+                    options.model.PruebasClasificacionID = dataItem.PruebasClasificacionID;
+                    
+                }
+                else
+                    options.model.Clasificacion = ObtenerDescCorrectaClasificacion(options.model.listaClasificaciones, options.model.PruebasClasificacionID);
+
+               
             }
         }
         );
     
+}
+
+
+function ObtenerDescCorrectaClasificacion(lista, PruebasClasificacionID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].PruebasClasificacionID == PruebasClasificacionID)
+            return lista[i].Clave;
+    }
+    return "";
 }
