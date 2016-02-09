@@ -16,6 +16,7 @@ function changeLanguageCall() {
     AjaxCargarPintor();
     AjaxCargarShotBlastero();
     AjaxCargarCuadrante(0);
+    document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];    
 };
 
 

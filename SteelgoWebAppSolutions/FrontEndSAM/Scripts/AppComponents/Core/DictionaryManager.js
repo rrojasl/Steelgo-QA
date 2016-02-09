@@ -6097,6 +6097,10 @@ _dictionary = {
         "es-MX": "Persistencia",
         "en-US": "Persistence"
     },
+    "lblCapturaAvance": {
+        "es-MX": "Avance",
+        "en-US": "Progress"
+    },
     "CapturaAvanceSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
