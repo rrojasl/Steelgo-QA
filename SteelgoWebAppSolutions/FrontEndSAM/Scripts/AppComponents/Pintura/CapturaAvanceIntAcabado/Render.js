@@ -1,6 +1,5 @@
 ﻿function RenderMultiselectPintores(container, options) {
-
-
+    
     if (options.model.ListaPintoresSeleccionadosPorSpool == null) {
         options.model.ListaPintoresSeleccionadosPorSpool = [];
 
@@ -24,7 +23,10 @@
                 value: options.model.ListaDetallePintoresPorSpool
             }).data("kendoMultiSelect");
 
-
+    //$("#" + options.model.uid).blur(function () { 
+    //    $("#" + options.model.uid).closest("tr").trigger("click");
+    //    $.event.trigger({ type: 'keypress', which: 27 });
+    //});
 }
 
 function RenderGridDetalle(container, options) {
@@ -113,7 +115,7 @@ function RenderComboBoxColor(container, options) {
     var dataItem;
     $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: ItemSeleccionado.ListaColor,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
@@ -123,7 +125,7 @@ function RenderComboBoxColor(container, options) {
                 options.model.ColorID = dataItem.ColorID;
             },
             change: function (e) {
-                dataItem = this.dataItem(e.item.index());
+                dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.Nombre = dataItem.Nombre;
                 options.model.ColorID = dataItem.ColorID;
             }
@@ -138,7 +140,7 @@ function RenderComboboxSistemaPintura(container, options) {
 
     $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
 
             dataSource: options.model.listaSistemaPintura,
@@ -193,7 +195,7 @@ function RenderComboBoxPinturaComponenteComposicion(container, options) {
     var dataItem;
     $('<input required data-text-field="Componente" id=' + options.model.uid + ' data-value-field="ComponenteID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.ListaPinturaComponenteCompEspecifica,
             template: "<i class=\"fa fa-#=data.Componente#\"></i> #=data.Componente#",
@@ -218,7 +220,7 @@ function RenderComboBoxColor(container, options) {
 
     $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.listaColores,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
@@ -243,7 +245,7 @@ function RenderComboBoxLote(container, options) {
 
     $('<input required data-text-field="NumeroLote" id=' + options.model.uid + ' data-value-field="LotePinturaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoDropDownList({
+        .kendoComboBox({
             autoBind: false,
             dataSource: options.model.listaLotes,
             template: "<i class=\"fa fa-#=data.NumeroLote#\"></i> #=data.NumeroLote#",

@@ -36,10 +36,10 @@ function AjaxObtenerCuadrante() {
 
     $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({ token: Cookies.get("token"), id: 0 }).done(function (data) {
         if (data.length > 0) {
-            $("#inputCuadrante").data("kendoDropDownList").value("");
-            $("#inputCuadrante").data("kendoDropDownList").dataSource.data(data);
+            $("#inputCuadrante").data("kendoComboBox").value("");
+            $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
         } else {
-            $("#inputCuadrante").data("kendoDropDownList").value("");
+            $("#inputCuadrante").data("kendoComboBox").value("");
         };
     });
 }
@@ -49,10 +49,10 @@ function AjaxObtenerColor() {
         if (data.length > 0) {
             var color = $("#inputColor");
 
-            $("#inputColor").data("kendoDropDownList").value("");
-            $("#inputColor").data("kendoDropDownList").dataSource.data(data);
+            $("#inputColor").data("kendoComboBox").value("");
+            $("#inputColor").data("kendoComboBox").dataSource.data(data);
         } else {
-            $("#inputColor").data("kendoDropDownList").value("");
+            $("#inputColor").data("kendoComboBox").value("");
         };
         //      loadingStop();
     });
@@ -74,10 +74,10 @@ function AjaxObtenerPintores() {
 function AjaxObtenerLote() {
     $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({ lote: 2, token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
-            $("#inputLote").data("kendoDropDownList").value("");
-            $("#inputLote").data("kendoDropDownList").dataSource.data(data);
+            $("#inputLote").data("kendoComboBox").value("");
+            $("#inputLote").data("kendoComboBox").dataSource.data(data);
         } else {
-            $("#inputLote").data("kendoDropDownList").value("");
+            $("#inputLote").data("kendoComboBox").value("");
         };
     });
 }
@@ -322,28 +322,28 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
 function AjaxSistemaPintura() {
     // el id es solo para identificar que solo me traera el catalog de componente composicion
     $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: 2 }).done(function (data) {
+       
         if (data.length > 0) {
-            $("#inputSistemaPintura").data("kendoDropDownList").value("");
-            $("#inputSistemaPintura").data("kendoDropDownList").dataSource.data(data);
-            $("#inputSistemaPintura").data("kendoDropDownList").trigger("change");
+            $("#inputSistemaPintura").data("kendoComboBox").value("");
+            $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(data); 
 
         } else {
-            $("#inputSistemaPintura").data("kendoDropDownList").value("");
+            $("#inputSistemaPintura").data("kendoComboBox").value("");
         };
 
     });
 }
 
 function AjaxComponenteComposicion() {
-
     // el id es solo para identificar que solo me traera el catalog de componente composicion
-    $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), sistemaPinturaID: $("#inputSistemaPintura").val() }).done(function (data) {
+ 
+    $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), sistemaPinturaID: $("#inputSistemaPintura").data("kendoComboBox").value() }).done(function (data) {
         if (data.length > 0) {
-            $("#inputPinturaComponenteComposicion").data("kendoDropDownList").dataSource.data([]);
-            $("#inputPinturaComponenteComposicion").data("kendoDropDownList").dataSource.data(data);
+            $("#inputPinturaComponenteComposicion").data("kendoComboBox").dataSource.data([]);
+            $("#inputPinturaComponenteComposicion").data("kendoComboBox").dataSource.data(data);
 
         } else {
-            $("#inputPinturaComponenteComposicion").data("kendoDropDownList").dataSource.data([]);
+            $("#inputPinturaComponenteComposicion").data("kendoComboBox").dataSource.data([]);
         }
     });
 }

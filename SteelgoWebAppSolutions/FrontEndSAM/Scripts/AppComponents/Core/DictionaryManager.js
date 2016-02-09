@@ -6388,6 +6388,11 @@ _dictionary = {
         "en-US": "Are you sure you want to cancel the detail of the capture of paint ?"
 
     },
+    "ErrorCapturaAvanceIntAcabadoSeleccionarCuadrante": {
+        "es-MX": "Por favor seleccione un cuadrante",
+        "en-US": "Select a quadrant, please"
+
+    },
     "WarningTitle": {
         "es-MX": "Advertencia",
         "en-US": "Warning"

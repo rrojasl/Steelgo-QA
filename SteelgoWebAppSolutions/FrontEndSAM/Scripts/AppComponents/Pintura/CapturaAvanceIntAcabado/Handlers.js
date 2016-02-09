@@ -12,7 +12,7 @@
 };
 
 function SuscribirEventoCuadrante() {
-    $('#inputCuadrante').kendoDropDownList({
+    $('#inputCuadrante').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "CuadranteID ",
         suggest: true,
@@ -56,7 +56,7 @@ function SuscribirEventoPintor() {
 }
 
 function SuscribirEventoLote() {
-    $('#inputLote').kendoDropDownList({
+    $('#inputLote').kendoComboBox({
         dataTextField: "NumeroLote",
         dataValueField: "LotePinturaID ",
         suggest: true,
@@ -69,7 +69,7 @@ function SuscribirEventoLote() {
 }
 
 function SuscribirEventoComponenteComposicion() {
-    $('#inputPinturaComponenteComposicion').kendoDropDownList({
+    $('#inputPinturaComponenteComposicion').kendoComboBox({
         dataTextField: "Componente",
         dataValueField: "ComponenteID",
         suggest: true,
@@ -82,7 +82,7 @@ function SuscribirEventoComponenteComposicion() {
 }
 
 function SuscribirEventoSistemaPintura() {
-    $('#inputSistemaPintura').kendoDropDownList({
+    $('#inputSistemaPintura').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "SistemaPinturaID",
         suggest: true,
@@ -107,88 +107,24 @@ function SuscribirEventoFecha() {
         }
     });
 }
-
-//function SuscribirEventoSpoolID() {
-//    var dataItem;
-//    $("#InputSpoolID").kendoComboBox({
-//        dataTextField: "IDValido",
-//        dataValueField: "Valor",
-//        suggest: true,
-//        filter: "contains",
-//        index: 3,
-//        select: function (e) { 
-//            dataItem = this.dataItem(e.item.index());
-
-//            if (dataItem.Status != "1") {
-//                e.preventDefault();
-//                $("#InputSpoolID").val("");
-//                console.log("borrar datos");
-
-//                displayMessage(_dictionary.AlertaError[$("#language").data("kendoDropDownList").value()], dataItem.Status, '1'); 
-
-//            }
-//            else {
-//                $("#InputSpoolID").val(dataItem.IDValido);
-//                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-//                $("#LabelProyecto").text(dataItem.Proyecto); 
-//            } 
-//        }
-//        ,
-//        change: function (e) {
-//            dataItem = this.dataItem(e.sender.selectedIndex);
-//            if ($("#InputSpoolID").val().length == 1) {
-//                $("#InputSpoolID").data("kendoComboBox").value(("00" + $("#InputSpoolID").val()).slice(-3));
-//            }
-//            if ($("#InputSpoolID").val() != '' && $("#InputPrefijoSpool").val() != '') {
-//                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-//                $("#LabelProyecto").text(dataItem.Proyecto); 
-//            } 
-//        }
-//    });
-
-//$("#InputPrefijoSpool").blur(function (e) {
-//    if ($("#InputPrefijoSpool").val().match("^[a-zA-Z][0-9]*$")) {
-//        try {
-//            AjaxObtenerSpoolID();
-//        } catch (e) {
-//            displayMessage("Mensajes_error", e.message, '0');
-//        }
-//    } else {
-//        displayMessage("CapturaArmadoMensajeOrdenTrabajo", "", '1');
-//        $("#InputPrefijoSpool").focus();
-//    }
-//});
-
-//$("#InputPrefijoSpool").focus(function (e) {
-//    $("#InputPrefijoSpool").val("");
-//    $("#InputSpoolID").data("kendoComboBox").value("");
-//    $("#InputSpoolID").data("kendoComboBox").setDataSource();
-//});
-
-//$('#InputSpoolID').closest('.k-widget').keydown(function (e) {
-//    if (e.keyCode == 37) {
-//        $("#InputPrefijoSpool").focus();
-//    } 
-//    else if (e.keyCode == 40) {
-//        $("#InputSpoolID").data("kendoComboBox").select();
-//    }
-//});
-
-//}
-
+ 
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
         var _cuadranteId = $("#inputCuadrante").val();
+        if (_cuadranteId != "") {
+            var _paso;
 
-        var _paso;
-
-        if ($("input:radio[name='PasoTipo']:checked").val() == "intermedio") {
-            _paso = 3;
+            if ($("input:radio[name='PasoTipo']:checked").val() == "intermedio") {
+                _paso = 3;
+            }
+            else if ($("input:radio[name='PasoTipo']:checked").val() == "acabado") {
+                _paso = 4;
+            }
+            AjaxMostrarCapturaAvanceIntAcabado(_cuadranteId, _paso);
         }
-        else if ($("input:radio[name='PasoTipo']:checked").val() == "acabado") {
-            _paso = 4;
+        else {
+            displayMessage("ErrorCapturaAvanceIntAcabadoSeleccionarCuadrante", '', '2');
         }
-        AjaxMostrarCapturaAvanceIntAcabado(_cuadranteId, _paso);
     });
 }
 
@@ -212,7 +148,7 @@ function SuscribirEventoGuardar() {
 }
 
 function SuscribirEventoColor() {
-    $('#inputColor').kendoDropDownList({
+    $('#inputColor').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ColorID",
         suggest: true,
@@ -238,6 +174,8 @@ function opcionHabilitarView(valor, name) {
         $("#InputSistemaPintura").data("kendoComboBox").enable(false);
         $("#InputPinturaComponenteComposicion").data("kendoComboBox").enable(false);
         
+        $("#Guardar").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#GuardarPie').text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -248,6 +186,9 @@ function opcionHabilitarView(valor, name) {
         $("#InputPintor").data("kendoComboBox").enable(true);
         $("#InputSistemaPintura").data("kendoComboBox").enable(true);
         $("#InputPinturaComponenteComposicion").data("kendoComboBox").enable(true);
+
+        $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#GuardarPie').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
 
@@ -257,8 +198,7 @@ function Limpiar() {
     $("#InputFechaCapturaAvanceIntAcabado").val("");
     $("#InputPintor").val("");
     $("#InputSistemaPintura").val("");
-    $("#InputPinturaComponenteComposicion").val("");
-    $("#InputID").data("kendoComboBox").dataSource.data([]);
+    $("#InputPinturaComponenteComposicion").val(""); 
     //AjaxObtenerCuadrante(); 
     //setTimeout(function () { AjaxObtenerLote(); }, 2000);
     //setTimeout(function () { AjaxObtenerColor(); }, 2500);
