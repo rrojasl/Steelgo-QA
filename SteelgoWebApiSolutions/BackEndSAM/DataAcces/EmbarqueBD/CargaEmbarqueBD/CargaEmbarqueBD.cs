@@ -58,7 +58,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD.CargaEmbarqueBD
                         {
                             ListadoPlacaPlana.Add(new PlacaPlana
                             {
-                                EmbarquePlanaID = item.EmbarquePlanaID,
+                                EmbarquePlanaID = item.EmbarquePlanaID.GetValueOrDefault(),
                                 Placas = item.Placas,
                                 VehiculoID = item.VehiculoID,
                                 estatus = item.Estatus
