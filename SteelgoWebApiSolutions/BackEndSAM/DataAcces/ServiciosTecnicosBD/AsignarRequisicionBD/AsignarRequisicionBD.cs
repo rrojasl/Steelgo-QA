@@ -104,10 +104,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.AsignarRequisicionBD
                         ListadoRequisicionAsignacion.Add(new RequisicionAsignacion
                         {
                             Accion = item.ProveedorID == null ? 1 : 2,
+                            Nombre=item.Nombre,
                             Clave = item.Clave,
                             Observacion = item.Observacion,
                             Fecha = item.Fecha,
-                            CantidadJuntas = item.CantidadJuntas,
+                            CantidadJuntas = item.CantidadJuntas.ToString(),
                             ProveedorID = item.ProveedorID.GetValueOrDefault(),
                             Proveedor = item.Proveedor == null ? "" : item.Proveedor,
                             RequisicionID = item.RequisicionID,

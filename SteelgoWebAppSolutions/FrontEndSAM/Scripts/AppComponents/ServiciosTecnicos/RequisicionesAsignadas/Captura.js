@@ -2,6 +2,7 @@
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
     document.title = _dictionary.RequisicionesAsignadas[$("#language").data("kendoDropDownList").value()];
+    AjaxObtenerStatus();
 };
 
 
@@ -9,12 +10,14 @@ IniciarRequisicionesAsignadas();
 
 function IniciarRequisicionesAsignadas() {
     SuscribirEventos();
-    AjaxObtenerStatus();
-    
+   
+
     //setTimeout(function () { alert("Hello"); }, 3000);
 };
 
 function AgregarStatusDinamicos(listaStatus) {
+    document.getElementById("divStatusRequisiciones").innerHTML = "";
+
     for (var i = 0; i < listaStatus.length; i++) {
         $("#divStatusRequisiciones").append("<button onclick='ActivarRefrescarGrid(" + listaStatus[i].EstatusID + ")' id='" + listaStatus[i].EstatusID + "' class='btn btn-tabList'><span id='" + listaStatus[i].EstatusID + "'>" + listaStatus[i].Estatus + " </span><span id='" + listaStatus[i].CantidadRegistros + "'>" + listaStatus[i].CantidadRegistros + "</span></button>");
         if (i == 0) {
@@ -49,9 +52,9 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Folio: { type: "int", editable: false },
-                        Clave: { type: "string", editable: false },
-                        FechaAsignacion: { type: "string", editable: false },
+                        Folio: { type: "string", editable: false },
+                        Nombre: { type: "string", editable: false },
+                        FechaAsignacion: { type: "date", editable: true },
                         Observacion: { type: "string", editable: false }
                     }
                 }
@@ -77,10 +80,10 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Folio", title: "Folio", filterable: true },
-            { field: "Clave", title: "Tipo Prueba", filterable: true },
-            { field: "FechaAsignacion", title: "Fecha", filterable: true },
-            { field: "Observacion", title: "Observación", filterable: true },
+            { field: "Folio", title: _dictionary.RequisicionesAsignadasFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Nombre", title: _dictionary.RequisicionesAsignadasTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FechaAsignacion", title: _dictionary.RequisicionesAsignadasFecha[$("#language").data("kendoDropDownList").value()], filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "Observacion", title: _dictionary.RequisicionesAsignadasObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: VerDetalle }, title: _dictionary.ListaRequisicionVerDetalle[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
     });

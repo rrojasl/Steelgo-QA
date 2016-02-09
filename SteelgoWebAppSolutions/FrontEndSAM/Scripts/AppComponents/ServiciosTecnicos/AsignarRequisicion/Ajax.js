@@ -1,33 +1,69 @@
 ﻿var CampoMuestra = 29;
 
 function AjaxPruebas() {
-   
+    loadingStart();
     $Pruebas.Pruebas.read({ token: Cookies.get("token"), proyectoID: 0, lenguaje: $("#language").val() }).done(function (data) {
         $("#inputPrueba").data("kendoComboBox").value("");
         $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
         //$("#inputPrueba").data("kendoComboBox").trigger("change");
+        loadingStop();
     });
     
 };
 
 function AjaxProveedor(TipoConsulta) {
-    loadingStart();
+    
     $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), idPrueba: $("#inputPrueba").val(), ConsultaDetalle: TipoConsulta }).done(function (data) {
         $("#inputProveedor").data("kendoComboBox").value("");
         $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
-        AjaxCargarRequisicionAsignacion();
-            loadingStop();
-            
+    
+           
         });
+}
+
+function ObtenerDato(fecha, tipoDatoObtener) {
+    var cultura = $("#language").val();
+
+    switch (tipoDatoObtener) {
+        case 1://anho
+            return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura = 'es-MX')
+                return fecha.split('/')[1]
+            else
+                return fecha.split('/')[0]
+            break;
+        case 3://dia
+            if (cultura = 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
 }
 
 function AjaxCargarRequisicionAsignacion() {
     loadingStart();
-    $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), idPrueba: $("#inputPrueba").val(), idProveedor: $("#inputProveedor").val() }).done(function (data) {
+    $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), idPrueba: $("#inputPrueba").val() == "" ? 0 : $("#inputPrueba").val(), idProveedor: $("#inputProveedor").val() == "" ? 0 : $("#inputProveedor").val() }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
-        $("#grid").data("kendoGrid").dataSource.data(data);
+        //$("#grid").data("kendoGrid").dataSource.data(data);
+
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        var array = data;
+
+        for (var i = 0; i < array.length; i++) {
+            array[i].Fecha = new Date(ObtenerDato(array[i].Fecha, 1), ObtenerDato(array[i].Fecha, 2), ObtenerDato(array[i].Fecha, 3));//año, mes, dia
+            ds.add(array[i]);
+        }
+
+
+        if ($("#inputProveedor").val() == "")
+            AjaxProveedor(0);
         loadingStop();
+        
     });
+    
 }
 
 function AjaxCargarCamposPredeterminados() {
@@ -51,17 +87,17 @@ function AjaxCargarCamposPredeterminados() {
 
 }
 
-function AjaxGuardarCaptura(arregloCaptura) {
+function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     try {
-        loadingStart();
+        var pruebas = false;
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
         var i = 0;
 
         for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[index] = { Accion:"", RequisicionID: "", ProveedorID: "", HerramientadePruebaID: "", TurnoLaboralID: "", Fecha: "" };
-            if (arregloCaptura[index].ProveedorID != "" && arregloCaptura[index].HerramientadePruebaID != "" && arregloCaptura[index].TurnoLaboralID != "") {
+            ListaDetalles[i] = { Accion:"", RequisicionID: "", ProveedorID: "", HerramientadePruebaID: "", TurnoLaboralID: "", Fecha: "" };
+            if (arregloCaptura[i].ProveedorID != "" && arregloCaptura[i].HerramientadePruebaID != "" && arregloCaptura[i].TurnoLaboralID != "") {
                 ListaDetalles[i].Accion = arregloCaptura[index].Accion;
                 ListaDetalles[i].RequisicionID = arregloCaptura[index].RequisicionID;
                 ListaDetalles[i].ProveedorID = arregloCaptura[index].ProveedorID;
@@ -69,24 +105,39 @@ function AjaxGuardarCaptura(arregloCaptura) {
                 ListaDetalles[i].TurnoLaboralID = arregloCaptura[index].TurnoLaboralID;
                 ListaDetalles[i].Fecha = arregloCaptura[index].Fecha;
                 i++;
+                pruebas = true;
+            }
+            else {
+                pruebas = false;
+                break;
             }
         }
 
         Captura[0].Detalles = ListaDetalles;
+        if (pruebas) {
+            $AsignarRequisicion.AsignarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                    if (tipoGuardar == 1) {
+                        Limpiar();
+                        opcionHabilitarView(false, "FieldSetView");
+                    }
+                    else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        AjaxCargarRequisicionAsignacion();
+                        opcionHabilitarView(true, "FieldSetView");
 
-        $AsignarRequisicion.AsignarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                $("#grid").data("kendoGrid").dataSource.data([]);
-                AjaxCargarRequisicionAsignacion();
-                mensaje = "Se guardo correctamente la informacion" + "-0";
-                displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
-            }
-            loadingStop();
-        });
+                    }
+                    displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+                }
+                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                }
+
+            });
+        }
+        else
+            displayMessage("DatosIncompletos", "", '1');
 
 
     } catch (e) {

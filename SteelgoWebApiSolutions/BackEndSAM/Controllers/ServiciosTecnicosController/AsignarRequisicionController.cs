@@ -8,13 +8,12 @@ using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
 
-namespace BackEndSAM.Controllers
+namespace BackEndSAM.Controllers.ServiciosTecnicosController
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AsignarRequisicionController : ApiController
     {
-
-        public object Get(string lenguaje, string token,int idPrueba,int ConsultaDetalle)
+        public object Get(string lenguaje, string token, int idPrueba, int ConsultaDetalle)
         {
             //Create a generic return object
             string payload = "";
@@ -39,7 +38,7 @@ namespace BackEndSAM.Controllers
         }
 
         //Carga los datos del grid
-        public object Get(string lenguaje, string token,string mostrar,int idPrueba,int idProveedor)
+        public object Get(string lenguaje, string token, string mostrar, int idPrueba, int idProveedor)
         {
             //Create a generic return object
             string payload = "";
@@ -50,7 +49,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 int tipoVista = mostrar == "Todos" ? 1 : 2;
-                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, idPrueba,idProveedor);
+                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, idPrueba, idProveedor);
             }
             else
             {
@@ -89,7 +88,6 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
 
     }
 }

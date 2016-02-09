@@ -6,6 +6,8 @@
     $('<input required data-text-field="Nombre" data-value-field="ProveedorID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaProveedor,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
@@ -20,19 +22,22 @@
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.ProveedorID = dataItem.ProveedorID;
-                options.model.Proveedor = dataItem.Nombre;
-                options.model.ListaHerramientaPrueba = null;
-                options.model.ListaHerramientaPrueba = dataItem.ListaHerramientaPrueba;
-                options.model.ListaTurnoLaboral = null;
-                options.model.ListaTurnoLaboral = dataItem.ListaTurnoLaboral;
+                
+                if (dataItem != undefined) {
+                    options.model.ProveedorID = dataItem.ProveedorID;
+                    options.model.Proveedor = dataItem.Nombre;
+                    options.model.ListaHerramientaPrueba = null;
+                    options.model.ListaHerramientaPrueba = dataItem.ListaHerramientaPrueba;
+                    options.model.ListaTurnoLaboral = null;
+                    options.model.ListaTurnoLaboral = dataItem.ListaTurnoLaboral;
 
-                options.model.HerramientadePruebaID = "";
-                options.model.HerramientadePrueba = "";
+                    options.model.HerramientadePruebaID = "";
+                    options.model.HerramientadePrueba = "";
 
-                options.model.TurnoLaboralID ="";
-                options.model.TurnoLaboral = "";
-                $("#grid").data("kendoGrid").dataSource.sync();
+                    options.model.TurnoLaboralID = "";
+                    options.model.TurnoLaboral = "";
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
             },
                 dataBound: function () {
                     $(this.items()).each(function (index, item) {
@@ -42,6 +47,13 @@
                 }
         }
       );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 };
 
 function RenderComboBoxHerramientaPrueba(container, options) {
@@ -52,6 +64,8 @@ function RenderComboBoxHerramientaPrueba(container, options) {
     $('<input required data-text-field="HerramientadePrueba" data-value-field="HerramientadePruebaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaHerramientaPrueba,
             template: "<i class=\"fa fa-#=data.HerramientadePrueba.toLowerCase()#\"></i> #=data.HerramientadePrueba#",
@@ -62,8 +76,11 @@ function RenderComboBoxHerramientaPrueba(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.HerramientadePruebaID = dataItem.HerramientadePruebaID;
-                options.model.HerramientadePrueba = dataItem.HerramientadePrueba;
+                
+                if (dataItem != undefined) {
+                    options.model.HerramientadePruebaID = dataItem.HerramientadePruebaID;
+                    options.model.HerramientadePrueba = dataItem.HerramientadePrueba;
+                }
             },
             dataBound: function () {
                 $(this.items()).each(function (index, item) {
@@ -74,6 +91,14 @@ function RenderComboBoxHerramientaPrueba(container, options) {
             }
         }
       );
+
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 };
 
 function RenderComboBoxTurnoLaboral(container, options) {
@@ -84,6 +109,8 @@ function RenderComboBoxTurnoLaboral(container, options) {
     $('<input required data-text-field="Turno" data-value-field="TurnoLaboralID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
+            suggest: true,
+            filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaTurnoLaboral,
             template: "<i class=\"fa fa-#=data.Turno.toLowerCase()#\"></i> #=data.Turno#",
@@ -96,9 +123,29 @@ function RenderComboBoxTurnoLaboral(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.TurnoLaboralID = dataItem.TurnoLaboralID;
-                options.model.TurnoLaboral = dataItem.Turno;
+                
+                if (dataItem != undefined) {
+                    options.model.TurnoLaboralID = dataItem.TurnoLaboralID;
+                    options.model.TurnoLaboral = dataItem.Turno;
+                }
             }
         }
       );
+
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 };
+
+function tieneClase(item) {
+    for (var i = 0; i < item.classList.length; i++) {
+        if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
+            return true;
+        }
+    }
+    return false
+}

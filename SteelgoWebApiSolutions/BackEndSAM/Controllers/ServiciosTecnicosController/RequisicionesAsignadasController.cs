@@ -6,9 +6,9 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers
+
+namespace BackEndSAM.Controllers.ServiciosTecnicosController
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RequisicionesAsignadasController : ApiController
     {
         public object Get(string lenguaje, string token)
@@ -44,7 +44,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return RequisicionesAsignadasBD.Instance.ObtenerInformacionRequisicionXStatus(lenguaje,usuario.ProveedorID.GetValueOrDefault(), idStatus);
+                return RequisicionesAsignadasBD.Instance.ObtenerInformacionRequisicionXStatus(lenguaje, usuario.ProveedorID.GetValueOrDefault(), idStatus);
             }
             else
             {

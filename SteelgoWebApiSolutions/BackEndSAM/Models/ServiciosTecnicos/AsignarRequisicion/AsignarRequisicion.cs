@@ -19,13 +19,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
     public class RequisicionAsignacion
     {
         public int Accion { get; set; }
+        public string Nombre { get; set; }
         public string Clave { get; set; }
         public string Observacion { get; set; }
         public string Fecha { get; set; }
         public int RequisicionID { get; set; }
 
         public string Requisicion { get; set; }
-        public int CantidadJuntas { get; set; }
+        public string CantidadJuntas { get; set; }
         public int ProveedorID { get; set; }
         public string Proveedor { get; set; }
         public List<Proveedor> ListaProveedor { get; set; }

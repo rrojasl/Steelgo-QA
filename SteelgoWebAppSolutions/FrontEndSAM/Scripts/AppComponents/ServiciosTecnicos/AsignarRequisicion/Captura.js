@@ -8,23 +8,30 @@ IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
     SuscribirEventos();
-   
-   
+    setTimeout(function () { AjaxPruebas() }, 1000);
+    
 };
 
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+            }
+        },
         dataSource: {
             schema: {
                 model: {
                     fields: {
                         Clave: { type: "string", editable: false },
+                        Nombre: { type: "string", editable: false },
                         Observacion: { type: "string", editable: false },
-                        Fecha: { type: "string", editable: false },
+                        Fecha: { type: "date", editable: true },
                         RequisicionID: { type: "int", editable: false },
                         Requisicion: { type: "string", editable: false },
-                        CantidadJuntas: { type: "int", editable: false },
+                        CantidadJuntas: { type: "string", editable: false },
                         Proveedor: { type: "string", editable: true },
                         HerramientadePrueba: { type: "string", editable: true },
                         TurnoLaboral: { type: "string", editable: true }
@@ -52,10 +59,10 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Clave", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Nombre", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Observacion", title: _dictionary.ServiciosTecnicosObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Fecha", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Fecha", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "CantidadJuntas", title: _dictionary.AsignarRequisicionHeaderCantidadJuntas[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Proveedor", title: _dictionary.AsignarRequisicionHeaderProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: true },
             { field: "HerramientadePrueba", title: _dictionary.AsignarRequisicionHeaderHerramientaPruebas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: true },
@@ -72,7 +79,7 @@ function PlanchaProveedor() {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputPrueba").data("kendoComboBox").text() == data[i].Clave) {
+        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Clave == data[i].Clave) {
             data[i].ProveedorID = $("#inputProveedor").val();
             data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
             var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);
@@ -80,7 +87,7 @@ function PlanchaProveedor() {
             data[i].ListaTurnoLaboral = Proveedor.ListaTurnoLaboral;
         }
         else {
-            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoComboBox").text() == data[i].Clave) {
+            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Clave == data[i].Clave) {
                 data[i].ProveedorID = $("#inputProveedor").val();
                 data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
                 var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);

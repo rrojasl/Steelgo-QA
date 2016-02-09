@@ -77,8 +77,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.RequisicionesAsignadasBD
                         ListadoRequisicionesAsignadas.Add(new InformacionRequisicionAsignadaXID
                         {
                             Clave=item.Clave,
-                            FechaAsignacion=item.FechaAsignacion.ToString(),
-                            Folio=item.Folio.GetValueOrDefault(),
+                            Nombre=item.Nombre,
+                            FechaAsignacion=item.FechaAsignacion.ToString().Split(' ')[0],
+                            Folio=item.Folio.ToString(),
                             Observacion=item.Observacion
                         });
                     }

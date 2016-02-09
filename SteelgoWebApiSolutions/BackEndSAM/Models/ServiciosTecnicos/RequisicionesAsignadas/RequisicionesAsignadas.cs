@@ -17,9 +17,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionesAsignadas
 
     public class InformacionRequisicionAsignadaXID
     {
-        public int Folio { get; set; }
+        public string Folio { get; set; }
         public string Clave { get; set; }
         public string FechaAsignacion { get; set; }
         public string Observacion { get; set; }
+
+        public string Nombre { get; set; }
     }
 }
