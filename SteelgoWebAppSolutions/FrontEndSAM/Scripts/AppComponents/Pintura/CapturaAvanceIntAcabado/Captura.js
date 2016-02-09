@@ -15,7 +15,7 @@ function asignarProyecto() {
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 
-function changeLanguageCall() {
+function changeLanguageCall() { 
     AjaxObtenerCuadrante();
     setTimeout(function () { CargarGridCapturaAvanceIntAcabado(); }, 500);
     setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1500);
@@ -127,16 +127,16 @@ function PlanchaComponenteComposicion() {
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             data[i].ComponenteID = $("#inputPinturaComponenteComposicion").val();
-            data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").text();
+            data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoComboBox").text();
             data[i].SistemaPinturaID = $("#inputSistemaPintura").val();
-            data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoDropDownList").text();
+            data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
         }
         else {
             if (data[i].Componente === "" || data[i].Componente === null || data[i].Componente === undefined) {
                 data[i].ComponenteID = $("#inputPinturaComponenteComposicion").val();
-                data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").text();
+                data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoComboBox").text();
                 data[i].SistemaPinturaID = $("#inputSistemaPintura").val();
-                data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoDropDownList").text();
+                data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
             }
         }
     }
@@ -154,16 +154,16 @@ function PlanchaSistemaPintura() {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             data[i].SistemaPinturaID = $("#inputSistemaPintura").val();
             data[i].ComponenteID = $("#inputPinturaComponenteComposicion").val();
-            data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").text();
-            data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoDropDownList").text();
-            data[i].ListaPinturaComponenteCompEspecifica = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").dataSource._data;
+            data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoComboBox").text();
+            data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
+            data[i].ListaPinturaComponenteCompEspecifica = $("#inputPinturaComponenteComposicion").data("kendoComboBox").dataSource._data;
         }
         else {
             if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
                 data[i].SistemaPinturaID = $("#inputSistemaPintura").val();
-                data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoDropDownList").text();
+                data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
                 data[i].ComponenteID = $("#inputPinturaComponenteComposicion").val();
-                data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoDropDownList").text();
+                data[i].Componente = $("#inputPinturaComponenteComposicion").data("kendoComboBox").text();
             }
         }
     }
@@ -180,12 +180,12 @@ function PlanchaLote() {
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() == "Todos") {
             data[i].LoteID = $("#inputLote").val();
-            data[i].Lote = $("#inputLote").data("kendoDropDownList").text();
+            data[i].Lote = $("#inputLote").data("kendoComboBox").text();
         }
         else {
             if (data[i].Lote === "" || data[i].Lote === null || data[i].Lote === undefined) {
                 data[i].LoteID = $("#inputLote").val();
-                data[i].Lote = $("#inputLote").data("kendoDropDownList").text();
+                data[i].Lote = $("#inputLote").data("kendoComboBox").text();
             }
         }
     }
@@ -202,12 +202,12 @@ function PlanchaColor() {
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             data[i].ColorID = $("#inputColor").val();
-            data[i].Color = $("#inputColor").data("kendoDropDownList").text();
+            data[i].Color = $("#inputColor").data("kendoComboBox").text();
         }
         else {
             if (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined) {
                 data[i].ColorID = $("#inputColor").val();
-                data[i].Color = $("#inputColor").data("kendoDropDownList").text();
+                data[i].Color = $("#inputColor").data("kendoComboBox").text();
             }
         }
     }
