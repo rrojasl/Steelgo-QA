@@ -79,7 +79,7 @@ function PlanchaProveedor() {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Clave == data[i].Clave) {
+        if ($('input:radio[name=Muestra]:checked').val() === "Todos" && $("#inputProveedor").data("kendoComboBox").dataItem($("#inputProveedor").data("kendoComboBox").select()) != undefined && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Clave == data[i].Clave) {
             data[i].ProveedorID = $("#inputProveedor").val();
             data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
             var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);
@@ -87,7 +87,7 @@ function PlanchaProveedor() {
             data[i].ListaTurnoLaboral = Proveedor.ListaTurnoLaboral;
         }
         else {
-            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Clave == data[i].Clave) {
+            if ((data[i].Proveedor == "" || data[i].Proveedor == null || data[i].Proveedor == undefined) && $("#inputProveedor").data("kendoComboBox").dataItem($("#inputProveedor").data("kendoComboBox").select()) != undefined && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Clave == data[i].Clave) {
                 data[i].ProveedorID = $("#inputProveedor").val();
                 data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
                 var Proveedor = ObtenerProveedor($("#inputProveedor").val(), data[i].ListaProveedor);

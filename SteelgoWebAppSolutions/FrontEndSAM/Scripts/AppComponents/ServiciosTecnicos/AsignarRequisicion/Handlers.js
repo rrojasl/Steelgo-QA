@@ -30,6 +30,10 @@ function SuscribirEventoComboPrueba() {
             if (dataItem != undefined) {
                 setTimeout(function () { AjaxCargarRequisicionAsignacion() }, 500);
             }
+            else {
+                $("#inputPrueba").data("kendoComboBox").value("");
+
+            }
         }
     });
     
@@ -54,6 +58,10 @@ function SuscribirEventoComboProveedor() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 AjaxCargarRequisicionAsignacion();
+            }
+            else {
+                $("#inputProveedor").data("kendoComboBox").value("");
+
             }
         },
         dataBound: function () {

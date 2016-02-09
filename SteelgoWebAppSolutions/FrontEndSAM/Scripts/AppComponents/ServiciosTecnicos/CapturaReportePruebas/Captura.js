@@ -190,6 +190,9 @@ function CargarGrid() {
             { field: "InformacionResultados", title: _dictionary.CapturaReportePruebasHeaderDetallePruebas[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: RenderGridDetalle, template: "Tiene:  Numero de placas" },
 
         ],
+        filterable: {
+            extra: false
+        },
         editable: true,
         navigatable: true,
     });

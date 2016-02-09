@@ -11,15 +11,7 @@
             autoBind: false,
             dataSource: options.model.ListaProveedor,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                options.model.ProveedorID = dataItem.ProveedorID;
-                options.model.Proveedor = dataItem.Nombre;
-                options.model.ListaHerramientaPrueba = null;
-                options.model.ListaHerramientaPrueba = dataItem.ListaHerramientaPrueba;
-                options.model.ListaTurnoLaboral = null;
-                options.model.ListaTurnoLaboral = dataItem.ListaTurnoLaboral;
-            },
+            
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 
@@ -38,6 +30,9 @@
                     options.model.TurnoLaboral = "";
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
+                else
+                    options.model.Proveedor = ObtenerDescCorrectaProveedor(options.model.ListaProveedor, options.model.ProveedorID);
+
             },
                 dataBound: function () {
                     $(this.items()).each(function (index, item) {
@@ -56,6 +51,16 @@
     });
 };
 
+
+function ObtenerDescCorrectaProveedor(lista, ProveedorID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ProveedorID == ProveedorID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
+
+
 function RenderComboBoxHerramientaPrueba(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
@@ -69,11 +74,7 @@ function RenderComboBoxHerramientaPrueba(container, options) {
             autoBind: false,
             dataSource: options.model.ListaHerramientaPrueba,
             template: "<i class=\"fa fa-#=data.HerramientadePrueba.toLowerCase()#\"></i> #=data.HerramientadePrueba#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                options.model.HerramientadePruebaID = dataItem.HerramientadePruebaID;
-                options.model.HerramientadePrueba = dataItem.HerramientadePrueba;
-            },
+           
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 
@@ -81,6 +82,9 @@ function RenderComboBoxHerramientaPrueba(container, options) {
                     options.model.HerramientadePruebaID = dataItem.HerramientadePruebaID;
                     options.model.HerramientadePrueba = dataItem.HerramientadePrueba;
                 }
+                else
+                    options.model.HerramientadePrueba = ObtenerDescCorrectaHerramienta(options.model.ListaHerramientaPrueba, options.model.HerramientadePruebaID);
+
             },
             dataBound: function () {
                 $(this.items()).each(function (index, item) {
@@ -101,6 +105,15 @@ function RenderComboBoxHerramientaPrueba(container, options) {
     });
 };
 
+function ObtenerDescCorrectaHerramienta(lista, HerramientadePruebaID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].HerramientadePruebaID == HerramientadePruebaID)
+            return lista[i].HerramientadePrueba;
+    }
+    return "";
+}
+
+
 function RenderComboBoxTurnoLaboral(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
@@ -114,13 +127,7 @@ function RenderComboBoxTurnoLaboral(container, options) {
             autoBind: false,
             dataSource: options.model.ListaTurnoLaboral,
             template: "<i class=\"fa fa-#=data.Turno.toLowerCase()#\"></i> #=data.Turno#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                options.model.TurnoLaboralID = dataItem.TurnoLaboralID;
-                options.model.TurnoLaboral = dataItem.Turno;
-
-
-            },
+            
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 
@@ -128,6 +135,9 @@ function RenderComboBoxTurnoLaboral(container, options) {
                     options.model.TurnoLaboralID = dataItem.TurnoLaboralID;
                     options.model.TurnoLaboral = dataItem.Turno;
                 }
+                else
+                    options.model.TurnoLaboral = ObtenerDescCorrectaTurnoLaboral(options.model.ListaTurnoLaboral, options.model.TurnoLaboralID);
+
             }
         }
       );
@@ -140,6 +150,15 @@ function RenderComboBoxTurnoLaboral(container, options) {
         }
     });
 };
+
+function ObtenerDescCorrectaTurnoLaboral(lista, TurnoLaboralID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].TurnoLaboralID == TurnoLaboralID)
+            return lista[i].Turno;
+    }
+    return "";
+}
+
 
 function tieneClase(item) {
     for (var i = 0; i < item.classList.length; i++) {

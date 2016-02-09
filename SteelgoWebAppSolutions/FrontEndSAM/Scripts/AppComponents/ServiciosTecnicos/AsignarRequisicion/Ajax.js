@@ -103,7 +103,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 ListaDetalles[i].ProveedorID = arregloCaptura[index].ProveedorID;
                 ListaDetalles[i].HerramientadePruebaID = arregloCaptura[index].HerramientadePruebaID;
                 ListaDetalles[i].TurnoLaboralID = arregloCaptura[index].TurnoLaboralID;
-                ListaDetalles[i].Fecha = arregloCaptura[index].Fecha;
+                ListaDetalles[i].Fecha =kendo.toString(arregloCaptura[index].Fecha, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
                 i++;
                 pruebas = true;
             }

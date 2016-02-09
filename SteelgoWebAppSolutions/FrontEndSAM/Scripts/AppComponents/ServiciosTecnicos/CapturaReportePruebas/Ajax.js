@@ -2,7 +2,7 @@
     loadingStart();
     $CapturaReportePruebas.CapturaReportePruebas.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), requisicion: requisicionID }).done(function (data) {
         if (data.length > 0) {
-            $("#TipoPrueba").text(data[0].TipoPrueba);
+            $("#TipoPrueba").text(data[0].Nombre);
             $("#Requisicion").text(data[0].Requisicion);
             $("#TurnoLaboral").text(data[0].TurnoLaboral);
             $("#HerramientaPrueba").text(data[0].HerramientaPrueba);
@@ -45,7 +45,7 @@ function AjaxObtenerRenglonEdicionDefectos(model) {
 }
 
 
-function AjaxGuardarCaptura(arregloCaptura) {
+function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     Captura = [];
     Captura[0] = { ListadoCapturaRequisicion: "" };
     ListadoCapturaRequisicion = [];
@@ -133,9 +133,25 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
                 loadingStart();
                 $CapturaReportePruebas.CapturaReportePruebas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                    AjaxReportePruebasDetalle(requisicionID);
-                    displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-                    loadingStop();
+                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                        //mensaje = "Se guardo correctamente la informacion" + "-0";
+                        displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+
+                        if (tipoGuardar == 1) {
+                            Limpiar();
+                            AjaxCargarCamposPredeterminados();
+                        }
+                        else {
+                            opcionHabilitarView(true, "FieldSetView");
+                            AjaxReportePruebasDetalle(requisicionID);
+                        }
+                        loadingStop();
+
+                    }
+                    else  {
+                        displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                        loadingStop();
+                    }
                 });
             }
             else {

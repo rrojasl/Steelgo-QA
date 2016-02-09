@@ -7,9 +7,36 @@ SuscribirEventos();
 
 function suscribirEventoGuardar() {
 
-    $('#btnGuardar').click(function (e) {
+    $('#Guardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data);
+        AjaxGuardarCaptura(ds._data,0);
+    });
+
+    $('#btnGuardar2').click(function (e) {
+        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        modeloRenglon.ListaDetalleDefectos = ds._data;
+        $("#windowGrid").data("kendoWindow").close();
+    });
+
+    $('#btnGuardarYNuevo').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data,1);
+    });
+
+    $('#GuardarPie').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data,0);
+    });
+
+    $('#btnGuardar1').click(function (e) {
+        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        modeloRenglon.ListaDetalleDefectos = ds._data;
+        $("#windowGrid").data("kendoWindow").close();
+    });
+
+    $('#btnGuardarYNuevo1').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data,1);
     });
 
     $('#GuardarDefectos').click(function (e) {
