@@ -161,6 +161,11 @@ function CargarGrid() {
                 }
             },
         },
+        edit: function (e) {
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+            }
+        },
         selectable: true,
         pageable: {
             refresh: false,

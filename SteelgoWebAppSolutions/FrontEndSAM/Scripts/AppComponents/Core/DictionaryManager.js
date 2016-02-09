@@ -5,7 +5,27 @@ _languageOrder = {
 }
 
 _dictionary = {
+    "RequisicionesAsignadasFolio": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "RequisicionesAsignadasTipoPrueba": {
+        "es-MX": "Tipo Prueba",
+        "en-US": "Type Test"
+    },
+    "RequisicionesAsignadasFecha": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "RequisicionesAsignadasObservacion": {
+        "es-MX": "Observacion",
+        "en-US": "Observation"
+    },
     //Login Page Labels
+    "DatosIncompletos": {
+        "es-MX": "La informacion debe estar completa",
+        "en-US": "the information should be completed"
+    },
     "MensajeGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
@@ -48,7 +68,7 @@ _dictionary = {
         "en-US": "do you want delete the row?"
     },
     "mensajeEliminarInspeccionVisualDimensional":{
- "es-MX": "Estas seguro de eliminar la informacion?",
+        "es-MX": "Estas seguro de eliminar la informacion?",
         "en-US": "do you want delete the row?"
     },
     "RequisicionesAsignadas": {
@@ -4114,7 +4134,7 @@ _dictionary = {
         "es-MX": "La plana debe estar abierta para poder cerrarla",
         "en-US": "The flat must be open to close"
     },
-    
+
 
     //#endregion
     //#region Trabajos adicionales
@@ -5316,7 +5336,7 @@ _dictionary = {
     },
     "ValidacionResultadosBtnImprimirResultados": {
         "es-MX": "Impresión de Resultados",
-        "en-US": "Printing Results" 
+        "en-US": "Printing Results"
     },
     "ValidacionResultadosBtnImprimirResultados2": {
         "es-MX": "Impresión de Resultados",
@@ -5605,7 +5625,7 @@ _dictionary = {
         "es-MX": "Agregar a Paquete",
         "en-US": "Add To Package"
     }
-    ,
+   ,
     "EmbarqueCargaSelecciona": {
         "es-MX": "Selecciona una opción",
         "en-US": "Select a option"
@@ -5666,7 +5686,6 @@ _dictionary = {
         "es-MX": "Seleccione al menos un item",
         "en-US": "Select at least one item"
     },
-    
     "EmbarqueCargaSeAgregaPaquete": {
         "es-MX": "No se puede agregar al paquete existen varios paquetes diferentes o no se ha seleccionando algun spool",
         "en-US": "You can not add to the package you selected more than one package or not selecting spool"
