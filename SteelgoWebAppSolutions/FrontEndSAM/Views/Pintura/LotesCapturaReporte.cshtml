@@ -3,15 +3,13 @@
     ViewBag.Title = "LotesCapturaReporte";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-
+ 
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="PinturaHeaderCargaCarroPintura"></span></a>
+        <a href="#"><span id="PinturaHeaderCargaCarroPintura"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("CapturaArmado", "Armado")"><span id="PinturaHeaderLotesCapturaReporte"></span></a>

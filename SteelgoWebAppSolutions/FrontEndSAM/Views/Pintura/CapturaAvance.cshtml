@@ -13,7 +13,7 @@
     </li>
 }
 <div id="FormCapturaAvance" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
+    @*Menu Superior*@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
@@ -34,16 +34,13 @@
 
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="CapturaAvancebtnDescargaCarro"></span></a>
-                        </div>
-                        <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
-                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
-                        </div>
+                        <div id="CapturaAvanceDivSuperior" class="button-section">
+                            <a id="CapturaAvanceSuperior" href="@Url.Action("DescargaCarro","Pintura")" class="btn btn-primary"><span id="CapturaAvancebtnDescargaCarro"></span></a>
+                        </div> 
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
@@ -55,7 +52,9 @@
             </div>
         </div>
     </div>
-    <div class="row FieldSetView">
+
+    @*Controles Superior*@
+    <div class="row" id="FieldSetView">
         <div class="col-sm-2 col-md-2 col-lg-2" id="carroDiv">
             <label><span id="CapturaAvanceCarro"></span></label>
             <input id="inputCarro" />
@@ -73,10 +72,10 @@
         <div class="col-sm-2 col-md-2 col-lg-2" id="">
             <label id="">&nbsp;</label>
             <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
-        </div>
-
+        </div> 
     </div>
-    <br />
+    
+    @*GRID*@
     <div class="row addedSectionInLine">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row FieldSetView">
@@ -101,25 +100,17 @@
                     <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="CapturaLlenadoMasivoTodos"></span>
                     <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="CapturaLlenadoMasivoVacios"></span>
                 </div>
-            </div>
-
-            <br />
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="ContenedorGrid" class="row">
-                        <div id="grid" data-role="grid" class="k-grid k-widget">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            </div> 
+            <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="grid" data-role="grid" class="k-grid k-widget"></div>
+            </div>  
         </div>
+        <input id="hdAccionFiltrado" type="hidden" />
     </div>
-    <input id="hdAccionFiltrado" type="hidden" />
+    
+    @*Popup*@
     <div id="windowDownload" style="display:none;">
-        <span id="CapturaAvanceCuadrante"></span>
-  
+        <span id="CapturaAvanceCuadrante"></span> 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
@@ -136,40 +127,38 @@
         </div> 
     </div>
     <br /><br />
-    <div class="row ">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caretWhite"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar4" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo2"><span id="botonGuardarYNuevo1"></span></a></li>
-                                </ul>
-                            </div>
 
-                            <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
-                        </div>
-                        <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="CapturaAvancebtnDescargaCarro2"></span></a>
-                        </div>
-                        <div class="button-section actionButtonSection">
-                            <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="botonAcciones1"></span>
-                                    <span class="caretBlue"></span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
-                            </div>
-                        </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix"> 
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar4" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo2"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+
+                    <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar2"></span></a>
+                </div>
+                <div id="CapturaAvanceDivInferior" class="button-section">
+                    <a id="CapturaAvanceInferior" href="@Url.Action("DescargaCarro","Pintura")" class="btn btn-primary"><span id="CapturaAvancebtnDescargaCarro2"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                     </div>
                 </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a> 
             </div>
         </div>
     </div>
