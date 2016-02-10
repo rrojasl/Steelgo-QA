@@ -217,7 +217,6 @@ function SuscribirEventoSpoolID() {
                 $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                     $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                     $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
-
                     loadingStop();
                 });
             } catch (e) {
@@ -225,7 +224,6 @@ function SuscribirEventoSpoolID() {
             }
         } else {
             displayMessage("CapturaSoldaduraMensajeOrdenTrabajo", "", '1');
-            $("#InputOrdenTrabajo").focus();
         }
     });
 
