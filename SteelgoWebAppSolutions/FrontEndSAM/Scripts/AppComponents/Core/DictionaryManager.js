@@ -5886,8 +5886,8 @@ _dictionary = {
         "en-US": "Register Incidence"
     },
     "Incidencias0064": {
-        "es-MX": "Guardar Incidencia",
-        "en-US": "Save Incidence"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "Incidencias0065": {
         "es-MX": "Editar Incidencia",

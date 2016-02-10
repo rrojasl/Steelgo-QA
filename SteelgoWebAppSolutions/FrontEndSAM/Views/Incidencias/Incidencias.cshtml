@@ -62,9 +62,9 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectDashboard"><span id="Incidencias0062"></span></a></li>
-                                     <li><a id="RedirectIncidencia" href="#" class ="hidden"><span id="Incidencias0072"></span></a></li>
-                                     <li><a id="RedirectResolver" href="#" class ="hidden"><span id="Incidencias0073"></span></a></li>
-                                     <li><a id="RedirectResponder" href="#" class ="hidden"><span id="Incidencias0074"></span></a></li>
+                                    <li><a id="RedirectIncidencia" href="#" class="hidden"><span id="Incidencias0072"></span></a></li>
+                                    <li><a id="RedirectResolver" href="#" class="hidden"><span id="Incidencias0073"></span></a></li>
+                                    <li><a id="RedirectResponder" href="#" class="hidden"><span id="Incidencias0074"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -986,13 +986,13 @@
         ocultarTabsNuevaIncidencia();
 
         if (_Edicion == 1) {
-                ////Muestro boton de siguiente paso
-                //$("#nuevaIncidenciaDiv").addClass("hidden");
-                //$("#responderIncidenciaDiv").addClass("hidden");
-                //$("#cancelarIncidenciaDiv").addClass("hidden");
-                //$("#resolverIncidenciaDiv").removeClass("hidden");
-                //$("#Incidencias0010").text("dshadhasjhdasjd");
-                habilitarAcciones();
+            ////Muestro boton de siguiente paso
+            //$("#nuevaIncidenciaDiv").addClass("hidden");
+            //$("#responderIncidenciaDiv").addClass("hidden");
+            //$("#cancelarIncidenciaDiv").addClass("hidden");
+            //$("#resolverIncidenciaDiv").removeClass("hidden");
+            //$("#Incidencias0010").text("dshadhasjhdasjd");
+            habilitarAcciones();
         }
 
         $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
@@ -1003,6 +1003,20 @@
         $("#GuardaryNuevoIncidencia").click(function () { GuardaryNuevoIncidencia(); });
         $("#Cancelar").click(function () { Cancelar(); });
         $("#Editar").click(function () { BotonEdicion(); });
+        setTimeout(function () {
+            $(".k-upload-button").click(function () {
+                console.log(tabSelected);
+                if (tabSelected == "Incidencia") {
+                    $("#Incidencias0021").addClass("security_required");
+                } else if (tabSelected == "Resolver") {
+                    $("#Incidencias0046").addClass("security_required");
+                } else if (tabSelected == "Responder") {
+                    $("#Incidencias0051").addClass("security_required");
+                } else {
+                    $("#Incidencias0056").addClass("security_required");
+                }
+            });
+        }, 200);
 
         //EDICION DESDE LISTADO
         $("#EditarResolucion").click(function () { BotonEditarResolucion(); });
@@ -1040,6 +1054,7 @@
         });
         $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
         $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
+
         //$("#AdjuntarArchivosIncidencia").data("kendoUpload").enable(true);
         $("#AdjuntarArchivosIncidencia").on('drop', function (event) {
             event.preventDefault();
@@ -1118,7 +1133,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem!==undefined ? CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre):CargarClasificacion("", "");
+                dataItem !== undefined ? CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre) : CargarClasificacion("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1127,7 +1142,7 @@
                 }
             },
             filter: "contains",
-            dataBound: function(e){checkIfOne(this);},
+            dataBound: function (e) { checkIfOne(this); },
         });
         ObtenerClasificacion();
 
@@ -1139,7 +1154,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem!==undefined ? CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre):CargarTipoIncidencia("", "");
+                dataItem !== undefined ? CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre) : CargarTipoIncidencia("", "");
                 var value = this.value();
                 limpiarRegistro();
 
@@ -1151,7 +1166,7 @@
                 else { ObtenerRegistro(this.value()); }
             },
             filter: "contains",
-            dataBound: function(e){checkIfOne(this);},
+            dataBound: function (e) { checkIfOne(this); },
         });
         ObtenerTipoIncidencia();
 
@@ -1162,7 +1177,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem!==undefined ? CargarRegistro(dataItem.id):CargarRegistro("");
+                dataItem !== undefined ? CargarRegistro(dataItem.id) : CargarRegistro("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -1172,7 +1187,7 @@
                 }
             },
             filter: "contains",
-            dataBound: function(e){checkIfOne(this);},
+            dataBound: function (e) { checkIfOne(this); },
         });
 
 
@@ -1184,7 +1199,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem!==undefined ? CargarRegistradoPor(dataItem.id):CargarRegistradoPor("");
+                dataItem !== undefined ? CargarRegistradoPor(dataItem.id) : CargarRegistradoPor("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1192,7 +1207,7 @@
                     this.value("");
                 }
             },
-            dataBound: function(e){checkIfOne(this);},
+            dataBound: function (e) { checkIfOne(this); },
             filter: "contains",
         });
         ObtenerUsuarios("RegistradoPor");
@@ -1205,7 +1220,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem!==undefined ? CargarResueltoPor(dataItem.id):CargarResueltoPor("");
+                dataItem !== undefined ? CargarResueltoPor(dataItem.id) : CargarResueltoPor("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1213,7 +1228,7 @@
                     this.value("");
                 }
             },
-            dataBound: function(e){checkIfOne(this);},
+            dataBound: function (e) { checkIfOne(this); },
             filter: "contains",
         });
 
@@ -1227,7 +1242,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem!==undefined ? CargarRespondidoPor(dataItem.id):CargarRespondidoPor("");
+                dataItem !== undefined ? CargarRespondidoPor(dataItem.id) : CargarRespondidoPor("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -1235,7 +1250,7 @@
                     this.value("");
                 }
             },
-            dataBound: function(e){checkIfOne(this);},
+            dataBound: function (e) { checkIfOne(this); },
             filter: "contains",
         });
         ObtenerUsuarios("RespondidoPor");
@@ -1248,9 +1263,15 @@
 
         ObtenerFechaDefault();
 
+        setTimeout(function () {
+            $("#Incidencias0021").removeClass("security_required");
+            $("#Incidencias0046").removeClass("security_required");
+            $("#Incidencias0051").removeClass("security_required");
+            $("#Incidencias0056").removeClass("security_required");
+        }, 200);
         };
 
-    function CargaInicialEdicion(id) {
+        function CargaInicialEdicion(id) {
             //loadingStart();
             //cargarTituloFolio();
             habilitarTabsNuevaIncidencia();
@@ -1300,15 +1321,14 @@
                     $("#Titulo").val(data.Titulo);
                     $("#Descripcion").val(data.Descripcion);
                     $("#Respuesta").val(data.Respuesta);
-                    if (data.MotivoCancelacion)
-                    {
+                    if (data.MotivoCancelacion) {
                         $("#MotivoCancelacion").val(data.MotivoCancelacion);
                         _ConInformacion["Cancelar"] = 1;
                     }
                     else {
                         _ConInformacion["Cancelar"] = 0;
                     }
-                    
+
                     $("#DetalleResolucion").val(data.DetalleResolucion);
 
                     if (data.RegistradoPor) {
@@ -1386,6 +1406,13 @@
                 };
                 //loadingStop();
             });
+
+            setTimeout(function () {
+                $("#Incidencias0021").removeClass("security_required");
+                $("#Incidencias0046").removeClass("security_required");
+                $("#Incidencias0051").removeClass("security_required");
+                $("#Incidencias0056").removeClass("security_required");
+            }, 200);
         };
         function AsignarPaginaActualCookie() {
             Cookies.set("navegacion", "38", { path: '/' });
@@ -1799,7 +1826,7 @@
                 if (elem.tagName.toLowerCase() != 'label') {
                     if ($(elem).attr("id") != "MotivoCancelacion" && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "Respuesta"
                         && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta" && $(elem).attr("id") != "DescripcionArchivoResponder"
-                        && $(elem).attr("id") != "DescripcionArchivoCancelar") {
+                        && $(elem).attr("id") != "DescripcionArchivoCancelar" && $(elem).attr("id") != "DescripcionArchivoResolver") {
                         if (!$(this).val()) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
@@ -1818,7 +1845,7 @@
                 if (elem.tagName.toLowerCase() != 'label') {
                     if ($(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "Respuesta"
                         && $(elem).attr("id") != "RespondidoPor" && $(elem).attr("id") != "FechaRespuesta"
-                        && $(elem).attr("id") != "DescripcionArchivoResolver" && $(elem).attr("id") != "DescripcionArchivoResponder") {
+                        && $(elem).attr("id") != "DescripcionArchivoResolver" && $(elem).attr("id") != "DescripcionArchivoResponder" && $(elem).attr("id") != "DescripcionArchivoCancelar") {
                         if (!$(this).val()) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
@@ -1837,7 +1864,7 @@
                 if (elem.tagName.toLowerCase() != 'label') {
                     if ($(elem).attr("id") != "DetalleResolucion" && $(elem).attr("id") != "MotivoCancelacion"
                         && $(elem).attr("id") != "DescripcionArchivoIncidencia" && $(elem).attr("id") != "DescripcionArchivoResolver"
-                        && $(elem).attr("id") != "DescripcionArchivoCancelar") {
+                        && $(elem).attr("id") != "DescripcionArchivoCancelar" && $(elem).attr("id") != "DescripcionArchivoResponder") {
                         if (!$(this).val()) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
@@ -2239,8 +2266,8 @@
             Guardar();
         };
         function Guardar() {
-            if($("#FechaRegistro").data("kendoDatePicker").value()===null){
-                displayMessage("notificationslabel0082","","2");
+            if ($("#FechaRegistro").data("kendoDatePicker").value() === null) {
+                displayMessage("notificationslabel0082", "", "2");
                 return 0;
             }
             //loadingStart();
@@ -2342,14 +2369,18 @@
                     //loadingStop();
                     break;
             };
-
-
             ////loadingStop();
+            setTimeout(function () {
+                $("#Incidencias0021").removeClass("security_required");
+                $("#Incidencias0046").removeClass("security_required");
+                $("#Incidencias0051").removeClass("security_required");
+                $("#Incidencias0056").removeClass("security_required");
+            }, 200);
         };
 
         function GuardaryNuevoIncidencia() {
-            if($("#FechaRegistro").data("kendoDatePicker").value()===null){
-                displayMessage("notificationslabel0082","","2");
+            if ($("#FechaRegistro").data("kendoDatePicker").value() === null) {
+                displayMessage("notificationslabel0082", "", "2");
                 return 0;
             }
             //loadingStart();
@@ -2369,6 +2400,13 @@
                 displayMessage("notificationslabel0031", "", '1');
                 //loadingStop();
             }
+
+            setTimeout(function () {
+                $("#Incidencias0021").removeClass("security_required");
+                $("#Incidencias0046").removeClass("security_required");
+                $("#Incidencias0051").removeClass("security_required");
+                $("#Incidencias0056").removeClass("security_required");
+            }, 200);
             ////loadingStop();
         };
 
@@ -2483,8 +2521,7 @@
             tabStrip2.enable(tabStrip2.tabGroup.children().eq(3));
         }
 
-        function habilitarAcciones()
-        {
+        function habilitarAcciones() {
             $("#RedirectIncidencia").removeClass("hidden");
             $("#RedirectResponder").removeClass("hidden");
             $("#RedirectResolver").removeClass("hidden");
@@ -2568,17 +2605,21 @@
         cargaInicialLentarNuevaIncidencia(_TipoIncidencia, _Clasificacion, _ReferenciaID);
     };
 
-    $("#FechaRegistro").on("change",function(){
-        if (!$("#FechaRegistro").data("kendoDatePicker").value() && this.value!=="") {
-            $("#FechaRegistro").css("color","#EB4D50");
-            displayMessage("notificationslabel0082","","2")
-        }else{
-            $("#FechaRegistro").attr("style","");
+    $("#FechaRegistro").on("change", function () {
+        if (!$("#FechaRegistro").data("kendoDatePicker").value() && this.value !== "") {
+            $("#FechaRegistro").css("color", "#EB4D50");
+            displayMessage("notificationslabel0082", "", "2")
+        } else {
+            $("#FechaRegistro").attr("style", "");
         }
     })
 
-   
-
+    //setTimeout(function () {
+    //    $("#Incidencias0021").removeClass("security_required");
+    //    $("#Incidencias0046").removeClass("security_required");
+    //    $("#Incidencias0051").removeClass("security_required");
+    //    $("#Incidencias0056").removeClass("security_required");
+    //}, 200);
     }
 
 </script>

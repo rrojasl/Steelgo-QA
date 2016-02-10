@@ -322,6 +322,10 @@
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
+            setTimeout(function () {
+                $(".k-upload-button").click(function () { $("#LlegadaMaterial0006").addClass("security_required"); });
+            }, 200);
+
             $("#CancelarFolio").click(function (e) { CancelarFolio(); });
             
             $("#RedirectDashboard").click(function (e) {
@@ -515,6 +519,10 @@
             });
             //$("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
+
+            setTimeout(function () {
+                $("#LlegadaMaterial0006").removeClass("security_required");
+            }, 300);
     };
 
         function ActualizarTitulosEdicion(data)
@@ -786,6 +794,10 @@
                     AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
             });
+
+            setTimeout(function () {
+                $("#LlegadaMaterial0006").removeClass("security_required");
+            }, 300);
         };
 
         function AsignarPaginaActualCookie() {
@@ -1110,7 +1122,9 @@
                 });
             }
 
-
+            setTimeout(function () {
+                $("#Incidencias0021").removeClass("security_required");
+            }, 200);
         };
 
         function actualizarTitulos(FolioLlegada) {
@@ -1202,6 +1216,9 @@
             HabilitarObtenerDocumentosLlegadaMaterial();
             AsignarPaginaActualCookie();
             applySecurityPolicy(false);
+            setTimeout(function () {
+                $("#LlegadaMaterial0006").removeClass("security_required");
+            }, 300);
         };
         
         function deshabilitarControles() {
@@ -1467,13 +1484,16 @@
     $authorizationModel["Orden Descarga"] = $OrdenDescargaModel;
     $("#EstatAV").hide();
     CargaInicial();
-    $("#Imprimir").hide()
+    $("#Imprimir").hide();
     if (folioAvisoLlegada != -1)
     {
         CargaInicialEdicion(folioAvisoLlegada);
     }
     $("#hdnNavegacion").val(Cookies.get("navegacion"));
 
+    setTimeout(function () {
+        $("#LlegadaMaterial0006").removeClass("security_required");
+    }, 300);
     };
 
     @section JavascriptDocumentReadyHomeCookie {
