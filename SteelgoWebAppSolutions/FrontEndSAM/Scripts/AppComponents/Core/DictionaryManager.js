@@ -6298,6 +6298,10 @@ _dictionary = {
         "es-MX": "Captura de Pruebas",
         "en-US": "Capturing Test"
     },
+    "lblCapturaDePruebasPie": {
+        "es-MX": "Captura de Pruebas",
+        "en-US": "Capturing Test"
+    },
     "lblCuadrante": {
         "es-MX": "Cuadrante",
         "en-US": "Quadrants"
