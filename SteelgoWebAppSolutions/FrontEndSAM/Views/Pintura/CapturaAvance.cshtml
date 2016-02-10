@@ -21,12 +21,12 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar2"></span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar2"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
+                                    <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
 
@@ -56,16 +56,16 @@
         </div>
     </div>
     <div class="row FieldSetView">
-        <div class="col-sm-2 col-md-2 col-lg-2">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="carroDiv">
             <label><span id="CapturaAvanceCarro"></span></label>
             <input id="inputCarro" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="ComponenteDiv">
             <label><span id="CapturaAvanceComponente" class="security_required"></span></label>
             <input id="inputComponente" />
         </div>
 
-        <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="InputDiv">
             <label id="CapturaArmadoHeaderSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
@@ -143,12 +143,12 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="botonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar4"><span id="botonGuardar4"></span></a></li>
+                                    <li><a href="#" id="btnGuardar4" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo2"><span id="botonGuardarYNuevo1"></span></a></li>
                                 </ul>
                             </div>
@@ -182,3 +182,8 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaAvance/Captura.js"></script>
 
 
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Captura Avance"] = $CapturaAvanceModel;
+    }
+</script>

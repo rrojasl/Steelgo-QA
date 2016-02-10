@@ -429,13 +429,15 @@ function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
      
     loadingStart();
     $CapturaAvance.CapturaAvance.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteCargaID: $("#inputCarro").data("kendoComboBox").value() }).done(function (data) {
-
-        if (!guardarYNuevo) { 
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             AjaxCargarSpool($("#inputCarro").data("kendoComboBox").value());
             opcionHabilitarView(true, "FieldSetView");
-        } 
-        displayMessage("CapturaAvanceGuardadoCorrecto", "", "0");
-        
+            displayMessage("CapturaAvanceGuardadoCorrecto", "", "0");
+        }
+        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+            displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+            opcionHabilitarView(false, "FieldSetView");
+        }
         loadingStop();
     });
 }

@@ -1,8 +1,8 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "53", { path: '/' });
+Cookies.set("navegacion", "57", { path: '/' });
 
-var $CargaCarroBackLogModel = {
+var $CapturaAvanceModel = {
     listContainer: {
         create: "",
         list: "",
@@ -11,13 +11,21 @@ var $CargaCarroBackLogModel = {
     },
     properties: {
 
-        grid: {
-            visible: "#containerDiv",
+        Carro: {
+            visible: "#carroDiv",
+            editable: "#inputCarro",
+            required: "#inputCarro",
         },
-        carro: {
-            visible: "#containerDiv",
+        InputID: {
+            visible: "#InputDiv",
+            editable: "#InputID",
+            required: "#InputID",
         },
-
+        Componente: {
+            visible: "#ComponenteDiv",
+            editable: "#inputComponente",
+            required: "#inputComponente",
+        },
     }
 };
 
