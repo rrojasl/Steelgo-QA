@@ -812,8 +812,20 @@
                     $("#fconversion").val(result);
                 });
                 $("#templateced").on("click",function(){
-                    var encodedUri = encodeURI(obtenerCSV());
-                    $(this).attr("href", encodedUri);
+                    //var encodedUri = encodeURI(obtenerCSV());
+                    //$(this).attr("href", encodedUri);
+                    var data=obtenerCSV();
+                    if ($.isNumeric(detectIE())){
+                        var IEwindow = window.open();
+                        IEwindow.document.write('sep=,\r\n' + data);
+                        IEwindow.document.close();
+                        IEwindow.document.execCommand('SaveAs', true, "Template.csv");
+                        IEwindow.close();
+                    }else{
+                        var encodedUri = encodeURI(obtenerCSV());
+                        $(this).attr("href", encodedUri);
+                    } 
+
                 })
                 $("#selectFiles").on('click', function () {
                     $("#files").click();
