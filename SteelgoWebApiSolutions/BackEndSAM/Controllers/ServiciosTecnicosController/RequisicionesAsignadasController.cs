@@ -9,6 +9,7 @@ using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers.ServiciosTecnicosController
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RequisicionesAsignadasController : ApiController
     {
         public object Get(string lenguaje, string token)
