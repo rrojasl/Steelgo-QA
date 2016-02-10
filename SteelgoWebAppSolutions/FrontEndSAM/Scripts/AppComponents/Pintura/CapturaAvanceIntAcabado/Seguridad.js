@@ -1,5 +1,5 @@
 ﻿Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "42", { path: '/' });
+Cookies.set("navegacion", "58", { path: '/' });
 
 var $CapturaAvanceIntAcabadoModel = {
     listContainer: {
@@ -10,24 +10,25 @@ var $CapturaAvanceIntAcabadoModel = {
     },
     properties: {
         InputCuadrante: {
-            visible: "divCuadrante",
-            editable: "cuadranteID",
+            visible: "#divCuadrante",
+            editable: "#inputCuadrante",
+            required: "#inputCuadrante",
         },
         InputColor: {
-            visible: "divColor",
-            editable: "inputColor",
+            visible: "#divColor",
+            editable: "#inputColor",
         },
         InputFecha: {
-            visible: "divFecha",
-            editable: "inputFecha",
+            visible: "#divFecha",
+            editable: "#inputFecha",
         },
         InputPintor: {
-            visible: "divPintor",
-            editable: "inputPintor",
+            visible: "#divPintor",
+            editable: "#inputPintor",
         },
         InputLote: {
-            visible: "divLote",
-            editable: "inputLote",
+            visible: "#divLote",
+            editable: "#inputLote",
         }
     }
 }

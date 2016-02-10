@@ -56,6 +56,9 @@ function opcionHabilitarView(valor, name) {
         $('.FieldSetView').find('*').attr('disabled', true);
         $("#inputCarro").data("kendoComboBox").enable(false);
         $("#inputComponente").data("kendoComboBox").enable(false);
+        $("#inputPintor").data("kendoMultiSelect").enable(false);
+        $("#inputShotBlastero").data("kendoMultiSelect").enable(false);
+        
         $("#Guardar").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
     }
@@ -63,6 +66,8 @@ function opcionHabilitarView(valor, name) {
         $('.FieldSetView').find('*').attr('disabled', false);
         $("#inputCarro").data("kendoComboBox").enable(true);
         $("#inputComponente").data("kendoComboBox").enable(true);
+        $("#inputPintor").data("kendoMultiSelect").enable(true);
+        $("#inputShotBlastero").data("kendoMultiSelect").enable(true);
         $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }

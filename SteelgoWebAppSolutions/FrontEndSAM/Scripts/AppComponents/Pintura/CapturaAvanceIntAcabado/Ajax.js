@@ -237,7 +237,7 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
                     opcionHabilitarView(true, "FieldSetView");
                     displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
                     loadingStop();
-
+                    $("#btnMostrar").trigger("click");
                 });
             }
             else {
@@ -288,8 +288,8 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
 
                     if (ArregloGuardado.length > 0) {
                         $CapturaAvanceIntAcabado.CapturaAvanceIntAcabado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                             
                             opcionHabilitarView(true, "FieldSetView");
+                            $("#btnMostrar").trigger("click");
                             displayNotify("AlertaExitosa", "CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
                             loadingStop();
                         });

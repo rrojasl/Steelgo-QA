@@ -24,6 +24,9 @@ function changeLanguageCall() {
     setTimeout(function () { AjaxObtenerPintores(); }, 3000);
     setTimeout(function () { AjaxSistemaPintura(); }, 3500);
     document.title = _dictionary.menuPinturaCapturaAvanceIntAcabadoTop[$("#language").data("kendoDropDownList").value()];
+    $("#lblGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+    $('#lblGuardarFooter').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+    opcionHabilitarView(false, "FieldSetView")
 }
 
 function CargarGridCapturaAvanceIntAcabado() {
