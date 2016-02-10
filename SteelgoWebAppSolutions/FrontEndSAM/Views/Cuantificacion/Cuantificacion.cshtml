@@ -434,8 +434,8 @@
                 }
                 
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList()){
-                        GuardarParcial(false, idguardado);
+                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                            GuardarParcial(false, idguardado);
                     }
                 } else{
                     displayMessage("notificationslabel0031", "", '1');
@@ -445,8 +445,8 @@
             $("#Editar").click(function (e) { BotonEdicion(); });
             $("#TerminaryNuevo").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList()){
-                        TerminaryNuevo();
+                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                            TerminaryNuevo();
                     }
                 } else {
                     displayMessage("notificationslabel0031", "", '1');
@@ -455,7 +455,8 @@
             $("#GuardarParcialyNuevo").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
                     if(!ValidarTipoPackingList()){
-                        GuardarParcial(true,3);
+                        if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()) {
+                            GuardarParcial(true,3);
                     }
                 } else {
                     displayMessage("notificationslabel0031", "", '1');
@@ -463,8 +464,8 @@
             });
             $("#GuardaryCerrar").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList()){
-                        GuardaryCerrar();
+                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                            GuardaryCerrar();
                     }
                 } else {
                     displayMessage("notificationslabel0031", "", '1');
@@ -472,8 +473,8 @@
             });
             $("#GuardaryTerminar").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList()){
-                        GuardaryTerminar();
+                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                            GuardaryTerminar();
                     }
                 } else {
                     displayMessage("notificationslabel0031", "", '1');
@@ -974,12 +975,16 @@
             return bool;
         };
 
-        function alInicio(){
-            setTimeout(function(){
+        function alInicio() {
+            setTimeout(function () {
                 $("#grid tr[data-uid] td:first").trigger("click");
                 $("#grid tr[data-uid] input:first").focus();
-            },5);
-        }
+            }, 5);
+        };
+
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        };
 
         function ocultarStatus() {
             $("#Cuantificacion0076").hide();
@@ -1702,7 +1707,7 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if (!this.get("Cantidad") || this.get("Cantidad") == "0") {
+                    if (!this.get("Cantidad") || 0 > this.get("Cantidad") || this.get("Cantidad") == "0") {
                         this.set("Cantidad", value ? value : "0");
                     };
                 }else{
@@ -1843,6 +1848,52 @@
 
             return Errorbool;
         };
+
+        function ValidarCantidades() {
+            var allData = $("#grid").data("kendoGrid").dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var result = query.data;
+            var datasource = result;
+            var Errorbool = false;
+            $(datasource).each(function () {
+                if ( 0 > this.get("Cantidad"))
+                { 
+                    this.TieneError = true;
+                    Errorbool = true;
+                }
+            });
+            ordenamientoGrid();
+
+            if (Errorbool) {
+                displayMessage("notificationslabel0102", '', '1');
+            };
+
+            return Errorbool;
+        };
+
+        function ValidarMM() {
+            var allData = $("#grid").data("kendoGrid").dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var result = query.data;
+            var datasource = result;
+            var Errorbool = false;
+            $(datasource).each(function () {
+                if (this.get("MM") != "N/A")
+                {
+                    if (0 > this.get("MM")) {
+                        this.TieneError = true;
+                        Errorbool = true;
+                    }
+                }
+            });
+            ordenamientoGrid();
+
+            if (Errorbool) {
+                displayMessage("notificationslabel0103", '', '1');
+            };
+
+            return Errorbool;
+        }
 
         function limpiarfiltrosFolioAvisoEntrada() {
             $("#ProyectoID").data("kendoComboBox").dataSource.data([]);
@@ -1999,6 +2050,7 @@
                 //loadingStop();
                 return;
             }
+
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
 
             if (ListadoCuantificacionIncompletos.length) {

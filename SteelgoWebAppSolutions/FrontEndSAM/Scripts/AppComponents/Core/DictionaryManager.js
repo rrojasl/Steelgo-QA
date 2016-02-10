@@ -6636,6 +6636,14 @@ _dictionary = {
         "es-MX": "La unidad de medida es requerida.",
         "en-US": "The unit of measurement is required."
     },
+    "notificationslabel0102": {
+        "es-MX": "Favor de validar la cantidad de los item codes marcados en rojo.",
+        "en-US": "Please confirm the quantity of item codes marked in red."
+    },
+    "notificationslabel0103": {
+        "es-MX": "Favor de validar los MM de los item codes marcados en rojo.",
+        "en-US": "Please confirm the MM of item codes marked in red."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
