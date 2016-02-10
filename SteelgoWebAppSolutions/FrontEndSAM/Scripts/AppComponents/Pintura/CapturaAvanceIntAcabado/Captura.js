@@ -33,19 +33,16 @@ function CargarGridCapturaAvanceIntAcabado() {
     loadingStart();
     $("#grid").kendoGrid({
         edit: function (e) {
-            debugger;
+            
             if ($('#lblGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
             }
             else {
                 this.closeCell();
             }
-
         },
         autoBind: true,
-        edit: function (e) {
-
-        },
+        
         change: function () {
             ItemSeleccionado = this.dataSource.view()[this.select().index()];
         },
