@@ -981,10 +981,6 @@
             }, 5);
         };
 
-        function isNumeric(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-        };
-
         function ocultarStatus() {
             $("#Cuantificacion0076").hide();
             $("#Cuantificacion0077").hide();
@@ -1877,10 +1873,8 @@
             var datasource = result;
             var Errorbool = false;
             $(datasource).each(function () {
-                console.log(this.get("MM"));
-                if (this.get("MM") != "N/A")
-                {
-                    if (0 > this.get("MM")) {
+                if (this.get("MM") != "N/A") {
+                    if (0 > this.get("MM") || !isNumeric(this.get("MM"))) {
                         this.TieneError = true;
                         Errorbool = true;
                     }
@@ -1893,7 +1887,11 @@
             };
 
             return Errorbool;
-        }
+        };
+
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        };
 
         function limpiarfiltrosFolioAvisoEntrada() {
             $("#ProyectoID").data("kendoComboBox").dataSource.data([]);
