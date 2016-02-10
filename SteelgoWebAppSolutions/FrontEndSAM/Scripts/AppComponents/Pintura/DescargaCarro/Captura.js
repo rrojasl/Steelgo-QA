@@ -1,5 +1,6 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
+    document.title = _dictionary.PinturaHeaderDescargaCarroPintura[$("#language").data("kendoDropDownList").value()];
 }
 
 IniciarCapturaPinturaDescarga();
@@ -26,9 +27,9 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        SpoolID: { type: "string", editable: false },
+                        SpoolID: { type: "number", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "string", editable: false },
+                        Metros2: { type: "number", editable: false },
                         Cuadrante: { type: "string", editable: true }
                     }
                 }

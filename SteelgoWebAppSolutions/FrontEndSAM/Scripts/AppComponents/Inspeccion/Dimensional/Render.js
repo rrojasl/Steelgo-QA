@@ -133,7 +133,7 @@ function RenderComboBoxInspector(container, options) {
         if (!tieneClase(item)) {
             $(container).trigger(e);
         }
-    });
+    }); 
 };
 
 

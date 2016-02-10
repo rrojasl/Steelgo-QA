@@ -5964,7 +5964,7 @@ _dictionary = {
         "en-US": "Paint"
     },
     "PinturaHeaderDescargaCarroPintura": {
-        "es-MX": "Descargar carro",
+        "es-MX": "Descarga de Carro",
         "en-US": "Empty cart"
     },
     "PinturaHeaderLotesCapturaReporte": {
