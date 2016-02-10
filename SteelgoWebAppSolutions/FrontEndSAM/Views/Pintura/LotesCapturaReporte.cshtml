@@ -1,6 +1,5 @@
 ﻿
-@{
-    ViewBag.Title = "LotesCapturaReporte";
+@{ 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
  
@@ -12,11 +11,12 @@
         <a href="#"><span id="PinturaHeaderCargaCarroPintura"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaArmado", "Armado")"><span id="PinturaHeaderLotesCapturaReporte"></span></a>
+        <a href="@Url.Action("LotesCapturaReporte", "Pintura")"><span id="PinturaHeaderLotesCapturaReporte"></span></a>
     </li>
 }
 
 <div id="FormListadoRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    @*Menu Superior*@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
@@ -37,16 +37,13 @@
 
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="BtnLotesCapturaConsultaEmbarque"></span></a>
-                        </div>
-                        <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
-                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
-                        </div>
+                        <div id="LotesCapturaReporteDivSuperior" class="button-section">
+                            <a id="LotesCapturaReporteSuperior" href="@Url.Action("Consulta", "Embarque")" class="btn btn-primary"><span id="BtnLotesCapturaConsultaEmbarque"></span></a>
+                        </div> 
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
@@ -59,9 +56,8 @@
         </div>
     </div>
 
-    @* Inicia Cuerpo de Pagina*@
-
-    <div class="row ">
+    @* Inicia Cuerpo de Pagina*@ 
+    <div class="row" id="FieldSetView">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
             <div class="row">
@@ -114,13 +110,13 @@
 
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>
                         </div>
-                        <div id="RequisicionDiv" class="button-section">
-                            <a id="Requisicion" href="#" class="btn btn-primary"><span id="BtnLotesCapturaConsultaEmbarque1"></span></a>
+                        <div id="LotesCapturaReporteDivInferior" class="button-section">
+                            <a id="LotesCapturaReporteInferior" href="@Url.Action("Consulta", "Embarque")" class="btn btn-primary"><span id="BtnLotesCapturaConsultaEmbarque1"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                                    <span id="botonAcciones1"></span>
+                                    <span id="botonAcciones2"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
