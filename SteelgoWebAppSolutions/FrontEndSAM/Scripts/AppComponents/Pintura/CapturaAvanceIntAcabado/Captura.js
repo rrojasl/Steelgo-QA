@@ -30,7 +30,7 @@ function CargarGridCapturaAvanceIntAcabado() {
     loadingStart();
     $("#grid").kendoGrid({
         edit: function (e) {
-           
+            debugger;
             if ($('#lblGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
             }
