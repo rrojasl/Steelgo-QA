@@ -14,11 +14,12 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers
+namespace BackEndSAM.Controllers.ServiciosTecnicosController
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CapturaReportePruebasController : ApiController
     {
+
         [HttpGet]
         public object ObtieneRequisicionDetalle(string token, string lenguaje, int requisicion)
         {
@@ -29,9 +30,9 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                List <Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result> list = (List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result>) CapturaReportePruebasBD.Instance.getRequisicionDetalle(lenguaje, requisicion);
+                List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result> list = (List<Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result>)CapturaReportePruebasBD.Instance.getRequisicionDetalle(lenguaje, requisicion);
                 List<ReportePruebasCabecera> result = new List<ReportePruebasCabecera>();
-                foreach(Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result item in list)
+                foreach (Sam3_ServiciosTecnicos_Get_RequisicionDetalle_Result item in list)
                 {
                     ReportePruebasCabecera elemento = new ReportePruebasCabecera
                     {
@@ -59,7 +60,7 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpGet]
-        public object ObtieneReportePruebasDetalle(string token,int requisicionID, string lenguaje)
+        public object ObtieneReportePruebasDetalle(string token, int requisicionID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -71,7 +72,7 @@ namespace BackEndSAM.Controllers
                 List<Sam3_ServiciosTecnicos_Get_ReportePruebasDetalle_Result> list = (List<Sam3_ServiciosTecnicos_Get_ReportePruebasDetalle_Result>)CapturaReportePruebasBD.Instance.getReportePruebasDetalle(requisicionID, lenguaje);
                 List<CapturaReportePruebasDetalle> result = new List<CapturaReportePruebasDetalle>();
 
-                foreach(Sam3_ServiciosTecnicos_Get_ReportePruebasDetalle_Result item in list)
+                foreach (Sam3_ServiciosTecnicos_Get_ReportePruebasDetalle_Result item in list)
                 {
                     CapturaReportePruebasDetalle elemento = new CapturaReportePruebasDetalle
                     {
@@ -110,7 +111,7 @@ namespace BackEndSAM.Controllers
                 string tipoPrueba = "";
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 List<DetalleDefectos> listaResult = new List<DetalleDefectos>();
-                listaResult = (List<DetalleDefectos>)CapturaReportePruebasBD.Instance.getListaDetalleDefectos(PruebaElementoResultadoID,lenguaje);
+                listaResult = (List<DetalleDefectos>)CapturaReportePruebasBD.Instance.getListaDetalleDefectos(PruebaElementoResultadoID, lenguaje);
                 return listaResult;
             }
             else
@@ -125,7 +126,7 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpPost]
-        public object post(Captura listaCaptura, string token, string lenguaje)
+        public object post(Captura listaCaptura, string token, string lenguaje,int reqID)
         {
             string payload = "";
             string newToken = "";
@@ -136,7 +137,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                
+
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleCaptura = new DataTable();
                 DataTable dtDefectos = new DataTable();
@@ -151,7 +152,7 @@ namespace BackEndSAM.Controllers
                         dtDefectos = ToDataTable(item.ListaDefectos);
                     }
                 }
-                return CapturaReportePruebasBD.Instance.InsertarCaptura(dtDetalleCaptura,dtDefectos, usuario, lenguaje);
+                return CapturaReportePruebasBD.Instance.InsertarCaptura(dtDetalleCaptura, dtDefectos, usuario, lenguaje, reqID);
             }
             else
             {
@@ -163,8 +164,6 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
-
 
         public static DataTable ToDataTable<T>(List<T> l_oItems)
         {
@@ -216,6 +215,5 @@ namespace BackEndSAM.Controllers
                 return oType;
             }
         }
-
     }
 }

@@ -229,7 +229,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.CapturaReportePruebasBD
             }
         }
 
-        public object InsertarCaptura(DataTable dtDetalleCaptura,DataTable dtDefectos, Sam3_Usuario usuario, string lenguaje)
+        public object InsertarCaptura(DataTable dtDetalleCaptura,DataTable dtDefectos, Sam3_Usuario usuario, string lenguaje,int reqID)
         {
             try
             {
@@ -238,7 +238,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.CapturaReportePruebasBD
 
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@requisicionID", reqID.ToString() } };
                     _SQL.Ejecuta(Stords.GUARDACAPTURAREPORTEPRUEBAS, dtDetalleCaptura, "@TablaReportePruebas", dtDefectos, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();

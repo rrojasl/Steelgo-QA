@@ -153,9 +153,9 @@ function CargarGrid() {
                 model: {
                     fields: {
                         SpoolJunta: { type: "string", editable: false },
-                        NumeroPlacas: { type: "string", editable: true },
-                        Densidad: { type: "string", editable: true },
-                        Tamano: { type: "string", editable: true },
+                        NumeroPlacas: { type: "number", editable: true },
+                        Densidad: { type: "number", editable: true },
+                        Tamano: { type: "number", editable: true },
                         InformacionResultados: { type: "string", editable: true },
                     }
                 }

@@ -132,7 +132,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
 
                 loadingStart();
-                $CapturaReportePruebas.CapturaReportePruebas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                $CapturaReportePruebas.CapturaReportePruebas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), reqID: requisicionID }).done(function (data) {
                     if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                         //mensaje = "Se guardo correctamente la informacion" + "-0";
                         displayMessage("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
