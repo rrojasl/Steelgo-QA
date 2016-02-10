@@ -51,7 +51,7 @@ function CargarGridCapturaAvanceIntAcabado() {
             schema: {
                 model: {
                     fields: {
-                        SpoolID: { type: "string", editable: false },
+                        Spool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: true },
                         Color: { type: "string", editable: true },
                         MetrosCuadrados: { type: "number", editable: false },
@@ -90,7 +90,7 @@ function CargarGridCapturaAvanceIntAcabado() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolID", title: _dictionary.CapturaAvanceIntAcabadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Spool", title: _dictionary.CapturaAvanceIntAcabadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "SistemaPintura", title: _dictionary.CapturaAvanceIntAcabadoHeaderSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboboxSistemaPintura },
             { field: "Color", title: _dictionary.CapturaAvanceIntAcabadoHeaderColor[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxColor },
             { field: "MetrosCuadrados", title: _dictionary.CapturaAvanceIntAcabadoHeaderMetros2[$("#language").data("kendoDropDownList").value()], filterable: true },

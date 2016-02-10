@@ -67,7 +67,14 @@ function SuscribirEventoLote() {
         dataTextField: "NumeroLote",
         dataValueField: "LotePinturaID ",
         suggest: true,
-        index: 3
+        index: 3,
+        change: function (e) {
+            if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined) {
+            }
+            else {
+                $("#inputLote").data("kendoComboBox").value("");
+            }
+        }
     }).closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined) {
@@ -85,7 +92,15 @@ function SuscribirEventoComponenteComposicion() {
         dataTextField: "Componente",
         dataValueField: "ComponenteID",
         suggest: true,
-        index: 3
+        index: 3,
+        change: function (e) {
+            if ($("#inputPinturaComponenteComposicion").data("kendoComboBox").dataItem($("#inputPinturaComponenteComposicion").data("kendoComboBox").select()) != undefined) {
+                
+            }
+            else {
+                $("#inputPinturaComponenteComposicion").data("kendoComboBox").value("");
+            }
+        }
     }).closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#inputPinturaComponenteComposicion").data("kendoComboBox").dataItem($("#inputPinturaComponenteComposicion").data("kendoComboBox").select()) != undefined) {
@@ -106,7 +121,13 @@ function SuscribirEventoSistemaPintura() {
         suggest: true,
         index: 3,
         change: function () {
-            AjaxComponenteComposicion();
+            if ($("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()) != undefined) {
+                AjaxComponenteComposicion();
+            }
+            else {
+                $("#inputSistemaPintura").data("kendoComboBox").value("");
+            }
+            
         }
 
     }).closest('.k-widget').keydown(function (e) {
@@ -177,7 +198,15 @@ function SuscribirEventoColor() {
         dataTextField: "Nombre",
         dataValueField: "ColorID",
         suggest: true,
-        index: 3
+        index: 3,
+        change: function (e) {
+            if ($("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()) != undefined) {
+                
+            }
+            else {
+                $("#inputColor").data("kendoComboBox").value("");
+            }
+        }
     });
     $('#inputColor').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
