@@ -197,7 +197,7 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $(".botonDeplegaMenu").attr("disabled", true);
-
+        $("input:radio[name=LLena]").prop('disabled', true);
         $("#inputCuadrante").data("kendoComboBox").enable(false);
         $("#inputColor").data("kendoComboBox").enable(false);
         $("#inputLote").data("kendoComboBox").enable(false);
@@ -211,6 +211,7 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
+        $("input:radio[name=LLena]").prop('disabled', false);
         $(".botonDeplegaMenu").attr("disabled", true);
         $("#inputCuadrante").data("kendoComboBox").enable(true);
         $("#inputColor").data("kendoComboBox").enable(true);
