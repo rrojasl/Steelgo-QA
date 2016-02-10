@@ -51,13 +51,13 @@ function CargarGridCapturaAvanceIntAcabado() {
             schema: {
                 model: {
                     fields: {
-                        Spool: { type: "string", editable: false },
+                        SpoolID: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: true },
                         Color: { type: "string", editable: true },
-                        MetrosCuadrados: { type: "string", editable: false },
+                        MetrosCuadrados: { type: "number", editable: false },
                         Lote: { type: "string", editable: true },
                         Componente: { type: "string", editable: true },
-                        FechaPintura: { type: "string", editable: true }
+                        FechaPintura: { type: "date", editable: true }
 
                     }
                 }
@@ -97,7 +97,7 @@ function CargarGridCapturaAvanceIntAcabado() {
             { field: "Lote", title: _dictionary.CapturaAvanceIntAcabadoHeaderLote[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxLote },
             { field: "Componente", title: _dictionary.CapturaAvanceIntAcabadoHeaderPinturaComponenteComposicion[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxPinturaComponenteComposicion },
             { field: "FechaPintura", title: _dictionary.CapturaAvanceIntAcabadoHeaderFechaPintura[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "ListaDetallePintoresPorSpool", title: _dictionary.CapturaAvanceIntAcabadoPintores[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderMultiselectPintores, template: "#:TemplatePintoresPorSpool#" },
+            { field: "ListaDetallePintoresPorSpool", title: _dictionary.CapturaAvanceIntAcabadoPintores[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RenderMultiselectPintores, template: "#:TemplatePintoresPorSpool#" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });

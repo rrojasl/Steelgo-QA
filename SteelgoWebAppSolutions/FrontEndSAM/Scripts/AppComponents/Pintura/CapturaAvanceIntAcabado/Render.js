@@ -8,7 +8,7 @@
         options.model.ListaDetallePintoresPorSpool = [];
     }
 
-    var $multiselect = $('<input required data-text-field="Pintor" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+    var $multiselect = $('<input  data-text-field="Pintor" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoMultiSelect({
                 autoBind: false,
@@ -109,11 +109,13 @@ function RenderComboBoxColor(container, options) {
     loadingStart();
 
     var dataItem;
-    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
             dataSource: ItemSeleccionado.ListaColor,
+            suggest: true,
+            filter: "contains",
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -134,11 +136,12 @@ function RenderComboboxSistemaPintura(container, options) {
     loadingStart();
     var dataItem;
 
-    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-
+            suggest: true,
+            filter: "contains",
             dataSource: options.model.listaSistemaPintura,
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             select: function (e) {
@@ -189,10 +192,12 @@ function RenderComboBoxPinturaComponenteComposicion(container, options) {
     loadingStart();
 
     var dataItem;
-    $('<input required data-text-field="Componente" id=' + options.model.uid + ' data-value-field="ComponenteID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Componente" id=' + options.model.uid + ' data-value-field="ComponenteID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
+            suggest: true,
+            filter: "contains",
             dataSource: options.model.ListaPinturaComponenteCompEspecifica,
             template: "<i class=\"fa fa-#=data.Componente#\"></i> #=data.Componente#",
             select: function (e) {
@@ -214,10 +219,12 @@ function RenderComboBoxColor(container, options) {
     loadingStart();
     var dataItem;
 
-    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
+            suggest: true,
+            filter: "contains",
             dataSource: options.model.listaColores,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
             select: function (e) {
@@ -239,7 +246,7 @@ function RenderComboBoxLote(container, options) {
     loadingStart();
     var dataItem;
 
-    $('<input required data-text-field="NumeroLote" id=' + options.model.uid + ' data-value-field="LotePinturaID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="NumeroLote" id=' + options.model.uid + ' data-value-field="LotePinturaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
