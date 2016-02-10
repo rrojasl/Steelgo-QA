@@ -13,6 +13,8 @@ var $ValidacionResultadosModel = {
 
         Requisicion: {
             visible: "#containerDiv",
+            editable: "#Requisicion",
+            required: "#Requisicion",
         }
     }
 };

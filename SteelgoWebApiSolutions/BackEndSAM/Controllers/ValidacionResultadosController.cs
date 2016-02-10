@@ -139,7 +139,7 @@ namespace BackEndSAM.Controllers
 
 
         [HttpPost]
-        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje)
+        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int RequisicionID)
         {
             string payload = "";
             string newToken = "";
@@ -159,7 +159,7 @@ namespace BackEndSAM.Controllers
                     dtDetalleCaptura = ToDataTable(listaCapturasRequisicion.ListaDetalles);
                 }
 
-                return ValidacionResultadosBD.Instance.InsertarValidarRequisicion(dtDetalleCaptura, usuario, lenguaje);
+                return ValidacionResultadosBD.Instance.InsertarValidarRequisicion(dtDetalleCaptura, usuario, lenguaje, RequisicionID);
             }
             else
             {

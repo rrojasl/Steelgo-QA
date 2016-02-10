@@ -179,7 +179,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
 
 
 
-        public object InsertarValidarRequisicion(DataTable dtDetalleRequisicion, Sam3_Usuario usuario, string lenguaje)
+        public object InsertarValidarRequisicion(DataTable dtDetalleRequisicion, Sam3_Usuario usuario, string lenguaje, int RequisicionID)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.ValidacionResultadosBD
 
                     //ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID",RequisicionID.ToString() } };
                     _SQL.Ejecuta(Stords.GUARDARVALIDACIONRESULTADOS, dtDetalleRequisicion, "@Tabla", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
