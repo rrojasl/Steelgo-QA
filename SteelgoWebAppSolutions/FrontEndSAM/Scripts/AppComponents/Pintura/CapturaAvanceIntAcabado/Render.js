@@ -22,11 +22,7 @@
                 },
                 value: options.model.ListaDetallePintoresPorSpool
             }).data("kendoMultiSelect");
-
-    //$("#" + options.model.uid).blur(function () { 
-    //    $("#" + options.model.uid).closest("tr").trigger("click");
-    //    $.event.trigger({ type: 'keypress', which: 27 });
-    //});
+ 
 }
 
 function RenderGridDetalle(container, options) {

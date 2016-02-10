@@ -1,19 +1,22 @@
-﻿function AjaxCargarSpool(cargarSpoolsDespuesDeCargar) {
+﻿function AjaxCargarSpool(cargarSpoolsDespuesDeCargar, MedioTransporteCargaID) {
     loadingStart();
-    var MedioTransporteID = $('#inputCarro').attr("mediotransporteid");
-
-    $CargaCarroBackLog.CargaCarroBackLog.read({ medioTransporteID: MedioTransporteID, token: Cookies.get("token") }).done(function (data) {
+ 
+    if (MedioTransporteCargaID == 0 && $('#inputCarro').val() != "") MedioTransporteCargaID = $('#inputCarro').val();
+ 
+    $CargaCarroBackLog.CargaCarroBackLog.read({ medioTransporteID: MedioTransporteCargaID, token: Cookies.get("token") }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
+ 
         for (var i = 0; i < array.length; i++) {
             ds.add(array[i]);
         }
-
+         
         if (cargarSpoolsDespuesDeCargar) {
-            opcionHabilitarView(true, "FieldSetView");
+            opcionHabilitarView(true, "FieldSetView"); 
         }
 
+        
         loadingStop();
     });
 }
@@ -34,9 +37,7 @@ function AjaxPinturaCargaMedioTransporte() {
     });
 }
  
-function AjaxSubirSpool(listaSpool, guardarYNuevo) {
-
-
+function AjaxSubirSpool(listaSpool, guardarYNuevo) { 
     var contSave = 0;
     var medioTransporteID;
     Captura = [];
@@ -46,7 +47,7 @@ function AjaxSubirSpool(listaSpool, guardarYNuevo) {
 
     if ($('#inputCarro').attr("mediotransporteid") != undefined) {
         for (var index = 0 ; index < listaSpool.length; index++) {
-            if (listaSpool[index].Seleccionado) {
+            if (listaSpool[index].Seleccionado && !listaSpool[index].Status) {
                 ListaDetalles[contSave] = {
                     Spool: "",
                     SistemaPintura: "",
@@ -55,7 +56,7 @@ function AjaxSubirSpool(listaSpool, guardarYNuevo) {
                 };
 
                 ListaGuardarDetalles[contSave] = {
-                    Accion: 1,
+                    Accion: listaSpool[index].Accion,
                     SpoolID: "",
                     MedioTransporteCargaID: $('#inputCarro').val()
                 };
@@ -86,14 +87,15 @@ function AjaxSubirSpool(listaSpool, guardarYNuevo) {
 
                         if (disponible == 0) {
                             AjaxPinturaCargaMedioTransporte();
-                            Limpiar();
+                            AjaxCargarSpool(true, 0);
+                         
                         }
                         else {
                             var guardar = false;
                             if (!guardarYNuevo) {
                                 guardar = true;
                             }
-                            AjaxCargarSpool(true);
+                            AjaxCargarSpool(true,0);
                             
                         }
                          
@@ -267,4 +269,18 @@ function AjaxObtenerCatalogoPersistencia() {
         };
         loadingStop();
     });
+}
+
+
+function SetDisabledBooleanEnGrid(deshabilitar) {
+    var $grid = $("#grid");
+ 
+    $("tr", $grid).each(function (index) {
+        var $row = $(this);
+ 
+        var $td = $row.find(':checkbox');
+  
+        $td.attr("disabled", deshabilitar);
+   
+    }); 
 }

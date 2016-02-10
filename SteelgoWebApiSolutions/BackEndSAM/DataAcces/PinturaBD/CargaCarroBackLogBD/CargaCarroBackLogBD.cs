@@ -42,6 +42,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CargaCarroBackLogBD
                     {
                         CargaCarroBackLog elemento = new CargaCarroBackLog
                         {
+                            Accion = item.StatusCarga.GetValueOrDefault() ? 2 : 1,
                             Metros2 = item.Area.GetValueOrDefault(),
                             Color = item.ColorPintura,
                             Cuadrante = item.Cuadrante,
@@ -53,7 +54,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CargaCarroBackLogBD
                             SistemaPinturaID = item.SistemaPinturaID,
                             SpoolID = item.SpoolID,
                             SpoolJunta = item.SpoolJunta,
-                            Seleccionado = false
+                            Seleccionado = item.StatusCarga.GetValueOrDefault(),
+                            Status = item.StatusCarga.GetValueOrDefault()
                         };
                         lista.Add(elemento);
                     }
