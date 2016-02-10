@@ -2,7 +2,7 @@
 function RendercomboBoxPintor(container, options) {
     var dataItem;
     var valores;
-    $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoMultiSelect({
             autoBind: false,
@@ -23,7 +23,7 @@ function RendercomboBoxPintor(container, options) {
  
 function RendercomboBoxShotBlastero(container, options) {
     var dataItem;
-    $('<input required data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoMultiSelect({
             autoBind: false,
@@ -36,7 +36,7 @@ function RendercomboBoxShotBlastero(container, options) {
 
             },
             change: function (e) { 
-                options.model.plantillaShotblastero = _dictionary.CargaCarroPintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaShotblasteroGuargado.length;
+                options.model.plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaShotblasteroGuargado.length;
             }
         });
 }

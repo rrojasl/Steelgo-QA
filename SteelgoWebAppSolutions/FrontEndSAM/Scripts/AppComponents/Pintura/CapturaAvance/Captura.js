@@ -63,11 +63,11 @@ function CargarGrid() {
                     fields: {
                         Spool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "string", editable: false },
+                        Metros2: { type: "number", editable: false },
                         Peso: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
                         FechaShotblast: { type: "date", editable: true },
-                        FechaPrimario: { type: "date", editable: true }
+                        FechaPrimario: { type: "date", editable: true },
                     }
                 }
             },
