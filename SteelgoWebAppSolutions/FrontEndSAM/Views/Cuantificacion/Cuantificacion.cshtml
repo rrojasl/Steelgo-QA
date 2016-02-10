@@ -445,7 +445,7 @@
             $("#Editar").click(function (e) { BotonEdicion(); });
             $("#TerminaryNuevo").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                    if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()) {
                             TerminaryNuevo();
                     }
                 } else {
@@ -454,8 +454,7 @@
             });
             $("#GuardarParcialyNuevo").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList()){
-                        if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()) {
+                    if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()) {
                             GuardarParcial(true,3);
                     }
                 } else {
@@ -464,7 +463,7 @@
             });
             $("#GuardaryCerrar").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                    if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()) {
                             GuardaryCerrar();
                     }
                 } else {
@@ -473,7 +472,7 @@
             });
             $("#GuardaryTerminar").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
-                    if(!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()){
+                    if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM()) {
                             GuardaryTerminar();
                     }
                 } else {
@@ -1878,6 +1877,7 @@
             var datasource = result;
             var Errorbool = false;
             $(datasource).each(function () {
+                console.log(this.get("MM"));
                 if (this.get("MM") != "N/A")
                 {
                     if (0 > this.get("MM")) {
