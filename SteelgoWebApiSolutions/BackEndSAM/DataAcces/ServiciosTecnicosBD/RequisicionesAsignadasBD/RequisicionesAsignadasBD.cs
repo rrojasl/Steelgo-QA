@@ -44,6 +44,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.RequisicionesAsignadasBD
                             Estatus = item.Estatus,
                             EstatusID = item.EstatusID,
                             Orden = item.Orden.GetValueOrDefault()
+                          
+
                         });
                     }
 
@@ -80,7 +82,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.RequisicionesAsignadasBD
                             Nombre=item.Nombre,
                             FechaAsignacion=item.FechaAsignacion.ToString().Split(' ')[0],
                             Folio=item.Folio.ToString(),
-                            Observacion=item.Observacion
+                            Observacion=item.Observacion,
+                            FolioTexto=item.FolioTexto
+                            
                         });
                     }
 

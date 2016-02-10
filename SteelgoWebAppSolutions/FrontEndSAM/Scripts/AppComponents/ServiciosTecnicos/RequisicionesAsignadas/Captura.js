@@ -52,9 +52,9 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Folio: { type: "string", editable: false },
+                        FolioTexto: { type: "string", editable: false },
                         Nombre: { type: "string", editable: false },
-                        FechaAsignacion: { type: "date", editable: true },
+                        FechaAsignacion: { type: "date", editable: false },
                         Observacion: { type: "string", editable: false }
                     }
                 }
@@ -80,7 +80,7 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Folio", title: _dictionary.RequisicionesAsignadasFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FolioTexto", title: _dictionary.RequisicionesAsignadasFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Nombre", title: _dictionary.RequisicionesAsignadasTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "FechaAsignacion", title: _dictionary.RequisicionesAsignadasFecha[$("#language").data("kendoDropDownList").value()], filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Observacion", title: _dictionary.RequisicionesAsignadasObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
