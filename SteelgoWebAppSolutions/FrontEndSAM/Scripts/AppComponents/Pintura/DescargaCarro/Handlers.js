@@ -38,14 +38,20 @@ function SuscribirEventoCuadrante() {
         dataValueField: "CuadranteID",
         suggest: true,
         filter: "contains",
-        change: function () {
-            if ($("#inputCuadrante, #inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrante, #inputCuadrantePopup").data("kendoComboBox").select()) != undefined) {
+        change: function () { 
+            if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
               
             }
             else {
-                $("#inputCuadrante, #inputCuadrantePopup").data("kendoComboBox").value("");
+                $("#inputCuadrante").data("kendoComboBox").value(""); 
             }
 
+            if ($("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select()) != undefined) {
+
+            }
+            else { 
+                $("#inputCuadrantePopup").data("kendoComboBox").value("");
+            }
         }
     });
 

@@ -4,6 +4,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 {
     public class CapturaAvance
     {
+        public string SpoolJunta { get; set; }
         public int Accion { get; set; }
         public int PinturaSpoolIDShotblastero { get; set; }
         public int PinturaSpoolIDShotPrimario { get; set; }

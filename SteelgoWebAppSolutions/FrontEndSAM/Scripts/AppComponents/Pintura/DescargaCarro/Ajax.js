@@ -81,13 +81,13 @@ function ajaxAplicarDescarga(arregloCaptura) {
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
         var index = 0;
-        ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", MedioTransporteCargaID: "", CuadranteID: "" };
+        ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", CuadranteID: "" };
         ListaDetalles[index].Accion = arregloCaptura.Accion;
         ListaDetalles[index].SpoolID = arregloCaptura.SpoolID; 
         ListaDetalles[index].CuadranteID = $("#inputCuadrante").val();
         Captura[0].Detalles = ListaDetalles;
 
-        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        $MedioTransporte.MedioTransporte.create(Captura[0], { medioTransporteCargaID: $("#inputCarro").val(), token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 ajaxObtenerDetalleMedioTransporteID($("#inputCarro").data("kendoComboBox").value());
                 displayMessage("PinturaGuardarDescarga", "", '1');

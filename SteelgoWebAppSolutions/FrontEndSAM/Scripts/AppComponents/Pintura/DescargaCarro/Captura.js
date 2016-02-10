@@ -27,7 +27,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        SpoolID: { type: "number", editable: false },
+                        SpoolJunta: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Metros2: { type: "number", editable: false },
                         Cuadrante: { type: "string", editable: true }
@@ -62,7 +62,7 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolID", title: _dictionary.PinturaDescargaSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "SpoolJunta", title: _dictionary.PinturaDescargaSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Metros2", title: _dictionary.PinturaDescargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Cuadrante", title: _dictionary.PinturaDescargaCuadrante[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCuadrante, filterable: true },
             { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
@@ -75,13 +75,13 @@ function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
     if ($("#botonGuardar2").text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
-
+     
         win = $("#windowDownload").kendoWindow({
             modal: true,
             title: "",
             resizable: false,
             visible: true,
-            width: "50%",
+            width: "20%",
             minWidth: 30,
             position: {
                 top: "1%",
@@ -93,21 +93,25 @@ function VentanaModalDescargarMedioTransporte(e) {
         }).data("kendoWindow");
 
         $("#windowDownload").data("kendoWindow").center().open();
+
+        $("#inputCuadrantePopup").data("kendoComboBox").value(currentDataItemGridDownload.CuadranteID);
     }
 
 };
  
 function PlanchaCuadrante()
 {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
+    if ($("#inputCuadrante").val() != "") {
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        var filters = dataSource.filter();
+        var allData = dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var data = query.filter(filters).data;
 
-    for (var i = 0; i < data.length; i++) {
-        data[i].CuadranteID = $("#inputCuadrante").val();
-        data[i].Cuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+        for (var i = 0; i < data.length; i++) {
+            data[i].CuadranteID = $("#inputCuadrante").val();
+            data[i].Cuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+        }
+        $("#grid").data("kendoGrid").dataSource.sync();
     }
-    $("#grid").data("kendoGrid").dataSource.sync();
 }

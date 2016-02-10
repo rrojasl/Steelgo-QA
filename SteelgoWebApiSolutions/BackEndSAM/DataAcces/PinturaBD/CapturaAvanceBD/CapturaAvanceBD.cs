@@ -139,6 +139,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                        
                         ListadoMedioTransporte.Add(new CapturaAvance
                         {
+                            SpoolJunta = item.SpoolJunta,
                             Accion = item.PinturaSpoolID == null ? 1 : 2,
                             PinturaSpoolIDShotblastero = item.PinturaSpoolIDShotblastero == null ? 0: item.PinturaSpoolIDShotblastero.GetValueOrDefault(),
                             PinturaSpoolIDShotPrimario = item.PinturaSpoolIDShotPrimario == null ? 0 : item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),

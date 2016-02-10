@@ -252,7 +252,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.MedioTransporteBD
                     foreach (Sam3_Pintura_Get_DetalleCarrosCargados_Result item in result)
                     {
                         ListadoDetalleMedioTransporteCarga.Add(new DetalleMedioTransporteCarga
-                        {
+                        { 
                             Accion = 2, //no es nuevo solo se pone para tener una bandera por si el usuario hace un cambio se actualiza la accion.
                             MedioTransporteID = item.MedioTransporteID.GetValueOrDefault(),
                             Area = item.Area.GetValueOrDefault(),
