@@ -92,9 +92,7 @@ function AsignarIDUnicoXJuntaSeleccionada(arregloJuntas) {
     return true;
 }
 
-function CargarGrid() {
-
-
+function CargarGrid() { 
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
@@ -103,7 +101,7 @@ function CargarGrid() {
                     fields: {
                         RequisicionPruebaElementoID: { type: "int", editable: false },
                         SpoolJunta: { type: "string", editable: false },
-                        NumeroPruebas: { type: "int", editable: false },
+                        NumeroPruebas: { type: "number", editable: false },
                         Clave: { type: "string", editable: false },
                         Nombre: { type: "string", editable: false },
                         ReporteID: { type: "string", editable: false }
@@ -136,7 +134,7 @@ function CargarGrid() {
             { field: "Clave", title: _dictionary.ImpresionPruebasTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
              { field: "Nombre", title: _dictionary.ImpresionPruebasNombrePrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
              { field: "ReporteID", title: _dictionary.ImpresionPruebasReporteID[$("#language").data("kendoDropDownList").value()], filterable: true },
-             { field: "Seleccionado", title: _dictionary.ImpresionPruebasSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+             { field: "Seleccionado", title: _dictionary.ImpresionPruebasSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
         ]
     });
 

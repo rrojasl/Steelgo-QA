@@ -71,12 +71,18 @@ function AjaxObtenerCatalogoClasificacion() {
 
 function AjaxObtenerCatalogoPersistencia() {
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), idCatalogo: 1 }).done(function (data) {
+
+        //Agregar todos los tipos de persistencia
         if (data.length > 0) {
             $("#inputPersistencia").data("kendoComboBox").value("");
             $("#inputPersistencia").data("kendoComboBox").dataSource.data(data);
         } else {
             $("#inputPersistencia").data("kendoComboBox").value("");
         };
+
+        //Agregar exclusivamente la persistencia de cantidad
+
+
         loadingStop();
     });
 }

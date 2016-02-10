@@ -16,15 +16,21 @@
 <div id="FormImpresionPruebas" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
     <div class="row">
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-12">
-            <div class="btn-group " data-toggle="buttons" role="group">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div class="btn-group " data-toggle="buttons" role="group">
+                    <label>&nbsp;</label>
+                    <label class="btn btn-info" id="styleReporte">
+                        <input type="radio" name="MostrarToodo" style="width:auto;" value="Si" /><span id="ImpresionPruebasMostrarTodo"></span>
+                    </label>
+                    <label class="btn btn-info" id="styleListado">
+                        <input type="radio" name="MostrarToodo" style="width:auto;" value="No" /><span id="ImpresionPruebasNoMostrarTodo"> </span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <label>&nbsp;</label>
-                <label class="btn btn-info" id="styleReporte">
-                    <input type="radio" name="MostrarToodo" style="width:auto;" value="Si" /><span id="ImpresionPruebasMostrarTodo"></span>
-                </label>
-                <label class="btn btn-info" id="styleListado">
-                    <input type="radio" name="MostrarToodo" style="width:auto;" value="No" /><span id="ImpresionPruebasNoMostrarTodo"> </span>
-                </label>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
         </div>
     </div>

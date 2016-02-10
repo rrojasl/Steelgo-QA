@@ -13,6 +13,7 @@ function AjaxCargarDatos() {
 
 
 function AjaxImprimir(arregloJuntas) {
+    debugger;
     loadingStart();
     Captura = [];
     Captura[0] = { Detalles: "" };
