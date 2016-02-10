@@ -47,8 +47,6 @@
 
 };
 
-
-
 function CargarGridPopUp() {
     
     $("#gridPopUp").kendoGrid({
@@ -165,13 +163,25 @@ function comboBoxDefectos(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.DefectoID = dataItem.DefectoID;
-                options.model.Nombre = dataItem.Nombre;
+                if (dataItem != undefined) {
+                    options.model.DefectoID = dataItem.DefectoID;
+                    options.model.Nombre = dataItem.Nombre;
+                }
+                else
+                    options.model.Nombre = ObtenerDescCorrectaDefectos(comboDefectos, options.model.DefectoID);
             }
         }
         );
 }
 
+
+function ObtenerDescCorrectaDefectos(lista, DefectoID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].DefectoID == DefectoID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
 
 function comboBoxResultado(container, options) {
     var dataItem;
@@ -193,9 +203,12 @@ function comboBoxResultado(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.Nombre = dataItem.Nombre;
-                options.model.Resultado = dataItem.Resultado;
-
+                if (dataItem != undefined) {
+                    options.model.Nombre = dataItem.Nombre;
+                    options.model.Resultado = dataItem.Resultado;
+                }
+                else
+                    options.model.Nombre = ObtenerDescCorrectaResultados(this.dataSource._data, options.model.Resultado);
                 
 
             }
@@ -204,3 +217,11 @@ function comboBoxResultado(container, options) {
 }
 
 
+
+function ObtenerDescCorrectaResultados(lista, Resultado) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].Resultado == Resultado)
+            return lista[i].Nombre;
+    }
+    return "";
+}

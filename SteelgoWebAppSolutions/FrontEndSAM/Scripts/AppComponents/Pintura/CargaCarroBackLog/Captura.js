@@ -69,7 +69,9 @@ function CargarGrid() {
         },
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            var field
+
+                = this.thead.find("th").eq(columnIndex).data("field");
             var modelo = e.model;
         },
         navigatable: false,
