@@ -2,7 +2,7 @@
     CargarGrid();
     AjaxObtenerCatalogoClasificacion();
     AjaxObtenerCatalogoPersistencia();
-    AjaxPinturaCargaMedioTransporte(); 
+    AjaxPinturaCargaMedioTransporte();
     AjaxCargarCamposPredeterminados();
     AjaxCargarSpool(false, 0);
     document.title = _dictionary.PinturaHeaderCargaCarroBacklog[$("#language").data("kendoDropDownList").value()];
@@ -69,9 +69,7 @@ function CargarGrid() {
         },
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
-            var field
-
-                = this.thead.find("th").eq(columnIndex).data("field");
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
             var modelo = e.model;
         },
         navigatable: false,
@@ -102,7 +100,7 @@ function CargarGrid() {
 
         ]
     });
-  
+
     $("#grid .k-grid-content").on("change", ":checkbox", function (e) {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid"),
@@ -131,7 +129,7 @@ function CargarGrid() {
         }
     });
 };
- 
+
 function ValidarDatosNuevoCarro(ListaDetalles) {
     var error = false;
 
@@ -164,4 +162,3 @@ function LimpiarCarro() {
     $("#inputArea").val('');
 
 }
- 

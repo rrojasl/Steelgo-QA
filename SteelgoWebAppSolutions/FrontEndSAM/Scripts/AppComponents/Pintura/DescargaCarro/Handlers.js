@@ -64,8 +64,10 @@ function SuscribirEventoCuadrante() {
 
 function suscribirEventoDescargar() {
     $('#CapturaAvanceDescargar').click(function (e) {
-        ajaxAplicarDescarga(currentDataItemGridDownload)
-        win.close();
+        if (("#inputCuadrantePopup").value()!=""){
+            ajaxAplicarDescarga(currentDataItemGridDownload)
+            win.close();
+        }
     });
 }
 
