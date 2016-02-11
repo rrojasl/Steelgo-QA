@@ -17,6 +17,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaResultados
         public List<CondicionesFisicas> ListCondicionesFisicas { get; set; }
         public List<Defectos> ListDefectos { get; set; }
         public List<Defectos> ListDefectosGeneral { get; set; }
+        public int DatosJunta { get; set; }
+        public string Ubicacion { get; set; }
     }
 
     public class CondicionesFisicas
@@ -33,7 +35,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaResultados
 
     public class GuardarEntregaResultados
     {
-        public string Accion { get; set; }  
+        public string Accion { get; set; }
         public int EntregaResultadosID { get; set; }
         public bool RECIBIDO { get; set; }
         public int CONDICIONESFISICASID { get; set; }

@@ -9,39 +9,73 @@
 }
 
 
-function AjaxGuardarCaptura(arregloCaptura) {
+function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     try {
+        debugger;
+        var pruebas=false;
         loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
-
-
+        var i = 0;
         for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[index] = { Accion: "", EntregaResultadosID: "", RECIBIDO: "", CONDICIONESFISICASID: "", DEFECTOSID: "", RequisicionPruebaElementoID: "" };
-            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
-            ListaDetalles[index].EntregaResultadosID = arregloCaptura[index].EntregaResultadosID;
-            ListaDetalles[index].RECIBIDO = arregloCaptura[index].RECIBIDO;
-            ListaDetalles[index].CONDICIONESFISICASID = arregloCaptura[index].DEFECTOSID == 0 ? undefined : arregloCaptura[index].CONDICIONESFISICASID;
-            ListaDetalles[index].DEFECTOSID = arregloCaptura[index].DEFECTOSID;
-            ListaDetalles[index].RequisicionPruebaElementoID = arregloCaptura[index].RequisicionPruebaElementoID;
+            if (arregloCaptura[index].RECIBIDO) {
+                if (arregloCaptura[index].CONDICIONESFISICASID == 1 && arregloCaptura[index].DEFECTOSID == 0)
+                {
+                    ListaDetalles[i] = { Accion: "", EntregaResultadosID: "", RECIBIDO: "", CONDICIONESFISICASID: "", DEFECTOSID: "", RequisicionPruebaElementoID: "" };
+                    ListaDetalles[i].Accion = arregloCaptura[index].Accion;
+                    ListaDetalles[i].EntregaResultadosID = arregloCaptura[index].EntregaResultadosID;
+                    ListaDetalles[i].RECIBIDO = arregloCaptura[index].RECIBIDO;
+                    ListaDetalles[i].CONDICIONESFISICASID = arregloCaptura[index].CONDICIONESFISICASID;
+                    //ListaDetalles[i].CONDICIONESFISICASID = arregloCaptura[index].DEFECTOSID == 0 ? undefined : arregloCaptura[index].CONDICIONESFISICASID;
+                    ListaDetalles[i].DEFECTOSID = arregloCaptura[index].DEFECTOSID;
+                    ListaDetalles[i].RequisicionPruebaElementoID = arregloCaptura[index].RequisicionPruebaElementoID;
+                    pruebas = true;
+                    i++;
+                }
 
+                if (arregloCaptura[index].CONDICIONESFISICASID == 2 && arregloCaptura[index].DEFECTOSID > 0) {
+                    ListaDetalles[i] = { Accion: "", EntregaResultadosID: "", RECIBIDO: "", CONDICIONESFISICASID: "", DEFECTOSID: "", RequisicionPruebaElementoID: "" };
+                    ListaDetalles[i].Accion = arregloCaptura[index].Accion;
+                    ListaDetalles[i].EntregaResultadosID = arregloCaptura[index].EntregaResultadosID;
+                    ListaDetalles[i].RECIBIDO = arregloCaptura[index].RECIBIDO;
+                    ListaDetalles[i].CONDICIONESFISICASID = arregloCaptura[index].CONDICIONESFISICASID;
+                    //ListaDetalles[i].CONDICIONESFISICASID = arregloCaptura[index].DEFECTOSID == 0 ? undefined : arregloCaptura[index].CONDICIONESFISICASID;
+                    ListaDetalles[i].DEFECTOSID = arregloCaptura[index].DEFECTOSID;
+                    ListaDetalles[i].RequisicionPruebaElementoID = arregloCaptura[index].RequisicionPruebaElementoID;
+                    pruebas = true;
+                    i++;
+                }
+                //&& arregloCaptura[index].CONDICIONESFISICASID == 1 ? true: (arregloCaptura[index].CONDICIONESFISICASID != 1 && arregloCaptura[index].DEFECTOSID != "")) {
+            }
         }
-
         Captura[0].Detalles = ListaDetalles;
+        if (pruebas) {
+            $EntregaResultados.EntregaResultados.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-        $EntregaResultados.EntregaResultados.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxCargarEntregaResultados();
-                mensaje = "Se guardo correctamente la informacion" + "-0";
-                displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
-            }
+                    if (tipoGuardar == 1) {
+                        opcionHabilitarView(false, "FieldSetView");
+                    }
+                    else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        AjaxCargarEntregaResultados();
+                        opcionHabilitarView(true, "FieldSetView");
+
+                    }
+                    displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+                }
+                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+
+                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                }
+                loadingStop();
+            });
+        }
+        else {
+            displayMessage("Mensajes_error", "NO existen datos para insertar", '0');
             loadingStop();
-        });
+        }
 
 
     } catch (e) {

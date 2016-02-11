@@ -5326,6 +5326,11 @@ _dictionary = {
         "es-MX": "Ver opciones",
         "en-US": "See options"
     },
+    "ServiciosDatosJunta": {
+        "es-MX": "DatosJunta",
+        "en-US": "Join"
+    },
+
     "ValidacionResultadosRequisicion": {
         "es-MX": "Requisición",
         "en-US": "Requisition"

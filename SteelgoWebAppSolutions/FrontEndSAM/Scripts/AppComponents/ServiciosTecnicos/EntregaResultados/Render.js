@@ -16,22 +16,45 @@
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.CONDICIONESFISICASID = dataItem.CondicionesFisicasID;
-                options.model.CONDICIONESFISICAS = dataItem.CondicionFisica;
-                if (options.model.CONDICIONESFISICASID == 1) {
-                    options.model.ListDefectos = null;
-                    options.model.DEFECTOSID = 0;
-                    options.model.DEFECTOS = null;
+                if (dataItem != undefined) {
+                    options.model.CONDICIONESFISICASID = dataItem.CondicionesFisicasID;
+                    options.model.CONDICIONESFISICAS = dataItem.CondicionFisica;
                 }
-                else
-                    options.model.ListDefectos = options.model.ListDefectosGeneral;
-                $("#grid").data("kendoGrid").dataSource.sync();
+                else {
+                    options.model.CONDICIONESFISICAS = ObtenerDescCondicionesFisicas(options.model.ListCondicionesFisicas, options.model.CONDICIONESFISICASID)
+                }
+
+                //    if (options.model.CONDICIONESFISICASID == 1) {
+                //        options.model.ListDefectos = null;
+                //        options.model.DEFECTOSID = 0;
+                //        options.model.DEFECTOS = null;
+                //    }
+                //    else
+                //        options.model.ListDefectos = options.model.ListDefectosGeneral;
+                //    $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
       );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 
     
 };
+
+
+function ObtenerDescCondicionesFisicas(lista, CONDICIONESFISICASID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].CondicionesFisicasID == CONDICIONESFISICASID)
+            return lista[i].Nombre;
+    }
+    return "";
+};
+
 
 function RenderComboBoxDefectos(container, options) {
     //container  contiene las propiedades de la celda
@@ -51,9 +74,40 @@ function RenderComboBoxDefectos(container, options) {
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                options.model.DEFECTOSID = dataItem.DefectoID;
-                options.model.DEFECTOS = dataItem.Nombre;
+                if (dataItem != undefined) {
+                    options.model.DEFECTOSID = dataItem.DefectoID;
+                    options.model.DEFECTOS = dataItem.Nombre;
+                }
+                else {
+                    options.model.DEFECTOS =  ObtenerDescCorrectaDefecto(options.model.ListDefectos, options.model.DEFECTOSID);
+                }
             }
         }
       );
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
+
+
+    function ObtenerDescCorrectaDefecto(lista, DEFECTOSID) {
+        for (var i = 0; i < lista.length; i++) {
+            if (lista[i].DefectoID == DEFECTOSID)
+                return lista[i].Nombre;
+        }
+        return "";
+    }
+
+    function tieneClase(item) {
+        for (var i = 0; i < item.classList.length; i++) {
+            if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
+                return true;
+            }
+        }
+        return false
+    }
+
 };
