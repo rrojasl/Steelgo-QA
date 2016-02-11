@@ -49,7 +49,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        DatosJunta: { type: "number", editable: false },
+                        DatosJunta: { type: "string", editable: false },
                         FOLIO: { type: "string", editable: false },
                         DESCRIPCION: { type: "string", editable: false },
                         RECIBIDO: { type: "boolean" },
