@@ -522,8 +522,8 @@
                                         {
                                             $("[name='Inch']").data("kendoComboBox").enable(false);
                                             $("[name='MM']").data("kendoComboBox").enable(false);
-                                            $("[name='Inch']").data("kendoComboBox").value("");
-                                            $("[name='MM']").data("kendoComboBox").value("");
+                                            $("[name='Inch']").data("kendoComboBox").value(EspesorINvalue);
+                                            $("[name='MM']").data("kendoComboBox").value(EspesorMMvalue);
                                         }
                                         else {
                                             $("[name='Inch']").data("kendoComboBox").enable(true);
@@ -898,7 +898,7 @@
                     $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change", function () {
                         if (editado == false) {
                             var input = this;
-                            $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']").each(function () {
+                            $("[name='CedulaA'],[name='CedulaB'],[name='Libra']").each(function () {
                                 if (this !== input) {
                                     e.model[this.name] = null;
                                 }
@@ -923,7 +923,7 @@
                     if (e.model.Diametro1 !== 0 && e.model.Diametro1 !== "") {
                         data['CedulaA'] = e.model.CedulaA;
                         data['CedulaB'] = e.model.CedulaB;
-                        data['Libra'] = e.model.Libra;
+                        data['CedulaC'] = e.model.Libra;
                         data["Diametro1"] = e.model.Diametro1;
                         data["Diametro1ID"] = e.model.Diametro1ID;
                         data["Diametro2ID"] = e.model.Diametro2ID;
@@ -940,6 +940,7 @@
                                     
                                     e.model.Inch = "";
                                     e.model.MM = "";
+
                                     $("#grid").data("kendoGrid").refresh();
 
                                     e.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
@@ -989,6 +990,7 @@
                                 //if (disabledDiametro2) {
                                 //    obtenerObjetoD2.enable(false);
                                 //};
+
                                 $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                                 $("[name='Inch']").data("kendoComboBox").enable(true);
                                 $("[name='MM']").data("kendoComboBox").enable(true);
