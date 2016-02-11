@@ -91,6 +91,9 @@ function AjaxGenerarReporte(arregloJuntas)
                     displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
                 }
                 loadingStop();
+
+
+
             });
         }
         else {
