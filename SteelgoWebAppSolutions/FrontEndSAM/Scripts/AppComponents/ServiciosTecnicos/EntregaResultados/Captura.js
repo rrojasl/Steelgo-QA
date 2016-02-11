@@ -58,7 +58,7 @@ function CargarGrid() {
         },
         columns: [
             { field: "FOLIO", title: _dictionary.ServiciosTecnicosFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Junta", title: _dictionary.ServiciosDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "DatosJunta", title: _dictionary.ServiciosDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "DESCRIPCION", title:  _dictionary.ServiciosTecnicosDescripcion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "RECIBIDO", title:  _dictionary.ServiciosTecnicosRECIBIDO[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= RECIBIDO ? "checked=checked" : "" # class="chkbx"  ></input>' },
             { field: "CONDICIONESFISICAS", title: _dictionary.ServiciosTecnicosCondicionesFisicas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCondicionFisica, filterable: true},

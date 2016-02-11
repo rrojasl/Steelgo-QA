@@ -5062,7 +5062,7 @@ _dictionary = {
         "en-US": "Received"
     },
     "ServiciosTecnicosCondicionesFisicas": {
-        "es-MX": "CondicionesFisicas",
+        "es-MX": "Condiciones Fisicas",
         "en-US": "Physical conditions"
     },
     "ServiciosTecnicosDefectos": {
@@ -5327,7 +5327,7 @@ _dictionary = {
         "en-US": "See options"
     },
     "ServiciosDatosJunta": {
-        "es-MX": "DatosJunta",
+        "es-MX": "Junta",
         "en-US": "Join"
     },
 
