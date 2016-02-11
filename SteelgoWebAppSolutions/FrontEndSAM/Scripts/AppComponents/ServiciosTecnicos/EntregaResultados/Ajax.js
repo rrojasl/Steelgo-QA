@@ -11,7 +11,7 @@
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     try {
-        debugger;
+        
         var pruebas=false;
         loadingStart();
         Captura = [];

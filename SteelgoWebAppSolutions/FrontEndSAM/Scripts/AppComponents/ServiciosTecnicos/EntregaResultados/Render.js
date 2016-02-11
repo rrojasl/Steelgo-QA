@@ -13,25 +13,27 @@
                 dataItem = this.dataItem(e.item.index());
                 options.model.CONDICIONESFISICASID = dataItem.CondicionesFisicasID;
                 options.model.CONDICIONESFISICAS = dataItem.CondicionFisica;
+                if (options.model.CONDICIONESFISICASID == 1) {
+                    options.model.DEFECTOSID = 0;
+                    options.model.DEFECTOS = "";
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.CONDICIONESFISICASID = dataItem.CondicionesFisicasID;
                     options.model.CONDICIONESFISICAS = dataItem.CondicionFisica;
+                    if (options.model.CONDICIONESFISICASID == 1) {
+                        options.model.DEFECTOSID = 0;
+                        options.model.DEFECTOS = "";
+                        $("#grid").data("kendoGrid").dataSource.sync();
+                    }
                 }
                 else {
                     options.model.CONDICIONESFISICAS = ObtenerDescCondicionesFisicas(options.model.ListCondicionesFisicas, options.model.CONDICIONESFISICASID)
                 }
 
-                //    if (options.model.CONDICIONESFISICASID == 1) {
-                //        options.model.ListDefectos = null;
-                //        options.model.DEFECTOSID = 0;
-                //        options.model.DEFECTOS = null;
-                //    }
-                //    else
-                //        options.model.ListDefectos = options.model.ListDefectosGeneral;
-                //    $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
       );
@@ -93,21 +95,24 @@ function RenderComboBoxDefectos(container, options) {
     });
 
 
-    function ObtenerDescCorrectaDefecto(lista, DEFECTOSID) {
-        for (var i = 0; i < lista.length; i++) {
-            if (lista[i].DefectoID == DEFECTOSID)
-                return lista[i].Nombre;
-        }
-        return "";
-    }
-
-    function tieneClase(item) {
-        for (var i = 0; i < item.classList.length; i++) {
-            if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
-                return true;
-            }
-        }
-        return false
-    }
+    
 
 };
+
+
+function ObtenerDescCorrectaDefecto(lista, DEFECTOSID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].DefectoID == DEFECTOSID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
+
+function tieneClase(item) {
+    for (var i = 0; i < item.classList.length; i++) {
+        if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
+            return true;
+        }
+    }
+    return false
+}
