@@ -1,0 +1,14 @@
+﻿.border-shadow {
+    -webkit-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.63);
+    -moz-box-shadow:    4px 4px 16px 0px rgba(50, 50, 50, 0.63);
+    box-shadow:         4px 4px 16px 0px rgba(50, 50, 50, 0.63);
+}
+
+.header-grid {
+    /*background-color: rgb(8, 66, 128, 0.6); /* Fall-back for browsers that don't
+                                    support rgba 
+    background-color: rgba(8, 66, 128, 0.6);*/
+    background-color:#305E8E;
+    height:30px;
+    padding: 5px;
+}
