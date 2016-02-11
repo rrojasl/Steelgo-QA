@@ -31,6 +31,7 @@ namespace BackEndSAM.Models
         public int ReferenciaID { get; set; }
         public string Estatus { get; set; }
         public string ValorReferencia { get; set; }
+        public string NombreIncidencia { get; set; }
     }
 
     public class IncicidenciaEnPaseSalida

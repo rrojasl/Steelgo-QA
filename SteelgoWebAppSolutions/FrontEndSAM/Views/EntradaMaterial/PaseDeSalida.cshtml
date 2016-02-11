@@ -603,7 +603,7 @@
                 CargarArregloIncidencias(result);
                 ControlErroresObjetosComboBox("IncidenciaAsociada", result);
                 $.each(result, function (index, value) {
-                    $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.FolioIncidenciaID + "' class='l' type='checkbox' /></td><td>" + value.FolioIncidenciaID + "</td><td>" + value.Descripcion + "</td></tr>");
+                    $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.FolioIncidenciaID + "' class='l' type='checkbox' /></td><td>" + value.NombreIncidencia + "</td><td>" + value.Descripcion + "</td></tr>");
                 });
 
                 if ($('#ListaIncidencias > tbody  > tr').length == 0) {

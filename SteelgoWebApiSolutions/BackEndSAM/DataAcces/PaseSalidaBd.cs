@@ -15,6 +15,7 @@ using System.Net;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Globalization;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -311,6 +312,8 @@ namespace BackEndSAM.DataAcces
             try
             {
                 List<Incidencia> listado;
+                bool activaConfigIncidencia = ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].ToString() != null
+                    && ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].ToString() != "" ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].ToString() == "1" ? true : false) : false;
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_FolioAvisoLlegada> registros = new List<Sam3_FolioAvisoLlegada>();
@@ -325,7 +328,14 @@ namespace BackEndSAM.DataAcces
                                && r.FolioAvisoLlegadaID == folioAvisoLlegadaID
                                select new Incidencia
                                {
-                                   FolioIncidenciaID = inc.IncidenciaID, Descripcion = inc.Descripcion
+                                   FolioIncidenciaID = inc.IncidenciaID, 
+                                   Descripcion = inc.Descripcion,
+                                   NombreIncidencia = activaConfigIncidencia ? (from rpn in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                where rpn.Rel_Proyecto_Entidad_Configuracion_ID == inc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                select rpn.PreFijoFolioIncidencias + ","
+                                                                                  + rpn.CantidadCerosFolioIncidencias + ","
+                                                                                  + inc.Consecutivo + ","
+                                                                                  + rpn.PostFijoFolioIncidencias).FirstOrDefault().ToString() : inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
 
                     listado.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
@@ -340,10 +350,31 @@ namespace BackEndSAM.DataAcces
                                       select new Incidencia
                                       {
                                           FolioIncidenciaID = inc.IncidenciaID,
-                                          Descripcion = inc.Descripcion
+                                          Descripcion = inc.Descripcion,
+                                          NombreIncidencia = activaConfigIncidencia ? (from rpn in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                              where rpn.Rel_Proyecto_Entidad_Configuracion_ID == inc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                              select rpn.PreFijoFolioIncidencias + ","
+                                                                + rpn.CantidadCerosFolioIncidencias + ","
+                                                                + inc.Consecutivo + ","
+                                                                + rpn.PostFijoFolioIncidencias).FirstOrDefault().ToString() : inc.IncidenciaID.ToString()
                                       }).AsParallel().Distinct().ToList());
 
 
+                }
+
+                if (activaConfigIncidencia)
+                {
+                    foreach (Incidencia i in listado)
+                    {
+                        if (i.NombreIncidencia != string.Empty && i.NombreIncidencia != null)
+                        {
+                            string[] elementos = i.NombreIncidencia.Split(',').ToArray();
+                            int digitos = Convert.ToInt32(elementos[1]);
+                            int cons = Convert.ToInt32(elementos[2]);
+                            string formato = "D" + digitos.ToString();
+                            i.NombreIncidencia = elementos[0].Trim() + cons.ToString(formato).ToString().Trim() + elementos[3].Trim();
+                        }
+                    }
                 }
 
                 listado = listado.GroupBy(x => x.FolioIncidenciaID).Select(x => x.First()).OrderBy(x => x.FolioIncidenciaID).ToList();

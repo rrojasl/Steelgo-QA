@@ -358,6 +358,8 @@
         color: #111111;
         font-weight: 100;
         border-bottom: 1px solid #CCCCCC;
+        text-overflow: clip;
+        word-wrap:break-word;
     }
 
     .k-grid tr:last-child td {
