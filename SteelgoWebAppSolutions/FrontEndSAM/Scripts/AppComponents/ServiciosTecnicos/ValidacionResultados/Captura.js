@@ -6,7 +6,7 @@ function changeLanguageCall() {
     document.title = _dictionary.lblValidacionResultados[$("#language").data("kendoDropDownList").value()];
     $('#grid').data('kendoGrid').dataSource.read();
     $('#gridPopUp').data('kendoGrid').dataSource.read();
-  
+    AjaxCargarRequisicionesParaValidacion();
 };
 function CargarGrid() {
 

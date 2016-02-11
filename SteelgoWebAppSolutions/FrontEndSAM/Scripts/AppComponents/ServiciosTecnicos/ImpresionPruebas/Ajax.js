@@ -37,7 +37,7 @@ function AjaxImprimir(arregloJuntas) {
     Captura[0].Detalles = ListaDetalles;
     if (Captura[0].Detalles.length > 0) {
         for (var m = 0; m < Captura[0].Detalles.length; m++) {
-            SolicitarImpresion(Captura[0].Detalles[m].ReportePath.replace('?1', $("#language").val()).replace('?2', Captura[0].Detalles[m].ReporteID));
+            SolicitarImpresion(Captura[0].Detalles[m].ReportePath.replace('?1', $("#language").val()).replace('?2', Captura[0].Detalles[m].RequisicionPruebaElementoID));
         }
         loadingStop();
     }
@@ -91,6 +91,9 @@ function AjaxGenerarReporte(arregloJuntas)
                     displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
                 }
                 loadingStop();
+
+
+
             });
         }
         else {

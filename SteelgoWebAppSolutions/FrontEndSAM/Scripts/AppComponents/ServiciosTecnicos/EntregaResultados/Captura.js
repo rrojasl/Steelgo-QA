@@ -2,30 +2,59 @@
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
     document.title = _dictionary.EntregaResultadosHeader[$("#language").data("kendoDropDownList").value()];
+    AjaxCargarEntregaResultados();
 };
 
 IniciarEntregaResultados();
 
 function IniciarEntregaResultados() {
     SuscribirEventos();
-    setTimeout(function () { AjaxCargarEntregaResultados() }, 1000);
+   setTimeout(function () { AjaxCargarEntregaResultados() }, 1000);
     
 };
 
 function CargarGrid() {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
 
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
 
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+            }
+        },
         dataSource: {
             schema: {
                 model: {
                     fields: {
-                        FOLIO: { type: "int", editable: false },
+                        DatosJunta: { type: "string", editable: false },
+                        FOLIO: { type: "string", editable: false },
                         DESCRIPCION: { type: "string", editable: false },
                         RECIBIDO: { type: "boolean" },
                         CONDICIONESFISICAS: { type: "string", editable: true },
-                        DEFECTOS: { type: "string", editable: true }
+                        DEFECTOS: { type: "string", editable: true  }
                     }
                 }
             },
@@ -50,18 +79,78 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "FOLIO", title:  _dictionary.ServiciosTecnicosFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FOLIO", title: _dictionary.ServiciosTecnicosFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "DatosJunta", title: _dictionary.ServiciosDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "DESCRIPCION", title:  _dictionary.ServiciosTecnicosDescripcion[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "RECIBIDO", title:  _dictionary.ServiciosTecnicosRECIBIDO[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= RECIBIDO ? "checked=checked" : "" # class="chkbx"  ></input>' },
-            { field: "CONDICIONESFISICAS", title: _dictionary.ServiciosTecnicosCondicionesFisicas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCondicionFisica, filterable: true },
-            { field: "DEFECTOS", title:  _dictionary.ServiciosTecnicosDefectos[$("#language").data("kendoDropDownList").value()],editor: RenderComboBoxDefectos, filterable: true }
-        ]
+            { field: "CONDICIONESFISICAS", title: _dictionary.ServiciosTecnicosCondicionesFisicas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCondicionFisica, filterable: true},
+            { field: "DEFECTOS", title:  _dictionary.ServiciosTecnicosDefectos[$("#language").data("kendoDropDownList").value()],editor: RenderComboBoxDefectos, filterable: true} //editor: RenderComboBoxDefectos,
+        ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
     });
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
-        var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-        dataItem.set("RECIBIDO", this.checked);
+
+        if ($("#language").val() == "es-MX") {
+            if ($('#botonGuardar').text() != "Editar") {
+                var grid = $("#grid").data("kendoGrid")
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                if ($(this)[0].checked) {
+                    dataItem.set("RECIBIDO", this.checked);
+                }
+                else {
+                    dataItem.set("RECIBIDO", false);
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+            else {
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
+        }
+        else {
+            if ($('#botonGuardar').text() != "Edit") {
+                var grid = $("#grid").data("kendoGrid")
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                if ($(this)[0].checked) {
+                    dataItem.set("RECIBIDO", this.checked);
+                }
+                else {
+                    dataItem.set("RECIBIDO", false);
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+            else {
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
+        }
+        
     });
 };
+
+
+
+function isEditable(fieldName, model) {
+    if (fieldName === "DEFECTOS") {
+        
+        return model.CONDICIONESFISICASID !== 1 ;
+    }
+
+    return true; 
+}
 

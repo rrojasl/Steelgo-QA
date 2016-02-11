@@ -28,7 +28,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
             }
         }
 
-        public object ObtenerDetalleEntregaResultados(string lenguaje,string TipoPrueba)
+        public object ObtenerDetalleEntregaResultados(string lenguaje, string TipoPrueba)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                     List<EntregaResultados> ListadoEntregaResultados = new List<EntregaResultados>();
 
                     List<Sam3_ServiciosTecnicos_Get_CondicionesFisicas_Result> resultCondicionesFisicas = ctx.Sam3_ServiciosTecnicos_Get_CondicionesFisicas(lenguaje).ToList();
-                    List<CondicionesFisicas> ListadoCondicionesFisicas= new List<CondicionesFisicas>();
+                    List<CondicionesFisicas> ListadoCondicionesFisicas = new List<CondicionesFisicas>();
 
                     List<Sam3_Steelgo_Get_Defectos_Result> resultDefault = ctx.Sam3_Steelgo_Get_Defectos(lenguaje, TipoPrueba).ToList();
                     List<Defectos> ListadoDefectos = new List<Defectos>();
@@ -48,9 +48,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                     foreach (Sam3_ServiciosTecnicos_Get_CondicionesFisicas_Result item in resultCondicionesFisicas)
                     {
                         ListadoCondicionesFisicas.Add(new CondicionesFisicas
-                        {   
-                            CondicionesFisicasID=item.CondicionesFisicasID,
-                            CondicionFisica=item.CondicionFisica
+                        {
+                            CondicionesFisicasID = item.CondicionesFisicasID,
+                            CondicionFisica = item.CondicionFisica
                         });
                     }
 
@@ -58,8 +58,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                     {
                         ListadoDefectos.Add(new Defectos
                         {
-                            DefectoID=item.DefectoID,
-                            Nombre=item.Nombre
+                            DefectoID = item.DefectoID,
+                            Nombre = item.Nombre
                         });
                     }
 
@@ -79,11 +79,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicosBD.EntregaResultadosBD
                             ListCondicionesFisicas = ListadoCondicionesFisicas,
                             ListDefectos = item.CondicionesFisicasID == 1 ? null : ListadoDefectos,
                             ListDefectosGeneral = ListadoDefectos,
-                            EntregaResultadosID=item.EntregaResultadosID.GetValueOrDefault(),
-                            RequisicionPruebaElementoID=item.RequisicionPruebaElementoID
+                            EntregaResultadosID = item.EntregaResultadosID.GetValueOrDefault(),
+                            RequisicionPruebaElementoID = item.RequisicionPruebaElementoID,
+                            DatosJunta = Convert.ToInt32(item.JUNTA)
                         });
                     }
-
                     return ListadoEntregaResultados;
                 }
             }
