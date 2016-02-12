@@ -21,10 +21,20 @@ function SuscribirEventoProyectar() {
                 "Close"
             ],
         }).data("kendoWindow");
-        $("#divNuevoMedioTransporte").data("kendoWindow").title("Proyectar");
-        $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
+        $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
+        $("#divProyectarWindow").data("kendoWindow").center().open();
+
+        $("#divProyectarWindow").data("kendoWindow").bind("close", function(e) {
+            $("#ProyectarPreguntaDiv").show();
+            $("#cmbSeleccionarProyeccion").hide();
+            $("#inputCrearProyeccion").hide();
+        }); 
     });
 
+    $("#btnCrearNuevaProyeccion").click(function () {
+        $("#ProyectarPreguntaDiv").hide();
+        $("#inputCrearProyeccion").show();
+    });
 
     $("#btnUtilizarProyeccionExistente").click(function () {
         $("#ProyectarPreguntaDiv").hide();
@@ -37,6 +47,8 @@ function SuscribirEventoProyectar() {
         { Proyeccion: "Proyeccion 2", ProyeccionID: "2" },
         { Proyeccion: "Proyeccion 3", ProyeccionID: "3" },
     ];
+
+    
 
     $("#inputProyecciones").kendoComboBox({
         dataTextField: "Proyeccion",
@@ -68,15 +80,24 @@ function SuscribirEventoEmitir() {
         }).data("kendoWindow");
         $("#divEmitirWindow").data("kendoWindow").title("Emitir Orden de Trabajo");
         $("#divEmitirWindow").data("kendoWindow").center().open();
+
+        $("#divEmitirWindow").data("kendoWindow").bind("close", function (e) {
+            $("#EmitirPreguntaDiv").show();
+            $("#cmbSeleccionarOT").hide();
+            $("#inputCrearOrdenTrabajo").hide(); 
+        });
     });
 
+    $("#btnCrearNuevaOrdenTrabajo").click(function () {
+        $("#EmitirPreguntaDiv").hide();
+        $("#inputCrearOrdenTrabajo").show();
+    });
 
     $("#btnUtilizarOrdenTrabajoExistente").click(function () {
         $("#EmitirPreguntaDiv").hide();
         $("#cmbSeleccionarOT").show();
     });
-
-
+      
     var data = [
         { OrdenTrabajo: "Orden de Trabajo 1", OrdenTrabajoID: "1" },
         { OrdenTrabajo: "Orden de Trabajo 2", OrdenTrabajoID: "2" },
