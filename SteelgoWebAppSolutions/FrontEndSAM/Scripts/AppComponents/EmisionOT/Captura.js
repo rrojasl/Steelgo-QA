@@ -10,7 +10,7 @@ function CargarSplitterKendo() {
                                 '<div id="horizontal" style="height: 100%; width: 100%;">' +
                                     '<div id="left-pane">' +
                                         '<div class="pane-content">' +
-                                            '<div style="color:#ffffff" class="header-grid text-center">Proyecciones</div>' +
+                                            '<div style="color:#ffffff;position: absolute; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div>' +
                                         '</div>' +
                                     '</div>' +
                                     '<div id="rigth-pane">' +
@@ -45,10 +45,10 @@ function CargarSplitterKendo() {
 
 function CargarGridStack() { 
      
-    $("#gridStack").append('<div class="grid-stack">' +
+    $("#gridStack").append('<div class="grid-stack" style="font-size:10px;">' +
                                 '<div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="6" data-gs-height="4">' +
                                     '<div class="grid-stack-item-content border-shadow" id="gridProyecciones">' +
-                                        '<div style="color:#ffffff" class="header-grid text-center">Proyecciones</div>' + 
+                                        '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div>' +
                                         '<table class="table table-condensed" style="border-collapse:collapse;">' + 
                                             '<thead>' +
                                                 '<tr><th>&nbsp;</th>' +
@@ -64,27 +64,25 @@ function CargarGridStack() {
                                             '</thead>' +
 
                                             '<tbody>' +
-                                              '<tr data-toggle="collapse" data-target="#Familia001" class="accordion-toggle">' +
+                                              '<tr data-toggle="collapse" data-target="#Familia001" class="accordion-toggle" id="ContenedorFamilia001">' +
                                                 '<td>' +
-                                                  '<button class="btn btn-default btn-xs">' +
-                                                    '<span class="glyphicon glyphicon-eye-open"></span>' +
-                                                  '</button>' +
+                                                    '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
                                                 '</td>' +
                                                 '<td>CS</td>' +
                                                 '<td>a16</td>' +
                                                 '<td>Auto 6-24</td>' +
-                                                '<td>5</td>' +
-                                                '<td>550</td>' +
-                                                '<td>2</td>' +
-                                                '<td>20</td> ' +
-                                                '<td>0.1</td> ' +
+                                                '<td id="TotalSpoolsFamilia001"></td>' +
+                                                '<td id="TotalKgsFamilia001"></td>' +
+                                                '<td id="TotalM2Familia001"></td>' +
+                                                '<td id="TotalJuntasFamilia001"></td> ' +
+                                                '<td id="TotalPeqsFamilia001"></td> ' +
                                               '</tr>' +
-                                              '<tr data-toggle="collapse" data-target="#Familia001-Detalles" class="accordion-toggle">' +
-                                                '<td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="Familia001"> ' +
+                                              '<tr>' +
+                                                '<td colspan="12" class="hiddenRow nivel2-Familia001"><div class="accordian-body collapse" id="Familia001"> ' +
                                                   '<table class="table table-striped">' +
                                                     '<thead>' + 
                                                       '<tr>' +
-                                                        '<th>Acciones</th>' +
+                                                        '<th></th>' +
                                                         '<th>Nombre Spool</th>' +
                                                         '<th>Dibujo</th>' +
                                                         '<th>Diametro</th>' +
@@ -95,156 +93,413 @@ function CargarGridStack() {
                                                       '</tr>' +
                                                     '</thead>' +
                                                     '<tbody>' +
-                                                      '<tr>' +
+
+                                                        //Spool001
+                                                      '<tr data-toggle="collapse" data-target="#Familia001-DetallesSpool001" class="accordion-toggle spool nivel2-Familia001" id="ContenedorSpool001">' +
                                                         '<td>' +
-                                                          '<a href="#" class="btn btn-default btn-sm">' +
-                                                            '<i class="glyphicon glyphicon-remove"></i>' +
-                                                          '</a>' +
+                                                            '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
                                                         '</td>' +
-                                                        '<td>_nombre</td>' +
+                                                        '<td>' +
+                                                          '<div class="checkbox" style="margin-top: 0px;">' +
+                                                              '<label><input type="checkbox" value=""></label>' +
+                                                            '</div>' +
+                                                        '</td>' +
+                                                        '<td>Spool001</td>' +
                                                         '<td>A</td>' +
                                                         '<td> </td>' +
-                                                        '<td>1 </td>' +
-                                                        '<td>0.5</td>' +
+                                                        '<td class="Kgs Familia001 Spool001">12 </td>' +
+                                                        '<td class="M2 Familia001 Spool001">0.5</td>' + 
+                                                        '<td id="TotalJuntasFamilia001Spool001"></td> ' +
+                                                        '<td id="TotalPeqsFamilia001Spool001"></td> ' + 
+                                                      '</tr> ' +
+
+                                                        //Juntas de Spool
+                                                      '<tr>' +
+                                                      '<td colspan="12" class="hiddenRow nivel3-Familia001" id="Spool001"><div class="accordian-body collapse" id="Familia001-DetallesSpool001"> ' + 
+                                                        '<table class="table table-striped">' +
+                                                          '<thead>' +
+                                                              '<tr>' +
+                                                                  '<th/><th/>' +
+                                                                  '<th>Fabcase</th>' +
+                                                                  '<th>Tipo</th>' +
+                                                                  '<th>Junta</th>' + 
+                                                                  '<th>Peqs</th>' +
+                                                              '</tr>' +
+                                                          '</thead>' +
+                                                          '<tbody>' +
+                                                            '<tr class=" junta Familia001 Spool001">' +
+                                                              '<td/><td/>' +
+                                                              '<td>1</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' + 
+                                                              '<td class="Peqs Familia001 Spool001">15</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool001">' +
+                                                              '<td/><td/>' +
+                                                              '<td>2</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>BW</td>' + 
+                                                              '<td class="Peqs Familia001 Spool001">1</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool001">' +
+                                                              '<td/><td/>' +
+                                                              '<td>3</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' + 
+                                                              '<td class="Peqs Familia001 Spool001">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool001">' +
+                                                              '<td/><td/>' +
+                                                              '<td>4</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' + 
+                                                              '<td class="Peqs Familia001 Spool001">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool001">' +
+                                                              '<td/><td/>' +
+                                                              '<td>5</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>SW</td>' + 
+                                                              '<td class="Peqs Familia001 Spool001">10</td>' +
+                                                            '</tr>' +
+                                                          '</tbody>' +
+     	                                                  '</table>' +
+                                                        '</td>' +
+                                                      '</tr> ' +
+
+                                                        //Spool002
+                                                       '<tr data-toggle="collapse" data-target="#Familia001-DetallesSpool002" class="accordion-toggle spool nivel2-Familia001" id="ContenedorSpool002" disabled>' +
+                                                        '<td>' +
+                                                            '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
+                                                        '</td>' +
+                                                        '<td class="text-center">' +
+                                                          '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="cursor:pointer"></span>' +
+                                                          '<label style="padding:5px;color:#006E2E"> Proyección 1</label>' +
+                                                        '</td>' +
+                                                        '<td>Spool002</td>' +
+                                                        '<td>A</td>' +
                                                         '<td> </td>' +
+                                                        '<td class="Kgs Familia001 Spool002">1</td>' +
+                                                        '<td class="M2 Familia001 Spool002">0.5</td>' +
+                                                        '<td id="TotalJuntasFamilia001Spool002"></td> ' +
+                                                        '<td id="TotalPeqsFamilia001Spool002"></td> ' +
+                                                      '</tr> ' +
+
+                                                        //Juntas de Spool
+                                                      '<tr>' +
+                                                      '<td colspan="12" class="hiddenRow nivel3-Familia001" id="Spool002"><div class="accordian-body collapse" id="Familia001-DetallesSpool002"> ' +
+                                                        '<table class="table table-striped">' +
+                                                          '<thead>' +
+                                                              '<tr>' +
+                                                              '<th></th>' +
+                                                              '<th>Fablines</th>' +
+                                                              '<th>Spools</th>' +
+                                                              '<th>Peqs</th>' +
+                                                              '</tr>' +
+                                                          '</thead>' +
+                                                          '<tbody>' +
+                                                            '<tr class=" junta Familia001 Spool002">' +
+                                                              '<td>1</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool002">1</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool002">' +
+                                                              '<td>2</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>BW</td>' +
+                                                              '<td class="Peqs Familia001 Spool002">1</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool002">' +
+                                                              '<td>3</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool002">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool002">' +
+                                                              '<td>4</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool002">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool002">' +
+                                                              '<td>5</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>SW</td>' +
+                                                              '<td class="Peqs Familia001 Spool002">10</td>' +
+                                                            '</tr>' +
+                                                          '</tbody>' +
+     	                                                  '</table>' +
+                                                        '</td>' +
+                                                      '</tr> ' +
+                                                        //Spool003
+                                                      '<tr data-toggle="collapse" data-target="#Familia001-DetallesSpool003" class="accordion-toggle spool nivel2-Familia001" id="ContenedorSpool003">' +
+                                                        '<td>' +
+                                                            '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
+                                                        '</td>' +
+                                                        '<td>' +
+                                                          '<div class="checkbox" style="margin-top: 0px;">' +
+                                                            '<label><input type="checkbox" value=""></label>' +
+                                                          '</div>' +
+                                                        '</td>' +
+                                                        '<td>Spool003</td>' +
+                                                        '<td>A</td>' +
                                                         '<td> </td>' +
+                                                        '<td class="Kgs Familia001 Spool003"> 2 </td>' +
+                                                        '<td class="M2 Familia001 Spool003">0.5</td>' +
+                                                        '<td id="TotalJuntasFamilia001Spool003"></td> ' +
+                                                        '<td id="TotalPeqsFamilia001Spool003"></td> ' +
+                                                      '</tr> ' +
+
+                                                        //Juntas de Spool
+                                                      '<tr>' +
+                                                      '<td colspan="12" class="hiddenRow nivel3-Familia001" id="Spool003"><div class="accordian-body collapse" id="Familia001-DetallesSpool003"> ' +
+                                                        '<table class="table table-striped">' +
+                                                          '<thead>' +
+                                                              '<tr>' +
+                                                              '<th></th>' +
+                                                              '<th>Fablines</th>' +
+                                                              '<th>Spools</th>' +
+                                                              '<th>Peqs</th>' +
+                                                              '</tr>' +
+                                                          '</thead>' +
+                                                          '<tbody>' +
+                                                            '<tr class=" junta Familia001 Spool003">' +
+                                                              '<td>1</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool003">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool003">' +
+                                                              '<td>2</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>BW</td>' +
+                                                              '<td class="Peqs Familia001 Spool003">1</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool003">' +
+                                                              '<td>3</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool003">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool003">' +
+                                                              '<td>4</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool003">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool003">' +
+                                                              '<td>5</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>SW</td>' +
+                                                              '<td class="Peqs Familia001 Spool003">10</td>' +
+                                                            '</tr>' +
+                                                          '</tbody>' +
+     	                                                  '</table>' +
+                                                        '</td>' +
+                                                      '</tr> ' +
+                                                        //Spool004
+                                                       '<tr data-toggle="collapse" data-target="#Familia001-DetallesSpool004" class="accordion-toggle spool nivel2-Familia001" id="ContenedorSpool004">' +
+                                                        '<td>' +
+                                                            '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
+                                                        '</td>' +
+                                                        '<td>' +
+                                                          '<div class="checkbox" style="margin-top: 0px;">' +
+                                                              '<label><input type="checkbox" value=""></label>' +
+                                                          '</div>' +
+                                                        '</td>' +
+                                                        '<td>Spool004</td>' +
+                                                        '<td>A</td>' +
+                                                        '<td> </td>' +
+                                                        '<td class="Kgs Familia001 Spool004">12 </td>' +
+                                                        '<td class="M2 Familia001 Spool004">0.5</td>' +
+                                                        '<td id="TotalJuntasFamilia001Spool004"></td> ' +
+                                                        '<td id="TotalPeqsFamilia001Spool004"></td> ' +
+                                                      '</tr> ' +
+
+                                                        //Juntas de Spool
+                                                      '<tr>' +
+                                                      '<td colspan="12" class="hiddenRow nivel3-Familia001" id="Spool004"><div class="accordian-body collapse" id="Familia001-DetallesSpool004"> ' +
+                                                        '<table class="table table-striped">' +
+                                                          '<thead>' +
+                                                              '<tr>' +
+                                                              '<th></th>' +
+                                                              '<th>Fablines</th>' +
+                                                              '<th>Spools</th>' +
+                                                              '<th>Peqs</th>' +
+                                                              '</tr>' +
+                                                          '</thead>' +
+                                                          '<tbody>' +
+                                                            '<tr class=" junta Familia001 Spool004">' +
+                                                              '<td>1</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool004">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool004">' +
+                                                              '<td>2</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>BW</td>' +
+                                                              '<td class="Peqs Familia001 Spool004">1</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool004">' +
+                                                              '<td>3</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool004">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool004">' +
+                                                              '<td>4</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>TW</td>' +
+                                                              '<td class="Peqs Familia001 Spool004">5</td>' +
+                                                            '</tr>' +
+                                                            '<tr class=" junta Familia001 Spool004">' +
+                                                              '<td>5</td>' +
+                                                              '<td>Auto 6-24</td>' +
+                                                              '<td>SW</td>' +
+                                                              '<td class="Peqs Familia001 Spool004">10</td>' +
+                                                            '</tr>' +
+                                                          '</tbody>' +
+     	                                                  '</table>' +
+                                                        '</td>' +
                                                       '</tr> ' +
                                                     '</tbody>' +
      	                                            '</table>' +
                                                 '</td>' +
                                               '</tr> ' +
 
-                                              '<tr>' +
-                                                '<td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="Familia001-Detalles"> ' +
-                                                  '<table class="table table-striped">' +
-                                                    '<thead>' +
-                                                      '<tr>' +
-                                                        '<th></th>' +
-                                                        '<th>Fablines</th>' +
-                                                        '<th>Spools</th>' + 
-                                                        '<th>Kgs</th>' +
-                                                        '<th>M2</th>' +
-                                                        '<th>Juntas</th>' +
-                                                        '<th>Peqs</th>' +
-                                                      '</tr>' +
-                                                    '</thead>' +
-                                                    '<tbody>' +
-                                                      '<tr>' + 
-                                                        '<td>1</td>' +
-                                                        '<td>Auto 6-24</td>' +
-                                                        '<td>TW</td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td>5</td>' +
-                                                      '</tr>' +
-                                                      '<tr>' +
-                                                        '<td>2</td>' +
-                                                        '<td>Auto 6-24</td>' +
-                                                        '<td>BW</td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td>1</td>' +
-                                                      '</tr>' +
-                                                      '<tr>' +
-                                                        '<td>3</td>' +
-                                                        '<td>Auto 6-24</td>' +
-                                                        '<td>TW</td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td>5</td>' +
-                                                      '</tr>' +
-                                                      '<tr>' +
-                                                        '<td>4</td>' +
-                                                        '<td>Auto 6-24</td>' +
-                                                        '<td>TW</td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td>5</td>' +
-                                                      '</tr>' +
-                                                      '<tr>' +
-                                                        '<td>5</td>' +
-                                                        '<td>Auto 6-24</td>' +
-                                                        '<td>SW</td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td> </td>' +
-                                                        '<td>10</td>' +
-                                                      '</tr>' +
-                                                    '</tbody>' +
-     	                                            '</table>' +
-                                                '</td>' +
-                                              '</tr> ' +
-
-                                              '<tr data-toggle="collapse" data-target="#Familia002" class="accordion-toggle">' +
-                                                '<td>' +
-                                                  '<button class="btn btn-default btn-xs">' +
-                                                    '<span class="glyphicon glyphicon-eye-open"></span>' +
-                                                  '</button>' +
-                                                '</td>' +
-                                                '<td>CS</td>' +
-                                                '<td>a16</td>' +
-                                                '<td>Auto 6-24</td>' +
-                                                '<td>5</td>' +
-                                                '<td>550</td>' +
-                                                '<td>2</td>' +
-                                                '<td>20</td> ' +
-                                                '<td>0.1</td> ' +
-                                              '</tr>' +
-                                              '<tr>' +
-                                                '<td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="Familia002"> ' +
-                                                  '<table class="table table-striped">' +
-                                                    '<thead>' +
-                                                      '<tr>' +
+                                              //Familia002
+                                                      '<tr data-toggle="collapse" data-target="#Familia002" class="accordion-toggle" id="ContenedorFamilia002">' + 
                                                         '<td>' +
-                                                          '<a href="WorkloadURL">Workload link</a></td><td>Bandwidth: Dandwidth Details</td><td>OBS Endpoint: end point' +
+                                                            '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
                                                         '</td>' +
+                                                        '<td>CS</td>' +
+                                                        '<td>a16</td>' +
+                                                        '<td>Auto 6-24</td>' +
+                                                        '<td id="TotalSpoolsFamilia002"></td>' +
+                                                        '<td id="TotalKgsFamilia002"></td>' +
+                                                        '<td id="TotalM2Familia002"></td>' +
+                                                        '<td id="TotalJuntasFamilia002"></td> ' +
+                                                        '<td id="TotalPeqsFamilia002"></td> ' +
                                                       '</tr>' +
                                                       '<tr>' +
-                                                        '<th>Access Key</th>' +
-                                                        '<th>Secret Key</th>' +
-                                                        '<th>Status </th>' +
-                                                        '<th> Created</th>' +
-                                                        '<th> Expires</th>' +
-                                                        '<th>Actions</th>' +
-                                                      '</tr>' +
-                                                    '</thead>' +
-                                                    '<tbody>' +
-                                                      '<tr><td>access-key-1</td><td>secretKey-1</td>' +
-                                                        '<td>Status</td>' +
-                                                        '<td>some date</td>' +
-                                                        '<td>some date</td>' +
-                                                        '<td>' +
-                                                          '<a href="#" class="btn btn-default btn-sm">' +
-                                                            '<i class="glyphicon glyphicon-cog"></i>' +
-                                                          '</a>' +
+                                                        '<td colspan="12" class="hiddenRow nivel2-Familia002"><div class="accordian-body collapse" id="Familia002"> ' +
+                                                          '<table class="table table-striped">' +
+                                                            '<thead>' +
+                                                              '<tr>' +
+                                                                '<th>Acciones</th>' +
+                                                                '<th>Nombre Spool</th>' +
+                                                                '<th>Dibujo</th>' +
+                                                                '<th>Diametro</th>' +
+                                                                '<th>Kgs</th>' +
+                                                                '<th>M2</th>' +
+                                                                '<th>Juntas</th>' +
+                                                                '<th>Peqs</th>' +
+                                                              '</tr>' +
+                                                            '</thead>' +
+                                                            '<tbody>' +
+
+                                                                //Spool001
+                                                              '<tr data-toggle="collapse" data-target="#Familia002-DetallesSpool001" class="accordion-toggle spool nivel2-Familia002" id="ContenedorSpool001">' +
+                                                                '<td>' +
+                                                                    '<span class="glyphicon glyphicon-plus acordeon-status" aria-hidden="true"></span>' +
+                                                                '</td>' +
+                                                                '<td>' +
+                                                                  '<div class="checkbox" style="margin-top: 0px;">' +
+                                                                    '<label><input type="checkbox" value=""></label>' +
+                                                                  '</div>' +
+                                                                '</td>' +
+                                                                '<td>Spool001</td>' +
+                                                                '<td>A</td>' +
+                                                                '<td> </td>' +
+                                                                '<td class="Kgs Familia002 Spool001">12 </td>' +
+                                                                '<td class="M2 Familia002 Spool001">0.5</td>' +
+                                                                '<td id="TotalJuntasFamilia002Spool001"></td> ' +
+                                                                '<td id="TotalPeqsFamilia002Spool001"></td> ' +
+                                                              '</tr> ' +
+
+                                                                //Juntas de Spool
+                                                              '<tr>' +
+                                                              '<td colspan="12" class="hiddenRow nivel3-Familia002" id="Spool001"><div class="accordian-body collapse" id="Familia002-DetallesSpool001"> ' +
+                                                                '<table class="table table-striped">' +
+                                                                  '<thead>' +
+                                                                      '<tr>' +
+                                                                      '<th></th>' +
+                                                                      '<th>Fablines</th>' +
+                                                                      '<th>Spools</th>' +
+                                                                      '<th>Peqs</th>' +
+                                                                      '</tr>' +
+                                                                  '</thead>' +
+                                                                  '<tbody>' +
+                                                                    '<tr class=" junta Familia002 Spool001">' +
+                                                                      '<td>3</td>' +
+                                                                      '<td>Auto 6-24</td>' +
+                                                                      '<td>TW</td>' +
+                                                                      '<td class="Peqs Familia002 Spool001">5</td>' +
+                                                                    '</tr>' +        
+                                                                    '<tr class=" junta Familia002 Spool001">' +
+                                                                      '<td>3</td>' +
+                                                                      '<td>Auto 6-24</td>' +
+                                                                      '<td>TW</td>' +
+                                                                      '<td class="Peqs Familia002 Spool001">5</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr class=" junta Familia002 Spool001">' +
+                                                                      '<td>3</td>' +
+                                                                      '<td>Auto 6-24</td>' +
+                                                                      '<td>TW</td>' +
+                                                                      '<td class="Peqs Familia002 Spool001">5</td>' +
+                                                                    '</tr>' +
+                                                                  '</tbody>' +
+     	                                                          '</table>' +
+                                                                '</td>' +
+                                                              '</tr> ' +
+ 
+                                                            '</tbody>' +
+     	                                                    '</table>' +
                                                         '</td>' +
                                                       '</tr> ' +
+
                                                     '</tbody>' +
      	                                            '</table>' +
                                                 '</td>' +
                                               '</tr> ' +
                                             '</tbody>' +
                                         '</table>' +
+                                        '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="text-center">' +
+                                            '<button id="Proyectar" onclick="javascript:void(0);" type="button" class="btn btn-primary" style="padding:10px;"><span id="">Proyectar</span></button>' +
+                                        '</div>' +
                                     '</div>' + 
                                 '</div>' +
 
                                 '<div class="grid-stack-item" data-gs-x="6" data-gs-y="0" data-gs-width="6" data-gs-height="4">' +
                                         '<div class="grid-stack-item-content border-shadow" style="" id="gridCapacidad">' +
-                                            '<div style="color:#ffffff" class="header-grid text-center">Capacidad</div>' +
-                                            '<div id="grid"  data-role="grid" class="k-grid k-widget"></div>' +
+                                            '<div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Capacidad</div>' +
+    ' <table class="table table-condensed" style="border-collapse:collapse;">  <thead>  <tr>  <th>Taller</th>  <th>Auto</th>  <th>Auto-Man</th>  <th>Man</th>  </tr>  </thead>  <tbody>  <tr>  <td width="10%">  A  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  <div class="Grafica1" style="width:20%">  &nbsp;  </div>  <div class="Grafica2" style="width:50%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica1" style="width:10%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:50%">  &nbsp;  </div>  <div class="Grafica1" style="width:30%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  B  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  <div class="Grafica3" style="width:20%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica3" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:50%">  &nbsp;  </div>  <div class="Grafica3" style="width:30%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  C  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:20%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  D  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:5%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:5%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:70%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  Despacho  </td>  <td colspan="3">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica1" style="width:10%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  <div class="Grafica3" style="width:10%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  Corte  </td>  <td colspan="3">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:20%">  &nbsp;  </div>  <div class="Grafica1" style="width:15%">  &nbsp;  </div>  <div class="Grafica2" style="width:20%">  &nbsp;  </div>  <div class="Grafica3" style="width:5%">  &nbsp;  </div>  </div>  </td>  </tr>  </tbody>  </table>' +
                                         '</div>' +
                                 '</div>' +
 
                                 '<div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="12" data-gs-height="2">' +
-                                        '<div class="grid-stack-item-content border-shadow" id="gridTalleres">' +
-                                            '<div style="color:#ffffff" class="header-grid text-center">Taller</div>' +
-                                        '</div>' +
+                                        '<div class="grid-stack-item-content border-shadow" id="gridTalleres">' + 
+' <div class="grid-stack-item-content border-shadow" id="gridCapacidad"> <div style="color:#ffffff" class="header-grid text-center">Proyecciones</div> <table class="table table-condensed" style="border-collapse:collapse;"> <thead> <tr> <th width="20px">&nbsp;</th> <th width="20%">&nbsp;</th> <th style="text-align:center;">A</th> <th style="text-align:center;">B</th> <th style="text-align:center;">C</th> <th style="text-align:center;">D</th> </tr> </thead> <tbody> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td width="20%" > <div class="Cuadro1">&nbsp;</div> Proyeccion 1 </td> <td style="text-align:center;"> <input type="radio" checked /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td> <div class="Cuadro2">&nbsp;</div> Proyeccion 2 </td> <td> <input type="radio" checked /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td> <div class="Cuadro3">&nbsp;</div> Proyeccion 3 </td> <td> <input type="radio" /> </td> <td> <input type="radio" checked/> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> </tbody> </table> </div>' +
+                                      
                                 '</div>' +
                             '</div>' +
+
+'<form id="divNuevoMedioTransporte" style="display:none">     <div class="row">' +
+        '<div class="container" style="padding:15px;">' +
+            '<div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9"  style="display:none">' +
+                '<label id="labelNuevoMedioTransporte"></label>' +
+                '<input id="inputMedioTransporte" class="form-control" type="text" />' +
+            '</div>' +
+'<div>¿Deseas crear una proyección o proyectar en una existente?</div>' +
+        '<div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">' +
+            '<button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="">Crear</span></button>' +
+            '<button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="">Existente</span></button>' +
+            '<button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte" style="display:none"><span id="">Proyectar</span></button>' +
+        '</div>' +
+    '</div>' +
+'</form>' +
                             '<span style="color:"#ffffff">.</span>');
 
     var options = {
@@ -319,9 +574,65 @@ function CargarGridStack() {
         ]
     });
 
+//Familia001
+    $(".nivel2-Familia001").hide();
+    $(".nivel3-Familia001").hide();
+
+    $("#ContenedorFamilia001").click(function () {
+        $(".nivel2-Familia001").toggle();
+    });
+
+    $(".nivel2-Familia001#ContenedorSpool001").click(function () {
+        $(".nivel3-Familia001#Spool001").toggle();
+    });
+    $(".nivel2-Familia001#ContenedorSpool002").click(function () {
+        $(".nivel3-Familia001#Spool002").toggle();
+    });
+    $(".nivel2-Familia001#ContenedorSpool003").click(function () {
+        $(".nivel3-Familia001#Spool003").toggle();
+    });
+    $(".nivel2-Familia001#ContenedorSpool004").click(function () {
+        $(".nivel3-Familia001#Spool004").toggle();
+    });
+  
+    //Familia002
+    $(".nivel2-Familia002").hide();
+    $(".nivel3-Familia002").hide();
+
+    $("#ContenedorFamilia002").click(function () { 
+        $(".nivel2-Familia002").toggle();
+    });
+
+    $(".nivel2-Familia002#ContenedorSpool001").click(function () {
+        $(".nivel3-Familia002#Spool001").toggle();
+    });
+ 
+    $("#Proyectar").click(function () {
+        $("#divNuevoMedioTransporte").kendoWindow({
+            modal: true,
+            // title:,
+            resizable: false,
+            visible: true,
+            width: "auto",
+            minWidth: "20%",
+
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            actions: [
+                "Close"
+            ],
+        }).data("kendoWindow");
+        $("#divNuevoMedioTransporte").data("kendoWindow").title("Proyectar");
+        $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
+    });
+
+
     CrearContenedorProyecciones();
     CrearContenedorCapacidad();
     CrearContenedorTalleres();
+    CalcularValoresProyecciones();
 }
 
 function CrearContenedorProyecciones() {
@@ -334,4 +645,147 @@ function CrearContenedorCapacidad() {
 
 function CrearContenedorTalleres() {
 
+}
+
+function CalcularValoresProyecciones() { 
+  
+    $("#TotalSpoolsFamilia001").text(function () {  
+        return $("tr.spool.nivel2-Familia001").length;
+    });
+    
+    $("#TotalKgsFamilia001").text(function () {
+        var totalKgs = 0;
+        
+        $(".Kgs.Familia001").each(function (index, elemento) { 
+            totalKgs += parseFloat(elemento.textContent,10); 
+        });
+        
+        return totalKgs;
+    });
+
+    $("#TotalM2Familia001").text(function () {
+        var totalM2 = 0;
+
+        $(".M2.Familia001").each(function (index, elemento) {
+            totalM2 += parseFloat(elemento.textContent, 10);
+
+        });
+
+        return totalM2;
+    });
+
+    $("#TotalPeqsFamilia001").text(function () {
+        var totalPeqs = 0;
+
+        $(".Peqs.Familia001").each(function (index, elemento) {
+            totalPeqs += parseInt(elemento.textContent, 10);
+
+        });
+
+        return totalPeqs;
+    });
+
+    $("#TotalJuntasFamilia001").text(function () {
+        return $("tr.junta.Familia001").length;
+    });
+ 
+    $("#TotalPeqsFamilia001").text(function () {
+        var totalPeqs = 0;
+
+        $(".Peqs.Familia001").each(function (index, elemento) {
+            totalPeqs += parseInt(elemento.textContent, 10); 
+        });
+
+        return totalPeqs;
+    });
+
+    $("#TotalJuntasFamilia001").text(function () {
+        return $("tr.junta.Familia001").length;
+    });
+
+    for (var i = 1; i <= 2; i++) { 
+        $("tr.spool.nivel2-Familia00" + i + "").each(function (index, elemento) {
+            var j = index;
+            j++;
+            $("#TotalPeqsFamilia00" + i + "Spool00" + j + "").text(function () {
+                var totalPeqs = 0;
+
+                $(".Peqs.Familia00" + i + ".Spool00" + j + "").each(function (i, peqs) {
+                    totalPeqs += parseInt(peqs.textContent, 10);
+                });
+
+                return totalPeqs;
+            });
+           
+            $("#TotalJuntasFamilia00" + i + "Spool00" + j + "").text(function () {
+                return $("tr.junta.Familia00" + i + ".Spool00" + j + "").length;
+            });
+        });
+    }
+
+    $("#TotalSpoolsFamilia002").text(function () {
+        return $("tr.spool.nivel2-Familia002").length;
+    });
+
+    $("#TotalKgsFamilia002").text(function () {
+        var totalKgs = 0;
+
+        $(".Kgs.Familia002").each(function (index, elemento) {
+            totalKgs += parseFloat(elemento.textContent, 10);
+
+        });
+
+        return totalKgs;
+    });
+
+    $("#TotalM2Familia002").text(function () {
+        var totalM2 = 0;
+
+        $(".M2.Familia002").each(function (index, elemento) {
+            totalM2 += parseFloat(elemento.textContent, 10);
+
+        });
+
+        return totalM2;
+    });
+
+    $("#TotalPeqsFamilia002").text(function () {
+        var totalPeqs = 0;
+
+        $(".Peqs.Familia002").each(function (index, elemento) {
+            totalPeqs += parseInt(elemento.textContent, 10);
+
+        });
+
+        return totalPeqs;
+    });
+
+    $("#TotalJuntasFamilia002").text(function () {
+        return $("tr.junta.Familia002").length;
+    });
+
+    $(".checkbox").click(function (e) { 
+        e.stopPropagation(); 
+    });
+                 
+                                                
+    $("span","#ContenedorSpool002.nivel2-Familia001").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $("tr.accordion-toggle").click(function (element) { 
+        var $elemento = $(this); 
+        if ($elemento.attr('aria-expanded') == "false") {
+            $(".acordeon-status", $elemento).removeClass("glyphicon-plus");
+            $(".acordeon-status", $elemento).addClass("glyphicon-minus");
+        }
+        else if ($elemento.attr('aria-expanded') == "true") {
+            $(".acordeon-status", $elemento).addClass("glyphicon-plus");
+            $(".acordeon-status", $elemento).removeClass("glyphicon-minus");
+        }
+        else {
+            $(".acordeon-status", $elemento).removeClass("glyphicon-plus");
+            $(".acordeon-status", $elemento).addClass("glyphicon-minus");
+        }
+    });
 }
