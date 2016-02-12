@@ -20,6 +20,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion = new HashSet<Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion>();
             this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
             this.Sam3_Rel_Incidencia_OrdenRecepcion = new HashSet<Sam3_Rel_Incidencia_OrdenRecepcion>();
+            this.Sam3_Rel_NumeroUnico_RelFC_RelB = new HashSet<Sam3_Rel_NumeroUnico_RelFC_RelB>();
         }
     
         public int OrdenRecepcionID { get; set; }
@@ -36,5 +37,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
         public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        public virtual ICollection<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
     }
 }

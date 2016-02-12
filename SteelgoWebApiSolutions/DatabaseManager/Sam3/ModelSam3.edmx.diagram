@@ -396,6 +396,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Incid__7108AC61" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Entid__11757BF3" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__108157BA" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__4AADF94F" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

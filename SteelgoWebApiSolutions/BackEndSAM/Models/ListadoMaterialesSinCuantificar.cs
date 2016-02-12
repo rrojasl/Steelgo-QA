@@ -50,6 +50,7 @@ namespace BackEndSAM.Models
         public string CantidadNUEnOrdenRecepcion { get; set; }
         public string CantidadNUSinComplemento { get; set; }
         public string Folio { get; set; }
+        public int OrdenRecepcionID { get; set; }
     }
 
     /// <summary>

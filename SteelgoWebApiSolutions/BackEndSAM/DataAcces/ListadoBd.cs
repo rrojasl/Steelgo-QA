@@ -823,6 +823,7 @@ namespace BackEndSAM.DataAcces
                     DateTime fechaFinal = new DateTime();
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                    int totalSinICS = 0;
 
                     if (fechaFinal.ToShortDateString() == "1/1/0001")
                     {
@@ -1051,7 +1052,7 @@ namespace BackEndSAM.DataAcces
                                                && f.FolioCuantificacionID == fc.FolioCuantificacionID
                                                select it.ItemCodeID).AsParallel().Count();
 
-                                return totalItems;
+                                //return totalItems;
                                 #endregion
                             }
                             else
@@ -1113,6 +1114,7 @@ namespace BackEndSAM.DataAcces
                                 #endregion
                             }
 
+                            totalSinICS += cantidadsinICS;
                             elemento.CantidadSinICS = cantidadsinICS.ToString();
                             elemento.CantidadTotalItems = totalItems.ToString();
 
@@ -1126,7 +1128,7 @@ namespace BackEndSAM.DataAcces
 
                     if (conteo)
                     {
-                        return listado.Count();
+                        return totalSinICS; //listado.Count();
                     }
                     else
                     {
@@ -1294,9 +1296,19 @@ namespace BackEndSAM.DataAcces
 
                         ordenes = ordenes.GroupBy(x => x.OrdenRecepcionID).Select(x => x.First()).ToList();
 
+                        //solo las ordenes que no se encuentren en el listado
+                        if (listado.Count > 0)
+                        {
+                            ordenes = (from o in ordenes
+                                       where !(from l in listado
+                                               select l.OrdenRecepcionID).Contains(o.OrdenRecepcionID)
+                                       select o).ToList();
+                        }
+
                         foreach (Sam3_OrdenRecepcion orden in ordenes)
                         {
                             elemento = new ListadoNUPorRecepcionar();
+                            elemento.OrdenRecepcionID = orden.OrdenRecepcionID;
                             elemento.FechaOrdenRecepcion = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
                             elemento.OrdenRecepcion = activarFolioConfiguracionOR ? orden.Rel_Proyecto_Entidad_Configuracion_ID != null ?
                                 (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
@@ -1358,7 +1370,7 @@ namespace BackEndSAM.DataAcces
                                                                      select nu.NumeroUnicoID).AsParallel().Count().ToString();
                             }
 
-                            if (elemento.CantidadNUEnOrdenRecepcion != "0")
+                            if (int.Parse(elemento.CantidadNUEnOrdenRecepcion) > 0 && int.Parse(elemento.CantidadNUSinComplemento) > 0)
                             {
                                 listado.Add(elemento);
                             }
