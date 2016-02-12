@@ -643,6 +643,27 @@ function CargarGridStack() {
                                     '<div class="grid-stack-item-content border-shadow" id="gridProyecciones">' +
                                         '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div>' +
                                             '<div id="grid"></div>' +
+                                            '<script type="text/x-kendo-template" id="template">
+    <div class="tabstrip">
+        <ul>
+            <li class="k-state-active">Contact Information</li>
+            <li>Orders</li>
+      '</ul>
+
+        '<div>
+            '<div class='employee-details'>
+                'First Name: <input type="text" data-bind="value:FirstName"/><br />
+                'Last Name: <input type="text" data-bind="value:LastName"/><br />
+        'Country: <input type="text" data-bind="value:Country"/><br />   
+
+      '</div>
+      '</div>
+        '<div>
+            '<div class="orders"></div>
+      '</div>
+      '</div>
+
+    '</script>' +
                                         '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="text-center">' +
                                             '<button id="Proyectar" onclick="javascript:void(0);" type="button" class="btn btn-primary" style="padding:10px;"><span id="">Proyectar</span></button>' +
                                         '</div>' +
