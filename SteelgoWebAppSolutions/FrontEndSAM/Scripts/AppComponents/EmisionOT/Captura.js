@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 //    CargarSplitterKendo();
+    //    CargarGridStackTable();
     CargarGridStack();
 
 });
@@ -43,7 +44,7 @@ function CargarSplitterKendo() {
     });
 }
 
-function CargarGridStack() { 
+function CargarGridStackTable() { 
      
     $("#gridStack").append('<div class="grid-stack" style="font-size:10px;">' +
                                 '<div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="6" data-gs-height="4">' +
@@ -540,10 +541,10 @@ function CargarGridStack() {
         //    serverPaging: false,
         //    serverFiltering: false,
         //    serverSorting: false
-        //},
+        //}, 
         dataSource: [
-            { Familia: "Tea", Acero: "Beverages", Fibelines: "aa", Spools: "as", Kgs: "as", M2: "asd", Juntas: "as", Peqs: "as" },
-            { Familia: "Tea", Acero: "Beverages", Fibelines: "aa", Spools: "as", Kgs: "as", M2: "asd", Juntas: "as", Peqs: "as" },
+            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
+            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
 
         ],
         navigatable: true,
@@ -635,6 +636,162 @@ function CargarGridStack() {
     CalcularValoresProyecciones();
 }
 
+function CargarGridStack() {
+
+    $("#gridStack").append('<div class="grid-stack" style="font-size:10px;">' +
+                                '<div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4">' +
+                                    '<div class="grid-stack-item-content border-shadow" id="gridProyecciones">' +
+                                        '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div>' +
+                                            '<div id="grid"></div>' +
+                                        '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="text-center">' +
+                                            '<button id="Proyectar" onclick="javascript:void(0);" type="button" class="btn btn-primary" style="padding:10px;"><span id="">Proyectar</span></button>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+
+                                '<div class="grid-stack-item" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">' +
+                                        '<div class="grid-stack-item-content border-shadow" style="" id="gridCapacidad">' +
+                                            '<div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Capacidad</div>' +
+    ' <table class="table table-condensed" style="border-collapse:collapse;">  <thead>  <tr>  <th>Taller</th>  <th>Auto</th>  <th>Auto-Man</th>  <th>Man</th>  </tr>  </thead>  <tbody>  <tr>  <td width="10%">  A  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  <div class="Grafica1" style="width:20%">  &nbsp;  </div>  <div class="Grafica2" style="width:50%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica1" style="width:10%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:50%">  &nbsp;  </div>  <div class="Grafica1" style="width:30%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  B  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  <div class="Grafica3" style="width:20%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica3" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:50%">  &nbsp;  </div>  <div class="Grafica3" style="width:30%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  C  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:20%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  D  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:5%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:5%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:70%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  Despacho  </td>  <td colspan="3">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica1" style="width:10%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  <div class="Grafica3" style="width:10%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  Corte  </td>  <td colspan="3">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:20%">  &nbsp;  </div>  <div class="Grafica1" style="width:15%">  &nbsp;  </div>  <div class="Grafica2" style="width:20%">  &nbsp;  </div>  <div class="Grafica3" style="width:5%">  &nbsp;  </div>  </div>  </td>  </tr>  </tbody>  </table>' +
+                                        '</div>' +
+                                '</div>' +
+
+                                '<div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="2">' +
+                                        '<div class="grid-stack-item-content border-shadow" id="gridTalleres">' +
+' <div class="grid-stack-item-content border-shadow" id="gridCapacidad"> <div style="color:#ffffff" class="header-grid text-center">Proyecciones</div> <table class="table table-condensed" style="border-collapse:collapse;"> <thead> <tr> <th width="20px">&nbsp;</th> <th width="20%">&nbsp;</th> <th style="text-align:center;">A</th> <th style="text-align:center;">B</th> <th style="text-align:center;">C</th> <th style="text-align:center;">D</th> </tr> </thead> <tbody> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td width="20%" > <div class="Cuadro1">&nbsp;</div> Proyeccion 1 </td> <td style="text-align:center;"> <input type="radio" checked /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td> <div class="Cuadro2">&nbsp;</div> Proyeccion 2 </td> <td> <input type="radio" checked /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td> <div class="Cuadro3">&nbsp;</div> Proyeccion 3 </td> <td> <input type="radio" /> </td> <td> <input type="radio" checked/> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> </tbody> </table> </div>' +
+
+                                '</div>' +
+                            '</div>' +
+                            '<span style="color:"#ffffff">.</span>' +
+'<form id="divNuevoMedioTransporte" style="display:none">     <div class="row">' +
+        '<div class="container" style="padding:15px;">' +
+            '<div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9"  style="display:none">' +
+                '<label id="labelNuevoMedioTransporte"></label>' +
+                '<input id="inputMedioTransporte" class="form-control" type="text" />' +
+            '</div>' +
+'<div>¿Deseas crear una proyección o proyectar en una existente?</div>' +
+        '<div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">' +
+            '<button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="">Crear</span></button>' +
+            '<button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="">Existente</span></button>' +
+            '<button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte" style="display:none"><span id="">Proyectar</span></button>' +
+        '</div>' +
+    '</div>' +
+'</form>' );
+
+    var options = {
+        cell_height: 80,
+        vertical_margin: 10
+    };
+
+    $('.grid-stack').gridstack(options);
+
+    $("#grid").kendoGrid({
+        edit: function (e) {
+            this.closeCell();
+        },
+        autoBind: true, 
+        dataSource: [
+            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
+            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
+
+        ],
+        navigatable: true,
+        filterable: {
+            extra: false
+        },
+        editable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 15, 20],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        detailTemplate: kendo.template($("#template").html()),
+        detailInit: detailInit,
+        columns: [
+            { field: "Familia", title: "Familia", filterable: true },
+            { field: "Acero", title: "Acero", filterable: true },
+            { field: "Fibelines", title: "Fibeline", filterable: true },
+            { field: "Spools", title: "Spools", filterable: true },
+            { field: "Kgs", title: "Kgs", filterable: true },
+            { field: "M2", title: "M2", filterable: true },
+            { field: "Juntas", title: "Juntas", filterable: true },
+            { field: "Peqs", title: "Peqs", filterable: true }
+
+        ]
+    });
+ 
+    $("#gridNivel2").kendoGrid({
+        edit: function (e) {
+            this.closeCell();
+        },
+        autoBind: true,
+        dataSource: [
+            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
+            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
+
+        ],
+        navigatable: true,
+        filterable: {
+            extra: false
+        },
+        editable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 15, 20],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        detailTemplate: "<h2 style='background-color: yellow;'>Expanded!</h2>",
+        columns: [
+            { field: "Familia", title: "Familia", filterable: true },
+            { field: "Acero", title: "Acero", filterable: true },
+            { field: "Fibelines", title: "Fibeline", filterable: true },
+            { field: "Spools", title: "Spools", filterable: true },
+            { field: "Kgs", title: "Kgs", filterable: true },
+            { field: "M2", title: "M2", filterable: true },
+            { field: "Juntas", title: "Juntas", filterable: true },
+            { field: "Peqs", title: "Peqs", filterable: true }
+
+        ]
+    });
+
+    $("#Proyectar").click(function () {
+        $("#divNuevoMedioTransporte").kendoWindow({
+            modal: true,
+            // title:,
+            resizable: false,
+            visible: true,
+            width: "auto",
+            minWidth: "20%",
+
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            actions: [
+                "Close"
+            ],
+        }).data("kendoWindow");
+        $("#divNuevoMedioTransporte").data("kendoWindow").title("Proyectar");
+        $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
+    });
+
+
+    CrearContenedorProyecciones();
+    CrearContenedorCapacidad();
+    CrearContenedorTalleres();
+    CalcularValoresProyecciones();
+}
+
 function CrearContenedorProyecciones() {
      
 }
@@ -649,143 +806,5 @@ function CrearContenedorTalleres() {
 
 function CalcularValoresProyecciones() { 
   
-    $("#TotalSpoolsFamilia001").text(function () {  
-        return $("tr.spool.nivel2-Familia001").length;
-    });
-    
-    $("#TotalKgsFamilia001").text(function () {
-        var totalKgs = 0;
-        
-        $(".Kgs.Familia001").each(function (index, elemento) { 
-            totalKgs += parseFloat(elemento.textContent,10); 
-        });
-        
-        return totalKgs;
-    });
-
-    $("#TotalM2Familia001").text(function () {
-        var totalM2 = 0;
-
-        $(".M2.Familia001").each(function (index, elemento) {
-            totalM2 += parseFloat(elemento.textContent, 10);
-
-        });
-
-        return totalM2;
-    });
-
-    $("#TotalPeqsFamilia001").text(function () {
-        var totalPeqs = 0;
-
-        $(".Peqs.Familia001").each(function (index, elemento) {
-            totalPeqs += parseInt(elemento.textContent, 10);
-
-        });
-
-        return totalPeqs;
-    });
-
-    $("#TotalJuntasFamilia001").text(function () {
-        return $("tr.junta.Familia001").length;
-    });
- 
-    $("#TotalPeqsFamilia001").text(function () {
-        var totalPeqs = 0;
-
-        $(".Peqs.Familia001").each(function (index, elemento) {
-            totalPeqs += parseInt(elemento.textContent, 10); 
-        });
-
-        return totalPeqs;
-    });
-
-    $("#TotalJuntasFamilia001").text(function () {
-        return $("tr.junta.Familia001").length;
-    });
-
-    for (var i = 1; i <= 2; i++) { 
-        $("tr.spool.nivel2-Familia00" + i + "").each(function (index, elemento) {
-            var j = index;
-            j++;
-            $("#TotalPeqsFamilia00" + i + "Spool00" + j + "").text(function () {
-                var totalPeqs = 0;
-
-                $(".Peqs.Familia00" + i + ".Spool00" + j + "").each(function (i, peqs) {
-                    totalPeqs += parseInt(peqs.textContent, 10);
-                });
-
-                return totalPeqs;
-            });
-           
-            $("#TotalJuntasFamilia00" + i + "Spool00" + j + "").text(function () {
-                return $("tr.junta.Familia00" + i + ".Spool00" + j + "").length;
-            });
-        });
-    }
-
-    $("#TotalSpoolsFamilia002").text(function () {
-        return $("tr.spool.nivel2-Familia002").length;
-    });
-
-    $("#TotalKgsFamilia002").text(function () {
-        var totalKgs = 0;
-
-        $(".Kgs.Familia002").each(function (index, elemento) {
-            totalKgs += parseFloat(elemento.textContent, 10);
-
-        });
-
-        return totalKgs;
-    });
-
-    $("#TotalM2Familia002").text(function () {
-        var totalM2 = 0;
-
-        $(".M2.Familia002").each(function (index, elemento) {
-            totalM2 += parseFloat(elemento.textContent, 10);
-
-        });
-
-        return totalM2;
-    });
-
-    $("#TotalPeqsFamilia002").text(function () {
-        var totalPeqs = 0;
-
-        $(".Peqs.Familia002").each(function (index, elemento) {
-            totalPeqs += parseInt(elemento.textContent, 10);
-
-        });
-
-        return totalPeqs;
-    });
-
-    $("#TotalJuntasFamilia002").text(function () {
-        return $("tr.junta.Familia002").length;
-    });
-
-    $(".checkbox").click(function (e) { 
-        e.stopPropagation(); 
-    });
-                 
-                                                
-    $("span","#ContenedorSpool002.nivel2-Familia001").click(function (e) {
-        e.stopPropagation();
-    });
-
-    $("tr.accordion-toggle").click(function (element) { 
-        var $elemento = $(this); 
-        if ($elemento.attr('aria-expanded') == "false") {
-            $(".acordeon-status", $elemento).removeClass("glyphicon-plus");
-            $(".acordeon-status", $elemento).addClass("glyphicon-minus");
-        }
-        else if ($elemento.attr('aria-expanded') == "true") {
-            $(".acordeon-status", $elemento).addClass("glyphicon-plus");
-            $(".acordeon-status", $elemento).removeClass("glyphicon-minus");
-        }
-        else {
-            $(".acordeon-status", $elemento).removeClass("glyphicon-plus");
-            $(".acordeon-status", $elemento).addClass("glyphicon-minus");
-        }
-    });
+  
 }
