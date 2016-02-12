@@ -20,13 +20,13 @@
         <div class="formNav clearfix">
             <div class="button-section editButtonSection">
                 <div class="btn-group save-group">
-                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Proyectar</span></button>
+                    <button id="Proyectar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Proyectar</span></button>
 
                 </div>
                 <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
             </div>
             <div id="ArmadoSoldaduraDivSuperior" class="button-section">
-                <a id="ArmadoSoldaduraSuperior" href="" class="btn btn-primary"><span id="">Emitir</span></a>
+                <a id="EmitirOT" href="#" onclick="javascript:void(0);" class="btn btn-primary"><span id="">Emitir</span></a>
             </div>
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">
@@ -41,28 +41,21 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Seguridad.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Handlers.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Captura.js"></script>
-<link href="~/Scripts/AppComponents/EmisionOT/EmisionOT.css" rel="stylesheet"> 
-
-@*GridStack*@
-<script type="text/javascript" src="~/Scripts/Widgets/GridStack/Underscore.js"></script>
-<script type="text/javascript" src="~/Scripts/Widgets/GridStack/gridstack.js"></script> 
-<link href="~/Scripts/Widgets/GridStack/gridstack.css" rel="stylesheet"> 
-
-@*Acordeon*@
-<script type="text/javascript" src="~/Scripts/Widgets/Acordeon/JAcordeon.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $("body").JAcordeon();
-    });
-
-</script> 
+ 
+<div class="row"> 
+    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"">
+        <label id="">Proyecto:</label>
+        <input id="inputProyecto" class="form-control" type="text" /> 
+    </div> 
+    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <label id="">Patio:</label>
+        <input id="inputPatio" class="form-control" type="text" />
+    </div> 
+    <div class="col-sm-2 col-md-2 col-lg-2 FieldSetView">
+        <br />
+        <button class="btn btn-blue" id="btnMostrar"><span id="lblMostrar"></span></button>
+    </div>
+</div>
 
 <div id="gridStack">
     <div class="grid-stack" style="font-size:10px;">
@@ -76,12 +69,9 @@
                     <div class="nivel2"></div>
                 </script> 
                 
-                <script type="text/x-kendo-template" id="templateGridNivelTres">
-                
-                    <div class="nivel3"></div> 
-                
-                </script>  
-                
+                <script type="text/x-kendo-template" id="templateGridNivelTres"> 
+                    <div class="nivel3"></div>  
+                </script>   
             </div> 
             
         </div> 
@@ -94,32 +84,47 @@
            </div> 
         </div>
 
-        <div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4">
-            
-
+        <div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4"> 
              <div class="grid-stack-item-content border-shadow" id="gridTalleres"> <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Proyecciones</div> <table class="table table-condensed" style="border-collapse:collapse;"><thead><tr><th width="20px">&nbsp;</th><th>&nbsp;</th><th width="20px" style="text-align:center;">A</th><th width="20px" style="text-align:center;">B</th><th width="20px" style="text-align:center;">C</th><th width="20px" style="text-align:center;">D</th></tr></thead><tbody><tr><td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td><td><div class="Cuadro1">&nbsp;</div>Proyeccion 1 - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs </td><td width="20px"><input type="radio" checked=""></td><td width="20px"><input type="radio"></td><td width="20px"><input type="radio"></td><td width="20px"><input type="radio"></td></tr><tr><td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td><td><div class="Cuadro2">&nbsp;</div>Proyeccion 2 - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs</td><td><input type="radio" checked=""></td><td><input type="radio"></td><td><input type="radio"></td><td><input type="radio"></td></tr><tr><td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td><td><div class="Cuadro3">&nbsp;</div>Proyeccion 3 - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs </td><td><input type="radio"></td><td><input type="radio" checked=""></td><td><input type="radio"></td><td><input type="radio"></td></tr></tbody></table> </div>
         </div> 
-        <span style="color:" #ffffff">.</span> 
-        <form id="divNuevoMedioTransporte" style="display:none">
-            <div class="row">
-                
-                <div class="container" style="padding:15px;">
-                    
-                    <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none">
-                        
-                        <label id="labelNuevoMedioTransporte"></label> 
-                        <input id="inputMedioTransporte" class="form-control" type="text" /> 
-                    
+        <span style="color:#ffffff">.</span> 
+         
+        <form id="divProyectarWindow" style="display:none">
+            <div class="row"> 
+                <div class="container" style="padding:15px;;width:inherit"> 
+                    <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarProyeccion"> 
+                        <label id="">Seleccione la proyección</label> 
+                        <input id="inputProyecciones" class="form-control" type="text" />  
+                        <button class="btn btn-primary" type="button" id="btnNuevaProyeccion" ><span id="">Proyectar</span></button>  
                     </div> 
-                    <div>¿Deseas crear una proyección o proyectar en una existente?</div> 
-                    <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
-                        
-                        <button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="">Crear</span></button> 
-                        <button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="">Existente</span></button> 
-                        <button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte" style="display:none"><span id="">Proyectar</span></button> 
-                        
+                    <div id="ProyectarPreguntaDiv">
+                        <span>¿Deseas crear una proyección o proyectar en una existente?</span> 
+                        <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;"> 
+                            <button class="btn btn-primary" type="button" id="btnCrearNuevaProyeccion"><span id="">Crear</span></button> 
+                            <button class="btn btn-primary" type="button" id="btnUtilizarProyeccionExistente"><span id="">Existente</span></button>  
+                        </div>
                     </div>
                 </div>
+            </div>
+        </form>
+
+        <form id="divEmitirWindow" style="display:none">
+            <div class="row">
+                <div class="container" style="padding:15px;width:inherit"> 
+                    <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarOT">
+                        <label id="">Seleccione la Orden de Trabajo</label>
+                        <input id="inputOrdenesTrabajo" class="form-control" type="text"/>
+                        <button class="btn btn-primary" type="button" id="btnOrdenTrabajo"><span id="">Emitir Orden de Trabajo</span></button>
+                    </div>
+                    <div id="EmitirPreguntaDiv">
+                        <span>¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?</span>
+                        <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
+                            <button class="btn btn-primary" type="button" id="btnCrearNuevaordenTrabajo"><span id="">Crear</span></button>
+                            <button class="btn btn-primary" type="button" id="btnUtilizarOrdenTrabajoExistente"><span id="">Existente</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div> 
 
@@ -167,3 +172,15 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Seguridad.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Captura.js"></script>
+<link href="~/Scripts/AppComponents/EmisionOT/EmisionOT.css" rel="stylesheet">
+
+@*GridStack*@
+<script type="text/javascript" src="~/Scripts/Widgets/GridStack/Underscore.js"></script>
+<script type="text/javascript" src="~/Scripts/Widgets/GridStack/gridstack.js"></script>
+<link href="~/Scripts/Widgets/GridStack/gridstack.css" rel="stylesheet">

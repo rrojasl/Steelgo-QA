@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 //    CargarSplitterKendo();
     //    CargarGridStackTable();
+    SuscribirEventos();
     CargarGridStack();
 
 });
@@ -685,29 +686,7 @@ function CargarGridStack() {
 
         ]
     });
-  
-    $("#Proyectar").click(function () {
-        $("#divNuevoMedioTransporte").kendoWindow({
-            modal: true,
-            // title:,
-            resizable: false,
-            visible: true,
-            width: "auto",
-            minWidth: "20%",
-
-            position: {
-                top: "1%",
-                left: "1%"
-            },
-            actions: [
-                "Close"
-            ],
-        }).data("kendoWindow");
-        $("#divNuevoMedioTransporte").data("kendoWindow").title("Proyectar");
-        $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
-    });
-
-
+   
     CrearContenedorProyecciones();
     CrearContenedorCapacidad();
     CrearContenedorTalleres();
