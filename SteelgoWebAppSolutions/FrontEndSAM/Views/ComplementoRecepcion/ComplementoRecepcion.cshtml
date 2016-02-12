@@ -947,6 +947,32 @@
                     if ($("#Editar").css("display") == "block") {
                         this.closeCell();
                     };
+
+                    if ($("input[name=MM]").length > 0) {
+                        //isOpen = true;
+                        //isMM = true;
+                        $("input[name=MM]").on("change", function () {
+                            var uid = e.model.uid;
+                            setTimeout(function () {
+                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(11)"));
+                                //isOpen = false;
+                                //isMM = false;
+                            }, 10);
+                        });
+                    }
+
+                    if ($("input[name=NumeroUnicoCliente]").length > 0) {
+                        //isOpen = true;
+                        //isMM = true;
+                        $("input[name=NumeroUnicoCliente]").on("change", function () {
+                            var uid = e.model.uid;
+                            setTimeout(function () {
+                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(3)"));
+                                //isOpen = false;
+                                //isMM = false;
+                            }, 10);
+                        });
+                    }
                 },
                 dataBound:function(e){
                     quickHeadFilter($("#grid").data("kendoGrid"));
@@ -1652,6 +1678,10 @@
                         };
                        
                         $('#grid').data('kendoGrid').refresh();
+                        var uid = options.model.uid;
+                        setTimeout(function () {
+                            $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(13)"));
+                        }, 10);
                     }
                 });
             lastEditedFisicoCellIDS = options.model;
@@ -1680,6 +1710,10 @@
                         };
                         
                         $('#grid').data('kendoGrid').refresh();
+                        var uid = options.model.uid;
+                        setTimeout(function () {
+                            $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(14)"));
+                        }, 10);
                     }
                 });
             lastEditedDepartamentalCellID = options.model;
@@ -1755,6 +1789,10 @@
                             lastEditedTipoUsoCellIDS.TipoUso = value;
                         }
                         $('#grid').data('kendoGrid').refresh();
+                        var uid = options.model.uid;
+                        setTimeout(function () {
+                            $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(15)"));
+                        }, 10);
                     },
                     filter: "contains",
                 });
