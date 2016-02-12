@@ -423,36 +423,26 @@ namespace BackEndSAM.DataAcces
                     //numeros unicos sin orden de almacenaje, que ya cuentan con recepcion y complemento de recepcion
                     if (tipoMaterialID == 3) //todos
                     {
-                        result.NUSinOrdenAlmacenaje = (from r in registros
-                                                       join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on r.FolioAvisoEntradaID equals rfo.FolioAvisoEntradaID
-                                                       join o in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals o.OrdenRecepcionID
-                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on o.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                       join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
-                                                       join i in ctx.Sam3_ItemCode on nu.ItemCodeID equals i.ItemCodeID
-                                                       where rfo.Activo && o.Activo && nu.Activo && i.Activo && rid.Activo
-                                                       && r.FolioDescarga > 0
-                                                       && i.TieneComplementoRecepcion
-                                                       && !(from ord in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                            where ord.Activo
-                                                            select ord.NumeroUnicoID).Contains(nu.NumeroUnicoID)
-                                                       select nu).AsParallel().Distinct().Count();
+                        result.NUSinOrdenAlmacenaje = (from rnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                       join nu in ctx.Sam3_NumeroUnico on rnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                                       where rnu.Activo && nu.Activo
+                                                       && !(from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                            where ronu.Activo
+                                                            select ronu.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                                                       select nu).Distinct().Count();
+
                     }
                     else
                     {
-                        result.NUSinOrdenAlmacenaje = (from r in registros
-                                                       join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on r.FolioAvisoEntradaID equals rfo.FolioAvisoEntradaID
-                                                       join o in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals o.OrdenRecepcionID
-                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on o.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                       join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
-                                                       join i in ctx.Sam3_ItemCode on nu.ItemCodeID equals i.ItemCodeID
-                                                       where rfo.Activo && o.Activo && nu.Activo && i.Activo && rid.Activo
-                                                       && i.TipoMaterialID == tipoMaterialID
-                                                       && r.FolioDescarga > 0
-                                                       && i.TieneComplementoRecepcion
-                                                       && !(from ord in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                            where ord.Activo
-                                                            select ord.NumeroUnicoID).Contains(nu.NumeroUnicoID)
-                                                       select nu).AsParallel().Distinct().Count();
+                        result.NUSinOrdenAlmacenaje = (from rnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                       join nu in ctx.Sam3_NumeroUnico on rnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                                       join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                       where rnu.Activo && nu.Activo && it.Activo
+                                                       && !(from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                            where ronu.Activo
+                                                            select ronu.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                                                       && it.TipoMaterialID == tipoMaterialID
+                                                       select nu).Distinct().Count();
                     }
 
 
@@ -1423,6 +1413,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                int totalPorAlmacenar = 0;
                 using (SamContext ctx = new SamContext())
                 {
                     DateTime fechaInicial = new DateTime();
@@ -1430,6 +1421,7 @@ namespace BackEndSAM.DataAcces
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
                     Boolean activarFolioConfiguracionOR = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
+                   
 
                     if (fechaFinal.ToShortDateString() == "1/1/0001")
                     {
@@ -1549,9 +1541,18 @@ namespace BackEndSAM.DataAcces
 
                         ordenes = ordenes.GroupBy(x => x.OrdenRecepcionID).Select(x => x.First()).ToList();
 
+                        //solo tomar en cuenta las ordenes que aun no se encuentran en el listado
+                        if (listado.Count > 0)
+                        {
+                            ordenes = (from r in ordenes
+                                       where !(from l in listado select l.OrdenRecepcionID).Contains(r.OrdenRecepcionID)
+                                       select r).ToList(); 
+                        }
+
                         foreach (Sam3_OrdenRecepcion orden in ordenes)
                         {
                             elemento = new ListadoNUSinAlmacenar();
+                            elemento.OrdenRecepcionID = orden.OrdenRecepcionID;
                             elemento.FechaOrdenRecepcion = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
                             elemento.OrdenRecepcion = orden.Folio.ToString();
 
@@ -1637,7 +1638,8 @@ namespace BackEndSAM.DataAcces
 #endif
                     if (conteo)
                     {
-                        return listado.Count();
+                        totalPorAlmacenar = listado.Sum(x => int.Parse(x.CantidadNUporAlmacenar));
+                        return totalPorAlmacenar;
                     }
                     else
                     {
