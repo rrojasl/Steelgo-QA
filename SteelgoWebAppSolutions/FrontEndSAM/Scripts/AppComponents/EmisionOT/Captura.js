@@ -638,67 +638,6 @@ function CargarGridStackTable() {
 
 function CargarGridStack() {
 
-    $("#gridStack").append('<div class="grid-stack" style="font-size:10px;">' +
-                                '<div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4">' +
-                                    '<div class="grid-stack-item-content border-shadow" id="gridProyecciones">' +
-                                        '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div>' +
-                                            '<div id="grid"></div>' +
-                                            '<script type="text/x-kendo-template" id="template">
-    <div class="tabstrip">
-        <ul>
-            <li class="k-state-active">Contact Information</li>
-            <li>Orders</li>
-      '</ul>
-
-        '<div>
-            '<div class='employee-details'>
-                'First Name: <input type="text" data-bind="value:FirstName"/><br />
-                'Last Name: <input type="text" data-bind="value:LastName"/><br />
-        'Country: <input type="text" data-bind="value:Country"/><br />   
-
-      '</div>
-      '</div>
-        '<div>
-            '<div class="orders"></div>
-      '</div>
-      '</div>
-
-    '</script>' +
-                                        '<div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="text-center">' +
-                                            '<button id="Proyectar" onclick="javascript:void(0);" type="button" class="btn btn-primary" style="padding:10px;"><span id="">Proyectar</span></button>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>' +
-
-                                '<div class="grid-stack-item" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">' +
-                                        '<div class="grid-stack-item-content border-shadow" style="" id="gridCapacidad">' +
-                                            '<div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Capacidad</div>' +
-    ' <table class="table table-condensed" style="border-collapse:collapse;">  <thead>  <tr>  <th>Taller</th>  <th>Auto</th>  <th>Auto-Man</th>  <th>Man</th>  </tr>  </thead>  <tbody>  <tr>  <td width="10%">  A  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  <div class="Grafica1" style="width:20%">  &nbsp;  </div>  <div class="Grafica2" style="width:50%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica1" style="width:10%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:50%">  &nbsp;  </div>  <div class="Grafica1" style="width:30%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  B  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  <div class="Grafica3" style="width:20%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica3" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:50%">  &nbsp;  </div>  <div class="Grafica3" style="width:30%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  C  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:20%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:10%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  D  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:5%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:5%">  &nbsp;  </div>  </div>  </td>  <td width="30%">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:70%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  Despacho  </td>  <td colspan="3">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:30%">  &nbsp;  </div>  <div class="Grafica1" style="width:10%">  &nbsp;  </div>  <div class="Grafica2" style="width:10%">  &nbsp;  </div>  <div class="Grafica3" style="width:10%">  &nbsp;  </div>  </div>  </td>  </tr>  <tr>  <td width="10%">  Corte  </td>  <td colspan="3">  <div class="GraficaPadre">  <div class="GarficaProduccion" style="width:20%">  &nbsp;  </div>  <div class="Grafica1" style="width:15%">  &nbsp;  </div>  <div class="Grafica2" style="width:20%">  &nbsp;  </div>  <div class="Grafica3" style="width:5%">  &nbsp;  </div>  </div>  </td>  </tr>  </tbody>  </table>' +
-                                        '</div>' +
-                                '</div>' +
-
-                                '<div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="2">' +
-                                        '<div class="grid-stack-item-content border-shadow" id="gridTalleres">' +
-' <div class="grid-stack-item-content border-shadow" id="gridCapacidad"> <div style="color:#ffffff" class="header-grid text-center">Proyecciones</div> <table class="table table-condensed" style="border-collapse:collapse;"> <thead> <tr> <th width="20px">&nbsp;</th> <th width="20%">&nbsp;</th> <th style="text-align:center;">A</th> <th style="text-align:center;">B</th> <th style="text-align:center;">C</th> <th style="text-align:center;">D</th> </tr> </thead> <tbody> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td width="20%" > <div class="Cuadro1">&nbsp;</div> Proyeccion 1 </td> <td style="text-align:center;"> <input type="radio" checked /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td> <div class="Cuadro2">&nbsp;</div> Proyeccion 2 </td> <td> <input type="radio" checked /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> <tr> <td width="20px"><img src="~/Content/images/SAMC_Delete.png" /></td> <td> <div class="Cuadro3">&nbsp;</div> Proyeccion 3 </td> <td> <input type="radio" /> </td> <td> <input type="radio" checked/> </td> <td> <input type="radio" /> </td> <td> <input type="radio" /> </td> </tr> </tbody> </table> </div>' +
-
-                                '</div>' +
-                            '</div>' +
-                            '<span style="color:"#ffffff">.</span>' +
-'<form id="divNuevoMedioTransporte" style="display:none">     <div class="row">' +
-        '<div class="container" style="padding:15px;">' +
-            '<div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9"  style="display:none">' +
-                '<label id="labelNuevoMedioTransporte"></label>' +
-                '<input id="inputMedioTransporte" class="form-control" type="text" />' +
-            '</div>' +
-'<div>¿Deseas crear una proyección o proyectar en una existente?</div>' +
-        '<div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">' +
-            '<button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="">Crear</span></button>' +
-            '<button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="">Existente</span></button>' +
-            '<button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte" style="display:none"><span id="">Proyectar</span></button>' +
-        '</div>' +
-    '</div>' +
-'</form>' );
-
     var options = {
         cell_height: 80,
         vertical_margin: 10
@@ -712,8 +651,8 @@ function CargarGridStack() {
         },
         autoBind: true, 
         dataSource: [
-            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
-            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
+            { Producto: "Set", Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "4", Kgs: "109.3", M2: "76", Juntas: "16", Peqs: "64" },
+            { Producto: "Fabricable", Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "4", Kgs: "109.3", M2: "76", Juntas: "16", Peqs: "64" },
 
         ],
         navigatable: true,
@@ -731,60 +670,22 @@ function CargarGridStack() {
             input: false,
             numeric: true,
         },
-        detailTemplate: kendo.template($("#template").html()),
-        detailInit: detailInit,
+        detailTemplate: kendo.template($("#templateGridNivelDos").html()),
+        detailInit: RenderGridNivelDos,
         columns: [
+            { field: "Producto", title: "Producto", filterable: true },
             { field: "Familia", title: "Familia", filterable: true },
             { field: "Acero", title: "Acero", filterable: true },
             { field: "Fibelines", title: "Fibeline", filterable: true },
-            { field: "Spools", title: "Spools", filterable: true },
-            { field: "Kgs", title: "Kgs", filterable: true },
-            { field: "M2", title: "M2", filterable: true },
-            { field: "Juntas", title: "Juntas", filterable: true },
-            { field: "Peqs", title: "Peqs", filterable: true }
+            { field: "Spools", title: "Spools", filterable: false, width:"120px" },
+            { field: "Kgs", title: "Kgs", filterable: false, width: "100px" },
+            { field: "M2", title: "M2", filterable: false, width: "100px" },
+            { field: "Juntas", title: "Juntas", filterable: false, width: "110px" },
+            { field: "Peqs", title: "Peqs", filterable: false, width: "100px" }
 
         ]
     });
- 
-    $("#gridNivel2").kendoGrid({
-        edit: function (e) {
-            this.closeCell();
-        },
-        autoBind: true,
-        dataSource: [
-            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
-            { Familia: "CS", Acero: "A16", Fibelines: "Auto 6-24", Spools: "", Kgs: "", M2: "", Juntas: "", Peqs: "" },
-
-        ],
-        navigatable: true,
-        filterable: {
-            extra: false
-        },
-        editable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 15, 20],
-            info: false,
-            input: false,
-            numeric: true,
-        },
-        detailTemplate: "<h2 style='background-color: yellow;'>Expanded!</h2>",
-        columns: [
-            { field: "Familia", title: "Familia", filterable: true },
-            { field: "Acero", title: "Acero", filterable: true },
-            { field: "Fibelines", title: "Fibeline", filterable: true },
-            { field: "Spools", title: "Spools", filterable: true },
-            { field: "Kgs", title: "Kgs", filterable: true },
-            { field: "M2", title: "M2", filterable: true },
-            { field: "Juntas", title: "Juntas", filterable: true },
-            { field: "Peqs", title: "Peqs", filterable: true }
-
-        ]
-    });
-
+  
     $("#Proyectar").click(function () {
         $("#divNuevoMedioTransporte").kendoWindow({
             modal: true,

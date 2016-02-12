@@ -2,6 +2,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@section breadcrumb {
+    <li>
+        <a href=""><span id="">Inicio</span></a>
+    </li>
+    <li>
+        <a href="#"><span id="">Planeación y Control</span></a>
+    </li>
+    <li class="active">
+        <a href=""><span id="">Emisión OT</span></a>
+    </li>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Proyectar</span></button>
+
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+            </div>
+            <div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                <a id="ArmadoSoldaduraSuperior" href="" class="btn btn-primary"><span id="">Emitir</span></a>
+            </div>
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="">Acciones</span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Seguridad.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/EmisionOT/Ajax.js"></script>
@@ -24,4 +64,106 @@
 
 </script> 
 
-<div id="gridStack"></div> 
+<div id="gridStack">
+    <div class="grid-stack" style="font-size:10px;">
+        <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4">
+            <div class="grid-stack-item-content border-shadow" id="gridProyecciones">
+                
+                <div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div> 
+                <div id="grid"></div> 
+                
+                <script type="text/x-kendo-template" id="templateGridNivelDos">
+                    <div class="nivel2"></div>
+                </script> 
+                
+                <script type="text/x-kendo-template" id="templateGridNivelTres">
+                
+                    <div class="nivel3"></div> 
+                
+                </script>  
+                
+            </div> 
+            
+        </div> 
+
+        <div class="grid-stack-item" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">
+            <div class="grid-stack-item-content border-shadow" style="" id="gridCapacidad">
+                <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Capacidad</div> 
+                @*Vista de Sergio*@
+                <table class="table table-condensed" style="border-collapse:collapse;"><thead><tr><th>Taller</th><th>Auto</th><th>Auto-Man</th><th>Man</th></tr></thead><tbody><tr><td width="10%">A</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:10%">&nbsp;</div><div class="Grafica1" style="width:20%">&nbsp;</div><div class="Grafica2" style="width:50%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 80%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="Grafica1" style="width:10%">&nbsp;</div><div class="Grafica2" style="width:10%">&nbsp;</div><div class="GraficaDetalle">2450 Peqs - 50%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:50%">&nbsp;</div><div class="Grafica1" style="width:30%">&nbsp;</div><div class="Grafica2" style="width:10%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 90%</div></div></td></tr><tr><td width="10%">B</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:10%">&nbsp;</div><div class="Grafica3" style="width:20%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 30%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="Grafica3" style="width:10%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 40%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:50%">&nbsp;</div><div class="Grafica3" style="width:30%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 80%</div></div></td></tr><tr><td width="10%">C</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:20%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 20%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:10%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 10%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 30%</div></div></td></tr><tr><td width="10%">D</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:5%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 5%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:5%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 5%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:70%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 70%</div></div></td></tr><tr><td width="10%">Despacho</td><td colspan="3"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="Grafica1" style="width:10%">&nbsp;</div><div class="Grafica2" style="width:10%">&nbsp;</div><div class="Grafica3" style="width:10%">&nbsp;</div><div class="GraficaDetalle">245 kg - 60%</div></div></td></tr><tr><td width="10%">Corte</td><td colspan="3"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:20%">&nbsp;</div><div class="Grafica1" style="width:15%">&nbsp;</div><div class="Grafica2" style="width:20%">&nbsp;</div><div class="Grafica3" style="width:5%">&nbsp;</div><div class="GraficaDetalle">12654\'\' - 60%</div></div></td></tr></tbody></table>  
+           </div> 
+        </div>
+
+        <div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4">
+            
+
+             <div class="grid-stack-item-content border-shadow" id="gridTalleres"> <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Proyecciones</div> <table class="table table-condensed" style="border-collapse:collapse;"><thead><tr><th width="20px">&nbsp;</th><th>&nbsp;</th><th width="20px" style="text-align:center;">A</th><th width="20px" style="text-align:center;">B</th><th width="20px" style="text-align:center;">C</th><th width="20px" style="text-align:center;">D</th></tr></thead><tbody><tr><td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td><td><div class="Cuadro1">&nbsp;</div>Proyeccion 1 - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs </td><td width="20px"><input type="radio" checked=""></td><td width="20px"><input type="radio"></td><td width="20px"><input type="radio"></td><td width="20px"><input type="radio"></td></tr><tr><td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td><td><div class="Cuadro2">&nbsp;</div>Proyeccion 2 - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs</td><td><input type="radio" checked=""></td><td><input type="radio"></td><td><input type="radio"></td><td><input type="radio"></td></tr><tr><td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td><td><div class="Cuadro3">&nbsp;</div>Proyeccion 3 - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs </td><td><input type="radio"></td><td><input type="radio" checked=""></td><td><input type="radio"></td><td><input type="radio"></td></tr></tbody></table> </div>
+        </div> 
+        <span style="color:" #ffffff">.</span> 
+        <form id="divNuevoMedioTransporte" style="display:none">
+            <div class="row">
+                
+                <div class="container" style="padding:15px;">
+                    
+                    <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none">
+                        
+                        <label id="labelNuevoMedioTransporte"></label> 
+                        <input id="inputMedioTransporte" class="form-control" type="text" /> 
+                    
+                    </div> 
+                    <div>¿Deseas crear una proyección o proyectar en una existente?</div> 
+                    <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
+                        
+                        <button class="btn btn-primary" type="button" id="btnGuardarCrearMedioTransporte"><span id="">Crear</span></button> 
+                        <button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte"><span id="">Existente</span></button> 
+                        <button class="btn btn-primary" type="button" id="btnCerrarVentanaCrearMedioTransporte" style="display:none"><span id="">Proyectar</span></button> 
+                        
+                    </div>
+                </div>
+        </form>
+    </div> 
+
+<br/><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Proyectar</span></button>
+
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+            </div>
+            <div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                <a id="ArmadoSoldaduraSuperior" href="" class="btn btn-primary"><span id="">Emitir</span></a>
+            </div>
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="">Acciones</span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
