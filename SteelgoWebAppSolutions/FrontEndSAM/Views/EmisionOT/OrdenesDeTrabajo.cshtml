@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section breadcrumb {
+    <li>
+        <a href=""><span id="">Inicio</span></a>
+    </li>
+    <li>
+        <a href="#"><span id="">Planeación y Control</span></a>
+    </li>
+    <li class="active">
+        <a href=""><span id="">Ordenes de Trabajo</span></a>
+    </li>
+}
+ 
+    <div id="grid"></div>         
+    
+ 
+
+    <script type="text/javascript" src="~/Scripts/AppComponents/OrdenesTrabajo/DetalleOrdenesTrabajo/Render.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/OrdenesTrabajo/DetalleOrdenesTrabajo/Seguridad.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/OrdenesTrabajo/DetalleOrdenesTrabajo/Ajax.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/OrdenesTrabajo/DetalleOrdenesTrabajo/Handler.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppComponents/OrdenesTrabajo/DetalleOrdenesTrabajo/Captura.js"></script> 
+
+    @*GridStack*@
+    <script type="text/javascript" src="~/Scripts/Widgets/GridStack/Underscore.js"></script>
+    <script type="text/javascript" src="~/Scripts/Widgets/GridStack/gridstack.js"></script>
+    <link href="~/Scripts/Widgets/GridStack/gridstack.css" rel="stylesheet">

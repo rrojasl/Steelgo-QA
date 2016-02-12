@@ -9,8 +9,13 @@ namespace FrontEndSAM.Controllers.Errors
     public class EmisionOTController : Controller
     {
         //
-        // GET: /Errors/
+        // GET: /EmisionOT/
         public ActionResult EmisionOT()
+        {
+            return View();
+        }
+
+        public ActionResult OrdenesDeTrabajo()
         {
             return View();
         }
