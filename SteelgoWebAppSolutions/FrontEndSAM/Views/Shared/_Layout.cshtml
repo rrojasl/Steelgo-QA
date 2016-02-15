@@ -430,7 +430,8 @@
 
         });
 
-        function loadMessages() { 
+        function loadMessages() {
+            
             $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (data) {
                 if (ValidateError(data)) {
                     $(".count").html(data.length);
