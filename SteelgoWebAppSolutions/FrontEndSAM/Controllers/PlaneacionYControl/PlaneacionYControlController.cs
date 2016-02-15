@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace FrontEndSAM.Controllers.Errors
 {
-    public class EmisionOTController : Controller
+    public class PlaneacionYControlController : Controller
     {
         //
         // GET: /EmisionOT/

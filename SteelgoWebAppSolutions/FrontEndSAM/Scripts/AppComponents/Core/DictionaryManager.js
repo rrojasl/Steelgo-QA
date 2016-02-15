@@ -6511,6 +6511,16 @@ _dictionary = {
         "es-MX": "La plana ya fue enviada",
         "en-US": "The flat was sent"
     },
+
+    //#region PlaneacionYControl
+    "menuPlaneacionYControl": {
+        "es-MX": "Planeación y Control",
+        "en-US": "Planning and Control"
+    },
+    "menuEmisionOrdenTrabajo": {
+        "es-MX": "Emisión OT",
+        "en-US": "WO Emission"
+    },
 }
 
 //#endregion
