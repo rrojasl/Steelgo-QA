@@ -103,10 +103,10 @@ function RenderGridNivelTres(e) {
         },
         autoBind: true,
         dataSource: [
-            { Fabcase: "1", Tipo: "Auto 6-24", Junta: "TW", Peqs: "1" },
-            { Fabcase: "2", Tipo: "Auto 6-24", Junta: "BW", Peqs: "5" },
-            { Fabcase: "3", Tipo: "Auto 6-24", Junta: "BW", Peqs: "5" },
-            { Fabcase: "4", Tipo: "Auto 6-24", Junta: "BW", Peqs: "5" },
+            { Tipo: "1", Junta: "Auto 6-24", Fabclas: "TW", Peqs: "1" },
+            { Tipo: "2", Junta: "Auto 6-24", Fabclas: "BW", Peqs: "5" },
+            { Tipo: "3", Junta: "Auto 6-24", Fabclas: "BW", Peqs: "5" },
+            { Tipo: "4", Junta: "Auto 6-24", Fabclas: "BW", Peqs: "5" },
         ],
         navigatable: true,
         filterable: {
@@ -124,11 +124,13 @@ function RenderGridNivelTres(e) {
             numeric: true,
         }, 
         columns: [
-            { field: "Fabcase", title: "Fabcase", filterable: false },
             { field: "Tipo", title: "Tipo", filterable: false },
             { field: "Junta", title: "Junta", filterable: false },
+            { field: "Fabclas", title: "Fabclas", filterable: false },
             { field: "Peqs", title: "Peqs", filterable: false, width: "100px" }
+             
 
+            
         ]
     });
 }
