@@ -2450,7 +2450,6 @@ namespace BackEndSAM.DataAcces
                                                        CedulaMM = cat.EspesorMM.ToString()
                                                    }).AsParallel().ToList();
 
-
                     if (String.IsNullOrEmpty(datosCedulas.CedulaA))
                     {
                         if (String.IsNullOrEmpty(datosCedulas.CedulaB))
@@ -2458,12 +2457,21 @@ namespace BackEndSAM.DataAcces
                             if (String.IsNullOrEmpty(datosCedulas.CedulaC))
                             {
                                 //abyc vacias
-                                cedula = lista.Where(x => x.CedulaA == null && x.CedulaB == null && x.CedulaC == null).AsParallel().SingleOrDefault();
-
+                                if (lista.Where(x => x.CedulaA == null && x.CedulaB == null && x.CedulaC == null).Count() > 1)
+                                {
+                                    cedula.Correcta = false;
+                                    lista.Clear();
+                                }
+                                else
+                                {
+                                    cedula = lista.Where(x => x.CedulaA == null && x.CedulaB == null && x.CedulaC == null).AsParallel().SingleOrDefault();
+                                    cedula.Correcta = true;
+                                }
                             }
                             else
                             {
                                 cedula = cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
+                                cedula.Correcta = true;
                                 
                             }
                         }
@@ -2471,11 +2479,13 @@ namespace BackEndSAM.DataAcces
                         {
                             //busco por B
                             cedula = cedulaBID == 0 ? null : lista.Where(x => x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault();
+                            cedula.Correcta = true;
                         }
                         else
                         {
                             //busco por b y c
                             cedula = cedulaBID == 0 ? cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault() : cedulaCID == 0 ? lista.Where(x => x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault() : lista.Where(x => x.CedulaB == datosCedulas.CedulaB && x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
+                            cedula.Correcta = true;
                         }
                     }
                     else if (String.IsNullOrEmpty(datosCedulas.CedulaB))
@@ -2484,17 +2494,20 @@ namespace BackEndSAM.DataAcces
                         {
                             //busco por A
                             cedula = cedulaAID == 0 ? null : lista.Where(x => x.CedulaA == datosCedulas.CedulaA).AsParallel().SingleOrDefault();
+                            cedula.Correcta = true;
                         }
                         else
                         {
                             //busco por A y C
                             cedula = cedulaAID == 0 ? cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault() : cedulaCID == 0 ? lista.Where(x => x.CedulaA == datosCedulas.CedulaA).AsParallel().SingleOrDefault() : lista.Where(x => x.CedulaA == datosCedulas.CedulaA && x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
+                            cedula.Correcta = true;
                         }
                     }
                     else if (String.IsNullOrEmpty(datosCedulas.CedulaC))
                     {
                         //busco por A y b
                         cedula = cedulaAID == 0 ? cedulaBID == 0 ? null : lista.Where(x => x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault() : cedulaBID == 0 ? lista.Where(c => c.CedulaA == datosCedulas.CedulaA).AsParallel().SingleOrDefault() : lista.Where(x => x.CedulaA == datosCedulas.CedulaA && x.CedulaB == datosCedulas.CedulaB).AsParallel().SingleOrDefault();
+                        cedula.Correcta = true;
                     }
                     //else
                     //{

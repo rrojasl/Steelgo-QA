@@ -39,7 +39,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(int diametro1IN, int diametro2IN, string token)
+        public object Get(int diametro1IN, int? diametro2IN, string token)
         {
             string payload = "";
             string newToken = "";

@@ -53,10 +53,10 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     int d1 = Convert.ToInt32(diametro1);
-                    int d2 = Convert.ToInt32(diametro2);
+                    int? d2 = Convert.ToInt32(diametro2);
 
                     List<ListaDiametros> espesores = (from es in ctx.Sam3_Espesor
-                                                      where es.Activo == 1 && es.DiametroID == d1 || es.DiametroID == d2
+                                                      where es.Activo == 1 && es.DiametroID == d1 //|| es.DiametroID == d2
                                                       select new ListaDiametros
                                                       {
                                                           id = es.EspesorID,
@@ -93,7 +93,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="diametro1">Diametro 1 seleccionado</param>
         /// <param name="diametro2">Diametro 2 seleccionado</param>
         /// <returns></returns>
-        public object ObtenerEspesoresIN(int diametro1, int diametro2)
+        public object ObtenerEspesoresIN(int diametro1, int? diametro2)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace BackEndSAM.DataAcces
                     decimal factor = Convert.ToDecimal(0.0393701);
 
                     List<ListaDiametros> espesores = (from es in ctx.Sam3_Espesor
-                                                      where es.Activo == 1 && es.DiametroID == diametro1 || es.DiametroID == diametro2
+                                                      where es.Activo == 1 && es.DiametroID == diametro1 //|| es.DiametroID == diametro2
                                                       select new ListaDiametros
                                                       {
                                                           id = es.EspesorID,
