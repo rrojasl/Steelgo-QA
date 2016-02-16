@@ -556,10 +556,25 @@ namespace BackEndSAM.DataAcces
                                     switch (tipoGuardadoID)
                                     {
                                         case 1: // Guardado Parcial
-
+                                            #region Guardado parcial
                                             //Actualizo el numero Unico
                                             if (actualizaNU != null)
                                             {
+                                                string estatus = "";
+                                                if (itemCodeJson.EstatusFisico == "Aprobado")
+                                                {
+                                                    estatus = "A";
+                                                }
+                                                else if (itemCodeJson.EstatusFisico == "Condicionado")
+                                                {
+                                                    estatus = "C";
+                                                }
+                                                else if (itemCodeJson.EstatusFisico == "Dañado")
+                                                {
+                                                    estatus = "R";
+                                                }
+
+                                                actualizaNU.Estatus = estatus;
                                                 actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                                 actualizaNU.FechaModificacion = DateTime.Now;
                                                 actualizaNU.UsuarioModificacion = usuario.UsuarioID;
@@ -570,6 +585,24 @@ namespace BackEndSAM.DataAcces
                                                     (from tp in ctx.Sam3_TipoUso
                                                      where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                      select tp.TipoUsoID).SingleOrDefault() : 1;
+
+                                                #region Actualizar nu sam2
+                                                int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                               where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
+                                                               select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                                NumeroUnico actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
+
+                                                if (itemCodeJson.EstatusFisico != null)
+                                                {
+                                                    actualizaNumSam2.Estatus = actualizaNU.Estatus;
+                                                }
+                                                actualizaNumSam2.FechaModificacion = DateTime.Now;
+                                                actualizaNumSam2.ColadaID = (from eq in ctx.Sam3_EquivalenciaColada
+                                                                             where eq.Activo && eq.Sam3_ColadaID == actualizaNU.ColadaID
+                                                                             select eq.Sam2_ColadaID).AsParallel().SingleOrDefault();
+                                                ctx2.SaveChanges();
+                                                #endregion
 
                                                 #region Actualizar MM
                                                 //Actuaalizar MM
@@ -675,28 +708,6 @@ namespace BackEndSAM.DataAcces
                                                         relNumeos.MM = milimetros;
                                                         relNumeos.FechaModificacion = DateTime.Now;
                                                         relNumeos.UsuarioModificacion = usuario.UsuarioID;
-
-                                                        //if (relBId > 0)
-                                                        //{
-                                                        //    Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
-                                                        //        .AsParallel().SingleOrDefault();
-                                                        //    relBulto.MM = milimetros;
-                                                        //    relBulto.FechaModificacion = DateTime.Now;
-                                                        //    relBulto.UsuarioModificacion = usuario.UsuarioID;
-
-                                                            
-
-                                                        //}
-
-                                                        //if (relFcId > 0)
-                                                        //{
-                                                        //    Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                                        //        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
-                                                        //    relitemCode.MM = milimetros;
-                                                        //    relitemCode.FechaModificacion = DateTime.Now;
-                                                        //    relitemCode.UsuarioModificacion = usuario.UsuarioID;
-                                                        //}
-
                                                         ctx.SaveChanges();
 
                                                         #endregion
@@ -737,11 +748,27 @@ namespace BackEndSAM.DataAcces
                                             itemCodeJson.TieneError = false;
 
                                             break;
+                                            #endregion
                                         case 2: // Guardar y terminar
-
+                                            #region guardar y terminar
                                             //Actualizo el numero Unico
                                             if (actualizaNU != null)
                                             {
+                                                string estatus = "";
+                                                if (itemCodeJson.EstatusFisico == "Aprobado")
+                                                {
+                                                    estatus = "A";
+                                                }
+                                                else if (itemCodeJson.EstatusFisico == "Condicionado")
+                                                {
+                                                    estatus = "C";
+                                                }
+                                                else if (itemCodeJson.EstatusFisico == "Dañado")
+                                                {
+                                                    estatus = "R";
+                                                }
+
+                                                actualizaNU.Estatus = estatus;
                                                 actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                                 actualizaNU.FechaModificacion = DateTime.Now;
                                                 actualizaNU.UsuarioModificacion = usuario.UsuarioID;
@@ -752,6 +779,22 @@ namespace BackEndSAM.DataAcces
                                                     (from tp in ctx.Sam3_TipoUso
                                                      where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                      select tp.TipoUsoID).SingleOrDefault() : 1;
+
+                                                #region Actualizar nu sam2
+                                                int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                               where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
+                                                               select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+                                                NumeroUnico actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
+                                                actualizaNumSam2.FechaModificacion = DateTime.Now;
+                                                if (itemCodeJson.EstatusFisico != null)
+                                                {
+                                                    actualizaNumSam2.Estatus = actualizaNU.Estatus;
+                                                }
+                                                actualizaNumSam2.ColadaID = (from eq in ctx.Sam3_EquivalenciaColada
+                                                                             where eq.Activo && eq.Sam3_ColadaID == actualizaNU.ColadaID
+                                                                             select eq.Sam2_ColadaID).AsParallel().SingleOrDefault();
+                                                ctx2.SaveChanges();
+                                                #endregion
 
                                                 #region Actualizar MM
                                                 //Actuaalizar MM
@@ -858,25 +901,6 @@ namespace BackEndSAM.DataAcces
                                                         relNumeos.MM = milimetros;
                                                         relNumeos.FechaModificacion = DateTime.Now;
                                                         relNumeos.UsuarioModificacion = usuario.UsuarioID;
-
-                                                        //if (relBId > 0)
-                                                        //{
-                                                        //    Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID == relBId)
-                                                        //        .AsParallel().SingleOrDefault();
-                                                        //    relBulto.MM = milimetros;
-                                                        //    relBulto.FechaModificacion = DateTime.Now;
-                                                        //    relBulto.UsuarioModificacion = usuario.UsuarioID;
-                                                        //}
-
-                                                        //if (relFcId > 0)
-                                                        //{
-                                                        //    Sam3_Rel_FolioCuantificacion_ItemCode relitemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                                        //        .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFcId).AsParallel().SingleOrDefault();
-                                                        //    relitemCode.MM = milimetros;
-                                                        //    relitemCode.FechaModificacion = DateTime.Now;
-                                                        //    relitemCode.UsuarioModificacion = usuario.UsuarioID;
-                                                        //}
-
                                                         ctx.SaveChanges();
 
                                                         #endregion
@@ -924,6 +948,7 @@ namespace BackEndSAM.DataAcces
                                             itemCodeJson.TieneError = false;
 
                                             break;
+                                            #endregion
                                         default:
 
                                             result.ReturnMessage.Add("No se encontro el tipo de guardado");
