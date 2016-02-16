@@ -12,8 +12,7 @@
 
 function AjaxMostrarSpoolsDeProyecto() {
     $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: 1, idPatio: 1 }).done(function (data) {
-        debugger;
-
+      
         //Nivel 1
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -21,9 +20,7 @@ function AjaxMostrarSpoolsDeProyecto() {
         for (var i = 0; i < data.length; i++) { 
             ds.add(data[i]); 
         }
-
-
-        
+         
         loadingStop();
     });
 }

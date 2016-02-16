@@ -3,9 +3,10 @@
 function changeLanguageCall() {
     SuscribirEventos();
     CargarGridStack();
+    
     AjaxObtenerProyectos();
 };
-
+ 
 function CargarGridStack() {
 
     var options = {
@@ -73,28 +74,47 @@ function CargarGridStack() {
         ]
     });
     
-    ContenedorCapacidad();
-     
-  
+    ContenedorCapacidad(); 
 }
+ 
 
 function CalcularValoresProyecciones() {
     var spools, juntas, peso, area, peqs;
      
     if (ValidarValoresAntesDeProyectar()) {
         ContenedorProyecciones();
+        aqui
     } 
 }
 
-function ContenedorProyecciones() {
-    debugger;
+function ContenedorProyecciones() { 
     var totalProyecciones = $("tr.proyeccion").length;
-    
+    var totalSpoolsProyeccion = Proyecciones.length;
+    var totalJuntasProyeccion = 0;
+    var totalPeso = 0;
+    var totalArea = 0;
+    var totalPeqs = 0;
+
+    for (var i = 0; i < totalSpoolsProyeccion;i++) { 
+        totalJuntasProyeccion += Proyecciones[i].ListaJuntas.length;
+        totalPeso += Proyecciones[i].Peso;
+        totalArea += Proyecciones[i].Area;
+
+        for (var j = 0; j < Proyecciones[i].ListaJuntas.length; j++) {
+            totalPeqs += Proyecciones[i].ListaJuntas[j].Peqs;
+        }
+    }
+
     $("#contenedorProyecciones").append('<tr class="proyeccion">' +
                                             '<td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td>' +
                                             '<td>' +
-                                                '<div class="Cuadro'+ (totalProyecciones++) +'">&nbsp;</div>' +
-                                                $("#inputWindowProyeccion").val() + ' - Spools:5, Juntas: 45, Kg:128, M:1234, 14 Peqs' +
+                                                '<div class="Cuadro'+ (totalProyecciones+1) +'">&nbsp;</div>' +
+                                                $("#inputWindowProyeccion").val() +
+                                                ' - Spools:' + totalSpoolsProyeccion +
+                                                ', Juntas: ' + totalJuntasProyeccion +
+                                                ', Kg: ' + totalPeso +
+                                                ', M:' + totalArea +
+                                                ', ' + totalPeqs + ' Peqs' +
                                             '</td>' +
                                             '<td>' +
                                                 '<input type="radio" checked="">' +
@@ -111,10 +131,36 @@ function ContenedorProyecciones() {
                                         '</tr>');
 }
 
-function ValidarValoresAntesDeProyectar() {
-    debugger;
+function ValidarValoresAntesDeProyectar() { 
     var correcto = true;
+    var familiaAcero = -1;
+
     var ds = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < ds.length; i++) {
+        var listaSpool = ds[i].ListaSpools
+
+        if (listaSpool.length == 0) {
+            correcto = false;
+            alert("seleccione un spool");
+        }
+
+        for (var j = 0; j < listaSpool.length; j++) {
+            if (listaSpool[j].Seleccionado && familiaAcero == -1) {
+                familiaAcero = ds[i].FamiliaID;
+                Proyecciones.push(listaSpool[j]);
+            }
+            else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero == ds[i].FamiliaID) {
+                Proyecciones.push(listaSpool[j]);
+            }
+            else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero != ds[i].FamiliaID) {
+                correcto = false;
+                alert("dif familias"); 
+            }
+        } 
+    }
+
+   
 
     return correcto
 }

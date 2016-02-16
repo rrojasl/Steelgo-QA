@@ -8,6 +8,7 @@ namespace BackEndSAM.Models.PlaneacionYControl
 
     public class DetalleProyectoPrueba
     {
+        public int FamiliaID { get; set; }
         public int TipoProductoID { get; set; }
         public string TipoProducto { get; set; }
         public string FamiliaAcero { get; set; }

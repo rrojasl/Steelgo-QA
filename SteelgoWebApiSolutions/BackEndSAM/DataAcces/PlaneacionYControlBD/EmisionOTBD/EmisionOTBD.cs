@@ -35,12 +35,12 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_SteelGo_Get_Proyectos_Result> result = ctx.Sam3_SteelGo_Get_Proyectos().ToList();
+                    List<Sam3_SteelGo_Get_Proyectos_Patio_Result> result = ctx.Sam3_SteelGo_Get_Proyectos_Patio().ToList();
 
                     List<DetalleProyecto> proyectoList = new List<DetalleProyecto>();
 
                     //Funcionalidad con store
-                    foreach (Sam3_SteelGo_Get_Proyectos_Result item in result)
+                    foreach (Sam3_SteelGo_Get_Proyectos_Patio_Result item in result)
                     {
                         List<DetallePatio> patioList = new List<DetallePatio>();
 
@@ -79,7 +79,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_SteelGo_Get_Proyectos_Result> result = ctx.Sam3_SteelGo_Get_Proyectos().ToList();
+                    List<Sam3_SteelGo_Get_Proyectos_Patio_Result> result = ctx.Sam3_SteelGo_Get_Proyectos_Patio().ToList();
 
                     List<DetalleProyectoPrueba> proyectoList = new List<DetalleProyectoPrueba>();
                     List<DetalleSpoolPrueba> detalleSpools1 = ObtenerSpools(1);
@@ -87,6 +87,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                      
                     proyectoList.Add(new DetalleProyectoPrueba
                     {
+                        FamiliaID = 1,
                         TipoProducto = "Set",
                         FamiliaAcero = "CS",
                         Acero = "A16",
@@ -96,6 +97,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
 
                     proyectoList.Add(new DetalleProyectoPrueba
                     {
+                        FamiliaID = 2,
                         TipoProducto = "Spool",
                         FamiliaAcero = "AL-P91",
                         Acero = "B42",

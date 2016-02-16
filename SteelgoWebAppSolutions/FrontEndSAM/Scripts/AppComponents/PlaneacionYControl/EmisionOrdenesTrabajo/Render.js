@@ -77,8 +77,7 @@
     //    dsNivel2.add(model.ListaSpools[i]);
     //}
 
-    $("td[role='gridcell']").on("change", ":checkbox", function (e) {
-        debugger;
+    $("td[role='gridcell']").on("change", ":checkbox", function (e) { 
         var grid = $(".nivel2").data("kendoGrid"),
         dataItem = grid.dataItem($(e.target).closest("tr"));
          
