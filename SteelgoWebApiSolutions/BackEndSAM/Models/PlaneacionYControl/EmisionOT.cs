@@ -25,6 +25,7 @@ namespace BackEndSAM.Models.PlaneacionYControl
         public int SpoolID { get; set; }
         public int Seleccionado { get; set; }
         public int Proyectado { get; set; }
+        public string Proyeccion { get; set; }
         public string SpoolNombre { get; set; }
         public string Dibujo { get; set; }
         public int DiametroMaximo { get; set; }

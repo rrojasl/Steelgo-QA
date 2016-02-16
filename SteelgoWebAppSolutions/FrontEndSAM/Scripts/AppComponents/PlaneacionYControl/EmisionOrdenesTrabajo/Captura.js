@@ -1,4 +1,5 @@
 ﻿var Proyecciones = new Array();
+var SpoolsEnProyeccion = new Array();
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -74,7 +75,7 @@ function CargarGridStack() {
         ]
     });
     
-    ContenedorCapacidad(); 
+    //ActualizarContenedorCapacidad(); 
 }
  
 
@@ -82,26 +83,34 @@ function CalcularValoresProyecciones() {
     var spools, juntas, peso, area, peqs;
      
     if (ValidarValoresAntesDeProyectar()) {
+        Proyecciones.push = {
+            Proyeccion : {
+                ID: (Proyecciones.length + 1),
+                Accion: 1,
+                NumeroSpools: SpoolsEnProyeccion.length
+            }
+        };
+
         ContenedorProyecciones();
-        aqui
+         
     } 
 }
 
 function ContenedorProyecciones() { 
     var totalProyecciones = $("tr.proyeccion").length;
-    var totalSpoolsProyeccion = Proyecciones.length;
+    var totalSpoolsProyeccion = SpoolsEnProyeccion.length;
     var totalJuntasProyeccion = 0;
     var totalPeso = 0;
     var totalArea = 0;
     var totalPeqs = 0;
-
+     
     for (var i = 0; i < totalSpoolsProyeccion;i++) { 
-        totalJuntasProyeccion += Proyecciones[i].ListaJuntas.length;
-        totalPeso += Proyecciones[i].Peso;
-        totalArea += Proyecciones[i].Area;
+        totalJuntasProyeccion += SpoolsEnProyeccion[i].ListaJuntas.length;
+        totalPeso += SpoolsEnProyeccion[i].Peso;
+        totalArea += SpoolsEnProyeccion[i].Area;
 
-        for (var j = 0; j < Proyecciones[i].ListaJuntas.length; j++) {
-            totalPeqs += Proyecciones[i].ListaJuntas[j].Peqs;
+        for (var j = 0; j < SpoolsEnProyeccion[i].ListaJuntas.length; j++) {
+            totalPeqs += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
         }
     }
 
@@ -129,6 +138,10 @@ function ContenedorProyecciones() {
                                                 '<input type="radio">' +
                                             '</td>' +
                                         '</tr>');
+    $("#divProyectarWindow").data("kendoWindow").close();
+
+    ActualizarContenedorCapacidad();
+    ActualizarGrid();
 }
 
 function ValidarValoresAntesDeProyectar() { 
@@ -148,10 +161,10 @@ function ValidarValoresAntesDeProyectar() {
         for (var j = 0; j < listaSpool.length; j++) {
             if (listaSpool[j].Seleccionado && familiaAcero == -1) {
                 familiaAcero = ds[i].FamiliaID;
-                Proyecciones.push(listaSpool[j]);
+                SpoolsEnProyeccion.push(listaSpool[j]);
             }
             else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero == ds[i].FamiliaID) {
-                Proyecciones.push(listaSpool[j]);
+                SpoolsEnProyeccion.push(listaSpool[j]);
             }
             else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero != ds[i].FamiliaID) {
                 correcto = false;
@@ -165,11 +178,49 @@ function ValidarValoresAntesDeProyectar() {
     return correcto
 }
 
-function ContenedorCapacidad() {
+function ActualizarGrid() {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
 
+    for (var i = 0; i < ds.length; i++) {
+        var listaSpool = ds[i].ListaSpools
+         
+        for (var j = 0; j < listaSpool.length; j++) {
+            if (listaSpool[j].Seleccionado) {
+                listaSpool[j].Proyectado = 1;
+            }
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
- 
- 
+
+function ActualizarContenedorCapacidad() {
+    var arregloDetalle = [];
+    listaProyecciones = [];
+    arregloDetalle[0] = {
+        Capacidad: "",
+        Unidad: "",
+        ListaProyecciones: ""
+    };
+    debugger;
+    Proyecciones;
+    for (var i = 0; i < 3; i++) {
+        listaProyecciones[i] = {
+            ConsecutivoProyeccion: "",
+            Cantidad: ""
+        }
+        listaProyecciones[i].ConsecutivoProyeccion = toString(i);
+        listaProyecciones[i].Cantidad = (i + 1) * 9;
+    }
+
+
+    arregloDetalle[0].Capacidad = 5;
+    arregloDetalle[0].Unidad = "peqs";
+    arregloDetalle[0].ListaProyecciones = listaProyecciones;
+
+    var acheteemeele = crearGrafico(arregloDetalle);
+}
+  
 function crearGrafico(ArregloDetalle) {
 
     var contTotalProyecciones = 0;

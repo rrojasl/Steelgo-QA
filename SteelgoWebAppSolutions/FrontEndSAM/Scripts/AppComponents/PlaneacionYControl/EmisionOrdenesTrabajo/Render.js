@@ -69,20 +69,11 @@
         ]
     });
     dataBound(e);
-     
-    //Nivel 2
-    //$(".nivel2").data('kendoGrid').dataSource.data([]);
-    //var dsNivel2 = $(".nivel2").data("kendoGrid").dataSource;
-    //for (var i = 0; i < model.ListaSpool.length; i++) {
-    //    dsNivel2.add(model.ListaSpools[i]);
-    //}
-
+      
     $("td[role='gridcell']").on("change", ":checkbox", function (e) { 
-        var grid = $(".nivel2").data("kendoGrid"),
+        var grid = $(e.target).closest(".nivel2").data("kendoGrid"),
         dataItem = grid.dataItem($(e.target).closest("tr"));
-         
-        //var item = search(dataItem.SpoolID, $("#grid").data("kendoGrid").dataSource._data);
-         
+          
         if ($(this)[0].checked) {
             dataItem.Seleccionado = true;
         }
