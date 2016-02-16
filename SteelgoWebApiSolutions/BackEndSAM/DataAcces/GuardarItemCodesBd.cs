@@ -1527,7 +1527,7 @@ namespace BackEndSAM.DataAcces
                     IC.Activo = true;
                     IC.UsuarioModificacion = usuario.UsuarioID;
                     IC.FechaModificacion = DateTime.Now;
-                    if (item.MM > 0)
+                    if (item.MM >= 0)
                     {
                         IC.MM = item.MM;
                     }
