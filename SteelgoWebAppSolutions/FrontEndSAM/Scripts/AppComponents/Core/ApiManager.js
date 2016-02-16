@@ -62,6 +62,9 @@ var $CargaEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaReportePruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Planeacion Y Control
+var $EmisionOT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+ 
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -170,6 +173,9 @@ $CargaCarroBackLog.add('CargaCarroBackLog');
 $CapturaAvanceIntAcabado.add('CapturaAvanceIntAcabado');
 $CapturaAvance.add('CapturaAvance');
 $LotesCapturaReporte.add('LotesCapturaReporte');
+
+//Planeacion Y Control
+$EmisionOT.add('EmisionOT');
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');

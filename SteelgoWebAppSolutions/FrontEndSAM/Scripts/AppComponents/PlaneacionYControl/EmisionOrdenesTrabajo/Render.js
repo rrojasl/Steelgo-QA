@@ -1,6 +1,6 @@
 ﻿function RenderGridNivelDos(e) {
     var detailRow = e.detailRow;
- 
+  
     var model = e.data;
     kendo.bind(detailRow, model);
     model.bind('change', function (e) {
@@ -17,13 +17,29 @@
         edit: function (e) {
             this.closeCell();
         },
-        autoBind: true,
-        dataSource: [
-            { Seleccionado: 0, Proyectado: "1", NombreSpool: "Spool1", Dibujo: "A16", DiametroMaximo: "24", DiametroPromedio: "10", Kgs: "23.5", M2: "5", Juntas: "4", Peqs: "16" },
-            { Seleccionado: 0, Proyectado: "", NombreSpool: "Spool2", Dibujo: "A16", DiametroMaximo: "64", DiametroPromedio: "30", Kgs: "23.5", M2: "4", Juntas: "4", Peqs: "16" },
-            { Seleccionado: 0, Proyectado: "", NombreSpool: "Spool3", Dibujo: "A16", DiametroMaximo: "4", DiametroPromedio: "2", Kgs: "17", M2: "65", Juntas: "4", Peqs: "16" },
-            { Seleccionado: 0, Proyectado: "", NombreSpool: "Spool4", Dibujo: "A16", DiametroMaximo: "5", DiametroPromedio: "3", Kgs: "45.3", M2: "2", Juntas: "4", Peqs: "16" },
-        ],
+        autoBind: true, 
+        dataSource: {
+            data: '',
+            schema: {
+                model: {
+                    fields: {
+                        SpoolID: { type: "number", editable: false },
+                        Seleccionado: { type: "number", editable: false },
+                        Proyectado: { type: "number", editable: false },
+                        SpoolNombre: { type: "string", editable: false },
+                        Dibujo: { type: "string", editable: false },
+                        DiametroMaximo: { type: "number", editable: false },
+                        DiametroPromedio: { type: "number", editable: false },
+                        Peso: { type: "number", editable: false },
+                        Area: { type: "number", editable: false }
+                    }
+                }
+            },
+            pageSize: 20,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
+        },
         navigatable: true,
         filterable: {
             extra: false
@@ -44,20 +60,51 @@
         columns: [ 
             { field: "Seleccionado", title: " ", filterable: false, template: '<input type="checkbox" #= Proyectado ? "disabled=disabled" : "" # class="chkbx"  ></input>', width: "50px" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" },
-            { field: "Proyectado", title: "Proyección", filterable: false },
-            { field: "NombreSpool", title: "Spool", filterable: true },
+            { field: "Proyecccion", title: "Proyección", filterable: false },
+            { field: "SpoolNombre", title: "Spool", filterable: true },
             { field: "Dibujo", title: "Dibujo", filterable: true },
             { field: "DiametroMaximo", title: "Diametro Máximo", filterable: true },
             { field: "DiametroPromedio", title: "Diametro Promedio", filterable: true },
-            { field: "Kgs", title: "Kgs", filterable: true, width: "100px" },
-            { field: "M2", title: "M2", filterable: true, width: "100px" },
+            { field: "Peso", title: "Kgs", filterable: true, width: "100px" },
+            { field: "Area", title: "M2", filterable: true, width: "100px" },
             { field: "Juntas", title: "Juntas", filterable: true, width: "110px" },
             { field: "Peqs", title: "Peqs", filterable: true, width:"100px" },
             
         ]
     });
     dataBound(e);
+     
+    //Nivel 2
+    $(".nivel2").data('kendoGrid').dataSource.data([]);
+    var dsNivel2 = $(".nivel2").data("kendoGrid").dataSource;
+    for (var i = 0; i < model.ListaSpools.length; i++) {
+        dsNivel2.add(model.ListaSpools[i]);
+    }
 
+    $("td[role='gridcell']").on("change", ":checkbox", function (e) {
+        debugger;
+        var grid = $(".nivel2").data("kendoGrid"),
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+         
+        //var item = search(dataItem.SpoolID, $("#grid").data("kendoGrid").dataSource._data);
+         
+        if ($(this)[0].checked) {
+            dataItem.Seleccionado = true;
+        }
+        else { 
+            dataItem.Seleccionado = false;
+              
+        }
+         
+    });
+}
+
+function search(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].name === nameKey) {
+            return myArray[i];
+        }
+    }
 }
 
 function dataBound(e) {
@@ -101,13 +148,24 @@ function RenderGridNivelTres(e) {
         edit: function (e) {
             this.closeCell();
         },
-        autoBind: true,
-        dataSource: [
-            { Tipo: "1", Junta: "Auto 6-24", Fabclas: "TW", Peqs: "1" },
-            { Tipo: "2", Junta: "Auto 6-24", Fabclas: "BW", Peqs: "5" },
-            { Tipo: "3", Junta: "Auto 6-24", Fabclas: "BW", Peqs: "5" },
-            { Tipo: "4", Junta: "Auto 6-24", Fabclas: "BW", Peqs: "5" },
-        ],
+        autoBind: true, 
+        dataSource: {
+            data: '',
+            schema: {
+                model: {
+                    fields: {
+                        TipoJuntaID: { type: "number", editable: false },
+                        Fabclas: { type: "string", editable: false },
+                        TipoJunta: { type: "string", editable: false },
+                        Peqs: { type: "number", editable: false }
+                    }
+                }
+            },
+            pageSize: 20,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
+        },
         navigatable: true,
         filterable: {
             extra: false
@@ -124,13 +182,17 @@ function RenderGridNivelTres(e) {
             numeric: true,
         }, 
         columns: [
-            { field: "Tipo", title: "Tipo", filterable: false },
-            { field: "Junta", title: "Junta", filterable: false },
+            { field: "TipoJuntaID", title: "Tipo", filterable: false },
             { field: "Fabclas", title: "Fabclas", filterable: false },
-            { field: "Peqs", title: "Peqs", filterable: false, width: "100px" }
-             
-
-            
+            { field: "TipoJunta", title: "Tipo Junta", filterable: false }, 
+            { field: "Peqs", title: "Peqs", filterable: false, width: "100px" } 
         ]
     });
+
+    //Nivel 3
+    $(".nivel3").data('kendoGrid').dataSource.data([]);
+    var dsNivel3 = $(".nivel3").data("kendoGrid").dataSource;
+    for (var i = 0; i < model.ListaJuntas.length; i++) {
+        dsNivel3.add(model.ListaJuntas[i]);
+    }
 }

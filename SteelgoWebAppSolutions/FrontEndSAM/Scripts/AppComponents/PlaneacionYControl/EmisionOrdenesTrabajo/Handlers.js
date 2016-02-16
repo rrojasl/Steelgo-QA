@@ -1,9 +1,23 @@
 ﻿function SuscribirEventos() {
-    SuscribirEventoProyectar();
+
+    //Proyecciones
+    SuscribirEventoVentanaProyectar();
+    SuscribirEventoComboBoxProyecciones();
+    SuscribirEventoPreguntaCrearNuevaProyeccion();
+    SuscribirEventoPreguntaUtilizarProyeccionExistente();
+    SuscribirEventoCrearNuevaProyeccion();
+
+    //Emision
     SuscribirEventoEmitir();
+
+    //Encabezado-Mostrar
+    SuscribirEventoMostrar();
+    SuscribirEventoProyecto();
+    SuscribirEventoPatio();
 }
 
-function SuscribirEventoProyectar() {
+//Proyectar
+function SuscribirEventoVentanaProyectar() {
     $("#Proyectar").click(function () {
         $("#divProyectarWindow").kendoWindow({
             modal: true,
@@ -29,26 +43,17 @@ function SuscribirEventoProyectar() {
             $("#cmbSeleccionarProyeccion").hide();
             $("#inputCrearProyeccion").hide();
         }); 
-    });
+    }); 
+}
 
-    $("#btnCrearNuevaProyeccion").click(function () {
-        $("#ProyectarPreguntaDiv").hide();
-        $("#inputCrearProyeccion").show();
-    });
-
-    $("#btnUtilizarProyeccionExistente").click(function () {
-        $("#ProyectarPreguntaDiv").hide();
-        $("#cmbSeleccionarProyeccion").show();
-    });
-
-
+function SuscribirEventoComboBoxProyecciones() {
     var data = [
         { Proyeccion: "Proyeccion 1", ProyeccionID: "1" },
         { Proyeccion: "Proyeccion 2", ProyeccionID: "2" },
         { Proyeccion: "Proyeccion 3", ProyeccionID: "3" },
     ];
 
-    
+
 
     $("#inputProyecciones").kendoComboBox({
         dataTextField: "Proyeccion",
@@ -60,6 +65,28 @@ function SuscribirEventoProyectar() {
     });
 }
 
+function SuscribirEventoPreguntaCrearNuevaProyeccion() {
+    $("#btnCrearNuevaProyeccion").click(function () {
+        $("#ProyectarPreguntaDiv").hide();
+        $("#inputCrearProyeccion").show();
+    });
+}
+
+function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
+    $("#btnUtilizarProyeccionExistente").click(function () {
+        $("#ProyectarPreguntaDiv").hide();
+        $("#cmbSeleccionarProyeccion").show();
+    });
+}
+
+function SuscribirEventoCrearNuevaProyeccion() {
+    $("#btnCrearProyeccion").click(function () { 
+        CalcularValoresProyecciones();
+    });
+}
+
+
+//Emitir
 function SuscribirEventoEmitir() {
     $("#EmitirOT").click(function () { 
         $("#divEmitirWindow").kendoWindow({
@@ -112,5 +139,67 @@ function SuscribirEventoEmitir() {
         dataSource: data,
         filter: "contains",
         index: 3
+    });
+}
+
+//Encabezado
+function SuscribirEventoMostrar() {
+    $("#btnMostrar").click(function () { 
+        AjaxMostrarSpoolsDeProyecto();
+    });
+}
+ 
+function SuscribirEventoProyecto() {
+    $('#inputProyecto').kendoComboBox({
+        dataTextField: "Proyecto",
+        dataValueField: "ProyectoID ",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        select: function (e) {
+            var dataItem = this.dataItem(e.item.index());
+           
+            if (dataItem != undefined) {
+                $("#inputPatio").data("kendoComboBox").value("");
+                $("#inputPatio").data("kendoComboBox").dataSource.data(dataItem.ListaPatio);
+            }
+            else {
+                displayMessage("errorNoExisteProyecto", '', '2');
+            }
+        },
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (dataItem != undefined) {
+                
+            }
+            else {
+                displayMessage("errorNoExisteProyecto", '', '2');
+            }
+        }
+    }); 
+}
+
+function SuscribirEventoPatio() {
+    $('#inputPatio').kendoComboBox({
+        dataTextField: "NombrePatio",
+        dataValueField: "PatioID ",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        select: function (e) {
+            var dataItem = this.dataItem(e.item.index());
+
+            if (dataItem == undefined) { 
+                displayMessage("errorNoExistePatio", '', '2');
+            }
+        },
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (dataItem == undefined) { 
+                displayMessage("errorNoExistePatio", '', '2');
+            }
+        }
     });
 }

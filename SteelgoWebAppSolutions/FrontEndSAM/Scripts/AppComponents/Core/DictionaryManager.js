@@ -6512,7 +6512,7 @@ _dictionary = {
         "en-US": "The flat was sent"
     },
 
-    //#region PlaneacionYControl
+    //#region "PlaneacionYControl"
     "menuPlaneacionYControl": {
         "es-MX": "Planeación y Control",
         "en-US": "Planning and Control"
@@ -6520,7 +6520,17 @@ _dictionary = {
     "menuEmisionOrdenTrabajo": {
         "es-MX": "Emisión OT",
         "en-US": "WO Emission"
+    }, 
+    "errorNoExisteProyecto": {
+        "es-MX": "No existe el proyecto",
+        "en-US": "Project doesn´t exist"
     },
+    "errorNoExistePatio": {
+        "es-MX": "No existe patio",
+        "en-US": "Areway doesn´t exist"
+    }
+
+    //#endregion "PlaneacionYControl"
 }
 
 //#endregion
