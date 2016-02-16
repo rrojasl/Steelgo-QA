@@ -1189,7 +1189,8 @@ namespace BackEndSAM.DataAcces
                     DateTime fechaFinal = new DateTime();
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
-                    Boolean activarFolioConfiguracionOR = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracionOR = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) 
+                        ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
 
 
                     if (fechaFinal.ToShortDateString() == "1/1/0001")
@@ -1332,16 +1333,16 @@ namespace BackEndSAM.DataAcces
                             elemento = new ListadoNUPorRecepcionar();
                             elemento.OrdenRecepcionID = orden.OrdenRecepcionID;
                             elemento.FechaOrdenRecepcion = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
-                            elemento.OrdenRecepcion = activarFolioConfiguracionOR ? orden.Rel_Proyecto_Entidad_Configuracion_ID != null ?
+                            elemento.OrdenRecepcion = activarFolioConfiguracionOR && orden.Rel_Proyecto_Entidad_Configuracion_ID != null ?
                                 (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                  where pc.Rel_Proyecto_Entidad_Configuracion_ID == orden.Rel_Proyecto_Entidad_Configuracion_ID
                                  select pc.PreFijoFolioOrdenRecepcion + ","
                                 + pc.CantidadCerosFolioOrdenRecepcion.ToString() + ","
                                 + orden.Consecutivo.ToString() + ","
                                 + pc.PostFijoFolioOrdenRecepcion).FirstOrDefault()
-                                : orden.Folio.ToString() : orden.Folio.ToString();
+                                : orden.Folio.ToString();
 
-                            if (activarFolioConfiguracionOR && orden.Rel_Proyecto_Entidad_Configuracion_ID != null)
+                            if (activarFolioConfiguracionOR)
                             {
                                 string[] elemntos = elemento.OrdenRecepcion.Split(',').ToArray();
                                 int digitos = Convert.ToInt32(elemntos[1]);
