@@ -1,17 +1,13 @@
 ﻿function RenderGridNivelDos(e) {
+    
     var detailRow = e.detailRow;
   
     var model = e.data;
     kendo.bind(detailRow, model);
-    model.bind('change', function (e) {
-        var tr = $('tr[data-uid=' + model.uid + ']');
-        $('#grid').data().kendoGrid.expandRow(tr);
-    })
-    detailRow.find(".tabstrip").kendoTabStrip({
-        animation: {
-            open: { effects: "fadeIn" }
-        }
-    });
+    //model.bind('change', function (e) {
+    //    var tr = $('tr[data-uid=' + model.uid + ']');
+    //    $('#grid').data().kendoGrid.expandRow(tr);
+    //})
     
     detailRow.find(".nivel2").kendoGrid({
         edit: function (e) {
@@ -19,7 +15,7 @@
         },
         autoBind: true, 
         dataSource: {
-            data: '',
+            data: model.ListaSpools,
             schema: {
                 model: {
                     fields: {
@@ -75,11 +71,11 @@
     dataBound(e);
      
     //Nivel 2
-    $(".nivel2").data('kendoGrid').dataSource.data([]);
-    var dsNivel2 = $(".nivel2").data("kendoGrid").dataSource;
-    for (var i = 0; i < model.ListaSpools.length; i++) {
-        dsNivel2.add(model.ListaSpools[i]);
-    }
+    //$(".nivel2").data('kendoGrid').dataSource.data([]);
+    //var dsNivel2 = $(".nivel2").data("kendoGrid").dataSource;
+    //for (var i = 0; i < model.ListaSpool.length; i++) {
+    //    dsNivel2.add(model.ListaSpools[i]);
+    //}
 
     $("td[role='gridcell']").on("change", ":checkbox", function (e) {
         debugger;
@@ -129,28 +125,21 @@ function eliminarCaptura() {
 
 function RenderGridNivelTres(e) {
     var detailRow = e.detailRow;
-
+    
     var model = e.data;
     kendo.bind(detailRow, model);
     model.bind('change', function (e) {
         var tr = $('tr[data-uid=' + model.uid + ']');
         $('#grid').data().kendoGrid.expandRow(tr);
     })
-    detailRow.find(".tabstrip").kendoTabStrip({
-        animation: {
-            open: { effects: "fadeIn" }
-        }
-    });
-
     
-
     detailRow.find(".nivel3").kendoGrid({
         edit: function (e) {
             this.closeCell();
         },
         autoBind: true, 
         dataSource: {
-            data: '',
+            data: model,
             schema: {
                 model: {
                     fields: {
