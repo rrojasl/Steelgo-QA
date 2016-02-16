@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic; 
 
 namespace BackEndSAM.Models.PlaneacionYControl
 {
@@ -16,8 +13,7 @@ namespace BackEndSAM.Models.PlaneacionYControl
         public string FamiliaAcero { get; set; }
         public string Acero { get; set; }
         public string FibeLine { get; set; }
-        public List<DetalleSpoolPrueba> ListaSpools { get; set; }
-        
+        public List<DetalleSpoolPrueba> ListaSpools { get; set; } 
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
         public List<DetallePatio> ListaPatio { get; set; }
@@ -56,7 +52,5 @@ namespace BackEndSAM.Models.PlaneacionYControl
     {
         public int PatioID { get; set; }
         public string NombrePatio { get; set; }
-    }
-
-
+    } 
 }
