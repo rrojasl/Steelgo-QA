@@ -1613,44 +1613,34 @@ namespace BackEndSAM.DataAcces
                             if (tipoMaterialID == 3)
                             {
                                 cantidadNUEnOR = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                                  join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                  join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
-                                                  join roan in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals roan.NumeroUnicoID
-                                                  join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                  where roi.Activo && rid.Activo && nu.Activo && roan.Activo && it.Activo
-                                                  && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                  select nu.NumeroUnicoID).AsParallel().Count();
+                                                  where roi.OrdenRecepcionID == orden.OrdenRecepcionID
+                                                  select roi.Cantidad.Value).AsParallel().Sum();
 
-                                cantidadNuPorAlmacenar = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                          join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
-                                                          join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                          where roi.Activo && rid.Activo && nu.Activo && it.Activo
-                                                          && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                           && (nu.Rack == "" || nu.Rack == null)
-                                                          select nu.NumeroUnicoID).AsParallel().Count();
+                                cantidadNuPorAlmacenar = (from rnuf in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                          join nu in ctx.Sam3_NumeroUnico on rnuf.NumeroUnicoID equals nu.NumeroUnicoID
+                                                          where rnuf.Activo && nu.Activo 
+                                                          && rnuf.OrdenRecepcionID == orden.OrdenRecepcionID
+                                                          && (nu.Rack != null || nu.Rack != string.Empty || nu.Rack != "")
+                                                          select rnuf.NumeroUnicoID).AsParallel().Count();
                             }
                             else 
                             {
                                 cantidadNUEnOR = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                                  join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                  join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
-                                                  join roan in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals roan.NumeroUnicoID
-                                                  join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                  where roi.Activo && rid.Activo && nu.Activo && roan.Activo && it.Activo
+                                                  join rit in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rit.Rel_ItemCode_Diametro_ID
+                                                  join it in ctx.Sam3_ItemCode on rit.ItemCodeID equals it.ItemCodeID
+                                                  where roi.Activo && rit.Activo && it.Activo 
                                                   && roi.OrdenRecepcionID == orden.OrdenRecepcionID
                                                   && it.TipoMaterialID == tipoMaterialID
-                                                  select nu.NumeroUnicoID).AsParallel().Count();
+                                                  select roi.Cantidad.Value).AsParallel().Sum();
 
-                                cantidadNuPorAlmacenar = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                          join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
+                                cantidadNuPorAlmacenar = (from rnuf in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                          join nu in ctx.Sam3_NumeroUnico on rnuf.NumeroUnicoID equals nu.NumeroUnicoID
                                                           join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                          where roi.Activo && rid.Activo && nu.Activo && it.Activo
-                                                          && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                          && (nu.Rack == "" || nu.Rack==null)
+                                                          where rnuf.Activo && nu.Activo && it.Activo
+                                                          && rnuf.OrdenRecepcionID == orden.OrdenRecepcionID
+                                                          && (nu.Rack != null || nu.Rack != string.Empty || nu.Rack != "")
                                                           && it.TipoMaterialID == tipoMaterialID
-                                                          select nu.NumeroUnicoID).AsParallel().Count();
+                                                          select rnuf.NumeroUnicoID).AsParallel().Count();
                             }
 
                             elemento.CantidadNUEnOrdenRecepcion = cantidadNUEnOR.ToString();
