@@ -4,12 +4,12 @@ var proyeccionActual;
 
 function changeLanguageCall() {
     SuscribirEventos();
-    CargarGridStack();
+    CargarGrid();
     
     AjaxObtenerProyectos();
 };
  
-function CargarGridStack() {
+function CargarGrid() {
 
     var options = {
         cell_height: 80,
@@ -63,17 +63,20 @@ function CargarGridStack() {
         detailTemplate: kendo.template($("#templateGridNivelDos").html()),
         detailInit: RenderGridNivelDos,
         columns: [
-            { field: "TipoProducto", title: "Producto", filterable: true },
-            { field: "FamiliaAcero", title: "Familia", filterable: true },
-            { field: "Acero", title: "Acero", filterable: true },
-            { field: "FibeLine", title: "Fibeline", filterable: true },
-            { field: "CantidadSpools", title: "Spools", filterable: false, width: "120px" },
-            { field: "Peso", title: "Kgs", filterable: false, width: "100px" },
-            { field: "Area", title: "M2", filterable: false, width: "100px" },
-            { field: "CantidadJuntas", title: "Juntas", filterable: false, width: "110px" },
-            { field: "Peqs", title: "Peqs", filterable: false, width: "100px" }
+           
+            { field: "TipoProducto", title: _dictionary.GridStackProducto[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FamiliaAcero", title: _dictionary.GridstackFamilia[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "Acero", title: _dictionary.GridstackAcero[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "FibeLine", title: _dictionary.GridstackFibeline[$("#language").data("kendoDropDownList").value()], filterable: true },
+            { field: "CantidadSpools", title: _dictionary.GridstackSpools[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px" },
+            { field: "Peso", title: _dictionary.GridstackKgs[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "Area", title: _dictionary.GridstackM2[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "CantidadJuntas", title: _dictionary.GridstackBoards[$("#language").data("kendoDropDownList").value()], filterable: false, width: "110px" },
+            { field: "Peqs", title: _dictionary.GridstackPqs[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" }
+            ]
 
-        ]
+
+        
     });
     
     //ActualizarContenedorCapacidad(); 

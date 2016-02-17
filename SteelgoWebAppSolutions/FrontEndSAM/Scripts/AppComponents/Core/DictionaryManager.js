@@ -6513,6 +6513,7 @@ _dictionary = {
     },
 
     //#region "PlaneacionYControl"
+
     "menuPlaneacionYControl": {
         "es-MX": "Planeación y Control",
         "en-US": "Planning and Control"
@@ -6528,8 +6529,188 @@ _dictionary = {
     "errorNoExistePatio": {
         "es-MX": "No existe patio",
         "en-US": "Areway doesn´t exist"
-    }
+    },
+    "spanEmisionProyectar": {
+        "es-MX": "Proyectar",
+        "en-US": "To project"
+    },
 
+    "spanEmisionEmitir": {
+        "es-MX": "Emitir",
+        "en-US": "issue"
+    },
+
+    "spanEmisionEmitirx": {
+        "es-MX": "Emitir",
+        "en-US": "issue"
+    },
+    
+    "divEmisionTotalProyecciones": {
+        "es-MX": "Totalizado de las proyecciones",
+        "en-US": "Tote projections"
+    },
+
+    "divEmisionCapacidad": {
+        "es-MX": "Capacidad",
+        "en-US": "Capacity"
+    },
+
+    "spanEmisionCapacidadAuto": {
+        "es-MX": "Auto",
+        "en-US": "Automatic"
+    },
+
+   
+    "spanEmisionCapacidadAutoMan": {
+        "es-MX": "Auto-Man",
+        "en-US": "Automatic - Manual"
+    },
+   
+    
+    "spanEmisionCapacidadMan": {
+        "es-MX": "Man",
+        "en-US": "Manual"
+    },
+
+    "spanA": {
+        "es-MX": "A",
+        "en-US": "A"
+    },
+    "spanB": {
+        "es-MX": "B",
+        "en-US": "B"
+    },
+    "spanC": {
+        "es-MX": "C",
+        "en-US": "C"
+    },
+    "spanD": {
+        "es-MX": "D",
+        "en-US": "D"
+    },
+
+    "spanEmisionCapacidadDespacho": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatche"
+    },
+
+    "spanEmisionCapacidadCorte": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+
+
+    "divEmisionProyecciones": {
+        "es-MX": "Proyecciones",
+        "en-US": "Projections"
+    },
+
+
+    "lblEmisionNuevaProyeccion": {
+        "es-MX": "Escriba la nueva proyección",
+        "en-US": "Enter the new projection"
+    },
+
+    "lblEmisionSelNuevaProyeccion": {
+        "es-MX": "Seleccione la proyección",
+        "en-US": "Select the projection"
+    },
+
+    "spanPreguntaCrearProyeccion": {
+        "es-MX": "¿Deseas crear una proyección o proyectar en una existente?",
+        "en-US": "Want to create a projection or an existing project?"
+    },
+
+    "spanEmisionCrear": {
+     "es-MX": "Crear",
+     "en-US": "Create"
+ },
+
+
+    
+    "lblEmisionEscribaOrdenTrabajo": {
+        "es-MX": "Escriba la nueva Orden de Trabajo",
+        "en-US": "Enter the new Work Order"
+         },
+
+    "spanEmitirOrdenTrabajo": {
+        "es-MX": "Emitir Orden de Trabajo",
+             "en-US": "Issue Work Order"
+         },
+
+    
+        "lblSeleccionOrdenTrabajo": {
+            "es-MX": "Seleccione la Orden de Trabajo",
+            "en-US": "Select Work Order"
+        },
+
+        "spanPreguntaCrearOrdenTrabajo": {
+            "es-MX": "¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?",
+            "en-US": "Want to create a work order or issue in an existing work order?"
+        },
+
+        "GridStackProducto": {
+            "es-MX": "Producto",
+            "en-US": "Product"
+        },
+
+        "GridstackFibeline": {
+            "es-MX": "FibeLine",
+            "en-US": "Fibeline"
+        },
+
+        "GridstackSpools": {
+            "es-MX": "Spools",
+            "en-US": "Spools"
+        },
+
+
+        "GridstackKgs": {
+            "es-MX": "Kgs",
+            "en-US": "Kgs"
+        },
+
+        "GridstackM2": {
+            "es-MX": "M2",
+            "en-US": "M2"
+        },
+
+        "botonPlanchar": {
+            "es-MX": "Aplicar",
+            "en-US": "Apply"
+        },
+
+        "GridstackBoards": {
+            "es-MX": "Juntas",
+            "en-US": "Boards"
+        },
+
+        "GridstackPqs": {
+            "es-MX": "Pqs",
+            "en-US": "Pqs"
+        },
+
+        "CapturaMensajeArmadoPlancharTodos": {
+            "es-MX": "¿Esta seguro de reemplazar todos los datos?",
+            "en-US": "Are you sure to replace all data"
+        },
+
+
+        "GridstackFamilia": {
+            "es-MX": "Familia",
+            "en-US": "Family"
+        },
+
+        "GridstackAcero": {
+            "es-MX": "Acero",
+            "en-US": "Steel"
+        },
+
+    //EntregaResultadosHeader
+        "GridstackHeaderPlaneacionControl": {
+            "es-MX": "Planeacion y Control",
+            "en-US": "Planning and control"
+        },
     //#endregion "PlaneacionYControl"
 }
 
