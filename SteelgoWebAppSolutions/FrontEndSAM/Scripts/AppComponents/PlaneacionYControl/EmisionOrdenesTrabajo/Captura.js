@@ -63,7 +63,7 @@ function CargarGridStack() {
         detailTemplate: kendo.template($("#templateGridNivelDos").html()),
         detailInit: RenderGridNivelDos,
         columns: [
-            { field: "TipoProducto", title: "Spools", filterable: true },
+            { field: "TipoProducto", title: "Producto", filterable: true },
             { field: "FamiliaAcero", title: "Familia", filterable: true },
             { field: "Acero", title: "Acero", filterable: true },
             { field: "FibeLine", title: "Fibeline", filterable: true },
