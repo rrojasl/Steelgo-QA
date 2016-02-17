@@ -687,6 +687,7 @@
             });
         };
         function ObtenerAccionesListadoTubos(Listado) {
+            loadingStart();
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
 
@@ -698,11 +699,12 @@
                 $("#spanNUsinOATubos").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
                 $("#spanNUsinAlmacenarTubos").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
                 $("#spanIncidenciasAbiertasTubos").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
-
+                loadingStop();
             });
         };
 
         function ObtenerAccionesListadoAccesorios(Listado) {
+            loadingStart();
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
 
@@ -714,11 +716,12 @@
                 $("#spanNUsinOAAccesorios").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
                 $("#spanNUsinAlmacenarAccesorios").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
                 $("#spanIncidenciasAbiertasAccesorios").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
-
+                loadingStop();
             });
         };
 
         function ObtenerAccionesListadoGeneral(Listado) {
+            loadingStart();
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
 
@@ -730,7 +733,7 @@
                 $("#spanNUsinOAGeneral").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
                 $("#spanNUsinAlmacenarGeneral").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
                 $("#spanIncidenciasAbiertasGeneral").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
-
+                loadingStop();
             });
         };
         function Filtros() {
@@ -738,9 +741,10 @@
             var accionTubos = $("#hdAccionFiltradoTubos").val() ? $("#hdAccionFiltradoTubos").val() : "1";
             var accionAccesorios = $("#hdAccionFiltradoAccesorios").val() ? $("#hdAccionFiltradoAccesorios").val() : "1";
             var accionGeneral = $("#hdAccionFiltradoGeneral").val() ? $("#hdAccionFiltradoGeneral").val() : "1";
-            CantidadesDelMenuDashboardTubos();
-            CantidadesDelMenuDashboardAccesorios();
             CantidadesDelMenuDashboardGeneral();
+            CantidadesDelMenuDashboardAccesorios();
+            CantidadesDelMenuDashboardTubos();
+            
             //AccionesListado(accionTubos, 1);
             //AccionesListado(accionAccesorios, 2);
             //AccionesListado(accionGeneral, 3);
@@ -1804,6 +1808,7 @@
         };
 
         function CantidadesDelMenuDashboardGeneral() {
+
             var Listado = ArregloCantidadesGeneral();
             ObtenerAccionesListadoGeneral(Listado);
         };
