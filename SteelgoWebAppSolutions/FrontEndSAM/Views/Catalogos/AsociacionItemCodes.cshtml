@@ -714,14 +714,14 @@
     
 @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    if (!isInPopUp()) {
-        Cookies.set("navegacion", "46", { path: '/' });
-    }else if (window.parent.$("#hdnOcultarMenus").val() == "1") {
-        window.parent.$(".k-i-close").click(function (e) {
-            window.parent.AsignarPaginaActualCookie();
-            window.parent.RecargarFilaSeleccionada();
-        });
-    }
+    //if (!isInPopUp()) {
+    //    Cookies.set("navegacion", "46", { path: '/' });
+    //}else if (window.parent.$("#hdnOcultarMenus").val() == "1") {
+    //    window.parent.$(".k-i-close").click(function (e) {
+    //        window.parent.AsignarPaginaActualCookie();
+    //        window.parent.RecargarFilaSeleccionada();
+    //    });
+    //}
 };
 
 </script>

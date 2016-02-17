@@ -2576,6 +2576,22 @@
                 return true;
             }
         };
+
+        function hideElementsIncidencia() {
+            $(".sidebar").hide();
+            $(".logo").hide();
+            $(".search-bar").hide();
+            $(".notifications").hide();
+            $(".logged-user").hide();
+            $(".content-container").removeClass("topbar").addClass("printView");
+            $(".breadcrumb-container").hide();
+            $(".languageSelector").hide();
+            $(".pull-right").hide();
+            $("header").hide();
+            $(".content-frame").removeClass("content-frame");
+            $("body").css("background", "#FFFFFF");
+            $(".actionButtonSection").hide();
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
@@ -2612,7 +2628,12 @@
         } else {
             $("#FechaRegistro").attr("style", "");
         }
-    })
+    });
+    if (isInPopUp() && window.parent.$("#hdnOcultarMenus").val() == "1") {
+        hideElementsIncidencia();
+    };
+
+
 
     //setTimeout(function () {
     //    $("#Incidencias0021").removeClass("security_required");
