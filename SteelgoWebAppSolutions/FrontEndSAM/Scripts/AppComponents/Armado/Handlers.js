@@ -10,8 +10,17 @@
     suscribirEventoChangeRadio();
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
+    GuardarDetalleAdicional();
 };
  
+function GuardarDetalleAdicional() {
+    $('#GuardarTrabajosAdicionales').click(function () {
+        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        modeloRenglon.ListaDetalleTrabajoAdicional = ds._data;
+        $("#windowGrid").data("kendoWindow").close();
+    });
+}
+
 function SuscribeEventosTipoCaptura() {
     $("#presentationReporte").addClass("active");
 

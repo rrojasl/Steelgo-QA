@@ -7,7 +7,7 @@ var longitudSoldadoresRaiz;
 var longitudSoldadoresRelleno;
 var listaRaizFiltro;
 var listaRellenoFiltro;
-
+var modeloRenglon;
 IniciarCapturaSoldadura();
 
 function FiltroMostrar(mostrar) {
@@ -218,7 +218,7 @@ function CargarGridSoldadura() {
                         Cedula: { type: "string", editable: false },
                         FechaSoldadura: { type: "date", editable: true },
                         TallerID: { type: "string", editable: true },
-                        Taller: { type: "string", editable: true, validation: { required: true } },
+                        Taller: { type: "string", editable: true },
                         Localizacion: { type: "string", editable: false },
                         juntaSpoolID: { type: "int", editable: true },
                         DetalleJunta: { type: "string", editable: false },
@@ -265,7 +265,7 @@ function CargarGridSoldadura() {
             { field: "procesoSoldaduraRelleno", title: _dictionary.CapturaSoldaduraProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: RenderComboBoxProcesoSoldaduraRelleno },
             { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "250px", template: "#:SoldadoresRaiz#", editor: RenderGridRaiz },
             { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "250px", template: "#:SoldadoresRelleno#", editor: RenderGridRelleno },
-            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: RenderGridDetalle, template: "#:TrabajosAdicionales#" },
+            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: renderEnlaceEditar, template: "#:TrabajosAdicionales#" },
             { field: "juntaSpoolID", title: "", filterable: true, width: "150px", hidden: true },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
@@ -275,6 +275,130 @@ function CargarGridSoldadura() {
             $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
         }
     });
+};
+
+
+function CargarGridPopUp() {
+
+    $("#gridPopUp").kendoGrid({
+        dataSource: {
+            // batch: true,
+            data: [],
+            schema: {
+                model: {
+                    fields: {
+                        TrabajoAdicionalID: { type: "int", editable: true },
+                        juntaSpoolID: { type: "int", editable: true },
+                        juntaSoldaduraID: { type: "int", editable: true },
+                        TrabajoAdicional: { type: "string", editable: true },
+                        ObreroID: { type: "int", editable: true },
+                        Soldador: { type: "string", editable: true },
+                        Observacion: { type: "string", editable: true }
+                    }
+                }
+            }, filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: undefined }
+                ]
+            }
+        },
+        selectable: true,
+        dataBinding: function (e) {
+            console.log("dataBinding");
+        },
+        change: function (e) {
+
+            ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+
+            var dataSource = this.dataSource;
+            var filters = dataSource.filter();
+            var allData = dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var data = query.filter(filters).data;
+
+
+            actuallongitudTrabajosAdicionales = data.length;
+            modeloRenglon.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+            if (modeloRenglon.JuntaSoldaduraID != 0 && modeloRenglon.JuntaSoldaduraID != undefined)
+                modeloRenglon.Accion = 2;
+            
+        },
+        columns: [
+          { field: "TrabajoAdicional", title: _dictionary.CapturaSoldaduraHeaderTrabajosAdicionalesAnidado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxTrabajos },
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxSoldadorTrabajos },
+          { field: "Observacion", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+
+         {
+             command: {
+                 name: "",
+                 title: "",
+                 text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                 click: function (e) {
+                     e.preventDefault();
+                     dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+                     var dataSource = this.dataSource;
+
+                     if (confirm(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaTrabajoAdicional[$("#language").data("kendoDropDownList").value()])) {
+                         dataItem.Accion = 3;
+                     }
+                     var filters = dataSource.filter();
+                     var allData = dataSource.data();
+                     var query = new kendo.data.Query(allData);
+                     var data = query.filter(filters).data;
+
+                     actuallongitudTrabajosAdicionales = data.length;
+                     modeloRenglon.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+                     dataSource.sync();
+
+                 }
+             }, width: "100px"
+         }],
+        editable: true,
+        navigatable: true,
+        toolbar: [{ name: "create", }]
+
+    });
+};
+
+function LlenarGridPopUp(data) {
+    modeloRenglon = data;
+    $("#gridPopUp").data('kendoGrid').dataSource.data([]);
+    var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+    var array = data.DetalleAdicional;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
+    VentanaModal();
+}
+
+function VentanaModal() {
+
+    var modalTitle = "";
+    modalTitle = _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()];
+    var window = $("#windowGrid");
+    var win = window.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "50%",
+        minWidth: 30,
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        actions: [
+            "Close"
+        ],
+    }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
 };
 
 function agregarFila(idGrid) {
@@ -344,6 +468,7 @@ function changeLanguageCall() {
     });
     AjaxCargarCamposPredeterminados();
     CargarGridSoldadura();
+    CargarGridPopUp();
     opcionHabilitarView(false, "FieldSetView");
     document.title = _dictionary.CapturaSoldaduraSoldaduraSpool[$("#language").data("kendoDropDownList").value()];
 };

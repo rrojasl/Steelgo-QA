@@ -109,6 +109,23 @@
         <input id="hdAccionFiltrado" type="hidden" />
     </div>
 
+    @*GRID POPUP*@
+    <div id="windowGrid" style="display: none; z-index:inherit;">
+        <div class="form-group">
+            <label class="col-sm-4 col-md-4 col-lg-4 " id="lblSpoolJunta"></label><label class="col-sm-3 col-md-3 col-lg-3" id="lblUbicacion"></label>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a class=" btn btn-blue " href="#" id="GuardarTrabajosAdicionales"><span id="textoGuardar"></span></a>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div id="ContenedorGridPopUp">
+                <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                </div>
+            </div>
+        </div>
+
+    </div>
     @*Menu Inferior*@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

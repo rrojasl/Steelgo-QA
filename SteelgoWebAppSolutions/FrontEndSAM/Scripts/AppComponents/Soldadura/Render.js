@@ -280,7 +280,14 @@ function RenderGridRaiz(container, options) {
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRaiz", "", "1");
 };
 
+function renderEnlaceEditar(container, options) {
+    $('<a  id=' + options.model.uid + ' "><span >' + _dictionary.ValidacionResultadosEnlaceEditar[$("#language").data("kendoDropDownList").value()] + '</span></a>')
+        .appendTo(container)
+        .click(function () {
+            LlenarGridPopUp(options.model)
+        });
 
+}
 
 function RenderComboBoxSoldador(container, options) {
     loadingStart();

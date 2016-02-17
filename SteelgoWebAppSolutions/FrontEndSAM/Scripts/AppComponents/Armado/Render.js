@@ -377,3 +377,13 @@ function tieneClase(item) {
     }
     return false
 }
+
+
+function renderEnlaceEditar(container, options) {
+    $('<a  id=' + options.model.uid + ' "><span >' + _dictionary.ValidacionResultadosEnlaceEditar[$("#language").data("kendoDropDownList").value()] + '</span></a>')
+        .appendTo(container)
+        .click(function () {
+            LlenarGridPopUp(options.model)
+        });
+
+}
