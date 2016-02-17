@@ -1,5 +1,6 @@
-﻿var Proyecciones = new Array();
+﻿var Proyecciones = { "Proyeccion": [] }
 var SpoolsEnProyeccion = new Array();
+var proyeccionActual;
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -79,24 +80,39 @@ function CargarGridStack() {
 }
  
 
-function CalcularValoresProyecciones() {
-    var spools, juntas, peso, area, peqs;
-     
-    if (ValidarValoresAntesDeProyectar()) {
-        Proyecciones.push = {
-            Proyeccion : {
-                ID: (Proyecciones.length + 1),
-                Accion: 1,
-                NumeroSpools: SpoolsEnProyeccion.length
-            }
-        };
+function CalcularValoresProyecciones(crear) {
+    if (ValidarValoresAntesDeProyectar()) {  
+        if (crear) { 
+            AgregarNuevaProyeccion();
+            AgregarContenedorProyecciones();
+            ActualizarContenedorCapacidad("A",SpoolsEnProyeccion[0].Tipo); 
+        }
+        else {
 
-        ContenedorProyecciones();
-         
+        }
+
+        ActualizarGrid();
+        SpoolsEnProyeccion = new Array();
     } 
 }
 
-function ContenedorProyecciones() { 
+//Funciones para agregar proyeccion
+function AgregarNuevaProyeccion() {
+    Proyecciones.Proyeccion.push({
+        ID: (Proyecciones.Proyeccion.length + 1),
+        Accion: 1,
+        NumeroSpools: 5
+    });
+
+    Proyecciones.Proyeccion.push({
+        ID: (Proyecciones.Proyeccion.length + 1),
+        Accion: 1,
+        NumeroSpools: SpoolsEnProyeccion.length
+         
+    }); 
+}
+ 
+function AgregarContenedorProyecciones() { 
     var totalProyecciones = $("tr.proyeccion").length;
     var totalSpoolsProyeccion = SpoolsEnProyeccion.length;
     var totalJuntasProyeccion = 0;
@@ -138,10 +154,72 @@ function ContenedorProyecciones() {
                                                 '<input type="radio">' +
                                             '</td>' +
                                         '</tr>');
-    $("#divProyectarWindow").data("kendoWindow").close();
+    
 
-    ActualizarContenedorCapacidad();
-    ActualizarGrid();
+    
+}
+
+//Funciones para utilizar proyeccion existente
+function EditarProyeccion() {
+
+}
+
+function ObtenerProyeccionesExistentes() {
+    var data = [];
+    debugger;
+    $("tr.proyeccion").each(function (index, proyeccion) {
+       
+        var a = proyeccion;
+        debugger;
+    });
+}
+
+//Funciones generales despues de proyectar
+function ActualizarGrid() {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < ds.length; i++) {
+        var listaSpool = ds[i].ListaSpools
+
+        for (var j = 0; j < listaSpool.length; j++) {
+            if (listaSpool[j].Seleccionado) {
+                listaSpool[j].Proyectado = 1;
+                listaSpool[j].Proyeccion = $("#inputWindowProyeccion").val();
+            }
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#divProyectarWindow").data("kendoWindow").close();
+}
+
+function ActualizarContenedorCapacidad(taller, tipo) {
+    var arregloDetalle = [];
+    listaProyecciones = [];
+    arregloDetalle[0] = {
+        Capacidad: "",
+        Unidad: "",
+        ListaProyecciones: ""
+    };
+    debugger;
+
+    for (var i = 0; i < Proyecciones.Proyeccion.length; i++) {
+        listaProyecciones[i] = {
+            ConsecutivoProyeccion: "",
+            Cantidad: ""
+        }
+        listaProyecciones[i].ConsecutivoProyeccion = toString(i);
+        listaProyecciones[i].Cantidad = Proyecciones.Proyeccion[i].NumeroSpools;
+    }
+
+
+    arregloDetalle[0].Capacidad = 5;
+    arregloDetalle[0].Unidad = "peqs";
+    arregloDetalle[0].ListaProyecciones = listaProyecciones;
+
+    var acheteemeele = crearGrafico(arregloDetalle);
+
+    $("#taller" + taller + "-" + tipo + "").html(acheteemeele);
 }
 
 function ValidarValoresAntesDeProyectar() { 
@@ -172,55 +250,10 @@ function ValidarValoresAntesDeProyectar() {
             }
         } 
     }
-
-   
-
+     
     return correcto
 }
-
-function ActualizarGrid() {
-    var ds = $("#grid").data("kendoGrid").dataSource._data;
-
-    for (var i = 0; i < ds.length; i++) {
-        var listaSpool = ds[i].ListaSpools
-         
-        for (var j = 0; j < listaSpool.length; j++) {
-            if (listaSpool[j].Seleccionado) {
-                listaSpool[j].Proyectado = 1;
-            }
-        }
-    }
-
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
-
-function ActualizarContenedorCapacidad() {
-    var arregloDetalle = [];
-    listaProyecciones = [];
-    arregloDetalle[0] = {
-        Capacidad: "",
-        Unidad: "",
-        ListaProyecciones: ""
-    };
-    debugger;
-    Proyecciones;
-    for (var i = 0; i < 3; i++) {
-        listaProyecciones[i] = {
-            ConsecutivoProyeccion: "",
-            Cantidad: ""
-        }
-        listaProyecciones[i].ConsecutivoProyeccion = toString(i);
-        listaProyecciones[i].Cantidad = (i + 1) * 9;
-    }
-
-
-    arregloDetalle[0].Capacidad = 5;
-    arregloDetalle[0].Unidad = "peqs";
-    arregloDetalle[0].ListaProyecciones = listaProyecciones;
-
-    var acheteemeele = crearGrafico(arregloDetalle);
-}
-  
+ 
 function crearGrafico(ArregloDetalle) {
 
     var contTotalProyecciones = 0;
@@ -253,34 +286,3 @@ function crearGrafico(ArregloDetalle) {
     stringGrafico += '</div>';
     return stringGrafico;
 }
-
-//...............................PRUEBA------------------------------------------
-
-arregloDetalle = [];
-listaProyecciones = [];
-arregloDetalle[0] = {
-    Capacidad: "",
-    Unidad: "",
-    ListaProyecciones: ""
-};
-
-
-for (var i = 0; i < 3; i++) {
-    listaProyecciones[i] = {
-        ConsecutivoProyeccion: "",
-        Cantidad: ""
-    }
-    listaProyecciones[i].ConsecutivoProyeccion = toString(i);
-    listaProyecciones[i].Cantidad = (i + 1) * 9;
-}
-
-
-arregloDetalle[0].Capacidad = 5;
-arregloDetalle[0].Unidad = "peqs";
-arregloDetalle[0].ListaProyecciones = listaProyecciones;
-
-var acheteemeele = crearGrafico(arregloDetalle);
-$("#prueba").html(acheteemeele); // SE LE PUSO EL NOMBRE A UNO DE LOS DIVS QUE ESTAN EN LA VISTA  XD
-
-
-//...............................PRUEBA------------------------------------------

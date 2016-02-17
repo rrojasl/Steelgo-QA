@@ -133,6 +133,8 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                 {
                     detalleSpools.Add(new DetalleSpoolPrueba
                     {
+                        TipoID = 1,
+                        Tipo = "automatico",
                         SpoolID = 1001,
                         Seleccionado = 0,
                         Proyectado = 0,
@@ -147,6 +149,8 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
 
                     detalleSpools.Add(new DetalleSpoolPrueba
                     {
+                        TipoID = 1,
+                        Tipo = "automatico",
                         SpoolID = 1002,
                         Seleccionado = 0,
                         Proyectado = 0,
@@ -161,6 +165,8 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
 
                     detalleSpools.Add(new DetalleSpoolPrueba
                     {
+                        TipoID = 1,
+                        Tipo = "automatico",
                         SpoolID = 1003,
                         Seleccionado = 0,
                         Proyectado = 0,
@@ -175,6 +181,8 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
 
                     detalleSpools.Add(new DetalleSpoolPrueba
                     {
+                        TipoID = 1,
+                        Tipo = "automatico",
                         SpoolID = 1004,
                         Seleccionado = 0,
                         Proyectado = 0,
@@ -191,6 +199,8 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                 {
                     detalleSpools.Add(new DetalleSpoolPrueba
                     {
+                        TipoID = 2,
+                        Tipo = "manual",
                         SpoolID = 1005,
                         Seleccionado = 0,
                         Proyectado = 0,
@@ -205,6 +215,8 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
 
                     detalleSpools.Add(new DetalleSpoolPrueba
                     {
+                        TipoID = 2,
+                        Tipo = "manual",
                         SpoolID = 1006,
                         Seleccionado = 0,
                         Proyectado = 0,
