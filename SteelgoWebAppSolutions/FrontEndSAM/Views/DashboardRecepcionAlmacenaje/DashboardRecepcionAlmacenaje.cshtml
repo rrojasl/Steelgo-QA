@@ -738,10 +738,12 @@
             var accionTubos = $("#hdAccionFiltradoTubos").val() ? $("#hdAccionFiltradoTubos").val() : "1";
             var accionAccesorios = $("#hdAccionFiltradoAccesorios").val() ? $("#hdAccionFiltradoAccesorios").val() : "1";
             var accionGeneral = $("#hdAccionFiltradoGeneral").val() ? $("#hdAccionFiltradoGeneral").val() : "1";
-
-            AccionesListado(accionTubos, 1);
-            AccionesListado(accionAccesorios, 2);
-            AccionesListado(accionGeneral, 3);
+            CantidadesDelMenuDashboardTubos();
+            CantidadesDelMenuDashboardAccesorios();
+            CantidadesDelMenuDashboardGeneral();
+            //AccionesListado(accionTubos, 1);
+            //AccionesListado(accionAccesorios, 2);
+            //AccionesListado(accionGeneral, 3);
         };
 
         function ArregloListado(tipolistado, tipomaterial) {
@@ -855,7 +857,7 @@
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
-                            CantidadesDelMenuDashboardTubos();
+                            //CantidadesDelMenuDashboardTubos();
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("1");
@@ -863,7 +865,7 @@
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
-                            CantidadesDelMenuDashboardAccesorios();
+                            //CantidadesDelMenuDashboardAccesorios();
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("1");
@@ -871,7 +873,7 @@
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
-                            CantidadesDelMenuDashboardGeneral();
+                            //CantidadesDelMenuDashboardGeneral();
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("1");
@@ -954,7 +956,7 @@
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
-                            CantidadesDelMenuDashboardTubos();
+                            //CantidadesDelMenuDashboardTubos();
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("2");
@@ -963,7 +965,7 @@
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
-                            CantidadesDelMenuDashboardAccesorios();
+                            //CantidadesDelMenuDashboardAccesorios();
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("2");
@@ -972,7 +974,7 @@
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
-                            CantidadesDelMenuDashboardGeneral();
+                            //CantidadesDelMenuDashboardGeneral();
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("2");
@@ -1037,7 +1039,7 @@
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
-                            CantidadesDelMenuDashboardTubos();
+                            //CantidadesDelMenuDashboardTubos();
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("3");
@@ -1045,7 +1047,7 @@
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
-                            CantidadesDelMenuDashboardAccesorios();
+                            //CantidadesDelMenuDashboardAccesorios();
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("3");
@@ -1053,7 +1055,7 @@
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
-                            CantidadesDelMenuDashboardGeneral();
+                            //CantidadesDelMenuDashboardGeneral();
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("3");
@@ -1121,7 +1123,7 @@
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
-                            CantidadesDelMenuDashboardTubos();
+                            //CantidadesDelMenuDashboardTubos();
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("5");
@@ -1129,7 +1131,7 @@
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
-                            CantidadesDelMenuDashboardAccesorios();
+                            //CantidadesDelMenuDashboardAccesorios();
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("5");
@@ -1137,7 +1139,7 @@
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
-                            CantidadesDelMenuDashboardGeneral();
+                            //CantidadesDelMenuDashboardGeneral();
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("5");
@@ -1198,7 +1200,7 @@
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
-                            CantidadesDelMenuDashboardTubos();
+                            //CantidadesDelMenuDashboardTubos();
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("7");
@@ -1206,7 +1208,7 @@
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
-                            CantidadesDelMenuDashboardAccesorios();
+                            //CantidadesDelMenuDashboardAccesorios();
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("7");
@@ -1214,7 +1216,7 @@
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
-                            CantidadesDelMenuDashboardGeneral();
+                            //CantidadesDelMenuDashboardGeneral();
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("7");
@@ -1272,7 +1274,7 @@
                     switch (tipomaterial) {
                         case 1:
                             CargarGridTubos(dataSource, columnas);
-                            CantidadesDelMenuDashboardTubos();
+                            //CantidadesDelMenuDashboardTubos();
                             CargaDatosGridTubos();
                             bindeareventogrid("#gridTubos");
                             $("#hdAccionFiltradoTubos").val("8");
@@ -1280,7 +1282,7 @@
                             break;
                         case 2:
                             CargarGridAccesorios(dataSource, columnas);
-                            CantidadesDelMenuDashboardAccesorios();
+                            //CantidadesDelMenuDashboardAccesorios();
                             CargaDatosGridAccesorios();
                             bindeareventogrid("#gridAccesorios");
                             $("#hdAccionFiltradoAccesorios").val("8");
@@ -1288,7 +1290,7 @@
                             break;
                         case 3:
                             CargarGridGeneral(dataSource, columnas);
-                            CantidadesDelMenuDashboardGeneral();
+                            //CantidadesDelMenuDashboardGeneral();
                             CargaDatosGridGeneral();
                             bindeareventogrid("#gridGeneral");
                             $("#hdAccionFiltradoGeneral").val("8");
