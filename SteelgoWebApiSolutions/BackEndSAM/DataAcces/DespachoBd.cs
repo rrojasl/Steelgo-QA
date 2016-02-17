@@ -128,14 +128,12 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
-                        List<int> numerosUnicosAprobadosSam3 = (from nu in ctx.Sam3_NumeroUnico
-                                                                where nu.Activo && nu.EstatusDocumental == "Aprobado" && nu.EstatusFisico == "Aprobado"
-                                                                select nu.NumeroUnicoID).AsParallel().ToList();
-
-                        List<int> numerosUnicosAprobadosSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
-                                                                where eq.Activo && numerosUnicosAprobadosSam3.Contains(eq.Sam3_NumeroUnicoID)
-                                                                select eq.Sam2_NumeroUnicoID).AsParallel().ToList();
-
+                        List<int> numerosUnicosAprobadosSam2 = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                                join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                                where nu.Estatus == "A" 
+                                                                && odtm.OrdenTrabajoSpoolID == ordenSpoolID
+                                                                && odtm.NumeroUnicoCongeladoID != null
+                                                                select odtm.NumeroUnicoCongeladoID.Value).AsParallel().ToList();
 
                         List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -242,6 +240,7 @@ namespace BackEndSAM.DataAcces
                                                                         && odtm.MaterialSpoolID == materialSpool.MaterialSpoolID
                                                                         select odtm).AsParallel().SingleOrDefault();
 
+
                                     //Dividimos el codigo del numero para buscarlo en sam3
                                     string[] elementosCodigo = datosJson.NumeroUnico.Split('-').ToArray();
                                     int consecutivoNumeroUnico = Convert.ToInt32(elementosCodigo[1]);
@@ -269,9 +268,9 @@ namespace BackEndSAM.DataAcces
                                         Sam3_NumeroUnicoInventario numInventario = ctx.Sam3_NumeroUnicoInventario
                                             .Where(x => x.NumeroUnicoID == numeroUnico.NumeroUnicoID).AsParallel().SingleOrDefault();
 
-                                        numInventario.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
-                                        numInventario.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
-                                        numInventario.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
+                                        //numInventario.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
+                                        //numInventario.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
+                                        //numInventario.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
                                         numInventario.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
                                         numInventario.FechaModificacion = DateTime.Now;
                                         numInventario.UsuarioModificacion = usuario.UsuarioID;
@@ -353,10 +352,10 @@ namespace BackEndSAM.DataAcces
 
                                         //Actualizamos
                                         inventarioSam2.FechaModificacion = DateTime.Now;
-                                        inventarioSam2.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
+                                        //inventarioSam2.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
                                         inventarioSam2.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
-                                        inventarioSam2.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
-                                        inventarioSam2.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
+                                        inventarioSam2.InventarioDisponibleCruce = inventarioSam2.InventarioBuenEstado - odtMaterial.CantidadCongelada.Value;
+                                        //inventarioSam2.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
 
                                         //generamos el movimiento de inventario
                                         DatabaseManager.Sam2.NumeroUnicoMovimiento nuevoMovSam2 = new DatabaseManager.Sam2.NumeroUnicoMovimiento();
