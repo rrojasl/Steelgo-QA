@@ -185,9 +185,7 @@ function RenderGridRelleno(container, options) {
 
 function RenderGridRaiz(container, options) {
 
-    if (ItemSeleccionado.PermiteTerminadoRaiz) {
-
-
+    if (ItemSeleccionado.PermiteTerminadoRaiz) { 
         //container  contiene las propiedades de la celda
         //options contiene el modelo del datasource ejemplo options.model.Junta
         $('<div id=' + options.model.SpoolID + 'Raiz' + options.model.Junta + '/>')
@@ -275,6 +273,52 @@ function RenderGridRaiz(container, options) {
           navigatable: true,
           toolbar: [{ name: "create", }]
       });
+         
+
+        //------------------Multiselect
+        //$('<input  data-text-field="Soldador" id=' + options.model.uid + ' data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
+        //.appendTo(container)
+        //.kendoMultiSelect({
+        //    autoBind: false,
+        //    dataSource: options.model.ListadoRaiz,
+        //    template: "<i class=\"fa fa-#=data.Soldador.toLowerCase()#\"></i> #=data.Soldador#",
+        //    select: function (e) {
+        //    },
+        //    change: function (e) {
+        //        dataItem = this.dataItem(e.sender.selectedIndex);
+        //        if (dataItem != undefined) {
+        //            var existe = false;
+        //            for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
+        //                if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
+        //                    existe = true;
+        //                    break;
+        //                }
+        //            }
+        //            if (!existe) {
+        //                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+        //                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
+        //                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
+        //                options.model.Soldador = dataItem.Soldador;
+        //                options.model.ObreroID = dataItem.ObreroID;
+        //            }
+        //            else {
+        //                displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+        //                options.model.Soldador = "";
+        //                options.model.ObreroID = "";
+        //            }
+        //            longitudSoldadoresRaiz = options.model.ListaDetallePintoresPorSpool.length;
+        //            options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+        //        }
+        //        else {
+        //            options.model.Soldador = ObtenerDescCorrectaSoldador(ItemSeleccionado.ListadoRaiz, options.model.ObreroID);
+
+        //        }
+        //    },
+        //    value: options.model.
+
+        //}).data("kendoMultiSelect"); 
+
+        //--------------------------------------------------
     }
     else
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRaiz", "", "1");
@@ -292,8 +336,7 @@ function renderEnlaceEditar(container, options) {
 function RenderComboBoxSoldador(container, options) {
     loadingStart();
     var dataItem;
-
-
+     
     $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({

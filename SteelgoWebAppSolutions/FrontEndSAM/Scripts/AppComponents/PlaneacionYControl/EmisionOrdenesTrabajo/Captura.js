@@ -85,10 +85,14 @@ function CalcularValoresProyecciones(crear) {
         if (crear) { 
             AgregarNuevaProyeccion();
             AgregarContenedorProyecciones();
+            $("input.proyeccionTaller[taller='A']").attr('checked', 'checked');
             ActualizarContenedorCapacidad("A",SpoolsEnProyeccion[0].Tipo); 
         }
         else {
-
+            debugger;
+            EditarProyeccion();
+            EditarContenedorProyecciones(); 
+            ActualizarContenedorCapacidad($("input.proyeccion" + $("#inputProyecciones").val() + "Taller:checked").attr("taller"), SpoolsEnProyeccion[0].Tipo);
         }
 
         ActualizarGrid();
@@ -99,13 +103,13 @@ function CalcularValoresProyecciones(crear) {
 //Funciones para agregar proyeccion
 function AgregarNuevaProyeccion() {
     Proyecciones.Proyeccion.push({
-        ID: (Proyecciones.Proyeccion.length + 1),
+        ID: 0,
         Accion: 1,
         NumeroSpools: 5
     });
 
     Proyecciones.Proyeccion.push({
-        ID: (Proyecciones.Proyeccion.length + 1),
+        ID: (Proyecciones.Proyeccion.length),
         Accion: 1,
         NumeroSpools: SpoolsEnProyeccion.length
          
@@ -113,6 +117,7 @@ function AgregarNuevaProyeccion() {
 }
  
 function AgregarContenedorProyecciones() { 
+    var nombre = $("#inputWindowProyeccion").val();
     var totalProyecciones = $("tr.proyeccion").length;
     var totalSpoolsProyeccion = SpoolsEnProyeccion.length;
     var totalJuntasProyeccion = 0;
@@ -130,48 +135,81 @@ function AgregarContenedorProyecciones() {
         }
     }
 
-    $("#contenedorProyecciones").append('<tr class="proyeccion">' +
+    $("#contenedorProyecciones").append('<tr class="proyeccion" nombre="' + nombre + '" proyeccionid="' + (totalProyecciones + 1) + '">' +
                                             '<td width="20px"><img src="../../../Content/images/SAMC_Delete.png"></td>' +
                                             '<td>' +
                                                 '<div class="Cuadro'+ (totalProyecciones+1) +'">&nbsp;</div>' +
-                                                $("#inputWindowProyeccion").val() +
-                                                ' - Spools:' + totalSpoolsProyeccion +
-                                                ', Juntas: ' + totalJuntasProyeccion +
-                                                ', Kg: ' + totalPeso +
-                                                ', M:' + totalArea +
-                                                ', ' + totalPeqs + ' Peqs' +
+                                                nombre +
+                                                ' - Spools:<span class="totalSpools Proyeccion' + (totalProyecciones + 1) + '">' + totalSpoolsProyeccion +
+                                                '</span>, Juntas: <span class="totalJuntas Proyeccion' + (totalProyecciones + 1) + '">' + totalJuntasProyeccion +
+                                                '</span>, Kg: <span class="totalPeso Proyeccion' + (totalProyecciones + 1) + '">' + totalPeso +
+                                                '</span>, M: <span class="totalArea Proyeccion' + (totalProyecciones + 1) + '">' + totalArea +
+                                                '</span>, <span class="totalPeqs Proyeccion' + (totalProyecciones + 1) + '">' + totalPeqs + '</span> Peqs' +
                                             '</td>' +
                                             '<td>' +
-                                                '<input type="radio" checked="">' +
+                                                '<input type="radio" class="proyeccion' + (totalProyecciones + 1) + 'Taller" taller="A">' +
                                             '</td>' +
                                             '<td>' +
-                                                '<input type="radio">' +
+                                                '<input type="radio" class="proyeccion' + (totalProyecciones + 1) + 'Taller" taller="B">' +
                                             '</td>' +
                                             '<td>' +
-                                                '<input type="radio">' +
+                                                '<input type="radio" class="proyeccion' + (totalProyecciones + 1) + 'Taller" taller="C">' +
                                             '</td>' +
                                             '<td>' +
-                                                '<input type="radio">' +
+                                                '<input type="radio" class="proyeccion' + (totalProyecciones + 1) + 'Taller" taller="D">' +
                                             '</td>' +
-                                        '</tr>');
-    
-
-    
+                                        '</tr>');     
 }
 
 //Funciones para utilizar proyeccion existente
-function EditarProyeccion() {
+function EditarProyeccion() { 
+    $.each(Proyecciones.Proyeccion, function (index) { 
+        if (Proyecciones.Proyeccion[index] == $("#inputProyecciones").val()) {
+            Proyecciones.Proyeccion[index].NueroSpools = SpoolsEnProyeccion.length;
+        } 
+    });
+}
 
+function EditarContenedorProyecciones() {
+    var proyeccion = $("#inputProyecciones").val();
+    var totalSpoolsProyeccion = SpoolsEnProyeccion.length;
+    var totalJuntasProyeccion = 0;
+    var totalPeso = 0;
+    var totalArea = 0;
+    var totalPeqs = 0;
+
+    for (var i = 0; i < totalSpoolsProyeccion; i++) {
+        totalJuntasProyeccion += SpoolsEnProyeccion[i].ListaJuntas.length;
+        totalPeso += SpoolsEnProyeccion[i].Peso;
+        totalArea += SpoolsEnProyeccion[i].Area;
+
+        for (var j = 0; j < SpoolsEnProyeccion[i].ListaJuntas.length; j++) {
+            totalPeqs += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
+        }
+    }
+
+    totalSpoolsProyeccion += parseInt($("span.totalSpools.Proyeccion" + proyeccion + "").text(), 10);
+    totalJuntasProyeccion += parseInt($("span.totalJuntas.Proyeccion" + proyeccion + "").text(), 10);
+    totalPeso += parseInt($("span.totalPeso.Proyeccion" + proyeccion + "").text(), 10);
+    totalArea += parseInt($("span.totalArea.Proyeccion" + proyeccion + "").text(), 10);
+    totalPeqs += parseInt($("span.totalPeqs.Proyeccion" + proyeccion + "").text(), 10);
+
+    $("span.totalSpools.Proyeccion" + proyeccion + "").text(totalSpoolsProyeccion);
+    $("span.totalJuntas.Proyeccion" + proyeccion + "").text(totalJuntasProyeccion);
+    $("span.totalPeso.Proyeccion" + proyeccion + "").text(totalPeso);
+    $("span.totalArea.Proyeccion" + proyeccion + "").text(totalArea);
+    $("span.totalPeqs.Proyeccion" + proyeccion + "").text(totalPeqs);
 }
 
 function ObtenerProyeccionesExistentes() {
-    var data = [];
-    debugger;
+    var data = new Array();
+     
     $("tr.proyeccion").each(function (index, proyeccion) {
-       
-        var a = proyeccion;
-        debugger;
+        data.push([{ Proyeccion: $(proyeccion).attr("nombre"), ProyeccionID: $(proyeccion).attr("proyeccionid") }]);
+          
     });
+ 
+    $("#inputProyecciones").data("kendoComboBox").dataSource.data(data[0]);
 }
 
 //Funciones generales despues de proyectar
@@ -201,8 +239,7 @@ function ActualizarContenedorCapacidad(taller, tipo) {
         Unidad: "",
         ListaProyecciones: ""
     };
-    debugger;
-
+    
     for (var i = 0; i < Proyecciones.Proyeccion.length; i++) {
         listaProyecciones[i] = {
             ConsecutivoProyeccion: "",

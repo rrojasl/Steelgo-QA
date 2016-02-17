@@ -5,7 +5,8 @@
     SuscribirEventoComboBoxProyecciones();
     SuscribirEventoPreguntaCrearNuevaProyeccion();
     SuscribirEventoPreguntaUtilizarProyeccionExistente();
-    SuscribirEventoCrearNuevaProyeccion();
+    SuscribirEventoCrearNuevaProyeccion(); 
+    SuscribirEventoUtilizarProyeccionExistente();
 
     //Emision
     SuscribirEventoEmitir();
@@ -89,6 +90,15 @@ function SuscribirEventoCrearNuevaProyeccion() {
     });
 }
 
+function SuscribirEventoUtilizarProyeccionExistente() {
+    $("#btnSeleccionaProyeccion").click(function () {
+        CalcularValoresProyecciones(false);
+    });
+}
+
+function SuscribirEventoEliminarProyeccion() {
+
+}
 
 //Emitir
 function SuscribirEventoEmitir() {
