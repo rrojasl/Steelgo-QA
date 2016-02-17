@@ -88,7 +88,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     proyectoList.Add(new DetalleProyectoPrueba
                     {
                         FamiliaID = 1,
-                        TipoProducto = "Set",
+                        TipoProducto = "Spool",
                         FamiliaAcero = "CS",
                         Acero = "A16",
                         FibeLine = "Auto 6-24",
