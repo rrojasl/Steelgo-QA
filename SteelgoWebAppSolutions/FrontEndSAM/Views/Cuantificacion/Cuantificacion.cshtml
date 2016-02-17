@@ -181,6 +181,8 @@
     @section JavascriptGlobalVariables 
     {
     var isMM = false;
+    var coladaValue = "";
+    var mmValue = "";
             var $tipoPL=null;
             var recentlyAdded=false;
             var isOpen=false;
@@ -1102,6 +1104,7 @@
                                 $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(12)"));
                                 isOpen = false;
                                 isMM = false;
+                                mmValue = e.model.MM;
                             }, 10);
                         });
                     }
@@ -2847,16 +2850,16 @@
             });
         };
 
-        function cargarItemCodeAutocomplete(cell,value) {
+        function cargarItemCodeAutocomplete(cell, value) {
             if (value != "Bulto") {
                 $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
                     if (itemCodesJson) {
                         if (itemCodesJson.ItemCodeID == value) {
                             //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
-                            cell.Colada = itemCodesJson.ColadaNombre;
+                            cell.Colada = coladaValue;//itemCodesJson.ColadaNombre;
                             //lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
-                            cell.MM = itemCodesJson.TipoPackingList == "2" ? "N/A" : 0; //itemCodesJson.MM;
+                            cell.MM = itemCodesJson.TipoPackingList == "2" ? "N/A" : mmValue;//0; //itemCodesJson.MM;
                             cell.Detallar = "No";
                             cell.Descripcion = itemCodesJson.Descripcion;
                             cell.D1 = itemCodesJson.Diametro1;
@@ -3096,6 +3099,7 @@
                             lastEditedCellIDSColada.Colada = "";
                         } else {
                             lastEditedCellIDSColada.Colada = value;
+                            coladaValue = value;
                         }
                         $('#grid').data('kendoGrid').refresh();
                         var uid = options.model.uid;
