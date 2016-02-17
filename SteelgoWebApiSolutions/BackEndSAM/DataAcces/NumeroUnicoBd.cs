@@ -147,6 +147,7 @@ namespace BackEndSAM.DataAcces
                                                              select sh).Any()
                                                         && it.TipoMaterialID == 1
                                                         && buscar.Any(x => nu.Codigo.Contains(x))
+                                                        && nu.Estatus == "A"
                                                         select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
 
                         //ahora buscamos las equivalencias de esos numeros unicos en sam 3
@@ -158,7 +159,7 @@ namespace BackEndSAM.DataAcces
 
                         listado = (from nu in ctx.Sam3_NumeroUnico
                                    join nus in ctx.Sam3_NumeroUnicoSegmento on nu.NumeroUnicoID equals nus.NumeroUnicoID
-                                   where nu.Activo && nus.Activo
+                                   where nu.Activo && nus.Activo && nu.Estatus == "A"
                                    && sam3_NumerosUnicos.Contains(nu.NumeroUnicoID)
                                    select new ListaComboNumeroUnicoCOrte
                                    {

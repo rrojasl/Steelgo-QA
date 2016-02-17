@@ -1027,7 +1027,7 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.ColadaID = coladaID;
                                     nuevoNU.Diametro1 = diametro1;
                                     nuevoNU.Diametro2 = diametro2;
-                                    nuevoNU.Estatus = "D"; //
+                                    nuevoNU.Estatus = "C"; //
                                     nuevoNU.EsVirtual = false;
                                     nuevoNU.FechaModificacion = DateTime.Now;
                                     nuevoNU.ItemCodeID = itemCodeBase.ItemCodeID;
@@ -1162,7 +1162,7 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.ColadaID = coladaID;
                                     nuevoNU.Diametro1 = diametro1;
                                     nuevoNU.Diametro2 = diametro2;
-                                    nuevoNU.Estatus = "D";
+                                    nuevoNU.Estatus = "C";
                                     nuevoNU.EsVirtual = false;
                                     nuevoNU.FechaModificacion = DateTime.Now;
                                     nuevoNU.ItemCodeID = itemCodeBase.ItemCodeID;

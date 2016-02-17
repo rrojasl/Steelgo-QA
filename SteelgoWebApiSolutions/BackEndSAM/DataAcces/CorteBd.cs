@@ -78,6 +78,7 @@ namespace BackEndSAM.DataAcces
                                                   where nu.Activo
                                                   && nu.Prefijo == prefijo
                                                   && nu.Consecutivo == consecutivo
+                                                  && nu.Estatus == "A"
                                                   select nu).AsParallel().SingleOrDefault();
 
                         //buscamos su equivalente en SAM 2
@@ -85,7 +86,11 @@ namespace BackEndSAM.DataAcces
                                                   where nueq.Activo && nueq.Sam3_NumeroUnicoID == numeroUnicoCorte.NumeroUnicoID
                                                   select nueq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
 
-                        //armamos el numero de control.
+                        NumeroUnico sam2_NumeroUnico = (from nu in ctx2.NumeroUnico
+                                                        where nu.NumeroUnicoID == sam2_numeroUnicoID
+                                                        && nu.Estatus == "A"
+                                                        select nu).AsParallel().SingleOrDefault();
+
                         Sam3_ProyectoConfiguracion configuracion = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == numeroUnicoCorte.ProyectoID)
                             .AsParallel().SingleOrDefault();
 
@@ -95,7 +100,7 @@ namespace BackEndSAM.DataAcces
                                    join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
                                    join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                    join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                   where odtm.NumeroUnicoCongeladoID == sam2_numeroUnicoID
+                                   where odtm.NumeroUnicoCongeladoID == sam2_NumeroUnico.NumeroUnicoID
                                    && it.TipoMaterialID == 1
                                    select new DatosBusquedaODT
                                    {
