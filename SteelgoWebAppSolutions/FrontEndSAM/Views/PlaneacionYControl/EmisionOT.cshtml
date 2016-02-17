@@ -87,8 +87,73 @@
                     <table class="table table-condensed" style="border-collapse:collapse;">
                         <thead>
                             <tr>
-                            <th>Taller</th>
-                            <th>Auto</th><th>Auto-Man</th><th>Man</th></tr></thead><tbody><tr><td width="10%">A</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:10%">&nbsp;</div><div class="Grafica1" style="width:20%">&nbsp;</div><div class="Grafica2" style="width:50%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 80%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="Grafica1" style="width:10%">&nbsp;</div><div class="Grafica2" style="width:10%">&nbsp;</div><div class="GraficaDetalle">2450 Peqs - 50%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:50%">&nbsp;</div><div class="Grafica1" style="width:30%">&nbsp;</div><div class="Grafica2" style="width:10%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 90%</div></div></td></tr><tr><td width="10%">B</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:10%">&nbsp;</div><div class="Grafica3" style="width:20%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 30%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="Grafica3" style="width:10%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 40%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:50%">&nbsp;</div><div class="Grafica3" style="width:30%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 80%</div></div></td></tr><tr><td width="10%">C</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:20%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 20%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:10%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 10%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 30%</div></div></td></tr><tr><td width="10%">D</td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:5%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 5%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:5%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 5%</div></div></td><td width="30%"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:70%">&nbsp;</div><div class="GraficaDetalle">150 Peqs - 70%</div></div></td></tr><tr><td width="10%">Despacho</td><td colspan="3"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:30%">&nbsp;</div><div class="Grafica1" style="width:10%">&nbsp;</div><div class="Grafica2" style="width:10%">&nbsp;</div><div class="Grafica3" style="width:10%">&nbsp;</div><div class="GraficaDetalle">245 kg - 60%</div></div></td></tr><tr><td width="10%">Corte</td><td colspan="3"><div class="GraficaPadre"><div class="GarficaProduccion" style="width:20%">&nbsp;</div><div class="Grafica1" style="width:15%">&nbsp;</div><div class="Grafica2" style="width:20%">&nbsp;</div><div class="Grafica3" style="width:5%">&nbsp;</div><div class="GraficaDetalle">12654\'\' - 60%</div></div></td></tr></tbody></table>  
+                                <th>Taller</th>
+                                <th>Auto</th><th>Auto-Man</th>
+                                <th>Man</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="10%">A</td>
+                                <td width="30%"  id="tallerA-automatico" class="automatico">
+                                 
+                                </td>
+                                <td width="30%" id="tallerA-automan" class="automan">
+                                
+                                </td>
+                                <td width="30%" id="tallerA-manual" class="manual">
+                                 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10%">B</td>
+                                <td width="30%" id="tallerB-automatico">
+                                 
+                                </td>
+                                <td width="30%" id="tallerB-automan">
+                                 
+                                </td>
+                                <td width="30%" id="tallerB-manual">
+                                
+                                </td>   
+                            </tr>
+                            <tr>
+                                <td width="10%">C</td>
+                                <td width="30%" id="tallerC-automatico">
+                                 
+                                </td>
+                                <td width="30%" id="tallerC-automan"> 
+
+                                </td>
+                                <td width="30%" id="tallerC-manual">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10%">D</td>
+                                <td width="30%" id="tallerD-automatico">
+
+                                </td>
+                                <td width="30%" id="tallerD-automan"> 
+
+                                </td>
+                                <td width="30%" id="tallerD-manual">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10%">Despacho</td>
+                                <td colspan="3" id="tallerDespacho">
+                            
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10%">Corte</td>
+                                <td colspan="3" id="tallerCorte">
+                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>  
            </div> 
         </div>
 

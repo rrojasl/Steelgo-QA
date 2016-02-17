@@ -52,9 +52,7 @@ function SuscribirEventoComboBoxProyecciones() {
         { Proyeccion: "Proyeccion 2", ProyeccionID: "2" },
         { Proyeccion: "Proyeccion 3", ProyeccionID: "3" },
     ];
-
-
-
+   
     $("#inputProyecciones").kendoComboBox({
         dataTextField: "Proyeccion",
         dataValueField: "ProyeccionID ",
@@ -74,14 +72,20 @@ function SuscribirEventoPreguntaCrearNuevaProyeccion() {
 
 function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
     $("#btnUtilizarProyeccionExistente").click(function () {
-        $("#ProyectarPreguntaDiv").hide();
-        $("#cmbSeleccionarProyeccion").show();
+        if ($("tr.proyeccion").length > 0) {
+            $("#ProyectarPreguntaDiv").hide();
+            ObtenerProyeccionesExistentes();
+            $("#cmbSeleccionarProyeccion").show();
+        }
+        else {
+            alert("No existen proyecciones");
+        }
     });
 }
 
 function SuscribirEventoCrearNuevaProyeccion() {
     $("#btnCrearProyeccion").click(function () { 
-        CalcularValoresProyecciones();
+        CalcularValoresProyecciones(true);
     });
 }
 

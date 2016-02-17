@@ -19,6 +19,7 @@
             schema: {
                 model: {
                     fields: {
+                        TipoID: { type: "number", editable: false },
                         SpoolID: { type: "number", editable: false },
                         Seleccionado: { type: "number", editable: false },
                         Proyectado: { type: "number", editable: false },
@@ -56,7 +57,7 @@
         columns: [ 
             { field: "Seleccionado", title: " ", filterable: false, template: '<input type="checkbox" #= Proyectado ? "disabled=disabled" : "" # class="chkbx"  ></input>', width: "50px" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" },
-            { field: "Proyecccion", title: "Proyección", filterable: false },
+            { field: "Proyeccion", title: "Proyección", filterable: false },
             { field: "SpoolNombre", title: "Spool", filterable: true },
             { field: "Dibujo", title: "Dibujo", filterable: true },
             { field: "DiametroMaximo", title: "Diametro Máximo", filterable: true },

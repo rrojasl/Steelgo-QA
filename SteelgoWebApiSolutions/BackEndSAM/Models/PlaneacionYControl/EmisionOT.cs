@@ -26,6 +26,8 @@ namespace BackEndSAM.Models.PlaneacionYControl
         public int Seleccionado { get; set; }
         public int Proyectado { get; set; }
         public string Proyeccion { get; set; }
+        public int TipoID { get; set; }
+        public string Tipo { get; set; }
         public string SpoolNombre { get; set; }
         public string Dibujo { get; set; }
         public int DiametroMaximo { get; set; }
