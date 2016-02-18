@@ -6,13 +6,13 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="DetalleOrdenRecepcion0021"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenRecepcion0025"></span></a>
     </li>
-    <li>
-        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="DetalleOrdenRecepcion0020"></span></a>
-    </li>
-    <li>
-        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="DetalleOrdenRecepcion0019"></span></a>
+    @*<li>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ListadoOrdenRecepcion0027"></span></a>
+    </li>*@
+    <li class="">
+        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="ListadoOrdenRecepcion0026"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")"><span id="DetalleOrdenRecepcion0018"></span></a>
@@ -89,7 +89,9 @@
 <script>
     @section JavascriptGlobalVariables 
     {
-    var _resultadoJson, Proyecto = {}, FolioAvisoEntrada = {}, ItemCode = {}, _esFiltros = false;
+        var detailID=0;
+        var _resultadoJson, Proyecto = {}, FolioAvisoEntrada = {}, ItemCode = {}, _esFiltros = false;
+        var checkItemCodesID = [];
     var _ordenRecepcionID = getUrlParameter("OrdenRecepcionID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
     var _imprimirFormatos = getUrlParameter("ImprimirFormatos", "-1");
@@ -143,17 +145,17 @@
         };
 
     function CargaInicial() {
-        $("#spanOrdenRecepcion").html(_ordenRecepcionID);
+        //$("#spanOrdenRecepcion").html(_ordenRecepcionID);
         $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
@@ -176,10 +178,10 @@
             dataValueField: "value",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 var value = this.value();
                 limpiarFiltroItemCode();
 
@@ -200,10 +202,10 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarItemCode(dataItem.id):CargarItemCode("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -234,10 +236,27 @@
         CargarDatosGridInicial();
 
         if (_imprimirFormatos != "-1") {
-            window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + _ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
-            alert("Pendiente formato de impresion de Orden Recepcion Reporting Services");
+            var pdf = ArregloPDF(_ordenRecepcionID);
+            downloadPDF($Reporte.Reporte.urlNoId, pdf);
+           
+
+            //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + _ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+            //alert("Pendiente formato de impresion de Orden Recepcion Reporting Services");
         };
     };
+
+    function ArregloPDF(id) {
+        var PDF = { TipoReporte: 1, FolioOrdenRecepcion: id};
+        return PDF;
+    }
+
+    function downloadPDF(url, pdf) {
+        var link = document.createElement("a");
+        link.href = url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token");
+        link.target = "_blank";
+        displayMessage("notificationslabel0100", "", "2")
+        link.dispatchEvent(new Event("click"));
+    }
 
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
@@ -289,15 +308,21 @@
             //$("#ProyectoID").data("kendoComboBox").enable(false);
         });
     };
+
+    function getGridfields(){
+        return {
+            AvisoEntradaID: { type: "number" },
+            FolioConfiguracion: { type: "string" }
+        }
+    }    
+
     function CargaInicialGrid() {
         var grid = $("#grid").kendoGrid({
             dataSource: {
                 data: _resultadoJson,
                 schema: {
                     model: {
-                        fields: {
-                            AvisoEntradaID: { type: "int" },
-                        }
+                        fields: getGridfields(),
                     }
                 },
                 serverPaging: false,
@@ -315,9 +340,15 @@
             },
             detailInit: detailInit,
             scrollable: false,
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
-                { field: "AvisoEntradaID", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()]},
-            ]
+                { field: "FolioConfiguracion", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()] },
+                { field: "AvisoEntradaID", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], hidden: true },
+            ],
+            dataBound:function(e){
+                checkTH($("#grid").data("kendoGrid"));
+                quickHeadFilter(this);
+            }
         }).getKendoGrid();
 
 
@@ -343,9 +374,76 @@
         });
     };
 
+
+    function onDataBoundAccesorios(e) {
+        //console.log("onDataBoundDetalle");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
+
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML //folio aviso
+                    && checkItemCodesID[check].split(",")[1] == body.children[i].children[1].innerHTML //Item Codes
+                    && checkItemCodesID[check].split(",")[2] == body.children[i].children[9].innerHTML // relFCID
+                    && checkItemCodesID[check].split(",")[3] == body.children[i].children[10].innerHTML //relBID
+                    && checkItemCodesID[check].split(",")[4] == body.children[i].children[11].innerHTML) //Cantidad
+                {
+                    var bool = checkItemCodesID[check].split(",")[5] == "true" ? true : false;
+                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", bool);
+                }
+            }
+
+        }
+        quickHeadFilter(this);
+    };
+
+
+    function onDataBoundTubos(e) {
+        //console.log("onDataBoundDetalle");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
+
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML//folio aviso
+                    && checkItemCodesID[check].split(",")[1] == body.children[i].children[1].innerHTML //Item Codes
+                    && checkItemCodesID[check].split(",")[2] == body.children[i].children[9].innerHTML // relFCID
+                    && checkItemCodesID[check].split(",")[3] == body.children[i].children[10].innerHTML //relBID
+                     && checkItemCodesID[check].split(",")[4] == body.children[i].children[11].innerHTML) //Cantidad
+                {
+                    var bool = checkItemCodesID[check].split(",")[5] == "true" ? true : false;
+                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", bool);
+                }
+            }
+
+        }
+        quickHeadFilter(this);
+    };
+
+    function getDetailFields(){
+        return {
+            ItemCodeID: { type: "number" },
+            Codigo: { type: "string" },
+            Descripcion: { type: "string" },
+            D1: { type: "number" },
+            D2: { type: "number" },
+            Cantidad: { type: "number" },
+            TipoMaterial: { type: "string" }
+        }
+    }
+
     function detailInit(e) {
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"] != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"]["detail"] != 'undefined') && !returnOfSecurityCheck["Orden Recepcion"]["detail"]) {
+            return;
+        }
         if (e.data.Accesorios.length > 0) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
+            var tmpID = detailID++;
+            var show = "showAccesorios" + tmpID;
+            var detail = "detailAccesorios" + tmpID;
+            $("<div id='" + show + "' class='k-alt' style='height:40px;margin:15px 0px 0px 0px;line-height:40px;padding-left:10px;border:1px solid #c5c5c5;' role='row'/>").text("Accesorios").appendTo(e.detailCell);
+            $("<div id='" + detail + "'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.Accesorios,
                     schema: {
@@ -354,65 +452,75 @@
                                 ItemCodeID: { type: "string" },
                                 Codigo: { type: "string" },
                                 Descripcion: { type: "string" },
-                                D1: { type: "string" },
-                                D2: { type: "string" },
-                                Cantidad: { type: "string" },
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "number" },
                                 TipoMaterial: { type: "string" }
                             }
                         }
                     }
                 },
+                dataBound: onDataBoundAccesorios,
                 autoBind: true,
                 scrollable: false,
-                sortable: true,
+                sortable: false,
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 columns: [
-                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenRecepcion0005[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "Codigo", title: _dictionary.DetalleOrdenRecepcion0006[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.DetalleOrdenRecepcion0007[$("#language").data("kendoDropDownList").value()], width: "200px" },
                     { field: "D1", title: _dictionary.DetalleOrdenRecepcion0008[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "D2", title: _dictionary.DetalleOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "Cantidad", title: _dictionary.DetalleOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "TipoMaterial", title: _dictionary.DetalleOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenRecepcion0005[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     //{ command: { text: _dictionary.DetalleOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], click: cancelarItemCode }, title: " ", width: "99px" }
 
-                ]
+                ],
             });
+            $("#" + show).on("click", function () {
+                $("#" + detail).toggle();
+            })
+            $("#" + detail).hide();
+            $("#" + detail).data("kendoGrid").dataSource.group({ field: "Codigo" })
         }
         if (e.data.Tubos.length > 0) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
+            var tmpID = detailID++;
+            var show = "showTubos" + tmpID;
+            var detail1 = "detailTubos" + tmpID;
+            $("<div id='" + show + "' class='k-alt' style='height:40px;margin:15px 0px 0px 0px;line-height:40px;padding-left:10px;border:1px solid #c5c5c5;' role='row'/>").text("Tubos").appendTo(e.detailCell);
+            $("<div id='" + detail1 + "'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.Tubos,
                     schema: {
                         model: {
-                            fields: {
-                                ItemCodeID: { type: "int" },
-                                Codigo: { type: "string" },
-                                Descripcion: { type: "string" },
-                                D1: { type: "number" },
-                                D2: { type: "number" },
-                                Cantidad: { type: "int" },
-                                TipoMaterial: { type: "int" }
-                            }
+                            fields: getDetailFields(),
                         }
                     }
                 },
                 autoBind: true,
                 scrollable: false,
-                sortable: true,
+                sortable: false,
+                dataBound: onDataBoundTubos,
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 columns: [
-                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
                     { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                ]
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                ],
             });
+            $("#" + show).on("click", function () {
+                $("#" + detail1).toggle();
+            })
+            $("#" + detail1).hide();
+            $("#" + detail1).data("kendoGrid").dataSource.group({ field: "Codigo" })
         }
     }
     function Filtros() {
-        loadingStart();
+        //loadingStart();
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
@@ -428,23 +536,24 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
     function CargarDatosGridInicial() {
-        loadingStart();
+        //loadingStart();
 
         $OrdenRecepcion.OrdenRecepcion.read({}, { ordenrecepcionID: _ordenRecepcionID, token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 _resultadoJson = result;
+                $("#spanOrdenRecepcion").html(_resultadoJson[0].FolioConfiguracionOrdenRecepcion);
                 if (_resultadoJson.length > 0) {                    
                     $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
                 } else {
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -462,7 +571,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

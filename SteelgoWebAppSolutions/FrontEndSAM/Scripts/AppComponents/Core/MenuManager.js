@@ -29,33 +29,33 @@ function menuManagerToBeExecutedOnDocumentReady() {
 
     //Toggle for main menu's submenus           
     /*Open menus on hover*/
-    $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {
-        if ($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
-            $("ul.sub-menu2").removeClass("open");
-            $("li.shortcut").removeClass("open");
-            $("ul.sub-menu > li").removeClass("active expand");
-            $(this).children("ul").toggleClass("open");
-            $("i.arrow").toggleClass("down");
-        }
-        else if (!$("#sidebar").hasClass("minified")) {
-            $("#sidebar li").removeClass('active');
-            $("#sidebar ul").removeClass('open');
-            $("li.shortcut").removeClass("open");
-            $(this).closest("li").has("ul").addClass('active').children("ul").addClass("open");
-            $("i.arrow").addClass("down");
-        }
-        else {
-            $("#sidebar li").removeClass('active');
-            $("#sidebar ul").removeClass('open');
-            $("li.shortcut").removeClass("open");
-            $(this).addClass('active');
-        }
-    }).on("mouseleave", "ul.main-menu > li:not('.shortcut')", function () {
-        $("#sidebar li").removeClass('active');
-        $("#sidebar ul").removeClass('open');
-        $("li.shortcut").removeClass("open");
-        $(this).removeClass('active');
-    });
+    //$(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {
+    //    if ($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
+    //        $("ul.sub-menu2").removeClass("open");
+    //        $("li.shortcut").removeClass("open");
+    //        $("ul.sub-menu > li").removeClass("active expand");
+    //        $(this).children("ul").toggleClass("open");
+    //        $("i.arrow").toggleClass("down");
+    //    }
+    //    else if (!$("#sidebar").hasClass("minified")) {
+    //        $("#sidebar li").removeClass('active');
+    //        $("#sidebar ul").removeClass('open');
+    //        $("li.shortcut").removeClass("open");
+    //        $(this).closest("li").has("ul").addClass('active').children("ul").addClass("open");
+    //        $("i.arrow").addClass("down");
+    //    }
+    //    else {
+    //        $("#sidebar li").removeClass('active');
+    //        $("#sidebar ul").removeClass('open');
+    //        $("li.shortcut").removeClass("open");
+    //        $(this).addClass('active');
+    //    }
+    //}).on("mouseleave", "ul.main-menu > li:not('.shortcut')", function () {
+    //    $("#sidebar li").removeClass('active');
+    //    $("#sidebar ul").removeClass('open');
+    //    $("li.shortcut").removeClass("open");
+    //    $(this).removeClass('active');
+    //});
 
     /*Open menus on click*/
     $(document).on("click", "ul.main-menu > li:not('.shortcut') > a", function () {
@@ -92,27 +92,27 @@ function menuManagerToBeExecutedOnDocumentReady() {
 
     //Toggle for second submenu
     /*Open menus on hover*/
-    $(document).on("mouseenter", "ul.sub-menu > li", function () {
-        if ($(this).children("ul.sub-menu2").hasClass('open')) {
-            $(this).removeClass("active expand");
-            $(this).children("ul.sub-menu2").removeClass("open");
-            $("li.shortcut").removeClass("open");
-        }        
-        else {
-            $("ul.sub-menu2").removeClass("open");
-            $("ul.sub-menu > li").removeClass("active expand");
-            $(this).addClass("active");
-            $(this).has("ul").addClass("expand");
-            $(this).children("ul.sub-menu2").addClass("open");
-            $("li.shortcut").addClass("open");
-        }
+    //$(document).on("mouseenter", "ul.sub-menu > li", function () {
+    //    if ($(this).children("ul.sub-menu2").hasClass('open')) {
+    //        $(this).removeClass("active expand");
+    //        $(this).children("ul.sub-menu2").removeClass("open");
+    //        $("li.shortcut").removeClass("open");
+    //    }        
+    //    else {
+    //        $("ul.sub-menu2").removeClass("open");
+    //        $("ul.sub-menu > li").removeClass("active expand");
+    //        $(this).addClass("active");
+    //        $(this).has("ul").addClass("expand");
+    //        $(this).children("ul.sub-menu2").addClass("open");
+    //        $("li.shortcut").addClass("open");
+    //    }
 
-        if ($(this).children("ul.sub-menu2").is(':empty')) {
-            $("li.shortcut").removeClass("open");
-            $(this).removeClass("expand");
+    //    if ($(this).children("ul.sub-menu2").is(':empty')) {
+    //        $("li.shortcut").removeClass("open");
+    //        $(this).removeClass("expand");
 
-        }
-    });
+    //    }
+    //});
 
     /*Open menus on click*/
     $(document).on("click", "ul.sub-menu > li > a", function () {
@@ -339,7 +339,7 @@ function generateSideMenu(data) {
         for (key in data.layout.navigation[0].elements) {
             var element = data.layout.navigation[0].elements[key];
 
-            $MenuData[element.liga.split("?")[0].replace("/", "").toLowerCase()] = 1;
+            $MenuData[element.liga.split("?")[0].replace("/", "").replace("\"", "").replace("\"", "").replace("\n", "").replace("\r", "").toLowerCase()] = 1;
 
             if ($sideMenuLayout[element.nivel] == undefined) {
                 $sideMenuLayout[element.nivel] = {};
@@ -349,14 +349,18 @@ function generateSideMenu(data) {
                 $sideMenuLayout[element.nivel][element.idPadre] = {};
             }
 
-
-            if ($sideMenuLayout[element.nivel][element.idPadre][element.elemetId] == undefined) {
-                $sideMenuLayout[element.nivel][element.idPadre][element.elemetId] = {};
+            var elementIdentifier = element.elemetId;
+            if (element.acomodo != 0) {
+                elementIdentifier = element.acomodo;
             }
 
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].texto = element.texto;
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].liga = element.liga;
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].icono = element.icono;
+            if ($sideMenuLayout[element.nivel][element.idPadre][elementIdentifier] == undefined) {
+                $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier] = {};
+            }
+
+            $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier].texto = element.texto;
+            $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier].liga = element.liga;
+            $sideMenuLayout[element.nivel][element.idPadre][elementIdentifier].icono = element.icono;
         }
     }
 }

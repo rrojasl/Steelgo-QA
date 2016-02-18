@@ -69,10 +69,10 @@ namespace BackEndSAM.Controllers
                         var docfiles = new List<string>();
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
-                        foreach (string file in httpRequest.Files)
+                        for (int i = 0; i < httpRequest.Files.Count; i++)
                         {
                             Guid docguID = Guid.NewGuid();
-                            postedFile = httpRequest.Files[file];
+                            postedFile = httpRequest.Files[i];
                             string nombreArchivo = "";
 
                             //verificar si el nombre del archivo es una ruta completa
@@ -86,9 +86,20 @@ namespace BackEndSAM.Controllers
                                 nombreArchivo = postedFile.FileName;
                             }
 
+                            if (nombreArchivo.Contains(" "))
+                            {
+                                nombreArchivo = nombreArchivo.Replace(' ', '_');
+                            }
+
                             var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
                             string[] st = nombreArchivo.Split('.');
+
+                            if (st.Length > 2)
+                            {
+                                throw new Exception("El nombre de archivo no puede contener puntos");
+                            }
+
                             string extencion = "." + st[1];
                             lstArchivos.Add(new DocumentoPosteado
                             {

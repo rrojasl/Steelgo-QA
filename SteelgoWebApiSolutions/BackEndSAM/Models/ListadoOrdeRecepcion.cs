@@ -9,6 +9,7 @@ namespace BackEndSAM.Models
     {
         public string FechaOrdenRecepcion { get; set; }
         public string OrdenRecepcion { get; set; }
+        public string OrdenRecepcionID { get; set; }
         public List<ElementoItemCode> Detalle { get; set; }
 
         public ListadoOrdeRecepcion()
@@ -19,6 +20,7 @@ namespace BackEndSAM.Models
 
     public class ElementoItemCode 
     {
+        public string FolioConfiguracion { get; set; }
         public string AvisoEntrada { get; set; }
         public string Itemcode { get; set; }
         public int Cantidad { get; set; }

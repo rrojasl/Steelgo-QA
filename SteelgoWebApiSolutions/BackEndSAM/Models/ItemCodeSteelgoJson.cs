@@ -39,6 +39,8 @@ namespace BackEndSAM.Models
         public string Diametro2 { get; set; }
         public string Grupo { get; set; }
         public string GrupoID { get; set; }
+        public string FamiliaMaterialID { get; set; }
+        public string FamiliaMaterial { get; set; }
         public string Acero { get; set; }
         public string AceroID { get; set; }
         public string CedulaID { get; set; }
@@ -46,9 +48,13 @@ namespace BackEndSAM.Models
         public string CedulaB { get; set; }
         public string Libra { get; set; }
         public string Inch { get; set; }
+        public string InchID { get; set; }
         public string MM { get; set; }
         public string Espesor { get; set; }
         public string Peso { get; set; }
         public string Area { get; set; }
+        public string TipoMaterial { get; set; }
+        public string TieneD2 { get; set; }
+        public Boolean Asociado { get; set; }
     }
 }

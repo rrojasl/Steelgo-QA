@@ -115,10 +115,10 @@
             dataTextField: "Nombre",
             dataValueField: "TipoVehiculoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre):CargarTipoVehiculoTracto("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -134,10 +134,10 @@
             dataTextField: "Nombre",
             dataValueField: "TransportistaID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre):CargarTransportistaCamion("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -283,7 +283,7 @@
         CamionModal = [];
         CamionModal[0] = { TipoVehiculoID: "", Placas: "", TarjetaCirculacion: "", PolizaSeguro: "", Unidad: "", Modelo: "", VehiculoID: "", ChoferID: "", TransportistaID: "", TractoID: "" };
 
-        CamionModal[0].TipoVehiculoID = TipoVehiculoTracto.TipoVehiculoID ? TipoVehiculoTracto.TipoVehiculoID : "-1";
+        CamionModal[0].TipoVehiculoID = $("#TipoVehiculo_Camion").val();
         CamionModal[0].Placas = $("#Placas_Camion").val();
         CamionModal[0].TarjetaCirculacion = $("#TarjetaCirculacion_Camion").val();
         CamionModal[0].PolizaSeguro = $("#PolizaSeguro").val();
@@ -323,7 +323,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

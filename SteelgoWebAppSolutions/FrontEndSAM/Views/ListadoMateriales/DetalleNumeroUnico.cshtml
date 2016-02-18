@@ -23,51 +23,51 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 filter-section">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div  id="numerounicoDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0002"></label>
                                 <input id="numerounico" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="d1Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0003"></label>
                                 <input id="d1" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="d2Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0004"></label>
                                 <input id="d2" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="cedulaDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0005"></label>
                                 <input id="cedula" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totalrecibidoDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0006"></label>
                                 <input id="totalrecibido" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totaldañadoDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0007"></label>
                                 <input id="totaldañado" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="itemcodeDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0008"></label>
                                 <input id="itemcode" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="profile1Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0009"></label>
                                 <input id="profile1" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="profile2Div" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0010"></label>
                                 <input id="profile2" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totalentradasDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0011"></label>
                                 <input id="totalentradas" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="totalsalidasDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0031"></label>
                                 <input id="totalsalidas" class="general-input" disabled />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div id="saldoactualDiv" class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0012"></label>
                                 <input id="saldoactual" class="general-input" disabled />
                             </div>
@@ -78,14 +78,14 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                     <div id="gridSegmentos"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="addedSection clearfix">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                             <div id="gridMovimientosInventario"></div>
                         </div>
                     </div>
@@ -102,6 +102,79 @@
     {
     var _NumeroUnico= getUrlParameter("NumeroUnico", "-1");
     var _listadoMateriales = "@Url.Action("ListadoMateriales", "ListadoMateriales")";
+
+
+
+    var $DetalleNumeroUnicoModel = {
+        listContainer: {
+            create: "",
+            list: ".listado",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+        properties: {
+            numerounico: {
+                visible: "#numerounicoDiv",
+                editable: "#numerounico",
+                required: "#numerounico"
+            },
+            diametro1: {
+                visible: "#d1Div",
+                editable: "#d1",
+                required: "#d1"
+            },
+            diametro2: {
+                visible: "#d2Div",
+                editable: "#d2",
+                required: "#d2"
+            },
+            cedula: {
+                visible: "#cedulaDiv",
+                editable: "#cedula",
+                required: "#cedula"
+            },
+            totalrecibido: {
+                visible: "#totalrecibidoDiv",
+                editable: "#totalrecibido",
+                required: "#totalrecibido"
+            },
+            totaldanado: {
+                visible: "#totaldañadoDiv",
+                editable: "#totaldañado",
+                required: "#totaldañado"
+            },
+            itemcode: {
+                visible: "#itemcodeDiv",
+                editable: "#itemcode",
+                required: "#itemcode"
+            },
+            profile1: {
+                visible: "#profile1Div",
+                editable: "#profile1",
+                required: "#profile1"
+            },
+            profile2: {
+                visible: "#profile2Div",
+                editable: "#profile2",
+                required: "#profile2"
+            },
+            totalentradas: {
+                visible: "#totalentradasDiv",
+                editable: "#totalentradas",
+                required: "#totalentradas"
+            },
+            totalsalidas: {
+                visible: "#totalsalidasDiv",
+                editable: "#totalsalidas",
+                required: "#totalsalidas"
+            },
+            saldoactual: {
+                visible: "#saldoactualDiv",
+                editable: "#saldoactual",
+                required: "#saldoactual"
+            }
+        }
+    };
     }
     @section JavascriptGlobalFunctions 
     {
@@ -158,9 +231,11 @@
                 { field: "SaldoActual", title: _dictionary.DetalleNumeroUnico0020[$("#language").data("kendoDropDownList").value()], filterable: true },
             ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                checkTH($("#gridSegmentos").data("kendoGrid"))
+                quickHeadFilter($("#gridSegmentos").data("kendoGrid"));
             }
         });
     };
@@ -179,7 +254,7 @@
                 schema: {
                     model: {
                         fields: {
-                            Fecha: { type: "string" },
+                            Fecha: { type: "date" },
                             Movimiento: { type: "string" },
                             Segmento: { type: "string" },
                             Entrada: { type: "string" },
@@ -205,24 +280,26 @@
                 input: false,
                 numeric: true,
             },
-            columns: [
-                { field: "Fecha", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true },
+            columns: addTo([
+                { field: "Fecha", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true, format: "{0:dd/MM/yyyy}", },
                 { field: "Movimiento", title: _dictionary.ListaMateriales0008[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Segmento", title: _dictionary.ListaMateriales0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Entrada", title: _dictionary.ListaMateriales0010[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Salida", title: _dictionary.ListaMateriales0011[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "SaldoActual", title: _dictionary.ListaMateriales0012[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Referencia", title: _dictionary.ListaMateriales0013[$("#language").data("kendoDropDownList").value()], filterable: true },
-            ],
+            ],null),
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                checkTH($("#gridMovimientosInventario").data("kendoGrid"))
+                quickHeadFilter($("#gridMovimientosInventario").data("kendoGrid"));
             }
         });
     }
     function ObtenerDetalleNumeroUnico() {
-        loadingStart();
+        //loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, token: Cookies.get("token") }).done(function (result) {
             if(Error(result)) {
                 $("#numerounico").val(result.NumeroUnico);
@@ -257,14 +334,17 @@
                 //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(0);
                 //    };
                 //};
+                //AsignarPaginaActualCookie();
                 //applySecurityPolicy(false);
             };
-            loadingStop();
+            //loadingStop();
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "23", { path: '/' });
+    }
     function ObtenerMovimientos() {
-        loadingStart();
+        //loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "1", token: Cookies.get("token") }).done(function (result) {
             if(Error(result)) {
                 if ($("#gridMovimientosInventario").data("kendoGrid")) {
@@ -276,14 +356,15 @@
                         $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
     function ObtenerSegmentos() {
-        loadingStart();
+        //loadingStart();
         $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "2", token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if ($("#gridSegmentos").data("kendoGrid")) {
@@ -295,9 +376,10 @@
                         $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
     function Error(data) {
@@ -305,7 +387,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
@@ -320,7 +402,10 @@
 
     }
     @section JavascriptDocumentReadyFunctions {
-        CargaInicial();
+    $authorizationModel["Detalle Numero Unico"] = $DetalleNumeroUnicoModel;
+    CargaInicial();
+    
+    
     }
 
     @section JavascriptDocumentReadyHomeCookie 

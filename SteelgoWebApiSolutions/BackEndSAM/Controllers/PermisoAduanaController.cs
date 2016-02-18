@@ -61,7 +61,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public object Post(int numeroPermiso, string nombre, string extension, int folio, int documentoID, string token)
+        public object Post(string numeroPermiso, string nombre, string extension, int folio, int documentoID, string token)
         {
             string payload = "";
             string newToken = "";

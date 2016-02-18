@@ -13,6 +13,7 @@ namespace BackEndSAM.Models
         public int FolioAvisollegadaId { get; set; }
         public string Factura { get; set; }
         public string OrdenCompra { get; set; }
+        public string IdentificadorCliente { get; set; }
         public int ProveedorID { get; set; }
         public int ClienteId { get; set; }
         public int PatioID { get; set; }
@@ -33,10 +34,12 @@ namespace BackEndSAM.Models
         public int FolioAvisollegadaId { get; set; }
         public string Factura { get; set; }
         public string OrdenCompra { get; set; }
+        public string IdentificadorCliente { get; set; }
         public Proveedor Proveedor { get; set; }
         public Cliente Cliente { get; set; }
         public Patio Patio { get; set; }
         public string Estatus { get; set; }
+        public string EstatusAv { get; set; }
         public List<int>Proyectos { get; set; }
         public List<ListaDocumentos> Documentos { get; set; }
         public int FolioDescarga { get; set; }
@@ -44,6 +47,7 @@ namespace BackEndSAM.Models
         public Nullable<DateTime> FechaInicioDescarga { get; set; }
         public Nullable<DateTime> FechaFinDescarga { get; set; }
         public string ComboEstatus { get; set; }
+        public string FolioConfiguracion { get; set; }
 
         public DetalleAvisoEntradaJson()
         {

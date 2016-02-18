@@ -15,7 +15,7 @@
         //var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDA0MTM3MX0.p9tzPtHNim5VbIy4y5FhJh1X0JVIuSgMCdf2Jum2Oao";
 
         //var dataReturned;
-        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
         //var projects = [1, 2, 3, 4];
 
         //client.add('proyecto');
@@ -191,9 +191,9 @@
 
         //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-        client.add("Cliente");
+        //client.add("Cliente");
 
-        client.Cliente.read({"token": '123456'}).done(function (data) { console.log(data); });
+        //client.Cliente.read({"token": '123456'}).done(function (data) { console.log(data); });
 
         //client.add("PermisoAduana");
         //client.PermisoAduana.read({ folio: 1029 }).done(function (data) { console.log(data) });
@@ -412,8 +412,13 @@
         //    function (data) { console.log(data) }
         //    );
 
-        client.add("PreDespacho");
-        client.PreDespacho.read({}, { spoolID: 21562, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQ0NTYxMzE3Nn0.lwrTZEJ6mt5O-k9JDJzUlraR60dQWDOXJQoNcR2QQYk" }).done(function (data) { console.log(data) });
+        //client.add("PreDespacho");
+        //client.PreDespacho.read({}, { spoolID: 21562, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQ0NTYxMzE3Nn0.lwrTZEJ6mt5O-k9JDJzUlraR60dQWDOXJQoNcR2QQYk" }).done(function (data) { console.log(data) });
+
+        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        client.add("Reporte");
+        client.Reporte.read({}, { folio: 3, token: "123456" }).done(function (data) { console.log(data) });
+
 
     </script>
 </body>

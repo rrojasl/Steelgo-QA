@@ -5,13 +5,13 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="DetalleOrdenAlmacenaje0018"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenAlmacenaje0001"></span></a>
     </li>
+    @*<li>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ListadoOrdenAlmacenaje0002"></span></a>
+    </li>*@
     <li>
-        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="DetalleOrdenAlmacenaje0019"></span></a>
-    </li>
-    <li>
-        <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="DetalleOrdenAlmacenaje0020"></span></a>
+        <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="ListadoOrdenAlmacenaje0003"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="DetalleOrdenAlmacenaje0021"></span></a>
@@ -31,13 +31,16 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        @*<div class="button-section">
                             <div class="btn-group">
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar"><span id="DetalleOrdenAlmacenaje0002"></span></button>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenAlmacenaje0003"></span></a>
-                        </div>
+                        </div>*@
                         <div class="button-section listado">
+                            <div class="btn-group">
+                                <button id="toAlmacenaje" type="button" class="btn btn-blue"><span id="DetalleOrdenAlmacenaje0025"></span></button>
+                            </div>
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleOrdenAlmacenaje0004"></span>
@@ -93,6 +96,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+        var detailID=0;
     var FolioCuantificacion = {}, Proyecto = {}, ItemCode = {}, NumeroUnico = {}, _resultadoJson, _esFiltros = false;
     var _ordenAlmacenajeID = getUrlParameter("OrdenAlmacenajeID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
@@ -126,18 +130,18 @@
         };
     
     function CargaInicial() {
-        $("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
-        $("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
+        //$("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
+        //$("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
         $("#IrIncidencia").click(function () { Incidencias(); });
         $("#CancelarOrden").click(function () { CancelarOrden(); });
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
@@ -148,7 +152,7 @@
                 } else {
                     ObtenerFoliosCuantificacion();
                 }
-                Filtros();
+                //Filtros();
             },
             filter: "contains",
         });
@@ -156,14 +160,14 @@
         ObtenerProyecto();
 
         $("#FolioCuantificacionID").kendoComboBox({
-            dataTextField: "id",
+            dataTextField: "value",
             dataValueField: "value",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 var value = this.value();
                 limpiarFiltroCuantificacion();
 
@@ -174,7 +178,7 @@
                 } else {
                     ObtenerItemCodes();
                 };
-                Filtros();
+                //Filtros();
 
             },
         });
@@ -184,10 +188,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarItemCode(dataItem.id):CargarItemCode("");
                 var value = this.value();
                 limpiarFiltroItemCode();
 
@@ -198,7 +203,7 @@
                 } else {
                     ObtenerNumerosUnicos();
                 };
-                Filtros();
+                //Filtros();
             },
         });
 
@@ -207,17 +212,17 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarNumeroUnico(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarNumeroUnico(dataItem.id):CargarNumeroUnico("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     NumeroUnico = {};
                     this.value("");
                 }
-                Filtros();
+                //Filtros();
             },
         });
 
@@ -323,12 +328,12 @@
     };
 
     function CancelarOrden() {
-        loadingStart();
+        //loadingStart();
         $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 MostrarTituloCancelado();
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -352,10 +357,10 @@
     };
     
     function HabilitarCampos() {
-        $("#ProyectoID").data("kendoComboBox").enable(false);
-        $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
-        $("#ItemCode").data("kendoComboBox").enable(false);
-        $("#NumeroUnico").data("kendoComboBox").enable(false);
+        $("#ProyectoID").data("kendoComboBox").enable();
+        $("#FolioCuantificacionID").data("kendoComboBox").enable();
+        $("#ItemCode").data("kendoComboBox").enable();
+        $("#NumeroUnico").data("kendoComboBox").enable();
         $(".detailLink").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
         $(".detailLink").removeClass("hidden");
@@ -368,7 +373,8 @@
                 schema: {
                     model: {
                         fields: {
-                            FolioCuantificacion: { type: "string" },
+                            FolioConfiguracionCuantificacion: { type: "string" },
+                            FolioCuantificacion: { type: "string" }
                         }
                     }
                 },
@@ -389,14 +395,16 @@
             sortable: false,
             scrollable: false,
             detailInit: detailInit,
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
-                { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
-                //{ field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
+                { field: "FolioConfiguracionCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
+                { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden:true },
             ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                quickHeadFilter(this);
             }
          }).getKendoGrid();
 
@@ -404,7 +412,7 @@
 
     function detailInit(e) {
         if (e.data.ItemCodes.length > 0) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
+            $("<div id='detail"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.ItemCodes,
                     schema: {
@@ -414,9 +422,9 @@
                                 ItemCodeID: { type: "string" },
                                 Codigo: { type: "string" },
                                 Descripcion: { type: "string" },
-                                D1: { type: "string" },
-                                D2: { type: "string" },
-                                Cantidad: { type: "string" }
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "number" }
                             }
                         }
                     }
@@ -425,16 +433,21 @@
                 scrollable: false,
                 sortable: true,
                 detailInit: detailInitNumerosUnicos,
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 columns: [
-                    { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
-                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
                     { field: "Codigo", title: _dictionary.DetalleOrdenAlmacenaje0011[$("#language").data("kendoDropDownList").value()] },
                     { field: "Descripcion", title: _dictionary.DetalleOrdenAlmacenaje0012[$("#language").data("kendoDropDownList").value()]},
                     { field: "D1", title: _dictionary.DetalleOrdenAlmacenaje0013[$("#language").data("kendoDropDownList").value()]},
                     { field: "D2", title: _dictionary.DetalleOrdenAlmacenaje0014[$("#language").data("kendoDropDownList").value()]},
                     { field: "Cantidad", title: _dictionary.DetalleOrdenAlmacenaje0015[$("#language").data("kendoDropDownList").value()]},
+                    { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
+                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
                     //{ field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioItemCode(this)'>Cancelar</a>" }
-                ]
+                ],
+                dataBound:function(e){
+                    checkTH(this);
+                    quickHeadFilter(this);
+                }
             });
         }
         
@@ -442,7 +455,7 @@
 
     function detailInitNumerosUnicos(e) {
         if (e.data.NumerosUnicos.length > 0) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
+            $("<div id='detail1-"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
                 dataSource: {
                     data: e.data.NumerosUnicos,
                     schema: {
@@ -459,32 +472,42 @@
                 autoBind: true,
                 scrollable: false,
                 sortable: false,
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 columns: [
-                    { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true},
                     { field: "NumeroUnico", title: _dictionary.DetalleOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()]},
+                    //{ field: "", title: "", width: "110px", template: "<a class='detailLink' href='' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
+                    { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarNumerosUnicos }, title: " ", width: "99px" },
+                    { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true},
                     { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], hidden: true },
                     { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], hidden: true },
-                    //{ field: "", title: "", width: "110px", template: "<a class='detailLink' href='' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
-                    { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarNumerosUnicos }, title: " ", width: "99px" }
-
-                ]
+                ],
+                dataBound:function(e){
+                    checkTH(this);
+                    quickHeadFilter(this);
+                }
             });
 
             if ($("#edicion").val() != "1") {
                 $(".detailLink").addClass("hidden");
                 $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
             }
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         }
     }
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "17", { path: '/' });
+    };
 
     function CargarDatosGridInicial() {
-        loadingStart();
+        //loadingStart();
 
         $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: $.cookie("token") }).done(function (result) {
             OcultarTituloCancelado();
             if (Error(result)) {
                 _resultadoJson = result.ListadoGenerarOrdenAlmacenaje;
+                console.log(result.FolioConfiguracionOrdenAlmacenaje);
+                $("#spanOrdenAlmacenaje").html(result.FolioConfiguracionOrdenAlmacenaje);
                 $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
                
                 if (!result.Activo) {
@@ -496,7 +519,8 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
             }
-            loadingStop();
+            //loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
     };
@@ -547,7 +571,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
@@ -564,6 +588,12 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Orden Almacenaje"] = $GenerarOrdenAlmacenajeModel;
     CargaInicial();
+    $("#toAlmacenaje").on("click", function () {
+        window.location.href = window.location.origin + "/Almacenaje/Almacenaje?ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&OrdenAlmacenajeID=" + getUrlParameter("OrdenAlmacenajeID", "0");
+    })
+    if (getUrlParameter("OrdenAlmacenajeID", null) === null) {
+        $("#toAlmacenaje").hide();
+    }
 
     }
      @section JavascriptDocumentReadyHomeCookie {

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="81">
+      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="ModelSam3.Sam3_Acero" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Chofer" Width="1.5" PointX="3" PointY="43.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Cliente" Width="1.5" PointX="3.75" PointY="40.75" IsExpanded="true" />
@@ -258,9 +258,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Numer__60B24907" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Proye__5FBE24CE" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Salid__61A66D40" />
-        <EntityTypeShape EntityType="ModelSam3.Sam3_Cedula" Width="1.5" PointX="18" PointY="19" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Grupo" Width="1.5" PointX="18" PointY="16.125" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_ClasificacionIncidencia" Width="1.5" PointX="12" PointY="80.75" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Incidencia_ComplementoRecepcion" Width="1.5" PointX="19.5" PointY="69.5" />
@@ -329,7 +327,6 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Cedu__Diame__6F8A7843" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Proyecto_Entidad_Configuracion" Width="1.5" PointX="26.5" PointY="56.875" />
         <AssociationConnector Association="ModelSam3.FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Entidad" />
         <AssociationConnector Association="ModelSam3.FK_Rel_Proyecto_Entidad_Configuracion_Sam3_Proyecto" />
@@ -342,6 +339,64 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Itemcode_Colada" Width="1.5" PointX="25.75" PointY="27.375" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Colad__2E7BCEF5" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__2D87AABC" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_CorteSpool" Width="1.5" PointX="25.875" PointY="22.125" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaCorteSpool" Width="1.5" PointX="14.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaEstacion" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaEstatusOrden" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaFabArea" Width="1.5" PointX="16.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaJuntaSpool" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaMaterialSpool" Width="1.5" PointX="3.75" PointY="17.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaODT" Width="1.5" PointX="5.75" PointY="17.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaODTJ" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaODTM" Width="1.5" PointX="18.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaODTS" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaSpool" Width="1.5" PointX="2.75" PointY="20.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaTaller" Width="1.5" PointX="4.75" PointY="20.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaTipoCorte" Width="1.5" PointX="20.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaTipoJunta" Width="1.5" PointX="20.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Estacion" Width="1.5" PointX="11.625" PointY="84.25" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_FabArea" Width="1.5" PointX="24.625" PointY="60.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_JuntaSpool" Width="1.5" PointX="26.875" PointY="64.5" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenTrabajoJunta" Width="1.5" PointX="29.125" PointY="49.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenTrabajoMaterial" Width="1.5" PointX="28.125" PointY="33" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_TipoJunta" Width="1.5" PointX="24.625" PointY="71.625" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cort__ItemC__52B92F6B" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cort__Spool__51C50B32" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cort__TipoC__53AD53A4" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cort__TipoC__54A177DD" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Esta__Talle__587208C1" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Junt__Estac__61074EC2" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Junt__FabAr__5E2AE217" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Junt__Famil__5F1F0650" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Junt__Famil__60132A89" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Junt__Spool__5C4299A5" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Junt__TipoJ__5D36BDDE" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Junta__65CC03DF" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Mater__7AC720C5" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Numer__7BBB44FE" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Numer__7CAF6937" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Numer__7DA38D70" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Numer__7E97B1A9" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Orden__64D7DFA6" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Orden__79D2FC8C" />
+        <AssociationConnector Association="ModelSam3.FK_NumeroUnico_TipoUso" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Proyecto_Correo" Width="1.5" PointX="8.25" PointY="82.75" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__1F04813B" />
+        <AssociationConnector Association="ModelSam3.FK_FolioCuantificacion_Rel_Proyecto_Entidad_Configuracion" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Orde__Rel_P__21E0EDE6" />
+        <AssociationConnector Association="ModelSam3.FK_Sam3_Incidencia_Rel_Proyecto_Entidad_Configuracion" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaEspesor" Width="1.5" PointX="21.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Espesor" Width="1.5" PointX="21" PointY="72.875" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Cedula" Width="1.5" PointX="23.375" PointY="1" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaCedula" Width="1.5" PointX="16.375" PointY="19.75" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Grup__TipoM__5654B625" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_CatalogoCedulas" Width="1.5" PointX="3" PointY="58.625" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cata__Diame__3E7D2C94" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__443605EA" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Incid__7108AC61" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Entid__11757BF3" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__108157BA" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__4AADF94F" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

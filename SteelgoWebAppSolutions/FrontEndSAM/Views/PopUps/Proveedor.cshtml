@@ -88,11 +88,11 @@
             dataTextField: "Nombre",
             dataValueField: "ProveedorID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarContacto(dataItem.ContactoID, dataItem.Nombre);
             },
             filter: "contains",
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarContacto(dataItem.ContactoID, dataItem.Nombre):CargarContacto("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -218,7 +218,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

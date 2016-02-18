@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
+using BackEndSAM.Utilities;
 
 namespace BackEndSAM.DataAcces
 {
@@ -133,6 +135,10 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? 
+                    (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
+                bool activaConfigFolioLlegada = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
+
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> folios = (from fc in ctx.Sam3_FolioCuantificacion
@@ -145,6 +151,61 @@ namespace BackEndSAM.DataAcces
                                             id = fc.FolioCuantificacionID.ToString(),
                                             value = fc.FolioCuantificacionID.ToString()
                                         }).AsParallel().ToList();
+
+                    
+                        foreach (ListaCombos item in folios)
+                        {
+                            int folioCuantificacionID = Convert.ToInt32(item.id);
+                            Sam3_FolioCuantificacion FolioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID).FirstOrDefault();
+                            Sam3_FolioAvisoLlegada folioLl = (from fc in ctx.Sam3_FolioCuantificacion
+                                                              join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                              join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                              where fc.Activo && fe.Activo && fa.Activo
+                                                              && fc.FolioCuantificacionID == folioCuantificacionID
+                                                              select fa).AsParallel().FirstOrDefault();
+
+                            string NombreFolioAvisoLlegada = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                              where pc.Proyecto == folioLl.ProyectoNombrado
+                                                              && pc.Entidad == folioLl.Entidad
+                                                              select pc.PreFijoFolioAvisoLlegada + ","
+                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                              + folioLl.Consecutivo + ","
+                                                              + pc.PostFijoFolioAvisoLlegada.Trim()).FirstOrDefault();
+
+                            string NombreFolioCuantificacion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                where pc.Rel_Proyecto_Entidad_Configuracion_ID == FolioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                select pc.PreFijoFolioPackingList + ","
+                                                                + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                + FolioCuantificacion.ConsecutivoConfiguracion.ToString() + ","
+                                                                + pc.PostFijoFolioPackingList).FirstOrDefault();
+
+                            int FolioAvisoLlegadaID = folioLl.FolioAvisoLlegadaID;
+                            int ConsecutivoFolioCuanificacion = FolioCuantificacion.Consecutivo.Value;
+                            int ConsecutivoFolioLlegada = folioLl.Consecutivo.Value;
+
+                            NombreFolioAvisoLlegada = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioAvisoLlegada);
+                            NombreFolioCuantificacion = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioCuantificacion);
+
+                            if (activaConfigFolioLlegada && activarFolioConfiguracionCuantificacion)
+                            {
+                                item.value = NombreFolioAvisoLlegada + "-" + NombreFolioCuantificacion;
+                            }
+
+                            if (activaConfigFolioLlegada && !activarFolioConfiguracionCuantificacion)
+                            {
+                                item.value = NombreFolioAvisoLlegada + "-" + ConsecutivoFolioCuanificacion;
+                            }
+
+                            if (!activaConfigFolioLlegada && activarFolioConfiguracionCuantificacion)
+                            {
+                                item.value = FolioAvisoLlegadaID + "-" + NombreFolioCuantificacion;
+                            }
+
+                            if (!activaConfigFolioLlegada && !activarFolioConfiguracionCuantificacion)
+                            {
+                                item.value = FolioAvisoLlegadaID + "-" + ConsecutivoFolioCuanificacion;
+                            }
+                        }
                     return folios;
                 }
             }
@@ -183,7 +244,8 @@ namespace BackEndSAM.DataAcces
                              join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
                              join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                             join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                             join c in ctx.Sam3_Cedula on cat.CedulaA equals c.CedulaID
                              where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo &&
                              rfc.FolioCuantificacionID.ToString() == folioCuantificacion
                              select new ListadoMaterialesPorPL
@@ -194,7 +256,7 @@ namespace BackEndSAM.DataAcces
                                  ItemCode = ic.Codigo,
                                  ItemCodeSteelgo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
-                                 Cedula = c.CedulaA,
+                                 Cedula = c.Codigo,
                                  TipoAcero = fm.Nombre,
                                  //D1 = ics.Diametro1.ToString(),
                                  //D2 = ics.Diametro2.ToString(),

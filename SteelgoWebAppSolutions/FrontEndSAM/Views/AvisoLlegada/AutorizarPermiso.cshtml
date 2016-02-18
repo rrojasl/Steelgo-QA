@@ -13,9 +13,9 @@
     <li>
         <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="AutorizarPermiso0007"></span></a>
     </li>
-    <li>
+    @*<li>
         <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="AutorizarPermiso0008"></span></a>
-    </li>
+    </li>*@
     <li class="active">
         <a href="@Url.Action("AutorizarPermiso", "AvisoLlegada")"><span id="AutorizarPermiso0003"></span></a>
     </li>
@@ -167,14 +167,15 @@
         $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#FolioAvisoLlegadaID").kendoComboBox({
-            dataTextField: "id",
-            dataValueField: "value",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
-                ChecarAutorizacion(dataItem.id);
+                
             },
             change: function () {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
+                ChecarAutorizacion(dataItem.id);
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -188,12 +189,14 @@
                 $(".k-upload.k-header").addClass("k-upload-empty");
                 $(".k-upload-button").removeClass("k-state-focused");
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains"
         });
 
         $('#ArchivoAutorizar').kendoUpload({
             async: {
                 saveUrl: $DocumentoPermisoAduana,
+                removeUrl: "#",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -201,15 +204,18 @@
             success: function (data) {
                 HabilitarObtenerDocumentosPermisoAduanaUploadFiles(data);
                 $("#ArchivoAutorizar").data("kendoUpload").disable();
+                $("#Guardar")[0].disabled=false;
                 //$("#NumeroPermiso").attr("disabled", "disabled");
             },
             error: function (data) { },
             upload: onUploadArchivoAutorizar,
             select: singleFile,
+            remove: onRemove,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
         });
 
         $("#Guardar").click(function () {
+            this.disabled=true;
             if (!ValidarRequeridos()) {
                 Guardar();
             } else {
@@ -220,11 +226,20 @@
             BotonEdicion();
         });
 
+        $(".k-i-close.k-delete").click(function () {
+            alert("borrar Archivo");
+        });
         ObtenerFolioEntradaMaterial();
 
         cargarFolioDeterminado();
-    };
 
+        $("#NumeroPermiso").on("change",function(){
+            $("#Guardar")[0].disabled=false;
+        })
+    };
+    function onRemove(e) {
+        MostrarUpload(e);
+    };
     function Guardar() {
         var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
         var Folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
@@ -234,12 +249,12 @@
         Listado.NumeroPermiso = numeropermiso;
 
         $GuardarPermisoAduana.DocumentoPermisoAduana.create({}, { datos: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (data) {
-            loadingStart();
+            //loadingStart();
             if (Error(data)) {
                 displayMessage("notificationslabel0085", "", '0');
                 BotonAlta();
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -391,7 +406,7 @@
         //removerValidacionRequeridos();
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
 
             if(result){
                 if (Error(result)) {
@@ -406,18 +421,21 @@
                     }
                 };
             }
-            loadingStop();
+            //loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "8", { path: '/' });
+    }
     function DesahabilitarObtenerDocumentosPermisoAduana() {
         var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
         //removerValidacionRequeridos();
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if(result){
                 if (Error(result)) {
                     if (result.DocumentoID) {
@@ -426,7 +444,8 @@
                     }
                 };
             }
-            loadingStop();
+            //loadingStop();
+            AsignarPaginaActualCookie();
             applySecurityPolicy(false);
         });
     };
@@ -441,7 +460,7 @@
         removerValidacionRequeridos();
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+            //loadingStart();
             if (Error(result)) {
                 if (result) {
                     $("#listaArchivos tbody").empty();
@@ -451,7 +470,8 @@
                         $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     }
                     var files = data.files;
-                    if (files[0].name !== result.Nombre) {
+                    var strnamefile = files[0].name.replace(/ /g, '_');
+                    if (strnamefile !== result.Nombre) {
                         limpiarUploadFiles();
                         displayMessage("notificationslabel0084", '', '2');
                         $("#listaArchivos tbody").empty();
@@ -464,7 +484,7 @@
                     displayMessage("notificationslabel0084", '', '2');
                 }
             };
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -522,11 +542,11 @@
     };
 
     function singleFile(e) {
-        //console.log(e);
-        if (e.files.length == 1) {
-                $("#divLinkAutorizar").empty();
-                this.element.hide();
-        }
+        if (notDotName(e) && e.files.length == 1) {
+            $("#divLinkAutorizar").empty();
+            this.element.hide();
+            $("#Guardar")[0].disabled=false;            
+        } 
     }
 
     //Si viene de otra pagina se carga el folio y
@@ -553,9 +573,10 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    $("#Guardar")[0].disabled=true;
                     return false;
                 }
             }

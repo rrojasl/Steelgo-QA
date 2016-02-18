@@ -10,6 +10,9 @@
     <li>
         <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="Almacenaje0024"></span></a>
     </li>
+    <li>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="Almacenaje0025"></span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("Almacenaje", "Almacenaje")"><span id="Almacenaje0002"></span></a>
     </li>
@@ -24,10 +27,10 @@
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Almacenaje0003"></span></button>
-                                @*<button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="Almacenaje0004"></span></button>*@
+                                @*<button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="Almacenaje0004"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
-                                </button>
+                                </button>*@
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="Almacenaje0005"></span></a>
                         </div>
@@ -131,6 +134,8 @@
     var Proyecto = {}, OrdenAlmacenaje = {},
         ItemCode = {}, NumeroUnico = {},
         resultadoJson = "";
+    var params={};
+    window.location.search!=="" ? window.location.href.split("?")[1].split("&").forEach(function(n){params[n.split("=")[0]]=n.split("=")[1]}) : params=null;
     var _almacenaje = "@Url.Action("Almacenaje", "Almacenaje")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
@@ -208,10 +213,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -223,6 +228,7 @@
                 };
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
         ObtenerProyecto();
 
@@ -230,10 +236,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarOrdenAlmacenaje(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarOrdenAlmacenaje(dataItem.id, dataItem.value):CargarOrdenAlmacenaje("", "");
                 var value = this.value();
                 LimpiarCamposOrdenAlmacenaje();
 
@@ -246,6 +252,7 @@
                 };
                 FiltrarDatos();
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -253,10 +260,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarItemCode(dataItem.id, dataItem.value):CargarItemCode("", "");
                 var value = this.value();
                 LimpiarCamposItemCode();
                 if (!value || this.selectedIndex == -1) {
@@ -269,6 +276,7 @@
                 };
                 FiltrarDatos();
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -276,10 +284,10 @@
             dataTextField: "NumeroUnico",
             dataValueField: "NumeroUnicoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarNumeroUnico(dataItem.NumeroUnicoID, dataItem.NumeroUnico);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarNumeroUnico(dataItem.NumeroUnicoID, dataItem.NumeroUnico):CargarNumeroUnico("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -289,6 +297,7 @@
                 FiltrarDatos();
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
 
         $("#Rack").keydown(function (e) {
@@ -331,23 +340,25 @@
     function ObtenerProyecto() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
+            fromParam($("#ProyectoID").data("kendoComboBox"),"ProyectoID",params!==null && params.ProyectoID!==null ? params.ProyectoID : null);
         });
     };
 
     function ObtenerOrdenesAlmacenaje() {//Se Obtienen los numeros unicos y los item codes
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({ ProyectoID: Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 ControlErroresObjetosComboBox("OrdenAlmacenaje", result);
+                fromParam($("#OrdenAlmacenaje").data("kendoComboBox"),"id",params!==null && params.OrdenAlmacenajeID!==null ? params.OrdenAlmacenajeID : null);
             }
-            loadingStop();
+            //loadingStop();
         });
 
     };
 
 
     function ObtenerItemCodes() {//Se Obtienen los numeros unicos y los item codes
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({ proyectoID: Proyecto.ProyectoID, ordenalmacenajeID: OrdenAlmacenaje.OrdenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 ControlErroresObjetosComboBox("ItemCode", result.ListadoItemCode);
@@ -361,16 +372,19 @@
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
 
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "24", { path: '/' });
+    }
       
     function ObtenerDiametros() {
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({
            itemCodeid: ItemCode.ItemCodeID, token: Cookies.get("token")
         }).done(function (result) {
@@ -378,11 +392,11 @@
                 $("#Diametro1").val(result.Diametro1);
                 $("#Diametro2").val(result.Diametro2);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
     function ObtenerNumerosUnicos() {
-        loadingStart();
+        //loadingStart();
         $Almacenaje.Almacenaje.read({
             ProyectoID: Proyecto.ProyectoID, ordenalmacenajeID: OrdenAlmacenaje.OrdenAlmacenajeID,
             itemCodeid: ItemCode.ItemCodeID, token: Cookies.get("token")
@@ -390,7 +404,7 @@
             if (Error(result)) {
                 ControlErroresObjetosComboBox("NumeroUnico", result);
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -508,16 +522,19 @@
                 numeric: true,
                 buttonCount: 2
             },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
-                { field: "ItemCodeID", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "NumeroUnicoID", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "NumeroUnico", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()]},
                 { field: "Rack", title: _dictionary.Almacenaje0019[$("#language").data("kendoDropDownList").value()] },
+                { field: "ItemCodeID", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "NumeroUnicoID", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()], hidden: true },
             ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                //$(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid td .k-button").text('');
+                //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                checkTH($("#grid").data("kendoGrid"));
+                quickHeadFilter($("#grid").data("kendoGrid"));
             }
         });
 
@@ -565,7 +582,7 @@
     };
 
     function Guardar() {
-        loadingStart();
+        //loadingStart();
         if (validarRequeridosFormaAlmacenaje()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
             var Listado = { OrdenAlmacenajeID: "", Items: "" };
@@ -575,11 +592,11 @@
             $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
                 Error(result);
                 displayMessage("notificationslabel0056", "", '0');
-                loadingStop();
+                //loadingStop();
             });
         } else {
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 
@@ -597,7 +614,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
@@ -622,8 +639,14 @@
         return Listado;
     };
     
-
-
+    function fromParam(widget,paramname,param){
+        if(param!==null){
+            widget.select(function(dataItem) {
+                return dataItem[paramname] === param;
+            });
+            widget.trigger("change");
+        }
+    }
 
     @section JavascriptDocumentReadyFunctions {
         $authorizationModel["Almacenaje"] = $AlmacenajeModel;

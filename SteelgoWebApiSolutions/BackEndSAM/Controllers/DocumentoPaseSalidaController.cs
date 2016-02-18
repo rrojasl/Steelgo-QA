@@ -45,7 +45,8 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegada, string tipoArchivo, string token)
+
+        public object Post(int folioAvisoLlegada, string tipoArchivo, int incidenciaID, string token)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace BackEndSAM.Controllers
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    int contador = 0;
+                    //int contador = 0;
 
                     HttpResponseMessage result = null;
 
@@ -74,10 +75,10 @@ namespace BackEndSAM.Controllers
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
 
-                        foreach (string file in httpRequest.Files)
+                        for (int i = 0; i < httpRequest.Files.Count; i++)
                         {
                             Guid docguID = Guid.NewGuid();
-                            postedFile = httpRequest.Files[contador];
+                            postedFile = httpRequest.Files[i];
                             string nombreArchivo = "";
                             //verificar si el nombre del archivo es una ruta completa
                             if (postedFile.FileName.Contains("\\"))
@@ -90,9 +91,20 @@ namespace BackEndSAM.Controllers
                                 nombreArchivo = postedFile.FileName;
                             }
 
+                            if (nombreArchivo.Contains(" "))
+                            {
+                                nombreArchivo = nombreArchivo.Replace(' ', '_');
+                            }
+
                             var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
                             string[] st = nombreArchivo.Split('.');
+
+                            if (st.Length > 2)
+                            {
+                                throw new Exception("El nombre de archivo no puede contener puntos");
+                            }
+
                             string extencion = "." + st[1];
                             lstArchivos.Add(new DocumentoPosteado
                             {
@@ -104,12 +116,13 @@ namespace BackEndSAM.Controllers
                                 FolioAvisoLlegadaID = folioAvisoLlegada,
                                 UserId = usuario.UsuarioID,
                                 TipoArchivoPaseSalida = tipoArchivo,
-                                Extencion = extencion
+                                Extencion = extencion,
+                                IncidenciaID = incidenciaID
                             });
 
                             postedFile.SaveAs(path);
                             docfiles.Add(ruta);
-                            contador++;
+                            //contador++;
                         }
 
                         if ((bool)DocumentosBd.Instance.GuardarDocumentoPaseSalida(lstArchivos))

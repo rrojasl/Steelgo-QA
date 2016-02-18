@@ -3,6 +3,15 @@
 }
 
 @section breadcrumb {
+    <li>
+        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0020"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0021"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0003"></span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("RevisionDeficit", "Materiales")"><span id="RevisionDeficit0001"></span></a>
     </li>
@@ -86,11 +95,27 @@
         cargarGrids();
     }
 
+    function getICfields(){
+        return {
+            DeficitID:{type:"number",nullable:false,editable:false},
+            SpoolID:{type:"number",nullable:false,editable:false},
+            ItemCodeID:{type:"number",nullable:false,editable:false},
+            ItemCode:{type:"string",nullable:false,editable:false},
+            Diametro1:{type:"number",nullable:false,editable:false},
+            Diametro2:{type:"number",nullable:false,editable:false},
+            Descripcion:{type:"string",nullable:false,editable:false},
+            Cantidad:{type:"number",nullable:false,editable:false},
+            Deficit:{type:"number",nullable:false,editable:true},
+            PorCubrir:{type:"number",nullable:false,editable:false,defaultValue:0},
+        }
+    }
+
     function cargarGrids(){
         var tmpIC=removeGrid($("#gridIC"));
         var tmpSp=removeGrid($("#gridSp"));
 
         $("#gridIC").kendoGrid({
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns:[
                 {field:"ItemCode"},
                 {field:"Diametro1",title:_dictionary.RevisionDeficit0011[$("#language").data("kendoDropDownList").value()]},
@@ -106,18 +131,7 @@
                 schema:{
                     model:{
                         id:"DeficitID",
-                        fields:{
-                            DeficitID:{type:"number",nullable:false,editable:false},
-                            SpoolID:{type:"number",nullable:false,editable:false},
-                            ItemCodeID:{type:"number",nullable:false,editable:false},
-                            ItemCode:{type:"string",nullable:false,editable:false},
-                            Diametro1:{type:"number",nullable:false,editable:false},
-                            Diametro2:{type:"number",nullable:false,editable:false},
-                            Descripcion:{type:"string",nullable:false,editable:false},
-                            Cantidad:{type:"number",nullable:false,editable:false},
-                            Deficit:{type:"number",nullable:false,editable:true},
-                            PorCubrir:{type:"number",nullable:false,editable:false,defaultValue:0},
-                        }
+                        fields:getICfields(),
                     }
                 },
                 transport:{
@@ -144,6 +158,7 @@
                     })
                     $("#gridIC").data("kendoGrid").refresh();
                 }
+                quickHeadFilter($("#gridIC").data("kendoGrid"));
             },
             edit:function(e){
                 deficitPrevio=e.model.Deficit;
@@ -171,29 +186,34 @@
         });
         $("#gridIC").data("kendoGrid").dataSource.data(tmpIC);
 
+        function getSPfields(){
+            return {
+                SpoolID:{type:"number",nullable:false,editable:false},
+                Spool:{type:"String",nullable:false,editable:false},
+                Prioridad:{type:"number",nullable:false,editable:false},
+                Peso:{type:"number",nullable:false,editable:false},
+                Peqs:{type:"string",nullable:false,editable:false},
+                ItemCodeID:{type:"number",nullable:false,editable:false},
+                Seleccionado:{type:"boolean",nullable:false,editable:false}
+            }
+        }
+
         $("#gridSp").kendoGrid({
-            columns:[
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns:addTo([
                 { template: '<input type="checkbox" class="sub" >', width: 45 },
                 {field:"SpoolID"},
                 {field:"Spool"},
                 {field:"Prioridad",title:_dictionary.RevisionDeficit0017[$("#language").data("kendoDropDownList").value()]},
                 {field:"Peso",title:_dictionary.RevisionDeficit0018[$("#language").data("kendoDropDownList").value()]},
                 {field:"Peqs"},
-            ],
+            ],getSPfields()),
             dataSource:{
                 data:[],
                 schema:{
                     model:{
                         id:"SpoolID",
-                        fields:{
-                            SpoolID:{type:"number",nullable:false,editable:false},
-                            Spool:{type:"String",nullable:false,editable:false},
-                            Prioridad:{type:"number",nullable:false,editable:false},
-                            Peso:{type:"number",nullable:false,editable:false},
-                            Peqs:{type:"string",nullable:false,editable:false},
-                            ItemCodeID:{type:"number",nullable:false,editable:false},
-                            Seleccionado:{type:"boolean",nullable:false,editable:false}
-                        }
+                        fields:getSPfields(),
                     }
                 }
             },
@@ -211,9 +231,20 @@
                         checarPorCubrir($(this).closest("tr"));
                     }
                 })
+                quickHeadFilter($("#gridSp").data("kendoGrid"));
             }
         });
         $("#gridSp").data("kendoGrid").dataSource.data(tmpSp);
+    }
+
+    function getDetFields(){
+        return {
+            ItemCodeID:{ editable: false, nullable: true },
+            ItemCode: { editable: false,type:"string",validation: { required: false } },
+            Diametro1: { editable: false,type:"number", validation: { required: false } },
+            Diametro2: { editable: false,type:"number", validation: { required: false } },
+            Cantidad:{editable: false,type:"number"},
+        }
     }
 
     function detailInit(e) {
@@ -223,23 +254,18 @@
                 schema: {
                     model: {
                         id:"ItemCodeID",
-                        fields:{
-                            ItemCodeID:{ editable: false, nullable: true },
-                            ItemCode: { editable: false,type:"string",validation: { required: false } },
-                            Diametro1: { editable: false,type:"number", validation: { required: false } },
-                            Diametro2: { editable: false,type:"number", validation: { required: false } },
-                            Cantidad:{editable: false,type:"number"},
-                        }
+                        fields:getDetFields(),
                     },
                 },
             },
             scrollable: true,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns:[
                 {field:"ItemCode",title:"Item Code"},
                 {field:"Diametro1",title:"Diametro 1"},
                 {field:"Diametro2",title:"Diametro 2"},
                 {field:"Cantidad"},
-            ]
+            ],
         });
     }
 
@@ -272,25 +298,26 @@
         dataValueField:"id",
         change:function(e){
             unaVez=true;
-            loadingStart();
+            ////loadingStart();
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
                 if(data.length>0){
                     $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
                         $("#gridSp").data("kendoGrid").dataSource.data(data);
-                        loadingStop();
+                        ////loadingStop();
                     })
                     $("#gridIC").data("kendoGrid").dataSource.data(data);
                 }else{
                     displayMessage("",_dictionary.RevisionDeficit0010[$("#language").data("kendoDropDownList").value()],"1");
                 }
-                loadingStop();
+                ////loadingStop();
             })
-        }
+        },
+        dataBound: function(e){checkIfOne(this);},
     });
 
     $("#solucionar").on("click",function(){
         var solucionado=true;
-        loadingStart();
+        ////loadingStart();
         $("#gridIC tr[data-uid]").each(function(){
             var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
             dataItem.PorCubrir.toString()=="0" ? solucionado=false : 0;
@@ -315,11 +342,11 @@
                 }else{
                     displayMessage("",data.ReturnMessage[0],"2");
                 }
-                loadingStop();
+                ////loadingStop();
             })
         }else{
             displayMessage("",_dictionary.RevisionDeficit0004[$("#language").data("kendoDropDownList").value()], '2');
-            loadingStop();
+            ////loadingStop();
         }
     })
     $authorizationModel["Materiales"] = $RevisionDeficitModel;
@@ -327,6 +354,6 @@
 
 @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "55", { path: '/' });
+    Cookies.set("navegacion", "50", { path: '/' });
 }
 </script>

@@ -43,6 +43,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> TipoAvisoID { get; set; }
         public int Entidad { get; set; }
         public int ProyectoNombrado { get; set; }
+        public string CuadrillaDescarga { get; set; }
     
         public virtual ICollection<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }

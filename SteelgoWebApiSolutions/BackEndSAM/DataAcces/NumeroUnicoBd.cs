@@ -11,6 +11,7 @@ using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Transactions;
 using System.Globalization;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -146,6 +147,7 @@ namespace BackEndSAM.DataAcces
                                                              select sh).Any()
                                                         && it.TipoMaterialID == 1
                                                         && buscar.Any(x => nu.Codigo.Contains(x))
+                                                        && nu.Estatus == "A"
                                                         select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
 
                         //ahora buscamos las equivalencias de esos numeros unicos en sam 3
@@ -157,7 +159,7 @@ namespace BackEndSAM.DataAcces
 
                         listado = (from nu in ctx.Sam3_NumeroUnico
                                    join nus in ctx.Sam3_NumeroUnicoSegmento on nu.NumeroUnicoID equals nus.NumeroUnicoID
-                                   where nu.Activo && nus.Activo
+                                   where nu.Activo && nus.Activo && nu.Estatus == "A"
                                    && sam3_NumerosUnicos.Contains(nu.NumeroUnicoID)
                                    select new ListaComboNumeroUnicoCOrte
                                    {
@@ -194,18 +196,19 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object DetalleNumeroUnicoCorte(int numeroUnicoID, Sam3_Usuario usuario)
+        public object DetalleNumeroUnicoCorte(string prefijo, int consecutivo, string segmento, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    return (from nu in ctx.Sam3_NumeroUnico
+                    DetalleNumeroUnicoCorte detalle = (from nu in ctx.Sam3_NumeroUnico
                             join nui in ctx.Sam3_NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
                             join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                             join pc in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals pc.ProyectoID
                             where nu.Activo && nui.Activo && it.Activo && pc.Activo
-                            && nu.NumeroUnicoID == numeroUnicoID
+                            && nu.Prefijo == prefijo
+                            && nu.Consecutivo == consecutivo
                             select new DetalleNumeroUnicoCorte
                             {
                                 Cantidad = nui.InventarioFisico.ToString(),
@@ -213,6 +216,10 @@ namespace BackEndSAM.DataAcces
                                 ItemCode = it.Codigo,
                                 Tolerancia = pc.ToleranciaCortes.Value.ToString()
                             }).Distinct().AsParallel().SingleOrDefault();
+
+                    detalle.ListadoCortes = (List<DatosBusquedaODT>)CorteBd.Instance.ListadoGenerarCorte(prefijo, consecutivo, segmento, usuario);
+
+                    return detalle; 
                 }
             }
             catch (Exception ex)
@@ -258,6 +265,7 @@ namespace BackEndSAM.DataAcces
                                    join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam3_NumeroUnicoID
                                    where nu.Activo && nueq.Activo
                                    && sam2_NumerosUnicosIDs.Contains(nueq.Sam2_NumeroUnicoID)
+                                   && nu.EstatusFisico == "Aprobado" && nu.EstatusDocumental == "Aprobado"
                                    select new ListaCombos
                                    {
                                        id = nu.NumeroUnicoID.ToString(),
@@ -305,6 +313,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
@@ -361,8 +370,34 @@ namespace BackEndSAM.DataAcces
                                                     where us.Activo && us.UsuarioID == inc.UsuarioID
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    FolioIncidenciaID = inc.IncidenciaID.ToString(),
-                                   FechaRegistro = inc.FechaCreacion.ToString()
+                                   FechaRegistro = inc.FechaCreacion.ToString(),
+                                   FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                          where  pc.Rel_Proyecto_Entidad_Configuracion_ID==inc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                          select pc.PreFijoFolioIncidencias + ","
+                                                                                                           + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                           + inc.Consecutivo.ToString() + ","
+                                                                                                           + pc.PostFijoFolioIncidencias).FirstOrDefault() : inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
+
+
+                    if (ActivarFolioConfiguracionIncidencias)
+                    {
+                        foreach (ListadoIncidencias item in listado)
+                        {
+                            if (!string.IsNullOrEmpty(item.FolioConfiguracionIncidencia))
+                            {
+                                string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
+                            }
+                        }
+                    }
                 }
                 return listado;
             }
@@ -372,6 +407,99 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
+            }
+        }
+
+        public object EliminarNumeroUnico(int numeroUnicoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+                        using (Sam2Context ctx2 = new Sam2Context())
+                        {
+                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
+                            {
+                                int sam2_NumeroUnicoID = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                          where eq.Activo && eq.Sam3_NumeroUnicoID == numeroUnicoID
+                                                          select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                NumeroUnico NumeroUnicoSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                //buscamos si tiene procesos en ODTM
+                                bool tieneProcesos = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                        where odtm.NumeroUnicoCongeladoID == NumeroUnicoSam2.NumeroUnicoID
+                                                        || odtm.NumeroUnicoDespachadoID == NumeroUnicoSam2.NumeroUnicoID
+                                                        || odtm.NumeroUnicoSugeridoID == NumeroUnicoSam2.NumeroUnicoID
+                                                        select odtm).Any();
+
+                                bool tieneInventarioCongelado = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                                    where nui.NumeroUnicoID == NumeroUnicoSam2.NumeroUnicoID
+                                                                    select nui.InventarioCongelado).AsParallel().SingleOrDefault() > 0 ? true : false;
+
+                                bool tieneInventarioTransferenciaCorte = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                                          where nui.NumeroUnicoID == NumeroUnicoSam2.NumeroUnicoID
+                                                                          select nui.InventarioTransferenciaCorte).AsParallel().SingleOrDefault() > 0 ? true : false;
+
+                                if (!tieneProcesos && !tieneInventarioCongelado && !tieneInventarioTransferenciaCorte)
+                                {
+                                    //Para eliminar el numero unico de sam 2 solo hay que ponerlo en estatus C
+                                    NumeroUnicoSam2.Estatus = "C";
+                                    NumeroUnicoSam2.FechaModificacion = DateTime.Now;
+                                    ctx2.SaveChanges();
+
+                                    Sam3_NumeroUnico numUnicoS3 = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoID).AsParallel().SingleOrDefault();
+                                    numUnicoS3.Activo = false;
+                                    numUnicoS3.FechaModificacion = DateTime.Now;
+                                    numUnicoS3.UsuarioModificacion = usuario.UsuarioID;
+
+                                    numUnicoS3.Sam3_NumeroUnicoInventario.Activo = false;
+                                    numUnicoS3.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+                                    numUnicoS3.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
+
+                                    foreach (Sam3_NumeroUnicoSegmento segmento in numUnicoS3.Sam3_NumeroUnicoSegmento)
+                                    {
+                                        segmento.Activo = false;
+                                        segmento.FechaModificacion = DateTime.Now;
+                                        segmento.UsuarioModificacion = usuario.UsuarioID;
+                                    }
+
+                                    ctx.SaveChanges();
+                                }
+                                else
+                                {
+                                    throw new Exception("No se puede Eliminar el Número Único pues tiene algun proceso capturado");
+                                }
+
+                                ctx_tran.Commit();
+                                ctx2_tran.Commit();
+                            }
+                        }
+                    }
+ 
+                }
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("OK");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
     }

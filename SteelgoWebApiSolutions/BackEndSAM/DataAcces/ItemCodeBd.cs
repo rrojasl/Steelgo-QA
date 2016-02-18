@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using DatabaseManager.Sam2;
 using System.Transactions;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -57,6 +58,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                // tpo packinglist = 3 traer todos los itemcodes
                 List<BackEndSAM.Models.ItemCode> IC = new List<BackEndSAM.Models.ItemCode>();
                 List<BackEndSAM.Models.ItemCode> itemCodeS2 = new List<BackEndSAM.Models.ItemCode>();
 
@@ -67,35 +69,39 @@ namespace BackEndSAM.DataAcces
 
                         IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto", D1 = 0, D2 = 0 });
 
-                        //int sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
-                        //                       where eq.Activo && eq.Sam3_ProyectoID == proyectoID
-                        //                       select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
-
-                        itemCodeS2 = (from ic in ctx.Sam3_ItemCode
-                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
-                                      join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
-                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                                      where ic.Activo && rid.Activo 
-                                      && ic.TipoMaterialID == tipoPackingListID
-                                      && ic.ProyectoID == proyectoID
-                                      select new BackEndSAM.Models.ItemCode
-                                      {
-                                          ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
-                                          Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
-                                          D1 = d1.Valor,
-                                          D2 = d2.Valor 
-                                      }).AsParallel().Distinct().ToList();
-
-                        //si tienen orden de recepcion
-                        //List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
-                        //                      join or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on eq.Sam3_ItemCodeID equals or.ItemCodeID
-                        //                      join nu in ctx.Sam3_NumeroUnico on eq.Sam3_ItemCodeID equals nu.ItemCodeID
-                        //                      where eq.Activo && or.Activo && nu.Activo
-                        //                      select eq.Sam2_ItemCodeID.ToString()).AsParallel().Distinct().ToList();
-
-                        //itemCodeS2 = itemCodeS2.Where(x => !conOR.Contains(x.ItemCodeID)).AsParallel().Distinct().ToList();
-
-                        //itemCodeS2 = itemCodeS2.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
+                        if (tipoPackingListID == 3)
+                        {
+                            itemCodeS2 = (from ic in ctx.Sam3_ItemCode
+                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                          join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                          join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                          where ic.Activo && rid.Activo
+                                          && ic.ProyectoID == proyectoID
+                                          select new BackEndSAM.Models.ItemCode
+                                          {
+                                              ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                              Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                              D1 = d1.Valor,
+                                              D2 = d2.Valor
+                                          }).AsParallel().Distinct().ToList();
+                        }
+                        else
+                        {
+                            itemCodeS2 = (from ic in ctx.Sam3_ItemCode
+                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                          join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                          join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                          where ic.Activo && rid.Activo
+                                          && ic.TipoMaterialID == tipoPackingListID
+                                          && ic.ProyectoID == proyectoID
+                                          select new BackEndSAM.Models.ItemCode
+                                          {
+                                              ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                              Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                              D1 = d1.Valor,
+                                              D2 = d2.Valor
+                                          }).AsParallel().Distinct().ToList();
+                        }
                     }
                 }
 
@@ -138,6 +144,9 @@ namespace BackEndSAM.DataAcces
                                 //Inserta en Sam 2
                                 DatabaseManager.Sam2.ItemCode itemS2;
 
+                                decimal Diametro1 = string.IsNullOrEmpty(DatosItemCode.Diametro1.ToString()) ? 0 : Convert.ToDecimal(DatosItemCode.Diametro1);
+                                decimal Diametro2 = string.IsNullOrEmpty(DatosItemCode.Diametro2.ToString()) ? 0 : Convert.ToDecimal(DatosItemCode.Diametro2);
+
                                 if (!ctx2.ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode).Any())
                                 {
                                     itemS2 = new DatabaseManager.Sam2.ItemCode();
@@ -153,12 +162,12 @@ namespace BackEndSAM.DataAcces
                                     itemS2.FechaModificacion = DateTime.Now;
                                     itemS2.Peso = DatosItemCode.Peso;
                                     itemS2.DescripcionInterna = DatosItemCode.DescripcionInterna;
-                                    itemS2.Diametro1 = DatosItemCode.Diametro1;
-                                    itemS2.Diametro2 = DatosItemCode.Diametro2;
-                                    itemS2.FamiliaAceroID = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
-                                                             where eq.Activo
-                                                             && eq.Sam3_FamiliaAceroID == DatosItemCode.FamiliaID
-                                                             select eq.Sam2_FamiliaAceroID).AsParallel().SingleOrDefault();
+                                    itemS2.Diametro1 = Diametro1;
+                                    itemS2.Diametro2 = Diametro2;
+                                    //itemS2.FamiliaAceroID = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
+                                    //                         where eq.Activo
+                                    //                         && eq.Sam3_FamiliaAceroID == DatosItemCode.FamiliaID
+                                    //                         select eq.Sam2_FamiliaAceroID).AsParallel().SingleOrDefault();
 
                                     ctx2.ItemCode.Add(itemS2);
                                     ctx2.SaveChanges();
@@ -171,7 +180,50 @@ namespace BackEndSAM.DataAcces
 
                                 int diam1 = Convert.ToInt32(DatosItemCode.Diametro1ID);
                                 int diam2 = Convert.ToInt32(DatosItemCode.Diametro2ID);
-                                
+
+                                if (diam1 == 0)
+                                {
+                                    Sam3_Diametro diametro1;
+                                    //Se verifica que si exista el diametro
+                                    //Si existe se asigna el valor
+                                    if (ctx.Sam3_Diametro.Where(x => x.Valor == Diametro1).Any())
+                                    {
+                                        diam1 = ctx.Sam3_Diametro.Where(x => x.Valor == Diametro1).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
+                                    }
+                                    else {
+                                        diametro1 = new Sam3_Diametro();
+                                        diametro1.Valor = Diametro1;
+                                        diametro1.VerificadoPorCalidad = true;
+                                        diametro1.Activo = true;
+                                        diametro1.UsuarioModificacion = usuario.UsuarioID;
+                                        diametro1.FechaModificacion = DateTime.Now;
+                                        ctx.Sam3_Diametro.Add(diametro1);
+                                        ctx.SaveChanges();
+                                        diam1 = diametro1.DiametroID;
+                                    }
+                                }
+
+                                if (diam2 == 0)
+                                {
+                                    Sam3_Diametro diametro2;
+                                    //Se verifica que si exista el diametro
+                                    //Si existe se asigna el valor
+                                    if (ctx.Sam3_Diametro.Where(x => x.Valor == Diametro2).Any())
+                                    {
+                                        diam2 = ctx.Sam3_Diametro.Where(x => x.Valor == Diametro2).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
+                                    }
+                                    else {
+                                        diametro2 = new Sam3_Diametro();
+                                        diametro2.Valor = Diametro2;
+                                        diametro2.VerificadoPorCalidad = true;
+                                        diametro2.Activo = true;
+                                        diametro2.UsuarioModificacion = usuario.UsuarioID;
+                                        diametro2.FechaModificacion = DateTime.Now;
+                                        ctx.Sam3_Diametro.Add(diametro2);
+                                        ctx.SaveChanges();
+                                        diam2 = diametro2.DiametroID;
+                                    }
+                                }
 
                                 Sam3_ItemCode itemS3;
                                 //Inserta en Sam 3
@@ -183,7 +235,7 @@ namespace BackEndSAM.DataAcces
                                     itemS3.Codigo = DatosItemCode.ItemCode;//
                                     itemS3.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
                                     itemS3.DescripcionEspanol = DatosItemCode.Descripcion;//
-                                    itemS3.FamiliaAceroID = DatosItemCode.FamiliaID;//
+                                    //itemS3.FamiliaAceroID = DatosItemCode.FamiliaID;//
                                     itemS3.Activo = true;
                                     itemS3.UsuarioModificacion = usuario.UsuarioID;
                                     itemS3.FechaModificacion = DateTime.Now;
@@ -309,12 +361,8 @@ namespace BackEndSAM.DataAcces
                                        Descripcion = r.DescripcionEspanol,
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor, 
-                                       FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(), 
-                                       Cedula = (from c in ctx.Sam3_Cedula 
-                                                 join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
-                                                 where c.Activo && c.CedulaID == ics.CedulaID && d.Activo
-                                                 select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
-                                       ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                       FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(),
+                                       ItemCodeSteelgoID = riit.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                        ItemCodeSteelgo = ics.Codigo,
                                        TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                     join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
@@ -325,8 +373,49 @@ namespace BackEndSAM.DataAcces
                                                     && rics.ItemCodeID == r.ItemCodeID
                                                     select fm.Nombre).FirstOrDefault(),
                                        //ColadaID = r.ColadaID,
-                                       ItemCodeOrigenID = r.ItemCodeID
+                                       ItemCodeOrigenID = r.ItemCodeID,
+                                       TipoPackingList = r.TipoMaterialID,
+                                       TextoTipoPackingList=(from tm in ctx.Sam3_TipoMaterial
+                                                                 where tm.TipoMaterialID==r.TipoMaterialID
+                                                                 select tm.Nombre).FirstOrDefault()
                                    }).AsParallel().SingleOrDefault();
+
+                        if (detalle != null)
+                        {
+                            string diametro = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                               join ics in ctx.Sam3_ItemCodeSteelgo on ricsd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                               join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                               join d in ctx.Sam3_Diametro on cat.DiametroID equals d.DiametroID
+                                               where ricsd.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == detalle.ItemCodeSteelgoID
+                                               && ricsd.Activo && ics.Activo && cat.Activo && d.Activo
+                                               select d.Valor.ToString()).AsParallel().SingleOrDefault();
+
+                            string cedulaA = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                              join ics in ctx.Sam3_ItemCodeSteelgo on ricsd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                              join ced in ctx.Sam3_Cedula on cat.CedulaA equals ced.CedulaID
+                                              where ricsd.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == detalle.ItemCodeSteelgoID
+                                               && ricsd.Activo && ics.Activo && cat.Activo && ced.Activo
+                                              select ced.Codigo).AsParallel().SingleOrDefault();
+
+                            string cedulaB = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                              join ics in ctx.Sam3_ItemCodeSteelgo on ricsd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                              join ced in ctx.Sam3_Cedula on cat.CedulaB equals ced.CedulaID
+                                              where ricsd.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == detalle.ItemCodeSteelgoID
+                                              && ricsd.Activo && ics.Activo && cat.Activo && ced.Activo
+                                              select ced.Codigo).AsParallel().SingleOrDefault();
+
+                            string cedulaC = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                              join ics in ctx.Sam3_ItemCodeSteelgo on ricsd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
+                                              join ced in ctx.Sam3_Cedula on cat.CedulaC equals ced.CedulaID
+                                              where ricsd.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == detalle.ItemCodeSteelgoID
+                                              && ricsd.Activo && ics.Activo && cat.Activo && ced.Activo
+                                              select ced.Codigo).AsParallel().SingleOrDefault();
+
+                            detalle.Cedula = diametro + " - " + cedulaA + " - " + cedulaB + " - " + cedulaC;
+                        }
                     }
                     else
                     {
@@ -346,7 +435,11 @@ namespace BackEndSAM.DataAcces
                                        //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        //Cantidad = r.Cantidad,
                                        //MM = r.MM
-                                       ItemCodeOrigenID = r.ItemCodeID
+                                       ItemCodeOrigenID = r.ItemCodeID,
+                                       TipoPackingList = r.TipoMaterialID,
+                                       TextoTipoPackingList = (from tm in ctx.Sam3_TipoMaterial
+                                                               where tm.TipoMaterialID == r.TipoMaterialID
+                                                               select tm.Nombre).FirstOrDefault()
                                    }).AsParallel().SingleOrDefault();
                     }
                     return detalle;
@@ -371,6 +464,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
@@ -428,9 +522,33 @@ namespace BackEndSAM.DataAcces
                                                     && us.UsuarioID == inc.UsuarioID
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    FolioIncidenciaID = inc.IncidenciaID.ToString(),
-                                   FechaRegistro = inc.FechaCreacion.ToString()
+                                   FechaRegistro = inc.FechaCreacion.ToString(),
+                                   FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID==inc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                          select pc.PreFijoFolioIncidencias + ","
+                                                                                                           + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                           + inc.Consecutivo.ToString() + ","
+                                                                                                           + pc.PostFijoFolioIncidencias).FirstOrDefault() : inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
 
+                    if (ActivarFolioConfiguracionIncidencias)
+                    {
+                        foreach (ListadoIncidencias item in listado)
+                        {
+                            if (!string.IsNullOrEmpty(item.FolioConfiguracionIncidencia))
+                            {
+                                string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
+                            }
+                        }
+                    }
                 }
                 return listado;
             }
@@ -451,19 +569,67 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<ListaCombos> registros = new List<ListaCombos>();
+                List<ListaDiametros> registros = new List<ListaDiametros>();
 
                 using (SamContext ctx = new SamContext())
                 {
                     registros = (from r in ctx.Sam3_Diametro
                                  where r.Activo
-                                 select new ListaCombos
+                                 select new ListaDiametros
                                  {
-                                     id = r.DiametroID.ToString(),
-                                     value = r.Valor.ToString()
+                                     id = r.DiametroID,
+                                     value = r.Valor
                                  }).ToList();
 
-                    return registros;
+                    registros.OrderBy(x => x.value).ToList();
+
+                     List<ListaCombos>  diametros = (from r in registros.OrderBy(x => x.value)
+                                 select new ListaCombos
+                                 {
+                                     id = r.id.ToString(),
+                                     value = r.value.ToString()
+                                 }).AsParallel().ToList();
+
+                    return diametros;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(string.Format("Error al obtener los diametros"));
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        /// <summary>
+        /// Obtiene los diametros
+        /// </summary>
+        /// <returns>lista de diametros</returns>
+        public object ObtenerDiametroCero(int Diametro, Sam3_Usuario usuario)
+        {
+            try
+            {
+                ListaCombos registro = new ListaCombos();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    registro = (from r in ctx.Sam3_Diametro
+                                where r.Activo && r.Valor == Diametro
+                                select new ListaCombos
+                                {
+                                    id = r.DiametroID.ToString(),
+                                    value = r.Valor.ToString()
+                                }).FirstOrDefault();
+
+                    return registro;
                 }
             }
             catch (Exception ex)

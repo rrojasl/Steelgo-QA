@@ -88,14 +88,14 @@
     };
 
     function GuardarTipoUso() {
-        loadingStart();
+        //loadingStart();
         $TipoUso.TipoUso.create({}, { nombre: $("#Nombre_TipoUso").val(), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalTipoUso();
             if (Error(data)) {
                 cerrarVentanaModal();
                 window.parent.ActualizarPadre();
             }
-            loadingStop();
+            //loadingStop();
         });
     };
 
@@ -140,7 +140,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

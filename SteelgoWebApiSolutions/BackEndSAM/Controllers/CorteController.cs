@@ -19,29 +19,29 @@ namespace BackEndSAM.Controllers
     public class CorteController :ApiController
     {
 
-        public object Get(string data)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            ParametrosBusquedaODT filtros = serializer.Deserialize<ParametrosBusquedaODT>(data);
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.DatosODT.token, out payload, out newToken);
-            if (tokenValido)
-            {
+        //public object Get(string data)
+        //{
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    ParametrosBusquedaODT filtros = serializer.Deserialize<ParametrosBusquedaODT>(data);
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.DatosODT.token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
                 
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CorteBd.Instance.ListadoGenerarCorte(filtros, usuario);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+        //        return CorteBd.Instance.ListadoGenerarCorte(filtros, usuario);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
         
         public object Post(GuardarCorte cortes, string token)

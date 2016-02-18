@@ -133,7 +133,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Despacho> Sam3_Despacho { get; set; }
         public virtual DbSet<Sam3_EquivalenciaCorte> Sam3_EquivalenciaCorte { get; set; }
         public virtual DbSet<Sam3_EquivalenciaNumeroUnicoMovimiento> Sam3_EquivalenciaNumeroUnicoMovimiento { get; set; }
-        public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
         public virtual DbSet<Sam3_Grupo> Sam3_Grupo { get; set; }
         public virtual DbSet<Sam3_ClasificacionIncidencia> Sam3_ClasificacionIncidencia { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_ComplementoRecepcion> Sam3_Rel_Incidencia_ComplementoRecepcion { get; set; }
@@ -162,5 +161,32 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
         public virtual DbSet<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
         public virtual DbSet<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
+        public virtual DbSet<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaCorteSpool> Sam3_EquivalenciaCorteSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaEstacion> Sam3_EquivalenciaEstacion { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaEstatusOrden> Sam3_EquivalenciaEstatusOrden { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFabArea> Sam3_EquivalenciaFabArea { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaJuntaSpool> Sam3_EquivalenciaJuntaSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaMaterialSpool> Sam3_EquivalenciaMaterialSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODT> Sam3_EquivalenciaODT { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODTJ> Sam3_EquivalenciaODTJ { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODTM> Sam3_EquivalenciaODTM { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODTS> Sam3_EquivalenciaODTS { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaSpool> Sam3_EquivalenciaSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaTaller> Sam3_EquivalenciaTaller { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaTipoCorte> Sam3_EquivalenciaTipoCorte { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaTipoJunta> Sam3_EquivalenciaTipoJunta { get; set; }
+        public virtual DbSet<Sam3_Estacion> Sam3_Estacion { get; set; }
+        public virtual DbSet<Sam3_FabArea> Sam3_FabArea { get; set; }
+        public virtual DbSet<Sam3_JuntaSpool> Sam3_JuntaSpool { get; set; }
+        public virtual DbSet<Sam3_OrdenTrabajoJunta> Sam3_OrdenTrabajoJunta { get; set; }
+        public virtual DbSet<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
+        public virtual DbSet<Sam3_TipoJunta> Sam3_TipoJunta { get; set; }
+        public virtual DbSet<Sam3_Rel_Proyecto_Correo> Sam3_Rel_Proyecto_Correo { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaEspesor> Sam3_EquivalenciaEspesor { get; set; }
+        public virtual DbSet<Sam3_Espesor> Sam3_Espesor { get; set; }
+        public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaCedula> Sam3_EquivalenciaCedula { get; set; }
+        public virtual DbSet<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
     }
 }

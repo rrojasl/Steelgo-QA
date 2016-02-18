@@ -30,7 +30,7 @@ var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:60921';
-var $SearchSAMUri2 = 'http://10.15.2.12:8089';
+var $SearchSAMUri2 = 'http://10.15.10.185:8089';
 var $FilesSAMUri = 'http://localhost:60921';
 
 //Combos Base URL
@@ -50,10 +50,13 @@ var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumen
 var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
 var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
 var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
-var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
 var $UrlOrdenTrabajoSpool = $BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?';
 var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho?';
 var $DiametrosCatalogos = $BackEndSAMUri + '/backendsam/api/Diametros?';
+var $UrlOrdenTrabajo = $BackEndSAMUri + '/backendsam/api/OrdenTrabajo?';
+var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
+var $CatalogoEspesor = $BackEndSAMUri + '/backendsam/api/Espesor?';
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -144,6 +147,12 @@ var $Busqueda = new $.RestClient($SearchSAMUri2 + '/solr/Steelgo_Search/');
 var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Diametros = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ConvertirSpoolAGranel = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Spool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FamiliaAcero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -246,3 +255,9 @@ $Busqueda.add("select");
 $PreDespacho.add("PreDespacho");
 $GuardarPermisoAduana.add("DocumentoPermisoAduana");
 $Diametros.add("Diametros");
+$ConvertirSpoolAGranel.add("ConvertirSpoolAGranel");
+$Spool.add("Spool");
+$FamiliaAcero.add("FamiliaAcero");
+$Proxy.add("Proxy");
+$Reporte.add("Reporte");
+$Espesor.add("Espesor");

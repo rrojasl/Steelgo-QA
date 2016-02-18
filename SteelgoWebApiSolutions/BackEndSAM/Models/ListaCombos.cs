@@ -11,6 +11,13 @@ namespace BackEndSAM.Models
         public string value { get; set; }
     }
 
+    public class ListaCombosICC
+    {
+        public string id { get; set; }
+        public string value { get; set; }
+        public int tipoGrupo { get; set; }
+    }
+
     public class ListaEnteros
     {
         public int ID { get; set; }
@@ -29,6 +36,12 @@ namespace BackEndSAM.Models
             Folios = new List<ListaEnteros>();
             Items = new List<ListaEnteros>();
         }
+    }
+
+    public class ListaDiametros
+    {
+        public int id { get; set; }
+        public decimal value { get; set; }
     }
 
 

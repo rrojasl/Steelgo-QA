@@ -3,6 +3,12 @@
 }
 
 @section breadcrumb {
+    <li>
+        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0020"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0021"></span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0003"></span></a>
     </li>
@@ -105,6 +111,17 @@
     function changeLanguageCall(){
         cargarGrids();
     }
+    
+    function getFields(){
+        return {
+            ItemCodeID:{ editable: false, nullable: true },
+            ItemCode: { editable: false,type:"string",validation: { required: false } },
+            Diametro1: { editable: false,type:"number", validation: { required: false } },
+            Diametro2: { editable: false,type:"number", validation: { required: false } },
+            Cantidad:{editable: false,type:"number"},
+            DeficitTotal:{editable: true,type:"number"}
+        }
+    }
 
     function cargarGrids(){
         var tmpIC=removeGrid($("#gridIC"));
@@ -113,6 +130,7 @@
             $("#gridSp").hide();
         }
         $("#gridIC").kendoGrid({
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
                 {field:"ItemCode",title:"Item Code"},
                 {field:"Diametro1",title:_dictionary.NotificacionDeficit0012[$("#language").data("kendoDropDownList").value()]},
@@ -125,14 +143,7 @@
                 schema: {
                     model: {
                         id:"ItemCodeID",
-                        fields:{
-                            ItemCodeID:{ editable: false, nullable: true },
-                            ItemCode: { editable: false,type:"string",validation: { required: false } },
-                            Diametro1: { editable: false,type:"number", validation: { required: false } },
-                            Diametro2: { editable: false,type:"number", validation: { required: false } },
-                            Cantidad:{editable: false,type:"number"},
-                            DeficitTotal:{editable: true,type:"number"}
-                        }
+                        fields: getFields(),
                     },
                 },
                 serverPaging: false,
@@ -159,7 +170,6 @@
             autoHeight: true,
             sortable: false,
             scrollable: false,
-            filterable: false,
             editable:"inline",
             pageable: false,
             editable:false,
@@ -171,6 +181,7 @@
             },
             dataBound: function(e) {
                 $("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
+                quickHeadFilter($("#gridIC").data("kendoGrid"));
             },
             edit:function(e){
                 $("#gridIC tr[data-uid] input[name=Deficit]").on("blur",function(){
@@ -221,7 +232,7 @@
                 ////console.log(e);
             },
             dataBound: function(e) {
-                ////console.log(e);
+                quickHeadFilter($("#gridSp").data("kendoGrid"));
             },
             edit:function(e){
                 ////console.log(e);
@@ -351,7 +362,8 @@
             ocultarSpool();
         },
         dataTextField: "value",
-        dataValueField: "id"
+        dataValueField: "id",
+        dataBound: function(e){checkIfOne(this);},
     });
 
     $("#itemcode").kendoComboBox({
@@ -375,11 +387,12 @@
             })
         },
         dataTextField: "value",
-        dataValueField: "id"
+        dataValueField: "id",
+        dataBound: function(e){checkIfOne(this);}
     });
 
     $("#notificar").on("click",function(){
-        loadingStart();
+        //loadingStart();
         if(validarRequeridos()){
             if(hayDeficit()){
                 var deficits=[];
@@ -401,7 +414,7 @@
                     }else{
                         displayMessage("",_dictionary.result.ReturnMessage, '0');
                     }
-                    loadingStop();
+                    //loadingStop();
                 });
             }else{
                 displayMessage("NotificacionDeficit0019","","2");
@@ -409,13 +422,13 @@
         }else{
             displayMessage("NotificacionDeficit0018","","2");
         }
-        loadingStop();
+        //loadingStop();
     })
     $authorizationModel["Materiales"] = $NotificacionDeficitModel;
 };
     
 @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "54", { path: '/' });
+    Cookies.set("navegacion", "49", { path: '/' });
 };
 </script>

@@ -100,8 +100,9 @@ namespace BackEndSAM.DataAcces
                                                          liga = mg.Liga,
                                                          texto = mg.Texto,
                                                          icono = mg.Icono,
-                                                         nivel = mg.Nivel.Value
-                                                     }).ToList();
+                                                         nivel = mg.Nivel.Value, 
+                                                         acomodo = mg.Acomodo.Value
+                                                     }).AsParallel().OrderBy(x => x.idPadre).ThenBy(x => x.acomodo).ToList();
 
                 objsidemenu.elements = lstElements;
 
@@ -119,7 +120,7 @@ namespace BackEndSAM.DataAcces
                                                                {
                                                                    liga = mc.Liga,
                                                                    texto = mc.Texto
-                                                               }).ToList();
+                                                               }).AsParallel().OrderBy(x => x.texto).ToList();
                 //agregamos los elementos
                 ctxmenu.elements = lstCtxMenuElements;
 
@@ -129,7 +130,7 @@ namespace BackEndSAM.DataAcces
                 quickLinks.visible = true;
                 quickLinks.type = "quicklinks";
 
-                quickLinks.elements.AddRange(from relup in ctx.Sam3_Rel_Usuario_Preferencia
+                quickLinks.elements.AddRange((from relup in ctx.Sam3_Rel_Usuario_Preferencia
                                              join pref in ctx.Sam3_Preferencia on relup.PreferenciaID equals pref.PreferenciaId
                                              where relup.Activo && pref.Activo 
                                              && relup.UsuarioID == usuario.UsuarioID
@@ -137,7 +138,7 @@ namespace BackEndSAM.DataAcces
                                              {
                                                  liga = relup.ValorPreferencia,
                                                  texto = pref.Nombre
-                                             });
+                                             }).AsParallel().OrderBy(x => x.texto).ToList());
 
                 //agregamos los elementos de menu
                 perfil.layout.navigation.Add(objsidemenu);
@@ -193,8 +194,10 @@ namespace BackEndSAM.DataAcces
 
             }
 
-            //JavaScriptSerializer serializer = new JavaScriptSerializer();
-            //string json = serializer.Serialize(perfil);
+#if DEBUG
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string json = serializer.Serialize(perfil);
+#endif
             return perfil;
         }
 

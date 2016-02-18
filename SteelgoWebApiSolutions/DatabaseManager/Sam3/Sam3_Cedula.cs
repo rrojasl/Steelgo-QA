@@ -14,24 +14,12 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Cedula
     {
-        public Sam3_Cedula()
-        {
-            this.Sam3_ItemCodeSteelgo = new HashSet<Sam3_ItemCodeSteelgo>();
-        }
-    
         public int CedulaID { get; set; }
-        public string CedulaA { get; set; }
-        public string CedulaB { get; set; }
-        public string CedulaC { get; set; }
-        public decimal CedulaIn { get; set; }
-        public decimal CedulaMM { get; set; }
-        public decimal Espesor { get; set; }
+        public string Codigo { get; set; }
+        public Nullable<int> Orden { get; set; }
+        public bool VerificadoPorCalidad { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-        public Nullable<int> DiametroID { get; set; }
-    
-        public virtual ICollection<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
-        public virtual Sam3_Diametro Sam3_Diametro { get; set; }
     }
 }

@@ -25,10 +25,22 @@ namespace BackEndSAM.Controllers
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-            int Proyecto = ProyectoID != "" ? Convert.ToInt32(ProyectoID) : 0;
-            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, texto, usuario);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                int Proyecto = ProyectoID != "" ? Convert.ToInt32(ProyectoID) : 0;
+                return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, texto, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
 
@@ -37,23 +49,52 @@ namespace BackEndSAM.Controllers
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-            int numerounico = NumeroUnicoID != "" ? Convert.ToInt32(NumeroUnicoID) : 0;
-            return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(numerounico, usuario);
+                string[] elementos = NumeroUnicoID.Split('-').ToArray();
 
+                string prefijo = elementos[0];
+                int consecutivo = 0;
+                int.TryParse(elementos[1], out consecutivo);
+                string segmento = elementos[2];
+
+                return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(prefijo, consecutivo, segmento, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
-        public object Put(ParametrosBusquedaODT DatosODT, string token)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-            return CorteBd.Instance.ListadoGenerarCorte(DatosODT, usuario);
-        }
+        //public object Put(ParametrosBusquedaODT DatosODT, string token)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+        //        return CorteBd.Instance.ListadoGenerarCorte(DatosODT, usuario);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
 
     }

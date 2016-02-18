@@ -213,7 +213,7 @@
     -ms-filter: "FlipV";
 }
 
-.k-upload, .k-upload-files, .k-file {
+.k-upload, .k-upload-files {
     border-color: transparent;
     background-color: transparent;
 }
@@ -358,6 +358,8 @@
         color: #111111;
         font-weight: 100;
         border-bottom: 1px solid #CCCCCC;
+        text-overflow: clip;
+        word-wrap:break-word;
     }
 
     .k-grid tr:last-child td {
@@ -376,7 +378,8 @@
             background-color: #FCEED9;
         }
 
-    .k-grid .k-grid-header tr {
+    .k-grid .k-grid-header tr,
+    .k-grid tbody .k-grouping-row > td {
         min-height: 39px;
         height: 39px;
     }
@@ -389,10 +392,12 @@
         }
 
             .k-grid .k-grid-header tr th a.k-link,
-            .k-grid .k-grid-header tr th.k-header {
+            .k-grid .k-grid-header tr th.k-header,
+            .k-grid tbody .k-grouping-row p.k-reset {
                 font-size: 11.5px;
                 font-weight: 600;
                 text-transform: uppercase;
+                white-space: pre-wrap;
             }
 
             .k-grid .k-grid-header tr th .k-filter {
@@ -429,8 +434,9 @@
         }
 
         .k-grid .k-grid-header tr th > input {
-            width: 95%;
+            width: 100%;
             box-shadow: none!important;                      
+            text-indent: initial;
         }
 
     .k-grid tbody tr td a.k-button {
@@ -721,6 +727,7 @@
 }
 
 .k-tabstrip .k-tabstrip-items {
+    display: none;
     padding: 0;
 }
 
@@ -750,9 +757,9 @@
 
 .k-tabstrip .k-content {
     border: none;
-    border-top: 1px solid #CCCCCC;
+    border: none;
     margin: 0;
-    padding: 17px 0 0;
+    padding: 0;
 }
 
     .k-tabstrip .k-content > div,
@@ -761,6 +768,11 @@
     }
 
     .k-tabstrip .k-content.k-state-active {
+    }
+
+    .k-tabstrip .k-content .addedSection {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
 /**Widgets and inputs inside tabs**/
@@ -789,6 +801,12 @@
 
 /* xs viewport */
 @media screen and (max-width: 767px) {
+
+    /*$_languageSelector*/
+    .languageSelector {
+        margin-left: 0px;
+    }
+
     /*$_input-group*/
     /*Override bootstrap input group display for mobiles*/
     .form .input-group {

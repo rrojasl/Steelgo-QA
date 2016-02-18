@@ -6,7 +6,13 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="Entrega0001"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="Despacho0001"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")"><span id="Despacho0027"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")"><span id="Despacho0025"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("Entrega", "Entrega")"><span id="Entrega0002"></span></a>
@@ -22,9 +28,9 @@
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Entrega0003"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @*<button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
-                                </button>
+                                </button>*@
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="Entrega0004"></span></a>
                         </div>
@@ -35,6 +41,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                     <li><a id="RedirectDashboard" href="#"><span id="Entrega0015"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -97,6 +104,8 @@
         lastEditedCellIDSPickingTicket = "";
 
     var _UrlEntrega = "@Url.Action("Entrega", "Entrega")";
+    var _UrlDashboardDespachoCorte = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
+
     var $EntregaModel = {
         listContainer: {
             create: ".save-group",
@@ -140,33 +149,71 @@
     };
 
     function CargaInicial() {
-        $("#1a1").click(function () { GuardarUnoAUno(); });
-        $("#Guardar").click(function () { GuardarMasivo(); });
+        //$("#1a1").click(function () { GuardarUnoAUno(); });
+        $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
+        $("#RedirectDashboard").click(function () { window.location.href = _UrlDashboardDespachoCorte + "?leng=" + $("#language").data("kendoDropDownList").value(); });
 
         $("#EmpleadoEntrega").kendoComboBox({
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarEmpleado(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarEmpleado(dataItem.id, dataItem.value):CargarEmpleado("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     EmpleadoEntrega = {};
                     this.value("");
+                    changeValueColumnEmpleadoEntrega("");
                 } else {
-                    AgregarRow();
+                    //AgregarRow();
+                    changeValueColumnEmpleadoEntrega(value);
                 }
-                
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
         ObtenerEmpleadoEntrega();
 
         FechaEntrega = new kendo.ui.DatePicker($("#FechaEntrega"));
+
+        $("#FechaEntrega").bind("change", function () {
+            if (!$("#FechaEntrega").data("kendoDatePicker").value() && this.value !== "") {
+                displayMessage("notificationslabel0082", "", "2")
+            } else {
+                var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
+                if (d.getFullYear() == "1969") {
+                    d = new Date();
+                };
+                var FechaEntrega = obtenerFormatoFechaPlanchado(d);
+                changeValueColumnFechaEntrega(FechaEntrega);
+            };
+        });
+    };
+
+    function changeValueColumnFechaEntrega(value) {
+        var allData = $("#grid").data("kendoGrid").dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var result = query.data;
+        var datasource = result;
+
+        $(datasource).each(function () {
+            this.set("FechaEntrega", value);
+        });
+    };
+
+    function changeValueColumnEmpleadoEntrega(value) {
+        var allData = $("#grid").data("kendoGrid").dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var result = query.data;
+        var datasource = result;
+
+        $(datasource).each(function () {
+            this.set("NoEmpleadoEntrega", value);
+        });
     };
 
     function CargarEmpleado(id, value) {
@@ -185,17 +232,23 @@
         $("#grid").data("kendoGrid").dataSource.insert(row);
     };
    
+
+    function getFields() {
+        return {
+            NoPickingTicket: { type: "string", editable: true },
+            NoEmpleadoEntrega: { type: "string", editable: true },
+            NoEmpleadoRecibe: { type: "string", editable: true },
+            FechaEntrega: { type: "date", editable: true },
+        }
+    }
+
     function CargarGridEntrega() {
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
                 schema: {
                     model: {
-                        fields: {
-                            NoPickingTicket: { type: "string", editable: true },
-                            NoEmpleadoEntrega: { type: "string", editable: true },
-                            NoEmpleadoRecibe: { type: "string", editable: true }
-                        }
+                        fields: getFields(),
                     }
                 },
                 pageSize: 10,
@@ -221,16 +274,20 @@
                 numeric: true,
                 buttonCount: 2
             },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
                 { field: "NoPickingTicket", title: _dictionary.Entrega0010[$("#language").data("kendoDropDownList").value()], editor: ObtenerPickingTicket },
                 { field: "NoEmpleadoEntrega", title: _dictionary.Entrega0011[$("#language").data("kendoDropDownList").value()], editor: EmpleadoEntregaAutocomplete },
                 { field: "NoEmpleadoRecibe", title: _dictionary.Entrega0012[$("#language").data("kendoDropDownList").value()], editor: EmpleadoRecibeAutocomplete },
+                { field: "FechaEntrega", title: _dictionary.Entrega0014[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", editor: FechaEntregaDateTimePicker },
                 { command: { text: _dictionary.Entrega0013[$("#language").data("kendoDropDownList").value()], click: CancelarPickingTicket }, title: " ", width: "99px" }
             ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                quickHeadFilter($("#grid").data("kendoGrid"));
+                stringifyDate(this);
             }
         });
     };
@@ -238,10 +295,11 @@
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
-           .kendoAutoComplete({
+           .kendoComboBox({
                autoBind: false,
                dataSource: {
                    type: "json",
+                   serverFiltering: true,
                    transport: {
                        read: $UrlNoPickingTicket + "token=" + Cookies.get("token")
                    },
@@ -252,8 +310,13 @@
                change: function (e) {
                    
                    var value = this.value();
-                   lastEditedCellIDSPickingTicket.NoPickingTicket = value;
-                   lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   if (this.selectedIndex == -1) {
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = "";
+                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = "";
+                   } else {
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = value;
+                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   };
                    $('#grid').data('kendoGrid').refresh();
                },
                filter: "contains",
@@ -320,13 +383,19 @@
         lastEditedCellIDSEmpleadoRecibe = options.model;
     };
 
+    function FechaEntregaDateTimePicker(container, options) {
+        $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+           .appendTo(container)
+           .kendoDatePicker({});
+    };
+
     function CancelarPickingTicket(e) {
         e.preventDefault();
-        loadingStart();
+        //loadingStart();
         var grid = $("#grid").data("kendoGrid");
         var tr = $(e.currentTarget).closest("tr");
         grid.removeRow(tr);
-        loadingStop();
+        //loadingStop();
     };
 
     function validarRequeridosFormaEntrega() {
@@ -344,21 +413,22 @@
         return bool;
     };
     function GuardarUnoAUno() {
-        loadingStart();
-        if (validarRequeridosFormaEntrega()) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        //loadingStart();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
             Listado.Entregas = ListadoAGuardar(datasource);
 
-            if (!ValidarInformacionCompleta(datasource)) {
+            if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
-                loadingStop();
+                //loadingStop();
                 return;
             };
 
             if (datasource.length > 1) {
                 displayMessage("notificationslabel0077", "", "2");
-                loadingStop();
+                //loadingStop();
                 return;
             };
 
@@ -368,26 +438,40 @@
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     displayMessage("notificationslabel0056", "", '0');
                 }
-                loadingStop();
+                //loadingStop();
              });
-        } else {
+        } else if($("#grid").data("kendoGrid").dataSource.data()){
+            displayMessage("notificationslabel0089", "", '1');
+            //loadingStop();
+        }
+        else{
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
-
+    function Guardar() {
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if ($("#1a1").is(":checked")) {
+            GuardarUnoAUno();
+        } else {
+            GuardarMasivo();
+        }
+    };
     function GuardarMasivo() {
-        loadingStart();
-        if (validarRequeridosFormaEntrega()) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        //loadingStart();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        BorrarVacios(datasource);
+        if (validarRequeridosFormaEntrega() && datasource.length > 0) {
             var Listado = { Entregas: "" };
              Listado.Entregas = ListadoAGuardar(datasource);
 
-            if (!ValidarInformacionCompleta(datasource)) {
+            if (!BorrarVacios(datasource)) {
                 displayMessage("notificationslabel0075", "", "2");
-                loadingStop();
+                //loadingStop();
                 return;
             }
+            
             $Entrega.Entrega.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 if (Error(result))
                 {
@@ -396,11 +480,15 @@
                     $("#EmpleadoEntrega").data("kendoComboBox").value("");
                     displayMessage("notificationslabel0056", "", '0');
                 }
-                loadingStop();
+                //loadingStop();
             });
-        } else {
+        } else if($("#grid").data("kendoGrid").dataSource.data()){
+            displayMessage("notificationslabel0089", "", '1');
+            //loadingStop();
+        }
+        else{
             displayMessage("notificationslabel0031", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     
@@ -415,6 +503,15 @@
         var horaActual = new Date();
 
         return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+    };
+
+    function obtenerFormatoFechaPlanchado(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+        var horaActual = new Date();
+
+        return curr_date  + "/" +curr_month + "/" + curr_year;
     };
 
     function AgregarRowGrid(container) {
@@ -450,7 +547,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
@@ -464,30 +561,33 @@
     };
 
     }; 
-    function ValidarInformacionCompleta(datasource) {
+    function BorrarVacios(datasource) {
         var bool = true;
         var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
         var FechaEntrega = obtenerFormatoFecha(d);
         for (var i = 0; i < datasource.length; i++) {
             var NoPickingTicket = datasource[i].NoPickingTicket;
             var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
-            var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe
-            if (!NoPickingTicket || !NoEmpleadoEntrega || !NoEmpleadoRecibe) {
+            var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
+            var FechaEntrega = datasource[i].FechaEntrega;
+
+            if (!NoPickingTicket || !NoEmpleadoEntrega || !NoEmpleadoRecibe || !FechaEntrega) {
                 bool = false;
+                datasource.remove(datasource[i]);
             }
-        }
+        };
 
         return bool;
     };
 
     function ListadoAGuardar(datasource) {
         var Listado = {};
-        var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
-        var FechaEntrega = obtenerFormatoFecha(d);
         for (var i = 0; i < datasource.length; i++) {
             var NoPickingTicket = datasource[i].NoPickingTicket;
             var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
             var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
+            var FechaEntrega = datasource[i].FechaEntrega;
+
             var token = $.cookie("token");
             Listado[i] = { FechaEntrega: FechaEntrega, NoPickingTicket: NoPickingTicket, NoEmpleadoEntrega: NoEmpleadoEntrega, NoEmpleadoRecibe: NoEmpleadoRecibe, token: token };
         };
@@ -497,6 +597,14 @@
     @section JavascriptDocumentReadyFunctions {
         $authorizationModel["Entrega"] = $EntregaModel;
         CargaInicial();
+        $("#FechaEntrega").on("change",function(){
+            if (!$("#FechaEntrega").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaEntrega").css("color","#EB4D50");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                $("#FechaEntrega").attr("style","");
+            }
+        })
     }
 
 </script>

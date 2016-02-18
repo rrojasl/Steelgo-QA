@@ -7,6 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Incidencia
     {
+        public string FolioConfiguracionIncidenciaID { get; set; }
         public int FolioIncidenciaID { get; set; }
         public int ClasificacionID { get; set; }
         public int TipoIncidenciaID { get; set; }
@@ -23,10 +24,14 @@ namespace BackEndSAM.Models
         public string RespondidoPor { get; set; }
         public string FechaRespuesta { get; set; }
         public bool TieneIncidencia { get; set; }
-        public List<ListaDocumentos> Archivos { get; set; }
+        public List<ListaDocumentos> ArchivosIncidencia { get; set; }
+        public List<ListaDocumentos> ArchivosResolver { get; set; }
+        public List<ListaDocumentos> ArchivosResponder { get; set; }
+        public List<ListaDocumentos> ArchivosCancelar { get; set; }
         public int ReferenciaID { get; set; }
         public string Estatus { get; set; }
         public string ValorReferencia { get; set; }
+        public string NombreIncidencia { get; set; }
     }
 
     public class IncicidenciaEnPaseSalida

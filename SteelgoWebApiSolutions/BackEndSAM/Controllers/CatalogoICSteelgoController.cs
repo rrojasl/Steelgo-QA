@@ -56,8 +56,28 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(int familiaAceroID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return CatalogosBd.Instance.obtenerFamilia(familiaAceroID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         // POST api/<controller>
-        public object Post(string data, string token)
+        public object Post(string data, string token, int editado = 0)
         {
             string payload = "";
             string newToken = "";
@@ -82,7 +102,7 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public object Put(string data, string token)
+        public object Put(string data, string token, int editado = 0)
         {
             string payload = "";
             string newToken = "";
@@ -93,7 +113,7 @@ namespace BackEndSAM.Controllers
                 ICSDatosAsociacion datosICS = serializer.Deserialize<ICSDatosAsociacion>(data);
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CatalogosBd.Instance.editarItemCodeSteelgo(datosICS, usuario);
+                return CatalogosBd.Instance.editarItemCodeSteelgo(datosICS, usuario, editado);
             }
             else
             {

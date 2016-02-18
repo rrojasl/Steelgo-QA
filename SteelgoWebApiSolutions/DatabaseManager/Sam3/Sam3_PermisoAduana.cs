@@ -27,7 +27,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public bool PermisoAutorizado { get; set; }
         public bool PermisoTramite { get; set; }
-        public Nullable<int> NumeroPermiso { get; set; }
+        public string NumeroPermiso { get; set; }
         public Nullable<System.DateTime> FechaGeneracion { get; set; }
         public Nullable<System.DateTime> FechaAutorización { get; set; }
     

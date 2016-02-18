@@ -140,7 +140,7 @@
     //Parametros: N/A
     //Return:     N/A
     function cargaInicial() {
-
+        
         $("#NumeroUnico").val("");
         $("#ItemCode").val("");
         $("#ItemCodeSteelgo").val("");
@@ -359,10 +359,10 @@
             dataTextField: "Nombre",
             dataValueField: "PatioID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarPatio(dataItem.PatioID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre):CargarPatio("", "");
                 var value = this.value();
                 LimpiarCamposPatio();
                 if (!value || this.selectedIndex == -1) {
@@ -381,10 +381,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -395,6 +395,7 @@
                     ObtenerLosFolioAvisoLlegada();
                 };
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -402,10 +403,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioAvisoLlegada(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolioAvisoLlegada(dataItem.id, dataItem.value):CargarFolioAvisoLlegada("", "");
                 var value = this.value();
                 LimpiarCamposFolioLlegada();
                 if (!value || this.selectedIndex == -1) {
@@ -416,6 +417,7 @@
                     ObtenerLosFolioPackingList();
                 };
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -423,10 +425,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioPackingList(dataItem.id, dataItem.value);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolioPackingList(dataItem.id, dataItem.value):CargarFolioPackingList("", "");
                 var value = this.value();
                 LimpiarCamposFolioPackingList();
                 if (!value || this.selectedIndex == -1) {
@@ -435,6 +437,7 @@
                     this.value("");
                 }
             },
+            dataBound: function(e){checkIfOne(this);},
             filter: "contains",
         });
 
@@ -520,11 +523,11 @@
                             Descripcion: { type: "string" },
                             Cedula: { type: "string" },
                             TipoAcero: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
                             RangoInferior: { type: "string" },
                             RangoSuperior: { type: "string" },
-                            Cantidad: { type: "string" },
+                            Cantidad: { type: "number" },
                             Colada: { type: "string" },
                             EstatusFisico: { type: "string" },
                             EstatusDocumental: { type: "string" },
@@ -550,7 +553,6 @@
                 buttonCount: 2
             },
             columns: [
-                { field: "NumeroUnicoID", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px", hidden: true },
                 { field: "NumeroUnico", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:NumeroUnicoID#)'>#:NumeroUnico#</a>", filterable: true, width: "150px" },
                 { field: "ItemCode", title: _dictionary.ListaMateriales0008[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "ItemCodeSteelgo", title: _dictionary.ListaMateriales0022[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
@@ -566,43 +568,46 @@
                 { field: "EstatusFisico", title: _dictionary.ListaMateriales0018[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "EstatusDocumental", title: _dictionary.ListaMateriales0019[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
                 { field: "AlmacenVirtual", title: _dictionary.ListaMateriales0020[$("#language").data("kendoDropDownList").value()], filterable: true, width: "200px" },
+                { field: "NumeroUnicoID", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px", hidden: true },
             ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                //$(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid td .k-button").text('');
+                //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
 				
-				 $("th[data-field='NumeroUnico']").append($("#NumeroUnico"));
-				 $("th[data-field='ItemCode']").append($("#ItemCode"));
-				 $("th[data-field='ItemCodeSteelgo']").append($("#ItemCodeSteelgo"));
-				 $("th[data-field='Descripcion']").append($("#Descripcion"));
-				 $("th[data-field='Cedula']").append($("#Cedula"));
-				 $("th[data-field='TipoAcero']").append($("#TipoAcero"));
-				 $("th[data-field='D1']").append($("#Diametro1"));
-				 $("th[data-field='D2']").append($("#Diametro2"));
-				 $("th[data-field='RangoInferior']").append($("#RangoInf"));
-				 $("th[data-field='RangoSuperior']").append($("#RangoSup"));
-				 $("th[data-field='Cantidad']").append($("#Cantidad"));
-				 $("th[data-field='Colada']").append($("#Colada"));
-				 $("th[data-field='EstatusFisico']").append($("#EstatusF"));
-				 $("th[data-field='EstatusDocumental']").append($("#EstatusD"));
-				 $("th[data-field='AlmacenVirtual']").append($("#AlmacenVirtual"));
+				// $("th[data-field='NumeroUnico']").append($("#NumeroUnico"));
+				// $("th[data-field='ItemCode']").append($("#ItemCode"));
+				// $("th[data-field='ItemCodeSteelgo']").append($("#ItemCodeSteelgo"));
+				// $("th[data-field='Descripcion']").append($("#Descripcion"));
+				// $("th[data-field='Cedula']").append($("#Cedula"));
+				// $("th[data-field='TipoAcero']").append($("#TipoAcero"));
+				// $("th[data-field='D1']").append($("#Diametro1"));
+				// $("th[data-field='D2']").append($("#Diametro2"));
+				// $("th[data-field='RangoInferior']").append($("#RangoInf"));
+				// $("th[data-field='RangoSuperior']").append($("#RangoSup"));
+				// $("th[data-field='Cantidad']").append($("#Cantidad"));
+				// $("th[data-field='Colada']").append($("#Colada"));
+				// $("th[data-field='EstatusFisico']").append($("#EstatusF"));
+				// $("th[data-field='EstatusDocumental']").append($("#EstatusD"));
+				// $("th[data-field='AlmacenVirtual']").append($("#AlmacenVirtual"));
 
-                $("#NumeroUnico").click(function( event ) {event.stopPropagation();});
-				$("#ItemCode").click(function( event ) {event.stopPropagation();});
-				$("#ItemCodeSteelgo").click(function( event ) {event.stopPropagation();});
-				$("#Descripcion").click(function( event ) {event.stopPropagation();});
-				$("#Cedula").click(function( event ) {event.stopPropagation();});
-				$("#TipoAcero").click(function( event ) {event.stopPropagation();});
-				$("#Diametro1").click(function( event ) {event.stopPropagation();});
-				$("#Diametro2").click(function( event ) {event.stopPropagation();});
-				$("#RangoInf").click(function( event ) {event.stopPropagation();});
-				$("#RangoSup").click(function( event ) {event.stopPropagation();});
-				$("#Cantidad").click(function( event ) {event.stopPropagation();});
-				$("#Colada").click(function( event ) {event.stopPropagation();});
-				$("#EstatusF").click(function( event ) {event.stopPropagation();});
-				$("#EstatusD").click(function( event ) {event.stopPropagation();});
-				$("#AlmacenVirtual").click(function( event ) {event.stopPropagation();});
+                //$("#NumeroUnico").click(function( event ) {event.stopPropagation();});
+				//$("#ItemCode").click(function( event ) {event.stopPropagation();});
+				//$("#ItemCodeSteelgo").click(function( event ) {event.stopPropagation();});
+				//$("#Descripcion").click(function( event ) {event.stopPropagation();});
+				//$("#Cedula").click(function( event ) {event.stopPropagation();});
+				//$("#TipoAcero").click(function( event ) {event.stopPropagation();});
+				//$("#Diametro1").click(function( event ) {event.stopPropagation();});
+				//$("#Diametro2").click(function( event ) {event.stopPropagation();});
+				//$("#RangoInf").click(function( event ) {event.stopPropagation();});
+				//$("#RangoSup").click(function( event ) {event.stopPropagation();});
+				//$("#Cantidad").click(function( event ) {event.stopPropagation();});
+				//$("#Colada").click(function( event ) {event.stopPropagation();});
+				//$("#EstatusF").click(function( event ) {event.stopPropagation();});
+				//$("#EstatusD").click(function( event ) {event.stopPropagation();});
+                //$("#AlmacenVirtual").click(function( event ) {event.stopPropagation();});
+                checkTH($("#grid").data("kendoGrid"));
+                quickHeadFilter($("#grid").data("kendoGrid"));
             }
         });
 
@@ -671,14 +676,14 @@
     };
 
     function AccionesListado() {
-        loadingStart();
+        ////loadingStart();
         var Listado = ArregloListado();
 
         $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioPackingListID, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 if (!data.length) {
                     displayMessage("notificationslabel0055", "", '1');
-                    loadingStop();
+                    ////loadingStop();
                     return;
                 };
 
@@ -690,13 +695,16 @@
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
             };
-            loadingStop();
+            ////loadingStop();
         });
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "21", { path: '/' });
+    }
     //Se envia la accion a la funcion de acconeslistado donde se forma el objeto con todos los filtros
     //Funcion: Filtros
     //Parametros: N/A
@@ -729,7 +737,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

@@ -7,9 +7,9 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="ListadoPackingList0021"></span></a>
     </li>
-    <li>
+    @*<li>
         <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ListadoPackingList0022"></span></a>
-    </li>
+    </li>*@
     <li class="active">
         <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="ListadoPackingList0020"></span></a>
     </li>
@@ -61,6 +61,7 @@
                 <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="clearfix">
                         <input id="FechaAvisoLlegada" class="quickFilters general-input" />
+                        <input id="FolioConfiguracion" class="quickFilters general-input" />
                         <input id="AvisoEntradaID" class="quickFilters general-input" />
                         <input id="PackingList" class="quickFilters general-input" />
                         <input id="FolioLlegada" class="quickFilters general-input" />
@@ -134,6 +135,21 @@
             if(!$("#FechaAvisoLlegada").val().length){ $("#FechaAvisoLlegada").parent().children("a.k-state-active").removeClass("k-state-active");}
             $("#FechaAvisoLlegada").focus();
         });
+
+
+        $("#FolioConfiguracion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioConfiguracion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+            if (!$("#FolioConfiguracion").val().length) { $("#FolioConfiguracion").parent().children("a.k-state-active").removeClass("k-state-active"); }
+            $("#FolioConfiguracion").focus();
+        });
+
 
         $("#AvisoEntradaID").keyup(function () {
             var ds = $("#grid").data("kendoGrid").dataSource;
@@ -222,11 +238,10 @@
             dataTextField: "Nombre",
             dataValueField: "ClienteID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
-
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre):CargarCliente("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -243,10 +258,10 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -262,14 +277,14 @@
 
 
         $("#FolioAvisoEntradaID").kendoComboBox({
-            dataTextField: "id",
+            dataTextField: "value",
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -288,17 +303,23 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInic").bind("change", function () {
-            if (!$("#FechaInic").val()) {
-                $("#FechaInic").data("kendoDatePicker").value("");
+            if (!$("#FechaInic").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaInic").css("color","#EB4D50");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                $("#FechaInic").attr("style","")
+                Filtros();
             }
-            Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
-            if (!$("#FechaFinal").val()) {
-                $("#FechaFinal").data("kendoDatePicker").value("");
+            if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaFinal").css("color","#EB4D50");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                $("#FechaFinal").attr("style","")
+                Filtros();
             }
-            Filtros();
         });
 
         ObtenerFechasporDefecto();
@@ -314,8 +335,15 @@
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenRecepcion: { type: "string" },
-                            OrdenRecepcion: { type: "int" }
+                            FechaFolioAvisoEntrada: { type: "date" },
+                            FolioConfiguracion: { type: "string" },
+                            FolioEntrada: { type: "string" },
+                            PackingList: { type: "string" },
+                            FolioConfiguracionCuantificacionID: { type: "string" },
+                            FolioCuantificacion: { type: "string" },
+                            TipoPackingList: { type: "string" },
+                            TipoUso: { type: "string" },
+                            Estatus: { type: "string" },
                         }
                     }
                 },
@@ -340,35 +368,41 @@
                 numeric: true,
                 buttonCount: 2
             },
-            columns: [
-                { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()] },
-                { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>" },
+            columns:[
+                { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
+                { field: "FolioConfiguracion", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioConfiguracion#</a>" },
                 { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()] },
-                { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalleComplemento(#:FolioCuantificacion#)'>#:FolioCuantificacion#</a>" },
+                { field: "FolioConfiguracionCuantificacionID", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalleComplemento(#:FolioCuantificacion#)'>#:FolioConfiguracionCuantificacionID#</a>" },
                 { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()] },
                 { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()] },
                 { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()] },
+                 { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalleComplemento(#:FolioCuantificacion#)'>#:FolioCuantificacion#</a>", hidden: true },
+                { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>",hidden:true },
             ],
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                //$(".k-grid input.k-textbox").prop('readonly', true);
+                //$(".k-grid td .k-button").text('');
+                //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                 
-                $("th[data-field='FechaFolioAvisoEntrada']").append($("#FechaAvisoLlegada"));
-                $("th[data-field='FolioEntrada']").append($("#AvisoEntradaID"));
-                $("th[data-field='PackingList']").append($("#PackingList"));
-                $("th[data-field='FolioCuantificacion']").append($("#FolioLlegada"));
-                $("th[data-field='TipoPackingList']").append($("#TipoPackingList"));
-                $("th[data-field='TipoUso']").append($("#TipoUso"));
-                $("th[data-field='Estatus']").append($("#Estatus"));
+                //$("th[data-field='FechaFolioAvisoEntrada']").append($("#FechaAvisoLlegada"));
+                //$("th[data-field='FolioConfiguracion']").append($("#FolioConfiguracion"));
+                //$("th[data-field='FolioEntrada']").append($("#AvisoEntradaID"));
+                //$("th[data-field='PackingList']").append($("#PackingList"));
+                //$("th[data-field='FolioCuantificacion']").append($("#FolioLlegada"));
+                //$("th[data-field='TipoPackingList']").append($("#TipoPackingList"));
+                //$("th[data-field='TipoUso']").append($("#TipoUso"));
+                //$("th[data-field='Estatus']").append($("#Estatus"));
 
-                $("#FechaAvisoLlegada").click(function( event ) {event.stopPropagation();});
-                $("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
-                $("#PackingList").click(function( event ) {event.stopPropagation();});
-                $("#FolioLlegada").click(function( event ) {event.stopPropagation();});
-                $("#TipoPackingList").click(function( event ) {event.stopPropagation();});
-                $("#TipoUso").click(function( event ) {event.stopPropagation();});
-                $("#Estatus").click(function( event ) {event.stopPropagation();});
+                //$("#FechaAvisoLlegada").click(function (event) { event.stopPropagation(); });
+                //$("#FolioConfiguracion").click(function (event) { event.stopPropagation(); });
+                //$("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
+                //$("#PackingList").click(function( event ) {event.stopPropagation();});
+                //$("#FolioLlegada").click(function( event ) {event.stopPropagation();});
+                //$("#TipoPackingList").click(function( event ) {event.stopPropagation();});
+                //$("#TipoUso").click(function( event ) {event.stopPropagation();});
+                //$("#Estatus").click(function( event ) {event.stopPropagation();});
+                checkTH($("#grid").data("kendoGrid"));
+                quickHeadFilter($("#grid").data("kendoGrid"));
             }
          });
 
@@ -436,11 +470,10 @@
                 { "PeriodoID": "5", "Periodo": _dictionary.ListadoPackingList0019[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-
-                CargarPeriodoTiempo(dataItem.PeriodoID);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarPeriodoTiempo(dataItem.PeriodoID):CargarPeriodoTiempo("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -591,7 +624,7 @@
     };
 
     function AccionesListado(accion) {
-        loadingStart();
+        //loadingStart();
         var Listado;
         Listado = ArregloListado(accion);
 
@@ -607,12 +640,17 @@
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         $("#grid").data("kendoGrid").dataSource.page(0);
                     };
+                    AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
             };
-            loadingStop();
+            //loadingStop();
         });
     };
+
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "19", { path: '/' });
+    }
 
     function ArregloListado(accion) {
         var Listado;
@@ -629,7 +667,7 @@
             d1 = new Date();
         }
 
-        Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+        Listado.FolioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
         Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
         Listado.FechaInicial = obtenerFormatoFecha(d);
@@ -665,7 +703,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

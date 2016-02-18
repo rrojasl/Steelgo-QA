@@ -7,6 +7,7 @@ using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Web.Script.Serialization;
 using System.Transactions;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -84,8 +85,9 @@ namespace BackEndSAM.DataAcces
                     patios = (from p in ctx.Sam3_Proyecto
                               join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                               join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
-                              where p.Activo && pa.Activo && eq.Activo
-                              && proyectos.Contains(p.ProyectoID)
+                              join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
+                              where p.Activo && pa.Activo && eq.Activo && eqp.Activo
+                              && proyectos.Contains(eqp.Sam2_ProyectoID)
                               select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                     patios = patios.Where(x => x > 0).ToList();
@@ -126,6 +128,12 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
+                        List<int> numerosUnicosAprobadosSam2 = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                                join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                                where nu.Estatus == "A" 
+                                                                && odtm.OrdenTrabajoSpoolID == ordenSpoolID
+                                                                && odtm.NumeroUnicoCongeladoID != null
+                                                                select odtm.NumeroUnicoCongeladoID.Value).AsParallel().ToList();
 
                         List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -138,7 +146,7 @@ namespace BackEndSAM.DataAcces
                                                                  where d.Cancelado == false
                                                                  select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
                                                             && proyectos.Contains(odt.ProyectoID)
-                                                            && it.TipoMaterialID == 2
+                                                            && it.TipoMaterialID == 2 && numerosUnicosAprobadosSam2.Contains(nu.NumeroUnicoID)
                                                             select new LstGenerarDespacho
                                                             {
                                                                 Descripcion = it.DescripcionEspanol,
@@ -232,6 +240,7 @@ namespace BackEndSAM.DataAcces
                                                                         && odtm.MaterialSpoolID == materialSpool.MaterialSpoolID
                                                                         select odtm).AsParallel().SingleOrDefault();
 
+
                                     //Dividimos el codigo del numero para buscarlo en sam3
                                     string[] elementosCodigo = datosJson.NumeroUnico.Split('-').ToArray();
                                     int consecutivoNumeroUnico = Convert.ToInt32(elementosCodigo[1]);
@@ -259,9 +268,9 @@ namespace BackEndSAM.DataAcces
                                         Sam3_NumeroUnicoInventario numInventario = ctx.Sam3_NumeroUnicoInventario
                                             .Where(x => x.NumeroUnicoID == numeroUnico.NumeroUnicoID).AsParallel().SingleOrDefault();
 
-                                        numInventario.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
-                                        numInventario.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
-                                        numInventario.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
+                                        //numInventario.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
+                                        //numInventario.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
+                                        //numInventario.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
                                         numInventario.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
                                         numInventario.FechaModificacion = DateTime.Now;
                                         numInventario.UsuarioModificacion = usuario.UsuarioID;
@@ -343,10 +352,10 @@ namespace BackEndSAM.DataAcces
 
                                         //Actualizamos
                                         inventarioSam2.FechaModificacion = DateTime.Now;
-                                        inventarioSam2.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
+                                        //inventarioSam2.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
                                         inventarioSam2.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
-                                        inventarioSam2.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
-                                        inventarioSam2.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
+                                        inventarioSam2.InventarioDisponibleCruce = inventarioSam2.InventarioBuenEstado - odtMaterial.CantidadCongelada.Value;
+                                        //inventarioSam2.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
 
                                         //generamos el movimiento de inventario
                                         DatabaseManager.Sam2.NumeroUnicoMovimiento nuevoMovSam2 = new DatabaseManager.Sam2.NumeroUnicoMovimiento();
@@ -450,6 +459,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
@@ -506,9 +516,33 @@ namespace BackEndSAM.DataAcces
                                                     where us.Activo && us.UsuarioID == inc.UsuarioID
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    TipoIncidencia = tpi.Nombre,
-                                   Estatus = inc.Estatus
+                                   Estatus = inc.Estatus,
+                                   FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                                          where pc.Rel_Proyecto_Entidad_Configuracion_ID==inc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                                          select pc.PreFijoFolioIncidencias + ","
+                                                                                                           + pc.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                                                           + inc.Consecutivo.ToString() + ","
+                                                                                                           + pc.PostFijoFolioIncidencias).FirstOrDefault() : inc.IncidenciaID.ToString()
                                }).AsParallel().Distinct().ToList();
 
+                    if (ActivarFolioConfiguracionIncidencias)
+                    {
+                        foreach (ListadoIncidencias item in listado)
+                        {
+                            if (!string.IsNullOrEmpty(item.FolioConfiguracionIncidencia))
+                            {
+                                string[] elemntos = item.FolioConfiguracionIncidencia.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                item.FolioConfiguracionIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            else {
+                                item.FolioConfiguracionIncidencia = item.FolioIncidenciaID.ToString();
+                            }
+                        }
+                    }
                 }
                 return listado;
             }

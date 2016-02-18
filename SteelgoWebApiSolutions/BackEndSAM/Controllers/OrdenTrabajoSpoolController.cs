@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class OrdenTrabajoSpoolController : ApiController
     {
-        public object Get(int proyectoID, string Busqueda, string token)
+        public object Get(string Busqueda, string token)
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +27,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(proyectoID, Busqueda, usuario);
+                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(Busqueda, usuario);
             }
             else
             {
@@ -40,6 +40,27 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string odtID, string busqueda, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return OrdenTrabajoSpoolBd.Instance.ObtenerODTSporODT(Convert.ToInt32(odtID), busqueda, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
         
     }
 }

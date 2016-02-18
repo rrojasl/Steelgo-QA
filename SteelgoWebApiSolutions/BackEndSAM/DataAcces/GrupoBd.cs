@@ -74,5 +74,34 @@ namespace BackEndSAM.DataAcces
             }
            
         }
+
+        public object obtenerGrupoTieneD2(int ID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Grupo grupo = ctx.Sam3_Grupo.Where(x => x.Activo && x.GrupoID == ID).FirstOrDefault();
+                    grupo.TieneD2 = grupo.TieneD2 == null ? false : grupo.TieneD2 == true ? true : false;
+
+                    
+                    return grupo.TieneD2;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
+        }
     }
 }

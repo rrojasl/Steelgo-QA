@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DocumentoIncidenciaController : ApiController
     {
-        public object Get(int incidenciaID, string token)
+        public object Get(int incidenciaID, string estatusDocumento, string token)
         {
             string payload = "";
             string newToken = "";
@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return DocumentosBd.Instance.ObtenerDocumentosIncidencia(incidenciaID, usuario);
+                return DocumentosBd.Instance.ObtenerDocumentosIncidencia(incidenciaID, estatusDocumento, usuario);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int incidenciaID, string descripcion, string token)
+        public object Post(int incidenciaID, string descripcion, string estatusDocumento, string token)
         {
             try
             {
@@ -70,10 +70,10 @@ namespace BackEndSAM.Controllers
                         var docfiles = new List<string>();
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
-                        foreach (string file in httpRequest.Files)
+                        for (int i = 0; i < httpRequest.Files.Count; i ++)
                         {
                             Guid docguID = Guid.NewGuid();
-                            postedFile = httpRequest.Files[file];
+                            postedFile = httpRequest.Files[i];
                             string nombreArchivo = "";
 
                             //verificar si el nombre del archivo es una ruta completa
@@ -87,9 +87,20 @@ namespace BackEndSAM.Controllers
                                 nombreArchivo = postedFile.FileName;
                             }
 
+                            if (nombreArchivo.Contains(" "))
+                            {
+                                nombreArchivo = nombreArchivo.Replace(' ', '_');
+                            }
+
                             var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
                             string[] st = nombreArchivo.Split('.');
+
+                            if (st.Length > 2)
+                            {
+                                throw new Exception("El nombre de archivo no puede contener puntos");
+                            }
+
                             string extencion = "." + st[1];
                             lstArchivos.Add(new DocumentoPosteado
                             {
@@ -109,7 +120,7 @@ namespace BackEndSAM.Controllers
                             docfiles.Add(ruta);
                         }
 
-                        if (DocumentosBd.Instance.GuardarDocumentoIncidencia(lstArchivos))
+                        if (DocumentosBd.Instance.GuardarDocumentoIncidencia(lstArchivos, estatusDocumento))
                         {
                             return Ok();
                         }

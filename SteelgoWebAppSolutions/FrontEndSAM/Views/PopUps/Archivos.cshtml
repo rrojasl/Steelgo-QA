@@ -74,6 +74,7 @@
             },
             localization: getKendoUploadLocalization(window.parent.$("#language").data("kendoDropDownList").value()),
             error: function (data) { },
+            select: notDotName,
         });
 
         $("#Tipo_Archivo").kendoDropDownList({
@@ -102,6 +103,7 @@
 
     function CargarGrid() {
         $("#grid").kendoGrid({
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
                 { field: "Nombre", title: "Nombre", template: "<a href='#: Url #'>#: Nombre # </a>"},
                 { field: "Extencion", title: "Extensión"},
@@ -112,7 +114,6 @@
             autoHeight: true,
             sortable: false,
             scrollable: false,
-            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -129,6 +130,9 @@
                 }
             },
             editable: true,
+            dataBound:function(e){
+                quickHeadFilter(this);
+            }
         })
     };
         function regenerarGrid(){

@@ -27,6 +27,7 @@ namespace DatabaseManager.Sam3
         public int TipoArchivoID { get; set; }
         public string ContentType { get; set; }
         public string Descripcion { get; set; }
+        public int EstatusIncidencia { get; set; }
     
         public virtual Sam3_Incidencia Sam3_Incidencia { get; set; }
     }

@@ -57,7 +57,8 @@ namespace BackEndSAM.DataAcces
                                join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                join nui in ctx.Sam3_NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
-                               join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                               join c in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals c.CatalogoCedulasID
+                               join ced in ctx.Sam3_Cedula on c.CedulaA equals ced.CedulaID
                                where nu.Activo && ic.Activo && rics.Activo && ics.Activo && nui.Activo && c.Activo
                                && nu.NumeroUnicoID.ToString() == numeroUnicoID
                                select new DetalleNumeroUnico
@@ -69,7 +70,7 @@ namespace BackEndSAM.DataAcces
                                    ItemCodeSteelgo = ics.Codigo,
                                    //D1 = ics.Diametro1.ToString(),
                                    //D2 = ics.Diametro2.ToString(),
-                                   Cedula = c.CedulaA,
+                                   Cedula = ced.Codigo,
                                    Profile1 = "X",
                                    Profile2 = "Y",
                                    TotalRecibido = nui.CantidadRecibida.ToString(),

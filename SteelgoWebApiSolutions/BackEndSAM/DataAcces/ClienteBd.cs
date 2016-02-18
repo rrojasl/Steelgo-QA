@@ -61,7 +61,7 @@ namespace BackEndSAM.DataAcces
 
                         List<Models.Cliente> cliente = new List<Models.Cliente>();
 
-                        if (patioID > 0)
+                        if (patioID > 0 && patioID != 1)
                         {
                             int patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
                                               where eq.Activo
@@ -77,6 +77,18 @@ namespace BackEndSAM.DataAcces
                                            Nombre = r.Nombre,
                                            ClienteID = r.ClienteID.ToString()
                                        }).AsParallel().Distinct().ToList();
+                        }
+
+                        if (patioID == 1)
+                        {
+                            cliente.Add((from c in ctx.Sam3_Cliente
+                                         where c.Nombre == "Cliente Default"
+                                         select new Models.Cliente
+                                         {
+                                             Nombre = c.Nombre,
+                                             ClienteID = "-1"//c.ClienteID.ToString()
+                                         }).SingleOrDefault());
+                                         
                         }
 
                         cliente = cliente.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();

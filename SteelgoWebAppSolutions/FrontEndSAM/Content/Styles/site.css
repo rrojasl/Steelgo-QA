@@ -325,7 +325,12 @@ input {
     margin: 4px auto 0;
     outline: none;
     border: none;
-    box-shadow: none !important;        
+    box-shadow: none !important;
+}
+
+.content-container .form input[type="checkbox"] {
+    width: auto;
+    //min-height: 31px;
 }
 
 #window input[type="checkbox"], 
@@ -333,7 +338,7 @@ input {
 #formBusqueda input[type="checkbox"] {
     width: auto!important;
     position: relative;
-    top: 2px; 
+    top: 2px;     
 }
 
 input.quickFilters {
@@ -538,7 +543,8 @@ input.quickFilters {
 }
 
 .btn-tab.Accesorios label,
-.btn-tab.Tubos label {
+.btn-tab.Tubos label,
+.btn-tab.General label {
     font-size: 11px;
 }
 
@@ -558,7 +564,8 @@ input.quickFilters {
 }
 
 .btn-tab.Accesorios,
-.btn-tab.Tubos {
+.btn-tab.Tubos,
+.btn-tab.General {
     width: 12.54%;
 }
 
@@ -850,7 +857,7 @@ h2 {
     }
 
     .btn-tab.Accesorios, .btn-tab.Tubos,
-    #DespachoCorte .btn-tab.Accesorios,
+    .btn-tab.General, #DespachoCorte .btn-tab.Accesorios,
     #DespachoCorte .btn-tab.Tubos {
         width: 25.1%;
         border-radius: 0;
@@ -928,8 +935,12 @@ h2 {
     }
 
     .btn-tab.Accesorios,
-    .btn-tab.Tubos {
+    .btn-tab.Tubos,
+    .btn-tab.General {
         width: 25.04%;
+        border-radius: 0;
+        margin-top: -1px;
+        margin-left: -1px!important;
     }
 
     #DespachoCorte .btn-tab.Accesorios,

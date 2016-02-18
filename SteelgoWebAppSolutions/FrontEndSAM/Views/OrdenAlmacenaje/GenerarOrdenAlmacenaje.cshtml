@@ -14,9 +14,9 @@
     <li>
         <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenAlmacenaje0002"></span></a>
     </li>
-    <li>
+    @*<li>
         <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="GenerarOrdenAlmacenaje0003"></span></a>
-    </li>
+    </li>*@
     <li class="active">
         <a href="@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="GenerarOrdenAlmacenaje0004"></span></a>
     </li>
@@ -98,6 +98,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+        var detailID=0;
     var _listadourl = "@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _generarurl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _detalleurl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
@@ -179,10 +180,11 @@
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
@@ -196,19 +198,21 @@
                 //CargarDatosGrid();
             },
             filter: "contains",
+            dataBound: function(e){checkIfOne(this);},
         });
 
         ObtenerProyecto();
 
         $("#FolioCuantificacionID").kendoComboBox({
-            dataTextField: "id",
-            dataValueField: "value",
+            dataTextField: "value",
+            dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFolio(dataItem.id):CargarFolio("");
                 var value = this.value();
                 limpiarFiltroCuantificacion();
 
@@ -220,8 +224,8 @@
                     ObtenerItemCodes();
                 };
                 //CargarDatosGrid();
-                
             },
+            dataBound: function(e){checkIfOne(this);},
         });
        
         $("#ItemCode").kendoComboBox({
@@ -229,10 +233,11 @@
             dataValueField: "id",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarItemCode(dataItem.id);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarItemCode(dataItem.id):CargarItemCode("");
                 var value = this.value();
                 limpiarFiltroItemCode();
 
@@ -245,6 +250,7 @@
                 };
                 CargarDatosGrid();
             },
+            dataBound: function(e){checkIfOne(this);},
         });
 
         $("#NumeroUnico").kendoComboBox({
@@ -252,10 +258,11 @@
             dataValueField: "NumeroUnicoID",
             filter: "contains",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarNumeroUnico(dataItem.NumeroUnicoID);
+                
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarNumeroUnico(dataItem.NumeroUnicoID):CargarNumeroUnico("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -264,6 +271,7 @@
                 }
                 CargarDatosGrid();
             },
+            dataBound: function(e){checkIfOne(this);},
         });
 
         $("#Mostrar").click(function () {
@@ -281,6 +289,7 @@
                     model: {
                         fields: {
                             FolioCuantificacion: { type: "string" },
+                            FolioConfiguracionCuantificacion: { type: "string" },
                         }
                     }
                 },
@@ -301,10 +310,12 @@
             },
             detailInit: detailInit,
             scrollable: false,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns: addTo([
                 { template: '<input type="checkbox" class="master" >', width: 40 },
-                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()]},
-            ],
+                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "FolioConfiguracionCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()] },
+            ],null),
             dataBound: onDataBoundPrincipal,
         }).getKendoGrid();
 
@@ -482,7 +493,7 @@
     };
 
     function CargarDatosGrid() {
-        loadingStart();
+        //loadingStart();
        
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
@@ -499,13 +510,16 @@
                 } else {
                     $("#grid").data("kendoGrid").dataSource.data([]);
                 };
+                AsignarPaginaActualCookie();
                 applySecurityPolicy(false);
             }
-            loadingStop();
+            //loadingStop();
         });
       
     };
-
+    function AsignarPaginaActualCookie() {
+        Cookies.set("navegacion", "16", { path: '/' });
+    }
     function AgregarActualizarNodoPrincipal(value, checkbox) {
         //Se checa si existe en memoria para actualizar el valor del checkbox
         var boolexiste = false;
@@ -636,7 +650,7 @@
         itemCodes = ObtenerItemCodesDeMemoria();
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
-        loadingStart();
+        //loadingStart();
         OrdenAlmacenaje.listaFoliosCuantificacion = folios;
         OrdenAlmacenaje.listaItemCodes = itemCodes;
         OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
@@ -644,15 +658,15 @@
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[1];
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[2];
                 }
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
     
@@ -700,7 +714,7 @@
         itemCodes = ObtenerItemCodesDeMemoria();
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
-        loadingStart();
+        //loadingStart();
         OrdenAlmacenaje.listaFoliosCuantificacion = folios;
         OrdenAlmacenaje.listaItemCodes = itemCodes;
         OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
@@ -708,15 +722,16 @@
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
+                //loadingStop();
                 if (Error(result)) {
-                    window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1];
+                    //window.open("http://www.asp.net");//Webservice
+                    var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[2];
                 }
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
-            loadingStop();
+            //loadingStop();
         }
     };
 
@@ -725,7 +740,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
@@ -754,6 +769,11 @@
                 }
             };
         }
+        //$(this.table.find(".k-filter-row th")[2]).hide();
+        //if($.isNumeric(detectIE())){
+        //    $("#grid tr:first th:hidden").remove();
+        //}
+        quickHeadFilter(this);
     };
     //se busca el folio cuantificacion, itemcode para marcarlo en el check
     function onDataBoundDetalle(e) {
@@ -771,6 +791,7 @@
             }
             
         }
+        quickHeadFilter(this);
     };
 
     //se busca el folio cuantificacion, itemcode y numero unico para marcarlo en el check
@@ -788,6 +809,7 @@
                 }
             }
         }
+        quickHeadFilter(this);
     };
 
     function detailInit(e) {
@@ -796,7 +818,7 @@
             checked = "checked disabled";
         }
 
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
+        $("<div id='detail"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
                 data: e.data.ItemCodes,
                 schema: {
@@ -819,6 +841,7 @@
             scrollable: false,
             sortable: false,
             selectable: true,
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             columns: [
                 { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + '  class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.FolioCuantificacion + ');"></label>', width: '8%'},
                 { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], hidden:true },
@@ -827,8 +850,8 @@
                 { field: "D1", title: _dictionary.GenerarOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()]},
                 { field: "D2", title: _dictionary.GenerarOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()]},
                 { field: "Cantidad", title: _dictionary.GenerarOrdenAlmacenaje0023[$("#language").data("kendoDropDownList").value()]},
-                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true }
-            ]
+                { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },
+            ],
         });
        
     }
@@ -840,7 +863,7 @@
             checked = "checked disabled";
         }
         //if (e.data.Accesorios.length > 0) {
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
+        $("<div id='detail1-"+ detailID++ +"'/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
                 data: e.data.NumerosUnicos,
                 schema: {
@@ -859,13 +882,14 @@
             scrollable: false,
             sortable: false,
             selectable: true,
-            columns: [
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
+            columns:[
                 { template: '<input type="checkbox" ' + checked + ' class="numerosunicos" onclick="NodoHijoNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadreNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"></label>', width: '8%' },
                 { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0024[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                 { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0025[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
                 { field: "NumeroUnicoID", title: _dictionary.GenerarOrdenAlmacenaje0026[$("#language").data("kendoDropDownList").value()], width: "200px", hidden: true },
                 { field: "NumeroUnico", title: _dictionary.GenerarOrdenAlmacenaje0027[$("#language").data("kendoDropDownList").value()] },
-            ]
+            ],
         });
     }
 

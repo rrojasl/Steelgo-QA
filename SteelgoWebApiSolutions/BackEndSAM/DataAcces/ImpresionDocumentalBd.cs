@@ -44,7 +44,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerFormatos(int odtsID, int proyectoID, int obtenerFormato, Sam3_Usuario usuario)
+        public object ObtenerFormatos(int odtsID, int obtenerFormato, Sam3_Usuario usuario)
         {
             try
             {
@@ -56,7 +56,11 @@ namespace BackEndSAM.DataAcces
                         OrdenTrabajoSpool OrdenTSpool = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == odtsID).AsParallel().SingleOrDefault();
                         //int faltantesDespacho = (from 
 
-                        string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == proyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
+                        int sam3_ProyectoID = (from eqp in ctx.Sam3_EquivalenciaProyecto
+                                               where eqp.Activo && eqp.Sam2_ProyectoID == OrdenTSpool.OrdenTrabajo.ProyectoID
+                                               select eqp.Sam3_ProyectoID).AsParallel().SingleOrDefault();
+
+                        string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == sam3_ProyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
                         string numeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == OrdenTSpool.OrdenTrabajoSpoolID)
                             .Select(x => x.NumeroControl).SingleOrDefault();
 
@@ -75,7 +79,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 listaFaltantes = (from r in listaMateriales
                                                   join it in ctx2.ItemCode on r.ItemCodeID equals it.ItemCodeID
-                                                  join tp in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals tp.TipoMaterialID
+                                                  join tp in ctx2.TipoMaterial on it.TipoMaterialID equals tp.TipoMaterialID
                                                   select new ListadoImpresionDocumental
                                                   {
                                                       Cantidad = r.Cantidad.ToString(),
@@ -92,11 +96,11 @@ namespace BackEndSAM.DataAcces
                                                    where it.Codigo == l.ItemCodeSteelgo
                                                    select its.Codigo).AsParallel().SingleOrDefault();
 
-                                    l.ItemCodeSteelgo = temp;
+                                    l.ItemCodeSteelgo = string.IsNullOrEmpty(temp) ? "" : temp;
                                 }
                             }
 
-                            return listaFaltantes;
+                            return listaFaltantes.OrderBy(x => x.TipoMaterial).ToList();
                         }
                         else
                         {

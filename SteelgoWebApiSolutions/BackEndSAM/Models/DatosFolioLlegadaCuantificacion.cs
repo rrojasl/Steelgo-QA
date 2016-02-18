@@ -18,7 +18,7 @@ namespace BackEndSAM.Models
         public Nullable<int> UsuarioModificacion { get; set; }
         public bool Activo { get; set; }
         public int? BultoID { get; set; }
-        public int TipoPackingList { get; set; }
+        public int? TipoPackingList { get; set; }
 
     }
 }

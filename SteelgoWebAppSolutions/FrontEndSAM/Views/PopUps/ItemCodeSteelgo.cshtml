@@ -115,10 +115,10 @@
             dataTextField: "Nombre",
             dataValueField: "FamiliaAceroID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID):CargarFamiliaItemCodeSteelgo("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -134,10 +134,10 @@
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarCedulasItemCodeSteelgo(dataItem.id);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarCedulasItemCodeSteelgo(dataItem.id):CargarCedulasItemCodeSteelgo("");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -279,7 +279,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;

@@ -29,6 +29,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_Incidencia_Despacho = new HashSet<Sam3_Rel_Incidencia_Despacho>();
             this.Sam3_Rel_Incidencia_Corte = new HashSet<Sam3_Rel_Incidencia_Corte>();
             this.Sam3_Rel_Incidencia_Documento = new HashSet<Sam3_Rel_Incidencia_Documento>();
+            this.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo = new HashSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo>();
         }
     
         public int IncidenciaID { get; set; }
@@ -55,6 +56,10 @@ namespace DatabaseManager.Sam3
         public string ResueltoPor { get; set; }
         public string RespondidoPor { get; set; }
         public string RegistradoPor { get; set; }
+        public Nullable<int> UsuarioCancelaID { get; set; }
+        public Nullable<System.DateTime> FechaCancelacion { get; set; }
+        public Nullable<int> Consecutivo { get; set; }
+        public Nullable<int> Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
     
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
         public virtual Sam3_Incidencia Sam3_Incidencia2 { get; set; }
@@ -76,5 +81,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
+        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
     }
 }

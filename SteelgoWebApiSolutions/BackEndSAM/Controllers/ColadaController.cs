@@ -78,6 +78,36 @@ namespace BackEndSAM.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Listado de coladas por itemcode y texto
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="id"></param>
+        /// <param name="mostrarOpcion"></param>
+        /// <param name="itemcodeID"></param>
+        /// <returns></returns>
+        public object Get(string itemcode, string texto, string token, int paginaID, string idioma, int id = 0, int mostrarOpcion = 0)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ColadaBd.Instance.ObtenerColadasPorItemCodeyTexto(id, mostrarOpcion, usuario, paginaID,texto, idioma, itemcode);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
         /// <summary>
         /// Listado de coladas por Familia de acero
         /// </summary>

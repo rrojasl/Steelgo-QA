@@ -26,6 +26,10 @@ namespace DatabaseManager.Sam3
             this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
             this.Sam3_PreDespacho = new HashSet<Sam3_PreDespacho>();
             this.Sam3_Rel_NumeroUnico_RelFC_RelB = new HashSet<Sam3_Rel_NumeroUnico_RelFC_RelB>();
+            this.Sam3_OrdenTrabajoMaterial = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_OrdenTrabajoMaterial1 = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_OrdenTrabajoMaterial2 = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_OrdenTrabajoMaterial3 = new HashSet<Sam3_OrdenTrabajoMaterial>();
         }
     
         public int NumeroUnicoID { get; set; }
@@ -69,6 +73,9 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string Prefijo { get; set; }
         public int Consecutivo { get; set; }
+        public string EstatusFisico { get; set; }
+        public string EstatusDocumental { get; set; }
+        public Nullable<int> TipoUsoID { get; set; }
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
@@ -91,5 +98,10 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
         public virtual ICollection<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
         public virtual ICollection<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial1 { get; set; }
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial2 { get; set; }
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial3 { get; set; }
+        public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
     }
 }

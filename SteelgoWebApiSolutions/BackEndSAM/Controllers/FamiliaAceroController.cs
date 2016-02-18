@@ -5,7 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
+using BackEndSAM.DataAcces;
 using BackEndSAM.Models;
+using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
+using SecurityManager.TokenHandler;
 
 
 namespace BackEndSAM.Controllers
@@ -14,26 +19,26 @@ namespace BackEndSAM.Controllers
     public class FamiliaAceroController : ApiController
     {
         // GET api/familiaacero
-        public IEnumerable<FamiliaAcero> Get(string token)
+        public object Get(string token)
         {
-            List<FamiliaAcero> lstFamiliaAcero = new List<FamiliaAcero>();
-            FamiliaAcero fam1 = new FamiliaAcero();
-            FamiliaAcero fam2 = new FamiliaAcero();
-            FamiliaAcero fam3 = new FamiliaAcero();
-
-            fam1.FamiliaAceroID = 1;
-            fam1.Nombre = "Familia 1";
-            lstFamiliaAcero.Add(fam1);
-
-            fam2.FamiliaAceroID = 2;
-            fam2.Nombre = "Familia 2";
-            lstFamiliaAcero.Add(fam2);
-
-            fam3.FamiliaAceroID = 3;
-            fam3.Nombre = "Familia 3";
-            lstFamiliaAcero.Add(fam3);
-
-            return lstFamiliaAcero.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return FamiliaBd.Instance.obtenerFamilia();
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // GET api/familiaacero/5

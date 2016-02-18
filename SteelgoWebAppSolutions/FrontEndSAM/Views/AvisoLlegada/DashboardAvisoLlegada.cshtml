@@ -43,7 +43,7 @@
                                 <label id="DashboardAvisoLlegada0007"></label>
                                 <input id="FechaFinal" class="" />
                             </div>
-                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
                                 <label id="DashboardLlegadaMaterial0015"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
@@ -153,13 +153,10 @@
                 { "PeriodoID": "5", "Periodo": _dictionary.DashboardLlegadaMaterial0020[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                //console.log("dataItem");
-                //console.log(dataItem);
-
-                CargarPeriodoTiempo(dataItem.PeriodoID);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarPeriodoTiempo(dataItem.PeriodoID) : CargarPeriodoTiempo("");
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
@@ -602,10 +599,10 @@
             dataTextField: "Nombre",
             dataValueField: "PatioID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarPatio(dataItem.PatioID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre) : CargarPatio("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -623,10 +620,10 @@
             dataTextField: "Nombre",
             dataValueField: "ClienteID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarCliente(dataItem.ClienteID, dataItem.Nombre) : CargarCliente("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -647,17 +644,23 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInicial").bind("change", function () {
-            if (!$("#FechaInicial").val()) {
-                $("#FechaInicial").data("kendoDatePicker").value("");
+            if (!$("#FechaInicial").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaInicial").css("color","#EB4D50");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                $("#FechaInicial").attr("style","");
+                CantidadesDelMenuDashboard();
             }
-            CantidadesDelMenuDashboard();
         });
 
         $("#FechaFinal").bind("change", function () {
-            if (!$("#FechaFinal").val()) {
-                $("#FechaFinal").data("kendoDatePicker").value("");
+            if (!$("#FechaFinal").data("kendoDatePicker").value() && this.value!=="") {
+                $("#FechaFinal").css("color","#EB4D50");
+                displayMessage("notificationslabel0082","","2")
+            }else{
+                $("#FechaFinal").attr("style","");
+                CantidadesDelMenuDashboard();
             }
-            CantidadesDelMenuDashboard();
         });
 
         ObtenerFechasporDefecto();

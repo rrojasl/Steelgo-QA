@@ -16,6 +16,13 @@ namespace BackEndSAM.Models
         public string TipoUsoNombre { get; set; }
         public string Estatus { get; set; }
         public int FolioLlegadaHijo { get; set; }
+        public string FolioConfiguracionCuantificacionID { get; set; }
+        public bool MostrarComboPackingList { get; set; }
+        public string NombreFolioAvisoLlegada { get; set; }
+        public string NombreFolioCuantificacion { get; set; }
+        public int FolioAvisoLlegadaID { get; set; }
+        public int ConsecutivoFolioCuanificacion { get; set; }
+        public int ConsecutivoFolioLlegada { get; set; }
     }
 
   

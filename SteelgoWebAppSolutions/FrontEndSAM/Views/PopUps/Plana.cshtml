@@ -106,10 +106,10 @@
             dataTextField: "Nombre",
             dataValueField: "TipoVehiculoID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre):CargarTipoVehiculoPlana("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -143,10 +143,10 @@
             dataTextField: "Nombre",
             dataValueField: "TransportistaID",
             select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
             },
             change: function (e) {
+                var dataItem = this.dataItem();
+                dataItem!==undefined ? CargarTransportista(dataItem.TransportistaID, dataItem.Nombre):CargarTransportista("", "");
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
@@ -295,7 +295,7 @@
         PlanaModal = {};
         PlanaModal = { TipoVehiculoID: "", Placas: "", TarjetaCirculacion: "", PolizaSeguro: "", Unidad: "", Modelo: "", VehiculoID: "", ChoferID: "", TransPortistaID: "", TractoID: "" };
 
-        PlanaModal.TipoVehiculoID = TipoVehiculoPlana.TipoVehiculoID ? TipoVehiculoPlana.TipoVehiculoID : "-1";
+        PlanaModal.TipoVehiculoID = $("#TipoVehiculo_Plana").val();
         PlanaModal.Placas = $("#Placas_Plana").val();
         PlanaModal.TarjetaCirculacion = "";
         PlanaModal.PolizaSeguro = "";
@@ -334,7 +334,7 @@
             if (data.ReturnCode != 200) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
-                    return true;
+                    return false;
                 } else {
                     displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
