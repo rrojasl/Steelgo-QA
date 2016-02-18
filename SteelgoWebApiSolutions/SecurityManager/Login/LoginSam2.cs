@@ -49,11 +49,12 @@ namespace SecurityManager.Login
 
         public TransactionalInformation Login(string usuario, string password)
         {
+            Sam3_Usuario usr = new Sam3_Usuario();
             try
             {
                 TransactionalInformation transaction = new TransactionalInformation();
                 Sam3_Usuario usuarioSam3;
-
+                
                 using (SamContext ctx = new SamContext())
                 {
                     MembershipProvider proveedor = Membership.Provider;
@@ -75,6 +76,20 @@ namespace SecurityManager.Login
                             transaction.ReturnMessage.Add(token);
                             transaction.ReturnCode = 200;
                             transaction.ReturnStatus = true;
+
+                            #region registro
+                            usr = new Sam3_Usuario
+                            {
+                                UsuarioID = usuarioSam3.UsuarioID,
+                                NombreUsuario = usuarioSam3.NombreUsuario,
+                                ContrasenaHash = usuarioSam3.ContrasenaHash,
+                                PerfilID = usuarioSam3.PerfilID,
+                                BloqueadoPorAdministracion = usuarioSam3.BloqueadoPorAdministracion,
+                                Activo = usuarioSam3.Activo,
+                                Sam2UserID = id
+                            };
+
+                            #endregion
                         }
                         else
                         {
@@ -89,8 +104,8 @@ namespace SecurityManager.Login
                     {
 
                         usuarioSam3 = (from us in ctx.Sam3_Usuario
-                                   where us.NombreUsuario == usuario && us.ContrasenaHash == password
-                                   select us).AsParallel().SingleOrDefault();
+                                       where us.NombreUsuario == usuario && us.ContrasenaHash == password
+                                       select us).AsParallel().SingleOrDefault();
 
                         if (usuarioSam3 != null)
                         {
@@ -124,7 +139,7 @@ namespace SecurityManager.Login
             catch (Exception ex)
             {
                 //-----------------Agregar mensaje al Log -----------------------------------------------
-                //LoggerBd.Instance.EscribirLog(ex);
+                Logger.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
@@ -133,6 +148,15 @@ namespace SecurityManager.Login
                 result.IsAuthenicated = true;
 
                 return result;
+            }
+            finally
+            {
+                string json = "";
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                json = serializer.Serialize(usr);
+                Logger.Instance.EscribirLog("Usuario:" + usuario + ", pass: " + password);
+                Logger.Instance.EscribirLog("GUID devuelto: " + usr.Sam2UserID.ToString());
+                Logger.Instance.EscribirLog(json);
             }
         }
 

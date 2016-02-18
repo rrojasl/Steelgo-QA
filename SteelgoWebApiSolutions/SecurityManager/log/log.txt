@@ -1,0 +1,43 @@
+2/18/2016 1:45:59 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1455826559}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+2/18/2016 1:52:41 PM - EXCEPCION
+Message: A circular reference was detected while serializing an object of type 'System.Data.Entity.DynamicProxies.Sam3_Rel_Perfil_Enti_EA55235EC2A94914EF306ED865B3D5556AAA75D368F917CC3CCB229A82FD1075'.
+Source: System.Web.Extensions
+TargetSite: Void SerializeValueInternal(System.Object, System.Text.StringBuilder, Int32, System.Collections.Hashtable, SerializationFormat, System.Reflection.MemberInfo)
+StackTrace:    at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeEnumerable(IEnumerable enumerable, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeCustomObject(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeCustomObject(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeEnumerable(IEnumerable enumerable, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeCustomObject(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeCustomObject(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValueInternal(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.SerializeValue(Object o, StringBuilder sb, Int32 depth, Hashtable objectsInUse, SerializationFormat serializationFormat, MemberInfo currentMember)
+   at System.Web.Script.Serialization.JavaScriptSerializer.Serialize(Object obj, StringBuilder output, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.Serialize(Object obj, SerializationFormat serializationFormat)
+   at System.Web.Script.Serialization.JavaScriptSerializer.Serialize(Object obj)
+   at SecurityManager.Login.LoginSam2.Login(String usuario, String password) in c:\Sieena\SAM3.0\SAM3.0\SteelgoWebApiSolutions\SecurityManager\Login\LoginSam2.cs:line 82
+InnerException: 
+Exception Data: System.Collections.ListDictionaryInternal
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+2/18/2016 2:03:18 PM - Usuario:fabiola.moran, pass: Alejandra1
+2/18/2016 2:03:18 PM - GUID devuelto: 95ad3b93-f752-4f06-95fe-78252b1ec715
+2/18/2016 2:03:18 PM - {"UsuarioID":6872,"PerfilID":1,"NombreUsuario":"fabiola.moran","ContrasenaHash":"Q2dClWQFNjMp5t8frURcJ5kGlgYX9RId/85DOi5in0duY94BoXFK1359MeD/D+Bq","Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":true,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+2/18/2016 2:03:19 PM - Resultado de validar el token: {"UsuarioID":6872,"NombreUsuario":"fabiola.moran","ContrasenaHash":"Q2dClWQFNjMp5t8frURcJ5kGlgYX9RId/85DOi5in0duY94BoXFK1359MeD/D+Bq","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1455827598}
+2/18/2016 2:11:11 PM - Usuario:fabiola.moran, pass: Alejandra1
+2/18/2016 2:11:11 PM - GUID devuelto: 95ad3b93-f752-4f06-95fe-78252b1ec715
+2/18/2016 2:11:11 PM - {"UsuarioID":6872,"PerfilID":1,"NombreUsuario":"fabiola.moran","ContrasenaHash":"Q2dClWQFNjMp5t8frURcJ5kGlgYX9RId/85DOi5in0duY94BoXFK1359MeD/D+Bq","Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":true,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":"95ad3b93-f752-4f06-95fe-78252b1ec715","Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+2/18/2016 2:11:11 PM - Resultado de validar el token: {"UsuarioID":6872,"NombreUsuario":"fabiola.moran","ContrasenaHash":"Q2dClWQFNjMp5t8frURcJ5kGlgYX9RId/85DOi5in0duY94BoXFK1359MeD/D+Bq","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1455828071}
