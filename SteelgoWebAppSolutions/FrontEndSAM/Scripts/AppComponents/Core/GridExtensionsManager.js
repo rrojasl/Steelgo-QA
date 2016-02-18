@@ -30,7 +30,7 @@ function gridExtensionsToBeExecutedOnDocumentReady() {
 
 function CustomisaGrid(elemento) {
     $(".k-grid-header-wrap  ", elemento).after("<div class='ScrollUp'><div class='DivScrollSup'>&nbsp;</div></div>");
-    $(".DivScrollSup", elemento).css("width", $('table[role="grid"]').width())
+    $(".DivScrollSup", elemento).css("width", $('table[role="grid"]').width()-17)
     $(".k-grid-content", elemento).css("overflow", "hidden");
 
     $(".k-grid-header", elemento).before("<div id='sticky-anchor'></div>");
