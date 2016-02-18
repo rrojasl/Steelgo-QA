@@ -18,9 +18,9 @@ function AjaxCargarCuadrante(area) {
 }
 
 
-function AjaxCargarDatos(area, cuadrante, impreso) {
+function AjaxCargarDatos(area, cuadrante, impreso, etiquetado, conCinta) {
     loadingStart();
-    $Marcado.Marcado.read({ token: Cookies.get("token"), AreaID: area, CuadranteID: cuadrante, Impreso: impreso, lenguaje: $("#language").val() }).done(function (data) {
+    $Marcado.Marcado.read({ token: Cookies.get("token"), AreaID: area, CuadranteID: cuadrante, Impreso: impreso, Etiquetado: etiquetado, ConCinta: conCinta, lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
@@ -43,6 +43,22 @@ function AjaxCampoPredeterminadoImpreso() {
             $('.radioBtnImpreso')[0].checked = false;
             $('.radioBtnImpreso')[1].checked = true;
         }
+        if (data.ConCinta == "1") {
+            $('.radioBtnImpreso')[0].checked = true;
+            $('.radioBtnImpreso')[1].checked = false;
+        }
+        else if (data.ConCinta == "0") {
+            $('.radioBtnConCinta')[0].checked = false;
+            $('.radioBtnConCinta')[1].checked = true;
+        }
+        if (data.Etiquetado == "1") {
+            $('.radioBtnCaptura')[0].checked = true;
+            $('.radioBtnCaptura')[1].checked = false;
+        }
+        else if (data.Etiquetado == "0") {
+            $('.radioBtnCaptura')[0].checked = false;
+            $('.radioBtnCaptura')[1].checked = true;
+        }
 
         loadingStop();
     });
@@ -56,7 +72,7 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
     var ColorCintaCorrecto = true;
     var contGuardar = 0;
     for (index = 0; index < arregloCaptura.length; index++) {
-        if (arregloCaptura[index].Etiquetado || arregloCaptura[index].ConCinta) {
+        if (arregloCaptura[index].Etiquetado || arregloCaptura[index].ColorCintaID != 0) {
 
             ListaDetalles[contGuardar] = {
                 EmbarqueMarcadoID: "",

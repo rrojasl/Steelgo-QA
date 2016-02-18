@@ -787,3 +787,25 @@ h6 {
     font-size:larger;
     line-height:40px;
 }
+.btn-primary.active {
+    background-color:#1c4070 !important;
+}
+
+.ScrollUp {
+    overflow-x:scroll; 
+    margin-top:-20px; 
+    margin-right:17px;
+}
+.DivScrollSup {
+    height:1px; 
+    overflow:hidden;
+}
+
+.stick {
+    position: fixed;
+    max-height: 100%;
+    max-width:100%;
+    top: 0;
+    z-index: 10000;
+    
+}

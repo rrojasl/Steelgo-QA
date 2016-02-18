@@ -24,6 +24,8 @@ namespace BackEndSAM.Models.Embarque
     public class CamposPredeterminados
     {
         public string Impreso { get; set; }
+        public string Etiquetado { get; set; }
+        public string ConCinta { get; set; }
     }
     public class Color
     {

@@ -5164,8 +5164,8 @@ _dictionary = {
         "en-US": "Show"
     },
     "EmbarqueConsultaArea": {
-        "es-MX": "Área",
-        "en-US": "Area"
+        "es-MX": "Zona",
+        "en-US": "Zone"
     },
     "EmbarqueConsultaLinkShop": {
         "es-MX": "Link shop",
@@ -5207,8 +5207,8 @@ _dictionary = {
         "en-US": "Print Masive Travel"
     },
     "EmbarqueMarcadoArea": {
-        "es-MX": "Área",
-        "en-US": "Area"
+        "es-MX": "Zona",
+        "en-US": "Zone"
     },
     "EmbarqueMarcadoCuadrante": {
         "es-MX": "Cuadrante",
@@ -5218,6 +5218,11 @@ _dictionary = {
         "es-MX": "Impreso",
         "en-US": "Printed"
     },
+    "EmbarqueMarcadoCapturado": {
+        "es-MX": "Con Captura",
+        "en-US": "With Capture"
+    },
+    
     "EmbarqueMarcadoBtnVer": {
         "es-MX": "Ver",
         "en-US": "Show"
@@ -5230,6 +5235,23 @@ _dictionary = {
         "es-MX": "No",
         "en-US": "No"
     },
+    "EmbarqueMarcadoRadioSi2": {
+        "es-MX": "Sí",
+        "en-US": "Yes"
+    },
+    "EmbarqueMarcadoRadioNo2": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
+    "EmbarqueMarcadoRadioSi3": {
+        "es-MX": "Sí",
+        "en-US": "Yes"
+    },
+    "EmbarqueMarcadoRadioNo3": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
+
     "EmbarqueMarcadoCabeceraSpoolID": {
         "es-MX": "Spool ID",
         "en-US": "Spool ID"

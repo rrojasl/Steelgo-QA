@@ -193,6 +193,7 @@ function CargarGrid() {
 
         ]
     });
+    CustomisaGrid($("#grid"));
 }
 
 
@@ -296,6 +297,7 @@ function CargarGridPopUp() {
         navigatable: true,
         toolbar: [{ name: "create" }]
     });
+    CustomisaGrid($("#gridPopUp"));
 };
 
 function LlenarGridPopUp(data) {

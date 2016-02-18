@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers
     public class MarcadoController : ApiController
     {
         [HttpGet]
-        public object ObtieneListaMarcado(string token, int AreaID, int CuadranteID, int Impreso, string lenguaje)
+        public object ObtieneListaMarcado(string token, int AreaID, int CuadranteID, int Impreso, int Etiquetado, int ConCinta, string lenguaje)
         {
             
             string payload = "";
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 List<Marcado> lista = new List<Marcado>();
-                List<Sam3_Embarque_Get_Marcado_Result> result =(List<Sam3_Embarque_Get_Marcado_Result>) MarcadoBD.Instance.ObtenerDatosConsulta(AreaID, CuadranteID, Impreso, lenguaje);
+                List<Sam3_Embarque_Get_Marcado_Result> result =(List<Sam3_Embarque_Get_Marcado_Result>) MarcadoBD.Instance.ObtenerDatosConsulta(AreaID, CuadranteID, Impreso,Etiquetado,ConCinta, lenguaje);
                 foreach(Sam3_Embarque_Get_Marcado_Result item in result)
                 {
                     Marcado elemento = new Marcado
@@ -76,13 +76,16 @@ namespace BackEndSAM.Controllers
                 
 
                 string impresion = (string)MarcadoBD.Instance.ObtenerValorimpresion(usuario, lenguaje, 31);
+                string etiquetado = (string)MarcadoBD.Instance.ObtenerValorimpresion(usuario, lenguaje, 45);
+                string conCinta = (string)MarcadoBD.Instance.ObtenerValorimpresion(usuario, lenguaje, 44);
 
-                
                 CamposPredeterminados armadoCamposPredeterminados = new CamposPredeterminados();
 
                 armadoCamposPredeterminados = new CamposPredeterminados
                 {
-                    Impreso = impresion
+                    Impreso = impresion,
+                    ConCinta = conCinta,
+                    Etiquetado = etiquetado
                 };
 
                 return armadoCamposPredeterminados;
