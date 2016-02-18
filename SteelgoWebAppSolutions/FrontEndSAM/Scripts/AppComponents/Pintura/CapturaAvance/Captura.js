@@ -29,7 +29,7 @@ function AltaFecha() {
 
     endRangeDateShotblast.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            PlanchaFechaShotblast();
+            //PlanchaFechaShotblast();
         }
     });
 
@@ -39,7 +39,7 @@ function AltaFecha() {
 
     endRangeDatePrimario.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            PlanchaFechaPrimario();
+            //PlanchaFechaPrimario();
         }
     });
 }

@@ -52,10 +52,10 @@
         <div class="col-sm-2 col-md-2 col-lg-3">
             <div class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
-                <label class="btn btn-info" id="styleReporte">
+                <label class="btn btn-primary" id="styleReporte">
                     <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
                 </label>
-                <label class="btn btn-info" id="styleListado">
+                <label class="btn btn-primary" id="styleListado">
                     <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
                 </label>
             </div>
@@ -85,7 +85,7 @@
     </div>
     @*GRID*@
     <div class="row addedSectionInLine">
-        <div class="col-sm-3 col-md-3 col-lg-3" id="FechaArmadoDiv">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="FechaArmadoDiv">
             <label id="CapturaArmadoHeaderFechaArmado"></label>
             <input id="FechaArmado" />
         </div>
@@ -97,10 +97,14 @@
             <label id="CapturaArmadoHeaderTaller"></label>
             <input id="inputTaller" class="" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="col-sm-2 col-md-2 col-lg-2">
             <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
             <input type="radio" name="LLena" style="width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
             <input type="radio" name="LLena" style="width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="">&nbsp;</label>
+            <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonPlanchar"></span></button>
         </div>
         <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid" data-role="grid" class="k-grid k-widget">

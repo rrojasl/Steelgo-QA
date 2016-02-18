@@ -252,7 +252,7 @@ function AltaFecha() {
 
     endRangeDate.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            PlanchaFecha();
+            //PlanchaFecha();
         }
     });
 

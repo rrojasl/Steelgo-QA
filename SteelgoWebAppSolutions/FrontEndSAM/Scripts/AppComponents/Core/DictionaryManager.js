@@ -3872,12 +3872,12 @@ _dictionary = {
         "en-US": "Capture Type"
     },
     "Reporte": {
-        "es-MX": "Reporte",
-        "en-US": "Report"
+        "es-MX": "Spool",
+        "en-US": "Spool"
     },
     "Listado": {
-        "es-MX": "Lista",
-        "en-US": "List"
+        "es-MX": "Junta",
+        "en-US": "Junta"
     },
     "lblInspeccion": {
         "es-MX": "Inspección",
@@ -4433,12 +4433,12 @@ _dictionary = {
         "en-US": "filling mass"
     },
     "CapturaArmadoHeaderNumeroUnico1": {
-        "es-MX": "Número único 1",
-        "en-US": "Unique Number 1"
+        "es-MX": "Num. Un. 1",
+        "en-US": "Uni. Nu. 1"
     },
     "CapturaArmadoHeaderNumeroUnico2": {
-        "es-MX": "Número único 2",
-        "en-US": "Unique Number 2"
+        "es-MX": "Num. Un. 2",
+        "en-US": "Uni. Nu. 2"
     },
     "CapturaArmadoHeaderAdicionales": {
         "es-MX": "Adicionales",
@@ -4447,6 +4447,10 @@ _dictionary = {
     "CapturaArmadoHeaderDetalle": {
         "es-MX": "Detalle",
         "en-US": "Detail"
+    },
+    "CapturaArmadoHeaderDiametro": {
+        "es-MX": "Diam",
+        "en-US": "Diam"
     },
     "CapturaArmadoPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de armado?",
