@@ -401,6 +401,7 @@
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValidacionesFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
+    <Compile Include="Controllers\ValidarCedulasController.cs" />
     <Compile Include="Controllers\ValidarItemCodeNuCuantificacionController.cs" />
     <Compile Include="DataAcces\AlmacenajeBd.cs" />
     <Compile Include="DataAcces\AsociacionICSBd.cs" />
@@ -463,6 +464,7 @@
     <Compile Include="DataAcces\ProyectoBd.cs" />
     <Compile Include="DataAcces\TransportistaBd.cs" />
     <Compile Include="DataAcces\UsuarioBd.cs" />
+    <Compile Include="DataAcces\ValidarCedulasBd.cs" />
     <Compile Include="DataAcces\ValidarItemCodeNUBd.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

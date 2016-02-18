@@ -153,6 +153,7 @@ var $FamiliaAcero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidarCedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -261,3 +262,4 @@ $FamiliaAcero.add("FamiliaAcero");
 $Proxy.add("Proxy");
 $Reporte.add("Reporte");
 $Espesor.add("Espesor");
+$ValidarCedulas.add("ValidarCedulas");

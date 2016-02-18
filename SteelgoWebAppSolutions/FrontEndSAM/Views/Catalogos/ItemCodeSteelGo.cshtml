@@ -307,29 +307,52 @@
                                            if (existeDiametro) {
                                                //Obtengo los datos de Espesor en MM
                                                $Espesor.Espesor.read({}, { diametro1: $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID, diametro2: $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID, token: Cookies.get("token") }).done(function (result) {
-                                                   dsEspesorMM = result;
-                                                   $("[name='MM']", e.container).data("kendoComboBox").enable(true);
-                                                   $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
+                                                   if (result == null || result == []) {
+                                                       //Obtengo todos los Espesores en MM
+                                                       $Espesor.Espesor.read({}, { token: Cookies.get("token") }).done(function (result) {
+                                                           dsEspesorMM = result;
+                                                           $("[name='MM']", e.container).data("kendoComboBox").enable(true);
+                                                           $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
+                                                       });
+                                                   }
+                                                   else {
+                                                       //Obtengo los espesores que coinciden con el diametro
+                                                       dsEspesorMM = result;
+                                                       $("[name='MM']", e.container).data("kendoComboBox").enable(true);
+                                                       $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
+                                                   }
                                                });
 
                                                var diametr1 = parseInt($("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID);
                                                var diametr2 = parseInt($("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID);
                                                //Obtengo los datos de espesor en IN
                                                $Espesor.Espesor.read({}, { diametro1IN: diametr1, diametro2IN: diametr2, token: Cookies.get("token") }).done(function (result) {
-                                                   dsEspesorIN = result;
-                                                   $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
-                                                   $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
+
+                                                   if (result == null || result == []) {
+                                                       //Obtengo todos los espesores en IN
+                                                       $Espesor.Espesor.read({}, { inches: true, token: Cookies.get("token") }).done(function (result) {
+                                                           dsEspesorIN = result;
+                                                           $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
+                                                           $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
+                                                       });
+                                                   }
+                                                   else {
+                                                       //Obtengo los espesores que coinciden con el diametro
+                                                       dsEspesorIN = result;
+                                                       $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
+                                                       $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
+                                                   }
                                                });
                                            }
-                                           else {
-                                               //Obtengo los datos de Espesor en MM
+                                           else {//Si el diametro no existe
+                                               //Obtengo todos los Espesores en MM
                                                $Espesor.Espesor.read({}, { token: Cookies.get("token") }).done(function (result) {
                                                    dsEspesorMM = result;
                                                    $("[name='MM']", e.container).data("kendoComboBox").enable(true);
                                                    $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
                                                });
 
-                                               //Obtengo los datos de espesor en IN
+                                               //Obtengo todos los Espesores en IN
                                                $Espesor.Espesor.read({}, { inches: true, token: Cookies.get("token") }).done(function (result) {
                                                    dsEspesorIN = result;
                                                    $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
@@ -356,29 +379,52 @@
                                            if (existeDiametro) {
                                                //Obtengo los datos de Espesor en MM
                                                $Espesor.Espesor.read({}, { diametro1: $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID, diametro2: $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID, token: Cookies.get("token") }).done(function (result) {
-                                                   dsEspesorMM = result;
-                                                   $("[name='MM']", e.container).data("kendoComboBox").enable(true);
-                                                   $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
+                                                   if (result == null || result == []) {
+                                                       //Obtengo todos los Espesores en MM
+                                                       $Espesor.Espesor.read({}, { token: Cookies.get("token") }).done(function (result) {
+                                                           dsEspesorMM = result;
+                                                           $("[name='MM']", e.container).data("kendoComboBox").enable(true);
+                                                           $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
+                                                       });
+                                                   }
+                                                   else {
+                                                       //Obtengo los espesores que coinciden con el diametro
+                                                       dsEspesorMM = result;
+                                                       $("[name='MM']", e.container).data("kendoComboBox").enable(true);
+                                                       $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
+                                                   }
                                                });
 
                                                var diametr1 = parseInt($("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID);
                                                var diametr2 = parseInt($("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID);
                                                //Obtengo los datos de espesor en IN
                                                $Espesor.Espesor.read({}, { diametro1IN: diametr1, diametro2IN: diametr2, token: Cookies.get("token") }).done(function (result) {
-                                                   dsEspesorIN = result;
-                                                   $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
-                                                   $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
+
+                                                   if (result == null || result == []) {
+                                                       //Obtengo todos los espesores en IN
+                                                       $Espesor.Espesor.read({}, { inches: true, token: Cookies.get("token") }).done(function (result) {
+                                                           dsEspesorIN = result;
+                                                           $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
+                                                           $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
+                                                       });
+                                                   }
+                                                   else {
+                                                       //Obtengo los espesores que coinciden con el diametro
+                                                       dsEspesorIN = result;
+                                                       $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
+                                                       $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
+                                                   }
                                                });
                                            }
-                                           else {
-                                               //Obtengo los datos de Espesor en MM
+                                           else {//Si el diametro no existe
+                                               //Obtengo todos los Espesores en MM
                                                $Espesor.Espesor.read({}, { token: Cookies.get("token") }).done(function (result) {
                                                    dsEspesorMM = result;
                                                    $("[name='MM']", e.container).data("kendoComboBox").enable(true);
                                                    $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
                                                });
 
-                                               //Obtengo los datos de espesor en IN
+                                               //Obtengo todos los Espesores en IN
                                                $Espesor.Espesor.read({}, { inches: true, token: Cookies.get("token") }).done(function (result) {
                                                    dsEspesorIN = result;
                                                    $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
@@ -437,7 +483,7 @@
                                             $Espesor.Espesor.read({}, { diametro1: $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID, diametro2: $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID, token: Cookies.get("token") }).done(function (result) {
                                                 if (result == null || result == [])
                                                 {
-                                                    //Obtengo los datos de Espesor en MM
+                                                    //Obtengo todos los Espesores en MM
                                                     $Espesor.Espesor.read({}, { token: Cookies.get("token") }).done(function (result) {
                                                         dsEspesorMM = result;
                                                         $("[name='MM']", e.container).data("kendoComboBox").enable(true);
@@ -446,6 +492,7 @@
                                                 }
                                                 else
                                                 {
+                                                    //Obtengo los espesores que coinciden con el diametro
                                                     dsEspesorMM = result;
                                                     $("[name='MM']", e.container).data("kendoComboBox").enable(true);
                                                     $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
@@ -458,7 +505,7 @@
                                             $Espesor.Espesor.read({}, { diametro1IN: diametr1, diametro2IN: diametr2, token: Cookies.get("token") }).done(function (result) {
                                                 
                                                 if (result == null || result == []){
-                                                    //Obtengo los datos de espesor en IN
+                                                    //Obtengo todos los espesores en IN
                                                     $Espesor.Espesor.read({}, { inches: true, token: Cookies.get("token") }).done(function (result) {
                                                         dsEspesorIN = result;
                                                         $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
@@ -466,21 +513,22 @@
                                                     });
                                                 }
                                                 else {
+                                                    //Obtengo los espesores que coinciden con el diametro
                                                     dsEspesorIN = result;
                                                     $("[name='Inch']", e.container).data("kendoComboBox").dataSource.data(dsEspesorIN);
                                                     $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
                                                 }
                                             });
                                         }
-                                        else {
-                                            //Obtengo los datos de Espesor en MM
+                                        else {//Si el diametro no existe
+                                            //Obtengo todos los Espesores en MM
                                             $Espesor.Espesor.read({}, { token: Cookies.get("token") }).done(function (result) {
                                                 dsEspesorMM = result;
                                                 $("[name='MM']", e.container).data("kendoComboBox").enable(true);
                                                 $("[name='MM']", e.container).data("kendoComboBox").dataSource.data(dsEspesorMM);
                                             });
 
-                                            //Obtengo los datos de espesor en IN
+                                            //Obtengo todos los Espesores en IN
                                             $Espesor.Espesor.read({}, { inches: true, token: Cookies.get("token") }).done(function (result) {
                                                 dsEspesorIN = result;
                                                 $("[name='Inch']", e.container).data("kendoComboBox").enable(true);
@@ -980,19 +1028,19 @@
                                 else {
                                     if (data.Correcta == false)
                                     {
-                                            //Si existe el diametro seleccionado el combo de espesor se llena con los espesores segun el diametro
+                                            //Si existe el diametro seleccionado el combo de espesor se llena con los espesores segun el catalogo de cedulas
                                             $Diametros.Diametros.read({}, { diametro: e.model.Diametro1, token: Cookies.get("token") }).done(function (result) {
                                                 existeDiametro = result;
                                                 if (existeDiametro) {
                                                     //Obtengo los datos de Espesor en MM
-                                                    $Espesor.Espesor.read({}, { diametro1: e.model.Diametro1ID, diametro2: e.model.Diametro2ID, token: Cookies.get("token") }).done(function (result) {
+                                                    $ValidarCedulas.ValidarCedulas.read({}, { diametro1ID: e.model.Diametro1ID, espesorIN: false, token: Cookies.get("token") }).done(function (result) {
                                                         dsEspesorMM = result;
                                                         $("[name='MM']").data("kendoComboBox").enable(true);
                                                         $("[name='MM']").data("kendoComboBox").dataSource.data(dsEspesorMM);
                                                     });
 
                                                     ////Obtengo los datos de espesor en IN
-                                                    $Espesor.Espesor.read({}, { diametro1IN: e.model.Diametro1ID, diametro2IN: e.model.Diametro2ID, token: Cookies.get("token") }).done(function (result) {
+                                                    $ValidarCedulas.ValidarCedulas.read({}, { diametro1ID: e.model.Diametro1ID, espesorIN: true, token: Cookies.get("token") }).done(function (result) {
                                                         dsEspesorIN = result;
                                                         $("[name='Inch']").data("kendoComboBox").enable(true);
                                                         $("[name='Inch']").data("kendoComboBox").dataSource.data(dsEspesorIN);
