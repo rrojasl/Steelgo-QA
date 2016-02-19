@@ -69,6 +69,7 @@ function suscribirEventoProveedor() {
                 $("#Tracto").data("kendoComboBox").value("");
                 $("#Chofer").data("kendoComboBox").value("");
                 $("#Plana").data("kendoComboBox").value("");
+                $("#Destino").data("kendoComboBox").value("");
                 AjaxCargarTracto($("#Proveedor").data("kendoComboBox").value());
             }
             else {
@@ -108,6 +109,7 @@ function suscribirEventoTracto() {
                 $("#grid").data('kendoGrid').dataSource.data([]);
                 $("#Chofer").data("kendoComboBox").value("");
                 $("#Plana").data("kendoComboBox").value("");
+                $("#Destino").data("kendoComboBox").value("");
                 AjaxCargarChofer($("#Tracto").data("kendoComboBox").value());
             }
             else {
@@ -180,6 +182,7 @@ function opcionHabilitarView(valor, name) {
         $("#Plana").data("kendoComboBox").enable(false);
         $("#Tracto").data("kendoComboBox").enable(false);
         $("#Proveedor").data("kendoComboBox").enable(false);
+        $("#Destino").data("kendoComboBox").enable(false);
         $("#btnAgregar").prop('disabled', true);
 
         $('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
@@ -192,6 +195,7 @@ function opcionHabilitarView(valor, name) {
         $("#Plana").data("kendoComboBox").enable(true);
         $("#Tracto").data("kendoComboBox").enable(true);
         $("#Proveedor").data("kendoComboBox").enable(true);
+        $("#Destino").data("kendoComboBox").enable(true);
         $("#btnAgregar").prop('disabled', false);
         $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);

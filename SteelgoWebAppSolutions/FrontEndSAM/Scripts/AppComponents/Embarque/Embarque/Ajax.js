@@ -17,6 +17,9 @@ function AjaxCargarDestino(proyectoID) {
         $("#Destino").data("kendoComboBox").value("");
         $("#Destino").data("kendoComboBox").dataSource.data(data);
         loadingStop();
+        if (DestinoGuardado != 0) {
+            $("#Destino").data("kendoComboBox").value(DestinoGuardado);
+        }
     });
 }
 
@@ -93,10 +96,11 @@ function AjaxCargarDatosChofer(vehiculoID, choferID) {
             for (var i = 0; i < array.length; i++) {
                 ds.add(array[i]);
             }
-            $("#Destino").data("kendoComboBox");
+            DestinoGuardado =  data[0].DestinoID;
         }
         else {
             EmbarqueID = 0;
+            DestinoGuardado = 0;
         }
         
         loadingStop();

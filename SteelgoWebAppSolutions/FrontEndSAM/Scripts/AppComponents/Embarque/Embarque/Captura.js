@@ -1,6 +1,7 @@
 ﻿var transportistaEmb, choferEmb, tractoEmb;
 var bandera = false;
 var EmbarqueID = 0;
+var DestinoGuardado = 0;
 
 function changeLanguageCall() {
     CargarGrid();
