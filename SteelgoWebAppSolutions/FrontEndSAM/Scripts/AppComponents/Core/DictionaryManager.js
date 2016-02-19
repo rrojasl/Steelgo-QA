@@ -6002,7 +6002,14 @@ _dictionary = {
         "es-MX": "Lotes Captura Reporte",
         "en-US": "Batch Capture Report"
     },
-
+    "PinturaCargaCarroEscritorio": {
+        "es-MX": "Escritorio",
+        "en-US": "Desktop"
+    },
+    "PinturaCargaCarroPatio": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
     //#endregion
 
     //#region PinturaCargaBackLog

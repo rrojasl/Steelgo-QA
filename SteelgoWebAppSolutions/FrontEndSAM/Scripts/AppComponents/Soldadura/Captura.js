@@ -262,9 +262,9 @@ function CargarGridSoldadura() {
             { field: "Taller", title: _dictionary.CapturaSoldaduraHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "130px" },
             { field: "procesoSoldaduraRaiz", title: _dictionary.CapturaSoldaduraProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: RenderComboBoxProcesoSoldaduraRaiz },
             { field: "procesoSoldaduraRelleno", title: _dictionary.CapturaSoldaduraProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: RenderComboBoxProcesoSoldaduraRelleno },
-            { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "250px", template: "#:SoldadoresRaiz#", editor: RenderMultiselectRaiz },
-            { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "250px", template: "#:SoldadoresRelleno#", editor: RenderMultiselectRelleno },
-            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: renderEnlaceEditar, template: "#:TrabajosAdicionales#" },
+            { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "#:SoldadoresRaiz#", editor: RenderMultiselectRaiz },
+            { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "#:SoldadoresRelleno#", editor: RenderMultiselectRelleno },
+            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", editor: renderEnlaceEditar, template: "#:TrabajosAdicionales#" },
             { field: "juntaSpoolID", title: "", filterable: true, width: "150px", hidden: true },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
@@ -480,11 +480,11 @@ function AltaFecha() {
         max: new Date(),
     });
 
-    endRangeDate.on("keydown", function (e) {
-        if (e.keyCode == 13) {
-            PlanchaFecha();
-        }
-    });
+    //endRangeDate.on("keydown", function (e) {
+    //    if (e.keyCode == 13) {
+    //        PlanchaFecha();
+    //    }
+    //});
 
 }
 
