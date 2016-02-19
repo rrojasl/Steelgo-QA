@@ -218,7 +218,7 @@ function SuscribirEventoSpoolID() {
             }
         } else {
             displayMessage("CapturaArmadoMensajeOrdenTrabajo", "", '2');
-            $("#InputOrdenTrabajo").focus();
+            
         }
     });
 

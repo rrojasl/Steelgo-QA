@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -42,6 +43,16 @@ namespace FrontEndSAM.Controllers.ServiciosTecnicos
         }
         public ActionResult ImpresionPruebas()
         {
+            return View();
+        }
+
+        public ActionResult Impresion(string url)
+        {
+            WebClient client = new WebClient();
+            client.Credentials = new NetworkCredential("maftec", "M@ftecDB");
+            client.DownloadString("http://lapmaftec04:9076/ReportServer/Pages/ReportViewer.aspx?%2fSteelGo%2fReportes%2fReporteDemo&rs:Command=Render&Lenguaje=es-MX&idReportes=88&rc:Toolbar=false&rs:Format=PDF");
+
+            //Response.Redirect("http://lapmaftec04:9076/ReportServer/Pages/ReportViewer.aspx?%2fSteelGo%2fReportes%2fReporteDemo&rs:Command=Render&Lenguaje=es-MX&idReportes=88&rc:Toolbar=false&rs:Format=PDF");
             return View();
         }
     }
