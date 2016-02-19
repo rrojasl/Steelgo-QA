@@ -3863,6 +3863,11 @@ _dictionary = {
         "es-MX": "Cargas",
         "en-US": "Shipment"
     },
+
+    "lblEmpaquetado": {
+        "es-MX": "Empaquetado",
+        "en-US": "Packaging"
+    },
     "lblConsulta": {
         "es-MX": "Consulta",
         "en-US": "Query"
@@ -5226,7 +5231,6 @@ _dictionary = {
         "es-MX": "Con Captura",
         "en-US": "With Capture"
     },
-    
     "EmbarqueMarcadoBtnVer": {
         "es-MX": "Ver",
         "en-US": "Show"
@@ -5255,7 +5259,6 @@ _dictionary = {
         "es-MX": "No",
         "en-US": "No"
     },
-
     "EmbarqueMarcadoCabeceraSpoolID": {
         "es-MX": "Spool ID",
         "en-US": "Spool ID"
@@ -5660,6 +5663,11 @@ _dictionary = {
         "es-MX": "Agregar a Paquete",
         "en-US": "Add To Package"
     }
+    ,
+    "EmbarqueCargaAgregarAPaquetePie": {
+        "es-MX": "Agregar a Paquete",
+        "en-US": "Add To Package"
+    }
    ,
     "EmbarqueCargaSelecciona": {
         "es-MX": "Selecciona una opción",
@@ -5788,10 +5796,217 @@ _dictionary = {
     "EmbarqueCargaHeaderPaquete": {
         "es-MX": "Paquete",
         "en-US": "Package"
+    },
+    "EmbarqueCargaCrearPaquete": {
+        "es-MX": "Paquete creado satisfactoriamente",
+        "en-US": "The Package was created succesful"
+    }
+    ,
+    "EmbarqueCargaErrorCrearPaquete": {
+        "es-MX": "Paquete no fue creado",
+        "en-US": "The Package was not  created succesful"
     }
 
     //#endregion
 
+    //#region empaquetado
+    ,
+    "EmbarqueCargaCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close flat"
+    },
+    "EmbarqueEmpaquetadoCerrarEmbarque": {
+        "es-MX": "Cerrar Embarque",
+        "en-US": "Select an area"
+    },
+    "EmbarqueEmpaquetadoAutorizarPermiso": {
+        "es-MX": "Autorizar Permiso",
+        "en-US": "authorize Permit"
+    },
+    "EmbarqueEmpaquetadoImprimirEtiquetaSpool": {
+        "es-MX": "Imprimir Etiqueta Spool",
+        "en-US": "Print Label Spool"
+    },
+    "EmbarqueEmpaquetadoImprimirTravelMasivo": {
+        "es-MX": "Imprimir Travel Masivo",
+        "en-US": "Print Travel Masico"
+    },
+    "EmbarqueEmpaquetadoMarcadoMensajeArea": {
+        "es-MX": "Marcado Mensaje Área",
+        "en-US": "Message marked Area"
+    },
+    "EmbarqueEmpaquetadoSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "EmbarqueEmpaquetadoPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    }
+    ,
+    "EmbarqueEmpaquetadoCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueEmpaquetadoAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    }
+    ,
+    "EmbarqueEmpaquetadoCrearPaquete": {
+        "es-MX": "Crear Paquete",
+        "en-US": "Create Package"
+    },
+    "EmbarqueEmpaquetadoAgregarAPaquete": {
+        "es-MX": "Agregar a Paquete",
+        "en-US": "Add To Package"
+    }
+    ,
+    "EmbarqueEmpaquetadoAgregarAPaquetePie": {
+        "es-MX": "Agregar a Paquete",
+        "en-US": "Add To Package"
+    }
+   ,
+    "EmbarqueEmpaquetadoSelecciona": {
+        "es-MX": "Selecciona una opción",
+        "en-US": "Select a option"
+    }
+    ,
+    "EmbarqueEmpaquetadoOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    }
+    ,
+    "EmbarqueEmpaquetadoOpcionCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueEmpaquetadoOpcionPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    }
+     ,
+    "EmbarqueEmpaquetadoProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Previder"
+    }
+     ,
+    "EmbarqueEmpaquetadoPLaca": {
+        "es-MX": "Placa",
+        "en-US": "License Plate"
+    }
+      ,
+    "EmbarqueEmpaquetadoTotalPiezas": {
+        "es-MX": "Total Piezas:",
+        "en-US": "Total pieces:"
+    }
+      ,
+    "EmbarqueEmpaquetadoToneladasCargadas": {
+        "es-MX": "Toneladas Cargadas:",
+        "en-US": "Tons Loaded:"
+    }
+    ,
+    "EmbarqueEmpaquetadoInformacionExistente": {
+        "es-MX": "La informacion ya existe",
+        "en-US": "The information already exists"
+    },
+    "EmbarqueEmpaquetadoSeTieneEmpaquetado": {
+        "es-MX": "No se puede crear el paquete por que ya esta empaquetado el spool.",
+        "en-US": "You can not create the package that is already packaged"
+    },
+    "EmbarqueEmpaquetadoSeleccionaSpool": {
+        "es-MX": "No tienes agregado ningun spool",
+        "en-US": "You dont have added any spool"
+    },
+    "EmbarqueEmpaquetadoErrorAgregar": {
+        "es-MX": "No se pueden agregar spools, la plana esta cerrada",
+        "en-US": "Can't add spools, the plain is closed"
+    },
+    "EmbarqueEmpaquetadoErrorSeleccionarItem": {
+        "es-MX": "Seleccione al menos un item",
+        "en-US": "Select at least one item"
+    },
+    "EmbarqueEmpaquetadoSeAgregaPaquete": {
+        "es-MX": "No se puede agregar al paquete existen varios paquetes diferentes o no se ha seleccionando algun spool",
+        "en-US": "You can not add to the package you selected more than one package or not selecting spool"
+    },
+    "EmbarqueEmpaquetadoPopupCuadrante": {
+        "es-MX": "Selecciona un Cuadrante",
+        "en-US": "Select Quadrant"
+    },
+    "EmbarqueEmpaquetadoTituloPopupCuadrante": {
+        "es-MX": "Selecciona un nuevo Cuadrante",
+        "en-US": "Select new Quadrant"
+    },
+    "EmbarqueEmpaquetadoTituloPopupPaquete": {
+        "es-MX": "Selecciona un nuevo Paquete",
+        "en-US": "Select new Package"
+    },
+    "EmbarqueEmpaquetadoActualizarPaquetePopup": {
+        "es-MX": "Actualizar",
+        "en-US": "Update"
+    },
+    "EmbarqueEmpaquetadoCancelarPopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EmbarqueEmpaquetadoCuadranteActualizado": {
+        "es-MX": "El cuadrante fue actualizado con exito",
+        "en-US": "The quadrant was updated successfully"
+    },
+    "EmbarqueEmpaquetadoErrorCuadranteActualizado": {
+        "es-MX": "Existio un error al actualizar el cuadrante",
+        "en-US": "There was an error updating the quadrant"
+    },
+    "EmbarqueEmpaquetadoActualizarCuadrantePopup": {
+        "es-MX": "Actualizar",
+        "en-US": "Update"
+    },
+    "EmbarqueEmpaquetadoCancelarPaquetePopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EmbarqueEmpaquetadoGuardar": {
+        "es-MX": "Embarque guardado exitosamente",
+        "en-US": "Boarding successfully saved"
+    },
+    "EmbarqueEmpaquetadoErrorGuardar": {
+        "es-MX": "El embarque no se pudo guardar",
+        "en-US": "The shipment could not be saved"
+    },
+    "EmbarqueEmpaquetadoCerrarPlana": {
+        "es-MX": "Se cerro la plana satisfactoriamente",
+        "en-US": "Successfully closed flat"
+    },
+    "EmbarqueEmpaquetadoErrorCerrarPlana": {
+        "es-MX": "Existio un problema al cerrar la plana",
+        "en-US": "There was a problem closing the flat"
+    },
+    "EmbarqueEmpaquetadoHeaderSpool": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "EmbarqueEmpaquetadoHeaderConsecutivo": {
+        "es-MX": "Consecutivo",
+        "en-US": "Consecutive"
+    },
+    "EmbarqueEmpaquetadoHeaderPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    },
+    "EmbarqueEmpaquetadoCrearPaquete": {
+        "es-MX": "Paquete creado satisfactoriamente",
+        "en-US": "The Package was created succesful"
+    }
+    ,
+    "EmbarqueEmpaquetadoErrorCrearPaquete": {
+        "es-MX": "Paquete no fue creado",
+        "en-US": "The Package was not  created succesful"
+    }
+
+    //#endregion
     //#region revisionEmbarque
 
     ,
@@ -6558,7 +6773,7 @@ _dictionary = {
     "menuEmisionOrdenTrabajo": {
         "es-MX": "Emisión OT",
         "en-US": "WO Emission"
-    }, 
+    },
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",
         "en-US": "Project doesn´t exist"
@@ -6581,7 +6796,7 @@ _dictionary = {
         "es-MX": "Emitir",
         "en-US": "issue"
     },
-    
+
     "divEmisionTotalProyecciones": {
         "es-MX": "Totalizado de las proyecciones",
         "en-US": "Tote projections"
@@ -6597,13 +6812,13 @@ _dictionary = {
         "en-US": "Automatic"
     },
 
-   
+
     "spanEmisionCapacidadAutoMan": {
         "es-MX": "Auto-Man",
         "en-US": "Automatic - Manual"
     },
-   
-    
+
+
     "spanEmisionCapacidadMan": {
         "es-MX": "Man",
         "en-US": "Manual"
@@ -6659,95 +6874,95 @@ _dictionary = {
     },
 
     "spanEmisionCrear": {
-     "es-MX": "Crear",
-     "en-US": "Create"
- },
+        "es-MX": "Crear",
+        "en-US": "Create"
+    },
 
 
-    
+
     "lblEmisionEscribaOrdenTrabajo": {
         "es-MX": "Escriba la nueva Orden de Trabajo",
         "en-US": "Enter the new Work Order"
-         },
+    },
 
     "spanEmitirOrdenTrabajo": {
         "es-MX": "Emitir Orden de Trabajo",
-             "en-US": "Issue Work Order"
-         },
-
-    
-        "lblSeleccionOrdenTrabajo": {
-            "es-MX": "Seleccione la Orden de Trabajo",
-            "en-US": "Select Work Order"
-        },
-
-        "spanPreguntaCrearOrdenTrabajo": {
-            "es-MX": "¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?",
-            "en-US": "Want to create a work order or issue in an existing work order?"
-        },
-
-        "GridStackProducto": {
-            "es-MX": "Producto",
-            "en-US": "Product"
-        },
-
-        "GridstackFibeline": {
-            "es-MX": "FibeLine",
-            "en-US": "Fibeline"
-        },
-
-        "GridstackSpools": {
-            "es-MX": "Spools",
-            "en-US": "Spools"
-        },
+        "en-US": "Issue Work Order"
+    },
 
 
-        "GridstackKgs": {
-            "es-MX": "Kgs",
-            "en-US": "Kgs"
-        },
+    "lblSeleccionOrdenTrabajo": {
+        "es-MX": "Seleccione la Orden de Trabajo",
+        "en-US": "Select Work Order"
+    },
 
-        "GridstackM2": {
-            "es-MX": "M2",
-            "en-US": "M2"
-        },
+    "spanPreguntaCrearOrdenTrabajo": {
+        "es-MX": "¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?",
+        "en-US": "Want to create a work order or issue in an existing work order?"
+    },
 
-        "botonPlanchar": {
-            "es-MX": "Aplicar",
-            "en-US": "Apply"
-        },
+    "GridStackProducto": {
+        "es-MX": "Producto",
+        "en-US": "Product"
+    },
 
-        "GridstackBoards": {
-            "es-MX": "Juntas",
-            "en-US": "Boards"
-        },
+    "GridstackFibeline": {
+        "es-MX": "FibeLine",
+        "en-US": "Fibeline"
+    },
 
-        "GridstackPqs": {
-            "es-MX": "Pqs",
-            "en-US": "Pqs"
-        },
-
-        "CapturaMensajeArmadoPlancharTodos": {
-            "es-MX": "¿Esta seguro de reemplazar todos los datos?",
-            "en-US": "Are you sure to replace all data"
-        },
+    "GridstackSpools": {
+        "es-MX": "Spools",
+        "en-US": "Spools"
+    },
 
 
-        "GridstackFamilia": {
-            "es-MX": "Familia",
-            "en-US": "Family"
-        },
+    "GridstackKgs": {
+        "es-MX": "Kgs",
+        "en-US": "Kgs"
+    },
 
-        "GridstackAcero": {
-            "es-MX": "Acero",
-            "en-US": "Steel"
-        },
+    "GridstackM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+
+    "botonPlanchar": {
+        "es-MX": "Aplicar",
+        "en-US": "Apply"
+    },
+
+    "GridstackBoards": {
+        "es-MX": "Juntas",
+        "en-US": "Boards"
+    },
+
+    "GridstackPqs": {
+        "es-MX": "Pqs",
+        "en-US": "Pqs"
+    },
+
+    "CapturaMensajeArmadoPlancharTodos": {
+        "es-MX": "¿Esta seguro de reemplazar todos los datos?",
+        "en-US": "Are you sure to replace all data"
+    },
+
+
+    "GridstackFamilia": {
+        "es-MX": "Familia",
+        "en-US": "Family"
+    },
+
+    "GridstackAcero": {
+        "es-MX": "Acero",
+        "en-US": "Steel"
+    },
 
     //EntregaResultadosHeader
-        "GridstackHeaderPlaneacionControl": {
-            "es-MX": "Planeacion y Control",
-            "en-US": "Planning and control"
-        },
+    "GridstackHeaderPlaneacionControl": {
+        "es-MX": "Planeacion y Control",
+        "en-US": "Planning and control"
+    },
     //#endregion "PlaneacionYControl"
 }
 
