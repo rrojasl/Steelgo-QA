@@ -5414,6 +5414,10 @@ _dictionary = {
         "es-MX": "Plana",
         "en-US": "Flat"
     },
+    "EmbarqueDestino": {
+        "es-MX": "Destino",
+        "en-US": "Destiny"
+    },
     "EmbarqueProveedor": {
         "es-MX": "Proveedor",
         "en-US": "Provider"

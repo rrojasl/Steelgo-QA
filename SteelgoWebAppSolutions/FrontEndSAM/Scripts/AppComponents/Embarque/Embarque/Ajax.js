@@ -11,6 +11,15 @@
 
 }
 
+function AjaxCargarDestino(proyectoID) {
+    loadingStart();
+    $Embarque.Embarque.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+        $("#Destino").data("kendoComboBox").value("");
+        $("#Destino").data("kendoComboBox").dataSource.data(data);
+        loadingStop();
+    });
+}
+
 function AjaxCargarTracto(transportistaID) {
     loadingStart();
     $Embarque.Embarque.read({ token: Cookies.get("token"), TransportistaID: transportistaID, Tracto: "Tracto" }).done(function (data) {
@@ -80,9 +89,11 @@ function AjaxCargarDatosChofer(vehiculoID, choferID) {
         var array = data;
         if (data.length > 0) {
             EmbarqueID = data[0].EmbarqueID;
+            AjaxCargarDestino(data[0].ProyectoID);
             for (var i = 0; i < array.length; i++) {
                 ds.add(array[i]);
             }
+            $("#Destino").data("kendoComboBox");
         }
         else {
             EmbarqueID = 0;
@@ -104,6 +115,7 @@ function AjaxGuardarPlanas(arregloCaptura) {
             embarqueID: "",
             tractoID: "",
             choferID: "",
+            destinoID: "",
             accionPlanaID1: "",
             accionPlanaID2: "",
             planaID1: "",
@@ -115,6 +127,7 @@ function AjaxGuardarPlanas(arregloCaptura) {
         ListaDetalles[0].embarqueID = 0;
         ListaDetalles[0].tractoID = parseInt($("#Tracto").data("kendoComboBox").value());
         ListaDetalles[0].choferID = parseInt($("#Chofer").data("kendoComboBox").value());
+        ListaDetalles[0].destinoID = parseInt($("#Destino").data("kendoComboBox").value());
         ListaDetalles[0].accionPlanaID1 = 0;
         ListaDetalles[0].accionPlanaID2 = 0;
         ListaDetalles[0].planaID1 = 0;
@@ -168,5 +181,6 @@ function AjaxGuardarPlanas(arregloCaptura) {
     }
     else {
         displayMessage("EmbarqueMensajeAgregaPlanas", "", "1");
+        opcionHabilitarView(false, "FieldSetView");
     }
 }

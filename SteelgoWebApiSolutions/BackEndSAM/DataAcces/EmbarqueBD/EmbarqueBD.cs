@@ -193,7 +193,7 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object getListadoDestinos(int proyectoID)
+        public object obtenerListadoDestinos(int proyectoID)
         {
             try
             {

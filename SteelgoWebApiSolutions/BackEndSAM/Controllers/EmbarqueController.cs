@@ -46,6 +46,32 @@ namespace BackEndSAM.Controllers
         }
 
         [HttpGet]
+        public object GetDestinos(string token, int ProyectoID)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+
+                return EmbarqueBD.Instance.obtenerListadoDestinos(ProyectoID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
+        [HttpGet]
         public object GetPlanasGuardadasXEmbarque(string token, int EmbarqueID, string lenguaje)
         {
             string payload = "";
@@ -116,7 +142,9 @@ namespace BackEndSAM.Controllers
                         Plana = item.Plana,
                         Tracto = item.Tracto,
                         TractoID = int.Parse(item.TractoID.ToString()),
-                        TransportistaID = item.TransportistaID
+                        TransportistaID = item.TransportistaID,
+                        ProyectoID = item.ProyectoID.GetValueOrDefault(),
+                        DestinoID = item.DestinoID
                     };
                     result.Add(elemento);
                 }
@@ -225,6 +253,7 @@ namespace BackEndSAM.Controllers
                         ctx.Sam3_Embarque_Set_Embarque(captura.Lista[0].embarqueID,
                             captura.Lista[0].tractoID,
                             captura.Lista[0].choferID,
+                            captura.Lista[0].destinoID,
                             usuario.UsuarioID,
                             captura.Lista[0].accionPlanaID1,
                             captura.Lista[0].accionPlanaID2,

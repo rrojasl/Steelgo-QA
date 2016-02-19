@@ -223,8 +223,8 @@ function ajaxCerrarPlana() {
         CierraPlana = {
             embarquePlanaID: ""
         };
-        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].EmbarquePlanaID;
-        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].estatus;
+        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[$('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").selectedIndex].EmbarquePlanaID;
+        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[$('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").selectedIndex].estatus;
         CierraPlana.embarquePlanaID = EmbarquePlanaID;
 
         if (EmbarquePlanaID != 0 && (EstatusPlanaCerrar == "Abierta" || EstatusPlanaCerrar == "Open")) {
@@ -244,7 +244,7 @@ function ajaxCerrarPlana() {
             });
         }
         else {
-            displayMessage("", "", "1");
+            displayMessage("EmbarqueCargaErrorCerrarPlana", "", "1");
             loadingStop();
         }
         

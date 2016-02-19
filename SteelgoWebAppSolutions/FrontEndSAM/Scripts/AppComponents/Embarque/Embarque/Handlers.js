@@ -4,6 +4,7 @@
     suscribirEventoChofer();
     suscribirEventoPlana();
     suscribirEventoAgregar();
+    suscribirEventoDestino();
     suscribirEventoGuardar();
 }
 
@@ -17,6 +18,7 @@ function suscribirEventoGuardar() {
 
         if ($("#Tracto").data("kendoComboBox").dataItem($("#Tracto").data("kendoComboBox").select()) != undefined) {
             if ($("#Chofer").data("kendoComboBox").dataItem($("#Chofer").data("kendoComboBox").select()) != undefined) {
+                if ($("#Destino").data("kendoComboBox").dataItem($("#Destino").data("kendoComboBox").select()) != undefined) {
                     if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
                         opcionHabilitarView(true, "FieldSetView");
                         AjaxGuardarPlanas(ds._data);
@@ -24,6 +26,10 @@ function suscribirEventoGuardar() {
                     else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                         opcionHabilitarView(false, "FieldSetView")
                     }
+            }
+            else {
+                displayMessage("", "Debe seleccionar un Destino", "1");
+            }
             }
             else {
                 displayMessage("", "Debe seleccionar un Chofer", "1");
@@ -72,16 +78,16 @@ function suscribirEventoProveedor() {
     });
 }
 
-function suscribirEventoProveedor() {
+function suscribirEventoDestino() {
     $("#Destino").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "TransportistaID",
+        dataValueField: "DestinoID",
         suggest: true,
         filter: "contains",
         index: 3,
         change: function (e) {
             if ($("#Destino").data("kendoComboBox").dataItem($("#Destino").data("kendoComboBox").select()) != undefined) {
-                AjaxCargarTracto($("#Destino").data("kendoComboBox").value());
+                
             }
             else {
                 $("#Destino").data("kendoComboBox").value("");
@@ -143,7 +149,7 @@ function suscribirEventoPlana() {
         index: 3,
         change: function (e) {
             if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                
+                AjaxCargarDestino($('#Plana').data("kendoComboBox").dataSource._data[$('#Plana').data("kendoComboBox").selectedIndex].ProyectoID);
             }
             else {
                 $("#Plana").data("kendoComboBox").value("");
@@ -154,7 +160,8 @@ function suscribirEventoPlana() {
     $('#Plana').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                    AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+                AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+                AjaxCargarDestino($('#Plana').data("kendoComboBox").dataSource._data[$('#Plana').data("kendoComboBox").selectedIndex].ProyectoID);
                 }
                 else {
                     $("#Plana").data("kendoComboBox").value("");
