@@ -72,6 +72,24 @@ function suscribirEventoProveedor() {
     });
 }
 
+function suscribirEventoProveedor() {
+    $("#Destino").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "TransportistaID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            if ($("#Destino").data("kendoComboBox").dataItem($("#Destino").data("kendoComboBox").select()) != undefined) {
+                AjaxCargarTracto($("#Destino").data("kendoComboBox").value());
+            }
+            else {
+                $("#Destino").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+
 function suscribirEventoTracto() {
     $("#Tracto").kendoComboBox({
         dataTextField: "Placas",

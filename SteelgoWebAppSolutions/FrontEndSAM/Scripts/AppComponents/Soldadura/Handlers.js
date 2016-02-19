@@ -11,8 +11,13 @@ function SuscribirEventos() {
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
     GuardarDetalleAdicional();
+    SuscribirEventoCancelarAdicionales();
 };
-
+function SuscribirEventoCancelarAdicionales() {
+    $("#CancelarTrabajosAdicionales").click(function (e) {
+        $("#windowGrid").data("kendoWindow").close();
+    });
+}
 
 function GuardarDetalleAdicional() {
     $('#GuardarTrabajosAdicionales').click(function () {

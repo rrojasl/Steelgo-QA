@@ -3919,6 +3919,10 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "textoCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //#region Mensajes
     "Mensajes_error": {
         "es-MX": "Mensaje de error: ",

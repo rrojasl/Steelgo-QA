@@ -1,4 +1,5 @@
-﻿using DatabaseManager.Sam3;
+﻿using BackEndSAM.Models.Embarque;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
@@ -178,6 +179,37 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
                 {
                     List<Sam3_Steelgo_Get_Plana_Result> result = ctx.Sam3_Steelgo_Get_Plana(transportistaID).ToList();
                     return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object getListadoDestinos(int proyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_Destino_Result> result = ctx.Sam3_Steelgo_Get_Destino(proyectoID).ToList();
+                    List<Destinos> detalle = new List<Destinos>();
+                    foreach (var item in result)
+                    {
+                        detalle.Add(new Destinos
+                        {
+                            DestinoID = item.DestinoID,
+                            Nombre = item.Nombre
+                        });
+                    }
+                    return detalle;
                 }
             }
             catch (Exception ex)
