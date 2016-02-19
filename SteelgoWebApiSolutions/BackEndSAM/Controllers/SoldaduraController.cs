@@ -219,16 +219,20 @@ namespace BackEndSAM.Controllers
                             TipoJunta = item.TipoJunta,
                             Cedula = item.Cedula,
                             Diametro = item.Diametro,
-                            Espesor = decimal.Parse( item.Espesor.ToString()),
-                            FechaSoldadura = item.FechaSoldadura == null ? capturaDatosJson.FechaSoldadura : item.FechaSoldadura.ToString(),
-                            TallerID = item.TallerID == null ? capturaDatosJson.TallerID : item.TallerID.ToString(),
-                            Taller = item.Taller == null ? capturaDatosJson.Taller : item.Taller,
+                            Espesor = decimal.Parse( item.Espesor.ToString()), 
+                            TallerID = item.TallerID.GetValueOrDefault().ToString(),
+                            Taller = item.Taller,
                             Localizacion = item.Localizacion,
                             TemplateMensajeTrabajosAdicionales = item.TabajosAdicionales,
                             juntaSpoolID = item.JuntaSpoolID,
+                            FechaSoldadura = item.FechaSoldadura,
                             DetalleAdicional = GenerarTrabajoAdicionalJson((List<Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result>)CapturaSoldaduraBD.Instance.DetallaSoldaduraAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                             Raiz = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRaizAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
+                            RaizDetalle = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRaizAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
+                            RaizInicial = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRaizAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                             Relleno = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRellenoAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
+                            RellenoDetalle = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRellenoAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
+                            RellenoInicial = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRellenoAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                             listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)CapturaSoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                             ListadoRaiz = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRaiz(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString()), item.TipoJunta,item.Diametro,decimal.Parse(item.Espesor.ToString()),item.Cedula,0, capturaDatosJson.IDProyecto),
                             ListadoRelleno = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRelleno(item.ProcesoSoldaduraRellenoID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()),item.TipoJunta,item.Diametro,decimal.Parse( item.Espesor.ToString()),item.Cedula, 1, capturaDatosJson.IDProyecto),
@@ -334,7 +338,9 @@ namespace BackEndSAM.Controllers
                         juntaSpoolID = item.JuntaSpoolID,
                         DetalleAdicional = GenerarTrabajoAdicionalJson((List<Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result>)CapturaSoldaduraBD.Instance.DetallaSoldaduraAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                         Raiz = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRaizAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
+                        RaizDetalle = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRaizAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                         Relleno = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRellenoAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
+                        RellenoDetalle = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)CapturaSoldaduraBD.Instance.DetallaRellenoAdicional(int.Parse(item.JuntaSpoolID.ToString()), usuario), item.JuntaSpoolID),
                         listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)CapturaSoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                         ListadoRaiz = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRaiz(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString()), item.TipoJunta, item.Diametro, decimal.Parse(item.Espesor.ToString()), item.Cedula, 1, capturaDatosJson.IDProyecto),
                         ListadoRelleno = (List<SoldadorRaizCertificado>)CapturaSoldaduraBD.Instance.ObtenerListadoRelleno(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()), item.TipoJunta, item.Diametro, decimal.Parse(item.Espesor.ToString()), item.Cedula, 0, capturaDatosJson.IDProyecto),
@@ -449,7 +455,7 @@ namespace BackEndSAM.Controllers
             {
                 Raiz detalleAdicional = new Raiz
                 {
-                    Accion = 1,
+                    Accion = 3,
                     JuntaSoldaduraID = 0,
                     JuntaSoldaduraSoldadoID = 0,
                     ObreroID = 0,
@@ -488,7 +494,7 @@ namespace BackEndSAM.Controllers
             {
                 Relleno detalleAdicional = new Relleno
                 { 
-                    Accion  = 1,
+                    Accion  = 3,
                     JuntasoldaduraID = 0,
                     JuntaSoldaduraSoldadoID = 0,
                     ObreroID = 0,
@@ -675,9 +681,12 @@ namespace BackEndSAM.Controllers
                 foreach (DetalleGuardarJson item in listaCapturasSoldadura.Detalles)
                 {
                     if (RaizAdicionales == null)
+                    {
                         RaizAdicionales = ToDataTable(item.ListaSoldaduraRaiz);
-                    else
+                    }
+                    else {
                         RaizAdicionales.Merge(ToDataTable(item.ListaSoldaduraRaiz));
+                    }
                 }
 
                 foreach (DetalleGuardarJson item in listaCapturasSoldadura.Detalles)

@@ -4772,8 +4772,8 @@ _dictionary = {
         "en-US": "Fill Welders"
     },
     "CapturaSoldaduraDetalleJunta": {
-        "es-MX": "Detalle Junta",
-        "en-US": "Joint Detail"
+        "es-MX": "Detalle",
+        "en-US": "Detail"
     },
     "CapturaSoldaduraMensajeOrdenTrabajo": {
         "es-MX": "La Orden de trabajo no es valida.",

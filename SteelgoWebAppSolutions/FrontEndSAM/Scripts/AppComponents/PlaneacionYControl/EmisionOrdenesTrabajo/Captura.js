@@ -1,11 +1,17 @@
-﻿var Proyecciones = { "Proyeccion": [] }
+﻿var Proyecciones = {
+    "Proyeccion": [{
+        ID: 0,
+        Accion: 1,
+        NumeroSpools: 5
+    }]
+}
+
 var SpoolsEnProyeccion = new Array();
 var proyeccionActual;
 
 function changeLanguageCall() {
     SuscribirEventos();
-    CargarGrid();
-    
+    CargarGrid(); 
     AjaxObtenerProyectos();
 };
  
@@ -81,18 +87,16 @@ function CargarGrid() {
     
     //ActualizarContenedorCapacidad(); 
 }
- 
-
-function CalcularValoresProyecciones(crear) {
+  
+function CalcularValoresProyecciones(crear, taller) {
     if (ValidarValoresAntesDeProyectar()) {  
         if (crear) { 
             AgregarNuevaProyeccion();
-            AgregarContenedorProyecciones();
-            $("input.proyeccionTaller[taller='A']").attr('checked', 'checked');
-            ActualizarContenedorCapacidad("A",SpoolsEnProyeccion[0].Tipo); 
+            AgregarContenedorProyecciones(taller);
+            
+            ActualizarContenedorCapacidad(taller, SpoolsEnProyeccion[0].Tipo);
         }
-        else {
-            debugger;
+        else { 
             EditarProyeccion();
             EditarContenedorProyecciones(); 
             ActualizarContenedorCapacidad($("input.proyeccion" + $("#inputProyecciones").val() + "Taller:checked").attr("taller"), SpoolsEnProyeccion[0].Tipo);
@@ -103,14 +107,14 @@ function CalcularValoresProyecciones(crear) {
     } 
 }
 
+function CrearContenedorCapacidad(talleresLista) {
+    for() {
+
+    }
+}
+
 //Funciones para agregar proyeccion
 function AgregarNuevaProyeccion() {
-    Proyecciones.Proyeccion.push({
-        ID: 0,
-        Accion: 1,
-        NumeroSpools: 5
-    });
-
     Proyecciones.Proyeccion.push({
         ID: (Proyecciones.Proyeccion.length),
         Accion: 1,
@@ -119,7 +123,7 @@ function AgregarNuevaProyeccion() {
     }); 
 }
  
-function AgregarContenedorProyecciones() { 
+function AgregarContenedorProyecciones(taller) { 
     var nombre = $("#inputWindowProyeccion").val();
     var totalProyecciones = $("tr.proyeccion").length;
     var totalSpoolsProyeccion = SpoolsEnProyeccion.length;
@@ -161,7 +165,9 @@ function AgregarContenedorProyecciones() {
                                             '<td>' +
                                                 '<input type="radio" class="proyeccion' + (totalProyecciones + 1) + 'Taller" taller="D">' +
                                             '</td>' +
-                                        '</tr>');     
+                                        '</tr>');
+     
+    $("input.proyeccion" + (totalProyecciones + 1) + "Taller[taller='" + taller + "']").attr('checked', 'checked');
 }
 
 //Funciones para utilizar proyeccion existente
@@ -224,6 +230,7 @@ function ActualizarGrid() {
 
         for (var j = 0; j < listaSpool.length; j++) {
             if (listaSpool[j].Seleccionado) {
+                listaSpool[j].Seleccionado = 0;
                 listaSpool[j].Proyectado = 1;
                 listaSpool[j].Proyeccion = $("#inputWindowProyeccion").val();
             }

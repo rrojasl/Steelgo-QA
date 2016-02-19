@@ -88,237 +88,117 @@
 
 };
 
-function RenderGridRelleno(container, options) {
+function RenderMultiselectRelleno(container, options) { 
+    if (ItemSeleccionado.PermiteTerminadoRelleno) { 
+        var multiselect = $('<input  data-text-field="Soldador" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiSelect({
+                autoBind: false,
+                dataSource: options.model.ListadoRelleno,
+                template: "<i class=\"fa fa-#=data.Soldador.toLowerCase()#\"></i> #=data.Soldador#",
+                select: function (e) {
 
-    if (ItemSeleccionado.PermiteTerminadoRelleno) {
+                    dataItem = this.dataSource.view()[e.item.index()];
 
-        //container.editable(false);
+                    if (dataItem != undefined) {
+                        var existe = false;
+                        for (var i = 0 ; i < ItemSeleccionado.Relleno.length ; i++) {
+                            if (dataItem.ObreroID == ItemSeleccionado.Relleno[i].ObreroID) {
+                                existe = true;
+                                break;
+                            }
+                        }
 
-        //container  contiene las propiedades de la celda
-        //options contiene el modelo del datasource ejemplo options.model.Junta
-        $('<div id=' + options.model.SpoolID + 'Relleno' + options.model.Junta + '/>')
-      .appendTo(container)
-      .kendoGrid({
-          dataSource: {
-              // batch: true,
-              data: options.model.Relleno,
-              schema: {
-                  model: {
-                      fields: {
-                          JuntaSoldaduraSoldadoID: { type: "int", editable: true },
-                          JuntaSoldaduraID: { type: "int", editable: true },
-                          Accion: { type: "string", editable: true },
-                          ObreroID: { type: "int", editable: true },
-                          Soldador: { type: "string", editable: true },
-                          WPS: { type: "string", editable: false },
-                      }
-                  }
-              }, filter: {
-                  logic: "or",
-                  filters: [
-                    { field: "Accion", operator: "eq", value: 1 },
-                    { field: "Accion", operator: "eq", value: 2 },
-                      { field: "Accion", operator: "eq", value: 0 },
-                      { field: "Accion", operator: "eq", value: undefined }
-                  ]
-              }
-          },
-          selectable: true,
-          dataBinding: function (e) {
-              console.log("dataBinding");
-          },
-          change: function (e) {
-
-              ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
-
-              var dataSource = this.dataSource;
-              var filters = dataSource.filter();
-              var allData = dataSource.data();
-              var query = new kendo.data.Query(allData);
-              var data = query.filter(filters).data;
-
-
-              longitudSoldadoresRelleno = data.length;
-              options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
-              if (ItemSeleccionadoAnidado.JuntaSoldaduraID != 0)
-                  ItemSeleccionadoAnidado.Accion = 2;
-
-          },
-          columns: [
-            { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxSoldadorRelleno },
-           {
-               command: {
-                   name: "",
-                   title: "",
-                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
-                   click: function (e) {
-                       e.preventDefault();
-                       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                       var dataSource = this.dataSource;
-                       if (confirm(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaProceso[$("#language").data("kendoDropDownList").value()])) {
-
-                           dataItem.Accion = 3;
-
-                           var filters = dataSource.filter();
-                           var allData = dataSource.data();
-                           var query = new kendo.data.Query(allData);
-                           var data = query.filter(filters).data;
-
-                           longitudSoldadoresRelleno = data.length;
-                           options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
-                       }
-                       dataSource.sync();
-                   }
-               },
-               width: "90px"
-           }],
-
-          editable: true,
-          navigatable: true,
-          toolbar: [{ name: "create", }]
-      });
+                        if (options.model.RellenoDetalle == null) {
+                            options.model.RellenoDetalle = [];
+                        }
+                     
+                        if (!existe) {
+                            var accion = options.model.JuntaSoldaduraSoldadoID == undefined ? 1 : options.model.Accion;
+                            options.model.RellenoDetalle.push({
+                                Accion: accion,
+                                JuntaSoldaduraSoldadoID: options.model.JuntaSoldaduraSoldadoID,
+                                JuntaSoldaduraID: options.model.JuntaSoldaduraID,
+                                Soldador: dataItem.Soldador,
+                                ObreroID: dataItem.ObreroID
+                            });
+                        }
+                        else {
+                            displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                            options.model.Soldador = "";
+                            options.model.ObreroID = "";
+                        } 
+                    }
+                    else {
+                        options.model.Soldador = ObtenerDescCorrectaSoldadorRelleno(ItemSeleccionado.ListadoRelleno, options.model.ObreroID);
+                    }
+                },
+                change: function () {
+                    longitudSoldadoresRelleno = multiselect._values.length;
+                    options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+                },
+                value: options.model.Relleno
+            }).data("kendoMultiSelect");
     }
     else
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRelleno", "", "1");
 
 };
 
-function RenderGridRaiz(container, options) {
+function RenderMultiselectRaiz(container, options) {
 
-    if (ItemSeleccionado.PermiteTerminadoRaiz) { 
-        //container  contiene las propiedades de la celda
-        //options contiene el modelo del datasource ejemplo options.model.Junta
-        $('<div id=' + options.model.SpoolID + 'Raiz' + options.model.Junta + '/>')
-      .appendTo(container)
-      .kendoGrid({
-          dataSource: {
-              data: options.model.Raiz,
-              schema: {
-                  model: {
-                      fields: {
-                          JuntaSoldaduraSoldadoID: { type: "int", editable: true },
-                          Accion: { type: "string", editable: true },
-                          ObreroID: { type: "int", editable: true },
-                          Soldador: { type: "string", editable: true },
-                          WPS: { type: "string", editable: false },
-                      }
-                  }
-              }, filter: {
-                  logic: "or",
-                  filters: [
-                    { field: "Accion", operator: "eq", value: 1 },
-                    { field: "Accion", operator: "eq", value: 2 },
-                      { field: "Accion", operator: "eq", value: 0 },
-                      { field: "Accion", operator: "eq", value: undefined }
-                  ]
-              }
-          },
-          selectable: true,
-          dataBinding: function (e) {
-              console.log("dataBinding");
-          },
-          change: function (e) {
+    if (ItemSeleccionado.PermiteTerminadoRaiz) {   
+        var multiselect = $('<input  data-text-field="Soldador" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoMultiSelect({
+            autoBind: false,
+            dataSource: options.model.ListadoRaiz,
+            template: "<i class=\"fa fa-#=data.Soldador.toLowerCase()#\"></i> #=data.Soldador#", 
+            select: function (e) {
 
-              ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+                dataItem = this.dataSource.view()[e.item.index()];
+               
+                if (dataItem != undefined) { 
+                    var existe = false;
+                    for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
+                        if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                     
+                    if (options.model.RaizDetalle == null) {
+                        options.model.RaizDetalle = []; 
+                    }
 
-              var dataSource = this.dataSource;
-              var filters = dataSource.filter();
-              var allData = dataSource.data();
-              var query = new kendo.data.Query(allData);
-              var data = query.filter(filters).data;
-
-
-              longitudSoldadoresRaiz = data.length;;
-              options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-              if (ItemSeleccionadoAnidado.JuntaSoldaduraID != 0)
-                  ItemSeleccionadoAnidado.Accion = 2;
-
-          },
-          columns: [
-            { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px", editor: RenderComboBoxSoldador },
-           {
-               command: {
-                   name: "",
-                   title: "",
-                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
-                   click: function (e) {
-                       e.preventDefault();
-                       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                       var dataSource = this.dataSource;
-                       if (confirm(_dictionary.CapturaSoldaduraPreguntaBorradoCapturaProceso[$("#language").data("kendoDropDownList").value()])) {
-
-                           dataItem.Accion = 3;
-
-                           var filters = dataSource.filter();
-                           var allData = dataSource.data();
-                           var query = new kendo.data.Query(allData);
-                           var data = query.filter(filters).data;
-
-                           longitudSoldadoresRaiz = data.length;
-                           options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-                       }
-
-
-                       dataSource.sync();
-                   }
-               }, width: "60px"
-           }],
-          beforeEdit: function (e) {
-
-              if (ItemSeleccionado.PermiteTerminadoRaiz) {
-                  e.preventDefault();
-              }
-          },
-          editable: true,
-          navigatable: true,
-          toolbar: [{ name: "create", }]
-      });
-         
-
-        //------------------Multiselect
-        //$('<input  data-text-field="Soldador" id=' + options.model.uid + ' data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
-        //.appendTo(container)
-        //.kendoMultiSelect({
-        //    autoBind: false,
-        //    dataSource: options.model.ListadoRaiz,
-        //    template: "<i class=\"fa fa-#=data.Soldador.toLowerCase()#\"></i> #=data.Soldador#",
-        //    select: function (e) {
-        //    },
-        //    change: function (e) {
-        //        dataItem = this.dataItem(e.sender.selectedIndex);
-        //        if (dataItem != undefined) {
-        //            var existe = false;
-        //            for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
-        //                if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
-        //                    existe = true;
-        //                    break;
-        //                }
-        //            }
-        //            if (!existe) {
-        //                options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-        //                options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-        //                options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-        //                options.model.Soldador = dataItem.Soldador;
-        //                options.model.ObreroID = dataItem.ObreroID;
-        //            }
-        //            else {
-        //                displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
-        //                options.model.Soldador = "";
-        //                options.model.ObreroID = "";
-        //            }
-        //            longitudSoldadoresRaiz = options.model.ListaDetallePintoresPorSpool.length;
-        //            options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-        //        }
-        //        else {
-        //            options.model.Soldador = ObtenerDescCorrectaSoldador(ItemSeleccionado.ListadoRaiz, options.model.ObreroID);
-
-        //        }
-        //    },
-        //    value: options.model.
-
-        //}).data("kendoMultiSelect"); 
-
-        //--------------------------------------------------
+                    if (!existe) {
+                        var accion = options.model.JuntaSoldaduraSoldadoID == undefined ? 1 : options.model.Accion;
+                        options.model.RaizDetalle.push({
+                            Accion: accion,
+                            JuntaSoldaduraSoldadoID: options.model.JuntaSoldaduraSoldadoID,
+                            JuntaSoldaduraID: options.model.JuntaSoldaduraID,
+                            Soldador: dataItem.Soldador,
+                            ObreroID: dataItem.ObreroID
+                        }); 
+                    }
+                    else {
+                        displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
+                        options.model.Soldador = "";
+                        options.model.ObreroID = "";
+                    }
+ 
+                    
+                }
+                else {
+                    options.model.Soldador = ObtenerDescCorrectaSoldador(ItemSeleccionado.ListadoRaiz, options.model.ObreroID); 
+                }
+            },
+            change: function () { 
+                longitudSoldadoresRaiz = multiselect._values.length;
+                options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+            },
+            value: options.model.Raiz
+        }).data("kendoMultiSelect");  
     }
     else
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRaiz", "", "1");
@@ -332,62 +212,7 @@ function renderEnlaceEditar(container, options) {
         });
 
 }
-
-function RenderComboBoxSoldador(container, options) {
-    loadingStart();
-    var dataItem;
-     
-    $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoComboBox({
-            suggest: true,
-            filter: "contains",
-            autoBind: false,
-            dataSource: ItemSeleccionado.ListadoRaiz,
-            template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
-            select: function (e) {
-            },
-            change: function (e) {
-                dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined) {
-                    var existe = false;
-                    for (var i = 0 ; i < ItemSeleccionado.Raiz.length ; i++) {
-                        if (dataItem.ObreroID == ItemSeleccionado.Raiz[i].ObreroID) {
-                            existe = true;
-                            break;
-                        }
-                    }
-                    if (!existe) {
-                        options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                        options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                        options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                        options.model.Soldador = dataItem.Soldador;
-                        options.model.ObreroID = dataItem.ObreroID;
-                    }
-                    else {
-                        displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
-                        options.model.Soldador = "";
-                        options.model.ObreroID = "";
-                    }
-                }
-                else {
-                    options.model.Soldador = ObtenerDescCorrectaSoldador(ItemSeleccionado.ListadoRaiz, options.model.ObreroID);
-
-                }
-            }
-        }
-        );
-    $(".k-combobox").on('mouseleave', function (send) {
-        var e = $.Event("keydown", { keyCode: 27 });
-        var item = this;
-        if (!tieneClase(item)) {
-            $(container).trigger(e);
-        }
-    });
-
-    loadingStop();
-};
-
+ 
 function ObtenerDescCorrectaSoldador(lista, ObreroID) {
     for (var i = 0; i < lista.length; i++) {
         if (lista[i].ObreroID == ObreroID)
@@ -395,65 +220,7 @@ function ObtenerDescCorrectaSoldador(lista, ObreroID) {
     }
     return "";
 }
-
-
-function RenderComboBoxSoldadorRelleno(container, options) {
-    loadingStart();
-    var dataItem;
-
-
-    $('<input required data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoComboBox({
-            suggest: true,
-            filter: "contains",
-            autoBind: false,
-            dataSource: ItemSeleccionado.ListadoRelleno,
-            template: '<span class="#: data.Soldador #">#: data.Soldador #</span> ',
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-
-            },
-            change: function (e) {
-                dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined) {
-                    var existe = false;
-                    for (var i = 0 ; i < ItemSeleccionado.Relleno.length ; i++) {
-                        if (dataItem.ObreroID == ItemSeleccionado.Relleno[i].ObreroID) {
-                            existe = true;
-                            break;
-                        }
-                    }
-                    if (!existe) {
-                        options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                        options.model.JuntaSoldaduraSoldadoID = options.model.JuntaSoldaduraSoldadoID;
-                        options.model.JuntaSoldaduraID = options.model.JuntaSoldaduraID;
-                        options.model.Soldador = dataItem.Soldador;
-                        options.model.ObreroID = dataItem.ObreroID;
-                    }
-                    else {
-                        displayMessage("CapturaSoldaduraMensajeSoldadorExistente", "", '1');
-                        options.model.Soldador = "";
-                        options.model.ObreroID = "";
-                    }
-                }
-                else {
-                    options.model.Soldador = ObtenerDescCorrectaSoldadorRelleno(ItemSeleccionado.ListadoRelleno, options.model.ObreroID);
-
-                }
-            }
-        }
-        );
-    $(".k-combobox").on('mouseleave', function (send) {
-        var e = $.Event("keydown", { keyCode: 27 });
-        var item = this;
-        if (!tieneClase(item)) {
-            $(container).trigger(e);
-        }
-    });
-    loadingStop();
-};
-
+ 
 function ObtenerDescCorrectaSoldadorRelleno(lista, ObreroID) {
     for (var i = 0; i < lista.length; i++) {
         if (lista[i].ObreroID == ObreroID)

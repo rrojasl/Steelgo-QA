@@ -7,6 +7,7 @@
     SuscribirEventoPreguntaUtilizarProyeccionExistente();
     SuscribirEventoCrearNuevaProyeccion(); 
     SuscribirEventoUtilizarProyeccionExistente();
+    SuscribirEventoTalleres();
 
     //Emision
     SuscribirEventoEmitir();
@@ -47,18 +48,11 @@ function SuscribirEventoVentanaProyectar() {
     }); 
 }
 
-function SuscribirEventoComboBoxProyecciones() {
-    var data = [
-        { Proyeccion: "Proyeccion 1", ProyeccionID: "1" },
-        { Proyeccion: "Proyeccion 2", ProyeccionID: "2" },
-        { Proyeccion: "Proyeccion 3", ProyeccionID: "3" },
-    ];
-   
+function SuscribirEventoComboBoxProyecciones() {   
     $("#inputProyecciones").kendoComboBox({
         dataTextField: "Proyeccion",
         dataValueField: "ProyeccionID ",
-        suggest: true,
-        dataSource: data,
+        suggest: true, 
         filter: "contains",
         index: 3
     });
@@ -85,14 +79,54 @@ function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
 }
 
 function SuscribirEventoCrearNuevaProyeccion() {
-    $("#btnCrearProyeccion").click(function () { 
-        CalcularValoresProyecciones(true);
+    $("#btnCrearProyeccion").click(function () {
+        $("#divTallerWindow").kendoWindow({
+            modal: true,
+            // title:,
+            resizable: false,
+            visible: true,
+            width: "50%",
+            minWidth: "20%",
+
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            actions: [
+                "Close"
+            ],
+        }).data("kendoWindow");
+
+        $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
+        $("#divProyectarWindow").data("kendoWindow").center().open();
+        debugger;
+        CalcularValoresProyecciones(true, $("#inputTalleresWindow").val());
     });
 }
 
+function SuscribirEventoTalleres() {
+    var data = [
+        { Taller: "A", TallerID: "A" },
+        { Taller: "B", TallerID: "B" },
+        { Taller: "C", TallerID: "C" },
+        { Taller: "D", TallerID: "D" },
+        { Taller: "Despacho", TallerID: "Despacho" },
+        { Taller: "Corte", TallerID: "Corte" },
+    ];
+
+    $("#inputTalleresWindow").kendoComboBox({
+        dataTextField: "Taller",
+        dataValueField: "TallerID ",
+        suggest: true,
+        dataSource: data,
+        filter: "contains",
+        index: 3
+    });
+}
+ 
 function SuscribirEventoUtilizarProyeccionExistente() {
     $("#btnSeleccionaProyeccion").click(function () {
-        CalcularValoresProyecciones(false);
+        CalcularValoresProyecciones(false,0);
     });
 }
 
@@ -160,6 +194,7 @@ function SuscribirEventoEmitir() {
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () { 
         AjaxMostrarSpoolsDeProyecto();
+        AjaxObtenerTalleresPorPatio();
     });
 }
  

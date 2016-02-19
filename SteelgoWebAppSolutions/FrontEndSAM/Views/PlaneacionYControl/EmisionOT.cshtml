@@ -162,13 +162,13 @@
                 <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Proyecciones</div> 
                     <table class="table table-condensed" style="border-collapse:collapse;">
                         <thead>
-                            <tr>
+                            <tr id="talleresProyeccion">
                                 <th width="20px">&nbsp;</th>
                                 <th>&nbsp;</th>
-                                <th width="20px" style="text-align:center;">A</th>
+                                @*<th width="20px" style="text-align:center;">A</th>
                                 <th width="20px" style="text-align:center;">B</th>
                                 <th width="20px" style="text-align:center;">C</th>
-                                <th width="20px" style="text-align:center;">D</th>
+                                <th width="20px" style="text-align:center;">D</th>*@
                             </tr>
                         </thead>
                         <tbody id="contenedorProyecciones">
@@ -179,12 +179,16 @@
         </div> 
         <span style="color:#ffffff">.</span> 
          
-        <form id="divProyectarWindow" style="display:none">
+        <form id=" " style="display:none">
             <div class="row"> 
                 <div class="container" style="padding:15px;;width:inherit"> 
                     <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="inputCrearProyeccion">
                         <label id="">Escriba la nueva proyección</label>
                         <input id="inputWindowProyeccion" class="form-control" type="text" />
+
+                        <label id="">Seleccione un taller</label>
+                        <input id="inputTalleresWindow" class="form-control" type="text" />
+
                         <button class="btn btn-primary" type="button" id="btnCrearProyeccion"><span id="">Proyectar</span></button>
                     </div> 
                     <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarProyeccion"> 

@@ -57,4 +57,10 @@ namespace BackEndSAM.Models.PlaneacionYControl
         public int PatioID { get; set; }
         public string NombrePatio { get; set; }
     } 
+
+    public class DetalleTaller
+    {
+        public int TallerID { get; set; }
+        public string Taller { get; set; }
+    }
 }
