@@ -320,8 +320,7 @@ function CargarGridPopUp() {
             var allData = dataSource.data();
             var query = new kendo.data.Query(allData);
             var data = query.filter(filters).data;
-
-
+             
             actuallongitudTrabajosAdicionales = data.length;
             modeloRenglon.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
             if (modeloRenglon.JuntaSoldaduraID != 0 && modeloRenglon.JuntaSoldaduraID != undefined)
@@ -566,4 +565,72 @@ function ExisteJuntaReporte(juntaVal) {
         }
     }
     return true;
+}
+
+function ValidarExisteSoldadorEnTrabajosAdicionales(modelo, tipoSoldador) { 
+    var existeSoldadorEnOtraLista = false;
+    if (tipoSoldador == "relleno") {
+        for (var i = 0; i < modelo.DetalleAdicional.length; i++) {
+            var existe = false;
+
+            for (var j = 0; j < modelo.Relleno.length; j++) {
+                if (modelo.DetalleAdicional[i].ObreroID == modelo.Relleno[j].ObreroID) {
+                    existe = true; 
+                }
+            }
+
+            //Comparar si existe soldador en relleno
+            for (var i = 0; i < modelo.Raiz.length; i++) {
+                if (modelo.Raiz[i].ObreroID == modelo.DetalleAdicional[j].ObreroID) {
+                    existeSoldadorEnOtraLista = true;
+                }
+            }
+
+            if (existe == true) break;
+
+            if ((existe || (modelo.DetalleAdicional.length > modelo.Relleno.length && modelo.Relleno.length == 0) || (modelo.DetalleAdicional.length > modelo.Raiz.length && modelo.Raiz.length == 0)) && !existeSoldadorEnOtraLista) {
+                modelo.DetalleAdicional[i].Accion = 3;
+                modelo.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
+            }
+        }
+    }
+    else if (tipoSoldador = "raiz") {
+        for (var i = 0; i < modelo.DetalleAdicional.length; i++) {
+            var existe = false;
+
+            for (var j = 0; j < modelo.Raiz.length; j++) {
+                if (modelo.DetalleAdicional[i].ObreroID == modelo.Raiz[j].ObreroID) {
+                    existe = true;        
+                }
+            }
+
+            //Comparar si existe soldador en relleno
+            for (var i = 0; i < modelo.Relleno.length; i++) {
+                if (modelo.Relleno[i].ObreroID == modelo.DetalleAdicional[j].ObreroID) {
+                    existeSoldadorEnOtraLista = true;
+                }
+            }
+
+            if (existe == true) break;
+
+            if ((existe || (modelo.DetalleAdicional.length > modelo.Relleno.length && modelo.Relleno.length == 0) || (modelo.DetalleAdicional.length > modelo.Raiz.length && modelo.Raiz.length == 0)) && !existeSoldadorEnOtraLista) {
+                modelo.DetalleAdicional[i].Accion = 3;
+                modelo.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
+            }
+        }
+
+        
+    }
+      
+    var actuallongitudTrabajosAdicionales = 0;
+    for (var k = 0; k < modelo.DetalleAdicional.length; k++) {
+        if (modelo.DetalleAdicional[k].Accion != 3) {
+            actuallongitudTrabajosAdicionales++;
+        }
+    }
+
+    modelo.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
 }

@@ -133,7 +133,20 @@ function RenderMultiselectRelleno(container, options) {
                         options.model.Soldador = ObtenerDescCorrectaSoldadorRelleno(ItemSeleccionado.ListadoRelleno, options.model.ObreroID);
                     }
                 },
-                change: function () {
+                change: function () { 
+                    if (longitudSoldadoresRelleno > options.model.Relleno.length) {
+                        ValidarExisteSoldadorEnTrabajosAdicionales(options.model,"relleno");
+
+                    }
+                    else {
+                        var actuallongitudTrabajosAdicionales = 0;
+                        for (var k = 0; k < options.model.DetalleAdicional.length; k++) {
+                            if (options.model.DetalleAdicional[k].Accion != 3) {
+                                actuallongitudTrabajosAdicionales++;
+                            }
+                        }
+                    }
+                    
                     longitudSoldadoresRelleno = multiselect._values.length;
                     options.model.SoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
                 },
@@ -193,12 +206,27 @@ function RenderMultiselectRaiz(container, options) {
                     options.model.Soldador = ObtenerDescCorrectaSoldador(ItemSeleccionado.ListadoRaiz, options.model.ObreroID); 
                 }
             },
-            change: function () { 
+            change: function (e) {
+                debugger;
+                if (longitudSoldadoresRaiz > options.model.Raiz.length) {
+                    ValidarExisteSoldadorEnTrabajosAdicionales(options.model,"raiz");
+                }
+                else {
+                    var actuallongitudTrabajosAdicionales = 0;
+                    for (var k = 0; k < options.model.DetalleAdicional.length; k++) {
+                        if (options.model.DetalleAdicional[k].Accion != 3) {
+                            actuallongitudTrabajosAdicionales++;
+                        }
+                    }
+                }
+                options.model.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+ 
                 longitudSoldadoresRaiz = multiselect._values.length;
                 options.model.SoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + longitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
             },
             value: options.model.Raiz
-        }).data("kendoMultiSelect");  
+        }).data("kendoMultiSelect");
+         
     }
     else
         displayMessage("CapturaSoldaduraMensajePermisoTerminadoRaiz", "", "1");
