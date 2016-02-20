@@ -253,8 +253,7 @@ function CargarGridSoldadura() {
             input: false,
             numeric: true,
         },
-        columns: [
-
+        columns: [ 
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
             { field: "JuntaID", title: "", filterable: true, width: "110px", hidden: true },
             { field: "Junta", title: _dictionary.CapturaSoldaduraJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "95px" },
@@ -263,9 +262,9 @@ function CargarGridSoldadura() {
             { field: "Taller", title: _dictionary.CapturaSoldaduraHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "130px" },
             { field: "procesoSoldaduraRaiz", title: _dictionary.CapturaSoldaduraProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: RenderComboBoxProcesoSoldaduraRaiz },
             { field: "procesoSoldaduraRelleno", title: _dictionary.CapturaSoldaduraProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: RenderComboBoxProcesoSoldaduraRelleno },
-            { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "250px", template: "#:SoldadoresRaiz#", editor: RenderGridRaiz },
-            { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "250px", template: "#:SoldadoresRelleno#", editor: RenderGridRelleno },
-            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: renderEnlaceEditar, template: "#:TrabajosAdicionales#" },
+            { field: "Raiz", title: _dictionary.CapturaRaizHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "#:SoldadoresRaiz#", editor: RenderMultiselectRaiz },
+            { field: "Relleno", title: _dictionary.CapturaRellenoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "#:SoldadoresRelleno#", editor: RenderMultiselectRelleno },
+            { field: "DetalleAdicional", title: _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", editor: renderEnlaceEditar, template: "#:TrabajosAdicionales#" },
             { field: "juntaSpoolID", title: "", filterable: true, width: "150px", hidden: true },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
@@ -275,6 +274,8 @@ function CargarGridSoldadura() {
             $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
         }
     });
+
+    CustomisaGrid($("#grid"));
 };
 
 
@@ -319,8 +320,7 @@ function CargarGridPopUp() {
             var allData = dataSource.data();
             var query = new kendo.data.Query(allData);
             var data = query.filter(filters).data;
-
-
+             
             actuallongitudTrabajosAdicionales = data.length;
             modeloRenglon.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
             if (modeloRenglon.JuntaSoldaduraID != 0 && modeloRenglon.JuntaSoldaduraID != undefined)
@@ -479,11 +479,11 @@ function AltaFecha() {
         max: new Date(),
     });
 
-    endRangeDate.on("keydown", function (e) {
-        if (e.keyCode == 13) {
-            PlanchaFecha();
-        }
-    });
+    //endRangeDate.on("keydown", function (e) {
+    //    if (e.keyCode == 13) {
+    //        PlanchaFecha();
+    //    }
+    //});
 
 }
 
@@ -565,4 +565,72 @@ function ExisteJuntaReporte(juntaVal) {
         }
     }
     return true;
+}
+
+function ValidarExisteSoldadorEnTrabajosAdicionales(modelo, tipoSoldador) { 
+    var existeSoldadorEnOtraLista = false;
+    if (tipoSoldador == "relleno") {
+        for (var i = 0; i < modelo.DetalleAdicional.length; i++) {
+            var existe = false;
+
+            for (var j = 0; j < modelo.Relleno.length; j++) {
+                if (modelo.DetalleAdicional[i].ObreroID == modelo.Relleno[j].ObreroID) {
+                    existe = true; 
+                }
+            }
+
+            //Comparar si existe soldador en relleno
+            for (var i = 0; i < modelo.Raiz.length; i++) {
+                if (modelo.Raiz[i].ObreroID == modelo.DetalleAdicional[j].ObreroID) {
+                    existeSoldadorEnOtraLista = true;
+                }
+            }
+
+            if (existe == true) break;
+
+            if ((existe || (modelo.DetalleAdicional.length > modelo.Relleno.length && modelo.Relleno.length == 0) || (modelo.DetalleAdicional.length > modelo.Raiz.length && modelo.Raiz.length == 0)) && !existeSoldadorEnOtraLista) {
+                modelo.DetalleAdicional[i].Accion = 3;
+                modelo.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
+            }
+        }
+    }
+    else if (tipoSoldador = "raiz") {
+        for (var i = 0; i < modelo.DetalleAdicional.length; i++) {
+            var existe = false;
+
+            for (var j = 0; j < modelo.Raiz.length; j++) {
+                if (modelo.DetalleAdicional[i].ObreroID == modelo.Raiz[j].ObreroID) {
+                    existe = true;        
+                }
+            }
+
+            //Comparar si existe soldador en relleno
+            for (var i = 0; i < modelo.Relleno.length; i++) {
+                if (modelo.Relleno[i].ObreroID == modelo.DetalleAdicional[j].ObreroID) {
+                    existeSoldadorEnOtraLista = true;
+                }
+            }
+
+            if (existe == true) break;
+
+            if ((existe || (modelo.DetalleAdicional.length > modelo.Relleno.length && modelo.Relleno.length == 0) || (modelo.DetalleAdicional.length > modelo.Raiz.length && modelo.Raiz.length == 0)) && !existeSoldadorEnOtraLista) {
+                modelo.DetalleAdicional[i].Accion = 3;
+                modelo.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
+            }
+        }
+
+        
+    }
+      
+    var actuallongitudTrabajosAdicionales = 0;
+    for (var k = 0; k < modelo.DetalleAdicional.length; k++) {
+        if (modelo.DetalleAdicional[k].Accion != 3) {
+            actuallongitudTrabajosAdicionales++;
+        }
+    }
+
+    modelo.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
 }

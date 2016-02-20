@@ -1,11 +1,49 @@
 ﻿function SuscribirEventos() {
-   
-    
     SuscribirEventoCarro();
     SuscribirEventoCuadrante();
     SuscribirEventoGuardar();
     suscribirEventoDescargar();
+    SuscribirEventoPlanchar();
 };
+
+function SuscribirEventoPlanchar() {
+    $("#ButtonPlanchar").click(function (e) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            windowTemplate = kendo.template($("#windowTemplate").html());
+
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+            ventanaConfirm.open().center();
+
+            $("#yesButton").click(function (handler) {
+                plancharTodo();
+                ventanaConfirm.close();
+            });
+            $("#noButton").click(function (handler) {
+                ventanaConfirm.close();
+            });
+        }
+        else {
+            plancharTodo();
+        }
+    });
+}
+
+function plancharTodo() {
+    if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
+        PlanchaCuadrante();
+    }   
+}
 
 function SuscribirEventoCarro() {
     $('#inputCarro').kendoComboBox({
@@ -57,7 +95,7 @@ function SuscribirEventoCuadrante() {
 
     $('#inputCuadrante').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            PlanchaCuadrante();
+            //PlanchaCuadrante();
         }
     });
 }

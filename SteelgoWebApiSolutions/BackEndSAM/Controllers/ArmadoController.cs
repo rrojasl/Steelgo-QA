@@ -179,14 +179,14 @@ namespace BackEndSAM.Controllers
                         JuntaID = capturaDatosJson.JuntaID,
                         Junta = capturaDatosJson.Junta,
                         TipoJunta = item.TipoJunta,
-                        Diametro = item.Diametro.ToString(),
+                        Diametro = item.Diametro.ToString().Replace(',','.'),
                         Cedula = item.Cedula,
-                        FechaArmado = item.FechaArmado == null ? capturaDatosJson.FechaArmado: item.FechaArmado,
+                        FechaArmado = item.FechaArmado,
                         TipoJuntaID = item.TipoJuntaID,
-                        TuberoID = item.Tubero == null ? capturaDatosJson.TuberoID : item.ObreroID.ToString(),
-                        Tubero = item.Tubero == null ? capturaDatosJson.Tubero : item.Tubero,
-                        TallerID = item.TallerID == null ? capturaDatosJson.TallerID : item.TallerID.ToString(),
-                        Taller = item.Taller == null ? capturaDatosJson.Taller : item.Taller,
+                        TuberoID = item.Tubero == null ? "": item.ObreroID.ToString(),
+                        Tubero = item.Tubero == null ? "" : item.Tubero,
+                        TallerID = item.TallerID == null ? "" : item.TallerID.ToString(),
+                        Taller = item.Taller == null ? "" : item.Taller,
                         Localizacion = item.Localizacion,
                         FamiliaAcero = item.FamiliaAcero,
                         NumeroUnico1 = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].Clave : "") : item.Clave1.ToString(),
@@ -201,7 +201,7 @@ namespace BackEndSAM.Controllers
                         SinCaptura = capturaDatosJson.SinCaptura,
                         NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
                         NumeroUnico2ID= item.NumeroUnico1ID == null ? (listNumeroUnico2.Count == 1 ? listNumeroUnico2[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
-                        DetalleJunta = "Tipo Junta: " + item.TipoJunta + " - " + "Diametro: " + item.Diametro + " - " + "Cedula: " + item.Cedula + " - " + "Localización: " + item.Localizacion + " - " + "Familia Acero: " + item.FamiliaAcero + ""
+                        DetalleJunta = "Junta: " + item.TipoJunta + " - "+ "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + ""
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }

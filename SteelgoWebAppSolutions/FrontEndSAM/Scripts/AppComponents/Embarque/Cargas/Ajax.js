@@ -168,61 +168,7 @@ function AjaxCargarCamposPredeterminados() {
 
 }
 
-function AjaxCrearPaquete(arregloCaptura, accion, paqueteID) {
-    try {
-        loadingStart();
-        Captura = [];
-        Captura[0] = { Detalles: "" };
-        ListaDetalles = [];
-        var indice = 0;
 
-        if (arregloCaptura.Accion == undefined) {
-            for (index = 0; index < arregloCaptura.length; index++) {
-                if (arregloCaptura[index].Seleccionado) {
-                    ListaDetalles[indice] = { Accion: "", SpoolID: "", CuadranteID: "" };
-                    ListaDetalles[indice].Accion = accion == undefined ? arregloCaptura[index].Accion : accion;
-                    ListaDetalles[indice].SpoolID = arregloCaptura[index].SpoolID;
-                    ListaDetalles[indice].CuadranteID = arregloCaptura[index].CuadranteID;
-                    indice++;
-                }
-            }
-        }
-        else {
-            ListaDetalles[indice] = { Accion: "", SpoolID: "", CuadranteID: "" };
-            ListaDetalles[indice].Accion = accion == undefined ? arregloCaptura.Accion : accion;
-            ListaDetalles[indice].SpoolID = arregloCaptura.SpoolID;
-            ListaDetalles[indice].CuadranteID = arregloCaptura.CuadranteID;
-        }
-
-        Captura[0].Detalles = ListaDetalles;
-        $CargaEmbarque.CargaEmbarque.create(Captura[0], { token: Cookies.get("token"), EmpaquetadoPaqueteID: paqueteID }).done(function (data) {
-            if (data.Folio != "error") {
-
-                for (index = 0; index < arregloCaptura.length; index++) {
-                    if (arregloCaptura[index].Seleccionado) {
-                        arregloCaptura[index].Paquete = data.Folio;
-                        arregloCaptura[index].EmbarquePlanaID = data.EmbarquePlanaID;
-
-                    }
-                }
-                AjaxCargarPaquetes();
-                displayMessage("EmbarqueCargaCuadranteActualizado", "", '1');
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                displayMessage("EmbarqueCargaErrorCuadranteActualizado", "", '3');
-            }
-            $("#grid").data("kendoGrid").dataSource.sync();
-            loadingStop();
-        });
-
-
-    } catch (e) {
-        loadingStop();
-        displayMessage("Mensajes_error", e.message, '0');
-
-    }
-
-}
 
 function ajaxGuardar(arregloCaptura) {
     try {
@@ -277,8 +223,8 @@ function ajaxCerrarPlana() {
         CierraPlana = {
             embarquePlanaID: ""
         };
-        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].EmbarquePlanaID;
-        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[0].estatus;
+        EmbarquePlanaID = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[$('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").selectedIndex].EmbarquePlanaID;
+        EstatusPlanaCerrar = $('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").dataSource._data[$('#inputEmbarqueCargaPLacaPlana').data("kendoComboBox").selectedIndex].estatus;
         CierraPlana.embarquePlanaID = EmbarquePlanaID;
 
         if (EmbarquePlanaID != 0 && (EstatusPlanaCerrar == "Abierta" || EstatusPlanaCerrar == "Open")) {
@@ -298,7 +244,7 @@ function ajaxCerrarPlana() {
             });
         }
         else {
-            displayMessage("", "", "1");
+            displayMessage("EmbarqueCargaErrorCerrarPlana", "", "1");
             loadingStop();
         }
         
@@ -343,4 +289,60 @@ function ajaxCargarSpoolXPlaca() {
 
         loadingStop();
     });
+}
+
+function AjaxCrearPaquete(arregloCaptura, accion, paqueteID) {
+    try {
+        loadingStart();
+        Captura = [];
+        Captura[0] = { Detalles: "" };
+        ListaDetalles = [];
+        var indice = 0;
+
+        if (arregloCaptura.Accion == undefined) {
+            for (index = 0; index < arregloCaptura.length; index++) {
+                if (arregloCaptura[index].Seleccionado) {
+                    ListaDetalles[indice] = { Accion: "", SpoolID: "", CuadranteID: "" };
+                    ListaDetalles[indice].Accion = accion == undefined ? arregloCaptura[index].Accion : accion;
+                    ListaDetalles[indice].SpoolID = arregloCaptura[index].SpoolID;
+                    ListaDetalles[indice].CuadranteID = arregloCaptura[index].CuadranteID;
+                    indice++;
+                }
+            }
+        }
+        else {
+            ListaDetalles[indice] = { Accion: "", SpoolID: "", CuadranteID: "" };
+            ListaDetalles[indice].Accion = accion == undefined ? arregloCaptura.Accion : accion;
+            ListaDetalles[indice].SpoolID = arregloCaptura.SpoolID;
+            ListaDetalles[indice].CuadranteID = arregloCaptura.CuadranteID;
+        }
+
+        Captura[0].Detalles = ListaDetalles;
+        $CargaEmbarque.CargaEmbarque.create(Captura[0], { token: Cookies.get("token"), EmpaquetadoPaqueteID: paqueteID }).done(function (data) {
+            if (data.Folio != "error") {
+
+                for (index = 0; index < arregloCaptura.length; index++) {
+                    if (arregloCaptura[index].Seleccionado) {
+                        arregloCaptura[index].Paquete = data.Folio;
+                        arregloCaptura[index].EmbarquePlanaID = data.EmbarquePlanaID;
+
+                    }
+                }
+                AjaxCargarPaquetes();
+                displayMessage("EmbarqueCargaCuadranteActualizado", "", '1');
+            }
+            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                displayMessage("EmbarqueCargaErrorCuadranteActualizado", "", '3');
+            }
+            $("#grid").data("kendoGrid").dataSource.sync();
+            loadingStop();
+        });
+
+
+    } catch (e) {
+        loadingStop();
+        displayMessage("Mensajes_error", e.message, '0');
+
+    }
+
 }

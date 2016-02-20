@@ -64,7 +64,7 @@ namespace BackEndSAM.Controllers
                         TipoJunta = item.TipoJunta,
                         TipoJuntaID = item.TipoJuntaID.ToString(),
                         Diametro = item.Diametro.ToString(),
-                        FechaInspeccion = item.FechaInspeccion == null ? fecha : item.FechaInspeccion.ToString(),
+                        FechaInspeccion = item.FechaInspeccion ,
                         Defectos = item.Defecto == null ? capturaDatosJson.Defectos : item.Defecto.ToString(),
                         DefectosID = item.DefectoID == null ? capturaDatosJson.DefectosID : item.DefectoID.ToString(),
                         TallerID = item.TallerID == null ? capturaDatosJson.TallerID : item.TallerID.ToString(),

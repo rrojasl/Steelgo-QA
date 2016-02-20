@@ -16,7 +16,7 @@ function suscribirEventoCambioImpreso(){
             if ($("#Area").val() != "") {
                 if ($("#Cuadrante").val() != "") {
                     if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
-                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
                     }
                     else {
                         $("#Area").data("kendoComboBox").value("");
@@ -29,7 +29,7 @@ function suscribirEventoCambioImpreso(){
             if ($("#Area").val() != "") {
                 if ($("#Cuadrante").val() != "") {
                     if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
-                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
                     }
                     else {
                         $("#Area").data("kendoComboBox").value("");
@@ -38,6 +38,63 @@ function suscribirEventoCambioImpreso(){
             }
         }
     });
+
+    $('.radioBtnCaptura').change(function () {
+        if ($('.radioBtnCaptura')[0].checked) {
+            if ($("#Area").val() != "") {
+                if ($("#Cuadrante").val() != "") {
+                    if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
+                    }
+                    else {
+                        $("#Area").data("kendoComboBox").value("");
+                    }
+
+                }
+            }
+        }
+        else if ($('.radioBtnCaptura')[1].checked) {
+            if ($("#Area").val() != "") {
+                if ($("#Cuadrante").val() != "") {
+                    if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
+                    }
+                    else {
+                        $("#Area").data("kendoComboBox").value("");
+                    }
+                }
+            }
+        }
+    });
+
+    $('.radioBtnConCinta').change(function () {
+        if ($('.radioBtnConCinta')[0].checked) {
+            if ($("#Area").val() != "") {
+                if ($("#Cuadrante").val() != "") {
+                    if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
+                    }
+                    else {
+                        $("#Area").data("kendoComboBox").value("");
+                    }
+
+                }
+            }
+        }
+        else if ($('.radioBtnConCinta')[1].checked) {
+            if ($("#Area").val() != "") {
+                if ($("#Cuadrante").val() != "") {
+                    if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
+                    }
+                    else {
+                        $("#Area").data("kendoComboBox").value("");
+                    }
+                }
+            }
+        }
+    });
+
 }
 
 function suscribirEventoArea() {
@@ -68,7 +125,7 @@ function suscribirEventoCuadrante() {
         index: 3,
         change: function (e) {
             if ($("#Cuadrante").data("kendoComboBox").dataItem($("#Cuadrante").data("kendoComboBox").select()) != undefined) {
-                AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
             }
             else {
                 $("#Cuadrante").data("kendoComboBox").value("");
@@ -102,7 +159,7 @@ function suscribirEventoVer() {
     $('#btnAgregar').click(function (e) {
         if ($("#Area").val() != "") {
             if ($("#Cuadrante").val() != "") {
-                AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), $('input:radio[name=ConCinta]:checked').val());
             }
             else {
                 displayMessage("EmbarqueMarcadoMensajeCuadrante", "", "1");

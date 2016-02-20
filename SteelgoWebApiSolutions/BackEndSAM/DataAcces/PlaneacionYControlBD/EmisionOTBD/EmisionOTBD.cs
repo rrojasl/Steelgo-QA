@@ -120,6 +120,41 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             }
         }
 
+        public object ObtenerTalleresPatio(int idPatio)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_SteelGo_Get_Taller_Patio_Result> result = ctx.Sam3_SteelGo_Get_Taller_Patio(idPatio).ToList();
+
+                    List<DetalleTaller> tallerList = new List<DetalleTaller>();
+
+                    //Funcionalidad con store
+                    foreach (Sam3_SteelGo_Get_Taller_Patio_Result item in result)
+                    {
+                        tallerList.Add(new DetalleTaller
+                        {
+                            TallerID = item.TallerID,
+                            Taller = item.Taller
+                        }); 
+                    }
+
+                    return tallerList;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public List<DetalleSpoolPrueba> ObtenerSpools (int familia)
         {
             try

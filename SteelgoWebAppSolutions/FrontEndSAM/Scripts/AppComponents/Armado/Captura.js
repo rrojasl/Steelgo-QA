@@ -24,7 +24,7 @@ function AltaFecha() {
 
     endRangeDate.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            PlanchaFecha();
+            //PlanchaFecha();
         }
     });
 
@@ -119,7 +119,6 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "int", editable: false },
-
                         IDProyecto: { type: "int", editable: false },
                         SinCaptura: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
@@ -132,7 +131,7 @@ function CargarGrid() {
                         Junta: { type: "string", editable: false },
                         TipoJuntaID: { type: "int", editable: false },
                         TipoJunta: { type: "string", editable: false },
-                        Diametro: { type: "string", editable: false },
+                        Diametro: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
                         FechaArmado: { type: "date", editable: true },
                         TuberoID: { type: "string", editable: true },
@@ -181,18 +180,20 @@ function CargarGrid() {
         },
         columns: [
             { field: "SpoolID", title: _dictionary.CapturaArmadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Junta", title: _dictionary.CapturaArmadoHeaderJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "94px" },
-            { field: "DetalleJunta", title: _dictionary.CapturaArmadoHeaderDetalle[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Junta", title: _dictionary.CapturaArmadoHeaderJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "DetalleJunta", title: _dictionary.CapturaArmadoHeaderDetalle[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+            { field: "Diametro", title: _dictionary.CapturaArmadoHeaderDiametro[$("#language").data("kendoDropDownList").value()], filterable: true, width: "85px" },
             { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "Tubero", title: _dictionary.CapturaArmadoHeaderTubero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTubero, width: "105px" },
-            { field: "Taller", title: _dictionary.CapturaArmadoHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "105px" },
-            { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico1, width: "135px" },
-            { field: "NumeroUnico2", title: _dictionary.CapturaArmadoHeaderNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico2, width: "135px" },
-            { field: "InformacionDetalle", title: _dictionary.CapturaArmadoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "300px", editor: renderEnlaceEditar, template: "#:TemplateMensajeTrabajosAdicionales#" },
+            { field: "Tubero", title: _dictionary.CapturaArmadoHeaderTubero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTubero, width: "125px" },
+            { field: "Taller", title: _dictionary.CapturaArmadoHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "125px" },
+            { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico1, width: "90px" },
+            { field: "NumeroUnico2", title: _dictionary.CapturaArmadoHeaderNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico2, width: "90px" },
+            { field: "InformacionDetalle", title: _dictionary.CapturaArmadoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "115px", editor: renderEnlaceEditar, template: "#:TemplateMensajeTrabajosAdicionales#" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
 
         ]
     });
+    CustomisaGrid($("#grid"));
 }
 
 
@@ -296,6 +297,7 @@ function CargarGridPopUp() {
         navigatable: true,
         toolbar: [{ name: "create" }]
     });
+    CustomisaGrid($("#gridPopUp"));
 };
 
 function LlenarGridPopUp(data) {

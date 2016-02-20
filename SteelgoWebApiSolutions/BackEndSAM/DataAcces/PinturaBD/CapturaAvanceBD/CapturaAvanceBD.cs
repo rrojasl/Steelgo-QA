@@ -243,12 +243,12 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             Spool = item.SpoolJunta,
                             ListaPintores = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
                             ListaShotblasteros = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 1, "ShotBlastero"),
-                            ListaPintorGuargado = pintor,
-                            ListaShotblasteroGuargado = shotblastero,
-                            ListaPintorInicial = pintor,
-                            ListaShotblasteroInicial = shotblastero,
-                            plantillaPintor = pintores,
-                            plantillaShotblastero = shotblasteros
+                            ListaPintorGuargado = new List<PintorSpool>(),
+                            ListaShotblasteroGuargado = new List<PintorSpool>(),
+                            ListaPintorInicial = new List<PintorSpool>(),
+                            ListaShotblasteroInicial = new List<PintorSpool>(),
+                            plantillaPintor = "",
+                            plantillaShotblastero = ""
 
                         });
                     }

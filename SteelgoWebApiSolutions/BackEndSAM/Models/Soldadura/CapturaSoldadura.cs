@@ -53,7 +53,11 @@ namespace BackEndSAM.Models.Soldadura
         public string NumeroUnico2ID { get; set; }
         public List<TrabajosAdicionalesSoldadura> DetalleAdicional { get; set; }
         public List<Raiz> Raiz { get; set; }
+        public List<Raiz> RaizDetalle { get; set; }
+        public List<Raiz> RaizInicial { get; set; }
         public List<Raiz> Relleno { get; set; }
+        public List<Raiz> RellenoDetalle { get; set; }
+        public List<Raiz> RellenoInicial { get; set; }
         public List<TrabajosAdicionalesSoldadura> listaTrabajosAdicionalesSoldadura { get; set; }
         public List<SoldadorRaizCertificado> ListadoRaiz { get; set; }
         public List<ProcesoSoldadura> ListadoProcesoSoldadura { get; set; }

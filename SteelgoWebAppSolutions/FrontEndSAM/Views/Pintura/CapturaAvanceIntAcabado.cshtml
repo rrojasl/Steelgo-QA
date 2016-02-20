@@ -71,50 +71,55 @@
         </div>
     </div>
     @*GRID*@
-    <div class="row addedSectionInLine " id="FieldSetView2">
+    <div class="row addedSectionInLine " >
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-     
-            <div class="col-sm-2 col-md-2 col-lg-2" id="divColor">
-                <label id="lblCapturaAvanceIntAcabadoColor"></label>
-                <input id="inputColor" />
+            <div class="row" id="FieldSetView2">
+                <div class="col-sm-3 col-md-3 col-lg-3" id="divColor">
+                    <label id="lblCapturaAvanceIntAcabadoColor"></label>
+                    <input id="inputColor" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3" id="divFecha">
+                    <label id="lblCapturaAvanceIntAcabadoFecha"></label>
+                    <input id="inputFechaCapturaAvanceIntAcabado" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3" id="divPintor">
+                    <label id="lblCapturaAvanceIntAcabadoPintor"></label>
+                    <input id="inputPintor" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3" id="divLote">
+                    <label id="lblCapturaAvanceIntAcabadoLote"></label>
+                    <input id="inputLote" />
+                </div>
+                
             </div>
-            <div class="col-sm-2 col-md-2 col-lg-2" id="divFecha">
-                <label id="lblCapturaAvanceIntAcabadoFecha"></label>
-                <input id="inputFechaCapturaAvanceIntAcabado" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2" id="divPintor">
-                <label id="lblCapturaAvanceIntAcabadoPintor"></label>
-                <input id="inputPintor" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2" id="divLote">
-                <label id="lblCapturaAvanceIntAcabadoLote"></label>
-                <input id="inputLote" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2" id="divPinturaComponenteComposicion">
-                <label id="lblCapturaAvanceIntAcabadoSistemaPintura"></label>
-                <input id="inputSistemaPintura" />
-            </div>
-          
             <div class="row" id="FieldSetView3">
-                <div class="col-sm-2 col-md-2 col-lg-2" id="divPinturaComponenteComposicion">
+                <div class="col-sm-3 col-md-3 col-lg-3" id="divPinturaComponenteComposicion">
+                    <label id="lblCapturaAvanceIntAcabadoSistemaPintura"></label>
+                    <input id="inputSistemaPintura" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3" id="divPinturaComponenteComposicion">
                     <label id="lblCapturaAvanceIntAcabadoPinturaComponenteComposicion"></label>
                     <input id="inputPinturaComponenteComposicion" />
                 </div>
 
-                <div class="btn-group " role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
+                <div class="btn-group col-xs-3 col-sm-3 col-md-3 col-lg-3" role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
                     <label id="CapturaAvanceIntAcabadoHeaderLlenadoMasivo"></label>
                     <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="CapturaLlenadoMasivoTodos"></span>
                     <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="CapturaLlenadoMasivoVacios"></span>
                 </div>
-
-            </div>
-       
-            <div class="row"> 
-                <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="grid" data-role="grid" class="k-grid k-widget"></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonAplicar"></span></button>
                 </div>
             </div>
-        </div>
+
+
+                <div class="row">
+                    <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="grid" data-role="grid" class="k-grid k-widget"></div>
+                    </div>
+                </div>
+            </div>
         <input id="hdAccionFiltrado" type="hidden" />
     </div>
     

@@ -11,8 +11,66 @@
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
     GuardarDetalleAdicional();
+    SuscribirEventoPlanchar();
+    SuscribirEventoCancelarAdicionales();
 };
  
+function SuscribirEventoCancelarAdicionales() {
+    $("#CancelarTrabajosAdicionales").click(function (e) {
+        $("#windowGrid").data("kendoWindow").close();
+    });
+}
+
+
+function SuscribirEventoPlanchar() {
+    $("#ButtonPlanchar").click(function (e) {
+        if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
+
+
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                windowTemplate = kendo.template($("#windowTemplate").html());
+
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+                ventanaConfirm.open().center();
+
+                $("#yesButton").click(function (handler) {
+                    plancharTodo();
+                    ventanaConfirm.close();
+                });
+                $("#noButton").click(function (handler) {
+                    ventanaConfirm.close();
+                });
+            }
+            else {
+                plancharTodo();
+            }
+        }
+        });
+}
+
+function plancharTodo() {
+    if ($("#inputTubero").data("kendoComboBox").dataItem($("#inputTubero").data("kendoComboBox").select()) != undefined) {
+        PlanchaTubero();
+    }
+    if ($("#inputTaller").data("kendoComboBox").dataItem($("#inputTaller").data("kendoComboBox").select()) != undefined) {
+        PlanchaTaller();
+    }
+    if ($("#FechaArmado").val() != "") {
+        PlanchaFecha();
+    }
+}
+
 function GuardarDetalleAdicional() {
     $('#GuardarTrabajosAdicionales').click(function () {
         var ds = $("#gridPopUp").data("kendoGrid").dataSource;
@@ -183,7 +241,7 @@ function SuscribirEventoTubero() {
         if (e.keyCode == 13) {
             if ($("#inputTubero").data("kendoComboBox").dataItem($("#inputTubero").data("kendoComboBox").select()) != undefined) {
 
-                PlanchaTubero();
+                //PlanchaTubero();
             }
             else
                 $("#inputTubero").data("kendoComboBox").value("");
@@ -203,8 +261,12 @@ function SuscribirEventoTaller() {
     $('#inputTaller').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#inputTaller").data("kendoComboBox").dataItem($("#inputTaller").data("kendoComboBox").select()) != undefined) {
-                PlanchaTaller();
+                //PlanchaTaller();
             }
+            else {
+                $("#inputTaller").data("kendoComboBox").value("");
+            }
+                
         }
     });
 }

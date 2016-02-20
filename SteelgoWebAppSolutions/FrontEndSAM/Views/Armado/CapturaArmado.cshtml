@@ -52,12 +52,12 @@
         <div class="col-sm-2 col-md-2 col-lg-3">
             <div class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
-                <label class="btn btn-info" id="styleReporte">
+                <div class="btn btn-primary" id="styleReporte">
                     <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
-                </label>
-                <label class="btn btn-info" id="styleListado">
+                </div>
+                <div class="btn btn-primary" id="styleListado">
                     <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
-                </label>
+                </div>
             </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
@@ -85,7 +85,7 @@
     </div>
     @*GRID*@
     <div class="row addedSectionInLine">
-        <div class="col-sm-3 col-md-3 col-lg-3" id="FechaArmadoDiv">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="FechaArmadoDiv">
             <label id="CapturaArmadoHeaderFechaArmado"></label>
             <input id="FechaArmado" />
         </div>
@@ -97,10 +97,14 @@
             <label id="CapturaArmadoHeaderTaller"></label>
             <input id="inputTaller" class="" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="col-sm-2 col-md-2 col-lg-2">
             <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
             <input type="radio" name="LLena" style="width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
             <input type="radio" name="LLena" style="width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="">&nbsp;</label>
+            <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonPlanchar"></span></button>
         </div>
         <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid" data-role="grid" class="k-grid k-widget">
@@ -111,20 +115,26 @@
 
     @*GRID POPUP*@
     <div id="windowGrid" style="display: none; z-index:inherit;">
-        <div class="form-group">
-            <label class="col-sm-4 col-md-4 col-lg-4 " id="lblSpoolJunta"></label><label class="col-sm-3 col-md-3 col-lg-3" id="lblUbicacion"></label>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <a class=" btn btn-blue " href="#" id="GuardarTrabajosAdicionales"><span id="textoGuardar"></span></a>
-            </div>
-        </div>
-        <br />
-        <div class="form-group">
-            <div id="ContenedorGridPopUp">
-                <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+        <div class="col-sm-11 col-md-11 col-lg-11">
+            <div class="row">
+                <div class="form-group">
+                    <div id="ContenedorGridPopUp">
+                        <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <a class=" btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="GuardarTrabajosAdicionales">
+                    <span id="textoGuardar"></span>
+                </a>
+                <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                <a class=" btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="CancelarTrabajosAdicionales">
+                    <span id="textoCancelar"></span>
+                </a>
+            </div>
 
+        </div>
     </div>
     @*Menu Inferior*@
     <div class="row">

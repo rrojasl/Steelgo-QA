@@ -4,6 +4,7 @@
     suscribirEventoChofer();
     suscribirEventoPlana();
     suscribirEventoAgregar();
+    suscribirEventoDestino();
     suscribirEventoGuardar();
 }
 
@@ -17,6 +18,7 @@ function suscribirEventoGuardar() {
 
         if ($("#Tracto").data("kendoComboBox").dataItem($("#Tracto").data("kendoComboBox").select()) != undefined) {
             if ($("#Chofer").data("kendoComboBox").dataItem($("#Chofer").data("kendoComboBox").select()) != undefined) {
+                if ($("#Destino").data("kendoComboBox").dataItem($("#Destino").data("kendoComboBox").select()) != undefined) {
                     if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
                         opcionHabilitarView(true, "FieldSetView");
                         AjaxGuardarPlanas(ds._data);
@@ -24,6 +26,10 @@ function suscribirEventoGuardar() {
                     else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                         opcionHabilitarView(false, "FieldSetView")
                     }
+            }
+            else {
+                displayMessage("", "Debe seleccionar un Destino", "1");
+            }
             }
             else {
                 displayMessage("", "Debe seleccionar un Chofer", "1");
@@ -63,10 +69,29 @@ function suscribirEventoProveedor() {
                 $("#Tracto").data("kendoComboBox").value("");
                 $("#Chofer").data("kendoComboBox").value("");
                 $("#Plana").data("kendoComboBox").value("");
+                $("#Destino").data("kendoComboBox").value("");
                 AjaxCargarTracto($("#Proveedor").data("kendoComboBox").value());
             }
             else {
                 $("#Proveedor").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+
+function suscribirEventoDestino() {
+    $("#Destino").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "DestinoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            if ($("#Destino").data("kendoComboBox").dataItem($("#Destino").data("kendoComboBox").select()) != undefined) {
+                
+            }
+            else {
+                $("#Destino").data("kendoComboBox").value("");
             }
         }
     });
@@ -84,6 +109,7 @@ function suscribirEventoTracto() {
                 $("#grid").data('kendoGrid').dataSource.data([]);
                 $("#Chofer").data("kendoComboBox").value("");
                 $("#Plana").data("kendoComboBox").value("");
+                $("#Destino").data("kendoComboBox").value("");
                 AjaxCargarChofer($("#Tracto").data("kendoComboBox").value());
             }
             else {
@@ -125,7 +151,7 @@ function suscribirEventoPlana() {
         index: 3,
         change: function (e) {
             if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                
+                AjaxCargarDestino($('#Plana').data("kendoComboBox").dataSource._data[$('#Plana').data("kendoComboBox").selectedIndex].ProyectoID);
             }
             else {
                 $("#Plana").data("kendoComboBox").value("");
@@ -136,7 +162,8 @@ function suscribirEventoPlana() {
     $('#Plana').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                    AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+                AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+                AjaxCargarDestino($('#Plana').data("kendoComboBox").dataSource._data[$('#Plana').data("kendoComboBox").selectedIndex].ProyectoID);
                 }
                 else {
                     $("#Plana").data("kendoComboBox").value("");
@@ -155,6 +182,7 @@ function opcionHabilitarView(valor, name) {
         $("#Plana").data("kendoComboBox").enable(false);
         $("#Tracto").data("kendoComboBox").enable(false);
         $("#Proveedor").data("kendoComboBox").enable(false);
+        $("#Destino").data("kendoComboBox").enable(false);
         $("#btnAgregar").prop('disabled', true);
 
         $('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
@@ -167,6 +195,7 @@ function opcionHabilitarView(valor, name) {
         $("#Plana").data("kendoComboBox").enable(true);
         $("#Tracto").data("kendoComboBox").enable(true);
         $("#Proveedor").data("kendoComboBox").enable(true);
+        $("#Destino").data("kendoComboBox").enable(true);
         $("#btnAgregar").prop('disabled', false);
         $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);

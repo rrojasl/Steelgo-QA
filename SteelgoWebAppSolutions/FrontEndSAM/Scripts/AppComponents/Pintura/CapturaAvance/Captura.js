@@ -29,7 +29,7 @@ function AltaFecha() {
 
     endRangeDateShotblast.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            PlanchaFechaShotblast();
+            //PlanchaFechaShotblast();
         }
     });
 
@@ -39,14 +39,14 @@ function AltaFecha() {
 
     endRangeDatePrimario.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            PlanchaFechaPrimario();
+            //PlanchaFechaPrimario();
         }
     });
 }
 
 function CargarGrid() {
     $("#grid").kendoGrid({
-        edit: function (e) { 
+        edit: function (e) {
             if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
             }
@@ -112,12 +112,12 @@ function CargarGrid() {
         ]
     });
 };
- 
+
 function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
     if ($("#Guardar").text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
-         
+
         win = $("#windowDownload").kendoWindow({
             modal: true,
             title: "",
@@ -135,14 +135,19 @@ function VentanaModalDescargarMedioTransporte(e) {
         }).data("kendoWindow");
 
         $("#windowDownload").data("kendoWindow").center().open();
-  
+
     }
 
 };
- 
+
+
+
 function PlancharPintor(arregloCaptura) {
+
+
+
     ListaPintorGuargado = [];
-    
+
     var dataPintor = $("#inputPintor").data("kendoMultiSelect")._dataItems;
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
@@ -151,6 +156,7 @@ function PlancharPintor(arregloCaptura) {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
+
         if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
             for (var j = 0; j < dataPintor.length; j++) {
                 ListaPintorGuargado[j] = {
@@ -164,14 +170,14 @@ function PlancharPintor(arregloCaptura) {
                 ListaPintorGuargado[j].ObreroID = dataPintor[j].ObreroID;
                 ListaPintorGuargado[j].Codigo = dataPintor[j].Codigo;
             }
-             
+
             arregloCaptura[i].ListaPintorGuargado = dataPintor;
 
             arregloCaptura[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaPintorGuargado.length;
-              
+
         }
         else {
-            if ((data[i].ListaPintorGuargado === "" || data[i].ListaPintorGuargado === null || data[i].ListaPintorGuargado === undefined || data[i].ListaPintorGuargado.length == 0) && ListaPintorGuargado != undefined) {
+            if (data[i].ListaPintorGuargado.length == 0) {
                 for (var k = 0; k < dataPintor.length; k++) {
                     ListaPintorGuargado[k] = {
                         Accion: "",
@@ -184,16 +190,16 @@ function PlancharPintor(arregloCaptura) {
                     ListaPintorGuargado[k].ObreroID = dataPintor[k].ObreroID;
                     ListaPintorGuargado[k].Codigo = dataPintor[k].Codigo;
                 }
-                 
+
                 arregloCaptura[i].ListaPintorGuargado = dataPintor;
 
                 arregloCaptura[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaPintorGuargado.length;
-            } 
-        } 
+            }
+        }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }
- 
+
 function PlancharShotBlastero(arregloCaptura) {
     ListaShotblasteroGuargado = [];
     var dataShotBlast = $("#inputShotBlastero").data("kendoMultiSelect")._dataItems;
@@ -202,33 +208,8 @@ function PlancharShotBlastero(arregloCaptura) {
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-
-    if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
-        for (var i = 0; i < dataShotBlast.length; i++) {
-            ListaShotblasteroGuargado[i] = {
-                Accion: "",
-                PinturaSpoolObreroID: "",
-                ObreroID: "",
-                Codigo: ""
-            };
-            ListaShotblasteroGuargado[i].Accion = 1;
-            ListaShotblasteroGuargado[i].PinturaSpoolObreroID = dataShotBlast[i].PinturaSpoolObreroID;
-            ListaShotblasteroGuargado[i].ObreroID = dataShotBlast[i].ObreroID;
-            ListaShotblasteroGuargado[i].Codigo = dataShotBlast[i].Codigo;
-        }
-
-        if (dataShotBlast.length > 0) {
-
-            for (var i = 0; i < arregloCaptura.length; i++) {
-
-                arregloCaptura[i].ListaShotblasteroGuargado = dataShotBlast;
-                arregloCaptura[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaShotblasteroGuargado.length;
-            }
-            $("#grid").data("kendoGrid").dataSource.sync();
-        }
-    }
-    else {
-        if ((data[i].ListaShotblasteroGuargado === "" || data[i].ListaShotblasteroGuargado === null || data[i].ListaShotblasteroGuargado === undefined || data[i].ListaShotblasteroGuargado.length == 0) && ListaShotblasteroGuargado != undefined) {
+    for (var j = 0; j < data.length; j++) {
+        if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
             for (var i = 0; i < dataShotBlast.length; i++) {
                 ListaShotblasteroGuargado[i] = {
                     Accion: "",
@@ -252,10 +233,36 @@ function PlancharShotBlastero(arregloCaptura) {
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
+        else {
+            if (data[j].ListaShotblasteroGuargado.length == 0) {
+                for (var i = 0; i < dataShotBlast.length; i++) {
+                    ListaShotblasteroGuargado[i] = {
+                        Accion: "",
+                        PinturaSpoolObreroID: "",
+                        ObreroID: "",
+                        Codigo: ""
+                    };
+                    ListaShotblasteroGuargado[i].Accion = 1;
+                    ListaShotblasteroGuargado[i].PinturaSpoolObreroID = dataShotBlast[i].PinturaSpoolObreroID;
+                    ListaShotblasteroGuargado[i].ObreroID = dataShotBlast[i].ObreroID;
+                    ListaShotblasteroGuargado[i].Codigo = dataShotBlast[i].Codigo;
+                }
+
+                if (dataShotBlast.length > 0) {
+
+                    for (var i = 0; i < arregloCaptura.length; i++) {
+
+                        arregloCaptura[i].ListaShotblasteroGuargado = dataShotBlast;
+                        arregloCaptura[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaShotblasteroGuargado.length;
+                    }
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
+            }
+        }
     }
 }
 
-function PlanchaFechaShotblast() { 
+function PlanchaFechaShotblast() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
@@ -274,8 +281,8 @@ function PlanchaFechaShotblast() {
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }
- 
-function PlanchaFechaPrimario() { 
+
+function PlanchaFechaPrimario() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();

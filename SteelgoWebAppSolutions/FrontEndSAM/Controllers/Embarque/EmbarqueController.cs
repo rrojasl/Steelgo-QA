@@ -32,5 +32,11 @@ namespace FrontEndSAM.Controllers.Embarque
             ViewBag.EmbarquePlanaID = embarquePlanaID;
             return View();
         }
+
+        public ActionResult Empaquetado(int embarquePlanaID = 0)
+        {
+            ViewBag.EmbarquePlanaID = embarquePlanaID;
+            return View();
+        }
     }
 }

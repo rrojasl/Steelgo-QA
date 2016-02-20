@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section breadcrumb {
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
@@ -10,7 +12,7 @@
         <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href=@Url.Action("Cargas", "Embarque")><span id="lblCargas"></span></a>
+        <a href=@Url.Action("Cargas", "Empaquetado")><span id="lblEmpaquetado"></span></a>
     </li>
 }
 
@@ -44,7 +46,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#" id="btnEmbarqueCerrarPlana" class="btnCerrarPlana"><span id="EmbarqueCargaBotonCerrarPlana"></span></a></li>
+                            <li><a href="#" id="ButtonAgregarPAquete" class="btnCerrarPlana"><span id="EmbarqueCargaAgregarAPaquete"></span></a></li>
 
                         </ul>
                     </div>
@@ -56,41 +58,41 @@
     @*Controles Superior*@
     <div class="row">
         <div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divProveedor">
-            <label id="EmbarqueCargaProveedor"></label>
+            <label id="EmbarqueEmpaquetadoProveedor"></label>
             <input id="inputProveedor" />
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divPlana">
-            <label id="EmbarqueCargaPLaca"></label>
-            <input id="inputEmbarqueCargaPLacaPlana" />
+            <label id="EmbarqueEmpaquetadoPLaca"></label>
+            <input id="inputEmbarqueEmpaquetadoPLacaPlana" />
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
             <label>Estatus</label>
             <label id="lblEstatus"></label>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
-            <label id="EmbarqueCargaTotalPiezas"></label>
-            <label id="lblEmbarqueCargaTotalPiezas"></label>
+            <label id="EmbarqueEmpaquetadoTotalPiezas"></label>
+            <label id="lblEmbarqueEmpaquetadoTotalPiezas"></label>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
-            <label id="EmbarqueCargaToneladasCargadas"></label>
-            <label id="lblEmbarqueCargaToneladasCargadas"></label>
+            <label id="EmbarqueEmpaquetadoToneladasCargadas"></label>
+            <label id="lblEmbarqueEmpaquetadoToneladasCargadas"></label>
             <label id="LabelProyecto" style="display:none;"> </label>
         </div>
-        
+
         <div class="col-sm-12 col-md-12 col-lg-12 altoControl">
             <hr />
         </div>
         <div class="col-sm-2 col-md-2 col-lg-3">
             <div class="btn-group " role="group">
-                <label id="EmbarqueCargaSelecciona"></label>
+                <label id="EmbarqueEmpaquetadoSelecciona"></label>
                 <label id="styleReporte">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueCargaOpcionSpool"></span>
+                    <input type="radio" name="EmbarqueEmpaquetadoTipoSeleccion" class="radioEmbarqueEmpaquetadoTipoSeleccion" style="width:auto;" value="Spool" /><span id="EmbarqueEmpaquetadoOpcionSpool"></span>
                 </label>
                 <label id="styleListado">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionPaquete"> </span>
+                    <input type="radio" name="EmbarqueEmpaquetadoTipoSeleccion" class="radioEmbarqueEmpaquetadoTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueEmpaquetadoOpcionPaquete"> </span>
                 </label>
                 <label id="styleListado">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueCargaOpcionCodigo"> </span>
+                    <input type="radio" name="EmbarqueEmpaquetadoTipoSeleccion" class="radioEmbarqueEmpaquetadoTipoSeleccion" style="width:auto;" value="Codigo" /><span id="EmbarqueEmpaquetadoOpcionCodigo"> </span>
                 </label>
             </div>
         </div>
@@ -99,16 +101,16 @@
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete">
-            <label id="EmbarqueCargaPaquete"></label>
+            <label id="EmbarqueEmpaquetadoPaquete"></label>
             <input id="inputPaquete" />
         </div>
         <div class="col-sm-3 col-md-3 col-lg-2" id="divCodigo">
-            <label id="EmbarqueCargaCodigo"></label>
+            <label id="EmbarqueEmpaquetadoCodigo"></label>
             <input id="inputCodigo" />
         </div>
         <div class="col-sm-3 col-md-3 col-lg-1">
             <label id="">&nbsp;</label>
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueCargaAgregar"></span></button>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueEmpaquetadoAgregar"></span></button>
 
         </div>
     </div>
@@ -117,7 +119,7 @@
         <div class="col-sm-8 col-md-8 col-lg-8">
 
         </div>
-      
+        
         <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid" data-role="grid" class="k-grid k-widget">
             </div>
@@ -151,7 +153,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a id="btnEmbarqueCerrarPlana2"  class="btnCerrarPlana"><span id="EmbarqueCargaBotonCerrarPlana1"></span></a></li>
+                           <li><a href="#" id="ButtonAgregarPAquetePie" ><span id="EmbarqueCargaAgregarAPaquetePie"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -178,22 +180,22 @@
         <label id="EmbarqueCargaPopupPaquete"></label>
         <input id="inputPopupPaquete" />
     </div>
-    <br /><br /><br /><br /> 
+    <br /><br /><br /><br />
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
         <button id="btnActualizarPaquetePopUp" type="button" class="btn btn-blue"><span id="EmbarqueCargaActualizarPaquetePopup"></span></button>
         <button id="btnCancelarPaquetePopUp" type="button" class="btn btn-black"><span id="EmbarqueCargaCancelarPaquetePopup"></span></button>
     </div>
 </div>
 
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Handlers.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Captura.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Cargas/Seguridad.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Seguridad.js"></script>
 
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["CargaEmbarque"] = $EmbarqueCargaModel;
+    $authorizationModel["Empaquetado"] = $EmpaquetadoCargaModel;
     }
 </script>

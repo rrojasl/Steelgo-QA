@@ -29,13 +29,13 @@ namespace BackEndSAM.DataAcces.EmbarqueBD
             }
         }
 
-        public object ObtenerDatosConsulta(int areaID, int cuadranteID, int impreso, string lenguaje)
+        public object ObtenerDatosConsulta(int areaID, int cuadranteID, int impreso, int etiquetado, int conCinta, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_Get_Marcado_Result> result = ctx.Sam3_Embarque_Get_Marcado(areaID, cuadranteID, impreso, lenguaje).ToList();
+                    List<Sam3_Embarque_Get_Marcado_Result> result = ctx.Sam3_Embarque_Get_Marcado(areaID, cuadranteID, impreso, etiquetado,conCinta, lenguaje).ToList();
                     return result;
                 }
             }

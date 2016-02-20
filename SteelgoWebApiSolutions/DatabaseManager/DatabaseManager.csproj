@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constantes\Constante.cs" />
     <Compile Include="EntidadesPersonalizadas\ListadoPlanas.cs" />
     <Compile Include="EntidadesPersonalizadas\PerfilJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1454,6 +1455,7 @@
     <Compile Include="SamLogging\TipoActividad.cs">
       <DependentUpon>ModelSamLogging.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sql\ObjetosSQL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

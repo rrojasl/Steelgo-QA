@@ -11,8 +11,13 @@ function SuscribirEventos() {
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
     GuardarDetalleAdicional();
+    SuscribirEventoCancelarAdicionales();
 };
-
+function SuscribirEventoCancelarAdicionales() {
+    $("#CancelarTrabajosAdicionales").click(function (e) {
+        $("#windowGrid").data("kendoWindow").close();
+    });
+}
 
 function GuardarDetalleAdicional() {
     $('#GuardarTrabajosAdicionales').click(function () {
@@ -134,10 +139,46 @@ function suscribirEventoAgregar() {
 function suscribirEventoAplicar() {
     $('#ButtonAplicar').click(function (e) {
         loadingStart();
-        if ($("#inputTaller").val() != "")
-            PlanchaTaller();
-        if (endRangeDate.val() != "")
-            PlanchaFecha();
+
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            windowTemplate = kendo.template($("#windowTemplate").html());
+
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+            ventanaConfirm.open().center();
+
+            $("#yesButton").click(function (handler) {
+                if ($("#inputTaller").val() != "")
+                    PlanchaTaller();
+                if (endRangeDate.val() != "")
+                    PlanchaFecha();
+
+                ventanaConfirm.close();
+            });
+            $("#noButton").click(function (handler) {
+                ventanaConfirm.close();
+            });
+        }
+        else {
+            if ($("#inputTaller").val() != "")
+                PlanchaTaller();
+            if (endRangeDate.val() != "")
+                PlanchaFecha();
+        }
+
+
+
+        
         loadingStop();
     });
 }
@@ -145,11 +186,11 @@ function suscribirEventoAplicar() {
 
 
 function SuscribirEventoFecha() {
-    $('#FechaSoldadura').closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-            PlanchaFecha();
-        }
-    });
+    //$('#FechaSoldadura').closest('.k-widget').keydown(function (e) {
+    //    if (e.keyCode == 13) {
+    //        PlanchaFecha();
+    //    }
+    //});
 }
 
 function SuscribirEventoTaller() {
@@ -160,15 +201,15 @@ function SuscribirEventoTaller() {
         filter: "contains",
         index: 3
     });
-    $('#inputTaller').closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-            if ($("#inputTaller").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
-                PlanchaTaller();
-            }
-            else
-                $("#inputTaller").data("kendoComboBox").value("");
-        }
-    });
+    //$('#inputTaller').closest('.k-widget').keydown(function (e) {
+    //    if (e.keyCode == 13) {
+    //        if ($("#inputTaller").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+    //            PlanchaTaller();
+    //        }
+    //        else
+    //            $("#inputTaller").data("kendoComboBox").value("");
+    //    }
+    //});
 }
 
 function SuscribirEventosJunta() {
