@@ -64,7 +64,8 @@ var $CapturaReportePruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 
 //Planeacion Y Control
 var $EmisionOT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
- 
+var $Ciclos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -192,6 +193,7 @@ $LotesCapturaReporte.add('LotesCapturaReporte');
 
 //Planeacion Y Control
 $EmisionOT.add('EmisionOT');
+$Ciclos.add('Ciclos');
 
 // ServiciosTecnicos
 $ListadoRequisicion.add('ListadoRequisicion');

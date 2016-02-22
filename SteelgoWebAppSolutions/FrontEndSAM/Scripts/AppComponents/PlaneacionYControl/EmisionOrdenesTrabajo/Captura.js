@@ -108,9 +108,9 @@ function CalcularValoresProyecciones(crear, taller) {
 }
 
 function CrearContenedorCapacidad(talleresLista) {
-    for() {
+    //for() {
 
-    }
+    //}
 }
 
 //Funciones para agregar proyeccion
