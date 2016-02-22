@@ -1132,14 +1132,14 @@
             var RelBID = dataItem.RelBID;
             var RelNUFCBID = dataItem.RelNUFCBID;
             //loadingStart();
-            //if (confirm(_dictionary.ComplementoRecepcion0083[$("#language").data("kendoDropDownList").value()])) {
+            if (confirm(_dictionary.ComplementoRecepcion0083[$("#language").data("kendoDropDownList").value()])) {
                 $NumeroUnico.NumeroUnico.destroy({}, { numeroUnicoID: NumeroUnicoID, token: Cookies.get("token") }).done(function (data) {
                     if (Error(data)) {
                         cargarGridPackingList();
                     }
                     //loadingStop();
                 });
-            //}
+            }
 
            
         };
