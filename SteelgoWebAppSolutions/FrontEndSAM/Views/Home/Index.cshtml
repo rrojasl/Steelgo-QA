@@ -37,8 +37,7 @@
     $("#loginform").submit(function (event) {
         event.preventDefault();
         authenticate($("#username").val(), $("#password").val());
-        $('#username').css('border-color', "red");
-        $('#password').css('border-color', "red");
+     
         validateCredentials();
     });
 }
