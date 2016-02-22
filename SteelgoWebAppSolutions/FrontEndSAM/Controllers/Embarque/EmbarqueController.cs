@@ -12,6 +12,18 @@ namespace FrontEndSAM.Controllers.Embarque
         {
             return View();
         }
+
+        public ActionResult Encintado()
+        {
+            return View();
+        }
+
+        public ActionResult Etiquetado()
+        {
+            return View();
+        }
+
+
         public ActionResult Cargas(int embarquePlanaID = 0)
         {
             ViewBag.EmbarquePlanaID = embarquePlanaID;
