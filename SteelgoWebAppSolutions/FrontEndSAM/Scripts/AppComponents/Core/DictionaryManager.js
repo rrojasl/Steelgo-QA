@@ -6981,6 +6981,70 @@ _dictionary = {
         "en-US": "Planning and control"
     },
     //#endregion "PlaneacionYControl"
+
+    //Mediciones climaticas
+
+    "ErrorCapturaMediciones": {
+        "es-MX": "Faltan Capturar Datos",
+        "en-US": "Missing Data Capture"
+    },
+
+    "lblMedicionesPatioID": {
+        "es-MX": "Patio: ",
+        "en-US": "Yard: "
+    },
+
+
+    "lblMedicionesProyectoID": {
+        "es-MX": "Proyecto: ",
+        "en-US": "Proyect: "
+    },
+
+    "lblMedicionesZonas": {
+        "es-MX": "Zona: ",
+        "en-US": "Zone: "
+    },
+
+    "lblMedicionesTempAmbiente": {
+        "es-MX": "Temp Ambiente °C:  ",
+        "en-US": "Room Temp:  °C:"
+    },
+
+    "lblMedicionesHumedad": {
+        "es-MX": "Humedad:  ",
+        "en-US": "Humidity: "
+    },
+
+    "lblMedicionesPuntoRocio": {
+        "es-MX": "Punto Rocio: ",
+        "en-US": "Dewpoint: "
+    },
+
+
+    "lblMedicionesCampoX": {
+        "es-MX": "Campo X: ",
+        "en-US": "Field X: "
+    },
+
+    "lblMedicionesfechaToma": {
+        "es-MX": "Fecha de Toma: ",
+        "en-US": "shooting date  : "
+    },
+
+    "lblEquipoToma": {
+        "es-MX": "Equipo de Toma: ",
+        "en-US": "Team Takes"
+    },
+
+    "lblMedicionesHoraToma": {
+        "es-MX": "Hora Toma: ",
+        "en-US": "Time Take: "
+    },
+
+
+
+
+
 }
 
 //#endregion
