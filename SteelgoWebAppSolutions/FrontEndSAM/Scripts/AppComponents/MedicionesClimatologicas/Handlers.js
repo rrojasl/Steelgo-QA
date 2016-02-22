@@ -9,16 +9,17 @@ function SuscribirEventos() {
     SubscribeMedicionesCampoX();
     SubscribeMedicionesHumedad();
     SubscribeMedicionesPuntoRocio();
+    SubscribeCalendarFechaToma();
+    SubscribeNumerosDecimal();
+    SubscribeHora();
     
 };
-
 SuscribirEventos();
 
 
 function EventoGuardar() {
     AjaxGuardarCaptura(0);
 }
-
 function SuscribirEventoGuardar() {
     $("#Guardar").click(function (e) {
         EventoGuardar();
@@ -71,7 +72,6 @@ function suscribirEventoArea() {
     });
 }
 
-
 //proyectos cuando seleccionas un proyecto se pinta su patio correspondinte
 //function SuscribirEventoProyecto() {
 //    $('#inputProyecto').kendoComboBox({
@@ -107,48 +107,182 @@ function suscribirEventoArea() {
 //patios
 function SuscribirEventoPatio() {
     $('#inputPatio').kendoComboBox({
-        dataTextField: "NombrePatio",
+        dataTextField: "Nombre",
         dataValueField: "PatioID ",
         suggest: true,
         filter: "contains",
-        index: 3,
+        index: 0,
+        //dataSource: [
+        //     { Nombre: "Patio Default", PatioID: "1" },
+        //     { Nombre: "Comdistral", PatioID: "2" },
+        //     { Nombre: "Veracruz", PatioID: "3" },
+        //     { Nombre: "Bay-Corpus Christi", PatioID: "4" },
+        //     { Nombre: "Altamira", PatioID: "5" },
+        //     { Nombre: "Bay Montana", PatioID: "6" },
+        //     { Nombre: "Altamira", PatioID: "7" },
+        //     { Nombre: "Patio Ejemplo", PatioID: "8" },
+        //     { Nombre: "Patio Prueba 1", PatioID: "9" },
+        //     { Nombre: "Patio en Puerto", PatioID: "10" },
+        //     { Nombre: "a", PatioID: "11" },
+        //     { Nombre: "aa", PatioID: "12" },
+        //     { Nombre: "Prueba Patio DELAI", PatioID: "13" },
+        //     { Nombre: "Patio Prueba", PatioID: "14" },
+        //     { Nombre: "Patio Prueba", PatioID: "15" },
+        //     { Nombre: "Pat Material", PatioID: "16" }
+        //],
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
             if (dataItem == undefined) {
                 displayMessage("errorNoExistePatio", '', '2');
             }
+
+            //var patio = $(this).value();
+            //alert(patio);
+
         },
+        //change: function (e) {
+        //    var dataItem = this.dataItem(e.sender.selectedIndex);
+        //    if (dataItem == undefined) {
+        //        displayMessage("errorNoExistePatio", '', '2');
+        //    }
+        //}
         change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem == undefined) {
-                displayMessage("errorNoExistePatio", '', '2');
+            if ($("#inputPatio").data("kendoComboBox").dataItem($("#inputPatio").data("kendoComboBox").select()) != undefined) {
+
+            }
+            else {
+                $("#inputPatio").data("kendoComboBox").value("");
             }
         }
+
     });
 }
 
 //mediciones 
 function SubscribeMedicionesTempAmbiente()
 {
-    $("#inputEquipoTomaTempAmbID").kendoComboBox();
-
+    $("#inputEquipoTomaTempAmbID").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "HerramientaDePruebaID",
+        suggest: true,
+        filter: "contains",
+        index: 0,
+        //dataSource: [
+        //    { Nombre: "Termometro A", HerramientaDePruebaID: "4" },
+        //     { Nombre: "Termometro B", HerramientaDePruebaID: "5" },
+        //],
+        change: function (e) {
+            if ($("#inputEquipoTomaTempAmbID").data("kendoComboBox").dataItem($("#inputEquipoTomaTempAmbID").data("kendoComboBox").select()) != undefined) {
+            }
+            else {
+                $("#inputEquipoTomaTempAmbID").data("kendoComboBox").value("");
+            }
+        }
+    });
 }
 
 function SubscribeMedicionesHumedad() {
-    $("#inputEquipoTomaHumedadID").kendoComboBox();
+    $("#inputEquipoTomaHumedadID").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "HerramientaDePruebaID",
+        suggest: true,
+        filter: "contains",
+        index: 0,
+        //dataSource: [
+        //    { Nombre: "Termometro C", HerramientaDePruebaID: "4" },
+        //     { Nombre: "Termometro D", HerramientaDePruebaID: "5" },
+        //],
+        change: function (e) {
+            if ($("#inputEquipoTomaHumedadID").data("kendoComboBox").dataItem($("#inputEquipoTomaHumedadID").data("kendoComboBox").select()) != undefined) {
+
+            }
+            else {
+                $("#inputEquipoTomaHumedadID").data("kendoComboBox").value("");
+            }
+        }
+
+
+    });
 
 }
 
 function SubscribeMedicionesPuntoRocio() {
-    $("#inputEquipoTomaPtoRocioID").kendoComboBox();
+    $("#inputEquipoTomaPtoRocioID").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "HerramientaDePruebaID",
+        suggest: true,
+        filter: "contains",
+        index: 0,
+        //dataSource: [
+        //    { Nombre: "Rocio PR1", HerramientaDePruebaID: "6" },
+        //     { Nombre: "Rocio PR2", HerramientaDePruebaID: "7" },
+
+        //],
+        change: function (e) {
+            if ($("#inputEquipoTomaPtoRocioID").data("kendoComboBox").dataItem($("#inputEquipoTomaPtoRocioID").data("kendoComboBox").select()) != undefined) {
+
+            }
+            else {
+                $("#inputEquipoTomaPtoRocioID").data("kendoComboBox").value("");
+            }
+        }
+    });
 
 }
 
 function SubscribeMedicionesCampoX() {
-    $("#inputEquipoTomaCampoXID").kendoComboBox();
+    $("#inputEquipoTomaCampoXID").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "HerramientaDePruebaID",
+        suggest: true,
+        filter: "contains",
+        index: 0,
+        //dataSource: [
+        //    { Nombre: " X1", HerramientaDePruebaID: "8" },
+        //     { Nombre: " X2", HerramientaDePruebaID: "9" },
+
+        //],
+        change: function (e) {
+            if ($("#inputEquipoTomaCampoXID").data("kendoComboBox").dataItem($("#inputEquipoTomaCampoXID").data("kendoComboBox").select()) != undefined) {
+
+            }
+            else {
+                $("#inputEquipoTomaCampoXID").data("kendoComboBox").value("");
+            }
+        }
+
+
+    });
 
 }
 
+function SubscribeCalendarFechaToma()
+{
+    $("#inputMedicionesfechaToma").kendoDatePicker({
+        parseFormats: ["MMddyyyy"]
+    });
+}
+
+function SubscribeNumerosDecimal()
+{
+    $("#inputMedicionesTempAmbiente").kendoMaskedTextBox({
+        mask: "000.00",
+    });
+
+    $("#inputMedicionesHumedad").kendoMaskedTextBox({
+        mask: "000.00",
+    });
+
+    $("#inputMedicionesPuntoRocio").kendoMaskedTextBox({
+        mask: "000.00",
+    });
 
 
+}
 
+function SubscribeHora()
+{
+    $("#inputMedicionesHoraToma").kendoMaskedTextBox({
+        mask: "00:00",
+    });
+}

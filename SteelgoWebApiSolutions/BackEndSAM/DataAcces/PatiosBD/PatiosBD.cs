@@ -30,13 +30,21 @@ namespace BackEndSAM.DataAcces.PatiosBD
         public object GetPatios(int tipo, int proyectoID)
         {
             List<Patios> listPatios = new List<Patios>();
+            List<Sam3_SteelGo_Get_Patios_Result> listPatiosResult;
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_SteelGo_Get_Patios_Result> listPatiosResult =
-                        ctx.Sam3_SteelGo_Get_Patios(tipo, proyectoID).ToList();
+                    if (proyectoID > 0)
+                    {
+                        listPatiosResult = ctx.Sam3_SteelGo_Get_Patios(tipo, proyectoID).ToList();
+                    }
+                    else
+                    {
+                        listPatiosResult = ctx.Sam3_SteelGo_Get_Patios(tipo, null).ToList();
+                    }
+                    
                     foreach (var p in listPatiosResult)
                     {
                         Patios patio = new Patios();

@@ -1,5 +1,7 @@
 ﻿using BackEndSAM.DataAcces.HerramientasPruebasBD;
+using BackEndSAM.DataAcces.MedicionesClimatologicasBD;
 using BackEndSAM.Models.MedicionesClimatologicas;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
@@ -9,14 +11,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers.MedicionesClimatologicas
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MedicionesClimatologicasController : ApiController
     {
-        
-        public object IngresarCondicionesClimatologicas(string token, CondicionClimatologica condiciones)
+        public object Post(CondicionClimatologica condiciones, string token)
         {
             string payload = "";
             string newToken = "";
@@ -24,8 +26,9 @@ namespace BackEndSAM.Controllers.MedicionesClimatologicas
 
             if (tokenValido)
             {
-                return "";
-
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CondicionesClimatologicasBD.Instance.IngresarCondicionesClimatologicas(condiciones, usuario, "");
             }
             else
             {
@@ -36,11 +39,6 @@ namespace BackEndSAM.Controllers.MedicionesClimatologicas
                 result.IsAuthenicated = false;
                 return result;
             }
-
-
-
-
-           
         }
     }
 }

@@ -68,6 +68,20 @@ var $EmisionOT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //armado
 var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+
+////Mediciones Climatologicas
+var $MedicionesClimatologicas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
+
+///Obtener Patios
+var $Patios = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
+//obtener herramientas de medicion
+var $HerramientasPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
+
+
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -133,7 +147,9 @@ var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $SoldadorCertificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Area = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cuadrante = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+//
 
+//
 
 var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -187,6 +203,11 @@ $ValidacionResultados.add('ValidacionResultados');
 
 //captura armado
 $CapturaArmado.add('Armado');
+//mediciones imatologicas
+$MedicionesClimatologicas.add("MedicionesClimatologicas");
+$Patios.add("Patios");
+$HerramientasPruebas.add("HerramientasPruebas");
+
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");
