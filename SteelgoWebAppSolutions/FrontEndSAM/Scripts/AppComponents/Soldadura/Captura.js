@@ -171,8 +171,7 @@ function ArregloListadoSpoolID() {
 
 function CargarGridSoldadura() {
 
-    $("#grid").kendoGrid({
-
+    $("#grid").kendoGrid({ 
         autoBind: false,
         edit: function (e) {
 

@@ -58,25 +58,25 @@ function CargarGrid() {
             numeric: true,
         }, 
         columns: [ 
-            { field: "Etapa", title: "Etapa", filterable: true },
-            { field: "Clave", title: "Clave", filterable: true },
-            { field: "CS", title: "CS", filterable: true },
-            { field: "CSLOTEMP", title: "CS-LOTEMP", filterable: true },
-            { field: "CSA3336", title: "CS-A333-6", filterable: true },
-            { field: "CSA672", title: "CS-A672", filterable: true },
-            { field: "Inoks", title: "Inoks", filterable: true },
-            { field: "InoksSS3xx", title: "Inoks - SS-3xx", filterable: true },
-            { field: "Alloy", title: "Alloy", filterable: true },
-            { field: "AlloyP9", title: "Alloy-P9", filterable: true },
-            { field: "AlloyP11", title: "Alloy-P11", filterable: true },
-            { field: "AlloyP22", title: "Alloy-P22", filterable: true },
-            { field: "CSPWHT", title: "CS-PWHT", filterable: true },
-            { field: "InoksPWHT", title: "Inoks-PWHT", filterable: true },
-            { field: "AlloyPWHT", title: "Alloy-PWHT", filterable: true }
+            { field: "Etapa", title: "Etapa", filterable: true, width: "120px" },
+            { field: "Clave", title: "Clave", filterable: true, width: "120px" },
+            { field: "CS", title: "CS", filterable: true, width: "120px" },
+            { field: "CSLOTEMP", title: "CS-LOTEMP", filterable: true, width: "120px" },
+            { field: "CSA3336", title: "CS-A333-6", filterable: true, width: "120px" },
+            { field: "CSA672", title: "CS-A672", filterable: true, width: "120px" },
+            { field: "Inoks", title: "Inoks", filterable: true, width: "120px" },
+            { field: "InoksSS3xx", title: "Inoks - SS-3xx", filterable: true, width: "120px" },
+            { field: "Alloy", title: "Alloy", filterable: true, width: "120px" },
+            { field: "AlloyP9", title: "Alloy-P9", filterable: true, width: "120px" },
+            { field: "AlloyP11", title: "Alloy-P11", filterable: true, width: "120px" },
+            { field: "AlloyP22", title: "Alloy-P22", filterable: true, width: "120px" },
+            { field: "CSPWHT", title: "CS-PWHT", filterable: true, width: "120px" },
+            { field: "InoksPWHT", title: "Inoks-PWHT", filterable: true, width: "120px" },
+            { field: "AlloyPWHT", title: "Alloy-PWHT", filterable: true, width: "120px" }
         ] 
     });
     OcultarTodasColumnas();
-     
+    CustomisaGrid($("#grid"));
 }
   
 function OcultarColumnas(columnasVisibles) {
