@@ -23,14 +23,14 @@
 
 function AjaxPinturaCargaMedioTransporte() {
     loadingStart();
-
+   
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         loadingStart();
-        $("#inputCarro").data("kendoComboBox").value("");
+        $("#inputCarro, #inputCarroBacklog").data("kendoComboBox").value("");
 
         if (data.length > 0) {
             data.unshift({ MedioTransporteID: -1, NombreMedioTransporte: _dictionary.PinturaCargaAgregarNuevoCarro[$("#language").data("kendoDropDownList").value()] });
-            $("#inputCarro").data("kendoComboBox").dataSource.data(data);
+            $("#inputCarro, #inputCarroBacklog").data("kendoComboBox").dataSource.data(data);
         }
 
         loadingStop();

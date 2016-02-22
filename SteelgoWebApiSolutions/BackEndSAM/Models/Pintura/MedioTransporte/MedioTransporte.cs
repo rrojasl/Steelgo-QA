@@ -116,4 +116,10 @@ namespace BackEndSAM.Models.Pintura.MedioTransporte
         public int ClasificacionPersistenciaID { get; set; }
         public string NombreClasificacion { get; set; }
     }
+
+    public class CamposPredeterminados
+    {
+        public string Vista { get; set; }
+        public string Opcion { get; set; }
+    }
 }
