@@ -335,6 +335,8 @@ function createUserSession(username, password) {
             //RedirectToLanding
             document.location.href = $homeURI;
         } else {
+            $('#username').css('border-color', "red");
+            $('#password').css('border-color', "red");
             loadingStop();
         }
     });

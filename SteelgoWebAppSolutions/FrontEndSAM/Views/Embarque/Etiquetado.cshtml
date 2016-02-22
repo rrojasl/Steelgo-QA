@@ -1,0 +1,142 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+    </li>
+    <li>
+        <a href="#"><span id="lblEmbarque"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("Encintado", "Embarque")"><span id="lblMarcado"></span></a>
+    </li>
+}
+<div id="FormEmbarqueMarcado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    @*Menu superior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+                </div>
+                <div id="EmbarqueMarcadoDivSuperior" class="button-section">
+                    <a id="EmbarqueMarcadoSuperior" href="@Url.Action("Cargas", "Embarque")" class="btn btn-primary"><span id="EmbarqueMarcadoBtnCarga"></span></a>
+                </div>
+
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones1"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a href="#" id="ImprimirEtiqueta"><span id="EmbarqueMarcadoImprimirEtiquetaSpool"></span></a></li>
+                            <li><a href="#" id="ImprimirTravel"><span id="EmbarqueMarcadoImprimirTravelMasivo"></span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+            </div>
+        </div>
+    </div>
+    @*Controles Superior*@
+    <div class="row" id="FieldSetView">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="AreaDiv">
+            <label id=""><span id="EmbarqueMarcadoArea"></span></label>
+            <input id="Area" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="CuadranteDiv">
+            <label id=""><span id="EmbarqueMarcadoCuadrante"></span></label>
+            <input id="Cuadrante" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id=""><span id="EmbarqueMarcadoImpreso"></span></label>
+            <input type="radio" class="radioBtnImpreso" name="Impreso" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi"></span>
+            <input type="radio" class="radioBtnImpreso" name="Impreso" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo"></span>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id=""><span id="EmbarqueMarcadoCapturado"></span></label>
+            <input type="radio" class="radioBtnCaptura" name="Captura" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi2"></span>
+            <input type="radio" class="radioBtnCaptura" name="Captura" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo2"></span>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id=""><span id="EmbarqueMarcadoCabeceraConCinta"></span></label>
+            <input type="radio" class="radioBtnConCinta" name="ConCinta" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi3"></span>
+            <input type="radio" class="radioBtnConCinta" name="ConCinta" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo3"></span>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="">&nbsp;</label>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueMarcadoBtnVer"></span></button>
+
+        </div>
+    </div>
+    @*GRID*@
+    <div class="row addedSectionInLine">
+        <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+        <input id="hdAccionFiltrado" type="hidden" />
+    </div>
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>
+                </div>
+                <div id="EmbarqueMarcadoDivInferior" class="button-section">
+                    <a id="EmbarqueMarcadoInferior" href="#" class="btn btn-primary"><span id="EmbarqueMarcadoBtnCarga2"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a id="ImprimirEtiqueta2"><span id="EmbarqueMarcadoImprimirEtiquetaSpool2"></span></a></li>
+                            <li><a id="ImprimirTravel2" href="#"><span id="EmbarqueMarcadoImprimirTravelMasivo2"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Marcado"] = $MarcadoModel;
+    }
+</script>

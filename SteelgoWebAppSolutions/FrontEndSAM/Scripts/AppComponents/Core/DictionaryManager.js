@@ -6233,6 +6233,19 @@ _dictionary = {
         "es-MX": "Patio",
         "en-US": "Areway"
     },
+    "PinturaCargaCarroEscritorio2": {
+        "es-MX": "Escritorio",
+        "en-US": "Desktop"
+    },
+    "PinturaCargaCarroPatio2": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "PinturaSeleccionarCarro": {
+        "es-MX": "Por favor seleccione un carro",
+        "en-US": "Select a car please"
+    },
+
     //#endregion
 
     //#region PinturaCargaBackLog

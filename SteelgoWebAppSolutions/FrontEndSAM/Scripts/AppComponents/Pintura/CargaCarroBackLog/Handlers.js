@@ -106,7 +106,7 @@ function suscribirEventoCarro() {
 
 
 }
-
+  
 function SuscribirEventoPersistencia() {
     $('#inputPersistencia').kendoComboBox({
         dataTextField: "Tipo",

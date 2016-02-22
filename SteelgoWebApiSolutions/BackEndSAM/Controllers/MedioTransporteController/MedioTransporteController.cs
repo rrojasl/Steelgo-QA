@@ -13,6 +13,41 @@ namespace BackEndSAM.Controllers.MedioTransporteController
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MedioTransporteController : ApiController
     {
+        //Obtener campos predeterminados
+        [HttpGet]
+        public object ObtieneCamposPredeterminados(string predeterminado, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                string vista = (string)MedioTransporteBD.Instance.ObtenerCampoPredeterminado(usuario, lenguaje, 46);
+                string opcion = (string)MedioTransporteBD.Instance.ObtenerCampoPredeterminado(usuario, lenguaje, 34);
+
+                CamposPredeterminados medioTransporteCamposPredeterminados = new CamposPredeterminados();
+
+                medioTransporteCamposPredeterminados = new CamposPredeterminados
+                {
+                    Vista = vista,
+                    Opcion = opcion
+                };
+
+                return medioTransporteCamposPredeterminados;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         public object Get(string token, string lenguaje)
         {
             string payload = "";

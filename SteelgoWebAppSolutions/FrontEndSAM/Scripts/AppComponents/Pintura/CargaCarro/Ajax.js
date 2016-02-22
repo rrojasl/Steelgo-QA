@@ -47,10 +47,12 @@ function AjaxPinturaCargaMedioTransporte() {
 
     $MedioTransporte.MedioTransporte.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         $("#inputCarro").data("kendoComboBox").value("");
-        if (data.length > 0) { 
+        $("#inputCarroBacklog").data("kendoComboBox").value("");
+        if (data.length > 0) {
             data.unshift({ MedioTransporteID: -1, NombreMedioTransporte: _dictionary.PinturaCargaAgregarNuevoCarro[$("#language").data("kendoDropDownList").value()] });
              
             $("#inputCarro").data("kendoComboBox").dataSource.data(data);
+            $("#inputCarroBacklog").data("kendoComboBox").dataSource.data(data);
         } 
         loadingStop();
     });
@@ -89,14 +91,30 @@ function AjaxObtenerCatalogoPersistencia() {
 
 function AjaxCargarCamposPredeterminados() {
     loadingStart();
-    $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: 34 }).done(function (data) {
-        if (data.toLowerCase() == "spool") {
+    $MedioTransporte.MedioTransporte.read({ predeterminado: "", token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        if (data.Vista == "Escritorio") {
+            $('input:radio[name=TipoVista]:nth(0)').attr('checked', true);
+            $('input:radio[name=TipoVista]:nth(1)').attr('checked', false);
+            $("#styleEscritorio").addClass("active");
+            $("#stylePatio").removeClass("active");
+            $("#contenedorPrincipalCargaCarro").show();
+            $("#contenedorPrincipalCargaCarroBacklog").hide();
+        }
+        else if (data.Vista == "Patio") {
+            $('input:radio[name=TipoVista]:nth(0)').attr('checked', false);
+            $('input:radio[name=TipoVista]:nth(1)').attr('checked', true);
+            $("#styleEscritorio").addClass("active");
+            $("#stylePatio").removeClass("active");
+            $("#contenedorPrincipalCargaCarro").hide();
+            $("#contenedorPrincipalCargaCarroBacklog").show();
+        }
+
+        if (data.Opcion == "Spool") {
             $('input:radio[name=PinturaCargaTipoSeleccion]:nth(0)').attr('checked', true).trigger("change");
         }
-        else if (data.toLowerCase() == "codigo") {
+        else if (data.Opcion == "Codigo") {
             $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', true).trigger("change");
         }
-         
         loadingStop();
     });
 
@@ -243,6 +261,45 @@ function SumarArea() {
     return totalAreaCargada;
 }
 
+function SumarAreaBacklog() {
+    var grid = $("#grid[nombre='grid-backlog']").data("kendoGrid");
+
+    var sel = $("input:checked", grid.tbody).closest("tr");
+
+    var detalle = [];
+    $.each(sel, function (idx, spool) {
+        var item = grid.dataItem(spool);
+        detalle.push(item);
+    });
+
+    var totalAreaCargada = 0;
+    for (var i = 0; i < detalle.length; i++) {
+        totalAreaCargada += parseFloat(detalle[i]["Metros2"]);
+    }
+
+    return totalAreaCargada;
+}
+
+function SumarToneladaBacklog() {
+    var grid = $("#grid[nombre='grid-backlog']").data("kendoGrid");
+
+    var sel = $("input:checked", grid.tbody).closest("tr");
+
+    var detalle = [];
+    $.each(sel, function (idx, spool) {
+        var item = grid.dataItem(spool);
+        detalle.push(item);
+    });
+
+    var totalToneladasCargadas = 0;
+    for (var i = 0; i < detalle.length; i++) {
+        totalToneladasCargadas += parseFloat(detalle[i]["Peso"]);
+
+    }
+
+    return totalToneladasCargadas;
+}
+
 function AjaxObtenerDetalleCarroCargado(MedioTransporteID) {
     loadingStart();
 
@@ -343,3 +400,149 @@ function ajaxGuardar(arregloCaptura, guardarYNuevo) {
 
     }
 };
+
+function AjaxSubirSpool(listaSpool, guardarYNuevo) {
+    var contSave = 0;
+    var medioTransporteID;
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    ListaGuardarDetalles = [];
+
+    if ($('#inputCarroBacklog').attr("mediotransporteid") != undefined) {
+        for (var index = 0 ; index < listaSpool.length; index++) {
+            if (listaSpool[index].Seleccionado && !listaSpool[index].Status) {
+                ListaDetalles[contSave] = {
+                    Spool: "",
+                    SistemaPintura: "",
+                    Peso: "",
+                    Area: ""
+                };
+
+                ListaGuardarDetalles[contSave] = {
+                    Accion: listaSpool[index].Accion,
+                    SpoolID: "",
+                    MedioTransporteCargaID: $('#inputCarroBacklog').val()
+                };
+
+                ListaDetalles[contSave].Spool = listaSpool[index].SpoolID;
+                ListaDetalles[contSave].SistemaPintura = listaSpool[index].SistemaPintura;
+                ListaDetalles[contSave].Area = listaSpool[index].Metros2;
+                ListaDetalles[contSave].Peso = listaSpool[index].Peso;
+
+                ListaGuardarDetalles[contSave].SpoolID = listaSpool[index].SpoolID;
+                contSave++;
+            }
+        }
+        var disponible = 1;
+        if ($('#chkCerrar').is(':checked')) {
+            disponible = 0;
+        }
+        if (ListaDetalles.length != 0) {
+            if (ServicioPinturaCorrecto(ListaDetalles)) {
+                if (AreaYPesoPermitido(ListaDetalles)) {
+                    MedioTransporteID = $("#inputCarroBacklog").data("kendoComboBox").value();
+                    Captura[0].Detalles = ListaGuardarDetalles;
+
+                    loadingStart();
+                    $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: $('#inputCarro').attr("mediotransporteid"), cerrar: disponible }).done(function (data) {
+
+                        displayMessage("PinturaCargaBackLogMensajeGuardadoExitoso", "", "0");
+
+                        if (disponible == 0) {
+                            AjaxPinturaCargaMedioTransporte();
+                            AjaxCargarSpoolBacklog(true, 0);
+
+                        }
+                        else {
+                            var guardar = false;
+                            if (!guardarYNuevo) {
+                                guardar = true;
+                            }
+                            AjaxCargarSpoolBacklog(true, 0);
+
+                        }
+
+                        loadingStop();
+                    });
+                }
+            }
+            else {
+                displayMessage("PinturaCargaBackLogMensajeErrorServicioPintura", "", "1");
+            }
+        }
+        else {
+            displayMessage("PinturaCargaBackLogMensajeSeleccionaSpool", "", "1");
+        }
+
+    }
+}
+
+function AjaxCargarSpoolBacklog(cargarSpoolsDespuesDeCargar, MedioTransporteCargaID) {
+    loadingStart();
+    
+    if (MedioTransporteCargaID == 0 && $('#inputCarro').val() != "") MedioTransporteCargaID = $('#inputCarro').val();
+
+    $CargaCarroBackLog.CargaCarroBackLog.read({ medioTransporteID: MedioTransporteCargaID, token: Cookies.get("token") }).done(function (data) {
+        $("#grid[nombre='grid-backlog']").data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid[nombre='grid-backlog']").data("kendoGrid").dataSource;
+        var array = data;
+
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
+
+        if (cargarSpoolsDespuesDeCargar) {
+            opcionHabilitarViewBacklog(true, "FieldSetView");
+        }
+
+
+        loadingStop();
+    });
+}
+
+function ServicioPinturaCorrecto(ListaDetalles) {
+    var sistema;
+    for (var i = 0 ; i < ListaDetalles.length ; i++) {
+        if (i == 0) {
+            sistema = ListaDetalles[0].SistemaPintura;
+        }
+        if (sistema != ListaDetalles[i].SistemaPintura) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function AreaYPesoPermitido(ListaDetalles) {
+    var carDataSourceSelected = $("#inputCarroBacklog").data("kendoComboBox").dataItem($("#inputCarroBacklog").data("kendoComboBox").select());
+
+    for (var i = 0; i < ListaDetalles.length; i++) {
+        if ((carDataSourceSelected.AreaPermitidoMedioTransporte - carDataSourceSelected.AreaMaximoOcupado) > (SumarAreaBacklog())) {
+            if ((carDataSourceSelected.PesoMaximoPermitido - carDataSourceSelected.PesoMaximoOcupado) > (SumarToneladaBacklog())) {
+                return true;
+            }
+            else {
+                displayMessage("PinturaCargaSpoolToneladaSuperiorPermididoCarro", "", '2');
+                return false;
+            }
+        }
+        else {
+            displayMessage("PinturaCargaSpoolAreaSuperiorPermididoCarro", "", '2');
+            return false;
+        }
+    }
+}
+
+function SetDisabledBooleanEnGrid(deshabilitar) {
+    var $grid = $("#grid[nombre='grid-backlog']");
+
+    $("tr", $grid).each(function (index) {
+        var $row = $(this);
+
+        var $td = $row.find(':checkbox');
+
+        $td.attr("disabled", deshabilitar);
+
+    });
+}
