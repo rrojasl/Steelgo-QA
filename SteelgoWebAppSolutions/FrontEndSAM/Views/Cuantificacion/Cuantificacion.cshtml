@@ -695,7 +695,10 @@
             $("#Cantidad").keydown(function (e) {
                 if (e.keyCode == 13) {
                     if (esNumero(this.value)) {
-                        changeValueColumnCantidad(this.value);
+                        if (this.value !== "")
+                        {
+                            changeValueColumnCantidad(this.value);
+                        }
                     }
                     $("#Cantidad").val("");
                 }
@@ -703,14 +706,17 @@
 
             $("#MM").keydown(function (e) {
                 if (e.keyCode == 13) {
-                    if (!this.value) {
-                        changeValueColumnMM("");
-                        $("#MM").val("");
-                        return;
-                    }
+                    //if (!this.value) {
+                    //    changeValueColumnMM("");
+                    //    $("#MM").val("");
+                    //    return;
+                    //}
 
                     if (esNumero(this.value)) {
-                        changeValueColumnMM(this.value);
+                        if (this.value !== "")
+                        {
+                            changeValueColumnMM(this.value);
+                        }
                     }
                     $("#MM").val("");
                 }
