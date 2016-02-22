@@ -43,14 +43,7 @@ function AjaxCampoPredeterminadoImpreso() {
             $('.radioBtnImpreso')[0].checked = false;
             $('.radioBtnImpreso')[1].checked = true;
         }
-        if (data.ConCinta == "1") {
-            $('.radioBtnImpreso')[0].checked = true;
-            $('.radioBtnImpreso')[1].checked = false;
-        }
-        else if (data.ConCinta == "0") {
-            $('.radioBtnConCinta')[0].checked = false;
-            $('.radioBtnConCinta')[1].checked = true;
-        }
+       
         if (data.Etiquetado == "1") {
             $('.radioBtnCaptura')[0].checked = true;
             $('.radioBtnCaptura')[1].checked = false;
@@ -72,7 +65,7 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
     var ColorCintaCorrecto = true;
     var contGuardar = 0;
     for (index = 0; index < arregloCaptura.length; index++) {
-        if (arregloCaptura[index].Etiquetado || arregloCaptura[index].ColorCintaID != 0) {
+        if (arregloCaptura[index].Etiquetado ) {
 
             ListaDetalles[contGuardar] = {
                 EmbarqueMarcadoID: "",
@@ -87,11 +80,7 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
             ListaDetalles[contGuardar].Etiquetado = arregloCaptura[index].Etiquetado;
             ListaDetalles[contGuardar].ColorCintaID = arregloCaptura[index].ColorCintaID;
 
-            if (arregloCaptura[index].ConCinta) {
-                if (arregloCaptura[index].ColorCintaID == 0) {
-                    ColorCintaCorrecto = false;
-                }
-            }
+           
 
             if (impreso == "0") {
                 ListaDetalles[contGuardar].Impreso = 0;
@@ -127,7 +116,7 @@ function AjaxGuardarCaptura(arregloCaptura, impreso) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     displayMessage("EmbarqueMarcadoMensajeGuardadoExitoso", "", "0");
                     if (impreso == "0") {
-                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val());
+                        AjaxCargarDatos($("#Area").data("kendoComboBox").value(), $("#Cuadrante").data("kendoComboBox").value(), $('input:radio[name=Impreso]:checked').val(), $('input:radio[name=Captura]:checked').val(), 2);
                     }
                     displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
                 }
