@@ -68,10 +68,17 @@ namespace BackEndSAM.DataAcces
                                               && eq.Sam3_PatioID == patioID
                                               select eq.Sam2_PatioID).AsParallel().SingleOrDefault();
 
+                            List<int> clientesSam3 = new List<int>();
+                            clientesSam3 = (from p in ctx.Sam3_Proyecto
+                                            join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                            where p.Activo && p.PatioID == patioID
+                                            select c.Sam2ClienteID.Value).AsParallel().ToList();
+
                             cliente = (from r in ctx2.Cliente
                                        join p in ctx2.Proyecto on r.ClienteID equals p.ClienteID
                                        join pa in ctx2.Patio on p.PatioID equals pa.PatioID
                                        where pa.PatioID == patiosSam2
+                                       && clientesSam3.Contains(r.ClienteID)
                                        select new Models.Cliente
                                        {
                                            Nombre = r.Nombre,
