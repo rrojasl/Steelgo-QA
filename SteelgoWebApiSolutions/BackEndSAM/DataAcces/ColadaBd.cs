@@ -664,6 +664,8 @@ namespace BackEndSAM.DataAcces
                         #endregion
 
                         listColada.AddRange(coladas);
+                        //Quitar las coladas duplicadas, si es que hay alguna
+                        listColada = listColada.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
 
                         if (id != 0)
                         {
