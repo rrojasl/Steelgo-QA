@@ -1,37 +1,37 @@
 ﻿
 
-function AjaxEmbarqueCargaProveedores() {
+//function AjaxEmbarqueCargaProveedores() {
     
-    loadingStart();
+//    loadingStart();
 
-    $Embarque.Embarque.read({ token: Cookies.get("token"), embarquePlanaID: EmbarquePlanaID }).done(function (data) {
-        if (data.length > 0) {
-            $("#inputProveedor").data("kendoComboBox").value("");
-            $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
-            $("#inputProveedor").data("kendoComboBox").trigger("change");
-            AjaxCargarPaquetes();
-        } else {
-            $("#inputProveedor").data("kendoComboBox").value("");
-        };
-        loadingStop();
-    });
-}
+//    $Embarque.Embarque.read({ token: Cookies.get("token"), embarquePlanaID: EmbarquePlanaID }).done(function (data) {
+//        if (data.length > 0) {
+//            $("#inputProveedor").data("kendoComboBox").value("");
+//            $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+//            $("#inputProveedor").data("kendoComboBox").trigger("change");
+//            AjaxCargarPaquetes();
+//        } else {
+//            $("#inputProveedor").data("kendoComboBox").value("");
+//        };
+//        loadingStop();
+//    });
+//}
 
-function AjaxCargarPlanasPlacas() {
-    loadingStart();
-    EmbarquePlanaID = 0;
-    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), transportistaID: $("#inputProveedor").val(), embarquePlanaID: EmbarquePlanaID, lenguaje: $("#language").val() }).done(function (data) {
-        if (data.length > 0) {
-            $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
-            $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").dataSource.data(data);
+//function AjaxCargarPlanasPlacas() {
+//    loadingStart();
+//    EmbarquePlanaID = 0;
+//    $CargaEmbarque.CargaEmbarque.read({ token: Cookies.get("token"), transportistaID: $("#inputProveedor").val(), embarquePlanaID: EmbarquePlanaID, lenguaje: $("#language").val() }).done(function (data) {
+//        if (data.length > 0) {
+//            $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
+//            $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").dataSource.data(data);
 
-        } else {
+//        } else {
 
-            $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
-        };
-        loadingStop();
-    });
-}
+//            $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
+//        };
+//        loadingStop();
+//    });
+//}
 
 
 function AjaxCargarPaquetes() {

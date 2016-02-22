@@ -6,7 +6,7 @@ IniciarCapturaEmpaquetadoCarga();
 function IniciarCapturaEmpaquetadoCarga()
 {
     SuscribirEventos();
-    setTimeout(function () { AjaxEmbarqueCargaProveedores(); }, 1000);
+   // setTimeout(function () { AjaxEmbarqueCargaProveedores(); }, 1000);
     setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 2000);
     setTimeout(function () { CrearPopup(); }, 2200);
     setTimeout(function () { CrearPaquetePopup(); }, 2300);
@@ -35,11 +35,11 @@ function changeLanguageCall() {
     CargarGrid();
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
-    $("#lblEstatus").text("");
+    //$("#lblEstatus").text("");
     $("#lblEmbarqueEmpaquetadoTotalPiezas").text("");
     $("#lblEmbarqueEmpaquetadoToneladasCargadas").text("");
-    $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
-    $("#inputProveedor").data("kendoComboBox").value("");
+   // $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
+   // $("#inputProveedor").data("kendoComboBox").value("");
     document.title = _dictionary.lblCargas[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -149,7 +149,7 @@ function CargarGrid() {
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         if ($("#language").val() == "es-MX") {
-            if ($('#Guardar').text() != "Editar" && $("#lblEstatus").text().toLowerCase() != "cerrada") {
+            if ($('#Guardar').text() != "Editar"/* && $("#lblEstatus").text().toLowerCase() != "cerrada"*/) {
                 var grid = $("#grid").data("kendoGrid");
                 dataItem = grid.dataItem($(e.target).closest("tr"));
                 dataItem.set("Seleccionado", this.checked);
@@ -174,7 +174,7 @@ function CargarGrid() {
             }
         }
         else {
-            if ($('#Guardar').text() != "Edit" && $("#lblEstatus").text().toLowerCase() != "closed") {
+            if ($('#Guardar').text() != "Edit" /*&& $("#lblEstatus").text().toLowerCase() != "closed"*/) {
                 var grid = $("#grid").data("kendoGrid");
                 dataItem = grid.dataItem($(e.target).closest("tr"));
                 dataItem.set("Seleccionado", this.checked);
@@ -289,7 +289,7 @@ function validarSoloSeleccionadoSinPaquete() {
 function eliminarCaptura(e) {
     e.preventDefault();
     if ($("#language").val() == "es-MX") {
-        if ($('#Guardar').text() != "Editar" && $("#lblEstatus").text().toLowerCase() != "cerrada") {
+        if ($('#Guardar').text() != "Editar" /*&& $("#lblEstatus").text().toLowerCase() != "cerrada"*/) {
             dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             ventanaPopup.open().center();
 
@@ -300,7 +300,7 @@ function eliminarCaptura(e) {
         }
     }
     else {
-        if ($('#Guardar').text() != "Edit" && $("#lblEstatus").text().toLowerCase() != "closed") {
+        if ($('#Guardar').text() != "Edit" /*&& $("#lblEstatus").text().toLowerCase() != "closed"*/) {
             dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
             ventanaPopup.open().center();
