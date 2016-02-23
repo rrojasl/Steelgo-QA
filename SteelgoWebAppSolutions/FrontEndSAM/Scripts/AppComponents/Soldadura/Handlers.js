@@ -12,7 +12,18 @@ function SuscribirEventos() {
     SuscribirEventoMuestraJunta();
     GuardarDetalleAdicional();
     SuscribirEventoCancelarAdicionales();
+    suscribirEventoAdicionales();
 };
+
+function suscribirEventoAdicionales() {
+
+    $(document).on('click', '.botonAdicionales', function (e) {
+        var grid = $("#grid").data("kendoGrid"),
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        LlenarGridPopUp(dataItem);
+    });
+}
+
 function SuscribirEventoCancelarAdicionales() {
     $("#CancelarTrabajosAdicionales").click(function (e) {
         $("#windowGrid").data("kendoWindow").close();
@@ -24,6 +35,7 @@ function GuardarDetalleAdicional() {
         var ds = $("#gridPopUp").data("kendoGrid").dataSource;
         modeloRenglon.DetalleAdicional = ds._data;
         $("#windowGrid").data("kendoWindow").close();
+        $("#grid").data("kendoGrid").dataSource.sync();
     });
 }
 
