@@ -6803,6 +6803,11 @@ _dictionary = {
         "es-MX": "Emisión OT",
         "en-US": "WO Emission"
     },
+    "menuCiclos": {
+        "es-MX": "Ciclos",
+        "en-US": "Cycles"
+    },
+
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",
         "en-US": "Project doesn´t exist"
