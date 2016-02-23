@@ -22,14 +22,7 @@
                     M2: "623",
                     Juntas: "4",
                     Peqs: "162"
-                },
-                { 
-                    Peso: "560",
-                    M2: "560",
-                    Area: "483",
-                    Juntas: "3",
-                    Peqs: "25"
-                },
+                }
             ],
             schema: {
                 model: {
@@ -88,4 +81,27 @@ function dataBound(e) {
             editButton.hide();
         }
     }
+}
+
+function RenderComboBoxAcciones(container, options) {
+    loadingStart();
+
+    var dataItem;
+    $('<input  data-text-field="Accion" id=' + options.model.uid + ' data-value-field="AccionID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource:  options.model.ListaAcciones,
+            suggest: true,
+            filter: "contains",
+            template: "<i class=\"fa fa-#=data.Accion.toLowerCase()#\"></i> #=data.Accion#",
+            select: function (e) {
+                dataItem = this.dataItem(e.item.index()); 
+            },
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex); 
+            }
+        }
+        );
+    loadingStop();
 }

@@ -5,6 +5,12 @@
 
 
 function CargarGrid() {
+    var acciones = [
+        { AccionID: "1", Accion: "Aprobar" },
+        { AccionID: "2", Accion: "Enviar notificación" },
+        { AccionID: "3", Accion: "Enviar notificación para aprobación" },
+        { AccionID: "4", Accion: "Cerrar petición" },
+    ];
     $("#grid").kendoGrid({
         edit: function (e) {
             //   this.closeCell();
@@ -22,7 +28,8 @@ function CargarGrid() {
                     Emitido: "Si",
                     Embarque: "15-01-2016",
                     FechaPeticion: "06-02-2016",
-                    TipoMaterial: "Acero"
+                    TipoMaterial: "Acero",
+                    ListaAcciones: acciones
                 },
                 {
                     Spool: "x",
@@ -34,7 +41,8 @@ function CargarGrid() {
                     Emitido: "Si",
                     Embarque: "21-01-2016",
                     FechaPeticion: "06-02-2016",
-                    TipoMaterial: "Acero"
+                    TipoMaterial: "Acero",
+                    ListaAcciones: acciones
                 },
                 {
                     Spool: "y",
@@ -46,7 +54,8 @@ function CargarGrid() {
                     Emitido: "Si",
                     Embarque: "15-06-2015",
                     FechaPeticion: "06-06-2015",
-                    TipoMaterial: "Acero"
+                    TipoMaterial: "Acero",
+                    ListaAcciones: acciones
                 },
                 {
                     Spool: "w",
@@ -58,7 +67,8 @@ function CargarGrid() {
                     Emitido: "No",
                     Embarque: "",
                     FechaPeticion: "",
-                    TipoMaterial: "Acero"
+                    TipoMaterial: "Acero",
+                    ListaAcciones: acciones
                 },
             ],
             schema: {
@@ -117,6 +127,7 @@ function CargarGrid() {
             { field: "Embarque", title: "Embarque", filterable: true },
             { field: "FechaPeticion", title: "Fecha Peticion", filterable: true },
             { field: "TipoMaterial", title: "Tipo Material", filterable: true },
+            { field: "Acciones", title: "Acciones", filterable: false, editor: RenderComboBoxAcciones },
 
             //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
