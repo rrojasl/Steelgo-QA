@@ -1,5 +1,12 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoComboBoxPeticiones();
+    SuscribirEventoPopUp();
+}
+
+function SuscribirEventoPopUp() {
+    $(".linkDetalle").click(function () {
+        VentanaModal();
+    });
 }
 
 function SuscribirEventoComboBoxPeticiones() {
