@@ -6992,6 +6992,11 @@ _dictionary = {
         "en-US": "Steel"
     },
 
+    "ProyeccionBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la proyección?",
+        "en-US": "Are you sure you want to cancel the detail of the projection?"
+    },
+
     //EntregaResultadosHeader
     "GridstackHeaderPlaneacionControl": {
         "es-MX": "Planeacion y Control",

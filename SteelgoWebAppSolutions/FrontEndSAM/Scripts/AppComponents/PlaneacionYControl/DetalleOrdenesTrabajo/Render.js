@@ -80,10 +80,10 @@
             { field: "Area", title: "M2", filterable: true, width: "100px" },
             { field: "Juntas", title: "Juntas", filterable: true, width: "110px" },
             { field: "Peqs", title: "Peqs", filterable: true, width: "100px" },
-
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaDetalleSpool }, title: "", width: "99px" }
         ]
     }); 
-
+     
     dataBound(e);
 }
 
