@@ -55,8 +55,6 @@ function CargarGrid() {
                         NumeroControl: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Traveler: { type: "int", editable: false },
-                        Etiquetado: { type: "boolean", editable: false },
-                        ConCinta: { type: "boolean", editable: false },
                         ColorCinta: { type: "string", editable: true }
                     }
                 }
@@ -93,7 +91,6 @@ function CargarGrid() {
                 var filterMultiCheck = this.thead.find("[data-field=" + e.field + "]").data("kendoFilterMultiCheck")
                 filterMultiCheck.container.empty();
                 filterMultiCheck.checkSource.sort({ field: e.field, dir: "asc" });
-
                 filterMultiCheck.checkSource.data(filterMultiCheck.checkSource.view().toJSON());
                 filterMultiCheck.createCheckBoxes();
             }
@@ -101,8 +98,6 @@ function CargarGrid() {
         columns: [
             { field: "NumeroControl", title: _dictionary.EmbarqueMarcadoCabeceraSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a href= '\\#'>#= NumeroControl #</a>" },
             { field: "Cuadrante", title: _dictionary.EmbarqueMarcadoCabeceraCuadrante[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Etiquetado", title: _dictionary.EmbarqueMarcadoCabeceraEtiquetado[$("#language").data("kendoDropDownList").value()], filterable: { multi: true, dataSource: [{ Etiquetado: true }, { Etiquetado: false }] }, template: "<input name='fullyPaid' class='chk-etiquetado' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>" },
-
             { field: "ColorCinta", title: _dictionary.EmbarqueMarcadoCabeceraCinta[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxColor }
         ]
     });

@@ -207,7 +207,7 @@ function RenderMultiselectRaiz(container, options) {
                 }
             },
             change: function (e) {
-                debugger;
+                
                 if (longitudSoldadoresRaiz > options.model.Raiz.length) {
                     ValidarExisteSoldadorEnTrabajosAdicionales(options.model,"raiz");
                 }

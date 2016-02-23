@@ -11,7 +11,7 @@
         <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Encintado", "Embarque")"><span id="lblMarcado"></span></a>
+        <a href="@Url.Action("Encintado", "Embarque")"><span id="lblEncintado"></span></a>
     </li>
 }
 <div id="FormEmbarqueMarcado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -68,11 +68,7 @@
             <input type="radio" class="radioBtnImpreso" name="Impreso" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi"></span>
             <input type="radio" class="radioBtnImpreso" name="Impreso" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo"></span>
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label id=""><span id="EmbarqueMarcadoCapturado"></span></label>
-            <input type="radio" class="radioBtnCaptura" name="Captura" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi2"></span>
-            <input type="radio" class="radioBtnCaptura" name="Captura" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo2"></span>
-        </div>
+        
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label id=""><span id="EmbarqueMarcadoCabeceraConCinta"></span></label>
             <input type="radio" class="radioBtnConCinta" name="ConCinta" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi3"></span>
@@ -129,14 +125,14 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Handlers.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Captura.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Marcado/Seguridad.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Seguridad.js"></script>
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["Marcado"] = $MarcadoModel;
+    //$authorizationModel["Marcado"] = $MarcadoModel;
     }
 </script>

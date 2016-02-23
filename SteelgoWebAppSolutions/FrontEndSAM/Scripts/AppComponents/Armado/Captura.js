@@ -145,7 +145,7 @@ function CargarGrid() {
                         NumeroUnico2ID: { type: "string", editable: true },
                         NumeroUnico2: { type: "string", editable: true },
                         TemplateMensajeTrabajosAdicionales: { type: "string", editable: true },
-                        InformacionDetalle: { type: "string", editable: true },
+                        InformacionDetalle: { type: "string", editable: false },
                         DetalleJunta: { type: "string", editable: false }
                     }
                 }
@@ -188,7 +188,7 @@ function CargarGrid() {
             { field: "Taller", title: _dictionary.CapturaArmadoHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "125px" },
             { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico1, width: "90px" },
             { field: "NumeroUnico2", title: _dictionary.CapturaArmadoHeaderNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico2, width: "90px" },
-            { field: "InformacionDetalle", title: _dictionary.CapturaArmadoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "115px", editor: renderEnlaceEditar, template: "#:TemplateMensajeTrabajosAdicionales#" },
+            { field: "InformacionDetalle", title: _dictionary.CapturaArmadoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "115px", template: "<a href='\\#' class='botonAdicionales' > <span>#=TemplateMensajeTrabajosAdicionales#</span></a>" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
 
         ]
@@ -248,8 +248,8 @@ function CargarGridPopUp() {
 
 
             actuallongitudTrabajosAdicionales = data.length;;
-            modeloRenglon.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
-
+            modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+            
         },
         columns: [
           { field: "TrabajoAdicional", title: 'Trabajo', editor: RenderComboBoxTrabajoAdicional, filterable: true, width: "100px" },
@@ -281,9 +281,8 @@ function CargarGridPopUp() {
 
                           actuallongitudTrabajosAdicionales = data.length;
 
-                          modeloRenglon.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+                          modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
 
-                          this.dataSource.sync();
                       }
                   }
               }, width: "99px"

@@ -3851,6 +3851,14 @@ _dictionary = {
         "es-MX": "Marcado",
         "en-US": "Marked"
     },
+    "lblEncintado": {
+        "es-MX": "Encintado",
+        "en-US": "Taped"
+    },
+    "lblEtiquetado": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
+    },
     "lblEmbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment"
@@ -4099,9 +4107,13 @@ _dictionary = {
         "es-MX": "Consulta",
         "en-US": "Query "
     },
-    "menuEmbarqueMarcado": {
-        "es-MX": "Marcado",
-        "en-US": "Marked "
+    "menuEmbarqueEncintado": {
+        "es-MX": "Encintado",
+        "en-US": "Taped"
+    },
+    "menuEmbarqueEtiquetado": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
     },
     "menuEmbarqueCargas": {
         "es-MX": "Cargas",
@@ -6791,6 +6803,11 @@ _dictionary = {
         "es-MX": "Emisión OT",
         "en-US": "WO Emission"
     },
+    "menuCiclos": {
+        "es-MX": "Ciclos",
+        "en-US": "Cycles"
+    },
+
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",
         "en-US": "Project doesn´t exist"
