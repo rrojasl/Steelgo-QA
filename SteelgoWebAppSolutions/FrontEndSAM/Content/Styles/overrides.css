@@ -329,12 +329,14 @@
     }
 
     .k-grid td {
-        padding: 7.5px 13px;
+       padding:1px !important;
         font-size: 12px;
-        line-height: 1.4;
+        /*line-height: 1.4;*/
         color: #111111;
         font-weight: 100;
         border-bottom: 1px solid #CCCCCC;
+        white-space:nowrap;
+        
     }
 
     .k-grid tr:last-child td {
@@ -806,5 +808,38 @@ h6 {
     max-height: 100%;
     max-width:100%;
     top: 0;
-    z-index: 10000;   
+    z-index: 1000;   
 }
+.GridMenu{
+    height:1px;
+}
+#grid #contextMenu li {
+    padding:5px;
+    cursor:pointer;
+}
+
+
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+        background-color:#1c4070;
+    }
+    .btn-file:hover {
+        position: relative;
+        overflow: hidden;
+        background-color:#152f52;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        cursor: inherit;
+        display: block;
+    }

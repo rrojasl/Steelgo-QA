@@ -19,5 +19,23 @@ namespace FrontEndSAM.Controllers.Errors
         {
             return View();
         }
+
+        public ActionResult Ciclos()
+        {
+            return View();
+        }
+
+        public ActionResult Peticion()
+        {
+            return View();
+        }
+        public ActionResult PeticionMontaje()
+        {
+            return View();
+        }
+        public ActionResult AutorizacionPeticion()
+        {
+            return View();
+        }
     }
 }

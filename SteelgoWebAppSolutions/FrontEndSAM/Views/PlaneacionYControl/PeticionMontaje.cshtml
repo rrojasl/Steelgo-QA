@@ -1,6 +1,5 @@
-﻿
-
-@{
+﻿@{
+    ViewBag.Title = "Petición Montaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -11,7 +10,7 @@
         <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Encintado", "Embarque")"><span id="lblEncintado"></span></a>
+        <a href="@Url.Action("Marcado", "Embarque")"><span id="">Peticion Montaje</span></a>
     </li>
 }
 <div id="FormEmbarqueMarcado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -33,7 +32,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
                 <div id="EmbarqueMarcadoDivSuperior" class="button-section">
-                    <a id="EmbarqueMarcadoSuperior" href="@Url.Action("Cargas", "Embarque")" class="btn btn-primary"><span id="EmbarqueMarcadoBtnCarga"></span></a>
+                    <a id="EmbarqueMarcadoSuperior" href="@Url.Action("Cargas", "Embarque")" class="btn btn-primary"><span id="">Grupo de Embarque</span></a>
                 </div>
 
                 <div class="button-section actionButtonSection">
@@ -56,29 +55,26 @@
     @*Controles Superior*@
     <div class="row" id="FieldSetView">
         <div class="col-sm-2 col-md-2 col-lg-2" id="AreaDiv">
-            <label id=""><span id="EmbarqueMarcadoArea"></span></label>
-            <input id="Area" />
+            <label id=""><span id="">Proyecto</span></label>
+            <input id="Proyecto" />
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2" id="CuadranteDiv">
-            <label id=""><span id="EmbarqueMarcadoCuadrante"></span></label>
-            <input id="Cuadrante" />
+            <label id=""><span id="">Nombre</span></label>
+            <input id="Nombre" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label id=""><span id="EmbarqueMarcadoImpreso"></span></label>
-            <input type="radio" class="radioBtnImpreso" name="Impreso" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi"></span>
-            <input type="radio" class="radioBtnImpreso" name="Impreso" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo"></span>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="AreaDiv">
+            <label id=""><span id="">Fecha Deseable</span></label>
+            <input id="FechaDeseable" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3" id="CuadranteDiv">
+            <label id=""><span id="">Cargar CSV</span></label>
+            <span class="btn btn-default btn-file">Explorar <input type="file"></span>
         </div>
         
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label id=""><span id="EmbarqueMarcadoCabeceraConCinta"></span></label>
-            <input type="radio" class="radioBtnConCinta" name="ConCinta" style="width:auto;" value="1" /><span id="EmbarqueMarcadoRadioSi3"></span>
-            <input type="radio" class="radioBtnConCinta" name="ConCinta" style="width:auto;" value="0" /><span id="EmbarqueMarcadoRadioNo3"></span>
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
+        @*<div class="col-sm-2 col-md-2 col-lg-2">
             <label id="">&nbsp;</label>
             <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueMarcadoBtnVer"></span></button>
-
-        </div>
+        </div>*@
     </div>
     @*GRID*@
     <div class="row addedSectionInLine">
@@ -125,14 +121,15 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Handlers.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Captura.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Encintado/Seguridad.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/PeticionMontaje/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/PeticionMontaje/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/PeticionMontaje/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/PeticionMontaje/Captura.js"></script>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/PeticionMontaje/Seguridad.js"></script>*@
 
 <script>
     @section JavascriptDocumentReadyFunctions {
     //$authorizationModel["Marcado"] = $MarcadoModel;
     }
 </script>
+

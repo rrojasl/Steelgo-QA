@@ -3851,6 +3851,14 @@ _dictionary = {
         "es-MX": "Marcado",
         "en-US": "Marked"
     },
+    "lblEncintado": {
+        "es-MX": "Encintado",
+        "en-US": "Taped"
+    },
+    "lblEtiquetado": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
+    },
     "lblEmbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment"
@@ -4099,9 +4107,13 @@ _dictionary = {
         "es-MX": "Consulta",
         "en-US": "Query "
     },
-    "menuEmbarqueMarcado": {
-        "es-MX": "Marcado",
-        "en-US": "Marked "
+    "menuEmbarqueEncintado": {
+        "es-MX": "Encintado",
+        "en-US": "Taped"
+    },
+    "menuEmbarqueEtiquetado": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
     },
     "menuEmbarqueCargas": {
         "es-MX": "Cargas",
@@ -6791,6 +6803,23 @@ _dictionary = {
         "es-MX": "Emisión OT",
         "en-US": "WO Emission"
     },
+    "menuCiclos": {
+        "es-MX": "Ciclos",
+        "en-US": "Cycles"
+    },
+    "menuPeticionMontaje": {
+        "es-MX": "Petición Montaje",
+        "en-US": "Assembly Request"
+    },
+    "menuGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    "menuAutorizacionPeticion": {
+        "es-MX": "Autorización de Petición",
+        "en-US": "Request Authorization"
+    },
+
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",
         "en-US": "Project doesn´t exist"
@@ -6975,6 +7004,11 @@ _dictionary = {
         "en-US": "Steel"
     },
 
+    "ProyeccionBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la proyección?",
+        "en-US": "Are you sure you want to cancel the detail of the projection?"
+    },
+
     //EntregaResultadosHeader
     "GridstackHeaderPlaneacionControl": {
         "es-MX": "Planeacion y Control",
@@ -7040,9 +7074,6 @@ _dictionary = {
         "es-MX": "Hora Toma: ",
         "en-US": "Time Take: "
     },
-
-
-
 
 
 }

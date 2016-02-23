@@ -55,9 +55,8 @@
         <br />
         <button class="btn btn-blue" id="btnMostrar"><span id="lblMostrar"></span></button>
     </div>
-</div>
-    </div>
-</div>
+</div> 
+
 <br />
 <br />
 <div class="row ">
@@ -179,7 +178,7 @@
         </div> 
         <span style="color:#ffffff">.</span> 
          
-        <form id=" " style="display:none">
+        <form id="divProyectarWindow" style="display:none">
             <div class="row"> 
                 <div class="container" style="padding:15px;;width:inherit"> 
                     <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="inputCrearProyeccion">
@@ -213,12 +212,14 @@
                     <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="inputCrearOrdenTrabajo">
                         <label id="">Escriba la nueva Orden de Trabajo</label>
                         <input id="inputOrdenTrabajo" class="form-control" type="text" />
-                        <button class="btn btn-primary" type="button" id="btnCrearOrdenTrabajo"><span id="">Emitir Orden de Trabajo</span></button>
+                        <div id="CargaCarroDivInferior" class="button-section">
+                            <a id="crearOrdenTrabajo" class="btn btn-primary" href="@Url.Action("OrdenesDeTrabajo","PlaneacionYControl")"><span id="">Emitir Orden de Trabajo</span></a>
+                        </div>
                     </div>
                     <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarOT">
                         <label id="">Seleccione la Orden de Trabajo</label>
-                                <input id="inputOrdenesTrabajo" class="form-control" type="text" />
-                        <button class="btn btn-primary" type="button" id="btnOrdenTrabajo"><span id="">Emitir Orden de Trabajo</span></button>
+                        <input id="inputOrdenesTrabajo" class="form-control" type="text" />
+                        <a id="emitirExistenteOrdenTrabajo" class="btn btn-primary" href="@Url.Action("OrdenesDeTrabajo","PlaneacionYControl")"><span id="">Emitir Orden de Trabajo</span></a>
                     </div>
                     <div id="EmitirPreguntaDiv">
                         <span>¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?</span>
