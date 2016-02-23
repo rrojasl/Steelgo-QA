@@ -4103,6 +4103,10 @@ _dictionary = {
         "es-MX": "Embarque",
         "en-US": "Shipment "
     },
+    "menuEmbarqueEmpaquetado": {
+        "es-MX": "Empaquetado",
+        "en-US": "packaging"
+    },
     "menuEmbarqueConsulta": {
         "es-MX": "Consulta",
         "en-US": "Query "
