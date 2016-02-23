@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "AutorizacionPeticion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section breadcrumb {
+    <li>
+        <a href=""><span id="">Inicio</span></a>
+    </li>
+    <li>
+        <a href="#"><span id="">Planeación y Control</span></a>
+    </li>
+    <li class="active">
+        <a href=""><span id="">Autorizacion de Peticion</span></a>
+    </li>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+
+            </div>
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="">Acciones</span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones">
+                        <li>Aprobar</li>
+                        <li>Enviar notificación</li>
+                        <li>Enviar notificación para aprobación</li>
+                        <li>Cerrar petición</li>
+                    </ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3" ">
+        <label id="">Peticion:</label>
+        <input id="inputPeticiones" />
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <br />
+        <button class="btn btn-blue" id="btnMostrar"><span id="lblMostrar"></span></button>
+    </div>
+</div>
+
+@*GRID*@
+<div class="row addedSectionInLine">
+    <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div id="grid" data-role="grid" class="k-grid k-widget"></div>
+
+        <script type="text/x-kendo-template" id="templateGridDetalleSpool">
+            <div class="gridDetalleSpool"></div>
+        </script>
+
+    </div>
+    <input id="hdAccionFiltrado" type="hidden" />
+</div>
+
+<br /><br />
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+
+
+            </div>
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="">Acciones</span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones">
+                        <li>Aprobar</li>
+                        <li>Enviar notificación</li>
+                        <li>Enviar notificación para aprobación</li>
+                        <li>Cerrar petición</li>
+                    </ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Render.js"></script>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Seguridad.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Handler.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Captura.js"></script>

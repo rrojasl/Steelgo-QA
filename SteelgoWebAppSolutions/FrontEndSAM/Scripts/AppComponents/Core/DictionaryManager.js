@@ -6814,7 +6814,12 @@ _dictionary = {
     "menuGrupoEmbarque": {
         "es-MX": "Grupo Embarque",
         "en-US": "Shipment Group"
-        },
+    },
+    "menuAutorizacionPeticion": {
+        "es-MX": "Autorización de Petición",
+        "en-US": "Request Authorization"
+    },
+
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",
         "en-US": "Project doesn´t exist"

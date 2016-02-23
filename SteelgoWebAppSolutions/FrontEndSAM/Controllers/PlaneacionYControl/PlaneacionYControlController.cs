@@ -29,5 +29,10 @@ namespace FrontEndSAM.Controllers.Errors
         {
             return View();
         }
+
+        public ActionResult AutorizacionPeticion()
+        {
+            return View();
+        }
     }
 }
