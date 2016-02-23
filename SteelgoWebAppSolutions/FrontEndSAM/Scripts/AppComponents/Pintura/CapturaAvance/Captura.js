@@ -99,18 +99,19 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Spool", title: _dictionary.CapturaAvanceSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "SistemaPintura", title: _dictionary.CapturaAvanceSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Color", title: _dictionary.CapturaAvanceColor[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Metros2", title: _dictionary.CapturaAvanceM2[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "FechaShotblast", title: _dictionary.CapturaAvanceFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "FechaPrimario", title: _dictionary.CapturaAvanceFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "ListaShotblasteroGuargado", title: _dictionary.CapturaAvanceShotBlastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#" },
-            { field: "ListaPintorGuargado", title: _dictionary.CapturaAvancePintor[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxPintor, template: "#:plantillaPintor#" },
-            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
+            { field: "Spool", title: _dictionary.CapturaAvanceSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+            { field: "SistemaPintura", title: _dictionary.CapturaAvanceSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+            { field: "Color", title: _dictionary.CapturaAvanceColor[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+            { field: "Metros2", title: _dictionary.CapturaAvanceM2[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "FechaShotblast", title: _dictionary.CapturaAvanceFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]},
+            { field: "FechaPrimario", title: _dictionary.CapturaAvanceFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "140px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]},
+            { field: "ListaShotblasteroGuargado", title: _dictionary.CapturaAvanceShotBlastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "130px" },
+            { field: "ListaPintorGuargado", title: _dictionary.CapturaAvancePintor[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxPintor, template: "#:plantillaPintor#", width: "130px" },
+            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()], width: "99px" }
 
         ]
     });
+    CustomisaGrid($("#grid"));
 };
 
 function VentanaModalDescargarMedioTransporte(e) {

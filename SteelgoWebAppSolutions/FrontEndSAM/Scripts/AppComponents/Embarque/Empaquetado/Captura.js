@@ -139,13 +139,14 @@ function CargarGrid() {
         },
 
         columns: [
-            { field: "Consecutivo", title: _dictionary.EmbarqueCargaHeaderConsecutivo[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "NumeroControl", title: _dictionary.EmbarqueCargaHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Paquete", title: _dictionary.EmbarqueCargaHeaderPaquete[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Seleccionado", title: " ", filterable: { multi: true, dataSource: [{ Seleccionado: true }, { Seleccionado: false }] }, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "Consecutivo", title: _dictionary.EmbarqueCargaHeaderConsecutivo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "NumeroControl", title: _dictionary.EmbarqueCargaHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Paquete", title: _dictionary.EmbarqueCargaHeaderPaquete[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Seleccionado", title: " ", filterable: { multi: true, dataSource: [{ Seleccionado: true }, { Seleccionado: false }] }, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "150px" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });
+    CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         if ($("#language").val() == "es-MX") {

@@ -83,16 +83,17 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "DatosJunta", title: _dictionary.ValidacionResultadosCabeceraDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "DatosDefecto", title: _dictionary.ValidacionResultadosCabeceraDefectos[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: false },
-            { field: "NombreConciliado", title: _dictionary.ValidacionResultadosCabeceraConciliacion[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxConciliacion },
-            { field: "Nombre", title: _dictionary.ValidacionResultadosCabeceraRazonesRechazo[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxDefectosValidacionResultado },
-            { field: "Comentario", title: _dictionary.ValidacionResultadosCabeceraComentario[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Enlace", title: _dictionary.ValidacionResultadosCabeceraAccion[$("#language").data("kendoDropDownList").value()], filterable: false, editor: renderEnlaceEditar, template: _dictionary.ValidacionResultadosVerOpciones[$("#language").data("kendoDropDownList").value()] },
+            { field: "DatosJunta", title: _dictionary.ValidacionResultadosCabeceraDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "DatosDefecto", title: _dictionary.ValidacionResultadosCabeceraDefectos[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: false, width: "130px" },
+            { field: "NombreConciliado", title: _dictionary.ValidacionResultadosCabeceraConciliacion[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxConciliacion, width: "150px" },
+            { field: "Nombre", title: _dictionary.ValidacionResultadosCabeceraRazonesRechazo[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxDefectosValidacionResultado, width: "130px" },
+            { field: "Comentario", title: _dictionary.ValidacionResultadosCabeceraComentario[$("#language").data("kendoDropDownList").value()], filterable: true, width: "140px" },
+            { field: "Enlace", title: _dictionary.ValidacionResultadosCabeceraAccion[$("#language").data("kendoDropDownList").value()], filterable: false, editor: renderEnlaceEditar, template: _dictionary.ValidacionResultadosVerOpciones[$("#language").data("kendoDropDownList").value()], width: "130px" },
 
         ]
     });
+    CustomisaGrid($("#grid"));
 };
 
 function isEditable(fieldName, model) {
@@ -166,6 +167,7 @@ function CargarGridPopUp() {
         toolbar: [{ name: "create" }]
 
     });
+    CustomisaGrid($("#gridPopUp"));
 };
 
 

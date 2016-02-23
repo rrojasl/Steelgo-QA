@@ -100,6 +100,7 @@ function CargarGrid() {
 
         ]
     });
+    CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", ":checkbox", function (e) {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {

@@ -53,4 +53,5 @@ function CargarGrid() {
             { field: "CapturaPrueba", title: _dictionary.PinturaLotesCapturaReporteCapturaPrueba[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= CapturaPrueba ? "checked=checked" : "" # class="chkbx"  ></input>  ' }
         ]
     });
+    CustomisaGrid($("#grid"));
 }

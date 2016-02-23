@@ -96,12 +96,12 @@ function CargarGrid() {
             }
         },
         columns: [
-            { field: "NumeroControl", title: _dictionary.EmbarqueMarcadoCabeceraSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a href= '\\#'>#= NumeroControl #</a>" },
-            { field: "Cuadrante", title: _dictionary.EmbarqueMarcadoCabeceraCuadrante[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "ColorCinta", title: _dictionary.EmbarqueMarcadoCabeceraCinta[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxColor }
+            { field: "NumeroControl", title: _dictionary.EmbarqueMarcadoCabeceraSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a href= '\\#'>#= NumeroControl #</a>", width: "150px" },
+            { field: "Cuadrante", title: _dictionary.EmbarqueMarcadoCabeceraCuadrante[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "ColorCinta", title: _dictionary.EmbarqueMarcadoCabeceraCinta[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxColor, width: "150px" }
         ]
     });
-
+    CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chk-conCinta", function (e) {
         if ($("#language").val() == "es-MX") {

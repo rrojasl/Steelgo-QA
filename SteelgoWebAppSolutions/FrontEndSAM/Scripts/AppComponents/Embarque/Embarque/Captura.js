@@ -100,6 +100,7 @@ function CargarGrid() {
             
         ]
     });
+    CustomisaGrid($("#grid"));
 };
 
 

@@ -62,13 +62,13 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolJunta", title: _dictionary.PinturaDescargaSpool[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Metros2", title: _dictionary.PinturaDescargaArea[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Cuadrante", title: _dictionary.PinturaDescargaCuadrante[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCuadrante, filterable: true },
-            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
-
+            { field: "SpoolJunta", title: _dictionary.PinturaDescargaSpool[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
+            { field: "Metros2", title: _dictionary.PinturaDescargaArea[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
+            { field: "Cuadrante", title: _dictionary.PinturaDescargaCuadrante[$("#language").data("kendoDropDownList").value()], width: "240px", editor: RenderComboBoxCuadrante, filterable: true },
+            { command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], width: "99px", click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()] }
         ]
     });
+    CustomisaGrid($("#grid"));
 }
 
 function VentanaModalDescargarMedioTransporte(e) {

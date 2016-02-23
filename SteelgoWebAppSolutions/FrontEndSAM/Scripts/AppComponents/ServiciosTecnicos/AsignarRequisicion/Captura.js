@@ -59,16 +59,17 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Nombre", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Observacion", title: _dictionary.ServiciosTecnicosObservacion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Fecha", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "CantidadJuntas", title: _dictionary.AsignarRequisicionHeaderCantidadJuntas[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Proveedor", title: _dictionary.AsignarRequisicionHeaderProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: true },
-            { field: "HerramientadePrueba", title: _dictionary.AsignarRequisicionHeaderHerramientaPruebas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: true },
-            { field: "TurnoLaboral", title: _dictionary.AsignarRequisicionHeaderTurnoLaboral[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: true }
+            { field: "Nombre", title: _dictionary.ServiciosTecnicosTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Requisicion", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "140px" },
+            { field: "Observacion", title: _dictionary.ServiciosTecnicosObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Fecha", title: _dictionary.ListaRequisicionFecha[$("#language").data("kendoDropDownList").value()], filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "130px" },
+            { field: "CantidadJuntas", title: _dictionary.AsignarRequisicionHeaderCantidadJuntas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Proveedor", title: _dictionary.AsignarRequisicionHeaderProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: true, width: "140px" },
+            { field: "HerramientadePrueba", title: _dictionary.AsignarRequisicionHeaderHerramientaPruebas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: true, width: "150px" },
+            { field: "TurnoLaboral", title: _dictionary.AsignarRequisicionHeaderTurnoLaboral[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: true, width: "130px" }
         ]
     });
+    CustomisaGrid($("#grid"));
 };
 
 function PlanchaProveedor() {

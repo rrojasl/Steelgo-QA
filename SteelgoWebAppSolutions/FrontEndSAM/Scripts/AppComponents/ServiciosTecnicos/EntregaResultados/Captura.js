@@ -79,12 +79,12 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "FOLIO", title: _dictionary.ServiciosTecnicosFolio[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "DatosJunta", title: _dictionary.ServiciosDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "DESCRIPCION", title:  _dictionary.ServiciosTecnicosDescripcion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "RECIBIDO", title:  _dictionary.ServiciosTecnicosRECIBIDO[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= RECIBIDO ? "checked=checked" : "" # class="chkbx"  ></input>' },
-            { field: "CONDICIONESFISICAS", title: _dictionary.ServiciosTecnicosCondicionesFisicas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCondicionFisica, filterable: true},
-            { field: "DEFECTOS", title:  _dictionary.ServiciosTecnicosDefectos[$("#language").data("kendoDropDownList").value()],editor: RenderComboBoxDefectos, filterable: true} //editor: RenderComboBoxDefectos,
+            { field: "FOLIO", title: _dictionary.ServiciosTecnicosFolio[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "DatosJunta", title: _dictionary.ServiciosDatosJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "DESCRIPCION", title: _dictionary.ServiciosTecnicosDescripcion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "RECIBIDO", title: _dictionary.ServiciosTecnicosRECIBIDO[$("#language").data("kendoDropDownList").value()], filterable: true, template: '<input type="checkbox" #= RECIBIDO ? "checked=checked" : "" # class="chkbx"  ></input>', width: "130px" },
+            { field: "CONDICIONESFISICAS", title: _dictionary.ServiciosTecnicosCondicionesFisicas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCondicionFisica, filterable: true, width: "150px" },
+            { field: "DEFECTOS", title: _dictionary.ServiciosTecnicosDefectos[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxDefectos, filterable: true, width: "130px" } //editor: RenderComboBoxDefectos,
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -94,6 +94,7 @@ function CargarGrid() {
             }
         },
     });
+    CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
 

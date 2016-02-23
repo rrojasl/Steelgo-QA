@@ -75,6 +75,7 @@ function CargarGrid() {
             { command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: VerDetalle }, title: _dictionary.ListaRequisicionVerDetalle[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
     });
+    CustomisaGrid($("#grid"));
 };
 
 function VerDetalle(e) {
