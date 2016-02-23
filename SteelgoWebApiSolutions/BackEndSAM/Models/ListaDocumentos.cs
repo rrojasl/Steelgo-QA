@@ -14,6 +14,7 @@ namespace BackEndSAM.Models
         public string Url { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> IncidenciaID { get; set; }
+        public string NombreIncidencia { get; set; }
     }
 
     public class DocumentoPermisoAduana

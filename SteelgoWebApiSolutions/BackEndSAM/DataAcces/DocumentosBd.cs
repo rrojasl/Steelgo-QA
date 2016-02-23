@@ -318,6 +318,9 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Boolean ActivarFolioConfiguracionIncidencias = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"])
+                    ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionIncidencias"].Equals("1") ? true : false) : false;
+
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
@@ -331,8 +334,36 @@ namespace BackEndSAM.DataAcces
                                                             Extencion = d.Extencion,
                                                             Url = d.Url,
                                                             TipoArchivo = t.Nombre,
-                                                            IncidenciaID = d.IncidenciaID
+                                                            IncidenciaID = d.IncidenciaID,
+                                                            NombreIncidencia = ActivarFolioConfiguracionIncidencias ? 
+                                                                (from inc in ctx.Sam3_Incidencia 
+                                                                 join rpp in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion on inc.Rel_Proyecto_Entidad_Configuracion_ID equals rpp.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                 where inc.Activo && rpp.Activo == 1
+                                                                 && d.IncidenciaID.Value > 0 && d.IncidenciaID != null
+                                                                 && inc.IncidenciaID == d.IncidenciaID.Value
+                                                                 select rpp.PreFijoFolioIncidencias + ","
+                                                                    + rpp.CantidadCerosFolioIncidencias.ToString() + ","
+                                                                    + inc.Consecutivo.ToString() + ","
+                                                                    + rpp.PostFijoFolioIncidencias).FirstOrDefault()
+                                                                : string.Empty
                                                         }).AsParallel().ToList();
+
+                    if (ActivarFolioConfiguracionIncidencias)
+                    {
+                        foreach (ListaDocumentos datos in documentos)
+                        {
+                            if (datos.NombreIncidencia != string.Empty && datos.NombreIncidencia != null)
+                            {
+                                string[] elemntos = datos.NombreIncidencia.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                datos.NombreIncidencia = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                        }
+                    }
+
                     return documentos;
                 }
             }

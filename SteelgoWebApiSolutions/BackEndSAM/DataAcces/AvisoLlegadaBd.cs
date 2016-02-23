@@ -1107,12 +1107,14 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) 
+                        ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    where r.Activo &&
                                                    !(from av in ctx.Sam3_FolioAvisoEntrada
                                                      where av.Activo
-                                                     select av.FolioAvisoLlegadaID.ToString()).Contains(r.FolioAvisoLlegadaID.ToString())
+                                                     select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -1173,7 +1175,7 @@ namespace BackEndSAM.DataAcces
 
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join m in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals m.FolioAvisoLlegadaID
-                                                   where r.Activo && m.Activo && m.FolioDescarga > 0 && !(bool)r.PaseSalidaEnviado
+                                                   where r.Activo && m.Activo && m.FolioDescarga > 0
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
