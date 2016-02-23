@@ -167,38 +167,3 @@ function eliminarCapturaDetalleSpool(e) {
 }
 
 
-function LlenarGridPopUp(data) {
-    modeloRenglon = data;
-    var array = data.ListaDetalleTrabajoAdicional;
-    for (var i = 0; i < array.length; i++) {
-        ds.add(array[i]);
-    }
-
-
-    VentanaModal();
-}
-
-function VentanaModal() {
-
-    var modalTitle = "";
-    modalTitle = _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()];
-    var window = $("#windowDetalle");
-    var win = window.kendoWindow({
-        modal: true,
-        title: modalTitle,
-        resizable: false,
-        visible: true,
-        width: "50%",
-        minWidth: 30,
-        position: {
-            top: "1%",
-            left: "1%"
-        },
-        actions: [
-            "Close"
-        ],
-    }).data("kendoWindow");
-    window.data("kendoWindow").title(modalTitle);
-    window.data("kendoWindow").center().open();
-
-};

@@ -1,13 +1,47 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoComboBoxPeticiones();
     SuscribirEventoPopUp();
+    cambioSumatoria();
 }
 
 function SuscribirEventoPopUp() {
-    $(".linkDetalle").click(function () {
+    $(document).on('click', '.linkDetalle', function (e) {
         VentanaModal();
     });
 }
+function cambioSumatoria() {
+    $(".itemSumatoria").change(function (e) {
+        $("#total").text(parseInt($("#uno").val()) + parseInt($("#dos").val()) + parseInt($("#tres").val()) +
+        parseInt($("#cuatro").val()) + parseInt($("#cinco").val()) + parseInt($("#seis").val())+"");
+    });
+}
+
+
+function VentanaModal() {
+
+    var modalTitle = "";
+    modalTitle = _dictionary.CapturaSoldaduraHeaderAdicionales[$("#language").data("kendoDropDownList").value()];
+    var window = $("#windowDetalle");
+    var win = window.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "50%",
+        minWidth: 30,
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        actions: [
+            "Close"
+        ],
+    }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
+};
+
 
 function SuscribirEventoComboBoxPeticiones() {
     var peticiones = [{ Peticion: "Peticion 1", PeticionID: "1" }, { Peticion: "Peticion 2", PeticionID: "2" }]
