@@ -6807,6 +6807,18 @@ _dictionary = {
         "es-MX": "Ciclos",
         "en-US": "Cycles"
     },
+    "menuPeticionMontaje": {
+        "es-MX": "Petición Montaje",
+        "en-US": "Assembly Request"
+    },
+    "menuGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    "menuAutorizacionPeticion": {
+        "es-MX": "Autorización de Petición",
+        "en-US": "Request Authorization"
+    },
 
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",

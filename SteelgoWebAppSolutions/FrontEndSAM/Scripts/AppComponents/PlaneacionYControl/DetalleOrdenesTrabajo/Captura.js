@@ -59,7 +59,7 @@ function CargarGrid() {
         ]
     });
 
-   // CustomisaGrid($("#grid"));
+    CustomisaGrid($("#grid"));
 }
 
 function eliminarCaptura(e) {
