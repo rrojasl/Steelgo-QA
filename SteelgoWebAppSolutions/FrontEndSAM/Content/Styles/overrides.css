@@ -798,6 +798,10 @@ h6 {
     margin-top:-20px; 
     
 }
+.ScrollUpPestania {
+    overflow-x:scroll; 
+}
+
 .DivScrollSup {
     height:1px; 
     overflow:hidden;

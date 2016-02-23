@@ -96,13 +96,13 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Clasificacion", title: _dictionary.GenerarRequisicionClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxClasificacion },
-            { field: "Cuadrante", title: _dictionary.GenerarRequisicionCuadrante[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Prioridad", title: _dictionary.GenerarRequisicionPrioridad[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Proyecto", title: _dictionary.GenerarRequisicionProyecto[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Folio", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "NumeroControl", title: _dictionary.GenerarRequisicionNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Agregar", title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>" }
+            { field: "Clasificacion", title: _dictionary.GenerarRequisicionClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxClasificacion, width: "150px" },
+            { field: "Cuadrante", title: _dictionary.GenerarRequisicionCuadrante[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Prioridad", title: _dictionary.GenerarRequisicionPrioridad[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Proyecto", title: _dictionary.GenerarRequisicionProyecto[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Folio", title: _dictionary.ServiciosTecnicosRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "NumeroControl", title: _dictionary.GenerarRequisicionNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Agregar", title: _dictionary.ServiciosTecnicosAgregar[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "130px" }
         ],
         dataBound: function (a) {
             $(".ob-paid").bind("change", function (e) {
@@ -126,7 +126,7 @@ function CargarGrid() {
             });
         }
     });
-
+    CustomisaGrid($("#grid"));
    
 
 };

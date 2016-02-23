@@ -5083,7 +5083,7 @@ _dictionary = {
         "en-US": "Folio"
     },
     "ServiciosTecnicosDescripcion": {
-        "es-MX": "Descripcion",
+        "es-MX": "Descripción",
         "en-US": "Description"
     },
     "ServiciosTecnicosRECIBIDO": {
@@ -5091,7 +5091,7 @@ _dictionary = {
         "en-US": "Received"
     },
     "ServiciosTecnicosCondicionesFisicas": {
-        "es-MX": "Condiciones Fisicas",
+        "es-MX": "Condiciones Físicas",
         "en-US": "Physical conditions"
     },
     "ServiciosTecnicosDefectos": {
@@ -5348,15 +5348,11 @@ _dictionary = {
     },
 
     "ValidacionResultadosCabeceraUbicacion": {
-        "es-MX": "Ubicacion",
-        "en-US": "Location"
-    },
-    "ValidacionResultadosCabeceraUbicacion": {
-        "es-MX": "Ubicacion",
+        "es-MX": "Ubicación",
         "en-US": "Location"
     },
     "ValidacionResultadosCabeceraConciliacion": {
-        "es-MX": "Conciliacion",
+        "es-MX": "Conciliación",
         "en-US": "Conciliation"
     },
     "ValidacionResultadosCabeceraRazonesRechazo": {

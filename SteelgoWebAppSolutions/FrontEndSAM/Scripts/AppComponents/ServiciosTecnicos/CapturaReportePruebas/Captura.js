@@ -196,6 +196,7 @@ function CargarGrid() {
         editable: true,
         navigatable: true,
     });
+    CustomisaGrid($("#grid"));
 };
 
 

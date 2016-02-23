@@ -109,6 +109,7 @@ function CargarGridPopUp() {
         toolbar: [{ name: "create" }]
 
     });
+    CustomisaGrid($("#gridPopUp"));
 };
 
 function renderEnlaceEditar(container, options) {

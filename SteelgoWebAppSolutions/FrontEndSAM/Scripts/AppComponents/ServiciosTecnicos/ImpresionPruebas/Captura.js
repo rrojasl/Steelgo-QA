@@ -129,14 +129,15 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "SpoolJunta", title: _dictionary.ImpresionPruebasSpoolJunta[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "NumeroPruebas", title: _dictionary.ImpresionPruebasCantidadPruebas[$("#language").data("kendoDropDownList").value()], filterable: true },
-            { field: "Clave", title: _dictionary.ImpresionPruebasTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
-             { field: "Nombre", title: _dictionary.ImpresionPruebasNombrePrueba[$("#language").data("kendoDropDownList").value()], filterable: true },
-             { field: "ReporteID", title: _dictionary.ImpresionPruebasReporteID[$("#language").data("kendoDropDownList").value()], filterable: true },
-             { field: "Seleccionado", title: _dictionary.ImpresionPruebasSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ' },
+            { field: "SpoolJunta", title: _dictionary.ImpresionPruebasSpoolJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "140px" },
+            { field: "NumeroPruebas", title: _dictionary.ImpresionPruebasCantidadPruebas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Clave", title: _dictionary.ImpresionPruebasTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+             { field: "Nombre", title: _dictionary.ImpresionPruebasNombrePrueba[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+             { field: "ReporteID", title: _dictionary.ImpresionPruebasReporteID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+             { field: "Seleccionado", title: _dictionary.ImpresionPruebasSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "130px" },
         ]
     });
+    CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         var grid = $("#grid").data("kendoGrid"),
