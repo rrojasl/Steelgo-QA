@@ -40,7 +40,7 @@ function changeLanguageCall() {
     $("#lblEmbarqueEmpaquetadoToneladasCargadas").text("");
    // $("#inputEmbarqueEmpaquetadoPLacaPlana").data("kendoComboBox").value("");
    // $("#inputProveedor").data("kendoComboBox").value("");
-    document.title = _dictionary.lblCargas[$("#language").data("kendoDropDownList").value()];
+    document.title = _dictionary.lblEmpaquetado[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     opcionHabilitarView(false, "FieldSetView")
