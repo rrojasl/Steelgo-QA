@@ -221,7 +221,11 @@ namespace BackEndSAM.DataAcces
                                                FolioConfiguracionCuantificacionID = "",
                                                FolioAvisoLlegadaID = fa.FolioAvisoLlegadaID,
                                                ConsecutivoFolioCuanificacion = t.Consecutivo.Value,
-                                               ConsecutivoFolioLlegada = fa.Consecutivo.Value
+                                               ConsecutivoFolioLlegada = fa.Consecutivo.Value,
+                                               TipoUsoID = t.TipoUsoID,
+                                               TipoUso = (from tp in ctx.Sam3_TipoUso
+                                                          where tp.Activo && tp.TipoUsoID == t.TipoUsoID
+                                                          select tp.Nombre).FirstOrDefault()
                                            }).AsParallel().ToList();
 
 
