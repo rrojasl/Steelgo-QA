@@ -2,6 +2,7 @@
 var Talleres = new Array();
 var SpoolsEnProyeccion = new Array();
 var totalProyecciones = 0;
+var familiaProyeccion;
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -84,7 +85,7 @@ function CargarGrid() {
 }
   
 function CalcularValoresProyecciones(crear, tallerID) {
-    if (ValidarValoresAntesDeProyectar()) {  
+    //if (ValidarValoresAntesDeProyectar()) {  
         if (crear) {  
             AgregarContenedorProyecciones(tallerID);  
         }
@@ -94,7 +95,7 @@ function CalcularValoresProyecciones(crear, tallerID) {
 
         ActualizarGrid(true,"");
         SpoolsEnProyeccion = new Array();
-    } 
+    //} 
 }
 
 function CrearContenedorProyecciones(talleresLista) {
@@ -175,9 +176,10 @@ function AgregarContenedorProyecciones(tallerSeleccionado) {
     var totalPeqs = 0;
     var totalAutomatico = 0;
     var totalManual = 0;
+    var familiaID;
 
     totalProyecciones ++;
-
+    
     for (var i = 0; i < totalSpoolsProyeccion;i++) { 
         totalJuntasProyeccion += SpoolsEnProyeccion[i].ListaJuntas.length;
         totalPeso += SpoolsEnProyeccion[i].Peso;
@@ -193,8 +195,8 @@ function AgregarContenedorProyecciones(tallerSeleccionado) {
             totalPeqs += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
         }
     }
-
-    $("#contenedorProyecciones").append('<tr class="proyeccion" nombre="' + nombre + '" proyeccionid="' + totalProyecciones + '">' +
+ 
+    $("#contenedorProyecciones").append('<tr class="proyeccion" nombre="' + nombre + '" proyeccionid="' + totalProyecciones + '" familiaid="' + familiaProyeccion + '">' +
                                             '<td width="20px"><img src="../../../Content/images/SAMC_Delete.png" proyeccionid="' + totalProyecciones + '" nombreproyeccion="' + nombre + '" style="cursor:pointer" class="eliminarProyeccion"></td>' +
                                             '<td id="DescripcionProyeccion' + (totalProyecciones) + '" tallerSeleccionado="' + tallerSeleccionado + '">' +
                                                 '<div class="Cuadro'+ (totalProyecciones) +'">&nbsp;</div>' +
@@ -321,12 +323,20 @@ function EditarProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionI
 
 function ObtenerProyeccionesExistentes() {
     var data = new Array();
-     
-    $("tr.proyeccion").each(function (index, proyeccion) {
-        data.push([{ Proyeccion: $(proyeccion).attr("nombre"), ProyeccionID: $(proyeccion).attr("proyeccionid") }]);
-    });
  
-    $("#inputProyecciones").data("kendoComboBox").dataSource.data(data[0]);
+    $("tr.proyeccion").each(function (index, proyeccion) { 
+        if ($(proyeccion).attr("familiaid") == familiaProyeccion) {
+            data.push([{ Proyeccion: $(proyeccion).attr("nombre"), ProyeccionID: $(proyeccion).attr("proyeccionid") }]);
+        }
+    });
+    
+    if (data.length>0) {
+        $("#inputProyecciones").data("kendoComboBox").dataSource.data(data[0]);
+    }
+    else {
+        alert("no existen proyecciones con la misma familia acero");
+        $("#divProyectarWindow").data("kendoWindow").close();
+    } 
 }
 
 //Funciones generales despues de proyectar
@@ -362,7 +372,7 @@ function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
         }
     }
 
-    setTimeout(function () { $("#grid").data("kendoGrid").dataSource.sync() },2000);
+    $("#grid").data("kendoGrid").dataSource.sync();
     $("#divProyectarWindow").data("kendoWindow").close();
 }
 
@@ -399,7 +409,7 @@ function ImprimirContenedorCapacidad(taller, tipo, arregloProyeccionesTaller, ca
 function ValidarValoresAntesDeProyectar() { 
     var correcto = true;
     var familiaAcero = -1;
-
+    familiaProyeccion = ""; 
     var ds = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < ds.length; i++) {
@@ -407,12 +417,13 @@ function ValidarValoresAntesDeProyectar() {
 
         if (listaSpool.length == 0) {
             correcto = false;
-            alert("seleccione un spool");
+            alert("por favor seleccione un spool");
         }
 
         for (var j = 0; j < listaSpool.length; j++) {
             if (listaSpool[j].Seleccionado && familiaAcero == -1) {
                 familiaAcero = ds[i].FamiliaID;
+                familiaProyeccion = familiaAcero;
                 SpoolsEnProyeccion.push(listaSpool[j]);
             }
             else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero == ds[i].FamiliaID) {
@@ -420,11 +431,11 @@ function ValidarValoresAntesDeProyectar() {
             }
             else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero != ds[i].FamiliaID) {
                 correcto = false;
-                alert("dif familias"); 
+                alert("Los spools seleccionados son de diferentes familias"); 
             }
         } 
     }
-     
+
     return correcto
 }
  

@@ -11,7 +11,7 @@
 } 
 
 function AjaxMostrarSpoolsDeProyecto() {
-    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: 1, idPatio: 1 }).done(function (data) {
+    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: $("#inputProyecto").val(), idPatio: $("#inputPatio").val() }).done(function (data) {
       
         //Nivel 1
         $("#grid").data('kendoGrid').dataSource.data([]);
