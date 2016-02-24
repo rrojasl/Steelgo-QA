@@ -4505,7 +4505,10 @@ _dictionary = {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
     },
-
+    "DimensionalVisualHeaderListaJUnta": {
+        "es-MX": "Juntas",
+        "en-US": "Joint"
+    },
     "DimensionalVisualHeaderSpoolID": {
         "es-MX": "SpoolID",
         "en-US": "SpoolID"
@@ -5349,6 +5352,10 @@ _dictionary = {
 
     "ValidacionResultadosCabeceraUbicacion": {
         "es-MX": "Ubicación",
+        "en-US": "Location"
+    },
+    "ValidacionResultadosCabeceraUbicacion": {
+        "es-MX": "Ubicacion",
         "en-US": "Location"
     },
     "ValidacionResultadosCabeceraConciliacion": {
