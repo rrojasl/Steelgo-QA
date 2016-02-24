@@ -40,5 +40,29 @@ namespace BackEndSAM.Controllers.MedicionesClimatologicas
                 return result;
             }
         }
+
+        public object Get(string token, int condicionClimaticaID)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CondicionesClimatologicasBD.Instance.ObtenerCondicionClimatica(condicionClimaticaID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("No Econtrado");
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
     }
 }

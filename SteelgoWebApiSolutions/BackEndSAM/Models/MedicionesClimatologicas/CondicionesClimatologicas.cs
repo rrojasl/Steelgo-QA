@@ -9,6 +9,7 @@ namespace BackEndSAM.Models.MedicionesClimatologicas
     {
         public int CondicionClimatologicaID { get; set; }
         public int Accion { get; set; }
+        public int PatioID { get; set; }
         public int ZonaID { get; set; }
         public decimal TemperaturaAmbiente { get; set; }
         public int HerramientaTempAmbienteID { get; set; }

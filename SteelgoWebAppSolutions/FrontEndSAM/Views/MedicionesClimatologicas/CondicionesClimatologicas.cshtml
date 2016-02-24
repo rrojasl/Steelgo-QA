@@ -5,13 +5,13 @@
 
 @section breadcrumb {
         <li>
-            <a href=""><span id="">Inicio</span></a>
+            <a href="#"><span id="spnInicio"></span></a>
         </li>
         <li>
-            <a href="#"><span id="">Mediciones</span></a>
+            <a href="#"><span id="spnMediciones"></span></a>
         </li>
         <li class="active">
-            <a href=""><span id="">Condiciones Climatologicas</span></a>
+            <a href=""><span id="spanCondicionesClimaticas"></span></a>
         </li>
     }
 
@@ -52,67 +52,68 @@
 
     @*Controles Superior*@
     <div class="row" id="FieldSetView">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-             @*<div class="col-sm-2 col-md-2 col-lg-3" id="">
-                <label id="lblMedicionesProyectoID"> </label>
-                <input id="inputProyecto" />
-            </div>*@
-            <div class="col-sm-2 col-md-2 col-lg-3" id="">
-                <label id="lblMedicionesPatioID"> </label>
-                <input id="inputPatio" required="required" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-3" id="">
-                <label id="lblMedicionesZonas"> </label>
-                <input id="Area" required="required"  />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-3" id="">
-                <label id="lblMedicionesfechaToma"> </label>
-                <input id="inputMedicionesfechaToma" required="required" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-3" id="">
-                <label id="lblMedicionesHoraToma"> </label>
-                <input id="inputMedicionesHoraToma" required="required" />
-            </div>
+        <input type="hidden" id="hddCambioClimaticoID" />
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                @*<div class="col-sm-2 col-md-2 col-lg-3" id="">
+                    <label id="lblMedicionesProyectoID"> </label>
+                    <input id="inputProyecto" />
+                </div>*@
+                <div class="col-sm-2 col-md-2 col-lg-3" id="divinputPatio">
+                    <label id="lblMedicionesPatioID"> </label>
+                    <input id="inputPatio" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-3" id="divArea">
+                    <label id="lblMedicionesZonas"> </label>
+                    <input id="Area" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-3" id="divinputMedicionesfechaToma">
+                    <label id="lblMedicionesfechaToma"> </label>
+                    <input id="inputMedicionesfechaToma" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-3" id="divinputMedicionesHoraToma">
+                    <label id="lblMedicionesHoraToma"> </label>
+                    <input id="inputMedicionesHoraToma" required />
+                </div>
 
-            @*mediciones con equipo de toma*@
-            <br /><br />
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblEquipoTomaTempAmb">Equipo de Toma: </label>
-                <input id="inputEquipoTomaTempAmbID" required="required" />
+                @*mediciones con equipo de toma*@
+                <br /><br />
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputEquipoTomaTempAmbID">
+                    <label id="lblEquipoTomaTempAmb"></label>
+                    <input id="inputEquipoTomaTempAmbID" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputMedicionesTempAmbiente">
+                    <label id="lblMedicionesTempAmbiente"> </label>
+                    <input id="inputMedicionesTempAmbiente" required />
+                </div>
+
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputEquipoTomaHumedadID">
+                    <label id="lblEquipoTomaHumedad"></label>
+                    <input id="inputEquipoTomaHumedadID" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputMedicionesHumedad">
+                    <label id="lblMedicionesHumedad"> </label>
+                    <input id="inputMedicionesHumedad" required />
+                </div>
+
+                <br /><br />
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputEquipoTomaPtoRocioID">
+                    <label id="lblEquipoTomaPtoRocio"> </label>
+                    <input id="inputEquipoTomaPtoRocioID" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputMedicionesPuntoRocio">
+                    <label id="lblMedicionesPuntoRocio"> </label>
+                    <input id="inputMedicionesPuntoRocio" required />
+                </div>
+
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputEquipoTomaCampoXID">
+                    <label id="lblEquipoTomaCampoX"> </label>
+                    <input id="inputEquipoTomaCampoXID" required />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-6" id="divinputMedicionesCampoX">
+                    <label id="lblMedicionesCampoX"> </label>
+                    <input id="inputMedicionesCampoX" required />
+                </div>
             </div>
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblMedicionesTempAmbiente"> </label>
-                <input id="inputMedicionesTempAmbiente" required="required" width="200" />
-            </div>
-            
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblEquipoTomaHumedad">Equipo de Toma: </label>
-                <input id="inputEquipoTomaHumedadID" required="required" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblMedicionesHumedad"> </label>
-                <input id="inputMedicionesHumedad" required="required" />
-            </div>
-            
-            <br /><br />
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblEquipoTomaPtoRocio">Equipo de Toma: </label>
-                <input id="inputEquipoTomaPtoRocioID" required="required" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblMedicionesPuntoRocio"> </label>
-                <input id="inputMedicionesPuntoRocio" required="required"  />
-            </div>
-           
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblEquipoTomaCampoX">Equipo de Toma: </label>
-                <input id="inputEquipoTomaCampoXID" required="required" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-6" id="">
-                <label id="lblMedicionesCampoX"> </label>
-                <input id="inputMedicionesCampoX" required="required"  />
-            </div>
-        </div>
     </div>
     <br />
     <br />
@@ -124,7 +125,7 @@
                 <div class="button-section editButtonSection ">
                     <div class="btn-group save-group ">
                         <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="CapturaSoldaduraGuardar"></span></button>
-                        <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="CapturaSoldaduraGuardar"></span></button>
+                        <button id="EditarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="CapturaSoldaduraGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
@@ -157,3 +158,8 @@
 <script src="~/Scripts/AppComponents/MedicionesClimatologicas/Handlers.js"></script>
 <script src="~/Scripts/AppComponents/MedicionesClimatologicas/Render.js"></script>
 <script src="~/Scripts/AppComponents/MedicionesClimatologicas/Seguridad.js"></script>
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Mediciones Climaticas"] = $CondicionClimatologica;
+    }
+</script>
