@@ -6835,21 +6835,22 @@ _dictionary = {
         "es-MX": "No existe patio",
         "en-US": "Areway doesn´t exist"
     },
+    "errorSeleccionePatio": {
+        "es-MX": "Por favor seleccione patio",
+        "en-US": "Select an areway please"
+    },
     "spanEmisionProyectar": {
         "es-MX": "Proyectar",
         "en-US": "To project"
-    },
-
+    }, 
     "spanEmisionEmitir": {
         "es-MX": "Emitir",
         "en-US": "issue"
-    },
-
+    }, 
     "spanEmisionEmitirx": {
         "es-MX": "Emitir",
         "en-US": "issue"
     },
-
     "divEmisionTotalProyecciones": {
         "es-MX": "Totalizado de las proyecciones",
         "en-US": "Tote projections"
@@ -7014,6 +7015,10 @@ _dictionary = {
     "ProyeccionBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la proyección?",
         "en-US": "Are you sure you want to cancel the detail of the projection?"
+    },
+    "ProyeccionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de borrar la proyeccion?",
+        "en-US": "Are you sure you want to erase the projection?"
     },
 
     //EntregaResultadosHeader

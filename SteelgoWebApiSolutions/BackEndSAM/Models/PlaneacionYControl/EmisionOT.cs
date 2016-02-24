@@ -40,6 +40,7 @@ namespace BackEndSAM.Models.PlaneacionYControl
     public class DetalleJuntasPrueba
     {
         public int TipoJuntaID { get; set; }
+        public int FabclasID { get; set; }
         public string Fabclas { get; set; }
         public string TipoJunta { get; set; }
         public int Peqs { get; set; }
@@ -62,5 +63,15 @@ namespace BackEndSAM.Models.PlaneacionYControl
     {
         public int TallerID { get; set; }
         public string Taller { get; set; }
+        public int Capacidad { get; set; }  
+        public DetalleProduccion Produccion { get; set; }
+    }
+
+    public class DetalleProduccion
+    {
+        public int ProyeccionID { get; set; } 
+        public int CantidadAutomatico { get; set; }
+        public int CantidadManual { get; set; }
+        public int Accion { get; set; }
     }
 }
