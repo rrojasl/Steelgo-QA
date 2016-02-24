@@ -60,7 +60,7 @@ namespace BackEndSAM.Controllers.EmisionOT
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                  
-                return EmisionOTBD.Instance.MostrarSpoolsEnProyecto();
+                return EmisionOTBD.Instance.MostrarSpoolsEnProyecto(idProyecto,idPatio);
                  
             }
             else
