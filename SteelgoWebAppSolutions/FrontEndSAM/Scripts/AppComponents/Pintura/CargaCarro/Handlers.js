@@ -315,16 +315,15 @@ function SuscribirEventoCarro() {
                     LimpiarCarro();
                     windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
                         modal: true,
-                        // title:,
                         resizable: false,
                         visible: true,
-                        width: "auto",
-                        minWidth: "20%",
-
+                        width: "32.6%",
+                        minWidth: 660,
                         position: {
                             top: "1%",
                             left: "1%"
                         },
+                        actions: false,
                         actions: [
                             "Close"
                         ],
