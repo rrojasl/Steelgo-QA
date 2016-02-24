@@ -1,4 +1,21 @@
-﻿function RenderOptionResultado(container, options) {
+﻿function RenderMultiSelectJuntas(container, options) {
+    $('<input  data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiSelect({
+                autoBind: false,
+                dataSource: options.model.ListaJuntas,
+                template: "<i class=\"fa fa-#=data.Junta.toLowerCase()#\"></i> #=data.Junta#",
+                select: function (e) {
+                },
+                change: function (e) {
+                    options.model.TemplateRender = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + options.model.ListaJuntasSeleccionadas.length + " Juntas" : "There are " + options.model.ListaJuntasSeleccionadas.length + " board";
+                    this.dataSource.sync();
+                },
+                value: options.model.ListaJuntasSeleccionadas
+            }).data("kendoMultiSelect");
+}
+
+function RenderOptionResultado(container, options) {
     loadingStart();
     var dataItem;
     console.log(options);
@@ -29,6 +46,8 @@
                     if (options.model.ResultadoID == "1") {
                         options.model.DefectosID = 0;
                         options.model.Defectos = "";
+                        options.model.ListaJuntasSeleccionadas = undefined;
+                        options.model.TemplateRender = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + (options.model.ListaJuntasSeleccionadas == undefined ? 0 : options.model.ListaJuntasSeleccionadas.length) + " Juntas" : "There are " + (options.model.ListaJuntasSeleccionadas == undefined ? 0 : options.model.ListaJuntasSeleccionadas.length) + " board";
                         $("#grid").data("kendoGrid").dataSource.sync();
                     }
                 }
@@ -76,6 +95,8 @@ function RenderComboBoxDefectos(container, options) {
                 if (dataItem != undefined) {
                     options.model.Defectos = dataItem.Nombre;
                     options.model.DefectosID = dataItem.DefectoID;
+                    options.model.IDDEFECTOTIPO = dataItem.IDDEFECTOTIPO;
+                    options.model.TIPO = dataItem.TIPO;
                 }
                 else {
                     options.model.Defectos = ObtenerDescCorrectaDefectos(options.model.ListaDefectos, options.model.DefectoID);

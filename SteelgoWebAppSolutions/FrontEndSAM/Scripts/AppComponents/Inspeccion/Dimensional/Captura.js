@@ -133,6 +133,7 @@ function CargarGrid() {
              { field: "Defectos", title: _dictionary.DimensionalVisualHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxDefectos },
              { field: "Inspector", title: _dictionary.DimensionalVisualHeaderInspectorDimesional[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxInspector },
              { field: "FechaInspeccion", title: _dictionary.DimensionalVisualHeaderFechaDimesional[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+             { field: "ListaJuntasSeleccionadas",title:" ", filterable: true, editor: RenderMultiSelectJuntas, template: "#:TemplateRender#" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
         filterable: {
@@ -158,6 +159,10 @@ function isEditable(fieldName, model) {
     if (fieldName === "Defectos") {
         // condition for the field "ProductName"
         return model.Resultado !== "Aprobado";
+    }
+    else if (fieldName === "ListaJuntasSeleccionadas") {
+        // condition for the field "ProductName"
+        return model.TIPO !== "NoEspecificarJunta" &&  model.TIPO !=null;
     }
 
     return true; // default to editable

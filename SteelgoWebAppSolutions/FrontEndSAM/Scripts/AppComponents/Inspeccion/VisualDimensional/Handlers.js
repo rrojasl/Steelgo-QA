@@ -12,8 +12,21 @@
     SuscribirEventoInspectorVisual();
     SuscribirEventoTaller();
     SuscribirEventoAgregarCapturaRapida();
+    SuscribirEventoListaJuntas();
    
 };
+
+function SuscribirEventoListaJuntas()
+{
+    $("#ListaJuntas").kendoMultiSelect({
+        autoBind: false,
+        template: "<i class=\"fa fa-#=data.Junta.toLowerCase()#\"></i> #=data.Junta#",
+        change: function (e) {
+            options.model.TemplateRender = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + options.model.ListaJuntasSeleccionadas.length + " Juntas" : "There are " + options.model.ListaJuntasSeleccionadas.length + " board";
+            this.dataSource.sync();
+        }
+    }).data("kendoMultiSelect");
+}
 function SuscribirEventoSpoolID() {
  
     $("#InputID").kendoComboBox({
