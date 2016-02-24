@@ -1,9 +1,6 @@
-﻿
-
-function SuscribirEventos() {
+﻿function SuscribirEventos() {
     SuscribirEventoGuardar();
     suscribirEventoArea();
-  //  SuscribirEventoProyecto();
     SuscribirEventoPatio();
     SubscribeMedicionesTempAmbiente();
     SubscribeMedicionesCampoX();
@@ -16,31 +13,52 @@ function SuscribirEventos() {
 };
 SuscribirEventos();
 
-
 function EventoGuardar() {
     AjaxGuardarCaptura(0);
 }
+
 function SuscribirEventoGuardar() {
+
     $("#Guardar").click(function (e) {
+        if ($(this).text() == "Editar" || $(this).text() == "Edit")
+        {
+            HablilitarInputs();
+            $(this).text("Guardar")
+            $("#GuardarPie").text("Guardar");
+        }
+        else
+        { EventoGuardar(); }
+    });
+
+    $("#btnGuardarYNuevo").click(function (e) {
         EventoGuardar();
+        Limpiar();
+        HablilitarInputs();
+    });
+
+    $("#EditarPie").click(function (e) {
     });
 
     $("#GuardarPie").click(function (e) {
-        EventoGuardar();
+        if ($(this).text() == "Editar" || $(this).text() == "Edit") {
+            HablilitarInputs();
+            $(this).text("Guardar");
+            $("#Guardar").text("Guardar");
+        }
+        else { EventoGuardar(); }
     });
 
-    //botonGuardar2
-    //botonGuardarYNuevo
-    //btnGuardarPiePagina
-    //DetalleAvisoLlegada0062
-
-
-
+   
 }
-
 
 function Limpiar() {
 
+    $(':input', '#FieldSetView').not(':button, :submit, :reset, :hidden, :radio, :checkbox').val('');
+    if ($("#Guardar").text() == "Editar" && $("#GuardarPie").text() == 'Editar')
+    {
+        $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#GuardarPie").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    }
 }
 
 function opcionHabilitarView(valor, name) {
@@ -53,60 +71,9 @@ function opcionHabilitarView(valor, name) {
 
     }
 }
-
-function suscribirEventoArea() {
-    $("#Area").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "AreaID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-            if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
-              
-            }
-            else {
-                $("#Area").data("kendoComboBox").value("");
-            }
-        }
-    });
-}
-
-//proyectos cuando seleccionas un proyecto se pinta su patio correspondinte
-//function SuscribirEventoProyecto() {
-//    $('#inputProyecto').kendoComboBox({
-//        dataTextField: "Proyecto",
-//        dataValueField: "ProyectoID",
-//        suggest: true,
-//        filter: "contains",
-//        index: 3,
-//        select: function (e) {
-//            var dataItem = this.dataItem(e.item.index());
-//            if (dataItem != undefined) {
-//                $("#inputPatio").data("kendoComboBox").value("");
-//                $("#inputPatio").data("kendoComboBox").dataSource.data(dataItem.ListaPatio);
-//               // alert(JSON.stringify(dataItem.ListaPatio));
-//              //  $("#inputPatio").data("kendoComboBox").select(e.item.index);
-//            }
-//            else {
-//                displayMessage("errorNoExisteProyecto", '', '2');
-//            }
-//        },
-//        change: function (e) {
-//            var dataItem = this.dataItem(e.sender.selectedIndex);
-//            if (dataItem != undefined) {
-//                // llemar el patio dependiendo del
-//            }
-//            else {
-//                displayMessage("errorNoExisteProyecto", '', '2');
-//            }
-//        }
-//    });
-//}
-
 //patios
 function SuscribirEventoPatio() {
-    $('#inputPatio').kendoComboBox({
+  cbxPatios =  $('#inputPatio').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "PatioID ",
         suggest: true,
@@ -157,8 +124,26 @@ function SuscribirEventoPatio() {
 
     });
 }
+//Zonas
+function suscribirEventoArea() {
+    $("#Area").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "AreaID",
+        suggest: true,
+        filter: "contains",
+        cascadeFrom: "cbxPatios",
+        index: 3,
+        change: function (e) {
+            if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
 
-//mediciones 
+            }
+            else {
+                $("#Area").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+//herramientas para mediciones 
 function SubscribeMedicionesTempAmbiente()
 {
     $("#inputEquipoTomaTempAmbID").kendoComboBox({
@@ -279,10 +264,33 @@ function SubscribeNumerosDecimal()
 
 
 }
-
+//
 function SubscribeHora()
 {
     $("#inputMedicionesHoraToma").kendoMaskedTextBox({
         mask: "00:00",
     });
 }
+//habilitar botones 
+function opcionHabilitarView(valor, name) {
+
+    if (valor) {
+        $('#Guardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#GuardarPie").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+    }
+    else {
+        $('#botonGuardar2').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    }
+}
+
+function DeshablilitarInputs()
+{
+    $('#FieldSetView').find(':input').prop('disabled', true);
+}
+
+
+function HablilitarInputs() {
+    $('#FieldSetView').find(':input').prop('disabled', false);
+}
+

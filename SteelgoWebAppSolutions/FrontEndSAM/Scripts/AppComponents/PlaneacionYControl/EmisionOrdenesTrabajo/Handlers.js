@@ -8,6 +8,8 @@
     SuscribirEventoCrearNuevaProyeccion(); 
     SuscribirEventoUtilizarProyeccionExistente();
     SuscribirEventoTalleres();
+    SuscribirEventoCambiarProyeccionDeTaller();
+    SuscribirEventoEliminarProyeccion();
 
     //Emision
     SuscribirEventoEmitir();
@@ -16,36 +18,40 @@
     SuscribirEventoMostrar();
     SuscribirEventoProyecto();
     SuscribirEventoPatio();
+
+
 }
 
 //Proyectar
 function SuscribirEventoVentanaProyectar() {
     $("#Proyectar").click(function () {
-        $("#divProyectarWindow").kendoWindow({
-            modal: true,
-            // title:,
-            resizable: false,
-            visible: true,
-            width: "50%",
-            minWidth: "20%",
+        if (ValidarValoresAntesDeProyectar()) {
+            $("#divProyectarWindow").kendoWindow({
+                modal: true,
+                // title:,
+                resizable: false,
+                visible: true,
+                width: "50%",
+                minWidth: "20%",
 
-            position: {
-                top: "1%",
-                left: "1%"
-            },
-            actions: [
-                "Close"
-            ],
-        }).data("kendoWindow");
-        $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
-        $("#divProyectarWindow").data("kendoWindow").center().open();
+                position: {
+                    top: "1%",
+                    left: "1%"
+                },
+                actions: [
+                    "Close"
+                ],
+            }).data("kendoWindow");
+            $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
+            $("#divProyectarWindow").data("kendoWindow").center().open();
 
-        $("#divProyectarWindow").data("kendoWindow").bind("close", function(e) {
-            $("#ProyectarPreguntaDiv").show();
-            $("#cmbSeleccionarProyeccion").hide();
-            $("#inputCrearProyeccion").hide();
-        }); 
-    }); 
+            $("#divProyectarWindow").data("kendoWindow").bind("close", function (e) {
+                $("#ProyectarPreguntaDiv").show();
+                $("#cmbSeleccionarProyeccion").hide();
+                $("#inputCrearProyeccion").hide();
+            });
+        }
+    });  
 }
 
 function SuscribirEventoComboBoxProyecciones() {   
@@ -67,6 +73,7 @@ function SuscribirEventoPreguntaCrearNuevaProyeccion() {
 
 function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
     $("#btnUtilizarProyeccionExistente").click(function () {
+        debugger;
         if ($("tr.proyeccion").length > 0) {
             $("#ProyectarPreguntaDiv").hide();
             ObtenerProyeccionesExistentes();
@@ -99,6 +106,7 @@ function SuscribirEventoCrearNuevaProyeccion() {
 
         $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
         $("#divProyectarWindow").data("kendoWindow").center().open();
+        
         debugger;
         CalcularValoresProyecciones(true, $("#inputTalleresWindow").val());
     });
@@ -126,12 +134,53 @@ function SuscribirEventoTalleres() {
  
 function SuscribirEventoUtilizarProyeccionExistente() {
     $("#btnSeleccionaProyeccion").click(function () {
+        debugger;
         CalcularValoresProyecciones(false,0);
     });
 }
 
-function SuscribirEventoEliminarProyeccion() {
+function SuscribirEventoCambiarProyeccionDeTaller() {       
+    $(document).on('change', 'input.proyeccion', function (e) {
+        var tallerID = $(this).attr("tallerid");
+        var proyeccionID = $(this).attr("proyeccionid");
 
+        CambiarProyeccionDeTaller(tallerID, proyeccionID);
+    });
+}
+
+function SuscribirEventoEliminarProyeccion() {
+    $(document).on('click', '.eliminarProyeccion', function (e) { 
+        var proyeccionID = $(this).attr("proyeccionid");
+        var nombreProyeccion = $(this).attr("nombreproyeccion");
+
+        ventanaConfirm = $("#divEliminarProyeccionWindow").kendoWindow({
+            modal: true,
+            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+            resizable: false,
+            visible: true,
+            width: "50%",
+            minWidth: "20%", 
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            actions: [
+                "Close"
+            ],
+        }).data("kendoWindow");
+         
+        ventanaConfirm.content(_dictionary.ProyeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+        ventanaConfirm.open().center();
+         
+        $("#yesButton").click(function () {
+            EliminarProyeccion(proyeccionID, nombreProyeccion);
+            ventanaConfirm.close();
+        });
+        $("#noButton").click(function () {
+            ventanaConfirm.close();
+        });
+    });
 }
 
 //Emitir
@@ -192,9 +241,15 @@ function SuscribirEventoEmitir() {
 
 //Encabezado
 function SuscribirEventoMostrar() {
-    $("#btnMostrar").click(function () { 
-        AjaxMostrarSpoolsDeProyecto();
-        AjaxObtenerTalleresPorPatio();
+    $("#btnMostrar").click(function () {
+        if ($("#inputPatio").val()!="") { 
+            AjaxMostrarSpoolsDeProyecto();
+            AjaxObtenerTalleresPorPatio();
+            
+        }
+        else {
+            displayMessage("errorSeleccionePatio", "", '1');
+        }
     });
 }
  

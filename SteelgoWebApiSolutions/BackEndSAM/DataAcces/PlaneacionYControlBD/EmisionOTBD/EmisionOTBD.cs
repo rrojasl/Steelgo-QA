@@ -130,14 +130,23 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     List<Sam3_SteelGo_Get_Taller_Patio_Result> result = ctx.Sam3_SteelGo_Get_Taller_Patio(idPatio).ToList();
 
                     List<DetalleTaller> tallerList = new List<DetalleTaller>();
-
+                    Random random = new Random();
+                     
                     //Funcionalidad con store
                     foreach (Sam3_SteelGo_Get_Taller_Patio_Result item in result)
                     {
+                        var produccion = new DetalleProduccion();
+                        produccion.Accion = 1; 
+                        produccion.ProyeccionID = 0;
+                        produccion.CantidadAutomatico = random.Next(5, 50);
+                        produccion.CantidadManual = random.Next(5, 50);
+
                         tallerList.Add(new DetalleTaller
                         {
                             TallerID = item.TallerID,
-                            Taller = item.Taller
+                            Taller = item.Taller,
+                            Capacidad = random.Next(50, 100), 
+                            Produccion = produccion
                         }); 
                     }
 
@@ -293,6 +302,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 1,
+                        FabclasID = 1,
                         Fabclas = "Auto 6-24",
                         TipoJunta = "BW",
                         Peqs = 3
@@ -301,6 +311,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 2,
+                        FabclasID = 1,
                         Fabclas = "Auto 6-24",
                         TipoJunta = "BW",
                         Peqs = 1
@@ -309,6 +320,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 3,
+                        FabclasID = 1,
                         Fabclas = "Auto 6-24",
                         TipoJunta = "BW",
                         Peqs = 7
@@ -317,6 +329,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 4,
+                        FabclasID = 1,
                         Fabclas = "Auto 6-24",
                         TipoJunta = "BW",
                         Peqs = 5
@@ -327,6 +340,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 1,
+                        FabclasID = 2,
                         Fabclas = "SAW 8-30",
                         TipoJunta = "BW",
                         Peqs = 8
@@ -335,6 +349,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 2,
+                        FabclasID = 2,
                         Fabclas = "SAW 8-30",
                         TipoJunta = "BW",
                         Peqs = 3
@@ -343,6 +358,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 3,
+                        FabclasID = 2,
                         Fabclas = "SAW 8-30",
                         TipoJunta = "BW",
                         Peqs = 2
@@ -351,6 +367,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     detalleJuntas.Add(new DetalleJuntasPrueba
                     {
                         TipoJuntaID = 4,
+                        FabclasID = 2,
                         Fabclas = "SAW 8-30",
                         TipoJunta = "BW",
                         Peqs = 8

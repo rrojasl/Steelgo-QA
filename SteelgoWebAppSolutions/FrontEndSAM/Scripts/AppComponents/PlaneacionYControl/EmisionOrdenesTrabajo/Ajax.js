@@ -11,7 +11,7 @@
 } 
 
 function AjaxMostrarSpoolsDeProyecto() {
-    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: 1, idPatio: 1 }).done(function (data) {
+    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: $("#inputProyecto").val(), idPatio: $("#inputPatio").val() }).done(function (data) {
       
         //Nivel 1
         $("#grid").data('kendoGrid').dataSource.data([]);
@@ -25,18 +25,15 @@ function AjaxMostrarSpoolsDeProyecto() {
     });
 }
 
-function AjaxObtenerTalleresPorPatio() {
-    debugger;
-    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), talleres: "taller", idPatio: $("#inputPatio").val() }).done(function (data) { 
-        //Nivel 1
-        //$("#grid").data('kendoGrid').dataSource.data([]);
-        //var ds = $("#grid").data("kendoGrid").dataSource;
-
-        //for (var i = 0; i < data.length; i++) {
-        //    ds.add(data[i]);
-        //}
-
+function AjaxObtenerTalleresPorPatio() { 
+    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), talleres: "taller", idPatio: $("#inputPatio").val() }).done(function (data) {  
+        CrearContenedorProyecciones(data);
         CrearContenedorCapacidad(data);
+        CrearArregloTalleres(data);
+
+        $("#inputTalleresWindow").data("kendoComboBox").value("");
+        $("#inputTalleresWindow").data("kendoComboBox").dataSource.data(data);
+
         loadingStop();
     });
 }

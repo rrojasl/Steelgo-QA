@@ -58,23 +58,17 @@ namespace BackEndSAM.DataAcces.InspeccionDimensionalBD
             }
         }
 
-        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje)
+        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura,DataTable dtDetalleJuntasXSpool, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-
-                    // ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-
-                    _SQL.Ejecuta(Stords.GUARDARINSPECCIONDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", parametro);
-
-
+                    _SQL.Ejecuta(Stords.GUARDARINSPECCIONDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", dtDetalleJuntasXSpool, "@juntas", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
-                   
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

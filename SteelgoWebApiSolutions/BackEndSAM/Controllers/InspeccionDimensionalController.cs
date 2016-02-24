@@ -12,6 +12,8 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
+
+
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -69,6 +71,28 @@ namespace BackEndSAM.Controllers
                 List<Sam3_Inspeccion_Get_DetalleDimensional_Result> listaObtenerDetalleDimensional = (List<Sam3_Inspeccion_Get_DetalleDimensional_Result>)CapturasRapidasBd.Instance.ObtenerDetalleDimensional(int.Parse(capturaDatosJson.OrdenTrabajoSpoolID), Lenguaje);
 
 
+                List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaJuntasPorOrdenTrabajo = (List<Sam3_Inspeccion_Get_DetalleJunta_Result>)InspeccionBD.Instance.ObtenerDetalleJunta(capturaDatosJson.OrdenTrabajoSpoolID, usuario, Lenguaje);
+
+                
+
+
+                List<InspeccionDimensional.JuntaXSpool> listJuntaXSpool = new List<InspeccionDimensional.JuntaXSpool>();
+                
+
+
+                foreach (Sam3_Inspeccion_Get_DetalleJunta_Result item in listaJuntasPorOrdenTrabajo)
+                {
+                    listJuntaXSpool.Add(new InspeccionDimensional.JuntaXSpool
+                    {
+                        Accion = 1,//por estar solo en la lista habilitado para seleccionar.
+                        Junta = item.Etiqueta,
+                        JuntaID = item.JuntaSpoolID
+                    });
+                }
+
+               
+
+
                 string fecha = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, Lenguaje, 16);
 
 
@@ -91,6 +115,8 @@ namespace BackEndSAM.Controllers
                         ResultadoID = "",
                         Resultado = "",
                         ListaResultados = ObtenerListaResultado((List<Sam3_Steelgo_Get_TipoResultado_Result>)TipoResultadoBd.Instance.ObtenerListadoResultados(Lenguaje)),
+                        ListaJuntas = listJuntaXSpool,
+                        TemplateRender = " "
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }
@@ -98,9 +124,11 @@ namespace BackEndSAM.Controllers
                 {
                     foreach (Sam3_Inspeccion_Get_DetalleDimensional_Result item in listaObtenerDetalleDimensional)
                     {
+                        List<int?> ListaJutasSeleccionadasXSpoolID = (List<int?>)InspeccionBD.Instance.ObtenerDetalleJuntaSeleccionada(capturaDatosJson.OrdenTrabajoSpoolID,item.DefectoID.GetValueOrDefault(), usuario, Lenguaje);
+
                         InspeccionDimensional.DetalleDatosJson detalleDatos = new InspeccionDimensional.DetalleDatosJson
                         {
-                           
+                            
                             Accion = 2,
                             InspeccionDimensionalID = item.InspeccionDimensionalID,
                             ProyectoID = capturaDatosJson.ProyectoID,
@@ -116,7 +144,14 @@ namespace BackEndSAM.Controllers
                             ResultadoID = item.ResultadoID.ToString(),
                             Resultado = item.Resultado,
                             ListaResultados = ObtenerListaResultado((List<Sam3_Steelgo_Get_TipoResultado_Result>)TipoResultadoBd.Instance.ObtenerListadoResultados(Lenguaje)),
+                            ListaJuntas = listJuntaXSpool,
+                            IDDEFECTOTIPO= item.IdDefectoTipo.GetValueOrDefault(),
+
+                            ListaJuntasSeleccionadas= ObtenerJuntasID(ListaJutasSeleccionadasXSpoolID),
+                            TemplateRender = Lenguaje == "es-MX" ? "Existen " + ListaJutasSeleccionadasXSpoolID.Count + " Juntas" : "There are " + ListaJutasSeleccionadasXSpoolID.Count + " board",
+                            TIPO =item.Tipo
                         };
+                        detalleDatos.ListaJuntas = ObtenerJuntasSeleccionadas(detalleDatos.ListaJuntas, detalleDatos.ListaJuntasSeleccionadas);
                         listaDetalleDatos.Add(detalleDatos);
                     }
                 }
@@ -135,6 +170,34 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        private List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasSeleccionadas(List<InspeccionDimensional.JuntaXSpool> listaJuntas, List<InspeccionDimensional.JuntaXSpool> ListaJuntasSeleccionadas)
+        {
+            for (int i = 0; i < listaJuntas.Count; i++)
+            {
+                for (int j = 0; j < ListaJuntasSeleccionadas.Count; j++)
+                {
+                    if (listaJuntas[i].JuntaID == ListaJuntasSeleccionadas[j].JuntaID) {
+                        listaJuntas[i].Accion = 2;
+                    }
+                }
+            }
+
+            return listaJuntas;
+        }
+
+        private List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasID(List<int?> listaJuntasPorOrdenTrabajoSeleccionada)
+        {
+            List<InspeccionDimensional.JuntaXSpool> listJuntaXSpoolSeleccionado = new List<InspeccionDimensional.JuntaXSpool>();
+            foreach (int item in listaJuntasPorOrdenTrabajoSeleccionada)
+            {
+                listJuntaXSpoolSeleccionado.Add(new InspeccionDimensional.JuntaXSpool
+                {
+                    Accion = 2,//dos porque existe ya en el defecto.
+                    JuntaID = item
+                });
+            }
+            return listJuntaXSpoolSeleccionado;
+        }
         private List<Defectos> ObtenerListaDefectos(List<Sam3_Steelgo_Get_Defectos_Result> listaDefecto)
         {
             List<Defectos> listaDefectos = new List<Defectos>();
@@ -143,7 +206,9 @@ namespace BackEndSAM.Controllers
                 Defectos Defecto = new Defectos
                 {
                     DefectoID = item.DefectoID,
-                    Nombre = item.Nombre
+                    Nombre = item.Nombre,
+                    IDDEFECTOTIPO = item.IdDefectoTipo,
+                    TIPO = item.Tipo
                 };
                 listaDefectos.Add(Defecto);
             }
@@ -191,9 +256,25 @@ namespace BackEndSAM.Controllers
             {
                 
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+               
+                DataTable JuntasSeleccionadas = null;
+
+                foreach (BackEndSAM.Models.InspeccionDimensional.InspeccionDimensional.DetalleGuardarJson item in listaCaptura.Detalles)
+                {
+                    if (item.ListaJuntas != null)
+                    {
+                        if (JuntasSeleccionadas == null)
+                            JuntasSeleccionadas = ArmadoController.ToDataTable(item.ListaJuntas);
+                        else
+                            JuntasSeleccionadas.Merge(ArmadoController.ToDataTable(item.ListaJuntas));
+
+                    }
+                }
+
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCaptura.Detalles);
-                
-                return InspeccionDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, usuario, lenguaje);
+                dtDetalleCaptura.Columns.Remove("ListaJuntas");
+
+                return InspeccionDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, JuntasSeleccionadas, usuario, lenguaje);
             }
             else
             {

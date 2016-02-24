@@ -64,7 +64,7 @@
 <div id="gridStack">
     <div class="grid-stack" style="font-size:10px;">
         <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4">
-            <div class="grid-stack-item-content border-shadow" id="gridProyecciones">
+            <div class="grid-stack-item-content border-shadow" id="gridProyecciones" style="overflow-x:auto">
                 
                 <div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div> 
                 <div id="grid"></div> 
@@ -79,8 +79,9 @@
             </div> 
         </div> 
 
+        @*Grid Capacidad*@
         <div class="grid-stack-item" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">
-            <div class="grid-stack-item-content border-shadow" style="" id="gridCapacidad">
+            <div class="grid-stack-item-content border-shadow" style="overflow-x:auto" id="gridCapacidad">
                 <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Capacidad</div> 
                 @*Vista de Sergio*@
                     <table class="table table-condensed" style="border-collapse:collapse;">
@@ -91,54 +92,7 @@
                                 <th>Man</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td width="10%">A</td>
-                                <td width="30%"  id="tallerA-automatico" class="automatico">
-                                 
-                                </td>
-                                <td width="30%" id="tallerA-automan" class="automan">
-                                
-                                </td>
-                                <td width="30%" id="tallerA-manual" class="manual">
-                                 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10%">B</td>
-                                <td width="30%" id="tallerB-automatico">
-                                 
-                                </td>
-                                <td width="30%" id="tallerB-automan">
-                                 
-                                </td>
-                                <td width="30%" id="tallerB-manual">
-                                
-                                </td>   
-                            </tr>
-                            <tr>
-                                <td width="10%">C</td>
-                                <td width="30%" id="tallerC-automatico">
-                                 
-                                </td>
-                                <td width="30%" id="tallerC-automan"> 
-
-                                </td>
-                                <td width="30%" id="tallerC-manual">
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10%">D</td>
-                                <td width="30%" id="tallerD-automatico">
-
-                                </td>
-                                <td width="30%" id="tallerD-automan"> 
-
-                                </td>
-                                <td width="30%" id="tallerD-manual">
-                                </td>
-                            </tr>
+                        <tbody id="contenedorTalleresCapacidad"> 
                             <tr>
                                 <td width="10%">Despacho</td>
                                 <td colspan="3" id="tallerDespacho">
@@ -156,18 +110,16 @@
            </div> 
         </div>
 
+        @*Grid proyecciones*@
         <div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4"> 
-             <div class="grid-stack-item-content border-shadow" id="gridTalleres"> 
+             <div class="grid-stack-item-content border-shadow" id="gridTalleres"  style="overflow-x:auto"> 
                 <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Proyecciones</div> 
                     <table class="table table-condensed" style="border-collapse:collapse;">
                         <thead>
                             <tr id="talleresProyeccion">
                                 <th width="20px">&nbsp;</th>
                                 <th>&nbsp;</th>
-                                @*<th width="20px" style="text-align:center;">A</th>
-                                <th width="20px" style="text-align:center;">B</th>
-                                <th width="20px" style="text-align:center;">C</th>
-                                <th width="20px" style="text-align:center;">D</th>*@
+
                             </tr>
                         </thead>
                         <tbody id="contenedorProyecciones">
@@ -178,6 +130,7 @@
         </div> 
         <span style="color:#ffffff">.</span> 
          
+        @*Ventanas - popup*@
         <form id="divProyectarWindow" style="display:none">
             <div class="row"> 
                 <div class="container" style="padding:15px;;width:inherit"> 
@@ -233,8 +186,7 @@
         </form>
     </div> 
 </div>
-    </div>
-</div>
+<div id="divEliminarProyeccionWindow"></div>
  <br /><br />
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

@@ -70,6 +70,69 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        /// <summary>
+        /// Obtiene el detalle de la junta con respecto  la inspeccion
+        /// </summary>
+        /// <param name="JsonCaptura"></param>
+        /// <param name="usuario"></param>
+        /// <param name="Lenguaje"></param>
+        /// <returns></returns>
+        public object ObtenerDetalleJunta(string OrdenTrabajoSpoolID, Sam3_Usuario usuario, string Lenguaje)
+        {
+
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Inspeccion_Get_DetalleJunta(int.Parse(OrdenTrabajoSpoolID), Lenguaje).ToList();
+                    return listaDetalleDatosJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el detalle de las juntas seleccionadas con respecto a  la inspeccion
+        /// </summary>
+        /// <param name="JsonCaptura"></param>
+        /// <param name="usuario"></param>
+        /// <param name="Lenguaje"></param>
+        /// <returns></returns>
+        public object ObtenerDetalleJuntaSeleccionada(string OrdenTrabajoSpoolID,int defectoID, Sam3_Usuario usuario, string Lenguaje)
+        {
+
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<int?> listaDetalleDatosSeleciconadoJson = ctx.Sam3_Inspeccion_Get_DetalleJuntaSeleccionada(int.Parse(OrdenTrabajoSpoolID), Lenguaje, defectoID).ToList();
+                    return listaDetalleDatosSeleciconadoJson;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Retorna el listado de numeros unicos ¿
         /// </summary>

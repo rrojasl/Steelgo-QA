@@ -1,7 +1,11 @@
-﻿/// <reference path="Captura.js" />
+﻿
+/// <reference path="Captura.js" />
 function changeLanguageCall() {
     $("#Area").data("kendoComboBox").value("");
     AjaxCargarArea();
      AjaxObtenerPatios();
-    AjaxHerramientas();
+     AjaxHerramientas();
+     loadingStop();
+     Limpiar();
+     HablilitarInputs();
 };

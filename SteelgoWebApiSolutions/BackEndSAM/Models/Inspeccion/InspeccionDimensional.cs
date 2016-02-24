@@ -34,6 +34,11 @@ namespace BackEndSAM.Models.InspeccionDimensional
             public string Inspector { get; set; }
             public List<Inspector> ListaInspector { get; set; }
             public string FechaInspeccion { get; set; }
+            public List<JuntaXSpool> ListaJuntas { get; set; }
+            public List<JuntaXSpool> ListaJuntasSeleccionadas { get; set; }
+            public string TemplateRender { get; set; }
+            public int IDDEFECTOTIPO { get; set; }
+            public string TIPO { get; set; }
         }
 
         public class DetalleGuardarJson
@@ -45,6 +50,22 @@ namespace BackEndSAM.Models.InspeccionDimensional
             public string DefectosID { get; set; }
             public string InspectorID { get; set; }
             public string FechaInspeccion { get; set; }
+            public List<BackEndSAM.Models.InspeccionDimensional.InspeccionDimensional.JuntaXSpoolGuardar> ListaJuntas { get; set; }
+        }
+
+        public class JuntaXSpool
+        {
+            public int Accion { get; set; }
+            public int JuntaID { get; set; }
+            public string Junta { get; set; }
+        }
+
+        public class JuntaXSpoolGuardar
+        {
+            public int Accion { get; set; }
+            public string DefectoID { get; set; }
+            public int JuntaID { get; set; }
+            public int OrdenTrabajoSpoolID { get; set; }
         }
     }
 }

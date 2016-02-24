@@ -119,10 +119,10 @@ function RenderGridNivelTres(e) {
     
     var model = e.data;
     kendo.bind(detailRow, model);
-    model.bind('change', function (e) {
-        var tr = $('tr[data-uid=' + model.uid + ']');
-        $('#grid').data().kendoGrid.expandRow(tr);
-    })
+    //model.bind('change', function (e) {
+    //    var tr = $('tr[data-uid=' + model.uid + ']');
+    //    $('#grid').data().kendoGrid.expandRow(tr);
+    //})
     
     detailRow.find(".nivel3").kendoGrid({
         edit: function (e) {
@@ -130,7 +130,7 @@ function RenderGridNivelTres(e) {
         },
         autoBind: true, 
         dataSource: {
-            data: model,
+            data: model.ListaJuntas,
             schema: {
                 model: {
                     fields: {

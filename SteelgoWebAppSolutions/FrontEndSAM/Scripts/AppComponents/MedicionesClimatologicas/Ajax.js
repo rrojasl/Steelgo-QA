@@ -7,6 +7,9 @@
         ListaDetalles = [];
         var estaIncompleto = false;
         validaciones();
+        //opcionHabilitarView(true, "FieldSetView");
+        //DeshablilitarInputs();
+        loadingStop();
         
 
     } catch (e) {
@@ -18,46 +21,11 @@
 
 function ArregloListadoCaptura() {
     CondicionClimatologica = [];
-    JsonCaptura = [];
-
-    JsonCaptura[0] = {
-        ZonaID: "",
-        PatioID: "",
-        FechaToma: "",
-        HoraToma: "",
-
-        TemperaturaAmbiente: "",
-        HerramientaAmbienteID: "",
-
-        PorcentajeHumedad: "",
-        HerramientaHumedadID: "",
-
-        PuntoRocio: "",
-        HerramientPuntoRocioID: "",
-
-        CampoX: "",
-        HerramientaCampoXID: ""
-
-    };
-
-    CondicionClimatologica[0] = { Detalle: "" };
-    JsonCaptura[0].PatioID = $("#inputPatio").data("kendoComboBox").dataItem($("#inputPatio").data("kendoComboBox").select()).PatioID;
-    JsonCaptura[0].ZonaID = $("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()).AreaID;
-    JsonCaptura[0].FechaToma = $("#inputMedicionesfechaToma").val();
-    JsonCaptura[0].HoraToma = $("#inputMedicionesHoraToma").val();
-    //JsonCaptura[0].ProyectoID = "1"; //$("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID;
-    JsonCaptura[0].TemperaturaAmbiente = $("#inputMedicionesTempAmbiente").val();
-    JsonCaptura[0].HerramientaAmbienteID = $("#inputEquipoTomaTempAmbID").data("kendoComboBox").dataItem($("#inputEquipoTomaTempAmbID").data("kendoComboBox").select()).HerramientaDePruebaID;
-    JsonCaptura[0].PorcentajeHumedad = $("#inputMedicionesHumedad").val();
-    JsonCaptura[0].HerramientaHumedadID = $("#inputEquipoTomaHumedadID").data("kendoComboBox").dataItem($("#inputEquipoTomaHumedadID").data("kendoComboBox").select()).HerramientaDePruebaID;
-    JsonCaptura[0].PuntoRocio = $("#inputMedicionesPuntoRocio").val();
-    JsonCaptura[0].HerramientPuntoRocioID = $("#inputEquipoTomaPtoRocioID").data("kendoComboBox").dataItem($("#inputEquipoTomaPtoRocioID").data("kendoComboBox").select()).HerramientaDePruebaID;
-    JsonCaptura[0].CampoX = $("#inputMedicionesCampoX").val();
-    JsonCaptura[0].HerramientaCampoXID = $("#inputEquipoTomaCampoXID").data("kendoComboBox").dataItem($("#inputEquipoTomaCampoXID").data("kendoComboBox").select()).HerramientaDePruebaID;
-
-
+    
     CondicionClimatologica[0] = {
+        CondicionClimatologicaID : "",
         Accion: "",
+        PatioID : "",
         ZonaID: "",
         PatioID: "",
         FechaToma: "",
@@ -72,82 +40,66 @@ function ArregloListadoCaptura() {
         HerramientaCampoXID: ""
     };
     CondicionClimatologica[0].Accion = "";
-    CondicionClimatologica[0].ZonaID = JsonCaptura[0].ZonaID;
-    CondicionClimatologica[0].TemperaturaAmbiente = JsonCaptura[0].TemperaturaAmbiente;
-    CondicionClimatologica[0].HerramientaTempAmbienteID = JsonCaptura[0].HerramientaAmbienteID;
-    CondicionClimatologica[0].PorcentajeHumedad = JsonCaptura[0].PorcentajeHumedad;
-    CondicionClimatologica[0].HerramientaHumedadID = JsonCaptura[0].HerramientaHumedadID;
-    CondicionClimatologica[0].PuntoRocio = JsonCaptura[0].PuntoRocio;
-    CondicionClimatologica[0].HerramientaPuntoRocioID = JsonCaptura[0].HerramientPuntoRocioID;
-    CondicionClimatologica[0].CampoX = JsonCaptura[0].CampoX;
-    CondicionClimatologica[0].HerramientaCampoXID = JsonCaptura[0].HerramientaCampoXID;
-    CondicionClimatologica[0].FechaToma = JsonCaptura[0].FechaToma;
-    CondicionClimatologica[0].HoraToma = JsonCaptura[0].HoraToma;
-
+    CondicionClimatologica[0].ZonaID = $("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()).AreaID;
+    CondicionClimatologica[0].PatioID = $("#inputPatio").data("kendoComboBox").dataItem($("#inputPatio").data("kendoComboBox").select()).PatioID;
+    CondicionClimatologica[0].TemperaturaAmbiente = $("#inputMedicionesTempAmbiente").val();
+    CondicionClimatologica[0].HerramientaTempAmbienteID = $("#inputEquipoTomaTempAmbID").data("kendoComboBox").dataItem($("#inputEquipoTomaTempAmbID").data("kendoComboBox").select()).HerramientaDePruebaID;
+    CondicionClimatologica[0].PorcentajeHumedad = $("#inputMedicionesHumedad").val();
+    CondicionClimatologica[0].HerramientaHumedadID = $("#inputEquipoTomaHumedadID").data("kendoComboBox").dataItem($("#inputEquipoTomaHumedadID").data("kendoComboBox").select()).HerramientaDePruebaID;
+    CondicionClimatologica[0].PuntoRocio = $("#inputMedicionesPuntoRocio").val();
+    CondicionClimatologica[0].HerramientaPuntoRocioID = $("#inputEquipoTomaPtoRocioID").data("kendoComboBox").dataItem($("#inputEquipoTomaPtoRocioID").data("kendoComboBox").select()).HerramientaDePruebaID;
+    CondicionClimatologica[0].CampoX = $("#inputMedicionesCampoX").val();
+    CondicionClimatologica[0].HerramientaCampoXID = $("#inputEquipoTomaCampoXID").data("kendoComboBox").dataItem($("#inputEquipoTomaCampoXID").data("kendoComboBox").select()).HerramientaDePruebaID;
+    CondicionClimatologica[0].FechaToma = $("#inputMedicionesfechaToma").val();
+    CondicionClimatologica[0].HoraToma = $("#inputMedicionesHoraToma").val();
+    CondicionClimatologica[0].CondicionClimatologicaID = $("#hddCambioClimaticoID").val();
+    
     $MedicionesClimatologicas.MedicionesClimatologicas.create(CondicionClimatologica[0], {
         token: Cookies.get("token"), lenguaje: $("#language").val()
-      }).done(function (data) {
+    }).done(function (data) {
+        
+        if (data != null) {
+
+            if (data.CondicionClimatologicaID == 0)
+            {
+                displayMessage("ErrorExisteCapturaMediciones", "", '0');
+            }
+            if (data.CondicionClimatologicaID == -1)
+            {
+                displayMessage("ErrorExisteCapturaMediciones", "", '0');
+            }
+
+            if (data.CondicionClimatologicaID > 0)
+            {
+                $("#hddCambioClimaticoID").val(data.CondicionClimatologicaID);
+                opcionHabilitarView(true, "FieldSetView");
+                DeshablilitarInputs();
+            }
+        }
+        else if (data == null) {
+            opcionHabilitarView(false, "FieldSetView");
+            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+            displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+        }
 
     });
     loadingStop();
-    //return JsonCaptura[0];
 }
-
-//function ValidacionControles() {
-//    //if ($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID === 'undefined'
-//    //    || $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID === ''
-//    //    || $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID == null)
-//    //{ return true  };
-//    //if ($("#inputPatio").data("kendoComboBox").dataItem($("#inputPatio").data("kendoComboBox").select()).PatioID === 'undefined'
-//    //    || $("#inputPatio").data("kendoComboBox").dataItem($("#inputPatio").data("kendoComboBox").select()).PatioID === ''
-//    //    || $("#inputPatio").data("kendoComboBox").dataItem($("#inputPatio").data("kendoComboBox").select()).PatioID == null)
-//    //{ return true };
-//    //if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()).AreaID === 'undefined' ||
-//    //   $("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()).AreaID === '' ||
-//    //    $("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()).AreaID == null)
-//    //{ return true };
-//    //if ($("#inputMedicionesTempAmbiente").val() === 'undefined'
-//    //    || $.trim($("#inputMedicionesTempAmbiente").val()) === ''
-//    //    || $("#inputMedicionesTempAmbiente").val() == null)
-//    //{ return true };
-//    //if ($("#inputMedicionesHumedad").val() === 'undefined'
-//    //    || $.trim($("#inputMedicionesHumedad").val()) === ''
-//    //    || $("#inputMedicionesHumedad").text() == null)
-//    //{ return true };
-//    //if ($("#inputMedicionesPuntoRocio").val() === 'undefined'
-//    //    || $.trim($("#inputMedicionesPuntoRocio").val()) === ''
-//    //    || $("#inputMedicionesPuntoRocio").text() == null)
-//    //{ return true };
-//    //if ($("#inputMedicionesCampoX").val() === 'undefined'
-//    //    || $.trim($("#inputMedicionesCampoX").val()) === ''
-//    //    || $("#inputMedicionesCampoX").val() == null)
-//    //{ return true };
-//    //if ($("#inputMedicionesfechaToma").val() === 'undefined'
-//    //    || $.trim($("#inputMedicionesfechaToma").val()) === ''
-//    //    || $("#inputMedicionesfechaToma").val() == null)
-//    //{ return true };
-//    //if ($("#inputMedicionesHoraToma").val() === 'undefined'
-//    //    || $.trim($("#inputMedicionesHoraToma").val()) === ''
-//    //    || $("#inputMedicionesHoraToma").val() == null)
-//    //{ return true };
-//    ////if ($("#inputEquipoTomaID").val() === 'undefined'
-//    ////    || $.trim($("#inputEquipoTomaID").val()) === ''
-//    ////    || $("#inputEquipoTomaID").val() == null)
-//    ////{ return true };
-//    return false;
-//}
 
 function validaciones()
 {
-    var controles = $("#FieldSetView").kendoValidator().data("kendoValidator");
+    var controles = $("#FieldSetView").kendoValidator({
+        errorTemplate: ""
+    }).data("kendoValidator");
     if (controles.validate()) {
         ArregloListadoCaptura();
     }
     else {
+        //$('#FieldSetView').find(':input').css("box-shadow", "0px 0px 0px 1px red");
+        //$('.k-widget k-datepicker k-header').css("border-color", "red");
         displayMessage("ErrorCapturaMediciones", "", '0');
         loadingStop();
     }
-
 }
 
 //Get Zonas-Areas
@@ -166,14 +118,12 @@ function AjaxObtenerPatios() {
     $Patios.Patios.read({ token: Cookies.get("token"), tipo: 2, proyectoID: 0 }).done(function (data) {
         $("#inputPatio").data("kendoComboBox").value("");
         $("#inputPatio").data("kendoComboBox").dataSource.data(data);
-        alert(JSON.stringify(data));
-        loadingStop();
+       loadingStop();
     });
 
 }
 
 /// get herramientas de medicion 
-
 
 function AjaxHerramientas()
 {
