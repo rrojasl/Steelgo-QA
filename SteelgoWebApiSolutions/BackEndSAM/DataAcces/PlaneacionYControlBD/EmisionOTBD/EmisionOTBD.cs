@@ -73,38 +73,39 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             }
         }
 
-        public object MostrarSpoolsEnProyecto ()
+        public object MostrarSpoolsEnProyecto (int proyectoID, int patioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_SteelGo_Get_Proyectos_Patio_Result> result = ctx.Sam3_SteelGo_Get_Proyectos_Patio().ToList();
+                    List<Sam3_PYO_EmisionOT_Get_N1_Result> result = ctx.Sam3_PYO_EmisionOT_Get_N1(proyectoID,patioID).ToList();
 
                     List<DetalleProyectoPrueba> proyectoList = new List<DetalleProyectoPrueba>();
                     List<DetalleSpoolPrueba> detalleSpools1 = ObtenerSpools(1);
                     List<DetalleSpoolPrueba> detalleSpools2 = ObtenerSpools(2);
-                     
-                    proyectoList.Add(new DetalleProyectoPrueba
-                    {
-                        FamiliaID = 1,
-                        TipoProducto = "Spool",
-                        FamiliaAcero = "CS",
-                        Acero = "A16",
-                        FibeLine = "Auto 6-24",
-                        ListaSpools = detalleSpools1
-                    });
 
-                    proyectoList.Add(new DetalleProyectoPrueba
+                    foreach (var item in result)
                     {
-                        FamiliaID = 2,
-                        TipoProducto = "Spool",
-                        FamiliaAcero = "AL-P91",
-                        Acero = "B42",
-                        FibeLine = "SAW 8-30",
-                        ListaSpools = detalleSpools2
-                    });
- 
+                        proyectoList.Add(new DetalleProyectoPrueba
+                        {
+                            TipoProductoID = 0,
+                            TipoProducto = item.TipoProducto,
+                            FamiliaAceroID = item.FamiliaAceroID,
+                            FamiliaAcero = item.FamiliaAcero,
+                            Acero = item.Acero,
+                            AceroID = item.AceroID,
+                            FabLine = item.FabLine,
+                            Area = item.Area.ToString(),
+                            Juntas = item.Juntas.ToString(),
+                            Peqs = item.Peqs.ToString(),
+                            Peso = item.Peso.ToString(),
+                            Spools = item.Spools.ToString(),
+                            ListaSpools = detalleSpools1
+                        });
+                    }
+                    
+
                     return proyectoList;
                 }
             }

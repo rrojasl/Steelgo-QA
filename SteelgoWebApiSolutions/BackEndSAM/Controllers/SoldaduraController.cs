@@ -408,26 +408,7 @@ namespace BackEndSAM.Controllers
 
             List<TrabajosAdicionalesSoldadura> listaDetalleAdicional = new List<TrabajosAdicionalesSoldadura>();
 
-            if (listaTrabajoAdicional.Count == 0)
-            {
-                TrabajosAdicionalesSoldadura detalleAdicional = new TrabajosAdicionalesSoldadura
-                {
-                    Accion = 1,
-                    JuntaSoldaduraID = 0,
-                    SoldaduraTrabajoAdicionalID = 0,
-                    Observacion = "",
-                    TrabajoAdicional = "",
-                    TrabajoAdicionalID = 0,
-                    ObreroID = 0,
-                    Soldador = "",
-                    JuntaSpoolID = juntaSpoolId,
-
-                };
-                listaDetalleAdicional.Add(detalleAdicional);
-                return listaDetalleAdicional;
-            }
-            else
-            {
+            
                 foreach (Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
                 {
                     TrabajosAdicionalesSoldadura detalleAdicional = new TrabajosAdicionalesSoldadura
@@ -442,9 +423,8 @@ namespace BackEndSAM.Controllers
                         Soldador = item.Soldador
                     };
                     listaDetalleAdicional.Add(detalleAdicional);
-                }
-                return listaDetalleAdicional;
             }
+            return listaDetalleAdicional;
         }
 
         public List<Raiz> GenerarRaizJson(List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaTrabajoAdicional, int juntaSpoolId)
@@ -672,10 +652,13 @@ namespace BackEndSAM.Controllers
 
                 foreach (DetalleGuardarJson item in listaCapturasSoldadura.Detalles)
                 {
-                    if (TabajosAdicionales == null)
-                        TabajosAdicionales = ToDataTable(item.ListaDetalleTrabajoAdicional);
-                    else
-                        TabajosAdicionales.Merge(ToDataTable(item.ListaDetalleTrabajoAdicional));
+                    if (item.ListaDetalleTrabajoAdicional != null)
+                    {
+                        if (TabajosAdicionales == null)
+                            TabajosAdicionales = ToDataTable(item.ListaDetalleTrabajoAdicional);
+                        else
+                            TabajosAdicionales.Merge(ToDataTable(item.ListaDetalleTrabajoAdicional));
+                    }
                 }
 
                 foreach (DetalleGuardarJson item in listaCapturasSoldadura.Detalles)

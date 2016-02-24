@@ -8,15 +8,19 @@ namespace BackEndSAM.Models.PlaneacionYControl
 
     public class DetalleProyectoPrueba
     {
-        public int FamiliaID { get; set; }
         public int TipoProductoID { get; set; }
         public string TipoProducto { get; set; }
+        public int FamiliaAceroID { get; set; }
         public string FamiliaAcero { get; set; }
+        public int AceroID { get; set; }
         public string Acero { get; set; }
-        public string FibeLine { get; set; }
+        public string Peso { get; set; }
+        public string Spools { get; set; }
+        public string Juntas { get; set; }
+        public string Area { get; set; }
+        public string Peqs { get; set; }
+        public string FabLine { get; set; }
         public List<DetalleSpoolPrueba> ListaSpools { get; set; } 
-        public int ProyectoID { get; set; }
-        public string Proyecto { get; set; }
         public List<DetallePatio> ListaPatio { get; set; }
     }
 
