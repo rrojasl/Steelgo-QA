@@ -334,7 +334,7 @@ function ObtenerProyeccionesExistentes() {
         $("#inputProyecciones").data("kendoComboBox").dataSource.data(data[0]);
     }
     else {
-        alert("no existen proyecciones con la misma familia acero");
+        displayMessage("AdvertenciaFamiliaCero", "", '0');
         $("#divProyectarWindow").data("kendoWindow").close();
     } 
 }
@@ -417,7 +417,7 @@ function ValidarValoresAntesDeProyectar() {
 
         if (listaSpool.length == 0) {
             correcto = false;
-            alert("por favor seleccione un spool");
+            displayMessage("AdvertenciaSeleccioneSpool", "", '0');
         }
 
         for (var j = 0; j < listaSpool.length; j++) {
@@ -431,7 +431,7 @@ function ValidarValoresAntesDeProyectar() {
             }
             else if (listaSpool[j].Seleccionado && familiaAcero > -1 && familiaAcero != ds[i].FamiliaID) {
                 correcto = false;
-                alert("Los spools seleccionados son de diferentes familias"); 
+                displayMessage("AdvertenciaDiferentesFamilias", "", '0');
             }
         } 
     }
