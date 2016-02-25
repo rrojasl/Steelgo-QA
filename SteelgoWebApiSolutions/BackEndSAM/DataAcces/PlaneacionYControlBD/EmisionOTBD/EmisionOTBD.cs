@@ -79,11 +79,11 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_PYO_EmisionOT_Get_N1_Result> result = ctx.Sam3_PYO_EmisionOT_Get_N1(proyectoID,patioID).ToList();
+                    List<Sam3_PyC_EmisionOT_Get_N1_Result> result = ctx.Sam3_PyC_EmisionOT_Get_N1(proyectoID,patioID).ToList();
 
                     List<DetalleProyectoPrueba> proyectoList = new List<DetalleProyectoPrueba>();
-                    List<DetalleSpoolPrueba> detalleSpools1 = ObtenerSpools(1);
-                    List<DetalleSpoolPrueba> detalleSpools2 = ObtenerSpools(2);
+                    //List<DetalleSpoolPrueba> detalleSpools1 = ObtenerSpools(1);
+                    //List<DetalleSpoolPrueba> detalleSpools2 = ObtenerSpools(2);
 
                     foreach (var item in result)
                     {
@@ -101,7 +101,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                             Peqs = item.Peqs.ToString(),
                             Peso = item.Peso.ToString(),
                             Spools = item.Spools.ToString(),
-                            ListaSpools = detalleSpools1
+                            ListaSpools = ObtenerSpools(item.FabLine)
                         });
                     }
                     
@@ -165,118 +165,40 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             }
         }
 
-        public List<DetalleSpoolPrueba> ObtenerSpools (int familia)
+        public List<DetalleSpoolPrueba> ObtenerSpools (string fabLine)
         {
             try
             {
-              
-                List<DetalleSpoolPrueba> detalleSpools = new List<DetalleSpoolPrueba>();
-                List<DetalleJuntasPrueba> detalleJuntas1 = ObtenerJuntas(1);
-                List<DetalleJuntasPrueba> detalleJuntas2 = ObtenerJuntas(2);
-
-                if (familia == 1)
+                using (SamContext ctx = new SamContext())
                 {
-                    detalleSpools.Add(new DetalleSpoolPrueba
-                    {
-                        TipoID = 1,
-                        Tipo = "automatico",
-                        SpoolID = 1001,
-                        Seleccionado = 0,
-                        Proyectado = 0,
-                        SpoolNombre = "Spool 1",
-                        Dibujo = "04-4'-BUT-3CB1S-1006-NI-",
-                        DiametroMaximo = 500,
-                        DiametroPromedio = 250,
-                        Peso = 900,
-                        Area = 600,
-                        ListaJuntas = detalleJuntas1
-                    });
+                    List<DetalleSpoolPrueba> detalleSpools = new List<DetalleSpoolPrueba>();
+                    List<Sam3_PyC_EmisionOT_Get_N2_Result> result = ctx.Sam3_PyC_EmisionOT_Get_N2(fabLine).ToList();
+                    List<DetalleJuntasPrueba> detalleJuntas1 = ObtenerJuntas(1);
+                    List<DetalleJuntasPrueba> detalleJuntas2 = ObtenerJuntas(2);
 
-                    detalleSpools.Add(new DetalleSpoolPrueba
+                    foreach (var item in result)
                     {
-                        TipoID = 1,
-                        Tipo = "automatico",
-                        SpoolID = 1002,
-                        Seleccionado = 0,
-                        Proyectado = 0,
-                        SpoolNombre = "Spool 2",
-                        Dibujo = "02-4'-BUT-3CB1S-1006-NI-",
-                        DiametroMaximo = 300,
-                        DiametroPromedio = 150,
-                        Peso = 600,
-                        Area = 300,
-                        ListaJuntas = detalleJuntas1
-                    });
-
-                    detalleSpools.Add(new DetalleSpoolPrueba
-                    {
-                        TipoID = 1,
-                        Tipo = "automatico",
-                        SpoolID = 1003,
-                        Seleccionado = 0,
-                        Proyectado = 0,
-                        SpoolNombre = "Spool 3",
-                        Dibujo = "04-4'-AEO-3CB1S-1006-NI-",
-                        DiametroMaximo = 5000,
-                        DiametroPromedio = 2500,
-                        Peso = 1000,
-                        Area = 600,
-                        ListaJuntas = detalleJuntas1
-                    });
-
-                    detalleSpools.Add(new DetalleSpoolPrueba
-                    {
-                        TipoID = 1,
-                        Tipo = "automatico",
-                        SpoolID = 1004,
-                        Seleccionado = 0,
-                        Proyectado = 0,
-                        SpoolNombre = "Spool 4",
-                        Dibujo = "54-6'-AEO-3CB1S-1006-NI-",
-                        DiametroMaximo = 50,
-                        DiametroPromedio = 25,
-                        Peso = 10,
-                        Area = 9,
-                        ListaJuntas = detalleJuntas1
-                    });
+                        detalleSpools.Add(new DetalleSpoolPrueba
+                        {
+                            TipoID = item.TipoID,
+                            Tipo = item.Tipo,
+                            SpoolID = item.SpoolID,
+                            Seleccionado = 0,
+                            Proyectado = 0,
+                            SpoolNombre = item.SpoolNombre,
+                            Dibujo = item.Dibujo,
+                            DiametroMaximo = item.DiametroMayor,
+                            DiametroPromedio = item.DiametroPromedio,
+                            Peso = item.Peso.GetValueOrDefault(),
+                            Area = item.Area.GetValueOrDefault(),
+                            Juntas = item.Juntas.GetValueOrDefault(),
+                            Peqs = item.Peqs.GetValueOrDefault(),
+                            ListaJuntas = detalleJuntas2
+                        });
+                    }
+                    return detalleSpools;
                 }
-                else
-                {
-                    detalleSpools.Add(new DetalleSpoolPrueba
-                    {
-                        TipoID = 2,
-                        Tipo = "manual",
-                        SpoolID = 1005,
-                        Seleccionado = 0,
-                        Proyectado = 0,
-                        SpoolNombre = "Spool 1",
-                        Dibujo = "14-4'-AEO-3CB1S-1006-NI-",
-                        DiametroMaximo = 2000,
-                        DiametroPromedio = 100,
-                        Peso = 100,
-                        Area = 600,
-                        ListaJuntas = detalleJuntas2
-                    });
-
-                    detalleSpools.Add(new DetalleSpoolPrueba
-                    {
-                        TipoID = 2,
-                        Tipo = "manual",
-                        SpoolID = 1006,
-                        Seleccionado = 0,
-                        Proyectado = 0,
-                        SpoolNombre = "Spool 2",
-                        Dibujo = "84-6'-AEO-3CB1S-1006-NI-",
-                        DiametroMaximo = 230,
-                        DiametroPromedio = 115,
-                        Peso = 170,
-                        Area = 90,
-                        ListaJuntas = detalleJuntas2
-                    });
-
-                }
-
-                return detalleSpools; 
+             
             }
             catch (Exception ex)
             {

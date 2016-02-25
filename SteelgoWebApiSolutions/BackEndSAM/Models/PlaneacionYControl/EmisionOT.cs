@@ -32,12 +32,14 @@ namespace BackEndSAM.Models.PlaneacionYControl
         public string Proyeccion { get; set; }
         public int TipoID { get; set; }
         public string Tipo { get; set; }
+        public decimal Juntas { get; set; }
+        public decimal Peqs { get; set; }
         public string SpoolNombre { get; set; }
         public string Dibujo { get; set; }
-        public int DiametroMaximo { get; set; }
-        public int DiametroPromedio { get; set; }
-        public int Peso { get; set; }
-        public int Area { get; set; }
+        public decimal DiametroMaximo { get; set; }
+        public string DiametroPromedio { get; set; }
+        public decimal Peso { get; set; }
+        public decimal Area { get; set; }
         public List<DetalleJuntasPrueba> ListaJuntas { get; set; }
     }
 

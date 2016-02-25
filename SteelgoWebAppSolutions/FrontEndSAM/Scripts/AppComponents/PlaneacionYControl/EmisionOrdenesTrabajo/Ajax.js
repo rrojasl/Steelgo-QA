@@ -11,7 +11,7 @@
 } 
 
 function AjaxMostrarSpoolsDeProyecto() {
-    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: $("#inputProyecto").val(), idPatio: $("#inputPatio").val() }).done(function (data) {
+    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: $("#inputProyecto").data("kendoComboBox").value(), idPatio: $("#inputPatio").data("kendoComboBox").value() }).done(function (data) {
       
         //Nivel 1
         $("#grid").data('kendoGrid').dataSource.data([]);
@@ -25,8 +25,11 @@ function AjaxMostrarSpoolsDeProyecto() {
     });
 }
 
-function AjaxObtenerTalleresPorPatio() { 
-    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), talleres: "taller", idPatio: $("#inputPatio").val() }).done(function (data) {  
+function AjaxObtenerTalleresPorPatio() {
+    $(".taller-proyecciones-encabezado").remove();
+    $(".taller-capacidad-contenedor").remove();
+
+    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), talleres: "taller", idPatio: $("#inputPatio").data("kendoComboBox").value() }).done(function (data) {
         CrearContenedorProyecciones(data);
         CrearContenedorCapacidad(data);
         CrearArregloTalleres(data);
