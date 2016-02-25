@@ -127,7 +127,7 @@ function CargarGrid() {
         columns: [
             { field: "Spool", title: "Spool", filterable: true, width: "100px" },
             { field: "SpoolID", title: "Spool ID", filterable: true, width: "100px" },
-            { field: "GrupoEmbarque", title: "Grupo de Embarque", filterable: true, width: "120px" },
+            { field: "GrupoEmbarque", title: "Grupo de Embarque", filterable: true, width: "180px" },
             { field: "Emitido", title: "Emitido", filterable: true, width: "100px" },
             { field: "Junta", title: "Junta", filterable: false, width: "100px" },
             { field: "m2", title: "M2", filterable: false, width: "100px" },

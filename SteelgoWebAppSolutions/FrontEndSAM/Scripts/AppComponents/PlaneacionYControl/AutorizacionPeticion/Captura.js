@@ -28,7 +28,7 @@ function CargarGrid() {
                     Embarque: "15-01-2016",
                     FechaPeticion: "06-02-2016",
                     TipoMaterial: "Acero",
-                    ListaAcciones: acciones
+                    
                 },
                 {
                     Spool: "x",
@@ -41,7 +41,7 @@ function CargarGrid() {
                     Embarque: "21-01-2016",
                     FechaPeticion: "06-02-2016",
                     TipoMaterial: "Acero",
-                    ListaAcciones: acciones
+                    
                 },
                 {
                     Spool: "y",
@@ -54,7 +54,7 @@ function CargarGrid() {
                     Embarque: "15-06-2015",
                     FechaPeticion: "06-06-2015",
                     TipoMaterial: "Acero",
-                    ListaAcciones: acciones
+                    
                 },
                 {
                     Spool: "w",
@@ -67,7 +67,7 @@ function CargarGrid() {
                     Embarque: "",
                     FechaPeticion: "",
                     TipoMaterial: "Acero",
-                    ListaAcciones: acciones
+                    
                 },
             ],
             schema: {
@@ -113,8 +113,7 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
-        detailTemplate: kendo.template($("#templateGridDetalleSpool").html()),
-        detailInit: RenderGridDetalleSpool,
+        
         columns: [
             { field: "Spool", title: "Nombre", filterable: true },
             { field: "SpoolID", title: "Spool ID", filterable: true, template: "<a href='\\#' class='linkDetalle' > <span>#=SpoolID#</span></a>" },
@@ -126,7 +125,6 @@ function CargarGrid() {
             { field: "Embarque", title: "Embarque", filterable: true },
             { field: "FechaPeticion", title: "Fecha Peticion", filterable: true },
             { field: "TipoMaterial", title: "Tipo Material", filterable: true },
-            { field: "Acciones", title: "Acciones", filterable: false, editor: RenderComboBoxAcciones },
             //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });
