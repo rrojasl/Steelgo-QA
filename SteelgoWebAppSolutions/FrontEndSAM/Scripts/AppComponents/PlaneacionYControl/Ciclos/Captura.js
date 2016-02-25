@@ -3,11 +3,11 @@ function changeLanguageCall() {
     SuscribirEventos();
     CargarGrid();
     setTimeout(AjaxObtenerProyectos(), 2000);
-    
-    
+
+
 };
 
-function CargarGrid() { 
+function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
             this.closeCell();
@@ -56,34 +56,41 @@ function CargarGrid() {
             info: false,
             input: false,
             numeric: true,
-        }, 
-        columns: [ 
-            { field: "Etapa", title: "Etapa", filterable: true, width: "120px" },
-            { field: "Clave", title: "Clave", filterable: true, width: "120px" },
-            { field: "CS", title: "CS", filterable: true, width: "120px" },
-            { field: "CSLOTEMP", title: "CS-LOTEMP", filterable: true, width: "120px" },
-            { field: "CSA3336", title: "CS-A333-6", filterable: true, width: "120px" },
-            { field: "CSA672", title: "CS-A672", filterable: true, width: "120px" },
-            { field: "Inoks", title: "Inoks", filterable: true, width: "120px" },
-            { field: "InoksSS3xx", title: "Inoks - SS-3xx", filterable: true, width: "120px" },
+        },
+        columns: [
+            { field: "Etapa", title: "Etapa", filterable: true, width: "120px", },
+            { field: "CS", title: "CS", filterable: true, width: "120px", editable: true },
+            { field: "CSPWHT", title: "CS+PWHT", filterable: true, width: "120px", editable: true },
+            { field: "CSLOTEMP", title: "CS-LOTEMP", filterable: true, width: "120px", editable: true },
+            { field: "CSLOTEMPPWHT", title: "CS-LOTEMP+PWHT", filterable: true, width: "120px", editable: true },
+            { field: "CSA3336", title: "CS-A333-6", filterable: true, width: "120px", editable: true },
+            { field: "CSA3336PWHT", title: "CS-A333-6+PWHT", filterable: true, width: "150px", editable: true },
+            { field: "CSA672", title: "CS-A672", filterable: true, width: "120px", editable: true },
+            { field: "CSA672PWHT", title: "CS-A672+PWHT", filterable: true, width: "150px" },
+            { field: "Inoxs", title: "Inox", filterable: true, width: "120px" },
+            { field: "InoxsPWHT", title: "Inox+PWHT", filterable: true, width: "120px" },
+            { field: "InoxsSS3xx", title: "Inox-SS-3xx", filterable: true, width: "120px" },
+            { field: "InoxsSS3xxPWHT", title: "Inox-SS-3xx+PWHT", filterable: true, width: "150px" },
             { field: "Alloy", title: "Alloy", filterable: true, width: "120px" },
+            { field: "AlloyPWHT", title: "Alloy+PWHT", filterable: true, width: "120px" },
             { field: "AlloyP9", title: "Alloy-P9", filterable: true, width: "120px" },
+            { field: "AlloyP9PWHT", title: "Alloy-P9+PWHT", filterable: true, width: "150px" },
             { field: "AlloyP11", title: "Alloy-P11", filterable: true, width: "120px" },
+            { field: "AlloyP11PWHT", title: "Alloy-P11+PWHT", filterable: true, width: "150px" },
             { field: "AlloyP22", title: "Alloy-P22", filterable: true, width: "120px" },
-            { field: "CSPWHT", title: "CS-PWHT", filterable: true, width: "120px" },
-            { field: "InoksPWHT", title: "Inoks-PWHT", filterable: true, width: "120px" },
-            { field: "AlloyPWHT", title: "Alloy-PWHT", filterable: true, width: "120px" }
-        ] 
+            { field: "AlloyP22PWHT", title: "Alloy-P22+PWHT", filterable: true, width: "150px" },
+
+        ]
     });
     OcultarTodasColumnas();
     CustomisaGrid($("#grid"));
 }
-  
+
 function OcultarColumnas(columnasVisibles) {
     var grid = $("#grid").data("kendoGrid");
     var columnas = grid.columns;
 
-    for (var i = 2; i < columnas.length; i++) {
+    for (var i = 1; i < columnas.length; i++) {
         for (var j = 0; j < columnasVisibles.length; j++) {
             if (i == columnasVisibles[j]) {
                 grid.hideColumn(i);
@@ -93,30 +100,44 @@ function OcultarColumnas(columnasVisibles) {
     }
 }
 
-function OcultarTodasColumnas(columnasVisibles) {
+function OcultarTodasColumnas() { 
     var grid = $("#grid").data("kendoGrid");
     var columnas = grid.columns;
-  
-    for (var i = 2; i < columnas.length; i++) {
-        grid.hideColumn(i);
-    }
 
-    if (columnasVisibles != undefined) { 
-        MostrarColumnas(columnasVisibles);
-    }
+    for (var i = 1; i < columnas.length; i++) {
+        grid.hideColumn(i);
+    } 
 }
 
 function MostrarColumnas(columnasVisibles) {
     var grid = $("#grid").data("kendoGrid");
     var columnas = grid.columns;
-    
-    for (var i = 2; i < columnas.length; i++) {
+
+    for (var i = 1; i < columnas.length; i++) {
         for (var j = 0; j < columnasVisibles.length; j++) {
-            if (i == columnasVisibles[j]) { 
+            if (i == columnasVisibles[j]) {
                 grid.showColumn(i);
                 break;
             }
         }
     }
-     
+
+}
+
+function MostrarColumnasPWHT(columnasVisibles) {
+    var grid = $("#grid").data("kendoGrid");
+    var columnas = grid.columns;
+ 
+    for (var i = 1; i < columnas.length; i++) {
+        for (var j = 0; j < columnasVisibles.length; j++) {
+            var columna = columnasVisibles[j];
+            
+            if (i == columnasVisibles[j]) {
+                columna++
+                grid.showColumn(columna);
+                break;
+            }
+        }
+    }
+
 }
