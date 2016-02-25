@@ -8,6 +8,17 @@ function SuscribirEventoPopUp() {
     $(document).on('click', '.linkDetalle', function (e) {
         VentanaModal();
     });
+
+   
+    
+    $("#btnGuarda").click(function () {
+        $("#windowDetalle").data("kendoWindow").close();
+    });
+
+    $("#btnCancela").click(function () {
+        $("#windowDetalle").data("kendoWindow").close();
+    });
+
 }
 function cambioSumatoria() {
     $(".itemSumatoria").change(function (e) {
