@@ -141,6 +141,7 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
+            { field: "Acciones", title: "Resolucion", filterable: false, editor: RenderComboBoxAcciones, width: "100px" },
             { field: "Spool", title: "Nombre", filterable: true, width: "100px" },
             { field: "SpoolID", title: "Spool ID", filterable: true, width: "100px" },
             { field: "Paso", title: "Paso", filterable: true, width: "100px" },
@@ -156,7 +157,7 @@ function CargarGrid() {
             { field: "Embarque", title: "Embarque", filterable: true, width: "120px" },
             { field: "FechaPeticion", title: "Fecha Peticion", filterable: true, width: "150px" },
             { field: "TipoMaterial", title: "Tipo Material", filterable: true, width: "150px" },
-            { field: "Acciones", title: "Acciones", filterable: false, editor: RenderComboBoxAcciones, width: "100px" },
+            
 
             //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
