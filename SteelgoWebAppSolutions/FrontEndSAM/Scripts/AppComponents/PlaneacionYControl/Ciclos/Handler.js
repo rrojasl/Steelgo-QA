@@ -31,6 +31,7 @@ function SuscribirEventoProyecto() {
                 displayMessage("errorNoExisteProyecto", '', '2');
             }
         }
+          
     });
 }
 
@@ -42,7 +43,7 @@ function SuscribirEventoSeleccionar1() {
         var columnasVisiblesPWHT = [2, 10, 14];
 
         var checked = $("#chkFamiliaAcero").is(':checked');
-        debugger;
+       
         if ($(this).attr("id") == "chkFamiliaAcero") {
             OcultarTodasColumnas(columnasVisiblesFamiliaAcero);
 
@@ -82,7 +83,7 @@ function SuscribirEventoSeleccionar1() {
             }
         }
 
-        debugger;
+   
         if ($(this).attr("id") == "chkPWHT") {
             if ($(this).is(':checked') && $("#chkFamiliaAcero").is(':checked') ||
                 $(this).is(':checked') && $("#chkFamiliaMateriales").is(':checked')) {
@@ -106,6 +107,7 @@ function SuscribirEventoSeleccionar1() {
                 OcultarColumnas(columnasVisiblesPWHT);
             }
         }
+   
     });
 }
 
@@ -139,5 +141,7 @@ function SuscribirEventoSeleccionar() {
                 $("#chkPWHT").is(':checked')) {
             OcultarTodasColumnas();
         }
+        $(".DivScrollSup").css("width", $('table[role="grid"]').width() - 17 +120)
     });
+    
 }
