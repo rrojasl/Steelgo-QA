@@ -80,7 +80,7 @@ function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
             $("#cmbSeleccionarProyeccion").show();
         }
         else {
-            alert("No existen proyecciones");
+            displayMessage("AdvertenciaNoExistenProyecciones", "", '0');
         }
     });
 }
