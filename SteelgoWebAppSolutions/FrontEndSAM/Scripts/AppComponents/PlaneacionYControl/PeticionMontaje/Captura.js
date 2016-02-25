@@ -4,7 +4,7 @@
     $("#Proyecto").data("kendoComboBox").value("");
     $("#Nombre").val("");
     $("#CargarCSV").val("");
-    document.title = _dictionary.lblConsulta[$("#language").data("kendoDropDownList").value()];
+    
 };
 
 
@@ -24,33 +24,60 @@ function CargarGrid() {
                 SpoolID: "X1-002",
                 GrupoEmbarque: "PND",
                 Emitido: "SÍ",
-                Indicadores: "Junta: 2, m2: 10, Peqs: 2, Kg: 30, Área: 2",
+                Junta: "2",
+                m2: "10",
+                Peqs: "2",
+                Kg: "30",
+                Area: "2",
                 TipoMateriales: "",
                 Peticion: "Petición 1",
                 FechaPeticion: "18/02/2016",
-                Check: true
+                Check: true,
+                Peso: "350",
+                Area: "623",
+                M2: "623",
+                Juntas: "4",
+                Peqs: "162"
             },
             {
                 Spool: "x",
                 SpoolID: "X2-016",
                 GrupoEmbarque: "PND",
                 Emitido: "NO",
-                Indicadores: "Junta: 3, m2: 4, Peqs: 30, Kg: 20, Área: 3",
+                Junta: "3",
+                m2: "4",
+                Peqs: "30",
+                Kg: "20",
+                Area: "3",
                 TipoMateriales: "",
                 Peticion: "Petición 1",
                 FechaPeticion: "18/02/2016",
-                Seleccionado: false
+                Seleccionado: false,
+                Peso: "350",
+                Area: "623",
+                M2: "623",
+                Juntas: "4",
+                Peqs: "162"
             },
             {
                 Spool: "x",
                 SpoolID: "X2-004",
                 GrupoEmbarque: "PND",
                 Emitido: "NO",
-                Indicadores: "Junta: 1, m2: 20, Peqs: 23.2, Kg: 15, Área: 2",
+                Junta: "1",
+                m2: "20",
+                Peqs: "23.2",
+                Kg: "15",
+                Area: "2",
                 TipoMateriales: "",
                 Peticion: "",
                 FechaPeticion: "",
-                Seleccionado: false
+                Seleccionado: false,
+                Peso: "350",
+                Area: "623",
+                M2: "623",
+                Juntas: "4",
+                Peqs: "162"
             }, ],
             schema: {
                 model: {
@@ -59,11 +86,21 @@ function CargarGrid() {
                         SpoolID: { type: "string", editable: false },
                         GrupoEmbarque: { type: "string", editable: false },
                         Emitido: { type: "string", editable: false },
-                        Indicadores: { type: "string", editable: false },
+                        Junta: { type: "string", editable: false },
+                        m2: { type: "string", editable: false },
+                        Peqs: { type: "string", editable: false },
+                        Kg: { type: "string", editable: false },
+                        Area: { type: "string", editable: false },
                         TipoMateriales: { type: "string", editable: false },
                         Peticion : { type: "string", editable: false },
                         FechaPeticion: { type: "date", editable: false },
-                        Seleccionado: { type: "boolean", editable: false }
+                        Seleccionado: { type: "boolean", editable: false },
+                        Peso: { type: "string", editable: false },
+                        Area: { type: "string", editable: false },
+                        M2: { type: "string", editable: false },
+                        Juntas: { type: "string", editable: false },
+                        Peqs: { type: "string", editable: false }
+
                     }
                 }
             },
@@ -88,15 +125,19 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Spool", title: "Spool", filterable: true },
-            { field: "SpoolID", title: "Spool ID", filterable: true },
-            { field: "GrupoEmbarque", title:"Grupo de Embarque", filterable: true },
-            { field: "Emitido", title: "Emitido", filterable: true },
-            { field: "Indicadores", title: "Indicadores", filterable: false },
-            { field: "TipoMateriales", title: "Tipo Materiales", filterable: false },
-            { field: "Peticion", title: "Petición", filterable: false },
-            { field: "FechaPeticion", title: "Fecha Petición", filterable: false, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "Seleccionado", title: "", filterable: false, template: "<input name='fullyPaid' class='chk-seleccion' type='checkbox' data-bind='checked: Seleccionado' #= Seleccionado ? checked='checked' : '' #/>" },
+            { field: "Spool", title: "Spool", filterable: true, width: "100px" },
+            { field: "SpoolID", title: "Spool ID", filterable: true, width: "100px" },
+            { field: "GrupoEmbarque", title: "Grupo de Embarque", filterable: true, width: "120px" },
+            { field: "Emitido", title: "Emitido", filterable: true, width: "100px" },
+            { field: "Junta", title: "Junta", filterable: false, width: "100px" },
+            { field: "m2", title: "M2", filterable: false, width: "100px" },
+            { field: "Peqs", title: "Peqs", filterable: false, width: "100px" },
+            { field: "Kg", title: "Kg", filterable: false, width: "100px" },
+            { field: "Area", title: "Área", filterable: false, width: "100px" },
+            { field: "TipoMateriales", title: "Tipo Materiales", filterable: false, width: "120px" },
+            { field: "Peticion", title: "Petición", filterable: false, width: "100px" },
+            { field: "FechaPeticion", title: "Fecha Petición", filterable: false, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "130px" },
+            { field: "Seleccionado", title: "", filterable: false, template: "<input name='fullyPaid' class='chk-seleccion' type='checkbox' data-bind='checked: Seleccionado' #= Seleccionado ? checked='checked' : '' #/>", width: "120px" },
         ]
     });
 

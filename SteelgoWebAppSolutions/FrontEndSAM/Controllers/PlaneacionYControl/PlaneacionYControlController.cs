@@ -37,5 +37,9 @@ namespace FrontEndSAM.Controllers.Errors
         {
             return View();
         }
+        public ActionResult Capacidad()
+        {
+            return View();
+        }
     }
 }
