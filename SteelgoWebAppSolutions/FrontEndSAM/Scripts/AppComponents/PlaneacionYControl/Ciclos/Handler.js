@@ -2,7 +2,7 @@
     SuscribirEventoProyecto();
     SuscribirEventoSeleccionar();
 }
- 
+
 function SuscribirEventoProyecto() {
     $('#inputProyecto').kendoComboBox({
         dataTextField: "Proyecto",
@@ -34,22 +34,23 @@ function SuscribirEventoProyecto() {
     });
 }
 
-function SuscribirEventoSeleccionar() {
+function SuscribirEventoSeleccionar1() {
     $("input[name='Cerrar']").change(function () {
-        var columnasVisiblesFamiliaAcero = [2, 6, 8];
-        var columnasVisiblesFamiliaMateriales = [3,4,5,7,9,10,11];
-        var columnasVisiblesPWHT = [12,13,14];
+        var columnasVisiblesFamiliaAcero = [1, 9, 13];
+        var columnasVisiblesFamiliaMateriales = [3, 5, 7, 11, 15, 17, 19];
+        var columnasVisiblesPWHT = [2, 10, 14];
+        var columnasVisiblesPWHT = [2, 10, 14];
 
         var checked = $("#chkFamiliaAcero").is(':checked');
-
+        debugger;
         if ($(this).attr("id") == "chkFamiliaAcero") {
             OcultarTodasColumnas(columnasVisiblesFamiliaAcero);
 
             if ($("#chkFamiliaMateriales").is(':checked')) {
                 MostrarColumnas(columnasVisiblesFamiliaMateriales);
             }
-             
-            if (!$(this).is(':checked')) { 
+
+            if (!$(this).is(':checked')) {
                 OcultarColumnas(columnasVisiblesFamiliaAcero);
                 if (!$("#chkFamiliaMateriales").is(':checked')) {
                     $('#chkPWHT').attr('checked', false);
@@ -57,11 +58,12 @@ function SuscribirEventoSeleccionar() {
             }
 
             if ($("#chkPWHT").is(':checked')) {
-                MostrarColumnas(columnasVisiblesPWHT);
+                // MostrarColumnas(columnasVisiblesPWHT);
+                MostrarColumnasPWHT(columnasVisiblesFamiliaAcero);
             }
 
         }
-        
+
 
         if ($(this).attr("id") == "chkFamiliaMateriales") {
             OcultarTodasColumnas(columnasVisiblesFamiliaMateriales);
@@ -71,27 +73,30 @@ function SuscribirEventoSeleccionar() {
             }
 
             if ($("#chkPWHT").is(':checked')) {
-                MostrarColumnas(columnasVisiblesPWHT);
+                MostrarColumnasPWHT(columnasVisiblesFamiliaMateriales);
+                //MostrarColumnas(columnasVisiblesPWHT);
             }
 
             if (!$(this).is(':checked')) {
                 OcultarColumnas(columnasVisiblesFamiliaMateriales);
             }
-        } 
+        }
 
-        if ($(this).attr("id") == "chkPWHT") { 
+        debugger;
+        if ($(this).attr("id") == "chkPWHT") {
             if ($(this).is(':checked') && $("#chkFamiliaAcero").is(':checked') ||
                 $(this).is(':checked') && $("#chkFamiliaMateriales").is(':checked')) {
-                OcultarTodasColumnas(columnasVisiblesPWHT);
-
 
                 if ($(this).is(':checked') && $("#chkFamiliaAcero").is(':checked')) {
-                    MostrarColumnas(columnasVisiblesFamiliaAcero);
+                    MostrarColumnasPWHT(columnasVisiblesFamiliaAcero);
                 }
 
                 if ($(this).is(':checked') && $("#chkFamiliaMateriales").is(':checked')) {
-                    MostrarColumnas(columnasVisiblesFamiliaMateriales);
+                    MostrarColumnasPWHT(columnasVisiblesFamiliaMateriales);
                 }
+
+              //  OcultarTodasColumnas(columnasVisiblesPWHT);
+ 
             }
             else if ($(this).is(':checked')) {
                 displayMessage("Mensajes_error", "Seleccione una familia", '0');
@@ -99,7 +104,40 @@ function SuscribirEventoSeleccionar() {
 
             if (!$(this).is(':checked')) {
                 OcultarColumnas(columnasVisiblesPWHT);
-            } 
-        }  
+            }
+        }
+    });
+}
+
+function SuscribirEventoSeleccionar() {
+    $("input[name='Cerrar']").change(function () {
+        var columnasVisiblesFamiliaAcero = [1, 9, 13];
+        var columnasVisiblesFamiliaMateriales = [3, 5, 7, 11, 15, 17, 19];
+        var columnasVisiblesPWHT = [2, 10, 14]; 
+
+        var checked = $("#chkFamiliaAcero").is(':checked');
+ 
+        OcultarTodasColumnas();
+
+        if ($("#chkFamiliaAcero").is(':checked')) {
+            MostrarColumnas(columnasVisiblesFamiliaAcero);
+
+            if ($("#chkPWHT").is(':checked')) {
+                MostrarColumnasPWHT(columnasVisiblesFamiliaAcero);
+            }
+        }
+
+        if ($("#chkFamiliaMateriales").is(':checked')) {
+            MostrarColumnas(columnasVisiblesFamiliaMateriales);
+
+            if ($("#chkPWHT").is(':checked')) {
+                MostrarColumnasPWHT(columnasVisiblesFamiliaMateriales);
+            }
+        }
+         
+        if ((!$("#chkFamiliaAcero").is(':checked') && !$("#chkFamiliaMateriales").is(':checked')) &&
+                $("#chkPWHT").is(':checked')) {
+            OcultarTodasColumnas();
+        }
     });
 }

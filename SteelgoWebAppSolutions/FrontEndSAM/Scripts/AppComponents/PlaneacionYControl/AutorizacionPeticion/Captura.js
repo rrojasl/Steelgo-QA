@@ -28,7 +28,13 @@ function CargarGrid() {
                     Embarque: "15-01-2016",
                     FechaPeticion: "06-02-2016",
                     TipoMaterial: "Acero",
-                    
+                    ListaAcciones: acciones,
+                    //
+                    Peso: "350",
+                    Area: "623",
+                    M2: "623",
+                    Juntas: "4",
+                    Peqs: "162"
                 },
                 {
                     Spool: "x",
@@ -41,7 +47,13 @@ function CargarGrid() {
                     Embarque: "21-01-2016",
                     FechaPeticion: "06-02-2016",
                     TipoMaterial: "Acero",
-                    
+                    ListaAcciones: acciones,
+                    //
+                    Peso: "350",
+                    Area: "623",
+                    M2: "623",
+                    Juntas: "4",
+                    Peqs: "162"
                 },
                 {
                     Spool: "y",
@@ -54,7 +66,13 @@ function CargarGrid() {
                     Embarque: "15-06-2015",
                     FechaPeticion: "06-06-2015",
                     TipoMaterial: "Acero",
-                    
+                    ListaAcciones: acciones,
+                    //
+                    Peso: "350",
+                    Area: "623",
+                    M2: "623",
+                    Juntas: "4",
+                    Peqs: "162"
                 },
                 {
                     Spool: "w",
@@ -67,7 +85,13 @@ function CargarGrid() {
                     Embarque: "",
                     FechaPeticion: "",
                     TipoMaterial: "Acero",
-                    
+                    ListaAcciones: acciones,
+                    //
+                    Peso: "350",
+                    Area: "623",
+                    M2: "623",
+                    Juntas: "4",
+                    Peqs: "162"
                 },
             ],
             schema: {
@@ -83,6 +107,12 @@ function CargarGrid() {
                         Embarque: { type: "string", editable: false },
                         FechaPeticion: { type: "string", editable: false },
                         TipoMaterial: { type: "string", editable: false },
+                        //
+                        Peso: { type: "string", editable: false },
+                        Area: { type: "string", editable: false },
+                        M2: { type: "string", editable: false },
+                        Juntas: { type: "string", editable: false },
+                        Peqs: { type: "string", editable: false }
                     }
                 }
             },
@@ -113,18 +143,28 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
-        
+       // detailTemplate: kendo.template($("#templateGridDetalleSpool").html()),
+       // detailInit: RenderGridDetalleSpool,
         columns: [
-            { field: "Spool", title: "Nombre", filterable: true },
-            { field: "SpoolID", title: "Spool ID", filterable: true, template: "<a href='\\#' class='linkDetalle' > <span>#=SpoolID#</span></a>" },
-            { field: "Paso", title: "Paso", filterable: true },
-            { field: "Ciclo", title: "Ciclo", filterable: true },
-            { field: "Fase", title: "Fase", filterable: true },
-            { field: "GrupoEmision", title: "Grupo Emision", filterable: true },
-            { field: "Emitido", title: "Emitido", filterable: true },
-            { field: "Embarque", title: "Embarque", filterable: true },
-            { field: "FechaPeticion", title: "Fecha Peticion", filterable: true },
-            { field: "TipoMaterial", title: "Tipo Material", filterable: true },
+            { field: "Acciones", title: "Resolución", filterable: false, width: "100px", editor: RenderComboBoxAcciones },
+            { field: "Spool", title: "Nombre", filterable: true, width: "105px" },
+            { field: "SpoolID", title: "Spool ID", filterable: true, width: "110px", template: "<a href='\\#' class='linkDetalle' > <span>#=SpoolID#</span></a>" },
+            { field: "Paso", title: "Paso", filterable: true,width: "100px" },
+            { field: "Ciclo", title: "Ciclo", filterable: true, width: "100px" },
+            { field: "Fase", title: "Fase", filterable: true, width: "100px" },
+            { field: "GrupoEmision", title: "Grupo Emision", filterable: true, width: "150px" },
+            { field: "Emitido", title: "Emitido", filterable: true, width: "100px" },
+            { field: "Embarque", title: "Embarque", filterable: true, width: "130px" },
+            { field: "FechaPeticion", title: "Fecha Peticion", filterable: true, width: "150px" },
+            { field: "TipoMaterial", title: "Tipo Material", filterable: true, width: "150px" },
+            //
+            { field: "Peso", title: "Kgs", filterable: true, width: "100px" },
+            { field: "Area", title: "Area", filterable: true, width: "100px" },
+            { field: "M2", title: "M2", filterable: true, width: "100px" },
+            { field: "Juntas", title: "Juntas", filterable: true, width: "110px" },
+            { field: "Peqs", title: "Peqs", filterable: true, width: "100px" },
+
+
             //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });

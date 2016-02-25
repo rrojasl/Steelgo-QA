@@ -125,6 +125,7 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
+            { field: "Seleccionado", title: "", filterable: false, template: "<input name='fullyPaid' class='chk-seleccion' type='checkbox' data-bind='checked: Seleccionado' #= Seleccionado ? checked='checked' : '' #/>", width: "120px" },
             { field: "Spool", title: "Spool", filterable: true, width: "100px" },
             { field: "SpoolID", title: "Spool ID", filterable: true, width: "100px" },
             { field: "GrupoEmbarque", title: "Grupo de Embarque", filterable: true, width: "180px" },
@@ -137,7 +138,7 @@ function CargarGrid() {
             { field: "TipoMateriales", title: "Tipo Materiales", filterable: false, width: "120px" },
             { field: "Peticion", title: "Petición", filterable: false, width: "100px" },
             { field: "FechaPeticion", title: "Fecha Petición", filterable: false, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "130px" },
-            { field: "Seleccionado", title: "", filterable: false, template: "<input name='fullyPaid' class='chk-seleccion' type='checkbox' data-bind='checked: Seleccionado' #= Seleccionado ? checked='checked' : '' #/>", width: "120px" },
+            
         ]
     });
 
