@@ -478,26 +478,37 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        if (dataItem.PatioID == 0) {
+                        var value = this.value();
+                        //if (dataItem.PatioID == 0) {
+                        if (value == 0) {
                             this.value("");
+                            Cliente = {};
+                            $("#ClienteID").data("kendoComboBox").value("");
+                            $("#ClienteID").data("kendoComboBox").dataSource.data([]);
+                            $("#ProyectoID").data("kendoMultiSelect").value("");
+                            $("#ProyectoID").data("kendoMultiSelect").dataSource.data([]);
                             VentanaModal(4);
                             e.preventDefault();
                         }
-                        dataItem!==undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre) : CargarPatio("", "");
-                        validarRequeridosFormaAvisoLlegada();
-                        var value = this.value();
-                        $("#ClienteID").data("kendoComboBox").value("");
-                        $("#ClienteID").data("kendoComboBox").dataSource.data([]);
-                        $("#ProyectoID").data("kendoMultiSelect").value("");
-                        $("#ProyectoID").data("kendoMultiSelect").dataSource.data([]);
-                        Cliente = {};
-                        if (!value || this.selectedIndex == -1) {
-                            messageindexKendoCombobox(this);
-                            Patio = [];
-                            this.value("");
-                        }
-                        ObtenerCliente();
+                        else {
+                            dataItem !== undefined ? CargarPatio(dataItem.PatioID, dataItem.Nombre) : CargarPatio("", "");
 
+                            validarRequeridosFormaAvisoLlegada();
+
+                            $("#ClienteID").data("kendoComboBox").value("");
+                            $("#ClienteID").data("kendoComboBox").dataSource.data([]);
+                            $("#ProyectoID").data("kendoMultiSelect").value("");
+                            $("#ProyectoID").data("kendoMultiSelect").dataSource.data([]);
+                            Cliente = {};
+                            if (!value || this.selectedIndex == -1) {
+                                messageindexKendoCombobox(this);
+                                Patio = [];
+                                this.value("");
+                            } else
+                            {
+                                ObtenerCliente();
+                            }
+                        }
                     },
                     dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
@@ -557,22 +568,8 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        if (dataItem.TransportistaID == 0) {
-                            this.value("");
-                            VentanaModal(1);
-                            e.preventDefault();
-                        }
-                        dataItem!==undefined ? CargarTransportista(dataItem.TransportistaID, dataItem.Nombre):CargarTransportista("", "");
                         var value = this.value();
-                        $("#Tracto").data("kendoComboBox").value("");
-                        $("#Tracto").data("kendoComboBox").dataSource.data([]);
-                        $("#PlanaID").data("kendoMultiSelect").value("");
-                        $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
-                        if (!value || this.selectedIndex == -1) {
-                            messageindexKendoCombobox(this);
-                            Transportista = [];
-                            Chofer = [];
-                            CamionEntradaMaterial = {};
+                        if (value == 0) {
                             this.value("");
                             $("#ChoferID").data("kendoComboBox").value("");
                             $("#ChoferID").data("kendoComboBox").enable(false);
@@ -580,11 +577,34 @@
                             $("#Tracto").data("kendoComboBox").dataSource.data([]);
                             $("#PlanaID").data("kendoMultiSelect").value("");
                             $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
-                        } else {
-                            ObtenerChofer($("#TransportistaID").data("kendoComboBox").value());
-                            ObtenerCamionEntradaMaterial();
-                            ObtenerPlanas();
-                        };
+                            VentanaModal(1);
+                            e.preventDefault();
+                        }
+                        else{
+                            dataItem!==undefined ? CargarTransportista(dataItem.TransportistaID, dataItem.Nombre):CargarTransportista("", "");
+                            var value = this.value();
+                            $("#Tracto").data("kendoComboBox").value("");
+                            $("#Tracto").data("kendoComboBox").dataSource.data([]);
+                            $("#PlanaID").data("kendoMultiSelect").value("");
+                            $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
+                            if (!value || this.selectedIndex == -1) {
+                                messageindexKendoCombobox(this);
+                                Transportista = [];
+                                Chofer = [];
+                                CamionEntradaMaterial = {};
+                                this.value("");
+                                $("#ChoferID").data("kendoComboBox").value("");
+                                $("#ChoferID").data("kendoComboBox").enable(false);
+                                $("#Tracto").data("kendoComboBox").value("");
+                                $("#Tracto").data("kendoComboBox").dataSource.data([]);
+                                $("#PlanaID").data("kendoMultiSelect").value("");
+                                $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
+                            } else {
+                                ObtenerChofer($("#TransportistaID").data("kendoComboBox").value());
+                                ObtenerCamionEntradaMaterial();
+                                ObtenerPlanas();
+                            };
+                        }
                     },
                     dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
@@ -614,18 +634,22 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        if (dataItem.ChoferID == 0) {
+                        var value = this.value();
+                        if (value == 0) {
                             this.value("");
                             VentanaModal(5);
                             e.preventDefault();
                         }
-                        dataItem!==undefined ? CargarChofer(dataItem.ChoferID, dataItem.Nombre) : CargarChofer("", "");;
-                        var value = this.value();
-                        if (!value || this.selectedIndex == -1) {
-                            messageindexKendoCombobox(this);
-                            Chofer = [];
-                            this.value("");
-                        };
+                        else
+                        {
+                            dataItem!==undefined ? CargarChofer(dataItem.ChoferID, dataItem.Nombre) : CargarChofer("", "");;
+                            //var value = this.value();
+                            if (!value || this.selectedIndex == -1) {
+                                messageindexKendoCombobox(this);
+                                Chofer = [];
+                                this.value("");
+                            };
+                        }
                     },
                     dataBound: function(e){checkIfOne(this);},
                     filter: "contains",
@@ -648,12 +672,16 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        _tipoArchivo = dataItem.Nombre;
-                        dataItem!==undefined ? CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre):CargarTipoArchivo("", "");
+                        var value = this.value();
+                       
                         if (this.selectedIndex == -1) {
                             this.value("");
                             _tipoArchivo = {};
                             messageindexKendoCombobox(this);
+                        }
+                        else {
+                            _tipoArchivo = dataItem.Nombre;
+                            dataItem !== undefined ? CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre) : CargarTipoArchivo("", "");
                         }
                     }, index: 8,
                     filter: "contains",
@@ -718,18 +746,21 @@
                     },
                     change: function (e) {
                         var dataItem = this.dataItem();
-                        if (dataItem.VehiculoID == 0) {
+                        var value = this.value();
+
+                        if (value == 0) {
                             this.value("");
                             VentanaModal(6);
                             e.preventDefault();
+                        }else{
+                            dataItem!==undefined ? CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas):CargarCamionEntradaMaterial("", "");
+                        
+                            if (!value || this.selectedIndex == -1) {
+                                messageindexKendoCombobox(this);
+                                CamionEntradaMaterial = [];
+                                this.value("");
+                            };
                         }
-                        dataItem!==undefined ? CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas):CargarCamionEntradaMaterial("", "");
-                        var value = this.value();
-                        if (!value || this.selectedIndex == -1) {
-                            messageindexKendoCombobox(this);
-                            CamionEntradaMaterial = [];
-                            this.value("");
-                        };
                     },
                     filter: "contains",
                     dataBound: function(e){checkIfOne(this);},
