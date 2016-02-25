@@ -34,9 +34,8 @@ function CustomisaGrid(elemento) {
     $(".k-grid-content", elemento).css("overflow", "hidden");
 
     $(".k-grid-header", elemento).before("<div id='sticky-anchor' class='Css_sticky-anchor'></div>");
+    $(".k-grid-header", elemento).before("<div id='sticky-anchor' class='Css_sticky-anchor'></div>");
     $(".k-grid-header", elemento).before("<ul id='contextMenu' class='dropdown-menu' role='menu' style='display:none; width:150px; min-width:150px; z-index:2000'><li class='Ajustar_texto'>Ajustar texto</li></ul>");
-
-
 
     //Scroll en en la parte Superior
     $(".k-grid-content", elemento).scroll(function () {
@@ -49,8 +48,6 @@ function CustomisaGrid(elemento) {
     });
 
     $(window).scroll(function () { sticky_relocate(elemento) });
-
-
 
     //textoAjustado
     $.fn.contextMenu = function (settings) {
@@ -94,110 +91,19 @@ function CustomisaGrid(elemento) {
         menuSelector: "#contextMenu",
         menuSelected: function (invokedOn, selectedMenu) {
             if (selectedMenu.hasClass("Ajustar_texto")) {
-                if ($(".k-grid-header th").css("white-space") == "nowrap") {
-                    $(".k-grid-content td, .k-grid-header th").css("white-space", "normal");
+                if ($(".k-grid-content td").css("white-space") == "nowrap") {
+                    $(".k-grid-content td").css("white-space", "normal");
                 }
                 else {
-                    $(".k-grid-content td, .k-grid-header th").css("white-space", "nowrap");
+                    $(".k-grid-content td").css("white-space", "nowrap");
                     
                 }
             }
         }
     });
-  
-
-    
+      
    
 }
-function mantieneEstilo(estilo, elemento) {
-    $(".k-grid-content td", elemento).css("white-space", estilo);
-    $(".k-grid-header th", elemento).css("white-space", estilo);
-}
-//function CustomisaGridPestania(elemento) {
-   
-//    $(".k-grid-header-wrap  ", elemento).after("<div class='ScrollUpPestania'><div class='DivScrollSup'>&nbsp;</div></div>");
-//    $(".DivScrollSup", elemento).css("width", $('table[role="grid"]').width() - 17)
-//    $(".k-grid-content", elemento).css("overflow", "hidden");
-
-//    $(".k-grid-header", elemento).before("<div id='sticky-anchor' class='Css_sticky-anchor'></div>");
-//    $(".k-grid-header", elemento).before("<ul id='contextMenu' class='dropdown-menu' role='menu' style='display:none; width:150px; min-width:150px; z-index:2000'><li class='Ajustar_texto'>Ajustar texto</li></ul>");
-
-
-
-//    //Scroll en en la parte Superior
-//    $(".k-grid-content", elemento).scroll(function () {
-//        $(".ScrollUpPestania", elemento)
-//            .scrollLeft($(".k-grid-content", elemento).scrollLeft());
-//    });
-//    $(".ScrollUpPestania", elemento).scroll(function () {
-//        $(".k-grid-content", elemento)
-//            .scrollLeft($(".ScrollUpPestania", elemento).scrollLeft());
-//    });
-
-//    $(window).scroll(function () { sticky_relocate(elemento) });
-
-
-
-//    //textoAjustado
-//    $.fn.contextMenu = function (settings) {
-
-//        return this.each(function () {
-
-//            // Open context menu
-//            $(this).on("contextmenu", function (e) {
-//                // return native menu if pressing control
-//                if (e.ctrlKey) return;
-
-//                //open menu
-//                var $menu = $(settings.menuSelector)
-//                    .data("invokedOn", $(e.target))
-//                    .show()
-//                    .css({
-//                        position: "absolute",
-//                        left: e.clientX - 100,
-//                        top: 25,
-//                    })
-//                    .off('click')
-//                    .on('click', 'li', function (e) {
-//                        $menu.hide();
-
-//                        var $invokedOn = $menu.data("invokedOn");
-//                        var $selectedMenu = $(e.target);
-
-//                        settings.menuSelected.call(this, $invokedOn, $selectedMenu);
-//                    });
-
-//                return false;
-//            });
-
-//            //make sure menu closes on any click
-//            $('body').click(function () {
-//                $(settings.menuSelector).hide();
-//            });
-//        });
-//    };
-    
-//    $(".k-grid-header", elemento).contextMenu({
-//        menuSelector: "#contextMenu",
-//        menuSelected: function (invokedOn, selectedMenu) {
-//            if (selectedMenu.hasClass("Ajustar_texto")) {
-//                if ($(".k-grid-content td").css("white-space") == "nowrap") {
-//                    $(".k-grid-content td").css("white-space", "normal");
-//                    $("th", ".k-grid-header-wrap").attr("style", "white-space:normal");
-//                    alert("IF");
-//                }
-//                else {
-//                    $(".k-grid-content td").css("white-space", "nowrap");
-//                    $("th", ".k-grid-header-wrap").attr("style", "white-space:nowrap");
-//                    alert("else");
-//                }
-//            }
-//        }
-//    });
-
-
-//}
-
 //encabezado fijo
 function sticky_relocate(elemento) {
     var window_top = $(window).scrollTop();
