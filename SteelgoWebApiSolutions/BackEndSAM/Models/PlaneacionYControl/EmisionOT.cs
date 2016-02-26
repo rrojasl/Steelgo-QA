@@ -49,7 +49,8 @@ namespace BackEndSAM.Models.PlaneacionYControl
         public int FabclasID { get; set; }
         public string Fabclas { get; set; }
         public string TipoJunta { get; set; }
-        public int Peqs { get; set; }
+        public string Junta { get; set; }
+        public decimal Peqs { get; set; }
     }
 
     public class DetalleProyecto

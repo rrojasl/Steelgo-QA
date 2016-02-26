@@ -101,7 +101,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                             Peqs = item.Peqs.ToString(),
                             Peso = item.Peso.ToString(),
                             Spools = item.Spools.ToString(),
-                            ListaSpools = ObtenerSpools(item.FabLine)
+                            ListaSpools = (List<DetalleSpoolPrueba>)ObtenerSpools(item.FabLine)
                         });
                     }
                     
@@ -165,7 +165,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             }
         }
 
-        public List<DetalleSpoolPrueba> ObtenerSpools (string fabLine)
+        public object ObtenerSpools (string fabLine)
         {
             try
             {
@@ -173,8 +173,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                 {
                     List<DetalleSpoolPrueba> detalleSpools = new List<DetalleSpoolPrueba>();
                     List<Sam3_PyC_EmisionOT_Get_N2_Result> result = ctx.Sam3_PyC_EmisionOT_Get_N2(fabLine).ToList();
-                    List<DetalleJuntasPrueba> detalleJuntas1 = ObtenerJuntas(1);
-                    List<DetalleJuntasPrueba> detalleJuntas2 = ObtenerJuntas(2);
+                    
 
                     foreach (var item in result)
                     {
@@ -193,7 +192,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                             Area = item.Area.GetValueOrDefault(),
                             Juntas = item.Juntas.GetValueOrDefault(),
                             Peqs = item.Peqs.GetValueOrDefault(),
-                            ListaJuntas = detalleJuntas2
+                            ListaJuntas = (List < DetalleJuntasPrueba >) ObtenerJuntas(item.SpoolID)
                         });
                     }
                     return detalleSpools;
@@ -202,111 +201,50 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
             }
             catch (Exception ex)
             {
-                //TransactionalInformation result = new TransactionalInformation();
-                //result.ReturnMessage.Add(ex.Message);
-                //result.ReturnCode = 500;
-                //result.ReturnStatus = false;
-                //result.IsAuthenicated = true;
-
-                return null;
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
             }
         }
 
-        public List<DetalleJuntasPrueba> ObtenerJuntas(int familia)
+        public object ObtenerJuntas(int spoolID)
         {
             try
             {
 
                 List<DetalleJuntasPrueba> detalleJuntas = new List<DetalleJuntasPrueba>();
-
-                if (familia == 1)
+                using (SamContext ctx = new SamContext())
                 {
-                    detalleJuntas.Add(new DetalleJuntasPrueba
+                    List<Sam3_PyC_EmisionOT_Get_N3_Result> result = ctx.Sam3_PyC_EmisionOT_Get_N3(spoolID).ToList();
+                    
+                    foreach (var item in result)
                     {
-                        TipoJuntaID = 1,
-                        FabclasID = 1,
-                        Fabclas = "Auto 6-24",
-                        TipoJunta = "BW",
-                        Peqs = 3
-                    });
-
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 2,
-                        FabclasID = 1,
-                        Fabclas = "Auto 6-24",
-                        TipoJunta = "BW",
-                        Peqs = 1
-                    });
-
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 3,
-                        FabclasID = 1,
-                        Fabclas = "Auto 6-24",
-                        TipoJunta = "BW",
-                        Peqs = 7
-                    });
-
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 4,
-                        FabclasID = 1,
-                        Fabclas = "Auto 6-24",
-                        TipoJunta = "BW",
-                        Peqs = 5
-                    });
-                }
-                else
-                {
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 1,
-                        FabclasID = 2,
-                        Fabclas = "SAW 8-30",
-                        TipoJunta = "BW",
-                        Peqs = 8
-                    });
-
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 2,
-                        FabclasID = 2,
-                        Fabclas = "SAW 8-30",
-                        TipoJunta = "BW",
-                        Peqs = 3
-                    });
-
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 3,
-                        FabclasID = 2,
-                        Fabclas = "SAW 8-30",
-                        TipoJunta = "BW",
-                        Peqs = 2
-                    });
-
-                    detalleJuntas.Add(new DetalleJuntasPrueba
-                    {
-                        TipoJuntaID = 4,
-                        FabclasID = 2,
-                        Fabclas = "SAW 8-30",
-                        TipoJunta = "BW",
-                        Peqs = 8
-                    });
+                        detalleJuntas.Add(new DetalleJuntasPrueba
+                        {
+                            TipoJuntaID = item.TipoJuntaID,
+                            FabclasID = item.FabClassID,
+                            Fabclas = item.FabClas,
+                            TipoJunta = item.TipoJunta,
+                            Peqs = item.Peqs.GetValueOrDefault(),
+                            Junta = item.Junta
+                        });
+                    }
                 }
 
                 return detalleJuntas;
+
             }
             catch (Exception ex)
             {
-                //TransactionalInformation result = new TransactionalInformation();
-                //result.ReturnMessage.Add(ex.Message);
-                //result.ReturnCode = 500;
-                //result.ReturnStatus = false;
-                //result.IsAuthenicated = true;
-
-                return null;
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
             }
         }
     }
