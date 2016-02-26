@@ -102,3 +102,20 @@ Exception Data: System.Collections.ListDictionaryInternal
 2/25/2016 12:34:28 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456427066}
 2/25/2016 12:34:37 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456427068}
 2/25/2016 12:34:52 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456427078}
+2/25/2016 12:51:07 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456428052}
+2/25/2016 12:54:47 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456428068}
+2/25/2016 12:55:06 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456428298}
+2/25/2016 12:57:46 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456428417}
+2/25/2016 1:16:53 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456429548}
+2/25/2016 3:29:50 PM - Usuario:samAdmin, pass: samadmin
+2/25/2016 3:29:50 PM - GUID devuelto: 
+2/25/2016 3:29:50 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+2/25/2016 3:29:50 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456437590}
+2/25/2016 5:31:06 PM - Usuario:samAdmin, pass: samadmin
+2/25/2016 5:31:06 PM - GUID devuelto: 
+2/25/2016 5:31:06 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+2/25/2016 5:31:07 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456444867}
+2/25/2016 5:49:27 PM - Usuario:samAdmin, pass: samadmin
+2/25/2016 5:49:27 PM - GUID devuelto: 
+2/25/2016 5:49:27 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+2/25/2016 5:49:27 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456445967}
