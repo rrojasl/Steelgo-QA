@@ -1,6 +1,7 @@
 ﻿using BackEndSAM.DataAcces;
 using BackEndSAM.DataAcces.ArmadoBD;
 using BackEndSAM.Models.Inspeccion;
+using BackEndSAM.Models.InspeccionDimensional;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -200,10 +201,13 @@ namespace BackEndSAM.Controllers
             {
                
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
+                DataTable dtDetalleListas = null;
                 DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual);
-               
-                return InspeccionBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, usuario.UsuarioID,lenguaje, listaCapturaInspeccion.Detalles[0].InspeccionDimensionalID, listaCapturaInspeccion.Detalles[0].OrdenTrabajoSpoolID, listaCapturaInspeccion.Detalles[0].FechaInspeccion, listaCapturaInspeccion.Detalles[0].ResultadoID, listaCapturaInspeccion.Detalles[0].ObreroID, listaCapturaInspeccion.Detalles[0].DefectoID);
+
+                if (listaCapturaInspeccion.Detalles[0].ListaJuntas!=null)
+                    dtDetalleListas = ArmadoController.ToDataTable(listaCapturaInspeccion.Detalles[0].ListaJuntas);
+
+                return InspeccionBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, dtDetalleListas, usuario.UsuarioID,lenguaje, listaCapturaInspeccion.Detalles[0].InspeccionDimensionalID, listaCapturaInspeccion.Detalles[0].OrdenTrabajoSpoolID, listaCapturaInspeccion.Detalles[0].FechaInspeccion, listaCapturaInspeccion.Detalles[0].ResultadoID, listaCapturaInspeccion.Detalles[0].ObreroID, listaCapturaInspeccion.Detalles[0].DefectoID);
             }
             else
             {
@@ -233,6 +237,22 @@ namespace BackEndSAM.Controllers
                 
                 List<DetalleDimensional> listaDetalleDimensional = new List<DetalleDimensional>();
 
+                
+
+                List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaJuntasPorOrdenTrabajo = (List<Sam3_Inspeccion_Get_DetalleJunta_Result>)InspeccionBD.Instance.ObtenerDetalleJunta(id, usuario, lenguaje);
+
+                List<InspeccionDimensional.JuntaXSpool> listJuntaXSpool = new List<InspeccionDimensional.JuntaXSpool>();
+
+                foreach (Sam3_Inspeccion_Get_DetalleJunta_Result item in listaJuntasPorOrdenTrabajo)
+                {
+                    listJuntaXSpool.Add(new InspeccionDimensional.JuntaXSpool
+                    {
+                        Accion = 1,//por estar solo en la lista habilitado para seleccionar.
+                        Junta = item.Etiqueta,
+                        JuntaID = item.JuntaSpoolID
+                    });
+                }
+
                 foreach (Sam3_Inspeccion_Get_DetalleDimensional_Result item in listaObtenerDetalleDimensional)
                 {
                     DetalleDimensional detalleDimensional = new DetalleDimensional
@@ -245,10 +265,11 @@ namespace BackEndSAM.Controllers
                         ObreroID = item.ObreroID,
                         OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID.GetValueOrDefault(),
                         Resultado = item.Resultado,
-                        ResultadoID = item.ResultadoID
-
+                        ResultadoID = item.ResultadoID,
+                        ListaJuntas = listJuntaXSpool,
+                        ListaJuntasSeleccionadas = InspeccionDimensionalController.ObtenerJuntasID((List<int?>)InspeccionBD.Instance.ObtenerDetalleJuntaSeleccionada(id, item.DefectoID.GetValueOrDefault(), usuario, lenguaje)),
                     };
-
+                    detalleDimensional.ListaJuntas = InspeccionDimensionalController.ObtenerJuntasSeleccionadas(detalleDimensional.ListaJuntas, detalleDimensional.ListaJuntasSeleccionadas);
                     listaDetalleDimensional.Add(detalleDimensional);
                 }
 
@@ -267,6 +288,6 @@ namespace BackEndSAM.Controllers
             }
         }
 
-
+       
     }
 }

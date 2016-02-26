@@ -164,7 +164,7 @@ namespace BackEndSAM.DataAcces
 
 
 
-        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, int usuario, string lenguaje, int inspeccionDimensionalID, int ordenTrabajoSpoolID, string fechaInspeccion, int resultadoID, int obreroID, int defectoID)
+        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura,DataTable dtJuntaLista, int usuario, string lenguaje, int inspeccionDimensionalID, int ordenTrabajoSpoolID, string fechaInspeccion, int resultadoID, int obreroID, int defectoID)
         {
             try
             {
@@ -184,7 +184,7 @@ namespace BackEndSAM.DataAcces
                         { "@DefectoID", defectoID.ToString() }
                        
                     };
-                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", dtJuntaLista, "@juntas", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

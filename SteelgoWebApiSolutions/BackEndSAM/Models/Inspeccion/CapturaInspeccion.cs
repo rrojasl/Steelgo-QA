@@ -120,6 +120,8 @@ namespace BackEndSAM.Models.Inspeccion
         public int DefectoID { get; set; }
 
         public string Defecto { get; set; }
+        public List<InspeccionDimensional.InspeccionDimensional.JuntaXSpool> ListaJuntas { get; set; }
+        public List<InspeccionDimensional.InspeccionDimensional.JuntaXSpool> ListaJuntasSeleccionadas { get; set; }
     }
 
     public class Captura
@@ -127,6 +129,7 @@ namespace BackEndSAM.Models.Inspeccion
         public List<DetalleGuardarJson> Detalles { get; set; }
     }
 
+   
 
     public class DetalleGuardarJson
     {
@@ -139,6 +142,8 @@ namespace BackEndSAM.Models.Inspeccion
         public int DefectoID { get; set; }
         public int inspeccionVisual { get; set; }
         public List<DetalleGuardarInspeccionVisual> ListaDetalleGuardarInspeccionVisual { get; set; }
+
+        public List<BackEndSAM.Models.InspeccionDimensional.InspeccionDimensional.JuntaXSpoolGuardar> ListaJuntas { get; set; }
     }
 
     public class DetalleGuardarInspeccionVisual
