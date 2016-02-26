@@ -347,6 +347,7 @@
                 displayMessage("notificationslabel0031", "", '1');
             }
         });
+
         $("#GenerarOrdenAlmacenaje").click(function () {
             if (validarRequeridosFormaComplementoRecepcion()) {
                 GenerarOrdenAlmacenaje();
@@ -947,6 +948,12 @@
                     if ($("#Editar").css("display") == "block") {
                         this.closeCell();
                     };
+                    //console.log(e);
+                    if (e.model.MM == 0) {
+                        $('td.MM').text('N/A');
+                        var data = grid.dataSource.at(0);
+                        data.fields["MM"].editable = false;
+                    };
 
                     if ($("input[name=MM]").length > 0) {
                         //isOpen = true;
@@ -974,7 +981,7 @@
                         });
                     }
                 },
-                dataBound:function(e){
+                dataBound: function (e) {
                     quickHeadFilter($("#grid").data("kendoGrid"));
                 },
                 navigatable: true,
@@ -988,9 +995,9 @@
                     { field: "D1", title: _dictionary.ComplementoRecepcion0028[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 80 },
                     { field: "D2", title: _dictionary.ComplementoRecepcion0029[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 80 },
                     { field: "Cantidad", title: _dictionary.ComplementoRecepcion0030[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ aggregates: ["sum"], footerTemplate: "Total SUM: #=sum#", groupFooterTemplate: "SUM: #=sum#", width: 120 },
-                    { field: "MM", title: _dictionary.ComplementoRecepcion0031[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 80 },
+                    { field: "MM", title: _dictionary.ComplementoRecepcion0031[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 80, attributes: { "class": "MM" }},
                     { field: "Colada", title: _dictionary.ComplementoRecepcion0032[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: 120 },// editor: ColadaAutocomplete,
-                    { field: "EstatusFisico", title: _dictionary.ComplementoRecepcion0034[$("#language").data("kendoDropDownList").value()], editor: EstatusFisicoAutocomplete, /*filterable: true,*/ width: 160},
+                    { field: "EstatusFisico", title: _dictionary.ComplementoRecepcion0034[$("#language").data("kendoDropDownList").value()], editor: EstatusFisicoAutocomplete, /*filterable: true,*/ width: 160 },
                     { field: "EstatusDocumental", title: _dictionary.ComplementoRecepcion0035[$("#language").data("kendoDropDownList").value()], editor: EstatusDepartamentalAutocomplete, /*filterable: true,*/ width: 200 },
                     { field: "TipoUso", title: _dictionary.ComplementoRecepcion0036[$("#language").data("kendoDropDownList").value()], editor:TipoUsoAutocomplete, /*filterable: true,*/ width: 145 },
                     { command: { text: _dictionary.ComplementoRecepcion0082[$("#language").data("kendoDropDownList").value()], click: cancelarComplemento }, title: " ", width: "99px" },
@@ -1647,6 +1654,13 @@
                     if ($("#grid").data("kendoGrid")) {
                         if (result.length) {
                             $("#grid").data("kendoGrid").dataSource.data(result[1]);
+
+                            $('td.MM').each(function () {
+                                if ($(this).text() == '0') {
+                                    $(this).text('N/A');
+                                }
+                            });
+
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                         };
