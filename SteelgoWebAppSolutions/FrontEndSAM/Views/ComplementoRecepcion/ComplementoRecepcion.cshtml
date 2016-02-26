@@ -722,9 +722,9 @@
             dataTextField: "Nombre",
             dataValueField: "EstatFisicoID",
             dataSource: [
-                       { EstatFisicoID: 0, Nombre: _dictionary.ComplementoRecepcion0054[$("#language").data("kendoDropDownList").value()] },
-                       { EstatFisicoID: 1, Nombre: _dictionary.ComplementoRecepcion0055[$("#language").data("kendoDropDownList").value()] },
-                       { EstatFisicoID: 2, Nombre: _dictionary.ComplementoRecepcion0056[$("#language").data("kendoDropDownList").value()] }
+                       { EstatFisicoID: 1, Nombre: _dictionary.ComplementoRecepcion0054[$("#language").data("kendoDropDownList").value()] },
+                       { EstatFisicoID: 2, Nombre: _dictionary.ComplementoRecepcion0055[$("#language").data("kendoDropDownList").value()] },
+                       { EstatFisicoID: 3, Nombre: _dictionary.ComplementoRecepcion0056[$("#language").data("kendoDropDownList").value()] }
             ],
             change: function (e) {
                 var value = this.value();
@@ -744,8 +744,8 @@
             dataTextField: "Nombre",
             dataValueField: "EstatusDocumentalID",
             dataSource: [
-                   { EstatusDocumentalID: 0, Nombre: _dictionary.ComplementoRecepcion0057[$("#language").data("kendoDropDownList").value()] },
-                   { EstatusDocumentalID: 1, Nombre: _dictionary.ComplementoRecepcion0058[$("#language").data("kendoDropDownList").value()] }
+                   { EstatusDocumentalID: 1, Nombre: _dictionary.ComplementoRecepcion0057[$("#language").data("kendoDropDownList").value()] },
+                   { EstatusDocumentalID: 2, Nombre: _dictionary.ComplementoRecepcion0058[$("#language").data("kendoDropDownList").value()] }
             ],
             change: function (e) {
                 var value = this.value();
@@ -1333,6 +1333,7 @@
                     }
                 //}
             });
+            $("#EstatusFisico").data("kendoComboBox").text("");
         };
 
         function changeValueColumnEstatusDocumental(value) {
@@ -1353,6 +1354,7 @@
                     }
                 //}
             });
+            $("#EstatusDocumental").data("kendoComboBox").text("");
         };
 
         function changeValueColumnTipoUso(value) {
@@ -1373,6 +1375,7 @@
                     }
                 //};
             });
+            $("#TipoUso").data("kendoComboBox").text("")
         };
 
 
