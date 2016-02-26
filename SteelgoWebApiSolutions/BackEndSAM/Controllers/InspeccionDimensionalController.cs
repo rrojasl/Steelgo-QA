@@ -70,15 +70,9 @@ namespace BackEndSAM.Controllers
 
                 List<Sam3_Inspeccion_Get_DetalleDimensional_Result> listaObtenerDetalleDimensional = (List<Sam3_Inspeccion_Get_DetalleDimensional_Result>)CapturasRapidasBd.Instance.ObtenerDetalleDimensional(int.Parse(capturaDatosJson.OrdenTrabajoSpoolID), Lenguaje);
 
-
                 List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaJuntasPorOrdenTrabajo = (List<Sam3_Inspeccion_Get_DetalleJunta_Result>)InspeccionBD.Instance.ObtenerDetalleJunta(capturaDatosJson.OrdenTrabajoSpoolID, usuario, Lenguaje);
 
-                
-
-
                 List<InspeccionDimensional.JuntaXSpool> listJuntaXSpool = new List<InspeccionDimensional.JuntaXSpool>();
-                
-
 
                 foreach (Sam3_Inspeccion_Get_DetalleJunta_Result item in listaJuntasPorOrdenTrabajo)
                 {
@@ -146,7 +140,6 @@ namespace BackEndSAM.Controllers
                             ListaResultados = ObtenerListaResultado((List<Sam3_Steelgo_Get_TipoResultado_Result>)TipoResultadoBd.Instance.ObtenerListadoResultados(Lenguaje)),
                             ListaJuntas = listJuntaXSpool,
                             IDDEFECTOTIPO= item.IdDefectoTipo.GetValueOrDefault(),
-
                             ListaJuntasSeleccionadas= ObtenerJuntasID(ListaJutasSeleccionadasXSpoolID),
                             TemplateRender = Lenguaje == "es-MX" ? "Existen " + ListaJutasSeleccionadasXSpoolID.Count + " Juntas" : "There are " + ListaJutasSeleccionadasXSpoolID.Count + " board",
                             TIPO =item.Tipo
@@ -170,7 +163,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        private List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasSeleccionadas(List<InspeccionDimensional.JuntaXSpool> listaJuntas, List<InspeccionDimensional.JuntaXSpool> ListaJuntasSeleccionadas)
+        public static List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasSeleccionadas(List<InspeccionDimensional.JuntaXSpool> listaJuntas, List<InspeccionDimensional.JuntaXSpool> ListaJuntasSeleccionadas)
         {
             for (int i = 0; i < listaJuntas.Count; i++)
             {
@@ -185,7 +178,7 @@ namespace BackEndSAM.Controllers
             return listaJuntas;
         }
 
-        private List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasID(List<int?> listaJuntasPorOrdenTrabajoSeleccionada)
+        public static List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasID(List<int?> listaJuntasPorOrdenTrabajoSeleccionada)
         {
             List<InspeccionDimensional.JuntaXSpool> listJuntaXSpoolSeleccionado = new List<InspeccionDimensional.JuntaXSpool>();
             foreach (int item in listaJuntasPorOrdenTrabajoSeleccionada)
@@ -193,6 +186,7 @@ namespace BackEndSAM.Controllers
                 listJuntaXSpoolSeleccionado.Add(new InspeccionDimensional.JuntaXSpool
                 {
                     Accion = 2,//dos porque existe ya en el defecto.
+                    Junta = "",
                     JuntaID = item
                 });
             }

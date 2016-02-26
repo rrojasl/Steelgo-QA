@@ -56,7 +56,7 @@
         detailInit: RenderGridNivelTres,
         columns: [ 
             { field: "Seleccionado", title: " ", filterable: false, template: '<input type="checkbox" #= Proyectado ? "disabled=disabled" : "" # class="chkbx"  ></input>', width: "50px" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: ⁠⁠⁠EliminarSpoolDeProyeccion }, title: "", width: "99px" },
             { field: "Proyeccion", title: "Proyección", filterable: false },
             { field: "SpoolNombre", title: "Spool", filterable: true },
             { field: "Dibujo", title: "Dibujo", filterable: true },
@@ -110,9 +110,6 @@ function dataBound(e) {
     }
 }
 
-function eliminarCaptura() {
-
-}
 
 function RenderGridNivelTres(e) {
     var detailRow = e.detailRow;
@@ -134,7 +131,7 @@ function RenderGridNivelTres(e) {
             schema: {
                 model: {
                     fields: {
-                        TipoJuntaID: { type: "number", editable: false },
+                        Junta: { type: "number", editable: false },
                         Fabclas: { type: "string", editable: false },
                         TipoJunta: { type: "string", editable: false },
                         Peqs: { type: "number", editable: false }
@@ -162,7 +159,7 @@ function RenderGridNivelTres(e) {
             numeric: true,
         }, 
         columns: [
-            { field: "TipoJuntaID", title: "Tipo", filterable: false },
+            { field: "Junta", title: "Tipo", filterable: false },
             { field: "Fabclas", title: "Fabclas", filterable: false },
             { field: "TipoJunta", title: "Tipo Junta", filterable: false }, 
             { field: "Peqs", title: "Peqs", filterable: false, width: "100px" } 
