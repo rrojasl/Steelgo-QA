@@ -21,7 +21,7 @@ namespace DatabaseManager.Sam3
         }
     
         public int ProveedorID { get; set; }
-        public int ContactoID { get; set; }
+        public Nullable<int> ContactoID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public string Direccion { get; set; }

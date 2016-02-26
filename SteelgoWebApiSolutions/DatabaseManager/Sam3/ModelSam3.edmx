@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -1337,7 +1337,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
             <PropertyRef Name="ProveedorID" />
           </Key>
           <Property Name="ProveedorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ContactoID" Type="int" Nullable="false" />
+          <Property Name="ContactoID" Type="int" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
           <Property Name="Direccion" Type="nvarchar(max)" />
@@ -3593,6 +3593,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Rel___Orden__388F4914">
+          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sam3_Rel___Orden__4356F04A">
           <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="1" />
           <End Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Type="Self.Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Multiplicity="*" />
@@ -3602,18 +3614,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico">
               <PropertyRef Name="OrdenAlmacenajeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Orden__4AADF94F">
-          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="0..1" />
-          <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
-              <PropertyRef Name="OrdenRecepcionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4590,7 +4590,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Proveedor_Contacto">
-          <End Role="Sam3_Contacto" Type="Self.Sam3_Contacto" Multiplicity="1" />
+          <End Role="Sam3_Contacto" Type="Self.Sam3_Contacto" Multiplicity="0..1" />
           <End Role="Sam3_Proveedor" Type="Self.Sam3_Proveedor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_Contacto">
@@ -5560,13 +5560,13 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
             <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" EntitySet="Sam3_Rel_Incidencia_OrdenAlmacenaje" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__388F4914" Association="Self.FK__Sam3_Rel___Orden__388F4914">
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+            <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Orden__4356F04A" Association="Self.FK__Sam3_Rel___Orden__4356F04A">
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
             <End Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" EntitySet="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__4AADF94F" Association="Self.FK__Sam3_Rel___Orden__4AADF94F">
-            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
-            <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Pagin__15DA3E5D" Association="Self.FK__Sam3_Rel___Pagin__15DA3E5D">
             <End Role="Sam3_Pagina" EntitySet="Sam3_Pagina" />
@@ -6811,7 +6811,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <PropertyRef Name="ProveedorID" />
           </Key>
           <Property Name="ProveedorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ContactoID" Type="Int32" Nullable="false" />
+          <Property Name="ContactoID" Type="Int32" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -7392,7 +7392,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Proveedor_Contacto">
-          <End Role="Sam3_Contacto" Type="Self.Sam3_Contacto" Multiplicity="1" />
+          <End Role="Sam3_Contacto" Type="Self.Sam3_Contacto" Multiplicity="0..1" />
           <End Role="Sam3_Proveedor" Type="Self.Sam3_Proveedor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_Contacto">
