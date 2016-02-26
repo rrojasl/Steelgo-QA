@@ -387,9 +387,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;

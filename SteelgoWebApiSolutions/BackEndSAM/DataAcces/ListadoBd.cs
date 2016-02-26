@@ -75,9 +75,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
@@ -224,9 +225,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
@@ -335,79 +337,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     CantidadesDashboardCuantificacion result = new CantidadesDashboardCuantificacion();
-                    //DateTime fechaInicial = new DateTime();
-                    //DateTime fechaFinal = new DateTime();
-                    //DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
-                    //DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
-
-                    //if (fechaFinal.ToShortDateString() == "1/1/0001")
-                    //{
-                    //    fechaFinal = DateTime.Now;
-                    //}
-
-                    //if (fechaInicial.ToShortDateString() == "1/1/0001")
-                    //{
-                    //    int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                    //    int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                    //    fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
-                    //}
-
-                    //int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
-                    //int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                    //int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
-                    //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
-
-                    //List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    //List<int> patios = (from r in ctx.Sam3_Proyecto
-                    //                    join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                    //                    where r.Activo && proyectos.Contains(r.ProyectoID)
-                    //                    select p.PatioID).AsParallel().ToList();
-
-                    //////Traemos todos los folios que esten dentro del periodo de fechas y que correspondan a los proyectos y patios de los usuarios.
-                    //List<Sam3_FolioAvisoEntrada> registros = (from fae in ctx.Sam3_FolioAvisoEntrada
-                    //                                          join fal in ctx.Sam3_FolioAvisoLlegada on fae.FolioAvisoLlegadaID equals fal.FolioAvisoLlegadaID
-                    //                                          join rfal in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fal.FolioAvisoLlegadaID equals rfal.FolioAvisoLlegadaID
-                    //                                          join p in ctx.Sam3_Proyecto on rfal.ProyectoID equals p.ProyectoID
-                    //                                          join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                    //                                          where fae.Activo && fal.Activo && rfal.Activo && p.Activo && pa.Activo
-                    //                                          && proyectos.Contains(rfal.ProyectoID)
-                    //                                          && patios.Contains(pa.PatioID)
-                    //                                          && (fae.FechaCreacion >= fechaInicial && fae.FechaCreacion <= fechaFinal)
-                    //                                          && fae.FolioDescarga > 0
-                    //                                          select fae).AsParallel().ToList();
-
-                    //if (proyectoID > 0)
-                    //{
-                    //    registros = (from r in registros
-                    //                 join re in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals re.FolioAvisoLlegadaID
-                    //                 where re.ProyectoID == proyectoID
-                    //                 select r).AsParallel().ToList();
-                    //}
-
-                    //if (clienteID > 0)
-                    //{
-                    //    int sam3Cliente = (from c in ctx.Sam3_Cliente
-                    //                       where c.Activo && c.Sam2ClienteID == clienteID
-                    //                       select c.ClienteID).AsParallel().SingleOrDefault();
-                    //    registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
-                    //}
-
-                    //if (folioAvisoLlegadaID > 0)
-                    //{
-                    //    registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
-                    //}
-
-                    //if (packingListID > 0)
-                    //{
-                    //    registros = (from r in registros
-                    //                 join f in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals f.FolioAvisoEntradaID
-                    //                 where f.Activo && f.FolioCuantificacionID == packingListID
-                    //                 select r).AsParallel().ToList();
-                    //}
-
-                    //registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
 
                     result.EntradaPorCuantificar = (int)ListadoMaterialesSinCuantificar(filtros, usuario, true);
 
@@ -497,9 +427,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -642,9 +573,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -854,9 +786,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -1200,9 +1133,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -1463,9 +1397,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -1709,9 +1644,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -2211,9 +2147,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -2585,9 +2522,10 @@ namespace BackEndSAM.DataAcces
 
                         if (fechaInicial.ToShortDateString() == "1/1/0001")
                         {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
                         }
                         #endregion
 
@@ -2783,9 +2721,10 @@ namespace BackEndSAM.DataAcces
 
                         if (fechaInicial.ToShortDateString() == "1/1/0001")
                         {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
                         }
                         #endregion
 
@@ -2950,9 +2889,10 @@ namespace BackEndSAM.DataAcces
 
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        fechaInicial = new DateTime(2000, 01, 01);
                     }
                     #endregion
 
@@ -3786,9 +3726,10 @@ namespace BackEndSAM.DataAcces
 
                         if (fechaInicial.ToShortDateString() == "1/1/0001")
                         {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
                         }
 
                         if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
@@ -4526,9 +4467,10 @@ namespace BackEndSAM.DataAcces
 
                         if (fechaInicial.ToShortDateString() == "1/1/0001")
                         {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
                         }
 
                         if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
@@ -5278,9 +5220,10 @@ namespace BackEndSAM.DataAcces
 
                         if (fechaInicial.ToShortDateString() == "1/1/0001")
                         {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
                         }
 
                         if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
@@ -6063,9 +6006,10 @@ namespace BackEndSAM.DataAcces
 
                         if (fechaInicial.ToShortDateString() == "1/1/0001")
                         {
-                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
                         }
 
                         if (!String.IsNullOrEmpty(filtros.UnidadDeMedida))
