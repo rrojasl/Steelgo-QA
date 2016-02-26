@@ -26,7 +26,7 @@ function suscribirEventoGuardar() {
 
 function suscribirEventoProyecto() {
     $("#Proyecto").kendoComboBox({
-        dataTextField: "Nombre",
+        dataTextField: "Proyecto",
         dataValueField: "ProyectoID",
         suggest: true,
         filter: "contains",
@@ -42,3 +42,5 @@ function suscribirEventoProyecto() {
         }
     });
 }
+
+

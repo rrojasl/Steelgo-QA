@@ -3,8 +3,7 @@
     AltaFecha();
     $("#Proyecto").data("kendoComboBox").value("");
     $("#Nombre").val("");
-    $("#CargarCSV").val("");
-    
+    AjaxObtenerProyectos();
 };
 
 
@@ -125,19 +124,19 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Seleccionado", title: "", filterable: false, template: "<input name='fullyPaid' class='chk-seleccion' type='checkbox' data-bind='checked: Seleccionado' #= Seleccionado ? checked='checked' : '' #/>", width: "120px" },
-            { field: "Spool", title: "Spool", filterable: true, width: "100px" },
-            { field: "SpoolID", title: "Spool ID", filterable: true, width: "100px" },
-            { field: "GrupoEmbarque", title: "Grupo de Embarque", filterable: true, width: "180px" },
-            { field: "Emitido", title: "Emitido", filterable: true, width: "100px" },
-            { field: "Junta", title: "Junta", filterable: false, width: "100px" },
-            { field: "m2", title: "M2", filterable: false, width: "100px" },
-            { field: "Peqs", title: "Peqs", filterable: false, width: "100px" },
-            { field: "Kg", title: "Kg", filterable: false, width: "100px" },
-            { field: "Area", title: "Área", filterable: false, width: "100px" },
-            { field: "TipoMateriales", title: "Tipo Materiales", filterable: false, width: "120px" },
-            { field: "Peticion", title: "Petición", filterable: false, width: "100px" },
-            { field: "FechaPeticion", title: "Fecha Petición", filterable: false, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "130px" },
+            { field: "Seleccionado", title:"", filterable: false, template: "<input name='fullyPaid' class='chk-seleccion' type='checkbox' data-bind='checked: Seleccionado' #= Seleccionado ? checked='checked' : '' #/>", width: "120px" },
+            { field: "Spool", title: _dictionary.PeticionMotajeHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "SpoolID", title: _dictionary.PeticionMotajeHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "GrupoEmbarque", title: _dictionary.PeticionMotajeHeaderGrupoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
+            { field: "Emitido", title: _dictionary.PeticionMotajeHeaderEmitido[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Junta", title: _dictionary.PeticionMotajeHeaderJunta[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "m2", title: _dictionary.PeticionMotajeHeaderM2[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "Peqs", title: _dictionary.PeticionMotajeHeaderPeqs[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "Kg", title: _dictionary.PeticionMotajeHeaderKg[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "Area", title: _dictionary.PeticionMotajeHeaderArea[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "TipoMateriales", title: _dictionary.PeticionMotajeHeaderTipoMateriales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px" },
+            { field: "Peticion", title: _dictionary.PeticionMotajeHeaderPeticion[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
+            { field: "FechaPeticion", title: _dictionary.PeticionMotajeHeaderFechaPeticion[$("#language").data("kendoDropDownList").value()], filterable: false, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "130px" },
             
         ]
     });

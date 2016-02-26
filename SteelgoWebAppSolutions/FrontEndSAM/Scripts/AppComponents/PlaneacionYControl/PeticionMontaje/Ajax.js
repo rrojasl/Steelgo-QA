@@ -13,3 +13,17 @@
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }
+
+
+function AjaxObtenerProyectos() {
+    loadingStart();
+    $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idCatalogo: 1 }).done(function (data) {
+        $("#Proyecto").data("kendoComboBox").value("");
+
+        if (data.length > 0) {
+            $("#Proyecto").data("kendoComboBox").dataSource.data(data);
+        }
+        loadingStop();
+
+    });
+}

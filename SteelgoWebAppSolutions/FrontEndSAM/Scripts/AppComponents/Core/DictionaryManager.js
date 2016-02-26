@@ -7086,11 +7086,89 @@ _dictionary = {
         "es-MX": "Hora Toma: ",
         "en-US": "Time Take: "
     },
-
+    //#region "Peticion Montaje"
+    "PeticionMotajeBtnGrupoEmbarque": {
+        "es-MX": "Grupo de Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionMotajeBtnGrupoEmbarque2": {
+        "es-MX": "Grupo de Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionMotajeBtnExplorar": {
+        "es-MX": "Explorar",
+        "en-US": "Search"
+    },
+    "PeticionMotajelblProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "PeticionMotajelblFechaDeseable": {
+        "es-MX": "Fecha Deseable",
+        "en-US": "Desirable Date"
+    },
+    "PeticionMotajelblNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "PeticionMotajelblCargarCsv": {
+        "es-MX": "Cargar CSV",
+        "en-US": "Upload CSV"
+    },
+    "PeticionMotajeHeaderSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "PeticionMotajeHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "PeticionMotajeHeaderGrupoEmbarque": {
+        "es-MX": "Grupo de Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionMotajeHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "PeticionMotajeHeaderJunta": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "PeticionMotajeHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "PeticionMotajeHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+    "PeticionMotajeHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "PeticionMotajeHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "PeticionMotajeHeaderTipoMateriales": {
+        "es-MX": "Tipo Materiales",
+        "en-US": "Material Type"
+    },
+    "PeticionMotajeHeaderPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "PeticionMotajeHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    //#endregion
 
 }
 
 //#endregion
+
 
 
 
