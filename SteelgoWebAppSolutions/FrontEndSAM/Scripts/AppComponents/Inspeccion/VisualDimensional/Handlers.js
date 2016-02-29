@@ -19,13 +19,18 @@
 function SuscribirEventoListaJuntas()
 {
     $("#ListaJuntas").kendoMultiSelect({
+        dataTextField: "Junta",
+        dataValueField: "JuntaID",
+        suggest: true,
+        filter: "contains",
         autoBind: false,
-        template: "<i class=\"fa fa-#=data.Junta.toLowerCase()#\"></i> #=data.Junta#",
+        ignoreCase: true,
         change: function (e) {
-            options.model.TemplateRender = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + options.model.ListaJuntasSeleccionadas.length + " Juntas" : "There are " + options.model.ListaJuntasSeleccionadas.length + " board";
-            this.dataSource.sync();
+            alert();
         }
     }).data("kendoMultiSelect");
+
+    
 }
 function SuscribirEventoSpoolID() {
  
@@ -58,6 +63,7 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                 AjaxObtenerListaTaller();
+               // AjaxObtenerListaJuntas();
             }
             
         }

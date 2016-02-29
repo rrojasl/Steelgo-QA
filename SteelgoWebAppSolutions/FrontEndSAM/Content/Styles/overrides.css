@@ -752,14 +752,28 @@ h6 {
 .k-grid {
     margin-top:15px;
 }
+.k-grid .k-grid{
+    margin-top:0;
+}
 .k-grid-header {
     padding-right: 0 !important;
     width: inherit;
     
 }
-.k-grid-header th.k-header, .k-filter-row th{
+.k-grid-header th.k-header, .k-filter-row th,
+.nivel2 .k-grid-header th.k-header, .nivel2 .k-filter-row th{
    font-weight:500;
 }
+
+/*.k-grid-pager {
+    padding:3px;
+    height:auto;
+}
+.k-grid-pager .k-link {
+    width:10px;
+    height:10px;
+    }*/
+
 .ScrollUp {
     overflow-x:scroll; 
     /*margin-top:-20px;*/ 
