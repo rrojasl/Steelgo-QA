@@ -326,7 +326,10 @@
         $("#Editar").click(function (e) { BotonEdicion(); });
         $("#Guardar").click(function () {
             if (validarRequeridosFormaComplementoRecepcion()) {
-                GuardarParcial();
+                if (!ValidarMM())
+                {
+                    GuardarParcial();
+                }
             } else {
                 displayMessage("notificationslabel0031", "", '1');
             }
@@ -334,7 +337,10 @@
 
         $("#TerminaryNuevo").click(function () {
             if (validarRequeridosFormaComplementoRecepcion()) {
-                TerminaryNuevo();
+                if (!ValidarMM())
+                {
+                    TerminaryNuevo();
+                }
             } else {
                 displayMessage("notificationslabel0031", "", '1');
             }
@@ -342,7 +348,10 @@
 
         $("#Terminar").click(function () {
             if (validarRequeridosFormaComplementoRecepcion()) {
-                Terminar();
+                if (!ValidarMM())
+                {
+                    Terminar();
+                }
             } else {
                 displayMessage("notificationslabel0031", "", '1');
             }
@@ -467,6 +476,7 @@
                     this.value("");
                 }else{
                     changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
+
                 }
             },
             filter: "contains",
@@ -734,6 +744,7 @@
                     this.value("");
                 } else {
                     changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
+
                 };
             },
             filter: "contains",
@@ -834,6 +845,35 @@
         });
         return bool;
     };
+
+
+    function ValidarMM() {
+        var allData = $("#grid").data("kendoGrid").dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var result = query.data;
+        var datasource = result;
+        var Errorbool = false;
+        $(datasource).each(function () {
+            if (this.get("MM") != "N/A") {
+                if (0 > this.get("MM") || !isNumeric(this.get("MM"))) {
+                    this.TieneError = true;
+                    Errorbool = true;
+                }
+            }
+        });
+        ordenamientoGrid();
+
+        if (Errorbool) {
+            displayMessage("notificationslabel0104", '', '1');
+        };
+
+        return Errorbool;
+    };
+
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    };
+
     function cancelarvalidacionRequeridosModalEdicionColada() {
         $("#modalEdicionColada .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
@@ -887,7 +927,7 @@
             D1: { type: "number", editable: false },
             D2: { type: "number", editable: false },
             Cantidad: { type: "number", editable: false },
-            MM: { type: "number", editable: true },
+            MM: { type: "string", editable: true },
             Colada: { type: "string", editable: false },
             EstatusFisico: { type: "string", editable: true },
             EstatusDocumental: { type: "string", editable: true },
@@ -948,35 +988,35 @@
                     if ($("#Editar").css("display") == "block") {
                         this.closeCell();
                     };
-                    //console.log(e);
-                    if (e.model.MM == 0) {
-                        $('td.MM').text('N/A');
-                        var data = grid.dataSource.at(0);
-                        data.fields["MM"].editable = false;
-                    };
 
                     if ($("input[name=MM]").length > 0) {
-                        //isOpen = true;
-                        //isMM = true;
+
+                        if ($("input[name=MM]").val() == "N/A")
+                        {
+                            var nombreColumna = e.container.find("input[name]").attr("name");
+                            if (nombreColumna == "MM") {
+                                this.closeCell();
+                                var uid = e.model.uid;
+                                setTimeout(function () {
+                                    $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(11)"));
+                                }, 10);
+                            }
+                        }
+
                         $("input[name=MM]").on("change", function () {
                             var uid = e.model.uid;
                             setTimeout(function () {
                                 $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(11)"));
                                 //isOpen = false;
-                                //isMM = false;
                             }, 10);
                         });
                     }
 
                     if ($("input[name=NumeroUnicoCliente]").length > 0) {
-                        //isOpen = true;
-                        //isMM = true;
                         $("input[name=NumeroUnicoCliente]").on("change", function () {
                             var uid = e.model.uid;
                             setTimeout(function () {
                                 $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(3)"));
-                                //isOpen = false;
-                                //isMM = false;
                             }, 10);
                         });
                     }
@@ -1653,13 +1693,10 @@
                     CargarLabelEstatus(result[0]);
                     if ($("#grid").data("kendoGrid")) {
                         if (result.length) {
+                            for (i = 0; result[1].length > i; i++) {
+                                result[1][i].MM = result[1][i].MM == 0 ? "N/A" : result[1][i].MM;
+                            }
                             $("#grid").data("kendoGrid").dataSource.data(result[1]);
-
-                            $('td.MM').each(function () {
-                                if ($(this).text() == '0') {
-                                    $(this).text('N/A');
-                                }
-                            });
 
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
@@ -1671,15 +1708,15 @@
         };
 
         function EstatusFisicoAutocomplete(container, options) {
-            $('<input data-text-field="Nombre" data-value-field="EstatFisicoID" data-bind="value:' + options.field + '"/>')
+            $('<input id="EstatusFisicoAutocomplete" data-text-field="Nombre" data-value-field="EstatFisicoID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "EstatFisicoID",
                     dataSource:[
-                       { EstatFisicoID: 0, Nombre: _dictionary.ComplementoRecepcion0054[$("#language").data("kendoDropDownList").value()] },
-                       { EstatFisicoID: 1, Nombre: _dictionary.ComplementoRecepcion0055[$("#language").data("kendoDropDownList").value()] },
-                       { EstatFisicoID: 2, Nombre: _dictionary.ComplementoRecepcion0056[$("#language").data("kendoDropDownList").value()] }
+                       { EstatFisicoID: 1, Nombre: _dictionary.ComplementoRecepcion0054[$("#language").data("kendoDropDownList").value()] },
+                       { EstatFisicoID: 2, Nombre: _dictionary.ComplementoRecepcion0055[$("#language").data("kendoDropDownList").value()] },
+                       { EstatFisicoID: 3, Nombre: _dictionary.ComplementoRecepcion0056[$("#language").data("kendoDropDownList").value()] }
                     ],
                     filter: "contains",
                     select: function (e) {
@@ -1689,12 +1726,14 @@
                         var value = this.text();
                         if (this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
+                            this.value("");
                             lastEditedFisicoCellIDS.EstatusFisico = "";
                         } else {
                             lastEditedFisicoCellIDS.EstatusFisico = value;
                         };
                        
                         $('#grid').data('kendoGrid').refresh();
+
                         var uid = options.model.uid;
                         setTimeout(function () {
                             $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(13)"));
@@ -1705,15 +1744,15 @@
         };
 
         function EstatusDepartamentalAutocomplete(container, options) {
-            $('<input data-text-field="Nombre" data-value-field="EstatusDocumentalID" data-bind="value:' + options.field + '"/>')
+            $('<input id="EstatusDocumentalAutocomplete" data-text-field="Nombre" data-value-field="EstatusDocumentalID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "EstatusDocumentalID",
                     filter: "contains",
                     dataSource: [
-                                    { EstatusDocumentalID: 0, Nombre: _dictionary.ComplementoRecepcion0057[$("#language").data("kendoDropDownList").value()] },
-                                    { EstatusDocumentalID: 1, Nombre: _dictionary.ComplementoRecepcion0058[$("#language").data("kendoDropDownList").value()] }
+                                    { EstatusDocumentalID: 1, Nombre: _dictionary.ComplementoRecepcion0057[$("#language").data("kendoDropDownList").value()] },
+                                    { EstatusDocumentalID: 2, Nombre: _dictionary.ComplementoRecepcion0058[$("#language").data("kendoDropDownList").value()] }
                     ],
                     select: function (e) {
                     },
@@ -1721,12 +1760,14 @@
                         var value = this.text();
                         if (this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
+                            this.value("");
                             lastEditedDepartamentalCellID.EstatusDocumental = "";
                         } else {
                             lastEditedDepartamentalCellID.EstatusDocumental = value;
                         };
                         
                         $('#grid').data('kendoGrid').refresh();
+
                         var uid = options.model.uid;
                         setTimeout(function () {
                             $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(14)"));
@@ -1775,7 +1816,7 @@
 
 
         function TipoUsoAutocomplete(container, options) {
-            $('<input data-text-field="Nombre" data-value-field="id" data-bind="value:' + options.field + '"/>')
+            $('<input id="TipoUsoAutocomplete" data-text-field="Nombre" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
@@ -1792,20 +1833,24 @@
                     select: function (e) {
                     },
                     change: function (e) {
+                        var values = this.value();
                         var dataItem = this.dataItem();
                        
-                        if (dataItem.id == 0) {
+                        if (values == 0) {
+                            this.value("");
                             VentanaModal(2);
                             e.preventDefault();
                         }
                         var value = this.text();
                         if (this.selectedIndex == -1) {
                             messageindexKendoCombobox(this);
+                            this.value("");
                             lastEditedTipoUsoCellIDS.TipoUso = "";
                         }else{
                             lastEditedTipoUsoCellIDS.TipoUso = value;
                         }
                         $('#grid').data('kendoGrid').refresh();
+
                         var uid = options.model.uid;
                         setTimeout(function () {
                             $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(15)"));

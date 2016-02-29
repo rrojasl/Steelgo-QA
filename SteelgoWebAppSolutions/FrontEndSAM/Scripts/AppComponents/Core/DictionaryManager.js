@@ -6644,6 +6644,10 @@ _dictionary = {
         "es-MX": "Favor de validar los MM de los item codes marcados en rojo.",
         "en-US": "Please confirm the MM of item codes marked in red."
     },
+    "notificationslabel0104": {
+        "es-MX": "Favor de validar los MM de los numeros unicos marcados en rojo.",
+        "en-US": "Please confirm the MM of unique numbers marked in red."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
