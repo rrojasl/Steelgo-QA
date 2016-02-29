@@ -6839,6 +6839,11 @@ _dictionary = {
         "en-US": "Request Authorization"
     },
 
+    "menuCapacidad": {
+        "es-MX": "Capacidad",
+        "en-US": "Capacity"
+    },
+
     "errorNoExisteProyecto": {
         "es-MX": "No existe el proyecto",
         "en-US": "Project doesn´t exist"
@@ -7033,6 +7038,7 @@ _dictionary = {
         "en-US": "Are you sure you want to erase the projection?"
     },
 
+    //
     //EntregaResultadosHeader
     "GridstackHeaderPlaneacionControl": {
         "es-MX": "Planeacion y Control",
