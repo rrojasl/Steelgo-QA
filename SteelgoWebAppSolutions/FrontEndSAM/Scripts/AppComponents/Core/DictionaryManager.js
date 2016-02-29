@@ -3851,6 +3851,10 @@ _dictionary = {
         "es-MX": "Marcado",
         "en-US": "Marked"
     },
+    "lblOrdenesTrabajo": {
+        "es-MX": "Ordenes Trabajo",
+        "en-US": "Work Order"
+    },
     "lblEncintado": {
         "es-MX": "Encintado",
         "en-US": "Taped"
@@ -6413,6 +6417,14 @@ _dictionary = {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
+    "lblGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    "lblAutorizacionPeticion": {
+        "es-MX": "Autorización Petición",
+        "en-US": "Request Authorizatión"
+    },
     "CapturaAvanceSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
@@ -7164,9 +7176,171 @@ _dictionary = {
         "en-US": "Request Date"
     },
     //#endregion
+    //#region "Peticiones"
+    
+    "PeticionGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionlblPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "PeticionHeaderResolucion": {
+        "es-MX": "Resolución",
+        "en-US": "Resolution"
+    },
+    "PeticionHeaderNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "PeticionHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "PeticionHeaderPaso": {
+        "es-MX": "Paso",
+        "en-US": "Step"
+    },
+    "PeticionHeaderCiclo": {
+        "es-MX": "Ciclo",
+        "en-US": "Cycle"
+    },
+    "PeticionHeaderFase": {
+        "es-MX": "Fase",
+        "en-US": "Phase"
+    },
+    "PeticionHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "PeticionHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "PeticionHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "PeticionHeaderJuntas": {
+        "es-MX": "Juntas",
+        "en-US": "Joints"
+    },
+    "PeticionHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+    "PeticionHeaderGrupoEmision": {
+        "es-MX": "Grupo Emisión",
+        "en-US": "Emission Group"
+    },
+    "PeticionHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "PeticionHeaderEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "PeticionHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    "PeticionHeaderTipoMaterial": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
+    },
 
+    //#endregion
+    //#region "Autorización de Petición"
+
+    "AutorizacionPeticionlblPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "AutorizacionPeticionHeaderResolucion": {
+        "es-MX": "Resolución",
+        "en-US": "Resolution"
+    },
+    "AutorizacionPeticionHeaderNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "AutorizacionPeticionHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "AutorizacionPeticionHeaderPaso": {
+        "es-MX": "Paso",
+        "en-US": "Step"
+    },
+    "AutorizacionPeticionHeaderCiclo": {
+        "es-MX": "Ciclo",
+        "en-US": "Cycle"
+    },
+    "AutorizacionPeticionHeaderFase": {
+        "es-MX": "Fase",
+        "en-US": "Phase"
+    },
+    "AutorizacionPeticionHeaderGrupoEmision": {
+        "es-MX": "Grupo Emisión",
+        "en-US": "Emission Group"
+    },
+    "AutorizacionPeticionHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "AutorizacionPeticionHeaderEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "AutorizacionPeticionHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    "AutorizacionPeticionHeaderTipoMaterial": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
+    },
+    "AutorizacionPeticionHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "AutorizacionPeticionHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "AutorizacionPeticionHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "AutorizacionPeticionHeaderJuntas": {
+        "es-MX": "Juntas",
+        "en-US": "Joints"
+    },
+    "AutorizacionPeticionHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+    
+    //#endregion
+    
+    //#region "Autorización de Petición"
+
+    "OrdenesTrabajoHeaderProyeccion": {
+        "es-MX": "Proyección",
+        "en-US": "Projection"
+    },
+    "OrdenesTrabajoHeaderProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "OrdenesTrabajoHeaderOrdenTrabajo": {
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
+    },
+    //#endregion
 }
-
 //#endregion
 
 

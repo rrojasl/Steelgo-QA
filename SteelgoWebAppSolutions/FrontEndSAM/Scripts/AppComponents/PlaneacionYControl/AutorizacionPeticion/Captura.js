@@ -1,6 +1,7 @@
 ﻿function changeLanguageCall() {
     SuscribirEventos();
     CargarGrid();
+    document.title = _dictionary.lblAutorizacionPeticion[$("#language").data("kendoDropDownList").value()];
 };
 
 
@@ -146,23 +147,22 @@ function CargarGrid() {
        // detailTemplate: kendo.template($("#templateGridDetalleSpool").html()),
        // detailInit: RenderGridDetalleSpool,
         columns: [
-            { field: "Acciones", title: "Resolución", filterable: false, width: "100px", editor: RenderComboBoxAcciones },
-            { field: "Spool", title: "Nombre", filterable: true, width: "105px" },
-            { field: "SpoolID", title: "Spool ID", filterable: true, width: "110px", template: "<a href='\\#' class='linkDetalle' > <span>#=SpoolID#</span></a>" },
-            { field: "Paso", title: "Paso", filterable: true,width: "100px" },
-            { field: "Ciclo", title: "Ciclo", filterable: true, width: "100px" },
-            { field: "Fase", title: "Fase", filterable: true, width: "100px" },
-            { field: "GrupoEmision", title: "Grupo Emision", filterable: true, width: "150px" },
-            { field: "Emitido", title: "Emitido", filterable: true, width: "100px" },
-            { field: "Embarque", title: "Embarque", filterable: true, width: "130px" },
-            { field: "FechaPeticion", title: "Fecha Peticion", filterable: true, width: "150px" },
-            { field: "TipoMaterial", title: "Tipo Material", filterable: true, width: "150px" },
-            //
-            { field: "Peso", title: "Kgs", filterable: true, width: "100px" },
-            { field: "Area", title: "Area", filterable: true, width: "100px" },
-            { field: "M2", title: "M2", filterable: true, width: "100px" },
-            { field: "Juntas", title: "Juntas", filterable: true, width: "110px" },
-            { field: "Peqs", title: "Peqs", filterable: true, width: "100px" },
+            { field: "Acciones", title: _dictionary.AutorizacionPeticionHeaderResolucion[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px", editor: RenderComboBoxAcciones },
+            { field: "Spool", title: _dictionary.AutorizacionPeticionHeaderNombre[$("#language").data("kendoDropDownList").value()], filterable: true, width: "105px" },
+            { field: "SpoolID", title: _dictionary.AutorizacionPeticionHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px", template: "<a href='\\#' class='linkDetalle' > <span>#=SpoolID#</span></a>" },
+            { field: "Paso", title: _dictionary.AutorizacionPeticionHeaderPaso[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Ciclo", title: _dictionary.AutorizacionPeticionHeaderCiclo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Fase", title: _dictionary.AutorizacionPeticionHeaderFase[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "GrupoEmision", title: _dictionary.AutorizacionPeticionHeaderGrupoEmision[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Emitido", title: _dictionary.AutorizacionPeticionHeaderEmitido[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Embarque", title: _dictionary.AutorizacionPeticionHeaderEmbarque[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "FechaPeticion", title: _dictionary.AutorizacionPeticionHeaderFechaPeticion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "TipoMaterial", title: _dictionary.AutorizacionPeticionHeaderTipoMaterial[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+            { field: "Peso", title: _dictionary.AutorizacionPeticionHeaderKg[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Area", title: _dictionary.AutorizacionPeticionHeaderArea[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "M2", title: _dictionary.AutorizacionPeticionHeaderM2[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Juntas", title: _dictionary.AutorizacionPeticionHeaderJuntas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+            { field: "Peqs", title: _dictionary.AutorizacionPeticionHeaderPeqs[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
 
 
             //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }

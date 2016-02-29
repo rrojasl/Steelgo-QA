@@ -1,19 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "Peticion";
+    
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 @section breadcrumb {
     <li>
-        <a href=""><span id="">Inicio</span></a>
+        <a href=""><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="">Planeación y Control</span></a>
+        <a href="#"><span id="GridstackHeaderPlaneacionControl"></span></a>
     </li>
     <li class="active">
-        <a href=""><span id="">Grupo embarque</span></a>
+        <a href=""><span id="PeticionGrupoEmbarque"></span></a>
     </li>
 }
 
@@ -32,7 +32,7 @@
                     </ul>
 
                 </div>
-                <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
             </div>
             @*<div id="ArmadoSoldaduraDivSuperior" class="button-section">
                     <a id="EmitirOT" href="#" onclick="javascript:void(0);" class="btn btn-primary"><span id="">Emitir</span></a>
@@ -40,7 +40,7 @@
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">
                     <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                        <span id="">Acciones</span>
+                        <span id="botonAcciones1"></span>
                         <span class="caretBlue"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
@@ -53,7 +53,7 @@
 
 <div class="row">
     <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3" ">
-        <label id="">Peticion:</label>
+        <label ><span id="PeticionlblPeticion"></span></label>
         <input id="inputPeticiones" />
     </div> 
     <div class="col-sm-2 col-md-2 col-lg-2">
@@ -90,12 +90,13 @@
                         <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                     </ul>
                 </div>
-                <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>
             </div>
+            
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">
                     <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                        <span id="">Acciones</span>
+                        <span id="botonAcciones2"></span>
                         <span class="caretBlue"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>

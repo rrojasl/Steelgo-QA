@@ -1,5 +1,6 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
+    document.title = _dictionary.lblOrdenesTrabajo[$("#language").data("kendoDropDownList").value()];
 };
 
 function CargarGrid() {
@@ -52,9 +53,9 @@ function CargarGrid() {
         detailTemplate: kendo.template($("#templateGridDetalleOrdenTrabajo").html()),
         detailInit: RenderGridDetalleOrdenTrabajo,
         columns: [
-            { field: "Proyeccion", title: "Proyeccion", filterable: true },
-            { field: "Proyecto", title: "Proyecto", filterable: true },
-            { field: "OrdenTrabajo", title: "Orden de Trabajo", filterable: true },
+            { field: "Proyeccion", title: _dictionary.OrdenesTrabajoHeaderProyeccion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+            { field: "Proyecto", title: _dictionary.OrdenesTrabajoHeaderProyecto[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+            { field: "OrdenTrabajo", title: _dictionary.OrdenesTrabajoHeaderOrdenTrabajo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "170px" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });
