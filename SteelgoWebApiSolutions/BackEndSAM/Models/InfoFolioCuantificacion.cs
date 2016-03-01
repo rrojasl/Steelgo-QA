@@ -11,6 +11,8 @@ namespace BackEndSAM.Models
         public int FolioAvisoEntradaID { get; set; }
         public int ProyectoID { get; set; }
         public string PackingList { get; set; }
+        public string Factura { get; set; }
+        public string OrdenDeCompra { get; set; }
         public TipoPackingList TipoPackingList { get; set; }
         public TipoUso TipoUso { get; set; }
         public string TipoUsoNombre { get; set; }

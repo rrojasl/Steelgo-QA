@@ -19,6 +19,7 @@ namespace BackEndSAM.Models
         public bool Activo { get; set; }
         public int? BultoID { get; set; }
         public int? TipoPackingList { get; set; }
-
+        public string OrdenDeCompra { get; set; }
+        public string Factura { get; set; }
     }
 }

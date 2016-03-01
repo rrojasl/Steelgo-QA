@@ -24,6 +24,8 @@ namespace BackEndSAM.Models
         public TipoPackingList TipoPackingList { get; set; }
         public TipoUso TipoUso { get; set; }
         public string PackingList { get; set; }
+        public string OrdenDeCompra { get; set; }
+        public string Factura { get; set; }
     }
 
     public class FolioLlegada1

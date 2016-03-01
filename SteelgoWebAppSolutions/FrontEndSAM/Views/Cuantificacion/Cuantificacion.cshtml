@@ -104,6 +104,16 @@
                             <label id="Cuantificacion0018"></label>
                             <input id="TipoUsoID" />
                         </div>
+
+                          <div id="OrdenDeCompraDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0102"></label>
+                            <input id="OrdenDeCompra" class="general-input"/>
+                        </div>
+                          <div id="FacturaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0103"></label>
+                            <input id="Factura" class="general-input"/>
+                        </div>
+
                         <div id="massiveUploadDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0019"></label>
                             <div class="row">
@@ -817,6 +827,8 @@
             $("#ProyectoID").data("kendoComboBox").enable(true);
             $("#FolioCuantificacionID").data("kendoComboBox").enable(true);
             $("#PackingList").removeAttr("disabled");
+            $("#Factura").removeAttr("disabled");
+            $("#OrdenDeCompra").removeAttr("disabled");
             $("#TipoUsoID").data("kendoComboBox").enable(true);
             $("#massiveUpload").removeAttr("disabled");
             $("#Colada").data("kendoAutoComplete").enable(true);
@@ -851,6 +863,8 @@
             $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
             $("#BultoID").attr("disabled", "disabled");
             $("#PackingList").attr("disabled", "disabled");
+            $("#Factura").attr("disabled", "disabled");
+            $("#OrdenDeCompra").attr("disabled", "disabled");
             $("#TipoPackingListID").data("kendoComboBox").enable(false);
             $("#TipoUsoID").data("kendoComboBox").enable(false);
             $("#massiveUpload").attr("disabled", "disabled");
@@ -1485,6 +1499,8 @@
                             CargarProyecto(result.Proyecto[0].ProyectoID, result.Proyecto[0].Nombre);
                             //ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
                             $("#FolioAvisoEntradaID").data("kendoComboBox").value(result.TipoUsoID);
+                            $("#OrdenDeCompra").val(result.OrdenDeCompra);
+                            $("#Factura").val(result.Factura);
                             CargarTipoUso(result.TipoUsoID, result.TipoUso);
                             ObtenerTipoPackingListProyectoConfiguracion(result.Proyecto[0].ProyectoID);
                         };
@@ -1610,6 +1626,8 @@
             $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
             $("#BultoID").attr("disabled", "disabled");
             $("#PackingList").attr("disabled", "disabled");
+            $("#Factura").attr("disabled", "disabled");
+            $("#OrdenDeCompra").attr("disabled", "disabled");
             $("#TipoPackingListID").data("kendoComboBox").enable(false);
             $("#TipoUsoID").data("kendoComboBox").enable(false);
         };
@@ -1676,6 +1694,8 @@
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
                     $("#BultoID").val(_bultoID == -1 ? 0 : _bultoID);
                     $("#PackingList").val(result.PackingList);
+                    $("#Factura").val(result.Factura);
+                    $("#OrdenDeCompra").val(result.OrdenDeCompra);
 
                     if (result.MostrarComboPackingList) {
                         $("#TipoPackingListID").data("kendoComboBox").value(result.TipoPackingList.id);
@@ -1973,6 +1993,8 @@
             $("#FolioCuantificacionID").data("kendoComboBox").value("");
             $("#BultoID").val("");
             $("#PackingList").val("");
+            $("#Factura").val("");
+            $("#OrdenDeCompra").val("");
             //$("#TipoPackingListID").data("kendoComboBox").value("");
             $("#TipoUsoID").data("kendoComboBox").value("");
             $("#grid").data("kendoGrid").dataSource.data([]);
@@ -2010,6 +2032,8 @@
             $("#ProyectoID").data("kendoComboBox").value("");
             $("#BultoID").val("");
             $("#PackingList").val("");
+            $("#Factura").val("");
+            $("#OrdenDeCompra").val("");
             //$("#TipoPackingListID").data("kendoComboBox").value("");
             $("#TipoUsoID").data("kendoComboBox").value("");
             $("#grid").data("kendoGrid").dataSource.data([]);
@@ -2025,6 +2049,8 @@
             //$("#ProyectoID").data("kendoComboBox").value("");
             $("#BultoID").val("");
             $("#PackingList").val("");
+            $("#Factura").val("");
+            $("#OrdenDeCompra").val("");
             //$("#TipoPackingListID").data("kendoComboBox").value("");
             //$("#TipoUsoID").data("kendoComboBox").value("");
             $("#grid").data("kendoGrid").dataSource.data([]);
@@ -2788,14 +2814,16 @@
         };
         
         function ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID) {
-            Cuantificacion = { FolioAvisollegadaId: "", ProyectoID: "", FolioCuantificacionID: "", BultoID: "", PackingList: "", TipoPackingList: "", TipoUso: "" };
+            Cuantificacion = { FolioAvisollegadaId: "", ProyectoID: "", FolioCuantificacionID: "", BultoID: "", PackingList: "", TipoPackingList: "", TipoUso: "", Factura: "", OrdenDeCompra: "" };
             Cuantificacion.FolioAvisollegadaId = FolioAvisoEntrada.FolioAvisoEntradaID;
             Cuantificacion.ProyectoID = Proyecto.ProyectoID;
             Cuantificacion.FolioCuantificacionID = folioCuantificacionID;
             Cuantificacion.BultoID = $("#BultoID").val();
             Cuantificacion.PackingList = $("#PackingList").val();
             Cuantificacion.TipoPackingList = TipoPackingList.TipoPackingListID? TipoPackingList.TipoPackingListID: null;
-            Cuantificacion.TipoUso = TipoUso.TipoUsoID;
+            Cuantificacion.TipoUso = $("#TipoUsoID").data("kendoComboBox").value();
+            Cuantificacion.OrdenDeCompra = $("#OrdenDeCompra").val();
+            Cuantificacion.Factura = $("#Factura").val();
             return Cuantificacion;
         };
 

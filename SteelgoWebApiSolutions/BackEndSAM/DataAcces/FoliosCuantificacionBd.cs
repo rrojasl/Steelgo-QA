@@ -259,7 +259,15 @@ namespace BackEndSAM.DataAcces
                     InfoFolioAvisoEntrada info = new InfoFolioAvisoEntrada();
                     info.Proyecto = proyectos;
                     info.FolioLlegada = cuantificacion;
+                    info.OrdenDeCompra = (from ave in ctx.Sam3_FolioAvisoEntrada 
+                                          where ave.FolioAvisoLlegadaID == folioAvisoLlegadaID 
+                                          && ave.Activo 
+                                          select ave.OrdenCompra).AsParallel().SingleOrDefault();
 
+                    info.Factura = (from ave in ctx.Sam3_FolioAvisoEntrada
+                                    where ave.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                    && ave.Activo
+                                    select ave.Factura).AsParallel().SingleOrDefault();
                     return info;
                 }
             }
@@ -359,7 +367,8 @@ namespace BackEndSAM.DataAcces
                             {
                                 ProyectoID = t.ProyectoID,
                                 PackingList = t.PackingList,
-
+                                Factura = avll.Factura,
+                                OrdenDeCompra = avll.OrdenCompra,
                                 TipoUso = new TipoUso()
                                 {
                                     id = t.TipoUsoID.ToString(),

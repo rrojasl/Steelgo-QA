@@ -2371,6 +2371,16 @@ _dictionary = {
         "es-MX": "Tipo Material",
         "en-US": "Material Type"
     },
+    "Cuantificacion0102": {
+        "es-MX": "Orden de Compra",
+        "en-US": "Purchase Order"
+    },
+
+    "Cuantificacion0103": {
+        "es-MX": "Factura",
+        "en-US": "Invoice"
+    },
+
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

@@ -88,6 +88,17 @@ namespace BackEndSAM.DataAcces
                         }
                         ctx.SaveChanges();
 
+                        //Guardar Orden de Compra y Factura
+                        Sam3_FolioAvisoEntrada folioEntrada = (from ave in ctx.Sam3_FolioAvisoEntrada
+                                                               where ave.Activo && ave.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId
+                                                               select ave).AsParallel().SingleOrDefault();
+                        folioEntrada.OrdenCompra = datosCuantificacion.OrdenDeCompra;
+                        folioEntrada.Factura = datosCuantificacion.Factura;
+                        folioEntrada.FechaModificacion = DateTime.Now;
+                        folioEntrada.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.SaveChanges();
+
                         #region Proyectos
 
                         int cuentaProyectos = (from rel in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
@@ -308,6 +319,18 @@ namespace BackEndSAM.DataAcces
 
                         ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
                         ctx.SaveChanges();
+
+                        //Guardar Orden de Compra y Factura
+                        Sam3_FolioAvisoEntrada folioEntrada = (from ave in ctx.Sam3_FolioAvisoEntrada
+                                                               where ave.Activo && ave.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId
+                                                               select ave).AsParallel().SingleOrDefault();
+                        folioEntrada.OrdenCompra = datosCuantificacion.OrdenDeCompra;
+                        folioEntrada.Factura = datosCuantificacion.Factura;
+                        folioEntrada.FechaModificacion = DateTime.Now;
+                        folioEntrada.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.SaveChanges();
+
 
                         #region Proyectos
 
