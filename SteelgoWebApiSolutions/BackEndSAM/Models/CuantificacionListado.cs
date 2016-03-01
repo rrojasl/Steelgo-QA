@@ -36,5 +36,6 @@ namespace BackEndSAM.Models
         public string ItemCodeOrigenID { get; set; }
         public string ProyectoID { get; set; }
         public string TextoTipoMaterial { get; set; }
+        public string DimensionPromedio { get; set; }
     }
 }

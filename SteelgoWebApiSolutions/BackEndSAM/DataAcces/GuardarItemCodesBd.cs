@@ -301,7 +301,8 @@ namespace BackEndSAM.DataAcces
                                         Detallar = "No",
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                     //}
                                 }
@@ -368,7 +369,8 @@ namespace BackEndSAM.DataAcces
                                             Detallar = "No",
                                             RelBID = datosItemCode.RelBID,
                                             RelFCId = datosItemCode.RelFCId,
-                                            ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                            ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                            DimensionPromedio = datosItemCode.DimensionPromedio
                                         });
                                     }
                                 }
@@ -588,7 +590,8 @@ namespace BackEndSAM.DataAcces
                                         Detallar = "No",
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                     //}
                                 }
@@ -647,7 +650,8 @@ namespace BackEndSAM.DataAcces
                                             Detallar = "No",
                                             RelBID = datosItemCode.RelBID,
                                             RelFCId = datosItemCode.RelFCId,
-                                            ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                            ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                            DimensionPromedio = datosItemCode.DimensionPromedio
                                         });
                                     }
                                 }
@@ -880,7 +884,8 @@ namespace BackEndSAM.DataAcces
                                         Detallar = "No",
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                     //}
                                 }
@@ -922,7 +927,8 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                 }
                                 else
@@ -1110,7 +1116,8 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU,
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                     //}
                                 }
@@ -1151,7 +1158,8 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU,
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
 
                                 }
@@ -1194,7 +1202,8 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                 }
                                 else
@@ -1386,7 +1395,8 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU,
                                         RelBID = datosItemCode.RelBID,
                                         RelFCId = datosItemCode.RelFCId,
-                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID
+                                        ItemCodeOrigenID = datosItemCode.ItemCodeOrigenID,
+                                        DimensionPromedio = datosItemCode.DimensionPromedio
                                     });
                                     //}
 
@@ -1645,9 +1655,10 @@ namespace BackEndSAM.DataAcces
                     relIC.UsuarioModificacion = usuario.UsuarioID;
                     relIC.Activo = true;
                     relIC.Cantidad = IC.Cantidad;
-                    if (IC.MM > 0)
+                    if (IC.MM >= 0)
                     {
                         relIC.MM = IC.MM;
+                        relIC.DimensionPromedio = Convert.ToDecimal(IC.DimensionPromedio);
                     }
                     if (IC.ColadaID > 0)
                     {
@@ -1708,9 +1719,10 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = IC.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
-                        if (IC.MM > 0)
+                        if (IC.MM >= 0)
                         {
                             registroBd.MM = IC.MM;
+                            registroBd.DimensionPromedio = Convert.ToDecimal(IC.DimensionPromedio);
                         }
                         if (IC.ColadaID > 0)
                         {
@@ -1820,7 +1832,7 @@ namespace BackEndSAM.DataAcces
                     bic.UsuarioModificacion = usuario.UsuarioID;
                     bic.Activo = true;
                     bic.Cantidad = item.Cantidad;
-                    if (item.MM > 0)
+                    if (item.MM >= 0)
                     {
                         bic.MM = item.MM;
                     }
@@ -1879,7 +1891,7 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = item.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
-                        if (item.MM > 0)
+                        if (item.MM >= 0)
                         {
                             registroBd.MM = item.MM;
                         }

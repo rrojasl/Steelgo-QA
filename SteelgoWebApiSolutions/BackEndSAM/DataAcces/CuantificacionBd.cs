@@ -76,6 +76,7 @@ namespace BackEndSAM.DataAcces
                                        D2 = d2.Valor,
                                        Cantidad = fc.Cantidad,
                                        MM = fc.MM,
+                                       DimensionPromedio = fc.DimensionPromedio.ToString(),
                                        ItemCodeSteelgo = (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                                           join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID

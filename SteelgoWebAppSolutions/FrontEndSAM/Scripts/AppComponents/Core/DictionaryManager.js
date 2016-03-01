@@ -2375,10 +2375,13 @@ _dictionary = {
         "es-MX": "Orden de Compra",
         "en-US": "Purchase Order"
     },
-
     "Cuantificacion0103": {
         "es-MX": "Factura",
         "en-US": "Invoice"
+    },
+    "Cuantificacion0104": {
+        "es-MX": "Dimension Promedio",
+        "en-US": "Average Dimension"
     },
 
     //Formato Etiquetas
@@ -6657,6 +6660,10 @@ _dictionary = {
     "notificationslabel0104": {
         "es-MX": "Favor de validar los MM de los numeros unicos marcados en rojo.",
         "en-US": "Please confirm the MM of unique numbers marked in red."
+    },
+    "notificationslabel0105": {
+        "es-MX": "Favor de validar el promedio de los item codes marcados en rojo.",
+        "en-US": "Please confirm the average of item codes marked in red."
     },
     //Default to copy
     "label9999": {
