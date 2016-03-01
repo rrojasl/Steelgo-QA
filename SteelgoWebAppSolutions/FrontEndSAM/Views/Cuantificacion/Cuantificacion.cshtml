@@ -1126,7 +1126,7 @@
                         $("input[name=Cantidad]").on("change", function () {
                             var uid = e.model.uid;
                             setTimeout(function () {
-                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(11)"));
+                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(12)"));
                             }, 10);
                         });
                     }
@@ -1137,7 +1137,21 @@
                         $("input[name=MM]").on("change", function () {
                             var uid = e.model.uid;
                             setTimeout(function () {
-                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(12)"));
+                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(11)"));
+                                isOpen = false;
+                                isMM = false;
+                                mmValue = e.model.MM;
+                            }, 10);
+                        });
+                    }
+
+                    if ($("input[name=DimensionPromedio]").length > 0) {
+                        isOpen = true;
+                        isMM = true;
+                        $("input[name=DimensionPromedio]").on("change", function () {
+                            var uid = e.model.uid;
+                            setTimeout(function () {
+                                $("#grid").data("kendoGrid").current($("[data-uid=" + uid + "] td:nth-child(13)"));
                                 isOpen = false;
                                 isMM = false;
                                 mmValue = e.model.MM;
