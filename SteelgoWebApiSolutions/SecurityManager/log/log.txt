@@ -177,3 +177,37 @@ Exception Data: System.Collections.ListDictionaryInternal
 3/1/2016 2:47:18 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456867026}
 3/1/2016 2:48:37 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456867112}
 3/1/2016 3:36:04 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456869950}
+3/1/2016 5:13:20 PM - Usuario:samAdmin, pass: samadmin
+3/1/2016 5:13:20 PM - GUID devuelto: 
+3/1/2016 5:13:20 PM - {"UsuarioID":0,"NombreUsuario":null,"ContrasenaHash":null,"PerfilID":0,"BloqueadoPorAdministracion":false,"Activo":false,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/1/2016 5:13:21 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456875801}
+3/1/2016 5:14:16 PM - Usuario:samAdmin, pass: samadmin
+3/1/2016 5:14:16 PM - GUID devuelto: 
+3/1/2016 5:14:16 PM - {"UsuarioID":0,"NombreUsuario":null,"ContrasenaHash":null,"PerfilID":0,"BloqueadoPorAdministracion":false,"Activo":false,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/1/2016 5:14:16 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456875856}
+3/1/2016 5:15:11 PM - Usuario:samAdmin, pass: samadmin
+3/1/2016 5:15:11 PM - GUID devuelto: 
+3/1/2016 5:15:11 PM - {"UsuarioID":0,"NombreUsuario":null,"ContrasenaHash":null,"PerfilID":0,"BloqueadoPorAdministracion":false,"Activo":false,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/1/2016 5:15:11 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456875911}
+3/1/2016 5:27:04 PM - Usuario:samAdmin, pass: samadmin
+3/1/2016 5:27:04 PM - GUID devuelto: 
+3/1/2016 5:27:04 PM - {"UsuarioID":0,"NombreUsuario":null,"ContrasenaHash":null,"PerfilID":0,"BloqueadoPorAdministracion":false,"Activo":false,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/1/2016 5:27:04 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456876624}
+3/2/2016 10:55:12 AM - Usuario:samAdmin, pass: samadmin
+3/2/2016 10:55:12 AM - GUID devuelto: 
+3/2/2016 10:55:12 AM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/2/2016 10:55:13 AM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456939513}
+3/2/2016 11:11:30 AM - Usuario:samAdmin, pass: samadmin
+3/2/2016 11:11:30 AM - GUID devuelto: 
+3/2/2016 11:11:30 AM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/2/2016 11:11:31 AM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456940491}
+3/2/2016 12:10:11 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456943960}
+3/2/2016 12:19:51 PM - Usuario:samAdmin, pass: samadmin
+3/2/2016 12:19:51 PM - GUID devuelto: 
+3/2/2016 12:19:51 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/2/2016 12:19:51 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456944591}
+3/2/2016 1:58:52 PM - Usuario:samAdmin, pass: samadmin
+3/2/2016 1:58:52 PM - GUID devuelto: 
+3/2/2016 1:58:52 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+3/2/2016 1:58:53 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456950533}
+3/2/2016 2:00:36 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1456950533}
