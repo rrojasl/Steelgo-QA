@@ -159,6 +159,10 @@ function eliminarSpoolDeProyeccion(e) {
                         }
                     }
 
+                    dataItem.Proyectado = 0;
+                    dataItem.Seleccionado = 0;
+                    dataItem.Proyeccion = "";
+                    $("#grid").data("kendoGrid").dataSource.sync();
                     EditarEliminarSpoolDeContenedorProyecciones(dataItem);
                     
                     break;

@@ -7038,6 +7038,10 @@ _dictionary = {
         "en-US": "Are you sure you want to erase the projection?"
     },
 
+    "AdvertenciaSeleccioneSpool": {
+        "es-MX": "Por favor seleccione un spool",
+        "en-US": "Select a spool please"
+    },
     //
     //EntregaResultadosHeader
     "GridstackHeaderPlaneacionControl": {

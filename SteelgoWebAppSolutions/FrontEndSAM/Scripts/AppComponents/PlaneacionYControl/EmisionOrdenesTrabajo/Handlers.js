@@ -72,8 +72,7 @@ function SuscribirEventoPreguntaCrearNuevaProyeccion() {
 }
 
 function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
-    $("#btnUtilizarProyeccionExistente").click(function () {
-        debugger;
+    $("#btnUtilizarProyeccionExistente").click(function () { 
         if ($("tr.proyeccion").length > 0) {
             $("#ProyectarPreguntaDiv").hide();
             ObtenerProyeccionesExistentes();
@@ -106,8 +105,7 @@ function SuscribirEventoCrearNuevaProyeccion() {
 
         $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
         $("#divProyectarWindow").data("kendoWindow").center().open();
-        
-        debugger;
+         
         CalcularValoresProyecciones(true, $("#inputTalleresWindow").val());
     });
 }
@@ -133,8 +131,7 @@ function SuscribirEventoTalleres() {
 }
  
 function SuscribirEventoUtilizarProyeccionExistente() {
-    $("#btnSeleccionaProyeccion").click(function () {
-        debugger;
+    $("#btnSeleccionaProyeccion").click(function () { 
         CalcularValoresProyecciones(false,0);
     });
 }
@@ -238,6 +235,10 @@ function SuscribirEventoEmitir() {
         index: 3
     });
 }
+
+$("#crearORdenTrabajo").click(function () {
+    
+});
 
 //Encabezado
 function SuscribirEventoMostrar() {

@@ -299,3 +299,16 @@ function eliminarCaptura(e) {
         });
     }
 }
+
+function AgregarEstiloError($grid) {
+    //Agregar error en fila
+    $("tr", $grid).each(function (index) {
+        var $row = $(this);
+        $row.css("background-color", "");
+        $("td", $(this)).each(function (index) {
+            if ($(this).text() == "" || $(this).text() == "0" || $(this).text().indexOf("No") >= 0 || $(this).text().indexOf("Existen 0") >= 0) {
+                $row.css("background-color", "#ffcccc");
+            }
+        });
+    });
+}

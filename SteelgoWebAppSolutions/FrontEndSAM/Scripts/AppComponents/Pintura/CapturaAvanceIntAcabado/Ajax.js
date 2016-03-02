@@ -257,18 +257,9 @@ function AjaxGuardarCaptura(arregloCaptura, pasoId) {
                     "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
                 ventanaConfirm.open().center();
-
-                var $grid = $("#grid");
-
-                $("tr", $grid).each(function (index) {
-                    var $row = $(this);
-                    $row.css("background-color", "");
-                    $("td", $(this)).each(function (index) {
-                        if ($(this).text() == "" || $(this).text() == "0" || $(this).text().indexOf("No") >= 0 || $(this).text().indexOf("Existen 0") >= 0) {
-                            $row.css("background-color", "#ffcccc");
-                        }
-                    });
-                });
+                 
+                 
+                AgregarEstiloError($("#grid"));
 
                 $("#yesButton").click(function () {
                     loadingStart();

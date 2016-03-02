@@ -374,15 +374,13 @@ function EditarEliminarSpoolDeContenedorProyecciones(spool) {
         }
         peqs += spool.ListaJuntas[j].Peqs;
     
-    }
-    alert(parseInt($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10));
-    alert(spool.Area);
+    } 
 
     totalSpoolsProyeccion = parseInt($("span.totalSpools.Proyeccion" + proyeccionID + "").text(), 10)-1;
     totalJuntasProyeccion = parseInt($("span.totalJuntas.Proyeccion" + proyeccionID + "").text(), 10)-spool.ListaJuntas.length;
-    totalPeso = parseInt($("span.totalPeso.Proyeccion" + proyeccionID + "").text(), 10)-spool.Peso;
-    totalArea = parseInt($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10)-spool.Area;
-    totalPeqs = parseInt($("span.totalPeqs.Proyeccion" + proyeccionID + "").text(), 10)-peqs;
+    totalPeso = parseFloat($("span.totalPeso.Proyeccion" + proyeccionID + "").text(), 10)-spool.Peso;
+    totalArea = parseFloat($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10)-spool.Area;
+    totalPeqs = parseFloat($("span.totalPeqs.Proyeccion" + proyeccionID + "").text(), 10)-peqs;
 
     $("span.totalSpools.Proyeccion" + proyeccionID + "").text(totalSpoolsProyeccion);
     $("span.totalJuntas.Proyeccion" + proyeccionID + "").text(totalJuntasProyeccion);
@@ -396,20 +394,20 @@ function EditarEliminarSpoolDeContenedorProyecciones(spool) {
 
 function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) { 
     $.each(Talleres, function (index) {
-        $.each(Talleres[index].taller[0].Automatico.Proyecciones, function (proyeccion_index, proyeccion) {
+        $.each(Talleres[index].taller[0].Proyecciones, function (proyeccion_index, proyeccion) {
             if (proyeccion.ID == $("#inputProyecciones").val()) {
                 var automatico = proyeccion.Automatico - (totalAutomatico * 0.8);
                 var automan = proyeccion.Automan - (totalAutomatico * 0.2);
                 var manual = proyeccion.Manual - totalManual;
 
-                $.each(SpoolsEnProyeccion, function (spool_index, spool) {
+                $.each(proyeccion.SpoolDetalle, function (spool_index, spool) {
                     Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.splice(spool_index,1);
                 })
             }
         });
     });
 
-    ActualizarContenedorCapacidad();
+    ActualizarContenedorCapacidad(); 
 }
 
 function ObtenerProyeccionesExistentes() {
@@ -431,8 +429,7 @@ function ObtenerProyeccionesExistentes() {
 }
 
 //Funciones generales despues de proyectar
-function ActualizarContenedorCapacidad() {
-    debugger;
+function ActualizarContenedorCapacidad() { 
     for (var i = 0; i < Talleres.length; i++) {
         var automatico = automan = manual = 0;
 
@@ -449,7 +446,7 @@ function ActualizarContenedorCapacidad() {
     }
 }
 
-function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
+function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) { 
     var ds = $("#grid").data("kendoGrid").dataSource._data;
     
     for (var i = 0; i < ds.length; i++) {
@@ -465,7 +462,7 @@ function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
                 listaSpool[j].Seleccionado = 0;
                 listaSpool[j].Proyectado = 0;
                 listaSpool[j].Proyeccion = "";
-            }
+            } 
         }
     }
 
@@ -508,7 +505,7 @@ function ValidarValoresAntesDeProyectar() {
     var familiaAcero = -1;
     familiaProyeccion = ""; 
     var ds = $("#grid").data("kendoGrid").dataSource._data;
- 
+  
     for (var i = 0; i < ds.length; i++) {
         var listaSpool = ds[i].ListaSpools
          
