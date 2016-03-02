@@ -80,18 +80,16 @@ function CargarGrid() {
     CustomisaGrid($("#grid"));
 }
   
-function CalcularValoresProyecciones(crear, tallerID) {
-    //if (ValidarValoresAntesDeProyectar()) {  
-        if (crear) {  
-            AgregarContenedorProyecciones(tallerID);  
-        }
-        else {  
-            EditarAgregarContenedorProyecciones();
-        }
+function CalcularValoresProyecciones(crear, tallerID) { 
+    if (crear) {  
+        AgregarContenedorProyecciones(tallerID);  
+    }
+    else {  
+        EditarAgregarContenedorProyecciones();
+    }
 
-        ActualizarGrid(true,"");
-        SpoolsEnProyeccion = new Array();
-    //} 
+    ActualizarGrid(true,"");
+    SpoolsEnProyeccion = new Array(); 
 }
 
 function CrearContenedorProyecciones(talleresLista) {
@@ -325,17 +323,18 @@ function EditarAgregarContenedorProyecciones() {
 
 function EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) { 
     $.each(Talleres, function (index) {
-        //$.each(Talleres[index].taller[0].Automatico.Proyecciones, function (proyeccion_index, proyeccion) {
-        //    if (proyeccion.ID == $("#inputProyecciones").val()) {
-        //        var automatico = proyeccion.NumeroSpools + (totalAutomatico * 0.8);
-        //        var automan = Talleres[index].taller[0].Automan.Proyecciones[proyeccion_index].NumeroSpools + (totalAutomatico * 0.2);
-        //        var manual = Talleres[index].taller[0].Manual.Proyecciones[proyeccion_index].NumeroSpools + totalManual;
-
-        //        proyeccion.NumeroSpools = automatico;
-        //        Talleres[index].taller[0].Automan.Proyecciones[proyeccion_index].NumeroSpools = automan;
-        //        Talleres[index].taller[0].Manual.Proyecciones[proyeccion_index].NumeroSpools = manual;
-        //    }
-        //});
+        $.each(Talleres[index].taller[0].Proyecciones, function (proyeccion_index, proyeccion) {
+            if (proyeccion.ID == $("#inputProyecciones").val()) {
+                var automatico = proyeccion.Automatico + (totalAutomatico * 0.8);
+                var automan = proyeccion.Automan + (totalAutomatico * 0.2);
+                var manual = proyeccion.Manual + totalManual;
+                 
+                $.each(SpoolsEnProyeccion, function (spool_index, spool) {
+                    Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.push(spool);
+                })
+                
+            }
+        });
 
         //$.each(Talleres[index].taller[0].Proyecciones, function (proyeccion_index, proyeccion) {
         //    if (proyeccion.ID == $("#inputProyecciones").val()) {
@@ -351,41 +350,39 @@ function EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proy
         //    }
         //});
     });
-
+     
     ActualizarContenedorCapacidad();
 }
 
-function EditarEliminarSpoolDeContenedorProyecciones(SpoolsEnProyeccion) {
-    var proyeccionID = $("#inputProyecciones").val();
-    var totalSpoolsProyeccion = SpoolsEnProyeccion.length;
+function EditarEliminarSpoolDeContenedorProyecciones(spool) {
+    var proyeccionID = $("#inputProyecciones").val(); 
     var totalJuntasProyeccion = 0;
     var totalPeso = 0;
     var totalArea = 0;
     var totalPeqs = 0;
+    var peqs = 0;
+
     var totalAutomatico = 0;
-    var totalManual = 0;
+    var totalManual = 0; 
 
-    for (var i = 0; i < totalSpoolsProyeccion; i++) {
-        totalJuntasProyeccion += SpoolsEnProyeccion[i].ListaJuntas.length;
-        totalPeso += SpoolsEnProyeccion[i].Peso;
-        totalArea += SpoolsEnProyeccion[i].Area;
-
-        for (var j = 0; j < SpoolsEnProyeccion[i].ListaJuntas.length; j++) {
-            if (SpoolsEnProyeccion[i].ListaJuntas[j].FabclasID == 1) {
-                totalAutomatico += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
-            }
-            else if (SpoolsEnProyeccion[i].ListaJuntas[j].FabclasID == 2) {
-                totalManual += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
-            }
-            totalPeqs += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
+    for (var j = 0; j < spool.ListaJuntas.length; j++) {
+        if (spool.ListaJuntas[j].FabclasID == 1) {
+            totalAutomatico += spool.ListaJuntas[j].Peqs;
         }
+        else if (spool.ListaJuntas[j].FabclasID == 2) {
+            totalManual += spool.ListaJuntas[j].Peqs;
+        }
+        peqs += spool.ListaJuntas[j].Peqs;
+    
     }
+    alert(parseInt($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10));
+    alert(spool.Area);
 
-    totalSpoolsProyeccion -= parseInt($("span.totalSpools.Proyeccion" + proyeccionID + "").text(), 10);
-    totalJuntasProyeccion -= parseInt($("span.totalJuntas.Proyeccion" + proyeccionID + "").text(), 10);
-    totalPeso -= parseInt($("span.totalPeso.Proyeccion" + proyeccionID + "").text(), 10);
-    totalArea -= parseInt($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10);
-    totalPeqs -= parseInt($("span.totalPeqs.Proyeccion" + proyeccionID + "").text(), 10);
+    totalSpoolsProyeccion = parseInt($("span.totalSpools.Proyeccion" + proyeccionID + "").text(), 10)-1;
+    totalJuntasProyeccion = parseInt($("span.totalJuntas.Proyeccion" + proyeccionID + "").text(), 10)-spool.ListaJuntas.length;
+    totalPeso = parseInt($("span.totalPeso.Proyeccion" + proyeccionID + "").text(), 10)-spool.Peso;
+    totalArea = parseInt($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10)-spool.Area;
+    totalPeqs = parseInt($("span.totalPeqs.Proyeccion" + proyeccionID + "").text(), 10)-peqs;
 
     $("span.totalSpools.Proyeccion" + proyeccionID + "").text(totalSpoolsProyeccion);
     $("span.totalJuntas.Proyeccion" + proyeccionID + "").text(totalJuntasProyeccion);
@@ -396,17 +393,18 @@ function EditarEliminarSpoolDeContenedorProyecciones(SpoolsEnProyeccion) {
     EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID);
 }
 
-function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) {
+
+function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) { 
     $.each(Talleres, function (index) {
         $.each(Talleres[index].taller[0].Automatico.Proyecciones, function (proyeccion_index, proyeccion) {
             if (proyeccion.ID == $("#inputProyecciones").val()) {
-                var automatico = proyeccion.NumeroSpools - (totalAutomatico * 0.8);
-                var automan = Talleres[index].taller[0].Automan.Proyecciones[proyeccion_index].NumeroSpools - (totalAutomatico * 0.2);
-                var manual = Talleres[index].taller[0].Manual.Proyecciones[proyeccion_index].NumeroSpools - totalManual;
+                var automatico = proyeccion.Automatico - (totalAutomatico * 0.8);
+                var automan = proyeccion.Automan - (totalAutomatico * 0.2);
+                var manual = proyeccion.Manual - totalManual;
 
-                proyeccion.NumeroSpools = automatico;
-                Talleres[index].taller[0].Automan.Proyecciones[proyeccion_index].NumeroSpools = automan;
-                Talleres[index].taller[0].Manual.Proyecciones[proyeccion_index].NumeroSpools = manual;
+                $.each(SpoolsEnProyeccion, function (spool_index, spool) {
+                    Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.splice(spool_index,1);
+                })
             }
         });
     });
@@ -510,7 +508,7 @@ function ValidarValoresAntesDeProyectar() {
     var familiaAcero = -1;
     familiaProyeccion = ""; 
     var ds = $("#grid").data("kendoGrid").dataSource._data;
-    debugger;
+ 
     for (var i = 0; i < ds.length; i++) {
         var listaSpool = ds[i].ListaSpools
          
@@ -577,7 +575,7 @@ function CambiarProyeccionDeTaller(tallerID, proyeccionID) {
     var proyeccionManual;
     var nombre;
     var spoolDetalle;
-
+  
     for (var i = 0; i < Talleres.length; i++) { 
         if (Talleres[i].taller[0].ID == tallerAnterior) {
             for (var j = 0; j < Talleres[i].taller[0].Proyecciones.length ; j++) {  
@@ -586,7 +584,7 @@ function CambiarProyeccionDeTaller(tallerID, proyeccionID) {
                     proyeccionAutoman = Talleres[i].taller[0].Proyecciones[j].Automan;
                     proyeccionManual = Talleres[i].taller[0].Proyecciones[j].Manual;
                     nombre = Talleres[i].taller[0].Proyecciones[j].Nombre;
-                    spoolDetalle = Talleres[i].taller[0].Proyecciones[j].SpoolsDetalle;
+                    spoolDetalle = Talleres[i].taller[0].Proyecciones[j].SpoolDetalle;
                     Talleres[i].taller[0].Proyecciones.splice(j, 1);
                 }
             }
@@ -629,69 +627,3 @@ function EliminarProyeccion(proyeccionID, nombreProyeccion) {
     ActualizarGrid(false, nombreProyeccion);
 }
 
-function EliminarSpoolDeProyeccion(e) {
-    e.preventDefault();
-
-    var filterValue = $(e.currentTarget).val();
-    var dataItem = $(".nivel2").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
- 
-    windowTemplate = kendo.template($("#windowTemplate").html());
-
-    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-        iframe: true,
-        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-        visible: false, //the window will not appear before its .open method is called
-        width: "auto",
-        height: "auto",
-        modal: true
-    }).data("kendoWindow");
-
-    ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-    ventanaConfirm.open().center();
-
-    $("#yesButton").click(function () {
-        var dataSource = $(".nivel2").data("kendoGrid").dataSource;
-
-        debugger;
-        for (var i = 0; i < Talleres.length; i++) {
-            for (var j = 0; j < Talleres[i].taller[0].Automatico.Proyecciones.length ; j++) {
-                if (Talleres[i].taller[0].Automatico.Proyecciones[j].Nombre == dataItem.Proyeccion) {
-                   // for (var k = 0; k < Talleres[i].taller[0].Automatico.Proyecciones[j].length; k++) {
-                    //  if (Talleres[i].taller[0].Automatico.Proyecciones[j][k].SpoolID == dataItem.SpoolID){
-
-                    //   }
-                    // }
-
-                    var totalAutomatico=0;
-                    var totalManual=0;
-
-                    for (var l = 0; l < dataItem.ListaJuntas.length; l++) {
-                        if (dataItem.ListaJuntas[l].FabclasID == 1) {
-                            totalAutomatico += dataItem.ListaJuntas[l].Peqs;
-                        }
-                        else if (dataItem.ListaJuntas[l].FabclasID == 2) {
-                            totalManual += dataItem.ListaJuntas[l].Peqs;
-                        }
-                    }
- 
-                    Talleres[i].taller[0].Automatico.Proyecciones[j].NumeroSpools -= (totalAutomatico * 0.8);
-                    Talleres[i].taller[0].Automan.Proyecciones[j].NumeroSpools -= (totalAutomatico * 0.2);
-                    Talleres[i].taller[0].Manual.Proyecciones[j].NumeroSpools -= totalManual;
-                    
-                    EditarEliminarSpoolDeContenedorProyecciones(Talleres[i].taller[0].SpoolsDetalle[0]);
-                }
-            }
-        }
-        dataItem.Proyectado = 0;
-        dataItem.Proyeccion = "";
-
-        dataSource.sync();
-        ventanaConfirm.close();
-    });
-    $("#noButton").click(function () {
-        ventanaConfirm.close();
-    });
-
-} 

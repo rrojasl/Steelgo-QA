@@ -56,7 +56,7 @@
         detailInit: RenderGridNivelTres,
         columns: [ 
             { field: "Seleccionado", title: " ", filterable: false, template: '<input type="checkbox" #= Proyectado ? "disabled=disabled" : "" # class="chkbx"  ></input>', width: "50px" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: ⁠⁠⁠EliminarSpoolDeProyeccion }, title: "", width: "99px" },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarSpoolDeProyeccion }, title: "", width: "99px" },
             { field: "Proyeccion", title: "Proyección", filterable: false },
             { field: "SpoolNombre", title: "Spool", filterable: true },
             { field: "Dibujo", title: "Dibujo", filterable: true },
@@ -110,7 +110,73 @@ function dataBound(e) {
     }
 }
 
+function eliminarSpoolDeProyeccion(e) {
+    e.preventDefault();
 
+    var filterValue = $(e.currentTarget).val();
+    var dataItem = $(".nivel2").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+ 
+    windowTemplate = kendo.template($("#windowTemplate").html());
+
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        iframe: true,
+        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "auto",
+        height: "auto",
+        modal: true
+    }).data("kendoWindow");
+
+    ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+    ventanaConfirm.open().center();
+
+    $("#yesButton").click(function () {
+        var dataSource = $(".nivel2").data("kendoGrid").dataSource;
+        for (var i = 0; i < Talleres.length; i++) {
+            for (var j = 0; j < Talleres[i].taller[0].Proyecciones.length ; j++) {
+                if (Talleres[i].taller[0].Proyecciones[j].Nombre == dataItem.Proyeccion) {
+                    var totalAutomatico=0;
+                    var totalManual=0;
+
+                    for (var k = 0; k < dataItem.ListaJuntas.length; k++) {
+                        if (dataItem.ListaJuntas[k].FabclasID == k) {
+                            totalAutomatico += dataItem.ListaJuntas[k].Peqs;
+                        }
+                        else if (dataItem.ListaJuntas[k].FabclasID == 2) {
+                            totalManual += dataItem.ListaJuntas[k].Peqs;
+                        }
+                    }
+ 
+                    Talleres[i].taller[0].Proyecciones[j].Automatico -= (totalAutomatico * 0.8);
+                    Talleres[i].taller[0].Proyecciones[j].Automan -= (totalAutomatico * 0.2);
+                    Talleres[i].taller[0].Proyecciones[j].NumeroSpools -= totalManual;
+                     
+                    for (var m = 0; m < Talleres[i].taller[0].Proyecciones[j].SpoolDetalle.length; m++) {
+                        if (Talleres[i].taller[0].Proyecciones[j].SpoolDetalle[m].SpoolID == dataItem.SpoolID) {
+                            Talleres[i].taller[0].Proyecciones[j].SpoolDetalle.splice(m, 1);
+                        }
+                    }
+
+                    EditarEliminarSpoolDeContenedorProyecciones(dataItem);
+                    
+                    break;
+                }
+            }
+        }
+        dataItem.Proyectado = 0;
+        dataItem.Proyeccion = "";
+
+        dataSource.sync();
+        ventanaConfirm.close();
+    });
+    $("#noButton").click(function () {
+        ventanaConfirm.close();
+    });
+
+} 
+ 
 function RenderGridNivelTres(e) {
     var detailRow = e.detailRow;
     
