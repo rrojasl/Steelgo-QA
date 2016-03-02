@@ -184,6 +184,7 @@
         ctrlDown = false, ctrlKey = 17, vKey = 86, cKey = 67,
         focusResp = "ProyectoID", sinColadaPL = "Sin Colada PL",
         rowselected = "", coladaSeleccionada = "";
+    var sinColada = false;
 
     var _ComplemementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
     var _DashBoardRecepcionAlmacenaje = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
@@ -550,8 +551,17 @@
                 $("#hdnItemCodeSeleccionado").val(rowselected.ItemCode);
                 if (dataItem.Nombre != rowselected.Colada) {
                     if (dataItem.Nombre != sinColadaPL) {
-                        $("#IncidenciaDiv").removeClass("hidden");
+                        if (rowselected.ColadaOriginal == sinColadaPL) {
+                            sinColada = true;
+                            $("#IncidenciaDiv").addClass("hidden");
+                        }
+                        else
+                        {
+                            sinColada = false;
+                            $("#IncidenciaDiv").removeClass("hidden");
+                        }
                     } else {
+                        sinColada = true;
                         $("#IncidenciaDiv").addClass("hidden");
                     }
                     if ($("#language").data("kendoDropDownList").value() == "es-MX") {
@@ -835,7 +845,11 @@
         var bool = true;
         $("#modalEdicionColada .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
-                if (!$(this).val() || ($(this).attr("id") == "EdicionColada" && $(this).val() == "Sin Colada PL")) {
+                if (sinColada)
+                {
+                    $(this).closest("div").find("label").removeClass("error");
+                }
+                else if (!$(this).val()) {
                     bool = false;
                     $(this).closest("div").find("label").addClass("error");
                 } else {
@@ -844,7 +858,7 @@
             };
         });
 
-        if ($("#IncidenciaDiv").is(':hidden')) {
+        if ($("#IncidenciaDiv").is(':hidden') && !sinColada) {
             displayMessage("notificationslabel0106", '', '1');
             e.preventDefault();
         }
