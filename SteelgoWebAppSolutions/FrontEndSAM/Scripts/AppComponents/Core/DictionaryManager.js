@@ -6665,6 +6665,10 @@ _dictionary = {
         "es-MX": "Favor de validar el promedio de los item codes marcados en rojo.",
         "en-US": "Please confirm the average of item codes marked in red."
     },
+    "notificationslabel0106": {
+        "es-MX": "Favor de seleccionar la nueva colada.",
+        "en-US": "Please select a new wash"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

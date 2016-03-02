@@ -843,6 +843,11 @@
                 };
             };
         });
+
+        if ($("#IncidenciaDiv").is(':hidden')) {
+            displayMessage("notificationslabel0106", '', '1');
+            e.preventDefault();
+        }
         return bool;
     };
 
