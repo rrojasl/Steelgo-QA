@@ -70,6 +70,32 @@ function ObtenerJSonGridArmado() {
     }
 }
 
+function AjaxEjecutarGuardado(rows, tipoGuardar)
+{
+    $CapturaArmado.Armado.create(rows, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+
+            if (tipoGuardar == 1) {
+                Limpiar();
+                AjaxCargarCamposPredeterminados();
+            }
+            else {
+                opcionHabilitarView(true, "FieldSetView");
+                AjaxCambiarAccionAModificacion();
+            }
+            loadingStop();
+
+        }
+        else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+            //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+            displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+            loadingStop();
+
+        }
+    });
+}
+
 function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
     try {
         var seGuardoCorrectamente = false;
@@ -77,10 +103,13 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
-        var estaIncompleto = false;
+        
+        
 
+       
         for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[index] = { Accion: "", IdVal: "", JuntaID: "", TipoJuntaID: "", Junta: "", Localizacion1: "", Localizacion2: "", JuntaArmadoID: "", JuntaTrabajoID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "" };
+            try {
+            ListaDetalles[index] = { Accion: "", IdVal: "", JuntaID: "", TipoJuntaID: "", Junta: "", Localizacion1: "", Localizacion2: "", JuntaArmadoID: "", JuntaTrabajoID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "" ,Estatus: 1 };
 
 
             ListaDetalles[index].Accion = arregloCaptura[index].Accion;
@@ -96,7 +125,7 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
             ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
             ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
             ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
-            ListaDetalles[index].FechaArmado = kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+            ListaDetalles[index].FechaArmado =arregloCaptura[index].FechaArmado==null?"": kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
 
             ListaTrabajosAdicionalesEditados = [];
             for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
@@ -112,70 +141,93 @@ function AjaxGuardarCaptura(arregloCaptura,tipoGuardar) {
             }
 
             ListaDetalles[index].ListaDetalleTrabajoAdicional = arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0 ? undefined : ListaTrabajosAdicionalesEditados;
+
             if (
 
-           ListaDetalles[index].IdVal != "" &&
-           ListaDetalles[index].JuntaID != "" &&
-           ListaDetalles[index].TipoJuntaID != "" &&
-           ListaDetalles[index].Junta != "" &&
-           ListaDetalles[index].Localizacion1 != "" &&
-           ListaDetalles[index].Localizacion2 != "" &&
-           ListaDetalles[index].NumeroUnico1ID != "" &&
-           ListaDetalles[index].NumeroUnico2ID != "" &&
-           ListaDetalles[index].TallerID != "" &&
-           ListaDetalles[index].TuberoID != "" &&
-           ListaDetalles[index].FechaArmado != "" 
+           ListaDetalles[index].IdVal == "" ||
+           ListaDetalles[index].JuntaID == "" ||
+           ListaDetalles[index].TipoJuntaID == "" ||
+           ListaDetalles[index].Junta == "" ||
+           ListaDetalles[index].Localizacion1 == "" ||
+           ListaDetalles[index].Localizacion2 == "" ||
+           ListaDetalles[index].NumeroUnico1ID == "" ||
+           ListaDetalles[index].NumeroUnico2ID == "" ||
+           ListaDetalles[index].TallerID == "" ||
+           ListaDetalles[index].TuberoID == "" ||
+           ListaDetalles[index].FechaArmado == ""
+                
                ) {
-                estaIncompleto = false;
+                ListaDetalles[index].Estatus = 0;
             }
-            else {
-                estaIncompleto = true;
-                break;
+            } catch (e) {
+                loadingStop();
             }
         }
-
-
-
-        if (!estaIncompleto) {
-            Captura[0].Detalles = ListaDetalles;
+        Captura[0].Detalles = ListaDetalles;
+       
+        if (!ExistRowEmpty(ListaDetalles)) {
+            
             if (Captura[0].Detalles.length > 0) {
-
-
-                $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                        //mensaje = "Se guardo correctamente la informacion" + "-0";
-                        displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
-                        
-                        if (tipoGuardar == 1) {
-                            Limpiar();
-                            AjaxCargarCamposPredeterminados();
-                        }
-                        else {
-                            opcionHabilitarView(true, "FieldSetView");
-                            AjaxCambiarAccionAModificacion();
-                        }
-                        loadingStop();
-                        
-                    }
-                    else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */{
-                        //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                        displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
-                        loadingStop();
-                        
-                    }
-                });
+                AjaxEjecutarGuardado(Captura[0], tipoGuardar);
             }
             else {
                 loadingStop();
-               
+
             }
+
         }
         else {
-            displayMessage("CapturaMensajeArmadoDatosIncompletos", "", '1');
             loadingStop();
-            
-        }
+            windowTemplate = kendo.template($("#windowTemplate").html());
 
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+            ventanaConfirm.open().center();
+
+
+            RowEmpty($("#grid"));
+
+            $("#yesButton").click(function () {
+                loadingStart();
+               
+                ArregloGuardado = [];
+                var indice = 0;
+                for (var i = 0; i < Captura[0].Detalles.length; i++) {
+                    if (Captura[0].Detalles[i].Estatus == 1) {
+                        ArregloGuardado[indice] = ListaDetalles[i];
+                        indice++;
+                    }
+                }
+
+                Captura[0].Detalles = [];
+                Captura[0].Detalles = ArregloGuardado;
+
+
+                if (ArregloGuardado.length > 0) {
+                    AjaxEjecutarGuardado(Captura[0], tipoGuardar);
+                }
+                else {
+                    loadingStop();
+                    displayNotify("AlertaAdvertencia", "AdverteciaExcepcionGuardado", "", '1');
+                }
+
+                ventanaConfirm.close();
+            });
+            $("#noButton").click(function () {
+                ventanaConfirm.close();
+            });
+
+        }
         
     } catch (e) {
         loadingStop();

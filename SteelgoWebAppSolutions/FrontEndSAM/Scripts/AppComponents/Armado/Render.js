@@ -10,8 +10,11 @@
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Taller = dataItem.Nombre;
-                options.model.TallerID = dataItem.TallerID;
+                if (dataItem != undefined) {
+                    options.model.Taller = dataItem.Nombre;
+                    options.model.TallerID = dataItem.TallerID;
+                }
+
             },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -20,8 +23,9 @@
                     options.model.TallerID = dataItem.TallerID;
                 }
                 else {
-                    options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
-
+                   // options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
+                    options.model.Taller = "";
+                    options.model.TallerID = "";
                 }
             }
         }
@@ -75,8 +79,9 @@ function RenderComboBoxTubero(container, options) {
                     options.model.TuberoID = dataItem.ObreroID;
                 }
                 else {
-                    options.model.Tubero = ObtenerDescCorrectaTubero(options.model.ListaTubero, options.model.TuberoID);
-                   
+                //    options.model.Tubero = ObtenerDescCorrectaTubero(options.model.ListaTubero, options.model.TuberoID);
+                    options.model.Tubero = "";
+                    options.model.TuberoID = "";
                 }
                 //    this.data('kendoComboBox').select(options.model.TuberoID)
                 //$("#MyComboBox").data("kendoComboBox").value(id);
