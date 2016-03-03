@@ -145,8 +145,9 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                         {
                             TallerID = item.TallerID,
                             Taller = item.Taller,
-                            Capacidad = random.Next(50, 100), 
-                            Produccion = produccion
+                            Capacidad = item.Capacidad != 0 ? item.Capacidad : random.Next(50, 100),
+                            Produccion = produccion,
+                            Unidad = item.Unidad
                         }); 
                     }
 
