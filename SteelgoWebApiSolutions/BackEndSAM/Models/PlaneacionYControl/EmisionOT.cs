@@ -70,7 +70,8 @@ namespace BackEndSAM.Models.PlaneacionYControl
     {
         public int TallerID { get; set; }
         public string Taller { get; set; }
-        public int Capacidad { get; set; }  
+        public decimal Capacidad { get; set; }
+        public string Unidad{ get; set; }
         public DetalleProduccion Produccion { get; set; }
     }
 
