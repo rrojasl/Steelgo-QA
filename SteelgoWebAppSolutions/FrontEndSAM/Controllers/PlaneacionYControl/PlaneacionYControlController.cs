@@ -20,9 +20,8 @@ namespace FrontEndSAM.Controllers.Errors
         public ActionResult OrdenesDeTrabajo(string Talleres)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            Talleres capturaDatosJson = serializer.Deserialize<Talleres>(Talleres);
-            ViewBag.Talleres = Talleres;
-
+            //Talleres capturaDatosJson = serializer.Deserialize<Talleres>(Talleres);
+            ViewBag.Talleres = Talleres.ToString();
             return View();
 
         }

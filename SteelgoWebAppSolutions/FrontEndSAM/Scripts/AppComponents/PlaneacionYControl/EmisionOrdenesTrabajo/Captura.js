@@ -1,4 +1,4 @@
-﻿ 
+﻿
 var Talleres = new Array();
 var SpoolsEnProyeccion = new Array();
 var totalProyecciones = 0;
@@ -7,7 +7,7 @@ var cantidadRegistros = 0;
 
 function changeLanguageCall() {
     SuscribirEventos();
-    CargarGrid(); 
+    CargarGrid();
     AjaxObtenerProyectos();
 };
 
@@ -25,7 +25,7 @@ function CargarGrid() {
         edit: function (e) {
             this.closeCell();
         },
-        autoBind: true,  
+        autoBind: true,
         dataSource: {
             data: '',
             schema: {
@@ -42,12 +42,12 @@ function CargarGrid() {
                         Peqs: { type: "number", editable: false }
                     }
                 }
-            }, 
+            },
             pageSize: 20,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
-        }, 
+        },
         navigatable: true,
         filterable: {
             extra: false
@@ -65,7 +65,7 @@ function CargarGrid() {
         },
         detailTemplate: kendo.template($("#templateGridNivelDos").html()),
         detailInit: RenderGridNivelDos,
-        columns: [ 
+        columns: [
             { field: "TipoProducto", title: _dictionary.GridStackProducto[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "FamiliaAcero", title: _dictionary.GridstackFamilia[$("#language").data("kendoDropDownList").value()], filterable: true },
             { field: "Acero", title: _dictionary.GridstackAcero[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -75,22 +75,22 @@ function CargarGrid() {
             { field: "Area", title: _dictionary.GridstackM2[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" },
             { field: "Juntas", title: _dictionary.GridstackBoards[$("#language").data("kendoDropDownList").value()], filterable: false, width: "110px" },
             { field: "Peqs", title: _dictionary.GridstackPqs[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px" }
-        ]   
+        ]
     });
-    
+
     CustomisaGrid($("#grid"));
 }
-  
-function CalcularValoresProyecciones(crear, tallerID) { 
-    if (crear) {  
-        AgregarContenedorProyecciones(tallerID);  
+
+function CalcularValoresProyecciones(crear, tallerID) {
+    if (crear) {
+        AgregarContenedorProyecciones(tallerID);
     }
-    else {  
+    else {
         EditarAgregarContenedorProyecciones();
     }
 
-    ActualizarGrid(true,"");
-    SpoolsEnProyeccion = new Array(); 
+    ActualizarGrid(true, "");
+    SpoolsEnProyeccion = new Array();
 }
 
 function CrearContenedorProyecciones(talleresLista) {
@@ -108,16 +108,16 @@ function CrearContenedorCapacidad(talleresLista) {
     for (var i = 0; i < talleresLista.length; i++) {
         $("#contenedorTalleresCapacidad").append('<tr class="taller-capacidad-contenedor">' +
                                                     '<td width="10%">' +
-                                                    talleresLista[i].Taller+
+                                                    talleresLista[i].Taller +
                                                     '</td>' +
                                                     '<td width="30%"  id="' + talleresLista[i].TallerID + '-automatico" class="automatico">' +
-                                 
+
                                                     '</td>' +
                                                     '<td width="30%" id="' + talleresLista[i].TallerID + '-automan" class="automan">' +
-                                
+
                                                     '</td>' +
                                                     '<td width="30%" id="' + talleresLista[i].TallerID + '-manual" class="manual">' +
-                                 
+
                                                     '</td>' +
                                                 '</tr>');
     }
@@ -125,23 +125,23 @@ function CrearContenedorCapacidad(talleresLista) {
 
 function CrearArregloTalleres(listaTalleres) {
 
-    for (var i = 0; i < listaTalleres.length; i++) {   
+    for (var i = 0; i < listaTalleres.length; i++) {
         Talleres.push({
             taller: [{
                 ID: listaTalleres[i].TallerID,
                 Capacidad: listaTalleres[i].Capacidad,
                 Proyecciones: [{
                     ID: listaTalleres[i].Produccion.ProyeccionID,
-                    Nombre: "Produccion", 
+                    Nombre: "Produccion",
                     Automatico: listaTalleres[i].Produccion.CantidadAutomatico * 0.8,
                     Automan: listaTalleres[i].Produccion.CantidadAutomatico * 0.2,
-                    Manual:listaTalleres[i].Produccion.CantidadManual,
+                    Manual: listaTalleres[i].Produccion.CantidadManual,
                     SpoolDetalle: []
                 }]
             }]
         });
     }
-      
+
     ActualizarContenedorCapacidad();
 }
 
@@ -157,14 +157,14 @@ function AgregarContenedorProyecciones(tallerSeleccionado) {
     var totalManual = 0;
     var familiaID;
 
-    totalProyecciones ++;
-    
-    for (var i = 0; i < totalSpoolsProyeccion;i++) { 
+    totalProyecciones++;
+
+    for (var i = 0; i < totalSpoolsProyeccion; i++) {
         totalJuntasProyeccion += SpoolsEnProyeccion[i].ListaJuntas.length;
         totalPeso += SpoolsEnProyeccion[i].Peso;
         totalArea += SpoolsEnProyeccion[i].Area;
 
-        for (var j = 0; j < SpoolsEnProyeccion[i].ListaJuntas.length; j++) { 
+        for (var j = 0; j < SpoolsEnProyeccion[i].ListaJuntas.length; j++) {
             if (SpoolsEnProyeccion[i].ListaJuntas[j].FabclasID == 1) {
                 totalAutomatico += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
             }
@@ -174,11 +174,11 @@ function AgregarContenedorProyecciones(tallerSeleccionado) {
             totalPeqs += SpoolsEnProyeccion[i].ListaJuntas[j].Peqs;
         }
     }
- 
+
     $("#contenedorProyecciones").append('<tr class="proyeccion" nombre="' + nombre + '" proyeccionid="' + totalProyecciones + '" familiaid="' + familiaProyeccion + '">' +
                                             '<td width="20px"><img src="../../../Content/images/SAMC_Delete.png" proyeccionid="' + totalProyecciones + '" nombreproyeccion="' + nombre + '" style="cursor:pointer" class="eliminarProyeccion"></td>' +
                                             '<td id="DescripcionProyeccion' + totalProyecciones + '" tallerSeleccionado="' + tallerSeleccionado + '">' +
-                                                '<div class="Cuadro'+ totalProyecciones +'">&nbsp;</div>' +
+                                                '<div class="Cuadro' + totalProyecciones + '">&nbsp;</div>' +
                                                 nombre +
                                                 ' - Spools:<span class="totalSpools Proyeccion' + totalProyecciones + '">' + totalSpoolsProyeccion +
                                                 '</span>, Juntas: <span class="totalJuntas Proyeccion' + totalProyecciones + '">' + totalJuntasProyeccion +
@@ -186,18 +186,18 @@ function AgregarContenedorProyecciones(tallerSeleccionado) {
                                                 '</span>, M: <span class="totalArea Proyeccion' + totalProyecciones + '">' + totalArea +
                                                 '</span>, <span class="totalPeqs Proyeccion' + totalProyecciones + '">' + totalPeqs + '</span> Peqs' +
                                             '</td>' +
-                                             
+
                                         '</tr>');
-     
-    $(".taller-proyecciones-encabezado", "#talleresProyeccion").each(function (index, taller) { 
+
+    $(".taller-proyecciones-encabezado", "#talleresProyeccion").each(function (index, taller) {
         var nombreTaller = $(taller).attr("taller");
         var tallerID = $(taller).attr("tallerID");
-        
+
         $(".proyeccion[proyeccionid='" + totalProyecciones + "']").append('<td>' +
                                                                             '<input type="radio" name="taller-' + totalProyecciones + '" class="proyeccion" proyeccion="proyeccion' + totalProyecciones + 'Taller" proyeccionid="' + totalProyecciones + '" taller="' + nombreTaller + '" tallerID="' + tallerID + '">' +
                                                                         '</td>');
     });
-  
+
     $("input.proyeccion[proyeccion='proyeccion" + totalProyecciones + "Taller'][tallerID='" + tallerSeleccionado + "']").attr({ checked: 'checked' });
 
     AgregarNuevaProyeccionArregloTaller(totalAutomatico, totalManual, totalProyecciones);
@@ -207,7 +207,7 @@ function EliminarContenedorProyecciones(proyeccionSeleccionada) {
     $(".proyeccion[proyeccionid='" + proyeccionSeleccionada + "']").remove();
 }
 
-function AgregarNuevaProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) { 
+function AgregarNuevaProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) {
     $.each(Talleres, function (index) {
         if (Talleres[index].taller[0].ID == $("#inputTalleresWindow").val()) {
             Talleres[index].taller[0].Proyecciones.push({
@@ -217,14 +217,14 @@ function AgregarNuevaProyeccionArregloTaller(totalAutomatico, totalManual, proye
                 Automan: totalAutomatico * 0.2,
                 Manual: totalManual,
                 SpoolDetalle: SpoolsEnProyeccion
-            }); 
+            });
         }
     });
 
     $("#inputWindowProyeccion").val("");
     ActualizarContenedorCapacidad();
 }
- 
+
 //Funciones para utilizar proyeccion existente
 function EditarAgregarContenedorProyecciones() {
     var proyeccionID = $("#inputProyecciones").val();
@@ -267,27 +267,27 @@ function EditarAgregarContenedorProyecciones() {
     EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID);
 }
 
-function EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) { 
+function EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) {
     $.each(Talleres, function (index) {
         $.each(Talleres[index].taller[0].Proyecciones, function (proyeccion_index, proyeccion) {
             if (proyeccion.ID == $("#inputProyecciones").val()) {
                 var automatico = proyeccion.Automatico + (totalAutomatico * 0.8);
                 var automan = proyeccion.Automan + (totalAutomatico * 0.2);
                 var manual = proyeccion.Manual + totalManual;
-                 
+
                 $.each(SpoolsEnProyeccion, function (spool_index, spool) {
                     Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.push(spool);
                 })
-                
+
             }
-        }); 
+        });
     });
-     
+
     ActualizarContenedorCapacidad();
 }
 
 function EditarEliminarSpoolDeContenedorProyecciones(spool) {
-    var proyeccionID = $("#inputProyecciones").val(); 
+    var proyeccionID = $("#inputProyecciones").val();
     var totalJuntasProyeccion = 0;
     var totalPeso = 0;
     var totalArea = 0;
@@ -295,7 +295,7 @@ function EditarEliminarSpoolDeContenedorProyecciones(spool) {
     var peqs = 0;
 
     var totalAutomatico = 0;
-    var totalManual = 0; 
+    var totalManual = 0;
 
     for (var j = 0; j < spool.ListaJuntas.length; j++) {
         if (spool.ListaJuntas[j].FabclasID == 1) {
@@ -305,14 +305,14 @@ function EditarEliminarSpoolDeContenedorProyecciones(spool) {
             totalManual += spool.ListaJuntas[j].Peqs;
         }
         peqs += spool.ListaJuntas[j].Peqs;
-    
-    } 
 
-    totalSpoolsProyeccion = parseInt($("span.totalSpools.Proyeccion" + proyeccionID + "").text(), 10)-1;
-    totalJuntasProyeccion = parseInt($("span.totalJuntas.Proyeccion" + proyeccionID + "").text(), 10)-spool.ListaJuntas.length;
-    totalPeso = parseFloat($("span.totalPeso.Proyeccion" + proyeccionID + "").text(), 10)-spool.Peso;
-    totalArea = parseFloat($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10)-spool.Area;
-    totalPeqs = parseFloat($("span.totalPeqs.Proyeccion" + proyeccionID + "").text(), 10)-peqs;
+    }
+
+    totalSpoolsProyeccion = parseInt($("span.totalSpools.Proyeccion" + proyeccionID + "").text(), 10) - 1;
+    totalJuntasProyeccion = parseInt($("span.totalJuntas.Proyeccion" + proyeccionID + "").text(), 10) - spool.ListaJuntas.length;
+    totalPeso = parseFloat($("span.totalPeso.Proyeccion" + proyeccionID + "").text(), 10) - spool.Peso;
+    totalArea = parseFloat($("span.totalArea.Proyeccion" + proyeccionID + "").text(), 10) - spool.Area;
+    totalPeqs = parseFloat($("span.totalPeqs.Proyeccion" + proyeccionID + "").text(), 10) - peqs;
 
     $("span.totalSpools.Proyeccion" + proyeccionID + "").text(totalSpoolsProyeccion);
     $("span.totalJuntas.Proyeccion" + proyeccionID + "").text(totalJuntasProyeccion);
@@ -324,7 +324,7 @@ function EditarEliminarSpoolDeContenedorProyecciones(spool) {
 }
 
 
-function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) { 
+function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) {
     $.each(Talleres, function (index) {
         $.each(Talleres[index].taller[0].Proyecciones, function (proyeccion_index, proyeccion) {
             if (proyeccion.ID == $("#inputProyecciones").val()) {
@@ -333,35 +333,35 @@ function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManu
                 var manual = proyeccion.Manual - totalManual;
 
                 $.each(proyeccion.SpoolDetalle, function (spool_index, spool) {
-                    Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.splice(spool_index,1);
+                    Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.splice(spool_index, 1);
                 })
             }
         });
     });
 
-    ActualizarContenedorCapacidad(); 
+    ActualizarContenedorCapacidad();
 }
 
 function ObtenerProyeccionesExistentes() {
     var data = new Array();
- 
-    $("tr.proyeccion").each(function (index, proyeccion) { 
+
+    $("tr.proyeccion").each(function (index, proyeccion) {
         if ($(proyeccion).attr("familiaid") == familiaProyeccion) {
             data.push([{ Proyeccion: $(proyeccion).attr("nombre"), ProyeccionID: $(proyeccion).attr("proyeccionid") }]);
         }
     });
-    
-    if (data.length>0) {
+
+    if (data.length > 0) {
         $("#inputProyecciones").data("kendoComboBox").dataSource.data(data[0]);
     }
     else {
         displayMessage("AdvertenciaNoHayProyecciones", "", '0');
         $("#divProyectarWindow").data("kendoWindow").close();
-    } 
+    }
 }
 
 //Funciones generales despues de proyectar
-function ActualizarContenedorCapacidad() { 
+function ActualizarContenedorCapacidad() {
     for (var i = 0; i < Talleres.length; i++) {
         var automatico = automan = manual = 0;
 
@@ -370,17 +370,17 @@ function ActualizarContenedorCapacidad() {
             automan += Talleres[i].taller[0].Proyecciones[j].Automan;
             manual += Talleres[i].taller[0].Proyecciones[j].Manual;
         }
-         
+
         ImprimirContenedorCapacidad(Talleres[i].taller[0].ID, "automatico", Talleres[i].taller[0].Proyecciones, Talleres[i].taller[0].Capacidad, automatico)
-        ImprimirContenedorCapacidad(Talleres[i].taller[0].ID, "automan", Talleres[i].taller[0].Proyecciones, Talleres[i].taller[0].Capacidad,automan)
-        ImprimirContenedorCapacidad(Talleres[i].taller[0].ID, "manual", Talleres[i].taller[0].Proyecciones, Talleres[i].taller[0].Capacidad,manual)
-        
+        ImprimirContenedorCapacidad(Talleres[i].taller[0].ID, "automan", Talleres[i].taller[0].Proyecciones, Talleres[i].taller[0].Capacidad, automan)
+        ImprimirContenedorCapacidad(Talleres[i].taller[0].ID, "manual", Talleres[i].taller[0].Proyecciones, Talleres[i].taller[0].Capacidad, manual)
+
     }
 }
 
-function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) { 
+function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
     var ds = $("#grid").data("kendoGrid").dataSource._data;
-    
+
     for (var i = 0; i < ds.length; i++) {
         var listaSpool = ds[i].ListaSpools
 
@@ -394,7 +394,7 @@ function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
                 listaSpool[j].Seleccionado = 0;
                 listaSpool[j].Proyectado = 0;
                 listaSpool[j].Proyeccion = "";
-            } 
+            }
         }
     }
 
@@ -410,7 +410,7 @@ function ImprimirContenedorCapacidad(taller, tipo, arregloProyeccionesTaller, ca
         Unidad: "",
         ListaProyecciones: ""
     };
-    
+
     for (var i = 0; i < arregloProyeccionesTaller.length; i++) {
         listaProyecciones[i] = {
             ConsecutivoProyeccion: "",
@@ -432,15 +432,15 @@ function ImprimirContenedorCapacidad(taller, tipo, arregloProyeccionesTaller, ca
     $("#" + taller + "-" + tipo + "").html(codigoGrafico);
 }
 
-function ValidarValoresAntesDeProyectar() { 
+function ValidarValoresAntesDeProyectar() {
     var correcto = true;
     var familiaAcero = -1;
-    familiaProyeccion = ""; 
+    familiaProyeccion = "";
     var ds = $("#grid").data("kendoGrid").dataSource._data;
-  
+
     for (var i = 0; i < ds.length; i++) {
         var listaSpool = ds[i].ListaSpools
-         
+
         for (var j = 0; j < listaSpool.length; j++) {
             if (listaSpool[j].Seleccionado && familiaAcero == -1) {
                 familiaAcero = ds[i].FamiliaAceroID;
@@ -454,7 +454,7 @@ function ValidarValoresAntesDeProyectar() {
                 correcto = false;
                 displayMessage("AdvertenciaDiferentesFamilias", "", '0');
             }
-        } 
+        }
     }
 
     if (SpoolsEnProyeccion.length == 0) {
@@ -464,7 +464,7 @@ function ValidarValoresAntesDeProyectar() {
 
     return correcto
 }
- 
+
 function crearGrafico(ArregloDetalle) {
     var contTotalProyecciones = 0;
     for (var i = 0; i < ArregloDetalle[0].ListaProyecciones.length; i++) {
@@ -504,10 +504,10 @@ function CambiarProyeccionDeTaller(tallerID, proyeccionID) {
     var proyeccionManual;
     var nombre;
     var spoolDetalle;
-  
-    for (var i = 0; i < Talleres.length; i++) { 
+
+    for (var i = 0; i < Talleres.length; i++) {
         if (Talleres[i].taller[0].ID == tallerAnterior) {
-            for (var j = 0; j < Talleres[i].taller[0].Proyecciones.length ; j++) {  
+            for (var j = 0; j < Talleres[i].taller[0].Proyecciones.length ; j++) {
                 if (Talleres[i].taller[0].Proyecciones[j].ID == proyeccionID) {
                     proyeccionAutomatico = Talleres[i].taller[0].Proyecciones[j].Automatico;
                     proyeccionAutoman = Talleres[i].taller[0].Proyecciones[j].Automan;
@@ -520,9 +520,9 @@ function CambiarProyeccionDeTaller(tallerID, proyeccionID) {
             break;
         }
     }
- 
+
     for (var i = 0; i < Talleres.length; i++) {
-        if (Talleres[i].taller[0].ID == tallerID) {  
+        if (Talleres[i].taller[0].ID == tallerID) {
             Talleres[i].taller[0].Proyecciones.push({
                 ID: proyeccionID,
                 Nombre: nombre,
@@ -530,42 +530,81 @@ function CambiarProyeccionDeTaller(tallerID, proyeccionID) {
                 Automan: proyeccionAutoman,
                 Manual: proyeccionManual,
                 SpoolDetalle: spoolDetalle
-            }); 
+            });
         }
     }
-        
-    
+
+
 
     $("#DescripcionProyeccion" + proyeccionID + "").attr("tallerSeleccionado", tallerID);
     ActualizarContenedorCapacidad();
 }
 
 function EliminarProyeccion(proyeccionID, nombreProyeccion) {
-    for (var i = 0; i < Talleres.length; i++) { 
+    for (var i = 0; i < Talleres.length; i++) {
         for (var j = 0; j < Talleres[i].taller[0].Automatico.Proyecciones.length ; j++) {
-            if (Talleres[i].taller[0].Automatico.Proyecciones[j].ID == proyeccionID) { 
+            if (Talleres[i].taller[0].Automatico.Proyecciones[j].ID == proyeccionID) {
                 Talleres[i].taller[0].Automatico.Proyecciones.splice(j, 1);
                 Talleres[i].taller[0].Automan.Proyecciones.splice(j, 1);
                 Talleres[i].taller[0].Manual.Proyecciones.splice(j, 1);
             }
-        } 
+        }
     }
-    
+
     EliminarContenedorProyecciones(proyeccionID);
     ActualizarContenedorCapacidad();
     ActualizarGrid(false, nombreProyeccion);
 }
 
 //Funciones para emitir
-function AbrirVentanaEmitirOrdenTrabajo() {  
-    document.location.target = "_blank";
-//    document.location.href = "/PlaneacionYControl/OrdenesDeTrabajo?Talleres=" + Talleres;
+function AbrirVentanaEmitirOrdenTrabajo() {
+    var Proyecciones = new Array();
+    var proyeccionesActivas = new Array();
 
-  
+    //Se iteran todos los talleres existentes en el arreglo
+    $.each(Talleres, function (index_taller, taller) {
+        //Se continua con el proceso si existen proyecciones en el taller
+        if (taller.taller[0].Proyecciones.length > 1) {
+            //Se iteran las proyecciones existentes en el taller
+            $.each(taller.taller[0].Proyecciones, function (index_proyeccion, proyeccion_taller) {
+                //Verificamos si la proyeccion ya existe en el arreglo final de las proyecciones
+                var existeProyeccion = false;
+                var posicionProyeccion = 0;
+                $.each(Proyecciones, function (index_arreglo_proyecciones, proyeccion) {
+                    if (proyeccion.ID == proyeccion_taller.ID) {
+                        existeProyeccion = true;
+                        posicionProyeccion = index_arreglo_proyecciones;
+                    }
+                });
+
+                if (existeProyeccion) {
+                    Proyecciones[posicionProyeccion]
+                }
+                else {
+
+                }
+            });
+        }
+    });
+
     var form = $('<form action="/PlaneacionYControl/OrdenesDeTrabajo" method="post">' +
-    '<input type="hidden" name="Talleres" value="'+JSON.stringify(Talleres)+'" />' + 
+    '<input type="hidden" name="Talleres" value=' + escapeHtml(JSON.stringify(Talleres)) + ' />' +
     '</form>');
     $('body').append(form);
-    $(form).submit();
- 
+    form.appendTo('body').submit();
+   
+}
+
+
+
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
 }
