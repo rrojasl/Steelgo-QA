@@ -92,19 +92,7 @@
                                 <th>Man</th>
                             </tr>
                         </thead>
-                        <tbody id="contenedorTalleresCapacidad"> 
-                            <tr>
-                                <td width="10%">Despacho</td>
-                                <td colspan="3" id="tallerDespacho">
-                            
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10%">Corte</td>
-                                <td colspan="3" id="tallerCorte">
-                                
-                                </td>
-                            </tr>
+                        <tbody id="contenedorTalleresCapacidad">  
                         </tbody>
                     </table>  
            </div> 
@@ -166,7 +154,8 @@
                         <label id="">Escriba la nueva Orden de Trabajo</label>
                         <input id="inputOrdenTrabajo" class="form-control" type="text" />
                         <div id="CargaCarroDivInferior" class="button-section">
-                            <a id="crearOrdenTrabajo" class="btn btn-primary" href="@Url.Action("OrdenesDeTrabajo","PlaneacionYControl")"><span id="">Emitir Orden de Trabajo</span></a>
+                            @*<a id="crearOrdenTrabajo" class="btn btn-primary" href="#" onclick="AbrirVentanaEmitirOrdenTrabajo()"><span id="">Emitir Orden de Trabajo</span></a>*@
+                            <button id="crearOrdenTrabajo" onclick="AbrirVentanaEmitirOrdenTrabajo()" type="button" class="btn btn-primary"><span id="">Emitir Orden de Trabajo</span></button>
                         </div>
                     </div>
                     <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarOT">

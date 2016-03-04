@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FrontEndSAM.Models.PlaneacionYControl.DetalleOrdenesTrabajo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace FrontEndSAM.Controllers.Errors
 {
@@ -15,11 +17,16 @@ namespace FrontEndSAM.Controllers.Errors
             return View();
         }
 
-        public ActionResult OrdenesDeTrabajo()
+        public ActionResult OrdenesDeTrabajo(string Talleres)
         {
-            return View();
-        }
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Talleres capturaDatosJson = serializer.Deserialize<Talleres>(Talleres);
+            ViewBag.Talleres = Talleres;
 
+            return View();
+
+        }
+ 
         public ActionResult Ciclos()
         {
             return View();

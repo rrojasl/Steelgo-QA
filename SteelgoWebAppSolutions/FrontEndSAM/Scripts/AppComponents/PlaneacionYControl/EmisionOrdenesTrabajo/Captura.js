@@ -3,6 +3,7 @@ var Talleres = new Array();
 var SpoolsEnProyeccion = new Array();
 var totalProyecciones = 0;
 var familiaProyeccion;
+var cantidadRegistros = 0;
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -46,7 +47,7 @@ function CargarGrid() {
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
-        },
+        }, 
         navigatable: true,
         filterable: {
             extra: false
@@ -124,39 +125,7 @@ function CrearContenedorCapacidad(talleresLista) {
 
 function CrearArregloTalleres(listaTalleres) {
 
-    for (var i = 0; i < listaTalleres.length; i++) {  
-        //Talleres.push({
-        //    taller: [{
-        //        ID: listaTalleres[i].TallerID, 
-        //        Capacidad: listaTalleres[i].Capacidad, 
-        //        Automatico: { 
-        //            Proyecciones: [{
-        //                ID: listaTalleres[i].Produccion.ProyeccionID,
-        //                Nombre: "Produccion",
-        //                Accion: 1,
-        //                CantidadPeqs: listaTalleres[i].Produccion.CantidadAutomatico * 0.8,
-        //                SpoolsDetalle: []
-        //            }]
-        //        },
-        //        Automan: { 
-        //            Proyecciones: [{
-        //                ID: listaTalleres[i].Produccion.ProyeccionID,
-        //                Nombre: "Produccion",
-        //                Accion: 1,
-        //                CantidadPeqs: listaTalleres[i].Produccion.CantidadAutomatico * 0.2
-        //            }]
-        //        },
-        //        Manual: { 
-        //            Proyecciones: [{
-        //                ID: listaTalleres[i].Produccion.ProyeccionID,
-        //                Nombre: "Produccion",
-        //                Accion: 1,
-        //                CantidadPeqs: listaTalleres[i].Produccion.CantidadManual
-        //            }]
-        //        }
-        //    }]
-        //});
-
+    for (var i = 0; i < listaTalleres.length; i++) {   
         Talleres.push({
             taller: [{
                 ID: listaTalleres[i].TallerID,
@@ -167,7 +136,7 @@ function CrearArregloTalleres(listaTalleres) {
                     Automatico: listaTalleres[i].Produccion.CantidadAutomatico * 0.8,
                     Automan: listaTalleres[i].Produccion.CantidadAutomatico * 0.2,
                     Manual:listaTalleres[i].Produccion.CantidadManual,
-                    SpoolsDetalle: []
+                    SpoolDetalle: []
                 }]
             }]
         });
@@ -248,34 +217,11 @@ function AgregarNuevaProyeccionArregloTaller(totalAutomatico, totalManual, proye
                 Automan: totalAutomatico * 0.2,
                 Manual: totalManual,
                 SpoolDetalle: SpoolsEnProyeccion
-            });
-             
-            ////Se agregan todos los detalles de la proyeccion unicamente en el modo automatico para reducir tamaño de JSON
-            //Talleres[index].taller[0].Automatico.Proyecciones.SpoolsDetalle.push(SpoolsEnProyeccion);
-
-            //Talleres[index].taller[0].Automatico.Proyecciones.push({
-            //    ID: proyeccionID,
-            //    Nombre: $("#inputWindowProyeccion").val(),
-            //    Accion: 1,
-            //    CantidadPeqs: totalAutomatico * 0.8,
-            //});
-
-            //Talleres[index].taller[0].Automan.Proyecciones.push({
-            //    ID: proyeccionID,
-            //    Nombre: $("#inputWindowProyeccion").val(),
-            //    Accion: 1,
-            //    CantidadPeqs: totalAutomatico * 0.2
-            //});
-
-            //Talleres[index].taller[0].Manual.Proyecciones.push({
-            //    ID: proyeccionID,
-            //    Nombre: $("#inputWindowProyeccion").val(),
-            //    Accion: 1,
-            //    CantidadPeqs: totalManual
-            //});
+            }); 
         }
     });
 
+    $("#inputWindowProyeccion").val("");
     ActualizarContenedorCapacidad();
 }
  
@@ -334,21 +280,7 @@ function EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proy
                 })
                 
             }
-        });
-
-        //$.each(Talleres[index].taller[0].Proyecciones, function (proyeccion_index, proyeccion) {
-        //    if (proyeccion.ID == $("#inputProyecciones").val()) {
-
-        //        aqui
-        //        var automatico = proyeccion.NumeroSpools + (totalAutomatico * 0.8);
-        //        var automan = Talleres[index].taller[0].Automan.Proyecciones[proyeccion_index].NumeroSpools + (totalAutomatico * 0.2);
-        //        var manual = Talleres[index].taller[0].Manual.Proyecciones[proyeccion_index].NumeroSpools + totalManual;
-
-        //        proyeccion.NumeroSpools = automatico;
-        //        Talleres[index].taller[0].Automan.Proyecciones[proyeccion_index].NumeroSpools = automan;
-        //        Talleres[index].taller[0].Manual.Proyecciones[proyeccion_index].NumeroSpools = manual;
-        //    }
-        //});
+        }); 
     });
      
     ActualizarContenedorCapacidad();
@@ -423,7 +355,7 @@ function ObtenerProyeccionesExistentes() {
         $("#inputProyecciones").data("kendoComboBox").dataSource.data(data[0]);
     }
     else {
-        displayMessage("AdvertenciaFamiliaCero", "", '0');
+        displayMessage("AdvertenciaNoHayProyecciones", "", '0');
         $("#divProyectarWindow").data("kendoWindow").close();
     } 
 }
@@ -624,3 +556,16 @@ function EliminarProyeccion(proyeccionID, nombreProyeccion) {
     ActualizarGrid(false, nombreProyeccion);
 }
 
+//Funciones para emitir
+function AbrirVentanaEmitirOrdenTrabajo() {  
+    document.location.target = "_blank";
+//    document.location.href = "/PlaneacionYControl/OrdenesDeTrabajo?Talleres=" + Talleres;
+
+  
+    var form = $('<form action="/PlaneacionYControl/OrdenesDeTrabajo" method="post">' +
+    '<input type="hidden" name="Talleres" value="'+JSON.stringify(Talleres)+'" />' + 
+    '</form>');
+    $('body').append(form);
+    $(form).submit();
+ 
+}

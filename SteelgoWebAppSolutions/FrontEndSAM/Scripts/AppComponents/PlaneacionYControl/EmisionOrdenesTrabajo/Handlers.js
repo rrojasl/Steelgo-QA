@@ -79,7 +79,7 @@ function SuscribirEventoPreguntaUtilizarProyeccionExistente() {
             $("#cmbSeleccionarProyeccion").show();
         }
         else {
-            displayMessage("AdvertenciaNoExistenProyecciones", "", '0');
+            displayMessage("AdvertenciaNoExistenProyecciones", "", '2');
         }
     });
 }
@@ -102,29 +102,39 @@ function SuscribirEventoCrearNuevaProyeccion() {
                 "Close"
             ],
         }).data("kendoWindow");
-
-        $("#divProyectarWindow").data("kendoWindow").title("Proyectar");
-        $("#divProyectarWindow").data("kendoWindow").center().open();
          
-        CalcularValoresProyecciones(true, $("#inputTalleresWindow").val());
+        var existeProyeccion = false;
+
+        if ($("#inputWindowProyeccion").val().length > 0) {
+            if ($("#inputTalleresWindow").val().length > 0) {
+                $.each($("tr.proyeccion"), function (index, proyeccion) {
+                    if ($(proyeccion).attr("nombre") == $("#inputWindowProyeccion").val()) {
+                        existeProyeccion = true;
+                    }
+                });
+
+                if (!existeProyeccion) {
+                    CalcularValoresProyecciones(true, $("#inputTalleresWindow").val());
+                }
+                else {
+                    displayMessage("AdvertenciaExisteProyeccion", "", '2');
+                }
+            }
+            else {
+                displayMessage("AdvertenciaElegirTaller", "", '2');
+            }
+        }
+        else {
+            displayMessage("AdvertenciaNombreProyeccion", "", '2');
+        }
     });
 }
 
-function SuscribirEventoTalleres() {
-    var data = [
-        { Taller: "A", TallerID: "A" },
-        { Taller: "B", TallerID: "B" },
-        { Taller: "C", TallerID: "C" },
-        { Taller: "D", TallerID: "D" },
-        { Taller: "Despacho", TallerID: "Despacho" },
-        { Taller: "Corte", TallerID: "Corte" },
-    ];
-
+function SuscribirEventoTalleres() { 
     $("#inputTalleresWindow").kendoComboBox({
         dataTextField: "Taller",
         dataValueField: "TallerID ",
-        suggest: true,
-        dataSource: data,
+        suggest: true, 
         filter: "contains",
         index: 3
     });
@@ -236,7 +246,7 @@ function SuscribirEventoEmitir() {
     });
 }
 
-$("#crearORdenTrabajo").click(function () {
+$("#crearOrdenTrabajo").click(function () {
     
 });
 

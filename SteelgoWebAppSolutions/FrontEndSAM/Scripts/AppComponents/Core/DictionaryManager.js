@@ -6893,36 +6893,7 @@ _dictionary = {
     "spanEmisionCapacidadMan": {
         "es-MX": "Man",
         "en-US": "Manual"
-    },
-
-    "spanA": {
-        "es-MX": "A",
-        "en-US": "A"
-    },
-    "spanB": {
-        "es-MX": "B",
-        "en-US": "B"
-    },
-    "spanC": {
-        "es-MX": "C",
-        "en-US": "C"
-    },
-    "spanD": {
-        "es-MX": "D",
-        "en-US": "D"
-    },
-
-    "spanEmisionCapacidadDespacho": {
-        "es-MX": "Despacho",
-        "en-US": "Dispatche"
-    },
-
-    "spanEmisionCapacidadCorte": {
-        "es-MX": "Corte",
-        "en-US": "Cut"
-    },
-
-
+    }, 
     "divEmisionProyecciones": {
         "es-MX": "Proyecciones",
         "en-US": "Projections"
@@ -7037,11 +7008,27 @@ _dictionary = {
         "es-MX": "¿Está seguro de borrar la proyeccion?",
         "en-US": "Are you sure you want to erase the projection?"
     },
-
     "AdvertenciaSeleccioneSpool": {
         "es-MX": "Por favor seleccione un spool",
         "en-US": "Select a spool please"
     },
+    "AdvertenciaNoExistenProyecciones": {
+        "es-MX": "Aún no se han creado proyecciones",
+        "en-US": "Have not been created projections yet"
+    },
+    "AdvertenciaExisteProyeccion": {
+        "es-MX": "Ya existe la proyección",
+        "en-US": "The projection already exists"
+    },
+    "AdvertenciaNombreProyeccion": {
+        "es-MX": "Escriba el nombre de la proyección",
+        "en-US": "Write projection name"
+    },
+    "AdvertenciaElegirTaller": {
+        "es-MX": "Por favor seleccione un taller",
+        "en-US": "Select a workshop please"
+    },
+
     //
     //EntregaResultadosHeader
     "GridstackHeaderPlaneacionControl": {
@@ -7348,6 +7335,13 @@ _dictionary = {
     "OrdenesTrabajoHeaderOrdenTrabajo": {
         "es-MX": "Orden de Trabajo",
         "en-US": "Work Order"
+    },
+    //#endregion
+
+    //#region Capacidad
+    "CapacidadlblSemana": {
+        "es-MX": "Semana",
+        "en-US": "Week"
     },
     //#endregion
 }

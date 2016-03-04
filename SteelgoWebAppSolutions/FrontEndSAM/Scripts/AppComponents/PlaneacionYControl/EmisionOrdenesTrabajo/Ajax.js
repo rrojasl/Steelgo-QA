@@ -16,11 +16,10 @@ function AjaxMostrarSpoolsDeProyecto() {
     $EmisionOT.EmisionOT.read({ token: Cookies.get("token"), idProyecto: $("#inputProyecto").data("kendoComboBox").value(), idPatio: $("#inputPatio").data("kendoComboBox").value() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
-        for (var i = 0; i < data.length; i++) {
-            loadingStart();
+ 
+        for (var i = 0; i < data.length; i++) { 
             ds.add(data[i]); 
-        }
-         
+        } 
         loadingStop();
     });
 }
@@ -37,6 +36,6 @@ function AjaxObtenerTalleresPorPatio() {
         $("#inputTalleresWindow").data("kendoComboBox").value("");
         $("#inputTalleresWindow").data("kendoComboBox").dataSource.data(data);
 
-        loadingStop();
+      //  loadingStop();
     });
 }
