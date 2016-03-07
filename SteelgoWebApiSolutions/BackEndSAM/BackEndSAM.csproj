@@ -295,6 +295,7 @@
     <Compile Include="Controllers\IncidenciaPaseSalidaController.cs" />
     <Compile Include="Controllers\MaterialPendienteController.cs" />
     <Compile Include="Controllers\MaterialSpoolController.cs" />
+    <Compile Include="Controllers\MTRController.cs" />
     <Compile Include="Controllers\NotificacionDeficitController.cs" />
     <Compile Include="Controllers\NumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
@@ -439,6 +440,7 @@
     <Compile Include="DataAcces\LoggerBd.cs" />
     <Compile Include="DataAcces\MaquinaBd.cs" />
     <Compile Include="DataAcces\MaterialSpoolBd.cs" />
+    <Compile Include="DataAcces\MTRBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />

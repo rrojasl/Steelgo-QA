@@ -13,8 +13,8 @@
         <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
     </li>
     @*<li class="active">
-        <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0002"></span></a>
-    </li>*@
+            <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0002"></span></a>
+        </li>*@
 }
 
 <div id="listadoCatalagos" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -42,22 +42,23 @@
 
 <script>
 @section JavascriptGlobalVariables {
-    var ultimaInsercionFallida=false;
-    var cedulasErroneas=false;
+    var ultimaInsercionFallida = false;
+    var itemCodeID = 0;
+    var cedulasErroneas = false;
     var $ListadoCatalogosModel = {
         listContainer: {
             create: ".k-grid-add",
-            list: ["#grid",".k-combobox","k-dropdown"],
+            list: ["#grid", ".k-combobox", "k-dropdown"],
             detail: "",
             destroy: "k-grid-delete"
         },
     };
-    datosRegistro={};
-    nuevasCedulas=[];
+    datosRegistro = {};
+    nuevasCedulas = [];
     porPintar = [];
     mensajesError = [];
     contadorDataBound = 0;
-    tiposCSV=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
+    tiposCSV = ["application/csv", "application/excel", "application/lotus123", "application/msexcel", "application/vnd.lotus-1-2-3", "application/vnd.ms-excel", "application/vnd.ms-works", "application/vnd.msexcel", "application/wk1", "application/wks", "application/x-123", "application/x-dos_ms_excel", "application/x-excel", "application/x-lotus123", "application/x-ms-excel", "application/x-msexcel", "application/x-msworks", "application/x-wks", "application/x-xls", "application/xlc", "application/xls", "text/anytext", "text/comma-separated-values", "text/csv", "zz-application/zz-winassoc-wk1"];
     modelos = {
         "1": {
             id: "PatioID",
@@ -101,11 +102,11 @@
             id: "VehiculoID",
             fields: {
                 VehiculoID: { editable: false, nullable: true },
-                Placas: { type:"string",validation: { required: true } },
-                TarjetaCirculacion: { type:"string",validation: { required: true } },
-                PolizaSeguro: { type:"string"},
+                Placas: { type: "string", validation: { required: true } },
+                TarjetaCirculacion: { type: "string", validation: { required: true } },
+                PolizaSeguro: { type: "string" },
                 choferID: { editable: false, nullable: true },
-                choferNombre: { type:"string",validation: { required: true } },
+                choferNombre: { type: "string", validation: { required: true } },
                 transportistaID: { editable: false, nullable: true },
                 transportistaNombre: { type: "string", validation: { required: true } },
                 relVehiculoChoferID: { editable: false, nullable: true },
@@ -116,12 +117,12 @@
             id: "VehiculoID",
             fields: {
                 VehiculoID: { editable: false, nullable: true },
-                TractoID: { type:"number", validation: { required: true } },
-                Placas: { type:"string",validation: { required: true } },
-                Unidad: { type:"string"},
-                Modelo : { type:"string"},
+                TractoID: { type: "number", validation: { required: true } },
+                Placas: { type: "string", validation: { required: true } },
+                Unidad: { type: "string" },
+                Modelo: { type: "string" },
                 choferID: { editable: false, nullable: true },
-                choferNombre: { type:"string",validation: { required: true } },
+                choferNombre: { type: "string", validation: { required: true } },
                 transportistaID: { editable: false, nullable: true },
                 transportistaNombre: { type: "string", validation: { required: true } },
                 relVehiculoChoferID: { editable: false, nullable: true },
@@ -140,18 +141,18 @@
                 Telefono: { type: "string" }
             }
         },
-        "8":{
-            id:"Id",
-            fields:{
+        "8": {
+            id: "Id",
+            fields: {
                 Id: { editable: false, nullable: true },
-                Nombre: { type:"string",validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
             }
         },
-        "9":{
-            id:"Id",
-            fields:{
+        "9": {
+            id: "Id",
+            fields: {
                 Id: { editable: false, nullable: true },
-                Nombre: { type:"string",validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
             }
         },
         "10": {
@@ -166,32 +167,44 @@
                 Telefono: { type: "string", validation: { required: true } },
             }
         },
+        "12": {
+            id: "MTRID",
+            fields: {
+                MTRID: { editable: false, nullable: true },
+                NumeroMTR: { type: "string", validation: { required: true } },
+                ItemCodeID: { type: "string", validation: { required: true } },
+                ItemCode: { type: "string", validation: { required: true } },
+                ColadaID: { type: "string", validation: { required: true } },
+                Colada: { type: "string", validation: { required: true } },
+                CantidadPiezas: { type: "string", validation: { required: true } }
+            }
+        },
     }
-};
+    };
 
-@section JavascriptGlobalFunctions {
+    @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        contadorDataBound=0;
-        if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value()!="11") {
-            columnas=getColumnas();
+        contadorDataBound = 0;
+        if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value() != "11") {
+            columnas = getColumnas();
             cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
-        }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
+        } else if ($("#listaCatalogos").data("kendoDropDownList").value() == "11") {
             $("#listaCatalogos").data("kendoDropDownList").trigger("change");
-        }else{
+        } else {
             $("#grid").kendoGrid({ columns: [] });
         }
     };
-    
-    function getColumnas(){
+
+    function getColumnas() {
         return {
             "1": [
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                {field:"Propietario", title:_dictionary.ListadoCatalogos0021[$("#language").data("kendoDropDownList").value()]},
-                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                {field:"RequierePermisoAduana", title:_dictionary.ListadoCatalogos0023[$("#language").data("kendoDropDownList").value()], editor: dropdownSiNo }
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
+                { field: "Propietario", title: _dictionary.ListadoCatalogos0021[$("#language").data("kendoDropDownList").value()] },
+                { field: "Descripcion", title: _dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()] },
+                { field: "RequierePermisoAduana", title: _dictionary.ListadoCatalogos0023[$("#language").data("kendoDropDownList").value()], editor: dropdownSiNo }
             ],
             "2": [
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
                 {
                     field: "TransportistaNombre",
                     title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
@@ -204,7 +217,7 @@
                                         url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token")
                                     }
                                 },
-                                requestEnd:function(e){
+                                requestEnd: function (e) {
                                     Error(e.response);
                                 }
                             },
@@ -219,44 +232,44 @@
                     }
                 }
             ],
-            "3":[
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            "3": [
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
             ],
             "4": [{
-                    field: "Contacto",
-                    title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
-                    editor: function (container, options) {
-                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                            dataSource: {
-                                transport: {
-                                    read: {
-                                        dataType: "json",
-                                        url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
-                                    }
-                                },
-                                requestEnd:function(e){
-                                    Error(e.response);
+                field: "Contacto",
+                title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                editor: function (container, options) {
+                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             },
-                            close: function (e) {
-                                var data = getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
-                            },
-                            dataTextField: "Nombre",
-                            dataValueField: "ContactoID"
-                        });
-                    }
-                },
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                {field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
-                {field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+                            requestEnd: function (e) {
+                                Error(e.response);
+                            }
+                        },
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                        },
+                        dataTextField: "Nombre",
+                        dataValueField: "ContactoID"
+                    });
+                }
+            },
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
+                { field: "Descripcion", title: _dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()] },
+                { field: "Direccion", title: _dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()] },
+                { field: "Telefono", title: _dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()] },
             ],
             "5": [
-                {field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
-                {field:"TarjetaCirculacion", title:_dictionary.ListadoCatalogos0029[$("#language").data("kendoDropDownList").value()]},
-                {field:"PolizaSeguro", title:_dictionary.ListadoCatalogos0030[$("#language").data("kendoDropDownList").value()]},
+                { field: "Placas", title: _dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()] },
+                { field: "TarjetaCirculacion", title: _dictionary.ListadoCatalogos0029[$("#language").data("kendoDropDownList").value()] },
+                { field: "PolizaSeguro", title: _dictionary.ListadoCatalogos0030[$("#language").data("kendoDropDownList").value()] },
                 {
                     field: "choferNombre",
                     title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
@@ -269,14 +282,14 @@
                                         url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&token=" + Cookies.get("token")
                                     }
                                 },
-                                requestEnd:function(e){
+                                requestEnd: function (e) {
                                     Error(e.response);
                                 }
                             },
-                            close: function(e) {
-                                var data=getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferNombre = data.nombre;
                             },
                             dataTextField: "Nombre",
                             dataValueField: "ChoferID"
@@ -295,14 +308,14 @@
                                         url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token")
                                     }
                                 },
-                                requestEnd:function(e){
+                                requestEnd: function (e) {
                                     Error(e.response);
                                 }
                             },
-                            close: function(e) {
-                                var data=getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre = data.nombre;
                             },
                             dataTextField: "Nombre",
                             dataValueField: "TransportistaID"
@@ -311,9 +324,9 @@
                 },
             ],
             "6": [
-                {field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
-                {field:"Unidad", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
-                {field:"Modelo", title:_dictionary.ListadoCatalogos0033[$("#language").data("kendoDropDownList").value()]},
+                { field: "Placas", title: _dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()] },
+                { field: "Unidad", title: _dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()] },
+                { field: "Modelo", title: _dictionary.ListadoCatalogos0033[$("#language").data("kendoDropDownList").value()] },
                 {
                     field: "choferNombre",
                     title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
@@ -326,14 +339,14 @@
                                         url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&token=" + Cookies.get("token")
                                     }
                                 },
-                                requestEnd:function(e){
+                                requestEnd: function (e) {
                                     Error(e.response);
                                 }
                             },
-                            close: function(e) {
-                                var data=getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferNombre = data.nombre;
                             },
                             dataTextField: "Nombre",
                             dataValueField: "ChoferID"
@@ -352,14 +365,14 @@
                                         url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token")
                                     }
                                 },
-                                requestEnd:function(e){
+                                requestEnd: function (e) {
                                     Error(e.response);
                                 }
                             },
-                            close: function(e) {
-                                var data=getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre = data.nombre;
                             },
                             dataTextField: "Nombre",
                             dataValueField: "TransportistaID"
@@ -369,145 +382,230 @@
             ],
             "7": [
                  {
-                    field: "Contacto",
-                    title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
-                    editor: function (container, options) {
-                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                            dataSource: {
-                                transport: {
-                                    read: {
-                                        dataType: "json",
-                                        url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
-                                    }
-                                },
-                                requestEnd:function(e){
-                                    Error(e.response);
-                                }
-                            },
-                            close: function (e) {
-                                var data = getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
-                            },
-                            dataTextField: "Nombre",
-                            dataValueField: "ContactoID"
-                        });
-                    }
-                },
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                {field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
-                {field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+                     field: "Contacto",
+                     title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                     editor: function (container, options) {
+                         $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                             dataSource: {
+                                 transport: {
+                                     read: {
+                                         dataType: "json",
+                                         url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
+                                     }
+                                 },
+                                 requestEnd: function (e) {
+                                     Error(e.response);
+                                 }
+                             },
+                             close: function (e) {
+                                 var data = getDropData(e);
+                                 $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                                 $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                             },
+                             dataTextField: "Nombre",
+                             dataValueField: "ContactoID"
+                         });
+                     }
+                 },
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
+                { field: "Descripcion", title: _dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()] },
+                { field: "Direccion", title: _dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()] },
+                { field: "Telefono", title: _dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()] },
             ],
-            "8":[
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            "8": [
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
             ],
-            "9":[
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            "9": [
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
             ],
             "10": [
                   {
-                    field: "Contacto",
+                      field: "Contacto",
+                      title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                      editor: function (container, options) {
+                          $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                              dataSource: {
+                                  transport: {
+                                      read: {
+                                          dataType: "json",
+                                          url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
+                                      }
+                                  },
+                                  requestEnd: function (e) {
+                                      Error(e.response);
+                                  }
+                              },
+                              close: function (e) {
+                                  var data = getDropData(e);
+                                  $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                                  $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                              },
+                              dataTextField: "Nombre",
+                              dataValueField: "ContactoID"
+                          });
+                      }
+                  },
+                { field: "Nombre", title: _dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()] },
+                { field: "Descripcion", title: _dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()] },
+                { field: "Direccion", title: _dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()] },
+                { field: "Telefono", title: _dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()] },
+            ],
+            "12": [
+                {
+                    field: "MTRID",
                     title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                    hidden: true
+                },
+                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()] },
+                { field: "ItemCodeID", title: _dictionary.ListadoCatalogos0045[$("#language").data("kendoDropDownList").value()], hidden: true },
+                {
+                    field: "ItemCode",
+                    title: _dictionary.ListadoCatalogos0045[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
-                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                        $('<input data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>').appendTo(container).kendoAutoComplete({
+                            //autoBind: false,
                             dataSource: {
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
+                                        url: $URLItemCode + "token=" + Cookies.get("token")
                                     }
-                                },
-                                requestEnd:function(e){
-                                    Error(e.response);
                                 }
                             },
-                            close: function (e) {
-                                var data = getDropData(e);
-                                $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
-                                $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                            select: function (e) {
+                                var dataItem = this.dataItem(e.item.index());
+                                console.log(dataItem);
+                                $("[name='ItemCodeID']").val(dataItem.ItemCodeID);
+                                console.log("input");
+                                console.log($("#grid").data("kendoGrid")._data[0]);
+                                $("[name='ItemCodeID']").text(dataItem.ItemCodeID);
+
+                                
+                                //ObtenerColadas(dataItem.ItemCodeID);
+                                itemCodeID = dataItem.ItemCodeID;
+                                $Colada.Colada.read({}, { itemcode: itemCodeID, token: Cookies.get("token") }).done(function (data) {
+                                    $("[name='Colada']").data("kendoComboBox").dataSource.data(data);
+                                });
                             },
-                            dataTextField: "Nombre",
-                            dataValueField: "ContactoID"
+                            change: function (e) {
+                                
+                            }
                         });
                     }
                 },
-                {field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
-                {field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
-                {field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
-                {field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+                { field: "ColadaID", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], hidden: true },
+                {
+                    field: "Colada",
+                    title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: [],
+                            autoBind: false,
+                            select: function (e) {
+                                var dataItem = this.dataItem(e.item.index());
+                                $("[name='ColadaID']").val(dataItem.ColadaID);
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                console.log("datas...");
+                                console.log(itemCodeID);
+                                console.log(data.nombre);
+                                $("#grid").data("kendoGrid")._data[data.posicion].ColadaID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Colada = data.nombre;
+                                $("#grid").data("kendoGrid")._data[data.posicion].ItemCodeID = itemCodeID;
+                            },
+                                change: function (e) {
+                                },
+                                dataTextField: "Nombre",
+                                dataValueField: "ColadaID"
+                            });
+                    }
+                },
+                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()] },
             ],
         }
     }
 
-    function obtenerFieldsCedula(){
+    function obtenerFieldsCedula() {
         return {
             CedulaID: { type: "number", editable: false, nullable: true },
             Diametro1: { type: "number", validation: { required: false }, nullable: true },
             CedulaA: { type: "string", validation: { required: false }, nullable: true },
             CedulaB: { type: "string", validation: { required: false }, nullable: true },
-            CedulaC: { type: "string", validation: { required: false }, nullable: true},
+            CedulaC: { type: "string", validation: { required: false }, nullable: true },
             CedulaIn: { type: "number", validation: { required: false }, nullable: true },
-            CedulaMM: { type: "number", validation: { required: false }, nullable: true},
+            CedulaMM: { type: "number", validation: { required: false }, nullable: true },
             //Espesor: { type: "number", validation: { required: true } },
         }
     }
 
-    function getDropData(e){
-        var id=e.sender._old;
-        var nombre=e.sender._prev;
-        var grid=$("#grid").data("kendoGrid");
-        var dirty = $.map(grid._data, function(obj, index) {
-            if(obj.dirty == true) {
+    function getDropData(e) {
+        var id = e.sender._old;
+        var nombre = e.sender._prev;
+        var grid = $("#grid").data("kendoGrid");
+        var dirty = $.map(grid._data, function (obj, index) {
+            if (obj.dirty == true) {
                 return index;
             }
         });
-        return {id:id,nombre:nombre,posicion:dirty[dirty.length-1]}
+        return { id: id, nombre: nombre, posicion: dirty[dirty.length - 1] }
     }
 
-    function esID(campo){
-        return (campo.toLowerCase().indexOf("id")>-1 ) && (campo.length-campo.toLowerCase().indexOf("id")==2);
+    function esID(campo) {
+        return (campo.toLowerCase().indexOf("id") > -1) && (campo.length - campo.toLowerCase().indexOf("id") == 2);
     }
-    
-    function obtenerCSV(){
-        var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
-        var datos=$("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data();
+
+    function obtenerCSV() {
+        var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
+        var datos = $("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data();
         var csvMimeType = "data:text/csv;charset=utf-8,";
-        var encabezados=[]
-        $("#grid").data("kendoGrid").columns.forEach(function(tmp){
-            tmp.field!==$("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp.field) ? encabezados.push(parseWord(tmp.title)) : 0;
+        var encabezados = []
+        $("#grid").data("kendoGrid").columns.forEach(function (tmp) {
+            tmp.field !== $("#grid").data("kendoGrid").dataSource.options.schema.model.id && !esID(tmp.field) ? encabezados.push(parseWord(tmp.title)) : 0;
         })
-        csvMimeType+=encabezados.join(",")+"\n";
-        try{
-            datos.forEach(function(modelo){
-                var doctmp=[];
-                encabezados.forEach(function(e){
+        csvMimeType += encabezados.join(",") + "\n";
+        try {
+            datos.forEach(function (modelo) {
+                var doctmp = [];
+                encabezados.forEach(function (e) {
                     doctmp.push(modelo[e]);
                 })
-                csvMimeType+=doctmp.join(",")+"\n";
+                csvMimeType += doctmp.join(",") + "\n";
                 throw 1;
             })
-        }catch(e){
-            if(e===1) return csvMimeType;
+        } catch (e) {
+            if (e === 1) return csvMimeType;
         }
-        
+
     }
 
-    function parseWord(n){
-        n=n.replace(/[ÁÄ]/g,"A");
-        n=n.replace(/[áä]/g,"a");
-        n=n.replace(/[ÉË]/g,"E");
-        n=n.replace(/[éë]/g,"e");
-        n=n.replace(/[ÍÏ]/g,"I");
-        n=n.replace(/[íï]/g,"i");
-        n=n.replace(/[ÓÖ]/g,"O");
-        n=n.replace(/[óö]/g,"o");
-        n=n.replace(/[ÚÜ]/g,"U");
-        n=n.replace(/[úü]/g,"u");
+    function parseWord(n) {
+        n = n.replace(/[ÁÄ]/g, "A");
+        n = n.replace(/[áä]/g, "a");
+        n = n.replace(/[ÉË]/g, "E");
+        n = n.replace(/[éë]/g, "e");
+        n = n.replace(/[ÍÏ]/g, "I");
+        n = n.replace(/[íï]/g, "i");
+        n = n.replace(/[ÓÖ]/g, "O");
+        n = n.replace(/[óö]/g, "o");
+        n = n.replace(/[ÚÜ]/g, "U");
+        n = n.replace(/[úü]/g, "u");
         return n;
     }
 
+    function ObtenerColadas(ic)
+    {
+        $Colada.Colada.read({}, { itemcode: ic, token: Cookies.get("token") }).done(function (data) {
+            console.log("colada");
+            console.log(data);
+            $("[name='Colada_input']").data("kendoComboBox").dataSource.data(result);
+        });
+        
+    }
+
     function getUrl() {
+        console.log("Listado");
+        console.log($("#listaCatalogos").data("kendoDropDownList").value());
         return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + $("#listaCatalogos").data("kendoDropDownList").value() + "&token=";
     }
 
@@ -519,7 +617,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            columns:columnas[$("#listaCatalogos").data("kendoDropDownList").value()],
+            columns: columnas[$("#listaCatalogos").data("kendoDropDownList").value()],
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 pageSizes: [10, 15, 20],
@@ -531,14 +629,14 @@
             save: function (e) {
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
                 var grid = $("#grid").data("kendoGrid");
-                var data=getDataFromModel(modelos[catalogo].fields,e.model);
-                if(e.model.id!==null && e.model.id!==""){
-                    var direccion=parseUrl(data,catalogo,"put");
-                    grid.options.dataSource.options.transport.update.url=direccion;
-                }else{
-                    data[modelos[catalogo].id]="0";
-                    var direccion=parseUrl(data,catalogo,"post");
-                    grid.options.dataSource.options.transport.create.url=direccion;
+                var data = getDataFromModel(modelos[catalogo].fields, e.model);
+                if (e.model.id !== null && e.model.id !== "") {
+                    var direccion = parseUrl(data, catalogo, "put");
+                    grid.options.dataSource.options.transport.update.url = direccion;
+                } else {
+                    data[modelos[catalogo].id] = "0";
+                    var direccion = parseUrl(data, catalogo, "post");
+                    grid.options.dataSource.options.transport.create.url = direccion;
                 }
             },
             remove: function (e) {
@@ -548,10 +646,10 @@
                 for (f in modelos[catalogo].fields) {
                     data[f] = e.model[f];
                 }
-                if(e.model.id!==null && e.model.id!==""){
-                    var direccion=parseUrl(data,catalogo,"delete");
-                    grid.options.dataSource.options.transport.destroy.url=direccion;
-                }else{
+                if (e.model.id !== null && e.model.id !== "") {
+                    var direccion = parseUrl(data, catalogo, "delete");
+                    grid.options.dataSource.options.transport.destroy.url = direccion;
+                } else {
                     displayMessage("ListadoCatalogos0009", "", '2');
                 }
             },
@@ -562,7 +660,7 @@
                     //$(".k-grid td .k-button").text('');
                     //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     var grid = $("#grid").data("kendoGrid");
-                    if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles}, title: "Archivos", width: "95px" });
+                    if (($("#listaCatalogos").data("kendoDropDownList").value() != "3" && $("#listaCatalogos").data("kendoDropDownList").value() != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "95px" });
                     grid.options.columns.push({ command: "edit", title: "Editar", width: "91px" });
                     grid.options.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
                     //grid.columns.push(niceDeleteTemplate());
@@ -575,13 +673,13 @@
                     //ids.forEach(function(i){
                     //    i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : null;
                     //});
-                    
+
                     regenerarGrid();
                     checkTH($("#grid").data("kendoGrid"));
                     quickHeadFilter($("#grid").data("kendoGrid"));
                 }
-                if(ultimaInsercionFallida){
-                    ultimaInsercionFallida=false;
+                if (ultimaInsercionFallida) {
+                    ultimaInsercionFallida = false;
                     $("#grid tr:eq(1)").remove();
                 }
             }
@@ -589,7 +687,7 @@
         loadingStop();
     };
 
-    function getDataFromModel(fields,model){
+    function getDataFromModel(fields, model) {
         var data = {};
         for (f in fields) {
             data[f] = model[f];
@@ -597,26 +695,26 @@
         return data;
     }
 
-    function showFiles(e){
+    function showFiles(e) {
         e.stopPropagation();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        datosRegistro["catalogo"]=$("#listaCatalogos").data("kendoDropDownList").value();
-        datosRegistro["id"]=dataItem.id;
-        if(dataItem.id){
+        datosRegistro["catalogo"] = $("#listaCatalogos").data("kendoDropDownList").value();
+        datosRegistro["id"] = dataItem.id;
+        if (dataItem.id) {
             VentanaModal()
         }
     }
 
-    function regenerarGrid(){
+    function regenerarGrid() {
         var options = $("#grid").data("kendoGrid").options;
         $("#grid").data("kendoGrid").destroy();
         $("#grid").empty().kendoGrid(options);
     }
 
     function parseUrl(data, catalogo, method) {
-        for(key in data){
-            data[key]==="Si" ? data[key]=true : 0;
-            data[key]==="No" ? data[key]=false : 0;
+        for (key in data) {
+            data[key] === "Si" ? data[key] = true : 0;
+            data[key] === "No" ? data[key] = false : 0;
         }
         if (method !== "delete") {
             return getUrl() + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
@@ -625,72 +723,72 @@
         }
     }
 
-    function mostrarConflictos(result){
-        var fields=$("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
-        var existentes=[];
-        var conflictos=[];
-        $("#grid tr[data-uid]:not([style])").each(function(){
+    function mostrarConflictos(result) {
+        var fields = $("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
+        var existentes = [];
+        var conflictos = [];
+        $("#grid tr[data-uid]:not([style])").each(function () {
             existentes.push($("#grid").data("kendoGrid").dataItem(this));
         })
-        result.CedulasExistentes.forEach(function(c){
-            $.grep(existentes,function(d){
-                if (c.CedulaID==d.CedulaID.toString()){
-                    $("#grid tr[data-uid='"+d.uid+"']").css("background-color","#FEDEE8");
+        result.CedulasExistentes.forEach(function (c) {
+            $.grep(existentes, function (d) {
+                if (c.CedulaID == d.CedulaID.toString()) {
+                    $("#grid tr[data-uid='" + d.uid + "']").css("background-color", "#FEDEE8");
                     conflictos.push(d);
                 }
             })
         })
-        var nuevos=[];
-        $.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
-            if($("#grid").data("kendoGrid").dataItem(n).id===null) nuevos.push($("#grid").data("kendoGrid").dataItem(n));
+        var nuevos = [];
+        $.grep($("#grid").data("kendoGrid").tbody.children(), function (n) {
+            if ($("#grid").data("kendoGrid").dataItem(n).id === null) nuevos.push($("#grid").data("kendoGrid").dataItem(n));
         });
-        var porCambiar=[];
-        conflictos.forEach(function(c){
-            $.grep(nuevos,function(n,i){
-                if(((n.Diametro1 == c.Diametro1) && (n.CedulaA == c.CedulaA)) || ((n.Diametro1 == c.Diametro1) && (n.CedulaB == c.CedulaB)) || ((n.Diametro1 == c.Diametro1) && (n.CedulaC == c.CedulaC))){
+        var porCambiar = [];
+        conflictos.forEach(function (c) {
+            $.grep(nuevos, function (n, i) {
+                if (((n.Diametro1 == c.Diametro1) && (n.CedulaA == c.CedulaA)) || ((n.Diametro1 == c.Diametro1) && (n.CedulaB == c.CedulaB)) || ((n.Diametro1 == c.Diametro1) && (n.CedulaC == c.CedulaC))) {
                     porCambiar.push(n);
                 }
             })
         })
-        var i=0;
-        nuevos.forEach(function(n){
-            if(n.uid!=porCambiar[i].uid){
-                $("#grid tr[data-uid='"+n.uid+"']").removeAttr("style");
-            }else{
+        var i = 0;
+        nuevos.forEach(function (n) {
+            if (n.uid != porCambiar[i].uid) {
+                $("#grid tr[data-uid='" + n.uid + "']").removeAttr("style");
+            } else {
                 i++;
             }
         })
         displayMessage("ListadoCatalogos0019", "", '2');
     }
 
-    function paintItRed(){
-        porPintar.forEach(function(n){
+    function paintItRed() {
+        porPintar.forEach(function (n) {
             $("#grid").data("kendoGrid").dataSource.add(n);
-            var t=$("#grid").data("kendoGrid").dataSource.data();
-            $("[data-uid="+t[t.length-1].uid+"]").css("background-color","#FEDEE8");
+            var t = $("#grid").data("kendoGrid").dataSource.data();
+            $("[data-uid=" + t[t.length - 1].uid + "]").css("background-color", "#FEDEE8");
         })
-        porPintar=[];
+        porPintar = [];
     }
 
     function enviarCedulas(data) {
         loadingStart();
         $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
             if (Error(result)) {
-                var counter=0;
-                result.forEach(function(n){
+                var counter = 0;
+                result.forEach(function (n) {
                     n.Correcta ? counter++ : porPintar.push(n); mensajesError.push(n.MensajeError);
                 });
-                if(counter==0){
+                if (counter == 0) {
                     displayMessage("ListadoCatalogos0044", "", '2');
-                        displayMessage("notificationslabel0009", mensajesError, '2');
-                    
-                }else if(result.length>counter>0){
+                    displayMessage("notificationslabel0009", mensajesError, '2');
+
+                } else if (result.length > counter > 0) {
                     displayMessage("ListadoCatalogos0043", "", '1');
-                        displayMessage("notificationslabel0009", mensajesError, '2');
-                }else if(counter===result.length){
+                    displayMessage("notificationslabel0009", mensajesError, '2');
+                } else if (counter === result.length) {
                     displayMessage("ListadoCatalogos0018", "", '0');
                 }
-                porPintar.length>0 ? cedulasErroneas=true : null;
+                porPintar.length > 0 ? cedulasErroneas = true : null;
                 regenerarGrid();
             }
             loadingStop();
@@ -733,27 +831,27 @@
                     type: "GET",
                     cache: false
                 },
-                update:{
-                    dataType:"json",
-                    type:"PUT",
+                update: {
+                    dataType: "json",
+                    type: "PUT",
                     cache: false
                 },
-                destroy:{
-                    dataType:"json",
-                    type:"DELETE",
+                destroy: {
+                    dataType: "json",
+                    type: "DELETE",
                     cache: false
                 },
-                create:{
-                    dataType:"json",
-                    type:"POST",
+                create: {
+                    dataType: "json",
+                    type: "POST",
                     cache: false
                 },
             },
-            requestEnd:function(e){
+            requestEnd: function (e) {
                 Error(e.response);
-                if(e.type=="create" && e.response.ReturnCode==500){
-                    displayMessage("",e.response.ReturnMessage,"2")
-                    ultimaInsercionFallida=true;
+                if (e.type == "create" && e.response.ReturnCode == 500) {
+                    displayMessage("", e.response.ReturnMessage, "2")
+                    ultimaInsercionFallida = true;
                 }
                 else if (e.type == "update" && e.response.ReturnCode == 500) {
                     displayMessage("", e.response.ReturnMessage, "2")
@@ -763,9 +861,9 @@
         });
     }
 
-    function checkMM(c){
-        if (c["CedulaMM"] !== "" && c["CedulaIn"] !== ""){
-            if(Math.round((parseFloat(c["CedulaMM"]) / parseFloat(c["CedulaIn"])*10000))/10000!==parseFloat($("#fconversion").val())){
+    function checkMM(c) {
+        if (c["CedulaMM"] !== "" && c["CedulaIn"] !== "") {
+            if (Math.round((parseFloat(c["CedulaMM"]) / parseFloat(c["CedulaIn"]) * 10000)) / 10000 !== parseFloat($("#fconversion").val())) {
                 c["CedulaIn"] = (c["CedulaMM"] / $("#fconversion").val()).toFixed(4);
             }
         }
@@ -789,50 +887,50 @@
                     dataType: "json",
                     url: $Catalogos.AdministracionCatalogos.urlNoId + "?token=" + Cookies.get("token")
                 },
-                requestEnd:function(e){
+                requestEnd: function (e) {
                     Error(e.response);
                 }
             },
-            requestEnd:function(e){
+            requestEnd: function (e) {
                 Error(e.response);
             }
         },
         change: function (e) {
             contadorDataBound = 0;
-            if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value()!="11") {
-                nuevasCedulas=[];
+            if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value() != "11") {
+                nuevasCedulas = [];
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
-            }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
+            } else if ($("#listaCatalogos").data("kendoDropDownList").value() == "11") {//Catálogo 11= Cédulas
                 $("#cedbtns").remove();
-                var g=null;
-                $("#language").data("kendoDropDownList").value()==="es-MX" ? g=["Factor de conversión","Carga masiva","Seleccionar archivos","Guardar","Descargar plantilla"] : g=["Conversion factor","Bulk upload","Select files","Save","Download template"];
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-8 col-lg-9"><div class="row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">'+g[0]+'</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >'+g[1]+'</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">'+g[2]+'</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">'+g[3]+'</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced"><label id="" class="download">'+g[4]+'</label></a></div></div></div></div></div>');
-                $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
+                var g = null;
+                $("#language").data("kendoDropDownList").value() === "es-MX" ? g = ["Factor de conversión", "Carga masiva", "Seleccionar archivos", "Guardar", "Descargar plantilla"] : g = ["Conversion factor", "Bulk upload", "Select files", "Save", "Download template"];
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-8 col-lg-9"><div class="row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">' + g[0] + '</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >' + g[1] + '</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">' + g[2] + '</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">' + g[3] + '</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced"><label id="" class="download">' + g[4] + '</label></a></div></div></div></div></div>');
+                $Cedulas.Cedulas.read({}, { catalogoID: "11", token: Cookies.get("token") }).done(function (result) {
                     $("#fconversion").val(result);
                 });
-                $("#templateced").on("click",function(){
+                $("#templateced").on("click", function () {
                     //var encodedUri = encodeURI(obtenerCSV());
                     //$(this).attr("href", encodedUri);
-                    var data=obtenerCSV();
-                    if ($.isNumeric(detectIE())){
+                    var data = obtenerCSV();
+                    if ($.isNumeric(detectIE())) {
                         var IEwindow = window.open();
                         IEwindow.document.write('sep=,\r\n' + data);
                         IEwindow.document.close();
                         IEwindow.document.execCommand('SaveAs', true, "Template.csv");
                         IEwindow.close();
-                    }else{
+                    } else {
                         var encodedUri = encodeURI(obtenerCSV());
                         $(this).attr("href", encodedUri);
-                    } 
+                    }
 
                 })
                 $("#selectFiles").on('click', function () {
                     $("#files").click();
                 });
-                $("#fcarga").on("click",function(){
-                    if(nuevasCedulas.length!=0){
-                        var data=[];
+                $("#fcarga").on("click", function () {
+                    if (nuevasCedulas.length != 0) {
+                        var data = [];
                         nuevasCedulas.forEach(function (c) {
                             data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields, c));
                         });
@@ -841,90 +939,90 @@
                         //    //regenerarGrid();
                         //    result.HayConflictos ? mostrarConflictos(result) : enviarCedulas(data);
                         //});
-                    }else{
+                    } else {
                         displayMessage("ListadoCatalogos0010", "", '2');
                     }
                 })
-                document.getElementById("files").addEventListener("change",function(evt){
+                document.getElementById("files").addEventListener("change", function (evt) {
                     if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
                         displayMessage("ListadoCatalogos0007", "", '2');
                     } else {
                         var data = null;
                         var file = evt.target.files[0];
-                        if(tiposCSV.indexOf(file.type.toLowerCase())==-1){
-                            this.value=null;
+                        if (tiposCSV.indexOf(file.type.toLowerCase()) == -1) {
+                            this.value = null;
                             displayMessage("ListadoCatalogos0008", "", '2');
-                        }else{
+                        } else {
                             var reader = new FileReader();
                             reader.readAsText(file);
-                            reader.onload = function(event) {
+                            reader.onload = function (event) {
                                 var csvData = event.target.result;
-                                csvToJson(csvData,"CedulaID").forEach(function(c){
-                                    var cedVal=cedulaValida(c);
-                                    var modVal=validModelData(c);
+                                csvToJson(csvData, "CedulaID").forEach(function (c) {
+                                    var cedVal = cedulaValida(c);
+                                    var modVal = validModelData(c);
                                     if (modVal && cedVal == 0) {
                                         checkMM(c);
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     } else {
                                         if (modVal && cedVal == 1) {
                                             checkMM(c);
-                                            c["advertencia"]=true;
-                                        }else{
-                                            c["valido"]=false;
+                                            c["advertencia"] = true;
+                                        } else {
+                                            c["valido"] = false;
                                         }
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     }
                                 });
                             };
-                            reader.onerror = function() {
+                            reader.onerror = function () {
                                 alert('Unable to read ' + file.fileName);
                             };
-                            reader.onloadend=function(){
-                                var valido=true;
-                                var nuevos=$.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
-                                    return $("#grid").data("kendoGrid").dataItem(n).id===null;
+                            reader.onloadend = function () {
+                                var valido = true;
+                                var nuevos = $.grep($("#grid").data("kendoGrid").tbody.children(), function (n) {
+                                    return $("#grid").data("kendoGrid").dataItem(n).id === null;
                                 });
-                                var advertencia=null;
-                                nuevos.forEach(function(n){
-                                    if($("#grid").data("kendoGrid").dataItem(n).valido!==false){
-                                        if($("#grid").data("kendoGrid").dataItem(n).advertencia){
-                                            n.style.backgroundColor="#FDF9AA";
-                                            advertencia=true;
-                                        }else{
-                                            n.style.backgroundColor="#E3FCCB";
+                                var advertencia = null;
+                                nuevos.forEach(function (n) {
+                                    if ($("#grid").data("kendoGrid").dataItem(n).valido !== false) {
+                                        if ($("#grid").data("kendoGrid").dataItem(n).advertencia) {
+                                            n.style.backgroundColor = "#FDF9AA";
+                                            advertencia = true;
+                                        } else {
+                                            n.style.backgroundColor = "#E3FCCB";
                                         }
                                         nuevasCedulas.push($("#grid").data("kendoGrid").dataItem(n));
-                                    }else{
-                                        n.style.backgroundColor="#FEDEE8";
-                                        valido=false;
+                                    } else {
+                                        n.style.backgroundColor = "#FEDEE8";
+                                        valido = false;
                                     }
                                 });
-                                var mensaje=null;
-                                if(!valido && advertencia){
-                                    mensaje=_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()]+"\n"+_dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
-                                }else if(!valido){
-                                    mensaje=_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()];
-                                }else if(advertencia){
-                                    mensaje=_dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
+                                var mensaje = null;
+                                if (!valido && advertencia) {
+                                    mensaje = _dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()] + "\n" + _dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
+                                } else if (!valido) {
+                                    mensaje = _dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()];
+                                } else if (advertencia) {
+                                    mensaje = _dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
                                 }
-                                if(mensaje!=null){
+                                if (mensaje != null) {
                                     displayMessage("", mensaje, '2');
                                 }
                             }
                         }
                     }
                 });
-                var tmp=removeGrid($("#grid"));
+                var tmp = removeGrid($("#grid"));
                 $("#grid").kendoGrid({
                     columns: addTo([
-                        { field: "Diametro1", title:_dictionary.ListadoCatalogos0034[$("#language").data("kendoDropDownList").value()] },
-                        { field: "CedulaA",title:_dictionary.ListadoCatalogos0035[$("#language").data("kendoDropDownList").value()] },
-                        { field: "CedulaB",title:_dictionary.ListadoCatalogos0036[$("#language").data("kendoDropDownList").value()] },
+                        { field: "Diametro1", title: _dictionary.ListadoCatalogos0034[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaA", title: _dictionary.ListadoCatalogos0035[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaB", title: _dictionary.ListadoCatalogos0036[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaC", title: _dictionary.ListadoCatalogos0037[$("#language").data("kendoDropDownList").value()] },
                         { field: "CedulaIn", title: _dictionary.ListadoCatalogos0038[$("#language").data("kendoDropDownList").value()], format: '{0:n4}' },
                         { field: "CedulaMM", title: _dictionary.ListadoCatalogos0039[$("#language").data("kendoDropDownList").value()], format: '{0:n4}' },
                         //{ field: "Espesor",title:_dictionary.ListadoCatalogos0040[$("#language").data("kendoDropDownList").value()]},
-                    ],obtenerFieldsCedula()),
+                    ], obtenerFieldsCedula()),
                     dataSource: {
                         data: [],
                         schema: {
@@ -934,15 +1032,15 @@
                             }
                         },
                         pageSize: 20,
-                        transport:{
-                            read:{
-                                url:$Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=11&token=" +Cookies.get("token"),
-                                dataType:"json",
-                                type:"GET",
+                        transport: {
+                            read: {
+                                url: $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=11&token=" + Cookies.get("token"),
+                                dataType: "json",
+                                type: "GET",
                                 cache: false
                             },
                         },
-                        requestEnd:function(e){
+                        requestEnd: function (e) {
                             Error(e.response);
                         }
                     },
@@ -955,19 +1053,19 @@
                         numeric: true,
                         buttonCount: 2
                     },
-                    editable:false,
-                    save: function(e) {
+                    editable: false,
+                    save: function (e) {
                         ////console.log(e);
                     },
-                    remove: function(e) {
+                    remove: function (e) {
                         ////console.log(e);
                     },
-                    dataBound: function(e) {
-                        $("#grid tbody td").each(function(){
-                            this.innerHTML=="" ? this.innerHTML="-" : 0;
+                    dataBound: function (e) {
+                        $("#grid tbody td").each(function () {
+                            this.innerHTML == "" ? this.innerHTML = "-" : 0;
                         })
-                        if(cedulasErroneas){
-                            cedulasErroneas=false;
+                        if (cedulasErroneas) {
+                            cedulasErroneas = false;
                             paintItRed();
                         }
                     }
@@ -976,86 +1074,86 @@
         }
     })
 
-    function validModelData(c){
-        var modelo=$("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
-        var valido=0;
-        for(n in modelo){
-            switch(modelo[n]["type"]){
+    function validModelData(c) {
+        var modelo = $("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
+        var valido = 0;
+        for (n in modelo) {
+            switch (modelo[n]["type"]) {
                 case "string":
-                    if(modelo[n]["type"]==typeof c[n] && c[n].length!=0 && c[n]!=""){
+                    if (modelo[n]["type"] == typeof c[n] && c[n].length != 0 && c[n] != "") {
                         valido++;
                     }
                     break;
                 case "number":
-                    if($.isNumeric(c[n])){
+                    if ($.isNumeric(c[n])) {
                         valido++;
                     }
                     break;
                 case "boolean":
-                    if((true.toString()==c[n] || false.toString()==c[n])){
+                    if ((true.toString() == c[n] || false.toString() == c[n])) {
                         valido++;
                     }
                     break;
             }
-            if( ((c[n]===null)||(c[n]==="")) && (modelo[n]["nullable"]==true) ){
+            if (((c[n] === null) || (c[n] === "")) && (modelo[n]["nullable"] == true)) {
                 valido++;
             }
         }
-        return valido==Object.keys(modelo).length;
+        return valido == Object.keys(modelo).length;
     }
-    
-    function cedulaValida(c){
-        if(c.CedulaMM=="" && c.CedulaIn=="") return -1;
+
+    function cedulaValida(c) {
+        if (c.CedulaMM == "" && c.CedulaIn == "") return -1;
         if (!$.isNumeric(c.Diametro1) && c.Diametro1 != "") return -1;
         if (c.Diametro1 == "" || c.Diametro1 == null) return -1;
-        var datos=$.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data() , function(n){
+        var datos = $.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data(), function (n) {
             return n.id != null
         })
-        try{
-            datos.forEach(function(d){
+        try {
+            datos.forEach(function (d) {
                 //d.Diametro1 == ""  || d.Diametro1 == null ? d.Diametro1 = c.Diametro1 : 0;
                 //if(d.Espesor==c.Espesor) throw -1;
-                if(((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
+                if (((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))) {
                     throw 1;
                 }
             })
             return 0;
-        }catch(e){
-            if($.isNumeric(e)){
+        } catch (e) {
+            if ($.isNumeric(e)) {
                 return e;
-            }else{
+            } else {
                 ////console.log(e);
                 alert(e);
             }
         }
     }
 
-    function csvToJson(data,idField){
-        data=data.split("\n");
+    function csvToJson(data, idField) {
+        data = data.split("\n");
         data.shift();
         data.pop();
-        data=data.join("\n");
-        data=data.split("\r").join("");
+        data = data.join("\n");
+        data = data.split("\r").join("");
         var encabezados = Object.keys($("#grid").data("kendoGrid").options.dataSource.schema.model.fields);
-        encabezados.splice(encabezados.indexOf(idField),1);
-        var csv=[];
-        try{
+        encabezados.splice(encabezados.indexOf(idField), 1);
+        var csv = [];
+        try {
             data.split("\n").forEach(function (d, i) {
-                if(d.substring(0, d.length).split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
-                    var tmp={};
-                    tmp[idField]=null;
+                if (d.substring(0, d.length).split(",").length === encabezados.length - (encabezados.length - $("#grid").data("kendoGrid").columns.length)) {
+                    var tmp = {};
+                    tmp[idField] = null;
                     d.split(",").forEach(function (cell, z) {
-                        tmp[encabezados[z]]=cell;
+                        tmp[encabezados[z]] = cell;
                     });
                     csv.push(tmp);
                 } else {
                     throw -1;
                 }
             })
-        }catch(e){
-            if (e!==-1){ 
+        } catch (e) {
+            if (e !== -1) {
                 throw e;
-            }else{
+            } else {
                 displayMessage("ListadoCatalogos0012", "", '2');
             }
         }
@@ -1063,13 +1161,13 @@
     }
 
     function dropdownSiNo(container, options) {
-        function getvalor(){ for(key in options.model){ if(options.model[key]==="Si" || options.model[key]==="No"){ return options.model[key] } } return "Ninguno"; };
+        function getvalor() { for (key in options.model) { if (options.model[key] === "Si" || options.model[key] === "No") { return options.model[key] } } return "Ninguno"; };
         $('<input id="sinodrop" data-text-field="text" data-value-field="value" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",
-            optionLabel: "Actual: "+getvalor(),
+            optionLabel: "Actual: " + getvalor(),
             dataSource: [
                 { text: "Si", value: true },
                 { text: "No", value: false }
@@ -1077,7 +1175,7 @@
         });
     }
 
-    function VentanaModal(){
+    function VentanaModal() {
         $("#window").kendoWindow({
             content: "@Url.Action("Archivos", "PopUps")",
             modal: true,
@@ -1099,17 +1197,17 @@
         $("#window").data("kendoWindow").title("Archivos");
         $("#window").data("kendoWindow").center().open();
     }
-};
+    };
 
-@section JavascriptDocumentReadyFunctions {
+    @section JavascriptDocumentReadyFunctions {
     $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
     columnas = getColumnas();
-    $(document).bind("ajaxStart", function () {}).bind("ajaxStop", function () {}).bind("ajaxError", function () {}).bind("ajaxSuccess", function () {});
-};
-    
-@section JavascriptDocumentReadyHomeCookie {
+    $(document).bind("ajaxStart", function () { }).bind("ajaxStop", function () { }).bind("ajaxError", function () { }).bind("ajaxSuccess", function () { });
+    };
+
+    @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
     Cookies.set("navegacion", "47", { path: '/' });
-};
+    };
 
 </script>

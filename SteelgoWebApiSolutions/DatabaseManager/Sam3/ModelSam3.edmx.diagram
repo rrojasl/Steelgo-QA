@@ -397,6 +397,10 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Entid__11757BF3" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__108157BA" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__4AADF94F" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_MTR" Width="1.5" PointX="19.5" PointY="22.5" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_MTR__Colada__4D8A65FA" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_MTR__ItemCo__4C9641C1" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Nume__MTRID__54376389" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -23,6 +23,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_ItemCode_Diametro = new HashSet<Sam3_Rel_ItemCode_Diametro>();
             this.Sam3_Rel_Itemcode_Colada = new HashSet<Sam3_Rel_Itemcode_Colada>();
             this.Sam3_CorteSpool = new HashSet<Sam3_CorteSpool>();
+            this.Sam3_MTR = new HashSet<Sam3_MTR>();
         }
     
         public int ItemCodeID { get; set; }
@@ -56,5 +57,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
         public virtual ICollection<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
         public virtual ICollection<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
+        public virtual ICollection<Sam3_MTR> Sam3_MTR { get; set; }
     }
 }

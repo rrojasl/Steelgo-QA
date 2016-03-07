@@ -1243,6 +1243,25 @@ _dictionary = {
         "es-MX": "No se actualizó el catálogo, verifique los errores",
         "en-US": "The documents catalog was not updated, verify the errors"
     },
+
+    "ListadoCatalogos0045": {
+        "es-MX": "ItemCode",
+        "en-US": "ItemCode"
+    },
+    "ListadoCatalogos0046": {
+        "es-MX": "Colada",
+        "en-US": "Wash"
+    },
+    "ListadoCatalogos0047": {
+        "es-MX": "Numero MTR",
+        "en-US": "MTR Number"
+    },
+    "ListadoCatalogos0048": {
+        "es-MX": "Cantidad de piezas a amortizar",
+        "en-US": "Number of pieces to amortize"
+    },
+
+
     //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "Catálogo ItemCode Steelgo",

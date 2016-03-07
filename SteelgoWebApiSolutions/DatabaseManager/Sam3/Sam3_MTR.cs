@@ -12,31 +12,24 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Colada
+    public partial class Sam3_MTR
     {
-        public Sam3_Colada()
+        public Sam3_MTR()
         {
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
-            this.Sam3_Rel_Itemcode_Colada = new HashSet<Sam3_Rel_Itemcode_Colada>();
-            this.Sam3_MTR = new HashSet<Sam3_MTR>();
         }
     
+        public int MTRID { get; set; }
+        public string NumeroMTR { get; set; }
+        public int ItemCodeID { get; set; }
         public int ColadaID { get; set; }
-        public Nullable<int> FabricanteID { get; set; }
-        public int AceroID { get; set; }
-        public int ProyectoID { get; set; }
-        public string NumeroColada { get; set; }
-        public string NumeroCertificado { get; set; }
-        public bool HoldCalidad { get; set; }
+        public int CantidadPiezas { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual Sam3_Acero Sam3_Acero { get; set; }
-        public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
-        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        public virtual Sam3_Colada Sam3_Colada { get; set; }
+        public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
-        public virtual ICollection<Sam3_MTR> Sam3_MTR { get; set; }
     }
 }

@@ -765,6 +765,75 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+        
+        public object ObtenerColadasPorItemCodeCatalogoMTR(Sam3_Usuario usuario, int itemCodeID)
+        {
+            try
+            {
+                List<Coladas> coladas = new List<Coladas>();
+
+
+                int itemID = itemCodeID;
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        
+                        
+                        int itemCodeSam3 = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
+                                          where icd.Activo && icd.Rel_ItemCode_Diametro_ID == itemID
+                                          select icd.ItemCodeID).AsParallel().SingleOrDefault();
+                       
+
+                        #region agregar coladas
+                        using (var ctx_tran = ctx.Database.BeginTransaction())
+                        {
+                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
+                            {
+                                //int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
+
+                                coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                           join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                           join ic in ctx.Sam3_ItemCode on ric.ItemCodeID equals ic.ItemCodeID
+                                           where ric.Activo && c.Activo && ic.Activo && ric.ItemCodeID == itemCodeSam3
+                                           select new Coladas
+                                           {
+                                               Nombre = c.NumeroColada,
+                                               ColadaID = c.ColadaID
+                                           }).AsParallel().Distinct().ToList();
+
+                             
+                                //}
+                                ctx2_tran.Commit();
+                                ctx_tran.Commit();
+                            }
+                        }
+                        #endregion
+
+                        coladas = coladas.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
+
+                        //listColada.AddRange(coladas);
+                        ////Quitar las coladas duplicadas, si es que hay alguna
+                        //listColada = listColada.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
+                    }
+                }
+                return coladas;
+
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -992,6 +992,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Descripcion" Type="varchar(max)" />
           <Property Name="Acomodo" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_MTR">
+          <Key>
+            <PropertyRef Name="MTRID" />
+          </Key>
+          <Property Name="MTRID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroMTR" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="ColadaID" Type="int" Nullable="false" />
+          <Property Name="CantidadPiezas" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="Sam3_Notificacion">
           <Key>
             <PropertyRef Name="NotificacionID" />
@@ -1027,7 +1040,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="PartidaOrdenDeCompra" Type="nvarchar" MaxLength="10" />
           <Property Name="Diametro1" Type="decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="Diametro2" Type="decimal" Precision="7" Scale="4" Nullable="false" />
-          <Property Name="Cedula" Type="nvarchar" MaxLength="10" />
+          <Property Name="Cedula" Type="varchar" MaxLength="100" />
           <Property Name="NumeroUnicoCliente" Type="nvarchar" MaxLength="50" />
           <Property Name="MarcadoAsme" Type="bit" Nullable="false" />
           <Property Name="MarcadoGolpe" Type="bit" Nullable="false" />
@@ -1056,6 +1069,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="EstatusFisico" Type="varchar" MaxLength="100" />
           <Property Name="EstatusDocumental" Type="varchar" MaxLength="100" />
           <Property Name="TipoUsoID" Type="int" />
+          <Property Name="MTRID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoCorte">
           <Key>
@@ -2847,6 +2861,42 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_JuntaSpool">
               <PropertyRef Name="TipoJuntaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_MTR__Colada__4D8A65FA">
+          <End Role="Sam3_Colada" Type="Self.Sam3_Colada" Multiplicity="1" />
+          <End Role="Sam3_MTR" Type="Self.Sam3_MTR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Colada">
+              <PropertyRef Name="ColadaID" />
+            </Principal>
+            <Dependent Role="Sam3_MTR">
+              <PropertyRef Name="ColadaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_MTR__ItemCo__4C9641C1">
+          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
+          <End Role="Sam3_MTR" Type="Self.Sam3_MTR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_MTR">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Nume__MTRID__54376389">
+          <End Role="Sam3_MTR" Type="Self.Sam3_MTR" Multiplicity="0..1" />
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_MTR">
+              <PropertyRef Name="MTRID" />
+            </Principal>
+            <Dependent Role="Sam3_NumeroUnico">
+              <PropertyRef Name="MTRID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5023,6 +5073,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_MaterialSpool" EntityType="Self.Sam3_MaterialSpool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_MenuContextual" EntityType="Self.Sam3_MenuContextual" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_MenuGeneral" EntityType="Self.Sam3_MenuGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_MTR" EntityType="Self.Sam3_MTR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Notificacion" EntityType="Self.Sam3_Notificacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_NumeroUnico" EntityType="Self.Sam3_NumeroUnico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_NumeroUnicoCorte" EntityType="Self.Sam3_NumeroUnicoCorte" Schema="dbo" store:Type="Tables" />
@@ -5312,6 +5363,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Junt__TipoJ__5D36BDDE" Association="Self.FK__Sam3_Junt__TipoJ__5D36BDDE">
             <End Role="Sam3_TipoJunta" EntitySet="Sam3_TipoJunta" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_MTR__Colada__4D8A65FA" Association="Self.FK__Sam3_MTR__Colada__4D8A65FA">
+            <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
+            <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_MTR__ItemCo__4C9641C1" Association="Self.FK__Sam3_MTR__ItemCo__4C9641C1">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Nume__MTRID__54376389" Association="Self.FK__Sam3_Nume__MTRID__54376389">
+            <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Orde__Junta__65CC03DF" Association="Self.FK__Sam3_Orde__Junta__65CC03DF">
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
@@ -6082,6 +6145,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_Rel_Itemcode_Colada" Relationship="ModelSam3.FK__Sam3_Rel___Colad__2E7BCEF5" FromRole="Sam3_Colada" ToRole="Sam3_Rel_Itemcode_Colada" />
+          <NavigationProperty Name="Sam3_MTR" Relationship="ModelSam3.FK__Sam3_MTR__Colada__4D8A65FA" FromRole="Sam3_Colada" ToRole="Sam3_MTR" />
         </EntityType>
         <EntityType Name="Sam3_Color">
           <Key>
@@ -6404,6 +6468,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__477C86E9" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
           <NavigationProperty Name="Sam3_Rel_Itemcode_Colada" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__2D87AABC" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_Itemcode_Colada" />
           <NavigationProperty Name="Sam3_CorteSpool" Relationship="ModelSam3.FK__Sam3_Cort__ItemC__52B92F6B" FromRole="Sam3_ItemCode" ToRole="Sam3_CorteSpool" />
+          <NavigationProperty Name="Sam3_MTR" Relationship="ModelSam3.FK__Sam3_MTR__ItemCo__4C9641C1" FromRole="Sam3_ItemCode" ToRole="Sam3_MTR" />
         </EntityType>
         <EntityType Name="Sam3_Maquina">
           <Key>
@@ -6515,7 +6580,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="PartidaOrdenDeCompra" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Diametro1" Type="Decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="Diametro2" Type="Decimal" Precision="7" Scale="4" Nullable="false" />
-          <Property Name="Cedula" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Cedula" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NumeroUnicoCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MarcadoAsme" Type="Boolean" Nullable="false" />
           <Property Name="MarcadoGolpe" Type="Boolean" Nullable="false" />
@@ -6570,6 +6635,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="EstatusDocumental" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TipoUsoID" Type="Int32" />
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK_NumeroUnico_TipoUso" FromRole="Sam3_NumeroUnico" ToRole="Sam3_TipoUso" />
+          <Property Name="MTRID" Type="Int32" />
+          <NavigationProperty Name="Sam3_MTR" Relationship="ModelSam3.FK__Sam3_Nume__MTRID__54376389" FromRole="Sam3_NumeroUnico" ToRole="Sam3_MTR" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoCorte">
           <Key>
@@ -9427,6 +9494,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___Orden__4AADF94F" Association="ModelSam3.FK__Sam3_Rel___Orden__4AADF94F">
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
             <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
+          </AssociationSet>
+          <EntitySet Name="Sam3_MTR" EntityType="ModelSam3.Sam3_MTR" />
+          <AssociationSet Name="FK__Sam3_MTR__Colada__4D8A65FA" Association="ModelSam3.FK__Sam3_MTR__Colada__4D8A65FA">
+            <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
+            <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_MTR__ItemCo__4C9641C1" Association="ModelSam3.FK__Sam3_MTR__ItemCo__4C9641C1">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Nume__MTRID__54376389" Association="ModelSam3.FK__Sam3_Nume__MTRID__54376389">
+            <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
@@ -12556,6 +12636,58 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Sam3_MTR">
+          <Key>
+            <PropertyRef Name="MTRID" />
+          </Key>
+          <Property Name="MTRID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroMTR" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="ColadaID" Type="Int32" Nullable="false" />
+          <Property Name="CantidadPiezas" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_Colada" Relationship="ModelSam3.FK__Sam3_MTR__Colada__4D8A65FA" FromRole="Sam3_MTR" ToRole="Sam3_Colada" />
+          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_MTR__ItemCo__4C9641C1" FromRole="Sam3_MTR" ToRole="Sam3_ItemCode" />
+          <NavigationProperty Name="Sam3_NumeroUnico" Relationship="ModelSam3.FK__Sam3_Nume__MTRID__54376389" FromRole="Sam3_MTR" ToRole="Sam3_NumeroUnico" />
+        </EntityType>
+        <Association Name="FK__Sam3_MTR__Colada__4D8A65FA">
+          <End Type="ModelSam3.Sam3_Colada" Role="Sam3_Colada" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_MTR" Role="Sam3_MTR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Colada">
+              <PropertyRef Name="ColadaID" />
+            </Principal>
+            <Dependent Role="Sam3_MTR">
+              <PropertyRef Name="ColadaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_MTR__ItemCo__4C9641C1">
+          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_MTR" Role="Sam3_MTR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_MTR">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Nume__MTRID__54376389">
+          <End Type="ModelSam3.Sam3_MTR" Role="Sam3_MTR" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_MTR">
+              <PropertyRef Name="MTRID" />
+            </Principal>
+            <Dependent Role="Sam3_NumeroUnico">
+              <PropertyRef Name="MTRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12959,6 +13091,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_NumeroUnico">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_NumeroUnico">
               <MappingFragment StoreEntitySet="Sam3_NumeroUnico">
+                <ScalarProperty Name="MTRID" ColumnName="MTRID" />
                 <ScalarProperty Name="TipoUsoID" ColumnName="TipoUsoID" />
                 <ScalarProperty Name="EstatusDocumental" ColumnName="EstatusDocumental" />
                 <ScalarProperty Name="EstatusFisico" ColumnName="EstatusFisico" />
@@ -15027,6 +15160,20 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="CedulaA" ColumnName="CedulaA" />
                 <ScalarProperty Name="DiametroID" ColumnName="DiametroID" />
                 <ScalarProperty Name="CatalogoCedulasID" ColumnName="CatalogoCedulasID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_MTR">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_MTR">
+              <MappingFragment StoreEntitySet="Sam3_MTR">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="CantidadPiezas" ColumnName="CantidadPiezas" />
+                <ScalarProperty Name="ColadaID" ColumnName="ColadaID" />
+                <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
+                <ScalarProperty Name="NumeroMTR" ColumnName="NumeroMTR" />
+                <ScalarProperty Name="MTRID" ColumnName="MTRID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

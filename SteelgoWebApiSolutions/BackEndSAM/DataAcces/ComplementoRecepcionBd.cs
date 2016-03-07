@@ -101,8 +101,15 @@ namespace BackEndSAM.DataAcces
                                           RelFCID = rel.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                           RelNUFCBID = rel.Rel_NumeroUnico_RelFC_RelB_ID.ToString(),
                                           ColadaOriginal = nu.Sam3_Colada.NumeroColada,
-                                          TieneComplementoRecepcion = it.TieneComplementoRecepcion ? "Si" : "No"
+                                          TieneComplementoRecepcion = it.TieneComplementoRecepcion ? "Si" : "No",
+                                          MTRID = nu.MTRID.ToString()
                                       }).AsParallel().Distinct().ToList());
+
+                    foreach (var item in listado) {
+                        item.CantidadPiezasMTR = (from mtr in ctx.Sam3_MTR
+                                                  where mtr.Activo && mtr.MTRID.ToString() == item.MTRID
+                                                  select mtr.CantidadPiezas.ToString()).AsParallel().SingleOrDefault();
+                    }
 
                     //agregar items en bulto
                     listado.AddRange((from fc in ctx.Sam3_FolioCuantificacion
@@ -585,6 +592,7 @@ namespace BackEndSAM.DataAcces
                                                     (from tp in ctx.Sam3_TipoUso
                                                      where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                      select tp.TipoUsoID).SingleOrDefault() : 1;
+                                                actualizaNU.MTRID = Convert.ToInt32(itemCodeJson.MTRID);
 
                                                 #region Actualizar nu sam2
                                                 int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
@@ -779,6 +787,7 @@ namespace BackEndSAM.DataAcces
                                                     (from tp in ctx.Sam3_TipoUso
                                                      where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                      select tp.TipoUsoID).SingleOrDefault() : 1;
+                                                actualizaNU.MTRID = Convert.ToInt32(itemCodeJson.MTRID);
 
                                                 #region Actualizar nu sam2
                                                 int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico

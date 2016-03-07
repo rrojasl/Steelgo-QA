@@ -147,6 +147,17 @@ namespace BackEndSAM.Models
         public string MensajeError { get; set; }
     }
 
+    public class CatalogoMTR
+    {
+        public int MTRID { get; set; }
+        public string NumeroMTR { get; set; }
+        public string ItemCode { get; set; }
+        public string ItemCodeID { get; set; }
+        public string Colada { get; set; }
+        public string ColadaID { get; set; }
+        public string CantidadPiezas { get; set; }
+    }
+
     public class ValidarCedulas
     {
         public bool HayConflictos { get; set; }

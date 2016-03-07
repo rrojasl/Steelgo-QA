@@ -188,5 +188,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
         public virtual DbSet<Sam3_EquivalenciaCedula> Sam3_EquivalenciaCedula { get; set; }
         public virtual DbSet<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
+        public virtual DbSet<Sam3_MTR> Sam3_MTR { get; set; }
     }
 }

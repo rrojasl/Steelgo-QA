@@ -67,7 +67,8 @@ namespace BackEndSAM.Models
         public string DescripcionIncidencia { get; set; }
         public string ColadaOriginal { get; set; }
         public string TieneComplementoRecepcion { get; set; }
-
+        public string MTRID { get; set; }
+        public string CantidadPiezasMTR { get; set; }
     }
 
 

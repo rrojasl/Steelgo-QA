@@ -647,5 +647,57 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerItemCodeCatalogoMTR(Sam3_Usuario usuario)
+        {
+            try
+            {
+                // tpo packinglist = 3 traer todos los itemcodes
+                List<BackEndSAM.Models.ItemCode> IC = new List<BackEndSAM.Models.ItemCode>();
+                List<BackEndSAM.Models.ItemCode> itemCodeS2 = new List<BackEndSAM.Models.ItemCode>();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    using (DatabaseManager.Sam2.Sam2Context ctx2 = new DatabaseManager.Sam2.Sam2Context())
+                    {
+                        #region Filtros
+                        //traemos la informacion de los proyectos y patios del usuario
+                        List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID && x.Activo)
+                            .Select(x => x.ProyectoID).Distinct().AsParallel().ToList();
+
+
+                            itemCodeS2 = (from ic in ctx.Sam3_ItemCode
+                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                          join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                          join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                          where ic.Activo && rid.Activo
+                                          && proyectos.Contains(ic.ProyectoID)
+                                          select new BackEndSAM.Models.ItemCode
+                                          {
+                                              ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                              Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
+                                              D1 = d1.Valor,
+                                              D2 = d2.Valor
+                                          }).AsParallel().Distinct().ToList();
+                        #endregion
+                    }
+                }
+
+                IC.AddRange(itemCodeS2);
+                return IC;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(string.Format("Error al obtener los ItemCodes del Proyecto SAM2. {0}"));
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

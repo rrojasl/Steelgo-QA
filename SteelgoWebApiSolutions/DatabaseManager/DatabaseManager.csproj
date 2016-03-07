@@ -1142,6 +1142,9 @@
     <Compile Include="Sam3\Sam3_MenuGeneral.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_MTR.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Notificacion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
