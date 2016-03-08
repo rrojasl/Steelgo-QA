@@ -3795,6 +3795,10 @@ _dictionary = {
         "es-MX": "Levantar Incidencia",
         "en-US": "Fill Incidence"
     },
+    "DashboardRecepcionAlmacenaje0073": {
+        "es-MX": "Folio Recepción",
+        "en-US": "Reception number"
+    },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",

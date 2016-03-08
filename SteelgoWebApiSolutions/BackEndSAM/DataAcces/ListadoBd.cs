@@ -339,9 +339,12 @@ namespace BackEndSAM.DataAcces
                     CantidadesDashboardCuantificacion result = new CantidadesDashboardCuantificacion();
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    result.EntradaPorCuantificar = (int)ListadoMaterialesSinCuantificar(filtros, usuario, true);
+                    if (filtros.TipoMaterialID == "3")
+                    {
+                        result.EntradaPorCuantificar = (int)ListadoMaterialesSinCuantificar(filtros, usuario, true);
 
-                    result.PLPorCuantificar = (int)ListadoPacknglistPorCuantificar(filtros, usuario, true);
+                        result.PLPorCuantificar = (int)ListadoPacknglistPorCuantificar(filtros, usuario, true);
+                    }
 
                     result.MTLSinICS = (int)ListadoMTLSinICS(filtros, usuario, true);
 
@@ -674,15 +677,7 @@ namespace BackEndSAM.DataAcces
                                                                  FolioAvisoEntrada = r.FolioAvisoLlegadaID.ToString(),
                                                                  FechaDescarga = r.FechaFolioDescarga != null ? r.FechaFolioDescarga.Value.ToString() : "",
                                                                  FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString() : "",
-                                                                 PackingList = activaConfiguracionPackinglist && (fc.PackingList == "" || fc.PackingList == null) ?
-                                                                                            (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                             where pc.Rel_Proyecto_Entidad_Configuracion_ID == fc.Rel_Proyecto_Entidad_Configuracion_ID
-                                                                                             && pc.Activo == 1
-                                                                                             select pc.PreFijoFolioPackingList + ","
-                                                                                             + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                                                                             + fc.Consecutivo.ToString() + ","
-                                                                                             + pc.PostFijoFolioPackingList).FirstOrDefault() 
-                                                                                             : fc.PackingList != string.Empty ? fc.PackingList : fc.FolioCuantificacionID.ToString(),
+                                                                 PackingList = fc.PackingList == "" || fc.PackingList == null ? fc.PackingList : "",
                                                                  FolioCuantificacionID = fc.FolioCuantificacionID.ToString(),
                                                                  FolioConfiguracion = activarFolioConfiguracion ? 
                                                                                             (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
@@ -690,7 +685,14 @@ namespace BackEndSAM.DataAcces
                                                                                              select pc.PreFijoFolioAvisoLlegada + ","
                                                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                                                              + fa.Consecutivo.ToString() + ","
-                                                                                             + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString()
+                                                                                             + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString(),
+                                                                 NombreFolioCuantificacion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                              where pc.Rel_Proyecto_Entidad_Configuracion_ID == fc.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                                              && pc.Activo == 1
+                                                                                              select pc.PreFijoFolioPackingList + ","
+                                                                                              + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                                              + fc.Consecutivo.ToString() + ","
+                                                                                              + pc.PostFijoFolioPackingList).FirstOrDefault() 
                                                              }).Distinct().AsParallel().ToList();
 
                     listado = listado.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
@@ -715,14 +717,14 @@ namespace BackEndSAM.DataAcces
                     {
                         foreach (ListadoPLporCuantificar item in listado)
                         {
-                            if (activaConfiguracionPackinglist && item.PackingList.Contains(','))
+                            if (activaConfiguracionPackinglist && item.NombreFolioCuantificacion.Contains(','))
                             {
-                                string[] elementos = item.PackingList.Split(',').ToArray();
+                                string[] elementos = item.NombreFolioCuantificacion.Split(',').ToArray();
                                 int digitos = Convert.ToInt32(elementos[1]);
                                 int consecutivo = Convert.ToInt32(elementos[2]);
                                 string formato = "D" + digitos.ToString();
 
-                                item.PackingList = elementos[0].Trim() + consecutivo.ToString(formato).Trim() + elementos[3].Trim();
+                                item.NombreFolioCuantificacion = elementos[0].Trim() + consecutivo.ToString(formato).Trim() + elementos[3].Trim();
                             }
                         }
                     }

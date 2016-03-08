@@ -917,6 +917,7 @@
                             PackingList: { type: "string" },
                             FolioCuantificacionID: { type: "string" },
                             FolioConfiguracion: {type: "string"},
+                            NombreFolioCuantificacion: {type: "string"}
                         }
                     }
                 },
@@ -932,11 +933,12 @@
            [
                { field: "Proyecto", title: _dictionary.DashboardRecepcionAlmacenaje0033[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FolioConfiguracion", title: _dictionary.DashboardRecepcionAlmacenaje0034[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioConfiguracion#</a>" },
-               { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0035[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
+               //{ field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0035[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
+               { field: "NombreFolioCuantificacion", title: _dictionary.DashboardRecepcionAlmacenaje0073[$("#language").data("kendoDropDownList").value()], filterable: true },
                { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
                { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-               { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0034[$("#language").data("kendoDropDownList").value()], hidden: true /*filterable: true*/ },
+               { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0034[$("#language").data("kendoDropDownList").value()], hidden: true /*filterable: true*/ }
                
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarPlporCuantificar }, title: " ", width: "99px" }
            ];
