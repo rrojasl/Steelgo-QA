@@ -1184,6 +1184,22 @@
             }
         });
 
+        $("#grid").data("kendoGrid").thead.find("th input[data-filter]").on("click", function (e) {
+            $(this).focus();
+        });
+
+        var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.attributeName === "class" && $(mutation.target).hasClass("k-state-focused")) {
+                    $(mutation.target.firstChild).trigger('focus');
+                    //$(mutation.target.firstChild).trigger('mouseenter');
+                }
+            });
+        });
+        var config = { attributes: true, childList: true, subtree: true, characterData: true};
+
+        observer.observe(document.querySelector(".filter-row"), config);
+
         $("#menu").kendoContextMenu({
             target: "#grid",
             filter: "td",

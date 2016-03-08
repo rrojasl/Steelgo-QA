@@ -336,13 +336,13 @@ function quickHeadFilter(g) {
     var gr = '$("' + id + '").data("kendoGrid")';
     if ($(id + " .filter-row").length === 0) {
         g.thead.append(function () {
-            var init = "<tr class='filter-row'>"
+            var init = "<tr class='filter-row' tabindex='0'>"
             $(id+" thead th:visible").each(function () {
                 if (this.hasAttribute("data-field") && $(this).attr("data-field") !== "") {
                     if (modelType(g, $(this).attr("data-field")) === "number") {
-                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
+                        init += "<th tabindex='0'><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='number' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
                     } else {
-                        init += "<th><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
+                        init += "<th tabindex='0'><input class='k-textbox' data-filter='" + $(this).attr("data-field") + "' type='text' onkeyup='quickFilter(" + gr + ",this,event)'/></th>";
                     }
                 } else {
                     init += "<th></th>";
