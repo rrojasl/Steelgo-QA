@@ -26,6 +26,7 @@ namespace BackEndSAM.Models.PlaneacionYControl
 
     public class DetalleSpoolPrueba
     {
+        public int Accion { get; set; }
         public int SpoolID { get; set; }
         public int Seleccionado { get; set; }
         public int Proyectado { get; set; }

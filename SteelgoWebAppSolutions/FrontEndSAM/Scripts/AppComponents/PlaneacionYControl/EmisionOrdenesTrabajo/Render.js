@@ -69,6 +69,7 @@
             
         ]
     });
+
     dataBound(e);
       
     $("td[role='gridcell']").on("change", ":checkbox", function (e) { 

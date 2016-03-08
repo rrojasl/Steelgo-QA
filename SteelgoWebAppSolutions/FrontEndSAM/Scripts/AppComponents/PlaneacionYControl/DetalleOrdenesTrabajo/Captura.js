@@ -1,35 +1,29 @@
-﻿function changeLanguageCall() {
+﻿function changeLanguageCall() { 
+    var a = $("#ProyeccionesData").attr("proyecciones");
     CargarGrid();
     document.title = _dictionary.lblOrdenesTrabajo[$("#language").data("kendoDropDownList").value()];
+     
 };
 
-function CargarGrid() {
+function CargarGrid() { 
+    var proyecciones = JSON.parse($("#ProyeccionesData").attr("proyecciones"));
+   
     $("#grid").kendoGrid({
         edit: function (e) {
          //   this.closeCell();
         },
         autoBind: true,
         dataSource: {
-            data: [
-                { Proyeccion: "Proyeccion 1", Proyecto: "X", OrdenTrabajo: "001" },
-                { Proyeccion: "Proyeccion 2", Proyecto: "X", OrdenTrabajo: "002" }
-            ],
+            data: proyecciones,
             schema: {
                 model: {
                     fields: {
-                        Proyeccion: { type: "string", editable: false },
+                        Nombre: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
                         OrdenTrabajo: { type: "string", editable: true }, 
                     }
                 }
             },
-            //filter: {
-            //    logic: "or",
-            //    filters: [
-            //      { field: "Accion", operator: "eq", value: 1 },
-            //      { field: "Accion", operator: "eq", value: 2 }
-            //    ]
-            //},
             pageSize: 20,
             serverPaging: false,
             serverFiltering: false,
@@ -53,12 +47,13 @@ function CargarGrid() {
         detailTemplate: kendo.template($("#templateGridDetalleOrdenTrabajo").html()),
         detailInit: RenderGridDetalleOrdenTrabajo,
         columns: [
-            { field: "Proyeccion", title: _dictionary.OrdenesTrabajoHeaderProyeccion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+            { field: "Nombre", title: _dictionary.OrdenesTrabajoHeaderProyeccion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
             { field: "Proyecto", title: _dictionary.OrdenesTrabajoHeaderProyecto[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
             { field: "OrdenTrabajo", title: _dictionary.OrdenesTrabajoHeaderOrdenTrabajo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "170px" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ]
     });
+
 
     CustomisaGrid($("#grid"));
 }

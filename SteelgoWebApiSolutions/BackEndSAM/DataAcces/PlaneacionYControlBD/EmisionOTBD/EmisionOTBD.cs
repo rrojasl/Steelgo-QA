@@ -82,8 +82,6 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     List<Sam3_PyC_EmisionOT_Get_N1_Result> result = ctx.Sam3_PyC_EmisionOT_Get_N1(proyectoID,patioID).ToList();
 
                     List<DetalleProyectoPrueba> proyectoList = new List<DetalleProyectoPrueba>();
-                    //List<DetalleSpoolPrueba> detalleSpools1 = ObtenerSpools(1);
-                    //List<DetalleSpoolPrueba> detalleSpools2 = ObtenerSpools(2);
 
                     foreach (var item in result)
                     {
@@ -180,6 +178,7 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     {
                         detalleSpools.Add(new DetalleSpoolPrueba
                         {
+                            Accion = 1,
                             TipoID = item.TipoID,
                             Tipo = item.Tipo,
                             SpoolID = item.SpoolID,
