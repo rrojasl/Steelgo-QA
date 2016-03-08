@@ -4334,6 +4334,34 @@ _dictionary = {
         "es-MX": "¿Está seguro de cancelar el complemento?",
         "en-US": "Are you sure you want to cancel the complement?"
     },
+    "ComplementoRecepcion0084": {
+        "es-MX": "Si la cantidad amparada es menor que la cantidad se generara una incidencia",
+        "en-US": "By changing the casting an incidence will be generated."
+    },
+    "ComplementoRecepcion0085": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "ComplementoRecepcion0086": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ComplementoRecepcion0087": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0088": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0089": {
+        "es-MX": "TituloMTR",
+        "en-US": "TitleMTR"
+    },
+    "ComplementoRecepcion0090": {
+        "es-MX": "Agregar MTR",
+        "en-US": "Add MTR"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Listados",

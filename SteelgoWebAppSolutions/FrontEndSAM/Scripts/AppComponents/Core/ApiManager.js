@@ -56,6 +56,7 @@ var $DiametrosCatalogos = $BackEndSAMUri + '/backendsam/api/Diametros?';
 var $UrlOrdenTrabajo = $BackEndSAMUri + '/backendsam/api/OrdenTrabajo?';
 var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
 var $CatalogoEspesor = $BackEndSAMUri + '/backendsam/api/Espesor?';
+var $MTR = $BackEndSAMUri + '/backendsam/api/MTR?';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -154,7 +155,7 @@ var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidarCedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $MTR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -264,4 +265,3 @@ $Proxy.add("Proxy");
 $Reporte.add("Reporte");
 $Espesor.add("Espesor");
 $ValidarCedulas.add("ValidarCedulas");
-$MTR.add("MTR");

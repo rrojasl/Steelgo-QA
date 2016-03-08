@@ -106,6 +106,9 @@ namespace BackEndSAM.DataAcces
                                       }).AsParallel().Distinct().ToList());
 
                     foreach (var item in listado) {
+                        item.MTR = (from mtr in ctx.Sam3_MTR
+                                    where mtr.Activo && mtr.MTRID.ToString() == item.MTRID
+                                    select mtr.NumeroMTR.ToString()).AsParallel().SingleOrDefault();
                         item.CantidadPiezasMTR = (from mtr in ctx.Sam3_MTR
                                                   where mtr.Activo && mtr.MTRID.ToString() == item.MTRID
                                                   select mtr.CantidadPiezas.ToString()).AsParallel().SingleOrDefault();
@@ -560,6 +563,39 @@ namespace BackEndSAM.DataAcces
                                         ctx.SaveChanges();
                                     }
 
+                                    if (itemCodeJson.TituloMTR != "" && itemCodeJson.TituloMTR != null)
+                                    {
+                                        Sam3_Incidencia incidencia = new Sam3_Incidencia();
+                                        incidencia.Activo = true;
+                                        incidencia.ClasificacionID = (from c in ctx.Sam3_ClasificacionIncidencia
+                                                                      where c.Activo && c.Nombre == "Materiales"
+                                                                      select c.ClasificacionIncidenciaID).AsParallel().SingleOrDefault();
+                                        incidencia.Descripcion = itemCodeJson.DescripcionIncidenciaMTR;
+                                        incidencia.Estatus = "Abierta";
+                                        incidencia.FechaCreacion = DateTime.Now;
+                                        incidencia.FechaModificacion = DateTime.Now;
+                                        incidencia.TipoIncidenciaID = (from tp in ctx.Sam3_TipoIncidencia
+                                                                       where tp.Activo && tp.Nombre == "Número único"
+                                                                       select tp.TipoIncidenciaID).AsParallel().SingleOrDefault();
+                                        incidencia.Titulo = itemCodeJson.TituloMTR;
+                                        incidencia.UsuarioID = usuario.UsuarioID;
+                                        incidencia.Version = 1;
+
+                                        ctx.Sam3_Incidencia.Add(incidencia);
+                                        ctx.SaveChanges();
+
+
+                                        Sam3_Rel_Incidencia_NumeroUnico nuevaRelIncidencia = new Sam3_Rel_Incidencia_NumeroUnico();
+                                        nuevaRelIncidencia.Activo = true;
+                                        nuevaRelIncidencia.FechaModificacion = DateTime.Now;
+                                        nuevaRelIncidencia.IncidenciaID = incidencia.IncidenciaID;
+                                        nuevaRelIncidencia.NumeroUnicoID = actualizaNU.NumeroUnicoID;
+                                        nuevaRelIncidencia.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelIncidencia);
+                                        ctx.SaveChanges();
+                                    }
+
                                     switch (tipoGuardadoID)
                                     {
                                         case 1: // Guardado Parcial
@@ -592,7 +628,7 @@ namespace BackEndSAM.DataAcces
                                                     (from tp in ctx.Sam3_TipoUso
                                                      where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                      select tp.TipoUsoID).SingleOrDefault() : 1;
-                                                actualizaNU.MTRID = Convert.ToInt32(itemCodeJson.MTRID);
+                                                actualizaNU.MTRID = String.IsNullOrEmpty(itemCodeJson.MTRID) ? (int?)null : Convert.ToInt32(itemCodeJson.MTRID);
 
                                                 #region Actualizar nu sam2
                                                 int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico

@@ -507,9 +507,6 @@
                             },
                             close: function (e) {
                                 var data = getDropData(e);
-                                console.log("datas...");
-                                console.log(itemCodeID);
-                                console.log(data.nombre);
                                 $("#grid").data("kendoGrid")._data[data.posicion].ColadaID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Colada = data.nombre;
                                 $("#grid").data("kendoGrid")._data[data.posicion].ItemCodeID = itemCodeID;
@@ -1173,7 +1170,28 @@
                 { text: "No", value: false }
             ]
         });
-    }
+    };
+
+    function hideElementsListadoCatalogos() {
+        $(".sidebar").hide();
+        $(".logo").hide();
+        $(".search-bar").hide();
+        $(".notifications").hide();
+        $(".logged-user").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".breadcrumb-container").hide();
+        $(".languageSelector").hide();
+        $(".pull-right").hide();
+        $("header").hide();
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
+        $(".actionButtonSection").hide();
+        $('#SeccionBotones').appendTo('#SeccionBotones2');
+        $('#nav1').css('border-bottom', 'none');
+        $('#nav2').css('border-bottom', 'none');
+        $('#nav2 .button-section').css('border-left', 'none');
+        $('#nav2 .button-section').css('border-right', 'none');
+    };
 
     function VentanaModal() {
         $("#window").kendoWindow({
@@ -1203,6 +1221,9 @@
     $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
     columnas = getColumnas();
     $(document).bind("ajaxStart", function () { }).bind("ajaxStop", function () { }).bind("ajaxError", function () { }).bind("ajaxSuccess", function () { });
+    if (isInPopUp()) {
+        hideElementsListadoCatalogos();
+    }
     };
 
     @section JavascriptDocumentReadyHomeCookie {

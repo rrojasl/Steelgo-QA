@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerMTR(int ItemCodeID, int ColadaID)
+        public object ObtenerMTR(int ItemCodeID, string Colada)
         {
             try
             {
@@ -49,8 +49,12 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
+                    int coladaID = (from c in ctx.Sam3_Colada
+                                    where c.Activo && c.NumeroColada == Colada
+                                    select c.ColadaID).AsParallel().SingleOrDefault();
+
                     lista = (from m in ctx.Sam3_MTR
-                             where m.Activo && m.ItemCodeID == ItemCodeID && m.ColadaID == ColadaID
+                             where m.Activo && m.ItemCodeID == ItemCodeID && m.ColadaID == coladaID
                              select new ListaCombos
                              {
                                  id = m.MTRID.ToString(),
