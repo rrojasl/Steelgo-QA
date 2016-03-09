@@ -17,11 +17,12 @@ namespace FrontEndSAM.Controllers.Errors
             return View();
         }
 
-        public ActionResult OrdenesDeTrabajo(string Talleres)
+        public ActionResult OrdenesDeTrabajo(string Proyecciones)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             //Talleres capturaDatosJson = serializer.Deserialize<Talleres>(Talleres);
-            ViewBag.Talleres = Talleres.ToString();
+
+            ViewBag.Proyecciones = Proyecciones.ToString();
             return View();
 
         }

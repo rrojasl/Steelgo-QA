@@ -4,39 +4,14 @@
 
     var model = e.data;
     kendo.bind(detailRow, model);
-    //model.bind('change', function (e) {
-    //    var tr = $('tr[data-uid=' + model.uid + ']');
-    //    $('#grid').data().kendoGrid.expandRow(tr);
-    //})
-
+     
     detailRow.find(".gridDetalleOrdenTrabajo").kendoGrid({
         edit: function (e) {
          //   this.closeCell();
         }, 
         autoBind: true,
         dataSource: {
-            data: [
-                {
-                    SpoolNombre: "001",
-                    Dibujo: "04-4'-BUT-3CB1S-1006-NI",
-                    DiametroMaximo: "700",
-                    DiametroPromedio: "350",
-                    Peso: "350",
-                    Area: "623",
-                    Juntas: "4",
-                    Peqs: "162"
-                },
-                {
-                    SpoolNombre: "002",
-                    Dibujo: "02-4'-BUT-3CB1S-1006-NI",
-                    DiametroMaximo: "850",
-                    DiametroPromedio: "400",
-                    Peso: "560",
-                    Area: "483",
-                    Juntas: "3",
-                    Peqs: "25"
-                },
-            ],
+            data: model.Spools,
             schema: {
                 model: {
                     fields: {
@@ -50,6 +25,13 @@
                         Peqs: { type: "string", editable: false }
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
             },
             pageSize: 20,
             serverPaging: false,
@@ -92,12 +74,5 @@ function dataBound(e) {
     var gridData = grid.dataSource.view();
     for (var i = 0; i < gridData.length; i++) {
         var currentUid = gridData[i].uid;
-
-        if (gridData[i].Proyectado != 1) {
-            var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
-            var editButton = $(currenRow).find(".k-grid-Cancelar");
-
-            editButton.hide();
-        }
     }
 }

@@ -10,15 +10,14 @@
     SuscribirEventoTalleres();
     SuscribirEventoCambiarProyeccionDeTaller();
     SuscribirEventoEliminarProyeccion();
-
-    //Emision
-    SuscribirEventoEmitir();
-
+ 
     //Encabezado-Mostrar
     SuscribirEventoMostrar();
     SuscribirEventoProyecto();
     SuscribirEventoPatio();
 
+    //Ventana
+    SuscribirEventoResize();
 
 }
 
@@ -107,6 +106,7 @@ function SuscribirEventoCrearNuevaProyeccion() {
 
         if ($("#inputWindowProyeccion").val().length > 0) {
             if ($("#inputTalleresWindow").val().length > 0) {
+
                 $.each($("tr.proyeccion"), function (index, proyeccion) {
                     if ($(proyeccion).attr("nombre") == $("#inputWindowProyeccion").val()) {
                         existeProyeccion = true;
@@ -190,66 +190,6 @@ function SuscribirEventoEliminarProyeccion() {
     });
 }
 
-//Emitir
-function SuscribirEventoEmitir() {
-    $("#EmitirOT").click(function () { 
-        $("#divEmitirWindow").kendoWindow({
-            modal: true,
-            // title:,
-            resizable: false,
-            visible: true,
-            width: "50%",
-            minWidth: "20%",
-
-            position: {
-                top: "1%",
-                left: "1%"
-            },
-            actions: [
-                "Close"
-            ],
-        }).data("kendoWindow");
-        $("#divEmitirWindow").data("kendoWindow").title("Emitir Orden de Trabajo");
-        $("#divEmitirWindow").data("kendoWindow").center().open();
-
-        $("#divEmitirWindow").data("kendoWindow").bind("close", function (e) {
-            $("#EmitirPreguntaDiv").show();
-            $("#cmbSeleccionarOT").hide();
-            $("#inputCrearOrdenTrabajo").hide(); 
-        });
-    });
-
-    $("#btnCrearNuevaOrdenTrabajo").click(function () {
-        $("#EmitirPreguntaDiv").hide();
-        $("#inputCrearOrdenTrabajo").show();
-    });
-
-    $("#btnUtilizarOrdenTrabajoExistente").click(function () {
-        $("#EmitirPreguntaDiv").hide();
-        $("#cmbSeleccionarOT").show();
-    });
-      
-    var data = [
-        { OrdenTrabajo: "Orden de Trabajo 1", OrdenTrabajoID: "1" },
-        { OrdenTrabajo: "Orden de Trabajo 2", OrdenTrabajoID: "2" },
-        { OrdenTrabajo: "Orden de Trabajo 3", OrdenTrabajoID: "3" },
-    ];
-
-    $("#inputOrdenesTrabajo").kendoComboBox({
-        dataTextField: "OrdenTrabajo",
-        dataValueField: "OrdenTrabajoID ",
-        suggest: true,
-        width: "50%",
-        dataSource: data,
-        filter: "contains",
-        index: 3
-    });
-}
-
-$("#crearOrdenTrabajo").click(function () {
-    
-});
-
 //Encabezado
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
@@ -316,5 +256,19 @@ function SuscribirEventoPatio() {
                 displayMessage("errorNoExistePatio", '', '2');
             }
         }
+    });
+}
+
+function SuscribirEventoResize() { 
+    $('.grid-stack-proyecciones').bind('resize', function (e) {
+        $(".header-proyecciones").css("width",$(this).width());
+    });
+     
+    $('.grid-stack-capacidad').bind('resize', function (e) {
+        $(".header-capacidad").css("width", $(this).width());
+    });
+
+    $('.grid-stack-talleres').bind('resize', function (e) {
+        $(".header-talleres").css("width", $(this).width());
     });
 }

@@ -26,7 +26,7 @@
                 <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
             </div>
             <div id="ArmadoSoldaduraDivSuperior" class="button-section">
-                <a id="EmitirOT" href="#" onclick="javascript:void(0);" class="btn btn-primary"><span id="">Emitir</span></a>
+                <a id="EmitirOT" href="#" onclick="AbrirVentanaEmitirOrdenTrabajo()" class="btn btn-primary"><span id="">Emitir</span></a>
             </div>
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">
@@ -63,11 +63,10 @@
     <div id="FloatContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
 <div id="gridStack">
     <div class="grid-stack" style="font-size:10px;">
-        <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4">
-            <div class="grid-stack-item-content border-shadow" id="gridProyecciones" style="overflow-x:auto">
-                
-                <div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid text-center">Totalizado de las proyecciones</div> 
-                <div id="grid"></div> 
+        <div class="grid-stack-item grid-stack-proyecciones" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4" style="overflow-y:auto">
+            <div class="grid-stack-item-content border-shadow" id="gridProyecciones">
+                <div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid header-proyecciones text-center">Totalizado de las proyecciones</div> 
+                <div id="grid" style="overflow-x:auto;overflow-y:auto"></div> 
                 
                 <script type="text/x-kendo-template" id="templateGridNivelDos">
                     <div class="nivel2"></div>  
@@ -80,41 +79,43 @@
         </div> 
 
         @*Grid Capacidad*@
-        <div class="grid-stack-item" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">
-            <div class="grid-stack-item-content border-shadow" style="overflow-x:auto" id="gridCapacidad">
-                <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Capacidad</div> 
+        <div class="grid-stack-item grid-stack-capacidad" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">
+            <div class="grid-stack-item-content border-shadow" id="gridCapacidad">
+                <div style="color:#ffffff; font-size:14px;position:relative" class="header-grid header-capacidad text-center">Capacidad</div> 
                 @*Vista de Sergio*@
-                    <table class="table table-condensed" style="border-collapse:collapse;">
+                <div style="overflow-x:auto;overflow-y:auto">
+                    <table class="table table-condensed" style="border-collapse:collapse;margin-top: 30px;">
                         <thead>
                             <tr>
                                 <th>Taller</th>
-                                <th>Auto</th><th>Auto-Man</th>
+                                <th>Auto</th>
+                                <th>Auto-Man</th>
                                 <th>Man</th>
                             </tr>
                         </thead>
-                        <tbody id="contenedorTalleresCapacidad">  
-                        </tbody>
-                    </table>  
+                        <tbody id="contenedorTalleresCapacidad"></tbody>
+                    </table>
+                </div>
            </div> 
         </div>
 
         @*Grid proyecciones*@
-        <div class="grid-stack-item" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4"> 
-             <div class="grid-stack-item-content border-shadow" id="gridTalleres"  style="overflow-x:auto"> 
-                <div style="color:#ffffff; font-size:14px;" class="header-grid text-center">Proyecciones</div> 
-                    <table class="table table-condensed" style="border-collapse:collapse;">
-                        <thead>
-                            <tr id="talleresProyeccion">
-                                <th width="20px">&nbsp;</th>
-                                <th>&nbsp;</th>
+        <div class="grid-stack-item grid-stack-talleres" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4"> 
+             <div class="grid-stack-item-content border-shadow" id="gridTalleres"> 
+                <div style="color:#ffffff; font-size:14px;" class="header-grid header-talleres text-center">Proyecciones</div> 
+                 <div style="overflow-x:auto">
+                     <table class="table table-condensed" style="border-collapse:collapse;">
+                         <thead>
+                             <tr id="talleresProyeccion">
+                                 <th width="20px">&nbsp;</th>
+                                 <th>&nbsp;</th>
 
-                            </tr>
-                        </thead>
-                        <tbody id="contenedorProyecciones">
-                             
-                        </tbody>
-                 </table> 
-             </div>
+                             </tr>
+                         </thead>
+                         <tbody id="contenedorProyecciones"></tbody>
+                     </table>
+                </div>
+            </div>
         </div> 
         <span style="color:#ffffff">.</span> 
          
@@ -188,7 +189,7 @@
                 <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
             </div>
             <div id="ArmadoSoldaduraDivSuperior" class="button-section">
-                <a id="ArmadoSoldaduraSuperior" href="" class="btn btn-primary"><span id="">Emitir</span></a>
+                <a id="EmitirOT" href="#" onclick="AbrirVentanaEmitirOrdenTrabajo()" class="btn btn-primary"><span id="">Emitir</span></a>
             </div>
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">

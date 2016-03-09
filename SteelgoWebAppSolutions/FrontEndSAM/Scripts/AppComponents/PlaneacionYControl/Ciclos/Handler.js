@@ -1,12 +1,18 @@
-﻿function SuscribirEventos() {
+﻿/// <reference path="C:\Users\Fernando\Source\Repos\SAM3.0\SteelgoWebAppSolutions\FrontEndSAM\Views/Armado/CapturaArmado.cshtml" />
+/// <reference path="C:\Users\Fernando\Source\Repos\SAM3.0\SteelgoWebAppSolutions\FrontEndSAM\Views/PlaneacionYControl/AutorizacionPeticion.cshtml" />
+/// <reference path="C:\Users\Fernando\Source\Repos\SAM3.0\SteelgoWebAppSolutions\FrontEndSAM\Views/PlaneacionYControl/Ciclos.cshtml" />
+function SuscribirEventos() {
     SuscribirEventoProyecto();
     SuscribirEventoSeleccionar();
+    SubscribirEventoGuardar();
 }
 
+SuscribirEventos();
 function SuscribirEventoProyecto() {
     $('#inputProyecto').kendoComboBox({
         dataTextField: "Proyecto",
         dataValueField: "ProyectoID ",
+
         suggest: true,
         filter: "contains",
         index: 3,
@@ -14,8 +20,8 @@ function SuscribirEventoProyecto() {
             var dataItem = this.dataItem(e.item.index());
 
             if (dataItem != undefined) {
-                $("#inputPatio").data("kendoComboBox").value("");
-                $("#inputPatio").data("kendoComboBox").dataSource.data(dataItem.ListaPatio);
+               // $("#inputPatio").data("kendoComboBox").value("");
+                //$("#inputPatio").data("kendoComboBox").dataSource.data(dataItem.ListaPatio);
             }
             else {
                 displayMessage("errorNoExisteProyecto", '', '2');
@@ -144,4 +150,37 @@ function SuscribirEventoSeleccionar() {
         $(".DivScrollSup").css("width", $('table[role="grid"]').width() - 17 +120)
     });
     
+}
+
+function SubscribirEventoGuardar()
+{
+    $("#Guardar").click(function (e) {
+
+        //$.ajax({
+        //    type: "GET",
+        //    url: "/MedicionesClimatologicas/CondicionesClimatologicas",
+        //    success: function (result) {
+        //        var w = window.open();
+        //        $(w.document.body).html(result);
+        //    },
+        //    error: function (request, error) {
+        //        debugger;
+        //        console.log(arguments);
+        //        alert(error);
+        //    },
+        //});
+
+        //if ($(this).text() == "Editar" || $(this).text() == "Edit") {
+        //    $(this).text("Guardar") 
+        //    $("#GuardarPie").text("Guardar");
+        //}
+        //else {
+        //}
+        
+        var guarda = 1;
+
+        GuardarCliclos(guarda);
+
+
+    });
 }

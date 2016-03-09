@@ -12,8 +12,7 @@ function changeLanguageCall() {
 };
 
 //Funciones para crear elementos 
-function CargarGrid() {
-
+function CargarGrid() { 
     var options = {
         cell_height: 80,
         vertical_margin: 10
@@ -78,6 +77,7 @@ function CargarGrid() {
         ]
     });
 
+     
     CustomisaGrid($("#grid"));
 }
 
@@ -216,12 +216,13 @@ function AgregarNuevaProyeccionArregloTaller(totalAutomatico, totalManual, proye
                 Automatico: totalAutomatico * 0.8,
                 Automan: totalAutomatico * 0.2,
                 Manual: totalManual,
+
                 SpoolDetalle: SpoolsEnProyeccion
             });
         }
     });
-
-    $("#inputWindowProyeccion").val("");
+    loadingStop();
+    
     ActualizarContenedorCapacidad();
 }
 
@@ -278,7 +279,6 @@ function EditarAgregarProyeccionArregloTaller(totalAutomatico, totalManual, proy
                 $.each(SpoolsEnProyeccion, function (spool_index, spool) {
                     Talleres[index].taller[0].Proyecciones[proyeccion_index].SpoolDetalle.push(spool);
                 })
-
             }
         });
     });
@@ -322,7 +322,6 @@ function EditarEliminarSpoolDeContenedorProyecciones(spool) {
 
     EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID);
 }
-
 
 function EditarEliminarSpoolDeProyeccionArregloTaller(totalAutomatico, totalManual, proyeccionID) {
     $.each(Talleres, function (index) {
@@ -376,6 +375,8 @@ function ActualizarContenedorCapacidad() {
         ImprimirContenedorCapacidad(Talleres[i].taller[0].ID, "manual", Talleres[i].taller[0].Proyecciones, Talleres[i].taller[0].Capacidad, manual)
 
     }
+
+    
 }
 
 function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
@@ -398,6 +399,7 @@ function ActualizarGrid(seAgregaProyeccion, nombreProyeccion) {
         }
     }
 
+    $("#inputWindowProyeccion").val("");
     $("#grid").data("kendoGrid").dataSource.sync();
     $("#divProyectarWindow").data("kendoWindow").close();
 }
@@ -542,15 +544,13 @@ function CambiarProyeccionDeTaller(tallerID, proyeccionID) {
 
 function EliminarProyeccion(proyeccionID, nombreProyeccion) {
     for (var i = 0; i < Talleres.length; i++) {
-        for (var j = 0; j < Talleres[i].taller[0].Automatico.Proyecciones.length ; j++) {
-            if (Talleres[i].taller[0].Automatico.Proyecciones[j].ID == proyeccionID) {
-                Talleres[i].taller[0].Automatico.Proyecciones.splice(j, 1);
-                Talleres[i].taller[0].Automan.Proyecciones.splice(j, 1);
-                Talleres[i].taller[0].Manual.Proyecciones.splice(j, 1);
+        for (var j = 0; j < Talleres[i].taller[0].Proyecciones.length ; j++) {
+            if (Talleres[i].taller[0].Proyecciones[j].ID == proyeccionID) {
+                Talleres[i].taller[0].Proyecciones.splice(j, 1); 
             }
         }
     }
-
+    totalProyecciones--;
     EliminarContenedorProyecciones(proyeccionID);
     ActualizarContenedorCapacidad();
     ActualizarGrid(false, nombreProyeccion);
@@ -558,45 +558,50 @@ function EliminarProyeccion(proyeccionID, nombreProyeccion) {
 
 //Funciones para emitir
 function AbrirVentanaEmitirOrdenTrabajo() {
-    var Proyecciones = new Array();
-    var proyeccionesActivas = new Array();
-
+    var Proyecciones = new Array(); 
+    var ordenTrabajo = 0;
+ 
     //Se iteran todos los talleres existentes en el arreglo
     $.each(Talleres, function (index_taller, taller) {
         //Se continua con el proceso si existen proyecciones en el taller
         if (taller.taller[0].Proyecciones.length > 1) {
             //Se iteran las proyecciones existentes en el taller
             $.each(taller.taller[0].Proyecciones, function (index_proyeccion, proyeccion_taller) {
-                //Verificamos si la proyeccion ya existe en el arreglo final de las proyecciones
-                var existeProyeccion = false;
-                var posicionProyeccion = 0;
-                $.each(Proyecciones, function (index_arreglo_proyecciones, proyeccion) {
-                    if (proyeccion.ID == proyeccion_taller.ID) {
-                        existeProyeccion = true;
-                        posicionProyeccion = index_arreglo_proyecciones;
+                if (proyeccion_taller.ID != 0) {
+                    
+                    ordenTrabajo++;
+                    for (var i = ordenTrabajo.toString().length ; i < 3; i++) {
+                        ordenTrabajo = "0" + ordenTrabajo;
                     }
-                });
 
-                if (existeProyeccion) {
-                    Proyecciones[posicionProyeccion]
-                }
-                else {
-
+                    Proyecciones.push({
+                        Accion: 1,
+                        ID: proyeccion_taller.ID,
+                        Nombre: proyeccion_taller.Nombre,
+                        ProyectoID: $("#inputProyecto").data("kendoComboBox").value(),
+                        Proyecto: $("#inputProyecto").data("kendoComboBox").text(),
+                        OrdenTrabajo: ordenTrabajo,
+                        Taller: taller.ID,
+                        Spools: proyeccion_taller.SpoolDetalle
+                    });
                 }
             });
         }
     });
+     
+    if (Proyecciones.length != 0) { 
+        var form = $('<form action="/PlaneacionYControl/OrdenesDeTrabajo" method="post">' +
+        '<input type="hidden" name="Proyecciones" value="' + escapeHtml(JSON.stringify(Proyecciones)) + '" />' +
+        '</form>');
+        $('body').append(form);
 
-    var form = $('<form action="/PlaneacionYControl/OrdenesDeTrabajo" method="post">' +
-    '<input type="hidden" name="Talleres" value=' + escapeHtml(JSON.stringify(Talleres)) + ' />' +
-    '</form>');
-    $('body').append(form);
-    form.appendTo('body').submit();
-   
+        form.appendTo('body').submit();
+    }
+    else {
+        displayMessage("AdvertenciaNoExistenProyecciones", "", '2');
+    }
 }
-
-
-
+ 
 function escapeHtml(text) {
     var map = {
         '&': '&amp;',
