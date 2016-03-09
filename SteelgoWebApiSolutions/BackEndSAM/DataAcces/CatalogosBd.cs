@@ -367,7 +367,8 @@ namespace BackEndSAM.DataAcces
                                                ItemCode = ic.Codigo,
                                                ColadaID = col.ColadaID.ToString(),
                                                Colada = col.NumeroColada,
-                                               NumeroMTR = mtr.NumeroMTR
+                                               NumeroMTR = mtr.NumeroMTR,
+                                               CantidadPiezas = mtr.CantidadPiezas.ToString()
                                            }).AsParallel().ToList();
 
                             return catalogoMTR;

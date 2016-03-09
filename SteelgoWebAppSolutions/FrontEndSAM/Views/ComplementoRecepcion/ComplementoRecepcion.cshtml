@@ -603,11 +603,20 @@
                         sinColada = true;
                         $("#IncidenciaDiv").addClass("hidden");
                     }
-                    if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-                        rowselected.Titulo = "El número único " + rowselected.NumeroUnico + " cambio de colada " + rowselected.ColadaOriginal + " a " + dataItem.Nombre;
-                    } else {
-                        rowselected.Titulo = "The unique Number " + rowselected.NumeroUnico + " change " + rowselected.ColadaOriginal + " to " + dataItem.Nombre;
+
+                    if (sinColada)
+                    {
+                        rowselected.Titulo = "";
                     }
+                    else
+                    {
+                        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                            rowselected.Titulo = "El número único " + rowselected.NumeroUnico + " cambio de colada " + rowselected.ColadaOriginal + " a " + dataItem.Nombre;
+                        } else {
+                            rowselected.Titulo = "The unique Number " + rowselected.NumeroUnico + " change " + rowselected.ColadaOriginal + " to " + dataItem.Nombre;
+                        }
+                    }
+                    
                     $("#Titulo").val(rowselected.Titulo);
                     $("#DescripcionIncidencia").val(rowselected.DescripcionIncidencia);
                 } else {
