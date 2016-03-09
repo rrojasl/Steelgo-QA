@@ -136,10 +136,9 @@ namespace BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD
                     foreach (Sam3_SteelGo_Get_Taller_Patio_Result item in result)
                     {
                         var produccion = new DetalleProduccion();
-                        produccion.Accion = 1; 
                         produccion.ProyeccionID = 0;
-                        produccion.CantidadAutomatico = random.Next(5, 50);
-                        produccion.CantidadManual = random.Next(5, 50);
+                        produccion.CantidadAutomatico = item.ProduccionAutomatico;
+                        produccion.CantidadManual = item.ProduccionManual;
 
                         tallerList.Add(new DetalleTaller
                         {

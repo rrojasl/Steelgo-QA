@@ -78,8 +78,7 @@ namespace BackEndSAM.Models.PlaneacionYControl
     public class DetalleProduccion
     {
         public int ProyeccionID { get; set; } 
-        public int CantidadAutomatico { get; set; }
-        public int CantidadManual { get; set; }
-        public int Accion { get; set; }
+        public decimal CantidadAutomatico { get; set; }
+        public decimal CantidadManual { get; set; }
     }
 }
