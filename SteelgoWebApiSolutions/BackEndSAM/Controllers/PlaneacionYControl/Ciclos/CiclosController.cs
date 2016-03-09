@@ -1,4 +1,5 @@
-﻿using BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD;
+﻿using BackEndSAM.DataAcces.PlaneacionYControlBD.CiclosDB;
+using BackEndSAM.DataAcces.PlaneacionYControlBD.EmisionOTBD;
 using BackEndSAM.Models.Pintura.CapturaAvanceIntAcabado;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -47,6 +48,84 @@ namespace BackEndSAM.Controllers.EmisionOT
                 return result;
             }
         }
+        [HttpGet]
+        public object ObtenerEtapas(string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CicloDB.Instance.Etapas();
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
+        [HttpGet]
+        public object ObtenerFamiliaAcero(string token, int idFamiliaAcero)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CicloDB.Instance.FamiliaAcero();
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object ObtenerFamiliaMaterial(string token, int idFamiliaMaterial)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CicloDB.Instance.FamiliaMaterial();
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+
+
 
     }
 }
