@@ -457,7 +457,7 @@
                     field: "ItemCode",
                     title: _dictionary.ListadoCatalogos0045[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
-                        $('<input data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>').appendTo(container).kendoAutoComplete({
+                        $('<input id="ItemCode" data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>').appendTo(container).kendoAutoComplete({
                             //autoBind: false,
                             dataSource: {
                                 transport: {
@@ -469,13 +469,10 @@
                             },
                             select: function (e) {
                                 var dataItem = this.dataItem(e.item.index());
-                                console.log(dataItem);
                                 $("[name='ItemCodeID']").val(dataItem.ItemCodeID);
-                                console.log("input");
-                                console.log($("#grid").data("kendoGrid")._data[0]);
                                 $("[name='ItemCodeID']").text(dataItem.ItemCodeID);
-
-                                
+                                $("[name='Colada']").data("kendoComboBox").value("");
+                                $("[name='ColadaID']").val("");
                                 //ObtenerColadas(dataItem.ItemCodeID);
                                 itemCodeID = dataItem.ItemCodeID;
                                 $Colada.Colada.read({}, { itemcode: itemCodeID, token: Cookies.get("token") }).done(function (data) {
@@ -483,17 +480,21 @@
                                 });
                             },
                             change: function (e) {
-                                
+                                var value = this.value();
+                                if (!value || !e.sender.current()) {
+                                    console.log(this);
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
                             }
                         });
                     }
                 },
-               
                 {
                     field: "Colada",
                     title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()],
                     editor: function (container, options) {
-                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                        $("<input id='Colada'/>").attr("name", options.field).appendTo(container).kendoComboBox({
                             dataSource: [],
                             autoBind: false,
                             select: function (e) {
@@ -506,7 +507,13 @@
                                 $("#grid").data("kendoGrid")._data[data.posicion].Colada = data.nombre;
                                 $("#grid").data("kendoGrid")._data[data.posicion].ItemCodeID = itemCodeID;
                             },
-                                change: function (e) {
+                            change: function (e) {
+                                var value = this.value();
+                                if (!value || !e.sender.current()) {
+                                    console.log(this);
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
                                 },
                                 dataTextField: "Nombre",
                                 dataValueField: "ColadaID"
@@ -621,6 +628,20 @@
             save: function (e) {
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
                 var grid = $("#grid").data("kendoGrid");
+                if (catalogo == "12")
+                {
+                    if ($("#ItemCode").data("kendoAutoComplete").value() == null || $("#ItemCode").data("kendoAutoComplete").value() == "") {
+                        displayMessage("notificationslabel0044", "", '1');
+                        e.preventDefault();
+                    }
+                    else if ($("[name='Colada']").data("kendoComboBox").value() == null || $("[name='Colada']").data("kendoComboBox").value() == "") {
+                        displayMessage("notificationslabel0107", "", '1');
+                        e.preventDefault();
+                    }
+
+                   
+                }
+
                 var data = getDataFromModel(modelos[catalogo].fields, e.model);
                 if (e.model.id !== null && e.model.id !== "") {
                     var direccion = parseUrl(data, catalogo, "put");

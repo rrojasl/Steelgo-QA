@@ -6720,6 +6720,10 @@ _dictionary = {
         "es-MX": "Favor de seleccionar la nueva colada.",
         "en-US": "Please select a new wash"
     },
+    "notificationslabel0107": {
+        "es-MX": "Favor de seleccionar una colada.",
+        "en-US": "Please select a wash"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
