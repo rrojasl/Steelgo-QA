@@ -1,0 +1,4 @@
+﻿IniciarCapturaPNDMAterial();
+function IniciarCapturaPNDMAterial() {
+    SuscribirEventos();
+}

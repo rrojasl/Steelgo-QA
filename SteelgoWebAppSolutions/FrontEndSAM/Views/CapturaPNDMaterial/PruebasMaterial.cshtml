@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "Captura de PND a Material";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="DashboardLlegadaMaterial0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DashboardLlegadaMaterial", "EntradaMaterial")"><span id="">Captura de PND a Material</span></a>
+    </li>
+}
+
+<div class="form clearfix col-sm-12 col-md-12 col-lg-12">
+    @*Menu superior*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="botonEdtar"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Controles Superior*@
+
+    <div class="row" id="Opciones">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div>
+                    <label>&nbsp;</label>
+                    <div>
+                        <input type="radio" name="Filtro" style=" width:auto;" value="Colada" /><span>Colada </span>
+                    </div>
+                    <div>
+                        <input type="radio" name="Filtro" style=" width:auto;" value="NumeroUnico" /><span>Numero Unico</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="Filtro" style=" width:auto;" value="NumeroUnicoAsignado" /><span>Numero Unico Asignada</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <label id="">Tipo Prueba</label>
+                <input id="inputPrueba" class="" />
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div>
+                    <label>&nbsp;</label>
+                    <div>
+                        <input type="radio" name="TipoCaptura" style=" width:auto;" value="Ambas caras" /><span>Ambas Caras </span>
+                    </div>
+                    <div>
+                        <input type="radio" name="TipoCaptura" style=" width:auto;" value="Por cara" /><span>Por Cara</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+
+                <div class="row" id="FiltroColada">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <label>ItemCode</label>
+                            <input id="inputItemCode" class="" />
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <label>Coladas</label>
+                            <input id="inputPrueba" class="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="FiltroNumeroUnico">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div>
+                            <label>Numero Unico</label>
+                            <input id="inputItemCode" class="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="FiltroNumeroAsignado">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4">
+                            <label>N.U.A</label>
+                            <input id="inputItemCode" class="" />
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4">
+                            <label>Spool</label>
+                            <input id="inputItemCode" class="" />
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4">
+                            <label>Etiqueta</label>
+                            <input id="inputItemCode" class="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*GRID*@
+    <div class="row addedSectionInLine">
+        <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/AppComponents/CapturaPNDMaterial/PruebasMaterial/Render.js"></script>
+<script src="~/Scripts/AppComponents/CapturaPNDMaterial/PruebasMaterial/Ajax.js"></script>
+<script src="~/Scripts/AppComponents/CapturaPNDMaterial/PruebasMaterial/Handlers.js"></script>
+<script src="~/Scripts/AppComponents/CapturaPNDMaterial/PruebasMaterial/Captura.js"></script>
+<script src="~/Scripts/AppComponents/CapturaPNDMaterial/PruebasMaterial/Seguridad.js"></script>

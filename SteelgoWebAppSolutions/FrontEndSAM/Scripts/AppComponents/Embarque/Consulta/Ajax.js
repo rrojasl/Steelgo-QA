@@ -1,6 +1,4 @@
-﻿// JOVANITA ESTAS MAS GORDA O ES MI IMAGINACION? 
-
-function AjaxCargarArea() {
+﻿function AjaxCargarArea() {
     loadingStart();
     $Area.Area.read({ token: Cookies.get("token") }).done(function (data) {
         $("#Area").data("kendoComboBox").value("");
