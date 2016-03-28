@@ -9,6 +9,12 @@
 -- This block of comments will not be included in
 -- the definition of the procedure.
 -- ================================================
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Sam3_RPT_OrdenRecepcion]') AND type in (N'P', N'PC'))
+        DROP PROCEDURE [dbo].[Sam3_RPT_OrdenRecepcion]
+GO
+
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20,7 +26,7 @@ GO
 -- =============================================
 CREATE PROCEDURE Sam3_RPT_OrdenRecepcion
 	-- Add the parameters for the stored procedure here
-	@ordenRecepcionID int
+	@ordenRecepcionID int, @usuarioID int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -50,7 +56,8 @@ declare @result table(
 	Espesor varchar(max),
 	TipoMaterial varchar(max),
 	Cantidad varchar(max),
-	Colada varchar(max)
+	Colada varchar(max),
+	Responsable varchar(max)
 )
 
 insert into @temp (OrdenRecepcionID, RelFCID, RELBID)
@@ -94,14 +101,13 @@ insert into @temp (OrdenRecepcionID, RelFCID, RELBID)
 		),
 		cli.Nombre,
 		(
-			select substring((select ', ' + Nombre
+			select Nombre
 			from Sam3_Proyecto
-			where ProyectoID in (
+			where ProyectoID = (
 				select ProyectoID
-				from Sam3_Rel_FolioAvisoLlegada_Proyecto
-				where FolioAvisoLlegadaID = 10283
+				from Sam3_NumeroUnico
+				where NumeroUnicoID = relnu.NumeroUnicoID
 			)
-			for XML path('')),2,200000)
 		),
 		(
 			select 
@@ -139,14 +145,19 @@ insert into @temp (OrdenRecepcionID, RelFCID, RELBID)
 			on fc2.Rel_Proyecto_Entidad_Configuracion_ID = rel.Rel_Proyecto_Entidad_Configuracion_ID
 			where fc2.FolioCuantificacionID = fc.FolioCuantificacionID
 		),
-		it.Codigo as ItemCode,
-		it.DescripcionEspanol as Descripcion,
-		d1.Valor as Diametro1,
-		d2.Valor as Diametro2,
-		'0.00' as Espesor, --No tengo claro de donde saldra este dato
-		tpm.Nombre as TipoMaterial,
+		it.Codigo,
+		it.DescripcionEspanol,
+		d1.Valor,
+		d2.Valor,
+		'0.00', --No tengo claro de donde saldra este dato
+		tpm.Nombre,
 		relfc.Cantidad,
-		c.NumeroColada as Colada
+		c.NumeroColada,
+		(
+			select Nombre
+			from Sam3_Usuario
+			where UsuarioID = @usuarioID
+		)
 	from Sam3_OrdenRecepcion ord
 	inner join Sam3_Rel_NumeroUnico_RelFC_RelB relnu 
 		on ord.OrdenRecepcionID = relnu.OrdenRecepcionID
@@ -214,14 +225,13 @@ insert into @temp (OrdenRecepcionID, RelFCID, RELBID)
 		),
 		cli.Nombre,
 		(
-			select substring((select ', ' + Nombre
+			select Nombre
 			from Sam3_Proyecto
-			where ProyectoID in (
+			where ProyectoID = (
 				select ProyectoID
-				from Sam3_Rel_FolioAvisoLlegada_Proyecto
-				where FolioAvisoLlegadaID = 10283
+				from Sam3_NumeroUnico
+				where NumeroUnicoID = relnu.NumeroUnicoID
 			)
-			for XML path('')),2,200000)
 		),
 		(
 			select 
@@ -259,14 +269,19 @@ insert into @temp (OrdenRecepcionID, RelFCID, RELBID)
 			on fc2.Rel_Proyecto_Entidad_Configuracion_ID = rel.Rel_Proyecto_Entidad_Configuracion_ID
 			where fc2.FolioCuantificacionID = fc.FolioCuantificacionID
 		),
-		it.Codigo as ItemCode,
-		it.DescripcionEspanol as Descripcion,
-		d1.Valor as Diametro1,
-		d2.Valor as Diametro2,
-		'0.00' as Espesor, --No tengo claro de donde saldra este dato
-		tpm.Nombre as TipoMaterial,
+		it.Codigo,
+		it.DescripcionEspanol,
+		d1.Valor,
+		d2.Valor,
+		'0.00', --No tengo claro de donde saldra este dato
+		tpm.Nombre,
 		relb.Cantidad,
-		c.NumeroColada as Colada
+		c.NumeroColada,
+		(
+			select Nombre
+			from Sam3_Usuario
+			where UsuarioID = @usuarioID
+		)
 	from Sam3_OrdenRecepcion ord
 	inner join Sam3_Rel_NumeroUnico_RelFC_RelB relnu 
 		on ord.OrdenRecepcionID = relnu.OrdenRecepcionID

@@ -9,6 +9,11 @@
 -- This block of comments will not be included in
 -- the definition of the procedure.
 -- ================================================
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Sam3_RPT_EtiquetasDeMaterial]') AND type in (N'P', N'PC'))
+        DROP PROCEDURE [dbo].[Sam3_RPT_EtiquetasDeMaterial]
+GO
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -69,8 +74,18 @@ select
 	d2.Valor,
 	colada.NumeroColada,
 	(
-		it.Peso * nus.InventarioFisico
-	),
+		(select
+			its.Peso
+		from Sam3_ItemCodeSteelgo its inner join Sam3_Rel_ItemCodeSteelgo_Diametro itsd
+			on its.ItemCodeSteelgoID = itsd.ItemCodeSteelgoID
+		inner join Sam3_Rel_ItemCode_ItemCodeSteelgo itis 
+			on itsd.Rel_ItemCodeSteelgo_Diametro_ID = itis.Rel_ItemCodeSteelgo_Diametro_ID
+		inner join Sam3_Rel_ItemCode_Diametro itd 
+			on itis.Rel_ItemCode_Diametro_ID = itd.Rel_ItemCode_Diametro_ID
+		inner join Sam3_ItemCode it2 on itd.ItemCodeID = it2.ItemCodeID
+		where it2.ItemCodeID = it.ItemCodeID
+		)
+	), --total kgs
 	nu.Cedula,
 	nus.InventarioFisico,
 	(

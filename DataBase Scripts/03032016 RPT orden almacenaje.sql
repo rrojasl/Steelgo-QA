@@ -9,6 +9,11 @@
 -- This block of comments will not be included in
 -- the definition of the procedure.
 -- ================================================
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Sam3_RPT_OrdenAlmacenaje]') AND type in (N'P', N'PC'))
+        DROP PROCEDURE [dbo].[Sam3_RPT_OrdenAlmacenaje]
+GO
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20,7 +25,7 @@ GO
 -- =============================================
 CREATE PROCEDURE Sam3_RPT_OrdenAlmacenaje
 	-- Add the parameters for the stored procedure here
-	@ordenAlmacenajeID int
+	@ordenAlmacenajeID int, @usuarioID int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -42,7 +47,8 @@ declare @result table(
 	Diametro2 varchar(max),
 	Espesor varchar(max),
 	TipoMaterial varchar(max),
-	Cantidad varchar(max)
+	Cantidad varchar(max),
+	Responsable varchar(max)
 )
 
 
@@ -96,6 +102,11 @@ declare @result table(
 			select CantidadRecibida
 			from Sam3_NumeroUnicoInventario
 			where NumeroUnicoID = nu.NumeroUnicoID
+		),
+		(
+			select Nombre
+			from Sam3_Usuario
+			where UsuarioID = @usuarioID
 		)
 	from Sam3_OrdenAlmacenaje ord
 	inner join Sam3_Rel_OrdenAlmacenaje_NumeroUnico reloa
