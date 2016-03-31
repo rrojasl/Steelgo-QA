@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\dzertuche\Documents\GitHub\SAM3.0\SteelgoWebApiSolutions\DatabaseManager\Sam3\ModelSam3.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Sieena\SAM3.0\SAM3.0\SteelgoWebApiSolutions\DatabaseManager\Sam3\ModelSam3.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

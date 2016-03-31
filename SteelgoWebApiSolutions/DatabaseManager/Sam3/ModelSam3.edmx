@@ -1399,14 +1399,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="ManejaReserva" Type="bit" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
-          <Property Name="DigitosOrdeAlmacenaje" Type="int" Nullable="false" />
-          <Property Name="DigitosFolioDescarga" Type="int" Nullable="false" />
-          <Property Name="DigitosFolioAvisollegada" Type="int" Nullable="false" />
-          <Property Name="GigitosFolioPaseSalida" Type="int" Nullable="false" />
-          <Property Name="DigitosFolioOrdenRecepcion" Type="int" Nullable="false" />
-          <Property Name="DigitosFolioCuantifiacion" Type="int" Nullable="false" />
-          <Property Name="DigitosFolioOrdenAlmacenaje" Type="int" Nullable="false" />
-          <Property Name="DigitosFolioPermisoAduana" Type="int" Nullable="false" />
           <Property Name="TipoUsoID" Type="int" Nullable="false" />
           <Property Name="RequiereTipoPackingList" Type="bit" Nullable="false" />
         </EntityType>
@@ -2348,31 +2340,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
-        <Association Name="FK__Rel_Bulto__Bulto__77FFC2B3">
-          <End Role="Sam3_Bulto" Type="Self.Sam3_Bulto" Multiplicity="1" />
-          <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Bulto">
-              <PropertyRef Name="BultoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
-              <PropertyRef Name="BultoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Rel_Folio__Folio__733B0D96">
-          <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioCuantificacion">
-              <PropertyRef Name="FolioCuantificacionID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
-              <PropertyRef Name="FolioCuantificacionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Bult__Folio__6F6A7CB2">
+        <Association Name="FK__Sam3_Bult__Folio__558AAF1E">
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
           <End Role="Sam3_Bulto" Type="Self.Sam3_Bulto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2384,7 +2352,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cata__Diame__3E7D2C94">
+        <Association Name="FK__Sam3_Cata__Diame__567ED357">
           <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="0..1" />
           <End Role="Sam3_CatalogoCedulas" Type="Self.Sam3_CatalogoCedulas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2396,7 +2364,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Chof__Trans__3726238F">
+        <Association Name="FK__Sam3_Chof__Trans__5772F790">
           <End Role="Sam3_Transportista" Type="Self.Sam3_Transportista" Multiplicity="1" />
           <End Role="Sam3_Chofer" Type="Self.Sam3_Chofer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2408,7 +2376,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cola__ItemC__78BEDCC2">
+        <Association Name="FK__Sam3_Cola__ItemC__58671BC9">
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
           <End Role="Sam3_ColaCreacionNumerosUnicos" Type="Self.Sam3_ColaCreacionNumerosUnicos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2420,7 +2388,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cola__Orden__79B300FB">
+        <Association Name="FK__Sam3_Cola__Orden__595B4002">
           <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
           <End Role="Sam3_ColaCreacionNumerosUnicos" Type="Self.Sam3_ColaCreacionNumerosUnicos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2432,7 +2400,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cola__Usuar__7AA72534">
+        <Association Name="FK__Sam3_Cola__Usuar__5A4F643B">
           <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="1" />
           <End Role="Sam3_ColaCreacionNumerosUnicos" Type="Self.Sam3_ColaCreacionNumerosUnicos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2444,7 +2412,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cort__ItemC__52B92F6B">
+        <Association Name="FK__Sam3_Cort__ItemC__62E4AA3C">
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
           <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2456,7 +2424,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cort__Spool__51C50B32">
+        <Association Name="FK__Sam3_Cort__Spool__63D8CE75">
           <End Role="Sam3_Spool" Type="Self.Sam3_Spool" Multiplicity="1" />
           <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2468,7 +2436,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cort__TipoC__53AD53A4">
+        <Association Name="FK__Sam3_Cort__TipoC__64CCF2AE">
           <End Role="Sam3_TipoCorte" Type="Self.Sam3_TipoCorte" Multiplicity="1" />
           <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2480,7 +2448,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Cort__TipoC__54A177DD">
+        <Association Name="FK__Sam3_Cort__TipoC__65C116E7">
           <End Role="Sam3_TipoCorte" Type="Self.Sam3_TipoCorte" Multiplicity="1" />
           <End Role="Sam3_CorteSpool" Type="Self.Sam3_CorteSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2492,7 +2460,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Desp__Numer__60B24907">
+        <Association Name="FK__Sam3_Desp__Numer__66B53B20">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_Despacho" Type="Self.Sam3_Despacho" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2504,7 +2472,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Desp__Proye__5FBE24CE">
+        <Association Name="FK__Sam3_Desp__Proye__67A95F59">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_Despacho" Type="Self.Sam3_Despacho" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2516,7 +2484,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Desp__Salid__61A66D40">
+        <Association Name="FK__Sam3_Desp__Salid__689D8392">
           <End Role="Sam3_NumeroUnicoMovimiento" Type="Self.Sam3_NumeroUnicoMovimiento" Multiplicity="1" />
           <End Role="Sam3_Despacho" Type="Self.Sam3_Despacho" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2528,7 +2496,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Entr__Folio__16D94F8E">
+        <Association Name="FK__Sam3_Entr__Folio__6991A7CB">
           <End Role="Sam3_FolioPickingTicket" Type="Self.Sam3_FolioPickingTicket" Multiplicity="1" />
           <End Role="Sam3_Entrega" Type="Self.Sam3_Entrega" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2540,7 +2508,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Esta__Talle__587208C1">
+        <Association Name="FK__Sam3_Esta__Talle__6A85CC04">
           <End Role="Sam3_Taller" Type="Self.Sam3_Taller" Multiplicity="1" />
           <End Role="Sam3_Estacion" Type="Self.Sam3_Estacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2552,7 +2520,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Chofe__24285DB4">
+        <Association Name="FK__Sam3_Foli__Chofe__7132C993">
           <End Role="Sam3_Chofer" Type="Self.Sam3_Chofer" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2564,7 +2532,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Clien__4850AF91">
+        <Association Name="FK__Sam3_Foli__Clien__6D6238AF">
           <End Role="Sam3_Cliente" Type="Self.Sam3_Cliente" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2576,7 +2544,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Folio__7CC477D0">
+        <Association Name="FK__Sam3_Foli__Folio__77DFC722">
           <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2588,19 +2556,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Patio__2334397B">
-          <End Role="Sam3_Patio" Type="Self.Sam3_Patio" Multiplicity="1" />
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Patio">
-              <PropertyRef Name="PatioID" />
-            </Principal>
-            <Dependent Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="PatioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Foli__Patio__4944D3CA">
+        <Association Name="FK__Sam3_Foli__Patio__6E565CE8">
           <End Role="Sam3_Patio" Type="Self.Sam3_Patio" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2612,7 +2568,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Prove__16B953FD">
+        <Association Name="FK__Sam3_Foli__Patio__7226EDCC">
+          <End Role="Sam3_Patio" Type="Self.Sam3_Patio" Multiplicity="1" />
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Patio">
+              <PropertyRef Name="PatioID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="PatioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Foli__Prove__6F4A8121">
           <End Role="Sam3_Proveedor" Type="Self.Sam3_Proveedor" Multiplicity="0..1" />
           <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2624,7 +2592,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Proye__65E11278">
+        <Association Name="FK__Sam3_Foli__Proye__78D3EB5B">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2636,7 +2604,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__TipoA__17AD7836">
+        <Association Name="FK__Sam3_Foli__TipoA__731B1205">
           <End Role="Sam3_TipoAviso" Type="Self.Sam3_TipoAviso" Multiplicity="0..1" />
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2648,7 +2616,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__TipoM__102C51FF">
+        <Association Name="FK__Sam3_Foli__TipoM__79C80F94">
+          <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="0..1" />
+          <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoMaterial">
+              <PropertyRef Name="TipoMaterialID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioCuantificacion">
+              <PropertyRef Name="TipoMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Foli__TipoM__7CA47C3F">
           <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="1" />
           <End Role="Sam3_FolioPickingTicket" Type="Self.Sam3_FolioPickingTicket" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2660,19 +2640,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__TipoM__7B9B496D">
-          <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="0..1" />
-          <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_TipoMaterial">
-              <PropertyRef Name="TipoMaterialID" />
-            </Principal>
-            <Dependent Role="Sam3_FolioCuantificacion">
-              <PropertyRef Name="TipoMaterialID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Foli__TipoU__66D536B1">
+        <Association Name="FK__Sam3_Foli__TipoU__7ABC33CD">
           <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="1" />
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2684,7 +2652,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Trans__214BF109">
+        <Association Name="FK__Sam3_Foli__Trans__740F363E">
           <End Role="Sam3_Transportista" Type="Self.Sam3_Transportista" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2696,7 +2664,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Foli__Vehic__0C3BC58A">
+        <Association Name="FK__Sam3_Foli__Vehic__75035A77">
           <End Role="Sam3_Vehiculo" Type="Self.Sam3_Vehiculo" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2708,7 +2676,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Grup__TipoM__5654B625">
+        <Association Name="FK__Sam3_Grup__TipoM__7D98A078">
           <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="0..1" />
           <End Role="Sam3_Grupo" Type="Self.Sam3_Grupo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2720,7 +2688,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Inci__Clasi__46BD6CDA">
+        <Association Name="FK__Sam3_Inci__Clasi__7E8CC4B1">
           <End Role="Sam3_ClasificacionIncidencia" Type="Self.Sam3_ClasificacionIncidencia" Multiplicity="1" />
           <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2732,7 +2700,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Inci__TipoI__42ECDBF6">
+        <Association Name="FK__Sam3_Inci__TipoI__7F80E8EA">
           <End Role="Sam3_TipoIncidencia" Type="Self.Sam3_TipoIncidencia" Multiplicity="1" />
           <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2744,7 +2712,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Inci__Usuar__43E1002F">
+        <Association Name="FK__Sam3_Inci__Usuar__00750D23">
           <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="0..1" />
           <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2756,7 +2724,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Item__Cedul__443605EA">
+        <Association Name="FK__Sam3_Item__Cedul__090A5324">
           <End Role="Sam3_CatalogoCedulas" Type="Self.Sam3_CatalogoCedulas" Multiplicity="0..1" />
           <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2768,7 +2736,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Item__Grupo__6E0C4425">
+        <Association Name="FK__Sam3_Item__Grupo__09FE775D">
           <End Role="Sam3_Grupo" Type="Self.Sam3_Grupo" Multiplicity="0..1" />
           <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2780,7 +2748,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Item__TipoU__7D8391DF">
+        <Association Name="FK__Sam3_Item__TipoU__0539C240">
           <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="1" />
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2792,7 +2760,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Junt__Estac__61074EC2">
+        <Association Name="FK__Sam3_Junt__Estac__0AF29B96">
           <End Role="Sam3_Estacion" Type="Self.Sam3_Estacion" Multiplicity="0..1" />
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2804,7 +2772,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Junt__FabAr__5E2AE217">
+        <Association Name="FK__Sam3_Junt__FabAr__0BE6BFCF">
           <End Role="Sam3_FabArea" Type="Self.Sam3_FabArea" Multiplicity="1" />
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2816,7 +2784,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Junt__Famil__5F1F0650">
+        <Association Name="FK__Sam3_Junt__Famil__0CDAE408">
           <End Role="Sam3_FamiliaAcero" Type="Self.Sam3_FamiliaAcero" Multiplicity="1" />
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2828,7 +2796,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Junt__Famil__60132A89">
+        <Association Name="FK__Sam3_Junt__Famil__0DCF0841">
           <End Role="Sam3_FamiliaAcero" Type="Self.Sam3_FamiliaAcero" Multiplicity="0..1" />
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2840,7 +2808,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Junt__Spool__5C4299A5">
+        <Association Name="FK__Sam3_Junt__Spool__0EC32C7A">
           <End Role="Sam3_Spool" Type="Self.Sam3_Spool" Multiplicity="1" />
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2852,7 +2820,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Junt__TipoJ__5D36BDDE">
+        <Association Name="FK__Sam3_Junt__TipoJ__0FB750B3">
           <End Role="Sam3_TipoJunta" Type="Self.Sam3_TipoJunta" Multiplicity="1" />
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2864,7 +2832,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_MTR__Colada__4D8A65FA">
+        <Association Name="FK__Sam3_MTR__Colada__1387E197">
           <End Role="Sam3_Colada" Type="Self.Sam3_Colada" Multiplicity="1" />
           <End Role="Sam3_MTR" Type="Self.Sam3_MTR" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2876,7 +2844,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_MTR__ItemCo__4C9641C1">
+        <Association Name="FK__Sam3_MTR__ItemCo__147C05D0">
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
           <End Role="Sam3_MTR" Type="Self.Sam3_MTR" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2888,7 +2856,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Nume__MTRID__54376389">
+        <Association Name="FK__Sam3_Nume__MTRID__16644E42">
           <End Role="Sam3_MTR" Type="Self.Sam3_MTR" Multiplicity="0..1" />
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2900,7 +2868,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Junta__65CC03DF">
+        <Association Name="FK__Sam3_Orde__Junta__30242045">
           <End Role="Sam3_JuntaSpool" Type="Self.Sam3_JuntaSpool" Multiplicity="1" />
           <End Role="Sam3_OrdenTrabajoJunta" Type="Self.Sam3_OrdenTrabajoJunta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2912,7 +2880,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Mater__7AC720C5">
+        <Association Name="FK__Sam3_Orde__Mater__320C68B7">
           <End Role="Sam3_MaterialSpool" Type="Self.Sam3_MaterialSpool" Multiplicity="1" />
           <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2924,7 +2892,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Numer__7BBB44FE">
+        <Association Name="FK__Sam3_Orde__Numer__33008CF0">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
           <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2936,7 +2904,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Numer__7CAF6937">
+        <Association Name="FK__Sam3_Orde__Numer__33F4B129">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
           <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2948,7 +2916,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Numer__7DA38D70">
+        <Association Name="FK__Sam3_Orde__Numer__34E8D562">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
           <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2960,7 +2928,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Numer__7E97B1A9">
+        <Association Name="FK__Sam3_Orde__Numer__35DCF99B">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
           <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2972,7 +2940,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Orden__64D7DFA6">
+        <Association Name="FK__Sam3_Orde__Orden__3118447E">
           <End Role="Sam3_OrdenTrabajoSpool" Type="Self.Sam3_OrdenTrabajoSpool" Multiplicity="1" />
           <End Role="Sam3_OrdenTrabajoJunta" Type="Self.Sam3_OrdenTrabajoJunta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2984,7 +2952,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Orden__79D2FC8C">
+        <Association Name="FK__Sam3_Orde__Orden__36D11DD4">
           <End Role="Sam3_OrdenTrabajoSpool" Type="Self.Sam3_OrdenTrabajoSpool" Multiplicity="1" />
           <End Role="Sam3_OrdenTrabajoMaterial" Type="Self.Sam3_OrdenTrabajoMaterial" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2996,7 +2964,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Rel_P__21E0EDE6">
+        <Association Name="FK__Sam3_Orde__Rel_P__2B5F6B28">
           <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="0..1" />
           <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3008,7 +2976,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Orde__Rel_P__22D5121F">
+        <Association Name="FK__Sam3_Orde__Rel_P__2C538F61">
           <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="0..1" />
           <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3020,7 +2988,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_PreD__Numer__19B5BC39">
+        <Association Name="FK__Sam3_PreD__Numer__3D7E1B63">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_PreDespacho" Type="Self.Sam3_PreDespacho" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3032,7 +3000,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_PreD__Proye__1AA9E072">
+        <Association Name="FK__Sam3_PreD__Proye__3E723F9C">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_PreDespacho" Type="Self.Sam3_PreDespacho" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3044,7 +3012,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Proy__Proye__51DA19CB">
+        <Association Name="FK__Sam3_Proy__Proye__451F3D2B">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_ProyectoConsecutivo" Type="Self.Sam3_ProyectoConsecutivo" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -3056,7 +3024,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Proy__TipoU__1C9228E4">
+        <Association Name="FK__Sam3_Proy__TipoU__442B18F2">
           <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="1" />
           <End Role="Sam3_ProyectoConfiguracion" Type="Self.Sam3_ProyectoConfiguracion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3068,7 +3036,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Catal__5F891AA4">
+        <Association Name="FK__Sam3_Rel___Bulto__4707859D">
+          <End Role="Sam3_Bulto" Type="Self.Sam3_Bulto" Multiplicity="1" />
+          <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Bulto">
+              <PropertyRef Name="BultoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
+              <PropertyRef Name="BultoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Catal__48EFCE0F">
           <End Role="Sam3_Catalogos" Type="Self.Sam3_Catalogos" Multiplicity="0..1" />
           <End Role="Sam3_Rel_Catalogos_Documento" Type="Self.Sam3_Rel_Catalogos_Documento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3080,7 +3060,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Chofe__0777106D">
+        <Association Name="FK__Sam3_Rel___Chofe__153B1FDF">
           <End Role="Sam3_Chofer" Type="Self.Sam3_Chofer" Multiplicity="1" />
           <End Role="Sam3_Rel_Vehiculo_Chofer" Type="Self.Sam3_Rel_Vehiculo_Chofer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3092,7 +3072,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Colad__2E7BCEF5">
+        <Association Name="FK__Sam3_Rel___Colad__72E607DB">
           <End Role="Sam3_Colada" Type="Self.Sam3_Colada" Multiplicity="1" />
           <End Role="Sam3_Rel_Itemcode_Colada" Type="Self.Sam3_Rel_Itemcode_Colada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3104,7 +3084,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Corte__41F8B7BD">
+        <Association Name="FK__Sam3_Rel___Corte__5CF6C6BC">
           <End Role="Sam3_Corte" Type="Self.Sam3_Corte" Multiplicity="1" />
           <End Role="Sam3_Rel_Incidencia_Corte" Type="Self.Sam3_Rel_Incidencia_Corte" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3116,7 +3096,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Despa__3D3402A0">
+        <Association Name="FK__Sam3_Rel___Despa__5EDF0F2E">
           <End Role="Sam3_Despacho" Type="Self.Sam3_Despacho" Multiplicity="1" />
           <End Role="Sam3_Rel_Incidencia_Despacho" Type="Self.Sam3_Rel_Incidencia_Despacho" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3128,7 +3108,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Diame__45943E77">
+        <Association Name="FK__Sam3_Rel___Diame__74CE504D">
           <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
           <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3140,7 +3120,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Diame__468862B0">
+        <Association Name="FK__Sam3_Rel___Diame__75C27486">
           <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
           <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3152,7 +3132,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Diame__4B4D17CD">
+        <Association Name="FK__Sam3_Rel___Diame__7993056A">
           <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
           <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3164,7 +3144,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Diame__4C413C06">
+        <Association Name="FK__Sam3_Rel___Diame__7A8729A3">
           <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
           <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3176,7 +3156,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Entid__11757BF3">
+        <Association Name="FK__Sam3_Rel___Entid__041093DD">
+          <End Role="Sam3_Entidad" Type="Self.Sam3_Entidad" Multiplicity="1" />
+          <End Role="Sam3_Rel_Perfil_Entidad_Pagina" Type="Self.Sam3_Rel_Perfil_Entidad_Pagina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Entidad">
+              <PropertyRef Name="EntidadID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Perfil_Entidad_Pagina">
+              <PropertyRef Name="EntidadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Entid__0F824689">
           <End Role="Sam3_Entidad" Type="Self.Sam3_Entidad" Multiplicity="1" />
           <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3188,139 +3180,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Entid__14E61A24">
-          <End Role="Sam3_Entidad" Type="Self.Sam3_Entidad" Multiplicity="1" />
-          <End Role="Sam3_Rel_Perfil_Entidad_Pagina" Type="Self.Sam3_Rel_Perfil_Entidad_Pagina" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Entidad">
-              <PropertyRef Name="EntidadID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Perfil_Entidad_Pagina">
-              <PropertyRef Name="EntidadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__0A537D18">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" Type="Self.Sam3_Rel_FolioAvisoLlegada_Vehiculo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__0EE3280B">
-          <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Type="Self.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoEntrada">
-              <PropertyRef Name="FolioAvisoEntradaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
-              <PropertyRef Name="FolioAvisoEntradaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__170E59B8">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoLlegada" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__1BD30ED5">
-          <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoEntrada" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoEntrada">
-              <PropertyRef Name="FolioAvisoEntradaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoEntrada">
-              <PropertyRef Name="FolioAvisoEntradaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__2097C3F2">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_PaseSalida" Type="Self.Sam3_Rel_Incidencia_PaseSalida" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_PaseSalida">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__255C790F">
-          <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" Type="Self.Sam3_Rel_Incidencia_FolioCuantificacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioCuantificacion">
-              <PropertyRef Name="FolioCuantificacionID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_FolioCuantificacion">
-              <PropertyRef Name="FolioCuantificacionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__2EE5E349">
-          <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_ComplementoRecepcion" Type="Self.Sam3_Rel_Incidencia_ComplementoRecepcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoEntrada">
-              <PropertyRef Name="FolioAvisoEntradaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_ComplementoRecepcion">
-              <PropertyRef Name="FolioAvisoEntradaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__40C49C62">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__4865BE2A">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" Type="Self.Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Documento">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__4B422AD5">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__54B68676">
+        <Association Name="FK__Sam3_Rel___Folio__4DB4832C">
           <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioAvisoEntrada_Documento" Type="Self.Sam3_Rel_FolioAvisoEntrada_Documento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3332,151 +3192,139 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__161A357F">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoLlegada" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__4EA8A765">
+          <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Type="Self.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoEntrada">
+              <PropertyRef Name="FolioAvisoEntradaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoLlegada">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
+              <PropertyRef Name="FolioAvisoEntradaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__1ADEEA9C">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoEntrada" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__5090EFD7">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" Type="Self.Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoEntrada">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Documento">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__1FA39FB9">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_PaseSalida" Type="Self.Sam3_Rel_Incidencia_PaseSalida" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__52793849">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_PaseSalida">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__246854D6">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" Type="Self.Sam3_Rel_Incidencia_FolioCuantificacion" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__5555A4F4">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_FolioCuantificacion">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__292D09F3">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" Type="Self.Sam3_Rel_Incidencia_OrdenRecepcion" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__573DED66">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" Type="Self.Sam3_Rel_FolioAvisoLlegada_Vehiculo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_OrdenRecepcion">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__2DF1BF10">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+        <Association Name="FK__Sam3_Rel___Folio__592635D8">
+          <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FolioCuantificacion">
+              <PropertyRef Name="FolioCuantificacionID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
+              <PropertyRef Name="FolioCuantificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Folio__5B0E7E4A">
+          <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
           <End Role="Sam3_Rel_Incidencia_ComplementoRecepcion" Type="Self.Sam3_Rel_Incidencia_ComplementoRecepcion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoEntrada">
+              <PropertyRef Name="FolioAvisoEntradaID" />
             </Principal>
             <Dependent Role="Sam3_Rel_Incidencia_ComplementoRecepcion">
-              <PropertyRef Name="IncidenciaID" />
+              <PropertyRef Name="FolioAvisoEntradaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__32B6742D">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_ItemCode" Type="Self.Sam3_Rel_Incidencia_ItemCode" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__63A3C44B">
+          <End Role="Sam3_FolioAvisoEntrada" Type="Self.Sam3_FolioAvisoEntrada" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoEntrada" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoEntrada">
+              <PropertyRef Name="FolioAvisoEntradaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_ItemCode">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoEntrada">
+              <PropertyRef Name="FolioAvisoEntradaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__377B294A">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" Type="Self.Sam3_Rel_Incidencia_OrdenAlmacenaje" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__658C0CBD">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoLlegada" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_OrdenAlmacenaje">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__3C3FDE67">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_Despacho" Type="Self.Sam3_Rel_Incidencia_Despacho" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__6774552F">
+          <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" Type="Self.Sam3_Rel_Incidencia_FolioCuantificacion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioCuantificacion">
+              <PropertyRef Name="FolioCuantificacionID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_Despacho">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_Incidencia_FolioCuantificacion">
+              <PropertyRef Name="FolioCuantificacionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__41049384">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_Corte" Type="Self.Sam3_Rel_Incidencia_Corte" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Folio__70FDBF69">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_PaseSalida" Type="Self.Sam3_Rel_Incidencia_PaseSalida" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_Corte">
-              <PropertyRef Name="IncidenciaID" />
+            <Dependent Role="Sam3_Rel_Incidencia_PaseSalida">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Incid__45C948A1">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_Documento" Type="Self.Sam3_Rel_Incidencia_Documento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_Documento">
-              <PropertyRef Name="IncidenciaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Incid__50B0EB68">
-          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_NumeroUnico" Type="Self.Sam3_Rel_Incidencia_NumeroUnico" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Incidencia">
-              <PropertyRef Name="IncidenciaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_NumeroUnico">
-              <PropertyRef Name="IncidenciaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Incid__7108AC61">
+        <Association Name="FK__Sam3_Rel___Incid__536D5C82">
           <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="0..1" />
           <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3488,19 +3336,151 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__2D87AABC">
-          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
-          <End Role="Sam3_Rel_Itemcode_Colada" Type="Self.Sam3_Rel_Itemcode_Colada" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Incid__5C02A283">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_ComplementoRecepcion" Type="Self.Sam3_Rel_Incidencia_ComplementoRecepcion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_Itemcode_Colada">
-              <PropertyRef Name="ItemCodeID" />
+            <Dependent Role="Sam3_Rel_Incidencia_ComplementoRecepcion">
+              <PropertyRef Name="IncidenciaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__33AA9866">
+        <Association Name="FK__Sam3_Rel___Incid__5DEAEAF5">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_Corte" Type="Self.Sam3_Rel_Incidencia_Corte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_Corte">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__5FD33367">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_Despacho" Type="Self.Sam3_Rel_Incidencia_Despacho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_Despacho">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__60C757A0">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_Documento" Type="Self.Sam3_Rel_Incidencia_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_Documento">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__6497E884">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoEntrada">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__668030F6">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" Type="Self.Sam3_Rel_Incidencia_FolioAvisoLlegada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_FolioAvisoLlegada">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__68687968">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" Type="Self.Sam3_Rel_Incidencia_FolioCuantificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_FolioCuantificacion">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__695C9DA1">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_ItemCode" Type="Self.Sam3_Rel_Incidencia_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_ItemCode">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__6B44E613">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_NumeroUnico" Type="Self.Sam3_Rel_Incidencia_NumeroUnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_NumeroUnico">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__6D2D2E85">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" Type="Self.Sam3_Rel_Incidencia_OrdenAlmacenaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_OrdenAlmacenaje">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__6F1576F7">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" Type="Self.Sam3_Rel_Incidencia_OrdenRecepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_OrdenRecepcion">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Incid__71F1E3A2">
+          <End Role="Sam3_Incidencia" Type="Self.Sam3_Incidencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_PaseSalida" Type="Self.Sam3_Rel_Incidencia_PaseSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Incidencia">
+              <PropertyRef Name="IncidenciaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_PaseSalida">
+              <PropertyRef Name="IncidenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___ItemC__6A50C1DA">
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
           <End Role="Sam3_Rel_Incidencia_ItemCode" Type="Self.Sam3_Rel_Incidencia_ItemCode" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3512,7 +3492,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__477C86E9">
+        <Association Name="FK__Sam3_Rel___ItemC__73DA2C14">
+          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
+          <End Role="Sam3_Rel_Itemcode_Colada" Type="Self.Sam3_Rel_Itemcode_Colada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Itemcode_Colada">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___ItemC__76B698BF">
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
           <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3524,7 +3516,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__4D35603F">
+        <Association Name="FK__Sam3_Rel___ItemC__7B7B4DDC">
           <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="1" />
           <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3536,7 +3528,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___MenuC__73852659">
+        <Association Name="FK__Sam3_Rel___MenuC__06ED0088">
           <End Role="Sam3_MenuContextual" Type="Self.Sam3_MenuContextual" Multiplicity="1" />
           <End Role="Sam3_Rel_Perfil_MenuContextual" Type="Self.Sam3_Rel_Perfil_MenuContextual" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3548,7 +3540,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___MenuG__756D6ECB">
+        <Association Name="FK__Sam3_Rel___MenuG__08D548FA">
           <End Role="Sam3_MenuGeneral" Type="Self.Sam3_MenuGeneral" Multiplicity="1" />
           <End Role="Sam3_Rel_Perfil_MenuGeneral" Type="Self.Sam3_Rel_Perfil_MenuGeneral" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3560,19 +3552,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Numer__1D5142F3">
-          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
-          <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_NumeroUnico">
-              <PropertyRef Name="NumeroUnicoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
-              <PropertyRef Name="NumeroUnicoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Numer__444B1483">
+        <Association Name="FK__Sam3_Rel___Numer__004002F9">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Type="Self.Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3584,7 +3564,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Numer__51A50FA1">
+        <Association Name="FK__Sam3_Rel___Numer__6C390A4C">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_Rel_Incidencia_NumeroUnico" Type="Self.Sam3_Rel_Incidencia_NumeroUnico" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3596,67 +3576,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Orden__0A1E72EE">
-          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
-          <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" Type="Self.Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_OrdenRecepcion_ItemCode">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Orden__0FD74C44">
-          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Type="Self.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Orden__2A212E2C">
-          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" Type="Self.Sam3_Rel_Incidencia_OrdenRecepcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Orden__386F4D83">
-          <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="1" />
-          <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" Type="Self.Sam3_Rel_Incidencia_OrdenAlmacenaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenAlmacenaje">
-              <PropertyRef Name="OrdenAlmacenajeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Incidencia_OrdenAlmacenaje">
-              <PropertyRef Name="OrdenalmacenajeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Orden__388F4914">
-          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="0..1" />
+        <Association Name="FK__Sam3_Rel___Numer__7C6F7215">
+          <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
           <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenRecepcion">
-              <PropertyRef Name="OrdenRecepcionID" />
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
             </Principal>
             <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
-              <PropertyRef Name="OrdenRecepcionID" />
+              <PropertyRef Name="NumeroUnicoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Orden__4356F04A">
+        <Association Name="FK__Sam3_Rel___Orden__01342732">
           <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="1" />
           <End Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Type="Self.Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3668,7 +3600,67 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Pagin__15DA3E5D">
+        <Association Name="FK__Sam3_Rel___Orden__02284B6B">
+          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
+          <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" Type="Self.Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_OrdenRecepcion_ItemCode">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Orden__4F9CCB9E">
+          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Type="Self.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Orden__6E2152BE">
+          <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" Type="Self.Sam3_Rel_Incidencia_OrdenAlmacenaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenAlmacenaje">
+              <PropertyRef Name="OrdenAlmacenajeID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_OrdenAlmacenaje">
+              <PropertyRef Name="OrdenalmacenajeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Orden__70099B30">
+          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="1" />
+          <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" Type="Self.Sam3_Rel_Incidencia_OrdenRecepcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Incidencia_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Orden__7D63964E">
+          <End Role="Sam3_OrdenRecepcion" Type="Self.Sam3_OrdenRecepcion" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenRecepcion">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
+              <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Pagin__0504B816">
           <End Role="Sam3_Pagina" Type="Self.Sam3_Pagina" Multiplicity="1" />
           <End Role="Sam3_Rel_Perfil_Entidad_Pagina" Type="Self.Sam3_Rel_Perfil_Entidad_Pagina" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3680,7 +3672,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Perfi__13F1F5EB">
+        <Association Name="FK__Sam3_Rel___Perfi__05F8DC4F">
           <End Role="Sam3_Perfil" Type="Self.Sam3_Perfil" Multiplicity="1" />
           <End Role="Sam3_Rel_Perfil_Entidad_Pagina" Type="Self.Sam3_Rel_Perfil_Entidad_Pagina" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3692,7 +3684,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Perfi__74794A92">
+        <Association Name="FK__Sam3_Rel___Perfi__07E124C1">
           <End Role="Sam3_Perfil" Type="Self.Sam3_Perfil" Multiplicity="1" />
           <End Role="Sam3_Rel_Perfil_MenuContextual" Type="Self.Sam3_Rel_Perfil_MenuContextual" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3704,7 +3696,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Perfi__76619304">
+        <Association Name="FK__Sam3_Rel___Perfi__09C96D33">
           <End Role="Sam3_Perfil" Type="Self.Sam3_Perfil" Multiplicity="1" />
           <End Role="Sam3_Rel_Perfil_MenuGeneral" Type="Self.Sam3_Rel_Perfil_MenuGeneral" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3716,7 +3708,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Permi__36470DEF">
+        <Association Name="FK__Sam3_Rel___Permi__0CA5D9DE">
           <End Role="Sam3_PermisoAduana" Type="Self.Sam3_PermisoAduana" Multiplicity="1" />
           <End Role="Sam3_Rel_PermisoAduana_Documento" Type="Self.Sam3_Rel_PermisoAduana_Documento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3728,7 +3720,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Prefe__66F53242">
+        <Association Name="FK__Sam3_Rel___Prefe__116A8EFB">
           <End Role="Sam3_Preferencia" Type="Self.Sam3_Preferencia" Multiplicity="1" />
           <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3740,19 +3732,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Proye__108157BA">
-          <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
-          <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Proyecto">
-              <PropertyRef Name="ProyectoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Proyecto_Entidad_Configuracion">
-              <PropertyRef Name="Proyecto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Proye__1F04813B">
+        <Association Name="FK__Sam3_Rel___Proye__0E8E2250">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_Rel_Proyecto_Correo" Type="Self.Sam3_Rel_Proyecto_Correo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3764,7 +3744,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Proye__41B8C09B">
+        <Association Name="FK__Sam3_Rel___Proye__10766AC2">
+          <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
+          <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" Type="Self.Sam3_Rel_Proyecto_Entidad_Configuracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Proyecto">
+              <PropertyRef Name="ProyectoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Proyecto_Entidad_Configuracion">
+              <PropertyRef Name="Proyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Proye__5649C92D">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3776,7 +3768,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Rel_B__1F398B65">
+        <Association Name="FK__Sam3_Rel___Rel_B__7E57BA87">
           <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="0..1" />
           <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3788,7 +3780,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Rel_F__1E45672C">
+        <Association Name="FK__Sam3_Rel___Rel_F__7F4BDEC0">
           <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="0..1" />
           <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3800,55 +3792,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Rel_I__613C58EC">
-          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
-          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Rel_ItemCode_Diametro">
-              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
-              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Rel_I__6324A15E">
-          <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="0..1" />
-          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
-              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
-              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Rel_I__69D19EED">
-          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
-          <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Rel_ItemCode_Diametro">
-              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
-              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Rel_I__6AC5C326">
-          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
-          <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Rel_ItemCode_Diametro">
-              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
-              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Rel_I__6CAE0B98">
+        <Association Name="FK__Sam3_Rel___Rel_I__031C6FA4">
           <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
           <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" Type="Self.Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3860,19 +3804,55 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___TipoA__2042BE37">
-          <End Role="Sam3_TipoArchivo" Type="Self.Sam3_TipoArchivo" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" Type="Self.Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
+        <Association Name="FK__Sam3_Rel___Rel_I__47FBA9D6">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sam3_TipoArchivo">
-              <PropertyRef Name="TipoArchivoID" />
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
             </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Documento">
-              <PropertyRef Name="TipoArchivoID" />
+            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___TipoA__2136E270">
+        <Association Name="FK__Sam3_Rel___Rel_I__5A1A5A11">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__77AABCF8">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__789EE131">
+          <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___TipoA__0D99FE17">
           <End Role="Sam3_TipoArchivo" Type="Self.Sam3_TipoArchivo" Multiplicity="1" />
           <End Role="Sam3_Rel_PermisoAduana_Documento" Type="Self.Sam3_Rel_PermisoAduana_Documento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3884,19 +3864,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___TipoA__222B06A9">
-          <End Role="Sam3_TipoArchivo" Type="Self.Sam3_TipoArchivo" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_TipoArchivo">
-              <PropertyRef Name="TipoArchivoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
-              <PropertyRef Name="TipoArchivoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___TipoA__607D3EDD">
+        <Association Name="FK__Sam3_Rel___TipoA__49E3F248">
           <End Role="Sam3_TipoArchivo_Catalogo" Type="Self.Sam3_TipoArchivo_Catalogo" Multiplicity="0..1" />
           <End Role="Sam3_Rel_Catalogos_Documento" Type="Self.Sam3_Rel_Catalogos_Documento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3908,7 +3876,31 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Trans__03A67F89">
+        <Association Name="FK__Sam3_Rel___TipoA__51851410">
+          <End Role="Sam3_TipoArchivo" Type="Self.Sam3_TipoArchivo" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" Type="Self.Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoArchivo">
+              <PropertyRef Name="TipoArchivoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Documento">
+              <PropertyRef Name="TipoArchivoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___TipoA__546180BB">
+          <End Role="Sam3_TipoArchivo" Type="Self.Sam3_TipoArchivo" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoArchivo">
+              <PropertyRef Name="TipoArchivoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
+              <PropertyRef Name="TipoArchivoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Trans__17236851">
           <End Role="Sam3_Transportista" Type="Self.Sam3_Transportista" Multiplicity="1" />
           <End Role="Sam3_Rel_Vehiculo_Transportista" Type="Self.Sam3_Rel_Vehiculo_Transportista" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3920,7 +3912,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Usuar__66010E09">
+        <Association Name="FK__Sam3_Rel___Usuar__125EB334">
           <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="1" />
           <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3932,19 +3924,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Vehic__02B25B50">
-          <End Role="Sam3_Vehiculo" Type="Self.Sam3_Vehiculo" Multiplicity="1" />
-          <End Role="Sam3_Rel_Vehiculo_Transportista" Type="Self.Sam3_Rel_Vehiculo_Transportista" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Vehiculo">
-              <PropertyRef Name="VehiculoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Vehiculo_Transportista">
-              <PropertyRef Name="VehiculoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Vehic__0682EC34">
+        <Association Name="FK__Sam3_Rel___Vehic__162F4418">
           <End Role="Sam3_Vehiculo" Type="Self.Sam3_Vehiculo" Multiplicity="1" />
           <End Role="Sam3_Rel_Vehiculo_Chofer" Type="Self.Sam3_Rel_Vehiculo_Chofer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3956,7 +3936,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Vehic__0B47A151">
+        <Association Name="FK__Sam3_Rel___Vehic__18178C8A">
+          <End Role="Sam3_Vehiculo" Type="Self.Sam3_Vehiculo" Multiplicity="1" />
+          <End Role="Sam3_Rel_Vehiculo_Transportista" Type="Self.Sam3_Rel_Vehiculo_Transportista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Vehiculo">
+              <PropertyRef Name="VehiculoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Vehiculo_Transportista">
+              <PropertyRef Name="VehiculoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Vehic__5832119F">
           <End Role="Sam3_Vehiculo" Type="Self.Sam3_Vehiculo" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" Type="Self.Sam3_Rel_FolioAvisoLlegada_Vehiculo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3968,7 +3960,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Tipo__Catal__5CACADF9">
+        <Association Name="FK__Sam3_Tipo__Catal__20ACD28B">
           <End Role="Sam3_Catalogos" Type="Self.Sam3_Catalogos" Multiplicity="0..1" />
           <End Role="Sam3_TipoArchivo_Catalogo" Type="Self.Sam3_TipoArchivo_Catalogo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3980,7 +3972,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Usua__TipoN__5887175A">
+        <Association Name="FK__Sam3_Usua__TipoN__247D636F">
           <End Role="Sam3_TipoNotificacion" Type="Self.Sam3_TipoNotificacion" Multiplicity="0..1" />
           <End Role="Sam3_UsuariosNotificaciones" Type="Self.Sam3_UsuariosNotificaciones" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3992,7 +3984,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Usua__Usuar__597B3B93">
+        <Association Name="FK__Sam3_Usua__Usuar__257187A8">
           <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="0..1" />
           <End Role="Sam3_UsuariosNotificaciones" Type="Self.Sam3_UsuariosNotificaciones" Multiplicity="*" />
           <ReferentialConstraint>
@@ -4004,7 +3996,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Vehi__TipoV__7FD5EEA5">
+        <Association Name="FK__Sam3_Vehi__TipoV__2665ABE1">
           <End Role="Sam3_TipoVehiculo" Type="Self.Sam3_TipoVehiculo" Multiplicity="1" />
           <End Role="Sam3_Vehiculo" Type="Self.Sam3_Vehiculo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -5192,559 +5184,559 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
     [Sam3_Rel_Perfil_Entidad_Pagina].[FechaModificacion] AS [FechaModificacion]
     FROM [dbo].[Sam3_Rel_Perfil_Entidad_Pagina] AS [Sam3_Rel_Perfil_Entidad_Pagina]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Rel_Bulto__Bulto__77FFC2B3" Association="Self.FK__Rel_Bulto__Bulto__77FFC2B3">
-            <End Role="Sam3_Bulto" EntitySet="Sam3_Bulto" />
-            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rel_Folio__Folio__733B0D96" Association="Self.FK__Rel_Folio__Folio__733B0D96">
-            <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
-            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Bult__Folio__6F6A7CB2" Association="Self.FK__Sam3_Bult__Folio__6F6A7CB2">
+          <AssociationSet Name="FK__Sam3_Bult__Folio__558AAF1E" Association="Self.FK__Sam3_Bult__Folio__558AAF1E">
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
             <End Role="Sam3_Bulto" EntitySet="Sam3_Bulto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cata__Diame__3E7D2C94" Association="Self.FK__Sam3_Cata__Diame__3E7D2C94">
+          <AssociationSet Name="FK__Sam3_Cata__Diame__567ED357" Association="Self.FK__Sam3_Cata__Diame__567ED357">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
             <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Chof__Trans__3726238F" Association="Self.FK__Sam3_Chof__Trans__3726238F">
+          <AssociationSet Name="FK__Sam3_Chof__Trans__5772F790" Association="Self.FK__Sam3_Chof__Trans__5772F790">
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cola__ItemC__78BEDCC2" Association="Self.FK__Sam3_Cola__ItemC__78BEDCC2">
+          <AssociationSet Name="FK__Sam3_Cola__ItemC__58671BC9" Association="Self.FK__Sam3_Cola__ItemC__58671BC9">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_ColaCreacionNumerosUnicos" EntitySet="Sam3_ColaCreacionNumerosUnicos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cola__Orden__79B300FB" Association="Self.FK__Sam3_Cola__Orden__79B300FB">
+          <AssociationSet Name="FK__Sam3_Cola__Orden__595B4002" Association="Self.FK__Sam3_Cola__Orden__595B4002">
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
             <End Role="Sam3_ColaCreacionNumerosUnicos" EntitySet="Sam3_ColaCreacionNumerosUnicos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cola__Usuar__7AA72534" Association="Self.FK__Sam3_Cola__Usuar__7AA72534">
+          <AssociationSet Name="FK__Sam3_Cola__Usuar__5A4F643B" Association="Self.FK__Sam3_Cola__Usuar__5A4F643B">
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_ColaCreacionNumerosUnicos" EntitySet="Sam3_ColaCreacionNumerosUnicos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cort__ItemC__52B92F6B" Association="Self.FK__Sam3_Cort__ItemC__52B92F6B">
+          <AssociationSet Name="FK__Sam3_Cort__ItemC__62E4AA3C" Association="Self.FK__Sam3_Cort__ItemC__62E4AA3C">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cort__Spool__51C50B32" Association="Self.FK__Sam3_Cort__Spool__51C50B32">
+          <AssociationSet Name="FK__Sam3_Cort__Spool__63D8CE75" Association="Self.FK__Sam3_Cort__Spool__63D8CE75">
             <End Role="Sam3_Spool" EntitySet="Sam3_Spool" />
             <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cort__TipoC__53AD53A4" Association="Self.FK__Sam3_Cort__TipoC__53AD53A4">
+          <AssociationSet Name="FK__Sam3_Cort__TipoC__64CCF2AE" Association="Self.FK__Sam3_Cort__TipoC__64CCF2AE">
             <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
             <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Cort__TipoC__54A177DD" Association="Self.FK__Sam3_Cort__TipoC__54A177DD">
+          <AssociationSet Name="FK__Sam3_Cort__TipoC__65C116E7" Association="Self.FK__Sam3_Cort__TipoC__65C116E7">
             <End Role="Sam3_TipoCorte" EntitySet="Sam3_TipoCorte" />
             <End Role="Sam3_CorteSpool" EntitySet="Sam3_CorteSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Desp__Numer__60B24907" Association="Self.FK__Sam3_Desp__Numer__60B24907">
+          <AssociationSet Name="FK__Sam3_Desp__Numer__66B53B20" Association="Self.FK__Sam3_Desp__Numer__66B53B20">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Desp__Proye__5FBE24CE" Association="Self.FK__Sam3_Desp__Proye__5FBE24CE">
+          <AssociationSet Name="FK__Sam3_Desp__Proye__67A95F59" Association="Self.FK__Sam3_Desp__Proye__67A95F59">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Desp__Salid__61A66D40" Association="Self.FK__Sam3_Desp__Salid__61A66D40">
+          <AssociationSet Name="FK__Sam3_Desp__Salid__689D8392" Association="Self.FK__Sam3_Desp__Salid__689D8392">
             <End Role="Sam3_NumeroUnicoMovimiento" EntitySet="Sam3_NumeroUnicoMovimiento" />
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Entr__Folio__16D94F8E" Association="Self.FK__Sam3_Entr__Folio__16D94F8E">
+          <AssociationSet Name="FK__Sam3_Entr__Folio__6991A7CB" Association="Self.FK__Sam3_Entr__Folio__6991A7CB">
             <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
             <End Role="Sam3_Entrega" EntitySet="Sam3_Entrega" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Esta__Talle__587208C1" Association="Self.FK__Sam3_Esta__Talle__587208C1">
+          <AssociationSet Name="FK__Sam3_Esta__Talle__6A85CC04" Association="Self.FK__Sam3_Esta__Talle__6A85CC04">
             <End Role="Sam3_Taller" EntitySet="Sam3_Taller" />
             <End Role="Sam3_Estacion" EntitySet="Sam3_Estacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Chofe__24285DB4" Association="Self.FK__Sam3_Foli__Chofe__24285DB4">
+          <AssociationSet Name="FK__Sam3_Foli__Chofe__7132C993" Association="Self.FK__Sam3_Foli__Chofe__7132C993">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Clien__4850AF91" Association="Self.FK__Sam3_Foli__Clien__4850AF91">
+          <AssociationSet Name="FK__Sam3_Foli__Clien__6D6238AF" Association="Self.FK__Sam3_Foli__Clien__6D6238AF">
             <End Role="Sam3_Cliente" EntitySet="Sam3_Cliente" />
             <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Folio__7CC477D0" Association="Self.FK__Sam3_Foli__Folio__7CC477D0">
+          <AssociationSet Name="FK__Sam3_Foli__Folio__77DFC722" Association="Self.FK__Sam3_Foli__Folio__77DFC722">
             <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Patio__2334397B" Association="Self.FK__Sam3_Foli__Patio__2334397B">
-            <End Role="Sam3_Patio" EntitySet="Sam3_Patio" />
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Patio__4944D3CA" Association="Self.FK__Sam3_Foli__Patio__4944D3CA">
+          <AssociationSet Name="FK__Sam3_Foli__Patio__6E565CE8" Association="Self.FK__Sam3_Foli__Patio__6E565CE8">
             <End Role="Sam3_Patio" EntitySet="Sam3_Patio" />
             <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Prove__16B953FD" Association="Self.FK__Sam3_Foli__Prove__16B953FD">
+          <AssociationSet Name="FK__Sam3_Foli__Patio__7226EDCC" Association="Self.FK__Sam3_Foli__Patio__7226EDCC">
+            <End Role="Sam3_Patio" EntitySet="Sam3_Patio" />
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Foli__Prove__6F4A8121" Association="Self.FK__Sam3_Foli__Prove__6F4A8121">
             <End Role="Sam3_Proveedor" EntitySet="Sam3_Proveedor" />
             <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Proye__65E11278" Association="Self.FK__Sam3_Foli__Proye__65E11278">
+          <AssociationSet Name="FK__Sam3_Foli__Proye__78D3EB5B" Association="Self.FK__Sam3_Foli__Proye__78D3EB5B">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__TipoA__17AD7836" Association="Self.FK__Sam3_Foli__TipoA__17AD7836">
+          <AssociationSet Name="FK__Sam3_Foli__TipoA__731B1205" Association="Self.FK__Sam3_Foli__TipoA__731B1205">
             <End Role="Sam3_TipoAviso" EntitySet="Sam3_TipoAviso" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__TipoM__102C51FF" Association="Self.FK__Sam3_Foli__TipoM__102C51FF">
+          <AssociationSet Name="FK__Sam3_Foli__TipoM__79C80F94" Association="Self.FK__Sam3_Foli__TipoM__79C80F94">
+            <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
+            <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Foli__TipoM__7CA47C3F" Association="Self.FK__Sam3_Foli__TipoM__7CA47C3F">
             <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
             <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__TipoM__7B9B496D" Association="Self.FK__Sam3_Foli__TipoM__7B9B496D">
-            <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
-            <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__TipoU__66D536B1" Association="Self.FK__Sam3_Foli__TipoU__66D536B1">
+          <AssociationSet Name="FK__Sam3_Foli__TipoU__7ABC33CD" Association="Self.FK__Sam3_Foli__TipoU__7ABC33CD">
             <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Trans__214BF109" Association="Self.FK__Sam3_Foli__Trans__214BF109">
+          <AssociationSet Name="FK__Sam3_Foli__Trans__740F363E" Association="Self.FK__Sam3_Foli__Trans__740F363E">
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Foli__Vehic__0C3BC58A" Association="Self.FK__Sam3_Foli__Vehic__0C3BC58A">
+          <AssociationSet Name="FK__Sam3_Foli__Vehic__75035A77" Association="Self.FK__Sam3_Foli__Vehic__75035A77">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Grup__TipoM__5654B625" Association="Self.FK__Sam3_Grup__TipoM__5654B625">
+          <AssociationSet Name="FK__Sam3_Grup__TipoM__7D98A078" Association="Self.FK__Sam3_Grup__TipoM__7D98A078">
             <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
             <End Role="Sam3_Grupo" EntitySet="Sam3_Grupo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Inci__Clasi__46BD6CDA" Association="Self.FK__Sam3_Inci__Clasi__46BD6CDA">
+          <AssociationSet Name="FK__Sam3_Inci__Clasi__7E8CC4B1" Association="Self.FK__Sam3_Inci__Clasi__7E8CC4B1">
             <End Role="Sam3_ClasificacionIncidencia" EntitySet="Sam3_ClasificacionIncidencia" />
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Inci__TipoI__42ECDBF6" Association="Self.FK__Sam3_Inci__TipoI__42ECDBF6">
+          <AssociationSet Name="FK__Sam3_Inci__TipoI__7F80E8EA" Association="Self.FK__Sam3_Inci__TipoI__7F80E8EA">
             <End Role="Sam3_TipoIncidencia" EntitySet="Sam3_TipoIncidencia" />
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Inci__Usuar__43E1002F" Association="Self.FK__Sam3_Inci__Usuar__43E1002F">
+          <AssociationSet Name="FK__Sam3_Inci__Usuar__00750D23" Association="Self.FK__Sam3_Inci__Usuar__00750D23">
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Item__Cedul__443605EA" Association="Self.FK__Sam3_Item__Cedul__443605EA">
+          <AssociationSet Name="FK__Sam3_Item__Cedul__090A5324" Association="Self.FK__Sam3_Item__Cedul__090A5324">
             <End Role="Sam3_CatalogoCedulas" EntitySet="Sam3_CatalogoCedulas" />
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Item__Grupo__6E0C4425" Association="Self.FK__Sam3_Item__Grupo__6E0C4425">
+          <AssociationSet Name="FK__Sam3_Item__Grupo__09FE775D" Association="Self.FK__Sam3_Item__Grupo__09FE775D">
             <End Role="Sam3_Grupo" EntitySet="Sam3_Grupo" />
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Item__TipoU__7D8391DF" Association="Self.FK__Sam3_Item__TipoU__7D8391DF">
+          <AssociationSet Name="FK__Sam3_Item__TipoU__0539C240" Association="Self.FK__Sam3_Item__TipoU__0539C240">
             <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Junt__Estac__61074EC2" Association="Self.FK__Sam3_Junt__Estac__61074EC2">
+          <AssociationSet Name="FK__Sam3_Junt__Estac__0AF29B96" Association="Self.FK__Sam3_Junt__Estac__0AF29B96">
             <End Role="Sam3_Estacion" EntitySet="Sam3_Estacion" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Junt__FabAr__5E2AE217" Association="Self.FK__Sam3_Junt__FabAr__5E2AE217">
+          <AssociationSet Name="FK__Sam3_Junt__FabAr__0BE6BFCF" Association="Self.FK__Sam3_Junt__FabAr__0BE6BFCF">
             <End Role="Sam3_FabArea" EntitySet="Sam3_FabArea" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Junt__Famil__5F1F0650" Association="Self.FK__Sam3_Junt__Famil__5F1F0650">
+          <AssociationSet Name="FK__Sam3_Junt__Famil__0CDAE408" Association="Self.FK__Sam3_Junt__Famil__0CDAE408">
             <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Junt__Famil__60132A89" Association="Self.FK__Sam3_Junt__Famil__60132A89">
+          <AssociationSet Name="FK__Sam3_Junt__Famil__0DCF0841" Association="Self.FK__Sam3_Junt__Famil__0DCF0841">
             <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Junt__Spool__5C4299A5" Association="Self.FK__Sam3_Junt__Spool__5C4299A5">
+          <AssociationSet Name="FK__Sam3_Junt__Spool__0EC32C7A" Association="Self.FK__Sam3_Junt__Spool__0EC32C7A">
             <End Role="Sam3_Spool" EntitySet="Sam3_Spool" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Junt__TipoJ__5D36BDDE" Association="Self.FK__Sam3_Junt__TipoJ__5D36BDDE">
+          <AssociationSet Name="FK__Sam3_Junt__TipoJ__0FB750B3" Association="Self.FK__Sam3_Junt__TipoJ__0FB750B3">
             <End Role="Sam3_TipoJunta" EntitySet="Sam3_TipoJunta" />
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_MTR__Colada__4D8A65FA" Association="Self.FK__Sam3_MTR__Colada__4D8A65FA">
+          <AssociationSet Name="FK__Sam3_MTR__Colada__1387E197" Association="Self.FK__Sam3_MTR__Colada__1387E197">
             <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
             <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_MTR__ItemCo__4C9641C1" Association="Self.FK__Sam3_MTR__ItemCo__4C9641C1">
+          <AssociationSet Name="FK__Sam3_MTR__ItemCo__147C05D0" Association="Self.FK__Sam3_MTR__ItemCo__147C05D0">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Nume__MTRID__54376389" Association="Self.FK__Sam3_Nume__MTRID__54376389">
+          <AssociationSet Name="FK__Sam3_Nume__MTRID__16644E42" Association="Self.FK__Sam3_Nume__MTRID__16644E42">
             <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Junta__65CC03DF" Association="Self.FK__Sam3_Orde__Junta__65CC03DF">
+          <AssociationSet Name="FK__Sam3_Orde__Junta__30242045" Association="Self.FK__Sam3_Orde__Junta__30242045">
             <End Role="Sam3_JuntaSpool" EntitySet="Sam3_JuntaSpool" />
             <End Role="Sam3_OrdenTrabajoJunta" EntitySet="Sam3_OrdenTrabajoJunta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Mater__7AC720C5" Association="Self.FK__Sam3_Orde__Mater__7AC720C5">
+          <AssociationSet Name="FK__Sam3_Orde__Mater__320C68B7" Association="Self.FK__Sam3_Orde__Mater__320C68B7">
             <End Role="Sam3_MaterialSpool" EntitySet="Sam3_MaterialSpool" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Numer__7BBB44FE" Association="Self.FK__Sam3_Orde__Numer__7BBB44FE">
+          <AssociationSet Name="FK__Sam3_Orde__Numer__33008CF0" Association="Self.FK__Sam3_Orde__Numer__33008CF0">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Numer__7CAF6937" Association="Self.FK__Sam3_Orde__Numer__7CAF6937">
+          <AssociationSet Name="FK__Sam3_Orde__Numer__33F4B129" Association="Self.FK__Sam3_Orde__Numer__33F4B129">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Numer__7DA38D70" Association="Self.FK__Sam3_Orde__Numer__7DA38D70">
+          <AssociationSet Name="FK__Sam3_Orde__Numer__34E8D562" Association="Self.FK__Sam3_Orde__Numer__34E8D562">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Numer__7E97B1A9" Association="Self.FK__Sam3_Orde__Numer__7E97B1A9">
+          <AssociationSet Name="FK__Sam3_Orde__Numer__35DCF99B" Association="Self.FK__Sam3_Orde__Numer__35DCF99B">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Orden__64D7DFA6" Association="Self.FK__Sam3_Orde__Orden__64D7DFA6">
+          <AssociationSet Name="FK__Sam3_Orde__Orden__3118447E" Association="Self.FK__Sam3_Orde__Orden__3118447E">
             <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
             <End Role="Sam3_OrdenTrabajoJunta" EntitySet="Sam3_OrdenTrabajoJunta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Orden__79D2FC8C" Association="Self.FK__Sam3_Orde__Orden__79D2FC8C">
+          <AssociationSet Name="FK__Sam3_Orde__Orden__36D11DD4" Association="Self.FK__Sam3_Orde__Orden__36D11DD4">
             <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
             <End Role="Sam3_OrdenTrabajoMaterial" EntitySet="Sam3_OrdenTrabajoMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Rel_P__21E0EDE6" Association="Self.FK__Sam3_Orde__Rel_P__21E0EDE6">
+          <AssociationSet Name="FK__Sam3_Orde__Rel_P__2B5F6B28" Association="Self.FK__Sam3_Orde__Rel_P__2B5F6B28">
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Orde__Rel_P__22D5121F" Association="Self.FK__Sam3_Orde__Rel_P__22D5121F">
+          <AssociationSet Name="FK__Sam3_Orde__Rel_P__2C538F61" Association="Self.FK__Sam3_Orde__Rel_P__2C538F61">
             <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_PreD__Numer__19B5BC39" Association="Self.FK__Sam3_PreD__Numer__19B5BC39">
+          <AssociationSet Name="FK__Sam3_PreD__Numer__3D7E1B63" Association="Self.FK__Sam3_PreD__Numer__3D7E1B63">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_PreDespacho" EntitySet="Sam3_PreDespacho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_PreD__Proye__1AA9E072" Association="Self.FK__Sam3_PreD__Proye__1AA9E072">
+          <AssociationSet Name="FK__Sam3_PreD__Proye__3E723F9C" Association="Self.FK__Sam3_PreD__Proye__3E723F9C">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_PreDespacho" EntitySet="Sam3_PreDespacho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Proy__Proye__51DA19CB" Association="Self.FK__Sam3_Proy__Proye__51DA19CB">
+          <AssociationSet Name="FK__Sam3_Proy__Proye__451F3D2B" Association="Self.FK__Sam3_Proy__Proye__451F3D2B">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_ProyectoConsecutivo" EntitySet="Sam3_ProyectoConsecutivo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Proy__TipoU__1C9228E4" Association="Self.FK__Sam3_Proy__TipoU__1C9228E4">
+          <AssociationSet Name="FK__Sam3_Proy__TipoU__442B18F2" Association="Self.FK__Sam3_Proy__TipoU__442B18F2">
             <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
             <End Role="Sam3_ProyectoConfiguracion" EntitySet="Sam3_ProyectoConfiguracion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Catal__5F891AA4" Association="Self.FK__Sam3_Rel___Catal__5F891AA4">
+          <AssociationSet Name="FK__Sam3_Rel___Bulto__4707859D" Association="Self.FK__Sam3_Rel___Bulto__4707859D">
+            <End Role="Sam3_Bulto" EntitySet="Sam3_Bulto" />
+            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Catal__48EFCE0F" Association="Self.FK__Sam3_Rel___Catal__48EFCE0F">
             <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
             <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Chofe__0777106D" Association="Self.FK__Sam3_Rel___Chofe__0777106D">
+          <AssociationSet Name="FK__Sam3_Rel___Chofe__153B1FDF" Association="Self.FK__Sam3_Rel___Chofe__153B1FDF">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
             <End Role="Sam3_Rel_Vehiculo_Chofer" EntitySet="Sam3_Rel_Vehiculo_Chofer" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Colad__2E7BCEF5" Association="Self.FK__Sam3_Rel___Colad__2E7BCEF5">
+          <AssociationSet Name="FK__Sam3_Rel___Colad__72E607DB" Association="Self.FK__Sam3_Rel___Colad__72E607DB">
             <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
             <End Role="Sam3_Rel_Itemcode_Colada" EntitySet="Sam3_Rel_Itemcode_Colada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Corte__41F8B7BD" Association="Self.FK__Sam3_Rel___Corte__41F8B7BD">
+          <AssociationSet Name="FK__Sam3_Rel___Corte__5CF6C6BC" Association="Self.FK__Sam3_Rel___Corte__5CF6C6BC">
             <End Role="Sam3_Corte" EntitySet="Sam3_Corte" />
             <End Role="Sam3_Rel_Incidencia_Corte" EntitySet="Sam3_Rel_Incidencia_Corte" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Despa__3D3402A0" Association="Self.FK__Sam3_Rel___Despa__3D3402A0">
+          <AssociationSet Name="FK__Sam3_Rel___Despa__5EDF0F2E" Association="Self.FK__Sam3_Rel___Despa__5EDF0F2E">
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
             <End Role="Sam3_Rel_Incidencia_Despacho" EntitySet="Sam3_Rel_Incidencia_Despacho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Diame__45943E77" Association="Self.FK__Sam3_Rel___Diame__45943E77">
+          <AssociationSet Name="FK__Sam3_Rel___Diame__74CE504D" Association="Self.FK__Sam3_Rel___Diame__74CE504D">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
             <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Diame__468862B0" Association="Self.FK__Sam3_Rel___Diame__468862B0">
+          <AssociationSet Name="FK__Sam3_Rel___Diame__75C27486" Association="Self.FK__Sam3_Rel___Diame__75C27486">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
             <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Diame__4B4D17CD" Association="Self.FK__Sam3_Rel___Diame__4B4D17CD">
+          <AssociationSet Name="FK__Sam3_Rel___Diame__7993056A" Association="Self.FK__Sam3_Rel___Diame__7993056A">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
             <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Diame__4C413C06" Association="Self.FK__Sam3_Rel___Diame__4C413C06">
+          <AssociationSet Name="FK__Sam3_Rel___Diame__7A8729A3" Association="Self.FK__Sam3_Rel___Diame__7A8729A3">
             <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
             <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Entid__11757BF3" Association="Self.FK__Sam3_Rel___Entid__11757BF3">
-            <End Role="Sam3_Entidad" EntitySet="Sam3_Entidad" />
-            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Entid__14E61A24" Association="Self.FK__Sam3_Rel___Entid__14E61A24">
+          <AssociationSet Name="FK__Sam3_Rel___Entid__041093DD" Association="Self.FK__Sam3_Rel___Entid__041093DD">
             <End Role="Sam3_Entidad" EntitySet="Sam3_Entidad" />
             <End Role="Sam3_Rel_Perfil_Entidad_Pagina" EntitySet="Sam3_Rel_Perfil_Entidad_Pagina" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__0A537D18" Association="Self.FK__Sam3_Rel___Folio__0A537D18">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" EntitySet="Sam3_Rel_FolioAvisoLlegada_Vehiculo" />
+          <AssociationSet Name="FK__Sam3_Rel___Entid__0F824689" Association="Self.FK__Sam3_Rel___Entid__0F824689">
+            <End Role="Sam3_Entidad" EntitySet="Sam3_Entidad" />
+            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__0EE3280B" Association="Self.FK__Sam3_Rel___Folio__0EE3280B">
-            <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
-            <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntitySet="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__170E59B8" Association="Self.FK__Sam3_Rel___Folio__170E59B8">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoLlegada" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__1BD30ED5" Association="Self.FK__Sam3_Rel___Folio__1BD30ED5">
-            <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
-            <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoEntrada" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__2097C3F2" Association="Self.FK__Sam3_Rel___Folio__2097C3F2">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_Incidencia_PaseSalida" EntitySet="Sam3_Rel_Incidencia_PaseSalida" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__255C790F" Association="Self.FK__Sam3_Rel___Folio__255C790F">
-            <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
-            <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" EntitySet="Sam3_Rel_Incidencia_FolioCuantificacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__2EE5E349" Association="Self.FK__Sam3_Rel___Folio__2EE5E349">
-            <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
-            <End Role="Sam3_Rel_Incidencia_ComplementoRecepcion" EntitySet="Sam3_Rel_Incidencia_ComplementoRecepcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__40C49C62" Association="Self.FK__Sam3_Rel___Folio__40C49C62">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__4865BE2A" Association="Self.FK__Sam3_Rel___Folio__4865BE2A">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__4B422AD5" Association="Self.FK__Sam3_Rel___Folio__4B422AD5">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__54B68676" Association="Self.FK__Sam3_Rel___Folio__54B68676">
+          <AssociationSet Name="FK__Sam3_Rel___Folio__4DB4832C" Association="Self.FK__Sam3_Rel___Folio__4DB4832C">
             <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
             <End Role="Sam3_Rel_FolioAvisoEntrada_Documento" EntitySet="Sam3_Rel_FolioAvisoEntrada_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__161A357F" Association="Self.FK__Sam3_Rel___Incid__161A357F">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoLlegada" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__4EA8A765" Association="Self.FK__Sam3_Rel___Folio__4EA8A765">
+            <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
+            <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntitySet="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__1ADEEA9C" Association="Self.FK__Sam3_Rel___Incid__1ADEEA9C">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__5090EFD7" Association="Self.FK__Sam3_Rel___Folio__5090EFD7">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__52793849" Association="Self.FK__Sam3_Rel___Folio__52793849">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__5555A4F4" Association="Self.FK__Sam3_Rel___Folio__5555A4F4">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__573DED66" Association="Self.FK__Sam3_Rel___Folio__573DED66">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" EntitySet="Sam3_Rel_FolioAvisoLlegada_Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__592635D8" Association="Self.FK__Sam3_Rel___Folio__592635D8">
+            <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
+            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__5B0E7E4A" Association="Self.FK__Sam3_Rel___Folio__5B0E7E4A">
+            <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
+            <End Role="Sam3_Rel_Incidencia_ComplementoRecepcion" EntitySet="Sam3_Rel_Incidencia_ComplementoRecepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__63A3C44B" Association="Self.FK__Sam3_Rel___Folio__63A3C44B">
+            <End Role="Sam3_FolioAvisoEntrada" EntitySet="Sam3_FolioAvisoEntrada" />
             <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoEntrada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__1FA39FB9" Association="Self.FK__Sam3_Rel___Incid__1FA39FB9">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_Incidencia_PaseSalida" EntitySet="Sam3_Rel_Incidencia_PaseSalida" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__658C0CBD" Association="Self.FK__Sam3_Rel___Folio__658C0CBD">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoLlegada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__246854D6" Association="Self.FK__Sam3_Rel___Incid__246854D6">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__6774552F" Association="Self.FK__Sam3_Rel___Folio__6774552F">
+            <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
             <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" EntitySet="Sam3_Rel_Incidencia_FolioCuantificacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__292D09F3" Association="Self.FK__Sam3_Rel___Incid__292D09F3">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" EntitySet="Sam3_Rel_Incidencia_OrdenRecepcion" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__70FDBF69" Association="Self.FK__Sam3_Rel___Folio__70FDBF69">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_Incidencia_PaseSalida" EntitySet="Sam3_Rel_Incidencia_PaseSalida" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__2DF1BF10" Association="Self.FK__Sam3_Rel___Incid__2DF1BF10">
+          <AssociationSet Name="FK__Sam3_Rel___Incid__536D5C82" Association="Self.FK__Sam3_Rel___Incid__536D5C82">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__5C02A283" Association="Self.FK__Sam3_Rel___Incid__5C02A283">
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
             <End Role="Sam3_Rel_Incidencia_ComplementoRecepcion" EntitySet="Sam3_Rel_Incidencia_ComplementoRecepcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__32B6742D" Association="Self.FK__Sam3_Rel___Incid__32B6742D">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_Incidencia_ItemCode" EntitySet="Sam3_Rel_Incidencia_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__377B294A" Association="Self.FK__Sam3_Rel___Incid__377B294A">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" EntitySet="Sam3_Rel_Incidencia_OrdenAlmacenaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__3C3FDE67" Association="Self.FK__Sam3_Rel___Incid__3C3FDE67">
-            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_Incidencia_Despacho" EntitySet="Sam3_Rel_Incidencia_Despacho" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__41049384" Association="Self.FK__Sam3_Rel___Incid__41049384">
+          <AssociationSet Name="FK__Sam3_Rel___Incid__5DEAEAF5" Association="Self.FK__Sam3_Rel___Incid__5DEAEAF5">
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
             <End Role="Sam3_Rel_Incidencia_Corte" EntitySet="Sam3_Rel_Incidencia_Corte" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__45C948A1" Association="Self.FK__Sam3_Rel___Incid__45C948A1">
+          <AssociationSet Name="FK__Sam3_Rel___Incid__5FD33367" Association="Self.FK__Sam3_Rel___Incid__5FD33367">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_Despacho" EntitySet="Sam3_Rel_Incidencia_Despacho" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__60C757A0" Association="Self.FK__Sam3_Rel___Incid__60C757A0">
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
             <End Role="Sam3_Rel_Incidencia_Documento" EntitySet="Sam3_Rel_Incidencia_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__50B0EB68" Association="Self.FK__Sam3_Rel___Incid__50B0EB68">
+          <AssociationSet Name="FK__Sam3_Rel___Incid__6497E884" Association="Self.FK__Sam3_Rel___Incid__6497E884">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_FolioAvisoEntrada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__668030F6" Association="Self.FK__Sam3_Rel___Incid__668030F6">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_FolioAvisoLlegada" EntitySet="Sam3_Rel_Incidencia_FolioAvisoLlegada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__68687968" Association="Self.FK__Sam3_Rel___Incid__68687968">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_FolioCuantificacion" EntitySet="Sam3_Rel_Incidencia_FolioCuantificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__695C9DA1" Association="Self.FK__Sam3_Rel___Incid__695C9DA1">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_ItemCode" EntitySet="Sam3_Rel_Incidencia_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Incid__6B44E613" Association="Self.FK__Sam3_Rel___Incid__6B44E613">
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
             <End Role="Sam3_Rel_Incidencia_NumeroUnico" EntitySet="Sam3_Rel_Incidencia_NumeroUnico" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Incid__7108AC61" Association="Self.FK__Sam3_Rel___Incid__7108AC61">
+          <AssociationSet Name="FK__Sam3_Rel___Incid__6D2D2E85" Association="Self.FK__Sam3_Rel___Incid__6D2D2E85">
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+            <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" EntitySet="Sam3_Rel_Incidencia_OrdenAlmacenaje" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__2D87AABC" Association="Self.FK__Sam3_Rel___ItemC__2D87AABC">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_Itemcode_Colada" EntitySet="Sam3_Rel_Itemcode_Colada" />
+          <AssociationSet Name="FK__Sam3_Rel___Incid__6F1576F7" Association="Self.FK__Sam3_Rel___Incid__6F1576F7">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" EntitySet="Sam3_Rel_Incidencia_OrdenRecepcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__33AA9866" Association="Self.FK__Sam3_Rel___ItemC__33AA9866">
+          <AssociationSet Name="FK__Sam3_Rel___Incid__71F1E3A2" Association="Self.FK__Sam3_Rel___Incid__71F1E3A2">
+            <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
+            <End Role="Sam3_Rel_Incidencia_PaseSalida" EntitySet="Sam3_Rel_Incidencia_PaseSalida" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__6A50C1DA" Association="Self.FK__Sam3_Rel___ItemC__6A50C1DA">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_Rel_Incidencia_ItemCode" EntitySet="Sam3_Rel_Incidencia_ItemCode" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__477C86E9" Association="Self.FK__Sam3_Rel___ItemC__477C86E9">
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__73DA2C14" Association="Self.FK__Sam3_Rel___ItemC__73DA2C14">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_Rel_Itemcode_Colada" EntitySet="Sam3_Rel_Itemcode_Colada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__76B698BF" Association="Self.FK__Sam3_Rel___ItemC__76B698BF">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__4D35603F" Association="Self.FK__Sam3_Rel___ItemC__4D35603F">
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__7B7B4DDC" Association="Self.FK__Sam3_Rel___ItemC__7B7B4DDC">
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
             <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___MenuC__73852659" Association="Self.FK__Sam3_Rel___MenuC__73852659">
+          <AssociationSet Name="FK__Sam3_Rel___MenuC__06ED0088" Association="Self.FK__Sam3_Rel___MenuC__06ED0088">
             <End Role="Sam3_MenuContextual" EntitySet="Sam3_MenuContextual" />
             <End Role="Sam3_Rel_Perfil_MenuContextual" EntitySet="Sam3_Rel_Perfil_MenuContextual" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___MenuG__756D6ECB" Association="Self.FK__Sam3_Rel___MenuG__756D6ECB">
+          <AssociationSet Name="FK__Sam3_Rel___MenuG__08D548FA" Association="Self.FK__Sam3_Rel___MenuG__08D548FA">
             <End Role="Sam3_MenuGeneral" EntitySet="Sam3_MenuGeneral" />
             <End Role="Sam3_Rel_Perfil_MenuGeneral" EntitySet="Sam3_Rel_Perfil_MenuGeneral" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Numer__1D5142F3" Association="Self.FK__Sam3_Rel___Numer__1D5142F3">
-            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
-            <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Numer__444B1483" Association="Self.FK__Sam3_Rel___Numer__444B1483">
+          <AssociationSet Name="FK__Sam3_Rel___Numer__004002F9" Association="Self.FK__Sam3_Rel___Numer__004002F9">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" EntitySet="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Numer__51A50FA1" Association="Self.FK__Sam3_Rel___Numer__51A50FA1">
+          <AssociationSet Name="FK__Sam3_Rel___Numer__6C390A4C" Association="Self.FK__Sam3_Rel___Numer__6C390A4C">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_Rel_Incidencia_NumeroUnico" EntitySet="Sam3_Rel_Incidencia_NumeroUnico" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__0A1E72EE" Association="Self.FK__Sam3_Rel___Orden__0A1E72EE">
-            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
-            <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__0FD74C44" Association="Self.FK__Sam3_Rel___Orden__0FD74C44">
-            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
-            <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntitySet="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__2A212E2C" Association="Self.FK__Sam3_Rel___Orden__2A212E2C">
-            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
-            <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" EntitySet="Sam3_Rel_Incidencia_OrdenRecepcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__386F4D83" Association="Self.FK__Sam3_Rel___Orden__386F4D83">
-            <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
-            <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" EntitySet="Sam3_Rel_Incidencia_OrdenAlmacenaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__388F4914" Association="Self.FK__Sam3_Rel___Orden__388F4914">
-            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+          <AssociationSet Name="FK__Sam3_Rel___Numer__7C6F7215" Association="Self.FK__Sam3_Rel___Numer__7C6F7215">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__4356F04A" Association="Self.FK__Sam3_Rel___Orden__4356F04A">
+          <AssociationSet Name="FK__Sam3_Rel___Orden__01342732" Association="Self.FK__Sam3_Rel___Orden__01342732">
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
             <End Role="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" EntitySet="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Pagin__15DA3E5D" Association="Self.FK__Sam3_Rel___Pagin__15DA3E5D">
+          <AssociationSet Name="FK__Sam3_Rel___Orden__02284B6B" Association="Self.FK__Sam3_Rel___Orden__02284B6B">
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+            <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__4F9CCB9E" Association="Self.FK__Sam3_Rel___Orden__4F9CCB9E">
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+            <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntitySet="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__6E2152BE" Association="Self.FK__Sam3_Rel___Orden__6E2152BE">
+            <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
+            <End Role="Sam3_Rel_Incidencia_OrdenAlmacenaje" EntitySet="Sam3_Rel_Incidencia_OrdenAlmacenaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__70099B30" Association="Self.FK__Sam3_Rel___Orden__70099B30">
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+            <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" EntitySet="Sam3_Rel_Incidencia_OrdenRecepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__7D63964E" Association="Self.FK__Sam3_Rel___Orden__7D63964E">
+            <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
+            <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Pagin__0504B816" Association="Self.FK__Sam3_Rel___Pagin__0504B816">
             <End Role="Sam3_Pagina" EntitySet="Sam3_Pagina" />
             <End Role="Sam3_Rel_Perfil_Entidad_Pagina" EntitySet="Sam3_Rel_Perfil_Entidad_Pagina" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Perfi__13F1F5EB" Association="Self.FK__Sam3_Rel___Perfi__13F1F5EB">
+          <AssociationSet Name="FK__Sam3_Rel___Perfi__05F8DC4F" Association="Self.FK__Sam3_Rel___Perfi__05F8DC4F">
             <End Role="Sam3_Perfil" EntitySet="Sam3_Perfil" />
             <End Role="Sam3_Rel_Perfil_Entidad_Pagina" EntitySet="Sam3_Rel_Perfil_Entidad_Pagina" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Perfi__74794A92" Association="Self.FK__Sam3_Rel___Perfi__74794A92">
+          <AssociationSet Name="FK__Sam3_Rel___Perfi__07E124C1" Association="Self.FK__Sam3_Rel___Perfi__07E124C1">
             <End Role="Sam3_Perfil" EntitySet="Sam3_Perfil" />
             <End Role="Sam3_Rel_Perfil_MenuContextual" EntitySet="Sam3_Rel_Perfil_MenuContextual" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Perfi__76619304" Association="Self.FK__Sam3_Rel___Perfi__76619304">
+          <AssociationSet Name="FK__Sam3_Rel___Perfi__09C96D33" Association="Self.FK__Sam3_Rel___Perfi__09C96D33">
             <End Role="Sam3_Perfil" EntitySet="Sam3_Perfil" />
             <End Role="Sam3_Rel_Perfil_MenuGeneral" EntitySet="Sam3_Rel_Perfil_MenuGeneral" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Permi__36470DEF" Association="Self.FK__Sam3_Rel___Permi__36470DEF">
+          <AssociationSet Name="FK__Sam3_Rel___Permi__0CA5D9DE" Association="Self.FK__Sam3_Rel___Permi__0CA5D9DE">
             <End Role="Sam3_PermisoAduana" EntitySet="Sam3_PermisoAduana" />
             <End Role="Sam3_Rel_PermisoAduana_Documento" EntitySet="Sam3_Rel_PermisoAduana_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Prefe__66F53242" Association="Self.FK__Sam3_Rel___Prefe__66F53242">
+          <AssociationSet Name="FK__Sam3_Rel___Prefe__116A8EFB" Association="Self.FK__Sam3_Rel___Prefe__116A8EFB">
             <End Role="Sam3_Preferencia" EntitySet="Sam3_Preferencia" />
             <End Role="Sam3_Rel_Usuario_Preferencia" EntitySet="Sam3_Rel_Usuario_Preferencia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Proye__108157BA" Association="Self.FK__Sam3_Rel___Proye__108157BA">
-            <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
-            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Proye__1F04813B" Association="Self.FK__Sam3_Rel___Proye__1F04813B">
+          <AssociationSet Name="FK__Sam3_Rel___Proye__0E8E2250" Association="Self.FK__Sam3_Rel___Proye__0E8E2250">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Rel_Proyecto_Correo" EntitySet="Sam3_Rel_Proyecto_Correo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Proye__41B8C09B" Association="Self.FK__Sam3_Rel___Proye__41B8C09B">
+          <AssociationSet Name="FK__Sam3_Rel___Proye__10766AC2" Association="Self.FK__Sam3_Rel___Proye__10766AC2">
+            <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
+            <End Role="Sam3_Rel_Proyecto_Entidad_Configuracion" EntitySet="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Proye__5649C92D" Association="Self.FK__Sam3_Rel___Proye__5649C92D">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_B__1F398B65" Association="Self.FK__Sam3_Rel___Rel_B__1F398B65">
+          <AssociationSet Name="FK__Sam3_Rel___Rel_B__7E57BA87" Association="Self.FK__Sam3_Rel___Rel_B__7E57BA87">
             <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
             <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_F__1E45672C" Association="Self.FK__Sam3_Rel___Rel_F__1E45672C">
+          <AssociationSet Name="FK__Sam3_Rel___Rel_F__7F4BDEC0" Association="Self.FK__Sam3_Rel___Rel_F__7F4BDEC0">
             <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
             <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_I__613C58EC" Association="Self.FK__Sam3_Rel___Rel_I__613C58EC">
-            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
-            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6324A15E" Association="Self.FK__Sam3_Rel___Rel_I__6324A15E">
-            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
-            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_I__69D19EED" Association="Self.FK__Sam3_Rel___Rel_I__69D19EED">
-            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
-            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6AC5C326" Association="Self.FK__Sam3_Rel___Rel_I__6AC5C326">
-            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
-            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6CAE0B98" Association="Self.FK__Sam3_Rel___Rel_I__6CAE0B98">
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__031C6FA4" Association="Self.FK__Sam3_Rel___Rel_I__031C6FA4">
             <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
             <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___TipoA__2042BE37" Association="Self.FK__Sam3_Rel___TipoA__2042BE37">
-            <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__47FBA9D6" Association="Self.FK__Sam3_Rel___Rel_I__47FBA9D6">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___TipoA__2136E270" Association="Self.FK__Sam3_Rel___TipoA__2136E270">
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__5A1A5A11" Association="Self.FK__Sam3_Rel___Rel_I__5A1A5A11">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__77AABCF8" Association="Self.FK__Sam3_Rel___Rel_I__77AABCF8">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__789EE131" Association="Self.FK__Sam3_Rel___Rel_I__789EE131">
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___TipoA__0D99FE17" Association="Self.FK__Sam3_Rel___TipoA__0D99FE17">
             <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
             <End Role="Sam3_Rel_PermisoAduana_Documento" EntitySet="Sam3_Rel_PermisoAduana_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___TipoA__222B06A9" Association="Self.FK__Sam3_Rel___TipoA__222B06A9">
-            <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___TipoA__607D3EDD" Association="Self.FK__Sam3_Rel___TipoA__607D3EDD">
+          <AssociationSet Name="FK__Sam3_Rel___TipoA__49E3F248" Association="Self.FK__Sam3_Rel___TipoA__49E3F248">
             <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
             <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Trans__03A67F89" Association="Self.FK__Sam3_Rel___Trans__03A67F89">
+          <AssociationSet Name="FK__Sam3_Rel___TipoA__51851410" Association="Self.FK__Sam3_Rel___TipoA__51851410">
+            <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___TipoA__546180BB" Association="Self.FK__Sam3_Rel___TipoA__546180BB">
+            <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Trans__17236851" Association="Self.FK__Sam3_Rel___Trans__17236851">
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
             <End Role="Sam3_Rel_Vehiculo_Transportista" EntitySet="Sam3_Rel_Vehiculo_Transportista" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Usuar__66010E09" Association="Self.FK__Sam3_Rel___Usuar__66010E09">
+          <AssociationSet Name="FK__Sam3_Rel___Usuar__125EB334" Association="Self.FK__Sam3_Rel___Usuar__125EB334">
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_Rel_Usuario_Preferencia" EntitySet="Sam3_Rel_Usuario_Preferencia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Vehic__02B25B50" Association="Self.FK__Sam3_Rel___Vehic__02B25B50">
-            <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
-            <End Role="Sam3_Rel_Vehiculo_Transportista" EntitySet="Sam3_Rel_Vehiculo_Transportista" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Vehic__0682EC34" Association="Self.FK__Sam3_Rel___Vehic__0682EC34">
+          <AssociationSet Name="FK__Sam3_Rel___Vehic__162F4418" Association="Self.FK__Sam3_Rel___Vehic__162F4418">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_Rel_Vehiculo_Chofer" EntitySet="Sam3_Rel_Vehiculo_Chofer" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Vehic__0B47A151" Association="Self.FK__Sam3_Rel___Vehic__0B47A151">
+          <AssociationSet Name="FK__Sam3_Rel___Vehic__18178C8A" Association="Self.FK__Sam3_Rel___Vehic__18178C8A">
+            <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
+            <End Role="Sam3_Rel_Vehiculo_Transportista" EntitySet="Sam3_Rel_Vehiculo_Transportista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Vehic__5832119F" Association="Self.FK__Sam3_Rel___Vehic__5832119F">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" EntitySet="Sam3_Rel_FolioAvisoLlegada_Vehiculo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Tipo__Catal__5CACADF9" Association="Self.FK__Sam3_Tipo__Catal__5CACADF9">
+          <AssociationSet Name="FK__Sam3_Tipo__Catal__20ACD28B" Association="Self.FK__Sam3_Tipo__Catal__20ACD28B">
             <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
             <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Usua__TipoN__5887175A" Association="Self.FK__Sam3_Usua__TipoN__5887175A">
+          <AssociationSet Name="FK__Sam3_Usua__TipoN__247D636F" Association="Self.FK__Sam3_Usua__TipoN__247D636F">
             <End Role="Sam3_TipoNotificacion" EntitySet="Sam3_TipoNotificacion" />
             <End Role="Sam3_UsuariosNotificaciones" EntitySet="Sam3_UsuariosNotificaciones" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Usua__Usuar__597B3B93" Association="Self.FK__Sam3_Usua__Usuar__597B3B93">
+          <AssociationSet Name="FK__Sam3_Usua__Usuar__257187A8" Association="Self.FK__Sam3_Usua__Usuar__257187A8">
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_UsuariosNotificaciones" EntitySet="Sam3_UsuariosNotificaciones" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Vehi__TipoV__7FD5EEA5" Association="Self.FK__Sam3_Vehi__TipoV__7FD5EEA5">
+          <AssociationSet Name="FK__Sam3_Vehi__TipoV__2665ABE1" Association="Self.FK__Sam3_Vehi__TipoV__2665ABE1">
             <End Role="Sam3_TipoVehiculo" EntitySet="Sam3_TipoVehiculo" />
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
           </AssociationSet>
@@ -10407,14 +10399,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="ManejaReserva" Type="Boolean" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="DigitosOrdeAlmacenaje" Type="Int32" Nullable="false" />
-          <Property Name="DigitosFolioDescarga" Type="Int32" Nullable="false" />
-          <Property Name="DigitosFolioAvisollegada" Type="Int32" Nullable="false" />
-          <Property Name="GigitosFolioPaseSalida" Type="Int32" Nullable="false" />
-          <Property Name="DigitosFolioOrdenRecepcion" Type="Int32" Nullable="false" />
-          <Property Name="DigitosFolioCuantifiacion" Type="Int32" Nullable="false" />
-          <Property Name="DigitosFolioOrdenAlmacenaje" Type="Int32" Nullable="false" />
-          <Property Name="DigitosFolioPermisoAduana" Type="Int32" Nullable="false" />
           <Property Name="TipoUsoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_ProyectoConfiguracion" ToRole="Sam3_TipoUso" />
           <Property Name="RequiereTipoPackingList" Type="Boolean" Nullable="false" />
@@ -14137,14 +14121,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
               <MappingFragment StoreEntitySet="Sam3_ProyectoConfiguracion">
                 <ScalarProperty Name="RequiereTipoPackingList" ColumnName="RequiereTipoPackingList" />
                 <ScalarProperty Name="TipoUsoID" ColumnName="TipoUsoID" />
-                <ScalarProperty Name="DigitosFolioPermisoAduana" ColumnName="DigitosFolioPermisoAduana" />
-                <ScalarProperty Name="DigitosFolioOrdenAlmacenaje" ColumnName="DigitosFolioOrdenAlmacenaje" />
-                <ScalarProperty Name="DigitosFolioCuantifiacion" ColumnName="DigitosFolioCuantifiacion" />
-                <ScalarProperty Name="DigitosFolioOrdenRecepcion" ColumnName="DigitosFolioOrdenRecepcion" />
-                <ScalarProperty Name="GigitosFolioPaseSalida" ColumnName="GigitosFolioPaseSalida" />
-                <ScalarProperty Name="DigitosFolioAvisollegada" ColumnName="DigitosFolioAvisollegada" />
-                <ScalarProperty Name="DigitosFolioDescarga" ColumnName="DigitosFolioDescarga" />
-                <ScalarProperty Name="DigitosOrdeAlmacenaje" ColumnName="DigitosOrdeAlmacenaje" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="ManejaReserva" ColumnName="ManejaReserva" />
