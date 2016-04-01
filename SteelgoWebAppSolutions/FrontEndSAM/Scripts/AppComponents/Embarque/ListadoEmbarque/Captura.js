@@ -71,7 +71,7 @@ function CargarGrid() {
             { field: "Enviar", title: " ", filterable: true, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + _dictionary.ListadoEmbarqueBotonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button>", width: "125px" },
         ]
     });
-    CustomisaGridPestania($("#grid"));
+    CustomisaGrid($("#grid"));
 };
 
 function VentanaModalFecha(dataItem) {

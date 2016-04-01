@@ -164,7 +164,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
         for (var i = 0; i < array.length; i++) {
             if (!existeSpool(array[i].Spool, ds)) {
 
-                ds.add(array[i]);
+                ds.insert(0,array[i]);
             }
 
         }

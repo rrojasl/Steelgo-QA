@@ -57,7 +57,7 @@ function ObtenerJSonGridArmado() {
                     if (array[i].FechaArmado != null) {
                         array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                     }
-                    ds.add(array[i]);
+                    ds.insert(0,array[i]);
                 }
             });
 
@@ -361,7 +361,7 @@ function AjaxCargarReporteJuntas() {
                     {
                         array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                     }
-                    ds.add(array[i]);
+                    ds.insert(0,array[i]);
                 }
                 loadingStop();
             });

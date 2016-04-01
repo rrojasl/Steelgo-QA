@@ -93,7 +93,7 @@ function CargarGrid() {
             { field: "Comentario", title: _dictionary.RevisionEmbarqueGridHeaderComentario[$("#language").data("kendoDropDownList").value()], filterable: true, template: kendo.template('<div  style="height=10px; border: #= LlegoComentarios && (String(Comentario) == ""|| Comentario == null )  ? " 1px solid red" : LlegoComentarios==false  && Comentario == null ? " 1px solid red" : " none" # ; z-index=9999;">#=Comentario==null ?"": Comentario #</div>'), width: "140px" },
         ]
     });
-    CustomisaGridPestania($("#grid"));
+    CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         if ($("#language").val() == "es-MX") {

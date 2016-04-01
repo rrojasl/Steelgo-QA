@@ -95,7 +95,7 @@ function AjaxAgregarCarga() {
 
         for (var i = 0; i < array.length; i++) {
             if (!validarInformacion(array[i])) {
-                ds.add(array[i]);
+                ds.insert(0,array[i]);
             }
             else
                 displayMessage("EmbarqueCargaInformacionExistente", "", '2');

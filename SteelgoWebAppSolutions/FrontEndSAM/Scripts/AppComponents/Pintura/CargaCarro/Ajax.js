@@ -200,7 +200,7 @@ function AjaxAgregarCarga() {
                         if (!validarInformacion(array[i])) {
                             if ((carDataSourceSelected.AreaPermitidoMedioTransporte) > (SumarArea() + array[i].Area))
                                 if ((carDataSourceSelected.PesoMaximoPermitido) > (SumarTonelada() + array[i].Peso))
-                                    ds.add(array[i]);
+                                    ds.insert(0,array[i]);
                                 else {
                                     displayMessage("PinturaCargaSpoolToneladaSuperiorPermididoCarro", "", '2');
                                 }

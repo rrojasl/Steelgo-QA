@@ -124,7 +124,7 @@ function AjaxAgregarCarga() {
                         if (!validarInformacion(array[i])) {
                             totalToneladasCargadas += array[i]["Peso"];
                             array[i]["Consecutivo"] += CantidadRegistrosOriginales;
-                            ds.add(array[i]);
+                            ds.insert(0,array[i]);
                         }
                         else
                             displayMessage("EmbarqueCargaInformacionExistente", "", '2');

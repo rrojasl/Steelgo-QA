@@ -63,7 +63,7 @@ function getGridSoldadura() {
             if (array[i].FechaSoldadura != null) {
                 array[i].FechaSoldadura = new Date(ObtenerDato(array[i].FechaSoldadura, 1), ObtenerDato(array[i].FechaSoldadura, 2), ObtenerDato(array[i].FechaSoldadura, 3));//año, mes, dia
             }
-            ds.add(array[i]);
+            ds.insert(0,array[i]);
             if (!array[i].PermiteTerminadoRaiz)
                 ds._data[i].procesoSoldaduraRaiz;
             if (!array[i].PermiteTerminadoRelleno)
@@ -425,7 +425,7 @@ function AjaxCargarReporteJuntas() {
                             if (array[i].FechaSoldadura != null) {
                                 array[i].FechaSoldadura = new Date(ObtenerDato(array[i].FechaSoldadura, 1), ObtenerDato(array[i].FechaSoldadura, 2), ObtenerDato(array[i].FechaSoldadura, 3));//año, mes, dia
                             }
-                            ds.add(array[i]);
+                            ds.insert(0,array[i]);
                         }
                         loadingStop();
                     });
