@@ -301,6 +301,10 @@ function SuscribirEventoSpoolID() {
                 AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
             }
         }
+        else if (e.keyCode == 9) {
+            if ($("#InputID").data("kendoComboBox").value() == "")
+                $("#InputID").data("kendoComboBox").select(0);
+        }
 
     });
 

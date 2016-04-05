@@ -107,16 +107,16 @@ function suscribirEventoAdicionales() {
     }
 
     function suscribirEventoChangeRadio() {
-        $('input:radio[name=Muestra]:nth(0)').change(function () {
-            if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                AjaxJunta($("#InputID").val());
-                FiltroMostrar(0);
+        $('input:radio[name=muestra]:nth(0)').change(function () {
+            if ($("#inputid").val() != "" && $("#inputordentrabajo").val()) {
+                ajaxjunta($("#inputid").val());
+                filtromostrar(0);
             }
         });
-        $('input:radio[name=Muestra]:nth(1)').change(function () {
-            if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                AjaxJunta($("#InputID").val());
-                FiltroMostrar(1);
+        $('input:radio[name=muestra]:nth(1)').change(function () {
+            if ($("#inputid").val() != "" && $("#inputordentrabajo").val()) {
+                ajaxjunta($("#inputid").val());
+                filtromostrar(1);
             }
         });
 
@@ -434,6 +434,10 @@ function suscribirEventoAdicionales() {
                 }
                 else
                     displayMessage("NoExisteSpoolID", '', '2');
+            }
+            else if (e.keyCode == 9) {
+                if ($("#InputID").data("kendoComboBox").value() == "")
+                    $("#InputID").data("kendoComboBox").select(0);
             }
         });
 

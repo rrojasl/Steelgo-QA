@@ -464,6 +464,10 @@ function SuscribirEventoSpoolID() {
                 displayMessage("NoExisteCarro", '', '2');
             } 
         }
+        else if (e.keyCode == 9) {
+            if ($("#InputID").data("kendoComboBox").value() == "")
+                $("#InputID").data("kendoComboBox").select(0);
+        }
     });
 
 };

@@ -225,6 +225,10 @@ function SuscribirEventoSpoolID() {
             }
             
         }
+        else if (e.keyCode == 9) {
+            if ($("#InputID").data("kendoComboBox").value() == "")
+                $("#InputID").data("kendoComboBox").select(0);
+        }
     });
 
 };
