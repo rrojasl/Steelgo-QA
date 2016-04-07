@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "10025", { path: '/' });
+Cookies.set("navegacion", "54", { path: '/' });
 
 var $DimensionalModel = {
     listContainer: {
