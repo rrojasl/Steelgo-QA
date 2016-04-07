@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "61", { path: '/' });
+Cookies.set("navegacion", "10032", { path: '/' });
 
 var $CargaCarroModel = {
     listContainer: {

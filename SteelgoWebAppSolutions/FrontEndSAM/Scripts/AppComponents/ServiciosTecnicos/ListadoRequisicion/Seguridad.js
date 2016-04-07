@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "43", { path: '/' });
+Cookies.set("navegacion", "10014", { path: '/' });
 
 var $ListadoRequisicionModel = {
     listContainer: {

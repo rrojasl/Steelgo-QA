@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "49", { path: '/' });
+Cookies.set("navegacion", "10020", { path: '/' });
 
 var $EmbarqueModel = {
     listContainer: {

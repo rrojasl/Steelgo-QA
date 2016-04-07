@@ -1,6 +1,6 @@
 ﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; };
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "44", { path: '/' });
+Cookies.set("navegacion", "10015", { path: '/' });
 
 
 var $WPSSaveModel = {

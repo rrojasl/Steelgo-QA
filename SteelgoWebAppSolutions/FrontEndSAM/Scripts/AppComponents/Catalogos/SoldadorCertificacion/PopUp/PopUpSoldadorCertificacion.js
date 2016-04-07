@@ -75,7 +75,7 @@ var $SoldadorCertificacionSaveModel = {
 
 kendo.ui.Upload.fn._supportsDrop = function () { return false; };
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "39", { path: '/' });
+Cookies.set("navegacion", "10010", { path: '/' });
 CargaInicial();
 
 function CargaInicial() {

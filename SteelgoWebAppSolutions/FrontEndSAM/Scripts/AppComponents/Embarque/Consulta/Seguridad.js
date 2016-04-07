@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "47", { path: '/' });
+Cookies.set("navegacion", "10018", { path: '/' });
 
 var $ConsultaModel = {
     listContainer: {

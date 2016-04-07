@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "46", { path: '/' });
+Cookies.set("navegacion", "10017", { path: '/' });
 
 var $ValidacionResultadosModel = {
     listContainer: {

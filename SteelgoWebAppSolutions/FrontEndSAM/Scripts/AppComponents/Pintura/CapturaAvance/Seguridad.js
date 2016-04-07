@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "57", { path: '/' });
+Cookies.set("navegacion", "10028", { path: '/' });
 
 var $CapturaAvanceModel = {
     listContainer: {

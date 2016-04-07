@@ -1,6 +1,6 @@
 ﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; }
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "36", { path: '/' });
+Cookies.set("navegacion", "10025", { path: '/' });
 
 var endRangeDate;
 var listadoJsonCaptura;

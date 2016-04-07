@@ -1,5 +1,5 @@
 ﻿Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "48", { path: '/' });
+Cookies.set("navegacion", "10019", { path: '/' });
 
 var $MarcadoModel = {
     listContainer: {

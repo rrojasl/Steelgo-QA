@@ -1,5 +1,5 @@
 ﻿Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "58", { path: '/' });
+Cookies.set("navegacion", "10029", { path: '/' });
 
 var $CapturaAvanceIntAcabadoModel = {
     listContainer: {

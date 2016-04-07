@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "42", { path: '/' });
+Cookies.set("navegacion", "10013", { path: '/' });
 
 var $ArmadoModel = {
     listContainer: {

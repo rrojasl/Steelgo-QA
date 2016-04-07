@@ -1,6 +1,6 @@
 ﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; }
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "32", { path: '/' });
+Cookies.set("navegacion", "10004", { path: '/' });
 
 
 var resultadoJson, PeriodoTiempo, Obrero = {};

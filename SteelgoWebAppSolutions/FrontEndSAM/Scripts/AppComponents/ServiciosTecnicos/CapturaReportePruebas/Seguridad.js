@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "52", { path: '/' });
+Cookies.set("navegacion", "10023", { path: '/' });
 
 var $CapturaReportePruebasModel = {
     listContainer: {

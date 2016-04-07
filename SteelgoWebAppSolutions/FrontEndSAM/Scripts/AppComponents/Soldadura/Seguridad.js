@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "41", { path: '/' });
+Cookies.set("navegacion", "10012", { path: '/' });
 
 var $SoldaduraModel = {
     listContainer: {

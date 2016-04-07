@@ -1,5 +1,5 @@
 ﻿Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "59", { path: '/' });
+Cookies.set("navegacion", "10030", { path: '/' });
 
 var $CondicionClimatologica = {
     listContainer: {

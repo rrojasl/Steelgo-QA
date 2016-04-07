@@ -1,6 +1,6 @@
 ﻿
 Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "60", { path: '/' });
+Cookies.set("navegacion", "10031", { path: '/' });
 
 
 
