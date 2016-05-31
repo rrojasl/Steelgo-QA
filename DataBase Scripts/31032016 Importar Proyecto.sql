@@ -1,5 +1,11 @@
+------------------------------------------
+------------------------------------------
+------------------------------------------
 ---- CAMBIAR LOS VALORES INDICADOS CON ***
-
+------------------------------------------
+------------------------------------------
+------------------------------------------
+------------------------------------------
 USE [steelgo-sam3]
 BEGIN TRAN
 BEGIN TRY
@@ -19,7 +25,7 @@ DECLARE @sam2_ProyectoID int,
 
 --------------------------------------------------------------------------------------------------------
 --------------Inicializar variables
-SET @sam2_ProyectoID = 1 --*** INDICAR EL ID DEL PROYECTO QUE SE VA A IMPORTAR ***---
+SET @sam2_ProyectoID = 1 --*** INDICAR EL ID (SAM 2) DEL PROYECTO QUE SE VA A IMPORTAR ***---
 SET @requierePermisoAduana = 0 --*** INDICAR SI EL PROYECTO REQUIERE DE PERMISO DE ADUANA ***---
 SET @requiereTipoPackingList = 0 --*** INDICAR SI EL PROYECTO REQUIERE TIPO DE PACKING LIST ***---
 
