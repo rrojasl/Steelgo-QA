@@ -353,3 +353,9 @@ Exception Data: System.Collections.ListDictionaryInternal
 6/7/2016 6:27:50 PM - GUID devuelto: 
 6/7/2016 6:27:50 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
 6/7/2016 6:27:50 PM - Resultado de validar el token: {"UsuarioID":1,"NombreUsuario":"samAdmin","ContrasenaHash":"samadmin","PerfilID":1,"BloqueadoPorAdministracion":false,"Activo":true,"exp":1465343870}
+6/8/2016 11:51:17 AM - Source: JWTstack :   at JWT.JsonWebToken.Decode(String token, Byte[] key, Boolean verify)
+   at JWT.JsonWebToken.Decode(String token, String key, Boolean verify)
+   at SecurityManager.TokenHandler.ManageTokens.ValidateToken(String token, String& result, String& newToken) in c:\Users\daniela.zertuche\Documents\GitHub\SAM3.0\SteelgoWebApiSolutions\SecurityManager\TokenHandler\ManageTokens.cs:line 81
+6/8/2016 11:51:19 AM - Usuario:samAdmin, pass: samadmin
+6/8/2016 11:51:19 AM - GUID devuelto: 
+6/8/2016 11:51:19 AM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}

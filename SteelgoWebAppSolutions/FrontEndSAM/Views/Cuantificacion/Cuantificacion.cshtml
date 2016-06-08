@@ -1101,13 +1101,18 @@
                     confirmation: false
                 },
                 edit: function (e) {
-                   
+                    var columnName = e.container.find("input[name]").attr("name");
                     if (e.model.TipoMaterial == "2") {
                         var nombreColumna = e.container.find("input[name]").attr("name");
                         if (nombreColumna == "MM" || nombreColumna == "DimensionPromedio") {
                             this.closeCell();
                         }
                     };
+
+                    if (e.model.ItemCode == "Bulto" && (columnName == "Cantidad" || columnName == "MM" || columnName == "ItemCodeSteelgo" || columnName == "DimensionPromedio"))
+                    {
+                        this.closeCell();
+                    }
 
                     if ($("#Editar").css("display") == "block") {
                         this.closeCell();
@@ -3019,7 +3024,7 @@
         };
 
         function cargarItemCodeAutocomplete(cell, value) {
-            if (value != "Bulto") {
+            if (value != "0" && value != "Bulto") {
                 $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
                     if (itemCodesJson) {
