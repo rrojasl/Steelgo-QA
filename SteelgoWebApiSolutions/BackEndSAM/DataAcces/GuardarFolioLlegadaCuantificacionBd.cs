@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using BackEndSAM.Utilities;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.DataAcces
 {
@@ -273,12 +274,15 @@ namespace BackEndSAM.DataAcces
         /// <returns>Folio de cuantificacion creados, proyectos</returns>
         public object CreateGuardarFolio(DatosFolioLlegadaCuantificacion datosCuantificacion, Sam3_Usuario usuario)
         {
+            string errorInfo = string.Empty;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     using (var ctx_tran = ctx.Database.BeginTransaction())
                     {
+                        errorInfo += "\nFolioEntrada: " + serializer.Serialize(datosCuantificacion);
                         Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) 
                             ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                         bool activaConfigFolioLlegada = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
@@ -287,10 +291,16 @@ namespace BackEndSAM.DataAcces
                             .Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
 
                         int? consecutivofc = (from fc in ctx.Sam3_FolioCuantificacion
-                                            where fc.Activo
-                                            && fc.FolioAvisoEntradaID == avisoEntradaID
-                                            select fc.Consecutivo).Max();
+                                              where fc.Activo
+                                              && fc.FolioAvisoEntradaID == avisoEntradaID
+                                              select fc.Consecutivo).Max().HasValue ? (from fc in ctx.Sam3_FolioCuantificacion
+                                                                                       where fc.Activo
+                                                                                       && fc.FolioAvisoEntradaID == avisoEntradaID
+                                                                                       select fc.Consecutivo).Max().Value : 1;
 
+                        errorInfo += "\nActiva FolioConfiguracion: " + activarFolioConfiguracion.ToString() + "\nActivaFolioLlegada: " + activaConfigFolioLlegada.ToString() +
+                            "\nAvisoLlegadaID: " + avisoEntradaID.ToString() + "\nConsecutivo: " + consecutivofc.ToString();
+ 
                         if (consecutivofc == null)
                         {
                             consecutivofc = 1;
@@ -320,17 +330,22 @@ namespace BackEndSAM.DataAcces
                         ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
                         ctx.SaveChanges();
 
+                        errorInfo += "\nFolio cuantificacion creado";
                         //Guardar Orden de Compra y Factura
                         Sam3_FolioAvisoEntrada folioEntrada = (from ave in ctx.Sam3_FolioAvisoEntrada
                                                                where ave.Activo && ave.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId
                                                                select ave).AsParallel().SingleOrDefault();
+
+                        errorInfo += "\nFolioAvisoEntradaID: " + folioEntrada.FolioAvisoEntradaID.ToString();
+                        
+
                         folioEntrada.OrdenCompra = datosCuantificacion.OrdenDeCompra;
                         folioEntrada.Factura = datosCuantificacion.Factura;
                         folioEntrada.FechaModificacion = DateTime.Now;
                         folioEntrada.UsuarioModificacion = usuario.UsuarioID;
 
                         ctx.SaveChanges();
-
+                        errorInfo += "\nFolio Entrada actualizado";
 
                         #region Proyectos
 
@@ -370,6 +385,7 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevaRel);
                                 ctx.SaveChanges();
+                                errorInfo += "rel folio proyecto creado";
                             }
                             else
                             {
@@ -385,6 +401,7 @@ namespace BackEndSAM.DataAcces
 
                                     ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevaRel);
                                     ctx.SaveChanges();
+                                    errorInfo += "rel folio proyecto creado";
                                 }
                             }
 
@@ -404,6 +421,7 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevaRel);
                                 ctx.SaveChanges();
+                                errorInfo += "rel folio proyecto creado";
                             }
                         }
 
@@ -435,9 +453,17 @@ namespace BackEndSAM.DataAcces
                         Sam3_Rel_Proyecto_Entidad_Configuracion rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                             .Where(x => x.Activo == 1 && x.Proyecto == folioCuantificacion.ProyectoID).FirstOrDefault();
 
-                       
-                        
-                        int consecutivofoliopl = rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList;
+
+                        int consecutivofoliopl = 0;
+                        if (rel_proyecto_entidad_configuracion != null)
+                        {
+                            consecutivofoliopl = rel_proyecto_entidad_configuracion.ConsecutivoFolioPackingList;
+                        }
+                        else
+                        {
+                            consecutivofoliopl = 1;
+                        }
+
                         Sam3_FolioCuantificacion folioCuantificacionConsecutivo = ctx.Sam3_FolioCuantificacion
                             .Where(x => x.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID).FirstOrDefault();
                         folioCuantificacionConsecutivo.ConsecutivoConfiguracion = consecutivofoliopl;
@@ -507,6 +533,9 @@ namespace BackEndSAM.DataAcces
             {
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 LoggerBd.Instance.EscribirLog(ex);
+                LoggerBd.Instance.EscribirLog("\n" + ex.InnerException);
+                LoggerBd.Instance.EscribirLog("\n" + ex.StackTrace);
+                LoggerBd.Instance.EscribirLog(errorInfo);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
