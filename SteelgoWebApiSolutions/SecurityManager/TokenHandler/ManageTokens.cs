@@ -81,7 +81,7 @@ namespace SecurityManager.TokenHandler
                 result = JsonWebToken.Decode(token, ConfigurationManager.AppSettings["scrKey"]);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(result);
-                Logger.Instance.EscribirLog("Resultado de validar el token: " + result);
+                //Logger.Instance.EscribirLog("Resultado de validar el token: " + result);
                 newToken = CreateJwtToken(usuario);
                 return true;
             }
