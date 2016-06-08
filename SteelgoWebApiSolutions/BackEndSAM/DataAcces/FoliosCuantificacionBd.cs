@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using BackEndSAM.Utilities;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.DataAcces
 {
@@ -592,12 +593,17 @@ namespace BackEndSAM.DataAcces
 
         public object ListadoFoliosCuantificacionProProyecto(int proyectoID, Sam3_Usuario usuario)
         {
+            string errorInfo = string.Empty;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
             try
             {
                 Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ?
                     (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
 
+                errorInfo += "\nActiva confgi folio c: " + activarFolioConfiguracionCuantificacion.ToString();
+
                 bool activaConfigFolioLlegada = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
+                errorInfo += "\nActiva Config Folio Llegada: " + activaConfigFolioLlegada.ToString();
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -626,7 +632,9 @@ namespace BackEndSAM.DataAcces
 
                     listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
-                    if (listado.Count() <= 0)
+                    errorInfo += "\nListado : " + serializer.Serialize(listado);
+
+                    if (listado.Count() <= 0 || listado == null)
                     {
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Sin Datos que mostrar");
@@ -640,35 +648,65 @@ namespace BackEndSAM.DataAcces
                     foreach (ListaCombos item in listado)
                     {
                         int foliocuantificacionid = Convert.ToInt32(item.id);
+
                         Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == foliocuantificacionid).FirstOrDefault();
+
                         Sam3_FolioAvisoLlegada folioLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada
                                                                join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
                                                                join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                                                where fa.Activo && fe.Activo && fc.Activo
                                                                && fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
-                                                               select fa).AsParallel().FirstOrDefault();
+                                                               select fa).AsParallel().SingleOrDefault();
 
-                        string NombreFolioAvisoLlegada = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                     where pc.Proyecto == folioLlegada.ProyectoNombrado
-                                                     && pc.Entidad == folioLlegada.Entidad
-                                                     select pc.PreFijoFolioAvisoLlegada + ","
-                                                     + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                                     + folioLlegada.Consecutivo + ","
-                                                     + pc.PostFijoFolioAvisoLlegada.Trim()).FirstOrDefault();
+                        errorInfo += "\nFolioCuantiFicacionID :" + foliocuantificacionid.ToString();
+                        errorInfo += "\nFolio Cuantificacion objeto: " + folioCuantificacion.FolioCuantificacionID.ToString();
+                        errorInfo += "\nFolio Llegada : " + folioLlegada != null ? "true, Folio : " + folioLlegada.FolioAvisoLlegadaID.ToString() : "false";
 
-                        string NombreFolioCuantificacion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                            where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
-                                                            select pc.PreFijoFolioPackingList + ","
-                                                            + pc.CantidadCerosFolioPackingList.ToString() + ","
-                                                            + folioCuantificacion.ConsecutivoConfiguracion.ToString() + ","
-                                                            + pc.PostFijoFolioPackingList).FirstOrDefault();
+                        string NombreFolioAvisoLlegada = string.Empty;
+
+                        if (folioLlegada != null)
+                        {
+                            NombreFolioAvisoLlegada = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                       where pc.Proyecto == folioLlegada.ProyectoNombrado
+                                                       && pc.Entidad == folioLlegada.Entidad
+                                                       select pc.PreFijoFolioAvisoLlegada + ","
+                                                       + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                       + folioLlegada.Consecutivo + ","
+                                                       + pc.PostFijoFolioAvisoLlegada.Trim()).FirstOrDefault();
+                        }
+
+                        errorInfo += "\nNombre llegada: " + NombreFolioAvisoLlegada;
+
+                        string NombreFolioCuantificacion = string.Empty;
+                        if (folioCuantificacion != null)
+                        {
+                            NombreFolioCuantificacion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                where pc.Rel_Proyecto_Entidad_Configuracion_ID == folioCuantificacion.Rel_Proyecto_Entidad_Configuracion_ID
+                                                                select pc.PreFijoFolioPackingList + ","
+                                                                + pc.CantidadCerosFolioPackingList.ToString() + ","
+                                                                + folioCuantificacion.ConsecutivoConfiguracion.ToString() + ","
+                                                                + pc.PostFijoFolioPackingList).FirstOrDefault();
+                        }
+
+                        errorInfo += "\nNombre cuantificacion : " + NombreFolioCuantificacion;
 
                         int FolioAvisoLlegadaID = folioLlegada.FolioAvisoLlegadaID;
                         int ConsecutivoFolioCuanificacion = folioCuantificacion.Consecutivo.Value;
                         int ConsecutivoFolioLlegada = folioLlegada.Consecutivo.Value;
 
-                        NombreFolioAvisoLlegada = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioAvisoLlegada);
-                        NombreFolioCuantificacion = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioCuantificacion);
+                        errorInfo += "\nFolioAvisoLlegadaID : " + FolioAvisoLlegadaID.ToString();
+                        errorInfo += "\nConsecutivoCuantificacion :" + ConsecutivoFolioCuanificacion.ToString();
+                        errorInfo += "\nConsecutivo llegada: " + ConsecutivoFolioLlegada.ToString();
+
+                        if (NombreFolioAvisoLlegada.Length > 0)
+                        {
+                            NombreFolioAvisoLlegada = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioAvisoLlegada);
+                        }
+
+                        if (NombreFolioCuantificacion.Length > 0)
+                        {
+                            NombreFolioCuantificacion = Conversiones.Instance.FormatearCadenasdeElementos(NombreFolioCuantificacion);
+                        }
 
                         if (activaConfigFolioLlegada && activarFolioConfiguracionCuantificacion)
                         {
@@ -699,6 +737,7 @@ namespace BackEndSAM.DataAcces
             {
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 LoggerBd.Instance.EscribirLog(ex);
+                LoggerBd.Instance.EscribirLog(errorInfo);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);

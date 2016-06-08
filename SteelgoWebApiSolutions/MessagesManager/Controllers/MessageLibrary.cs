@@ -103,6 +103,8 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
+
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -208,6 +210,7 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -244,6 +247,7 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -276,6 +280,7 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -336,6 +341,7 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

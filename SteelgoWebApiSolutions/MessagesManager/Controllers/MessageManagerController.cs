@@ -175,30 +175,47 @@ namespace MessagesManager.Controllers
         /// <returns>estatus</returns>
         public bool NotificacionesAUsuarios(int tipoNotificacion, string mensaje, Sam3_Usuario usuario)
         {
+            string errorInfo = string.Empty;
             Notificacion datosNotificacion = new Notificacion();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
             string message = "";
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<UsuarioNotificacion> usuarios = ctx.Sam3_UsuariosNotificaciones
-                        .Join(ctx.Sam3_Usuario, un => un.UsuarioID, u => u.UsuarioID, (un, u) => new
-                        {
-                            un.TipoNotificacionID,
-                            un.UsuarioID,
-                            u.NombreUsuario,
-                            un.Email,
-                            un.Plantilla
-                        })
-                        .Where(x => x.TipoNotificacionID == tipoNotificacion)
-                        .Select(s => new UsuarioNotificacion
-                        {
-                            TipoNotificacionID = s.TipoNotificacionID,
-                            UsuarioID = s.UsuarioID,
-                            NombreUsuario = s.NombreUsuario,
-                            Email = s.Email,
-                            Plantilla = s.Plantilla
-                        }).AsParallel().ToList();
+                    List<UsuarioNotificacion> usuarios = new List<UsuarioNotificacion>();
+                    //List<UsuarioNotificacion> usuarios = ctx.Sam3_UsuariosNotificaciones
+                    //    .Join(ctx.Sam3_Usuario, un => un.UsuarioID, u => u.UsuarioID, (un, u) => new
+                    //    {
+                    //        un.TipoNotificacionID,
+                    //        un.UsuarioID,
+                    //        u.NombreUsuario,
+                    //        un.Email,
+                    //        un.Plantilla
+                    //    })
+                    //    .Where(x => x.TipoNotificacionID == tipoNotificacion)
+                    //    .Select(s => new UsuarioNotificacion
+                    //    {
+                    //        TipoNotificacionID = s.TipoNotificacionID,
+                    //        UsuarioID = s.UsuarioID,
+                    //        NombreUsuario = s.NombreUsuario,
+                    //        Email = s.Email,
+                    //        Plantilla = s.Plantilla
+                    //    }).AsParallel().ToList();
+
+                    usuarios = (from us in ctx.Sam3_Usuario
+                               join usn in ctx.Sam3_UsuariosNotificaciones on us.UsuarioID equals usn.UsuarioID
+                               where usn.TipoNotificacionID == tipoNotificacion
+                               select new UsuarioNotificacion
+                               {
+                                   TipoNotificacionID = usn.TipoNotificacionID,
+                                   Email = usn.Email,
+                                   NombreUsuario = (us.Nombre + " " + us.ApellidoPaterno + " " + us.ApellidoMaterno),
+                                   UsuarioID = us.UsuarioID,
+                                   Plantilla = usn.Plantilla
+                               }).ToList();
+
+                    errorInfo += "\nUsuarios : " + serializer.Serialize(usuarios);
 
                     foreach (var item in usuarios)
                     {
@@ -273,6 +290,7 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
                 return false;
             }
         }
@@ -299,6 +317,7 @@ namespace MessagesManager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Instance.EscribirLog(ex);
                 return false;
             }
         }
