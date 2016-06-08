@@ -624,9 +624,11 @@
 
 
                         $("#listaArchivos tbody").empty();
-                        $.each(data.Documentos, function (index, value) {
-                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + (value.Descripcion ? value.Descripcion : "") + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                        });
+                        if(data.Documentos!==undefined &&data.Documentos!==null && data.Documentos.length>0){
+                            $.each(data.Documentos, function (index, value) {
+                                $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + (value.Descripcion ? value.Descripcion : "") + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                            });
+                        }
 
                         $(".k-upload-files").remove();
                         $(".k-upload-status").remove();
