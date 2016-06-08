@@ -420,7 +420,8 @@
         LimpiarCombo("ItemCode");
         LimpiarCombo("FolioCuantificacionID");
         LimpiarCombo("NumeroUnico");
-        $("#grid").data("kendoGrid").dataSource.data([]);
+        if ($("#grid").data("kendoGrid"))
+            $("#grid").data("kendoGrid").dataSource.data([]);
     };
 
     function LimpiarCombo(control) {
