@@ -1571,24 +1571,26 @@
         };
 
         function changeValueColumnTipoUso(value) {
-            var filters = $("#grid").data("kendoGrid").dataSource.filter();
-            var allData = $("#grid").data("kendoGrid").dataSource.data();
-            var query = new kendo.data.Query(allData);
-            var result = query.filter(filters).data;
-            var datasource = result;
+            if ($("#grid").data("kendoGrid")){
+                var filters = $("#grid").data("kendoGrid").dataSource.filter();
+                var allData = $("#grid").data("kendoGrid").dataSource.data();
+                var query = new kendo.data.Query(allData);
+                var result = query.filter(filters).data;
+                var datasource = result;
 
-            $(datasource).each(function () {
-                //if (this.get("TieneComplementoRecepcion") != "Si") {
-                if ($('input:checked').val() == "2") {
-                    if (!this.get("TipoUso")) {
+                $(datasource).each(function () {
+                    //if (this.get("TieneComplementoRecepcion") != "Si") {
+                    if ($('input:checked').val() == "2") {
+                        if (!this.get("TipoUso")) {
+                            this.set("TipoUso", value);
+                        }
+                    } else {
                         this.set("TipoUso", value);
                     }
-                } else {
-                    this.set("TipoUso", value);
-                }
-                //};
-            });
-            $("#TipoUso").data("kendoComboBox").text("")
+                    //};
+                });
+                $("#TipoUso").data("kendoComboBox").text("");
+            }
         };
 
 
@@ -1624,7 +1626,10 @@
         function limpiarfiltrosProyecto() {
             $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data([]);
             $("#FolioCuantificacionID").data("kendoComboBox").value("");
-            $("#grid").data("kendoGrid").dataSource.data([]);
+            if ($("#grid").data("kendoGrid"))
+            { 
+                $("#grid").data("kendoGrid").dataSource.data([]);
+            }
             _folioCuantificacion = "-1";
             Cuantificacion = {};
             limpiarTituloFolio();
