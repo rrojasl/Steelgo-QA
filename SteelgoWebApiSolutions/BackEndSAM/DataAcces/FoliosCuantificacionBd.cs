@@ -626,6 +626,17 @@ namespace BackEndSAM.DataAcces
 
                     listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
+                    if (listado.Count() <= 0)
+                    {
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("Sin Datos que mostrar");
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
+
+                        return result;
+                    }
+
                     foreach (ListaCombos item in listado)
                     {
                         int foliocuantificacionid = Convert.ToInt32(item.id);
