@@ -345,7 +345,9 @@
         LimpiarCombo("FolioAvisoEntradaID");
         ItemCode = {};
         FolioAvisoEntrada = {};
-        $("#grid").data("kendoGrid").dataSource.data([]);
+        if($("#grid").data("kendoGrid")!==undefined){
+            $("#grid").data("kendoGrid").dataSource.data([]);
+        }
     };
 
     function LimpiarCombo(control) {
