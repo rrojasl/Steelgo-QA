@@ -564,18 +564,21 @@
         })
         csvMimeType += encabezados.join(",") + "\n";
         try {
-            datos.forEach(function (modelo) {
-                var doctmp = [];
-                encabezados.forEach(function (e) {
-                    doctmp.push(modelo[e]);
+            if (datos.length > 0) {
+                datos.forEach(function (modelo) {
+                    var doctmp = [];
+                    encabezados.forEach(function (e) {
+                        doctmp.push(modelo[e]);
+                    })
+                    csvMimeType += doctmp.join(",") + "\n";
+                    throw 1;
                 })
-                csvMimeType += doctmp.join(",") + "\n";
+            } else {
                 throw 1;
-            })
+            }
         } catch (e) {
             if (e === 1) return csvMimeType;
         }
-
     }
 
     function parseWord(n) {
