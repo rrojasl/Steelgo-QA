@@ -421,8 +421,10 @@
         $("#NumeroUnico").data("kendoComboBox").dataSource.data([]);
         $("#ItemCode").data("kendoComboBox").dataSource.data([]);
         $("#OrdenAlmacenaje").data("kendoComboBox").dataSource.data([]);
-        $("#grid").data("kendoGrid").dataSource.data([]);
-        $("#grid").data("kendoGrid").dataSource.page(0);
+        if ($("#grid").data("kendoGrid")){
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            $("#grid").data("kendoGrid").dataSource.page(0);
+        }
     };
 
     function LimpiarCamposOrdenAlmacenaje() {
@@ -435,8 +437,10 @@
         $("#Rack").val("");
         $("#NumeroUnico").data("kendoComboBox").dataSource.data([]);
         $("#ItemCode").data("kendoComboBox").dataSource.data([]);
-        $("#grid").data("kendoGrid").dataSource.data([]);
-        $("#grid").data("kendoGrid").dataSource.page(0);
+        if ($("#grid").data("kendoGrid")) {
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            $("#grid").data("kendoGrid").dataSource.page(0);
+        }
     };
 
     function LimpiarCamposItemCode() {
