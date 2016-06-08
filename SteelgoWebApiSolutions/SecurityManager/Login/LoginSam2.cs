@@ -142,7 +142,7 @@ namespace SecurityManager.Login
                 Logger.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
+                result.ReturnMessage.Add(ex.Message + "Stack: "  + ex.StackTrace + "----" + ex.InnerException );
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;

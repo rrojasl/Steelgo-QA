@@ -10,6 +10,7 @@ using System.Configuration;
 using DatabaseManager.Sam3;
 using System.Web.Script.Serialization;
 using SecurityManager.Login;
+using SecurityManager.Api.Models;
 
 namespace SecurityManager.TokenHandler
 {
@@ -46,10 +47,12 @@ namespace SecurityManager.TokenHandler
 
         public string CreateJwtToken(Sam3_Usuario usuario)
         {
-            DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            double now = Math.Round((DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds);
+            try
+            {
+                DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                double now = Math.Round((DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds);
 
-            Dictionary<string, object> payload = new Dictionary<string, object>()
+                Dictionary<string, object> payload = new Dictionary<string, object>()
             {
                 { "UsuarioID", usuario.UsuarioID},
                 { "NombreUsuario", usuario.NombreUsuario },
@@ -60,8 +63,15 @@ namespace SecurityManager.TokenHandler
                 { "exp", now}
             };
 
-            string token = JWT.JsonWebToken.Encode(payload, ConfigurationManager.AppSettings["scrKey"], JWT.JwtHashAlgorithm.HS256);
-            return token;
+                string token = JWT.JsonWebToken.Encode(payload, ConfigurationManager.AppSettings["scrKey"], JWT.JwtHashAlgorithm.HS256);
+                return token;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                Logger.Instance.EscribirLog(ex.Message + "Stack: " + ex.StackTrace + "----" + ex.InnerException);
+                return ex.Message + "Stack: " + ex.StackTrace + "----" + ex.InnerException;
+            }
         }
 
         public bool ValidateToken(string token, out string result, out string newToken)
@@ -71,19 +81,23 @@ namespace SecurityManager.TokenHandler
                 result = JsonWebToken.Decode(token, ConfigurationManager.AppSettings["scrKey"]);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(result);
-                Logger.Instance.EscribirLog("Resultado de validar el token: " + result);
+                //Logger.Instance.EscribirLog("Resultado de validar el token: " + result);
                 newToken = CreateJwtToken(usuario);
                 return true;
             }
             catch (JWT.SignatureVerificationException ex)
             {
-                result = ex.Message;
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                Logger.Instance.EscribirLog(ex.InnerException + "Source: " + ex.Source + "stack :" + ex.StackTrace);
+
+                result = ex.InnerException + "Source: " + ex.Source + "stack :" + ex.StackTrace;
                 newToken = "";
                 return false;
             }
             catch (Exception ex)
             {
-                result = ex.Message;
+                Logger.Instance.EscribirLog(ex.InnerException + "Source: " + ex.Source + "stack :" + ex.StackTrace);
+                result = ex.InnerException + "Source: " + ex.Source + "stack :" + ex.StackTrace;
                 newToken = "";
                 return false;
             }
