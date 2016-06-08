@@ -1399,6 +1399,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="ManejaReserva" Type="bit" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="DigitosOrdeAlmacenaje" Type="int" Nullable="false" />
+          <Property Name="DigitosFolioDescarga" Type="int" Nullable="false" />
+          <Property Name="DigitosFolioAvisollegada" Type="int" Nullable="false" />
+          <Property Name="GigitosFolioPaseSalida" Type="int" Nullable="false" />
+          <Property Name="DigitosFolioOrdenRecepcion" Type="int" Nullable="false" />
+          <Property Name="DigitosFolioCuantifiacion" Type="int" Nullable="false" />
+          <Property Name="DigitosFolioOrdenAlmacenaje" Type="int" Nullable="false" />
+          <Property Name="DigitosFolioPermisoAduana" Type="int" Nullable="false" />
           <Property Name="TipoUsoID" Type="int" Nullable="false" />
           <Property Name="RequiereTipoPackingList" Type="bit" Nullable="false" />
         </EntityType>
@@ -2323,6 +2331,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Plantilla" Type="varchar" MaxLength="250" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Vehiculo">
           <Key>
@@ -10053,6 +10062,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_TipoNotificacion" Relationship="ModelSam3.FK__Sam3_Usua__TipoN__5887175A" FromRole="Sam3_UsuariosNotificaciones" ToRole="Sam3_TipoNotificacion" />
           <NavigationProperty Name="Sam3_Usuario" Relationship="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" FromRole="Sam3_UsuariosNotificaciones" ToRole="Sam3_Usuario" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK__Sam3_Usua__TipoN__5887175A">
           <End Type="ModelSam3.Sam3_TipoNotificacion" Role="Sam3_TipoNotificacion" Multiplicity="0..1" />
@@ -10402,6 +10412,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="TipoUsoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_ProyectoConfiguracion" ToRole="Sam3_TipoUso" />
           <Property Name="RequiereTipoPackingList" Type="Boolean" Nullable="false" />
+          <Property Name="DigitosOrdeAlmacenaje" Type="Int32" Nullable="false" />
+          <Property Name="DigitosFolioDescarga" Type="Int32" Nullable="false" />
+          <Property Name="DigitosFolioAvisollegada" Type="Int32" Nullable="false" />
+          <Property Name="GigitosFolioPaseSalida" Type="Int32" Nullable="false" />
+          <Property Name="DigitosFolioOrdenRecepcion" Type="Int32" Nullable="false" />
+          <Property Name="DigitosFolioCuantifiacion" Type="Int32" Nullable="false" />
+          <Property Name="DigitosFolioOrdenAlmacenaje" Type="Int32" Nullable="false" />
+          <Property Name="DigitosFolioPermisoAduana" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Sam3_NumeroUnico_Sam3_NumeroUnico">
           <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
@@ -13954,6 +13972,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_UsuariosNotificaciones">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_UsuariosNotificaciones">
               <MappingFragment StoreEntitySet="Sam3_UsuariosNotificaciones">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="Plantilla" ColumnName="Plantilla" />
@@ -14119,6 +14138,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_ProyectoConfiguracion">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_ProyectoConfiguracion">
               <MappingFragment StoreEntitySet="Sam3_ProyectoConfiguracion">
+                <ScalarProperty Name="DigitosFolioPermisoAduana" ColumnName="DigitosFolioPermisoAduana" />
+                <ScalarProperty Name="DigitosFolioOrdenAlmacenaje" ColumnName="DigitosFolioOrdenAlmacenaje" />
+                <ScalarProperty Name="DigitosFolioCuantifiacion" ColumnName="DigitosFolioCuantifiacion" />
+                <ScalarProperty Name="DigitosFolioOrdenRecepcion" ColumnName="DigitosFolioOrdenRecepcion" />
+                <ScalarProperty Name="GigitosFolioPaseSalida" ColumnName="GigitosFolioPaseSalida" />
+                <ScalarProperty Name="DigitosFolioAvisollegada" ColumnName="DigitosFolioAvisollegada" />
+                <ScalarProperty Name="DigitosFolioDescarga" ColumnName="DigitosFolioDescarga" />
+                <ScalarProperty Name="DigitosOrdeAlmacenaje" ColumnName="DigitosOrdeAlmacenaje" />
                 <ScalarProperty Name="RequiereTipoPackingList" ColumnName="RequiereTipoPackingList" />
                 <ScalarProperty Name="TipoUsoID" ColumnName="TipoUsoID" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />

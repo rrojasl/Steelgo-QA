@@ -21,6 +21,7 @@ namespace DatabaseManager.Sam3
         public string Plantilla { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public bool Activo { get; set; }
     
         public virtual Sam3_TipoNotificacion Sam3_TipoNotificacion { get; set; }
         public virtual Sam3_Usuario Sam3_Usuario { get; set; }

@@ -205,7 +205,7 @@ namespace MessagesManager.Controllers
 
                     usuarios = (from us in ctx.Sam3_Usuario
                                join usn in ctx.Sam3_UsuariosNotificaciones on us.UsuarioID equals usn.UsuarioID
-                               where usn.TipoNotificacionID == tipoNotificacion
+                               where usn.TipoNotificacionID == tipoNotificacion && usn.Activo
                                select new UsuarioNotificacion
                                {
                                    TipoNotificacionID = usn.TipoNotificacionID,
