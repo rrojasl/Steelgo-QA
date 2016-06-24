@@ -112,10 +112,26 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ReportExecutionServiceSoap" contract="Sam3Reportes.ReportExecutionServiceSoap" bindingType="basicHttpBinding" address="http://mtysqldev-v01:8082/Reports_Sam3/ReportExecution2005.asmx" bindingConfiguration="ReportExecutionServiceSoap">
+    <!--<endpoint name="ReportExecutionServiceSoap" 
+              contract="Sam3Reportes.ReportExecutionServiceSoap" 
+              bindingType="basicHttpBinding" 
+              address="http://mtysqldev-v01:8082/Reports_Sam3/ReportExecution2005.asmx" 
+              bindingConfiguration="ReportExecutionServiceSoap">-->
+      <endpoint name="ReportExecutionServiceSoap"
+              contract="Sam3Reportes.ReportExecutionServiceSoap"
+              bindingType="basicHttpBinding"
+              address="http://steelgo-db07:80/ReportServer_SAM3/ReportExecution2005.asmx"
+              bindingConfiguration="ReportExecutionServiceSoap">
       <properties>
-        <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+        <!--<property path="/address" isComplexType="false" 
+                  isExplicitlyDefined="true" 
+                  clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://mtysqldev-v01:8082/Reports_Sam3/ReportExecution2005.asmx</serializedValue>
+        </property>-->
+        <property path="/address" isComplexType="false"
+                  isExplicitlyDefined="true"
+                  clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>http://steelgo-db07:80/ReportServer_SAM3/ReportExecution2005.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

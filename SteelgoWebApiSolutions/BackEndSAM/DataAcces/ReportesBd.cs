@@ -165,9 +165,9 @@ namespace BackEndSAM.DataAcces
                 parametros[0].Name = "FolioAvisoLlegadaID";
                 parametros[0].Value = FolioAvisoLlegadaID.ToString();
 
-                parametros[1] = new ParameterValue();
-                parametros[1].Name = "cadena";
-                parametros[1].Value = cadena;
+                //parametros[1] = new ParameterValue();
+                //parametros[1].Name = "cadena";
+                //parametros[1].Value = cadena;
 
                 ExecutionInfo infoEjecucion = new ExecutionInfo();
                 TrustedUserHeader encabezadoSeguro = null;

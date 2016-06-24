@@ -656,10 +656,14 @@
                     var dataItem = this.dataItem();
                     dataItem!==undefined ? CargarTipoUso(dataItem.id, dataItem.Nombre):CargarTipoUso("", "");
                     var value = this.value();
-                    if (!value || this.selectedIndex == -1) {
-                        messageindexKendoCombobox(this);
+                    if (!value || this.selectedIndex == 0) {
+                        //messageindexKendoCombobox(this);
                         TipoUso = {};
                         this.value("");
+                        $("#TipoUsoID").data("kendoComboBox").value("");
+                        $("#TipoUsoID").data("kendoComboBox").dataSource.data([]);
+                        VentanaModal(4);
+                        e.preventDefault();
                     };
                 },
                 filter: "contains",
@@ -1524,7 +1528,7 @@
         };
 
         function ObtenerTipoUso() {
-            $TipoUso.TipoUso.read({ agregarOpcion: 0, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+            $TipoUso.TipoUso.read({ agregarOpcion: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("TipoUsoID", result);
             });
         };

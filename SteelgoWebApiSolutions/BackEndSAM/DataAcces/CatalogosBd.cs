@@ -2633,6 +2633,17 @@ namespace BackEndSAM.DataAcces
 
                     errorInfo += "\nLista : " + serializer.Serialize(lista);
 
+                    if (lista.Count <= 0 || lista == null)
+                    {
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("No se encontraron coincidencias.");
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
+
+                        return result;
+                    }
+
                     if (String.IsNullOrEmpty(datosCedulas.CedulaA))
                     {
                         if (String.IsNullOrEmpty(datosCedulas.CedulaB))
@@ -2709,7 +2720,7 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(errorInfo);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
+                result.ReturnMessage.Add("Error en la búsqueda de cédulas.");
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;

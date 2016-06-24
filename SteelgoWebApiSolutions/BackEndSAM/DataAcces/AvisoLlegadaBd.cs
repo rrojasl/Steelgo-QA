@@ -939,20 +939,36 @@ namespace BackEndSAM.DataAcces
                             //    }
                             //}
 
-                            foreach (ProyectosAV proyecto in cambios.Proyectos)
-                            {
-                                //verificamos si existe el registro
-                                if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
-                                    && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any())
-                                {
-                                    Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
-                                    nuevoProyecto.Activo = true;
-                                    nuevoProyecto.FechaModificacion = DateTime.Now;
-                                    nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
-                                    nuevoProyecto.ProyectoID = proyecto.ProyectoID;
-                                    nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
+                            List<Sam3_Rel_FolioAvisoLlegada_Proyecto> lstProyectos = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                    .Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).ToList();
 
-                                    ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                            if (lstProyectos.Count != cambios.Proyectos.Count)
+                            {
+                                List<Sam3_Rel_FolioAvisoLlegada_Proyecto> eliminados = lstProyectos.Where(x => !cambios.Proyectos.Select(y => y.ProyectoID).Contains(x.ProyectoID)).ToList();
+
+                                foreach (Sam3_Rel_FolioAvisoLlegada_Proyecto item in eliminados)
+                                {
+                                    item.Activo = false;
+                                    ctx.SaveChanges();
+                                }
+                                //ctx.SaveChanges();
+
+                                foreach (ProyectosAV proyecto in cambios.Proyectos)
+                                {
+                                    //verificamos si existe el registro
+                                    if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
+                                        && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID
+                                        && x.Activo).Any())
+                                    {
+                                        Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                        nuevoProyecto.Activo = true;
+                                        nuevoProyecto.FechaModificacion = DateTime.Now;
+                                        nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
+                                        nuevoProyecto.ProyectoID = proyecto.ProyectoID;
+                                        nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                                    }
                                 }
                             }
 
