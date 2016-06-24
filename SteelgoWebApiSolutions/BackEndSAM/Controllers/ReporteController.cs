@@ -38,6 +38,10 @@ namespace BackEndSAM.Controllers
                         return ReportesBd.Instance.ReporteFormatoIncidencias(consulta.FolioAvisoLlegadaID, consulta.Cadena, usuario);
                     case 3: //Pase Salida transportista
                         return ReportesBd.Instance.ReportePaseSalidaTransportista(consulta.FolioAvisoLlegadaID, usuario);
+                    case 4:
+                        return ReportesBd.Instance.ReporteOrdenRecepcion(consulta.FolioOrdenRecepcion, usuario);
+                    case 5:
+                        return ReportesBd.Instance.ReporteOrdenAlmacenaje(consulta.FolioOrdenAlmacenaje, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Tipo de reporte no encontrado");

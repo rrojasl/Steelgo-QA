@@ -10,6 +10,7 @@ namespace BackEndSAM.Models
         public int TipoReporte { get; set; }
         public int FolioOrdenRecepcion { get; set; }
         public int FolioAvisoLlegadaID { get; set; }
+        public int FolioOrdenAlmacenaje { get; set; }
         public string Cadena { get; set; }
     }
 }

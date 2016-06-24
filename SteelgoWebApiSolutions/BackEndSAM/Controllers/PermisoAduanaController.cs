@@ -32,9 +32,6 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-            
-            
-           
                 TransactionalInformation resultObtener = PermisoAduanaBd.Instance.ObtenerDatosAvisoLlegada(folio);
                 if (resultObtener.ReturnCode == 200)
                 {

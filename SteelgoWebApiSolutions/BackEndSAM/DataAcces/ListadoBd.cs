@@ -686,13 +686,13 @@ namespace BackEndSAM.DataAcces
                                                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                                                              + fa.Consecutivo.ToString() + ","
                                                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString(),
-                                                                 NombreFolioCuantificacion = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                 NombreFolioCuantificacion = activaConfiguracionPackinglist ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                                               where pc.Rel_Proyecto_Entidad_Configuracion_ID == fc.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                               && pc.Activo == 1
                                                                                               select pc.PreFijoFolioPackingList + ","
                                                                                               + pc.CantidadCerosFolioPackingList.ToString() + ","
                                                                                               + fc.Consecutivo.ToString() + ","
-                                                                                              + pc.PostFijoFolioPackingList).FirstOrDefault() 
+                                                                                              + pc.PostFijoFolioPackingList).FirstOrDefault() : fc.FolioCuantificacionID.ToString()
                                                              }).Distinct().AsParallel().ToList();
 
                     listado = listado.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
