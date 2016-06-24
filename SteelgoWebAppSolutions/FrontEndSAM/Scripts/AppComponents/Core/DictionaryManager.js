@@ -3097,6 +3097,10 @@ _dictionary = {
         "es-MX": "Levantar Incidencia",
         "en-US": "Fill Incidence"
     },
+    "ListadoOrdenRecepcion0031": {
+        "es-MX": "Imprimir Orden",
+        "en-US": "Print Order"
+    },
 //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
         "es-MX": "Cancelar",
