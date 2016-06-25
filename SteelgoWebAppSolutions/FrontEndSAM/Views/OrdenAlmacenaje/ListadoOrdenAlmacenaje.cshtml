@@ -625,13 +625,51 @@
         Listado.token = Cookies.get("token");
         return Listado;
     };
-
+    function ArregloPDF(tipo,id) {
+        return { 
+            TipoReporte: tipo, 
+            FolioOrdenRecepcion: "",
+            FolioOrdenAlmacenaje: id,
+            Cadena:""
+        };
+    }
     function ImprimirOrden(e) {
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var OrdenRecepcion = dataItem.OrdenAlmacenaje;
-        window.open("http://www.asp.net");
+        var OrdenAlmacenaje = dataItem.OrdenAlmacenaje;
+        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(1,OrdenAlmacenaje));
     };
+    function ImprimirEtiquetas(e) {
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var ordenRecepcionID = dataItem.OrdenRecepcion
+        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(1,ordenRecepcionID));
+    };
+
+    function downloadPDF(url, pdf) {
+        var req = new XMLHttpRequest();
+        req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
+        req.responseType = "blob";
+        var name="";
+        switch(pdf.TipoReporte){
+            case 1:
+                name="Etiquetas";
+                break;
+            case 4:
+                name="OrdenRecepcion";
+                break;
+        }
+        req.onload = function (event) {
+            var blob = req.response;
+            console.log(blob.size);
+            var link=document.createElement('a');
+            link.href=window.URL.createObjectURL(blob);
+            link.download=name + new Date().getTime() + ".pdf";
+            link.click();
+        };
+        req.send();
+        displayMessage("notificationslabel0100", "", "2")
+    }
 
     function CancelarOrden(e) {
         e.preventDefault();
