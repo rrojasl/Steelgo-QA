@@ -285,8 +285,8 @@
             columns: [
                 { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}", },
                 { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenRecepcionID#)'>#:OrdenRecepcion#</a>" },
-                { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "99px" },
-                { command: { text: _dictionary.ListadoOrdenRecepcion0029[$("#language").data("kendoDropDownList").value()], click: ImprimirEtiquetas }, title: " ", width: "99px" },
+                { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenRecepcion0031[$("#language").data("kendoDropDownList").value()], width: "120px"},
+                { command: { text: _dictionary.ListadoOrdenRecepcion0029[$("#language").data("kendoDropDownList").value()], click: ImprimirEtiquetas }, title: _dictionary.ListadoOrdenRecepcion0029[$("#language").data("kendoDropDownList").value()], width: "120px" },
                 { field: "OrdenRecepcionID", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], hidden: true}
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" }
             ],
@@ -367,32 +367,47 @@
         };
     };
 
-    function ArregloPDF(id) {
-        var PDF = { TipoReporte: 1, FolioOrdenRecepcion: id};
-        return PDF;
+    function ArregloPDF(tipo,id) {
+        return { 
+            TipoReporte: tipo, 
+            FolioOrdenRecepcion: id,
+            FolioOrdenAlmacenaje: "",
+            Cadena:""
+        };
     }
 
     function ImprimirEtiquetas(e) {
-        //alert("Esta pendiente ImprimirEtiquetas, se realizara por reporting services");
-        //return;
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var ordenRecepcionID = dataItem.OrdenRecepcion
-
-        var pdf = ArregloPDF(ordenRecepcionID);
-        downloadPDF($Reporte.Reporte.urlNoId, pdf);
-        
-
-        //window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(1,ordenRecepcionID));
     };
 
     function downloadPDF(url, pdf) {
-        var link = document.createElement("a");
-        link.href = url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token");
-        link.target = "_blank";
+        var req = new XMLHttpRequest();
+        req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
+        req.responseType = "blob";
+        var name="";
+        switch(pdf.TipoReporte){
+            case 1:
+                name="Etiquetas";
+                break;
+            case 4:
+                name="OrdenRecepcion";
+                break;
+        }
+        req.onload = function (event) {
+            var blob = req.response;
+            console.log(blob.size);
+            var link=document.createElement('a');
+            link.href=window.URL.createObjectURL(blob);
+            link.download=name + new Date().getTime() + ".pdf";
+            link.click();
+        };
+        req.send();
         displayMessage("notificationslabel0100", "", "2")
-        link.dispatchEvent(new Event("click"));
     }
+
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
@@ -637,12 +652,10 @@
     };
 
     function ImprimirOrden() {
-        //e.preventDefault();
-        //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        //var OrdenRecepcion = dataItem.OrdenRecepcion;
-        //window.open("http://www.asp.net");
-        alert("Esta pendiente ImprimirOrden, se realizara por reporting services");
-        return;
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var ordenRecepcionID = dataItem.OrdenRecepcion
+        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(4,ordenRecepcionID));
     };
 
     function obtenerFormatoFecha(d) {

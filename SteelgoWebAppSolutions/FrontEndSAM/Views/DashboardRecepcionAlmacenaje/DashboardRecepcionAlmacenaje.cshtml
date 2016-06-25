@@ -1099,7 +1099,7 @@
             var columnas =
            [
                { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "Descripcion"} }, format: "{0:dd/MM/yyyy}", /*filterable: true*/ },
-               { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='MostrarNUPorRecepcionar()'>#:OrdenRecepcion#</a>"/*filterable: true*/ },
+               { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='MostrarNUPorRecepcionar(this)'>#:OrdenRecepcion#</a>"/*filterable: true*/ },
                //{ field: "Folio", title: _dictionary.DashboardRecepcionAlmacenaje0052[$("#language").data("kendoDropDownList").value()], /*filterable: true*/},
                { field: "CantidadNUEnOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0042[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadNUSinComplemento", title: _dictionary.DashboardRecepcionAlmacenaje0043[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
@@ -1111,8 +1111,9 @@
 
         };
 
-        function MostrarNUPorRecepcionar()
+        function MostrarNUPorRecepcionar(input)
         {
+            var data = $("#gridGeneral").data("kendoGrid").dataItem($(input).closest("tr"));
             var detalleIdeaUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         };
