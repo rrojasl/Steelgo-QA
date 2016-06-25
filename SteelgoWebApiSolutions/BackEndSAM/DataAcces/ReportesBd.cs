@@ -321,7 +321,7 @@ namespace BackEndSAM.DataAcces
                 response.Content = new StreamContent(iStream);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = "Formato_Etiquetas_OrdenRecepcion_" + ordenRecepcionID.ToString() + ".pdf";
+                response.Content.Headers.ContentDisposition.FileName = "OrdenRecepcion_" + ordenRecepcionID.ToString() + ".pdf";
 
                 return response;
             }
@@ -390,7 +390,7 @@ namespace BackEndSAM.DataAcces
                 response.Content = new StreamContent(iStream);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = "Formato_Etiquetas_OrdenRecepcion_" + ordenAlmacenajeID.ToString() + ".pdf";
+                response.Content.Headers.ContentDisposition.FileName = "OrdenAlmacenaje_" + ordenAlmacenajeID.ToString() + ".pdf";
 
                 return response;
             }

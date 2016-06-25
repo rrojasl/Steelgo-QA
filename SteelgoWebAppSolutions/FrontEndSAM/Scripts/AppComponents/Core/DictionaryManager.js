@@ -3198,6 +3198,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "DetalleOrdenRecepcion0025":{
+        "es-MX": "Imprimir orden de recepción",
+        "en-US": "Print reception order"
+    },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Folio Orden de Almacenaje: ",

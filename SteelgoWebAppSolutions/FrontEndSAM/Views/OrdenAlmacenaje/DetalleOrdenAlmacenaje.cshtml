@@ -54,6 +54,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <a id="Imprimir" href="" class="btn btn-primary"></a>
                     </div>
                 </div>
             </div>
@@ -239,6 +240,24 @@
 
         CargarDatosGridInicial();
         DesahabilitarCampos();
+    };
+
+    $("#Imprimir").click(   function(){
+        var pdf = ArregloPDF(_ordenAlmacenajeID);
+        downloadPDF($Reporte.Reporte.urlNoId,pdf);
+    });
+
+    function ArregloPDF(id){
+        var PDF = { TipoReporte: 5, FolioOrdenAlmacenaje: id};
+        return PDF;
+    };
+    
+    function downloadPDF(url, pdf) {
+        var link = document.createElement("a");
+        link.href = url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token");
+        link.target = "_blank";
+        displayMessage("notificationslabel0100", "", "2")
+        link.dispatchEvent(new Event("click"));
     };
 
     function ControlErroresObjetosComboBox(control, result) {

@@ -168,85 +168,98 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                string proyectos = "";
-                string transportista = "";
-                string placas = "";
-                string unidad = "";
-                string modelo = "";
-                string tipoVehiculo = "";
-                string chofer = "";
-                string[] placasArray = { };
-                string[] choferArray = { };
-                string[] unidadArray = { };
-                string[] modeloArray = { };
-                string[] transportistaArray = { };
-                string[] tipoVehiculoArray = { };
-
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string json = serializer.Serialize(listaAvisoLlegada);
-                List<FormatoPermisoAduana> listaDatos = new List<FormatoPermisoAduana>();
-                listaDatos = serializer.Deserialize<List<FormatoPermisoAduana>>(json);
-
-
-                for (int i = 1; i < listaDatos.Count; i++)
+                List<string> lstEnvio = new List<string>();
+                using (SamContext ctx = new SamContext())
                 {
-                    if (listaDatos[i].NombreProyecto != null) { proyectos = proyectos + listaDatos[i].NombreProyecto + " , "; }
-                    if (listaDatos[i].NombreTransportista != null) { transportista = transportista + listaDatos[i].NombreTransportista + " , "; }
-                    if (listaDatos[i].PlacasPlana != null) { placas = placas + listaDatos[i].PlacasPlana + " , "; }
-                    if (listaDatos[i].Unidad != null) { unidad = unidad + listaDatos[i].Unidad + " , "; }
-                    if (listaDatos[i].Modelo != null) { modelo = modelo + listaDatos[i].Modelo + " , "; }
-                    if (listaDatos[i].TipoVehiculo != null) { tipoVehiculo = tipoVehiculo + listaDatos[i].TipoVehiculo + " , "; }
-                    if (listaDatos[i].NombreChofer != null) { chofer = chofer + listaDatos[i].NombreChofer + " , "; }
+                    lstEnvio = (from un in ctx.Sam3_UsuariosNotificaciones
+                                 join tn in ctx.Sam3_TipoNotificacion on un.TipoNotificacionID equals tn.TipoNotificacionID
+                                 where tn.Nombre == "Permiso Aduana"
+                                 select un.Email).ToList();
                 }
 
-                string fechaRecepcion = listaDatos[0].FechaRecepcion.ToString().Substring(0, 9);
-                DateTime nuevaFecha = DateTime.Parse(fechaRecepcion);
-                StringBuilder body = new StringBuilder();
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
-                mail.From = new MailAddress("karen.delacruz@steelgo.com");
-                mail.To.Add("sam@sysgo.com.mx");
-                //Correo Sam2
-                mail.Sender = new MailAddress("automatic@sysgo.com.mx");
-                //Por definir Subject
-                mail.Subject = "Permiso de Aduana";
-                mail.IsBodyHtml = true;
-                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-                
-                //HTML para las planas
-                if (placas.Length > 0) { placasArray = placas.Split(','); };
-                if (chofer.Length > 0) { choferArray = chofer.Split(','); };
-                if (unidad.Length > 0) { unidadArray = unidad.Split(','); };
-                if (modelo.Length > 0) { modeloArray = modelo.Split(','); };
-                if (transportista.Length > 0) { transportistaArray = transportista.Split(','); };
-                if (tipoVehiculo.Length > 0) { tipoVehiculoArray = tipoVehiculo.Split(','); };
-
-                for (int i = 0; i < listaVehiculos.Count; i++)
+                foreach (string mailEnvio in lstEnvio)
                 {
-                    body.AppendFormat("Plataforma: " + placasArray[i] + "<br />");
-                    if (choferArray.Length > 0) { body.AppendFormat("Operador: " + choferArray[i] + "<br />"); }
-                    if (unidadArray.Length > 0) { body.AppendFormat("Unidad: " + unidadArray[i] + "<br />"); }
-                    if (modeloArray.Length > 0) { body.AppendFormat("Modelo: " + modeloArray[i] + "<br />"); }
-                    if (transportistaArray.Length > 0) { body.AppendFormat("L&iacute;nea Transportista: " + transportistaArray[i] + "<br />"); }
-                    //if (tipoVehiculoArray.Length > 0) { body.AppendFormat("Tipo Vehiculo: " + tipoVehiculoArray[i] + "<br />"); }
-                    body.AppendFormat("<br />");
+
+                    string proyectos = "";
+                    string transportista = "";
+                    string placas = "";
+                    string unidad = "";
+                    string modelo = "";
+                    string tipoVehiculo = "";
+                    string chofer = "";
+                    string[] placasArray = { };
+                    string[] choferArray = { };
+                    string[] unidadArray = { };
+                    string[] modeloArray = { };
+                    string[] transportistaArray = { };
+                    string[] tipoVehiculoArray = { };
+
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(listaAvisoLlegada);
+                    List<FormatoPermisoAduana> listaDatos = new List<FormatoPermisoAduana>();
+                    listaDatos = serializer.Deserialize<List<FormatoPermisoAduana>>(json);
+
+
+                    for (int i = 1; i < listaDatos.Count; i++)
+                    {
+                        if (listaDatos[i].NombreProyecto != null) { proyectos = proyectos + listaDatos[i].NombreProyecto + " , "; }
+                        if (listaDatos[i].NombreTransportista != null) { transportista = transportista + listaDatos[i].NombreTransportista + " , "; }
+                        if (listaDatos[i].PlacasPlana != null) { placas = placas + listaDatos[i].PlacasPlana + " , "; }
+                        if (listaDatos[i].Unidad != null) { unidad = unidad + listaDatos[i].Unidad + " , "; }
+                        if (listaDatos[i].Modelo != null) { modelo = modelo + listaDatos[i].Modelo + " , "; }
+                        if (listaDatos[i].TipoVehiculo != null) { tipoVehiculo = tipoVehiculo + listaDatos[i].TipoVehiculo + " , "; }
+                        if (listaDatos[i].NombreChofer != null) { chofer = chofer + listaDatos[i].NombreChofer + " , "; }
+                    }
+
+                    string fechaRecepcion = listaDatos[0].FechaRecepcion.ToString().Substring(0, 9);
+                    DateTime nuevaFecha = DateTime.Parse(fechaRecepcion);
+                    StringBuilder body = new StringBuilder();
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
+                    mail.From = new MailAddress("karen.delacruz@steelgo.com");
+                    mail.To.Add(mailEnvio);
+                    //Correo Sam2
+                    mail.Sender = new MailAddress("automatic@sysgo.com.mx");
+                    //Por definir Subject
+                    mail.Subject = "Permiso de Aduana";
+                    mail.IsBodyHtml = true;
+                    SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                    //HTML para las planas
+                    if (placas.Length > 0) { placasArray = placas.Split(','); };
+                    if (chofer.Length > 0) { choferArray = chofer.Split(','); };
+                    if (unidad.Length > 0) { unidadArray = unidad.Split(','); };
+                    if (modelo.Length > 0) { modeloArray = modelo.Split(','); };
+                    if (transportista.Length > 0) { transportistaArray = transportista.Split(','); };
+                    if (tipoVehiculo.Length > 0) { tipoVehiculoArray = tipoVehiculo.Split(','); };
+
+                    for (int i = 0; i < listaVehiculos.Count; i++)
+                    {
+                        body.AppendFormat("Plataforma: " + placasArray[i] + "<br />");
+                        if (choferArray.Length > 0) { body.AppendFormat("Operador: " + choferArray[i] + "<br />"); }
+                        if (unidadArray.Length > 0) { body.AppendFormat("Unidad: " + unidadArray[i] + "<br />"); }
+                        if (modeloArray.Length > 0) { body.AppendFormat("Modelo: " + modeloArray[i] + "<br />"); }
+                        if (transportistaArray.Length > 0) { body.AppendFormat("L&iacute;nea Transportista: " + transportistaArray[i] + "<br />"); }
+                        //if (tipoVehiculoArray.Length > 0) { body.AppendFormat("Tipo Vehiculo: " + tipoVehiculoArray[i] + "<br />"); }
+                        body.AppendFormat("<br />");
+                    }
+                    //HTML del mensaje
+                    mail.Body = "Buen d&iacute;a Capit&aacute;n<br />"
+                                + "Solicito permiso de acceso para la siguiente unidad los d&iacute;as " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(-2))
+                                + " al " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(2))
+                                + ", que estar&aacute;  ingresando a las instalaciones de Steelgo.<br /> <br />"
+                                + " Cliente: " + listaDatos[0].NombreCliente + "<br />"
+                                + "Proyecto: " + proyectos.Substring(0, proyectos.Length - 2) + "<br />"
+                                + "<br />"
+                                + body;
+
+
+                    SmtpServer.EnableSsl = false;
+                    SmtpServer.UseDefaultCredentials = false;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
+
+                    SmtpServer.Send(mail);
                 }
-                //HTML del mensaje
-                mail.Body = "Buen d&iacute;a Capit&aacute;n<br />"
-                            + "Solicito permiso de acceso para la siguiente unidad los d&iacute;as " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(-2))
-                            + " al " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(2))
-                            + ", que estar&aacute;  ingresando a las instalaciones de Steelgo.<br /> <br />"
-                            + " Cliente: " + listaDatos[0].NombreCliente + "<br />"
-                            + "Proyecto: " + proyectos.Substring(0, proyectos.Length - 2) + "<br />"
-                            + "<br />"
-                            + body;
-
-
-                SmtpServer.EnableSsl = false;
-                SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
-
-                SmtpServer.Send(mail);
 
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("Ok");

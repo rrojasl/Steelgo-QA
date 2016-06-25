@@ -52,6 +52,10 @@
                                 </ul>
                             </div>
                         </div>
+                        @*<div id="ImprimirOrdenAlmacenajeDiv" class="button-section">
+                             <a id="ImprimirOrdenAlmacenaje" href="#" class="btn btn-primary"><span id="DetalleOrdenRecepcion0025"></span></a>
+                        </div>*@
+                        <a id="Imprimir" href="" class="btn btn-primary"></a>
                     </div>
                 </div>
             </div>
@@ -245,8 +249,18 @@
         };
     };
 
+    $("#Imprimir").click(function(){
+        var pdf = ArregloPDFOrdenRecepcion(_ordenRecepcionID);
+        downloadPDF($Reporte.Reporte.urlNoId,pdf);
+    });
+    
     function ArregloPDF(id) {
         var PDF = { TipoReporte: 1, FolioOrdenRecepcion: id};
+        return PDF;
+    }
+
+    function ArregloPDFOrdenRecepcion(id){
+        var PDF = { TipoReporte: 4, FolioOrdenRecepcion: id};
         return PDF;
     }
 
