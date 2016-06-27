@@ -143,9 +143,9 @@
                });
     };
 
-    function isNumeric(n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    };
+    //function isNumeric(n) {
+    //    return !isNaN(parseFloat(n)) && isFinite(n);
+    //};
 
     function getFields() {
         return {
@@ -288,7 +288,7 @@
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro1 = data.nombre;
 
                                 var value = this.value();
-                                if (!isNumeric(value) && value != "") {
+                                if (!$.isNumeric(value) && value != "") {
                                     displayMessage("notificationslabel0083", "Diametro 1", '1');
                                     this.value("");
                                 }
@@ -464,7 +464,7 @@
                                 $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = data.nombre;
 
                                 var value = this.value();
-                                if (!isNumeric(value) && value != "") {
+                                if (!$.isNumeric(value) && value != "") {
                                     displayMessage("notificationslabel0083", "Diametro 2", '1');
                                     this.value("");
                                 }
@@ -631,7 +631,7 @@
                             },
                             change: function (e) {
                                 var value = this.value();
-                                if ((!value || this.selectedIndex == -1 || !isNumeric(value)) && value != "") {
+                                if ((!value || this.selectedIndex == -1 || !$.isNumeric(value)) && value != "") {
                                     displayMessage("notificationslabel0083", "Espesor IN", '1');
                                     this.value("");
                                 }
@@ -662,7 +662,7 @@
                                 },
                                 change: function (e) {
                                     var value = this.value();
-                                    if ((!value || this.selectedIndex == -1 || !isNumeric(value)) && value != "") {
+                                    if ((!value || this.selectedIndex == -1 || !$.isNumeric(value)) && value != "") {
                                         displayMessage("notificationslabel0083", "Espesor MM", '1');
                                         this.value("");
                                     }

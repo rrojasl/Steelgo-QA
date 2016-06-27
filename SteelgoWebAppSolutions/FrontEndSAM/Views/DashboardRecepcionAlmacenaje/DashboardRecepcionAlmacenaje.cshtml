@@ -1115,7 +1115,7 @@
         {
             var data = $("#gridGeneral").data("kendoGrid").dataItem($(input).closest("tr"));
             var detalleIdeaUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value()+"&ordenRecepcion="+data.OrdenRecepcion;
         };
 
         function NUporRecepcionar(tipomaterial) {

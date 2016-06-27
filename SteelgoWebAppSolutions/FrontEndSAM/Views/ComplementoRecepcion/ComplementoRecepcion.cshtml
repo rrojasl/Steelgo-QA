@@ -229,6 +229,7 @@
     var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
     var _folioCuantificacion = getUrlParameter("FolioCuantificacionID", "-1");
     var _edicion = getUrlParameter("Edicion", "-1");
+    var _ordenRecepcion = getUrlParameter("ordenRecepcion","-1");
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     //Mappeo de Controles y sus flechas
     var mapeoNavegacion = {
@@ -442,7 +443,7 @@
                     $("#Colada").data("kendoAutoComplete").dataSource.data([]);
                     $("#EdicionColada").data("kendoAutoComplete").dataSource.data([]);
                 } else {
-                    ObtenerDatosFolioCuantificacion();
+                    _ordenRecepcion===undefined ? ObtenerDatosFolioCuantificacion() : null;
                     //ObtenerColada("Colada", 1, 0);
                     //ObtenerColada("EdicionColada", 0, 1);
                 }
@@ -689,7 +690,15 @@
             }
         });
 
-
+        if(_ordenRecepcion!==undefined){
+            $ComplementoRecepcionAlt.Listado.read({TipoListado:32,OrdenRecepcionID:_ordenRecepcion, token:Cookies.get("token")}).done(function(data){
+                $("#ProyectoID").data("kendoComboBox").dataSource.data(data[0]);
+                data[0].length>0 ? $("ProyectoID").data("kendoComboBox").select(0) : null;
+                $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data(data[1]);
+                data[0].length>0 ? $("FolioCuantificacionID").data("kendoComboBox").select(0) : null;
+                $("#grid").data("kendoComboBox").dataSource.data(data[2]);
+            })
+        }
 
     };
     function ActualizarPadre() {

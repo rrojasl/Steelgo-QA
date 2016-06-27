@@ -155,6 +155,7 @@ var $Proxy = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidarCedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ComplementoRecepcionAlt = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -265,3 +266,4 @@ $Proxy.add("Proxy");
 $Reporte.add("Reporte");
 $Espesor.add("Espesor");
 $ValidarCedulas.add("ValidarCedulas");
+$ComplementoRecepcionAlt.add("Listado")
