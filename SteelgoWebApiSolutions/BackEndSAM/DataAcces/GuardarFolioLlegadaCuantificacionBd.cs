@@ -55,10 +55,10 @@ namespace BackEndSAM.DataAcces
                 {
                     using (var ctx_tran = ctx.Database.BeginTransaction())
                     {
-                        Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? 
+                        Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ?
                             (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                         bool activaConfigFolioLlegada = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
-                        
+
                         int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
 
                         Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion
@@ -199,9 +199,9 @@ namespace BackEndSAM.DataAcces
 
                         ctx_tran.Commit();
 
-                        FolioLlegadaCuantificacion foliollegadacuantificacion= new FolioLlegadaCuantificacion();
+                        FolioLlegadaCuantificacion foliollegadacuantificacion = new FolioLlegadaCuantificacion();
                         foliollegadacuantificacion.FolioCuantificacionID = folioCuantificacion.FolioCuantificacionID;
-                        foliollegadacuantificacion.ProyectoID=folioCuantificacion.ProyectoID;
+                        foliollegadacuantificacion.ProyectoID = folioCuantificacion.ProyectoID;
                         foliollegadacuantificacion.Nombre = nombre;
 
                         string NombreFolioAvisoLlegada = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
@@ -283,7 +283,7 @@ namespace BackEndSAM.DataAcces
                     using (var ctx_tran = ctx.Database.BeginTransaction())
                     {
                         errorInfo += "\nFolioEntrada: " + serializer.Serialize(datosCuantificacion);
-                        Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) 
+                        Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"])
                             ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                         bool activaConfigFolioLlegada = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
 
@@ -296,12 +296,13 @@ namespace BackEndSAM.DataAcces
                                               select fc.Consecutivo).Max().HasValue ? (from fc in ctx.Sam3_FolioCuantificacion
                                                                                        where fc.Activo
                                                                                        && fc.FolioAvisoEntradaID == avisoEntradaID
-                                                                                       select fc.Consecutivo).Max().Value : 1;
+                                                                                       select fc.Consecutivo).Max().Value : 0;
 
                         errorInfo += "\nActiva FolioConfiguracion: " + activarFolioConfiguracion.ToString() + "\nActivaFolioLlegada: " + activaConfigFolioLlegada.ToString() +
                             "\nAvisoLlegadaID: " + avisoEntradaID.ToString() + "\nConsecutivo: " + consecutivofc.ToString();
- 
-                        if (consecutivofc == null)
+
+
+                        if (consecutivofc <= 0)
                         {
                             consecutivofc = 1;
                         }
@@ -337,7 +338,7 @@ namespace BackEndSAM.DataAcces
                                                                select ave).AsParallel().SingleOrDefault();
 
                         errorInfo += "\nFolioAvisoEntradaID: " + folioEntrada.FolioAvisoEntradaID.ToString();
-                        
+
 
                         folioEntrada.OrdenCompra = datosCuantificacion.OrdenDeCompra;
                         folioEntrada.Factura = datosCuantificacion.Factura;
@@ -357,11 +358,11 @@ namespace BackEndSAM.DataAcces
                                                select rel.ProyectoID).Count();
 
                         int folioAvisoLlegada = (from rel in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                                     join fe in ctx.Sam3_FolioAvisoEntrada on rel.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                     join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                     join p in ctx.Sam3_Proyecto on rel.ProyectoID equals p.ProyectoID
-                                                     where fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
-                                                     select fe.FolioAvisoLlegadaID.Value).AsParallel().Distinct().SingleOrDefault();
+                                                 join fe in ctx.Sam3_FolioAvisoEntrada on rel.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                 join p in ctx.Sam3_Proyecto on rel.ProyectoID equals p.ProyectoID
+                                                 where fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
+                                                 select fe.FolioAvisoLlegadaID.Value).AsParallel().Distinct().SingleOrDefault();
 
                         if (cuentaProyectos == 1)
                         {
@@ -521,10 +522,10 @@ namespace BackEndSAM.DataAcces
                         {
                             folioLlegadaCuantificacion.FolioConfiguracionCuantificacionID = FolioAvisoLlegadaID + "-" + ConsecutivoFolioCuanificacion;
                         }
-                        
+
 
                         ctx_tran.Commit();
-                       
+
                         return folioLlegadaCuantificacion;
                     }
                 }

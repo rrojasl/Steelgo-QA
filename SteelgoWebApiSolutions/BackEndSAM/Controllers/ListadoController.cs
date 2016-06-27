@@ -164,6 +164,8 @@ namespace BackEndSAM.Controllers
                          return ListadoBd.Instance.ListadoPorEntregar(filtros, usuario);
                     case 31://Traveler Pendiente por unidad de medida
                          return ListadoBd.Instance.ListadoTravelerPendiente(filtros, usuario);
+                    case 32: //Carga inicial de complemento de recepcion desde dashboard
+                         return ComplementoRecepcionBd.Instance.ObtenerTodoPorOrdenRecepcionID(filtros.OrdenRecepcionID, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
