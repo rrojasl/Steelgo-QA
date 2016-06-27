@@ -1045,7 +1045,7 @@ namespace BackEndSAM.DataAcces
                                                               join fe in ctx.Sam3_FolioAvisoEntrada on relor.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                               join fc in ctx.Sam3_FolioCuantificacion on relor.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                                               where or.Activo && relor.Activo && fc.Activo
-                                                              && or.OrdenRecepcionID == ordenRecepxionID
+                                                              && or.Folio == ordenRecepxionID
                                                               select new ListaCombos
                                                               {
                                                                   id = fc.FolioCuantificacionID.ToString(),
@@ -1065,7 +1065,7 @@ namespace BackEndSAM.DataAcces
                                                    join p in ctx.Sam3_Proyecto on relfp.ProyectoID equals p.ProyectoID
                                                    where or.Activo && relor.Activo && fe.Activo && relfp.Activo && p.Activo
                                                    && p.Nombre != ""
-                                                   && or.OrdenRecepcionID == ordenRecepxionID
+                                                   && or.Folio == ordenRecepxionID
                                                    select new ListaCombos
                                                    {
                                                        id = p.ProyectoID.ToString(),
