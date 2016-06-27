@@ -32,5 +32,6 @@ namespace BackEndSAM.Models
         public string PaginaID { get; set; }
         public string Idioma { get; set; }
         public string UnidadDeMedida { get; set; }
+        public int OrdenRecepcionID { get; set; }
     }
 }

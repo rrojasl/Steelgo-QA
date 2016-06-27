@@ -301,13 +301,13 @@ namespace BackEndSAM.DataAcces
                         errorInfo += "\nActiva FolioConfiguracion: " + activarFolioConfiguracion.ToString() + "\nActivaFolioLlegada: " + activaConfigFolioLlegada.ToString() +
                             "\nAvisoLlegadaID: " + avisoEntradaID.ToString() + "\nConsecutivo: " + consecutivofc.ToString();
  
-                        if (consecutivofc == null)
+                        if (!consecutivofc.HasValue)
                         {
                             consecutivofc = 1;
                         }
                         else
                         {
-                            consecutivofc += 1;
+                            consecutivofc = consecutivofc <= 0 || consecutivofc == 1 ? 1 : consecutivofc + 1;
                         }
 
                         Sam3_FolioCuantificacion folioCuantificacion = new Sam3_FolioCuantificacion();

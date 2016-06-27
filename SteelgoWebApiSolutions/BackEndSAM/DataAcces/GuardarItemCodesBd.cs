@@ -1779,8 +1779,11 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int relItemDiametroID = Int32.Parse(item.ItemCodeID);
-                    int relItemSteelgoDiametroID = Int32.Parse(item.ItemCodeSteelgoID);
+                    int relItemDiametroID = ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.ItemCodeID == Int32.Parse(item.ItemCodeID))
+                        .Select(x => x.Rel_ItemCode_Diametro_ID).FirstOrDefault();
+                    int relItemSteelgoDiametroID = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.ItemCodeSteelgoID == Int32.Parse(item.ItemCodeSteelgoID))
+                        .Select(x => x.Rel_ItemCodeSteelgo_Diametro_ID).FirstOrDefault();
+
 
                     if (!ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                         .Where(x => x.Rel_ItemCode_Diametro_ID == relItemDiametroID && x.Rel_ItemCodeSteelgo_Diametro_ID == relItemSteelgoDiametroID).Any())

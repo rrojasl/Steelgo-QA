@@ -118,14 +118,14 @@
         //    console.log(data);
         //});
 
-        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
-        var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjExMSwiTm9tYnJlVXN1YXJpbyI6ImZhYmlvbGEubW9yYW4iLCJDb250cmFzZW5hSGFzaCI6IlEyZENsV1FGTmpNcDV0OGZyVVJjSjVrR2xnWVg5UklkLzg1RE9pNWluMGR1WTk0Qm9YRksxMzU5TWVEL0QrQnEiLCJQZXJmaWxJRCI6NCwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQ1NTgyMzQyMX0.ihZwlqzzRsTENQ0U197kxsajDAjS8UvMC6RUzbGDISI";
+        //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        //var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjExMSwiTm9tYnJlVXN1YXJpbyI6ImZhYmlvbGEubW9yYW4iLCJDb250cmFzZW5hSGFzaCI6IlEyZENsV1FGTmpNcDV0OGZyVVJjSjVrR2xnWVg5UklkLzg1RE9pNWluMGR1WTk0Qm9YRksxMzU5TWVEL0QrQnEiLCJQZXJmaWxJRCI6NCwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQ1NTgyMzQyMX0.ihZwlqzzRsTENQ0U197kxsajDAjS8UvMC6RUzbGDISI";
 
-        client.add("Patio");
+        //client.add("Patio");
 
-        client.Patio.read({ esAvisoEntrada: 1, token: tokenActual, paginaID: 4 }).done(function (data) {
-            console.log(data);
-        });
+        //client.Patio.read({ esAvisoEntrada: 1, token: tokenActual, paginaID: 4 }).done(function (data) {
+        //    console.log(data);
+        //});
 
         //client.Patio.create({
         //    Nombre: "Patio Pruebas",
@@ -421,6 +421,15 @@
         //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
         //client.add("Reporte");
         //client.Reporte.read({}, { folio: 3, token: "123456" }).done(function (data) { console.log(data) });
+
+        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+
+        var listado = { OrdenRecepcionID: "", TipoListado : "" }
+        listado.OrdenRecepcionID = "1004";
+        listado.TipoListado = "32";
+
+        client.add("Listado");
+        client.Listado.read({}, { data: JSON.stringify(listado) }).done(function (data) { console.log(data) });
 
 
     </script>
