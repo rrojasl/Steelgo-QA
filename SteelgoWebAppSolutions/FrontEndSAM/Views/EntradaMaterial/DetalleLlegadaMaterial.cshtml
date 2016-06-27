@@ -67,7 +67,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection disabled"></a>
                     </div>
                 </div>
             </div>
@@ -1498,7 +1498,7 @@
     $authorizationModel["Orden Descarga"] = $OrdenDescargaModel;
     $("#EstatAV").hide();
     CargaInicial();
-    $("#Imprimir").hide();
+    //$("#Imprimir").hide();
     if (folioAvisoLlegada != -1) {
         CargaInicialEdicion(folioAvisoLlegada);
     }
