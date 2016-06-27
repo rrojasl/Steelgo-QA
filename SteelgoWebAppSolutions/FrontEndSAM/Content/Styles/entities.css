@@ -322,35 +322,35 @@ header .menu > div {
             background-color: rgba(048, 094, 142, 0.2);
         }
 
-    .notifications .notification-menu li.messageBody {
-        padding: 17px 17px 16px;
-        border-bottom: none;
-        max-height: none;
-    }
-
-        .notifications .notification-menu li.messageBody span,
-        .notifications .notification-menu li.messageBody a {
-            padding: 0;
-            white-space: normal;
-            border: none;
+        .notifications .notification-menu li.messageBody {
+            padding: 17px 17px 16px;
+            border-bottom: none;
             max-height: none;
         }
 
-    .notifications .notification-menu li a .notification-container .sender-info {
-        padding-bottom: 12px;
-    }
+            .notifications .notification-menu li.messageBody span,
+            .notifications .notification-menu li.messageBody a {
+                padding: 0;
+                white-space: normal;
+                border: none;
+                max-height: none;
+            }
 
-    .notifications .notification-menu li a .notification-container .senderName {
-        padding-left: 20px;
-        background-image: url("/Content/images/SC_newmessage_Icon.png");
-        background-size: auto;
-        background-position: left center;
-        background-repeat: no-repeat;
-    }
+        .notifications .notification-menu li a .notification-container .sender-info {
+            padding-bottom: 12px;
+        }
 
-    .notifications .notification-menu li a.read .notification-container .senderName {
-        background-image: url("/Content/images/SC_read_Icon.png");
-    }
+        .notifications .notification-menu li a .notification-container .senderName {
+            padding-left: 20px;
+            background-image: url("/Content/images/SC_newmessage_Icon.png");
+            background-size: auto;
+            background-position: left center;
+            background-repeat: no-repeat;
+        }
+
+        .notifications .notification-menu li a.read .notification-container .senderName {
+            background-image: url("/Content/images/SC_read_Icon.png");
+        }
 
     .notifications .notification-menu .messageDate,
     .notifications .notification-menu .deleteMessage {
@@ -501,7 +501,7 @@ header .menu > div {
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu:empty,
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2:empty {
-            display: none!important;            
+            display: none!important;
         }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu > li {
@@ -604,7 +604,7 @@ header .menu > div {
 
         .sidebar .main-nav ul.main-menu li.shortcut.open {
             margin-right: 0;
-        }        
+        }
 
         .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu {
             background: #FFFFFF;
@@ -1102,7 +1102,15 @@ header .menu > div {
             border-right: none;
             margin-right: 0;
             padding-right: 0;
-        }        
+        }
+
+        .formNav .button-section.left {
+            border-right: none;
+            border-left: 1px solid #DCDCDC;
+            margin-right: 0;
+            padding-right: 0;
+            padding-left: 15px;
+        }
 
     .formNav .dropdown {
         display: inline-block;
@@ -1450,14 +1458,14 @@ header .menu > div {
  Class name:    $_menuMobile
  Description:   Customize mobile menu button.
 **********************************************************************************/
-.menuMobile {    
+.menuMobile {
     position: relative;
     top: 4px;
     float: left;
     background: #FFFFFF url("/Content/images/mobileMenu.png");
-    background-size: cover;    
+    background-size: cover;
     width: 25.5px;
-    height: 23px;      
+    height: 23px;
 }
 /**********************************************************************************/
 
@@ -1474,7 +1482,7 @@ header .menu > div {
         height: auto;
         overflow: hidden;
         max-height: 56px;
-        white-space: nowrap;        
+        white-space: nowrap;
     }
 /**********************************************************************************/
 
@@ -1531,18 +1539,18 @@ header .menu > div {
         max-height: 110px;
     }
 
-    header .menu {
-        text-align: right;
-    }
+        header .menu {
+            text-align: right;
+        }
 
     /*$_search-bar*/
     .search-bar {
         position: relative;
         top: -16px;
-        margin: 0; 
+        margin: 0;
         padding-left: 44%;
         width: 100%;
-        max-width: 100%;      
+        max-width: 100%;
     }
 
     /*$_notifications*/
@@ -1550,19 +1558,19 @@ header .menu > div {
         margin-right: 10px;
     }
 
-    .notifications .notification-menu {
-        right: -243px;
-        width: 369px;     
-    }
-
-        .notifications .notification-menu li {
-            height: auto;
-            max-height: none;
+        .notifications .notification-menu {
+            right: -243px;
+            width: 369px;
         }
+
+            .notifications .notification-menu li {
+                height: auto;
+                max-height: none;
+            }
 
     /*$_sidebar*/
     .sidebar {
-        width: 100%;        
+        width: 100%;
         display: none;
     }
 
@@ -1596,7 +1604,7 @@ header .menu > div {
     .breadcrumb {
         padding: 12px 15px;
         margin-bottom: 15px;
-        max-height: none;        
+        max-height: none;
     }
 
         .breadcrumb li {
@@ -1666,14 +1674,14 @@ header .menu > div {
         overflow: initial;
     }
 
-    #window > div {
-        padding: 0;
-    }
+        #window > div {
+            padding: 0;
+        }
 
-    #window .buttonSave,
-    .popup .buttonSave {
-        margin-bottom: 10px;
-    }
+        #window .buttonSave,
+        .popup .buttonSave {
+            margin-bottom: 10px;
+        }
 
     .popup {
         overflow-y: initial;
@@ -1754,7 +1762,6 @@ header .menu > div {
     .breadcrumb {
         padding: 19px 30px;
     }
-   
 }
 
 /* tablet viewport*/
@@ -1810,14 +1817,14 @@ header .menu > div {
         overflow: initial;
     }
 
-    #window > div {
-        padding: 0;
-    }
+        #window > div {
+            padding: 0;
+        }
 
-    #window .buttonSave,
-    .popup .buttonSave {
-        margin-bottom: 10px;
-    }
+        #window .buttonSave,
+        .popup .buttonSave {
+            margin-bottom: 10px;
+        }
 
     .popup {
         overflow-y: initial;
@@ -1825,8 +1832,7 @@ header .menu > div {
 }
 
 /* md viewport */
-@media (min-width: 992px) and (max-width: 1024px) {    
-
+@media (min-width: 992px) and (max-width: 1024px) {
 }
 
 @media (max-width: 1200px) {
