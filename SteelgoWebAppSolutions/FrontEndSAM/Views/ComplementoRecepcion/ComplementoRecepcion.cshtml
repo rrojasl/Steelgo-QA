@@ -430,7 +430,7 @@
             },
             change: function (e) {
                 var dataItem = this.dataItem();
-                dataItem !== undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre) : CargarProyecto("", "");
+                dataItem !== undefined ? CargarProyecto(dataItem[this.options.dataValueField], dataItem[this.options.dataTextField]) : CargarProyecto("", "");
                 var value = this.value();
                 limpiarfiltrosProyecto();
                 if (!value || this.selectedIndex == -1) {
@@ -694,11 +694,11 @@
             $ComplementoRecepcionAlt.Listado.read({data:JSON.stringify({TipoListado:32,OrdenRecepcionID:_ordenRecepcion, token:Cookies.get("token")})}).done(function(data){
                 $("#ProyectoID").data("kendoComboBox").dataSource.data(data[0]);
                 if(data[0].length>0){
-                    $("#ProyectoID").kendoComboBox({
-                        dataTextField:"value",
-                        dataValueField:"id",
-                        dataSource:data[0],
-                    })
+                    var tmp = $("#ProyectoID").data("kendoComboBox").options;
+                    tmp.dataValueField="id";
+                    tmp.dataTextField="value";
+                    tmp.dataSource = data[0];
+                    $("#ProyectoID").kendoComboBox(tmp);
                     $("#ProyectoID").data("kendoComboBox").select(0)
                 }
                 $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data(data[1]);
@@ -901,7 +901,7 @@
 
     function validarRequeridosFormaComplementoRecepcion() {
         var bool = true;
-        $("#formComplementoRecepcion .security_required").each(function (i, elem) {
+        $("#formComplementoRecepcion input.security_required,#formComplementoRecepcion select.security_required").not(".k-input").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
                 if (!$(this).val() || ($(this).attr("id") == "ProyectoID" && $(this).val() == "1")) {
                     bool = false;
