@@ -445,6 +445,7 @@ namespace BackEndSAM.DataAcces
                                    join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                    where o.Activo && rfo.Activo && fe.Activo
                                    && fe.ClienteID == sam3Cliente
+                                   && (o.FechaCreacion >= fechaInicial && o.FechaCreacion <= fechaFinal)
                                    select o).ToList();
                     }
 
@@ -455,6 +456,7 @@ namespace BackEndSAM.DataAcces
                                    join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                    where o.Activo && rfo.Activo && fe.Activo
                                    && fe.FolioAvisoLlegadaID == folioAvisollegadaID
+                                   && (o.FechaCreacion >= fechaInicial && o.FechaCreacion <= fechaFinal)
                                    select o).ToList();
                     }
 
