@@ -1260,7 +1260,54 @@ _dictionary = {
         "es-MX": "Cantidad de piezas a amortizar",
         "en-US": "Number of pieces to amortize"
     },
-
+    "ListadoCatalogos0049": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
+    "ListadoCatalogos0050": {
+        "es-MX": "Cédulas",
+        "en-US": "Documents"
+    },
+    "ListadoCatalogos0051": {
+        "es-MX": "Chofer",
+        "en-US": "Driver"
+    },
+    "ListadoCatalogos0052": {
+        "es-MX": "Fabricante",
+        "en-US": "Manufacturer"
+    },
+    "ListadoCatalogos0053": {
+        "es-MX": "MTR",
+        "en-US": "MTR"
+    },
+    "ListadoCatalogos0054": {
+        "es-MX": "Patios",
+        "en-US": "Yards"
+    },
+    "ListadoCatalogos0055": {
+        "es-MX": "Plana",
+        "en-US": "Plane"
+    },
+    "ListadoCatalogos0056": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "ListadoCatalogos0057": {
+        "es-MX": "Tipo de Aviso",
+        "en-US": "Notice Type"
+    },
+    "ListadoCatalogos0058": {
+        "es-MX": "Tipo de Uso",
+        "en-US": "Use Type"
+    },
+    "ListadoCatalogos0059": {
+        "es-MX": "Tracto",
+        "en-US": "Tract"
+    },
+    "ListadoCatalogos0060": {
+        "es-MX": "Transportista",
+        "en-US": "Carrier"
+    },
 
     //CatálogosICS
     "ItemCodeSteelGo0001": {

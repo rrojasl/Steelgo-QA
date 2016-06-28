@@ -187,6 +187,8 @@
             }
         },
     }
+
+    breadCumbName=[{"id":"9","value":"ListadoCatalogos0049"},{"id":"11","value":"ListadoCatalogos0050"},{"id":"2","value":"ListadoCatalogos0051"},{"id":"10","value":"ListadoCatalogos0052"},{"id":"12","value":"ListadoCatalogos0053"},{"id":"1","value":"ListadoCatalogos0054"},{"id":"6","value":"ListadoCatalogos0055"},{"id":"7","value":"ListadoCatalogos0056"},{"id":"3","value":"ListadoCatalogos0057"},{"id":"8","value":"ListadoCatalogos0058"},{"id":"5","value":"ListadoCatalogos0059"},{"id":"4","value":"ListadoCatalogos0060"}];
     };
 
     @section JavascriptGlobalFunctions {
@@ -679,24 +681,10 @@
             dataBound: function (e) {
                 if (contadorDataBound == 0) {
                     contadorDataBound++;
-                    //$(".k-grid input.k-textbox").prop('readonly', true);
-                    //$(".k-grid td .k-button").text('');
-                    //$(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     var grid = $("#grid").data("kendoGrid");
                     if (($("#listaCatalogos").data("kendoDropDownList").value() != "3" && $("#listaCatalogos").data("kendoDropDownList").value() != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "95px" });
                     grid.options.columns.push({ command: "edit", title: "Editar", width: "91px" });
                     grid.options.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
-                    //grid.columns.push(niceDeleteTemplate());
-                    //for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
-                    //    var columna = $.grep(grid.columns, function (e) { return e.field == c; });
-                    //    grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
-                    //}
-                    //grid.options.columns=grid.columns;
-                    //var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
-                    //ids.forEach(function(i){
-                    //    i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : null;
-                    //});
-
                     regenerarGrid();
                     checkTH($("#grid").data("kendoGrid"));
                     quickHeadFilter($("#grid").data("kendoGrid"));
@@ -910,9 +898,6 @@
                     dataType: "json",
                     url: $Catalogos.AdministracionCatalogos.urlNoId + "?token=" + Cookies.get("token")
                 },
-                requestEnd: function (e) {
-                    Error(e.response);
-                }
             },
             requestEnd: function (e) {
                 Error(e.response);
@@ -920,11 +905,17 @@
         },
         change: function (e) {
             contadorDataBound = 0;
-            if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value() != "11") {
+            var thisVal=this.value();
+            if(thisVal!==""){
+                var dict=breadCumbName.filter(function(n){return n.id===thisVal})[0].value;
+                $($("a[href='/Catalogos/ListadoCatalogos']").last()[0]).attr("id",dict)
+                $($("a[href='/Catalogos/ListadoCatalogos']").last()[0]).html(_dictionary[dict][$("#language").data("kendoDropDownList").value()]);
+            }
+            if (thisVal!=="" && thisVal !== "11") {
                 nuevasCedulas = [];
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
-            } else if ($("#listaCatalogos").data("kendoDropDownList").value() == "11") {//Catálogo 11= Cédulas
+            } else if (thisVal == "11") {//Catálogo 11= Cédulas
                 $("#cedbtns").remove();
                 var g = null;
                 $("#language").data("kendoDropDownList").value() === "es-MX" ? g = ["Factor de conversión", "Carga masiva", "Seleccionar archivos", "Guardar", "Descargar plantilla"] : g = ["Conversion factor", "Bulk upload", "Select files", "Save", "Download template"];
@@ -933,8 +924,6 @@
                     $("#fconversion").val(result);
                 });
                 $("#templateced").on("click", function () {
-                    //var encodedUri = encodeURI(obtenerCSV());
-                    //$(this).attr("href", encodedUri);
                     var data = obtenerCSV();
                     if ($.isNumeric(detectIE())) {
                         var IEwindow = window.open();
