@@ -1131,6 +1131,10 @@
                         return false;
                     }
                 });
+                setTimeout(function(){
+                    $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
+                    $("[name='Diametro2']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro2ID})
+                },200);
             },
             update: function (e) {
             },
