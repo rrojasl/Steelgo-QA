@@ -947,10 +947,6 @@
                             data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields, c));
                         });
                         enviarCedulas(data);
-                        //$Catalogos.AdministracionCatalogos.read({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data)}).done(function(result){
-                        //    //regenerarGrid();
-                        //    result.HayConflictos ? mostrarConflictos(result) : enviarCedulas(data);
-                        //});
                     } else {
                         displayMessage("ListadoCatalogos0010", "", '2');
                     }
@@ -1066,12 +1062,6 @@
                         buttonCount: 2
                     },
                     editable: false,
-                    save: function (e) {
-                        ////console.log(e);
-                    },
-                    remove: function (e) {
-                        ////console.log(e);
-                    },
                     dataBound: function (e) {
                         $("#grid tbody td").each(function () {
                             this.innerHTML == "" ? this.innerHTML = "-" : 0;
