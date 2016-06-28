@@ -1061,8 +1061,14 @@ namespace BackEndSAM.DataAcces
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
+                    //Folios que aun no tienen relacionado una orden de recepcion
+                    //List<ListaCombos> lstFolios = new List<ListaCombos>();
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                   join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
                                                    where r.Activo
+                                                   && (from rel in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
+                                                        where rel.Activo
+                                                        select rel.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
@@ -1073,6 +1079,49 @@ namespace BackEndSAM.DataAcces
                                                                                             + r.Consecutivo.ToString() + ","
                                                                                             + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString()
                                                   }).AsParallel().ToList();
+
+                    //folios con itemCodes que aun no tienen orden de recepcion en cuantificacion
+                    //lstFolios.AddRange((from fa in ctx.Sam3_FolioAvisoLlegada
+                    //                    join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                    //                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                    //                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                    //                    where fa.Activo && fe.Activo && fc.Activo
+                    //                    && !(from rel in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                    //                         where rel.Activo
+                    //                         select rel.Rel_ItemCode_Diametro_ID).Contains(rfi.Rel_ItemCode_Diametro_ID)
+                    //                    select new ListaCombos
+                    //                    {
+                    //                        id = fa.FolioAvisoLlegadaID.ToString(),
+                    //                        value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                    //                                                             where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
+                    //                                                             select pc.PreFijoFolioAvisoLlegada + ","
+                    //                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                    //                                                              + fa.Consecutivo.ToString() + ","
+                    //                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fa.FolioAvisoLlegadaID.ToString()
+                    //                    }).AsParallel().ToList());
+
+                    //// folios relacionados con bultos
+                    //lstFolios.AddRange((from fa in ctx.Sam3_FolioAvisoLlegada
+                    //                    join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                    //                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                    //                    join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                    //                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                    //                    where fa.Activo && fe.Activo && fc.Activo
+                    //                    && !(from rel in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                    //                         where rel.Activo
+                    //                         select rel.Rel_ItemCode_Diametro_ID).Contains(rbi.Rel_ItemCode_Diametro_ID)
+                    //                    select new ListaCombos
+                    //                    {
+                    //                        id = fa.FolioAvisoLlegadaID.ToString(),
+                    //                        value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                    //                                                             where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
+                    //                                                             select pc.PreFijoFolioAvisoLlegada + ","
+                    //                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                    //                                                              + fa.Consecutivo.ToString() + ","
+                    //                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fa.FolioAvisoLlegadaID.ToString()
+                    //                    }).AsParallel().ToList());
+
+                    lstFolios = lstFolios.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
                     if (activarFolioConfiguracion)
                     {
