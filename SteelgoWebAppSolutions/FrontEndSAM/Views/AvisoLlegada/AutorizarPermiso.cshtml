@@ -240,6 +240,11 @@
     function onRemove(e) {
         MostrarUpload(e);
     };
+
+    function MostrarUpload(e){
+        $("#ArchivoAutorizar").val("");
+        limpiarUploadFiles();
+    }
     function Guardar() {
         var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
         var Folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
@@ -289,6 +294,7 @@
         $("#Editar").css("display", "none");
         $("#Guardar").css("display", "block");
         habilitarControles();
+        $("#ArchivoAutorizar").show();
     };
 
     function CargarFolio(id) {
@@ -542,10 +548,11 @@
     };
 
     function singleFile(e) {
+        limpiarUploadFiles();
         if (notDotName(e) && e.files.length == 1) {
             $("#divLinkAutorizar").empty();
             this.element.hide();
-            $("#Guardar")[0].disabled=false;            
+            $("#Guardar")[0].disabled=false;
         } 
     }
 
