@@ -292,6 +292,7 @@
             } else {
                 strincidencias = strALLincidencias;
             }
+            (strincidencias.length>0 && strincidencias.charAt(strincidencias.length-1)===",") ? strincidencias = strincidencias.slice(0,-1) : null;
             var pdf = ArregloPDF(2,FolioPaseSalida.FolioAvisoLlegadaID, strincidencias);
             downloadPDF($Reporte.Reporte.urlNoId,pdf);
             
@@ -456,17 +457,25 @@
         $("input[type='checkbox']").attr("disabled", "disabled");
     };
 
-    function downloadPDF(url,pdf){
-        var link = document.createElement("a");
-        link.href=url+"?data="+encodeURI(JSON.stringify(pdf))+"&token="+Cookies.get("token");
-        link.target = "_blank";
-        displayMessage("notificationslabel0100","","1")
-        link.dispatchEvent(new Event("click"));
+    function downloadPDF(url, pdf) {
+        var req = new XMLHttpRequest();
+        req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
+        req.responseType = "blob";
+        var name="PaseSalida"
+        req.onload = function (event) {
+            var blob = req.response;
+            console.log(blob.size);
+            var link=document.createElement('a');
+            link.href=window.URL.createObjectURL(blob);
+            link.download=name + new Date().getTime() + ".pdf";
+            link.click();
+        };
+        req.send();
+        displayMessage("notificationslabel0100", "", "1")
     }
 
     function ArregloPDF(tiporeporte, id, cadena) {
-        var PDF = { TipoReporte: tiporeporte, FolioAvisoLlegadaID: id, Cadena: cadena };
-        return PDF;
+        return { TipoReporte: tiporeporte, FolioAvisoLlegadaID: id, Cadena: cadena };
     };
 
     function GenerarPaseSalida() {
