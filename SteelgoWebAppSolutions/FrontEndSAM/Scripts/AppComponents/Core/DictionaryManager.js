@@ -3283,8 +3283,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "DetalleOrdenAlmacenaje0009": {
-        "es-MX": "Folio Captura Packing List",
-        "en-US": "Folio Capture Packing List"
+        "es-MX": "Folio de recepción",
+        "en-US": "Reception Folio Order"
     },
     "DetalleOrdenAlmacenaje0010": {
         "es-MX": "Item Code ID",
@@ -3377,7 +3377,7 @@ _dictionary = {
     },
     "ListadoOrdenAlmacenaje0007": {
         "es-MX": "Folio de recepción",
-        "en-US": "Reception Folio"
+        "en-US": "Reception Folio Order"
     },
     "ListadoOrdenAlmacenaje0008": {
         "es-MX": "Fecha Inicial",
@@ -3493,8 +3493,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "GenerarOrdenAlmacenaje0013": {
-        "es-MX": "Folio Captura Packing List",
-        "en-US": "Packing List Folio"
+        "es-MX": "Folio de recepción",
+        "en-US": "Reception Folio Order"
     },
     "GenerarOrdenAlmacenaje0014": {
         "es-MX": "Item Code",
@@ -3505,8 +3505,8 @@ _dictionary = {
         "en-US": "Unique Number"
     },
     "GenerarOrdenAlmacenaje0016": {
-        "es-MX": "Folio Captura Packing List",
-        "en-US": "Folio Capture Packing List"
+        "es-MX": "Folio de recepción",
+        "en-US": "Reception Folio Order"
     },
     "GenerarOrdenAlmacenaje0017": {
         "es-MX": "Folio Cuantificacion ID",
@@ -3706,8 +3706,8 @@ _dictionary = {
         "en-US": "Packing List Create Date"
     },
     "DashboardRecepcionAlmacenaje0037": {
-        "es-MX": "Packing List",
-        "en-US": "Packing List"
+        "es-MX": "Folio de recepción",
+        "en-US": "Reception Folio Order"
     },
     "DashboardRecepcionAlmacenaje0038": {
         "es-MX": "Cantidad total de items",
@@ -3853,6 +3853,10 @@ _dictionary = {
     "DashboardRecepcionAlmacenaje0073": {
         "es-MX": "Folio Recepción",
         "en-US": "Reception number"
+    },
+    "DashboardRecepcionAlmacenaje0074": {
+        "es-MX": "FolioAvisoLlegadaID",
+        "en-US": "EntryFolioID"
     },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {

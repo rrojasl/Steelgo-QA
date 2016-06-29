@@ -947,9 +947,10 @@ namespace BackEndSAM.DataAcces
                         {
                             ListadoMTLSinICS elemento = new ListadoMTLSinICS();
                             elemento.FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
-                            elemento.PackingList = fc.PackingList + "(" + fc.FolioCuantificacionID.ToString() + ")";
+                            elemento.PackingList = fae.FolioAvisoLlegadaID.ToString() + "-" + fc.Consecutivo;//fc.PackingList + "(" + fc.FolioCuantificacionID.ToString() + ")";
                             elemento.Proyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == fc.ProyectoID).Select(x => x.Nombre).SingleOrDefault();
                             elemento.FolioCuantificacionID = fc.FolioCuantificacionID.ToString();
+                            elemento.FolioAvisoLlegadaID = fae.FolioAvisoLlegadaID.ToString();
 
                             int cantidadsinICS = 0;
                             int totalItems = 0;
@@ -2078,6 +2079,78 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+//        /// <summary>
+//        /// Genera un listado para combo con los ItemCodes de un Aviso de entrada
+//        /// </summary>
+//        /// <param name="folioAvisoLlegada"></param>
+//        /// <param name="usuario"></param>
+//        /// <returns></returns>
+//        public object ObtenerItemCodesPorFolioLlegada(int folioAvisoLlegada, Sam3_Usuario usuario)
+//        {
+//            try
+//            {
+//                using (SamContext ctx = new SamContext())
+//                {
+//                    List<ListaCombos> listado = (from fe in ctx.Sam3_FolioAvisoEntrada
+//                                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+//                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+//                                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+//                                                 join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+//                                                 where fe.Activo && fc.Activo && rfi.Activo && it.Activo
+//                                                 && fe.FolioAvisoLlegadaID == folioAvisoLlegada
+//                                                 && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+//                                                      where rel.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
+//                                                      && rel.Activo
+//                                                      select rel).Any()
+//                                                 select new ListaCombos
+//                                                 {
+//                                                     id = it.ItemCodeID.ToString(),
+//                                                     value = it.Codigo
+//                                                 }).AsParallel().ToList();
+
+//                    //incluir los itemcodes que se encuentran en bultos
+//                    listado.AddRange((from fe in ctx.Sam3_FolioAvisoEntrada
+//                                      join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+//                                      join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+//                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+//                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+//                                      join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+//                                      where fe.Activo && fc.Activo && rbi.Activo && it.Activo
+//                                      && fe.FolioAvisoLlegadaID == folioAvisoLlegada
+//                                      && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+//                                           where rel.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
+//                                           && rel.Activo
+//                                           select rel).Any()
+//                                      select new ListaCombos
+//                                      {
+//                                          id = it.ItemCodeID.ToString(),
+//                                          value = it.Codigo
+//                                      }).AsParallel().ToList());
+
+//                    listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
+//#if DEBUG
+//                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+//                    string json = serializer.Serialize(listado);
+//#endif
+//                    return listado;
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                //-----------------Agregar mensaje al Log -----------------------------------------------
+//                LoggerBd.Instance.EscribirLog(ex);
+//                //-----------------Agregar mensaje al Log -----------------------------------------------
+//                TransactionalInformation result = new TransactionalInformation();
+//                result.ReturnMessage.Add(ex.Message);
+//                result.ReturnCode = 500;
+//                result.ReturnStatus = false;
+//                result.IsAuthenicated = true;
+
+//                return result;
+//            }
+//        }
+
         /// <summary>
         /// Genera un listado para combo con los ItemCodes de un Aviso de entrada
         /// </summary>
@@ -2090,48 +2163,151 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListaCombos> listado = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                 join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                                 where fe.Activo && fc.Activo && rfi.Activo && it.Activo
-                                                 && fe.FolioAvisoLlegadaID == folioAvisoLlegada
-                                                 && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                                                      where rel.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
-                                                      && rel.Activo
-                                                      select rel).Any()
-                                                 select new ListaCombos
-                                                 {
-                                                     id = it.ItemCodeID.ToString(),
-                                                     value = it.Codigo
-                                                 }).AsParallel().ToList();
+                    List<ListaCombos> tubosRFC = new List<ListaCombos>();
+                    List<ListaCombos> tubosRB = new List<ListaCombos>();
+                    List<ListaCombos> AccesoriosRFC = new List<ListaCombos>();
+                    List<ListaCombos> AccesoriosRB = new List<ListaCombos>();
 
-                    //incluir los itemcodes que se encuentran en bultos
-                    listado.AddRange((from fe in ctx.Sam3_FolioAvisoEntrada
-                                      join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                      join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
-                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                      join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                      where fe.Activo && fc.Activo && rbi.Activo && it.Activo
-                                      && fe.FolioAvisoLlegadaID == folioAvisoLlegada
-                                      && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                                           where rel.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
-                                           && rel.Activo
-                                           select rel).Any()
-                                      select new ListaCombos
-                                      {
-                                          id = it.ItemCodeID.ToString(),
-                                          value = it.Codigo
-                                      }).AsParallel().ToList());
+                    tubosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
+                                join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                where r.Activo && c.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                && i.TipoMaterialID == 1
+                                && r.FolioAvisoLlegadaID == folioAvisoLlegada
+                                && !rfi.TieneNumerosUnicos
+                                && rfi.Cantidad > 0
+                                && !(from co in ctx.Sam3_Colada
+                                     where co.Activo && co.NumeroColada == ""
+                                     && co.ProyectoID == i.ProyectoID
+                                     select co.ColadaID).Contains(rfi.ColadaID)
+                                && rfi.ColadaID > 0
+                                && rfi.MM > 0
+                                select new ListaCombos
+                                {
+                                    id = i.ItemCodeID.ToString(),
+                                    value = i.Codigo
+                                }).AsParallel().Distinct().ToList();
 
-                    listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
-#if DEBUG
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
-#endif
+
+                    tubosRB = (from r in ctx.Sam3_FolioAvisoEntrada
+                               join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                               join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                               join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                               join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                               join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                               join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                               join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                               join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                               where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                               && i.TipoMaterialID == 1
+                               && r.FolioAvisoLlegadaID == folioAvisoLlegada
+                               && !rbi.TieneNumerosUnicos
+                               && rbi.Cantidad > 0
+                               && !(from co in ctx.Sam3_Colada
+                                    where co.Activo && co.NumeroColada == ""
+                                    && co.ProyectoID == i.ProyectoID
+                                    select co.ColadaID).Contains(rbi.ColadaID)
+                               && rbi.ColadaID > 0
+                               && rbi.MM > 0
+                               select new ListaCombos
+                               {
+                                   id = i.ItemCodeID.ToString(),
+                                   value = i.Codigo
+                               }).AsParallel().Distinct().ToList();
+
+                    AccesoriosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
+                                     join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                     join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                     join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                     join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                     join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                     join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                     join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                     where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                     && i.TipoMaterialID == 2
+                                     && r.FolioAvisoLlegadaID == folioAvisoLlegada
+                                     && !rfi.TieneNumerosUnicos
+                                     && rfi.Cantidad > 0
+                                     && !(from co in ctx.Sam3_Colada
+                                          where co.Activo && co.NumeroColada == ""
+                                          && co.ProyectoID == i.ProyectoID
+                                          select co.ColadaID).Contains(rfi.ColadaID)
+                                     && rfi.ColadaID > 0
+                                     select new ListaCombos
+                                     {
+                                         id = i.ItemCodeID.ToString(),
+                                         value = i.Codigo
+                                     }).AsParallel().Distinct().ToList();
+
+
+
+                    AccesoriosRB = (from r in ctx.Sam3_FolioAvisoEntrada
+                                    join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                    join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                    join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
+                                    join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                    join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                    join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                    join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                    join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                    where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                    && i.TipoMaterialID == 2
+                                    && r.FolioAvisoLlegadaID == folioAvisoLlegada
+                                    && !rbi.TieneNumerosUnicos
+                                    && rbi.Cantidad > 0
+                                    && !(from co in ctx.Sam3_Colada
+                                         where co.Activo && co.NumeroColada == ""
+                                         && co.ProyectoID == i.ProyectoID
+                                         select co.ColadaID).Contains(rbi.ColadaID)
+                                    && rbi.ColadaID > 0
+                                    select new ListaCombos
+                                    {
+                                        id = i.ItemCodeID.ToString(),
+                                        value =i.Codigo
+                                    }).AsParallel().Distinct().ToList();
+
+
+                    tubosRB = tubosRB.GroupBy(x => x.id).Select(x => x.First()).ToList();
+                    tubosRFC = tubosRFC.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
+                    AccesoriosRB = AccesoriosRB.GroupBy(x => x.id).Select(x => x.First()).ToList();
+                    AccesoriosRFC = AccesoriosRFC.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
+                    List<ListaCombos> listado = new List<ListaCombos>();
+
+                    if (tubosRB.Count > 0)
+                    {
+                        listado.AddRange(tubosRB);
+                    }
+                    if (tubosRFC.Count > 0)
+                    {
+                        listado.AddRange(tubosRFC);
+                    }
+                    if (AccesoriosRB.Count > 0)
+                    {
+                        listado.AddRange(AccesoriosRB);
+                    }
+                    if (AccesoriosRFC.Count > 0)
+                    {
+                        listado.AddRange(AccesoriosRFC);
+                    }
+
                     return listado;
                 }
             }
