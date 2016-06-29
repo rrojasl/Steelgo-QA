@@ -3377,7 +3377,7 @@ _dictionary = {
     },
     "ListadoOrdenAlmacenaje0007": {
         "es-MX": "Folio de recepción",
-        "en-US": "Reception Folio"
+        "en-US": "Reception Folio Order"
     },
     "ListadoOrdenAlmacenaje0008": {
         "es-MX": "Fecha Inicial",
