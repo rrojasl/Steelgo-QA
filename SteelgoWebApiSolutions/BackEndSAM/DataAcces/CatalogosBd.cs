@@ -2490,7 +2490,8 @@ namespace BackEndSAM.DataAcces
                         Area = ics.Area.ToString(),
                         TieneD2 = datos.TieneD2, 
                         FamiliaMaterial = datos.FamiliaMaterial, 
-                        FamiliaMaterialID = datos.FamiliaMaterialID
+                        FamiliaMaterialID = datos.FamiliaMaterialID,
+                        Asociado = datos.Asociado
                     };
 
                 }
