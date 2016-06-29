@@ -239,8 +239,8 @@
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].GrupoID = data.id;
                                 $("#grid").data("kendoGrid")._data[data.posicion].Grupo = data.nombre;
-
-                                if (data.id) {
+                                
+                                if (data.id && data.nombre!=="Tubo") {
                                     $Grupo.Grupo.read({}, { grupoID: data.id, token: Cookies.get("token") }).done(function (result) {
                                         $("#grid").data("kendoGrid")._data[data.posicion].TieneD2 = result;
                                         if (result) {
@@ -252,6 +252,11 @@
                                             $("[name='Diametro2']", e.container).data("kendoComboBox").value(0);
                                         }
                                     });
+                                }else if(data.nombre==="Tubo"){
+                                    $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = DiametroCero.id;
+                                    $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = DiametroCero.value;
+                                    $("[name='Diametro2']", e.container).data("kendoComboBox").value("0.00");
+                                    $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
                                 }
                             },
                             dataTextField: "value",
