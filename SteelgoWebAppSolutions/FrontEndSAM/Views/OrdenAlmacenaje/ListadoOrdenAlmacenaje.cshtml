@@ -633,7 +633,6 @@
     function ArregloPDF(tipo,id) {
         return { 
             TipoReporte: tipo, 
-            FolioOrdenRecepcion: "",
             FolioOrdenAlmacenaje: id,
             Cadena:""
         };
@@ -642,13 +641,13 @@
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var OrdenAlmacenaje = dataItem.OrdenAlmacenaje;
-        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(1,OrdenAlmacenaje));
+        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(5,OrdenAlmacenaje));
     };
     function ImprimirEtiquetas(e) {
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var ordenRecepcionID = dataItem.OrdenRecepcion
-        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(1,ordenRecepcionID));
+        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(5,ordenRecepcionID));
     };
 
     function downloadPDF(url, pdf) {

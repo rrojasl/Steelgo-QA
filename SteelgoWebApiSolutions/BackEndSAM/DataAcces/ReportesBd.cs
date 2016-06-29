@@ -116,7 +116,7 @@ namespace BackEndSAM.DataAcces
                 response.Content = new StreamContent(iStream);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = "Formato_Etiquetas_OrdenRecepcion_"  + ordenRecepcionID.ToString() + ".pdf";
+                response.Content.Headers.ContentDisposition.FileName = "EtiquetasMaterial_" + ordenRecepcionID.ToString() + ".pdf";
 
                 return response;
             }
