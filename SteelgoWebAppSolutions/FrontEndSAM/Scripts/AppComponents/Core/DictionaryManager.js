@@ -3283,8 +3283,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "DetalleOrdenAlmacenaje0009": {
-        "es-MX": "Folio Captura Packing List",
-        "en-US": "Folio Capture Packing List"
+        "es-MX": "Folio de recepción",
+        "en-US": "Reception Folio Order"
     },
     "DetalleOrdenAlmacenaje0010": {
         "es-MX": "Item Code ID",
@@ -3493,8 +3493,8 @@ _dictionary = {
         "en-US": "Project"
     },
     "GenerarOrdenAlmacenaje0013": {
-        "es-MX": "Folio Captura Packing List",
-        "en-US": "Packing List Folio"
+        "es-MX": "Folio de recepción",
+        "en-US": "Reception Folio Order"
     },
     "GenerarOrdenAlmacenaje0014": {
         "es-MX": "Item Code",
