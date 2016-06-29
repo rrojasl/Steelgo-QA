@@ -1007,6 +1007,7 @@
                             CantidadItems: { type: "string" },
                             CantidadSinICS: { type: "string" },
                             FolioCuantificacionID: { type: "string" },
+                            FolioAvisoLlegadaID: { type: "string" },
                         }
                     }
                 },
@@ -1022,10 +1023,11 @@
            [
                { field: "Proyecto", title: _dictionary.DashboardRecepcionAlmacenaje0033[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
-               { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
+               { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoLlegadaID#)'>#:PackingList#</a>" /*filterable: true*/ },
                { field: "CantidadItems", title: _dictionary.DashboardRecepcionAlmacenaje0038[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadSinICS", title: _dictionary.DashboardRecepcionAlmacenaje0039[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
+               { field: "FolioAvisoLlegadaID", title: _dictionary.DashboardRecepcionAlmacenaje0074[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarMTLsinICS }, title: " ", width: "99px" }
            ];
             return columnas;

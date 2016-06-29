@@ -39,6 +39,7 @@ namespace BackEndSAM.Models
         public string CantidadTotalItems { get; set; }
         public string CantidadSinICS { get; set; }
         public string FolioCuantificacionID { get; set; }
+        public string FolioAvisoLlegadaID { get; set; }
     }
 
     /// <summary>
