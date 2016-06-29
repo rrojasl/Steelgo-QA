@@ -102,7 +102,7 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public object Put(string data, string token, int editado = 0)
+        public object Put(string data, string token, int editado = 1)
         {
             string payload = "";
             string newToken = "";

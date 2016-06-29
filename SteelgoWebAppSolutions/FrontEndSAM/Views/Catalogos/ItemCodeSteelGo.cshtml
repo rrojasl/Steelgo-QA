@@ -853,39 +853,40 @@
                     }
 
                     creado = 0;
-                    for (var i = 1; grid.dataSource.data().length > i; i++) {
+                    for (var i = 0; grid.dataSource.data().length > i; i++) {
                         if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
                             creado = 1;
                             e.model.dirty = true;
                         }
                     }
-                    rowEditada.Acero = e.model.Acero;
-                    rowEditada.AceroID = e.model.AceroID;
-                    rowEditada.Area = e.model.Area;
-                    rowEditada.CedulaA = e.model.CedulaA;
-                    rowEditada.CedulaB = e.model.CedulaB;
-                    rowEditada.CedulaID = e.model.CedulaID;
-                    rowEditada.Libra = e.model.Libra;
-                    rowEditada.Codigo = e.model.Codigo;
-                    rowEditada.Diametro1 = e.model.Diametro1;
-                    rowEditada.Diametro1ID = e.model.Diametro1ID;
-                    rowEditada.Diametro2ID = e.model.Diametro2ID;
-                    rowEditada.Diametro2 = e.model.Diametro2;
-                    rowEditada.Inch = e.model.Inch;
-                    rowEditada.MM = e.model.MM;
-                    rowEditada.FamiliaMaterial = e.model.FamiliaMaterial;
-                    //rowEditada.Espesor = e.model.Espesor;
-                    rowEditada.Rel_ICS_DiametroID = e.model.Rel_ICS_DiametroID;
-                    rowEditada.Descripcion = e.model.Descripcion;
-                    rowEditada.DescripcionIngles = e.model.DescripcionIngles;
-                    rowEditada.DescripcionLarga = e.model.DescripcionLarga;
-                    rowEditada.DescripcionLargaIngles = e.model.DescripcionLargaIngles;
-                    rowEditada.Grupo = e.model.Grupo;
-                    rowEditada.GrupoID = e.model.GrupoID;
-                    rowEditada.Peso = e.model.Peso;
-                    rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
-                    rowEditada.dirty=e.model.dirty;
-                    rowEditada.uid = e.model.uid;
+                    //rowEditada.Acero = e.model.Acero;
+                    //rowEditada.AceroID = e.model.AceroID;
+                    //rowEditada.Area = e.model.Area;
+                    //rowEditada.CedulaA = e.model.CedulaA;
+                    //rowEditada.CedulaB = e.model.CedulaB;
+                    //rowEditada.CedulaID = e.model.CedulaID;
+                    //rowEditada.Libra = e.model.Libra;
+                    //rowEditada.Codigo = e.model.Codigo;
+                    //rowEditada.Diametro1 = e.model.Diametro1;
+                    //rowEditada.Diametro1ID = e.model.Diametro1ID;
+                    //rowEditada.Diametro2ID = e.model.Diametro2ID;
+                    //rowEditada.Diametro2 = e.model.Diametro2;
+                    //rowEditada.Inch = e.model.Inch;
+                    //rowEditada.MM = e.model.MM;
+                    //rowEditada.FamiliaMaterial = e.model.FamiliaMaterial;
+                    ////rowEditada.Espesor = e.model.Espesor;
+                    //rowEditada.Rel_ICS_DiametroID = e.model.Rel_ICS_DiametroID;
+                    //rowEditada.Descripcion = e.model.Descripcion;
+                    //rowEditada.DescripcionIngles = e.model.DescripcionIngles;
+                    //rowEditada.DescripcionLarga = e.model.DescripcionLarga;
+                    //rowEditada.DescripcionLargaIngles = e.model.DescripcionLargaIngles;
+                    //rowEditada.Grupo = e.model.Grupo;
+                    //rowEditada.GrupoID = e.model.GrupoID;
+                    //rowEditada.Peso = e.model.Peso;
+                    //rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
+                    //rowEditada.dirty=e.model.dirty;
+                    //rowEditada.uid = e.model.uid;
+                    rowEditada = e.model;
                     rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
                     grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
                     grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
@@ -907,38 +908,39 @@
                     }
 
                     creado = 0;
-                    for (var i = 1; grid.dataSource.data().length > i; i++) {
+                    for (var i = 0; grid.dataSource.data().length > i; i++) {
                         if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
                             creado = 1;
                             e.model.dirty = true;
                         }
                     }
                     
-                    rowEditada.Acero = e.model.Acero;
-                    rowEditada.AceroID = e.model.AceroID;
-                    rowEditada.Area = e.model.Area;
-                    rowEditada.CedulaA = e.model.CedulaA;
-                    rowEditada.CedulaB = e.model.CedulaB;
-                    rowEditada.CedulaID = e.model.CedulaID;
-                    rowEditada.Libra = e.model.Libra;
-                    rowEditada.Codigo = e.model.Codigo;
-                    rowEditada.Diametro1 = e.model.Diametro1;
-                    rowEditada.Diametro1ID = e.model.Diametro1ID;
-                    rowEditada.Diametro2ID = e.model.Diametro2ID;
-                    rowEditada.Diametro2 = e.model.Diametro2;
-                    rowEditada.Inch = e.model.Inch;
-                    rowEditada.MM = e.model.MM;
-                    rowEditada.FamiliaMaterial = e.model.FamiliaMaterial;
+                    //rowEditada.Acero = e.model.Acero;
+                    //rowEditada.AceroID = e.model.AceroID;
+                    //rowEditada.Area = e.model.Area;
+                    //rowEditada.CedulaA = e.model.CedulaA;
+                    //rowEditada.CedulaB = e.model.CedulaB;
+                    //rowEditada.CedulaID = e.model.CedulaID;
+                    //rowEditada.Libra = e.model.Libra;
+                    //rowEditada.Codigo = e.model.Codigo;
+                    //rowEditada.Diametro1 = e.model.Diametro1;
+                    //rowEditada.Diametro1ID = e.model.Diametro1ID;
+                    //rowEditada.Diametro2ID = e.model.Diametro2ID;
+                    //rowEditada.Diametro2 = e.model.Diametro2;
+                    //rowEditada.Inch = e.model.Inch;
+                    //rowEditada.MM = e.model.MM;
+                    //rowEditada.FamiliaMaterial = e.model.FamiliaMaterial;
                     
-                    rowEditada.Rel_ICS_DiametroID = e.model.Rel_ICS_DiametroID;
-                    rowEditada.Descripcion = e.model.Descripcion;
-                    rowEditada.DescripcionIngles = e.model.DescripcionIngles;
-                    rowEditada.DescripcionLarga = e.model.DescripcionLarga;
-                    rowEditada.DescripcionLargaIngles = e.model.DescripcionLargaIngles;
-                    rowEditada.Grupo = e.model.Grupo;
-                    rowEditada.GrupoID = e.model.GrupoID;
-                    rowEditada.Peso = e.model.Peso;
-                    rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
+                    //rowEditada.Rel_ICS_DiametroID = e.model.Rel_ICS_DiametroID;
+                    //rowEditada.Descripcion = e.model.Descripcion;
+                    //rowEditada.DescripcionIngles = e.model.DescripcionIngles;
+                    //rowEditada.DescripcionLarga = e.model.DescripcionLarga;
+                    //rowEditada.DescripcionLargaIngles = e.model.DescripcionLargaIngles;
+                    //rowEditada.Grupo = e.model.Grupo;
+                    //rowEditada.GrupoID = e.model.GrupoID;
+                    //rowEditada.Peso = e.model.Peso;
+                    //rowEditada.ItemCodeSteelgoID = e.model.ItemCodeSteelgoID;
+                    rowEditada=e.model;
                     rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
                     grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
                     editado = false;
