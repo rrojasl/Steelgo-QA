@@ -468,6 +468,13 @@
                     dataTextField: "Nombre",
                     dataValueField: "ProyectoID",
                     filter: "contains",
+                    change:function(e){
+                        var tmp=[];
+                        this.dataItems().forEach(function(n){
+                            n.Nombre!=="" ? tmp.push(n.ProyectoID) : null;
+                        })
+                        this.value(tmp)
+                    }
                 });
 
                 $("#PatioID").kendoComboBox({
