@@ -520,10 +520,14 @@
                 upload: onUploadAdjuntarArchivos,
                 localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
                 select: notDotName,
+                remove:function(e){
+                    $("#DescripcionDiv .security_required").removeClass("security_required");
+                }
             });
             //$("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
-
+            delete $DetalleLlegadaMaterialModel.properties.descripcion;
+            $("#DescripcionDiv .security_required").removeClass("security_required");
             };
 
             function ActualizarTitulosEdicion(data) {
@@ -969,7 +973,7 @@
             }
 
             $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoLlegadaMaterialUploadFiles + folioLlegada + "&tipoArchivoID=-1" + "&descripcion=" + $("#Descripcion").val() + "&token=" + Cookies.get("token");
-
+            $("#DescripcionDiv").children().addClass("security_required");
         };
 
         function borrarArchivo(id, fila) {
@@ -1452,16 +1456,16 @@
                         }
                     }
 
-                    if (edicion && $(elem).attr("id") == "Descripcion") {
-                        if (!$(this).val()) {
-                            bool = false;
-                            $(this).closest("div").find("label").addClass("error");
-                            $(this).closest("div").addClass("clearfix");
-                        } else {
-                            $(this).closest("div").find("label").removeClass("error");
-                            $(this).closest("div").removeClass("clearfix");
-                        };
-                    }
+                    //if (edicion && $(elem).attr("id") == "Descripcion") {
+                    //    if (!$(this).val()) {
+                    //        bool = false;
+                    //        $(this).closest("div").find("label").addClass("error");
+                    //        $(this).closest("div").addClass("clearfix");
+                    //    } else {
+                    //        $(this).closest("div").find("label").removeClass("error");
+                    //        $(this).closest("div").removeClass("clearfix");
+                    //    };
+                    //}
 
                 };
             });
