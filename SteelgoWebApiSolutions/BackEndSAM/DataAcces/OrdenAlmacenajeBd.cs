@@ -921,10 +921,10 @@ namespace BackEndSAM.DataAcces
                         foreach (PackingListCuantificacion folio in elemento.FolioCuantificacion)
                         {
                             folio.ItemCodes = (from rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfci.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                               join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
+                                               join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfci.Rel_FolioCuantificacion_ItemCode_ID equals relnu.Rel_FolioCuantificacion_ItemCode_ID
+                                               join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ronu.NumeroUnicoID
-                                               join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                               join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                where rfci.FolioCuantificacionID == folio.FolioCuantificacionID
                                                && rfci.Activo && nu.Activo && ronu.Activo && it.Activo
                                                select new ElementoItemCodeGenerarOrdenAlmacenaje
@@ -938,10 +938,10 @@ namespace BackEndSAM.DataAcces
 
                             folio.ItemCodes.AddRange((from rbi in ctx.Sam3_Rel_Bulto_ItemCode
                                                       join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                                      join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
+                                                      join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals relnu.Rel_Bulto_ItemCode_ID
+                                                      join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                       join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ronu.NumeroUnicoID
-                                                      join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                                      join it in ctx.Sam3_ItemCode on nu.NumeroUnicoID equals it.ItemCodeID
                                                       where b.FolioCuantificacionID == folio.FolioCuantificacionID
                                                       && rbi.Activo && nu.Activo && ronu.Activo && it.Activo && b.Activo
                                                       select new ElementoItemCodeGenerarOrdenAlmacenaje
@@ -1244,104 +1244,113 @@ namespace BackEndSAM.DataAcces
                         }
 
 
-                        listadoOrdenAlmacenaje.ItemCodes = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                            join num in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals num.NumeroUnicoID
-                                                            join ic in ctx.Sam3_ItemCode on num.ItemCodeID equals ic.ItemCodeID
-                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
-                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfc.Rel_ItemCode_Diametro_ID
-                                                            join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals ric.Rel_ItemCode_Diametro_ID
-                                                            join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ric.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                                            join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                            join p in ctx.Sam3_Proyecto on item.ProyectoID equals p.ProyectoID
-                                                            join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
-                                                            join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                                                            where roa.Activo && num.Activo && ic.Activo && rfc.Activo && ric.Activo && ics.Activo && p.Activo
-                                                            && roa.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                            && rfc.FolioCuantificacionID == item.FolioCuantificacionID
+                        listadoOrdenAlmacenaje.ItemCodes = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                            join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                            join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                                            join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                            join riic in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals riic.Rel_ItemCode_Diametro_ID
+                                                            join ricd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riic.Rel_ItemCodeSteelgo_Diametro_ID equals ricd.Rel_ItemCodeSteelgo_Diametro_ID
+                                                            join ics in ctx.Sam3_ItemCodeSteelgo on ricd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                            join d1 in ctx.Sam3_Diametro on ricd.Diametro1ID equals d1.DiametroID
+                                                            join d2 in ctx.Sam3_Diametro on ricd.Diametro2ID equals d2.DiametroID
+                                                            join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                            where relnu.Activo && rfi.Activo && nu.Activo && it.Activo && rid.Activo && riic.Activo 
+                                                            && ricd.Activo && ics.Activo && d1.Activo && d2.Activo && p.Activo
+                                                            && (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                                where roa.Activo && roa.OrdenAlmacenajeID == ordenAlmacenajeID
+                                                                select roa.NumeroUnicoID).Contains(relnu.NumeroUnicoID)
+                                                            && rfi.FolioCuantificacionID == item.FolioCuantificacionID
                                                             select new ElementoCuantificacionItemCode
                                                             {
-                                                                ItemCodeID = ic.ItemCodeID.ToString(),
-                                                                Codigo = ic.Codigo,
+                                                                ItemCodeID = it.ItemCodeID.ToString(),
+                                                                Codigo = it.Codigo,
                                                                 Descripcion = ics.DescripcionEspanol,
-                                                                Cantidad = (from oar in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                                            join numuni in ctx.Sam3_NumeroUnico on oar.NumeroUnicoID equals numuni.NumeroUnicoID
-                                                                            join itc in ctx.Sam3_ItemCode on numuni.ItemCodeID equals itc.ItemCodeID
-                                                                            //join rfcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on itc.ItemCodeID equals rfcic.ItemCodeID
-                                                                            where oar.Activo && numuni.Activo && itc.Activo //&& rfcic.Activo
-                                                                            && oar.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                                                //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
-                                                                            && itc.ItemCodeID == ic.ItemCodeID
-                                                                            select oar.NumeroUnicoID).Count().ToString(),
+                                                                Cantidad = (from relnum in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                                            where relnum.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                                            select relnum.NumeroUnicoID).Count().ToString(),
                                                                 D1 = d1.Valor.ToString(),
                                                                 D2 = d2.Valor.ToString(),
                                                                 FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                                 Proyecto = p.Nombre,
-                                                                ProyectoID = item.ProyectoID.ToString(),
-                                                                NumerosUnicos = (from oar in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                                                 join numuni in ctx.Sam3_NumeroUnico on oar.NumeroUnicoID equals numuni.NumeroUnicoID
-                                                                                 join itc in ctx.Sam3_ItemCode on numuni.ItemCodeID equals itc.ItemCodeID
-                                                                                 where oar.Activo && numuni.Activo && itc.Activo //&& rfcic.Activo
-                                                                                 && oar.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                                                 && numuni.ItemCodeID == ic.ItemCodeID
-                                                                                 select new ElementoNumeroUnico
-                                                                                 {
-                                                                                     FolioCuantificacion = item.FolioCuantificacionID.ToString(),
-                                                                                     ItemCodeID = ic.ItemCodeID.ToString(),
-                                                                                     NumeroUnicoID = oar.NumeroUnicoID.ToString(),
-                                                                                     NumeroUnico = numuni.Prefijo + "-" + numuni.Consecutivo
-                                                                                 }).ToList()
+                                                                ProyectoID = p.ProyectoID.ToString()
                                                             }).AsParallel().ToList();
 
-                        listadoOrdenAlmacenaje.ItemCodes.AddRange((from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                                   join num in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals num.NumeroUnicoID
-                                                                   join ic in ctx.Sam3_ItemCode on num.ItemCodeID equals ic.ItemCodeID
-                                                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
-                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
-                                                                   join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                                                                   join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals ric.Rel_ItemCode_Diametro_ID
-                                                                   join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ric.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                                                   join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                                   join p in ctx.Sam3_Proyecto on item.ProyectoID equals p.ProyectoID
-                                                                   join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
-                                                                   join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                                                                   where roa.Activo && num.Activo && ic.Activo && rbi.Activo && ric.Activo && ics.Activo && p.Activo
-                                                                   && roa.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                                   && b.FolioCuantificacionID == item.FolioCuantificacionID
-                                                                   select new ElementoCuantificacionItemCode
-                                                                   {
-                                                                       ItemCodeID = ic.ItemCodeID.ToString(),
-                                                                       Codigo = ic.Codigo,
-                                                                       Descripcion = ics.DescripcionEspanol,
-                                                                       Cantidad = (from oar in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                                                   join numuni in ctx.Sam3_NumeroUnico on oar.NumeroUnicoID equals numuni.NumeroUnicoID
-                                                                                   join itc in ctx.Sam3_ItemCode on numuni.ItemCodeID equals itc.ItemCodeID
-                                                                                   //join rfcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on itc.ItemCodeID equals rfcic.ItemCodeID
-                                                                                   where oar.Activo && numuni.Activo && itc.Activo //&& rfcic.Activo
-                                                                                   && oar.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                                                       //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
-                                                                                   && itc.ItemCodeID == ic.ItemCodeID
-                                                                                   select oar.NumeroUnicoID).Count().ToString(),
-                                                                       D1 = d1.Valor.ToString(),
-                                                                       D2 = d2.Valor.ToString(),
-                                                                       FolioCuantificacion = item.FolioCuantificacionID.ToString(),
-                                                                       Proyecto = p.Nombre,
-                                                                       ProyectoID = item.ProyectoID.ToString(),
-                                                                       NumerosUnicos = (from oar in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                                                        join numuni in ctx.Sam3_NumeroUnico on oar.NumeroUnicoID equals numuni.NumeroUnicoID
-                                                                                        join itc in ctx.Sam3_ItemCode on numuni.ItemCodeID equals itc.ItemCodeID
-                                                                                        where oar.Activo && numuni.Activo && itc.Activo //&& rfcic.Activo
-                                                                                        && oar.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                                                        && numuni.ItemCodeID == ic.ItemCodeID
-                                                                                        select new ElementoNumeroUnico
-                                                                                        {
-                                                                                            FolioCuantificacion = item.FolioCuantificacionID.ToString(),
-                                                                                            ItemCodeID = ic.ItemCodeID.ToString(),
-                                                                                            NumeroUnicoID = oar.NumeroUnicoID.ToString(),
-                                                                                            NumeroUnico = numuni.Prefijo + "-" + numuni.Consecutivo
-                                                                                        }).ToList()
-                                                                   }).AsParallel().ToList());
+                        listadoOrdenAlmacenaje.ItemCodes.AddRange((from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on relnu.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                            join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                                            join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                            join riic in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals riic.Rel_ItemCode_Diametro_ID
+                                                            join ricd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riic.Rel_ItemCodeSteelgo_Diametro_ID equals ricd.Rel_ItemCodeSteelgo_Diametro_ID
+                                                            join ics in ctx.Sam3_ItemCodeSteelgo on ricd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                            join d1 in ctx.Sam3_Diametro on ricd.Diametro1ID equals d1.DiametroID
+                                                            join d2 in ctx.Sam3_Diametro on ricd.Diametro2ID equals d2.DiametroID
+                                                            join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                            where relnu.Activo && rbi.Activo && nu.Activo && it.Activo && rid.Activo && riic.Activo 
+                                                            && ricd.Activo && ics.Activo && d1.Activo && d2.Activo && p.Activo && b.Activo
+                                                            && (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                                where roa.Activo && roa.OrdenAlmacenajeID == ordenAlmacenajeID
+                                                                select roa.NumeroUnicoID).Contains(relnu.NumeroUnicoID)
+                                                            && b.FolioCuantificacionID == item.FolioCuantificacionID
+                                                            select new ElementoCuantificacionItemCode
+                                                            {
+                                                                ItemCodeID = it.ItemCodeID.ToString(),
+                                                                Codigo = it.Codigo,
+                                                                Descripcion = ics.DescripcionEspanol,
+                                                                Cantidad = (from relnum in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                                            where relnum.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
+                                                                            select relnum.NumeroUnicoID).Count().ToString(),
+                                                                D1 = d1.Valor.ToString(),
+                                                                D2 = d2.Valor.ToString(),
+                                                                FolioCuantificacion = item.FolioCuantificacionID.ToString(),
+                                                                Proyecto = p.Nombre,
+                                                                ProyectoID = p.ProyectoID.ToString()
+                                                             }).AsParallel().ToList());
+
 
                         listadoOrdenAlmacenaje.ItemCodes = listadoOrdenAlmacenaje.ItemCodes.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
+                        
+                        foreach (ElementoCuantificacionItemCode it in listadoOrdenAlmacenaje.ItemCodes)
+                        {
+                            it.NumerosUnicos = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                join roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on relnu.NumeroUnicoID equals roa.NumeroUnicoID
+                                                join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
+                                                where relnu.Activo && roa.Activo && nu.Activo && rfi.Activo
+                                                && roa.OrdenAlmacenajeID == ordenAlmacenajeID
+                                                && rfi.FolioCuantificacionID.ToString() == it.FolioCuantificacion
+                                                && nu.ItemCodeID.ToString() == it.ItemCodeID
+                                                select new ElementoNumeroUnico
+                                                {
+                                                    FolioCuantificacion = it.FolioCuantificacion,
+                                                    ItemCodeID = it.ItemCodeID,
+                                                    NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                                    NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
+                                                }).AsParallel().Distinct().ToList();
+
+                            it.NumerosUnicos.AddRange((from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                join rbi in ctx.Sam3_Rel_Bulto_ItemCode on relnu.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                join roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on relnu.NumeroUnicoID equals roa.NumeroUnicoID
+                                                join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
+                                                where relnu.Activo && roa.Activo && nu.Activo && rbi.Activo && b.Activo
+                                                && roa.OrdenAlmacenajeID == ordenAlmacenajeID
+                                                && b.FolioCuantificacionID.ToString() == it.FolioCuantificacion
+                                                && nu.ItemCodeID.ToString() == it.ItemCodeID
+                                                select new ElementoNumeroUnico
+                                                {
+                                                    FolioCuantificacion = it.FolioCuantificacion,
+                                                    ItemCodeID = it.ItemCodeID,
+                                                    NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                                    NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
+                                                }).AsParallel().Distinct().ToList());
+
+                            it.NumerosUnicos.OrderBy(x => x.NumeroUnico);
+                                                
+                        }
+
 
                         foreach (var i in listadoOrdenAlmacenaje.ItemCodes)
                         {
@@ -1385,6 +1394,9 @@ namespace BackEndSAM.DataAcces
                     listadoDetalleOrdenAlmacenaje.Activo = ordenAlmacenaje.Activo;
                     listadoDetalleOrdenAlmacenaje.ProyectoID = ProyectoID;
                     listadoDetalleOrdenAlmacenaje.ListadoGenerarOrdenAlmacenaje = listado.OrderBy(x => x.FolioCuantificacion).ToList();
+
+                    JavaScriptSerializer seriaizer = new JavaScriptSerializer();
+                    string temp = seriaizer.Serialize(listadoDetalleOrdenAlmacenaje);
 
                     return listadoDetalleOrdenAlmacenaje;
                 }
