@@ -1163,7 +1163,15 @@
                 }
             },
             filter: "contains",
-            dataBound: function (e) { checkIfOne(this); },
+            dataBound: function (e) { 
+                checkIfOne(this);
+                if(this.dataSource.data().length>0 && _Clasificacion!=="-1"){
+                    this.select(function(e){
+                        return e.ClasificacionID===_Clasificacion;
+                    })
+                    this.trigger("change")
+                }
+            },
         });
         ObtenerClasificacion();
 
@@ -1187,7 +1195,15 @@
                 else { ObtenerRegistro(this.value()); }
             },
             filter: "contains",
-            dataBound: function (e) { checkIfOne(this); },
+            dataBound: function (e) { 
+                checkIfOne(this);
+                if(this.dataSource.data().length>0 && _TipoIncidencia !== "-1"){
+                    this.select(function(e){
+                        return e.TipoIncidenciaID===_TipoIncidencia ;
+                    })
+                    this.trigger("change")
+                }
+            },
         });
         ObtenerTipoIncidencia();
 
