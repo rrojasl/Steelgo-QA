@@ -942,7 +942,7 @@ namespace BackEndSAM.DataAcces
                             List<Sam3_Rel_FolioAvisoLlegada_Proyecto> lstProyectos = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                     .Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).ToList();
 
-                            if (lstProyectos.Count != cambios.Proyectos.Count)
+                            if (cambios.Proyectos.Count > 0)
                             {
                                 List<Sam3_Rel_FolioAvisoLlegada_Proyecto> eliminados = lstProyectos.Where(x => !cambios.Proyectos.Select(y => y.ProyectoID).Contains(x.ProyectoID)).ToList();
 

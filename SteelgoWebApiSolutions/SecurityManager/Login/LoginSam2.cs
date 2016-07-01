@@ -9,6 +9,7 @@ using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
+using DatabaseManager.Sam2;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using SecurityManager.Login;
@@ -67,7 +68,35 @@ namespace SecurityManager.Login
                             usuarioRegistrado = proveedor.GetUser(usuario, false);
                             Guid id = (Guid)usuarioRegistrado.ProviderUserKey;
 
-                            usuarioSam3 = ctx.Sam3_Usuario.Where(x => x.Sam2UserID == id).AsParallel().SingleOrDefault();
+                            if (ctx.Sam3_Usuario.Where(x => x.Sam2UserID == id).Any())
+                            {
+                                usuarioSam3 = ctx.Sam3_Usuario.Where(x => x.Sam2UserID == id).AsParallel().SingleOrDefault();
+                            }
+                            else
+                            {
+                                using (Sam2Context ctx2 = new Sam2Context())
+                                {
+                                    
+                                    Usuario usrSam2 = ctx2.Usuario.Where(x => x.UserId == id).SingleOrDefault();
+                                    usuarioSam3 = new Sam3_Usuario
+                                    {
+                                        Activo = true,
+                                        ApellidoMaterno = usrSam2.ApMaterno,
+                                        ApellidoPaterno = usrSam2.ApPaterno,
+                                        BloqueadoPorAdministracion = usr.BloqueadoPorAdministracion,
+                                        ContrasenaHash = ctx2.aspnet_Membership.Where(x => x.UserId == id).Select(x => x.Password).SingleOrDefault(),
+                                        FechaModificacion = DateTime.Now,
+                                        Nombre = usr.Nombre,
+                                        NombreUsuario = ctx2.aspnet_Users.Where(x => x.UserId == id).Select(x => x.UserName).SingleOrDefault(),
+                                        PerfilID = ctx.Sam3_Perfil.Where(x => x.Nombre == "Sin Permisos").Select(x => x.PerfilID).SingleOrDefault(),
+                                        Sam2UserID = id,
+                                        UsuarioModificacion = 1
+                                    };
+                                    ctx.Sam3_Usuario.Add(usuarioSam3);
+                                    ctx.SaveChanges();
+                                }
+                            }
+
 
                             string token = ManageTokens.Instance.CreateJwtToken(usuarioSam3);
 
