@@ -355,6 +355,7 @@
                             if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
                                 //bool = false;
                                 $("#ProyectoID").data("kendoMultiSelect").value(1);
+                                $("#ProyectoID").data("kendoMultiSelect").trigger("change");
                                 CargarProyecto(1);
                                 //$(this).closest("div").find("label").addClass("error");
                             } else {
@@ -474,7 +475,7 @@
                             n.Nombre!=="" ? tmp.push(n.ProyectoID) : null;
                         })
                         this.value(tmp)
-                    }
+                    },
                 });
 
                 $("#PatioID").kendoComboBox({
@@ -493,6 +494,7 @@
                             $("#ClienteID").data("kendoComboBox").value("");
                             $("#ClienteID").data("kendoComboBox").dataSource.data([]);
                             $("#ProyectoID").data("kendoMultiSelect").value("");
+                            $("#ProyectoID").data("kendoMultiSelect").trigger("change");
                             $("#ProyectoID").data("kendoMultiSelect").dataSource.data([]);
                             VentanaModal(4);
                             e.preventDefault();
@@ -505,6 +507,7 @@
                             $("#ClienteID").data("kendoComboBox").value("");
                             $("#ClienteID").data("kendoComboBox").dataSource.data([]);
                             $("#ProyectoID").data("kendoMultiSelect").value("");
+                            $("#ProyectoID").data("kendoMultiSelect").trigger("change");
                             $("#ProyectoID").data("kendoMultiSelect").dataSource.data([]);
                             Cliente = {};
                             if (!value || this.selectedIndex == -1) {
@@ -982,6 +985,7 @@
                             case 'ProyectoID':
                                 if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
                                     $("#ProyectoID").data("kendoMultiSelect").value(1);
+                                    $("#ProyectoID").data("kendoMultiSelect").trigger("change");
                                     CargarProyecto(1);
                                 };
                                 break;
@@ -1473,6 +1477,7 @@
                         //console.log(" concat:" + concat);
                     });
                     $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
+                    $("#ProyectoID").data("kendoMultiSelect").trigger("change");
                 });
             }
             function ObtenerProyectos() {
