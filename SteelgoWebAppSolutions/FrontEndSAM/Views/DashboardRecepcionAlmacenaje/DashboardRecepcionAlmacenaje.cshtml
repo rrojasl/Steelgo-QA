@@ -900,8 +900,13 @@
 
         function MostrarDetalleEntradaPorCuantificar(folioAvisoLlegadaID) {
             var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID;
-
+            if(typeof folioAvisoLlegadaID!=="object"){
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID;
+            }else{
+                debugger;
+                var dataItem=$("#gridGeneral").data("kendoGrid").dataItem($(folioAvisoLlegadaID).closest("tr"));
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + dataItem.FolioAvisoLlegadaID + "&Proyecto="+encodeURI(dataItem.Proyecto) + "&PackingList="+dataItem.PackingList;
+            }
         };
 
         function DefinicionModeloPLporCuantificar() {
@@ -1023,7 +1028,7 @@
            [
                { field: "Proyecto", title: _dictionary.DashboardRecepcionAlmacenaje0033[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FechaCreacionPackingList", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], format: "{0:dd/MM/yyyy}",/*filterable: true*/ },
-               { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoLlegadaID#)'>#:PackingList#</a>" /*filterable: true*/ },
+               { field: "PackingList", title: _dictionary.DashboardRecepcionAlmacenaje0037[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(this)'>#:PackingList#</a>" /*filterable: true*/ },
                { field: "CantidadItems", title: _dictionary.DashboardRecepcionAlmacenaje0038[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "CantidadSinICS", title: _dictionary.DashboardRecepcionAlmacenaje0039[$("#language").data("kendoDropDownList").value()], /*filterable: true*/ },
                { field: "FolioCuantificacionID", title: _dictionary.DashboardRecepcionAlmacenaje0049[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
