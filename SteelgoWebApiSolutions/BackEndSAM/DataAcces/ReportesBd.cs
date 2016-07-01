@@ -160,14 +160,14 @@ namespace BackEndSAM.DataAcces
                 cliente.ClientCredentials.UserName.UserName = usuarioReportes;
                 cliente.ClientCredentials.UserName.Password = passReportes;
 
-                ParameterValue[] parametros = new ParameterValue[1];
+                ParameterValue[] parametros = new ParameterValue[2];
                 parametros[0] = new ParameterValue();
                 parametros[0].Name = "FolioAvisoLlegadaID";
                 parametros[0].Value = FolioAvisoLlegadaID.ToString();
 
-                //parametros[1] = new ParameterValue();
-                //parametros[1].Name = "cadena";
-                //parametros[1].Value = cadena;
+                parametros[1] = new ParameterValue();
+                parametros[1].Name = "cadena";
+                parametros[1].Value = cadena;
 
                 ExecutionInfo infoEjecucion = new ExecutionInfo();
                 TrustedUserHeader encabezadoSeguro = null;

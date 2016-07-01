@@ -5,6 +5,9 @@ using SecurityManager.TokenHandler;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.Models;
+using System.Collections.Generic;
+using System;
 
 namespace BackEndSAM.Controllers
 {
@@ -36,6 +39,32 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
+        public object Get(string folioAvisoLlegadaID, string folioCuantificacionID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                InfoFolioAvisoEntrada infoEntrada = (InfoFolioAvisoEntrada)FoliosCuantificacionBd.Instance.obtenerDatosFolioEntrada(Convert.ToInt32(folioAvisoLlegadaID));
+                List<CuantificacionListado> listado = (List<CuantificacionListado>)CuantificacionBd.Instance.gridCuantificacionInfo(Convert.ToInt32(folioCuantificacionID));
+                List<object> resultado = new List<object>();
+                resultado.Add(infoEntrada);
+                resultado.Add(listado);
+                return resultado;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
 
         public object Get(string token)
         {

@@ -1811,6 +1811,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="MM" Type="int" Nullable="false" />
           <Property Name="OrdenRecepcionID" Type="int" />
+          <Property Name="OrdenAlmacenajeID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Rel_OrdenAlmacenaje_NumeroUnico">
           <Key>
@@ -3630,6 +3631,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
               <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Orden__52442E1F">
+          <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenAlmacenaje">
+              <PropertyRef Name="OrdenAlmacenajeID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
+              <PropertyRef Name="OrdenAlmacenajeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5620,6 +5633,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___Orden__4F9CCB9E" Association="Self.FK__Sam3_Rel___Orden__4F9CCB9E">
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
             <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntitySet="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__52442E1F" Association="Self.FK__Sam3_Rel___Orden__52442E1F">
+            <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
+            <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Orden__6E2152BE" Association="Self.FK__Sam3_Rel___Orden__6E2152BE">
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
@@ -9509,6 +9526,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_MTR" EntitySet="Sam3_MTR" />
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Orden__52442E1F" Association="ModelSam3.FK__Sam3_Rel___Orden__52442E1F">
+            <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
+            <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -10448,6 +10469,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Rel_Proyecto_Entidad_Configuracion_ID" Type="Int32" />
           <Property Name="Consecutivo" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_Proyecto_Entidad_Configuracion" Relationship="ModelSam3.FK__Sam3_Orde__Rel_P__21E0EDE6" FromRole="Sam3_OrdenAlmacenaje" ToRole="Sam3_Rel_Proyecto_Entidad_Configuracion" />
+          <NavigationProperty Name="Sam3_Rel_NumeroUnico_RelFC_RelB" Relationship="ModelSam3.FK__Sam3_Rel___Orden__52442E1F" FromRole="Sam3_OrdenAlmacenaje" ToRole="Sam3_Rel_NumeroUnico_RelFC_RelB" />
         </EntityType>
         <EntityType Name="Sam3_Rel_OrdenAlmacenaje_NumeroUnico">
           <Key>
@@ -11803,6 +11825,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="MM" Type="Int32" Nullable="false" />
           <Property Name="OrdenRecepcionID" Type="Int32" />
           <NavigationProperty Name="Sam3_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Rel___Orden__4AADF94F" FromRole="Sam3_Rel_NumeroUnico_RelFC_RelB" ToRole="Sam3_OrdenRecepcion" />
+          <Property Name="OrdenAlmacenajeID" Type="Int32" />
+          <NavigationProperty Name="Sam3_OrdenAlmacenaje" Relationship="ModelSam3.FK__Sam3_Rel___Orden__52442E1F" FromRole="Sam3_Rel_NumeroUnico_RelFC_RelB" ToRole="Sam3_OrdenAlmacenaje" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Numer__1D5142F3">
           <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
@@ -12687,6 +12711,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_NumeroUnico">
               <PropertyRef Name="MTRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Orden__52442E1F">
+          <End Type="ModelSam3.Sam3_OrdenAlmacenaje" Role="Sam3_OrdenAlmacenaje" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_NumeroUnico_RelFC_RelB" Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_OrdenAlmacenaje">
+              <PropertyRef Name="OrdenAlmacenajeID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_NumeroUnico_RelFC_RelB">
+              <PropertyRef Name="OrdenAlmacenajeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14764,6 +14800,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_NumeroUnico_RelFC_RelB">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_NumeroUnico_RelFC_RelB">
               <MappingFragment StoreEntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB">
+                <ScalarProperty Name="OrdenAlmacenajeID" ColumnName="OrdenAlmacenajeID" />
                 <ScalarProperty Name="OrdenRecepcionID" ColumnName="OrdenRecepcionID" />
                 <ScalarProperty Name="MM" ColumnName="MM" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />

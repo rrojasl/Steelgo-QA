@@ -245,7 +245,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\Sam3Reportes\configuration91.svcinfo" />
-    <Content Include="Service References\Sam3Reportes\configuration.svcinfo" />
+    <Content Include="Service References\Sam3Reportes\configuration.svcinfo">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Service References\Sam3Reportes\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
