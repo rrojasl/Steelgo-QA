@@ -34,6 +34,9 @@
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle guardar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
+                                <ul class="dropdown-menu guardar">
+                                    <li><a href="#" id="GuardarNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
+                                </ul>
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
@@ -217,11 +220,21 @@
         $("#Guardar").click(function () {
             this.disabled=true;
             if (!ValidarRequeridos()) {
-                Guardar();
+                Guardar(false);
             } else {
                 displayMessage("notificationslabel0031", "", '1');
             }
         });
+
+        $("#GuardarNuevo").click(function (e) {
+            this.disabled = true;
+            if (!ValidarRequeridos()) {
+                Guardar(true);
+            } else {
+                displayMessage("notificationslabel0031", "", '1');
+            }
+        });
+
         $("#Editar").click(function (e) {
             BotonEdicion();
         });
@@ -245,7 +258,7 @@
         $("#ArchivoAutorizar").val("");
         limpiarUploadFiles();
     }
-    function Guardar() {
+    function Guardar(bool) {
         var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
         var Folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
@@ -256,6 +269,10 @@
         $GuardarPermisoAduana.DocumentoPermisoAduana.create({}, { datos: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (data) {
             //loadingStart();
             if (Error(data)) {
+                if (bool) {//guardar y nuevo
+                    var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLlegada")";
+                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                 }
                 displayMessage("notificationslabel0085", "", '0');
                 BotonAlta();
             }
