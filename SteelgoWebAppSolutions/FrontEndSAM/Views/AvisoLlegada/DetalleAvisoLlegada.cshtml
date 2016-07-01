@@ -1238,7 +1238,7 @@
                         $("#listaArchivos tbody").empty();
                         $.each(data.Archivos, function (index, value) {
                             contador += 1;
-                            $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                            $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                         });
                         $("#hdnCantidadArchivos").val(contador);
                     //}
