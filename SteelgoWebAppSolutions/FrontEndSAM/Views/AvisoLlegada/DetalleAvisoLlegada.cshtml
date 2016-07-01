@@ -593,16 +593,26 @@
                         else{
                             dataItem!==undefined ? CargarTransportista(dataItem.TransportistaID, dataItem.Nombre):CargarTransportista("", "");
                             var value = this.value();
+
                             $("#Tracto").data("kendoComboBox").value("");
                             $("#Tracto").data("kendoComboBox").dataSource.data([]);
                             $("#PlanaID").data("kendoMultiSelect").value("");
                             $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
-                            if (!value || this.selectedIndex == -1) {
+                            $("#Tracto").data("kendoComboBox").enable(true);
+                            $("#PlanaID").data("kendoMultiSelect").enable(true);
+
+                            if (!value || value == 1 || this.selectedIndex == -1) {
                                 messageindexKendoCombobox(this);
                                 Transportista = [];
                                 Chofer = [];
                                 CamionEntradaMaterial = {};
                                 this.value("");
+                                if (value == 1) {
+                                    $("#ChoferID").data("kendoComboBox").enable(false);
+                                    $("#Tracto").data("kendoComboBox").enable(false);
+                                    $("#PlanaID").data("kendoMultiSelect").enable(false);
+                                }
+
                                 $("#ChoferID").data("kendoComboBox").value("");
                                 $("#ChoferID").data("kendoComboBox").enable(false);
                                 $("#Tracto").data("kendoComboBox").value("");
@@ -1060,8 +1070,20 @@
                 $("#ClienteID").data("kendoComboBox").enable();
                 $("#PatioID").data("kendoComboBox").enable();
                 $("#TransportistaID").data("kendoComboBox").enable();
-                $("#ChoferID").data("kendoComboBox").enable();
-                $("#Tracto").data("kendoComboBox").enable();
+                
+                if ($("#TransportistaID").data("kendoComboBox").value() == 1
+                    || !$("#TransportistaID").data("kendoComboBox").value())
+                {
+                    $("#ChoferID").data("kendoComboBox").enable(false);
+                    $("#Tracto").data("kendoComboBox").enable(false);
+                    $("#PlanaID").data("kendoMultiSelect").enable(false);
+                } else
+                {
+                    $("#ChoferID").data("kendoComboBox").enable(true);
+                    $("#Tracto").data("kendoComboBox").enable(true);
+                    $("#PlanaID").data("kendoMultiSelect").enable(true);
+                }
+               
                 $("#TipoArchivo").data("kendoComboBox").enable();
 
                 $("#ProyectoID").data("kendoMultiSelect").enable();
@@ -1217,6 +1239,12 @@
                         CargarCamionEntradaMaterial(data.Tracto.VehiculoID, data.Tracto.Placas);
                         $("#Tracto").data("kendoComboBox").value(data.Tracto.Placas);
                     }
+
+                    if (data.Transportista[0].TransportistaID == 1 || !data.Transportista[0].TransportistaID) {
+                        $("#Tracto").data("kendoComboBox").enable(false);
+                        $("#PlanaID").data("kendoMultiSelect").enable(false);
+                    }
+
                     var contador = 0;
                     //if (creacionArchivos) {
                     //    $("#listaArchivos tbody").empty();
