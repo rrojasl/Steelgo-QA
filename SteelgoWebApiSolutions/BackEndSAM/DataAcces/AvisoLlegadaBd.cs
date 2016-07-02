@@ -1061,16 +1061,22 @@ namespace BackEndSAM.DataAcces
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                     List<int> proyectos;
-
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     //Folios que aun no tienen relacionado una orden de recepcion
                     //List<ListaCombos> lstFolios = new List<ListaCombos>();
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                   where r.Activo
-                                                   && (from rel in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
-                                                        where rel.Activo
-                                                        select rel.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
+                                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   where r.Activo && fp.Activo && p.Activo && pa.Activo
+                                                   && proyectos.Contains(p.ProyectoID)
+                                                   && patios.Contains(pa.PatioID)
+                                                   //&& (from rel in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
+                                                   //     where rel.Activo
+                                                   //     select rel.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),

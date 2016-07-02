@@ -32,7 +32,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return FoliosCuantificacionBd.Instance.obtenerFolioLlegada();
+                return FoliosCuantificacionBd.Instance.obtenerFolioLlegada(usuario);
             }
             else
             {

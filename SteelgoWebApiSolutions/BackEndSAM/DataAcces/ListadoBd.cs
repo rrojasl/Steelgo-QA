@@ -363,13 +363,6 @@ namespace BackEndSAM.DataAcces
                     //numeros unicos sin orden de almacenaje, que ya cuentan con recepcion y complemento de recepcion
                     if (tipoMaterialID == 3) //todos
                     {
-                        //result.NUSinOrdenAlmacenaje = (from rnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                        //                               join nu in ctx.Sam3_NumeroUnico on rnu.NumeroUnicoID equals nu.NumeroUnicoID
-                        //                               where rnu.Activo && nu.Activo
-                        //                               && !(from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                        //                                    where ronu.Activo
-                        //                                    select ronu.NumeroUnicoID).Contains(nu.NumeroUnicoID)
-                        //                               select nu).Distinct().Count();
                         result.NUSinOrdenAlmacenaje = (from fa in ctx.Sam3_FolioAvisoLlegada
                                                        join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
                                                        join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID

@@ -37,8 +37,8 @@ namespace BackEndSAM.Controllers
 
                 switch (tipoListado)
                 {
-                    case 1: //Folios aviso llegada
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
+                    //case 1: //Folios aviso llegada
+                    //    return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso(new Sam3_Usuario());
                     case 3: // listado de choferes por transportista
@@ -98,7 +98,7 @@ namespace BackEndSAM.Controllers
                 switch (tipoListado)
                 {
                     case 1: //Folios aviso llegada
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
+                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro(usuario);
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso(usuario);
                     case 3: // listado de choferes por transportista
@@ -143,7 +143,8 @@ namespace BackEndSAM.Controllers
                          return OrdenAlmacenajeBd.Instance.ObtenerItemCodesOrdenAlmacenaje(folioCuantificacionID, usuario);
                     case 21: //Obtener Numeros Unicos sin Orden de Almacenaje
                          int itemCodeID = filtros.ItemCodeID != "" ? Convert.ToInt32(filtros.ItemCodeID) : 0;
-                         return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCodeID, usuario);
+                         int folioCID = filtros.FolioCuantificacionID != "" ? Convert.ToInt32(filtros.FolioCuantificacionID) : 0;
+                         return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCodeID, usuario, folioCID);
                     case 22: //Obtener los patios del usuario
                          return ListadoMaterialesBd.Instance.obtenerPatioListadoMateriales(usuario);
                     case 23: //Obtener los proyectos segun el patio seleccionado
