@@ -56,13 +56,16 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     proyectos = (from r in ctx.Sam3_Rel_Usuario_Proyecto
-                                 where r.Activo && r.UsuarioID == usuarioID
+                                 where r.Activo
+                                 && r.UsuarioID == usuarioID
                                  select r.ProyectoID).AsParallel().Distinct().ToList();
 
                     List<int> temp = proyectos;
-                    patios = (from r in ctx.Sam3_Proyecto
-                              where r.Activo && temp.Contains(r.ProyectoID)
-                              select r.PatioID).AsParallel().Distinct().ToList();
+                    patios = (from p in ctx.Sam3_Proyecto
+                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                              where p.Activo && pa.Activo
+                              && temp.Contains(p.ProyectoID)
+                              select pa.PatioID).Distinct().AsParallel().ToList();
                     
                     return true;
 

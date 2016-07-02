@@ -49,9 +49,13 @@ namespace BackEndSAM.DataAcces
                 Boolean activarFolioConfiguracionCuantificacion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"]) ? 
                     (ConfigurationManager.AppSettings["ActivarFolioConfiguracionCuantificacion"].Equals("1") ? true : false) : false;
                 bool activaConfigFolioLlegada = ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false;
+                
 
                 using (SamContext ctx = new SamContext())
                 {
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
                     //Si es Folio Cuantificacion
                     List<ListaCombos> lstFolios = (from fc in ctx.Sam3_FolioCuantificacion
                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
