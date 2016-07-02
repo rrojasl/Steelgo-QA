@@ -643,32 +643,18 @@
         var OrdenAlmacenaje = dataItem.OrdenAlmacenaje;
         downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(5,OrdenAlmacenaje));
     };
-    function ImprimirEtiquetas(e) {
-        e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var ordenRecepcionID = dataItem.OrdenRecepcion
-        downloadPDF($Reporte.Reporte.urlNoId, ArregloPDF(5,ordenRecepcionID));
-    };
 
     function downloadPDF(url, pdf) {
         var req = new XMLHttpRequest();
         req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
         req.responseType = "blob";
-        var name="";
-        switch(pdf.TipoReporte){
-            case 1:
-                name="Etiquetas";
-                break;
-            case 4:
-                name="OrdenRecepcion";
-                break;
-        }
+        name="OrdenAlmacenaje"+pdf.FolioOrdenAlmacenaje;
         req.onload = function (event) {
             var blob = req.response;
             console.log(blob.size);
             var link=document.createElement('a');
             link.href=window.URL.createObjectURL(blob);
-            link.download=name + new Date().getTime() + ".pdf";
+            link.download=name + ".pdf";
             link.click();
         };
         req.send();

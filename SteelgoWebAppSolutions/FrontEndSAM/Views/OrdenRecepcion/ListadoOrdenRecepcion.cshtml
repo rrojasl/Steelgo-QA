@@ -394,10 +394,10 @@
         var name="";
         switch(pdf.TipoReporte){
             case 1:
-                name="Etiquetas";
+                name="Etiquetas - "+pdf.FolioOrdenRecepcion;
                 break;
             case 4:
-                name="OrdenRecepcion";
+                name="OrdenRecepcion - "+pdf.FolioOrdenRecepcion;
                 break;
         }
         req.onload = function (event) {
@@ -405,7 +405,7 @@
             console.log(blob.size);
             var link=document.createElement('a');
             link.href=window.URL.createObjectURL(blob);
-            link.download=name + new Date().getTime() + ".pdf";
+            link.download=name + ".pdf";
             link.click();
         };
         req.send();

@@ -461,13 +461,13 @@
         var req = new XMLHttpRequest();
         req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
         req.responseType = "blob";
-        var name="PaseSalida"
+        var name="PaseSalida"+pdf.FolioAvisoLlegadaID;
         req.onload = function (event) {
             var blob = req.response;
             console.log(blob.size);
             var link=document.createElement('a');
             link.href=window.URL.createObjectURL(blob);
-            link.download=name + new Date().getTime() + ".pdf";
+            link.download=name + ".pdf";
             link.click();
         };
         req.send();
