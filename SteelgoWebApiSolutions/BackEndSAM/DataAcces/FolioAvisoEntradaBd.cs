@@ -83,55 +83,57 @@ namespace BackEndSAM.DataAcces
                         fechaInicial = new DateTime(2000, 01, 01);
                     }
 
-                    List<Sam3_FolioAvisoEntrada> result = new List<Sam3_FolioAvisoEntrada>();
+                    List<Sam3_FolioAvisoEntrada> result = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                           join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                           join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                           join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                           where fe.Activo && fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                           && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                                           select fe).Distinct().AsParallel().ToList();
 
                     if (folioEntradaID > 0)
                     {
-                        result = (from r in ctx.Sam3_FolioAvisoEntrada
-                                                 where r.Activo && r.FolioAvisoEntradaID == folioEntradaID
-                                                 select r).AsParallel().ToList();
-                    }
-                    else
-                    {
-                        result = (from r in ctx.Sam3_FolioAvisoEntrada
-                                  where r.Activo
-                                  && (r.FechaModificacion >= fechaInicial && r.FechaModificacion <= fechaFinal)
+                        result = (from r in result
+                                  where r.Activo && r.FolioAvisoEntradaID == folioEntradaID
                                   select r).AsParallel().ToList();
-
-                        if (result.Count > 0)
-                        {
-                            if (folioAvisoLlegadaID > 0)
-                            {
-                                result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
-                            }
-
-                            if (clienteID > 0)
-                            {
-
-                                int temp = Convert.ToInt32(filtros.ClienteID);
-                                int sam3Cliente = (from c in ctx.Sam3_Cliente
-                                                   where c.Activo && c.Sam2ClienteID == temp
-                                                   select c.ClienteID).AsParallel().SingleOrDefault();
-                                result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
-                            }
-
-                            if (patioID > 0)
-                            {
-                                int temp = Convert.ToInt32(filtros.PatioID);
-                                result = result.Where(x => x.PatioID == temp).ToList();
-                            }
-                        }
                     }
+                    if (folioAvisoLlegadaID > 0)
+                    {
+                        result = (from r in result
+                                  where r.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                  select r).AsParallel().ToList();
+                    }
+                    if (clienteID > 0)
+                    {
+                        result = (from r in result
+                                  where r.ClienteID == clienteID
+                                  select r).AsParallel().ToList();
+                    }
+                    if (patioID > 0)
+                    {
+                        result = (from r in result
+                                  where r.PatioID == patioID
+                                  select r).AsParallel().ToList();
+                    }
+
 
                     List<ElementoListadoFolioEntradaMaterial> elementos = new List<ElementoListadoFolioEntradaMaterial>();
 
-                    if (result.Count > 0)
-                    {
+                    //if (result.Count > 0)
+                    //{
                         if (filtros.PorLlegar)
                         {
                             elementos = (from fa in ctx.Sam3_FolioAvisoLlegada.ToList()
-                                         where fa.Activo
-                                         && !(from fe in ctx.Sam3_FolioAvisoEntrada
+                                         join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                         join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                         join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                         where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                         && proyectosUsuario.Contains(p.ProyectoID)
+                                         && patiosUsuario.Contains(pa.PatioID)
+                                         && !(from fe in result
                                               where fe.Activo
                                               select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
                                          && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
@@ -183,7 +185,7 @@ namespace BackEndSAM.DataAcces
                                       select r).AsParallel().ToList();
 
                         }
-                    }
+                    //}
 
                     result = result.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
 

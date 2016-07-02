@@ -111,7 +111,7 @@ namespace BackEndSAM.DataAcces
         /// Obtener Folio AViso Llegada (Combo Folio Aviso Entrada)
         /// </summary>
         /// <returns>Lista de Folios de Aviso de llegada</returns>
-        public object obtenerFolioLlegada()
+        public object obtenerFolioLlegada(Sam3_Usuario usuario)
         {
             List<ListaCombos> listFE = new List<ListaCombos>();
             try
@@ -119,13 +119,23 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
-                    listFE = (from t in ctx.Sam3_FolioAvisoEntrada
-                              where t.FolioDescarga > 0 && t.Activo
+                    listFE = (from fe in ctx.Sam3_FolioAvisoEntrada
+                              join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                              join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                              join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                              where fe.FolioDescarga > 0 
+                              && fe.Activo && fa.Activo && fp.Activo && p.Activo && pa.Activo
+                              && proyectos.Contains(p.ProyectoID)
+                              && patios.Contains(pa.PatioID)
                               select new ListaCombos
                                 {
-                                    id = t.FolioAvisoLlegadaID.ToString(),
-                                    value = t.FolioAvisoLlegadaID.ToString()
+                                    id = fe.FolioAvisoLlegadaID.ToString(),
+                                    value = fe.FolioAvisoLlegadaID.ToString()
                                 }).AsParallel().ToList();
 
 

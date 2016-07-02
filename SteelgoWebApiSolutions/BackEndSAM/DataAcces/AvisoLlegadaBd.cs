@@ -1053,22 +1053,30 @@ namespace BackEndSAM.DataAcces
         /// Obtinene un listado de tipo ID, Valor. Para mostarse en un combobox. Muestra todos los folios activos
         /// </summary>
         /// <returns></returns>
-        public object ObtenerListadoFoliosParaFiltro()
+        public object ObtenerListadoFoliosParaFiltro(Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     //Folios que aun no tienen relacionado una orden de recepcion
                     //List<ListaCombos> lstFolios = new List<ListaCombos>();
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                   where r.Activo
-                                                   && (from rel in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
-                                                        where rel.Activo
-                                                        select rel.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
+                                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   where r.Activo && fp.Activo && p.Activo && pa.Activo
+                                                   && proyectos.Contains(p.ProyectoID)
+                                                   && patios.Contains(pa.PatioID)
+                                                   //&& (from rel in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
+                                                   //     where rel.Activo
+                                                   //     select rel.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
@@ -1079,47 +1087,6 @@ namespace BackEndSAM.DataAcces
                                                                                             + r.Consecutivo.ToString() + ","
                                                                                             + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString()
                                                   }).AsParallel().ToList();
-
-                    //folios con itemCodes que aun no tienen orden de recepcion en cuantificacion
-                    //lstFolios.AddRange((from fa in ctx.Sam3_FolioAvisoLlegada
-                    //                    join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                    //                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                    //                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                    //                    where fa.Activo && fe.Activo && fc.Activo
-                    //                    && !(from rel in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                    //                         where rel.Activo
-                    //                         select rel.Rel_ItemCode_Diametro_ID).Contains(rfi.Rel_ItemCode_Diametro_ID)
-                    //                    select new ListaCombos
-                    //                    {
-                    //                        id = fa.FolioAvisoLlegadaID.ToString(),
-                    //                        value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                    //                                                             where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
-                    //                                                             select pc.PreFijoFolioAvisoLlegada + ","
-                    //                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                    //                                                              + fa.Consecutivo.ToString() + ","
-                    //                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fa.FolioAvisoLlegadaID.ToString()
-                    //                    }).AsParallel().ToList());
-
-                    //// folios relacionados con bultos
-                    //lstFolios.AddRange((from fa in ctx.Sam3_FolioAvisoLlegada
-                    //                    join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                    //                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                    //                    join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
-                    //                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                    //                    where fa.Activo && fe.Activo && fc.Activo
-                    //                    && !(from rel in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                    //                         where rel.Activo
-                    //                         select rel.Rel_ItemCode_Diametro_ID).Contains(rbi.Rel_ItemCode_Diametro_ID)
-                    //                    select new ListaCombos
-                    //                    {
-                    //                        id = fa.FolioAvisoLlegadaID.ToString(),
-                    //                        value = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                    //                                                             where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
-                    //                                                             select pc.PreFijoFolioAvisoLlegada + ","
-                    //                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                    //                                                              + fa.Consecutivo.ToString() + ","
-                    //                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fa.FolioAvisoLlegadaID.ToString()
-                    //                    }).AsParallel().ToList());
 
                     lstFolios = lstFolios.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
@@ -1167,7 +1134,7 @@ namespace BackEndSAM.DataAcces
         /// Obtener los folios de Aviso llegada que no tienen entrada de material
         /// </summary>
         /// <returns></returns>
-        public object ObtenerFoliosAvisoLlegadaSinEntrada()
+        public object ObtenerFoliosAvisoLlegadaSinEntrada(Sam3_Usuario usuario)
         {
             try
             {
@@ -1176,11 +1143,26 @@ namespace BackEndSAM.DataAcces
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) 
                         ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
+                    //List<int> idsAvisosEntrada = (from fe in ctx.Sam3_FolioAvisoEntrada
+                    //                              where fe.Activo
+                    //                              && patios.Contains(fe.PatioID)
+                    //                              select fe.FolioAvisoLlegadaID.Value).Distinct().AsParallel().ToList();
+
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                   where r.Activo &&
-                                                   !(from av in ctx.Sam3_FolioAvisoEntrada
-                                                     where av.Activo
-                                                     select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
+                                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID 
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   where r.Activo && fp.Activo && p.Activo && pa.Activo
+                                                   && !(from av in ctx.Sam3_FolioAvisoEntrada
+                                                        where av.Activo
+                                                        select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
+                                                   //&& !idsAvisosEntrada.Contains(r.FolioAvisoLlegadaID)
+                                                   && proyectos.Contains(p.ProyectoID)
+                                                   && patios.Contains(pa.PatioID)
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -1231,7 +1213,7 @@ namespace BackEndSAM.DataAcces
         /// Devuelve un listado de tipo ID, Valor. Con los Folios de llegada que ya tienen folio de descarga.
         /// </summary>
         /// <returns></returns>
-        public object ObtenerListadoSinPaseSalida()
+        public object ObtenerListadoSinPaseSalida(Sam3_Usuario usuario)
         {
             try
             {
@@ -1239,9 +1221,19 @@ namespace BackEndSAM.DataAcces
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join m in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals m.FolioAvisoLlegadaID
-                                                   where r.Activo && m.Activo && m.FolioDescarga > 0
+                                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   where r.Activo && m.Activo && fp.Activo && p.Activo && pa.Activo
+                                                   && proyectos.Contains(p.ProyectoID)
+                                                   && patios.Contains(pa.PatioID)
+                                                   && m.FolioDescarga > 0
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -1291,7 +1283,7 @@ namespace BackEndSAM.DataAcces
         /// Devuelve un listado de tipo ID, Valor. Con los folios de llegada que requieren de permiso de aduana
         /// </summary>
         /// <returns></returns>
-        public object ObtenerListadoFoliosRequierePermiso()
+        public object ObtenerListadoFoliosRequierePermiso(Sam3_Usuario usuario)
         {
             try
             {
@@ -1299,10 +1291,20 @@ namespace BackEndSAM.DataAcces
                 {
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
+                    List<int> proyectos;
+                    List<int> patios;
+
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                   join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                                    join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID
-                                                   where r.Activo && p.RequierePermisoAduana && pe.Activo
+                                                   where r.Activo && pe.Activo && fp.Activo && p.Activo && pa.Activo
+                                                   && pa.RequierePermisoAduana
+                                                   && proyectos.Contains(p.ProyectoID)
+                                                   && patios.Contains(pa.PatioID)
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),

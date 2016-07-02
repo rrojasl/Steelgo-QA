@@ -37,10 +37,10 @@ namespace BackEndSAM.Controllers
 
                 switch (tipoListado)
                 {
-                    case 1: //Folios aviso llegada
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
+                    //case 1: //Folios aviso llegada
+                    //    return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
+                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso(new Sam3_Usuario());
                     case 3: // listado de choferes por transportista
                         return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), paginaID, idioma, usuario);
                     case 4: //Obtener cantidades para dashboard
@@ -50,10 +50,10 @@ namespace BackEndSAM.Controllers
                         rest.ReturnStatus = false;
                         rest.IsAuthenicated = false;
                         return rest;
-                    case 5:
-                        return AvisoLlegadaBd.Instance.ObtenerFoliosAvisoLlegadaSinEntrada();
-                    case 6: //Obtener listado de folios que ya tienen llegada de material
-                        return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida();
+                    //case 5:
+                    //    return AvisoLlegadaBd.Instance.ObtenerFoliosAvisoLlegadaSinEntrada();
+                    //case 6: //Obtener listado de folios que ya tienen llegada de material
+                    //    return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida();
                     case 18: // Listado para combo de packing list
                         return ListadoBd.Instance.PackingListsParaComboFiltros(usuario);
                     default:
@@ -98,9 +98,9 @@ namespace BackEndSAM.Controllers
                 switch (tipoListado)
                 {
                     case 1: //Folios aviso llegada
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
+                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro(usuario);
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
+                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso(usuario);
                     case 3: // listado de choferes por transportista
                         int temp = filtros.PaginaID != null && filtros.PaginaID != "" ? Convert.ToInt32(filtros.PaginaID) : 0;
                         return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), temp, filtros.Idioma, usuario);
@@ -143,7 +143,8 @@ namespace BackEndSAM.Controllers
                          return OrdenAlmacenajeBd.Instance.ObtenerItemCodesOrdenAlmacenaje(folioCuantificacionID, usuario);
                     case 21: //Obtener Numeros Unicos sin Orden de Almacenaje
                          int itemCodeID = filtros.ItemCodeID != "" ? Convert.ToInt32(filtros.ItemCodeID) : 0;
-                         return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCodeID, usuario);
+                         int folioCID = filtros.FolioCuantificacionID != "" ? Convert.ToInt32(filtros.FolioCuantificacionID) : 0;
+                         return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCodeID, usuario, folioCID);
                     case 22: //Obtener los patios del usuario
                          return ListadoMaterialesBd.Instance.obtenerPatioListadoMateriales(usuario);
                     case 23: //Obtener los proyectos segun el patio seleccionado
@@ -166,6 +167,10 @@ namespace BackEndSAM.Controllers
                          return ListadoBd.Instance.ListadoTravelerPendiente(filtros, usuario);
                     case 32: //Carga inicial de complemento de recepcion desde dashboard
                          return ComplementoRecepcionBd.Instance.ObtenerTodoPorOrdenRecepcionID(filtros.OrdenRecepcionID, usuario);
+                    case 33:
+                         return AvisoLlegadaBd.Instance.ObtenerFoliosAvisoLlegadaSinEntrada(usuario);
+                    case 34:
+                         return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida(usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
