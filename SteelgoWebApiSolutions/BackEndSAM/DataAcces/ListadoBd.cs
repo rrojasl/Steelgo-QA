@@ -84,17 +84,9 @@ namespace BackEndSAM.DataAcces
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
 
-                    List<int> proyectos = (from rp in ctx.Sam3_Rel_Usuario_Proyecto
-                                           where rp.Activo
-                                           && rp.UsuarioID == usuario.UsuarioID
-                                           select rp.ProyectoID).Distinct().AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && p.Activo 
-                                        && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).Distinct().AsParallel().ToList();
-
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoLlegada> registrosBd = new List<Sam3_FolioAvisoLlegada>();
 
@@ -235,17 +227,9 @@ namespace BackEndSAM.DataAcces
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
 
-                    List<int> proyectos = (from rp in ctx.Sam3_Rel_Usuario_Proyecto
-                                           where rp.Activo
-                                           && rp.UsuarioID == usuario.UsuarioID
-                                           select rp.ProyectoID).Distinct().AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && p.Activo
-                                        && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).Distinct().AsParallel().ToList();
-
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoEntrada> registrosBd = new List<Sam3_FolioAvisoEntrada>();
 
@@ -2952,13 +2936,9 @@ namespace BackEndSAM.DataAcces
                     {
                         #region Filtros
                         //traemos la informacion de los proyectos y patios del usuario
-                        List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID && x.Activo)
-                            .Select(x => x.ProyectoID).Distinct().AsParallel().ToList();
-
-                        List<int> Patios = (from p in ctx.Sam3_Proyecto
-                                            join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                            where p.Activo && pa.Activo
-                                            select pa.PatioID).Distinct().AsParallel().ToList();
+                        List<int> proyectos;
+                        List<int> Patios;
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out Patios);
 
                         int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
                         int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;

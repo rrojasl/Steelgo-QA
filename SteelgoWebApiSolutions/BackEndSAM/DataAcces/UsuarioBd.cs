@@ -59,6 +59,11 @@ namespace BackEndSAM.DataAcces
                                  where r.Activo
                                  && r.UsuarioID == usuarioID
                                  select r.ProyectoID).AsParallel().Distinct().ToList();
+                    //Proyecto default
+                    proyectos.Add((from p in ctx.Sam3_Proyecto
+                                   where p.Activo
+                                   && p.Nombre == ""
+                                   select p.ProyectoID).FirstOrDefault());
 
                     List<int> temp = proyectos;
                     patios = (from p in ctx.Sam3_Proyecto

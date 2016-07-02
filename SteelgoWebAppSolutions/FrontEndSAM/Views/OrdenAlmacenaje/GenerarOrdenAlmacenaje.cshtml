@@ -464,7 +464,7 @@
 
     function ObtenerNumerosUnicos() {
         var Listado;
-        Listado = { ItemCodeID: ItemCode.ItemCodeID, TipoListado: "21", token: Cookies.get("token") };
+        Listado = { ItemCodeID: ItemCode.ItemCodeID, TipoListado: "21", token: Cookies.get("token"), FolioCuantificacionID: $("#FolioCuantificacionID").data("kendoComboBox") .value() };
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("NumeroUnico", result);
