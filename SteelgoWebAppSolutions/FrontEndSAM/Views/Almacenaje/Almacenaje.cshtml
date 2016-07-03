@@ -531,16 +531,18 @@
             columns: [
                 { field: "NumeroUnico", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()]},
                 { field: "Rack", title: _dictionary.Almacenaje0019[$("#language").data("kendoDropDownList").value()] },
-                { field: "ItemCodeID", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "NumeroUnicoID", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()], hidden: true },
             ],
             dataBound: function (e) {
                 checkTH($("#grid").data("kendoGrid"));
                 quickHeadFilter($("#grid").data("kendoGrid"));
-                this.dataSource.data().filter(function(e){ return e.Rack!==""}).length>0 ? toEdit() : toSave();
+                if(!$("#Rack").is(":focus") && this.dataSource.data().filter(function(e){ return e.Rack!==""}).length>0){
+                    toEdit()
+                }else{
+                    toSave()
+                };
             },
             edit:function(e){
-                $("#Editar").is(":visible") ? this.cancelRow() : 0;
+                $("#Editar").is(":visible") ? this.closeCell() : 0;
             }
         });
 
