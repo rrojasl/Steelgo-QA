@@ -614,6 +614,7 @@
             $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
                 Error(result);
                 displayMessage("notificationslabel0056", "", '0');
+                toEdit();
                 //loadingStop();
             });
         } else {
