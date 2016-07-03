@@ -62,7 +62,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? 
+                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ?
                         (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                     string folioConfiguracion = string.Empty;
                     //Buscamos el folio maximo en los avisos de Legada
@@ -237,7 +237,6 @@ namespace BackEndSAM.DataAcces
                     DateTime fechaFinal = new DateTime();
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
-
                     List<int> patiosUsuario;
                     List<int> proyectosUsuario;
                     UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
@@ -257,161 +256,86 @@ namespace BackEndSAM.DataAcces
 
                     int folioLlegadaID = filtros.FolioAvisoEntradaID != null ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                    int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
+                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
 
-                    if (folioLlegadaID > 0)
+                    List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
+                    result = (from fa in ctx.Sam3_FolioAvisoLlegada
+                              join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                              join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                              where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                              && proyectosUsuario.Contains(p.ProyectoID)
+                              && patiosUsuario.Contains(pa.PatioID)
+                              && (fa.FechaRecepcion >= fechaInicial && fa.FechaRecepcion <= fechaFinal)
+                              select fa).AsParallel().Distinct().ToList();
+
+                    if (patioID > 0)
                     {
-                        lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoEntrada
-                                                 join a in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals a.FolioAvisoLlegadaID
-                                                 where r.FolioAvisoEntradaID == folioLlegadaID
-                                                 && r.Activo == true
-                                                 && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
-                                                 select a.FolioAvisoLlegadaID).AsParallel().ToList();
+                        result = result.Where(x => x.PatioID == patioID).ToList();
                     }
-                    else
+
+                    if (clienteID > 0)
                     {
-                        List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
-                        if (fechaInicial != null && fechaFinal != null)
-                        {
-                            result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                      join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                      where r.Activo == true && p.Activo
-                                      && patiosUsuario.Contains(r.PatioID)
-                                      && proyectosUsuario.Contains(p.ProyectoID)
-                                      && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
-                                      select r).AsParallel().ToList();
+                        result = result.Where(x => x.ClienteID == clienteID).ToList();
+                    }
 
-                            result.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
-                                             where r.Activo
-                                             && !(from rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                                  where rfp.Activo
-                                                  select rfp.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
-                                                  && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
-                                             select r).AsParallel().Distinct().ToList());
-                        }
-                        else
-                        {
-                            if (fechaInicial != null)
-                            {
-                                result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion >= fechaInicial).ToList();
-                            }
+                    //Filtros Rapidos
 
-                            if (fechaFinal != null)
-                            {
-                                result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion <= fechaFinal).ToList();
-                            }
-                        }
-
+                    if (filtros.Completos)
+                    {
                         if (result.Count > 0)
                         {
-                            int temp = 0;
+                            List<Sam3_FolioAvisoLlegada> cuentas = (from r in result
+                                                                    join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                                    join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                                    where r.Activo && p.Activo
+                                                                    && p.PermisoAutorizado == true
+                                                                    && pa.RequierePermisoAduana
+                                                                    select r).AsParallel().ToList();
+                            cuentas.AddRange((from r in result
+                                              join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                              where r.Activo && pa.Activo
+                                              && !pa.RequierePermisoAduana
+                                              select r).AsParallel().ToList());
 
-                            if (folioAvisoLlegadaID > 0)
-                            {
-                                result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
-                            }
+                            cuentas = cuentas.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
 
-                            if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
-                            {
-                                temp = Convert.ToInt32(filtros.PatioID);
-                                result = result.Where(x => x.PatioID == temp).ToList();
-                            }
-
-                            if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
-                            {
-                                temp = Convert.ToInt32(filtros.ClienteID);
-                                int sam3Cliente = (from c in ctx.Sam3_Cliente
-                                                   where c.Activo && c.Sam2ClienteID == temp
-                                                   select c.ClienteID).AsParallel().SingleOrDefault();
-                                result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
-                            }
+                            result = cuentas;
                         }
-                        else
-                        {
-                            int temp = 0;
-                            if (folioAvisoLlegadaID > 0)
-                            {
-                                result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
-                            }
-
-                            if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
-                            {
-                                temp = Convert.ToInt32(filtros.PatioID);
-                                if (result.Count > 0)
-                                {
-                                    result = result.Where(x => x.PatioID == temp).ToList();
-                                }
-                            }
-
-                            if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
-                            {
-                                temp = Convert.ToInt32(filtros.ClienteID);
-                                int sam3Cliente = (from c in ctx.Sam3_Cliente
-                                                   where c.Activo && c.Sam2ClienteID == temp
-                                                   select c.ClienteID).AsParallel().SingleOrDefault();
-
-                                if (result.Count > 0)
-                                {
-                                    result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
-                                }
-                            }
-                        }
-
-                        //Filtros Rapidos
-
-                        if (filtros.Completos)
-                        {
-                            if (result.Count > 0)
-                            {
-                                List<Sam3_FolioAvisoLlegada> cuentas = (from r in result
-                                                                        join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                                                        where r.Activo && p.Activo
-                                                                        && p.PermisoAutorizado == true
-                                                                        && pa.RequierePermisoAduana
-                                                                        select r).AsParallel().ToList();
-                                cuentas.AddRange((from r in result
-                                                  join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                                  where r.Activo && pa.Activo
-                                                  && !pa.RequierePermisoAduana
-                                                  select r).AsParallel().ToList());
-
-                                cuentas = cuentas.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
-
-                                result = cuentas;
-                            }
-                        }
-
-                        if (filtros.SinAutorizacion)
-                        {
-                            if (result.Count > 0)
-                            {
-                                result = (from r in result
-                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == false && pa.RequierePermisoAduana
-                                          select r).AsParallel().ToList();
-
-                            }
-                        }
-
-                        if (filtros.SinPermiso)
-                        {
-                            if (result.Count > 0)
-                            {
-                                result = (from r in result
-                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                          where r.Activo == true
-                                          && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
-                                          && pa.RequierePermisoAduana
-                                          select r).AsParallel().ToList();
-                            }
-                        }
-
-                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
-
-                        lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
-
                     }
+
+                    if (filtros.SinAutorizacion)
+                    {
+                        if (result.Count > 0)
+                        {
+                            result = (from r in result
+                                      join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                      join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                      where r.Activo == true && p.PermisoAutorizado == false && pa.RequierePermisoAduana
+                                      select r).AsParallel().ToList();
+
+                        }
+                    }
+
+                    if (filtros.SinPermiso)
+                    {
+                        if (result.Count > 0)
+                        {
+                            result = (from r in result
+                                      join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                      where r.Activo == true
+                                      && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                      && pa.RequierePermisoAduana
+                                      select r).AsParallel().ToList();
+                        }
+                    }
+
+                    result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
+                    lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
+
+
 
                     List<ElementoListadoFolioAvisoLlegada> resultados = new List<ElementoListadoFolioAvisoLlegada>();
                     ElementoListadoFolioAvisoLlegada elemento = new ElementoListadoFolioAvisoLlegada();
@@ -609,7 +533,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? 
+                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ?
                         (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                     AvisoLlegadaJson aviso = new AvisoLlegadaJson();
 
@@ -692,9 +616,9 @@ namespace BackEndSAM.DataAcces
                     //}
                     //else
                     //{
-                        //clienteId = (from c in ctx.Sam3_Cliente
-                        //             where c.Activo && c.ClienteID == registroBd.ClienteID.Value
-                        //             select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault(); //registroBd.ClienteID.Value;
+                    //clienteId = (from c in ctx.Sam3_Cliente
+                    //             where c.Activo && c.ClienteID == registroBd.ClienteID.Value
+                    //             select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault(); //registroBd.ClienteID.Value;
                     //}
                     aviso.Cliente = (from c in ctx.Sam3_Cliente
                                      where c.Activo && c.ClienteID == registroBd.ClienteID.Value
@@ -1140,7 +1064,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) 
+                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"])
                         ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
                     List<int> proyectos;
@@ -1154,13 +1078,13 @@ namespace BackEndSAM.DataAcces
 
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID 
+                                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
                                                    join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                                    where r.Activo && fp.Activo && p.Activo && pa.Activo
                                                    && !(from av in ctx.Sam3_FolioAvisoEntrada
                                                         where av.Activo
                                                         select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
-                                                   //&& !idsAvisosEntrada.Contains(r.FolioAvisoLlegadaID)
+                                                       //&& !idsAvisosEntrada.Contains(r.FolioAvisoLlegadaID)
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
                                                    select new ListaCombos

@@ -493,10 +493,6 @@ namespace BackEndSAM.DataAcces
                                                ItemCodeID = ic.ItemCodeID.ToString(),
                                                Codigo = ic.Codigo,
                                                Descripcion = ics.DescripcionEspanol,
-                                               Cantidad = (from relnum in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                                                           where relnum.NumeroUnicoID == numu.NumeroUnicoID
-                                                           && relnum.Rel_FolioCuantificacion_ItemCode_ID == rfc.Rel_FolioCuantificacion_ItemCode_ID
-                                                           select relnum.NumeroUnicoID).Count().ToString(),
                                                D1 = d1.Valor.ToString(),
                                                D2 = d2.Valor.ToString(),
                                                FolioCuantificacion = item.FolioCuantificacionID.ToString()
@@ -524,10 +520,6 @@ namespace BackEndSAM.DataAcces
                                                       ItemCodeID = ic.ItemCodeID.ToString(),
                                                       Codigo = ic.Codigo,
                                                       Descripcion = ics.DescripcionEspanol,
-                                                      Cantidad = (from relnum in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                                                                  where relnum.NumeroUnicoID == numu.NumeroUnicoID
-                                                                  && relnum.Rel_Bulto_ItemCode_ID == relbu.Rel_Bulto_ItemCode_ID
-                                                                  select relnum.NumeroUnicoID).Count().ToString(),
                                                       D1 = d1.Valor.ToString(),
                                                       D2 = d2.Valor.ToString(),
                                                       FolioCuantificacion = item.FolioCuantificacionID.ToString()
@@ -568,6 +560,7 @@ namespace BackEndSAM.DataAcces
                                                            NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
                                                        }).AsParallel().Distinct().ToList());
 
+                            it.Cantidad = it.NumerosUnicos.Count().ToString();
                             it.NumerosUnicos.OrderBy(x => x.NumeroUnico);
 
                         }
@@ -1395,9 +1388,6 @@ namespace BackEndSAM.DataAcces
                                                                 ItemCodeID = it.ItemCodeID.ToString(),
                                                                 Codigo = it.Codigo,
                                                                 Descripcion = ics.DescripcionEspanol,
-                                                                Cantidad = (from relnum in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                                                                            where relnum.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
-                                                                            select relnum.NumeroUnicoID).Count().ToString(),
                                                                 D1 = d1.Valor.ToString(),
                                                                 D2 = d2.Valor.ToString(),
                                                                 FolioCuantificacion = item.FolioCuantificacionID.ToString(),
@@ -1426,9 +1416,6 @@ namespace BackEndSAM.DataAcces
                                                                        ItemCodeID = it.ItemCodeID.ToString(),
                                                                        Codigo = it.Codigo,
                                                                        Descripcion = ics.DescripcionEspanol,
-                                                                       Cantidad = (from relnum in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-                                                                                   where relnum.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
-                                                                                   select relnum.NumeroUnicoID).Count().ToString(),
                                                                        D1 = d1.Valor.ToString(),
                                                                        D2 = d2.Valor.ToString(),
                                                                        FolioCuantificacion = item.FolioCuantificacionID.ToString(),
@@ -1474,6 +1461,7 @@ namespace BackEndSAM.DataAcces
                                                            NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
                                                        }).AsParallel().Distinct().ToList());
 
+                            it.Cantidad = it.NumerosUnicos.Count().ToString();
                             it.NumerosUnicos.OrderBy(x => x.NumeroUnico);
 
                         }
