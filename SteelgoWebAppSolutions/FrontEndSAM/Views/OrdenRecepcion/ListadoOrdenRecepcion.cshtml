@@ -586,7 +586,9 @@
     };
 
     function ObtenerFolioAvisoEntrada() {
-        $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+        var buscarJson;
+        buscarJson = { tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" };
+        $folioEntradaMaterial.Listado.read({}, {data: JSON.stringify(buscarJson)}).done(function (result) {
             ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
         });
     };
