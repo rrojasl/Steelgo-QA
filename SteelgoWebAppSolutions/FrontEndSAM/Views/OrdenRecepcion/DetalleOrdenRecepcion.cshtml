@@ -342,10 +342,22 @@
     function CargaInicialGrid() {
         var grid = $("#grid").kendoGrid({
             dataSource: {
-                data: _resultadoJson,
+                //data: _resultadoJson,
                 schema: {
                     model: {
                         fields: getGridfields(),
+                    }
+                },
+                transport:{
+                    read: {
+                        url: $OrdenRecepcion.OrdenRecepcion.urlNoId + "?ordenrecepcionID="+_ordenRecepcionID+"&token="+$.cookie("token"),
+                        dataType: "json",
+                        type:"GET",
+                    },
+                },
+                requestEnd: function(e) {
+                    if(e.type==="read"){
+                        CargarDatosGridInicial(e.response);
                     }
                 },
                 serverPaging: false,
@@ -563,21 +575,9 @@
         });
     };
 
-    function CargarDatosGridInicial() {
-        //loadingStart();
-
-        $OrdenRecepcion.OrdenRecepcion.read({}, { ordenrecepcionID: _ordenRecepcionID, token: $.cookie("token") }).done(function (result) {
-            if (Error(result)) {
-                _resultadoJson = result;
-                $("#spanOrdenRecepcion").html(_resultadoJson[0].FolioConfiguracionOrdenRecepcion);
-                if (_resultadoJson.length > 0) {                    
-                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
-                } else {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                };
-            }
-            //loadingStop();
-        });
+    function CargarDatosGridInicial(result) {
+        _resultadoJson = result;
+        $("#spanOrdenRecepcion").html(_resultadoJson[0].FolioConfiguracionOrdenRecepcion);
     };
 
     function cancelarItemCode() {

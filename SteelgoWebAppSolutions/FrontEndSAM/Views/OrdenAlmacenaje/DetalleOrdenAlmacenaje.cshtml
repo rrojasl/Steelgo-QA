@@ -237,8 +237,6 @@
         $("#Cancelar").click(function () {
             window.location.href = _generarOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-
-        CargarDatosGridInicial();
         DesahabilitarCampos();
     };
 
@@ -398,13 +396,27 @@
     function CargaInicialGrid() {
          $("#grid").kendoGrid({
             dataSource: {
-                data: _resultadoJson,
                 schema: {
+                    parse:function(e){
+                        return e.ListadoGenerarOrdenAlmacenaje
+                    },
                     model: {
                         fields: {
                             FolioConfiguracionCuantificacion: { type: "string" },
                             FolioCuantificacion: { type: "string" }
                         }
+                    }
+                },
+                transport:{
+                    read: {
+                        url: $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.urlNoId + "?ordenAlmacenajeID="+_ordenAlmacenajeID+"&token="+$.cookie("token"),
+                        dataType: "json",
+                        type:"GET",
+                    },
+                },
+                requestEnd: function(e) {
+                    if(e.type==="read"){
+                        CargarDatosGridInicial(e.response);
                     }
                 },
                 serverPaging: false,
@@ -528,30 +540,15 @@
         Cookies.set("navegacion", "17", { path: '/' });
     };
 
-    function CargarDatosGridInicial() {
-        //loadingStart();
-
-        $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: $.cookie("token") }).done(function (result) {
+    function CargarDatosGridInicial(result) {
             OcultarTituloCancelado();
-            if (Error(result)) {
-                _resultadoJson = result.ListadoGenerarOrdenAlmacenaje;
-                console.log(result.FolioConfiguracionOrdenAlmacenaje);
-                $("#spanOrdenAlmacenaje").html(result.FolioConfiguracionOrdenAlmacenaje);
-                $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
-               
-                if (!result.Activo) {
-                    MostrarTituloCancelado();
-                };
-                if (_resultadoJson.length > 0) {
-                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
-                } else {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                };
-            }
-            //loadingStop();
+            $("#spanOrdenAlmacenaje").html(result.FolioConfiguracionOrdenAlmacenaje);
+            $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
+            if (!result.Activo) {
+                MostrarTituloCancelado();
+            };
             AsignarPaginaActualCookie();
             applySecurityPolicy(false);
-        });
     };
 
     function Incidencias() {
@@ -590,7 +587,8 @@
             $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { numeroUnico: NumeroUnicoID, token: $.cookie("token") }).done(function (result) {
                 Error(result);
                 //Filtros();
-                CargarDatosGridInicial();
+                $("#grid").data("kendoGrid").dataSource.read();
+                $('#grid').data('kendoGrid').refresh();
             });
         };
     };
