@@ -536,7 +536,10 @@
             dataBound: function (e) {
                 checkTH($("#grid").data("kendoGrid"));
                 quickHeadFilter($("#grid").data("kendoGrid"));
-                this.dataSource.data().filter(function(e){ return e.Rack!==""}).length>0 ? toEdit() : 0;
+                this.dataSource.data().filter(function(e){ return e.Rack!==""}).length>0 ? toEdit() : toSave();
+            },
+            edit:function(e){
+                $("#Editar").is(":visible") ? this.cancelRow() : 0;
             }
         });
 
@@ -567,12 +570,14 @@
         $("#toLock input").attr("disabled",true)
     }
 
-    $("#Editar").on("click",function(){
+    function toSave(){
         $("#Editar").hide();
         $("#Guardar").show();
         $("#toLock input").removeClass("disabled")
         $("#toLock input").attr("disabled",false)
-    })
+    }
+
+    $("#Editar").on("click",toSave)
        
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
