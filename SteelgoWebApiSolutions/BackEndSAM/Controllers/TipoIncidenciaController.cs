@@ -52,7 +52,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 int tipoIncidenciaID = tipoIncidencia != "" ? Convert.ToInt32(tipoIncidencia) : 0;
-                return ListadoBd.Instance.ObtenerEntidadComboIncidencia(tipoIncidenciaID, busqueda);
+                return ListadoBd.Instance.ObtenerEntidadComboIncidencia(tipoIncidenciaID, busqueda, usuario);
             }
             else
             {
@@ -76,7 +76,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 int tipoIncidenciaID = tipoIncidencia != "" ? Convert.ToInt32(tipoIncidencia) : 0;
-                return ListadoBd.Instance.ListaComboIncidencia(tipoIncidenciaID);
+                return ListadoBd.Instance.ListaComboIncidencia(tipoIncidenciaID, usuario);
             }
             else
             {

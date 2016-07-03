@@ -242,6 +242,7 @@ namespace BackEndSAM.DataAcces
                                    where r.Activo && p.Activo && pry.Activo && pa.Activo
                                    && proyectos.Contains(pry.ProyectoID)
                                    && patios.Contains(pa.PatioID)
+                                   && patios.Contains(r.PatioID)
                                    && (r.FechaModificacion >= fechaInicial && r.FechaModificacion <= fechaFinal)
                                    select r).AsParallel().ToList();
 
@@ -274,6 +275,7 @@ namespace BackEndSAM.DataAcces
                                         where fa.Activo && fp.Activo && p.Activo && pa.Activo
                                         && proyectos.Contains(p.ProyectoID)
                                         && patios.Contains(pa.PatioID)
+                                        && patios.Contains(fa.PatioID)
                                         && !foliosLlegadaIds.Contains(fa.FolioAvisoLlegadaID)
                                         && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
                                         select fa).Distinct().Count();
@@ -359,6 +361,8 @@ namespace BackEndSAM.DataAcces
                                                        && fc.Activo && rfi.Activo && relnu.Activo
                                                        && proyectos.Contains(p.ProyectoID)
                                                        && patios.Contains(pa.PatioID)
+                                                       && patios.Contains(fa.PatioID)
+                                                       && patios.Contains(fe.PatioID)
                                                        && relnu.OrdenAlmacenajeID == null
                                                        select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
 
@@ -375,6 +379,8 @@ namespace BackEndSAM.DataAcces
                                                        && fc.Activo && rbi.Activo && relnu.Activo && b.Activo
                                                        && proyectos.Contains(p.ProyectoID)
                                                        && patios.Contains(pa.PatioID)
+                                                       && patios.Contains(fa.PatioID)
+                                                       && patios.Contains(fe.PatioID)
                                                        && relnu.OrdenAlmacenajeID == null
                                                        select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
 
@@ -395,6 +401,8 @@ namespace BackEndSAM.DataAcces
                                                        && fc.Activo && rfi.Activo && relnu.Activo && nu.Activo && it.Activo
                                                        && proyectos.Contains(p.ProyectoID)
                                                        && patios.Contains(pa.PatioID)
+                                                       && patios.Contains(fa.PatioID)
+                                                       && patios.Contains(fe.PatioID)
                                                        && relnu.OrdenAlmacenajeID == null
                                                        && it.TipoMaterialID == tipoMaterialID
                                                        select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
@@ -414,6 +422,8 @@ namespace BackEndSAM.DataAcces
                                                         && fc.Activo && rbi.Activo && relnu.Activo && b.Activo && nu.Activo && it.Activo
                                                         && proyectos.Contains(p.ProyectoID)
                                                         && patios.Contains(pa.PatioID)
+                                                        && patios.Contains(fa.PatioID)
+                                                        && patios.Contains(fe.PatioID)
                                                         && relnu.OrdenAlmacenajeID == null
                                                         && it.TipoMaterialID == tipoMaterialID
                                                         select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
@@ -484,12 +494,9 @@ namespace BackEndSAM.DataAcces
                     //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     //int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     patios = patios.Distinct().ToList();
 
@@ -497,13 +504,15 @@ namespace BackEndSAM.DataAcces
                     List<Sam3_FolioAvisoEntrada> registros = (from fe in ctx.Sam3_FolioAvisoEntrada
                                                               join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                                               join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                                               where fe.Activo && rfp.Activo && fe.FolioDescarga > 0
                                                               && !(from fc in ctx.Sam3_FolioCuantificacion
                                                                    where fc.Activo
                                                                    select fc.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
                                                               && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                                               && proyectos.Contains(p.ProyectoID)
-                                                              && patios.Contains(p.PatioID)
+                                                              && patios.Contains(pa.PatioID)
+                                                              && patios.Contains(fe.PatioID)
                                                               && fe.ComboEstatus != "Cerrado"
                                                               select fe).AsParallel().ToList();
                     if (proyectoID > 0)
@@ -630,12 +639,9 @@ namespace BackEndSAM.DataAcces
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().Distinct().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoEntrada> registros;
                     if (tipoMaterialID == 3) // todos
@@ -652,6 +658,7 @@ namespace BackEndSAM.DataAcces
                                      && fc.Estatus != "Cerrado"
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      select fe).AsParallel().ToList();
                     }
@@ -670,6 +677,7 @@ namespace BackEndSAM.DataAcces
                                      && fc.Estatus != "Cerrado"
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      select fe).AsParallel().ToList();
                     }
@@ -839,12 +847,9 @@ namespace BackEndSAM.DataAcces
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().Distinct().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoEntrada> registos;
 
@@ -864,11 +869,12 @@ namespace BackEndSAM.DataAcces
                                         ||
                                         (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                          join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                         where its.Activo && ics.ItemCodeSteelgoID == 1
+                                         where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                          select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                         )
                                     && proyectos.Contains(p.ProyectoID)
                                     && patios.Contains(p.PatioID)
+                                    && patios.Contains(fe.PatioID)
                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                     && p.ProyectoID == proyectoID
                                     select fe).AsParallel().ToList();
@@ -881,18 +887,19 @@ namespace BackEndSAM.DataAcces
                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                            join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
-                                           where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rbi.Activo && i.Activo
+                                           where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rbi.Activo && i.Activo && rid.Activo && b.Activo
                                            && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                  where its.Activo
                                                  select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                ||
                                                (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                 join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                                 select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                )
                                            && proyectos.Contains(p.ProyectoID)
                                            && patios.Contains(p.PatioID)
+                                           && patios.Contains(fe.PatioID)
                                            && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                            && p.ProyectoID == proyectoID
                                            select fe).AsParallel().ToList());
@@ -913,11 +920,12 @@ namespace BackEndSAM.DataAcces
                                         ||
                                         (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                          join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                         where its.Activo && ics.ItemCodeSteelgoID == 1
+                                         where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                          select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                         )
                                     && proyectos.Contains(p.ProyectoID)
                                     && patios.Contains(p.PatioID)
+                                    && patios.Contains(fe.PatioID)
                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                     select fe).AsParallel().ToList();
 
@@ -929,18 +937,19 @@ namespace BackEndSAM.DataAcces
                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                            join i in ctx.Sam3_ItemCode on rid.ItemCodeID equals i.ItemCodeID
-                                           where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rbi.Activo && i.Activo
+                                           where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rbi.Activo && i.Activo && b.Activo && rid.Activo
                                            && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                  where its.Activo
                                                  select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                ||
                                                (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                 join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                                 select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID)
                                                )
                                            && proyectos.Contains(p.ProyectoID)
                                            && patios.Contains(p.PatioID)
+                                           && patios.Contains(fe.PatioID)
                                            && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                            select fe).AsParallel().ToList());
                     }
@@ -970,16 +979,37 @@ namespace BackEndSAM.DataAcces
                         {
                             foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                    where fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                    join rfi in ctx.Sam3_Rel_ItemCode_Diametro on fc.FolioCuantificacionID equals rfi.Rel_ItemCode_Diametro_ID
+                                                    where fc.Activo && fe.Activo && rfi.Activo 
+                                                    && fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
                                                     && fc.FolioCuantificacionID == packingListID
                                                     select fc).ToList();
+
+                            foliosCuantificacion.AddRange((from fc in ctx.Sam3_FolioCuantificacion
+                                                           join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                           join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                                           where fc.Activo && fe.Activo && rbi.Activo && b.Activo
+                                                           && fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                           && fc.FolioCuantificacionID == packingListID
+                                                           select fc).ToList());
                         }
                         else
                         {
                             foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                    where fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                    join rfi in ctx.Sam3_Rel_ItemCode_Diametro on fc.FolioCuantificacionID equals rfi.Rel_ItemCode_Diametro_ID
+                                                    where fc.Activo && fe.Activo && rfi.Activo
+                                                    && fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
                                                     select fc).ToList();
+
+                            foliosCuantificacion.AddRange((from fc in ctx.Sam3_FolioCuantificacion
+                                                           join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                           join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                                           where fc.Activo && fe.Activo && rbi.Activo && b.Activo
+                                                           && fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                           select fc).ToList());
                         }
 
                         foliosCuantificacion = foliosCuantificacion.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
@@ -988,7 +1018,7 @@ namespace BackEndSAM.DataAcces
                         {
                             ListadoMTLSinICS elemento = new ListadoMTLSinICS();
                             elemento.FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
-                            elemento.PackingList = fae.FolioAvisoLlegadaID.ToString() + "-" + fc.Consecutivo;//fc.PackingList + "(" + fc.FolioCuantificacionID.ToString() + ")";
+                            elemento.PackingList = fae.FolioAvisoLlegadaID.ToString() + "-" + fc.Consecutivo;
                             elemento.Proyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == fc.ProyectoID).Select(x => x.Nombre).SingleOrDefault();
                             elemento.FolioCuantificacionID = fc.FolioCuantificacionID.ToString();
                             elemento.FolioAvisoLlegadaID = fae.FolioAvisoLlegadaID.ToString();
@@ -1011,7 +1041,7 @@ namespace BackEndSAM.DataAcces
                                                    ||
                                                        (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                         join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                        where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                        where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                                         select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
                                                   select it.ItemCodeID).AsParallel().Count();
 
@@ -1020,7 +1050,7 @@ namespace BackEndSAM.DataAcces
                                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
                                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                                    join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                                   where f.Activo && rbi.Activo && it.Activo && rid.Activo
+                                                   where f.Activo && rbi.Activo && it.Activo && rid.Activo && b.Activo
                                                    && f.FolioCuantificacionID == fc.FolioCuantificacionID
                                                    && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                          where its.Activo
@@ -1028,7 +1058,7 @@ namespace BackEndSAM.DataAcces
                                                        ||
                                                        (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                         join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                        where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                        where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                                         select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
                                                    select it.ItemCodeID).AsParallel().Count();
 
@@ -1068,7 +1098,7 @@ namespace BackEndSAM.DataAcces
                                                    ||
                                                        (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                         join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                        where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                        where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                                         select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
                                                   select it.ItemCodeID).AsParallel().Count();
 
@@ -1077,7 +1107,7 @@ namespace BackEndSAM.DataAcces
                                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
                                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                                    join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                                   where f.Activo && rbi.Activo && it.Activo && rid.Activo
+                                                   where f.Activo && rbi.Activo && it.Activo && rid.Activo && b.Activo
                                                    && it.TipoMaterialID == tipoMaterialID
                                                    && f.FolioCuantificacionID == fc.FolioCuantificacionID
                                                    && (!(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
@@ -1086,7 +1116,7 @@ namespace BackEndSAM.DataAcces
                                                        ||
                                                        (from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                         join ics in ctx.Sam3_ItemCodeSteelgo on its.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                        where its.Activo && ics.ItemCodeSteelgoID == 1
+                                                        where its.Activo && ics.Activo && ics.ItemCodeSteelgoID == 1
                                                         select its.Rel_ItemCode_Diametro_ID).Contains(rid.Rel_ItemCode_Diametro_ID))
                                                    select it.ItemCodeID).AsParallel().Count();
 
@@ -1187,12 +1217,9 @@ namespace BackEndSAM.DataAcces
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().Distinct().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoEntrada> registros;
                     if (proyectoID > 0)
@@ -1204,6 +1231,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(rfp.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && rfp.ProyectoID == proyectoID
                                      select fe).AsParallel().ToList();
                     }
@@ -1216,6 +1244,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(rfp.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      select fe).AsParallel().ToList();
                     }
 
@@ -1330,28 +1359,12 @@ namespace BackEndSAM.DataAcces
 
                             if (tipoMaterialID == 3) //todos
                             {
-                                //elemento.CantidadNUEnOrdenRecepcion = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                //                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                //                                       join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                //                                       join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                //                                       where roi.Activo && nu.Activo
-                                //                                       && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                //                                       select nu.NumeroUnicoID).AsParallel().Count().ToString();
 
                                 elemento.CantidadNUEnOrdenRecepcion = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                                        join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                                        where relnu.Activo && nu.Activo
                                                                        && relnu.OrdenRecepcionID == orden.OrdenRecepcionID
                                                                        select relnu.NumeroUnicoID).AsParallel().Count().ToString();
-
-                                //elemento.CantidadNUSinComplemento = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                //                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                //                                     join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                //                                     join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                //                                     where roi.Activo && nu.Activo && it.Activo
-                                //                                     && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                //                                     && (nu.EstatusDocumental == null || nu.EstatusDocumental == "" || nu.EstatusFisico == "" || nu.EstatusFisico == null)
-                                //                                     select nu.NumeroUnicoID).AsParallel().Count().ToString();
 
                                 elemento.CantidadNUSinComplemento = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                                      join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
@@ -1362,14 +1375,6 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                //elemento.CantidadNUEnOrdenRecepcion = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                //                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                //                                       join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                //                                       join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                //                                       where roi.Activo && nu.Activo
-                                //                                       && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                //                                       && it.TipoMaterialID == tipoMaterialID
-                                //                                       select nu.NumeroUnicoID).AsParallel().Count().ToString();
                                 elemento.CantidadNUEnOrdenRecepcion = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                                        join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
@@ -1378,15 +1383,6 @@ namespace BackEndSAM.DataAcces
                                                                        && it.TipoMaterialID == tipoMaterialID
                                                                        select relnu.NumeroUnicoID).AsParallel().Count().ToString();
 
-                                //elemento.CantidadNUSinComplemento = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                //                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on roi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                                //                                     join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-                                //                                     join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                //                                     where roi.Activo && nu.Activo && it.Activo
-                                //                                     && roi.OrdenRecepcionID == orden.OrdenRecepcionID
-                                //                                     && it.TipoMaterialID == tipoMaterialID
-                                //                                     && (nu.EstatusDocumental == null || nu.EstatusDocumental == "" || nu.EstatusFisico == "" || nu.EstatusFisico == null)
-                                //                                     select nu.NumeroUnicoID).AsParallel().Count().ToString();
 
                                 elemento.CantidadNUSinComplemento = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                                      join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
@@ -1495,6 +1491,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && rfp.ProyectoID == proyectoID
                                      select fe).AsParallel().ToList();
                     }
@@ -1508,6 +1505,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      select fe).AsParallel().ToList();
                     }
 
@@ -1722,12 +1720,9 @@ namespace BackEndSAM.DataAcces
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().Distinct().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_Incidencia> registros;
                     if (proyectoID > 0)
@@ -1755,16 +1750,6 @@ namespace BackEndSAM.DataAcces
                                      && patios.Contains(p.PatioID)
                                      select i).AsParallel().ToList();
                     }
-
-                    //if (clienteID > 0)
-                    //{
-                    //    registros = registros.Where(x => x.ClienteID == clienteID).ToList();
-                    //}
-
-                    //if (folioAvisoLlegadaID > 0)
-                    //{
-                    //    registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
-                    //}
 
                     registros = registros.GroupBy(x => x.IncidenciaID).Select(x => x.First()).ToList();
 
@@ -1945,6 +1930,10 @@ namespace BackEndSAM.DataAcces
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) ? 
                         (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     List<ListaCombos> folios = (from r in ctx.Sam3_FolioAvisoEntrada
                                                 join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                                 join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
@@ -1956,8 +1945,11 @@ namespace BackEndSAM.DataAcces
                                                 join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                 join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                                 join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                where r.Activo && c.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                                where r.Activo && c.Activo && rfp.Activo && rfi.Activo && rid.Activo && i.Activo && t.Activo
+                                                && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                                 && rfp.ProyectoID == proyectoID
+                                                && proyectos.Contains(rfp.ProyectoID)
+                                                && patios.Contains(r.PatioID)
                                                 && !rfi.TieneNumerosUnicos
                                                 && rfi.Cantidad > 0
                                                 && rfi.MM > 0
@@ -1987,8 +1979,11 @@ namespace BackEndSAM.DataAcces
                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                      join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                     where r.Activo && c.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                     where r.Activo && c.Activo && rfp.Activo && rfi.Activo && rid.Activo && i.Activo && t.Activo
+                                     && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                      && rfp.ProyectoID == proyectoID
+                                     && proyectos.Contains(rfp.ProyectoID)
+                                     && patios.Contains(r.PatioID)
                                      && !rfi.TieneNumerosUnicos
                                      && rfi.Cantidad > 0
                                      && i.TipoMaterialID == 2
@@ -2019,8 +2014,11 @@ namespace BackEndSAM.DataAcces
                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                      join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                     where r.Activo && c.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                     where r.Activo && c.Activo && rfp.Activo && b.Activo && rbi.Activo && rid.Activo && i.Activo && t.Activo
+                                     && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                      && rfp.ProyectoID == proyectoID
+                                     && proyectos.Contains(rfp.ProyectoID)
+                                     && patios.Contains(r.PatioID)
                                      && !rbi.TieneNumerosUnicos
                                      && rbi.Cantidad > 0
                                      && rbi.MM > 0
@@ -2051,8 +2049,11 @@ namespace BackEndSAM.DataAcces
                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                      join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                     where r.Activo && c.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                     where r.Activo && c.Activo && rfp.Activo && b.Activo && rbi.Activo && rid.Activo && i.Activo && t.Activo
+                                     && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                      && rfp.ProyectoID == proyectoID
+                                     && proyectos.Contains(rfp.ProyectoID)
+                                     && patios.Contains(r.PatioID)
                                      && !rbi.TieneNumerosUnicos
                                      && rbi.Cantidad > 0
                                      && i.TipoMaterialID == 2
@@ -2115,78 +2116,6 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-//        /// <summary>
-//        /// Genera un listado para combo con los ItemCodes de un Aviso de entrada
-//        /// </summary>
-//        /// <param name="folioAvisoLlegada"></param>
-//        /// <param name="usuario"></param>
-//        /// <returns></returns>
-//        public object ObtenerItemCodesPorFolioLlegada(int folioAvisoLlegada, Sam3_Usuario usuario)
-//        {
-//            try
-//            {
-//                using (SamContext ctx = new SamContext())
-//                {
-//                    List<ListaCombos> listado = (from fe in ctx.Sam3_FolioAvisoEntrada
-//                                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-//                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-//                                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-//                                                 join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-//                                                 where fe.Activo && fc.Activo && rfi.Activo && it.Activo
-//                                                 && fe.FolioAvisoLlegadaID == folioAvisoLlegada
-//                                                 && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-//                                                      where rel.Rel_FolioCuantificacion_ItemCode_ID == rfi.Rel_FolioCuantificacion_ItemCode_ID
-//                                                      && rel.Activo
-//                                                      select rel).Any()
-//                                                 select new ListaCombos
-//                                                 {
-//                                                     id = it.ItemCodeID.ToString(),
-//                                                     value = it.Codigo
-//                                                 }).AsParallel().ToList();
-
-//                    //incluir los itemcodes que se encuentran en bultos
-//                    listado.AddRange((from fe in ctx.Sam3_FolioAvisoEntrada
-//                                      join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-//                                      join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
-//                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-//                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-//                                      join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
-//                                      where fe.Activo && fc.Activo && rbi.Activo && it.Activo
-//                                      && fe.FolioAvisoLlegadaID == folioAvisoLlegada
-//                                      && !(from rel in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
-//                                           where rel.Rel_Bulto_ItemCode_ID == rbi.Rel_Bulto_ItemCode_ID
-//                                           && rel.Activo
-//                                           select rel).Any()
-//                                      select new ListaCombos
-//                                      {
-//                                          id = it.ItemCodeID.ToString(),
-//                                          value = it.Codigo
-//                                      }).AsParallel().ToList());
-
-//                    listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
-
-//#if DEBUG
-//                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-//                    string json = serializer.Serialize(listado);
-//#endif
-//                    return listado;
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                //-----------------Agregar mensaje al Log -----------------------------------------------
-//                LoggerBd.Instance.EscribirLog(ex);
-//                //-----------------Agregar mensaje al Log -----------------------------------------------
-//                TransactionalInformation result = new TransactionalInformation();
-//                result.ReturnMessage.Add(ex.Message);
-//                result.ReturnCode = 500;
-//                result.ReturnStatus = false;
-//                result.IsAuthenicated = true;
-
-//                return result;
-//            }
-//        }
-
         /// <summary>
         /// Genera un listado para combo con los ItemCodes de un Aviso de entrada
         /// </summary>
@@ -2204,6 +2133,10 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> AccesoriosRFC = new List<ListaCombos>();
                     List<ListaCombos> AccesoriosRB = new List<ListaCombos>();
 
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     tubosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
                                 join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                 join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
@@ -2215,7 +2148,8 @@ namespace BackEndSAM.DataAcces
                                 join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                 join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                 join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                where r.Activo && c.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                where r.Activo && c.Activo && rfp.Activo && rfi.Activo && rid.Activo && i.Activo && t.Activo
+                                && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                 && i.TipoMaterialID == 1
                                 && r.FolioAvisoLlegadaID == folioAvisoLlegada
                                 && !rfi.TieneNumerosUnicos
@@ -2226,6 +2160,8 @@ namespace BackEndSAM.DataAcces
                                      select co.ColadaID).Contains(rfi.ColadaID)
                                 && rfi.ColadaID > 0
                                 && rfi.MM > 0
+                                && proyectos.Contains(rfp.ProyectoID)
+                                && patios.Contains(r.PatioID)
                                 select new ListaCombos
                                 {
                                     id = i.ItemCodeID.ToString(),
@@ -2235,6 +2171,7 @@ namespace BackEndSAM.DataAcces
 
 
                     tubosRB = (from r in ctx.Sam3_FolioAvisoEntrada
+                               join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
                                join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
@@ -2245,7 +2182,8 @@ namespace BackEndSAM.DataAcces
                                join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                               where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                               where r.Activo && c.Activo && b.Activo && rbi.Activo && rid.Activo && i.Activo && t.Activo
+                               && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                && i.TipoMaterialID == 1
                                && r.FolioAvisoLlegadaID == folioAvisoLlegada
                                && !rbi.TieneNumerosUnicos
@@ -2256,6 +2194,8 @@ namespace BackEndSAM.DataAcces
                                     select co.ColadaID).Contains(rbi.ColadaID)
                                && rbi.ColadaID > 0
                                && rbi.MM > 0
+                               && proyectos.Contains(rfp.ProyectoID)
+                               && patios.Contains(r.PatioID)
                                select new ListaCombos
                                {
                                    id = i.ItemCodeID.ToString(),
@@ -2273,7 +2213,8 @@ namespace BackEndSAM.DataAcces
                                      join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                      join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                     where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                     where r.Activo && c.Activo && rfp.Activo && rfi.Activo && rid.Activo && i.Activo && t.Activo
+                                     && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                      && i.TipoMaterialID == 2
                                      && r.FolioAvisoLlegadaID == folioAvisoLlegada
                                      && !rfi.TieneNumerosUnicos
@@ -2283,6 +2224,8 @@ namespace BackEndSAM.DataAcces
                                           && co.ProyectoID == i.ProyectoID
                                           select co.ColadaID).Contains(rfi.ColadaID)
                                      && rfi.ColadaID > 0
+                                     && proyectos.Contains(rfp.ProyectoID)
+                                     && patios.Contains(r.PatioID)
                                      select new ListaCombos
                                      {
                                          id = i.ItemCodeID.ToString(),
@@ -2292,6 +2235,7 @@ namespace BackEndSAM.DataAcces
 
 
                     AccesoriosRB = (from r in ctx.Sam3_FolioAvisoEntrada
+                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                     join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                     join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
                                     join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
@@ -2302,7 +2246,8 @@ namespace BackEndSAM.DataAcces
                                     join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                     join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
                                     join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                    where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo && rics.Activo && ics.Activo
+                                    where r.Activo && rfp.Activo && c.Activo && b.Activo && rbi.Activo && rid.Activo && i.Activo && t.Activo
+                                    && d1.Activo && d2.Activo && rics.Activo && ics.Activo
                                     && i.TipoMaterialID == 2
                                     && r.FolioAvisoLlegadaID == folioAvisoLlegada
                                     && !rbi.TieneNumerosUnicos
@@ -2312,6 +2257,8 @@ namespace BackEndSAM.DataAcces
                                          && co.ProyectoID == i.ProyectoID
                                          select co.ColadaID).Contains(rbi.ColadaID)
                                     && rbi.ColadaID > 0
+                                    && proyectos.Contains(rfp.ProyectoID)
+                                    && patios.Contains(r.PatioID)
                                     select new ListaCombos
                                     {
                                         id = i.ItemCodeID.ToString(),
@@ -2400,12 +2347,9 @@ namespace BackEndSAM.DataAcces
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
                     int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().Distinct().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoEntrada> registros;
                     if (proyectoID > 0)
@@ -2417,6 +2361,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(rfp.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && fe.FolioDescarga > 0
                                      && rfp.ProyectoID == proyectoID
                                      select fe).AsParallel().ToList();
@@ -2430,6 +2375,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(rfp.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && fe.FolioDescarga > 0
                                      select fe).AsParallel().ToList();
                     }
@@ -2579,12 +2525,9 @@ namespace BackEndSAM.DataAcces
                 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().Distinct().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<ListaCombos> registros = (from fc in ctx.Sam3_FolioCuantificacion
                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
@@ -2595,6 +2538,8 @@ namespace BackEndSAM.DataAcces
                                                    && fc.Estatus != "Cerrado"
                                                    && proyectos.Contains(fc.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
+                                                   && patios.Contains(fe.PatioID)
+                                                   && patios.Contains(fa.PatioID)
                                                    select new ListaCombos
                                                    {
                                                        id = fc.FolioCuantificacionID.ToString(),
@@ -2735,14 +2680,9 @@ namespace BackEndSAM.DataAcces
                     {
                         #region Filtros
                         //traemos la informacion de los proyectos y patios del usuario
-                        List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID && x.Activo)
-                            .Select(x => x.ProyectoID).Distinct().AsParallel().ToList();
-
-                        List<int> Patios = (from p in ctx.Sam3_Proyecto
-                                            join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                            where p.Activo && pa.Activo
-                                            && proyectos.Contains(p.ProyectoID)
-                                            select pa.PatioID).Distinct().AsParallel().ToList();
+                        List<int> proyectos;
+                        List<int> Patios;
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out Patios);
 
                         int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
                         int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
@@ -2779,6 +2719,7 @@ namespace BackEndSAM.DataAcces
                                          join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                          where fe.Activo && rfp.Activo
                                          && proyectos.Contains(rfp.ProyectoID)
+                                         && Patios.Contains(fe.PatioID)
                                          && rfp.ProyectoID == proyectoID
                                          && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                          select fe).Distinct().AsParallel().ToList();
@@ -2789,6 +2730,7 @@ namespace BackEndSAM.DataAcces
                                          join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                          where fe.Activo && rfp.Activo
                                          && proyectos.Contains(rfp.ProyectoID)
+                                         && Patios.Contains(fe.PatioID)
                                          && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                          select fe).Distinct().AsParallel().ToList();
                         }
@@ -2974,6 +2916,7 @@ namespace BackEndSAM.DataAcces
                                          join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                          where fe.Activo && rfp.Activo
                                          && proyectos.Contains(rfp.ProyectoID)
+                                         && Patios.Contains(fe.PatioID)
                                          && rfp.ProyectoID == proyectoID
                                          && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                          select fe).Distinct().AsParallel().ToList();
@@ -2984,6 +2927,7 @@ namespace BackEndSAM.DataAcces
                                          join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                          where fe.Activo && rfp.Activo
                                          && proyectos.Contains(rfp.ProyectoID)
+                                         && Patios.Contains(fe.PatioID)
                                          && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                          select fe).Distinct().AsParallel().ToList();
                         }
@@ -3103,13 +3047,9 @@ namespace BackEndSAM.DataAcces
                 {
                     #region Filtros
                     //traemos la informacion de los proyectos y patios del usuario
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID && x.Activo)
-                        .Select(x => x.ProyectoID).Distinct().AsParallel().ToList();
-
-                    List<int> patios = (from p in ctx.Sam3_Proyecto
-                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                        where p.Activo && pa.Activo
-                                        select pa.PatioID).Distinct().AsParallel().ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
@@ -3286,7 +3226,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerEntidadComboIncidencia(int tipoIncidenciaID, string busqueda)
+        public object ObtenerEntidadComboIncidencia(int tipoIncidenciaID, string busqueda, Sam3_Usuario usuario)
         {
             try
             {
@@ -3298,16 +3238,26 @@ namespace BackEndSAM.DataAcces
                     Boolean activarFolioConfiguracionOrdenRecepcion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
                     Boolean activarFolioConfiguracionOrdenAlmacenaje = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"].Equals("1") ? true : false) : false;
 
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     switch (tipoIncidenciaID)
                     {
                         case 1: //Folio Aviso Entrada
-                            listado = (from fe in ctx.Sam3_FolioAvisoLlegada
-                                       where fe.Activo
-                                       && fe.FolioAvisoLlegadaID.ToString() == busqueda
+                            listado = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where fa.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && fa.FolioAvisoLlegadaID.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fa.PatioID)
                                        select new ListaCombos
                                        {
-                                           id = fe.FolioAvisoLlegadaID.ToString(),
-                                           value = fe.FolioAvisoLlegadaID.ToString()
+                                           id = fa.FolioAvisoLlegadaID.ToString(),
+                                           value = fa.FolioAvisoLlegadaID.ToString()
 
                                        }).AsParallel().Distinct().ToList();
 
@@ -3339,13 +3289,19 @@ namespace BackEndSAM.DataAcces
                             }
                             break;
                         case 2: // Entrada de Material
-                            listado = (from fem in ctx.Sam3_FolioAvisoEntrada
-                                       where fem.Activo
-                                       && fem.FolioAvisoEntradaID.ToString() == busqueda
+                            listado = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where fe.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && fe.FolioAvisoEntradaID.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fe.PatioID)
                                        select new ListaCombos
                                        {
-                                           id = fem.FolioAvisoEntradaID.ToString(),
-                                           value = fem.FolioAvisoEntradaID.ToString()
+                                           id = fe.FolioAvisoEntradaID.ToString(),
+                                           value = fe.FolioAvisoEntradaID.ToString()
                                        }).AsParallel().Distinct().ToList();
 
 
@@ -3381,8 +3337,15 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 4: // Packing List
                             listado = (from fc in ctx.Sam3_FolioCuantificacion
-                                       where fc.Activo
+                                       join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo
                                        && fc.FolioCuantificacionID.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fe.PatioID)
                                        select new ListaCombos
                                        {
                                            id = fc.FolioCuantificacionID.ToString(),
@@ -3446,13 +3409,21 @@ namespace BackEndSAM.DataAcces
                             }
                             break;
                         case 5: // Orden de recepcion
-                            listado = (from ordr in ctx.Sam3_OrdenRecepcion
-                                       where ordr.Activo
-                                       && ordr.Folio.ToString() == busqueda
+                            listado = (from o in ctx.Sam3_OrdenRecepcion
+                                       join rofe in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rofe.OrdenRecepcionID
+                                       join fe in ctx.Sam3_FolioAvisoEntrada on rofe.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where o.Activo && rofe.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && o.Folio.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fe.PatioID)
                                        select new ListaCombos
                                        {
-                                           id = ordr.Folio.ToString(),
-                                           value = ordr.Folio.ToString()
+                                           id = o.Folio.ToString(),
+                                           value = o.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
 
                             if (activarFolioConfiguracionOrdenRecepcion)
@@ -3487,8 +3458,12 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 7: // ItemCode
                             listado = (from it in ctx.Sam3_ItemCode
-                                       where it.Activo
+                                       join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where it.Activo && p.Activo && pa.Activo
                                        && it.Codigo == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = it.ItemCodeID.ToString(),
@@ -3497,13 +3472,43 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 8: // Orden de almacenaje
                             listado = (from oa in ctx.Sam3_OrdenAlmacenaje
-                                       where oa.Activo
+                                       join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on oa.OrdenAlmacenajeID equals relnu.OrdenAlmacenajeID
+                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                       join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                       join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where oa.Activo && relnu.Activo && rfi.Activo && fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo
                                        && oa.Folio.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fe.PatioID)
                                        select new ListaCombos
                                        {
                                            id = oa.Folio.ToString(),
                                            value = oa.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
+
+                            listado.AddRange((from oa in ctx.Sam3_OrdenAlmacenaje
+                                              join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on oa.OrdenAlmacenajeID equals relnu.OrdenAlmacenajeID
+                                              join rbi in ctx.Sam3_Rel_Bulto_ItemCode on relnu.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                              join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                              join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                              join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                              join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                              join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                              where oa.Activo && relnu.Activo && rbi.Activo && fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo && b.Activo
+                                              && oa.Folio.ToString() == busqueda
+                                              && proyectos.Contains(p.ProyectoID)
+                                              && patios.Contains(pa.PatioID)
+                                              && patios.Contains(fe.PatioID)
+                                              select new ListaCombos
+                                              {
+                                                  id = oa.Folio.ToString(),
+                                                  value = oa.Folio.ToString()
+                                              }).AsParallel().Distinct().ToList());
 
                             if (activarFolioConfiguracionOrdenAlmacenaje)
                             {
@@ -3533,8 +3538,12 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 9: // Numero unico
                             listado = (from nu in ctx.Sam3_NumeroUnico
-                                       where nu.Activo
+                                       join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where nu.Activo && p.Activo && pa.Activo
                                        && nu.NumeroUnicoID.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = nu.NumeroUnicoID.ToString(),
@@ -3560,8 +3569,12 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 10: // Despacho
                             listado = (from d in ctx.Sam3_Despacho
-                                       where d.Activo
+                                       join p in ctx.Sam3_Proyecto on d.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where d.Activo && p.Activo && pa.Activo 
                                        && d.DespachoID.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = d.DespachoID.ToString(),
@@ -3570,8 +3583,12 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 11: // Corte
                             listado = (from c in ctx.Sam3_Corte
-                                       where c.Activo
+                                       join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where c.Activo && p.Activo && pa.Activo
                                        && c.CorteID.ToString() == busqueda
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = c.CorteID.ToString(),
@@ -3600,7 +3617,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListaComboIncidencia(int tipoIncidenciaID)
+        public object ListaComboIncidencia(int tipoIncidenciaID, Sam3_Usuario usuario)
         {
             try
             {
@@ -3612,16 +3629,26 @@ namespace BackEndSAM.DataAcces
                     Boolean activarFolioConfiguracionOrdenRecepcion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
                     Boolean activarFolioConfiguracionOrdenAlmacenaje = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"].Equals("1") ? true : false) : false;
 
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     switch (tipoIncidenciaID)
                     {
                         case 1: //Folio Aviso Entrada
-                            listado = (from fe in ctx.Sam3_FolioAvisoLlegada
-                                       where fe.Activo
-                                       //&& fe.FolioAvisoLlegadaID.ToString().Contains(busqueda)
+
+                            listado = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where fa.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(rfp.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fa.PatioID)
                                        select new ListaCombos
                                        {
-                                           id = fe.FolioAvisoLlegadaID.ToString(),
-                                           value = fe.FolioAvisoLlegadaID.ToString()
+                                           id = fa.FolioAvisoLlegadaID.ToString(),
+                                           value = fa.FolioAvisoLlegadaID.ToString()
                                        }).AsParallel().Distinct().ToList();
 
                             if (activarFolioConfiguracion)
@@ -3652,13 +3679,15 @@ namespace BackEndSAM.DataAcces
                             }
                             break;
                         case 2: // Entrada de Material
-                            listado = (from fem in ctx.Sam3_FolioAvisoEntrada
-                                       where fem.Activo
-                                       //&& fem.FolioAvisoEntradaID.ToString().Contains(busqueda)
+                            listado = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where fe.Activo && rfp.Activo && p.Activo && pa.Activo
                                        select new ListaCombos
                                        {
-                                           id = fem.FolioAvisoEntradaID.ToString(),
-                                           value = fem.FolioAvisoEntradaID.ToString()
+                                           id = fe.FolioAvisoEntradaID.ToString(),
+                                           value = fe.FolioAvisoEntradaID.ToString()
                                        }).AsParallel().Distinct().ToList();
 
 
@@ -3696,7 +3725,12 @@ namespace BackEndSAM.DataAcces
                             listado = (from fc in ctx.Sam3_FolioCuantificacion
                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                        join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                       where fc.Activo && fe.Activo && fa.Activo
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where fc.Activo && fe.Activo && fa.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        //&& fc.FolioCuantificacionID.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
@@ -3763,13 +3797,20 @@ namespace BackEndSAM.DataAcces
 
                             break;
                         case 5: // Orden de recepcion
-                            listado = (from ordr in ctx.Sam3_OrdenRecepcion
-                                       where ordr.Activo
-                                       //&& ordr.Folio.ToString().Contains(busqueda)
+                            listado = (from o in ctx.Sam3_OrdenRecepcion
+                                       join rofe in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rofe.OrdenRecepcionID
+                                       join fe in ctx.Sam3_FolioAvisoEntrada on rofe.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where o.Activo && rofe.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fe.PatioID)
                                        select new ListaCombos
                                        {
-                                           id = ordr.Folio.ToString(),
-                                           value = ordr.Folio.ToString()
+                                           id = o.Folio.ToString(),
+                                           value = o.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
 
                             if (activarFolioConfiguracionOrdenRecepcion)
@@ -3803,8 +3844,11 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 7: // ItemCode
                             listado = (from it in ctx.Sam3_ItemCode
-                                       where it.Activo
-                                       //&& it.Codigo.Contains(busqueda)
+                                       join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where it.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = it.ItemCodeID.ToString(),
@@ -3813,13 +3857,41 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 8: // Orden de almacenaje
                             listado = (from oa in ctx.Sam3_OrdenAlmacenaje
-                                       where oa.Activo
-                                       //&& oa.Folio.ToString().Contains(busqueda)
+                                       join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on oa.OrdenAlmacenajeID equals relnu.OrdenAlmacenajeID
+                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                       join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                       join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                       join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where oa.Activo && relnu.Activo && rfi.Activo && fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(fe.PatioID)
                                        select new ListaCombos
                                        {
                                            id = oa.Folio.ToString(),
                                            value = oa.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
+
+                            listado.AddRange((from oa in ctx.Sam3_OrdenAlmacenaje
+                                              join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on oa.OrdenAlmacenajeID equals relnu.OrdenAlmacenajeID
+                                              join rbi in ctx.Sam3_Rel_Bulto_ItemCode on relnu.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                              join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                              join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                              join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                              join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                              join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                              where oa.Activo && relnu.Activo && rbi.Activo && fc.Activo && fe.Activo && rfp.Activo && p.Activo && pa.Activo && b.Activo
+                                              && proyectos.Contains(p.ProyectoID)
+                                              && patios.Contains(pa.PatioID)
+                                              && patios.Contains(fe.PatioID)
+                                              select new ListaCombos
+                                              {
+                                                  id = oa.Folio.ToString(),
+                                                  value = oa.Folio.ToString()
+                                              }).AsParallel().Distinct().ToList());
 
                             if (activarFolioConfiguracionOrdenAlmacenaje)
                             {
@@ -3851,9 +3923,11 @@ namespace BackEndSAM.DataAcces
                         case 9: // Numero unico
 
                             listado = (from nu in ctx.Sam3_NumeroUnico
-                                       where nu.Activo
-                                       //&& nu.Prefijo.Contains(prefijo)
-                                       //&& nu.Consecutivo.ToString().Contains(num)
+                                       join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where nu.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = nu.NumeroUnicoID.ToString(),
@@ -3878,8 +3952,11 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 10: // Despacho
                             listado = (from d in ctx.Sam3_Despacho
-                                       where d.Activo
-                                       //&& elementos.Any(x => d.DespachoID.ToString().Contains(x))
+                                       join p in ctx.Sam3_Proyecto on d.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where d.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = d.DespachoID.ToString(),
@@ -3888,8 +3965,11 @@ namespace BackEndSAM.DataAcces
                             break;
                         case 11: // Corte
                             listado = (from c in ctx.Sam3_Corte
-                                       where c.Activo
-                                       //&& elementos.Any(x => c.CorteID.ToString().Contains(x))
+                                       join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       where c.Activo && p.Activo && pa.Activo
+                                       && proyectos.Contains(p.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = c.CorteID.ToString(),
