@@ -330,8 +330,12 @@
             });
 
             //Add the language parameter to all url invoked by the <a> tag
-            $("a:not([data-login='password'])").click(function (event) {
+            $("a:not([data-login='password'])").not("ul.breadcrumb li.active a").click(function (event) {
                 redirectToLanguage(event,this);
+            });
+
+            $("ul.breadcrumb li.active a").click(function (event) {
+                window.location.assign(window.location.href)
             });
 
             //Language dropdownlist inicialization method
