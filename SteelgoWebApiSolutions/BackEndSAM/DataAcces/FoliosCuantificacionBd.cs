@@ -132,6 +132,8 @@ namespace BackEndSAM.DataAcces
                               && fe.Activo && fa.Activo && fp.Activo && p.Activo && pa.Activo
                               && proyectos.Contains(p.ProyectoID)
                               && patios.Contains(pa.PatioID)
+                              && patios.Contains(fa.PatioID)
+                              && patios.Contains(fe.PatioID)
                               select new ListaCombos
                                 {
                                     id = fe.FolioAvisoLlegadaID.ToString(),
@@ -856,6 +858,7 @@ namespace BackEndSAM.DataAcces
                                      where fc.Activo && fc.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && p.ProyectoID == proyectoID
                                      && foliosCuantificacionIDs.Contains(fc.FolioCuantificacionID)
                                      select fc).AsParallel().Distinct().ToList();
@@ -870,6 +873,7 @@ namespace BackEndSAM.DataAcces
                                      where fc.Activo && fc.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
+                                     && patios.Contains(fe.PatioID)
                                      && foliosCuantificacionIDs.Contains(fc.FolioCuantificacionID)
                                      select fc).AsParallel().Distinct().ToList();
                     }

@@ -139,9 +139,12 @@ namespace BackEndSAM.DataAcces
 
                         List<int> clientesSam2 = (from p in ctx.Sam3_Proyecto
                                                   join up in ctx.Sam3_Rel_Usuario_Proyecto on p.ProyectoID equals up.ProyectoID
+                                                  join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                                   join cli in ctx.Sam3_Cliente on p.ClienteID equals cli.ClienteID
                                                   where p.Activo && up.Activo && cli.Nombre != "Cliente Default"
                                                   && up.UsuarioID == usuario.UsuarioID
+                                                  && proyectos.Contains(p.ProyectoID)
+                                                  && patios.Contains(pa.PatioID)
                                                   select cli.Sam2ClienteID.Value).AsParallel().ToList();
 
                         List<Models.Cliente> cliente = new List<Models.Cliente>();

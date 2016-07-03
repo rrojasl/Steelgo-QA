@@ -1302,6 +1302,7 @@ namespace BackEndSAM.DataAcces
                                               && patios.Contains(r.PatioID)
                                               && proyectos.Contains(py.ProyectoID)
                                               && patios.Contains(pa.PatioID)
+                                              && patios.Contains(r.PatioID)
                                               && r.Activo && rfp.Activo && py.Activo && pa.Activo && p.Activo
                                               select p.PermisoAduanaID).AsParallel().Any();
 

@@ -979,7 +979,7 @@ namespace BackEndSAM.DataAcces
                         {
                             foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                    join rfi in ctx.Sam3_Rel_ItemCode_Diametro on fc.FolioCuantificacionID equals rfi.Rel_ItemCode_Diametro_ID
+                                                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                                     where fc.Activo && fe.Activo && rfi.Activo 
                                                     && fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
                                                     && fc.FolioCuantificacionID == packingListID
@@ -998,7 +998,7 @@ namespace BackEndSAM.DataAcces
                         {
                             foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                    join rfi in ctx.Sam3_Rel_ItemCode_Diametro on fc.FolioCuantificacionID equals rfi.Rel_ItemCode_Diametro_ID
+                                                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                                     where fc.Activo && fe.Activo && rfi.Activo
                                                     && fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
                                                     select fc).ToList();
