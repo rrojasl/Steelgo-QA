@@ -267,6 +267,7 @@ namespace BackEndSAM.DataAcces
                               where fa.Activo && fp.Activo && p.Activo && pa.Activo
                               && proyectosUsuario.Contains(p.ProyectoID)
                               && patiosUsuario.Contains(pa.PatioID)
+                              && patiosUsuario.Contains(fa.PatioID)
                               && (fa.FechaRecepcion >= fechaInicial && fa.FechaRecepcion <= fechaFinal)
                               select fa).AsParallel().Distinct().ToList();
 
@@ -998,9 +999,8 @@ namespace BackEndSAM.DataAcces
                                                    where r.Activo && fp.Activo && p.Activo && pa.Activo
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
-                                                   //&& (from rel in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
-                                                   //     where rel.Activo
-                                                   //     select rel.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
+                                                   && patios.Contains(r.PatioID)
+                                                   && patios.Contains(fe.PatioID)
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
@@ -1084,9 +1084,9 @@ namespace BackEndSAM.DataAcces
                                                    && !(from av in ctx.Sam3_FolioAvisoEntrada
                                                         where av.Activo
                                                         select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
-                                                       //&& !idsAvisosEntrada.Contains(r.FolioAvisoLlegadaID)
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
+                                                   && patios.Contains(r.PatioID)
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -1157,6 +1157,8 @@ namespace BackEndSAM.DataAcces
                                                    where r.Activo && m.Activo && fp.Activo && p.Activo && pa.Activo
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
+                                                   && patios.Contains(r.PatioID)
+                                                   && patios.Contains(m.PatioID)
                                                    && m.FolioDescarga > 0
                                                    select new ListaCombos
                                                    {
@@ -1229,6 +1231,7 @@ namespace BackEndSAM.DataAcces
                                                    && pa.RequierePermisoAduana
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
+                                                   && patios.Contains(r.PatioID)
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -1286,9 +1289,20 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     bool permisoAutorizado = (from r in ctx.Sam3_FolioAvisoLlegada
+                                              join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                              join py in ctx.Sam3_Proyecto on rfp.ProyectoID equals py.ProyectoID
+                                              join pa in ctx.Sam3_Patio on py.PatioID equals pa.PatioID
                                               join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                               where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && p.PermisoAutorizado == true
+                                              && patios.Contains(r.PatioID)
+                                              && proyectos.Contains(py.ProyectoID)
+                                              && patios.Contains(pa.PatioID)
+                                              && r.Activo && rfp.Activo && py.Activo && pa.Activo && p.Activo
                                               select p.PermisoAduanaID).AsParallel().Any();
 
                     return permisoAutorizado;
@@ -1408,6 +1422,7 @@ namespace BackEndSAM.DataAcces
                                                               where fa.Activo && rfp.Activo
                                                               && proyectos.Contains(rfp.ProyectoID)
                                                               && patios.Contains(pa.PatioID)
+                                                              && patios.Contains(fa.PatioID)
                                                               && IDs.Contains(fa.FolioAvisoLlegadaID)
                                                               select fa).Distinct().AsParallel().ToList();
 

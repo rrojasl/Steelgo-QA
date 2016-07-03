@@ -865,3 +865,12 @@ Exception Data: System.Collections.ListDictionaryInternal
 30/06/2016 06:28:33 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
 30/06/2016 06:28:33 p. m. - GUID devuelto: 
 30/06/2016 06:28:33 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+7/2/2016 6:29:51 PM - Source: JWTstack :   at JWT.JsonWebToken.Decode(String token, Byte[] key, Boolean verify)
+   at JWT.JsonWebToken.Decode(String token, String key, Boolean verify)
+   at SecurityManager.TokenHandler.ManageTokens.ValidateToken(String token, String& result, String& newToken) in c:\Sieena\SAM3.0\SAM3.0\SteelgoWebApiSolutions\SecurityManager\TokenHandler\ManageTokens.cs:line 81
+7/2/2016 6:29:58 PM - Usuario:samAdmin, pass: 7GgZtwt7
+7/2/2016 6:29:58 PM - GUID devuelto: 
+7/2/2016 6:29:58 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+7/2/2016 7:37:32 PM - Usuario:samAdmin, pass: 7GgZtwt7
+7/2/2016 7:37:32 PM - GUID devuelto: 
+7/2/2016 7:37:32 PM - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
