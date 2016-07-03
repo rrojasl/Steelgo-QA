@@ -1638,7 +1638,7 @@ namespace BackEndSAM.DataAcces
                                                           join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                           where rnuf.Activo && nu.Activo && it.Activo
                                                           && rnuf.OrdenRecepcionID == orden.OrdenRecepcionID
-                                                          && (nu.Rack != null || nu.Rack != string.Empty || nu.Rack != "")
+                                                          && (nu.Rack == null || nu.Rack == string.Empty || nu.Rack == "")
                                                           && it.TipoMaterialID == tipoMaterialID
                                                           select rnuf.NumeroUnicoID).AsParallel().Count();
                             }
@@ -3892,6 +3892,8 @@ namespace BackEndSAM.DataAcces
                                                   id = oa.Folio.ToString(),
                                                   value = oa.Folio.ToString()
                                               }).AsParallel().Distinct().ToList());
+
+                            listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
                             if (activarFolioConfiguracionOrdenAlmacenaje)
                             {
