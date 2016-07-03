@@ -91,6 +91,8 @@ namespace BackEndSAM.DataAcces
                                                            where fe.Activo && fa.Activo && fp.Activo && p.Activo && pa.Activo
                                                            && proyectosUsuario.Contains(p.ProyectoID)
                                                            && patiosUsuario.Contains(pa.PatioID)
+                                                           && patiosUsuario.Contains(fe.PatioID)
+                                                           && patiosUsuario.Contains(fa.PatioID)
                                                            && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                                            select fe).Distinct().AsParallel().ToList();
 
@@ -133,6 +135,7 @@ namespace BackEndSAM.DataAcces
                                          where fa.Activo && fp.Activo && p.Activo && pa.Activo
                                          && proyectosUsuario.Contains(p.ProyectoID)
                                          && patiosUsuario.Contains(pa.PatioID)
+                                         && patiosUsuario.Contains(fa.PatioID)
                                          && !(from fe in result
                                               where fe.Activo
                                               select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
@@ -292,13 +295,6 @@ namespace BackEndSAM.DataAcces
 
                     if (registro != null)
                     {
-
-                        //int ClienteID = registro.ClienteID != null ? registro.ClienteID : ClienteFolioAvisoLlegada;
-
-                        //sam2Cliente = (from c in ctx.Sam3_Cliente
-                        //                   where c.Activo && c.ClienteID == ClienteID
-                        //                   select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault();
-                        //detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(sam2Cliente);
 
 
                         detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
@@ -731,6 +727,7 @@ namespace BackEndSAM.DataAcces
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
                                      && p.ProyectoID == proyectoID
+                                     && patios.Contains(fe.PatioID)
                                      && IDs.Contains(fe.FolioAvisoEntradaID)
                                      select fe).Distinct().AsParallel().ToList();
                     }
@@ -744,6 +741,7 @@ namespace BackEndSAM.DataAcces
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
                                      && IDs.Contains(fe.FolioAvisoEntradaID)
+                                     && patios.Contains(fe.PatioID)
                                      select fe).Distinct().AsParallel().ToList();
                     }
 
