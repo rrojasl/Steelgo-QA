@@ -68,7 +68,14 @@ namespace BackEndSAM.DataAcces
                                                    join ics in ctx.Sam3_ItemCodeSteelgo on ricd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                    join d1 in ctx.Sam3_Diametro on ricd.Diametro1ID equals d1.DiametroID
                                                    join d2 in ctx.Sam3_Diametro on ricd.Diametro2ID equals d2.DiametroID
-                                                   where fc.ProyectoID == proyectoID
+                                                   join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                   join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   where p.ProyectoID == proyectoID
+                                                   && proyectos.Contains(p.ProyectoID)
+                                                   && patios.Contains(fe.PatioID)
+                                                   && patios.Contains(fa.PatioID)
+                                                   && patios.Contains(pa.PatioID)
                                                    && rfi.TieneNumerosUnicos
                                                    && relnu.OrdenAlmacenajeID == null
                                                    && fc.Activo && fe.Activo && fa.Activo && rfi.Activo && relnu.Activo && rid.Activo
