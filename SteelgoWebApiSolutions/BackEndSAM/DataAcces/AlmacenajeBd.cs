@@ -201,7 +201,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="avisoLlegadaID"></param>
         /// <returns>Regresa un JSON object con las propiedades de los numeros unicos</returns>
-        public object ObtenerNumerosUnicosOrdenesAlmacenaje(string itemCode, Sam3_Usuario usuario)
+        public object ObtenerNumerosUnicosOrdenesAlmacenaje(string itemCode, Sam3_Usuario usuario, int ordenAlmacenajeID)
         {
             try
             {
@@ -211,8 +211,11 @@ namespace BackEndSAM.DataAcces
                     List<NumerosUnicos> registros = new List<NumerosUnicos>();
 
                     registros = (from nu in ctx.Sam3_NumeroUnico
-                                 where nu.Activo
-                                       && nu.ItemCodeID == itemCodeID
+                                 join relnu  in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on nu.NumeroUnicoID equals relnu.NumeroUnicoID
+                                 join oa in ctx.Sam3_OrdenAlmacenaje on relnu.OrdenAlmacenajeID equals oa.OrdenAlmacenajeID
+                                 where nu.Activo && relnu.Activo && oa.Activo
+                                 && nu.ItemCodeID == itemCodeID
+                                 && oa.Folio == ordenAlmacenajeID
                                  select new NumerosUnicos
                                  {
                                      NumeroUnicoID = nu.NumeroUnicoID.ToString(),
