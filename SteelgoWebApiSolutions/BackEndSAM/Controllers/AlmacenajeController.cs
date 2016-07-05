@@ -75,7 +75,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return AlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenesAlmacenaje(itemCodeid, usuario);
+                return AlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenesAlmacenaje(itemCodeid, usuario, Convert.ToInt32(ordenalmacenajeID));
             }
             else
             {

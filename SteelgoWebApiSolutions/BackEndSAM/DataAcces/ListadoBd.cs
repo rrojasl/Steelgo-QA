@@ -201,102 +201,143 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                using (SamContext ctx = new SamContext())
+                using (Sam2Context ctx2 = new Sam2Context())
                 {
-                    //traemos la informacion de los patios y proyectos del usuario
-
-                    CantidadesDashboardAvisoEntrada result = new CantidadesDashboardAvisoEntrada();
-                    DateTime fechaInicial = new DateTime();
-                    DateTime fechaFinal = new DateTime();
-                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
-                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
-
-                    if (fechaFinal.ToShortDateString() == "1/1/0001")
+                    using (SamContext ctx = new SamContext())
                     {
-                        fechaFinal = DateTime.Now;
-                    }
+                        //traemos la informacion de los patios y proyectos del usuario
 
-                    if (fechaInicial.ToShortDateString() == "1/1/0001")
-                    {
-                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
-                        fechaInicial = new DateTime(2000, 01, 01);
-                    }
+                        CantidadesDashboardAvisoEntrada result = new CantidadesDashboardAvisoEntrada();
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime();
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
 
-                    int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
-                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
 
-                    List<int> proyectos;
-                    List<int> patios;
-                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
+                        }
 
-                    List<Sam3_FolioAvisoEntrada> registrosBd = new List<Sam3_FolioAvisoEntrada>();
+                        int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
+                        int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
 
-                    //Traer todos de acuerdo a las fechas, proyectos y patios del usuario
+                        List<int> proyectos;
+                        List<int> patios;
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
-                    registrosBd = (from r in ctx.Sam3_FolioAvisoEntrada
-                                   join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                   join pry in ctx.Sam3_Proyecto on p.ProyectoID equals pry.ProyectoID
-                                   join pa in ctx.Sam3_Patio on pry.PatioID equals pa.PatioID
-                                   where r.Activo && p.Activo && pry.Activo && pa.Activo
-                                   && proyectos.Contains(pry.ProyectoID)
-                                   && patios.Contains(pa.PatioID)
-                                   && patios.Contains(r.PatioID)
-                                   && (r.FechaModificacion >= fechaInicial && r.FechaModificacion <= fechaFinal)
-                                   select r).AsParallel().ToList();
+                        List<Sam3_FolioAvisoEntrada> registrosBd = new List<Sam3_FolioAvisoEntrada>();
 
+                        //Traer todos de acuerdo a las fechas, proyectos y patios del usuario
 
-                    //eliminar duplicados
-                    registrosBd = registrosBd.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
-
-                    if (patioID > 0 && registrosBd.Count > 0)
-                    {
-                        registrosBd = (from r in registrosBd
-                                       where r.Activo
-                                       && r.PatioID == patioID
+                        registrosBd = (from r in ctx.Sam3_FolioAvisoEntrada
+                                       join fa in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                       join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                       join pry in ctx.Sam3_Proyecto on p.ProyectoID equals pry.ProyectoID
+                                       join pa in ctx.Sam3_Patio on pry.PatioID equals pa.PatioID
+                                       where r.Activo && fa.Activo && p.Activo && pry.Activo && pa.Activo
+                                       && proyectos.Contains(pry.ProyectoID)
+                                       && patios.Contains(pa.PatioID)
+                                       && patios.Contains(r.PatioID)
+                                       && patios.Contains(fa.PatioID)
+                                       && (r.FechaCreacion >= fechaInicial && r.FechaCreacion <= fechaFinal)
                                        select r).AsParallel().ToList();
+
+
+                        //eliminar duplicados
+                        registrosBd = registrosBd.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+
+                        if (patioID > 0)
+                        {
+                            registrosBd = (from r in registrosBd
+                                           where r.Activo
+                                           && r.PatioID == patioID
+                                           select r).AsParallel().ToList();
+                        }
+
+                        if (clienteID > 0)
+                        {
+                            //registrosBd = registrosBd.Where(x => x.ClienteID == clienteID).ToList();
+
+                            registrosBd = (from r in registrosBd
+                                           join c1 in ctx.Sam3_Cliente on r.ClienteID equals c1.ClienteID
+                                           join c2 in ctx2.Cliente on c1.Sam2ClienteID equals c2.ClienteID
+                                           where c2.ClienteID == clienteID
+                                           select r).AsParallel().ToList();
+                        }
+
+                        result.TotalCreados = registrosBd.Count();
+
+
+                        List<int> foliosLlegadaIds = registrosBd.Select(x => x.FolioAvisoLlegadaID.Value).Distinct().ToList();
+
+
+                        List<Sam3_FolioAvisoLlegada> folioavisollegada = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                                                          join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                                          join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                                          join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                          where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                                                          && proyectos.Contains(p.ProyectoID)
+                                                                          && patios.Contains(pa.PatioID)
+                                                                          && patios.Contains(fa.PatioID)
+                                                                          && !foliosLlegadaIds.Contains(fa.FolioAvisoLlegadaID)
+                                                                          && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
+                                                                          select fa).AsParallel().ToList();
+                        if (clienteID > 0)
+                        {
+                            //folioavisollegada = folioavisollegada.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
+                            folioavisollegada = (from r in folioavisollegada
+                                           join c1 in ctx.Sam3_Cliente on r.ClienteID equals c1.ClienteID
+                                           join c2 in ctx2.Cliente on c1.Sam2ClienteID equals c2.ClienteID
+                                           where c2.ClienteID == clienteID
+                                           select r).AsParallel().ToList();
+                        }
+
+                        if (patioID > 0)
+                        {
+                            folioavisollegada = folioavisollegada.Where(x => x.PatioID == patioID).AsParallel().ToList();
+                        }
+
+                        result.SinEstaus = (from fa in folioavisollegada
+                                            select fa).Distinct().Count();
+
+                        //result.SinEstaus = (from fa in ctx.Sam3_FolioAvisoLlegada
+                        //                    join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                        //                    join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                        //                    join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                        //                    where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                        //                    && proyectos.Contains(p.ProyectoID)
+                        //                    && patios.Contains(pa.PatioID)
+                        //                    && patios.Contains(fa.PatioID)
+                        //                    && !foliosLlegadaIds.Contains(fa.FolioAvisoLlegadaID)
+                        //                    && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
+                        //                    select fa).Distinct().Count();
+
+                        result.SinOrdenDescarga = (from r in registrosBd
+                                                   where r.FolioDescarga <= 0
+                                                   && r.Estatus == "En Patio"
+                                                   select r).Count();
+
+                        result.SinPaseSalida = (from r in registrosBd
+                                                join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
+                                                where r.Activo && f.Activo
+                                                && (f.PaseSalidaEnviado == false || r.Estatus == "Cierre de Folio Por Devolución")
+                                                && r.Estatus != "En Patio"
+                                                select r).AsParallel().Count();
+
+                        result.PorcentajeSinDescarga = result.TotalCreados > 0 ? (result.SinOrdenDescarga * 100) / result.TotalCreados : 0;
+                        result.PorcentajeSinEstatus = result.TotalCreados > 0 ? (result.SinEstaus * 100) / result.TotalCreados : 0;
+                        result.PorcentajeSinPaseSalida = result.TotalCreados > 0 ? (result.SinPaseSalida * 100) / result.TotalCreados : 0;
+
+                        return result;
                     }
-
-                    if (clienteID > 0 && registrosBd.Count > 0)
-                    {
-                        registrosBd = registrosBd.Where(x => x.ClienteID == clienteID).ToList();
-                    }
-
-                    result.TotalCreados = registrosBd.Count();
-
-
-                    List<int> foliosLlegadaIds = registrosBd.Select(x => x.FolioAvisoLlegadaID.Value).Distinct().ToList();
-
-                    result.SinEstaus = (from fa in ctx.Sam3_FolioAvisoLlegada
-                                        join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                        join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                        where fa.Activo && fp.Activo && p.Activo && pa.Activo
-                                        && proyectos.Contains(p.ProyectoID)
-                                        && patios.Contains(pa.PatioID)
-                                        && patios.Contains(fa.PatioID)
-                                        && !foliosLlegadaIds.Contains(fa.FolioAvisoLlegadaID)
-                                        && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
-                                        select fa).Distinct().Count();
-
-                    result.SinOrdenDescarga = (from r in registrosBd
-                                               where r.FolioDescarga <= 0
-                                               && r.Estatus == "En Patio"
-                                               select r).Count();
-
-                    result.SinPaseSalida = (from r in registrosBd
-                                            join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
-                                            where r.Activo && f.Activo
-                                            && (f.PaseSalidaEnviado == false || r.Estatus == "Cierre de Folio Por Devolución")
-                                            && r.Estatus != "En Patio"
-                                            select r).AsParallel().Count();
-
-                    result.PorcentajeSinDescarga = result.TotalCreados > 0 ? (result.SinOrdenDescarga * 100) / result.TotalCreados : 0;
-                    result.PorcentajeSinEstatus = result.TotalCreados > 0 ? (result.SinEstaus * 100) / result.TotalCreados : 0;
-                    result.PorcentajeSinPaseSalida = result.TotalCreados > 0 ? (result.SinPaseSalida * 100) / result.TotalCreados : 0;
-
-                    return result;
                 }
             }
             catch (Exception ex)
