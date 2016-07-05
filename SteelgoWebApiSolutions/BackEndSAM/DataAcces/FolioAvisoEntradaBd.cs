@@ -128,19 +128,32 @@ namespace BackEndSAM.DataAcces
                     //{
                         if (filtros.PorLlegar)
                         {
-                            elementos = (from fa in ctx.Sam3_FolioAvisoLlegada.ToList()
-                                         join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                         join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                         join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                         where fa.Activo && fp.Activo && p.Activo && pa.Activo
-                                         && proyectosUsuario.Contains(p.ProyectoID)
-                                         && patiosUsuario.Contains(pa.PatioID)
-                                         && patiosUsuario.Contains(fa.PatioID)
-                                         && !(from fe in result
-                                              where fe.Activo
-                                              select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
-                                         && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
-                                         select new ElementoListadoFolioEntradaMaterial
+                            List<Sam3_FolioAvisoLlegada> foliosAvisoLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada.ToList()
+                                                                         join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                                         join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                                         join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                         where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                                                         && proyectosUsuario.Contains(p.ProyectoID)
+                                                                         && patiosUsuario.Contains(pa.PatioID)
+                                                                         && patiosUsuario.Contains(fa.PatioID)
+                                                                         && !(from fe in result
+                                                                              where fe.Activo
+                                                                              select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                                                                         && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
+                                                                         select fa).AsParallel().ToList();
+
+                            if (folioAvisoLlegadaID > 0) {
+                                foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).AsParallel().ToList();
+                            }
+                            if (clienteID > 0) {
+                                foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
+                            }
+                            if (patioID > 0) {
+                                foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.PatioID == patioID).AsParallel().ToList();
+                            }
+
+                            elementos = (from fa in foliosAvisoLlegada
+                                         select new ElementoListadoFolioEntradaMaterial 
                                          {
                                              EstatusFolio = fa.Estatus,
                                              FechaCreación = fa.FechaModificacion.Value.ToString("dd/MM/yyyy"),
@@ -154,6 +167,36 @@ namespace BackEndSAM.DataAcces
                                                                                                 + fa.Consecutivo.ToString() + ","
                                                                                                 + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fa.FolioAvisoLlegadaID.ToString()
                                          }).AsParallel().ToList();
+
+                            //elementos = (from fa in ctx.Sam3_FolioAvisoLlegada.ToList()
+                            //             join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                            //             join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                            //             join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                            //             where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                            //             && proyectosUsuario.Contains(p.ProyectoID)
+                            //             && patiosUsuario.Contains(pa.PatioID)
+                            //             && patiosUsuario.Contains(fa.PatioID)
+                            //             //&& (fa.ClienteID == clienteID && clienteID > 0)
+                            //             //&& (fa.FolioAvisoLlegadaID == folioAvisoLlegadaID && folioAvisoLlegadaID > 0)
+                            //             //&& (fa.PatioID == patioID && patioID > 0)
+                            //             && !(from fe in result
+                            //                  where fe.Activo
+                            //                  select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                            //             && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
+                            //             select new ElementoListadoFolioEntradaMaterial
+                            //             {
+                            //                 EstatusFolio = fa.Estatus,
+                            //                 FechaCreación = fa.FechaModificacion.Value.ToString("dd/MM/yyyy"),
+                            //                 FolioAvisoEntradaID = fa.FolioAvisoLlegadaID.ToString(),
+                            //                 FolioAvisoLlegadaID = fa.FolioAvisoLlegadaID.ToString(),
+                            //                 Patio = fa.Sam3_Patio.Nombre,
+                            //                 FolioConfiguracion = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                            //                                                                   where pc.Entidad == fa.Entidad && pc.Proyecto == fa.ProyectoNombrado
+                            //                                                                   select pc.PreFijoFolioAvisoLlegada + ","
+                            //                                                                    + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                            //                                                                    + fa.Consecutivo.ToString() + ","
+                            //                                                                    + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : fa.FolioAvisoLlegadaID.ToString()
+                            //             }).AsParallel().ToList();
 
                             if (activarFolioConfiguracion)
                             {
