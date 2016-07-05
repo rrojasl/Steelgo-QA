@@ -395,6 +395,7 @@
                         Cliente = {};
                         this.value("");
                     } else {
+                        $("#ProyectoID").data("kendoMultiSelect").value("");
                         ObtenerProyectos();
                     };
                 },
@@ -759,7 +760,7 @@
                     $("#FolioEntradaID").data("kendoComboBox").text(data.FolioConfiguracion);
 
                     if (data.Cliente) {
-                        CargarProyecto(data.Cliente.ClienteID, data.Cliente.Nombre);
+                        CargarCliente(data.Cliente.ClienteID, data.Cliente.Nombre);
                         $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
                         ObtenerCargarProyectos(data);
                     };
