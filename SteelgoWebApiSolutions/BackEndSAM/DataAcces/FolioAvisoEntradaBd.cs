@@ -49,111 +49,126 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                using (SamContext ctx = new SamContext())
+                using (Sam2Context ctx2 = new Sam2Context())
                 {
-                    List<int> lstFoliosAvisoEntrada = new List<int>();
-                    DateTime fechaInicial = new DateTime();
-                    DateTime fechaFinal = new DateTime();
-                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
-                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
-
-                    List<int> patiosUsuario;
-                    List<int> proyectosUsuario;
-                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
-                    int patioID = filtros.PatioID != string.Empty ? Convert.ToInt32(filtros.PatioID) > 0 ? Convert.ToInt32(filtros.PatioID) : 0 : 0;
-                    int clienteID = filtros.ClienteID != string.Empty ? Convert.ToInt32(filtros.ClienteID) > 0 ? Convert.ToInt32(filtros.ClienteID) : 0 :0;
-                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != string.Empty ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) > 0 ?
-                        Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0 : 0;
-                    int folioEntradaID = filtros.FolioAvisoEntradaID != string.Empty ? Convert.ToInt32(filtros.FolioAvisoEntradaID) > 0 ?
-                        Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0 : 0;
-
-                    Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"]) 
-                        ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
-
-                    if (fechaFinal.ToShortDateString() == "1/1/0001")
+                    using (SamContext ctx = new SamContext())
                     {
-                        fechaFinal = DateTime.Now;
-                    }
+                        List<int> lstFoliosAvisoEntrada = new List<int>();
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime();
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
 
-                    if (fechaInicial.ToShortDateString() == "1/1/0001")
-                    {
-                        //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
-                        fechaInicial = new DateTime(2000, 01, 01);
-                    }
+                        List<int> patiosUsuario;
+                        List<int> proyectosUsuario;
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+                        int patioID = filtros.PatioID != string.Empty ? Convert.ToInt32(filtros.PatioID) > 0 ? Convert.ToInt32(filtros.PatioID) : 0 : 0;
+                        int clienteID = filtros.ClienteID != string.Empty ? Convert.ToInt32(filtros.ClienteID) > 0 ? Convert.ToInt32(filtros.ClienteID) : 0 : 0;
+                        int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != string.Empty ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) > 0 ?
+                            Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0 : 0;
+                        int folioEntradaID = filtros.FolioAvisoEntradaID != string.Empty ? Convert.ToInt32(filtros.FolioAvisoEntradaID) > 0 ?
+                            Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0 : 0;
 
-                    List<Sam3_FolioAvisoEntrada> result = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                           join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                                           join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                           join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                           where fe.Activo && fa.Activo && fp.Activo && p.Activo && pa.Activo
-                                                           && proyectosUsuario.Contains(p.ProyectoID)
-                                                           && patiosUsuario.Contains(pa.PatioID)
-                                                           && patiosUsuario.Contains(fe.PatioID)
-                                                           && patiosUsuario.Contains(fa.PatioID)
-                                                           && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
-                                                           select fe).Distinct().AsParallel().ToList();
+                        Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracion"])
+                            ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
 
-                    if (folioEntradaID > 0)
-                    {
-                        result = (from r in result
-                                  where r.Activo && r.FolioAvisoEntradaID == folioEntradaID
-                                  select r).AsParallel().ToList();
-                    }
-                    if (folioAvisoLlegadaID > 0)
-                    {
-                        result = (from r in result
-                                  where r.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                  select r).AsParallel().ToList();
-                    }
-                    if (clienteID > 0)
-                    {
-                        result = (from r in result
-                                  where r.ClienteID == clienteID
-                                  select r).AsParallel().ToList();
-                    }
-                    if (patioID > 0)
-                    {
-                        result = (from r in result
-                                  where r.PatioID == patioID
-                                  select r).AsParallel().ToList();
-                    }
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
+
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                            fechaInicial = new DateTime(2000, 01, 01);
+                        }
+
+                        List<Sam3_FolioAvisoEntrada> result = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                               join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                               join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                               join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                               join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                               where fe.Activo && fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                                               && proyectosUsuario.Contains(p.ProyectoID)
+                                                               && patiosUsuario.Contains(pa.PatioID)
+                                                               && patiosUsuario.Contains(fe.PatioID)
+                                                               && patiosUsuario.Contains(fa.PatioID)
+                                                               && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                                               select fe).Distinct().AsParallel().ToList();
+
+                        if (folioEntradaID > 0)
+                        {
+                            result = (from r in result
+                                      where r.Activo && r.FolioAvisoEntradaID == folioEntradaID
+                                      select r).AsParallel().ToList();
+                        }
+                        if (folioAvisoLlegadaID > 0)
+                        {
+                            result = (from r in result
+                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                      select r).AsParallel().ToList();
+                        }
+                        if (clienteID > 0)
+                        {
+                            result = (from r in result
+                                      join c1 in ctx.Sam3_Cliente on r.ClienteID equals c1.ClienteID
+                                      join c2 in ctx2.Cliente on c1.Sam2ClienteID equals c2.ClienteID
+                                      where c2.ClienteID == clienteID
+                                      select r).AsParallel().ToList();
+                        }
+                        if (patioID > 0)
+                        {
+                            result = (from r in result
+                                      where r.PatioID == patioID
+                                      select r).AsParallel().ToList();
+                        }
 
 
-                    List<ElementoListadoFolioEntradaMaterial> elementos = new List<ElementoListadoFolioEntradaMaterial>();
+                        List<ElementoListadoFolioEntradaMaterial> elementos = new List<ElementoListadoFolioEntradaMaterial>();
 
-                    //if (result.Count > 0)
-                    //{
+                        //if (result.Count > 0)
+                        //{
                         if (filtros.PorLlegar)
                         {
                             List<Sam3_FolioAvisoLlegada> foliosAvisoLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada.ToList()
-                                                                         join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                                         join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                                                         join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                                         where fa.Activo && fp.Activo && p.Activo && pa.Activo
-                                                                         && proyectosUsuario.Contains(p.ProyectoID)
-                                                                         && patiosUsuario.Contains(pa.PatioID)
-                                                                         && patiosUsuario.Contains(fa.PatioID)
-                                                                         && !(from fe in result
-                                                                              where fe.Activo
-                                                                              select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
-                                                                         && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
-                                                                         select fa).AsParallel().ToList();
+                                                                               join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                                               join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                                               join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                               where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                                                               && proyectosUsuario.Contains(p.ProyectoID)
+                                                                               && patiosUsuario.Contains(pa.PatioID)
+                                                                               && patiosUsuario.Contains(fa.PatioID)
+                                                                               && !(from fe in result
+                                                                                    where fe.Activo
+                                                                                    select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                                                                               && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
+                                                                               select fa).AsParallel().ToList();
 
-                            if (folioAvisoLlegadaID > 0) {
+                            if (folioAvisoLlegadaID > 0)
+                            {
                                 foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).AsParallel().ToList();
                             }
-                            if (clienteID > 0) {
-                                foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
+
+                            if (clienteID > 0)
+                            {
+                                foliosAvisoLlegada = (from r in foliosAvisoLlegada
+                                                      join c1 in ctx.Sam3_Cliente on r.ClienteID equals c1.ClienteID
+                                                      join c2 in ctx2.Cliente on c1.Sam2ClienteID equals c2.ClienteID
+                                                      where c2.ClienteID == clienteID
+                                                      select r).AsParallel().ToList();
+
+                               // foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
                             }
-                            if (patioID > 0) {
+
+                            if (patioID > 0)
+                            {
                                 foliosAvisoLlegada = foliosAvisoLlegada.Where(x => x.PatioID == patioID).AsParallel().ToList();
                             }
 
                             elementos = (from fa in foliosAvisoLlegada
-                                         select new ElementoListadoFolioEntradaMaterial 
+                                         select new ElementoListadoFolioEntradaMaterial
                                          {
                                              EstatusFolio = fa.Estatus,
                                              FechaCreación = fa.FechaModificacion.Value.ToString("dd/MM/yyyy"),
@@ -231,42 +246,43 @@ namespace BackEndSAM.DataAcces
                                       select r).AsParallel().ToList();
 
                         }
-                    //}
+                        //}
 
-                    result = result.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+                        result = result.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
 
-                    
-                    foreach (Sam3_FolioAvisoEntrada folio in result)
-                    {
-                        ElementoListadoFolioEntradaMaterial nuevoElemento = new ElementoListadoFolioEntradaMaterial();
 
-                        Sam3_FolioAvisoLlegada folioavisollegada= ctx.Sam3_FolioAvisoLlegada.Where(x=>x.FolioAvisoLlegadaID== folio.FolioAvisoLlegadaID).AsParallel().FirstOrDefault();
-
-                        nuevoElemento.FolioConfiguracion = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
-                                                                                        where pc.Entidad == folioavisollegada.Entidad && pc.Proyecto == folioavisollegada.ProyectoNombrado
-                                                                                        select pc.PreFijoFolioAvisoLlegada + ","
-                                                                                         + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
-                                                                                         + folioavisollegada.Consecutivo.ToString() + ","
-                                                                                         + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : folio.FolioAvisoLlegadaID.ToString();
-                        if (activarFolioConfiguracion)
+                        foreach (Sam3_FolioAvisoEntrada folio in result)
                         {
-                            string[] elemntos = nuevoElemento.FolioConfiguracion.Split(',').ToArray();
-                            int digitos = Convert.ToInt32(elemntos[1]);
-                            int consecutivo = Convert.ToInt32(elemntos[2]);
-                            string formato = "D" + digitos.ToString();
+                            ElementoListadoFolioEntradaMaterial nuevoElemento = new ElementoListadoFolioEntradaMaterial();
 
-                            nuevoElemento.FolioConfiguracion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            Sam3_FolioAvisoLlegada folioavisollegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folio.FolioAvisoLlegadaID).AsParallel().FirstOrDefault();
+
+                            nuevoElemento.FolioConfiguracion = activarFolioConfiguracion ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                                                            where pc.Entidad == folioavisollegada.Entidad && pc.Proyecto == folioavisollegada.ProyectoNombrado
+                                                                                            select pc.PreFijoFolioAvisoLlegada + ","
+                                                                                             + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                                             + folioavisollegada.Consecutivo.ToString() + ","
+                                                                                             + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : folio.FolioAvisoLlegadaID.ToString();
+                            if (activarFolioConfiguracion)
+                            {
+                                string[] elemntos = nuevoElemento.FolioConfiguracion.Split(',').ToArray();
+                                int digitos = Convert.ToInt32(elemntos[1]);
+                                int consecutivo = Convert.ToInt32(elemntos[2]);
+                                string formato = "D" + digitos.ToString();
+
+                                nuevoElemento.FolioConfiguracion = elemntos[0].Trim() + consecutivo.ToString(formato).Trim() + elemntos[3].Trim();
+                            }
+                            nuevoElemento.FolioAvisoEntradaID = folio.FolioAvisoEntradaID.ToString();
+                            nuevoElemento.FolioAvisoLlegadaID = folio.FolioAvisoLlegadaID.ToString();
+                            nuevoElemento.EstatusFolio = folio.Estatus;
+                            nuevoElemento.Patio = folio.Sam3_Patio.Nombre;
+                            nuevoElemento.FechaCreación = folio.FechaModificacion.Value.ToString("dd/MM/yyyy");
+
+                            elementos.Add(nuevoElemento);
                         }
-                        nuevoElemento.FolioAvisoEntradaID = folio.FolioAvisoEntradaID.ToString();
-                        nuevoElemento.FolioAvisoLlegadaID = folio.FolioAvisoLlegadaID.ToString();
-                        nuevoElemento.EstatusFolio = folio.Estatus;
-                        nuevoElemento.Patio = folio.Sam3_Patio.Nombre;
-                        nuevoElemento.FechaCreación = folio.FechaModificacion.Value.ToString("dd/MM/yyyy");
 
-                        elementos.Add(nuevoElemento);
+                        return elementos;
                     }
-
-                    return elementos;
                 }
             }
             catch (Exception ex)
