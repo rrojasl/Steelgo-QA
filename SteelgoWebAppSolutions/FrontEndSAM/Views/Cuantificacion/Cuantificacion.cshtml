@@ -1861,7 +1861,7 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if ($('input:checked').val() == "2") {
+                if ($('#vacios').is(":checked")) {
                     if (!this.get("Cantidad") || 0 > this.get("Cantidad") || this.get("Cantidad") == "0") {
                         this.set("Cantidad", value ? value : "0");
                     };
@@ -1890,22 +1890,14 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if ($('input:checked').val() == "2") {
-                    if (!this.get("MM") || this.get("MM") == "0") {
+                if ($('#vacios').is(":checked")) {
+                    if (this.get("MM")==="" || this.get("MM") === 0 && this.get("TipoMaterial") === 1) {
                         this.set("MM", value);
-                    } else {
-                        if (this.get("TipoMaterial") == "1") {//TUBO
-                            this.set("MM", value);
-                        } else {
-                            if (this.get("TipoMaterial") == "2") {
-                                this.set("MM", "N/A");
-                            } else {
-                                this.set("MM", value);
-                            }
-                        }
+                    } else if (this.get("TipoMaterial") !== 1){
+                        this.set("MM", "N/A");
                     }
                 }else{
-                    if (this.get("TipoMaterial") == "2") {
+                    if (this.get("TipoMaterial") !== 1) {
                         this.set("MM", "N/A");
                     } else {
                         this.set("MM", value);
