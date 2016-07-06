@@ -12,6 +12,7 @@ using System.Web;
 using DatabaseManager.Sam2;
 using System.Transactions;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace BackEndSAM.DataAcces
 {
@@ -61,6 +62,8 @@ namespace BackEndSAM.DataAcces
                 // tpo packinglist = 3 traer todos los itemcodes
                 List<BackEndSAM.Models.ItemCode> IC = new List<BackEndSAM.Models.ItemCode>();
                 List<BackEndSAM.Models.ItemCode> itemCodeS2 = new List<BackEndSAM.Models.ItemCode>();
+
+                ReplicarItemCodesSam2(proyectoID, usuario);
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -133,7 +136,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                int sam2_ProyectoID = 0;  
+                int sam2_ProyectoID = 0;
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -146,9 +149,9 @@ namespace BackEndSAM.DataAcces
                                 //Inserta en Sam 2
                                 DatabaseManager.Sam2.ItemCode itemS2;
                                 sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                                         where eq.Activo
-                                                         && eq.Sam3_ProyectoID == DatosItemCode.ProyectoID
-                                                         select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                                                   where eq.Activo
+                                                   && eq.Sam3_ProyectoID == DatosItemCode.ProyectoID
+                                                   select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
 
                                 decimal Diametro1 = string.IsNullOrEmpty(DatosItemCode.Diametro1.ToString()) ? 0 : Convert.ToDecimal(DatosItemCode.Diametro1);
                                 decimal Diametro2 = string.IsNullOrEmpty(DatosItemCode.Diametro2.ToString()) ? 0 : Convert.ToDecimal(DatosItemCode.Diametro2);
@@ -177,7 +180,7 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else
                                 {
-                                    itemS2 = ctx2.ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.ProyectoID == sam2_ProyectoID ).AsParallel().SingleOrDefault();
+                                    itemS2 = ctx2.ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.ProyectoID == sam2_ProyectoID).AsParallel().SingleOrDefault();
                                 }
 
 
@@ -193,7 +196,8 @@ namespace BackEndSAM.DataAcces
                                     {
                                         diam1 = ctx.Sam3_Diametro.Where(x => x.Valor == Diametro1).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
                                     }
-                                    else {
+                                    else
+                                    {
                                         diametro1 = new Sam3_Diametro();
                                         diametro1.Valor = Diametro1;
                                         diametro1.VerificadoPorCalidad = true;
@@ -215,7 +219,8 @@ namespace BackEndSAM.DataAcces
                                     {
                                         diam2 = ctx.Sam3_Diametro.Where(x => x.Valor == Diametro2).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
                                     }
-                                    else {
+                                    else
+                                    {
                                         diametro2 = new Sam3_Diametro();
                                         diametro2.Valor = Diametro2;
                                         diametro2.VerificadoPorCalidad = true;
@@ -245,8 +250,6 @@ namespace BackEndSAM.DataAcces
                                     itemS3.TipoUsoID = Convert.ToInt32(DatosItemCode.TipoUsoID) == -1 ? 1 : Convert.ToInt32(DatosItemCode.TipoUsoID);
                                     ctx.Sam3_ItemCode.Add(itemS3);
                                     ctx.SaveChanges();
-
-                                    
                                 }
                                 else
                                 {
@@ -701,6 +704,301 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
+            }
+        }
+
+        private object ReplicarItemCodesSam2(int proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<BackEndSAM.Models.ItemCode> listado = new List<BackEndSAM.Models.ItemCode>();
+                int sam2_ProyectoID = 0;
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        sam2_ProyectoID = ctx.Sam3_EquivalenciaProyecto.Where(x => x.Sam3_ProyectoID == proyectoID && x.Activo)
+                            .Select(x => x.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
+                        List<int> itemCodesSam2EnSam3 = (from eqit in ctx.Sam3_EquivalenciaItemCode
+                                                         join it in ctx.Sam3_ItemCode on eqit.Sam3_ItemCodeID equals it.ItemCodeID
+                                                         join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                                         where eqit.Activo && it.Activo && p.Activo
+                                                         && p.ProyectoID == proyectoID
+                                                         select eqit.Sam2_ItemCodeID).AsParallel().Distinct().ToList();
+
+                        List<DatabaseManager.Sam2.ItemCode> itemsAReplicar = (from it2 in ctx2.ItemCode
+                                                                              where !itemCodesSam2EnSam3.Contains(it2.ItemCodeID)
+                                                                              && it2.ProyectoID == sam2_ProyectoID
+                                                                              select it2).AsParallel().Distinct().ToList();
+
+                        if (itemsAReplicar.Count() > 0)
+                        {
+                            itemsAReplicar.ForEach(x => InsertarItemCodeEnSam3(x, usuario, proyectoID));
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(string.Format("Error al obtener los ItemCodes del Proyecto SAM2. {0}"));
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        private void InsertarItemCodeEnSam3(DatabaseManager.Sam2.ItemCode itemSam2, Sam3_Usuario ususario, int sam3_ProyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+                        using (Sam2Context ctx2 = new Sam2Context())
+                        {
+                            int sam3_FamiliaAceroID = 0;
+                            if (itemSam2.FamiliaAceroID != null)
+                            {
+                                #region Familia material y acero
+                                if (ctx.Sam3_EquivalenciaFamiliaAcero.Where(x => x.Sam2_FamiliaAceroID == itemSam2.FamiliaAceroID && x.Activo).Any())
+                                {
+                                    sam3_FamiliaAceroID = ctx.Sam3_EquivalenciaFamiliaAcero.Where(x => x.Sam2_FamiliaAceroID == itemSam2.FamiliaAceroID && x.Activo)
+                                        .Select(x => x.Sam3_FamiliaAceroID).SingleOrDefault();
+                                }
+                                else
+                                {
+                                    int sam3_FamiliaMaterialID = 0;
+
+                                    DatabaseManager.Sam2.FamiliaMaterial sam2_FamiliaMaterial = ctx2.FamiliaAcero.Where(x => x.FamiliaAceroID == itemSam2.FamiliaAceroID)
+                                        .Select(x => x.FamiliaMaterial).AsParallel().SingleOrDefault();
+
+                                    if (ctx.Sam3_EquivalenciaFamiliaMaterial.Where(x => x.Sam2_FamiliaMaterialID == sam2_FamiliaMaterial.FamiliaMaterialID && x.Activo).Any())
+                                    {
+                                        sam3_FamiliaMaterialID = ctx.Sam3_EquivalenciaFamiliaMaterial.Where(x => x.Sam2_FamiliaMaterialID == sam2_FamiliaMaterial.FamiliaMaterialID && x.Activo)
+                                            .Select(x => x.Sam3_FamiliaMaterialID).SingleOrDefault();
+                                    }
+                                    else
+                                    {
+                                        //insertar la nueva familia de material
+                                        Sam3_FamiliaMaterial familiaMaterialS3 = new Sam3_FamiliaMaterial();
+                                        familiaMaterialS3.Activo = true;
+                                        familiaMaterialS3.Descripcion = sam2_FamiliaMaterial.Descripcion;
+                                        familiaMaterialS3.FechaModificacion = DateTime.Now;
+                                        familiaMaterialS3.Nombre = sam2_FamiliaMaterial.Nombre;
+                                        familiaMaterialS3.UsuarioModificacion = ususario.UsuarioID;
+                                        ctx.Sam3_FamiliaMaterial.Add(familiaMaterialS3);
+                                        ctx.SaveChanges();
+
+                                        sam3_FamiliaMaterialID = familiaMaterialS3.FamiliaMaterialID;
+                                        //insertar la equivalencia 
+                                        Sam3_EquivalenciaFamiliaMaterial equivalencia = new Sam3_EquivalenciaFamiliaMaterial
+                                        {
+                                            Activo = true,
+                                            FechaModificacion = DateTime.Now,
+                                            Sam2_FamiliaMaterialID = sam2_FamiliaMaterial.FamiliaMaterialID,
+                                            Sam3_FamiliaMaterialID = sam3_FamiliaMaterialID,
+                                            UsuarioModificacion = ususario.UsuarioID
+                                        };
+                                        ctx.Sam3_EquivalenciaFamiliaMaterial.Add(equivalencia);
+                                        ctx.SaveChanges();
+                                    }
+
+                                    DatabaseManager.Sam2.FamiliaAcero familiaS2 = ctx2.FamiliaAcero.Where(x => x.FamiliaAceroID == itemSam2.FamiliaAceroID).SingleOrDefault();
+                                    //insertar Familia de acero
+                                    Sam3_FamiliaAcero familiaAceroS3 = new Sam3_FamiliaAcero();
+                                    familiaAceroS3.Activo = true;
+                                    familiaAceroS3.Descripcion = familiaS2.Descripcion;
+                                    familiaAceroS3.FamiliaMaterialID = sam3_FamiliaMaterialID;
+                                    familiaAceroS3.FechaModificacion = DateTime.Now;
+                                    familiaAceroS3.Nombre = familiaS2.Nombre;
+                                    familiaAceroS3.UsuarioModificacion = ususario.UsuarioID;
+                                    familiaAceroS3.VerificadoPorCalidad = familiaS2.VerificadoPorCalidad;
+                                    ctx.Sam3_FamiliaAcero.Add(familiaAceroS3);
+                                    ctx.SaveChanges();
+
+                                    sam3_FamiliaAceroID = familiaAceroS3.FamiliaAceroID;
+
+                                    // insertar la equivalencia
+                                    Sam3_EquivalenciaFamiliaAcero equivalenciaFamiliaAcero = new Sam3_EquivalenciaFamiliaAcero
+                                    {
+                                        Activo = true,
+                                        FechaModificacion = DateTime.Now,
+                                        Sam3_FamiliaAceroID = sam3_FamiliaAceroID,
+                                        Sam2_FamiliaAceroID = familiaS2.FamiliaAceroID,
+                                        UsuarioModificacion = ususario.UsuarioID
+                                    };
+                                    ctx.Sam3_EquivalenciaFamiliaAcero.Add(equivalenciaFamiliaAcero);
+                                    ctx.SaveChanges();
+
+                                }
+                                #endregion
+                            }
+
+                            #region ItemCode y equivalencia
+                            Sam3_ItemCode itemSam3 = new Sam3_ItemCode();
+                            itemSam3.Activo = true;
+                            itemSam3.Codigo = itemSam2.Codigo;
+                            itemSam3.DescripcionEspanol = itemSam2.DescripcionEspanol;
+                            itemSam3.DescripcionIngles = itemSam2.DescripcionIngles;
+                            itemSam3.DescripcionInterna = itemSam2.DescripcionInterna;
+                            if (sam3_FamiliaAceroID > 0)
+                            {
+                                itemSam3.FamiliaAceroID = sam3_FamiliaAceroID;
+                            }
+                            itemSam3.FechaModificacion = DateTime.Now;
+                            itemSam3.ItemCodeCliente = itemSam2.ItemCodeCliente;
+                            itemSam3.Peso = itemSam2.Peso;
+                            itemSam3.ProyectoID = sam3_ProyectoID;
+                            itemSam3.TipoMaterialID = itemSam2.TipoMaterialID;
+                            itemSam3.TipoUsoID = ctx.Sam3_TipoUso.Where(x => x.Nombre == "Tipo Uso Default" && x.Activo).Select(x => x.TipoUsoID).SingleOrDefault();
+                            itemSam3.UsuarioModificacion = ususario.UsuarioID;
+                            ctx.Sam3_ItemCode.Add(itemSam3);
+                            ctx.SaveChanges();
+                            // insertar la equivalencia de ItemCode
+                            Sam3_EquivalenciaItemCode equivalenciaItemCode = new Sam3_EquivalenciaItemCode
+                            {
+                                Activo = true,
+                                Sam2_ItemCodeID = itemSam2.ItemCodeID,
+                                Sam3_ItemCodeID = itemSam3.ItemCodeID,
+                                FechaModificacion = DateTime.Now,
+                                UsuarioModificacion = ususario.UsuarioID
+                            };
+                            ctx.Sam3_EquivalenciaItemCode.Add(equivalenciaItemCode);
+                            ctx.SaveChanges();
+                            #endregion
+
+                            //insertar relaciones de diametros
+                            int sam3_diametro1ID = 0;
+                            int sam3_diametro2ID = 0;
+                            decimal sam2_diametro1 = (from nu in ctx2.NumeroUnico
+                                                      where nu.ItemCodeID == itemSam2.ItemCodeID
+                                                      && nu.Diametro1 != null
+                                                      select nu.Diametro1).FirstOrDefault() != null ?
+                                                    (from nu in ctx2.NumeroUnico
+                                                     where nu.ItemCodeID == itemSam2.ItemCodeID
+                                                     && nu.Diametro1 != null
+                                                     select nu.Diametro1).FirstOrDefault() : 0;
+
+                            decimal sam2_diametro2 = (from nu in ctx2.NumeroUnico
+                                                      where nu.ItemCodeID == itemSam2.ItemCodeID
+                                                      && nu.Diametro2 != null
+                                                      select nu.Diametro2).FirstOrDefault() != null ?
+                                                    (from nu in ctx2.NumeroUnico
+                                                     where nu.ItemCodeID == itemSam2.ItemCodeID
+                                                     && nu.Diametro2 != null
+                                                     select nu.Diametro2).FirstOrDefault() : 0;
+
+                            #region Diametro1
+                            if (ctx.Sam3_Diametro.Where(x => x.Valor == sam2_diametro1 && x.Activo).Any())
+                            {
+                                sam3_diametro1ID = ctx.Sam3_Diametro.Where(x => x.Valor == sam2_diametro1 && x.Activo)
+                                    .Select(x => x.DiametroID).SingleOrDefault();
+                            }
+                            else
+                            {
+                                #region insertar diametro y equivalencia 1
+                                DatabaseManager.Sam2.Diametro d1S2 = ctx2.Diametro.Where(x => x.Valor == sam2_diametro1).SingleOrDefault();
+                                Sam3_Diametro d1S3 = new Sam3_Diametro
+                                {
+                                    Activo = true,
+                                    FechaModificacion = DateTime.Now,
+                                    UsuarioModificacion = ususario.UsuarioID,
+                                    Valor = d1S2.Valor,
+                                    VerificadoPorCalidad = d1S2.VerificadoPorCalidad
+                                };
+                                ctx.Sam3_Diametro.Add(d1S3);
+                                ctx.SaveChanges();
+                                sam3_diametro1ID = d1S3.DiametroID;
+                                //equivalencia
+                                Sam3_EquivalenciaDiametro equivalenciaDiametro = new Sam3_EquivalenciaDiametro
+                                {
+                                    Activo = true,
+                                    Sam2_DiametroID = d1S2.DiametroID,
+                                    Sam3_DiametroID = d1S3.DiametroID,
+                                    FechaModificacion = DateTime.Now,
+                                    UsuarioModificacion = ususario.UsuarioID
+                                };
+                                ctx.Sam3_EquivalenciaDiametro.Add(equivalenciaDiametro);
+                                ctx.SaveChanges();
+                                #endregion
+                            }
+                            #endregion
+
+                            #region Diametro2
+                            if (ctx.Sam3_Diametro.Where(x => x.Valor == sam2_diametro2 && x.Activo).Any())
+                            {
+                                sam3_diametro2ID = ctx.Sam3_Diametro.Where(x => x.Valor == sam2_diametro2 && x.Activo)
+                                    .Select(x => x.DiametroID).SingleOrDefault();
+                            }
+                            else
+                            {
+                                #region insertar diametro y equivalencia 2
+                                DatabaseManager.Sam2.Diametro d2S2 = ctx2.Diametro.Where(x => x.Valor == sam2_diametro2).SingleOrDefault();
+                                Sam3_Diametro d2S3 = new Sam3_Diametro
+                                {
+                                    Activo = true,
+                                    FechaModificacion = DateTime.Now,
+                                    UsuarioModificacion = ususario.UsuarioID,
+                                    Valor = d2S2.Valor,
+                                    VerificadoPorCalidad = d2S2.VerificadoPorCalidad
+                                };
+                                ctx.Sam3_Diametro.Add(d2S3);
+                                ctx.SaveChanges();
+                                sam3_diametro2ID = d2S3.DiametroID;
+                                //equivalencia
+                                Sam3_EquivalenciaDiametro equivalenciaDiametro = new Sam3_EquivalenciaDiametro
+                                {
+                                    Activo = true,
+                                    Sam2_DiametroID = d2S2.DiametroID,
+                                    Sam3_DiametroID = d2S3.DiametroID,
+                                    FechaModificacion = DateTime.Now,
+                                    UsuarioModificacion = ususario.UsuarioID
+                                };
+                                ctx.Sam3_EquivalenciaDiametro.Add(equivalenciaDiametro);
+                                ctx.SaveChanges();
+                                #endregion
+                            }
+                            #endregion
+
+                            #region insertar relacion de itemCode con diametros
+                            Sam3_Rel_ItemCode_Diametro relItemCodeDiametro = new Sam3_Rel_ItemCode_Diametro
+                            {
+                                Activo = true,
+                                Diametro1ID = sam3_diametro1ID,
+                                Diametro2ID = sam3_diametro2ID,
+                                ItemCodeID = itemSam3.ItemCodeID,
+                                FechaModificacion = DateTime.Now,
+                                UsuarioModificacion = ususario.UsuarioID
+                            };
+                            ctx.Sam3_Rel_ItemCode_Diametro.Add(relItemCodeDiametro);
+                            ctx.SaveChanges();
+                            #endregion
+                        }
+                        ctx_tran.Commit();
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                //TransactionalInformation result = new TransactionalInformation();
+                //result.ReturnMessage.Add(string.Format("Error al obtener los ItemCodes del Proyecto SAM2. {0}"));
+                //result.ReturnCode = 500;
+                //result.ReturnStatus = false;
+                //result.IsAuthenicated = true;
+
+                //return result;
             }
         }
     }
