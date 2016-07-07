@@ -535,7 +535,7 @@
             //$("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
 
-            if (_esAlta!="-1") {
+            if (_esAlta != "-1" && folioAvisoLlegada=="-1") {
                 delete $DetalleLlegadaMaterialModel.properties.descripcion;
                 $("#DescripcionDiv .security_required").removeClass("security_required");
             }
