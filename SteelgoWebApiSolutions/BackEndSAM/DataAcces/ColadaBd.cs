@@ -69,10 +69,13 @@ namespace BackEndSAM.DataAcces
                                         && c.Activo).AsParallel().Any())
                                 {
                                     Colada Sam2Colada = new Colada();
-                                    Sam2Colada.FabricanteID = (from eq in ctx.Sam3_EquivalenciaFabricante
-                                                               where eq.Activo
-                                                               && eq.Sam3_FabricanteID == DatosColada.FabricanteID
-                                                               select eq.Sam2_FabricanteID).AsParallel().SingleOrDefault(); 
+                                    if (DatosColada.FabricanteID > 0)
+                                    {
+                                        Sam2Colada.FabricanteID = (from eq in ctx.Sam3_EquivalenciaFabricante
+                                                                   where eq.Activo
+                                                                   && eq.Sam3_FabricanteID == DatosColada.FabricanteID
+                                                                   select eq.Sam2_FabricanteID).AsParallel().SingleOrDefault();
+                                    }
 
                                     Sam2Colada.AceroID = (from eq in ctx.Sam3_EquivalenciaAcero
                                                           where eq.Activo
@@ -95,7 +98,8 @@ namespace BackEndSAM.DataAcces
                                     
                                         
                                     Sam3_Colada colada = new Sam3_Colada();
-                                    colada.FabricanteID = DatosColada.FabricanteID;
+                                    if (DatosColada.FabricanteID > 0)
+                                        colada.FabricanteID = DatosColada.FabricanteID;
                                     colada.AceroID = DatosColada.AceroID;
                                     colada.ProyectoID = DatosColada.ProyectoID;
                                     colada.NumeroColada = DatosColada.NumeroColada;
