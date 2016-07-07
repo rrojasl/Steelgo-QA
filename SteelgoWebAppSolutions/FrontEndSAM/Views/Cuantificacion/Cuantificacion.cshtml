@@ -604,7 +604,7 @@
                         afterDBproyecto();
                         afterDBproyecto = null;
                         allowPL = true;
-                    }
+                    }                    
                 },
             });
             
@@ -1581,7 +1581,12 @@
                             ObtenerTipoPackingListProyectoConfiguracion(result.Proyecto[0].ProyectoID);
                         };
                     };
-                    ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada);
+                    if(result.FolioLlegada.length>0){
+                        ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada)
+                    }else{
+                        $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
+                        $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data([]);
+                    }
                 } else {
                     limpiarfiltrosFolioAvisoEntrada();
                 };
