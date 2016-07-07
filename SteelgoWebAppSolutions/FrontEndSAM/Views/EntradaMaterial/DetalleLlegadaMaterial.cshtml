@@ -273,6 +273,10 @@
             $("#AdjuntarArchivos").data("kendoUpload").disable();
         }
 
+        if (_esAlta == "1" && folioAvisoLlegada == "-1")
+        {
+            $("#AdjuntarArchivos").data("kendoUpload").disable();
+        }
         //if (folioLlegada != -1 && folioLlegada != 0 || (_esAlta == "-1" && folioAvisoLlegada != "-1")) {
         //    BotonAlta();
         //} else {
@@ -535,7 +539,9 @@
             //$("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
 
-            if (_esAlta != "-1" && folioAvisoLlegada=="-1") {
+            if (_esAlta != "-1" && folioAvisoLlegada == "-1") {
+                $("#Descripcion").attr("disabled", "disabled");
+                $("#AdjuntarArchivos").data("kendoUpload").disable();
                 delete $DetalleLlegadaMaterialModel.properties.descripcion;
                 $("#DescripcionDiv .security_required").removeClass("security_required");
             }
