@@ -783,7 +783,7 @@
 
     function enviarCedulas(data) {
         loadingStart();
-        $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
+        $Catalogos.AdministracionCatalogos.create({'': JSON.stringify(data)}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), factorConversion: $("#fconversion").val(), isCedula:true }).done(function (result) {
             if (Error(result)) {
                 var counter = 0;
                 result.forEach(function (n) {
