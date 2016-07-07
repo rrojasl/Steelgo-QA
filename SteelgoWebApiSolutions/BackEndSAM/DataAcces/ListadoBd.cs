@@ -387,89 +387,7 @@ namespace BackEndSAM.DataAcces
 
                     result.NUPorRecepcionar = (int)ListadoNUConRecepcionSinComplemento(filtros, usuario, true);
 
-                    //numeros unicos sin orden de almacenaje, que ya cuentan con recepcion y complemento de recepcion
-                    if (tipoMaterialID == 3) //todos
-                    {
-                        result.NUSinOrdenAlmacenaje = (from fa in ctx.Sam3_FolioAvisoLlegada
-                                                       join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                       join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                       join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                       join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                       join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals relnu.Rel_FolioCuantificacion_ItemCode_ID
-                                                       where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
-                                                       && fc.Activo && rfi.Activo && relnu.Activo
-                                                       && proyectos.Contains(p.ProyectoID)
-                                                       && patios.Contains(pa.PatioID)
-                                                       && patios.Contains(fa.PatioID)
-                                                       && patios.Contains(fe.PatioID)
-                                                       && relnu.OrdenAlmacenajeID == null
-                                                       select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
-
-                        result.NUSinOrdenAlmacenaje += (from fa in ctx.Sam3_FolioAvisoLlegada
-                                                        join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                        join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                        join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                        join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
-                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                                        join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals relnu.Rel_Bulto_ItemCode_ID
-                                                        where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
-                                                        && fc.Activo && rbi.Activo && relnu.Activo && b.Activo
-                                                        && proyectos.Contains(p.ProyectoID)
-                                                        && patios.Contains(pa.PatioID)
-                                                        && patios.Contains(fa.PatioID)
-                                                        && patios.Contains(fe.PatioID)
-                                                        && relnu.OrdenAlmacenajeID == null
-                                                        select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
-
-                    }
-                    else
-                    {
-                        result.NUSinOrdenAlmacenaje = (from fa in ctx.Sam3_FolioAvisoLlegada
-                                                       join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                       join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                       join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                       join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                       join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals relnu.Rel_FolioCuantificacion_ItemCode_ID
-                                                       join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
-                                                       join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                       where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
-                                                       && fc.Activo && rfi.Activo && relnu.Activo && nu.Activo && it.Activo
-                                                       && proyectos.Contains(p.ProyectoID)
-                                                       && patios.Contains(pa.PatioID)
-                                                       && patios.Contains(fa.PatioID)
-                                                       && patios.Contains(fe.PatioID)
-                                                       && relnu.OrdenAlmacenajeID == null
-                                                       && it.TipoMaterialID == tipoMaterialID
-                                                       select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
-
-                        result.NUSinOrdenAlmacenaje += (from fa in ctx.Sam3_FolioAvisoLlegada
-                                                        join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
-                                                        join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
-                                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
-                                                        join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                        join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
-                                                        join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
-                                                        join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals relnu.Rel_Bulto_ItemCode_ID
-                                                        join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
-                                                        join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                        where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
-                                                        && fc.Activo && rbi.Activo && relnu.Activo && b.Activo && nu.Activo && it.Activo
-                                                        && proyectos.Contains(p.ProyectoID)
-                                                        && patios.Contains(pa.PatioID)
-                                                        && patios.Contains(fa.PatioID)
-                                                        && patios.Contains(fe.PatioID)
-                                                        && relnu.OrdenAlmacenajeID == null
-                                                        && it.TipoMaterialID == tipoMaterialID
-                                                        select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
-                    }
-
+                    result.NUSinOrdenAlmacenaje = (int)NuSinOrdenAlmacenaje(filtros, usuario, true);
 
                     result.NUSinAlmacenar = (int)ListadoNUSinAlmacenaje(filtros, usuario, true);
 
@@ -496,6 +414,191 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object NuSinOrdenAlmacenaje(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
+        {
+            try
+            {
+                DateTime fechaInicial = new DateTime();
+                DateTime fechaFinal = new DateTime();
+                DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                Boolean activarFolioConfiguracionOR = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"]) ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenRecepcion"].Equals("1") ? true : false) : false;
+
+
+                if (fechaFinal.ToShortDateString() == "1/1/0001")
+                {
+                    fechaFinal = DateTime.Now;
+                }
+
+                if (fechaInicial.ToShortDateString() == "1/1/0001")
+                {
+                    //int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                    //int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                    //fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                    fechaInicial = new DateTime(2000, 01, 01);
+                }
+
+                int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+
+                int resultado = 0;
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
+                    List<Sam3_FolioAvisoLlegada> listaFoliosLlegada = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                                                       join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                                                       join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                       where fa.Activo && fp.Activo && p.Activo && pa.Activo
+                                                                       && patios.Contains(pa.PatioID)
+                                                                       && patios.Contains(fa.PatioID)
+                                                                       && proyectos.Contains(p.ProyectoID)
+                                                                       && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
+                                                                       select fa).AsParallel().Distinct().ToList();
+
+                    if (proyectoID > 0)
+                    {
+                        listaFoliosLlegada = (from fa in listaFoliosLlegada
+                                              join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                              where fa.Activo && fp.Activo
+                                              && fp.ProyectoID == proyectoID
+                                              select fa).AsParallel().Distinct().ToList();
+                    }
+                    if (clienteID > 0)
+                    {
+                        listaFoliosLlegada = listaFoliosLlegada.Where(x => x.ClienteID == clienteID).Distinct().ToList();
+                    }
+                    if (folioAvisoLlegadaID > 0)
+                    {
+                        listaFoliosLlegada = listaFoliosLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).Distinct().ToList();
+                    }
+                    if (packingListID > 0)
+                    {
+                        listaFoliosLlegada = (from fa in listaFoliosLlegada
+                                              join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoEntradaID
+                                              join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                              where fa.Activo && fe.Activo && fc.Activo
+                                              && fc.FolioCuantificacionID == packingListID
+                                              select fa).AsParallel().Distinct().ToList();
+                    }
+
+
+                    //numeros unicos sin orden de almacenaje, que ya cuentan con recepcion y complemento de recepcion
+                    if (tipoMaterialID == 3) //todos
+                    {
+
+                        resultado = (from fa in listaFoliosLlegada
+                                  join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                  join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                  join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                  join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                  join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                  join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals relnu.Rel_FolioCuantificacion_ItemCode_ID
+                                  join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                  where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
+                                  && fc.Activo && rfi.Activo && relnu.Activo
+                                  && proyectos.Contains(p.ProyectoID)
+                                  && patios.Contains(pa.PatioID)
+                                  && patios.Contains(fa.PatioID)
+                                  && patios.Contains(fe.PatioID)
+                                  && relnu.OrdenAlmacenajeID == null
+                                  && proyectos.Contains(nu.ProyectoID)
+                                  select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
+
+                        resultado += (from fa in listaFoliosLlegada
+                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                   join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                   join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                   join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                   join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals relnu.Rel_Bulto_ItemCode_ID
+                                   join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                   where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
+                                   && fc.Activo && rbi.Activo && relnu.Activo && b.Activo
+                                   && proyectos.Contains(p.ProyectoID)
+                                   && patios.Contains(pa.PatioID)
+                                   && patios.Contains(fa.PatioID)
+                                   && patios.Contains(fe.PatioID)
+                                   && relnu.OrdenAlmacenajeID == null
+                                   && proyectos.Contains(nu.NumeroUnicoID)
+                                   select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
+
+                    }
+                    else
+                    {
+                        resultado = (from fa in listaFoliosLlegada
+                                  join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                  join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                  join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                  join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                  join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                  join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals relnu.Rel_FolioCuantificacion_ItemCode_ID
+                                  join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                  join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                  where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
+                                  && fc.Activo && rfi.Activo && relnu.Activo && nu.Activo && it.Activo
+                                  && proyectos.Contains(p.ProyectoID)
+                                  && patios.Contains(pa.PatioID)
+                                  && patios.Contains(fa.PatioID)
+                                  && patios.Contains(fe.PatioID)
+                                  && relnu.OrdenAlmacenajeID == null
+                                  && it.TipoMaterialID == tipoMaterialID
+                                  && proyectos.Contains(nu.ProyectoID)
+                                  select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
+
+                        resultado += (from fa in listaFoliosLlegada
+                                   join fp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals fp.FolioAvisoLlegadaID
+                                   join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
+                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                   join fe in ctx.Sam3_FolioAvisoEntrada on fa.FolioAvisoLlegadaID equals fe.FolioAvisoLlegadaID
+                                   join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                   join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
+                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                   join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals relnu.Rel_Bulto_ItemCode_ID
+                                   join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                   join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                   where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
+                                   && fc.Activo && rbi.Activo && relnu.Activo && b.Activo && nu.Activo && it.Activo
+                                   && proyectos.Contains(p.ProyectoID)
+                                   && patios.Contains(pa.PatioID)
+                                   && patios.Contains(fa.PatioID)
+                                   && patios.Contains(fe.PatioID)
+                                   && relnu.OrdenAlmacenajeID == null
+                                   && it.TipoMaterialID == tipoMaterialID
+                                   && proyectos.Contains(nu.ProyectoID)
+                                   select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
+
+                        
+                    }
+                    return resultado;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
 
         /// <summary>
         /// Genera el listado para el grid de Entradas por cuantificar

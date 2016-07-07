@@ -138,7 +138,9 @@ namespace BackEndSAM.DataAcces
                                 {
                                     id = fe.FolioAvisoLlegadaID.ToString(),
                                     value = fe.FolioAvisoLlegadaID.ToString()
-                                }).AsParallel().ToList();
+                                }).AsParallel().Distinct().ToList();
+
+                    listFE = listFE.GroupBy(x => x.id).Select(x => x.First()).ToList();
 
 
                     foreach (ListaCombos lst in listFE)
