@@ -218,6 +218,7 @@
         var _packingList = getUrlParameter("PackingList", "-1");
         var _proyecto = decodeURI(getUrlParameter("Proyecto", "-1"));
         var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+        var _NombreFolioCuantificacion = getUrlParameter("NombreFolioCuantificacion", "-1");
         var _deboEntrarAlEditor = false;
         //Mappeo de Controles y sus flechas
         var mapeoNavegacion = {
@@ -630,6 +631,10 @@
                     if(this.dataSource.data().length>0 && afterDBpackingList!==null && allowPL){
                         afterDBpackingList();
                         afterDBpackingList = null;
+                    }
+                    if(this.dataSource.data().length>0 && afterDBpackingListFolioC!==null && allowPL){
+                        afterDBpackingListFolioC();
+                        afterDBpackingListFolioC = null;
                     }
                 },
                 filter: "contains",
@@ -1861,7 +1866,7 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if ($('input:checked').val() == "2") {
+                if ($('#vacios').is(":checked")) {
                     if (!this.get("Cantidad") || 0 > this.get("Cantidad") || this.get("Cantidad") == "0") {
                         this.set("Cantidad", value ? value : "0");
                     };
@@ -1890,22 +1895,14 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if ($('input:checked').val() == "2") {
-                    if (!this.get("MM") || this.get("MM") == "0") {
+                if ($('#vacios').is(":checked")) {
+                    if (this.get("MM")==="" || this.get("MM") === 0 && this.get("TipoMaterial") === 1) {
                         this.set("MM", value);
-                    } else {
-                        if (this.get("TipoMaterial") == "1") {//TUBO
-                            this.set("MM", value);
-                        } else {
-                            if (this.get("TipoMaterial") == "2") {
-                                this.set("MM", "N/A");
-                            } else {
-                                this.set("MM", value);
-                            }
-                        }
+                    } else if (this.get("TipoMaterial") !== 1){
+                        this.set("MM", "N/A");
                     }
                 }else{
-                    if (this.get("TipoMaterial") == "2") {
+                    if (this.get("TipoMaterial") !== 1) {
                         this.set("MM", "N/A");
                     } else {
                         this.set("MM", value);
@@ -3058,7 +3055,7 @@
                             //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                             cell.Colada = "";//coladaValue;//itemCodesJson.ColadaNombre;
                             //lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
-                            cell.MM = itemCodesJson.TipoPackingList == "2" ? "N/A" : mmValue;//0; //itemCodesJson.MM;
+                            cell.MM = itemCodesJson.TipoPackingList == "2" ? "N/A" : "";// mmValue;//0; //itemCodesJson.MM;
                             cell.DimensionPromedio = itemCodesJson.TipoPackingList == "2" ? "N/A" : "";
                             cell.Detallar = "No";
                             cell.Descripcion = itemCodesJson.Descripcion;
@@ -3557,6 +3554,13 @@
     var afterDBpackingList = function(){
         $("#FolioCuantificacionID").data("kendoComboBox").select(function(e){
             return e.FolioConfiguracionCuantificacionID === _packingList;
+        })
+        $("#FolioCuantificacionID").data("kendoComboBox").trigger("change");
+    }
+
+    var afterDBpackingListFolioC = function(){
+        $("#FolioCuantificacionID").data("kendoComboBox").select(function(e){
+            return e.FolioConfiguracionCuantificacionID === _NombreFolioCuantificacion;
         })
         $("#FolioCuantificacionID").data("kendoComboBox").trigger("change");
     }
