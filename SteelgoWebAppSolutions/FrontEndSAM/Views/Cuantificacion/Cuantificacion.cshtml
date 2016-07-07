@@ -1905,7 +1905,7 @@
                         this.set("MM", "N/A");
                     }
                 }else{
-                    if (this.get("TipoMaterial") !== 1) {
+                    if (parseInt(this.get("TipoMaterial")) !== 1) {
                         this.set("MM", "N/A");
                     } else {
                         this.set("MM", value);
