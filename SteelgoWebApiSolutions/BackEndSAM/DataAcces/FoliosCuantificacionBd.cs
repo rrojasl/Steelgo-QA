@@ -141,6 +141,7 @@ namespace BackEndSAM.DataAcces
                                 }).AsParallel().Distinct().ToList();
 
                     listFE = listFE.GroupBy(x => x.id).Select(x => x.First()).ToList();
+                    listFE = listFE.OrderBy(x => x.value).ToList();
 
 
                     foreach (ListaCombos lst in listFE)

@@ -387,6 +387,7 @@ namespace BackEndSAM.DataAcces
 
                     result.NUPorRecepcionar = (int)ListadoNUConRecepcionSinComplemento(filtros, usuario, true);
 
+                    //result.NUSinOrdenAlmacenaje = (int)OrdenAlmacenajeBd.Instance.ObtenerListadoGenerarOrdenAlmacenaje(filtros, usuario, true);
                     result.NUSinOrdenAlmacenaje = (int)NuSinOrdenAlmacenaje(filtros, usuario, true);
 
                     result.NUSinAlmacenar = (int)ListadoNUSinAlmacenaje(filtros, usuario, true);
@@ -504,7 +505,7 @@ namespace BackEndSAM.DataAcces
                                   join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rfi.Rel_FolioCuantificacion_ItemCode_ID equals relnu.Rel_FolioCuantificacion_ItemCode_ID
                                   join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                   where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
-                                  && fc.Activo && rfi.Activo && relnu.Activo
+                                  && fc.Activo && rfi.Activo && relnu.Activo && nu.Activo
                                   && proyectos.Contains(p.ProyectoID)
                                   && patios.Contains(pa.PatioID)
                                   && patios.Contains(fa.PatioID)
@@ -524,7 +525,7 @@ namespace BackEndSAM.DataAcces
                                    join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on rbi.Rel_Bulto_ItemCode_ID equals relnu.Rel_Bulto_ItemCode_ID
                                    join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                    where fa.Activo && fp.Activo && p.Activo && pa.Activo && fe.Activo
-                                   && fc.Activo && rbi.Activo && relnu.Activo && b.Activo
+                                   && fc.Activo && rbi.Activo && relnu.Activo && b.Activo && nu.Activo
                                    && proyectos.Contains(p.ProyectoID)
                                    && patios.Contains(pa.PatioID)
                                    && patios.Contains(fa.PatioID)

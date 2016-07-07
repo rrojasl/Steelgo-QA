@@ -1665,10 +1665,29 @@ namespace BackEndSAM.DataAcces
                                             ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
                                             ctx.SaveChanges();
                                         }
-                                        else if (ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaA && x.Valor != EspesorMM && x.Activo == 1).Any())
+                                        else 
                                         {
-                                            item.Correcta = false;
-                                            item.MensajeError = "Ya existe la cédula " + item.CedulaA + ", diámetro " + item.Diametro1 + " pero con un espesor " + ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaA && x.Activo == 1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                            if (ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaA && x.Valor != EspesorMM && x.Activo == 1).Any())
+                                            {
+                                                //item.Correcta = false;
+                                                //item.MensajeError = "Ya existe la cédula " + item.CedulaA + ", diámetro " + item.Diametro1 + " pero con un espesor " 
+                                                //+ ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro 
+                                                //&& x.CedulaID == idCedulaA && x.Activo == 1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                                Sam3_Espesor espesorS3 = ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaA
+                                                    && x.Valor != EspesorMM && x.Activo == 1).AsParallel().SingleOrDefault();
+                                                espesorS3.FechaModificacion = DateTime.Now;
+                                                espesorS3.Valor = EspesorMM;
+                                                ctx.SaveChanges();
+
+                                                int S2espesorID = (from eq in ctx.Sam3_EquivalenciaEspesor
+                                                                      where eq.Activo && eq.Sam3_EspesorID == espesorS3.EspesorID
+                                                                      select eq.Sam2_EspesorID).AsParallel().SingleOrDefault();
+
+                                                Espesor espesorSam2 = ctx2.Espesor.Where(x => x.EspesorID == S2espesorID).AsParallel().SingleOrDefault();
+                                                espesorSam2.Valor = EspesorMM;
+                                                espesorSam2.FechaModificacion = DateTime.Now;
+                                                ctx2.SaveChanges();
+                                            }
                                         }
                                     }
 
@@ -1755,10 +1774,29 @@ namespace BackEndSAM.DataAcces
                                             ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
                                             ctx.SaveChanges();
                                         }
-                                        else if (ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaB && x.Valor != EspesorMM && x.Activo == 1).Any())
+                                        else
                                         {
-                                            item.Correcta = false;
-                                            item.MensajeError = "Ya existe la cédula " + item.CedulaB + ", diámetro " + item.Diametro1 + " pero con un espesor " + ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaB && x.Activo == 1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                            if (ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaB && x.Valor != EspesorMM && x.Activo == 1).Any())
+                                            {
+                                                //item.Correcta = false;
+                                                //item.MensajeError = "Ya existe la cédula " + item.CedulaA + ", diámetro " + item.Diametro1 + " pero con un espesor " 
+                                                //+ ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro 
+                                                //&& x.CedulaID == idCedulaA && x.Activo == 1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                                Sam3_Espesor espesorS3 = ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaB
+                                                    && x.Valor != EspesorMM && x.Activo == 1).AsParallel().SingleOrDefault();
+                                                espesorS3.FechaModificacion = DateTime.Now;
+                                                espesorS3.Valor = EspesorMM;
+                                                ctx.SaveChanges();
+
+                                                int S2espesorID = (from eq in ctx.Sam3_EquivalenciaEspesor
+                                                                   where eq.Activo && eq.Sam3_EspesorID == espesorS3.EspesorID
+                                                                   select eq.Sam2_EspesorID).AsParallel().SingleOrDefault();
+
+                                                Espesor espesorSam2 = ctx2.Espesor.Where(x => x.EspesorID == S2espesorID).AsParallel().SingleOrDefault();
+                                                espesorSam2.Valor = EspesorMM;
+                                                espesorSam2.FechaModificacion = DateTime.Now;
+                                                ctx2.SaveChanges();
+                                            }
                                         }
                                     }
 
@@ -1845,10 +1883,29 @@ namespace BackEndSAM.DataAcces
                                             ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
                                             ctx.SaveChanges();
                                         }
-                                        else if (ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaC && x.Valor != EspesorMM && x.Activo == 1).Any())
+                                        else
                                         {
-                                            item.Correcta = false;
-                                            item.MensajeError = "Ya existe la cédula " + item.CedulaC + ", diámetro " + item.Diametro1 + " pero con un espesor " + ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaC && x.Activo == 1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                            if (ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaC && x.Valor != EspesorMM && x.Activo == 1).Any())
+                                            {
+                                                //item.Correcta = false;
+                                                //item.MensajeError = "Ya existe la cédula " + item.CedulaA + ", diámetro " + item.Diametro1 + " pero con un espesor " 
+                                                //+ ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro 
+                                                //&& x.CedulaID == idCedulaA && x.Activo == 1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                                Sam3_Espesor espesorS3 = ctx.Sam3_Espesor.Where(x => x.DiametroID == idDiametro && x.CedulaID == idCedulaC
+                                                    && x.Valor != EspesorMM && x.Activo == 1).AsParallel().SingleOrDefault();
+                                                espesorS3.FechaModificacion = DateTime.Now;
+                                                espesorS3.Valor = EspesorMM;
+                                                ctx.SaveChanges();
+
+                                                int S2espesorID = (from eq in ctx.Sam3_EquivalenciaEspesor
+                                                                   where eq.Activo && eq.Sam3_EspesorID == espesorS3.EspesorID
+                                                                   select eq.Sam2_EspesorID).AsParallel().SingleOrDefault();
+
+                                                Espesor espesorSam2 = ctx2.Espesor.Where(x => x.EspesorID == S2espesorID).AsParallel().SingleOrDefault();
+                                                espesorSam2.Valor = EspesorMM;
+                                                espesorSam2.FechaModificacion = DateTime.Now;
+                                                ctx2.SaveChanges();
+                                            }
                                         }
                                     }
 
