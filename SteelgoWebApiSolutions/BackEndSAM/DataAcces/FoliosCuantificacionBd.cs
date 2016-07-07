@@ -423,27 +423,61 @@ namespace BackEndSAM.DataAcces
                             }).AsParallel().FirstOrDefault();
 
 
-                    info.NombreFolioAvisoLlegada = Conversiones.Instance.FormatearCadenasdeElementos(info.NombreFolioAvisoLlegada);
-                    info.NombreFolioCuantificacion = Conversiones.Instance.FormatearCadenasdeElementos(info.NombreFolioCuantificacion);
 
-                    if (activaConfigFolioLlegada && activarFolioConfiguracion)
+
+                    if (!ctx.Sam3_FolioCuantificacion.Any(x => x.Activo && x.FolioCuantificacionID == folioCuantificacion))
                     {
-                        info.FolioConfiguracionCuantificacionID = info.NombreFolioAvisoLlegada + "-" + info.NombreFolioCuantificacion;
+                        throw new Exception("El folio cuantificacion no se encuentra activo.");
+                    }
+                    else {
+                        Sam3_FolioCuantificacion entidadcuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.Activo && x.FolioCuantificacionID == folioCuantificacion).FirstOrDefault();
+                        if (!ctx.Sam3_TipoUso.Any(x => x.Activo && x.TipoUsoID == entidadcuantificacion.TipoUsoID)) 
+                        {
+                            throw new Exception("El Tipo de Uso no se encuentra activo.");
+                        }
+
+                        if (!ctx.Sam3_FolioAvisoEntrada.Any(x => x.Activo && x.FolioAvisoEntradaID == entidadcuantificacion.FolioAvisoEntradaID))
+                        {
+                            throw new Exception("La Llegada de material no se encuentra activa.");
+                        }
+                        else {
+                            Sam3_FolioAvisoEntrada entidadfolioavisoentrada = ctx.Sam3_FolioAvisoEntrada.Where(x => x.Activo && x.FolioAvisoEntradaID == entidadcuantificacion.FolioAvisoEntradaID).FirstOrDefault();
+                            if (!ctx.Sam3_FolioAvisoLlegada.Any(x => x.Activo && x.FolioAvisoLlegadaID == entidadfolioavisoentrada.FolioAvisoLlegadaID))
+                            {
+                                throw new Exception("El Aviso de Entrada no se encuentra activa.");
+                            }
+                        }
                     }
 
-                    if (activaConfigFolioLlegada && !activarFolioConfiguracion)
+                    if (!ctx.Sam3_FolioCuantificacion.Any(x => x.Activo && x.FolioCuantificacionID == folioCuantificacion))
+                    if (info != null)
                     {
-                        info.FolioConfiguracionCuantificacionID = info.NombreFolioAvisoLlegada + "-" + info.ConsecutivoFolioCuanificacion;
-                    }
+                        info.NombreFolioAvisoLlegada = Conversiones.Instance.FormatearCadenasdeElementos(info.NombreFolioAvisoLlegada);
+                        info.NombreFolioCuantificacion = Conversiones.Instance.FormatearCadenasdeElementos(info.NombreFolioCuantificacion);
 
-                    if (!activarFolioConfiguracion && activarFolioConfiguracion)
-                    {
-                        info.FolioConfiguracionCuantificacionID = info.FolioAvisoLlegadaID + "-" + info.NombreFolioCuantificacion;
-                    }
+                        if (activaConfigFolioLlegada && activarFolioConfiguracion)
+                        {
+                            info.FolioConfiguracionCuantificacionID = info.NombreFolioAvisoLlegada + "-" + info.NombreFolioCuantificacion;
+                        }
 
-                    if (!activaConfigFolioLlegada && !activarFolioConfiguracion)
+                        if (activaConfigFolioLlegada && !activarFolioConfiguracion)
+                        {
+                            info.FolioConfiguracionCuantificacionID = info.NombreFolioAvisoLlegada + "-" + info.ConsecutivoFolioCuanificacion;
+                        }
+
+                        if (!activarFolioConfiguracion && activarFolioConfiguracion)
+                        {
+                            info.FolioConfiguracionCuantificacionID = info.FolioAvisoLlegadaID + "-" + info.NombreFolioCuantificacion;
+                        }
+
+                        if (!activaConfigFolioLlegada && !activarFolioConfiguracion)
+                        {
+                            info.FolioConfiguracionCuantificacionID = info.FolioAvisoLlegadaID + "-" + info.ConsecutivoFolioCuanificacion;
+                        }
+                    }
+                    else
                     {
-                        info.FolioConfiguracionCuantificacionID = info.FolioAvisoLlegadaID + "-" + info.ConsecutivoFolioCuanificacion;
+                        throw new Exception("Chofer existente");
                     }
                 }
 
