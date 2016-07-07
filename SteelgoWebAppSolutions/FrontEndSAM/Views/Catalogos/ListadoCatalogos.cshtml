@@ -999,7 +999,7 @@
                                         } else {
                                             n.style.backgroundColor = "#E3FCCB";
                                         }
-                                        nuevasCedulas.push($("#grid").data("kendoGrid").dataItem(n));
+                                        nuevasCedulas= $("#grid").data("kendoGrid").dataSource.data().filter(function(e){return e.id===null});
                                     } else {
                                         n.style.backgroundColor = "#FEDEE8";
                                         valido = false;
@@ -1016,6 +1016,7 @@
                                 if (mensaje != null) {
                                     displayMessage("", mensaje, '2');
                                 }
+                                nuevasCedulas= $("#grid").data("kendoGrid").dataSource.data().filter(function(e){return e.id===null});
                             }
                         }
                     }
