@@ -52,6 +52,7 @@
     var ultimaInsercionFallida = false;
     var itemCodeID = 0;
     var cedulasErroneas = false;
+    var _catalog = getUrlParameter("catalog", null);
     var $ListadoCatalogosModel = {
         listContainer: {
             create: ".k-grid-add",
@@ -1075,6 +1076,14 @@
                     }
                 });
             }
+        },
+        dataBound:function(e){
+            if(_catalog!==null){
+                this.select(function(e){
+                    return e.id===_catalog;
+                })
+                //this.trigger("change")
+            }
         }
     })
 
@@ -1231,6 +1240,19 @@
     if (isInPopUp()) {
         hideElementsListadoCatalogos();
     }
+    $("ul.breadcrumb li.active a").off("click");
+    $("ul.breadcrumb li.active a").click(function (event) {
+        if (!0 >= this.href.indexOf("?leng=") && this.href.indexOf("#")==-1) {
+            this.href = this.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+        } else {
+            this.href = this.href;
+        }
+        if (!0 >= this.href.indexOf("&catalog=")) {
+            $("#listaCatalogos").data("kendoDropDownList").value()!=="" ? this.href = this.href + "&catalog="+$("#listaCatalogos").data("kendoDropDownList").value() : null;
+        }else{
+            $("#listaCatalogos").data("kendoDropDownList").value()!=="" ? this.href = this.href.replace(/&catalog=\d*/,"&catalog="+$("#listaCatalogos").data("kendoDropDownList").value()) : null;
+        }
+    });
     };
 
     @section JavascriptDocumentReadyHomeCookie {
