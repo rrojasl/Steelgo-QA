@@ -218,6 +218,7 @@
         var _packingList = getUrlParameter("PackingList", "-1");
         var _proyecto = decodeURI(getUrlParameter("Proyecto", "-1"));
         var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+        var _NombreFolioCuantificacion = getUrlParameter("NombreFolioCuantificacion", "-1");
         var _deboEntrarAlEditor = false;
         //Mappeo de Controles y sus flechas
         var mapeoNavegacion = {
@@ -630,6 +631,10 @@
                     if(this.dataSource.data().length>0 && afterDBpackingList!==null && allowPL){
                         afterDBpackingList();
                         afterDBpackingList = null;
+                    }
+                    if(this.dataSource.data().length>0 && afterDBpackingListFolioC!==null && allowPL){
+                        afterDBpackingListFolioC();
+                        afterDBpackingListFolioC = null;
                     }
                 },
                 filter: "contains",
@@ -3549,6 +3554,13 @@
     var afterDBpackingList = function(){
         $("#FolioCuantificacionID").data("kendoComboBox").select(function(e){
             return e.FolioConfiguracionCuantificacionID === _packingList;
+        })
+        $("#FolioCuantificacionID").data("kendoComboBox").trigger("change");
+    }
+
+    var afterDBpackingListFolioC = function(){
+        $("#FolioCuantificacionID").data("kendoComboBox").select(function(e){
+            return e.FolioConfiguracionCuantificacionID === _NombreFolioCuantificacion;
         })
         $("#FolioCuantificacionID").data("kendoComboBox").trigger("change");
     }
