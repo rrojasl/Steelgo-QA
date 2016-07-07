@@ -1970,8 +1970,14 @@ namespace BackEndSAM.DataAcces
                                     idCedulaC = ctx.Sam3_Cedula.Where(x => x.Codigo == item.CedulaC && x.Activo).Select(x => x.CedulaID).AsParallel().SingleOrDefault();
                                     EspesorMM = Convert.ToDecimal(item.CedulaMM);
 
+
+
+
                                     nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
                                                      where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM)
+                                                     && cat.CedulaA == idCedulaA
+                                                     && cat.CedulaB == idCedulaB
+                                                     && cat.CedulaC == idCedulaC
                                                      select cat).AsParallel().SingleOrDefault();
 
 
