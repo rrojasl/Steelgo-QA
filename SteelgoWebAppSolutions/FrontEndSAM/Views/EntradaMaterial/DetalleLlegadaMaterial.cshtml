@@ -1136,6 +1136,7 @@
                         folioLlegada = data.ReturnMessage[1];
                         folioAvisoLlegada = FolioLlegada.FolioAvisollegadaId;
                         BotonAlta();
+                        _esAlta = "-1";
                         CargaInicialEdicion(folioAvisoLlegada);
                         if (bool) {//guardar y nuevo
                             var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
