@@ -351,7 +351,7 @@ namespace BackEndSAM.DataAcces
                                               CedulaMM = cat.EspesorMM.ToString(),
                                               Correcta = true
                                           }).AsParallel().ToList();
-
+                            catCedulas = catCedulas.OrderBy(x => x.Diametro1).ToList();
                             return catCedulas;
                             #endregion
                         case 12: //MTR
