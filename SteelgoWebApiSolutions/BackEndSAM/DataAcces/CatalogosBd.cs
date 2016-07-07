@@ -1568,6 +1568,62 @@ namespace BackEndSAM.DataAcces
                                     idDiametro = ctx.Sam3_Diametro.Where(x => x.Valor == diam && x.Activo).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
                                     int? eqDiametro = ctx.Sam3_EquivalenciaDiametro.Where(x => x.Sam3_DiametroID == idDiametro && x.Activo).Select(x => x.Sam2_DiametroID).AsParallel().SingleOrDefault();
 
+                                    #region insertar diametro y equivalencia si no existe
+                                    if (eqDiametro == null)
+                                    {
+                                        Diametro sam2_diametro;
+                                        if (ctx2.Diametro.Where(x => x.Valor == diam).Any())
+                                        {
+                                            sam2_diametro = ctx2.Diametro.Where(x => x.Valor == diam).AsParallel().SingleOrDefault();
+                                        }
+                                        else
+                                        {
+                                            sam2_diametro = new Diametro
+                                            {
+                                                Valor = diam,
+                                                VerificadoPorCalidad = true,
+                                                FechaModificacion = DateTime.Now
+                                            };
+                                            ctx2.Diametro.Add(sam2_diametro);
+                                            ctx2.SaveChanges();
+                                        }
+                                        Sam3_Diametro sam3_diametro;
+                                        if (ctx.Sam3_Diametro.Where(x => x.Valor == diam).Any())
+                                        {
+                                            sam3_diametro = (from d in ctx.Sam3_Diametro
+                                                             where d.Activo && d.Valor == diam
+                                                             select d).AsParallel().SingleOrDefault();
+                                        }
+                                        else
+                                        {
+                                            sam3_diametro = new Sam3_Diametro
+                                            {
+                                                Activo = true,
+                                                FechaModificacion = DateTime.Now,
+                                                UsuarioModificacion = usuario.UsuarioID,
+                                                Valor = diam,
+                                                VerificadoPorCalidad = sam2_diametro.VerificadoPorCalidad
+                                            };
+                                            ctx.Sam3_Diametro.Add(sam3_diametro);
+                                            ctx.SaveChanges();
+                                        }
+
+                                        Sam3_EquivalenciaDiametro equivalencia = new Sam3_EquivalenciaDiametro
+                                        {
+                                            Activo = true,
+                                            FechaModificacion = DateTime.Now,
+                                            Sam2_DiametroID = sam2_diametro.DiametroID,
+                                            Sam3_DiametroID = sam3_diametro.DiametroID,
+                                            UsuarioModificacion = usuario.UsuarioID
+                                        };
+                                        ctx.Sam3_EquivalenciaDiametro.Add(equivalencia);
+                                        ctx.SaveChanges();
+
+                                        idDiametro = sam3_diametro.DiametroID;
+                                        eqDiametro = equivalencia.Sam2_DiametroID;
+                                    }
+                                    #endregion
+
                                     if (idDiametro == 0)
                                     {
                                         item.Correcta = false;
