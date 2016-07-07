@@ -1913,12 +1913,6 @@ namespace BackEndSAM.DataAcces
 
                         //orden.ItemCodes = orden.ItemCodes.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
 
-
-                        if (itemCodeID > 0)
-                        {
-                            orden.ItemCodes = orden.ItemCodes.Where(x => x.ItemCodeID == itemCodeID.ToString()).ToList();
-                        }
-
                         if (orden.ItemCodes.Count > 0)
                         {
                             listado.Add(orden);
@@ -1945,10 +1939,6 @@ namespace BackEndSAM.DataAcces
                                 nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
                             }
 
-                            if (numeroUnicoID > 0)
-                            {
-                                i.NumerosUnicos = i.NumerosUnicos.Where(x => x.NumeroUnicoID == numeroUnicoID.ToString()).ToList();
-                            }
                         }
                     }
 
