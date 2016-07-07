@@ -237,7 +237,7 @@
         $("#ProyectoID").data("kendoComboBox").enable(false);
         $("#FolioAvisoEntradaID").data("kendoComboBox").enable(false);
         $("#ItemCode").data("kendoComboBox").enable(false);
-        CargarDatosGridInicial();
+        //CargarDatosGridInicial();
 
         if (_imprimirFormatos != "-1") {
             var pdf = ArregloPDF(_ordenRecepcionID);
@@ -613,7 +613,10 @@
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
     
     CargaInicial();
-
+    $("ul.breadcrumb li.active a").off("click");
+    $("ul.breadcrumb li.active a").click(function (event) {
+        this.href = this.href + window.location.search;
+    });
     }
      @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
