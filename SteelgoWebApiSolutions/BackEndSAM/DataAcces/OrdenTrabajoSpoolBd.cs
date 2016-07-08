@@ -121,8 +121,8 @@ namespace BackEndSAM.DataAcces
                                                         && !odtm.TieneDespacho
                                                         select new ComboNumeroControl
                                                         {
-                                                            NumeroControlID = odts.OrdenTrabajoSpoolID.ToString(),
-                                                            NumeroControl = odts.NumeroControl
+                                                            NumeroControlID = odt.OrdenTrabajoID.ToString(),//odts.OrdenTrabajoSpoolID.ToString(),
+                                                            NumeroControl = odt.NumeroOrden//odts.NumeroControl
                                                         }).Distinct().AsParallel().ToList();
 
                     List<ComboNumeroControl> filtrado = new List<ComboNumeroControl>();
