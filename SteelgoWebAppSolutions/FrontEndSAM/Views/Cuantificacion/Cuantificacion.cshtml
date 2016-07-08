@@ -427,6 +427,27 @@
 
             }
         };
+        
+        var repositorioColada=function(){
+            this.data={};
+            this.recents=false;
+            this.get=function(itc,widget){
+                if(this.data[itc]!==undefined && this.recents===false){
+                    widget.dataSource.data(this.data[itc]);
+                }else{
+                    this.set(itc,widget);
+                }
+            }
+            this.set=function(itc,widget){
+                var self=this;
+                $Colada.Colada.read({},{itemcode:itc,token:Cookies.get("token"),paginaID:Cookies.get("navegacion"),idioma:$("#language").data("kendoDropDownList").value(),id:0,mostrarOpcion:0}).done(function(data){
+                    self.data[itc]=data;
+                    self.recents=false;
+                    self.get(itc,widget);
+                })
+            }
+        }
+        var _q=new repositorioColada();
     };
 
 
@@ -3292,13 +3313,13 @@
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
-                    dataSource: {
-                        type: "json",
-                        serverFiltering: true,
-                        transport: {
-                            read: $URLColada + "itemcode=" + (container.parent().children()[22].firstChild?container.parent().children()[22].firstChild.data:"") + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
-                        }
-                    },
+                    //dataSource: {
+                        //type: "json",
+                        //serverFiltering: true,
+                        //transport: {
+                        //    read: $URLColada + "itemcode=" + (container.parent().children()[22].firstChild?container.parent().children()[22].firstChild.data:"") + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
+                        //}
+                    //},
                     change: function (e) {
                         var dataItem = this.dataItem();
                         if (dataItem.ColadaID == 0) {
@@ -3322,9 +3343,10 @@
                     open:function(e){
                         isOpen=true;
                     },
-                    
+                    dataTextField: "Nombre",
+                    dataValueField: "ColadaID",
                 });
-
+            _q.get(options.model.ItemCodeOrigenID,$("#"+date).data("kendoComboBox"))
             lastEditedCellIDSColada = options.model;
         };
         
