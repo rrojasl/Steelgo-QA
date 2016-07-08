@@ -478,7 +478,10 @@
                 }
             });
 
-            $("#Editar").click(function (e) { BotonEdicion(); });
+            $("#Editar").click(function (e) { 
+                //BotonEdicion();
+                window.location.href = $(".breadcrumb li.active a").attr("href") + "?leng=" + $("#language").data("kendoDropDownList").value()+"&FolioAvisoEntradaID="+$("#FolioAvisoEntradaID").data("kendoComboBox").value()+"&Proyecto="+encodeURI($("#ProyectoID").data("kendoComboBox").dataItem().Nombre)+"&NombreFolioCuantificacion="+$("#FolioCuantificacionID").data("kendoComboBox").dataItem().FolioConfiguracionCuantificacionID;
+            });
             $("#TerminaryNuevo").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
                     if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM() && !ValidarPromedio()) {
@@ -3594,6 +3597,7 @@
     };
 
     function OndataBound(e) {
+        $(".k-button.k-button-icontext.k-grid-add").off("click")
         $(".k-button.k-button-icontext.k-grid-add").on("click", function () {
             fromButton = true;
             recentlyAdded = true;
