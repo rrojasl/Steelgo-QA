@@ -892,7 +892,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
-          <Property Name="Area" Type="int" Nullable="false" />
+          <Property Name="Area" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="CedulaID" Type="int" />
           <Property Name="Codigo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="GrupoID" Type="int" />
@@ -3634,7 +3634,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Orden__52442E1F">
+        <Association Name="FK__Sam3_Rel___Orden__505BE5AD">
           <End Role="Sam3_OrdenAlmacenaje" Type="Self.Sam3_OrdenAlmacenaje" Multiplicity="0..1" />
           <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" Type="Self.Sam3_Rel_NumeroUnico_RelFC_RelB" Multiplicity="*" />
           <ReferentialConstraint>
@@ -5634,7 +5634,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
             <End Role="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntitySet="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Orden__52442E1F" Association="Self.FK__Sam3_Rel___Orden__52442E1F">
+          <AssociationSet Name="FK__Sam3_Rel___Orden__505BE5AD" Association="Self.FK__Sam3_Rel___Orden__505BE5AD">
             <End Role="Sam3_OrdenAlmacenaje" EntitySet="Sam3_OrdenAlmacenaje" />
             <End Role="Sam3_Rel_NumeroUnico_RelFC_RelB" EntitySet="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           </AssociationSet>
@@ -10299,7 +10299,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Area" Type="Decimal" Nullable="false" />
           <Property Name="Codigo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CedulaID" Type="Int32" />
           <Property Name="GrupoID" Type="Int32" />

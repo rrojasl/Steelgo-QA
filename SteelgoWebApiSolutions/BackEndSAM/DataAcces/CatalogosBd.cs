@@ -2361,7 +2361,7 @@ namespace BackEndSAM.DataAcces
                                     ICSteelgo.GrupoID = Convert.ToInt32(datos.GrupoID);
                                     ICSteelgo.CedulaID = Convert.ToInt32(datos.CedulaID);
                                     ICSteelgo.Peso = Convert.ToDecimal(datos.Peso);
-                                    ICSteelgo.Area = Convert.ToInt32(datos.Area);
+                                    ICSteelgo.Area = Convert.ToDecimal(datos.Area);
                                     ICSteelgo.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
                                     ICSteelgo.Activo = true;
                                     ICSteelgo.UsuarioModificacion = usuario.UsuarioID;
@@ -2488,7 +2488,7 @@ namespace BackEndSAM.DataAcces
                                 ics.FamiliaAceroID = Int32.Parse(datos.AceroID);
                                 ics.CedulaID = Int32.Parse(datos.CedulaID);
                                 ics.Peso = Decimal.Parse(datos.Peso);
-                                ics.Area = Int32.Parse(datos.Area);
+                                ics.Area = Decimal.Parse(datos.Area);
                                 ics.Activo = true;
                                 ics.UsuarioModificacion = usuario.UsuarioID;
                                 ics.FechaModificacion = DateTime.Now;
@@ -2528,7 +2528,7 @@ namespace BackEndSAM.DataAcces
                                 ics.GrupoID = Convert.ToInt32(datos.GrupoID);
                                 ics.CedulaID = Convert.ToInt32(datos.CedulaID);
                                 ics.Peso = Convert.ToDecimal(datos.Peso);
-                                ics.Area = Convert.ToInt32(datos.Area);
+                                ics.Area = Convert.ToDecimal(datos.Area);
                                 ics.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
                                 ics.Activo = true;
                                 ics.UsuarioModificacion = usuario.UsuarioID;

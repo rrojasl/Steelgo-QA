@@ -15,7 +15,7 @@ namespace BackEndSAM.Models
         public decimal Diametro2 { get; set; }
         public int FamiliaAceroID { get; set; }
         public string Familia { get; set; }
-        public int Area { get; set; }
+        public decimal Area { get; set; }
         public string Cedula { get; set; }
         public int CedulaID { get; set; }
         public string Codigo { get; set; }
