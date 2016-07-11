@@ -50,6 +50,11 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    DateTime fechaInicial = new DateTime();
+                    DateTime fechaFinal = new DateTime();
+                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoEntradaID != "" ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
                     int itemCodeID = filtros.ItemCodeID != "" ? Convert.ToInt32(filtros.ItemCodeID) : 0;
@@ -57,15 +62,14 @@ namespace BackEndSAM.DataAcces
                         ? (ConfigurationManager.AppSettings["ActivarFolioConfiguracion"].Equals("1") ? true : false) : false;
                     int tipoMaterialID = 0;
                     int.TryParse(filtros.TipoMaterialID, out tipoMaterialID);
+                    int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
 
 
                     //Patios y proyectos del usuario
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
+                    List<int> proyectos;
+                    List<int> patios;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Sam3_FolioAvisoEntrada> registros;
 
@@ -80,6 +84,9 @@ namespace BackEndSAM.DataAcces
                                      && proyectos.Contains(pr.ProyectoID)
                                      && patios.Contains(pr.PatioID)
                                      && p.ProyectoID == proyectoID
+                                     && patios.Contains(fa.PatioID)
+                                     && patios.Contains(r.PatioID)
+                                     && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
                                      select r).AsParallel().ToList();
                     }
                     else
@@ -92,12 +99,29 @@ namespace BackEndSAM.DataAcces
                                      where r.Activo && fa.Activo && p.Activo && pr.Activo && f.Activo
                                      && proyectos.Contains(pr.ProyectoID)
                                      && patios.Contains(pr.PatioID)
+                                     && patios.Contains(fa.PatioID)
+                                     && patios.Contains(r.PatioID)
+                                     && (fa.FechaModificacion >= fechaInicial && fa.FechaModificacion <= fechaFinal)
                                      select r).AsParallel().ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
                     {
                         registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).AsParallel().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                    }
+
+                    if (packingListID > 0)
+                    {
+                        registros = (from r in registros
+                                     join fc in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                     where fc.Activo
+                                     && fc.FolioCuantificacionID == packingListID
+                                     select r).AsParallel().ToList();
                     }
 
                     registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
