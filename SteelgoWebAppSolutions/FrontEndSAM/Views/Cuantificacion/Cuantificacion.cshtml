@@ -576,7 +576,7 @@
                     dataItem!==undefined ? CargarFolioAvisoEntrada(dataItem.id,dataItem.value):CargarFolioAvisoEntrada("","");
                     limpiarfiltrosFolioAvisoEntrada();
                     $("#TipoPackingListID").data("kendoComboBox").enable(true);
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         FolioAvisoEntrada = {};
                         this.value("");
@@ -612,7 +612,7 @@
                     var dataItem = this.dataItem();
                     dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                     var value = this.value();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         Proyecto = {};
                         this.value("");
@@ -645,7 +645,7 @@
                     var dataItem = this.dataItem();
                     var value = this.value();
                     limpiarfiltrosFolioLlegada();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         Cuantificacion = {};
                         this.value("");
@@ -676,7 +676,7 @@
                     dataItem!==undefined ? CargarTipoPackingList(dataItem.id, dataItem.Nombre):CargarTipoPackingList("", "");
                     recentlyAdded=false;
                     var value = this.value();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         TipoPackingList = {};
                         this.value("");
@@ -710,7 +710,7 @@
                     var dataItem = this.dataItem();
                     dataItem!==undefined ? CargarTipoUso(dataItem.id, dataItem.Nombre):CargarTipoUso("", "");
                     var value = this.value();
-                    if (!value || this.selectedIndex == 0) {
+                    if (!value || this.select() == 0) {
                         //messageindexKendoCombobox(this);
                         TipoUso = {};
                         this.value("");
@@ -3328,7 +3328,7 @@
                         }
                         recentlyAdded=false;
                         var value = this.text();
-                        if (this.selectedIndex == -1) {
+                        if (this.select() == -1) {
                             lastEditedCellIDSColada.Colada = "";
                         } else {
                             lastEditedCellIDSColada.Colada = value;
