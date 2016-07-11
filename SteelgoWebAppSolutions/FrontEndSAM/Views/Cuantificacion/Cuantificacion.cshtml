@@ -655,11 +655,11 @@
                     }
                 },
                 dataBound: function(e){
-                    if(this.dataSource.data().length>0 && afterDBpackingList!==null && allowPL){
+                    if(this.dataSource.data().length>0 && afterDBpackingList!==null && allowPL && _packingList!=="-1"){
                         afterDBpackingList();
                         afterDBpackingList = null;
                     }
-                    if(this.dataSource.data().length>0 && afterDBpackingListFolioC!==null && allowPL){
+                    if(this.dataSource.data().length>0 && afterDBpackingListFolioC!==null && allowPL && _NombreFolioCuantificacion!=="-1"){
                         afterDBpackingListFolioC();
                         afterDBpackingListFolioC = null;
                     }
