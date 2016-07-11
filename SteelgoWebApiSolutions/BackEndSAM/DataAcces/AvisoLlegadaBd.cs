@@ -1171,6 +1171,8 @@ namespace BackEndSAM.DataAcces
                                                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString()
                                                    }).AsParallel().ToList();
 
+                    lstFolios = lstFolios.GroupBy(x => x.id).Select(x => x.First()).OrderBy(x => x.value).ToList();
+                    
                     if (activarFolioConfiguracion)
                     {
                         foreach (ListaCombos lst in lstFolios)

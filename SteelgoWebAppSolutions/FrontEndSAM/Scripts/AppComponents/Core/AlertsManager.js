@@ -11,7 +11,7 @@
 /****************************/
 
 //Add all global variables for your partial view here
-var alertTimeOut = 15000;
+var alertTimeOut = 60000;//15000; Temporary changed
 
 /****************************/
 /*    Document Ready        */

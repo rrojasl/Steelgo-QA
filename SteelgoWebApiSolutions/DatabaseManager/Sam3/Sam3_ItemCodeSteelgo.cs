@@ -27,7 +27,7 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-        public int Area { get; set; }
+        public decimal Area { get; set; }
         public string Codigo { get; set; }
         public Nullable<int> CedulaID { get; set; }
         public Nullable<int> GrupoID { get; set; }

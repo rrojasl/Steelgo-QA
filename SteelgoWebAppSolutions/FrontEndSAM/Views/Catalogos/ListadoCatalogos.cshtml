@@ -22,7 +22,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
                 <div class="row">
-                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3 filter-section">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3 filter-section">
                         <label id="ListadoCatalogos0003"></label>
                         <input id="listaCatalogos" class="fullWidth" />
                     </div>
@@ -52,6 +52,7 @@
     var ultimaInsercionFallida = false;
     var itemCodeID = 0;
     var cedulasErroneas = false;
+    var _catalog = getUrlParameter("catalog", null);
     var $ListadoCatalogosModel = {
         listContainer: {
             create: ".k-grid-add",
@@ -783,7 +784,7 @@
 
     function enviarCedulas(data) {
         loadingStart();
-        $Catalogos.AdministracionCatalogos.create({}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), data: JSON.stringify(data), factorConversion: $("#fconversion").val() }).done(function (result) {
+        $Catalogos.AdministracionCatalogos.create({'': JSON.stringify(data)}, { catalogoID: $("#listaCatalogos").data("kendoDropDownList").value(), token: Cookies.get("token"), factorConversion: $("#fconversion").val(), isCedula:true }).done(function (result) {
             if (Error(result)) {
                 var counter = 0;
                 result.forEach(function (n) {
@@ -919,7 +920,8 @@
                 $("#cedbtns").remove();
                 var g = null;
                 $("#language").data("kendoDropDownList").value() === "es-MX" ? g = ["Factor de conversión", "Carga masiva", "Seleccionar archivos", "Guardar", "Descargar plantilla"] : g = ["Conversion factor", "Bulk upload", "Select files", "Save", "Download template"];
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-8 col-lg-9"><div class="row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">' + g[0] + '</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >' + g[1] + '</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">' + g[2] + '</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">' + g[3] + '</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced"><label id="" class="download">' + g[4] + '</label></a></div></div></div></div></div>');
+                //$("#listaCatalogos").parent().parent().parent().append;
+                $('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-7 col-lg-7 row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">' + g[0] + '</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >' + g[1] + '</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">' + g[2] + '</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">' + g[3] + '</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced" style="display:inline-block"><label id="" class="download">' + g[4] + '</label></a></div></div></div></div>').insertAfter($("#listaCatalogos").closest(".filter-section"))
                 $Cedulas.Cedulas.read({}, { catalogoID: "11", token: Cookies.get("token") }).done(function (result) {
                     $("#fconversion").val(result);
                 });
@@ -999,7 +1001,7 @@
                                         } else {
                                             n.style.backgroundColor = "#E3FCCB";
                                         }
-                                        nuevasCedulas.push($("#grid").data("kendoGrid").dataItem(n));
+                                        nuevasCedulas= $("#grid").data("kendoGrid").dataSource.data().filter(function(e){return e.id===null});
                                     } else {
                                         n.style.backgroundColor = "#FEDEE8";
                                         valido = false;
@@ -1016,6 +1018,7 @@
                                 if (mensaje != null) {
                                     displayMessage("", mensaje, '2');
                                 }
+                                nuevasCedulas= $("#grid").data("kendoGrid").dataSource.data().filter(function(e){return e.id===null});
                             }
                         }
                     }
@@ -1072,6 +1075,14 @@
                         }
                     }
                 });
+            }
+        },
+        dataBound:function(e){
+            if(_catalog!==null){
+                this.select(function(e){
+                    return e.id===_catalog;
+                })
+                //this.trigger("change")
             }
         }
     })
@@ -1229,6 +1240,19 @@
     if (isInPopUp()) {
         hideElementsListadoCatalogos();
     }
+    $("ul.breadcrumb li.active a").off("click");
+    $("ul.breadcrumb li.active a").click(function (event) {
+        if (!0 >= this.href.indexOf("?leng=") && this.href.indexOf("#")==-1) {
+            this.href = this.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+        } else {
+            this.href = this.href;
+        }
+        if (!0 >= this.href.indexOf("&catalog=")) {
+            $("#listaCatalogos").data("kendoDropDownList").value()!=="" ? this.href = this.href + "&catalog="+$("#listaCatalogos").data("kendoDropDownList").value() : null;
+        }else{
+            $("#listaCatalogos").data("kendoDropDownList").value()!=="" ? this.href = this.href.replace(/&catalog=\d*/,"&catalog="+$("#listaCatalogos").data("kendoDropDownList").value()) : null;
+        }
+    });
     };
 
     @section JavascriptDocumentReadyHomeCookie {

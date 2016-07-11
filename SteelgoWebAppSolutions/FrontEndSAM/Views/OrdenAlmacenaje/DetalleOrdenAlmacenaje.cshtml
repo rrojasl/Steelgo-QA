@@ -621,7 +621,10 @@
     if (getUrlParameter("OrdenAlmacenajeID", null) === null) {
         $("#toAlmacenaje").hide();
     }
-
+    $("ul.breadcrumb li.active a").off("click");
+    $("ul.breadcrumb li.active a").click(function (event) {
+        this.href = this.href + window.location.search;
+    });
     }
      @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });

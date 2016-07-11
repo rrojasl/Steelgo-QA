@@ -218,6 +218,7 @@
         var _packingList = getUrlParameter("PackingList", "-1");
         var _proyecto = decodeURI(getUrlParameter("Proyecto", "-1"));
         var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+        var _NombreFolioCuantificacion = getUrlParameter("NombreFolioCuantificacion", "-1");
         var _deboEntrarAlEditor = false;
         //Mappeo de Controles y sus flechas
         var mapeoNavegacion = {
@@ -426,11 +427,35 @@
 
             }
         };
+        
+        var repositorioColada=function(){
+            this.data={};
+            this.recents=false;
+            this.get=function(itc,widget){
+                if(this.data[itc]!==undefined && this.recents===false){
+                    widget.dataSource.data(this.data[itc]);
+                }else{
+                    this.set(itc,widget);
+                }
+            }
+            this.set=function(itc,widget){
+                var self=this;
+                $Colada.Colada.read({},{itemcode:itc,token:Cookies.get("token"),paginaID:Cookies.get("navegacion"),idioma:$("#language").data("kendoDropDownList").value(),id:0,mostrarOpcion:0}).done(function(data){
+                    self.data[itc]=data;
+                    self.recents=false;
+                    self.get(itc,widget);
+                })
+            }
+        }
+        var _q=new repositorioColada();
     };
 
 
     @section JavascriptGlobalFunctions 
     {
+        $("ul.breadcrumb li.active a").click(function (event) {
+            this.href = this.href;
+        });
 
         function changeLanguageCall() {
             var tmp=removeGrid($("#grid"));
@@ -474,7 +499,10 @@
                 }
             });
 
-            $("#Editar").click(function (e) { BotonEdicion(); });
+            $("#Editar").click(function (e) { 
+                //BotonEdicion();
+                window.location.href = $(".breadcrumb li.active a").attr("href") + "?leng=" + $("#language").data("kendoDropDownList").value()+"&FolioAvisoEntradaID="+$("#FolioAvisoEntradaID").data("kendoComboBox").value()+"&Proyecto="+encodeURI($("#ProyectoID").data("kendoComboBox").dataItem().Nombre)+"&NombreFolioCuantificacion="+$("#FolioCuantificacionID").data("kendoComboBox").dataItem().FolioConfiguracionCuantificacionID;
+            });
             $("#TerminaryNuevo").click(function () {
                 if (validarRequeridosFormaCuantificacion()) {
                     if (!ValidarTipoPackingList() && !ValidarCantidades() && !ValidarMM() && !ValidarPromedio()) {
@@ -548,7 +576,7 @@
                     dataItem!==undefined ? CargarFolioAvisoEntrada(dataItem.id,dataItem.value):CargarFolioAvisoEntrada("","");
                     limpiarfiltrosFolioAvisoEntrada();
                     $("#TipoPackingListID").data("kendoComboBox").enable(true);
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         FolioAvisoEntrada = {};
                         this.value("");
@@ -584,7 +612,7 @@
                     var dataItem = this.dataItem();
                     dataItem!==undefined ? CargarProyecto(dataItem.ProyectoID, dataItem.Nombre):CargarProyecto("", "");
                     var value = this.value();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         Proyecto = {};
                         this.value("");
@@ -600,7 +628,7 @@
                         afterDBproyecto();
                         afterDBproyecto = null;
                         allowPL = true;
-                    }
+                    }                    
                 },
             });
             
@@ -617,7 +645,7 @@
                     var dataItem = this.dataItem();
                     var value = this.value();
                     limpiarfiltrosFolioLlegada();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         Cuantificacion = {};
                         this.value("");
@@ -627,9 +655,13 @@
                     }
                 },
                 dataBound: function(e){
-                    if(this.dataSource.data().length>0 && afterDBpackingList!==null && allowPL){
+                    if(this.dataSource.data().length>0 && afterDBpackingList!==null && allowPL && _packingList!=="-1"){
                         afterDBpackingList();
                         afterDBpackingList = null;
+                    }
+                    if(this.dataSource.data().length>0 && afterDBpackingListFolioC!==null && allowPL && _NombreFolioCuantificacion!=="-1"){
+                        afterDBpackingListFolioC();
+                        afterDBpackingListFolioC = null;
                     }
                 },
                 filter: "contains",
@@ -644,7 +676,7 @@
                     dataItem!==undefined ? CargarTipoPackingList(dataItem.id, dataItem.Nombre):CargarTipoPackingList("", "");
                     recentlyAdded=false;
                     var value = this.value();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || this.select() == -1) {
                         messageindexKendoCombobox(this);
                         TipoPackingList = {};
                         this.value("");
@@ -678,7 +710,7 @@
                     var dataItem = this.dataItem();
                     dataItem!==undefined ? CargarTipoUso(dataItem.id, dataItem.Nombre):CargarTipoUso("", "");
                     var value = this.value();
-                    if (!value || this.selectedIndex == 0) {
+                    if (!value || this.select() == 0) {
                         //messageindexKendoCombobox(this);
                         TipoUso = {};
                         this.value("");
@@ -1220,6 +1252,7 @@
                     { field: "ItemCodeOrigenID", title: _dictionary.Cuantificacion0097[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "200px", hidden: true }, //es la itemcodeid
                     { field: "TipoMaterial", title: _dictionary.Cuantificacion0101[$("#language").data("kendoDropDownList").value()], /*filterable: true,*/ width: "180px", hidden: true },
                 ],
+                height: 411
             });
             var grid = $("#grid").data("kendoGrid");
             var dispositivo = navigator.userAgent.toLowerCase();
@@ -1573,7 +1606,12 @@
                             ObtenerTipoPackingListProyectoConfiguracion(result.Proyecto[0].ProyectoID);
                         };
                     };
-                    ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada);
+                    if(result.FolioLlegada.length>0){
+                        ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada)
+                    }else{
+                        $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
+                        $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data([]);
+                    }
                 } else {
                     limpiarfiltrosFolioAvisoEntrada();
                 };
@@ -1755,7 +1793,7 @@
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
             //loadingStart();
             $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto==0?"-1":_detalleBulto, token: Cookies.get("token") }).done(function (result) {
-                if (Error(result)) {
+                if (Error(result,true)) {
                     _folioCuantificacion = cuantificacion;
                     _folioConfiguracionCuantificacion = result.FolioConfiguracionCuantificacionID;
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
@@ -1861,7 +1899,7 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if ($('input:checked').val() == "2") {
+                if ($('#vacios').is(":checked")) {
                     if (!this.get("Cantidad") || 0 > this.get("Cantidad") || this.get("Cantidad") == "0") {
                         this.set("Cantidad", value ? value : "0");
                     };
@@ -1890,22 +1928,14 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if ($('input:checked').val() == "2") {
-                    if (!this.get("MM") || this.get("MM") == "0") {
+                if ($('#vacios').is(":checked")) {
+                    if (this.get("MM")==="" || this.get("MM") === 0 && parseInt(this.get("TipoMaterial")) === 1) {
                         this.set("MM", value);
-                    } else {
-                        if (this.get("TipoMaterial") == "1") {//TUBO
-                            this.set("MM", value);
-                        } else {
-                            if (this.get("TipoMaterial") == "2") {
-                                this.set("MM", "N/A");
-                            } else {
-                                this.set("MM", value);
-                            }
-                        }
+                    } else if (parseInt(this.get("TipoMaterial")) !== 1){
+                        this.set("MM", "N/A");
                     }
                 }else{
-                    if (this.get("TipoMaterial") == "2") {
+                    if (parseInt(this.get("TipoMaterial")) !== 1) {
                         this.set("MM", "N/A");
                     } else {
                         this.set("MM", value);
@@ -3058,7 +3088,7 @@
                             //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                             cell.Colada = "";//coladaValue;//itemCodesJson.ColadaNombre;
                             //lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
-                            cell.MM = itemCodesJson.TipoPackingList == "2" ? "N/A" : mmValue;//0; //itemCodesJson.MM;
+                            cell.MM = itemCodesJson.TipoPackingList == "2" ? "N/A" : "";// mmValue;//0; //itemCodesJson.MM;
                             cell.DimensionPromedio = itemCodesJson.TipoPackingList == "2" ? "N/A" : "";
                             cell.Detallar = "No";
                             cell.Descripcion = itemCodesJson.Descripcion;
@@ -3283,13 +3313,13 @@
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
-                    dataSource: {
-                        type: "json",
-                        serverFiltering: true,
-                        transport: {
-                            read: $URLColada + "itemcode=" + (container.parent().children()[22].firstChild?container.parent().children()[22].firstChild.data:"") + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
-                        }
-                    },
+                    //dataSource: {
+                        //type: "json",
+                        //serverFiltering: true,
+                        //transport: {
+                        //    read: $URLColada + "itemcode=" + (container.parent().children()[22].firstChild?container.parent().children()[22].firstChild.data:"") + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
+                        //}
+                    //},
                     change: function (e) {
                         var dataItem = this.dataItem();
                         if (dataItem.ColadaID == 0) {
@@ -3298,7 +3328,7 @@
                         }
                         recentlyAdded=false;
                         var value = this.text();
-                        if (this.selectedIndex == -1) {
+                        if (this.select() == -1) {
                             lastEditedCellIDSColada.Colada = "";
                         } else {
                             lastEditedCellIDSColada.Colada = value;
@@ -3313,9 +3343,10 @@
                     open:function(e){
                         isOpen=true;
                     },
-                    
+                    dataTextField: "Nombre",
+                    dataValueField: "ColadaID",
                 });
-
+            _q.get(options.model.ItemCodeOrigenID,$("#"+date).data("kendoComboBox"))
             lastEditedCellIDSColada = options.model;
         };
         
@@ -3470,7 +3501,7 @@
             }
         };
 
-        function Error(data) {
+        function Error(data,notSave) {
             if(data)
             {
                 if (data.ReturnCode) {
@@ -3479,7 +3510,7 @@
                             removeUserSession();
                             return false;
                         } else {
-                            displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                            !notSave ? displayMessage("notificationslabel0008", data.ReturnMessage, '2') : null;
                             return false;
                         }
                     } else {
@@ -3560,6 +3591,13 @@
         })
         $("#FolioCuantificacionID").data("kendoComboBox").trigger("change");
     }
+
+    var afterDBpackingListFolioC = function(){
+        $("#FolioCuantificacionID").data("kendoComboBox").select(function(e){
+            return e.FolioConfiguracionCuantificacionID === _NombreFolioCuantificacion;
+        })
+        $("#FolioCuantificacionID").data("kendoComboBox").trigger("change");
+    }
         
     function CargarDefaults() {
         $("#formCuantificacion :not(.security_required)").each(function (i, elem) {
@@ -3581,6 +3619,7 @@
     };
 
     function OndataBound(e) {
+        $(".k-button.k-button-icontext.k-grid-add").off("click")
         $(".k-button.k-button-icontext.k-grid-add").on("click", function () {
             fromButton = true;
             recentlyAdded = true;

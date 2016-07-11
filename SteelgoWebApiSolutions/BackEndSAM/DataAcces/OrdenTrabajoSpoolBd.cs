@@ -62,12 +62,12 @@ namespace BackEndSAM.DataAcces
                 {
                     List<int> proyectos = new List<int>();
                     List<int> patios = new List<int>();
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
                     using (SamContext ctx = new SamContext())
                     {
-                        proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
-                                     join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
-                                     where p.Activo && eqp.Activo
-                                     && p.UsuarioID == usuario.UsuarioID
+                        proyectos = (from eqp in ctx.Sam3_EquivalenciaProyecto
+                                     where eqp.Activo
+                                     && proyectos.Contains(eqp.Sam3_ProyectoID)
                                      select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
                         proyectos = proyectos.Where(x => x > 0).ToList();
