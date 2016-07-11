@@ -112,7 +112,11 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3_clienteID = (from c in ctx.Sam3_Cliente
+                                     where c.Activo && c.Sam2ClienteID == clienteID
+                                     select c.ClienteID).AsParallel().SingleOrDefault();
+
+                        registros = registros.Where(x => x.ClienteID == sam3_clienteID).ToList();
                     }
 
                     if (packingListID > 0)
