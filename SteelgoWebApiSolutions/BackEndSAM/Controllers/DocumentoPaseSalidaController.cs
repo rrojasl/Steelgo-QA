@@ -17,6 +17,7 @@ using BackEndSAM.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Configuration;
+using BackEndSAM.Utilities;
 
 namespace BackEndSAM.Controllers
 {
@@ -91,10 +92,7 @@ namespace BackEndSAM.Controllers
                                 nombreArchivo = postedFile.FileName;
                             }
 
-                            if (nombreArchivo.Contains(" "))
-                            {
-                                nombreArchivo = nombreArchivo.Replace(' ', '_');
-                            }
+                            nombreArchivo = (string)Conversiones.Instance.EliminaCaracteresNombresDeDocumento(nombreArchivo);
 
                             var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;

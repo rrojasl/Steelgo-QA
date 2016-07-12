@@ -55,5 +55,39 @@ namespace BackEndSAM.Utilities
                 return "";
             }
         }
+
+        public object EliminaCaracteresNombresDeDocumento(string nombreArchivo)
+        {
+            try
+            {
+                List<string> caracteres = new List<string>{
+                    "#","@","\\","//","*","?","&","%","$", " "
+                };
+
+                foreach(string c in caracteres)
+                {
+                    if (nombreArchivo.Contains(c) && c != " ")
+                    {
+                        nombreArchivo = nombreArchivo.Replace(c, string.Empty);
+                    }
+
+                    if (nombreArchivo.Contains(c) && c == "")
+                    {
+                        nombreArchivo = nombreArchivo.Replace(c, "_");
+                    }
+                }
+
+                return nombreArchivo;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.ReturnMessage.Add(ex.Message);
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }
