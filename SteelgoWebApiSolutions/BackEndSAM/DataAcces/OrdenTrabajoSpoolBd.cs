@@ -135,26 +135,35 @@ namespace BackEndSAM.DataAcces
 
                     foreach (ComboNumeroControl lst in listado)
                     {
-                        string[] elem = lst.NumeroControl.Split('-').ToArray();
-
-                        string simplificado = elem[0].Replace("0", string.Empty);
-                        int consec = Convert.ToInt32(elem[1]);
-
-                        if (consecutivo > 0)
+                        if (lst.NumeroControl.Contains("-") && lst.NumeroControl != "")
                         {
-                            if (simplificado.Contains(busqueda) && consec == consecutivo)
+                            string[] elem = lst.NumeroControl.Split('-').ToArray();
+
+                            string simplificado = elem[0].Replace("0", string.Empty);
+                            int consec = Convert.ToInt32(elem[1]);
+
+                            if (consecutivo > 0)
                             {
-                                filtrado.Add(lst);
+                                if (simplificado.Contains(busqueda) && consec == consecutivo)
+                                {
+                                    filtrado.Add(lst);
+                                }
+                            }
+                            else
+                            {
+                                if (simplificado.Contains(busqueda))
+                                {
+                                    filtrado.Add(lst);
+                                }
                             }
                         }
                         else
                         {
-                            if (simplificado.Contains(busqueda))
+                            if(lst.NumeroControl.Contains(busqueda))
                             {
                                 filtrado.Add(lst);
                             }
                         }
-
 
                     }
 #if DEBUG
