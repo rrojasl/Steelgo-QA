@@ -45,18 +45,18 @@ namespace BackEndSAM.DataAcces
         /// <param name="spoolID"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerGridPreDespacho(int spoolID, Sam3_Usuario usuario)
+        public object ObtenerGridPreDespacho(int odtID, Sam3_Usuario usuario)
         {
             try
             {
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
+                UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
                 using (SamContext ctx = new SamContext())
                 {
-                    proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
-                                 join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
-                                 where p.Activo && eqp.Activo
-                                 && p.UsuarioID == usuario.UsuarioID
+                    proyectos = (from eqp in ctx.Sam3_EquivalenciaProyecto
+                                 where eqp.Activo
+                                 && proyectos.Contains(eqp.Sam3_ProyectoID)
                                  select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
                     proyectos = proyectos.Where(x => x > 0).ToList();
@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces
                                                      join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
                                                      join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                                      join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
-                                                     where ots.OrdenTrabajoSpoolID == spoolID
+                                                     where ot.OrdenTrabajoID == odtID
                                                      && proyectos.Contains(ot.ProyectoID)
                                                      && ic.TipoMaterialID == 2
                                                      && !otm.TieneDespacho && numerosUnicosAprobadosSam2.Contains(nu.NumeroUnicoID)

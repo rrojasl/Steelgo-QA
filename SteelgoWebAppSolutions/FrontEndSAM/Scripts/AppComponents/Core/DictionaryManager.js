@@ -5048,8 +5048,8 @@ _dictionary = {
         "en-US": "Proyect"
     },
     "Predespacho0009": {
-        "es-MX": "Spool ID",
-        "en-US": "Spool ID"
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
     },
     "Predespacho0010": {
         "es-MX": "Mostrar",
