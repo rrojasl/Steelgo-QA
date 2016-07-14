@@ -4226,31 +4226,73 @@ namespace BackEndSAM.DataAcces
 
                                     #region Numeros Unicos
 
-                                    List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                                                           join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
-                                                                           join icd in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals icd.ItemCodeID
-                                                                           join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on icd.Rel_ItemCode_Diametro_ID equals fcic.Rel_ItemCode_Diametro_ID
-                                                                           join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
-                                                                           //join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                    List<Sam3_NumeroUnico> lstNumUnicos = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                                           join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                                                           join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                                           join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                                            join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
                                                                            join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                                                                           where nu.Activo
+                                                                           where relnu.Activo && nu.Activo && rfi.Activo && fc.Activo && p.Activo && pa.Activo
                                                                            && proyectosUsuario.Contains(p.ProyectoID)
                                                                            && patiosUsuario.Contains(pa.PatioID)
-                                                                               //&& (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
                                                                            && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
                                                                            && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
                                                                            select nu).AsParallel().Distinct().ToList();
 
+                                    lstNumUnicos.AddRange((from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
+                                                           join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
+                                                           join rbi in ctx.Sam3_Rel_Bulto_ItemCode on relnu.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                           join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                           join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                           join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                           join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                           where relnu.Activo && nu.Activo && rbi.Activo && b.Activo && fc.Activo && p.Activo && pa.Activo
+                                                           && proyectosUsuario.Contains(p.ProyectoID)
+                                                           && patiosUsuario.Contains(pa.PatioID)
+                                                           && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                           && (fc.FechaCreacion >= fechaInicial && fc.FechaCreacion <= fechaFinal)
+                                                           select nu).AsParallel().Distinct().ToList());
+
                                     if (folioAvisoEntrada > 0)
                                     {
                                         lstNumUnicos = (from nu in lstNumUnicos
-                                                        join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
-                                                        join fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals fcic.ItemCodeID
-                                                        join fc in ctx.Sam3_FolioCuantificacion on fcic.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                        join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on nu.NumeroUnicoID equals relnu.NumeroUnicoID
+                                                        join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
+                                                        join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                         join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                        where ic.Activo && fcic.Activo && fc.Activo && fe.Activo && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                        join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                        join p in  ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                        where nu.Activo && relnu.Activo && rfi.Activo && fc.Activo && fe.Activo && fa.Activo
+                                                        && rfp.Activo && p.Activo && pa.Activo
+                                                        && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                        && patiosUsuario.Contains(fe.PatioID)
+                                                        && patiosUsuario.Contains(fa.PatioID)
+                                                        && patiosUsuario.Contains(pa.PatioID)
+                                                        && proyectosUsuario.Contains(p.ProyectoID)
                                                         select nu).AsParallel().Distinct().ToList();
+
+                                        lstNumUnicos.AddRange((from nu in lstNumUnicos
+                                                               join relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB on nu.NumeroUnicoID equals relnu.NumeroUnicoID
+                                                               join rbi in ctx.Sam3_Rel_Bulto_ItemCode on relnu.Rel_Bulto_ItemCode_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                               join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                               join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                               join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                               join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                               join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                               join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                                               join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                               where nu.Activo && relnu.Activo && rbi.Activo && fc.Activo && fe.Activo && fa.Activo && b.Activo
+                                                               && rfp.Activo && p.Activo && pa.Activo
+                                                               && fe.FolioAvisoLlegadaID == folioAvisoEntrada
+                                                               && patiosUsuario.Contains(fe.PatioID)
+                                                               && patiosUsuario.Contains(fa.PatioID)
+                                                               && patiosUsuario.Contains(pa.PatioID)
+                                                               && proyectosUsuario.Contains(p.ProyectoID)
+                                                               select nu).AsParallel().Distinct().ToList());
+
+                                        lstNumUnicos = lstNumUnicos.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).AsParallel().ToList();
                                     }
 
                                     if (clienteID > 0)
