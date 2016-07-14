@@ -4931,8 +4931,8 @@ _dictionary = {
         "en-US": "Fill Incidence"
     },
     "Despacho0008": {
-        "es-MX": "Spool ID",
-        "en-US": "Spool ID"
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
     },
     "Despacho0009": {
         "es-MX": "Mostrar",
@@ -5048,8 +5048,8 @@ _dictionary = {
         "en-US": "Proyect"
     },
     "Predespacho0009": {
-        "es-MX": "Spool ID",
-        "en-US": "Spool ID"
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
     },
     "Predespacho0010": {
         "es-MX": "Mostrar",
@@ -5185,8 +5185,8 @@ _dictionary = {
         "en-US": "Full stretch"
     },
     "Corte0020": {
-        "es-MX": "Spool ID",
-        "en-US": "Spool ID"
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
     },
     "Corte0021": {
         "es-MX": "Etiqueta",
@@ -5398,8 +5398,8 @@ _dictionary = {
         "en-US": "Dispatch & Cut Dashboard"
     },
     "DashboardDespachoCorte0030": {
-        "es-MX": "Spool ID",
-        "en-US": "Spool ID"
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
     },
     "DashboardDespachoCorte0031": {
         "es-MX": "Spool",
