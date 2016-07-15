@@ -1354,3 +1354,9 @@ Exception Data: System.Collections.ListDictionaryInternal
 15/07/2016 02:01:06 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
 15/07/2016 02:01:06 p. m. - GUID devuelto: 
 15/07/2016 02:01:06 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+15/07/2016 03:28:00 p. m. - Source: JWTstack :   at JWT.JsonWebToken.Decode(String token, Byte[] key, Boolean verify)
+   at JWT.JsonWebToken.Decode(String token, String key, Boolean verify)
+   at SecurityManager.TokenHandler.ManageTokens.ValidateToken(String token, String& result, String& newToken) in c:\Users\joaquin.ramos\Documents\SAM3.0\SteelgoWebApiSolutions\SecurityManager\TokenHandler\ManageTokens.cs:line 81
+15/07/2016 03:28:44 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
+15/07/2016 03:28:44 p. m. - GUID devuelto: 
+15/07/2016 03:28:44 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
