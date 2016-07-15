@@ -541,3 +541,7 @@ function kendoDateValidation(start,end) {
     !tmp ? start.value(new Date(endDate)) : null;
     return tmp;
 }
+
+function getBySplit(str, sep, pos) {
+    return str.split(sep)[pos];
+}
