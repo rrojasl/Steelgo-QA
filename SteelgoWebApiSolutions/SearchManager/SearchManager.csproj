@@ -85,7 +85,9 @@
     <Content Include="RestApiClient\jquery-2.1.4.js" />
     <Content Include="RestApiClient\jquery.rest.js" />
     <Content Include="RestApiClient\RestApiClient.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
