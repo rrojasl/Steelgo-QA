@@ -278,7 +278,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        result = result.Where(x => x.ClienteID == clienteID).ToList();
+                        var idReal = (from c in ctx.Sam3_Cliente
+                                        where c.Activo && c.Sam2ClienteID == clienteID
+                                        select c.ClienteID).AsParallel().SingleOrDefault();
+                        result = result.Where(x => x.ClienteID == idReal).ToList();
                     }
 
                     //Filtros Rapidos
