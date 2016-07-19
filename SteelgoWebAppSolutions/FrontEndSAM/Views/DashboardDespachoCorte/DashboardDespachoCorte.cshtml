@@ -190,6 +190,7 @@
         properties: {
         }
     };
+    var accesoriosCall = false;
     }
 
     @section JavascriptGlobalFunctions {
@@ -558,6 +559,7 @@
                 Filtros();
             },
             filter: "contains",
+            value: ""
         });
     };
     function CrearUnidadMedida() {
@@ -589,7 +591,8 @@
         //default
         $("#UnidadMedida").data("kendoComboBox").value(2);
     };
-        function ObtenerAccionesListadoTubos(Listado) {
+    function ObtenerAccionesListadoTubos(Listado) {
+        if(!accesoriosCall){
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
                 $("#spanPreDespacharTubos").html(result.PreDespacho ? result.PreDespacho : 0);
@@ -613,47 +616,52 @@
                 CantidadesDelMenuDashboardAccesorios();
 
             });
-        };
+        }else{
+            setTimeout(function(){ObtenerAccionesListadoTubos(Listado)},200);
+        }
+    };
 
-        function ObtenerAccionesListadoAccesorios(Listado) {
-            if (Listado.UnidadDeMedida == 4)
-            {
-                $("#spanOrdenesTrabajoAccesorios").html("N/A");
-                $("#spanOrdenesTrabajoActivasAccesorios").html("N/A");
-                $("#spanPreDespacharAccesorios").html("N/A");
-                $("#spanDespacharAccesorios").html("N/A");
-                $("#spanEntregarAccesorios").html("N/A");
-                $("#spanTravelerPendienteAccesorios").html("N/A");
-                $("#spanDespachoAccesorios").html("N/A");
-                $("#spanCorteAccesorios").html("N/A");
-            }
-            else
-            {
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                Error(result);
+    function ObtenerAccionesListadoAccesorios(Listado) {
+        if (Listado.UnidadDeMedida == 4)
+        {
+            $("#spanOrdenesTrabajoAccesorios").html("N/A");
+            $("#spanOrdenesTrabajoActivasAccesorios").html("N/A");
+            $("#spanPreDespacharAccesorios").html("N/A");
+            $("#spanDespacharAccesorios").html("N/A");
+            $("#spanEntregarAccesorios").html("N/A");
+            $("#spanTravelerPendienteAccesorios").html("N/A");
+            $("#spanDespachoAccesorios").html("N/A");
+            $("#spanCorteAccesorios").html("N/A");
+        }
+        else
+        {
+            accesoriosCall=true;
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            Error(result);
                
                   
-                    $("#spanPreDespacharAccesorios").html(result.PreDespacho ? result.PreDespacho : 0);
-                    $("#spanDespacharAccesorios").html(result.PorDespachar ? result.PorDespachar : 0);
-                    $("#spanEntregarAccesorios").html(result.PorEntregar ? result.PorEntregar : 0);
+                $("#spanPreDespacharAccesorios").html(result.PreDespacho ? result.PreDespacho : 0);
+                $("#spanDespacharAccesorios").html(result.PorDespachar ? result.PorDespachar : 0);
+                $("#spanEntregarAccesorios").html(result.PorEntregar ? result.PorEntregar : 0);
 
-                    if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
-                        $("#spanTravelerPendienteAccesorios").html("N/A");
-                        $("#spanOrdenesTrabajoAccesorios").html("N/A");
-                        $("#spanOrdenesTrabajoActivasAccesorios").html("N/A");
-                    }
-                    else {
-                        $("#spanTravelerPendienteAccesorios").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
-                        $("#spanOrdenesTrabajoAccesorios").html(result.CantidadODT ? result.CantidadODT : 0);
-                        $("#spanOrdenesTrabajoActivasAccesorios").html(result.CantidadODTActiva ? result.CantidadODTActiva : 0);
-                    }
-
-                    //$("#spanTravelerPendienteAccesorios").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
-                    $("#spanDespachoAccesorios").html(result.Despacho ? result.Despacho : 0);
-                    $("#spanCorteAccesorios").html(result.Corte ? result.Corte : 0);
-            });
+                if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
+                    $("#spanTravelerPendienteAccesorios").html("N/A");
+                    $("#spanOrdenesTrabajoAccesorios").html("N/A");
+                    $("#spanOrdenesTrabajoActivasAccesorios").html("N/A");
                 }
-        };
+                else {
+                    $("#spanTravelerPendienteAccesorios").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
+                    $("#spanOrdenesTrabajoAccesorios").html(result.CantidadODT ? result.CantidadODT : 0);
+                    $("#spanOrdenesTrabajoActivasAccesorios").html(result.CantidadODTActiva ? result.CantidadODTActiva : 0);
+                }
+
+                //$("#spanTravelerPendienteAccesorios").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
+                $("#spanDespachoAccesorios").html(result.Despacho ? result.Despacho : 0);
+                $("#spanCorteAccesorios").html(result.Corte ? result.Corte : 0);
+                accesoriosCall=false;
+        });
+            }
+    };
         function Filtros() {
             var Listado;
             var accionTubos = $("#hdAccionFiltradoTubos").val() ? $("#hdAccionFiltradoTubos").val() : "1";
@@ -754,16 +762,16 @@
         function DefinicionColumnasOrdenesTrabajo() {
             var columnas =
             [
-                { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick=\"MostrarDetalleOrdenesTrabajo('#:SpoolID#')\">#:SpoolID#</a>" },
+                { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick=\"MostrarDetalleOrdenesTrabajo(this)\">#:SpoolID#</a>" },
                 { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
             ];
             return columnas;
         };
 
-        function MostrarDetalleOrdenesTrabajo(spoolID) {
+        function MostrarDetalleOrdenesTrabajo(link) {
+            var dataItem=$(link).closest("div[id^=grid]").data("kendoGrid").dataItem($(link).closest("td"))
             var detalleIdeaUrl = "@Url.Action("PreDespacho", "PreDespacho")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + spoolID;
-
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + dataItem.SpoolID+"&NumeroControl="+dataItem.NumeroControlID;
         };
 
         function OrdenesTrabajo(tipomaterial, esBoton) {

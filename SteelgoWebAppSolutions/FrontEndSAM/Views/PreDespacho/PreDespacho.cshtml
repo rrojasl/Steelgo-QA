@@ -367,6 +367,7 @@
                     if (resultadoJson.length > 0) {
                         $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                         $("#grid").data("kendoGrid").dataSource.page(1);
+                        $("input[type=radio]:checked").click();
                     } else {
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         $("#grid").data("kendoGrid").dataSource.page(0);

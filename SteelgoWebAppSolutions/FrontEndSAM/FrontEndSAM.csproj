@@ -446,6 +446,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="FormatoCargaMasiva.csv" />
     <None Include="Properties\PublishProfiles\front.pubxml" />
+    <None Include="Properties\PublishProfiles\FrontEnd-QA.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEnd.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEndSam.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />

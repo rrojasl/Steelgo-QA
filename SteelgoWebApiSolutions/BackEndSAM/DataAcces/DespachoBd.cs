@@ -65,12 +65,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoGenerarDespacho(string numeroControl, Sam3_Usuario usuario)
+        public object ListadoGenerarDespacho(string id, Sam3_Usuario usuario)
         {
             try
             {
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
+                UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                 using (SamContext ctx = new SamContext())
                 {
                     proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
@@ -96,10 +98,15 @@ namespace BackEndSAM.DataAcces
 
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        int ordenSpoolID = Convert.ToInt32(numeroControl);
+                        int odtId = Convert.ToInt32(id);
+
+                        List<int> ordenTrabajoSpools = (from odts in ctx2.OrdenTrabajoSpool
+                                                        where odts.OrdenTrabajoID == odtId
+                                                        select odts.OrdenTrabajoSpoolID).AsParallel().Distinct().ToList();
 
                         List<lstPredespachos> predespachos = (from pre in ctx.Sam3_PreDespacho
-                                                              where pre.Activo && pre.OrdenTrabajoSpoolID == ordenSpoolID
+                                                              where pre.Activo
+                                                              && ordenTrabajoSpools.Contains(pre.OrdenTrabajoSpoolID)
                                                               select new lstPredespachos
                                                               {
                                                                   OdtSpoolID = pre.OrdenTrabajoSpoolID,
@@ -129,9 +136,11 @@ namespace BackEndSAM.DataAcces
                         }
 
                         List<int> numerosUnicosAprobadosSam2 = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                                join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                                                join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
                                                                 join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                                                 where nu.Estatus == "A" 
-                                                                && odtm.OrdenTrabajoSpoolID == ordenSpoolID
+                                                                && odt.OrdenTrabajoID == odtId
                                                                 && odtm.NumeroUnicoCongeladoID != null
                                                                 select odtm.NumeroUnicoCongeladoID.Value).AsParallel().ToList();
 
@@ -141,7 +150,7 @@ namespace BackEndSAM.DataAcces
                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                                             join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                             join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                            where odts.OrdenTrabajoSpoolID == ordenSpoolID
+                                                            where odts.OrdenTrabajoID == odtId
                                                             && !(from d in ctx2.Despacho
                                                                  where d.Cancelado == false
                                                                  select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
