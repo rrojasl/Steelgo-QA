@@ -5107,6 +5107,14 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Mterials"
     },
+    "Predespacho0024": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Predespacho0025": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
     //Corte
     "Corte0001": {
         "es-MX": "Transacciones",
