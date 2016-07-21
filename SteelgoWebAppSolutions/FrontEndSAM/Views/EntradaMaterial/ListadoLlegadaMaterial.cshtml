@@ -134,14 +134,15 @@
 
     @section JavascriptGlobalFunctions 
     {
+        var date=new Date().toLocaleTimeString();
         if(DashBoardAccionListado!=="-1"){
             tmpListado={
                 "FolioLlegadaID":folioLlegadaID,
                 "FolioAvisoLlegadaID":folioEntradaID,
                 "PatioID":DashPatioID,
                 "ClienteID":DashClienteID,
-                "FechaInicial":DashFechaInicial,
-                "FechaFinal":DashFechaFinal,
+                "FechaInicial":DashFechaInicial +" "+ date,
+                "FechaFinal":DashFechaFinal +" "+ date,
                 "token":Cookies.get("token"),
                 "PorLlegar":DashBoardAccionListado==="1",
                 "PorDescargar":DashBoardAccionListado==="2",
