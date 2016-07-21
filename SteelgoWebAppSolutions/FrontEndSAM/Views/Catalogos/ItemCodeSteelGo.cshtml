@@ -873,12 +873,12 @@
                         }
                     })
                 }
-                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).change(function(){searchCed(e)});
-                $("[name='Libra']", e.container).blur(function(){searchCed(e)});
-                [$('[name="Inch"]').data("kendoComboBox").input,$('[name="MM"]').data("kendoComboBox").input].forEach(function(n){
-                    n.on("blur",function(){
-                        searchCedAlter(e,this);
-                    })
+                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).off("change")
+                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){searchCed(e)});
+                $("[name='Libra']", e.container).off("blur")
+                $("[name='Libra']", e.container).on("blur",function(){searchCed(e)});
+                $($('[name="Inch"]').data("kendoComboBox").input,$('[name="MM"]')).on("blur",function(){
+                    searchCedAlter(e,this);
                 })
                 setTimeout(function(){
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
@@ -1026,8 +1026,8 @@
             var data={
                 "Diametro1":e.model.Diametro1,
                 "Diametro1ID":e.model.Diametro1ID,
-                "EspesorMM": input.name.indexOf("Inch")>-1 ? input.value : 0,
-                "EspesorIn": input.name.indexOf("MM")>-1 ? input.value : 0,
+                "EspesorMM": input.name.indexOf("MM")>-1 ? input.value : 0,
+                "EspesorIn": input.name.indexOf("Inch")>-1 ? input.value : 0,
             }
             $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
                 if(Error(data)){
