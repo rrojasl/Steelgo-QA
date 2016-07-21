@@ -835,7 +835,8 @@
                     }
                 //En caso de que no puedas guardar
                 }else{
-                    displayMessage("ItemCodeSteelGo0020", "", '1');
+                    displayMessage("ItemCodeSteelGo0032", "", '1');
+                    e.preventDefault();
                 }
             },
             edit: function (e) {
@@ -956,6 +957,7 @@
                                             $("[name='Inch']").data("kendoComboBox").dataSource.data(dsEspesorIN);
 
                                         });
+                                        canSave=true;
                                     }
                                     else {
                                         //Obtengo los datos de Espesor en MM
