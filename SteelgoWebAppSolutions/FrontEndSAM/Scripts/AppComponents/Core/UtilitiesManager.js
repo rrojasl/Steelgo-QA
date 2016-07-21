@@ -376,8 +376,8 @@ function quickFilter(g, i) {
         }
         var tmp = { field: fname, value: $.trim($(i).val()) }
         modelType(g, fname) === "number" ? tmp.operator = function (item, value) { var u = false; (item !== null && item !== undefined) && item.toString().indexOf(value) !== -1 ? u = true : u = false; return u; } : tmp.operator = "contains";
-        if (f !== undefined) {
-            if (modelType(g, fname) === "number" && !$.isNumeric(String.fromCharCode(event.which))) {
+        if (f !== undefined && f !== null) {
+            if (modelType(g, fname) === "number" && event.target.value==="") {
                 throw -1;
             }
             var found = false;
