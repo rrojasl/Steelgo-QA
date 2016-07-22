@@ -287,9 +287,15 @@ namespace BackEndSAM.DataAcces
                                     else // si no existe la colada hay que crearla
                                     {
                                         Sam3_Colada nuevaColada = new Sam3_Colada();
-                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.AceroID = (from a in ctx.Sam3_Acero
+                                                               where a.Activo
+                                                               && a.Nomenclatura == "Sin Trazabilidad"
+                                                               select a.AceroID).AsParallel().Distinct().FirstOrDefault();
                                         nuevaColada.Activo = true;
-                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FabricanteID = (from f in ctx.Sam3_Fabricante
+                                                                    where f.Activo
+                                                                    && f.Nombre == "N/A"
+                                                                    select f.FabricanteID).AsParallel().Distinct().FirstOrDefault();
                                         nuevaColada.FechaModificacion = DateTime.Now;
                                         nuevaColada.HoldCalidad = false;
                                         nuevaColada.NumeroCertificado = "";
@@ -344,9 +350,15 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         Sam3_Colada nuevaColada = new Sam3_Colada();
-                                        nuevaColada.AceroID = 1;
+                                        nuevaColada.AceroID = (from a in ctx.Sam3_Acero
+                                                               where a.Activo
+                                                               && a.Nomenclatura == "Sin Trazabilidad"
+                                                               select a.AceroID).AsParallel().Distinct().FirstOrDefault();
                                         nuevaColada.Activo = true;
-                                        nuevaColada.FabricanteID = 1;
+                                        nuevaColada.FabricanteID = (from f in ctx.Sam3_Fabricante
+                                                                    where f.Activo
+                                                                    && f.Nombre == "N/A"
+                                                                    select f.FabricanteID).AsParallel().Distinct().FirstOrDefault();
                                         nuevaColada.FechaModificacion = DateTime.Now;
                                         nuevaColada.HoldCalidad = false;
                                         nuevaColada.NumeroCertificado = "";
