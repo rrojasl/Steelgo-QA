@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11" id="noReq">
                     <div class="row">
                         <div id="ProyectoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="ComplementoRecepcion0013"></label>
@@ -692,7 +692,7 @@
 
         if(_ordenRecepcion!==-1){
             $ComplementoRecepcionAlt.Listado.read({data:JSON.stringify({TipoListado:32,OrdenRecepcionID:_ordenRecepcion, token:Cookies.get("token")})}).done(function(data){
-                data[0].length>0 ? $("#ProyectoID").data("kendoComboBox").dataSource.data(data[0]) : null;
+                $("#ProyectoID").data("kendoComboBox").dataSource.data(data[0]);
                 if(data[0].length>0){
                     var tmp = $("#ProyectoID").data("kendoComboBox").options;
                     tmp.dataValueField="id";
@@ -700,11 +700,12 @@
                     tmp.dataSource = data[0];
                     $("#ProyectoID").kendoComboBox(tmp);
                     $("#ProyectoID").data("kendoComboBox").select(0)
+                }else{
+                    $("#ProyectoID").data("kendoComboBox").enable(false);
                 }
-                
-                $("#ProyectoID").data("kendoComboBox").select(function(n){
-                    n.ProyectoID === data[2][1].ProyectoID.toString();
-                })
+                $("#noReq .security_required").removeClass("security_required");
+                delete $ComplementoRecepcionModel.properties.proyecto;
+                delete $ComplementoRecepcionModel.properties.foliocuantificacion;
                 $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data(data[1]);
                 data[0].length>0 ? $("#FolioCuantificacionID").data("kendoComboBox").select(0) : null;
                 $("#grid").data("kendoGrid").dataSource.data(data[2]);
