@@ -2869,11 +2869,11 @@ namespace BackEndSAM.DataAcces
                                     if (espesorIn == string.Empty && espesorMm == string.Empty)
                                     {
                                         cedula = new CatalogoCedulas();// = lista.Where(x => x.CedulaA == null && x.CedulaB == null && x.CedulaC == null).AsParallel().FirstOrDefault();
-                                        List<string> tempEspIn = (from lst in lista
-                                                                  where lst.CedulaA == null
-                                                                  && lst.CedulaB == null
-                                                                  && lst.CedulaC == null
-                                                                  select lst.CedulaIn).Distinct().ToList();
+                                        //List<string> tempEspIn = (from lst in lista
+                                        //                          where lst.CedulaA == null
+                                        //                          && lst.CedulaB == null
+                                        //                          && lst.CedulaC == null
+                                        //                          select lst.CedulaIn).Distinct().ToList();
 
                                         List<string> tempEspMm = (from lst in lista
                                                                   where lst.CedulaA == null
@@ -2882,15 +2882,15 @@ namespace BackEndSAM.DataAcces
                                                                   select lst.CedulaMM).Distinct().ToList();
 
 
-                                        cedula.EspesoresIn = (from esp in ctx.Sam3_Espesor
-                                                              where esp.Activo == 1
-                                                              && esp.DiametroID == diametroID
-                                                              && tempEspIn.Contains(esp.Valor.ToString())
-                                                              select new ListaCombos
-                                                              {
-                                                                  id = esp.EspesorID.ToString(),
-                                                                  value = esp.Valor.ToString()
-                                                              }).Distinct().AsParallel().ToList();
+                                        //cedula.EspesoresIn = (from esp in ctx.Sam3_Espesor
+                                        //                      where esp.Activo == 1
+                                        //                      && esp.DiametroID == diametroID
+                                        //                      && tempEspIn.Contains(esp.Valor.ToString())
+                                        //                      select new ListaCombos
+                                        //                      {
+                                        //                          id = esp.EspesorID.ToString(),
+                                        //                          value = esp.Valor.ToString()
+                                        //                      }).Distinct().AsParallel().ToList();
 
                                         cedula.EspesoresMm = (from esp in ctx.Sam3_Espesor
                                                               where esp.Activo == 1
