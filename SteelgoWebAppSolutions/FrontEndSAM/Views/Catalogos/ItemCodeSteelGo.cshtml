@@ -992,7 +992,7 @@
                                     $("[name='MM']").data("kendoComboBox").dataSource.data(data.EspesoresMm);
                                     $("[name='MM']").data("kendoComboBox").enable(true)
                                     $('[data-container-for="MM"] input').focus();
-                                    data.EspesoresMm.forEach(function(n){ n.value= n.value * 0.0393701})
+                                    data.EspesoresMm.forEach(function(n){ n.value= n.value * 0.0393701});
                                     $("[name='Inch']").data("kendoComboBox").dataSource.data(data.EspesoresMm);
                                     $("[name='Inch']").data("kendoComboBox").enable(true);
                                     $('[data-container-for="Inch"] input').focus();
@@ -1053,9 +1053,13 @@
             }
             $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
                 if(Error(data)){
-                    if(data.Correcta===true && (e.model.CedulaID === data.CedulaID && e.model.CedulaB === data.CedulaB && e.model.Libra === data.CedulaC)){
+                    data.CedulaA===null ? data.CedulaA="" : null;
+                    data.CedulaB===null ? data.CedulaB="" : null;
+                    data.CedulaC===null ? data.CedulaC="" : null;
+                    if(data.Correcta===true && (e.model.CedulaA === data.CedulaA && e.model.CedulaB === data.CedulaB && e.model.Libra === data.CedulaC)){
                         canSave=true;
-                    }else if(data.Correcta===true && (e.model.CedulaID !== data.CedulaID || e.model.CedulaB !== data.CedulaB || e.model.Libra !== data.CedulaC)){
+                        e.model.CedulaID = data.CedulaID;
+                    }else if(data.Correcta===true && (e.model.CedulaA !== data.CedulaA || e.model.CedulaB !== data.CedulaB || e.model.Libra !== data.CedulaC)){
                         displayMessage("ItemCodeSteelGo0030", "", '1');
                         canSave=false;
                     }else if(data.Correcta===true){
