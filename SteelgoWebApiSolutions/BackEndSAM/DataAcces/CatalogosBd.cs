@@ -2072,7 +2072,6 @@ namespace BackEndSAM.DataAcces
                                         {
                                             if (nuevoElemento != null)
                                             {
-
                                                 nuevoElemento.DiametroID = idDiametro;
                                                 nuevoElemento.CedulaA = idCedulaA;
                                                 nuevoElemento.CedulaB = idCedulaB;
@@ -2103,9 +2102,6 @@ namespace BackEndSAM.DataAcces
                                             }
                                         }
                                     }
-
-
-                                    
 
                                     cedulasCorrectas.Add(new CatalogoCedulas
                                     {
