@@ -599,8 +599,8 @@
 
                                         if (disabledEspesorIN)
                                         {
-                                            $("[name='Inch']").data("kendoComboBox").enable(false);
-                                            $("[name='MM']").data("kendoComboBox").enable(false);
+                                            //$("[name='Inch']").data("kendoComboBox").enable(false);
+                                            //$("[name='MM']").data("kendoComboBox").enable(false);
                                             $("[name='Inch']").data("kendoComboBox").value(EspesorINvalue);
                                             $("[name='MM']").data("kendoComboBox").value(EspesorMMvalue);
                                         }
@@ -649,7 +649,7 @@
                                 $("[name='MM']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].Inch / 0.0393701).toFixed(4));
                                 $("[name='MM']", e.container).data("kendoComboBox").trigger("select");
                             },
-                            enable: false,
+                            //enable: false,
                             filter: "contains",
                             dataTextField: "value",
                             dataValueField: "id"
@@ -681,7 +681,7 @@
                                     $("[name='Inch']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].MM * 0.0393701).toFixed(4));
                                     $("[name='Inch']", e.container).data("kendoComboBox").trigger("select");
                                 },
-                                enable: false,
+                                //enable: false,
                                 filter: "contains",
                                 dataTextField: "value",
                                 dataValueField: "id"
