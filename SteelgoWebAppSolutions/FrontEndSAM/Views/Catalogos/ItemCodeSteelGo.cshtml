@@ -48,6 +48,7 @@
     editado = false;
     addedFilters=false;
     lastEditedDocument="";
+    canSave = true;
     var creado = 0;
     var idDiam1 = 0;
     var DiametroCero = { id: "", value: "" };
@@ -827,80 +828,86 @@
             toolbar: ["create"],
             editable: "inline",
             save: function (e) {
-                var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
-                if ((e.model.id === null || e.model.id === "" || e.model.id === undefined) /*&& (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))*/) {
-                    var grid = $("#grid").data("kendoGrid");
-                    var data = {};
-                    for (f in grid.options.dataSource.schema.model.fields) {
-                        data[f] = e.model[f];
-                    }
-                    if (data["Acero"] === "" || data["AceroID"] === "")
-                    {
-                        displayMessage("ItemCodeSteelGo0025", "", '1');
-                        e.preventDefault();
-                        ////e.stopPropagation();
-                        return false;
-                    }
-
-                    if (data["Inch"] == 0 || data["MM"] == 0 || data["Inch"] === "" || data ["MM"] === "")
-                    {
-                        displayMessage("ItemCodeSteelGo0028", "", '1');
-                        e.preventDefault();
-                        ////e.stopPropagation();
-                        return false;
-                    }
-
-                    if (data["Peso"] == 0 || data["Peso"] === "")
-                    {
-                        displayMessage("ItemCodeSteelGo0029", "", '1');
-                        e.preventDefault();
-                        ////e.stopPropagation();
-                        return false;
-                    }
-
-                    creado = 0;
-                    for (var i = 0; grid.dataSource.data().length > i; i++) {
-                        if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
-                            creado = 1;
-                            e.model.dirty = true;
+                if(canSave){
+                    var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
+                    if ((e.model.id === null || e.model.id === "" || e.model.id === undefined) /*&& (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))*/) {
+                        var grid = $("#grid").data("kendoGrid");
+                        var data = {};
+                        for (f in grid.options.dataSource.schema.model.fields) {
+                            data[f] = e.model[f];
                         }
-                    }
-                    rowEditada = e.model;
-                    rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
-                    grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
-                    grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
-
-                    editado = false;
-                } else if ((e.model.id !== null && e.model.id !== "" || e.model.id != undefined) /*&& (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))*/) {
-                    creado = 0;
-                    var grid = $("#grid").data("kendoGrid");
-                    var data = {};
-                    for (f in grid.options.dataSource.schema.model.fields) {
-                        data[f] = e.model[f];
-                    }
-
-                    if (data["Acero"] === "" || data["AceroID"] === "") {
-                        displayMessage("ItemCodeSteelGo0025", "", '1');
-                        e.preventDefault();
-                        ////e.stopPropagation();
-                        return false;
-                    }
-
-                    creado = 0;
-                    for (var i = 0; grid.dataSource.data().length > i; i++) {
-                        if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
-                            creado = 1;
-                            e.model.dirty = true;
+                        if (data["Acero"] === "" || data["AceroID"] === "")
+                        {
+                            displayMessage("ItemCodeSteelGo0025", "", '1');
+                            e.preventDefault();
+                            ////e.stopPropagation();
+                            return false;
                         }
+
+                        if (data["Inch"] == 0 || data["MM"] == 0 || data["Inch"] === "" || data ["MM"] === "")
+                        {
+                            displayMessage("ItemCodeSteelGo0028", "", '1');
+                            e.preventDefault();
+                            ////e.stopPropagation();
+                            return false;
+                        }
+
+                        if (data["Peso"] == 0 || data["Peso"] === "")
+                        {
+                            displayMessage("ItemCodeSteelGo0029", "", '1');
+                            e.preventDefault();
+                            ////e.stopPropagation();
+                            return false;
+                        }
+
+                        creado = 0;
+                        for (var i = 0; grid.dataSource.data().length > i; i++) {
+                            if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
+                                creado = 1;
+                                e.model.dirty = true;
+                            }
+                        }
+                        rowEditada = e.model;
+                        rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
+                        grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
+                        grid.options.dataSource.transport.create.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
+
+                        editado = false;
+                    } else if ((e.model.id !== null && e.model.id !== "" || e.model.id != undefined) /*&& (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))*/) {
+                        creado = 0;
+                        var grid = $("#grid").data("kendoGrid");
+                        var data = {};
+                        for (f in grid.options.dataSource.schema.model.fields) {
+                            data[f] = e.model[f];
+                        }
+
+                        if (data["Acero"] === "" || data["AceroID"] === "") {
+                            displayMessage("ItemCodeSteelGo0025", "", '1');
+                            e.preventDefault();
+                            ////e.stopPropagation();
+                            return false;
+                        }
+
+                        creado = 0;
+                        for (var i = 0; grid.dataSource.data().length > i; i++) {
+                            if (data["Codigo"] == grid.dataSource.data()[i].Codigo) {
+                                creado = 1;
+                                e.model.dirty = true;
+                            }
+                        }
+                        rowEditada=e.model;
+                        rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
+                        grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
+                        editado = false;
+                    } else {
+                        grid.options.dataSource.transport.create.url = "save";
+                        grid.options.dataSource.transport.update.url = "update";
+                        displayMessage("ItemCodeSteelGo0020", "", '1');
                     }
-                    rowEditada=e.model;
-                    rowEditada.TieneD2 = disabledDiametro2 ? "No" : "Si";
-                    grid.options.dataSource.transport.update.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data)) + "&editado=" + creado;
-                    editado = false;
-                } else {
-                    grid.options.dataSource.transport.create.url = "save";
-                    grid.options.dataSource.transport.update.url = "update";
-                    displayMessage("ItemCodeSteelGo0020", "", '1');
+                //En caso de que no puedas guardar
+                }else{
+                    displayMessage("ItemCodeSteelGo0032", "", '1');
+                    e.preventDefault();
                 }
             },
             edit: function (e) {
@@ -938,8 +945,18 @@
                         }
                     })
                 }
-                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).change(function(){searchCed(e)});
-                $("[name='Libra']", e.container).blur(function(){searchCed(e)});
+                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){searchCed(e)})
+                $("[name='Libra']", e.container).on("blur",function(){searchCed(e)});
+                $('[name="Inch"]').data("kendoComboBox").input.on("blur",function(){
+                    if(e.model.CedulaID==="" || e.model.CedulaID===null){
+                        searchCedAlter(e,this);
+                    }
+                })
+                $('[name="MM"]').data("kendoComboBox").input.on("blur",function(){
+                    if(e.model.CedulaID==="" || e.model.CedulaID===null){
+                        searchCedAlter(e,this);
+                    }
+                })
                 setTimeout(function(){
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
                     $("[name='Diametro2']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro2ID})
@@ -1024,6 +1041,7 @@
                                             $("[name='Inch']").data("kendoComboBox").dataSource.data(dsEspesorIN);
 
                                         });
+                                        canSave=true;
                                     }
                                     else {
                                         //Obtengo los datos de Espesor en MM
@@ -1041,9 +1059,17 @@
                                         });
                                     }
                                 });
-                            }
-                            else
-                            {
+                            }else if(data.Correcta == true && (data.EspesoresMm.length>0 || data.EspesoresIn.length>0)){
+                                if(data.EspesoresMm.length>0){
+                                    $("[name='MM']").data("kendoComboBox").dataSource.data(data.EspesoresMm);
+                                    $("[name='MM']").data("kendoComboBox").enable(true)
+                                    $('[data-container-for="MM"] input').focus();
+                                    data.EspesoresMm.forEach(function(n){ n.value= (n.value * 0.0393701).toFixed(4)})
+                                    $("[name='Inch']").data("kendoComboBox").dataSource.data(data.EspesoresMm);
+                                    $("[name='Inch']").data("kendoComboBox").enable(true);
+                                    $('[data-container-for="Inch"] input').focus();
+                                }
+                            }else if(data.Correcta == true){
                                 //data = data[0];
                                 e.model.CedulaID = data.CedulaID;
                                 e.model.CedulaA = data.CedulaA;
@@ -1067,6 +1093,7 @@
                                 $("[name='Inch']").data("kendoComboBox").select()===-1 ? $("[name='Inch']").data("kendoComboBox").value(e.model.Inch):null;
                                 $("[name='MM']").data("kendoComboBox").select()===-1 ? $("[name='MM']").data("kendoComboBox").value(e.model.MM):null;
                                 $("[data-container-for='Peso'] input:first").focus();
+                                canSave=true;
                             }
                         }
                     }//ends Error(data)
@@ -1091,6 +1118,7 @@
                         //$("[name='" + lastEditedDocument + "']").focus();
                         e.preventDefault();
                         //e.stopPropagation();
+                        canSave=true;
                         return false;
                     }
                 });
@@ -1109,8 +1137,34 @@
                 //$("[name='Diametro1']").data("kendoComboBox").focus();
                 e.preventDefault();
                 //e.stopPropagation();
+                canSave=false;
                 return false;
             }
+        }
+        function searchCedAlter(e,input){
+            var data={
+                "Diametro1":e.model.Diametro1,
+                "Diametro1ID":e.model.Diametro1ID,
+                "EspesorMM": input.name.indexOf("MM")>-1 ? input.value : 0,
+                "EspesorIn": input.name.indexOf("Inch")>-1 ? input.value : 0,
+            }
+            $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
+                if(Error(data)){
+                    data.CedulaA===null ? data.CedulaA="" : null;
+                    data.CedulaB===null ? data.CedulaB="" : null;
+                    data.CedulaC===null ? data.CedulaC="" : null;
+                    if(data.Correcta===true && (e.model.CedulaID === data.CedulaID && e.model.CedulaB === data.CedulaB && e.model.Libra === data.CedulaC)){
+                        e.model.CedulaID = data.CedulaID;
+                        canSave=true;
+                    }else if(data.Correcta===true && (e.model.CedulaID !== data.CedulaID || e.model.CedulaB !== data.CedulaB || e.model.Libra !== data.CedulaC)){
+                        displayMessage("ItemCodeSteelGo0030", "", '1');
+                        canSave=false;
+                    }else if(data.Correcta===true){
+                        displayMessage("ItemCodeSteelGo0030", "", '1');
+                        canSave=true;
+                    }
+                }
+            });
         }
     };
     };

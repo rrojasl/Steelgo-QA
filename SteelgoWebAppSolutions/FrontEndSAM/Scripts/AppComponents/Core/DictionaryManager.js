@@ -1426,6 +1426,19 @@ _dictionary = {
         "es-MX": "El peso es requerido",
         "en-US": "You must enter a Weight"
     },
+    "ItemCodeSteelGo0030": {
+        "es-MX": "La cédula solicitada ya cuenta con una equivalencia, no se podrá guardar con la cédula seleccionada",
+        "en-US": "The requested document already has an equivalence, it couldnt been saved with the selected one"
+    },
+    "ItemCodeSteelGo0031": {
+        "es-MX": "La cédula solicitada no existe y será creada",
+        "en-US": "The requested document does not exists and will be created"
+    },
+    "ItemCodeSteelGo0032": {
+        "es-MX": "No se permite el guardado con una cédula invalida",
+        "en-US": "The save is not not allowed with an invalid document"
+    },
+    //Asociación ICS
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
