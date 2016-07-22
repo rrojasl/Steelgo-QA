@@ -2759,8 +2759,8 @@ namespace BackEndSAM.DataAcces
                     int diametroID = (from d in ctx.Sam3_Diametro
                                       where d.Activo && d.Valor == diametroSeleccionado
                                       select d.DiametroID).AsParallel().SingleOrDefault();
-                    string espesorMm = !String.IsNullOrEmpty(datosCedulas.EspesorMM) ? datosCedulas.EspesorMM : "";
-                    string espesorIn = !String.IsNullOrEmpty(datosCedulas.EspesorIn) ? datosCedulas.EspesorIn : "";
+                    string espesorMm = !String.IsNullOrEmpty(datosCedulas.EspesorMM) ? datosCedulas.EspesorMM : "0";
+                    string espesorIn = !String.IsNullOrEmpty(datosCedulas.EspesorIn) ? datosCedulas.EspesorIn : "0";
 
                     errorInfo += "\nCedulaA: " + cedulaAID.ToString() +
                         "\nCedula b: " + cedulaBID.ToString() +
