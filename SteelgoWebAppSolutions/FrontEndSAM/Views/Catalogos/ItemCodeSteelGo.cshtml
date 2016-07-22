@@ -761,6 +761,7 @@
             toolbar: ["create"],
             editable: "inline",
             save: function (e) {
+                e.model=$("#grid").data("kendoGrid").dataSource.data()[0];
                 if(canSave){
                     var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
                     if ((e.model.id === null || e.model.id === "" || e.model.id === undefined) /*&& (e.model.Espesor !== "" && $.isNumeric(e.model.Espesor))*/) {
@@ -840,6 +841,11 @@
                 }
             },
             edit: function (e) {
+                $("#grid td .k-grid-update").on("click",function(){
+                    e.preventDefault();
+                    $("#grid").data("kendoGrid").trigger("save");
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                })
                 var obtenerObjetoD2 = $("[name='Diametro2']", e.container).data("kendoComboBox");
                 if(window.Acero===true) $("[name='Acero']").data("kendoComboBox").focus();
                 if(e.model.Asociado===true){
