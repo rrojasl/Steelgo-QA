@@ -880,9 +880,7 @@
                         }
                     })
                 }
-                $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).off("change")
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){searchCed(e)});
-                $("[name='Libra']", e.container).off("blur")
                 $("[name='Libra']", e.container).on("blur",function(){searchCed(e)});
                 $('[name="Inch"]').data("kendoComboBox").input.on("blur",function(){
                     if(e.model.CedulaID==="" || e.model.CedulaID===null){
