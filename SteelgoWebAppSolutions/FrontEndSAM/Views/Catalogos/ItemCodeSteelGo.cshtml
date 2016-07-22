@@ -884,7 +884,12 @@
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){searchCed(e)});
                 $("[name='Libra']", e.container).off("blur")
                 $("[name='Libra']", e.container).on("blur",function(){searchCed(e)});
-                $($('[name="Inch"]').data("kendoComboBox").input,$('[name="MM"]')).on("blur",function(){
+                $('[name="Inch"]').data("kendoComboBox").input.on("blur",function(){
+                    if(e.model.CedulaID==="" || e.model.CedulaID===null){
+                        searchCedAlter(e,this);
+                    }
+                })
+                $('[name="MM"]').data("kendoComboBox").input.on("blur",function(){
                     if(e.model.CedulaID==="" || e.model.CedulaID===null){
                         searchCedAlter(e,this);
                     }
@@ -945,8 +950,7 @@
                             return false;
                         }
                         else {
-                            if (data.Correcta == false)
-                            {
+                            if (data.Correcta == false){
                                 //Si existe el diametro seleccionado el combo de espesor se llena con los espesores segun el catalogo de cedulas
                                 $Diametros.Diametros.read({}, { diametro: e.model.Diametro1, token: Cookies.get("token") }).done(function (result) {
                                     existeDiametro = result;
@@ -983,9 +987,17 @@
                                         });
                                     }
                                 });
-                            }
-                            else
-                            {
+                            }else if(data.Correcta == true && (data.EspesoresMm.length>0 || data.EspesoresIn.length>0)){
+                                if(data.EspesoresMm.length>0){
+                                    $("[name='MM']").data("kendoComboBox").dataSource.data(data.EspesoresMm);
+                                    $("[name='MM']").data("kendoComboBox").enable(true)
+                                    $('[data-container-for="MM"] input').focus();
+                                    data.EspesoresMm.forEach(function(n){ n.value= n / 0.0393701})
+                                    $("[name='Inch']").data("kendoComboBox").dataSource.data(data.EspesoresMm);
+                                    $("[name='Inch']").data("kendoComboBox").enable(true);
+                                    $('[data-container-for="Inch"] input').focus();
+                                }
+                            }else if(data.Correcta == true){
                                 e.model.CedulaID = data.CedulaID;
                                 e.model.CedulaA = data.CedulaA;
                                 e.model.CedulaB = data.CedulaB;
