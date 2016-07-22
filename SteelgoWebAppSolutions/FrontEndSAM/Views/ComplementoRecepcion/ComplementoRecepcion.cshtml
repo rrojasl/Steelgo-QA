@@ -490,10 +490,10 @@
                                 val = op.filter.filters[0].value;
                             }
                             var allData = $("#grid").data("kendoGrid").dataSource.data();
-                            var query = new kendo.data.Query(allData);
-                            var result = query.data;
-                            var datasource = result;
-                            var idNumUnico = datasource[0].NumeroUnicoID;
+                            var queryData = new kendo.data.Query(allData);
+                            var resultData = queryData.data;
+                            var dtSource = resultData;
+                            var idNumUnico = dtSource[0].NumeroUnicoID;
                             return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0" + "&numeroUnicoID=" +  idNumUnico
                         }
                     }
