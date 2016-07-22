@@ -257,7 +257,7 @@ namespace BackEndSAM.DataAcces
                     int folioLlegadaID = filtros.FolioAvisoEntradaID != null ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
-                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
+                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
 
                     List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
                     result = (from fa in ctx.Sam3_FolioAvisoLlegada
@@ -278,7 +278,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        result = result.Where(x => x.ClienteID == clienteID).ToList();
+                        var idReal = (from c in ctx.Sam3_Cliente
+                                        where c.Activo && c.Sam2ClienteID == clienteID
+                                        select c.ClienteID).AsParallel().SingleOrDefault();
+                        result = result.Where(x => x.ClienteID == idReal).ToList();
                     }
 
                     //Filtros Rapidos

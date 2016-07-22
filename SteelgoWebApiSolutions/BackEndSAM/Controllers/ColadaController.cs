@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers
         /// <param name="mostrarOpcion"></param>
         /// <param name="proyectoID"></param>
         /// <returns></returns>
-        public object Get(int proyectoID, string token, int paginaID, string texto, string idioma, int id = 0, int mostrarOpcion = 0)
+        public object Get(int proyectoID, string token, int paginaID, string texto, string idioma, int id = 0, int mostrarOpcion = 0, int numeroUnicoID = 0)
         {
             string payload = "";
             string newToken = "";
@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ColadaBd.Instance.ObtenerColadasPorProyecto(id, mostrarOpcion,texto, usuario, paginaID, idioma, proyectoID);
+                return ColadaBd.Instance.ObtenerColadasPorProyecto(id, mostrarOpcion,texto, usuario, paginaID, idioma, proyectoID, numeroUnicoID);
             }
             else
             {

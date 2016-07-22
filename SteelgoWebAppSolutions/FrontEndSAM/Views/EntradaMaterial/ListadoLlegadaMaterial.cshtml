@@ -107,6 +107,7 @@
 
     @section JavascriptGlobalVariables 
     {
+    var tmpListado=null;
     var Patio = {}, Cliente = {};
     var FechaInic, FechaFinal, resultadoJson, PeriodoTiempo;
     var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
@@ -133,6 +134,21 @@
 
     @section JavascriptGlobalFunctions 
     {
+        var date=new Date().toLocaleTimeString();
+        if(DashBoardAccionListado!=="-1"){
+            tmpListado={
+                "FolioLlegadaID":folioLlegadaID,
+                "FolioAvisoLlegadaID":folioEntradaID,
+                "PatioID":DashPatioID,
+                "ClienteID":DashClienteID,
+                "FechaInicial":DashFechaInicial +" "+ date,
+                "FechaFinal":DashFechaFinal +" "+ date,
+                "token":Cookies.get("token"),
+                "PorLlegar":DashBoardAccionListado==="1",
+                "PorDescargar":DashBoardAccionListado==="2",
+                "PorSalir":DashBoardAccionListado==="3"
+            }
+        }
     function createPeriodoTiempo() {
 
         $("#PeriodoTiempo").kendoComboBox({
@@ -352,8 +368,8 @@
 
     function AccionesListado(accion) {
         //loadingStart();
-        var Listado;
-        Listado = ArregloListado(accion);
+        var Listado = tmpListado!== null ? tmpListado : ArregloListado(accion);
+        tmpListado!== null ? tmpListado=null : 0;
 
         $("#hdAccionFiltrado").val(accion);
         

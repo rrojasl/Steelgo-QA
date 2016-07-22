@@ -1426,6 +1426,19 @@ _dictionary = {
         "es-MX": "El peso es requerido",
         "en-US": "You must enter a Weight"
     },
+    "ItemCodeSteelGo0030": {
+        "es-MX": "La cédula solicitada ya cuenta con una equivalencia, no se podrá guardar con la cédula seleccionada",
+        "en-US": "The requested document already has an equivalence, it couldnt been saved with the selected one"
+    },
+    "ItemCodeSteelGo0031": {
+        "es-MX": "La cédula solicitada no existe y será creada",
+        "en-US": "The requested document does not exists and will be created"
+    },
+    "ItemCodeSteelGo0032": {
+        "es-MX": "No se permite el guardado con una cédula invalida",
+        "en-US": "The save is not not allowed with an invalid document"
+    },
+    //Asociación ICS
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
@@ -4911,8 +4924,8 @@ _dictionary = {
         "en-US": "Dispatch"
     },
     "Despacho0003": {
-        "es-MX": "Despachar",
-        "en-US": "Dispatch"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "Despacho0004": {
         "es-MX": "Cancelar",
@@ -5024,8 +5037,8 @@ _dictionary = {
         "en-US": "Pre-Dispatch"
     },
     "Predespacho0003": {
-        "es-MX": "Pre-Despachar",
-        "en-US": "Pre-Dispatch"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "Predespacho0004": {
         "es-MX": "Cancelar",
@@ -5106,6 +5119,14 @@ _dictionary = {
     "Predespacho0023": {
         "es-MX": "Materiales",
         "en-US": "Mterials"
+    },
+    "Predespacho0024": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Predespacho0025": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
     },
     //Corte
     "Corte0001": {

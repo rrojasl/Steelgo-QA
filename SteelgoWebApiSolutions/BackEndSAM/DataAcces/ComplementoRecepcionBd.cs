@@ -535,7 +535,7 @@ namespace BackEndSAM.DataAcces
 
                                 int coladaID = (from c in ctx.Sam3_Colada
                                                 where c.NumeroColada == itemCodeJson.Colada
-                                                && c.ProyectoID == itemCodeJson.ProyectoID
+                                                && c.ProyectoID == actualizaNU.ProyectoID
                                                 select c.ColadaID).AsParallel().SingleOrDefault();
 
                                 if (itemCodeJson.Titulo != "" && itemCodeJson.Titulo != null)
