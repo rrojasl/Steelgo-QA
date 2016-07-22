@@ -962,7 +962,6 @@
                                         $("[name='MM']").data("kendoComboBox").enable(true);
                                         $("[name='MM']").data("kendoComboBox").dataSource.data(dsEspesorMM);
                                     });
-
                                     ////Obtengo los datos de espesor en IN
                                     $ValidarCedulas.ValidarCedulas.read({}, { diametro1ID: e.model.Diametro1ID, espesorIN: true, token: Cookies.get("token") }).done(function (result) {
                                         dsEspesorIN = result;
