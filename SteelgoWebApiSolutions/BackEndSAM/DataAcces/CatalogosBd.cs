@@ -1987,6 +1987,12 @@ namespace BackEndSAM.DataAcces
                                                           && cat.EspesorMM == EspesorMM
                                                           select cat).AsParallel().Any();
 
+                                        bool existeEspesor = (from esp in ctx.Sam3_Espesor
+                                                              where esp.Activo == 1
+                                                              && esp.DiametroID == idDiametro
+                                                              && esp.Valor == EspesorMM
+                                                              select esp).Any();
+
                                         if (!existente)
                                         {
                                             nuevoElemento = new Sam3_CatalogoCedulas();
@@ -2003,6 +2009,54 @@ namespace BackEndSAM.DataAcces
                                             ctx.Sam3_CatalogoCedulas.Add(nuevoElemento);
                                             ctx.SaveChanges();
                                         }
+
+                                        if (!existeEspesor)
+                                        {
+                                            Sam3_Espesor espesorSam3 = new Sam3_Espesor
+                                            {
+                                                Activo = 1,
+                                                Valor = EspesorMM,
+                                                DiametroID = idDiametro,
+                                                FechaModificacion = DateTime.Now,
+                                                UsuarioModificacion = usuario.UsuarioID
+                                            };
+
+                                            ctx.Sam3_Espesor.Add(espesorSam3);
+                                            ctx.SaveChanges();
+                                            int sam2CedulaDefault = (from ced in ctx2.Cedula
+                                                                     where ced.Codigo == "-"
+                                                                     select ced.CedulaID).AsParallel().Distinct().SingleOrDefault();
+                                            Espesor espesorSam2 = new Espesor();
+                                            if (!ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == EspesorMM && x.CedulaID == sam2CedulaDefault).Any())
+                                            {
+                                                espesorSam2 = new Espesor
+                                                {
+                                                    CedulaID = sam2CedulaDefault,
+                                                    Valor = EspesorMM,
+                                                    DiametroID = eqDiametro.Value,
+                                                    FechaModificacion = DateTime.Now
+                                                };
+
+                                                ctx2.Espesor.Add(espesorSam2);
+                                                ctx.SaveChanges();
+                                            }
+                                            else
+                                            {
+                                                espesorSam2 = ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == EspesorMM && x.CedulaID == sam2CedulaDefault).SingleOrDefault();
+                                            }
+
+                                            Sam3_EquivalenciaEspesor equivalencia = new Sam3_EquivalenciaEspesor
+                                            {
+                                                Activo = true,
+                                                FechaModificacion = DateTime.Now,
+                                                Sam2_EspesorID = espesorSam2.EspesorID,
+                                                Sam3_EspesorID = espesorSam3.EspesorID,
+                                                UsuarioModificacion = usuario.UsuarioID
+                                            };
+                                            ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
+                                            ctx.SaveChanges();
+                                        }
+
                                     }
                                     else
                                     {
