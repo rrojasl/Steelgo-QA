@@ -692,7 +692,7 @@
 
         if(_ordenRecepcion!==-1){
             $ComplementoRecepcionAlt.Listado.read({data:JSON.stringify({TipoListado:32,OrdenRecepcionID:_ordenRecepcion, token:Cookies.get("token")})}).done(function(data){
-                $("#ProyectoID").data("kendoComboBox").dataSource.data(data[0]);
+                data[0].length>0 ? $("#ProyectoID").data("kendoComboBox").dataSource.data(data[0]) : null;
                 if(data[0].length>0){
                     var tmp = $("#ProyectoID").data("kendoComboBox").options;
                     tmp.dataValueField="id";
@@ -701,6 +701,10 @@
                     $("#ProyectoID").kendoComboBox(tmp);
                     $("#ProyectoID").data("kendoComboBox").select(0)
                 }
+                
+                $("#ProyectoID").data("kendoComboBox").select(function(n){
+                    n.ProyectoID === data[2][1].ProyectoID.toString();
+                })
                 $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data(data[1]);
                 data[0].length>0 ? $("#FolioCuantificacionID").data("kendoComboBox").select(0) : null;
                 $("#grid").data("kendoGrid").dataSource.data(data[2]);
