@@ -230,7 +230,7 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        if ((proyectoID == 0 || proyectoID == 1) && numeroUnicoID > 0)
+                        if ((proyectoID == 0 || proyectoID == 1 || proyectoID == -1) && numeroUnicoID > 0)
                         {
                             proyectoID = (from nu in ctx.Sam3_NumeroUnico
                                           where nu.NumeroUnicoID == numeroUnicoID
