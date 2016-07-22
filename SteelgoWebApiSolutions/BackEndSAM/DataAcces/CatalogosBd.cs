@@ -2787,17 +2787,18 @@ namespace BackEndSAM.DataAcces
                                                                   where lst.CedulaA == null
                                                                   && lst.CedulaB == null
                                                                   && lst.CedulaC == null
-                                                                  select lst.CedulaIn).ToList();
+                                                                  select lst.CedulaIn).Distinct().ToList();
 
                                         List<string> tempEspMm = (from lst in lista
                                                                   where lst.CedulaA == null
                                                                   && lst.CedulaB == null
                                                                   && lst.CedulaC == null
-                                                                  select lst.CedulaMM).ToList();
+                                                                  select lst.CedulaMM).Distinct().ToList();
 
 
                                         cedula.EspesoresIn = (from esp in ctx.Sam3_Espesor
                                                               where esp.Activo == 1
+                                                              && esp.DiametroID == diametroID
                                                               && tempEspIn.Contains(esp.Valor.ToString())
                                                               select new ListaCombos
                                                               {
@@ -2807,6 +2808,7 @@ namespace BackEndSAM.DataAcces
 
                                         cedula.EspesoresMm = (from esp in ctx.Sam3_Espesor
                                                               where esp.Activo == 1
+                                                              && esp.DiametroID == diametroID
                                                               && tempEspMm.Contains(esp.Valor.ToString())
                                                               select new ListaCombos
                                                               {
