@@ -318,7 +318,7 @@
 
     function GuardarColada() {
         ColadaModal = { ItemCodeID: "", FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
-        window.parent._q.recents=true;
+        window.parent.location.pathname==="/Cuantificacion/Cuantificacion" ? window.parent._q.recents=true : 0;
         ColadaModal.ItemCodeID = window.parent.$("#hdnItemCodeIDSeleccionado").val();
         if (ColadaModal.ItemCodeID == undefined || ColadaModal.ItemCodeID == null || !(ColadaModal.ItemCodeID > 0)) {
             ColadaModal.ItemCodeID = 0;
