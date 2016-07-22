@@ -146,6 +146,14 @@ namespace BackEndSAM.Models
         public bool Correcta { get; set; }
         public string FactorConversion { get; set; }
         public string MensajeError { get; set; }
+        public List<ListaCombos> EspesoresIn { get; set; }
+        public List<ListaCombos> EspesoresMm { get; set; }
+
+        public CatalogoCedulas()
+        {
+            EspesoresIn = new List<ListaCombos>();
+            EspesoresMm = new List<ListaCombos>();
+        }
     }
 
     public class CatalogoMTR
