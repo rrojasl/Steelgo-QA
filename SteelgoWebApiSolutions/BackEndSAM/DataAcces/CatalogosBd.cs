@@ -2793,6 +2793,7 @@ namespace BackEndSAM.DataAcces
 
                     if (lista.Count <= 0 || lista == null)
                     {
+                        errorInfo += "\nLista Vacia: CedulaA : " + cedulaAID + "CedulaB : " + cedulaBID + "CedulaC : " + cedulaCID;
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("No se encontraron coincidencias.");
                         result.ReturnCode = 500;
