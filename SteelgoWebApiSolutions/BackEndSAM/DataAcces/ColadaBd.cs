@@ -221,7 +221,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, string idioma, int proyectoID = 0)
+        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, string idioma, int proyectoID = 0, int numeroUnicoID = 0)
         {
             try
             {
@@ -230,6 +230,13 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
+                        if ((proyectoID == 0 || proyectoID == 1) && numeroUnicoID > 0)
+                        {
+                            proyectoID = (from nu in ctx.Sam3_NumeroUnico
+                                          where nu.NumeroUnicoID == numeroUnicoID
+                                          select nu.ProyectoID).AsParallel().Distinct().FirstOrDefault();
+                        }
+
                         if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                         {
                             if (idioma == "en-US")
