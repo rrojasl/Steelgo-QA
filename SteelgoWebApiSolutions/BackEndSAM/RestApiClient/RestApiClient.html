@@ -424,12 +424,12 @@
 
         var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-        var listado = { OrdenRecepcionID: "", TipoListado : "", token: ""}
-        listado.OrdenRecepcionID = "1004";
-        listado.TipoListado = "32";
+        var listado = { "Diametro1": "24", "Diametro1ID": "1", "EspesorMM": "", "EspesorIn": "0.5000" }
+        //listado.OrdenRecepcionID = "1004";
+        //listado.TipoListado = "32";
 
-        client.add("Listado");
-        client.Listado.read({}, { data: JSON.stringify(listado) }).done(function (data) { console.log(data) });
+        client.add("CatalogoICSteelgo");
+        client.CatalogoICSteelgo.read({}, { data: JSON.stringify(listado), token:"" }).done(function (data) { console.log(data) });
 
 
     </script>
