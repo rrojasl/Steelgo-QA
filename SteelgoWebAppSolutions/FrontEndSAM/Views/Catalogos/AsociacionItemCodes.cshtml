@@ -561,7 +561,7 @@
                     if($("#icinput").data("kendoComboBox")!==undefined && e.type!==undefined){
                         e.response.forEach(function(n,i,a){
                             tmp=parseInt(n.GrupoID) >= 2 ? 2 : parseInt(n.GrupoID);
-                            dataItem=$("#icinput").data("kendoComboBox").dataSource.at($("#icinput").data("kendoComboBox").select());
+                            dataItem=$("#icinput").data("kendoComboBox").dataItem();
                             dataItem!==undefined ? dataItem.tipoGrupo!=tmp ? a.splice(i,1) : null : null;
                         })
                     }
