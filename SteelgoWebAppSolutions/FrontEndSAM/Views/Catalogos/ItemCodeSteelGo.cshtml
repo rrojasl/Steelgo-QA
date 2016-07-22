@@ -640,7 +640,7 @@
                                 var value = this.value();
                                 if ((!value || this.selectedIndex == -1 || !$.isNumeric(value)) && value != "") {
                                     displayMessage("notificationslabel0083", "Espesor IN", '1');
-                                    this.value("");
+                                    //this.value("");
                                 }
                                 var data = getDropData(e);
                                 $("#grid").data("kendoGrid")._data[data.posicion].InchID = data.id;
@@ -671,7 +671,7 @@
                                     var value = this.value();
                                     if ((!value || this.selectedIndex == -1 || !$.isNumeric(value)) && value != "") {
                                         displayMessage("notificationslabel0083", "Espesor MM", '1');
-                                        this.value("");
+                                        //this.value("");
                                     }
 
                                     var data = getDropData(e);
