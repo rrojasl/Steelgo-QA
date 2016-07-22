@@ -879,7 +879,9 @@
                 $("[name='Libra']", e.container).off("blur")
                 $("[name='Libra']", e.container).on("blur",function(){searchCed(e)});
                 $($('[name="Inch"]').data("kendoComboBox").input,$('[name="MM"]')).on("blur",function(){
-                    searchCedAlter(e,this);
+                    if(e.model.CedulaID==="" || e.model.CedulaID===null){
+                        searchCedAlter(e,this);
+                    }
                 })
                 setTimeout(function(){
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
