@@ -308,7 +308,12 @@
                         }
                         else if(data.length > 1)
                         {
-                            $("#D1").data("kendoComboBox").dataSource.data(data);
+                            var uniques=[];
+                            data.forEach(function(n){
+                                uniques.filter(function(t){ return t.id===n.id}).length===0 ? uniques.push(n) : null;
+                            })
+                            uniques.sort(function(a, b){return parseFloat(a.value)-parseFloat(b.value)})
+                            $("#D1").data("kendoComboBox").dataSource.data(uniques);
                             $("#D1").data("kendoComboBox").enable(true);
                         }
                     }

@@ -4911,8 +4911,8 @@ _dictionary = {
         "en-US": "Dispatch"
     },
     "Despacho0003": {
-        "es-MX": "Despachar",
-        "en-US": "Dispatch"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "Despacho0004": {
         "es-MX": "Cancelar",
@@ -5024,8 +5024,8 @@ _dictionary = {
         "en-US": "Pre-Dispatch"
     },
     "Predespacho0003": {
-        "es-MX": "Pre-Despachar",
-        "en-US": "Pre-Dispatch"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "Predespacho0004": {
         "es-MX": "Cancelar",
@@ -5106,6 +5106,14 @@ _dictionary = {
     "Predespacho0023": {
         "es-MX": "Materiales",
         "en-US": "Mterials"
+    },
+    "Predespacho0024": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Predespacho0025": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
     },
     //Corte
     "Corte0001": {

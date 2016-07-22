@@ -1074,11 +1074,11 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.UsuarioModificacion = usuario.UsuarioID;
                                     nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
                                     nuevoNU.Consecutivo = folio;
-                                    int fabricanteID = (from c in ctx.Sam3_Colada
-                                                        where c.ColadaID == coladaID
-                                                        select c.FabricanteID.Value).SingleOrDefault();
+                                    int? fabricanteID = (from c in ctx.Sam3_Colada
+                                                         where c.ColadaID == coladaID
+                                                         select c.FabricanteID.Value).SingleOrDefault();
 
-                                    if (fabricanteID > 0)
+                                    if (fabricanteID.HasValue && fabricanteID.Value > 0)
                                     {
                                         nuevoNU.FabricanteID = fabricanteID;
                                     }

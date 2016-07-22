@@ -27,10 +27,12 @@
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Predespacho0003"></span></button>
+                                <button id="Editar" type="button" class="btn btn-blue"><span id="Predespacho0024"></span></button>
                                 @*<button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>*@
                             </div>
+                            <button id="nextStep" type="button" class="btn btn-blue"><span id="Predespacho0025"></span></button>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Predespacho0004"></span></a>
                         </div>
                         <div class="button-section listado">
@@ -49,38 +51,40 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
-                    <div class="row">
-                        @*<div id="ProyectoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                            <label id="Predespacho0008"></label>
-                            <input id="ProyectoID" />
-                        </div>*@
-                        <div id="SpoolDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                            <label id="Predespacho0009"></label>
-                            <input id="SpoolID" />
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                            <label id="Predespacho0010"></label>
-                            <div class="row">
-                                <div id="todosDiv" class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <label id="Predespacho0011" class="centered"></label>
-                                    <input id="todos" class="" type="radio" name="radio" value="1">
-                                </div>
-                                <div id="vaciosDiv" class=" col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <label id="Predespacho0012" class="centered"></label>
-                                    <input id="vacios" class="" type="radio" name="radio" checked value="2" />
+            <div id="editBloq">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                        <div class="row">
+                            @*<div id="ProyectoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <label id="Predespacho0008"></label>
+                                <input id="ProyectoID" />
+                            </div>*@
+                            <div id="SpoolDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <label id="Predespacho0009"></label>
+                                <input id="SpoolID" />
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <label id="Predespacho0010"></label>
+                                <div class="row">
+                                    <div id="todosDiv" class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                        <label id="Predespacho0011" class="centered"></label>
+                                        <input id="todos" class="" type="radio" name="radio" value="1">
+                                    </div>
+                                    <div id="vaciosDiv" class=" col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                        <label id="Predespacho0012" class="centered"></label>
+                                        <input id="vacios" class="" type="radio" name="radio" checked value="2" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row listado">
-                <div class="addedSection clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div id="grid" class="gridWithInputsStorage"></div>
+                <div class="row listado">
+                    <div class="addedSection clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div id="grid" class="gridWithInputsStorage"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,9 +156,15 @@
     };
 
     function CargaInicial() {
+        $("#Editar").hide()
+        $("#nextStep").hide()
         $("#Guardar").click(function () { Guardar(); });
+        $("#Editar").click(function(){ Editar()})
         $("#Cancelar").click(function () { Cancelar(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
+        $("#nextStep").on("click",function(e){
+            window.location.href="/Despacho/Despacho?leng="+$("#language").data("kendoDropDownList").value();
+        })
         $("#IrIncidencia").click(function () { Incidencias(); });
 
         //$("#ProyectoID").kendoComboBox({
@@ -240,7 +250,7 @@
     };
 
     function CargaInicialEdicion() {
-
+        ToEdit();
         //$("#ProyectoID").data("kendoComboBox").value(_proyectoID);
         $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
@@ -248,6 +258,21 @@
        // CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
         ObtenerDatosGrid();
     };
+
+    function ToEdit(){
+        $("#Guardar").hide()
+        $("#Editar").show()
+        $("#nextStep").show()
+        $("#editBloq").attr("style","pointer-events:none;")
+        $("#editBloq .row input").each(function(){this.disabled=true});
+    }
+
+    function Editar(){
+        $("#Guardar").show()
+        $("#Editar").hide()
+        $("#editBloq").attr("style","")
+        $("#editBloq .row input").each(function(){this.disabled=false});
+    }
 
     function CargarGridDespacho() {
         $("#grid").kendoGrid({
@@ -473,6 +498,7 @@
                     _PreDespachoID = result.ReturnMessage[1];
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
+                    ToEdit();
                 }
                 //loadingStop();
             });

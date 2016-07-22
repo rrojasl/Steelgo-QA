@@ -1972,12 +1972,17 @@ namespace BackEndSAM.DataAcces
 
 
 
+                                    int cedulaDefault = (from c in ctx.Sam3_Cedula
+                                                         where c.Activo && c.Codigo == "-"
+                                                         select c.CedulaID).AsParallel().SingleOrDefault();
 
                                     nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
-                                                     where cat.Activo && (cat.DiametroID == idDiametro && cat.EspesorMM == EspesorMM)
-                                                     && cat.CedulaA == idCedulaA
-                                                     && cat.CedulaB == idCedulaB
-                                                     && cat.CedulaC == idCedulaC
+                                                     where cat.Activo 
+                                                     && cat.DiametroID == idDiametro 
+                                                     //&& cat.EspesorMM == EspesorMM
+                                                     && (cat.CedulaA == idCedulaA || cat.CedulaA == cedulaDefault)
+                                                     && (cat.CedulaB == idCedulaB || cat.CedulaB == cedulaDefault)
+                                                     && (cat.CedulaC == idCedulaC || cat.CedulaC == cedulaDefault)
                                                      select cat).AsParallel().SingleOrDefault();
 
 
