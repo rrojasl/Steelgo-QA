@@ -893,12 +893,16 @@
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
                     $("[name='Diametro2']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro2ID})
                 },200);
-                $("[name='Diametro1']").data("kendoComboBox").input.on("keyup",function(){
+                $("[name='Diametro1']").data("kendoComboBox").input.on("blur",function(){
                     var value=this.value;
                     try{
                         $("[name='Diametro1']").data("kendoComboBox").select(function(n){
                             return parseFloat(n.value)===parseFloat(value);
                         })
+                        if ($("[name='Diametro1']").data("kendoComboBox").select()===-1){
+                            $("[name='Diametro1']").data("kendoComboBox").value("");
+                            displayMessage("notificationslabel0083", "", '1');
+                        }
                     }catch(e){
                         console.log("Select error:",e);
                     }
