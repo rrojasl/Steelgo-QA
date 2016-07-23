@@ -909,6 +909,8 @@
                         if ($("[name='Diametro1']").data("kendoComboBox").select()===-1){
                             $("[name='Diametro1']").data("kendoComboBox").value("");
                             displayMessage("notificationslabel0083", "", '1');
+                        }else{
+                            $("[name='Diametro1']").data("kendoComboBox").trigger("change");
                         }
                     }catch(e){
                         console.log("Select error:",e);
