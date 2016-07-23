@@ -900,6 +900,16 @@
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
                     $("[name='Diametro2']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro2ID})
                 },200);
+                $("[name='Diametro1']").data("kendoComboBox").input.on("keyup",function(){
+                    var value=this.value;
+                    try{
+                        $("[name='Diametro1']").data("kendoComboBox").select(function(n){
+                            parseFloat(n.value)===parseFloat(value);
+                        })
+                    }catch(e){
+                        console.log("Select error:",e);
+                    }
+                })
             },
             update: function (e) {
             },
