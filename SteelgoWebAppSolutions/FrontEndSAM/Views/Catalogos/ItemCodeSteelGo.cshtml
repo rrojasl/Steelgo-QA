@@ -897,7 +897,7 @@
                     var value=this.value;
                     try{
                         $("[name='Diametro1']").data("kendoComboBox").select(function(n){
-                            parseFloat(n.value)===parseFloat(value);
+                            return arseFloat(n.value)===parseFloat(value);
                         })
                     }catch(e){
                         console.log("Select error:",e);
