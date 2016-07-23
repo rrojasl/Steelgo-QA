@@ -668,6 +668,7 @@
 
                                 $("[name='Inch']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].MM * 0.0393701).toFixed(4));
                                 $("[name='Inch']", e.container).data("kendoComboBox").trigger("select");
+                                var gDataItem=$("#grid").data("kendoGrid").dataItem(".k-grid-edit-row");
                                 searchCedAlter({model:gDataItem},this.input[0]);
                             },
                             enable: true,
