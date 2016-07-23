@@ -260,7 +260,11 @@
     function ObtenerProyecto() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Proyecto_Colada", result);
-            $("#Proyecto_Colada").data("kendoComboBox").value(window.parent.Proyecto.ProyectoID);
+            if(window.parent.location.pathname==="/ComplementoRecepcion/ComplementoRecepcion"){
+                $("#Proyecto_Colada").data("kendoComboBox").select(function(n){ return n.ProyectoID===window.parent.rowselected.ProyectoID.toString()})
+            }else{
+                $("#Proyecto_Colada").data("kendoComboBox").value(window.parent.Proyecto.ProyectoID);
+            }
             CargarProyectoColada(window.parent.Proyecto.ProyectoID);
         });
     };
