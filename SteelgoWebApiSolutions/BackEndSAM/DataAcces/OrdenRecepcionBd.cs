@@ -1236,7 +1236,7 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.Consecutivo = folio;
                                     int? fabricanteID = (from c in ctx.Sam3_Colada
                                                         where c.ColadaID == coladaID
-                                                        select c.FabricanteID.Value).SingleOrDefault();
+                                                        select c.FabricanteID).SingleOrDefault();
 
                                     if (fabricanteID.HasValue && fabricanteID.Value > 0)
                                     {
