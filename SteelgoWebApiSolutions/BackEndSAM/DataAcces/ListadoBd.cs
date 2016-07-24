@@ -1721,6 +1721,7 @@ namespace BackEndSAM.DataAcces
                                                           where rnuf.Activo && nu.Activo
                                                           && rnuf.OrdenRecepcionID == orden.OrdenRecepcionID
                                                           && (nu.Rack == null || nu.Rack == string.Empty || nu.Rack == "")
+                                                          && rnuf.OrdenAlmacenajeID != null
                                                           select rnuf.NumeroUnicoID).AsParallel().Count();
                             }
                             else
@@ -1740,6 +1741,7 @@ namespace BackEndSAM.DataAcces
                                                           && rnuf.OrdenRecepcionID == orden.OrdenRecepcionID
                                                           && (nu.Rack == null || nu.Rack == string.Empty || nu.Rack == "")
                                                           && it.TipoMaterialID == tipoMaterialID
+                                                          && rnuf.OrdenAlmacenajeID != null
                                                           select rnuf.NumeroUnicoID).AsParallel().Count();
                             }
 
