@@ -474,7 +474,10 @@ namespace BackEndSAM.DataAcces
                     }
                     if (clienteID > 0)
                     {
-                        listaFoliosLlegada = listaFoliosLlegada.Where(x => x.ClienteID == clienteID).Distinct().ToList();
+                        int clienteSam3 = (from c in ctx.Sam3_Cliente
+                                          where c.Activo && c.Sam2ClienteID == clienteID
+                                          select c.ClienteID).AsParallel().SingleOrDefault();
+                        listaFoliosLlegada = listaFoliosLlegada.Where(x => x.ClienteID == clienteSam3).Distinct().ToList();
                     }
                     if (folioAvisoLlegadaID > 0)
                     {
