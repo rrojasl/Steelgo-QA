@@ -361,7 +361,8 @@ namespace BackEndSAM.DataAcces
                                            join ic in ctx.Sam3_ItemCode on mtr.ItemCodeID equals ic.ItemCodeID
                                            join col in ctx.Sam3_Colada on mtr.ColadaID equals col.ColadaID
                                            where mtr.Activo
-                                           select new CatalogoMTR { 
+                                           select new CatalogoMTR
+                                           {
                                                MTRID = mtr.MTRID,
                                                ItemCodeID = ic.ItemCodeID.ToString(),
                                                ItemCode = ic.Codigo,
@@ -827,7 +828,7 @@ namespace BackEndSAM.DataAcces
                                 int itemCodeSam3 = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
                                                     where icd.Activo && icd.Rel_ItemCode_Diametro_ID == valor
                                                     select icd.ItemCodeID).AsParallel().SingleOrDefault();
-                       
+
                                 mtrEnBd.ItemCodeID = mtr.ItemCodeID != null && Convert.ToInt32(mtr.ItemCodeID) != mtrEnBd.ItemCodeID ?
                                     itemCodeSam3 : mtrEnBd.ItemCodeID;
 
@@ -1022,7 +1023,7 @@ namespace BackEndSAM.DataAcces
 
                             #endregion
                         case 12://MTR
-                        #region
+                            #region
                             Sam3_MTR mtr = ctx.Sam3_MTR.Where(x => x.MTRID == id).AsParallel().SingleOrDefault();
                             mtr.Activo = false;
                             mtr.UsuarioModificacion = usuario.UsuarioID;
@@ -1038,7 +1039,7 @@ namespace BackEndSAM.DataAcces
 
                             return result;
 
-                        #endregion
+                            #endregion
                         default:
                             #region
                             TransactionalInformation resultado = new TransactionalInformation();
@@ -1462,7 +1463,7 @@ namespace BackEndSAM.DataAcces
                             }
                             #endregion
                         case 12: //MTR
-                        #region
+                            #region
                             CatalogoMTR mtr = serializer.Deserialize<CatalogoMTR>(data);
                             if (!ctx.Sam3_MTR.Where(x => x.NumeroMTR == mtr.NumeroMTR && x.Activo).AsParallel().Any())
                             {
@@ -1470,7 +1471,7 @@ namespace BackEndSAM.DataAcces
                                 int itemCodeSam3 = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
                                                     where icd.Activo && icd.Rel_ItemCode_Diametro_ID == valor
                                                     select icd.ItemCodeID).AsParallel().SingleOrDefault();
-                       
+
 
                                 Sam3_MTR catalogoMTR = new Sam3_MTR();
                                 catalogoMTR.NumeroMTR = mtr.NumeroMTR;
@@ -1499,7 +1500,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 throw new Exception("MTR existente");
                             }
-                        #endregion
+                            #endregion
                         default:
                             #region
                             TransactionalInformation resultado = new TransactionalInformation();
@@ -1976,136 +1977,130 @@ namespace BackEndSAM.DataAcces
                                                          where c.Activo && c.Codigo == "-"
                                                          select c.CedulaID).AsParallel().SingleOrDefault();
 
-                                    if (String.IsNullOrEmpty(item.CedulaA) && String.IsNullOrEmpty(item.CedulaB) && String.IsNullOrEmpty(item.CedulaC))
+                                    bool existeEspesor = (from esp in ctx.Sam3_Espesor
+                                                          where esp.Activo == 1
+                                                          && esp.DiametroID == idDiametro
+                                                          && esp.Valor == EspesorMM
+                                                          select esp).Any();
+
+
+
+                                    if (!existeEspesor)
                                     {
-                                        bool existente = (from cat in ctx.Sam3_CatalogoCedulas
-                                                          where cat.Activo
-                                                          && cat.DiametroID == idDiametro
-                                                          && (cat.CedulaA == idCedulaA || cat.CedulaA == cedulaDefault)
-                                                          && (cat.CedulaB == idCedulaB || cat.CedulaB == cedulaDefault)
-                                                          && (cat.CedulaC == idCedulaC || cat.CedulaC == cedulaDefault)
-                                                          && cat.EspesorMM == EspesorMM
-                                                          select cat).AsParallel().Any();
-
-                                        bool existeEspesor = (from esp in ctx.Sam3_Espesor
-                                                              where esp.Activo == 1
-                                                              && esp.DiametroID == idDiametro
-                                                              && esp.Valor == EspesorMM
-                                                              select esp).Any();
-
-                                        if (!existente)
+                                        Sam3_Espesor espesorSam3 = new Sam3_Espesor
                                         {
-                                            nuevoElemento = new Sam3_CatalogoCedulas();
-                                            nuevoElemento.DiametroID = idDiametro;
-                                            nuevoElemento.CedulaA = idCedulaA;
-                                            nuevoElemento.CedulaB = idCedulaB;
-                                            nuevoElemento.CedulaC = idCedulaC;
-                                            nuevoElemento.EspesorMM = EspesorMM;
-                                            nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
-                                            nuevoElemento.Activo = true;
-                                            nuevoElemento.FechaModificacion = DateTime.Now;
-                                            nuevoElemento.UsuarioModificacion = usuario.UsuarioID;
+                                            Activo = 1,
+                                            Valor = EspesorMM,
+                                            DiametroID = idDiametro,
+                                            FechaModificacion = DateTime.Now,
+                                            UsuarioModificacion = usuario.UsuarioID
+                                        };
 
-                                            ctx.Sam3_CatalogoCedulas.Add(nuevoElemento);
-                                            ctx.SaveChanges();
-                                        }
-
-                                        if (!existeEspesor)
+                                        ctx.Sam3_Espesor.Add(espesorSam3);
+                                        ctx.SaveChanges();
+                                        int sam2CedulaDefault = (from ced in ctx2.Cedula
+                                                                 where ced.Codigo == "-"
+                                                                 select ced.CedulaID).AsParallel().Distinct().SingleOrDefault();
+                                        Espesor espesorSam2 = new Espesor();
+                                        if (!ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == EspesorMM && x.CedulaID == sam2CedulaDefault).Any())
                                         {
-                                            Sam3_Espesor espesorSam3 = new Sam3_Espesor
+                                            espesorSam2 = new Espesor
                                             {
-                                                Activo = 1,
+                                                CedulaID = sam2CedulaDefault,
                                                 Valor = EspesorMM,
-                                                DiametroID = idDiametro,
-                                                FechaModificacion = DateTime.Now,
-                                                UsuarioModificacion = usuario.UsuarioID
+                                                DiametroID = eqDiametro.Value,
+                                                FechaModificacion = DateTime.Now
                                             };
 
-                                            ctx.Sam3_Espesor.Add(espesorSam3);
-                                            ctx.SaveChanges();
-                                            int sam2CedulaDefault = (from ced in ctx2.Cedula
-                                                                     where ced.Codigo == "-"
-                                                                     select ced.CedulaID).AsParallel().Distinct().SingleOrDefault();
-                                            Espesor espesorSam2 = new Espesor();
-                                            if (!ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == EspesorMM && x.CedulaID == sam2CedulaDefault).Any())
-                                            {
-                                                espesorSam2 = new Espesor
-                                                {
-                                                    CedulaID = sam2CedulaDefault,
-                                                    Valor = EspesorMM,
-                                                    DiametroID = eqDiametro.Value,
-                                                    FechaModificacion = DateTime.Now
-                                                };
-
-                                                ctx2.Espesor.Add(espesorSam2);
-                                                ctx.SaveChanges();
-                                            }
-                                            else
-                                            {
-                                                espesorSam2 = ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == EspesorMM && x.CedulaID == sam2CedulaDefault).SingleOrDefault();
-                                            }
-
-                                            Sam3_EquivalenciaEspesor equivalencia = new Sam3_EquivalenciaEspesor
-                                            {
-                                                Activo = true,
-                                                FechaModificacion = DateTime.Now,
-                                                Sam2_EspesorID = espesorSam2.EspesorID,
-                                                Sam3_EspesorID = espesorSam3.EspesorID,
-                                                UsuarioModificacion = usuario.UsuarioID
-                                            };
-                                            ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
+                                            ctx2.Espesor.Add(espesorSam2);
                                             ctx.SaveChanges();
                                         }
+                                        else
+                                        {
+                                            espesorSam2 = ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == EspesorMM && x.CedulaID == sam2CedulaDefault).SingleOrDefault();
+                                        }
 
+                                        Sam3_EquivalenciaEspesor equivalencia = new Sam3_EquivalenciaEspesor
+                                        {
+                                            Activo = true,
+                                            FechaModificacion = DateTime.Now,
+                                            Sam2_EspesorID = espesorSam2.EspesorID,
+                                            Sam3_EspesorID = espesorSam3.EspesorID,
+                                            UsuarioModificacion = usuario.UsuarioID
+                                        };
+                                        ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
+                                        ctx.SaveChanges();
+                                    }
+
+
+                                    bool existente = (from cat in ctx.Sam3_CatalogoCedulas
+                                                      where cat.Activo
+                                                      && cat.DiametroID == idDiametro
+                                                          //&& (cat.CedulaA == idCedulaA || cat.CedulaA == cedulaDefault)
+                                                          //&& (cat.CedulaB == idCedulaB || cat.CedulaB == cedulaDefault)
+                                                          //&& (cat.CedulaC == idCedulaC || cat.CedulaC == cedulaDefault)
+                                                      && cat.EspesorMM == EspesorMM
+                                                      select cat).AsParallel().Any();
+
+
+
+                                    if (!existente)
+                                    {
+                                        nuevoElemento = new Sam3_CatalogoCedulas();
+                                        nuevoElemento.DiametroID = idDiametro;
+                                        if (idCedulaA > 0)
+                                        {
+                                            nuevoElemento.CedulaA = idCedulaA;
+                                        }
+                                        if (idCedulaB > 0)
+                                        {
+                                            nuevoElemento.CedulaB = idCedulaB;
+                                        }
+                                        if (idCedulaC > 0)
+                                        {
+                                            nuevoElemento.CedulaC = idCedulaC;
+                                        }
+                                        nuevoElemento.EspesorMM = EspesorMM;
+                                        nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
+                                        nuevoElemento.Activo = true;
+                                        nuevoElemento.FechaModificacion = DateTime.Now;
+                                        nuevoElemento.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_CatalogoCedulas.Add(nuevoElemento);
+                                        ctx.SaveChanges();
                                     }
                                     else
                                     {
                                         nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
                                                          where cat.Activo
                                                          && cat.DiametroID == idDiametro
-                                                         && (cat.CedulaA == idCedulaA || cat.CedulaA == cedulaDefault)
-                                                         && (cat.CedulaB == idCedulaB || cat.CedulaB == cedulaDefault)
-                                                         && (cat.CedulaC == idCedulaC || cat.CedulaC == cedulaDefault)
+                                                         && cat.EspesorMM == EspesorMM
                                                          select cat).AsParallel().SingleOrDefault();
 
-                                        if (item.Correcta)
+                                        nuevoElemento.DiametroID = idDiametro;
+                                        if (idCedulaA > 0 || idCedulaA != nuevoElemento.CedulaA)
                                         {
-                                            if (nuevoElemento != null)
-                                            {
-
-                                                nuevoElemento.DiametroID = idDiametro;
-                                                nuevoElemento.CedulaA = idCedulaA;
-                                                nuevoElemento.CedulaB = idCedulaB;
-                                                nuevoElemento.CedulaC = idCedulaC;
-                                                nuevoElemento.EspesorMM = EspesorMM;
-                                                nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
-                                                nuevoElemento.Activo = true;
-                                                nuevoElemento.FechaModificacion = DateTime.Now;
-                                                nuevoElemento.UsuarioModificacion = usuario.UsuarioID;
-
-                                                ctx.SaveChanges();
-                                            }
-                                            else
-                                            {
-                                                nuevoElemento = new Sam3_CatalogoCedulas();
-                                                nuevoElemento.DiametroID = idDiametro;
-                                                nuevoElemento.CedulaA = idCedulaA;
-                                                nuevoElemento.CedulaB = idCedulaB;
-                                                nuevoElemento.CedulaC = idCedulaC;
-                                                nuevoElemento.EspesorMM = EspesorMM;
-                                                nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
-                                                nuevoElemento.Activo = true;
-                                                nuevoElemento.FechaModificacion = DateTime.Now;
-                                                nuevoElemento.UsuarioModificacion = usuario.UsuarioID;
-
-                                                ctx.Sam3_CatalogoCedulas.Add(nuevoElemento);
-                                                ctx.SaveChanges();
-                                            }
+                                            nuevoElemento.CedulaA = idCedulaA;
                                         }
+                                        if (idCedulaB > 0 || idCedulaB != nuevoElemento.CedulaB)
+                                        {
+                                            nuevoElemento.CedulaB = idCedulaB;
+                                        }
+                                        if (idCedulaC > 0 || idCedulaC != nuevoElemento.CedulaC)
+                                        {
+                                            nuevoElemento.CedulaC = idCedulaC;
+                                        }
+                                        nuevoElemento.EspesorMM = EspesorMM;
+                                        nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
+                                        nuevoElemento.Activo = true;
+                                        nuevoElemento.FechaModificacion = DateTime.Now;
+                                        nuevoElemento.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.SaveChanges();
                                     }
 
 
-                                    
+
 
                                     cedulasCorrectas.Add(new CatalogoCedulas
                                     {
@@ -2283,7 +2278,7 @@ namespace BackEndSAM.DataAcces
                                      Rel_ICS_DiametroID = diam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                      Diametro1ID = diam.Diametro1ID.ToString(),
                                      Diametro1 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro1ID select d.Valor.ToString()).FirstOrDefault(),
-                                     Diametro2ID = g.TieneD2 == null || g.TieneD2==false // Si no tiene D2 se muestra la opcion de cero
+                                     Diametro2ID = g.TieneD2 == null || g.TieneD2 == false // Si no tiene D2 se muestra la opcion de cero
                                                     ? (ctx.Sam3_Diametro.Where(x => x.Activo && x.Valor == 0).FirstOrDefault().DiametroID.ToString()) : diam.Diametro2ID.ToString(),
                                      Diametro2 = g.TieneD2 == null || g.TieneD2 == false // Si no tiene D2 se muestra la opcion de cero
                                                 ? (ctx.Sam3_Diametro.Where(x => x.Activo && x.Valor == 0).FirstOrDefault().Valor.ToString()) :
@@ -2311,7 +2306,7 @@ namespace BackEndSAM.DataAcces
                                      Peso = ics.Peso.ToString(),
                                      Area = ics.Area.ToString(),
                                      TieneD2 = g.TieneD2 == null ? "No" : g.TieneD2 == true ? "Si" : "No",
-                                     Asociado = (ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID == ricd.Rel_ItemCodeSteelgo_Diametro_ID && x.Activo).Any()) 
+                                     Asociado = (ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID == ricd.Rel_ItemCodeSteelgo_Diametro_ID && x.Activo).Any())
                                  }).AsParallel().ToList();
 
                         lista.ForEach(x =>
@@ -2384,17 +2379,17 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                     datos.Diametro1ID = diam1.DiametroID.ToString();
 
-                                        //Se inserta el espesor para el nuevo diametro
-                                        decimal espesorMM = Convert.ToDecimal(datos.MM);
-                                        Sam3_Espesor espesor = new Sam3_Espesor();
-                                        espesor.CedulaID = null;
-                                        espesor.DiametroID = Convert.ToInt32(datos.Diametro1ID);
-                                        espesor.Valor = Convert.ToDecimal(datos.MM);
-                                        espesor.Activo = 1;
-                                        espesor.UsuarioModificacion = usuario.UsuarioID;
-                                        espesor.FechaModificacion = DateTime.Now;
-                                        ctx.Sam3_Espesor.Add(espesor);
-                                        ctx.SaveChanges();
+                                    //Se inserta el espesor para el nuevo diametro
+                                    decimal espesorMM = Convert.ToDecimal(datos.MM);
+                                    Sam3_Espesor espesor = new Sam3_Espesor();
+                                    espesor.CedulaID = null;
+                                    espesor.DiametroID = Convert.ToInt32(datos.Diametro1ID);
+                                    espesor.Valor = Convert.ToDecimal(datos.MM);
+                                    espesor.Activo = 1;
+                                    espesor.UsuarioModificacion = usuario.UsuarioID;
+                                    espesor.FechaModificacion = DateTime.Now;
+                                    ctx.Sam3_Espesor.Add(espesor);
+                                    ctx.SaveChanges();
                                 }
 
                                 //Insertamos diametro 2 en Sam3
@@ -2414,9 +2409,9 @@ namespace BackEndSAM.DataAcces
                                 }
 
                                 //Insertar cedula en caso de que solo haya capturado el espesor
-                                if(String.IsNullOrEmpty(datos.CedulaA) && String.IsNullOrEmpty(datos.CedulaB) && String.IsNullOrEmpty(datos.Libra))
+                                if (String.IsNullOrEmpty(datos.CedulaA) && String.IsNullOrEmpty(datos.CedulaB) && String.IsNullOrEmpty(datos.Libra))
                                 {
-                                    if (!ctx.Sam3_CatalogoCedulas.Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch 
+                                    if (!ctx.Sam3_CatalogoCedulas.Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch
                                         && x.CedulaA == 0 && x.CedulaB == 0 && x.CedulaC == 0 && x.Activo).Any())
                                     {
                                         Sam3_CatalogoCedulas cat = new Sam3_CatalogoCedulas();
@@ -2697,8 +2692,8 @@ namespace BackEndSAM.DataAcces
                         Espesor = datos.Espesor,
                         Peso = ics.Peso.ToString(),
                         Area = ics.Area.ToString(),
-                        TieneD2 = datos.TieneD2, 
-                        FamiliaMaterial = datos.FamiliaMaterial, 
+                        TieneD2 = datos.TieneD2,
+                        FamiliaMaterial = datos.FamiliaMaterial,
                         FamiliaMaterialID = datos.FamiliaMaterialID,
                         Asociado = datos.Asociado
                     };
@@ -2903,7 +2898,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 cedula = cedulaCID == 0 ? null : lista.Where(x => x.CedulaC == datosCedulas.CedulaC).AsParallel().SingleOrDefault();
                                 cedula.Correcta = true;
-                                
+
                             }
                         }
                         else if (String.IsNullOrEmpty(datosCedulas.CedulaC))
@@ -2968,12 +2963,14 @@ namespace BackEndSAM.DataAcces
 
         public object obtenerFamilia(int familiaAceroID)
         {
-            try {
-//                select Sam3_FamiliaMaterial.Nombre,Sam3_FamiliaMaterial.FamiliaMaterialID from Sam3_FamiliaMaterial 
-//inner join Sam3_FamiliaAcero on Sam3_FamiliaMaterial.FamiliaMaterialID = Sam3_FamiliaAcero.FamiliaMaterialID
-//where Sam3_FamiliaAcero.FamiliaAceroID=3;
-                using (SamContext ctx = new SamContext()) {
-                    
+            try
+            {
+                //                select Sam3_FamiliaMaterial.Nombre,Sam3_FamiliaMaterial.FamiliaMaterialID from Sam3_FamiliaMaterial 
+                //inner join Sam3_FamiliaAcero on Sam3_FamiliaMaterial.FamiliaMaterialID = Sam3_FamiliaAcero.FamiliaMaterialID
+                //where Sam3_FamiliaAcero.FamiliaAceroID=3;
+                using (SamContext ctx = new SamContext())
+                {
+
                     return (from x in ctx.Sam3_FamiliaMaterial
                             join t in ctx.Sam3_FamiliaAcero on x.FamiliaMaterialID equals t.FamiliaMaterialID
                             where t.FamiliaAceroID == familiaAceroID && x.Activo && t.Activo
@@ -2993,12 +2990,13 @@ namespace BackEndSAM.DataAcces
 
                 return result;
             }
-            
+
         }
 
         public object validarDiametroExistente(string diametro)
         {
-            try {
+            try
+            {
                 using (SamContext ctx = new SamContext())
                 {
                     decimal valor = Convert.ToDecimal(diametro);
