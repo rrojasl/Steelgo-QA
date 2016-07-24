@@ -349,7 +349,8 @@ namespace BackEndSAM.DataAcces
                                               CedulaC = (from ced in ctx.Sam3_Cedula where ced.Activo && cat.CedulaC == ced.CedulaID select ced.Codigo).FirstOrDefault(),
                                               CedulaIn = cat.EspesorIn.ToString(),
                                               CedulaMM = cat.EspesorMM.ToString(),
-                                              Correcta = true
+                                              Correcta = true,
+                                              CatalogoCedulaID = cat.CatalogoCedulasID
                                           }).AsParallel().ToList();
                             catCedulas = catCedulas.OrderBy(x => x.Diametro1).ToList();
                             return catCedulas;
@@ -1979,17 +1980,7 @@ namespace BackEndSAM.DataAcces
                                         ctx.SaveChanges();
                                     }
 
-
-                                    bool existente = (from cat in ctx.Sam3_CatalogoCedulas
-                                                      where cat.Activo
-                                                      && cat.DiametroID == idDiametro
-                                                          //&& (cat.CedulaA == idCedulaA || cat.CedulaA == cedulaDefault)
-                                                          //&& (cat.CedulaB == idCedulaB || cat.CedulaB == cedulaDefault)
-                                                          //&& (cat.CedulaC == idCedulaC || cat.CedulaC == cedulaDefault)
-                                                      && cat.EspesorMM == EspesorMM
-                                                      select cat).AsParallel().Any();
-
-
+                                    bool existente = item.CatalogoCedulaID.HasValue && item.CatalogoCedulaID > 0 ? true : false;
 
                                     if (!existente)
                                     {
@@ -2020,8 +2011,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
                                                          where cat.Activo
-                                                         && cat.DiametroID == idDiametro
-                                                         && cat.EspesorMM == EspesorMM
+                                                         && cat.CatalogoCedulasID == item.CatalogoCedulaID
                                                          select cat).AsParallel().SingleOrDefault();
 
                                         nuevoElemento.DiametroID = idDiametro;
@@ -2037,7 +2027,10 @@ namespace BackEndSAM.DataAcces
                                         {
                                             nuevoElemento.CedulaC = idCedulaC;
                                         }
-                                        nuevoElemento.EspesorMM = EspesorMM;
+                                        if (EspesorMM != nuevoElemento.EspesorMM)
+                                        {
+                                            nuevoElemento.EspesorMM = EspesorMM;
+                                        }
                                         nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
                                         nuevoElemento.Activo = true;
                                         nuevoElemento.FechaModificacion = DateTime.Now;
