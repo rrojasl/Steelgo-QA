@@ -53,6 +53,7 @@
     var itemCodeID = 0;
     var cedulasErroneas = false;
     var _catalog = getUrlParameter("catalog", null);
+    var _catalogName = getUrlParameter("catalogName", null);
     var $ListadoCatalogosModel = {
         listContainer: {
             create: ".k-grid-add",
@@ -1083,6 +1084,11 @@
                     return e.id===_catalog;
                 })
                 //this.trigger("change")
+            }
+            if(isInPopUp() && _catalogName!==null){
+                this.select(function(e){
+                    return e.value===_catalogName;
+                })
             }
         }
     })
