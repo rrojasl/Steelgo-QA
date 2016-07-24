@@ -1555,6 +1555,8 @@ namespace BackEndSAM.DataAcces
 
                 foreach (CatalogoCedulas item in catalogoCedulas)
                 {
+                    decimal diam = Convert.ToDecimal(item.Diametro1);
+                    ValidarDiametros(diam, usuario);
                     using (SamContext ctx = new SamContext())
                     {
                         using (var sam3_tran = ctx.Database.BeginTransaction())
@@ -1565,65 +1567,10 @@ namespace BackEndSAM.DataAcces
                                 {
                                     Sam3_CatalogoCedulas nuevoElemento = new Sam3_CatalogoCedulas();
                                     decimal factor = Convert.ToDecimal(factorConversion);
-                                    decimal diam = Convert.ToDecimal(item.Diametro1);
+                                    
                                     idDiametro = ctx.Sam3_Diametro.Where(x => x.Valor == diam && x.Activo).Select(x => x.DiametroID).AsParallel().SingleOrDefault();
                                     int? eqDiametro = ctx.Sam3_EquivalenciaDiametro.Where(x => x.Sam3_DiametroID == idDiametro && x.Activo).Select(x => x.Sam2_DiametroID).AsParallel().SingleOrDefault();
 
-                                    #region insertar diametro y equivalencia si no existe
-                                    if (eqDiametro == null)
-                                    {
-                                        Diametro sam2_diametro;
-                                        if (ctx2.Diametro.Where(x => x.Valor == diam).Any())
-                                        {
-                                            sam2_diametro = ctx2.Diametro.Where(x => x.Valor == diam).AsParallel().SingleOrDefault();
-                                        }
-                                        else
-                                        {
-                                            sam2_diametro = new Diametro
-                                            {
-                                                Valor = diam,
-                                                VerificadoPorCalidad = true,
-                                                FechaModificacion = DateTime.Now
-                                            };
-                                            ctx2.Diametro.Add(sam2_diametro);
-                                            ctx2.SaveChanges();
-                                        }
-                                        Sam3_Diametro sam3_diametro;
-                                        if (ctx.Sam3_Diametro.Where(x => x.Valor == diam).Any())
-                                        {
-                                            sam3_diametro = (from d in ctx.Sam3_Diametro
-                                                             where d.Activo && d.Valor == diam
-                                                             select d).AsParallel().SingleOrDefault();
-                                        }
-                                        else
-                                        {
-                                            sam3_diametro = new Sam3_Diametro
-                                            {
-                                                Activo = true,
-                                                FechaModificacion = DateTime.Now,
-                                                UsuarioModificacion = usuario.UsuarioID,
-                                                Valor = diam,
-                                                VerificadoPorCalidad = sam2_diametro.VerificadoPorCalidad
-                                            };
-                                            ctx.Sam3_Diametro.Add(sam3_diametro);
-                                            ctx.SaveChanges();
-                                        }
-
-                                        Sam3_EquivalenciaDiametro equivalencia = new Sam3_EquivalenciaDiametro
-                                        {
-                                            Activo = true,
-                                            FechaModificacion = DateTime.Now,
-                                            Sam2_DiametroID = sam2_diametro.DiametroID,
-                                            Sam3_DiametroID = sam3_diametro.DiametroID,
-                                            UsuarioModificacion = usuario.UsuarioID
-                                        };
-                                        ctx.Sam3_EquivalenciaDiametro.Add(equivalencia);
-                                        ctx.SaveChanges();
-
-                                        idDiametro = sam3_diametro.DiametroID;
-                                        eqDiametro = equivalencia.Sam2_DiametroID;
-                                    }
-                                    #endregion
 
                                     if (idDiametro == 0)
                                     {
@@ -3022,6 +2969,46 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
+            }
+        }
+
+        private void ValidarDiametros(decimal valor, Sam3_Usuario usuario)
+        {
+            try
+            {
+                Diametro sam2_diametro = null;
+                using (SamContext ctx = new SamContext())
+                {
+                    #region insertar diametro y equivalencia si no existe
+                    //if (eqDiametro == null)
+                    //{
+                    Sam3_Diametro sam3_diametro;
+                    if (ctx.Sam3_Diametro.Where(x => x.Valor == valor).Any())
+                    {
+                        sam3_diametro = (from d in ctx.Sam3_Diametro
+                                         where d.Activo && d.Valor == valor
+                                         select d).AsParallel().SingleOrDefault();
+                    }
+                    else
+                    {
+                        sam3_diametro = new Sam3_Diametro
+                        {
+                            Activo = true,
+                            FechaModificacion = DateTime.Now,
+                            UsuarioModificacion = usuario.UsuarioID,
+                            Valor = valor,
+                            VerificadoPorCalidad = true
+                        };
+
+                        ctx.Sam3_Diametro.Add(sam3_diametro);
+                        ctx.SaveChanges();
+                    }
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerBd.Instance.EscribirLog(ex);
             }
         }
     }
