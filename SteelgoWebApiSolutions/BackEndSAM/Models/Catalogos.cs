@@ -146,6 +146,7 @@ namespace BackEndSAM.Models
         public bool Correcta { get; set; }
         public string FactorConversion { get; set; }
         public string MensajeError { get; set; }
+        public int? CatalogoCedulaID { get; set; }
     }
 
     public class CatalogoMTR
