@@ -6582,7 +6582,7 @@ _dictionary = {
     },
     "notificationslabel0052": {
         "es-MX": "Se han guardado los registros.",
-        "en-US": "Records have been kept."
+        "en-US": "The records have been saved."
     },
     "notificationslabel0053": {
         "es-MX": "El folio captura packing list no tiene registros para realizar la acción.",
