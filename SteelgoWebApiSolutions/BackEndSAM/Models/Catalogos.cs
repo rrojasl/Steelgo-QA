@@ -148,12 +148,13 @@ namespace BackEndSAM.Models
         public string MensajeError { get; set; }
         public List<ListaCombos> EspesoresIn { get; set; }
         public List<ListaCombos> EspesoresMm { get; set; }
-
+        public int? CatalogoCedulaID { get; set; }
         public CatalogoCedulas()
         {
             EspesoresIn = new List<ListaCombos>();
             EspesoresMm = new List<ListaCombos>();
         }
+        
     }
 
     public class CatalogoMTR
