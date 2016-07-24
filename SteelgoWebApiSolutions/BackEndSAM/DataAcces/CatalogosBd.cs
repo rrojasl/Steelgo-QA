@@ -2052,7 +2052,8 @@ namespace BackEndSAM.DataAcces
                                         CedulaC = item.CedulaC,
                                         CedulaIn = item.CedulaIn.ToString(),
                                         CedulaMM = item.CedulaMM.ToString(),
-                                        MensajeError = item.MensajeError
+                                        MensajeError = item.MensajeError,
+                                        CatalogoCedulaID = nuevoElemento.CatalogoCedulasID
                                         //Espesor = cedula.Espesor.ToString()
                                     });
 
