@@ -5115,6 +5115,10 @@ _dictionary = {
         "es-MX": "Despacho",
         "en-US": "Dispatch"
     },
+    "Predespacho0026": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
     //Corte
     "Corte0001": {
         "es-MX": "Transacciones",

@@ -26,11 +26,14 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Despacho0003"></span></button>
-                                <button id="Editar" type="button" class="btn btn-blue"><span id="Predespacho0024"></span></button>
-                                @*<button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow creacion"><span id="Predespacho0003">Guardar</span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar" style="display:none"><span id="Cuantificacion0004">Editar</span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle creacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
-                                </button>*@
+                                </button>
+                                <ul class="dropdown-menu creacion">
+                                    <li id="MenuTerminar" style="display: block;"><a id="TerminaryNuevo" href="#"><span id="Predespacho0026"></span></a></li>
+                                </ul>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Despacho0004"></span></a>
                         </div>
@@ -152,6 +155,7 @@
 
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
+        $("#TerminaryNuevo").click(function () { Guardar(true); });
         $("#Editar").hide()
         $("#Editar").click(function(){ Editar()})
         $("#Cancelar").click(function () { Cancelar(); });
@@ -491,7 +495,8 @@
         window.location.href = _DespachoURL + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
 
-    function Guardar() {
+    function Guardar(nuevo) {
+        nuevo = typeof nuevo === "undefined" ? false : nuevo;
         //loadingStart();
         if (validarRequeridosFormaDespacho()) {
             var filters = $("#grid").data("kendoGrid").dataSource.filter();
@@ -511,10 +516,16 @@
 
             $Despacho.Despacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if (Error(result)) {
-                    _DespachoID = result.ReturnMessage[1];
+                    if(!nuevo){
+                        _DespachoID = result.ReturnMessage[1];
+                        ObtenerDatosGrid();
+                        ToEdit();
+                    }else{
+                        setTimeout(function(){
+                            window.location.reload()
+                        },200)
+                    }
                     displayMessage("notificationslabel0056", "", '0');
-                    ObtenerDatosGrid();
-                    ToEdit();
                 }
                 //loadingStop();
             });
