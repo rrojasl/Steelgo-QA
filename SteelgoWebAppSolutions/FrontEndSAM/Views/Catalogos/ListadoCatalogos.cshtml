@@ -946,7 +946,7 @@
                     if (nuevasCedulas.length != 0) {
                         var data = [];
                         nuevasCedulas.forEach(function (c) {
-                            data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields, c));
+                            if(c.valido===undefined) data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields, c));
                         });
                         enviarCedulas(data);
                     } else {
@@ -982,7 +982,7 @@
                                         }
                                         //$("#grid").data("kendoGrid").dataSource.insert(c);
                                     }
-                                    $("#grid").data("kendoGrid").dataSource.insert(c).dirty=true;
+									$("#grid").data("kendoGrid").dataSource.insert(c).dirty=true;
                                 });
                             };
                             reader.onerror = function () {
