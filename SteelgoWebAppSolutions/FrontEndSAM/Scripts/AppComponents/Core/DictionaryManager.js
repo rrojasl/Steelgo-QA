@@ -6804,6 +6804,11 @@ _dictionary = {
         "es-MX": "Favor de seleccionar una colada.",
         "en-US": "Please select a wash"
     },
+    "notificationslabel0108": {
+        "es-MX": "El No. Picking Ticket ya se encuentra asignado.",
+        "en-US": "No. Picking Ticket already assigned.",
+
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

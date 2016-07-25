@@ -82,7 +82,7 @@
         },
         properties: {}
     };
-}
+    }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
@@ -637,8 +637,8 @@
 
                                 $("[name='MM']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].Inch / 0.0393701).toFixed(4));
                                 $("[name='MM']", e.container).data("kendoComboBox").trigger("select");
-                                var gDataItem=$("#grid").data("kendoGrid").dataItem(".k-grid-edit-row");
-                                searchCedAlter({model:gDataItem},this.input[0]);
+                                var gDataItem = $("#grid").data("kendoGrid").dataItem(".k-grid-edit-row");
+                                searchCedAlter({ model: gDataItem }, this.input[0]);
                             },
                             enable: true,
                             filter: "contains",
@@ -893,22 +893,26 @@
                         }
                     })
                 }
+
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){searchCed(e)});
                 $("[name='Libra']", e.container).on("blur",function(){searchCed(e)});
                 $('[name="Inch"]').data("kendoComboBox").input.on("blur",function(){
                     if(e.model.CedulaID==="" || e.model.CedulaID===null){
                         searchCedAlter(e,this);
                     }
-                })
+                });
+
                 $('[name="MM"]').data("kendoComboBox").input.on("blur",function(){
                     if(e.model.CedulaID==="" || e.model.CedulaID===null){
                         searchCedAlter(e,this);
                     }
-                })
+                });
+
                 setTimeout(function(){
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
                     $("[name='Diametro2']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro2ID})
                 },200);
+
                 $("[name='Diametro1']").data("kendoComboBox").input.on("blur",function(){
                     var value=this.value;
                     try{
@@ -944,6 +948,7 @@
             },
         });
         applySecurityPolicy(false);
+
     };
     function searchCed(e) {
         lastEditedDocument=$(this).attr("name");
@@ -1097,16 +1102,17 @@
     }
 };
 
+
     @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["ItemCodeSteelGo"] = $ItemCodeSteelGoModel;
-        ObtenerDiametroCero();
+    $authorizationModel["ItemCodeSteelGo"] = $ItemCodeSteelGoModel;
+    ObtenerDiametroCero();
     };
 
     
     
     @section JavascriptDocumentReadyHomeCookie {
-        Cookies.set("home", true, { path: '/' });
-        Cookies.set("navegacion", "44", { path: '/' });
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "44", { path: '/' });
     };
 
 </script>
