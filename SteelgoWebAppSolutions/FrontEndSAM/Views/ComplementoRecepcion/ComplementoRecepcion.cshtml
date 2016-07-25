@@ -1763,7 +1763,8 @@
         };
 
         function ErrorInsertandoItems(data, error, Listado) {
-            if (data.ReturnCode) {
+            /*
+			if (data.ReturnCode) {
                 if (data.ReturnCode != 200) {
                     if (data.ReturnCode == 401) {
                         removeUserSession();
@@ -1774,6 +1775,14 @@
                     }
                 }
             }
+			*/
+			if(data){
+				if(data.TieneError){
+					error += "," + Listado.ItemCode;
+				}
+			}else{
+				var test = 1;
+			}
             return error;
         };
 
@@ -2216,7 +2225,8 @@
         };
 
         function ErrorBool(data) {
-            if (data.ReturnCode) {
+            /*
+			if (data.ReturnCode) {
                 if (data.ReturnCode != 200) {
                     if (data.ReturnCode == 401) {
                         removeUserSession();
@@ -2231,6 +2241,11 @@
             } else {
                 return true;
             }
+			*/
+			if(data){
+				return data.TieneError;
+			}
+			return false;
         };
 
         function Error(data) {
