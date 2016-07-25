@@ -154,7 +154,6 @@ namespace BackEndSAM.Models
             EspesoresIn = new List<ListaCombos>();
             EspesoresMm = new List<ListaCombos>();
         }
-        
     }
 
     public class CatalogoMTR
