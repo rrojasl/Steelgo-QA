@@ -82,6 +82,7 @@ namespace BackEndSAM.DataAcces
                                                            && nu.ProyectoID == ProyectoID
                                                            && proyectos.Contains(p.ProyectoID)
                                                            && patios.Contains(pa.PatioID)
+                                                           && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                                            select new ListaCombos
                                                            {
                                                                id = oa.Folio.ToString(),
@@ -136,6 +137,7 @@ namespace BackEndSAM.DataAcces
                                                                             && proyectos.Contains(p.ProyectoID)
                                                                             && patios.Contains(pa.PatioID)
                                                                             && p.ProyectoID == ProyectoID
+                                                                            && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                                                             select roa).AsParallel().ToList();
 
                     List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> agruparNumerosUnicos = lstRelONU.GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).OrderBy(x => x.NumeroUnicoID).AsParallel().ToList();
@@ -216,6 +218,7 @@ namespace BackEndSAM.DataAcces
                                  where nu.Activo && relnu.Activo && oa.Activo
                                  && nu.ItemCodeID == itemCodeID
                                  && oa.Folio == ordenAlmacenajeID
+                                 && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                  select new NumerosUnicos
                                  {
                                      NumeroUnicoID = nu.NumeroUnicoID.ToString(),

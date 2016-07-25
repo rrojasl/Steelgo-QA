@@ -71,6 +71,7 @@ namespace BackEndSAM.DataAcces
                                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                                    join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
                                                    join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                    where p.ProyectoID == proyectoID
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(fe.PatioID)
@@ -79,7 +80,8 @@ namespace BackEndSAM.DataAcces
                                                    && rfi.TieneNumerosUnicos
                                                    && relnu.OrdenAlmacenajeID == null
                                                    && fc.Activo && fe.Activo && fa.Activo && rfi.Activo && relnu.Activo && rid.Activo
-                                                   && rii.Activo && ricd.Activo && ics.Activo && d1.Activo && d2.Activo
+                                                   && rii.Activo && ricd.Activo && ics.Activo && d1.Activo && d2.Activo && nu.Activo
+                                                   && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                                    select new ListaCombos
                                                    {
                                                        id = fc.FolioCuantificacionID.ToString(),
@@ -183,6 +185,7 @@ namespace BackEndSAM.DataAcces
                                      && rii.Activo && ricd.Activo && ics.Activo && d1.Activo && d2.Activo
                                      && relnu.OrdenAlmacenajeID == null
                                      && rfc.FolioCuantificacionID == folioCuantificacion
+                                     && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                      select new ListaCombos
                                      {
                                          id = ic.ItemCodeID.ToString(),
@@ -204,6 +207,7 @@ namespace BackEndSAM.DataAcces
                                             && rii.Activo && ricd.Activo && ics.Activo && d1.Activo && d2.Activo && b.Activo
                                             && relnu.OrdenAlmacenajeID == null
                                             && b.FolioCuantificacionID == folioCuantificacion
+                                            && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                             select new ListaCombos
                                             {
                                                 id = ic.ItemCodeID.ToString(),
@@ -255,6 +259,7 @@ namespace BackEndSAM.DataAcces
                                && proyectos.Contains(p.ProyectoID)
                                && patios.Contains(pa.PatioID)
                                && fc.FolioCuantificacionID == folioCuantificacionID
+                               && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                select new NumerosUnicos
                                {
                                    NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
@@ -277,6 +282,7 @@ namespace BackEndSAM.DataAcces
                                       && proyectos.Contains(p.ProyectoID)
                                       && patios.Contains(pa.PatioID)
                                       && fc.FolioCuantificacionID == folioCuantificacionID
+                                      && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                       select new NumerosUnicos
                                       {
                                           NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
@@ -543,6 +549,7 @@ namespace BackEndSAM.DataAcces
                                                 && relnu.OrdenAlmacenajeID == null
                                                 && rfi.FolioCuantificacionID.ToString() == it.FolioCuantificacion
                                                 && nu.ItemCodeID.ToString() == it.ItemCodeID
+                                                && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                                 select new ElementoNumeroUnico
                                                 {
                                                     FolioCuantificacion = it.FolioCuantificacion,
@@ -559,6 +566,7 @@ namespace BackEndSAM.DataAcces
                                                        && relnu.OrdenAlmacenajeID == null
                                                        && b.FolioCuantificacionID.ToString() == it.FolioCuantificacion
                                                        && nu.ItemCodeID.ToString() == it.ItemCodeID
+                                                       && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                        select new ElementoNumeroUnico
                                                        {
                                                            FolioCuantificacion = it.FolioCuantificacion,
@@ -1882,6 +1890,7 @@ namespace BackEndSAM.DataAcces
                                                 && relnu.OrdenAlmacenajeID == null
                                                 && rfi.FolioCuantificacionID.ToString() == it.FolioCuantificacion
                                                 && nu.ItemCodeID.ToString() == it.ItemCodeID
+                                                && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 select new ElementoNumeroUnico
                                                 {
                                                     FolioCuantificacion = it.FolioCuantificacion,
@@ -1898,6 +1907,7 @@ namespace BackEndSAM.DataAcces
                                                        && relnu.OrdenAlmacenajeID == null
                                                        && b.FolioCuantificacionID.ToString() == it.FolioCuantificacion
                                                        && nu.ItemCodeID.ToString() == it.ItemCodeID
+                                                       && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                                        select new ElementoNumeroUnico
                                                        {
                                                            FolioCuantificacion = it.FolioCuantificacion,
