@@ -1981,7 +1981,7 @@ namespace BackEndSAM.DataAcces
                                     }
 
                                     int cedulaOriginal = item.CedulaID != "" && item.CedulaID != null ? Convert.ToInt32(item.CedulaID) : 0;
-                                    bool existente = item.CatalogoCedulaID.HasValue && cedulaOriginal > 0 ? true : false;
+                                    bool existente = cedulaOriginal > 0 ? true : false;
 
                                     if (!existente)
                                     {
