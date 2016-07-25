@@ -515,6 +515,7 @@ namespace BackEndSAM.DataAcces
                                   && patios.Contains(fe.PatioID)
                                   && relnu.OrdenAlmacenajeID == null
                                   && proyectos.Contains(nu.ProyectoID)
+                                  && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                   select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
 
                         resultado += (from fa in listaFoliosLlegada
@@ -535,6 +536,7 @@ namespace BackEndSAM.DataAcces
                                    && patios.Contains(fe.PatioID)
                                    && relnu.OrdenAlmacenajeID == null
                                    && proyectos.Contains(nu.NumeroUnicoID)
+                                   && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                    select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
 
                     }
@@ -559,6 +561,7 @@ namespace BackEndSAM.DataAcces
                                   && relnu.OrdenAlmacenajeID == null
                                   && it.TipoMaterialID == tipoMaterialID
                                   && proyectos.Contains(nu.ProyectoID)
+                                  && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                   select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
 
                         resultado += (from fa in listaFoliosLlegada
@@ -581,6 +584,7 @@ namespace BackEndSAM.DataAcces
                                    && relnu.OrdenAlmacenajeID == null
                                    && it.TipoMaterialID == tipoMaterialID
                                    && proyectos.Contains(nu.ProyectoID)
+                                   && (nu.EstatusDocumental != null && nu.EstatusFisico != null)
                                    select relnu.NumeroUnicoID).AsParallel().Distinct().Count();
 
                         
