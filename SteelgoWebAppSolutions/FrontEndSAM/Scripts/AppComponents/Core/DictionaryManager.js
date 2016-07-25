@@ -4960,8 +4960,8 @@ _dictionary = {
         "en-US": "Empty"
     },
     "Despacho0012": {
-        "es-MX": "Número de control",
-        "en-US": "Control number"
+        "es-MX": "ID Spool",
+        "en-US": "ID Spool"
     },
     "Despacho0013": {
         "es-MX": "Item Code",
@@ -5077,8 +5077,8 @@ _dictionary = {
         "en-US": "Empty"
     },
     "Predespacho0013": {
-        "es-MX": "Número de control",
-        "en-US": "Control number"
+        "es-MX": "ID Spool",
+        "en-US": "ID Spool"
     },
     "Predespacho0014": {
         "es-MX": "Item Code",
@@ -5423,8 +5423,8 @@ _dictionary = {
         "en-US": "Work Order"
     },
     "DashboardDespachoCorte0031": {
-        "es-MX": "Spool",
-        "en-US": "Spool"
+        "es-MX": "ID Spool",
+        "en-US": "ID Spool"
     },
     "DashboardDespachoCorte0032": {
         "es-MX": "Proyecto",
@@ -5519,8 +5519,8 @@ _dictionary = {
         "en-US": "Quantity"
     },
     "DashboardDespachoCorte0055": {
-        "es-MX": "ID",
-        "en-US": "ID"
+        "es-MX": "ID Spool",
+        "en-US": "ID Spool"
     },
     "DashboardDespachoCorte0056": {
         "es-MX": "Cantidad Total",
@@ -5567,8 +5567,8 @@ _dictionary = {
         "en-US": "Amount per Pre-dispatching"
     },
     "DashboardDespachoCorte0067": {
-        "es-MX": "ID",
-        "en-US": "ID"
+        "es-MX": "ID Spool",
+        "en-US": "ID Spool"
     },
     "DashboardDespachoCorte0068": {
         "es-MX": "Cantidad Total",
@@ -5615,8 +5615,8 @@ _dictionary = {
         "en-US": "Amount per dispatch"
     },
     "DashboardDespachoCorte0079": {
-        "es-MX": "ID",
-        "en-US": "ID"
+        "es-MX": "ID Spool",
+        "en-US": "ID Spool"
     },
     "DashboardDespachoCorte0080": {
         "es-MX": "Cantidad Total",

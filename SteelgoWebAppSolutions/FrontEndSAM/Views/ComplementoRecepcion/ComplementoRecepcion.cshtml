@@ -1424,7 +1424,7 @@
                     break;
                 case 3:
                     modalTitle = "Añadir MTR";
-                    content = "@Url.Action("ListadoCatalogos", "Catalogos")";
+                    content = "@Url.Action("ListadoCatalogos", "Catalogos", new{catalogName="MTR"})";
                     height = "40%";
                     width = "50%";
                     if (!validarRequeridosFormaComplementoRecepcion()) {
@@ -1944,6 +1944,7 @@
         };
 
         function MTRComboBox(container, options) {
+            var dataItem =$("#grid").data("kendoGrid").dataItem(container.closest("tr"));
             $('<input id="MTR" data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
@@ -1953,7 +1954,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $MTR + "ItemCodeID=" + (container.parent().children()[17].firstChild ? container.parent().children()[17].firstChild.data : "") + "&Colada=" + (container.parent().children()[10].firstChild ? container.parent().children()[10].firstChild.data : "") + "&token=" + Cookies.get("token")
+                            read: $MTR + "ItemCodeID=" + dataItem.ItemCodeID + "&Colada=" + encodeURI(dataItem.Colada) + "&token=" + Cookies.get("token")
                         },
                         serverFiltering: true
                     },
