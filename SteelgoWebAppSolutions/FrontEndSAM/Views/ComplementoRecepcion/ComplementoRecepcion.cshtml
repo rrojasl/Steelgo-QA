@@ -712,7 +712,10 @@
                 delete $ComplementoRecepcionModel.properties.proyecto;
                 delete $ComplementoRecepcionModel.properties.foliocuantificacion;
                 $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data(data[1]);
-                data[0].length>0 ? $("#FolioCuantificacionID").data("kendoComboBox").select(0) : null;
+                if(data[0].length>0){
+                    $("#FolioCuantificacionID").data("kendoComboBox").select(0);
+                    $("#FolioCuantificacionID").data("kendoComboBox").trigger("change")
+                }
                 $("#grid").data("kendoGrid").dataSource.data(data[2]);
             })
         }
