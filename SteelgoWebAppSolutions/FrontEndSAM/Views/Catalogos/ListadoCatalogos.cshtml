@@ -973,7 +973,7 @@
                                     var modVal = validModelData(c);
                                     if (modVal && cedVal == 0) {
                                         checkMM(c);
-                                        $("#grid").data("kendoGrid").dataSource.insert(c);
+                                        
                                     } else {
                                         if (modVal && cedVal == 1) {
                                             checkMM(c);
@@ -981,8 +981,9 @@
                                         } else {
                                             c["valido"] = false;
                                         }
-                                        $("#grid").data("kendoGrid").dataSource.insert(c);
+                                        //$("#grid").data("kendoGrid").dataSource.insert(c);
                                     }
+                                    $("#grid").data("kendoGrid").dataSource.insert(c).dirty=true;
                                 });
                             };
                             reader.onerror = function () {
@@ -990,21 +991,18 @@
                             };
                             reader.onloadend = function () {
                                 var valido = true;
-                                var nuevos = $.grep($("#grid").data("kendoGrid").tbody.children(), function (n) {
-                                    return $("#grid").data("kendoGrid").dataItem(n).id === null;
-                                });
+                                var nuevos = $("#grid").data("kendoGrid").dataSource.data().filter(function(n){return n.dirty===true});
                                 var advertencia = null;
                                 nuevos.forEach(function (n) {
-                                    if ($("#grid").data("kendoGrid").dataItem(n).valido !== false) {
-                                        if ($("#grid").data("kendoGrid").dataItem(n).advertencia) {
-                                            n.style.backgroundColor = "#FDF9AA";
+                                    if (n.valido !== false) {
+                                        if (n.advertencia) {
+                                            $("[data-uid="+n.uid+"]").attr("style","background-color:#FDF9AA")
                                             advertencia = true;
                                         } else {
-                                            n.style.backgroundColor = "#E3FCCB";
+                                            $("[data-uid="+n.uid+"]").attr("style","background-color:#E3FCCB")
                                         }
-                                        nuevasCedulas= $("#grid").data("kendoGrid").dataSource.data().filter(function(e){return e.id===null});
                                     } else {
-                                        n.style.backgroundColor = "#FEDEE8";
+                                        $("[data-uid="+n.uid+"]").attr("style","background-color:#FEDEE8")
                                         valido = false;
                                     }
                                 });
@@ -1019,7 +1017,7 @@
                                 if (mensaje != null) {
                                     displayMessage("", mensaje, '2');
                                 }
-                                nuevasCedulas= $("#grid").data("kendoGrid").dataSource.data().filter(function(e){return e.id===null});
+                                nuevasCedulas= nuevos;
                             }
                         }
                     }
@@ -1132,9 +1130,8 @@
         })
         try {
             datos.forEach(function (d) {
-                //d.Diametro1 == ""  || d.Diametro1 == null ? d.Diametro1 = c.Diametro1 : 0;
-                //if(d.Espesor==c.Espesor) throw -1;
-                if (((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))) {
+                if (((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaIn == c.CedulaIn))) {
+                    c.CedulaID = d.CedulaID;
                     throw 1;
                 }
             })
@@ -1143,7 +1140,6 @@
             if ($.isNumeric(e)) {
                 return e;
             } else {
-                ////console.log(e);
                 alert(e);
             }
         }
