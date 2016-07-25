@@ -1268,7 +1268,10 @@
                             }
                         }
                     }
-                }
+                }else if(getIdByDE(c) !== undefined){
+					//ERROR
+                    throw -1;
+				}
             })
             return 0;
         } catch (e) {
