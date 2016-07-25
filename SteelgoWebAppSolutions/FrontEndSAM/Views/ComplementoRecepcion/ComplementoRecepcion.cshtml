@@ -1957,7 +1957,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $MTR + "ItemCodeID=" + dataItem.ItemCodeID + "&Colada=" + encodeURI(dataItem.Colada) + "&token=" + Cookies.get("token")
+                            read: $MTR + "ItemCodeID=" + dataItem.ItemCodeID + "&Colada=" + encodeURI(dataItem.Colada) + "&token=" + Cookies.get("token") + "&proyectoID=" + dataItem.ProyectoID
                         },
                         serverFiltering: true
                     },
