@@ -1291,7 +1291,7 @@
     }
 
     function getIdByDE(n){
-        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return m.dirty===false && n.Diametro1===m.Diametro1.toString() && (n.CedulaIn === m.CedulaIn.toString() || n.CedulaMM === m.CedulaMM.toString())});
+        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return m.dirty===false && parseFloat(n.Diametro1)===parseFloat(m.Diametro1.toString()) && (parseFloat(n.CedulaIn) === parseFloat(m.CedulaIn.toString()) || parseFloat(n.CedulaMM) === parseFloat(m.CedulaMM.toString()))});
         return (tmp.length===0 ? undefined : tmp[0].CedulaID);
     }
 
