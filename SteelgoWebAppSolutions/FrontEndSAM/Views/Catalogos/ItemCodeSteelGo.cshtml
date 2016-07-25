@@ -736,7 +736,7 @@
                 },
                 requestEnd: function (e) {
                     setTimeout(function(){justOneSaving=0;},1000);
-                    if (e.type==="create" && e.response !== undefined && e.response.ReturnCode === undefined) {
+                    if (e.type==="create" || e.type==="update" && e.response !== undefined && e.response.ReturnCode === undefined) {
                         displayMessage("notificationslabel0052", "", '0');//notificationslabel0052
                     }
                     else if (e.response !== undefined && e.response.ReturnCode === 500) {
@@ -866,7 +866,7 @@
                     e.preventDefault();
                 }
                 
-                if (e.model.TieneD2 == "No") {
+                if (!e.model.isNew() && e.model.GrupoID==="1") {
                     $("[name='Diametro2']", e.container).data("kendoComboBox").enable(false);
                     e.model.Diametro2ID = DiametroCero.id;
                     e.model.Diametro2 = 0;
