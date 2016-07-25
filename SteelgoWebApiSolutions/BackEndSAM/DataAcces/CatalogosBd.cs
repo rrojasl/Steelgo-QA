@@ -1980,7 +1980,8 @@ namespace BackEndSAM.DataAcces
                                         ctx.SaveChanges();
                                     }
 
-                                    bool existente = item.CatalogoCedulaID.HasValue && item.CatalogoCedulaID > 0 ? true : false;
+                                    int cedulaOriginal = item.CedulaID != "" && item.CedulaID != null ? Convert.ToInt32(item.CedulaID) : 0;
+                                    bool existente = item.CatalogoCedulaID.HasValue && cedulaOriginal > 0 ? true : false;
 
                                     if (!existente)
                                     {
@@ -2011,7 +2012,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         nuevoElemento = (from cat in ctx.Sam3_CatalogoCedulas
                                                          where cat.Activo
-                                                         && cat.CatalogoCedulasID == item.CatalogoCedulaID
+                                                         && cat.CatalogoCedulasID == cedulaOriginal
                                                          select cat).AsParallel().SingleOrDefault();
 
                                         nuevoElemento.DiametroID = idDiametro;
