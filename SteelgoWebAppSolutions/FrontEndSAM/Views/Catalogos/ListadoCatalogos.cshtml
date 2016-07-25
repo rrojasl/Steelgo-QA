@@ -1144,8 +1144,9 @@
                             //nuevo
                             throw 0;
                         }else{
-                            //error
-                            throw -1;
+                            //UPDATE
+                            c.CedulaID = idDE;
+                            throw 1;
                         }
                     }else if(idDA === undefined && idDB === undefined && idDC !== undefined){
                         if(idDE !== undefined){
