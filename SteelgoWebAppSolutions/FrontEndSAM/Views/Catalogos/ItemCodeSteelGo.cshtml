@@ -667,6 +667,7 @@
 
                                 $("[name='Inch']", e.container).data("kendoComboBox").value(($("#grid").data("kendoGrid")._data[data.posicion].MM * 0.0393701).toFixed(4));
                                 $("[name='Inch']", e.container).data("kendoComboBox").trigger("select");
+                                var gDataItem=$("#grid").data("kendoGrid").dataItem(".k-grid-edit-row");
                             },
                             enable: false,
                             filter: "contains",
@@ -901,6 +902,22 @@
                     $("[name='Diametro1']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro1ID})
                     $("[name='Diametro2']").data("kendoComboBox").select(function(dataItem){ return dataItem.id===e.model.Diametro2ID})
                 },200);
+                $("[name='Diametro1']").data("kendoComboBox").input.on("blur",function(){
+                    var value=this.value;
+                    try{
+                        $("[name='Diametro1']").data("kendoComboBox").select(function(n){
+                            return parseFloat(n.value)===parseFloat(value);
+                        })
+                        if ($("[name='Diametro1']").data("kendoComboBox").select()===-1){
+                            $("[name='Diametro1']").data("kendoComboBox").value("");
+                            displayMessage("notificationslabel0083", "", '1');
+                        }else{
+                            $("[name='Diametro1']").data("kendoComboBox").trigger("change");
+                        }
+                    }catch(e){
+                        console.log("Select error:",e);
+                    }
+                })
             },
             update: function (e) {
             },
