@@ -68,7 +68,7 @@ namespace BackEndSAM.Utilities
                 {
                     if (nombreArchivo.Contains(c) && c != " ")
                     {
-                        nombreArchivo = nombreArchivo.Replace(c, string.Empty);
+                        nombreArchivo = nombreArchivo.Replace(c, "_");
                     }
 
                     if (nombreArchivo.Contains(c) && c == "")
