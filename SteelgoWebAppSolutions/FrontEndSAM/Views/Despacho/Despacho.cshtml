@@ -428,12 +428,35 @@
                            },
                            change: function (e) {
                                
-                           }
-                       });
+                           },
+                           open: function(e) {
+                               var ds = this.dataSource;
+                               var dsGrid = $("#grid").data("kendoGrid").dataSource;
+                               var lngth = dsGrid.data().length;
+                               var filters = [];
+                               ds.filter({});
+                               filters = FiltrarNumeroUnico(dsGrid, lngth);
+                               ds.filter(filters);
+                           },
+                        });
 
       
         lastEditedCellID = options.model;
     };
+    
+    function FiltrarNumeroUnico(dsGrid,lngth){
+        var filters=[];
+        for (var i = 0; i <= lngth - 1; i++) {
+            if (dsGrid.data()[i].NumeroUnico != "") {
+                if (dsGrid.data()[i].NumeroUnico != lastEditedCellID.NumeroUnico) {
+                    var new_filter = { field: "value", operator: "neq", value: dsGrid.data()[i].NumeroUnico };
+                    filters.push(new_filter);
+                }
+            }
+        }
+        return filters;
+    }
+
     function bastonAutoComplete(container, options) {
         $('<input data-text-field="Baston" data-value-field="BastonID" data-bind="value:' + options.field + '"/>')
                       .appendTo(container)
