@@ -445,6 +445,17 @@
                                    read: $UrlNumerosUnicosPreDespacho + "&numeroControl=" + container.parent().children()[0].innerText + "&itemcode=" + container.parent().children()[1].innerText + "&token=" + Cookies.get("token")
                                }
                            },
+                           open: function(e) {
+                               var ds = this.dataSource;
+                               var dsGrid = $("#grid").data("kendoGrid").dataSource;
+                               var lngth = dsGrid.data().length;
+                               var filters = [];
+
+                               ds.filter({});
+                               
+                               filters = FiltrarNumeroUnico(dsGrid, lngth);
+                               ds.filter(filters);
+                           },
                            select: function (e) {
                            },
                            change: function (e) {
@@ -545,6 +556,21 @@
         };
         return Listado;
     };
+
+    function FiltrarNumeroUnico(dsGrid,lngth)
+    {
+        var filters=[];
+        for (var i = 0; i <= lngth - 1; i++) {
+            if (dsGrid.data()[i].NumeroUnico != "") {
+                if (dsGrid.data()[i].NumeroUnico != lastEditedCellID.NumeroUnico) {
+                    var new_filter = { field: "value", operator: "neq", value: dsGrid.data()[i].NumeroUnico };
+                    filters.push(new_filter);
+                }
+            }
+        }
+
+        return filters;
+    }
  @section JavascriptDocumentReadyFunctions {
     $authorizationModel["PreDespacho"] = $PreDespachoModel;
 
