@@ -616,7 +616,7 @@ namespace BackEndSAM.DataAcces
                                             {
                                                 estatus = "A";
                                             }
-                                            else if (itemCodeJson.EstatusFisico == "Condicionado")
+                                            else if (itemCodeJson.EstatusFisico == "Condicionado" || itemCodeJson.EstatusFisico == string.Empty)
                                             {
                                                 estatus = "C";
                                             }
@@ -625,17 +625,31 @@ namespace BackEndSAM.DataAcces
                                                 estatus = "R";
                                             }
 
-                                            actualizaNU.Estatus = estatus;
+                                            actualizaNU.Estatus = itemCodeJson.EstatusFisico == string.Empty ? "" : estatus;
                                             actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                             actualizaNU.FechaModificacion = DateTime.Now;
                                             actualizaNU.UsuarioModificacion = usuario.UsuarioID;
                                             actualizaNU.ColadaID = coladaID;
                                             actualizaNU.EstatusFisico = itemCodeJson.EstatusFisico;
                                             actualizaNU.EstatusDocumental = itemCodeJson.EstatusDocumental;
-                                            actualizaNU.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
-                                                (from tp in ctx.Sam3_TipoUso
-                                                 where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
-                                                 select tp.TipoUsoID).SingleOrDefault() : 1;
+
+                                            if (itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null)
+                                            {
+                                                int? tipoUsoID = 0;
+                                                tipoUsoID = (from tp in ctx.Sam3_TipoUso
+                                                where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
+                                                select tp.TipoUsoID).SingleOrDefault();
+
+                                                if (tipoUsoID > 0 && tipoUsoID != null)
+                                                {
+                                                    actualizaNU.TipoUsoID = tipoUsoID;
+                                                }
+                                                else
+                                                {
+                                                    throw new Exception("El tipo de uso no existe o esta desactivado");
+                                                }
+                                            }
+                                                
                                             actualizaNU.MTRID = String.IsNullOrEmpty(itemCodeJson.MTRID) ? (int?)null : Convert.ToInt32(itemCodeJson.MTRID);
 
                                             #region Actualizar nu sam2
@@ -645,10 +659,7 @@ namespace BackEndSAM.DataAcces
 
                                             NumeroUnico actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
 
-                                            if (itemCodeJson.EstatusFisico != null)
-                                            {
-                                                actualizaNumSam2.Estatus = actualizaNU.Estatus;
-                                            }
+                                            actualizaNumSam2.Estatus = actualizaNU.Estatus;
                                             actualizaNumSam2.FechaModificacion = DateTime.Now;
                                             actualizaNumSam2.ColadaID = (from eq in ctx.Sam3_EquivalenciaColada
                                                                          where eq.Activo && eq.Sam3_ColadaID == actualizaNU.ColadaID
@@ -811,7 +822,7 @@ namespace BackEndSAM.DataAcces
                                             {
                                                 estatus = "A";
                                             }
-                                            else if (itemCodeJson.EstatusFisico == "Condicionado")
+                                            else if (itemCodeJson.EstatusFisico == "Condicionado" || itemCodeJson.EstatusFisico == "")
                                             {
                                                 estatus = "C";
                                             }
@@ -820,7 +831,7 @@ namespace BackEndSAM.DataAcces
                                                 estatus = "R";
                                             }
 
-                                            actualizaNU.Estatus = estatus;
+                                            actualizaNU.Estatus = itemCodeJson.EstatusFisico == string.Empty ? "" : estatus;
                                             actualizaNU.NumeroUnicoCliente = itemCodeJson.NumeroUnicoCliente;
                                             actualizaNU.FechaModificacion = DateTime.Now;
                                             actualizaNU.UsuarioModificacion = usuario.UsuarioID;
@@ -831,7 +842,13 @@ namespace BackEndSAM.DataAcces
                                                 (from tp in ctx.Sam3_TipoUso
                                                  where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                  select tp.TipoUsoID).SingleOrDefault() : 1;
-                                            actualizaNU.MTRID = Convert.ToInt32(itemCodeJson.MTRID);
+                                            
+                                            int mtr = 0; 
+                                            int.TryParse(itemCodeJson.MTRID, out mtr);
+                                            if (mtr > 0)
+                                            {
+                                                actualizaNU.MTRID = mtr;
+                                            }
 
                                             #region Actualizar nu sam2
                                             int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
@@ -839,10 +856,7 @@ namespace BackEndSAM.DataAcces
                                                            select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
                                             NumeroUnico actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
                                             actualizaNumSam2.FechaModificacion = DateTime.Now;
-                                            if (itemCodeJson.EstatusFisico != null)
-                                            {
-                                                actualizaNumSam2.Estatus = actualizaNU.Estatus;
-                                            }
+                                            actualizaNumSam2.Estatus = actualizaNU.Estatus;
                                             actualizaNumSam2.ColadaID = (from eq in ctx.Sam3_EquivalenciaColada
                                                                          where eq.Activo && eq.Sam3_ColadaID == actualizaNU.ColadaID
                                                                          select eq.Sam2_ColadaID).AsParallel().SingleOrDefault();
