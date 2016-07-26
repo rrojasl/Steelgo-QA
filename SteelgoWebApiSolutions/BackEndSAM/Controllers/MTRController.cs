@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers
     public class MTRController : ApiController
     {
         // GET api/<controller>
-        public object Get(int ItemCodeID, string Colada, string token)
+        public object Get(int ItemCodeID, string Colada, string token, int proyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                return MTRBd.Instance.ObtenerMTR(ItemCodeID, Colada);
+                return MTRBd.Instance.ObtenerMTR(ItemCodeID, Colada, proyectoID);
             }
             else
             {
