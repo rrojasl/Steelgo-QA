@@ -1975,7 +1975,7 @@
                         } else {
                             lastEditedFisicoCellIDS.EstatusFisico = value;
                         };
-                        $("#grid").data("kendoGrid").dataItem(container.closest("tr")).modified=true;
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -2040,7 +2040,7 @@
                             }
                             lastEditedMTRCellID.MTR = value;
                         };
-                        $("#grid").data("kendoGrid").dataItem(container.closest("tr")).modified=true;
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -2075,7 +2075,7 @@
                         } else {
                             lastEditedDepartamentalCellID.EstatusDocumental = value;
                         };
-                        $("#grid").data("kendoGrid").dataItem(container.closest("tr")).modified=true;
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -2116,7 +2116,7 @@
                         } else {
                             lastEditedCellIDSColada.Colada = value;
                         }
-                        $("#grid").data("kendoGrid").dataItem(container.closest("tr")).modified=true;
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
                     },
                     filter: "contains",
@@ -2160,7 +2160,7 @@
                         } else {
                             lastEditedTipoUsoCellIDS.TipoUso = value;
                         }
-                        $("#grid").data("kendoGrid").dataItem(container.closest("tr")).modified=true;
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
