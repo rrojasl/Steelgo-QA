@@ -789,30 +789,6 @@ namespace BackEndSAM.DataAcces
                         List<int> tempIDs = RelItemCodesD.Where(x => x.ID != 0).Select(x => x.ID).ToList();
                         List<int> tempRFc = RelItemCodesD.Where(x => x.RelFCID != 0).Select(x => x.RelFCID).ToList();
                         List<int> tempRbd = RelItemCodesD.Where(x => x.RelBID != 0).Select(x => x.RelBID).ToList();
-
-                        //if (tempIDs.Count > 0)
-                        //{
-                        //    foliosEntrada = (from i in ctx.Sam3_ItemCode
-                        //                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                        //                     join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals fci.Rel_ItemCode_Diametro_ID
-                        //                     join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
-                        //                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                        //                     where i.Activo && fci.Activo && fc.Activo && fe.Activo
-                        //                     && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
-                        //                     select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList();
-
-                        //    foliosEntrada.AddRange((from i in ctx.Sam3_ItemCode
-                        //                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                        //                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
-                        //                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                        //                            join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
-                        //                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                        //                            where i.Activo && rbi.Activo && b.Activo && fc.Activo && fe.Activo
-                        //                            && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
-                        //                            select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList());
-                        //}
-                        //else
-                        //{
                             if (tempRFc.Count > 0)
                             {
                                 foliosEntrada = (from i in ctx.Sam3_ItemCode
@@ -826,17 +802,6 @@ namespace BackEndSAM.DataAcces
                                                  select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList();
 
                             }
-                            //else
-                            //{
-                            //    foliosEntrada = (from i in ctx.Sam3_ItemCode
-                            //                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                            //                     join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals fci.Rel_ItemCode_Diametro_ID
-                            //                     join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
-                            //                     join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                            //                     where i.Activo && fci.Activo && fc.Activo && fe.Activo
-                            //                     && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
-                            //                     select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList();
-                            //}
 
                             if (tempRbd.Count > 0)
                             {
@@ -851,19 +816,6 @@ namespace BackEndSAM.DataAcces
                                                         && tempRbd.Contains(rbi.Rel_Bulto_ItemCode_ID)
                                                         select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList());
                             }
-                            //else
-                            //{
-                            //    foliosEntrada.AddRange((from i in ctx.Sam3_ItemCode
-                            //                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                            //                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
-                            //                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                            //                            join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
-                            //                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                            //                            where i.Activo && rbi.Activo && b.Activo && fc.Activo && fe.Activo
-                            //                            && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
-                            //                            select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList());
-                            //}
-                        //}
                         
                         //retiramos los duplicados
                         foliosEntrada = foliosEntrada.GroupBy(x => x).Select(x => x.First()).ToList();
@@ -1063,22 +1015,50 @@ namespace BackEndSAM.DataAcces
                             {
                                 for (int i = 0; i < cantidad; i++)
                                 {
+                                    decimal? dimensionPromedio = 0;
+                                    int milimetros = 0;
+                                    if (lstDatos.RelBID > 0)
+                                    {
+                                        dimensionPromedio = (from it in ctx.Sam3_ItemCode
+                                                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                             join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
+                                                             where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
+                                                             && rfi.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID
+                                                             select rfi.DimensionPromedio.Value).AsParallel().SingleOrDefault();
+                                    }
 
-                                    int milimetros = (from it in ctx.Sam3_ItemCode
+                                    if (lstDatos.RelBID > 0 && dimensionPromedio == 0)
+                                    {
+                                        dimensionPromedio = (from it in ctx.Sam3_ItemCode
+                                                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                             join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
+                                                             where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
+                                                             && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
+                                                             select rbi.DimensionPromedio.Value).AsParallel().SingleOrDefault();
+                                    }
+
+                                    if (dimensionPromedio <= 0 || dimensionPromedio == null)
+                                    {
+                                        milimetros = (from it in ctx.Sam3_ItemCode
                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfi.Rel_ItemCode_Diametro_ID
                                                       where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
                                                       && rfi.Rel_FolioCuantificacion_ItemCode_ID == lstDatos.RelFCID
                                                       select rfi.MM.Value).AsParallel().SingleOrDefault();
 
-                                    if (milimetros <= 0)
+                                        if (milimetros <= 0)
+                                        {
+                                            milimetros = (from it in ctx.Sam3_ItemCode
+                                                          join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                          join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
+                                                          where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
+                                                          && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
+                                                          select rbi.MM.Value).AsParallel().SingleOrDefault();
+                                        }
+                                    }
+                                    else
                                     {
-                                        milimetros = (from it in ctx.Sam3_ItemCode
-                                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
-                                                      join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
-                                                      where rid.Rel_ItemCode_Diametro_ID == item.Rel_ItemCode_Diametro_ID
-                                                      && rbi.Rel_Bulto_ItemCode_ID == lstDatos.RelBID
-                                                      select rbi.MM.Value).AsParallel().SingleOrDefault();
+                                        milimetros = (int)Math.Ceiling(dimensionPromedio.Value);
                                     }
 
                                     if (milimetros <= 0)
