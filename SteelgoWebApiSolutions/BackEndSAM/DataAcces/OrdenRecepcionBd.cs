@@ -1017,7 +1017,7 @@ namespace BackEndSAM.DataAcces
                                 {
                                     decimal? dimensionPromedio = 0;
                                     int milimetros = 0;
-                                    if (lstDatos.RelBID > 0)
+                                    if (lstDatos.RelFCID > 0)
                                     {
                                         dimensionPromedio = (from it in ctx.Sam3_ItemCode
                                                              join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
