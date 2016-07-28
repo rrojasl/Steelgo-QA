@@ -2176,6 +2176,7 @@
                 //$("#Titulo").val(rowselected.Titulo);
                 rowselected.Colada = $("#EdicionColada").data("kendoAutoComplete").value();
                 rowselected.DescripcionIncidencia = $("#DescripcionIncidencia").val();
+				rowselected.modified = true;
                 $('#grid').data('kendoGrid').refresh();
                 LimpiarModalEdicionColada();
                 cleanDisplayMessage();
