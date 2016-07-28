@@ -877,6 +877,8 @@
     }
     
     function searchCed(options,input,e) {
+        cleanCedula(options.model);
+        setCedulas(options.model)
         lastEditedDocument=$(input).attr("name");
         var data = {
             CedulaA:options.model.CedulaA,
@@ -895,7 +897,6 @@
             $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (response){
                 if (Error(response)){
                     if (response === null) {
-                        cleanCedula(options.model);
                         cleanEspesor(options.model);
                         options.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
                         $("[name='Inch']").data("kendoComboBox").enable(true);
@@ -973,7 +974,7 @@
                     cleanEspesor(options.model)
                     cleanMeasures(options.model)
                     options.model.TieneD2 = disabledDiametro2 ? "No" : "Si";
-                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    displayMessage("notificationslabel0008", response.ReturnMessage, '2');
                     e.preventDefault();
                     canSave=false;
                     return false;
@@ -1030,6 +1031,12 @@
     function cleanMeasures(model){
         model.Peso = "";
         model.Area = "";
+    }
+
+    function setCedulas(model){
+        model.CedulaA=$("input[name=CedulaA]").val()
+        model.CedulaB=$("input[name=CedulaB]").val()
+        model.CedulaC=$("input[name=Libra]").val()
     }
 
     function refreshRow(options){
