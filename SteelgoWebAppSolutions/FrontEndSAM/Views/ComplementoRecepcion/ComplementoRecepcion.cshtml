@@ -1407,9 +1407,10 @@
 
             var modalTitle = "";
             var content = "";
-            var window = $("#window");
+            var window = $("#window").replaceWith("<div id='window'></div>");
             var height = "";
             var mostrarpopup = true;
+            var width = "32.6%";
             switch (id) {
                 case 1:
                     modalTitle = "Colada";
@@ -1418,18 +1419,20 @@
                         displayMessage("notificationslabel0031", "", '1');
                     }
                     content = "@Url.Action("Colada", "PopUps")";
+                    width = "32.6%";
                     height = "30%";
                     break;
                 case 2:
                     modalTitle = "Tipo de Uso";
                     content = "@Url.Action("TipoUso", "PopUps")";
+                    width = "32.6%";
                     height = "170px";
                     break;
                 case 3:
                     modalTitle = "Añadir MTR";
                     content = "@Url.Action("ListadoCatalogos", "Catalogos", new{catalogName="MTR"})";
                     height = "40%";
-                    width = "50%";
+                    width = "70%";
                     if (!validarRequeridosFormaComplementoRecepcion()) {
                         mostrarpopup = false;
                         displayMessage("notificationslabel0031", "", '1');
@@ -1446,7 +1449,7 @@
                     resizable: true,
                     actions: ["Close"],
                     visible: false,
-                    width: "32.6%",
+                    width: width,
                     minWidth: 660,
                     height: height,
                     iframe: true,
@@ -1462,6 +1465,9 @@
                 //Se actualiza el tamaño
                 window.data("kendoWindow").title(modalTitle);
                 window.data("kendoWindow").center().open();
+                //window.data("kendoWindow").bind("open",function(){
+                //    id===3 ? window.closest(".k-widget.k-window").style("width","70%") : window.closest(".k-widget.k-window").style("width","32.6%")
+                //})
             }
         };
 
@@ -1482,7 +1488,7 @@
                 resizable: true,
                 actions: ["Close"],
                 visible: false,
-                width: "32.6%",
+                width: "70%",
                 minWidth: 660,
                 height: "12%",
                 position: {
