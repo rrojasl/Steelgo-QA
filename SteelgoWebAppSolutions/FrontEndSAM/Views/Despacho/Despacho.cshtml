@@ -28,7 +28,7 @@
                             <div class="btn-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow save-group"><span id="Despacho0003"></span></button>
                                 <button id="Editar" type="button" class="btn btn-blue editar"><span id="Predespacho0024"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle save-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu creacion">
@@ -255,7 +255,8 @@
         ObtenerDatosGrid();
     };
 
-    function ToEdit(){
+    function ToEdit() {
+        $("#dropdown-toggle").hide();
         $("#Guardar").hide()
         $("#Editar").show()
         $("#nextStep").show()
@@ -263,7 +264,8 @@
         $("#editBloq .row input").each(function(){this.disabled=true});
     }
 
-    function Editar(){
+    function Editar() {
+        $("#dropdown-toggle").show();
         $("#Guardar").show()
         $("#Editar").hide()
         $("#editBloq").attr("style","")
