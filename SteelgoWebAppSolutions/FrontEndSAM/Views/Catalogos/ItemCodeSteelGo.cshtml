@@ -217,8 +217,8 @@
                 { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], width: "150px", editor: grupoEditor},
-                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: d1Editor, template: d1Editor},
-                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], width: "150px", editor: d2Editor, template: d2Editor},
+                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: d1Editor, template: d1Format},
+                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], width: "150px", editor: d2Editor, template: d2Format},
                 { field: "Acero", title: _dictionary.ItemCodeSteelGo0026[$("#language").data("kendoDropDownList").value()], width: "150px", editor: aceroEditor},
                 { field: "FamiliaMaterial", title: _dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()], width: "150px"},
                 { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], width: "150px", editor: cedAEditor },
@@ -1047,12 +1047,12 @@
         }
     }
 
-    function d1Editor(dataItem){
+    function d1Format(dataItem){
         return kendo.toString(dataItem.Diametro1,"n4")
     }
     
-    function d2Editor(dataItem){
-        return kendo.toString(dataItem.Diametro1,"n4")
+    function d2Format(dataItem){
+        return kendo.toString(dataItem.Diametro2,"n4")
     }
 };
 
