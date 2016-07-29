@@ -2740,3 +2740,12 @@ Exception Data: System.Collections.ListDictionaryInternal
 26/07/2016 09:31:17 a. m. - Usuario:samAdmin, pass: 7GgZtwt7
 26/07/2016 09:31:17 a. m. - GUID devuelto: 
 26/07/2016 09:31:17 a. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+28/07/2016 06:20:01 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
+28/07/2016 06:20:01 p. m. - GUID devuelto: 
+28/07/2016 06:20:01 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+28/07/2016 08:13:13 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
+28/07/2016 08:13:13 p. m. - GUID devuelto: 
+28/07/2016 08:13:13 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
+28/07/2016 08:49:40 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
+28/07/2016 08:49:40 p. m. - GUID devuelto: 
+28/07/2016 08:49:40 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
