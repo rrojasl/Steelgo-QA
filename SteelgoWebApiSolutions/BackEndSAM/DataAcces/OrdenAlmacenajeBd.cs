@@ -745,7 +745,7 @@ namespace BackEndSAM.DataAcces
                                                 select relnu.NumeroUnicoID).Distinct().AsParallel().ToList());
                     }
 
-                    if (listaDatos.listaFoliosCuantificacion.Count > 0)
+                    if (listaDatos.listaFoliosCuantificacion.Count > 0 && listaDatos.listaItemCodes.Count == 0)
                     {
                         //Se obtienen item codes Rel FC_IC
                         //se obtienen numeros unicos
