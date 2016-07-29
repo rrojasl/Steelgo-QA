@@ -970,20 +970,20 @@
                                 var csvData = event.target.result;
                                 csvToJson(csvData, "CedulaID").forEach(function (c) {
                                     var cedVal = cedulaValida(c);
-                                    var modVal = validModelData(c);
-                                    if (modVal && cedVal == 0) {
-                                        checkMM(c);
-                                        
-                                    } else {
-                                        if (modVal && cedVal == 1) {
+                                    if(cedVal!==-2){
+                                        var modVal = validModelData(c);
+                                        if (modVal && cedVal == 0) {
                                             checkMM(c);
-                                            c["advertencia"] = true;
                                         } else {
-                                            c["valido"] = false;
+                                            if (modVal && cedVal == 1) {
+                                                checkMM(c);
+                                                c["advertencia"] = true;
+                                            } else {
+                                                c["valido"] = false;
+                                            }
                                         }
-                                        //$("#grid").data("kendoGrid").dataSource.insert(c);
+                                        $("#grid").data("kendoGrid").dataSource.insert(c).dirty=true;
                                     }
-									$("#grid").data("kendoGrid").dataSource.insert(c).dirty=true;
                                 });
                             };
                             reader.onerror = function () {
@@ -1122,9 +1122,11 @@
     }
 
     function cedulaValida(c) {
+        c=convertCed(c);
         if (c.CedulaMM == "" && c.CedulaIn == "") return -1;
         if (!$.isNumeric(c.Diametro1) && c.Diametro1 != "") return -1;
         if (c.Diametro1 == "" || c.Diametro1 == null) return -1;
+        if (cedIsDuplicated(c)) return -2;
         var datos = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return m.dirty===false})
         try {
             datos.forEach(function (d) {
@@ -1288,28 +1290,46 @@
             }
         }
     }
+    
+    //Convert ced erasing "" to null
+    function convertCed(c){
+        for(var key in c){
+            c[key]==="" ? c[key]=null : 0;
+        }
+        return c;
+    }
 
+    //Verifies if a cedula currently exists
+    function cedIsDuplicated(n){
+        return $("#grid").data("kendoGrid").dataSource.data().filter(function(m){ return m.dirty===false && (n.CedulaA!==null ? parseFloat(n.CedulaA) : n.CedulaA)===m.CedulaA && (n.CedulaB!==null ? parseFloat(n.CedulaB) : n.CedulaB)===m.CedulaB && (n.CedulaC!==null ? parseFloat(n.CedulaC) : n.CedulaC)===m.CedulaC && (n.CedulaMM!==null ? parseFloat(n.CedulaMM) : n.CedulaMM) === m.CedulaMM}).length > 0
+    }
+    
+    //Verifies if a cedula is empty
     function emptyCedulas(n){
-        return n.CedulaA==="" && n.CedulaB==="" && n.CedulaC==="";
+        return n.CedulaA===null && n.CedulaB===null && n.CedulaC===null;
     }
 
+    //Verifies if a cedula with same Espesor and D1 exists
     function getIdByDE(n){
-        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return m.dirty===false && parseFloat(n.Diametro1)===parseFloat(m.Diametro1.toString()) && (parseFloat(n.CedulaIn) === parseFloat(m.CedulaIn.toString()) || parseFloat(n.CedulaMM) === parseFloat(m.CedulaMM.toString()))});
+        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return m.dirty===false && (n.Diametro1!==null ? parseFloat(n.Diametro1) : n.Diametro1)===parseFloat(m.Diametro1.toString()) && ((n.CedulaIn!==null ? parseFloat(n.CedulaIn) : n.CedulaIn) === parseFloat(m.CedulaIn.toString()) || (n.CedulaMM!==null ? parseFloat(n.CedulaMM) : n.CedulaMM) === parseFloat(m.CedulaMM.toString()))});
         return (tmp.length===0 ? undefined : tmp[0].CedulaID);
     }
 
+    //Verifies if a cedula with same cedula A and D1 exists
     function getIdByDA(n){
-        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return (m.CedulaA!==null ? m.dirty===false && n.Diametro1===m.Diametro1.toString() && n.CedulaA === m.CedulaA.toString() : false) });
+        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return (m.CedulaA!==null ? m.dirty===false && (n.Diametro1!==null ? parseFloat(n.Diametro1) : n.Diametro1)===parseFloat(m.Diametro1.toString()) && n.CedulaA === m.CedulaA.toString() : false) });
         return (tmp.length===0 ? undefined : tmp[0].CedulaID);
     }
 
+    //Verifies if a cedula with same cedula B and D1 exists
     function getIdByDB(n){
-        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return (m.CedulaB!==null ? m.dirty===false && n.Diametro1===m.Diametro1.toString() && n.CedulaB === m.CedulaB.toString() : false)});
+        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return (m.CedulaB!==null ? m.dirty===false && (n.Diametro1!==null ? parseFloat(n.Diametro1) : n.Diametro1)===parseFloat(m.Diametro1.toString()) && n.CedulaB === m.CedulaB.toString() : false)});
         return (tmp.length===0 ? undefined : tmp[0].CedulaID);
     }
 
+    //Verifies if a cedula with same cedula C and D1 exists
     function getIdByDC(n){
-        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return (m.CedulaC!==null ?m.dirty===false && n.Diametro1===m.Diametro1.toString() && n.CedulaC === m.CedulaC.toString() : false)});
+        var tmp = $("#grid").data("kendoGrid").dataSource.data().filter(function(m){return (m.CedulaC!==null ?m.dirty===false && (n.Diametro1!==null ? parseFloat(n.Diametro1) : n.Diametro1)===parseFloat(m.Diametro1.toString()) && n.CedulaC === m.CedulaC.toString() : false)});
         return (tmp.length===0 ? undefined : tmp[0].CedulaID);
     }
 
