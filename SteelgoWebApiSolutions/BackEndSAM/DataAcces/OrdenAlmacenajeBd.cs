@@ -710,6 +710,8 @@ namespace BackEndSAM.DataAcces
                     Boolean activarFolioConfiguracion = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"]) ?
                         (ConfigurationManager.AppSettings["ActivarFolioConfiguracionOrdenAlmacenaje"].Equals("1") ? true : false) : false;
 
+                    List<int> foliosCuantificacion = listaDatos.listaFoliosCuantificacion.Select(x => x.ID).ToList();
+                    List<int> itemCodesIds = listaDatos.listaItemCodes.Select(x => x.ID).ToList();
 
                     if (listaDatos.listaNumerosUnicos.Count > 0)
                     {
@@ -720,12 +722,12 @@ namespace BackEndSAM.DataAcces
                     {
                         //Obtengo los numero unicos
                         //numerosunicos.AddRange(ObtenerNumerosUnicosPorItemCode(listaDatos.listaItemCodes.Select(x => x.ID).ToList()));
-                        List<int> itemCodesIds = listaDatos.listaItemCodes.Select(x => x.ID).ToList();
+                        
                         numerosunicos.AddRange((from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
                                                 join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                 where relnu.Activo && rfi.Activo && nu.Activo
-                                                && listaDatos.listaFoliosCuantificacion.Select(x => x.ID).Contains(rfi.FolioCuantificacionID)
+                                                && foliosCuantificacion.Contains(rfi.FolioCuantificacionID)
                                                 && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 && itemCodesIds.Contains(nu.ItemCodeID.Value)
                                                 && relnu.OrdenAlmacenajeID == null
@@ -736,7 +738,7 @@ namespace BackEndSAM.DataAcces
                                                 join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                 join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                 where relnu.Activo && rbi.Activo && b.Activo
-                                                && listaDatos.listaFoliosCuantificacion.Select(x => x.ID).Contains(b.FolioCuantificacionID)
+                                                && foliosCuantificacion.Contains(b.FolioCuantificacionID)
                                                 && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 && itemCodesIds.Contains(nu.ItemCodeID.Value)
                                                 && relnu.OrdenAlmacenajeID == null
@@ -747,7 +749,7 @@ namespace BackEndSAM.DataAcces
                     {
                         //Se obtienen item codes Rel FC_IC
                         //se obtienen numeros unicos
-                        List<int> foliosCuantificacion = listaDatos.listaFoliosCuantificacion.Select(x => x.ID).ToList();
+                        
 
                         numerosunicos.AddRange((from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfi.Rel_FolioCuantificacion_ItemCode_ID
