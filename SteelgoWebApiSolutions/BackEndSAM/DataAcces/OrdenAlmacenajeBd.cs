@@ -726,6 +726,7 @@ namespace BackEndSAM.DataAcces
                                                 join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                 where relnu.Activo && rfi.Activo && nu.Activo
                                                 && listaDatos.listaFoliosCuantificacion.Select(x => x.ID).Contains(rfi.FolioCuantificacionID)
+                                                && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 && itemCodesIds.Contains(nu.ItemCodeID.Value)
                                                 && relnu.OrdenAlmacenajeID == null
                                                 select relnu.NumeroUnicoID).Distinct().AsParallel().ToList());
@@ -736,6 +737,7 @@ namespace BackEndSAM.DataAcces
                                                 join nu in ctx.Sam3_NumeroUnico on relnu.NumeroUnicoID equals nu.NumeroUnicoID
                                                 where relnu.Activo && rbi.Activo && b.Activo
                                                 && listaDatos.listaFoliosCuantificacion.Select(x => x.ID).Contains(b.FolioCuantificacionID)
+                                                && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 && itemCodesIds.Contains(nu.ItemCodeID.Value)
                                                 && relnu.OrdenAlmacenajeID == null
                                                 select relnu.NumeroUnicoID).Distinct().AsParallel().ToList());
@@ -760,6 +762,7 @@ namespace BackEndSAM.DataAcces
                                                 && foliosCuantificacion.Contains(rfi.FolioCuantificacionID)
                                                 && relnu.OrdenAlmacenajeID == null
                                                 && rfi.TieneNumerosUnicos
+                                                && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 select relnu.NumeroUnicoID).Distinct().AsParallel().ToList());
 
                         numerosunicos.AddRange((from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
@@ -776,6 +779,7 @@ namespace BackEndSAM.DataAcces
                                                 && foliosCuantificacion.Contains(b.FolioCuantificacionID)
                                                 && relnu.OrdenAlmacenajeID == null
                                                 && rbi.TieneNumerosUnicos
+                                                && (nu.EstatusFisico != null && nu.EstatusDocumental != null)
                                                 select relnu.NumeroUnicoID).Distinct().AsParallel().ToList());
                     }
 
