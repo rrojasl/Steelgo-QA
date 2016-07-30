@@ -1961,7 +1961,7 @@ namespace BackEndSAM.DataAcces
                                             };
 
                                             ctx2.Espesor.Add(espesorSam2);
-                                            ctx.SaveChanges();
+                                            ctx2.SaveChanges();
                                         }
                                         else
                                         {
@@ -2435,7 +2435,7 @@ namespace BackEndSAM.DataAcces
                                                 };
 
                                                 ctx2.Espesor.Add(espesorSam2);
-                                                ctx.SaveChanges();
+                                                ctx2.SaveChanges();
                                             }
                                             else
                                             {
@@ -2887,7 +2887,7 @@ namespace BackEndSAM.DataAcces
                             if (String.IsNullOrEmpty(datosCedulas.CedulaC))
                             {
                                 //abyc vacias
-                                if (lista.Where(x => x.CedulaA == null && x.CedulaB == null && x.CedulaC == null).Any())
+                                if (lista.Where(x => x.CedulaA == 0 && x.CedulaB == 0 && x.CedulaC == 0).Any())
                                 {
                                     if (espesorIn == "0" && espesorMm == "0")
                                     {
