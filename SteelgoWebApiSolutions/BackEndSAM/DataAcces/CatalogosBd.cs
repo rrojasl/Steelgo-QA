@@ -2579,151 +2579,293 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //Sam3_Diametro diametro1 = new Sam3_Diametro();
-                    //Sam3_Diametro diametro2 = new Sam3_Diametro();
-                    Sam3_ItemCodeSteelgo ics = new Sam3_ItemCodeSteelgo();
-                    Sam3_Rel_ItemCodeSteelgo_Diametro icsDiam = new Sam3_Rel_ItemCodeSteelgo_Diametro();
-                    using (var sam3_tran = ctx.Database.BeginTransaction())
+                    using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        if (editado == 1)
+                        //Sam3_Diametro diametro1 = new Sam3_Diametro();
+                        //Sam3_Diametro diametro2 = new Sam3_Diametro();
+                        Sam3_ItemCodeSteelgo ics = new Sam3_ItemCodeSteelgo();
+                        Sam3_Rel_ItemCodeSteelgo_Diametro icsDiam = new Sam3_Rel_ItemCodeSteelgo_Diametro();
+                        using (var sam3_tran = ctx.Database.BeginTransaction())
                         {
-                            if (!ctx.Sam3_ItemCodeSteelgo.Where(x => x.Codigo == datos.Codigo && x.Activo && x.ItemCodeSteelgoID.ToString() != datos.ItemCodeSteelgoID).Any())
+                            if (editado == 1)
                             {
-                                ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == datos.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
-                                ics.Codigo = datos.Codigo;
-                                ics.DescripcionEspanol = datos.Descripcion;
-                                ics.DescripcionIngles = datos.DescripcionIngles;
-                                ics.DescripcionLargaEspanol = datos.DescripcionLarga;
-                                ics.DescripcionLargaIngles = datos.DescripcionLargaIngles;
-                                ics.GrupoID = Convert.ToInt32(datos.GrupoID);
-                                ics.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
-                                ics.CedulaID = Convert.ToInt32(datos.CedulaID);
-                                ics.Peso = Convert.ToDecimal(datos.Peso);
-                                ics.Area = Convert.ToDecimal(datos.Area);
-                                ics.Activo = true;
-                                ics.UsuarioModificacion = usuario.UsuarioID;
-                                ics.FechaModificacion = DateTime.Now;
-
-                                ctx.SaveChanges();
-
-                                icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == datos.Rel_ICS_DiametroID).AsParallel().SingleOrDefault();
-                                icsDiam.Diametro1ID = Convert.ToInt32(datos.Diametro1ID);
-                                icsDiam.Diametro2ID = Convert.ToInt32(datos.Diametro2ID);
-                                icsDiam.Activo = true;
-                                icsDiam.UsuarioModificacion = usuario.UsuarioID;
-                                icsDiam.FechaModificacion = DateTime.Now;
-
-                                ctx.SaveChanges();
-
-
-                                //diametro1.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro1).Select(x => x.Valor).AsParallel().SingleOrDefault();
-                                //diametro2.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro2).Select(x => x.Valor).AsParallel().SingleOrDefault();
-
-                                sam3_tran.Commit();
-                            }
-                            else
-                            {
-                                throw new Exception("El ItemCode Steelgo capturado ya existe en el catálogo");
-                            }
-
-                        }
-                        else
-                        {
-                            if (!ctx.Sam3_ItemCodeSteelgo.Where(x => x.Codigo == datos.Codigo && x.Activo).Any())
-                            {
-                                ics.Codigo = datos.Codigo;
-                                ics.DescripcionEspanol = datos.Descripcion;
-                                ics.DescripcionLargaEspanol = datos.DescripcionLarga;
-                                ics.DescripcionLargaIngles = datos.DescripcionLargaIngles;
-                                ics.DescripcionIngles = datos.DescripcionIngles;
-                                ics.GrupoID = Convert.ToInt32(datos.GrupoID);
-                                ics.CedulaID = Convert.ToInt32(datos.CedulaID);
-                                ics.Peso = Convert.ToDecimal(datos.Peso);
-                                ics.Area = Convert.ToDecimal(datos.Area);
-                                ics.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
-                                ics.Activo = true;
-                                ics.UsuarioModificacion = usuario.UsuarioID;
-                                ics.FechaModificacion = DateTime.Now;
-
-                                ctx.Sam3_ItemCodeSteelgo.Add(ics);
-
-                                ctx.SaveChanges();
-
-                                if (!ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
-                                    x.Diametro1ID.ToString() == datos.Diametro1ID &&
-                                    x.Diametro2ID.ToString() == datos.Diametro2ID &&
-                                    x.ItemCodeSteelgoID == ics.ItemCodeSteelgoID).Any())
+                                #region Insertar cedula no existente
+                                decimal diametro1 = Convert.ToDecimal(datos.Diametro1);
+                                decimal diametro2 = Convert.ToDecimal(datos.Diametro2);
+                                //Insertamos diametro 1 en sam 3
+                                if (!ctx.Sam3_Diametro.Where(x => x.Valor == diametro1 && x.Activo).Any())
                                 {
-                                    icsDiam.ItemCodeSteelgoID = ics.ItemCodeSteelgoID;
+                                    Sam3_Diametro diam1 = new Sam3_Diametro();
+                                    Diametro diam1Sam2 = new Diametro();
+
+                                    diam1.Valor = Convert.ToDecimal(datos.Diametro1);
+                                    diam1.VerificadoPorCalidad = true;
+                                    diam1.Activo = true;
+                                    diam1.UsuarioModificacion = usuario.UsuarioID;
+                                    diam1.FechaModificacion = DateTime.Now;
+                                    ctx.Sam3_Diametro.Add(diam1);
+                                    ctx.SaveChanges();
+                                    datos.Diametro1ID = diam1.DiametroID.ToString();
+
+                                    //Se inserta el espesor para el nuevo diametro
+                                    decimal espesorMM = Convert.ToDecimal(datos.MM);
+                                    Sam3_Espesor espesor = new Sam3_Espesor();
+                                    espesor.CedulaID = null;
+                                    espesor.DiametroID = Convert.ToInt32(datos.Diametro1ID);
+                                    espesor.Valor = Convert.ToDecimal(datos.MM);
+                                    espesor.Activo = 1;
+                                    espesor.UsuarioModificacion = usuario.UsuarioID;
+                                    espesor.FechaModificacion = DateTime.Now;
+                                    ctx.Sam3_Espesor.Add(espesor);
+                                    ctx.SaveChanges();
+                                }
+
+                                //Insertamos diametro 2 en Sam3
+                                if (!ctx.Sam3_Diametro.Where(x => x.Valor == diametro2 && x.Activo).Any())
+                                {
+                                    Sam3_Diametro diam2 = new Sam3_Diametro();
+                                    Diametro diam2Sam2 = new Diametro();
+
+                                    diam2.Valor = Convert.ToDecimal(datos.Diametro2);
+                                    diam2.VerificadoPorCalidad = true;
+                                    diam2.Activo = true;
+                                    diam2.UsuarioModificacion = usuario.UsuarioID;
+                                    diam2.FechaModificacion = DateTime.Now;
+                                    ctx.Sam3_Diametro.Add(diam2);
+                                    ctx.SaveChanges();
+                                    datos.Diametro2ID = diam2.DiametroID.ToString();
+                                }
+
+                                //Insertar cedula en caso de que solo haya capturado el espesor
+                                if (String.IsNullOrEmpty(datos.CedulaA) && String.IsNullOrEmpty(datos.CedulaB) && String.IsNullOrEmpty(datos.Libra))
+                                {
+                                    if (!ctx.Sam3_CatalogoCedulas.Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch
+                                        && x.EspesorMM.ToString() == datos.MM && x.CedulaA == 0 && x.CedulaB == 0 && x.CedulaC == 0 && x.Activo).Any())
+                                    {
+                                        Sam3_CatalogoCedulas cat = new Sam3_CatalogoCedulas();
+                                        cat.DiametroID = Convert.ToInt32(datos.Diametro1ID);
+                                        cat.CedulaA = 0;
+                                        cat.CedulaB = 0;
+                                        cat.CedulaC = 0;
+                                        cat.EspesorIn = Convert.ToDecimal(datos.Inch);
+                                        cat.EspesorMM = Convert.ToDecimal(datos.MM);
+                                        cat.Activo = true;
+                                        cat.UsuarioModificacion = usuario.UsuarioID;
+                                        cat.FechaModificacion = DateTime.Now;
+                                        ctx.Sam3_CatalogoCedulas.Add(cat);
+                                        ctx.SaveChanges();
+
+                                        datos.CedulaID = cat.CatalogoCedulasID.ToString();
+
+                                        //Verificamos si existe el espesor
+                                        int sam3_diametroID = Convert.ToInt32(datos.Diametro1ID);
+                                        decimal mm = Convert.ToDecimal(datos.MM);
+                                        int? eqDiametro = (from eq in ctx.Sam3_EquivalenciaDiametro
+                                                           where eq.Activo && eq.Sam3_DiametroID == sam3_diametroID
+                                                           select eq.Sam2_DiametroID).AsParallel().SingleOrDefault();
+
+                                        bool existeEspesor = (from esp in ctx.Sam3_Espesor
+                                                              where esp.Activo == 1
+                                                              && esp.DiametroID == sam3_diametroID
+                                                              && esp.Valor == mm
+                                                              select esp).Any();
+
+
+
+                                        if (!existeEspesor)
+                                        {
+                                            Sam3_Espesor espesorSam3 = new Sam3_Espesor
+                                            {
+                                                Activo = 1,
+                                                Valor = mm,
+                                                DiametroID = sam3_diametroID,
+                                                FechaModificacion = DateTime.Now,
+                                                UsuarioModificacion = usuario.UsuarioID
+                                            };
+
+                                            ctx.Sam3_Espesor.Add(espesorSam3);
+                                            ctx.SaveChanges();
+                                            int sam2CedulaDefault = (from ced in ctx2.Cedula
+                                                                     where ced.Codigo == "-"
+                                                                     select ced.CedulaID).AsParallel().Distinct().SingleOrDefault();
+
+                                            Espesor espesorSam2 = new Espesor();
+                                            if (!ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == mm && x.CedulaID == sam2CedulaDefault).Any())
+                                            {
+                                                espesorSam2 = new Espesor
+                                                {
+                                                    CedulaID = sam2CedulaDefault,
+                                                    Valor = mm,
+                                                    DiametroID = eqDiametro.Value,
+                                                    FechaModificacion = DateTime.Now
+                                                };
+
+                                                ctx2.Espesor.Add(espesorSam2);
+                                                ctx2.SaveChanges();
+                                            }
+                                            else
+                                            {
+                                                espesorSam2 = ctx2.Espesor.Where(x => x.DiametroID == eqDiametro && x.Valor == mm && x.CedulaID == sam2CedulaDefault).SingleOrDefault();
+                                            }
+
+                                            Sam3_EquivalenciaEspesor equivalencia = new Sam3_EquivalenciaEspesor
+                                            {
+                                                Activo = true,
+                                                FechaModificacion = DateTime.Now,
+                                                Sam2_EspesorID = espesorSam2.EspesorID,
+                                                Sam3_EspesorID = espesorSam3.EspesorID,
+                                                UsuarioModificacion = usuario.UsuarioID
+                                            };
+                                            ctx.Sam3_EquivalenciaEspesor.Add(equivalencia);
+                                            ctx.SaveChanges();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        datos.CedulaID = ctx.Sam3_CatalogoCedulas
+                                            .Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch && x.Activo)
+                                            .Select(x => x.CatalogoCedulasID.ToString()).AsParallel().FirstOrDefault();
+                                    }
+                                }
+                                #endregion
+
+                                if (!ctx.Sam3_ItemCodeSteelgo.Where(x => x.Codigo == datos.Codigo && x.Activo && x.ItemCodeSteelgoID.ToString() != datos.ItemCodeSteelgoID).Any())
+                                {
+                                    ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == datos.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
+                                    ics.Codigo = datos.Codigo;
+                                    ics.DescripcionEspanol = datos.Descripcion;
+                                    ics.DescripcionIngles = datos.DescripcionIngles;
+                                    ics.DescripcionLargaEspanol = datos.DescripcionLarga;
+                                    ics.DescripcionLargaIngles = datos.DescripcionLargaIngles;
+                                    ics.GrupoID = Convert.ToInt32(datos.GrupoID);
+                                    ics.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
+                                    ics.CedulaID = Convert.ToInt32(datos.CedulaID);
+                                    ics.Peso = Convert.ToDecimal(datos.Peso);
+                                    ics.Area = Convert.ToDecimal(datos.Area);
+                                    ics.Activo = true;
+                                    ics.UsuarioModificacion = usuario.UsuarioID;
+                                    ics.FechaModificacion = DateTime.Now;
+
+                                    ctx.SaveChanges();
+
+                                    icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == datos.Rel_ICS_DiametroID).AsParallel().SingleOrDefault();
                                     icsDiam.Diametro1ID = Convert.ToInt32(datos.Diametro1ID);
                                     icsDiam.Diametro2ID = Convert.ToInt32(datos.Diametro2ID);
                                     icsDiam.Activo = true;
-                                    icsDiam.FechaModificacion = DateTime.Now;
                                     icsDiam.UsuarioModificacion = usuario.UsuarioID;
+                                    icsDiam.FechaModificacion = DateTime.Now;
 
-                                    ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Add(icsDiam);
                                     ctx.SaveChanges();
+
+
+                                    //diametro1.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                    //diametro2.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro2).Select(x => x.Valor).AsParallel().SingleOrDefault();
+
+                                    sam3_tran.Commit();
                                 }
                                 else
                                 {
-                                    icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
-                                     x.Diametro1ID.ToString() == datos.Diametro1ID &&
-                                     x.Diametro2ID.ToString() == datos.Diametro2ID &&
-                                     x.ItemCodeSteelgoID == ics.ItemCodeSteelgoID).AsParallel().SingleOrDefault();
+                                    throw new Exception("El ItemCode Steelgo capturado ya existe en el catálogo");
                                 }
 
-                                //diametro1.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro1).Select(x => x.Valor).AsParallel().SingleOrDefault();
-                                //diametro2.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro2).Select(x => x.Valor).AsParallel().SingleOrDefault();
-
-                                sam3_tran.Commit();
                             }
                             else
                             {
-                                throw new Exception("El ItemCode Steelgo capturado ya existe en el catálogo");
+                                if (!ctx.Sam3_ItemCodeSteelgo.Where(x => x.Codigo == datos.Codigo && x.Activo).Any())
+                                {
+                                    ics.Codigo = datos.Codigo;
+                                    ics.DescripcionEspanol = datos.Descripcion;
+                                    ics.DescripcionLargaEspanol = datos.DescripcionLarga;
+                                    ics.DescripcionLargaIngles = datos.DescripcionLargaIngles;
+                                    ics.DescripcionIngles = datos.DescripcionIngles;
+                                    ics.GrupoID = Convert.ToInt32(datos.GrupoID);
+                                    ics.CedulaID = Convert.ToInt32(datos.CedulaID);
+                                    ics.Peso = Convert.ToDecimal(datos.Peso);
+                                    ics.Area = Convert.ToDecimal(datos.Area);
+                                    ics.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
+                                    ics.Activo = true;
+                                    ics.UsuarioModificacion = usuario.UsuarioID;
+                                    ics.FechaModificacion = DateTime.Now;
+
+                                    ctx.Sam3_ItemCodeSteelgo.Add(ics);
+
+                                    ctx.SaveChanges();
+
+                                    if (!ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
+                                        x.Diametro1ID.ToString() == datos.Diametro1ID &&
+                                        x.Diametro2ID.ToString() == datos.Diametro2ID &&
+                                        x.ItemCodeSteelgoID == ics.ItemCodeSteelgoID).Any())
+                                    {
+                                        icsDiam.ItemCodeSteelgoID = ics.ItemCodeSteelgoID;
+                                        icsDiam.Diametro1ID = Convert.ToInt32(datos.Diametro1ID);
+                                        icsDiam.Diametro2ID = Convert.ToInt32(datos.Diametro2ID);
+                                        icsDiam.Activo = true;
+                                        icsDiam.FechaModificacion = DateTime.Now;
+                                        icsDiam.UsuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Add(icsDiam);
+                                        ctx.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
+                                         x.Diametro1ID.ToString() == datos.Diametro1ID &&
+                                         x.Diametro2ID.ToString() == datos.Diametro2ID &&
+                                         x.ItemCodeSteelgoID == ics.ItemCodeSteelgoID).AsParallel().SingleOrDefault();
+                                    }
+
+                                    //diametro1.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                                    //diametro2.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro2).Select(x => x.Valor).AsParallel().SingleOrDefault();
+
+                                    sam3_tran.Commit();
+                                }
+                                else
+                                {
+                                    throw new Exception("El ItemCode Steelgo capturado ya existe en el catálogo");
+                                }
                             }
+
+
                         }
 
-
+                        return new ICSDatosAsociacion
+                        {
+                            ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                            Codigo = ics.Codigo,
+                            Descripcion = ics.DescripcionEspanol,
+                            DescripcionIngles = ics.DescripcionIngles,
+                            DescripcionLarga = ics.DescripcionLargaEspanol,
+                            DescripcionLargaIngles = ics.DescripcionLargaIngles,
+                            Diametro1ID = icsDiam.Diametro1ID.ToString(),
+                            Diametro2ID = icsDiam.Diametro2ID.ToString(),
+                            Diametro1 = (from d in ctx.Sam3_Diametro
+                                         where d.Activo
+                                         && d.DiametroID.ToString() == datos.Diametro1ID
+                                         select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                            Diametro2 = (from d in ctx.Sam3_Diametro
+                                         where d.Activo
+                                         && d.DiametroID.ToString() == datos.Diametro2ID
+                                         select d.Valor.ToString()).AsParallel().SingleOrDefault(),
+                            Rel_ICS_DiametroID = icsDiam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
+                            GrupoID = ics.GrupoID.ToString(),
+                            Grupo = datos.Grupo,
+                            Acero = datos.Acero,
+                            AceroID = ics.FamiliaAceroID.ToString(),
+                            CedulaA = datos.CedulaA,
+                            CedulaB = datos.CedulaB,
+                            CedulaID = ics.CedulaID.ToString(),
+                            Libra = datos.Libra,
+                            Inch = datos.Inch,
+                            MM = datos.MM,
+                            Espesor = datos.Espesor,
+                            Peso = ics.Peso.ToString(),
+                            Area = ics.Area.ToString(),
+                            TieneD2 = datos.TieneD2,
+                            FamiliaMaterial = datos.FamiliaMaterial,
+                            FamiliaMaterialID = datos.FamiliaMaterialID,
+                            Asociado = datos.Asociado
+                        };
                     }
-
-                    return new ICSDatosAsociacion
-                    {
-                        ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
-                        Codigo = ics.Codigo,
-                        Descripcion = ics.DescripcionEspanol,
-                        DescripcionIngles = ics.DescripcionIngles,
-                        DescripcionLarga = ics.DescripcionLargaEspanol,
-                        DescripcionLargaIngles = ics.DescripcionLargaIngles,
-                        Diametro1ID = icsDiam.Diametro1ID.ToString(),
-                        Diametro2ID = icsDiam.Diametro2ID.ToString(),
-                        Diametro1 = (from d in ctx.Sam3_Diametro
-                                     where d.Activo
-                                     && d.DiametroID.ToString() == datos.Diametro1ID
-                                     select d.Valor.ToString()).AsParallel().SingleOrDefault(),
-                        Diametro2 = (from d in ctx.Sam3_Diametro
-                                     where d.Activo
-                                     && d.DiametroID.ToString() == datos.Diametro2ID
-                                     select d.Valor.ToString()).AsParallel().SingleOrDefault(),
-                        Rel_ICS_DiametroID = icsDiam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
-                        GrupoID = ics.GrupoID.ToString(),
-                        Grupo = datos.Grupo,
-                        Acero = datos.Acero,
-                        AceroID = ics.FamiliaAceroID.ToString(),
-                        CedulaA = datos.CedulaA,
-                        CedulaB = datos.CedulaB,
-                        CedulaID = ics.CedulaID.ToString(),
-                        Libra = datos.Libra,
-                        Inch = datos.Inch,
-                        MM = datos.MM,
-                        Espesor = datos.Espesor,
-                        Peso = ics.Peso.ToString(),
-                        Area = ics.Area.ToString(),
-                        TieneD2 = datos.TieneD2,
-                        FamiliaMaterial = datos.FamiliaMaterial,
-                        FamiliaMaterialID = datos.FamiliaMaterialID,
-                        Asociado = datos.Asociado
-                    };
-
                 }
             }
             catch (Exception ex)
