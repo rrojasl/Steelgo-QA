@@ -1991,13 +1991,25 @@ namespace BackEndSAM.DataAcces
                                         {
                                             nuevoElemento.CedulaA = idCedulaA;
                                         }
+                                        else
+                                        {
+                                            nuevoElemento.CedulaA = 0;
+                                        }
                                         if (idCedulaB > 0)
                                         {
                                             nuevoElemento.CedulaB = idCedulaB;
                                         }
+                                        else
+                                        {
+                                            nuevoElemento.CedulaB = 0;
+                                        }
                                         if (idCedulaC > 0)
                                         {
                                             nuevoElemento.CedulaC = idCedulaC;
+                                        }
+                                        else
+                                        {
+                                            nuevoElemento.CedulaC = 0;
                                         }
                                         nuevoElemento.EspesorMM = EspesorMM;
                                         nuevoElemento.EspesorIn = Convert.ToDecimal(item.CedulaIn);
@@ -2020,13 +2032,24 @@ namespace BackEndSAM.DataAcces
                                         {
                                             nuevoElemento.CedulaA = idCedulaA;
                                         }
+                                        else
+                                        {
+                                            nuevoElemento.CedulaA = 0;
+                                        }
                                         if (idCedulaB > 0 || idCedulaB != nuevoElemento.CedulaB)
                                         {
                                             nuevoElemento.CedulaB = idCedulaB;
                                         }
+                                        {
+                                            nuevoElemento.CedulaB = 0;
+                                        }
                                         if (idCedulaC > 0 || idCedulaC != nuevoElemento.CedulaC)
                                         {
                                             nuevoElemento.CedulaC = idCedulaC;
+                                        }
+                                        else
+                                        {
+                                            nuevoElemento.CedulaC = 0;
                                         }
                                         if (EspesorMM != nuevoElemento.EspesorMM)
                                         {
@@ -2351,7 +2374,7 @@ namespace BackEndSAM.DataAcces
                                 if (String.IsNullOrEmpty(datos.CedulaA) && String.IsNullOrEmpty(datos.CedulaB) && String.IsNullOrEmpty(datos.Libra))
                                 {
                                     if (!ctx.Sam3_CatalogoCedulas.Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch
-                                        && x.CedulaA == 0 && x.CedulaB == 0 && x.CedulaC == 0 && x.Activo).Any())
+                                        && x.EspesorMM.ToString() == datos.MM && x.CedulaA == 0 && x.CedulaB == 0 && x.CedulaC == 0 && x.Activo).Any())
                                     {
                                         Sam3_CatalogoCedulas cat = new Sam3_CatalogoCedulas();
                                         cat.DiametroID = Convert.ToInt32(datos.Diametro1ID);
@@ -2370,7 +2393,7 @@ namespace BackEndSAM.DataAcces
                                     }
                                     else
                                     {
-                                        datos.CedulaID = ctx.Sam3_CatalogoCedulas.Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch && x.Activo).Select(x => x.CatalogoCedulasID.ToString()).AsParallel().SingleOrDefault();
+                                        datos.CedulaID = ctx.Sam3_CatalogoCedulas.Where(x => x.DiametroID.ToString() == datos.Diametro1ID && x.EspesorIn.ToString() == datos.Inch && x.Activo).Select(x => x.CatalogoCedulasID.ToString()).AsParallel().FirstOrDefault();
                                     }
                                 }
 
@@ -2402,8 +2425,8 @@ namespace BackEndSAM.DataAcces
                                         x.ItemCodeSteelgoID == ICSteelgo.ItemCodeSteelgoID).Any())
                                     {
                                         nuevo.ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID;
-                                        nuevo.Diametro1ID = Int32.Parse(datos.Diametro1ID);
-                                        nuevo.Diametro2ID = Int32.Parse(datos.Diametro2ID);
+                                        nuevo.Diametro1ID = Convert.ToInt32(datos.Diametro1ID);
+                                        nuevo.Diametro2ID = Convert.ToInt32(datos.Diametro2ID);
                                         nuevo.Activo = true;
                                         nuevo.FechaModificacion = DateTime.Now;
                                         nuevo.UsuarioModificacion = usuario.UsuarioID;
@@ -2495,7 +2518,6 @@ namespace BackEndSAM.DataAcces
                     //Sam3_Diametro diametro2 = new Sam3_Diametro();
                     Sam3_ItemCodeSteelgo ics = new Sam3_ItemCodeSteelgo();
                     Sam3_Rel_ItemCodeSteelgo_Diametro icsDiam = new Sam3_Rel_ItemCodeSteelgo_Diametro();
-
                     using (var sam3_tran = ctx.Database.BeginTransaction())
                     {
                         if (editado == 1)
@@ -2508,11 +2530,11 @@ namespace BackEndSAM.DataAcces
                                 ics.DescripcionIngles = datos.DescripcionIngles;
                                 ics.DescripcionLargaEspanol = datos.DescripcionLarga;
                                 ics.DescripcionLargaIngles = datos.DescripcionLargaIngles;
-                                ics.GrupoID = Int32.Parse(datos.GrupoID);
-                                ics.FamiliaAceroID = Int32.Parse(datos.AceroID);
-                                ics.CedulaID = Int32.Parse(datos.CedulaID);
-                                ics.Peso = Decimal.Parse(datos.Peso);
-                                ics.Area = Decimal.Parse(datos.Area);
+                                ics.GrupoID = Convert.ToInt32(datos.GrupoID);
+                                ics.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
+                                ics.CedulaID = Convert.ToInt32(datos.CedulaID);
+                                ics.Peso = Convert.ToDecimal(datos.Peso);
+                                ics.Area = Convert.ToDecimal(datos.Area);
                                 ics.Activo = true;
                                 ics.UsuarioModificacion = usuario.UsuarioID;
                                 ics.FechaModificacion = DateTime.Now;
@@ -2520,8 +2542,8 @@ namespace BackEndSAM.DataAcces
                                 ctx.SaveChanges();
 
                                 icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == datos.Rel_ICS_DiametroID).AsParallel().SingleOrDefault();
-                                icsDiam.Diametro1ID = Int32.Parse(datos.Diametro1ID);
-                                icsDiam.Diametro2ID = Int32.Parse(datos.Diametro2ID);
+                                icsDiam.Diametro1ID = Convert.ToInt32(datos.Diametro1ID);
+                                icsDiam.Diametro2ID = Convert.ToInt32(datos.Diametro2ID);
                                 icsDiam.Activo = true;
                                 icsDiam.UsuarioModificacion = usuario.UsuarioID;
                                 icsDiam.FechaModificacion = DateTime.Now;
@@ -2568,8 +2590,8 @@ namespace BackEndSAM.DataAcces
                                     x.ItemCodeSteelgoID == ics.ItemCodeSteelgoID).Any())
                                 {
                                     icsDiam.ItemCodeSteelgoID = ics.ItemCodeSteelgoID;
-                                    icsDiam.Diametro1ID = Int32.Parse(datos.Diametro1ID);
-                                    icsDiam.Diametro2ID = Int32.Parse(datos.Diametro2ID);
+                                    icsDiam.Diametro1ID = Convert.ToInt32(datos.Diametro1ID);
+                                    icsDiam.Diametro2ID = Convert.ToInt32(datos.Diametro2ID);
                                     icsDiam.Activo = true;
                                     icsDiam.FechaModificacion = DateTime.Now;
                                     icsDiam.UsuarioModificacion = usuario.UsuarioID;
@@ -2776,6 +2798,8 @@ namespace BackEndSAM.DataAcces
                                                        CedulaIn = cat.EspesorIn.ToString(),
                                                        CedulaMM = cat.EspesorMM.ToString()
                                                    }).AsParallel().Distinct().ToList();
+
+                    lista = lista.GroupBy(x => x.CedulaID).Select(x => x.First()).ToList();
 
                     errorInfo += "\nLista : " + serializer.Serialize(lista);
 
