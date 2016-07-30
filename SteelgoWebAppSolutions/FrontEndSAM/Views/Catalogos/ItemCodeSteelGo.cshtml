@@ -317,7 +317,7 @@
             save: function (e) {
                 if(justOneSaving===0){
                     justOneSaving=1;
-                    e.model=$("#grid").data("kendoGrid").dataSource.data()[0];
+                    e.model=$("#grid").data("kendoGrid").dataItem("tr.k-alt.k-grid-edit-row");
                     var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
                     var grid = $("#grid").data("kendoGrid");
                     if(canSave){
