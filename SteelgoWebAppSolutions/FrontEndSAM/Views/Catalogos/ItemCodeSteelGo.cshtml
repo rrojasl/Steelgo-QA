@@ -317,7 +317,7 @@
             save: function (e) {
                 if(justOneSaving===0){
                     justOneSaving=1;
-                    e.model=$("#grid").data("kendoGrid").dataItem("tr.k-alt.k-grid-edit-row");
+                    e.model=$("#grid").data("kendoGrid").dataItem(".k-grid-edit-row");
                     var disabledDiametro2 = $("[name='Diametro2_input']", e.container).is(":disabled");
                     var grid = $("#grid").data("kendoGrid");
                     if(canSave){
@@ -925,6 +925,7 @@
                             $("[name='Inch']").data("kendoComboBox").enable(true);
                             if(response.EspesoresMm.length===1){
                                 $("[name='MM']").data("kendoComboBox").select(0)
+                                $("[name='MM']").data("kendoComboBox").trigger("change");
                                 $("[name='Inch']").data("kendoComboBox").select(0)
                                 $("[data-container-for=Peso] input:first").focus();
                             }else{
