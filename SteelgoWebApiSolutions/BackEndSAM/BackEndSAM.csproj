@@ -589,6 +589,7 @@
     <None Include="Properties\PublishProfiles\BackEnd-QA.pubxml" />
     <None Include="Properties\PublishProfiles\BackEnd.pubxml" />
     <None Include="Properties\PublishProfiles\backendSAM.pubxml" />
+    <None Include="Properties\PublishProfiles\BackEnd_Prod.pubxml" />
     <None Include="Properties\PublishProfiles\samBE.pubxml" />
     <Content Include="Service References\Sam3Reportes\ReportExecution2005.wsdl" />
     <None Include="Web.Debug.config">
