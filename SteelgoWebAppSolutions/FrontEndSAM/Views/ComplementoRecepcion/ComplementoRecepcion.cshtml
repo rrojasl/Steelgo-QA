@@ -1550,13 +1550,16 @@
                 if ($('input:checked').val() == "2") {
                     if (!this.Colada || this.Colada == "Sin Colada PL") {
                         this.Colada = value;
+                        this.modified = true;
                     }
                 } else {
                     this.Colada = value
+                    this.modified = true;
                 }
                 //}
             });
             $('#grid').data('kendoGrid').refresh();
+            $("#Colada").data("kendoAutoComplete").value("")
         };
 
         function changeValueColumnEstatusFisico(value) {
@@ -1565,19 +1568,31 @@
             var query = new kendo.data.Query(allData);
             var result = query.filter(filters).data;
             var datasource = result;
-
-            $(datasource).each(function () {
-                //if (this.get("TieneComplementoRecepcion") != "Si") {
-                if ($('input:checked').val() == "2") {
-                    if (!this.get("EstatusFisico")) {
-                        this.set("EstatusFisico", value);
+            var val = $('input:checked').val();
+            datasource.forEach(function(n){
+                if(val==="2"){
+                    if(n.EstatusFisico===""||n.EstatusFisico===null){
+                        n.EstatusFisico=value;
+                        n.modified=true;
                     }
-                } else {
-                    this.set("EstatusFisico", value);
+                }else{
+                    n.EstatusFisico=value;
+                    n.modified=true;
                 }
-                //}
-            });
-            $("#EstatusFisico").data("kendoComboBox").text("");
+            })
+            //$(datasource).each(function () {
+            //    //if (this.get("TieneComplementoRecepcion") != "Si") {
+            //    if ($('input:checked').val() == "2") {
+            //        if (!this.get("EstatusFisico")) {
+            //            this.set("EstatusFisico", value);
+            //        }
+            //    } else {
+            //        this.set("EstatusFisico", value);
+            //    }
+            //    //}
+            //});
+            $('#grid').data('kendoGrid').refresh();
+            $("#EstatusFisico").data("kendoComboBox").value("");
         };
 
         function changeValueColumnEstatusDocumental(value) {
@@ -1586,19 +1601,32 @@
             var query = new kendo.data.Query(allData);
             var result = query.filter(filters).data;
             var datasource = result;
+            var val = $('input:checked').val();
 
-            $(datasource).each(function () {
-                //if (this.get("TieneComplementoRecepcion") != "Si") {
-                if ($('input:checked').val() == "2") {
-                    if (!this.get("EstatusDocumental")) {
-                        this.set("EstatusDocumental", value);
+            //$(datasource).each(function () {
+            //    //if (this.get("TieneComplementoRecepcion") != "Si") {
+            //    if ($('input:checked').val() == "2") {
+            //        if (!this.get("EstatusDocumental")) {
+            //            this.set("EstatusDocumental", value);
+            //        }
+            //    } else {
+            //        this.set("EstatusDocumental", value);
+            //    }
+            //    //}
+            //});
+            datasource.forEach(function(n){
+                if(val==="2"){
+                    if(n.EstatusDocumental===""||n.EstatusDocumental===null){
+                        n.EstatusDocumental=value;
+                        n.modified=true;
                     }
-                } else {
-                    this.set("EstatusDocumental", value);
+                }else{
+                    n.EstatusDocumental=value;
+                    n.modified=true;
                 }
-                //}
-            });
-            $("#EstatusDocumental").data("kendoComboBox").text("");
+            })
+            $('#grid').data('kendoGrid').refresh();
+            $("#EstatusDocumental").data("kendoComboBox").value("");
         };
 
         function changeValueColumnTipoUso(value) {
@@ -1608,19 +1636,32 @@
                 var query = new kendo.data.Query(allData);
                 var result = query.filter(filters).data;
                 var datasource = result;
+                var val = $('input:checked').val();
 
-                $(datasource).each(function () {
-                    //if (this.get("TieneComplementoRecepcion") != "Si") {
-                    if ($('input:checked').val() == "2") {
-                        if (!this.get("TipoUso")) {
-                            this.set("TipoUso", value);
+                //$(datasource).each(function () {
+                //    //if (this.get("TieneComplementoRecepcion") != "Si") {
+                //    if ($('input:checked').val() == "2") {
+                //        if (!this.get("TipoUso")) {
+                //            this.set("TipoUso", value);
+                //        }
+                //    } else {
+                //        this.set("TipoUso", value);
+                //    }
+                //    //};
+                //});
+                datasource.forEach(function(n){
+                    if(val==="2"){
+                        if(n.TipoUso==="" || n.TipoUso===null){
+                            n.TipoUso=value;
+                            n.modified=true;
                         }
-                    } else {
-                        this.set("TipoUso", value);
+                    }else{
+                        n.TipoUso=value;
+                        n.modified=true;
                     }
-                    //};
-                });
-                $("#TipoUso").data("kendoComboBox").text("");
+                })
+                $('#grid').data('kendoGrid').refresh();
+                $("#TipoUso").data("kendoComboBox").value("");
             }
         };
 
@@ -1934,7 +1975,7 @@
                         } else {
                             lastEditedFisicoCellIDS.EstatusFisico = value;
                         };
-
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -1957,7 +1998,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $MTR + "ItemCodeID=" + dataItem.ItemCodeID + "&Colada=" + encodeURI(dataItem.Colada) + "&token=" + Cookies.get("token")
+                            read: $MTR + "ItemCodeID=" + dataItem.ItemCodeID + "&Colada=" + encodeURI(dataItem.Colada) + "&token=" + Cookies.get("token") + "&proyectoID=" + dataItem.ProyectoID
                         },
                         serverFiltering: true
                     },
@@ -1999,7 +2040,7 @@
                             }
                             lastEditedMTRCellID.MTR = value;
                         };
-
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -2034,7 +2075,7 @@
                         } else {
                             lastEditedDepartamentalCellID.EstatusDocumental = value;
                         };
-
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -2075,6 +2116,7 @@
                         } else {
                             lastEditedCellIDSColada.Colada = value;
                         }
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
                     },
                     filter: "contains",
@@ -2118,6 +2160,7 @@
                         } else {
                             lastEditedTipoUsoCellIDS.TipoUso = value;
                         }
+                        options.model.modified=true;
                         $('#grid').data('kendoGrid').refresh();
 
                         var uid = options.model.uid;
@@ -2276,7 +2319,7 @@
         function GuardarParcial() {
             //loadingStart();
             var j = 0, z = 0;
-            var allData = $("#grid").data("kendoGrid").dataSource.data();
+            var allData = $("#grid").data("kendoGrid").dataSource.data().filter(function(n){ return n.modified===true});
             var query = new kendo.data.Query(allData);
             var result = query.data;
             var datasource = result;

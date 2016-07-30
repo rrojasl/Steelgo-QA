@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerMTR(int ItemCodeID, string Colada)
+        public object ObtenerMTR(int ItemCodeID, string Colada, int proyectoID)
         {
             try
             {
@@ -51,15 +51,23 @@ namespace BackEndSAM.DataAcces
                 {
                     int coladaID = (from c in ctx.Sam3_Colada
                                     where c.Activo && c.NumeroColada == Colada
+                                    && c.ProyectoID == proyectoID
                                     select c.ColadaID).AsParallel().SingleOrDefault();
 
-                    lista = (from m in ctx.Sam3_MTR
-                             where m.Activo && m.ItemCodeID == ItemCodeID && m.ColadaID == coladaID
-                             select new ListaCombos
-                             {
-                                 id = m.MTRID.ToString(),
-                                 value = m.NumeroMTR
-                             }).AsParallel().ToList();
+                    if (coladaID == null && coladaID <= 0)
+                    {
+                        throw new Exception("No existe la Colada especificada");
+                    }
+                    else
+                    {
+                        lista = (from m in ctx.Sam3_MTR
+                                 where m.Activo && m.ItemCodeID == ItemCodeID && m.ColadaID == coladaID
+                                 select new ListaCombos
+                                 {
+                                     id = m.MTRID.ToString(),
+                                     value = m.NumeroMTR
+                                 }).AsParallel().ToList();
+                    }
                 }
                 return lista;
             }
