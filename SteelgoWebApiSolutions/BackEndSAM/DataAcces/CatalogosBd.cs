@@ -1466,18 +1466,18 @@ namespace BackEndSAM.DataAcces
                         case 12: //MTR
                             #region
                             CatalogoMTR mtr = serializer.Deserialize<CatalogoMTR>(data);
-                            if (!ctx.Sam3_MTR.Where(x => x.NumeroMTR == mtr.NumeroMTR && x.Activo).AsParallel().Any())
-                            {
-                                int valor = Convert.ToInt32(mtr.ItemCodeID);
-                                int itemCodeSam3 = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
+                            int coladaID = Convert.ToInt32(mtr.ColadaID);
+                            int valor = Convert.ToInt32(mtr.ItemCodeID);
+                            int itemCodeSam3 = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
                                                     where icd.Activo && icd.Rel_ItemCode_Diametro_ID == valor
                                                     select icd.ItemCodeID).AsParallel().SingleOrDefault();
 
-
+                            if (!ctx.Sam3_MTR.Where(x => x.NumeroMTR == mtr.NumeroMTR && x.ColadaID == coladaID && x.ItemCodeID == itemCodeSam3 && x.Activo).AsParallel().Any())
+                            {
                                 Sam3_MTR catalogoMTR = new Sam3_MTR();
                                 catalogoMTR.NumeroMTR = mtr.NumeroMTR;
                                 catalogoMTR.ItemCodeID = itemCodeSam3;
-                                catalogoMTR.ColadaID = Convert.ToInt32(mtr.ColadaID);
+                                catalogoMTR.ColadaID = coladaID;
                                 catalogoMTR.CantidadPiezas = Convert.ToInt32(mtr.CantidadPiezas);
                                 catalogoMTR.Activo = true;
                                 catalogoMTR.FechaModificacion = DateTime.Now;
