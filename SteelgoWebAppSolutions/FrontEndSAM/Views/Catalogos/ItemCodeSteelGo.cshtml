@@ -915,7 +915,7 @@
             $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (response){
                 if (Error(response)){
                     //If the CedulaA,B or C are empty
-                    if(options.model.CedulaA==="" && options.model.CedulaB==="" && options.model.CedulaC===""){
+                    if(options.model.CedulaA==="" && options.model.CedulaB==="" && options.model.Libra===""){
                         if(response.EspesoresMm.length>0){
                             $("[name='MM']").data("kendoComboBox").dataSource.data(response.EspesoresMm);
                             $("[name='MM']").data("kendoComboBox").enable(true)
