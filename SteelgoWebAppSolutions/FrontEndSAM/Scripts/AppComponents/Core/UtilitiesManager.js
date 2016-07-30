@@ -545,3 +545,7 @@ function kendoDateValidation(start,end) {
 function getBySplit(str, sep, pos) {
     return str.split(sep)[pos];
 }
+
+function isKendoWidget(j) {
+    return !(typeof kendo.widgetInstance(j) === "undefined")
+}
