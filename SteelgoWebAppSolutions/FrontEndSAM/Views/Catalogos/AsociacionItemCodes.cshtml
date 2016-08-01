@@ -539,6 +539,14 @@
                             //return true;
                         }
                     },
+                    parse:function(response){
+                        if($("#icinput").data("kendoComboBox").dataItem()!==undefined && $("#icinput").data("kendoComboBox").dataItem().tipoGrupo===1){
+                            response=response.filter(function(n){return parseInt(n.GrupoID)===1})
+                        }else if($("#icinput").data("kendoComboBox").dataItem()!==undefined && $("#icinput").data("kendoComboBox").dataItem().tipoGrupo>1){
+                            response=response.filter(function(n){return parseInt(n.GrupoID)>1})
+                        }
+                        return response;
+                    }
                 },
                 serverPaging: false,
                 serverFiltering: false,
@@ -558,13 +566,7 @@
                     }
                 },
                 requestEnd:function(e){
-                    if($("#icinput").data("kendoComboBox")!==undefined && e.type!==undefined){
-                        e.response.forEach(function(n,i,a){
-                            tmp=parseInt(n.GrupoID) >= 2 ? 2 : parseInt(n.GrupoID);
-                            dataItem=$("#icinput").data("kendoComboBox").dataItem();
-                            dataItem!==undefined ? dataItem.tipoGrupo!=tmp ? a.splice(i,1) : null : null;
-                        })
-                    }
+                    
                 }
             },
             autoHeight: true,
