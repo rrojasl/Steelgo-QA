@@ -219,7 +219,7 @@
                 //Botones Dashboard
                 //Accesorios
             $("#btnOrdenesTrabajoAccesorios").click(function () {
-                if( $("#UnidadMedida").data("kendoComboBox").value() != 2)
+                if( $("#UnidadMedida").data("kendoComboBox").value() === 4)
                 {
                     tabActivoAccesorios("1");
                 }
@@ -232,7 +232,7 @@
             });
 
             $("#btnOrdenesTrabajoActivasAccesorios").click(function () {
-                if($("#UnidadMedida").data("kendoComboBox").value() != 2)
+                if($("#UnidadMedida").data("kendoComboBox").value() === 4)
                 {
                     tabActivoAccesorios("2");
                 }
@@ -300,23 +300,23 @@
                 //$("#btnCorteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("8"); AccionesListado("8", 2); });
             //Tubos
             $("#btnOrdenesTrabajoTubos").click(function () {
-                if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
-                    tabActivoTubos("1");
-                }
-                else {
+                //if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
+                //    tabActivoTubos("1");
+                //}
+                //else {
                     MostrarGrid(1); tabActivoTubos("1"); AccionesListado("1", 1, 1);
-                }
+                //}
                
             });
 
             $("#btnOrdenesTrabajoActivasTubos").click(function () {
-                if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
-                    tabActivoTubos("2");
-                }
-                else
-                {
+                //if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
+                //    tabActivoTubos("2");
+                //}
+                //else
+                //{
                     MostrarGrid(1); tabActivoTubos("2"); AccionesListado("2", 1, 1);
-                }
+                //}
                
             });
 
@@ -599,18 +599,18 @@
                 $("#spanDespacharTubos").html(result.PorDespachar ? result.PorDespachar : 0);
                 $("#spanEntregarTubos").html(result.PorEntregar ? result.PorEntregar : 0);
 
-                if($("#UnidadMedida").data("kendoComboBox").value() != 2)
-                {
-                    $("#spanTravelerPendienteTubos").html("N/A");
-                    $("#spanOrdenesTrabajoTubos").html("N/A");
-                    $("#spanOrdenesTrabajoActivasTubos").html("N/A");
-                }
-                else
-                {
+                //if($("#UnidadMedida").data("kendoComboBox").value() != 2)
+                //{
+                //    $("#spanTravelerPendienteTubos").html("N/A");
+                //    $("#spanOrdenesTrabajoTubos").html("N/A");
+                //    $("#spanOrdenesTrabajoActivasTubos").html("N/A");
+                //}
+                //else
+                //{
                     $("#spanTravelerPendienteTubos").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
                     $("#spanOrdenesTrabajoTubos").html(result.CantidadODT ? result.CantidadODT : 0);
                     $("#spanOrdenesTrabajoActivasTubos").html(result.CantidadODTActiva ? result.CantidadODTActiva : 0);
-                }
+                //}
                 $("#spanDespachoTubos").html(result.Despacho ? result.Despacho : 0);
                 $("#spanCorteTubos").html(result.Corte ? result.Corte : 0);
                 CantidadesDelMenuDashboardAccesorios();
@@ -644,16 +644,16 @@
                 $("#spanDespacharAccesorios").html(result.PorDespachar ? result.PorDespachar : 0);
                 $("#spanEntregarAccesorios").html(result.PorEntregar ? result.PorEntregar : 0);
 
-                if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
-                    $("#spanTravelerPendienteAccesorios").html("N/A");
-                    $("#spanOrdenesTrabajoAccesorios").html("N/A");
-                    $("#spanOrdenesTrabajoActivasAccesorios").html("N/A");
-                }
-                else {
+                //if ($("#UnidadMedida").data("kendoComboBox").value() != 2) {
+                //    $("#spanTravelerPendienteAccesorios").html("N/A");
+                //    $("#spanOrdenesTrabajoAccesorios").html("N/A");
+                //    $("#spanOrdenesTrabajoActivasAccesorios").html("N/A");
+                //}
+                //else {
                     $("#spanTravelerPendienteAccesorios").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
                     $("#spanOrdenesTrabajoAccesorios").html(result.CantidadODT ? result.CantidadODT : 0);
                     $("#spanOrdenesTrabajoActivasAccesorios").html(result.CantidadODTActiva ? result.CantidadODTActiva : 0);
-                }
+                //}
 
                 //$("#spanTravelerPendienteAccesorios").html(result.TrevelerPendiente ? result.TrevelerPendiente : 0);
                 $("#spanDespachoAccesorios").html(result.Despacho ? result.Despacho : 0);
