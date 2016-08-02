@@ -3316,8 +3316,10 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
-
-                    return listado.OrderBy(x => x.FolioIncidenciaID).ToList();
+                    foreach(var i in listado){
+                        i.FolioOriginalID = (i.FolioOriginalID == null || i.FolioOriginalID == "") ? i.FolioIncidenciaID : i.FolioOriginalID;
+                    }
+                    return listado.OrderBy(x => x.FolioOriginalID).ToList();
                 }
             }
             catch (Exception ex)
