@@ -270,8 +270,10 @@
                 data: resultadoJson,
                 schema: {
                     model: {
+                        id:"FolioOriginalID",
                         fields: {
                             FolioConfiguracionIncidencia: { type: "string" },
+                            FolioOriginalID: {type:"number"},
                             FolioIncidenciaID: { type: "string" },
                             Clasificacion: { type: "string" },
                             TipoIncidencia: { type: "string" },
@@ -279,7 +281,7 @@
                             RegistradoPor: { type: "string" },
                             FechaRegistro: { type: "date" }
                         }
-                    }
+                    },
                 },
                 serverPaging: false,
                 serverFiltering: false,
@@ -302,7 +304,7 @@
                 buttonCount: 2
             },
             columns: [
-                { field: "FolioConfiguracionIncidencia", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioConfiguracionIncidencia#</a>" },
+                { field: "FolioOriginalID", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template:folioTemplate },
                 { field: "Clasificacion", title: _dictionary.ListadoIncidencias0009[$("#language").data("kendoDropDownList").value()] },
                 { field: "TipoIncidencia", title: _dictionary.ListadoIncidencias0010[$("#language").data("kendoDropDownList").value()] },
                 { field: "Estatus", title: _dictionary.ListadoIncidencias0011[$("#language").data("kendoDropDownList").value()] },
@@ -333,6 +335,10 @@
             }
          });
     };
+
+    function folioTemplate(dataItem){
+        return "<a class='detailLink' onclick='mostrarDetalle("+dataItem.FolioIncidenciaID+")'>"+( dataItem.FolioOriginalID!==null && $.isNumeric(dataItem.FolioOriginalID) ? dataItem.FolioOriginalID : dataItem.FolioConfiguracionIncidencia)+"</a>"
+    }
 
     function createPeriodoTiempo() {
         $("#PeriodoTiempo").kendoComboBox({

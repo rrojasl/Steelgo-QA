@@ -1720,6 +1720,7 @@ namespace BackEndSAM.DataAcces
                                    Estatus = inc.Estatus,
                                    FechaRegistro = inc.FechaCreacion.ToString(),
                                    FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   FolioOriginalID = inc.IncidenciaOriginalID.ToString(),
                                    RegistradoPor = (from us in ctx.Sam3_Usuario
                                                     where us.Activo
                                                     && us.UsuarioID == inc.UsuarioID
