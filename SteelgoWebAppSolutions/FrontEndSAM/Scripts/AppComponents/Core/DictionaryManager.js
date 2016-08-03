@@ -6093,7 +6093,10 @@ _dictionary = {
         "es-MX": "Ver Cancelación",
         "en-US": "See Cancellation"
     },
-
+    "Incidencias0079": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
