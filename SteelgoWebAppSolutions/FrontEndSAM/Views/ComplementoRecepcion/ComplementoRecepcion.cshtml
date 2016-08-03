@@ -1438,7 +1438,7 @@
                     break;
                 case 3:
                     modalTitle = "Añadir MTR";
-                    content = "@Url.Action("ListadoCatalogos", "Catalogos", new{catalogName="MTR"})";
+                    content = "@Url.Action("ListadoCatalogos", "Catalogos", new{ catalog = "12" })";//MTR
                     height = "40%";
                     width = "70%";
                     if (!validarRequeridosFormaComplementoRecepcion()) {
