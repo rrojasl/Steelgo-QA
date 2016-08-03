@@ -123,6 +123,7 @@
     <None Include="Properties\PublishProfiles\SAM Sec.pubxml" />
     <None Include="Properties\PublishProfiles\samSe.pubxml" />
     <None Include="Properties\PublishProfiles\SecuriryManager.pubxml" />
+    <None Include="Properties\PublishProfiles\Security-QA.pubxml" />
     <None Include="Properties\PublishProfiles\securityManager.pubxml" />
     <None Include="Properties\PublishProfiles\SecurityPublish.pubxml" />
     <None Include="Web.Debug.config">
