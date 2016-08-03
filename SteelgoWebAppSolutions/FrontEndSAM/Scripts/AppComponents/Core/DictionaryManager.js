@@ -363,6 +363,55 @@ _dictionary = {
         "es-MX": "Revision del Deficit",
         "en-US": "Deficit Revision"
     },
+    "menuLabel1071": {
+        "es-MX": "Catalogo Camión",
+        "en-US": "Catalog trucks"
+    },
+    "menuLabel1072": {
+        "es-MX": "Catalogo Cédulas",
+        "en-US": "Documents catalog"
+    },
+    "menuLabel1073": {
+        "es-MX": "Catalogo Chofer",
+        "en-US": "Catalog Driver"
+    },
+    "menuLabel1074": {
+        "es-MX": "Catalogo Fabricante",
+        "en-US": "Catalog Manufacturer"
+    },
+    "menuLabel1075": {
+        "es-MX": "Catalogo MTR",
+        "en-US": "Catalog MTR"
+    },
+    "menuLabel1076": {
+        "es-MX": "Catalogo Patios",
+        "en-US": "Catalog Yards"
+    },
+    "menuLabel1077": {
+        "es-MX": "Catalogo Plana",
+        "en-US": "Catalog Platform"
+    },
+    "menuLabel1078": {
+        "es-MX": "Catalogo Proveedor",
+        "en-US": "Catalog Provider"
+    },
+    "menuLabel1079": {
+        "es-MX": "Catalogo Tipo Aviso",
+        "en-US": "Catalog Notice Type"
+    },
+    "menuLabel1080": {
+        "es-MX": "Catalogo Tipo de Uso",
+        "en-US": "Catalog Use Type"
+    },
+    "menuLabel1081": {
+        "es-MX": "Catalogo Tracto",
+        "en-US": "Catalog Tract"
+    },
+    "menuLabel1082": {
+        "es-MX": "Catalogo Transportista",
+        "en-US": "Catalog Carriers"
+    },
+   
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
