@@ -54,14 +54,39 @@
     var cedulasErroneas = false;
     var _catalog = getUrlParameter("catalog", null);
     var _catalogName = getUrlParameter("catalogName", null);
-    var $ListadoCatalogosModel = {
+    var strCatalogName = "";
+    var $model = {
         listContainer: {
             create: ".k-grid-add",
             list: ["#grid", ".k-combobox", "k-dropdown"],
-            detail: "",
-            destroy: "k-grid-delete"
+            detail: ".k-grid-edit",
+            destroy: ".k-grid-delete"
         },
+        properties: {}
     };
+
+    if (_catalog != null)
+    {
+        switch (_catalog) {
+            case "11"://Cedulas
+                var propers= {
+                    factorconversion:{
+                        visible: "cedulasDiv",
+                        editable: "#fconversion",
+                        required: "#fconversion"
+                    }, 
+                    archivos:{
+                        visible: "selectFilesDiv",
+                        editable: "#selectFiles",
+                        required: "#selectFiles"
+                    } 
+                };
+                $model.properties = propers;
+                $model.listContainer.create = "#fcarga";
+                break;
+        }
+    }
+
     datosRegistro = {};
     nuevasCedulas = [];
     porPintar = [];
@@ -665,6 +690,10 @@
                     var direccion = parseUrl(data, catalogo, "post");
                     grid.options.dataSource.options.transport.create.url = direccion;
                 }
+                applySecurityPolicy(false);
+            },
+            cancel: function (e) {
+                applySecurityPolicy(false);
             },
             remove: function (e) {
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
@@ -679,6 +708,7 @@
                 } else {
                     displayMessage("ListadoCatalogos0009", "", '2');
                 }
+                applySecurityPolicy(false);
             },
             dataBound: function (e) {
                 if (contadorDataBound == 0) {
@@ -691,10 +721,12 @@
                     checkTH($("#grid").data("kendoGrid"));
                     quickHeadFilter($("#grid").data("kendoGrid"));
                 }
+               
                 if (ultimaInsercionFallida) {
                     ultimaInsercionFallida = false;
                     $("#grid tr:eq(1)").remove();
                 }
+                applySecurityPolicy(false);
             }
         });
         loadingStop();
@@ -922,7 +954,9 @@
                 var g = null;
                 $("#language").data("kendoDropDownList").value() === "es-MX" ? g = ["Factor de conversión", "Carga masiva", "Seleccionar archivos", "Guardar", "Descargar plantilla"] : g = ["Conversion factor", "Bulk upload", "Select files", "Save", "Download template"];
                 //$("#listaCatalogos").parent().parent().parent().append;
-                $('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-7 col-lg-7 row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">' + g[0] + '</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >' + g[1] + '</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">' + g[2] + '</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">' + g[3] + '</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced" style="display:inline-block"><label id="" class="download">' + g[4] + '</label></a></div></div></div></div>').insertAfter($("#listaCatalogos").closest(".filter-section"))
+                $('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-7 col-lg-7 row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3 cedulasDiv"><label id="" for="fconversion">' + g[0] + '</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3 selectFilesDiv"><label id="" >' + g[1] + '</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">' + g[2] + '</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">' + g[3] + '</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced" style="display:inline-block"><label id="" class="download">' + g[4] + '</label></a></div></div></div></div>').insertAfter($("#listaCatalogos").closest(".filter-section"))
+
+                
                 $Cedulas.Cedulas.read({}, { catalogoID: "11", token: Cookies.get("token") }).done(function (result) {
                     $("#fconversion").val(result);
                 });
@@ -1077,13 +1111,14 @@
                     }
                 });
             }
+            applySecurityPolicy(false);
         },
         dataBound:function(e){
             if(_catalog!==null){
                 this.select(function(e){
                     return e.id===_catalog;
                 })
-                //this.trigger("change")
+                $("#listaCatalogos").data("kendoDropDownList").enable(false);
             }
             if(isInPopUp() && _catalogName!==null){
                 this.select(function(e){
@@ -1406,7 +1441,61 @@
     };
 
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
+    switch (_catalog) {
+        case "9":
+            strCatalogName = "Camion";
+            $authorizationModel["Camion"] = $model;
+            break;
+        case "11":
+            strCatalogName = "Cedula";
+            $authorizationModel["Cedula"] = $model;
+            break;
+        case "2":
+            strCatalogName = "Chofer";
+            $authorizationModel["Chofer"] = $model;
+            break;
+        case "10":
+            strCatalogName = "Fabricante";
+            $authorizationModel["Fabricante"] = $model;
+            break;
+        case "12":
+            strCatalogName = "MTR";
+            $authorizationModel["MTR"] = $model;
+            break;
+        case "1":
+            strCatalogName = "Patio";
+            $authorizationModel["Patio"] = $model;
+            break;
+        case "6":
+            strCatalogName = "Plana";
+            $authorizationModel["Plana"] = $model;
+            break;
+        case "7":
+            strCatalogName = "Proveedor";
+            $authorizationModel["Proveedor"] = $model;
+            break;
+        case "3":
+            strCatalogName = "Tipo Aviso";
+            $authorizationModel["Tipo Aviso"] = $model;
+            break;
+        case "8":
+            strCatalogName = "Tipo Uso";
+            $authorizationModel["Tipo Uso"] = $model;
+            break;
+        case "5":
+            strCatalogName = "Tracto";
+            $authorizationModel["Tracto"] = $model;
+            break;
+        case "4":
+            strCatalogName = "Transportista";
+            $authorizationModel["Transportista"] = $model;
+            break;
+        default:
+            strCatalogName = "ListadoCatalogos";
+            $authorizationModel["ListadoCatalogos"] = $model;
+            break;
+    }
+    
     columnas = getColumnas();
     $(document).bind("ajaxStart", function () { }).bind("ajaxStop", function () { }).bind("ajaxError", function () { }).bind("ajaxSuccess", function () { });
     if (isInPopUp()) {

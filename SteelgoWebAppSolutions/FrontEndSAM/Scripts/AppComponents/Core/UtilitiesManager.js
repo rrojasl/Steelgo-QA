@@ -108,8 +108,12 @@ function toggleSideMenu() {
 //Function to redirect properly with the specified language
 function redirectToLanguage(event,link) {
     event.preventDefault();
-    if (!0 >= link.href.indexOf("?leng=") && link.href.indexOf("#")==-1) {
-        window.location.href = link.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+    if (!0 >= link.href.indexOf("?leng=") && link.href.indexOf("#") == -1) {
+        if (!0 >= link.href.indexOf("&leng=")) {
+            window.location.href = link.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+        } else {
+            window.location.href = link.href + $("#language").data("kendoDropDownList").value();
+        }
     } else {
         window.location.href = link.href;
     }

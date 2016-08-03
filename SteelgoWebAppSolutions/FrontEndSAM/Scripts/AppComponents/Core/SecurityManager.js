@@ -233,7 +233,13 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     $(entityDefinition.listContainer["detail"]).click(function (e) {
                         e.preventDefault();
                     });
+                    $(".k-icon.k-edit").removeClass("k-icon").removeClass("k-edit");
+                    if ($("#grid")) {
+                        $("#grid").data("kendoGrid").options.editable = null;
+                    }
                 }
+
+
                 if ($(entityDefinition.listContainer["detail"]).is("button")) {
                     //$(entityDefinition.listContainer["detail"]).prop('disabled', true);
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
