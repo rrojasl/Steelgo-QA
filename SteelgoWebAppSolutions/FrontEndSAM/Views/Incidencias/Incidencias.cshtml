@@ -65,6 +65,7 @@
                                     <li><a id="RedirectIncidencia" href="#" class="hidden"><span id="Incidencias0072"></span></a></li>
                                     <li><a id="RedirectResolver" href="#" class="hidden"><span id="Incidencias0073"></span></a></li>
                                     <li><a id="RedirectResponder" href="#" class="hidden"><span id="Incidencias0074"></span></a></li>
+                                    <li><a id="RedirectCancelar" href="#" class="hidden"><span id="Incidencias0079"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -2521,6 +2522,13 @@
             cambiaActivosClick(tabSelected);
         });
 
+        $("#RedirectCancelar").click(function (e) {
+            e.preventDefault();
+            $("#tabstrip").data("kendoTabStrip").select(3);
+            tabSelected = "Cancelar";
+            cambiaActivosClick(tabSelected);
+        });
+
         function NuevaIncidencia() {
             $("#tabstrip").data("kendoTabStrip").select(0);
             tabSelected = "Incidencia";
@@ -2615,12 +2623,14 @@
             $("#RedirectIncidencia").removeClass("hidden");
             $("#RedirectResponder").removeClass("hidden");
             $("#RedirectResolver").removeClass("hidden");
+            $("#RedirectCancelar").removeClass("hidden");
         }
 
         function deshabilitarAcciones() {
             $("#RedirectIncidencia").addClass("hidden");
             $("#RedirectResponder").addClass("hidden");
             $("#RedirectResolver").addClass("hidden");
+            $("#RedirectCancelar").addClass("hidden");
         }
 
         function formatoFechaKendo(splitYear, splitMonth, splitDay) {
