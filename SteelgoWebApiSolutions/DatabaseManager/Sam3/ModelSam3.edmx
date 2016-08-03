@@ -6404,12 +6404,12 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="IncidenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IncidenciaOriginalID" Type="Int32" />
-          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NoRFI" Type="Int32" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UsuarioID" Type="Int32" Nullable="false" />
-          <Property Name="Respuesta" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Respuesta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FechaRespuesta" Type="DateTime" Precision="3" />
           <Property Name="UsuarioIDRespuesta" Type="Int32" />
           <Property Name="Version" Type="Int32" Nullable="false" />
