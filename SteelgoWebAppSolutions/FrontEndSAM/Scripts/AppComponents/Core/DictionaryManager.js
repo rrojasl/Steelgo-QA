@@ -2462,7 +2462,10 @@ _dictionary = {
         "es-MX": "Dimension Promedio",
         "en-US": "Average Dimension"
     },
-
+    "Cuantificacion0105": {
+        "es-MX": "Este elemento ya cuenta con NU, no puede ser eliminado",
+        "en-US": "This element already has UN, can not be deleted"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
