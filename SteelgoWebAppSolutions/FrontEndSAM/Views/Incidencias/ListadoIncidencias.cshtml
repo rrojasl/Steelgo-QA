@@ -268,8 +268,10 @@
                 data: resultadoJson,
                 schema: {
                     model: {
+                        id:"FolioOriginalID",
                         fields: {
-                            FolioConfiguracionIncidencia: { type: "string" },
+                            FolioConfiguracionIncidencia: { type: "number" },
+                            FolioOriginalID: {type:"number"},
                             FolioIncidenciaID: { type: "string" },
                             Clasificacion: { type: "string" },
                             TipoIncidencia: { type: "string" },
@@ -277,7 +279,8 @@
                             RegistradoPor: { type: "string" },
                             FechaRegistro: { type: "date" }
                         }
-                    }
+                    },
+                    parse:dataparser
                 },
                 serverPaging: false,
                 serverFiltering: false,
@@ -300,7 +303,7 @@
                 buttonCount: 2
             },
             columns: [
-                { field: "FolioConfiguracionIncidencia", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioConfiguracionIncidencia#</a>" },
+                { field: "FolioOriginalID", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template:folioTemplate },
                 { field: "Clasificacion", title: _dictionary.ListadoIncidencias0009[$("#language").data("kendoDropDownList").value()] },
                 { field: "TipoIncidencia", title: _dictionary.ListadoIncidencias0010[$("#language").data("kendoDropDownList").value()] },
                 { field: "Estatus", title: _dictionary.ListadoIncidencias0011[$("#language").data("kendoDropDownList").value()] },
@@ -331,6 +334,10 @@
             }
          });
     };
+
+    function folioTemplate(dataItem){
+        return "<a class='detailLink' onclick='mostrarDetalle("+dataItem.FolioIncidenciaID+")'>"+( dataItem.FolioOriginalID!==null && $.isNumeric(dataItem.FolioOriginalID) ? dataItem.FolioOriginalID : dataItem.FolioConfiguracionIncidencia)+"</a>"
+    }
 
     function createPeriodoTiempo() {
         $("#PeriodoTiempo").kendoComboBox({
@@ -434,6 +441,15 @@
         $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
     };
 
+    function dataparser(response){
+        if(response.length>1){
+            response.forEach(function(n){
+                n.FolioOriginalID = parseInt(n.FolioOriginalID)
+            })
+        }
+        return response;
+    }
+
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
@@ -513,7 +529,8 @@
                 resultadoJson = data;
                 if ($("#grid").data("kendoGrid")) {
                     if (resultadoJson.length > 0) {
-                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        $("#grid").data("kendoGrid").dataSource.data(dataparser(resultadoJson));
+                        $("#grid").data("kendoGrid").dataSource.sort([{field:"FolioOriginalID",dir:"asc"}]);
                         $("#grid").data("kendoGrid").dataSource.page(1);
                     } else {
                         $("#grid").data("kendoGrid").dataSource.data([]);

@@ -1441,7 +1441,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <EntityDeploy Include="SamLogging\ModelSamLogging.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelSamLogging.Designer.cs</LastGenOutput>
@@ -1454,6 +1453,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelSam2.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="packages.config" />
     <None Include="Sam2\ModelSam2.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelSam2.edmx</DependentUpon>

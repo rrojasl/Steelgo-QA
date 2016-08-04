@@ -370,6 +370,7 @@ namespace BackEndSAM.DataAcces
                                                     where us.Activo && us.UsuarioID == inc.UsuarioID
                                                     select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
                                    FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   FolioOriginalID = inc.IncidenciaOriginalID.ToString(),
                                    FechaRegistro = inc.FechaCreacion.ToString(),
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                                                           where  pc.Rel_Proyecto_Entidad_Configuracion_ID==inc.Rel_Proyecto_Entidad_Configuracion_ID

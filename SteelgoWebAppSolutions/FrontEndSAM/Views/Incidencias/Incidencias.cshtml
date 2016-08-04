@@ -115,11 +115,11 @@
                                                     </div>
                                                     <div id="TituloDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                                                         <label id="Incidencias0006"></label>
-                                                        <input id="Titulo" class="general-input" />
+                                                        <input id="Titulo" class="general-input" maxlength="100"/>
                                                     </div>
                                                     <div id="DescripcionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                                                         <label id="Incidencias0007"></label>
-                                                        <textarea id="Descripcion" rows="4" cols="50"></textarea>
+                                                        <textarea id="Descripcion" rows="4" cols="50" maxlength="1500"></textarea>
                                                     </div>
                                                     <div id="RegistradoPorDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                         <label id="Incidencias0014"></label>
@@ -137,7 +137,7 @@
                                                             <div class="addedSection clearfix">
                                                                 <div id="DescripcionArchivoIncidenciaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                                     <label id="Incidencias0021"></label>
-                                                                    <input id="DescripcionArchivoIncidencia" class="general-input" />
+                                                                    <input id="DescripcionArchivoIncidencia" class="general-input" maxlength="1500"/>
                                                                 </div>
                                                                 <div id="AdjuntarArchivosIncidenciaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                                     <label id="Incidencias0020"></label>
@@ -362,6 +362,7 @@
         RespondidoPor = {};
     var tabSelected = "Incidencia";
     var edicion = false;
+    var hasFiles=false;
 
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ListadoIncidenciasUrl = "@Url.Action("ListadoIncidencias", "Incidencias")";
@@ -1072,7 +1073,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosIncidencia,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
         $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
@@ -1096,7 +1097,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosResolver,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosResolver").data("kendoUpload").enable(true);
         $("#DescripcionArchivoResolver").attr("disabled", "disabled");
@@ -1118,7 +1119,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosResponder,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosResponder").data("kendoUpload").enable(true);
         $("#DescripcionArchivoResponder").attr("disabled", "disabled");
@@ -1140,7 +1141,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosCancelar,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(true);
         $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
@@ -1877,11 +1878,11 @@
                         };
                     }
                     if (_Editando["Incidencia"] && $(elem).attr("id") == "DescripcionArchivoIncidencia") {
-                        if (!$(this).val()) {
+                        if (!$(this).val() && hasFiles) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
                             $(this).closest("div").addClass("clearfix");
-                        } else {
+                        } else if(!$(this).val() && !hasFiles) {
                             $(this).closest("div").find("label").removeClass("error");
                             $(this).closest("div").removeClass("clearfix");
                         };

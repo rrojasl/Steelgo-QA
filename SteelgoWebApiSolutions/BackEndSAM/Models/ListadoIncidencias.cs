@@ -9,6 +9,7 @@ namespace BackEndSAM.Models
     {
         public string FolioConfiguracionIncidencia { get; set; }
         public string FolioIncidenciaID { get; set; }
+        public string FolioOriginalID { get; set; }
         public string Clasificacion { get; set; }
         public string TipoIncidencia { get; set; }
         public string Estatus { get; set; }
