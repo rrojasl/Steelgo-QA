@@ -621,7 +621,7 @@
     function getUrl() {
         var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
         console.log("Listado");
-        console.log($("#listaCatalogos").data("kendoDropDownList").value());
+        console.log(catalogo);
         return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + catalogo + "&token=";
     }
 
