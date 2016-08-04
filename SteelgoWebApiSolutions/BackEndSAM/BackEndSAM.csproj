@@ -593,6 +593,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\BackEnd-PROD.pubxml" />
     <None Include="Properties\PublishProfiles\BackEnd-QA.pubxml" />
     <None Include="Properties\PublishProfiles\BackEnd.pubxml" />
     <None Include="Properties\PublishProfiles\backendSAM.pubxml" />
