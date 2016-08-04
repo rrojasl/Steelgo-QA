@@ -61,7 +61,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard"><span id="Incidencias0062"></span></a></li>
+                                    <li class="listado"><a id="RedirectDashboard"><span id="Incidencias0062"></span></a></li>
                                     <li><a id="RedirectIncidencia" href="#" class="hidden"><span id="Incidencias0072"></span></a></li>
                                     <li><a id="RedirectResolver" href="#" class="hidden"><span id="Incidencias0073"></span></a></li>
                                     <li><a id="RedirectResponder" href="#" class="hidden"><span id="Incidencias0074"></span></a></li>
@@ -142,7 +142,7 @@
                                                                     <label id="Incidencias0020"></label>
                                                                     <input name="files" id="AdjuntarArchivosIncidencia" type="file" />
                                                                 </div>
-                                                                <div id="listaArchivosIncidenciaDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                <div id="listaArchivosIncidenciaDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                                                                     <div class="row">
                                                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                             <table id="listaArchivosIncidencia" class="filesTable">
@@ -377,7 +377,7 @@
     var $IncidenciasModel = {
         listContainer: {
             create: ".guardarSecurity",
-            list: "#listaArchivosIncidenciaDiv",
+            list: ".listado",
             detail: "#Editar",
             destroy: "",
             solutionincidence: ""
