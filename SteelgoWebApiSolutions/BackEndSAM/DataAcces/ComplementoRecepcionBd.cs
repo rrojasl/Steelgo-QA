@@ -510,9 +510,16 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                bool dañado = false;
                 int relFcId = itemCodeJson.RelFCID != null && itemCodeJson.RelFCID != "" ? Convert.ToInt32(itemCodeJson.RelFCID) : 0;
                 int relBId = itemCodeJson.RelBID != null && itemCodeJson.RelBID != "" ? Convert.ToInt32(itemCodeJson.RelBID) : 0;
                 int relNuId = itemCodeJson.RelNUFCBID != null && itemCodeJson.RelNUFCBID != "" ? Convert.ToInt32(itemCodeJson.RelNUFCBID) : 0;
+                NumeroUnico actualizaNumSam2 = null;
+                Sam3_NumeroUnicoSegmento segmento = null; ;
+                Sam3_NumeroUnicoMovimiento movimiento = null; ;
+                NumeroUnico sam2_numeroUnico = null; ;
+                NumeroUnicoSegmento segmentoSam2 = null; ;
+                Sam3_NumeroUnico actualizaNU = null; ;
 
                 TransactionalInformation result = new TransactionalInformation();
                 using (SamContext ctx = new SamContext())
@@ -530,7 +537,7 @@ namespace BackEndSAM.DataAcces
                                 int temp = Convert.ToInt32(elementos[1]);
                                 string prefijo = elementos[0];
 
-                                Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
+                                actualizaNU = ctx.Sam3_NumeroUnico
                                     .Where(x => x.NumeroUnicoID.ToString() == itemCodeJson.NumeroUnicoID).SingleOrDefault();
 
                                 int coladaID = (from c in ctx.Sam3_Colada
@@ -622,6 +629,7 @@ namespace BackEndSAM.DataAcces
                                             }
                                             else if (itemCodeJson.EstatusFisico == "Dañado")
                                             {
+                                                dañado = true;
                                                 estatus = "R";
                                             }
 
@@ -657,7 +665,7 @@ namespace BackEndSAM.DataAcces
                                                            where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
                                                            select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
 
-                                            NumeroUnico actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
+                                            actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
 
                                             actualizaNumSam2.Estatus = actualizaNU.Estatus;
                                             actualizaNumSam2.FechaModificacion = DateTime.Now;
@@ -692,14 +700,14 @@ namespace BackEndSAM.DataAcces
                                                         actualizaNU.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
                                                         actualizaNU.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
 
-                                                        Sam3_NumeroUnicoSegmento segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
+                                                        segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
                                                         segmento.InventarioBuenEstado = milimetros;
                                                         segmento.InventarioDisponibleCruce = milimetros;
                                                         segmento.InventarioFisico = milimetros;
                                                         segmento.FechaModificacion = DateTime.Now;
                                                         segmento.UsuarioModificacion = usuario.UsuarioID;
 
-                                                        Sam3_NumeroUnicoMovimiento movimiento = new Sam3_NumeroUnicoMovimiento();
+                                                        movimiento = new Sam3_NumeroUnicoMovimiento();
                                                         movimiento.Activo = true;
                                                         movimiento.Estatus = "A";
                                                         movimiento.FechaModificacion = DateTime.Now;
@@ -738,7 +746,7 @@ namespace BackEndSAM.DataAcces
                                                                                  where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
                                                                                  select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
 
-                                                        NumeroUnico sam2_numeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoIDSam2).AsParallel().SingleOrDefault();
+                                                        sam2_numeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoIDSam2).AsParallel().SingleOrDefault();
 
                                                         sam2_numeroUnico.NumeroUnicoInventario.InventarioBuenEstado = milimetros;
                                                         sam2_numeroUnico.NumeroUnicoInventario.InventarioDisponibleCruce = milimetros;
@@ -746,7 +754,7 @@ namespace BackEndSAM.DataAcces
                                                         sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida = milimetros;
                                                         sam2_numeroUnico.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
 
-                                                        NumeroUnicoSegmento segmentoSam2 = sam2_numeroUnico.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
+                                                        segmentoSam2 = sam2_numeroUnico.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
                                                             .SingleOrDefault();
                                                         segmentoSam2.InventarioBuenEstado = milimetros;
                                                         segmentoSam2.InventarioDisponibleCruce = milimetros;
@@ -828,6 +836,7 @@ namespace BackEndSAM.DataAcces
                                             }
                                             else if (itemCodeJson.EstatusFisico == "Dañado")
                                             {
+                                                dañado = true;
                                                 estatus = "R";
                                             }
 
@@ -854,12 +863,13 @@ namespace BackEndSAM.DataAcces
                                             int numSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
                                                            where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
                                                            select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
-                                            NumeroUnico actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
+                                            actualizaNumSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numSam2).AsParallel().SingleOrDefault();
                                             actualizaNumSam2.FechaModificacion = DateTime.Now;
                                             actualizaNumSam2.Estatus = actualizaNU.Estatus;
                                             actualizaNumSam2.ColadaID = (from eq in ctx.Sam3_EquivalenciaColada
                                                                          where eq.Activo && eq.Sam3_ColadaID == actualizaNU.ColadaID
                                                                          select eq.Sam2_ColadaID).AsParallel().SingleOrDefault();
+                                            
                                             ctx2.SaveChanges();
                                             #endregion
 
@@ -888,14 +898,14 @@ namespace BackEndSAM.DataAcces
                                                         actualizaNU.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
                                                         actualizaNU.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
 
-                                                        Sam3_NumeroUnicoSegmento segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
+                                                        segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
                                                         segmento.InventarioBuenEstado = milimetros;
                                                         segmento.InventarioDisponibleCruce = milimetros;
                                                         segmento.InventarioFisico = milimetros;
                                                         segmento.FechaModificacion = DateTime.Now;
                                                         segmento.UsuarioModificacion = usuario.UsuarioID;
 
-                                                        Sam3_NumeroUnicoMovimiento movimiento = new Sam3_NumeroUnicoMovimiento();
+                                                        movimiento = new Sam3_NumeroUnicoMovimiento();
                                                         movimiento.Activo = true;
                                                         movimiento.Estatus = "A";
                                                         movimiento.FechaModificacion = DateTime.Now;
@@ -934,15 +944,14 @@ namespace BackEndSAM.DataAcces
                                                                                  where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
                                                                                  select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
 
-                                                        NumeroUnico sam2_numeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoIDSam2).AsParallel().SingleOrDefault();
-
+                                                        sam2_numeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoIDSam2).AsParallel().SingleOrDefault();
                                                         sam2_numeroUnico.NumeroUnicoInventario.InventarioBuenEstado = milimetros;
                                                         sam2_numeroUnico.NumeroUnicoInventario.InventarioDisponibleCruce = milimetros;
                                                         sam2_numeroUnico.NumeroUnicoInventario.InventarioFisico = milimetros;
                                                         sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida = milimetros;
                                                         sam2_numeroUnico.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
 
-                                                        NumeroUnicoSegmento segmentoSam2 = sam2_numeroUnico.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
+                                                        segmentoSam2 = sam2_numeroUnico.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
                                                             .SingleOrDefault();
                                                         segmentoSam2.InventarioBuenEstado = milimetros;
                                                         segmentoSam2.InventarioDisponibleCruce = milimetros;
@@ -1025,6 +1034,41 @@ namespace BackEndSAM.DataAcces
 
                                         return result;
                                 } // Fin switch
+
+                                if (dañado)
+                                {
+                                    actualizaNU.TieneDano = true;
+                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida;
+                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida -
+                                        actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada;
+                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida
+                                        - actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada - actualizaNU.Sam3_NumeroUnicoInventario.InventarioCongelado;
+
+                                    if (segmento != null)
+                                    {
+                                        segmento.CantidadDanada = segmento.InventarioFisico;
+                                        segmento.InventarioBuenEstado = segmento.InventarioFisico - segmento.CantidadDanada;
+                                        segmento.InventarioDisponibleCruce = segmento.InventarioFisico - segmento.CantidadDanada - segmento.InventarioCongelado;
+                                    }
+
+                                    sam2_numeroUnico.TieneDano = true;
+                                    sam2_numeroUnico.NumeroUnicoInventario.CantidadDanada = sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida;
+                                    sam2_numeroUnico.NumeroUnicoInventario.InventarioBuenEstado = sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida -
+                                        sam2_numeroUnico.NumeroUnicoInventario.CantidadDanada;
+                                    sam2_numeroUnico.NumeroUnicoInventario.InventarioDisponibleCruce = sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida -
+                                        sam2_numeroUnico.NumeroUnicoInventario.CantidadDanada - sam2_numeroUnico.NumeroUnicoInventario.InventarioCongelado;
+
+                                    if (segmentoSam2 != null)
+                                    {
+                                        segmentoSam2.CantidadDanada = segmentoSam2.InventarioFisico;
+                                        segmentoSam2.InventarioBuenEstado = segmentoSam2.InventarioFisico - segmentoSam2.CantidadDanada;
+                                        segmentoSam2.InventarioDisponibleCruce = segmentoSam2.InventarioFisico - segmentoSam2.CantidadDanada - segmentoSam2.InventarioCongelado;
+                                    }
+
+                                    ctx.SaveChanges();
+                                    ctx2.SaveChanges();
+                                }
+
                                 ctx_tran.Commit();
                                 ctx2_tran.Commit();
                             } // tran sam2
