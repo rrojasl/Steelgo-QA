@@ -511,15 +511,21 @@ namespace BackEndSAM.DataAcces
             try
             {
                 bool dañado = false;
+                bool aprobado = false;
                 int relFcId = itemCodeJson.RelFCID != null && itemCodeJson.RelFCID != "" ? Convert.ToInt32(itemCodeJson.RelFCID) : 0;
                 int relBId = itemCodeJson.RelBID != null && itemCodeJson.RelBID != "" ? Convert.ToInt32(itemCodeJson.RelBID) : 0;
                 int relNuId = itemCodeJson.RelNUFCBID != null && itemCodeJson.RelNUFCBID != "" ? Convert.ToInt32(itemCodeJson.RelNUFCBID) : 0;
                 NumeroUnico actualizaNumSam2 = null;
-                Sam3_NumeroUnicoSegmento segmento = null; ;
-                Sam3_NumeroUnicoMovimiento movimiento = null; ;
-                NumeroUnico sam2_numeroUnico = null; ;
-                NumeroUnicoSegmento segmentoSam2 = null; ;
-                Sam3_NumeroUnico actualizaNU = null; ;
+                Sam3_NumeroUnicoSegmento segmento = null;
+                Sam3_NumeroUnicoMovimiento movimiento = null;
+                NumeroUnico sam2_numeroUnico = null;
+                NumeroUnicoSegmento segmentoSam2 = null;
+                Sam3_NumeroUnico actualizaNU = null;
+                int cantidadRecibida = 0;
+                int cantidadDañada = 0;
+                int buenEstado = 0;
+                int congelado = 0;
+                int disponibleCruce = 0;
 
                 TransactionalInformation result = new TransactionalInformation();
                 using (SamContext ctx = new SamContext())
@@ -621,6 +627,7 @@ namespace BackEndSAM.DataAcces
                                             string estatus = "";
                                             if (itemCodeJson.EstatusFisico == "Aprobado")
                                             {
+                                                aprobado = true;
                                                 estatus = "A";
                                             }
                                             else if (itemCodeJson.EstatusFisico == "Condicionado" || itemCodeJson.EstatusFisico == string.Empty)
@@ -645,8 +652,8 @@ namespace BackEndSAM.DataAcces
                                             {
                                                 int? tipoUsoID = 0;
                                                 tipoUsoID = (from tp in ctx.Sam3_TipoUso
-                                                where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
-                                                select tp.TipoUsoID).SingleOrDefault();
+                                                             where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
+                                                             select tp.TipoUsoID).SingleOrDefault();
 
                                                 if (tipoUsoID > 0 && tipoUsoID != null)
                                                 {
@@ -657,7 +664,7 @@ namespace BackEndSAM.DataAcces
                                                     throw new Exception("El tipo de uso no existe o esta desactivado");
                                                 }
                                             }
-                                                
+
                                             actualizaNU.MTRID = String.IsNullOrEmpty(itemCodeJson.MTRID) ? (int?)null : Convert.ToInt32(itemCodeJson.MTRID);
 
                                             #region Actualizar nu sam2
@@ -678,96 +685,93 @@ namespace BackEndSAM.DataAcces
                                             #region Actualizar MM
                                             //Actuaalizar MM
                                             int milimetros = itemCodeJson.MM != null && itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                            int cantidadRecibida = ctx.Sam3_NumeroUnicoInventario
+                                            cantidadRecibida = ctx.Sam3_NumeroUnicoInventario
                                                 .Where(x => x.NumeroUnicoID == actualizaNU.NumeroUnicoID).Select(x => x.CantidadRecibida).AsParallel().SingleOrDefault();
-                                            int inventarioCongelado = 0;
 
                                             //si los milimetros son mayores a 0 y si son diferentes del inventario recibido en cuantificacion
                                             if (milimetros > 0 && milimetros != cantidadRecibida)
                                             {
                                                 if (actualizaNU.Sam3_ItemCode.TipoMaterialID == 1) // tubo
                                                 {
-                                                    bool aumento = cantidadRecibida < milimetros;
-                                                    int tipoMovimeintoID = 0;
-                                                    if (inventarioCongelado == 0) // si el numerounico no tiene congelado
-                                                    {
-
-                                                        #region actualizar Sam3
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.InventarioFisico = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
-
-                                                        segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
-                                                        segmento.InventarioBuenEstado = milimetros;
-                                                        segmento.InventarioDisponibleCruce = milimetros;
-                                                        segmento.InventarioFisico = milimetros;
-                                                        segmento.FechaModificacion = DateTime.Now;
-                                                        segmento.UsuarioModificacion = usuario.UsuarioID;
-
-                                                        movimiento = new Sam3_NumeroUnicoMovimiento();
-                                                        movimiento.Activo = true;
-                                                        movimiento.Estatus = "A";
-                                                        movimiento.FechaModificacion = DateTime.Now;
-                                                        movimiento.FechaMovimiento = DateTime.Now;
-                                                        movimiento.NumeroUnicoID = actualizaNU.NumeroUnicoID;
-                                                        movimiento.ProyectoID = actualizaNU.ProyectoID;
-                                                        movimiento.Referencia = "Complemento de recepcion";
-                                                        movimiento.Segmento = "A";
-                                                        movimiento.UsuarioModificacion = usuario.UsuarioID;
-
-                                                        if (aumento)
-                                                        {
-                                                            int diferencia = milimetros - cantidadRecibida;
-                                                            movimiento.Cantidad = diferencia;
-                                                            movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
-                                                                                           where tp.Activo
-                                                                                           && tp.Nombre == "Aumento de Inventario por Actualización MM"
-                                                                                           select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
-                                                        }
-                                                        else
-                                                        {
-                                                            int diferencia = cantidadRecibida - milimetros;
-                                                            movimiento.Cantidad = diferencia;
-                                                            movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
-                                                                                           where tp.Activo
-                                                                                           && tp.Nombre == "Reducción de Inventario por Actualización MM"
-                                                                                           select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
-                                                        }
-
-                                                        ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
-                                                        ctx.SaveChanges();
-                                                        #endregion
-
-                                                        #region Actualizar Sam2
-                                                        int numeroUnicoIDSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
-                                                                                 where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
-                                                                                 select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
-
-                                                        sam2_numeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoIDSam2).AsParallel().SingleOrDefault();
-
-                                                        sam2_numeroUnico.NumeroUnicoInventario.InventarioBuenEstado = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.InventarioDisponibleCruce = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.InventarioFisico = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
-
-                                                        segmentoSam2 = sam2_numeroUnico.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
-                                                            .SingleOrDefault();
-                                                        segmentoSam2.InventarioBuenEstado = milimetros;
-                                                        segmentoSam2.InventarioDisponibleCruce = milimetros;
-                                                        segmentoSam2.InventarioFisico = milimetros;
-                                                        segmentoSam2.FechaModificacion = DateTime.Now;
-                                                        ctx2.SaveChanges();
-                                                        #endregion
-
-                                                    }
-                                                    else
+                                                    if (actualizaNU.Sam3_NumeroUnicoInventario.InventarioCongelado > 0) // si el numerounico tiene congelado
                                                     {
                                                         throw new Exception("El Número Único ya cuenta con congelados, no se puede actualizar el inventario por este medio");
                                                     }
+
+                                                    bool aumento = cantidadRecibida < milimetros;
+
+                                                    cantidadDañada = dañado ? milimetros : 0;
+                                                    buenEstado = milimetros - cantidadDañada;
+                                                    disponibleCruce = milimetros - cantidadDañada - congelado;
+                                                    #region actualizar Sam3
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida = milimetros;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioFisico = milimetros;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+
+                                                    segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
+                                                    segmento.InventarioBuenEstado = buenEstado;
+                                                    segmento.CantidadDanada = cantidadDañada;
+                                                    segmento.InventarioDisponibleCruce = disponibleCruce;
+                                                    segmento.InventarioFisico = milimetros;
+                                                    segmento.FechaModificacion = DateTime.Now;
+                                                    segmento.UsuarioModificacion = usuario.UsuarioID;
+
+                                                    movimiento = new Sam3_NumeroUnicoMovimiento();
+                                                    movimiento.Activo = true;
+                                                    movimiento.Estatus = "A";
+                                                    movimiento.FechaModificacion = DateTime.Now;
+                                                    movimiento.FechaMovimiento = DateTime.Now;
+                                                    movimiento.NumeroUnicoID = actualizaNU.NumeroUnicoID;
+                                                    movimiento.ProyectoID = actualizaNU.ProyectoID;
+                                                    movimiento.Referencia = "Complemento de recepcion";
+                                                    movimiento.Segmento = "A";
+                                                    movimiento.UsuarioModificacion = usuario.UsuarioID;
+
+                                                    if (aumento)
+                                                    {
+                                                        int diferencia = milimetros - cantidadRecibida;
+                                                        movimiento.Cantidad = diferencia;
+                                                        movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
+                                                                                       where tp.Activo
+                                                                                       && tp.Nombre == "Aumento de Inventario por Actualización MM"
+                                                                                       select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                                    }
+                                                    else
+                                                    {
+                                                        int diferencia = cantidadRecibida - milimetros;
+                                                        movimiento.Cantidad = diferencia;
+                                                        movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
+                                                                                       where tp.Activo
+                                                                                       && tp.Nombre == "Reducción de Inventario por Actualización MM"
+                                                                                       select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                                    }
+
+                                                    ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
+                                                    ctx.SaveChanges();
+                                                    #endregion
+
+                                                    #region Actualizar Sam2
+
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioFisico = milimetros;
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadRecibida = milimetros;
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNumSam2.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+
+                                                    segmentoSam2 = actualizaNumSam2.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
+                                                        .SingleOrDefault();
+                                                    segmentoSam2.InventarioBuenEstado = buenEstado;
+                                                    segmentoSam2.InventarioDisponibleCruce = disponibleCruce;
+                                                    segmentoSam2.InventarioFisico = milimetros;
+                                                    segmentoSam2.CantidadDanada = cantidadDañada;
+                                                    segmentoSam2.FechaModificacion = DateTime.Now;
+                                                    ctx2.SaveChanges();
+                                                    #endregion
 
                                                     #region ActualizarRelacion IT
 
@@ -782,7 +786,60 @@ namespace BackEndSAM.DataAcces
                                                     ctx.SaveChanges();
 
                                                     #endregion
+                                                } // IF tipo de material
+                                            } // if diferencia de inventario
+                                            else
+                                            {
+                                                if (actualizaNU.Sam3_NumeroUnicoInventario.InventarioCongelado > 0 && dañado) // si el numerounico tiene congelado
+                                                {
+                                                    throw new Exception("El Número Único ya cuenta con congelados, no se puede actualizar el inventario por este medio");
                                                 }
+                                                cantidadDañada = dañado ? cantidadRecibida : 0;
+                                                buenEstado = cantidadRecibida - cantidadDañada;
+                                                disponibleCruce = cantidadRecibida - cantidadDañada - congelado;
+                                                //no cambio el inventario 
+                                                if (actualizaNU.Sam3_ItemCode.TipoMaterialID == 1) // tubo
+                                                {
+                                                    #region Actualizar SAM3
+
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = cantidadRecibida;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+
+                                                    segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(s => s.Segmento == "A").SingleOrDefault();
+                                                    segmento.InventarioFisico = cantidadRecibida;
+                                                    segmento.InventarioBuenEstado = buenEstado;
+                                                    segmento.CantidadDanada = cantidadDañada;
+                                                    segmento.InventarioDisponibleCruce = disponibleCruce;
+                                                    #endregion
+                                                    #region Actualizar SAM2
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+
+                                                    segmentoSam2 = actualizaNumSam2.NumeroUnicoSegmento.Where(s => s.Segmento == "A").SingleOrDefault();
+                                                    segmentoSam2.InventarioFisico = cantidadRecibida;
+                                                    segmentoSam2.InventarioBuenEstado = buenEstado;
+                                                    segmentoSam2.InventarioDisponibleCruce = disponibleCruce;
+                                                    segmentoSam2.CantidadDanada = cantidadDañada;
+                                                    #endregion
+                                                }
+                                                else // accesorio
+                                                {
+                                                    #region Actualizar SAM3
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    #endregion
+                                                    #region Actualizar SAM2
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    #endregion
+                                                }
+
+                                                ctx.SaveChanges();
+                                                ctx2.SaveChanges();
                                             }
                                             #endregion
                                         }
@@ -828,6 +885,7 @@ namespace BackEndSAM.DataAcces
                                             string estatus = "";
                                             if (itemCodeJson.EstatusFisico == "Aprobado")
                                             {
+                                                aprobado = true;
                                                 estatus = "A";
                                             }
                                             else if (itemCodeJson.EstatusFisico == "Condicionado" || itemCodeJson.EstatusFisico == "")
@@ -851,8 +909,8 @@ namespace BackEndSAM.DataAcces
                                                 (from tp in ctx.Sam3_TipoUso
                                                  where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                                  select tp.TipoUsoID).SingleOrDefault() : 1;
-                                            
-                                            int mtr = 0; 
+
+                                            int mtr = 0;
                                             int.TryParse(itemCodeJson.MTRID, out mtr);
                                             if (mtr > 0)
                                             {
@@ -869,103 +927,105 @@ namespace BackEndSAM.DataAcces
                                             actualizaNumSam2.ColadaID = (from eq in ctx.Sam3_EquivalenciaColada
                                                                          where eq.Activo && eq.Sam3_ColadaID == actualizaNU.ColadaID
                                                                          select eq.Sam2_ColadaID).AsParallel().SingleOrDefault();
-                                            
+
                                             ctx2.SaveChanges();
                                             #endregion
 
                                             #region Actualizar MM
                                             //Actuaalizar MM
                                             int milimetros = itemCodeJson.MM != null && itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                            int cantidadRecibida = ctx.Sam3_NumeroUnicoInventario
+                                            cantidadRecibida = ctx.Sam3_NumeroUnicoInventario
                                                 .Where(x => x.NumeroUnicoID == actualizaNU.NumeroUnicoID).Select(x => x.CantidadRecibida).AsParallel().SingleOrDefault();
-                                            int inventarioCongelado = 0;
+
 
                                             //si los milimetros son mayores a 0 y si son diferentes del inventario recibido en cuantificacion
                                             if (milimetros > 0 && milimetros != cantidadRecibida)
                                             {
                                                 if (actualizaNU.Sam3_ItemCode.TipoMaterialID == 1) // tubo
                                                 {
+                                                    cantidadDañada = dañado ? milimetros : 0;
+                                                    buenEstado = milimetros - cantidadDañada;
+                                                    disponibleCruce = milimetros - cantidadDañada - congelado;
                                                     bool aumento = cantidadRecibida < milimetros;
                                                     int tipoMovimeintoID = 0;
-                                                    if (inventarioCongelado == 0) // si el numerounico no tiene congelado
-                                                    {
-
-                                                        #region actualizar Sam3
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.InventarioFisico = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = milimetros;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
-                                                        actualizaNU.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
-
-                                                        segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
-                                                        segmento.InventarioBuenEstado = milimetros;
-                                                        segmento.InventarioDisponibleCruce = milimetros;
-                                                        segmento.InventarioFisico = milimetros;
-                                                        segmento.FechaModificacion = DateTime.Now;
-                                                        segmento.UsuarioModificacion = usuario.UsuarioID;
-
-                                                        movimiento = new Sam3_NumeroUnicoMovimiento();
-                                                        movimiento.Activo = true;
-                                                        movimiento.Estatus = "A";
-                                                        movimiento.FechaModificacion = DateTime.Now;
-                                                        movimiento.FechaMovimiento = DateTime.Now;
-                                                        movimiento.NumeroUnicoID = actualizaNU.NumeroUnicoID;
-                                                        movimiento.ProyectoID = actualizaNU.ProyectoID;
-                                                        movimiento.Referencia = "Complemento de recepcion";
-                                                        movimiento.Segmento = "A";
-                                                        movimiento.UsuarioModificacion = usuario.UsuarioID;
-
-                                                        if (aumento)
-                                                        {
-                                                            int diferencia = milimetros - cantidadRecibida;
-                                                            movimiento.Cantidad = diferencia;
-                                                            movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
-                                                                                           where tp.Activo
-                                                                                           && tp.Nombre == "Aumento de Inventario por Actualización MM"
-                                                                                           select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
-                                                        }
-                                                        else
-                                                        {
-                                                            int diferencia = cantidadRecibida - milimetros;
-                                                            movimiento.Cantidad = diferencia;
-                                                            movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
-                                                                                           where tp.Activo
-                                                                                           && tp.Nombre == "Reducción de Inventario por Actualización MM"
-                                                                                           select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
-                                                        }
-
-                                                        ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
-                                                        ctx.SaveChanges();
-                                                        #endregion
-
-                                                        #region Actualizar Sam2
-                                                        int numeroUnicoIDSam2 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
-                                                                                 where eq.Activo && eq.Sam3_NumeroUnicoID == actualizaNU.NumeroUnicoID
-                                                                                 select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
-
-                                                        sam2_numeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == numeroUnicoIDSam2).AsParallel().SingleOrDefault();
-                                                        sam2_numeroUnico.NumeroUnicoInventario.InventarioBuenEstado = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.InventarioDisponibleCruce = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.InventarioFisico = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida = milimetros;
-                                                        sam2_numeroUnico.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
-
-                                                        segmentoSam2 = sam2_numeroUnico.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
-                                                            .SingleOrDefault();
-                                                        segmentoSam2.InventarioBuenEstado = milimetros;
-                                                        segmentoSam2.InventarioDisponibleCruce = milimetros;
-                                                        segmentoSam2.InventarioFisico = milimetros;
-                                                        segmentoSam2.FechaModificacion = DateTime.Now;
-
-                                                        ctx2.SaveChanges();
-                                                        #endregion
-
-                                                    }
-                                                    else
+                                                    if (actualizaNU.Sam3_NumeroUnicoInventario.InventarioCongelado > 0) // si el numerounico no tiene congelado
                                                     {
                                                         throw new Exception("El Número Único ya cuenta con congelados, no se puede actualizar el inventario por este medio");
                                                     }
+
+                                                    #region actualizar Sam3
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida = milimetros;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioFisico = milimetros;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+
+                                                    segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == "A").SingleOrDefault();
+                                                    segmento.InventarioBuenEstado = buenEstado;
+                                                    segmento.InventarioDisponibleCruce = disponibleCruce;
+                                                    segmento.InventarioFisico = milimetros;
+                                                    segmento.CantidadDanada = cantidadDañada;
+                                                    segmento.FechaModificacion = DateTime.Now;
+                                                    segmento.UsuarioModificacion = usuario.UsuarioID;
+
+                                                    movimiento = new Sam3_NumeroUnicoMovimiento();
+                                                    movimiento.Activo = true;
+                                                    movimiento.Estatus = "A";
+                                                    movimiento.FechaModificacion = DateTime.Now;
+                                                    movimiento.FechaMovimiento = DateTime.Now;
+                                                    movimiento.NumeroUnicoID = actualizaNU.NumeroUnicoID;
+                                                    movimiento.ProyectoID = actualizaNU.ProyectoID;
+                                                    movimiento.Referencia = "Complemento de recepcion";
+                                                    movimiento.Segmento = "A";
+                                                    movimiento.UsuarioModificacion = usuario.UsuarioID;
+
+                                                    if (aumento)
+                                                    {
+                                                        int diferencia = milimetros - cantidadRecibida;
+                                                        movimiento.Cantidad = diferencia;
+                                                        movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
+                                                                                       where tp.Activo
+                                                                                       && tp.Nombre == "Aumento de Inventario por Actualización MM"
+                                                                                       select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                                    }
+                                                    else
+                                                    {
+                                                        int diferencia = cantidadRecibida - milimetros;
+                                                        movimiento.Cantidad = diferencia;
+                                                        movimiento.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
+                                                                                       where tp.Activo
+                                                                                       && tp.Nombre == "Reducción de Inventario por Actualización MM"
+                                                                                       select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                                    }
+
+                                                    ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
+                                                    ctx.SaveChanges();
+                                                    #endregion
+
+                                                    #region Actualizar Sam2
+
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioFisico = milimetros;
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadRecibida = milimetros;
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNumSam2.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+
+                                                    segmentoSam2 = actualizaNumSam2.NumeroUnicoSegmento.Where(x => x.Segmento == "A")
+                                                        .SingleOrDefault();
+                                                    segmentoSam2.InventarioBuenEstado = buenEstado;
+                                                    segmentoSam2.InventarioDisponibleCruce = disponibleCruce;
+                                                    segmentoSam2.InventarioFisico = milimetros;
+                                                    segmentoSam2.CantidadDanada = cantidadDañada;
+                                                    segmentoSam2.FechaModificacion = DateTime.Now;
+
+                                                    ctx2.SaveChanges();
+                                                    #endregion
+
+
+
 
                                                     #region ActualizarRelacion IT
 
@@ -981,6 +1041,56 @@ namespace BackEndSAM.DataAcces
 
                                                     #endregion
                                                 }
+                                            }
+                                            else //no cambia el inventario
+                                            {
+                                                cantidadDañada = dañado ? cantidadRecibida : 0;
+                                                buenEstado = cantidadRecibida - cantidadDañada;
+                                                disponibleCruce = cantidadRecibida - cantidadDañada - congelado;
+                                                //no cambio el inventario
+
+                                                if (actualizaNU.Sam3_ItemCode.TipoMaterialID == 1) // tubo
+                                                {
+                                                    #region Actualizar SAM3
+
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = cantidadRecibida;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+
+                                                    segmento = actualizaNU.Sam3_NumeroUnicoSegmento.Where(s => s.Segmento == "A").SingleOrDefault();
+                                                    segmento.InventarioFisico = cantidadRecibida;
+                                                    segmento.InventarioBuenEstado = buenEstado;
+                                                    segmento.CantidadDanada = cantidadDañada;
+                                                    segmento.InventarioDisponibleCruce = disponibleCruce;
+                                                    #endregion
+                                                    #region Actualizar SAM2
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+
+                                                    segmentoSam2 = actualizaNumSam2.NumeroUnicoSegmento.Where(s => s.Segmento == "A").SingleOrDefault();
+                                                    segmentoSam2.InventarioFisico = cantidadRecibida;
+                                                    segmentoSam2.InventarioBuenEstado = buenEstado;
+                                                    segmentoSam2.InventarioDisponibleCruce = disponibleCruce;
+                                                    segmentoSam2.CantidadDanada = cantidadDañada;
+                                                    #endregion
+                                                }
+                                                else // accesorio
+                                                {
+                                                    #region Actualizar SAM3
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    #endregion
+                                                    #region Actualizar SAM2
+                                                    actualizaNumSam2.NumeroUnicoInventario.CantidadDanada = cantidadDañada;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioBuenEstado = buenEstado;
+                                                    actualizaNumSam2.NumeroUnicoInventario.InventarioDisponibleCruce = disponibleCruce;
+                                                    #endregion
+                                                }
+
+                                                ctx.SaveChanges();
+                                                ctx2.SaveChanges();
                                             }
                                             #endregion
                                         }
@@ -1034,40 +1144,6 @@ namespace BackEndSAM.DataAcces
 
                                         return result;
                                 } // Fin switch
-
-                                if (dañado)
-                                {
-                                    actualizaNU.TieneDano = true;
-                                    actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada = actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida;
-                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioBuenEstado = actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida -
-                                        actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada;
-                                    actualizaNU.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = actualizaNU.Sam3_NumeroUnicoInventario.CantidadRecibida
-                                        - actualizaNU.Sam3_NumeroUnicoInventario.CantidadDanada - actualizaNU.Sam3_NumeroUnicoInventario.InventarioCongelado;
-
-                                    if (segmento != null)
-                                    {
-                                        segmento.CantidadDanada = segmento.InventarioFisico;
-                                        segmento.InventarioBuenEstado = segmento.InventarioFisico - segmento.CantidadDanada;
-                                        segmento.InventarioDisponibleCruce = segmento.InventarioFisico - segmento.CantidadDanada - segmento.InventarioCongelado;
-                                    }
-
-                                    sam2_numeroUnico.TieneDano = true;
-                                    sam2_numeroUnico.NumeroUnicoInventario.CantidadDanada = sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida;
-                                    sam2_numeroUnico.NumeroUnicoInventario.InventarioBuenEstado = sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida -
-                                        sam2_numeroUnico.NumeroUnicoInventario.CantidadDanada;
-                                    sam2_numeroUnico.NumeroUnicoInventario.InventarioDisponibleCruce = sam2_numeroUnico.NumeroUnicoInventario.CantidadRecibida -
-                                        sam2_numeroUnico.NumeroUnicoInventario.CantidadDanada - sam2_numeroUnico.NumeroUnicoInventario.InventarioCongelado;
-
-                                    if (segmentoSam2 != null)
-                                    {
-                                        segmentoSam2.CantidadDanada = segmentoSam2.InventarioFisico;
-                                        segmentoSam2.InventarioBuenEstado = segmentoSam2.InventarioFisico - segmentoSam2.CantidadDanada;
-                                        segmentoSam2.InventarioDisponibleCruce = segmentoSam2.InventarioFisico - segmentoSam2.CantidadDanada - segmentoSam2.InventarioCongelado;
-                                    }
-
-                                    ctx.SaveChanges();
-                                    ctx2.SaveChanges();
-                                }
 
                                 ctx_tran.Commit();
                                 ctx2_tran.Commit();
