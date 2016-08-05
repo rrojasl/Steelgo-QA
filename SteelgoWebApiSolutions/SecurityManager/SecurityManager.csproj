@@ -120,12 +120,8 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Properties\PublishProfiles\SAM Sec.pubxml" />
-    <None Include="Properties\PublishProfiles\samSe.pubxml" />
-    <None Include="Properties\PublishProfiles\SecuriryManager.pubxml" />
     <None Include="Properties\PublishProfiles\Security-QA.pubxml" />
-    <None Include="Properties\PublishProfiles\securityManager.pubxml" />
-    <None Include="Properties\PublishProfiles\SecurityPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\Security-PROD.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

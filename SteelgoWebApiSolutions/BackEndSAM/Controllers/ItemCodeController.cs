@@ -60,7 +60,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string token)
+        public object Get(int proyectoID, string token, string busqueda = "")
         {
             string payload = "";
             string newToken = "";
@@ -69,7 +69,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ItemCodeBd.Instance.ObtenerItemCodeCatalogoMTR(usuario);
+                return ItemCodeBd.Instance.ObtenerItemCodeCatalogoMTR(proyectoID, usuario, busqueda);
             }
             else
             {
