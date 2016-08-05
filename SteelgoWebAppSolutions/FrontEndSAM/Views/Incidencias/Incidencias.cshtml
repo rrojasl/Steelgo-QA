@@ -69,7 +69,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
+                        <button id="Imprimir" type="button" class="btn btn-fadeBlue"></button>
                     </div>
                 </div>
             </div>
@@ -1000,7 +1000,7 @@
 
         $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
         $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
-
+        $("#Imprimir").on("click",function(e){ Imprimir()})
         //ALTA DE UNA INCIDENCIA
         $("#Guardar").click(function () {
             edicion = false;
@@ -2098,7 +2098,28 @@
                 }
             }
         };
+        
+        function Imprimir() {
+            downloadPDF($Reporte.Reporte.urlNoId, {TipoReporte:6,IncidenciaID:_FolioIncidencia});
+        };
 
+        function downloadPDF(url, pdf) {
+            var req = new XMLHttpRequest();
+            req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
+            req.responseType = "blob";
+            name="Incidencia"+_FolioIncidencia;
+            req.onload = function (event) {
+                var blob = req.response;
+                console.log(blob.size);
+                var link=document.createElement('a');
+                link.href=window.URL.createObjectURL(blob);
+                link.download=name + ".pdf";
+                link.click();
+            };
+            req.send();
+            displayMessage("notificationslabel0100", "", "1")
+        }
+        
         function DeshabilitarControles() {
 
             $("#Clasificacion").data("kendoComboBox").enable(false);
