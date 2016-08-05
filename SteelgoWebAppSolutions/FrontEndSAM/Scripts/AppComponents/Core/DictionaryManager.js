@@ -364,52 +364,52 @@ _dictionary = {
         "en-US": "Deficit Revision"
     },
     "menuLabel1071": {
-        "es-MX": "Catalogo Camión",
-        "en-US": "Catalog trucks"
+        "es-MX": "Camiones",
+        "en-US": "trucks"
     },
     "menuLabel1072": {
-        "es-MX": "Catalogo Cédulas",
-        "en-US": "Documents catalog"
+        "es-MX": "Cédulas",
+        "en-US": "Certificates"
     },
     "menuLabel1073": {
-        "es-MX": "Catalogo Chofer",
-        "en-US": "Catalog Driver"
+        "es-MX": "Choferes",
+        "en-US": "Drivers"
     },
     "menuLabel1074": {
-        "es-MX": "Catalogo Fabricante",
-        "en-US": "Catalog Manufacturer"
+        "es-MX": "Fabricantes",
+        "en-US": "Manufacturer"
     },
     "menuLabel1075": {
-        "es-MX": "Catalogo MTR",
-        "en-US": "Catalog MTR"
+        "es-MX": "MTR",
+        "en-US": "MTR"
     },
     "menuLabel1076": {
-        "es-MX": "Catalogo Patios",
-        "en-US": "Catalog Yards"
+        "es-MX": "Patios",
+        "en-US": "Yards"
     },
     "menuLabel1077": {
-        "es-MX": "Catalogo Plana",
-        "en-US": "Catalog Platform"
+        "es-MX": "Planas",
+        "en-US": "Platforms"
     },
     "menuLabel1078": {
-        "es-MX": "Catalogo Proveedor",
-        "en-US": "Catalog Provider"
+        "es-MX": "Proveedores",
+        "en-US": "Providers"
     },
     "menuLabel1079": {
-        "es-MX": "Catalogo Tipo Aviso",
-        "en-US": "Catalog Notice Type"
+        "es-MX": "Tipo Aviso",
+        "en-US": "Notice Type"
     },
     "menuLabel1080": {
-        "es-MX": "Catalogo Tipo de Uso",
-        "en-US": "Catalog Use Type"
+        "es-MX": "Tipo de Uso",
+        "en-US": "Use Type"
     },
     "menuLabel1081": {
-        "es-MX": "Catalogo Tracto",
-        "en-US": "Catalog Tract"
+        "es-MX": "Tracto",
+        "en-US": "Tract"
     },
     "menuLabel1082": {
-        "es-MX": "Catalogo Transportista",
-        "en-US": "Catalog Carriers"
+        "es-MX": "Transportista",
+        "en-US": "Carriers"
     },
    
     //QuickLinks Defaults
