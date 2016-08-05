@@ -525,7 +525,7 @@ namespace BackEndSAM.DataAcces
 
                             registro.FechaModificacion = DateTime.Now;
                             //registro.IncidenciaOriginalID = registro.IncidenciaID;
-                            nuevoRegistro.IncidenciaOriginalID = Convert.ToInt32(datos.FolioOriginalID) == 0 ? datos.FolioIncidenciaID : Convert.ToInt32(datos.FolioOriginalID);
+                            registro.IncidenciaOriginalID = Convert.ToInt32(datos.FolioOriginalID) == 0 ? datos.FolioIncidenciaID : Convert.ToInt32(datos.FolioOriginalID);
                             registro.UsuarioModificacion = usuario.UsuarioID;
 
                             if (datos.Estatus == "Cancelado")
