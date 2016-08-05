@@ -25,9 +25,9 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
-                            <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Almacenaje0003"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="Almacenaje0004"></span></button>
+                            <div class="btn-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow save-group"><span id="Almacenaje0003"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar" style="display: none"><span id="Almacenaje0004"></span></button>
                                 @*<button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>*@
@@ -143,8 +143,8 @@
         listContainer: {
             create: ".save-group",
             list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-Cancelar",
+            detail: ".editar",
+            destroy: "",
             createIncidence: ".incidencia"
         },
         properties: {

@@ -829,6 +829,7 @@ namespace BackEndSAM.DataAcces
                                    FolioIncidenciaID = ind.IncidenciaID.ToString(),
                                    RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
                                    TipoIncidencia = ti.Nombre,
+                                   FolioOriginalID = ind.IncidenciaOriginalID.ToString(),
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                                                           where pc.Rel_Proyecto_Entidad_Configuracion_ID == ind.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                           select pc.PreFijoFolioIncidencias + ","
@@ -836,7 +837,10 @@ namespace BackEndSAM.DataAcces
                                                                                                            + ind.Consecutivo.ToString() + ","
                                                                                                            + pc.PostFijoFolioIncidencias).FirstOrDefault() : ind.IncidenciaID.ToString()
                                }).Distinct().AsParallel().ToList();
-
+                    foreach (var it in listado) { 
+                        it.FolioOriginalID = (it.FolioOriginalID=="" || it.FolioOriginalID==null) ? it.FolioIncidenciaID : it.FolioOriginalID;
+                    }
+                    listado.OrderBy(x => x.FolioOriginalID);
                     if (ActivarFolioConfiguracionIncidencias)
                     {
                         foreach (ListadoIncidencias item in listado)
