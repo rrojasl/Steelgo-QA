@@ -655,13 +655,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerItemCodeCatalogoMTR(Sam3_Usuario usuario)
+        public object ObtenerItemCodeCatalogoMTR(int proyectoID, Sam3_Usuario usuario, string busqueda = "")
         {
             try
             {
                 // tpo packinglist = 3 traer todos los itemcodes
                 List<BackEndSAM.Models.ItemCode> IC = new List<BackEndSAM.Models.ItemCode>();
-                List<BackEndSAM.Models.ItemCode> itemCodeS2 = new List<BackEndSAM.Models.ItemCode>();
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -669,16 +668,18 @@ namespace BackEndSAM.DataAcces
                     {
                         #region Filtros
                         //traemos la informacion de los proyectos y patios del usuario
-                        List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID && x.Activo)
-                            .Select(x => x.ProyectoID).Distinct().AsParallel().ToList();
+                        List<int> proyectos;
+                        List<int> patios;
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
 
-                        itemCodeS2 = (from ic in ctx.Sam3_ItemCode
+                        IC = (from ic in ctx.Sam3_ItemCode
                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                       where ic.Activo && rid.Activo
                                       && proyectos.Contains(ic.ProyectoID)
+                                      && ic.ProyectoID == proyectoID
                                       select new BackEndSAM.Models.ItemCode
                                       {
                                           ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
@@ -690,7 +691,11 @@ namespace BackEndSAM.DataAcces
                     }
                 }
 
-                IC.AddRange(itemCodeS2);
+                if (busqueda != string.Empty)
+                {
+                    IC = IC.Where(x => x.Codigo.Contains(busqueda)).ToList();
+                }
+
                 return IC;
             }
             catch (Exception ex)
