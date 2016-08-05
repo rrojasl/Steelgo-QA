@@ -521,15 +521,15 @@
                                     this.value("");
                                 }
                                 $ItemCode.ItemCode.read({},{itemCodeID:itemCodeID,proyectoID:$("#Proyecto").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
-                                    $("#D1").value(result[0]);
-                                    $("#D2").value(result[1]);
+                                    $("#D1").val(result[0]);
+                                    $("#D2").val(result[1]);
                                 })
                             }
                         });
                     }
                 },
-                { field: "D1", title: "D1" ,editor:function(container,options){$('<input id="D1" name="'+options.field+'" disabled readonly/>').appendTo(container)}},
-                { field: "D2", title: "D2" ,editor:function(container,options){$('<input id="D2" name="'+options.field+'" disabled readonly/>').appendTo(container)}},
+                { field: "D1", title: "D1" ,editor:function(container,options){$('<input id="D1" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)}},
+                { field: "D2", title: "D2" ,editor:function(container,options){$('<input id="D2" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)}},
                 {
                     field: "Colada",
                     title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()],
