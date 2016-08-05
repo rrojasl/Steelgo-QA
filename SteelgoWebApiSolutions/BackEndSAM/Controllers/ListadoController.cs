@@ -38,7 +38,7 @@ namespace BackEndSAM.Controllers
                 switch (tipoListado)
                 {
                     //case 1: //Folios aviso llegada
-                    //    return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
+                    //    return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro(new Sam3_Usuario());
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso(new Sam3_Usuario());
                     case 3: // listado de choferes por transportista

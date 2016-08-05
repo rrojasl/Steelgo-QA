@@ -901,15 +901,16 @@
         function MostrarDetalleEntradaPorCuantificar(folioAvisoLlegadaID,porCuantificar) {
             var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
             if(typeof folioAvisoLlegadaID!=="object"){
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID;
+                var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID;
             }else{
                 var dataItem=$("#gridGeneral").data("kendoGrid").dataItem($(folioAvisoLlegadaID).closest("tr"));
                 if(porCuantificar){
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + dataItem.FolioAvisoEntrada + "&Proyecto="+encodeURI(dataItem.Proyecto) + "&NombreFolioCuantificacion="+dataItem.NombreFolioCuantificacion;
+                    var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + dataItem.FolioAvisoEntrada + "&Proyecto="+encodeURI(dataItem.Proyecto) + "&NombreFolioCuantificacion="+dataItem.NombreFolioCuantificacion;
                 }else{
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + dataItem.FolioAvisoLlegadaID + "&Proyecto="+encodeURI(dataItem.Proyecto) + "&PackingList="+dataItem.PackingList;
+                    var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + dataItem.FolioAvisoLlegadaID + "&Proyecto="+encodeURI(dataItem.Proyecto) + "&PackingList="+dataItem.PackingList;
                 }
             }
+            openFromList(event,url);
         };
 
         function DefinicionModeloPLporCuantificar() {
@@ -1202,7 +1203,8 @@
 
         function MostrarNUSinAlmacenar() {
             var detalleIdeaUrl = "@Url.Action("Almacenaje", "Almacenaje")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            var url= detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            openFromList(event,url);
         };
 
         function NUsinAlmacenar(tipomaterial) {
