@@ -469,6 +469,7 @@ namespace BackEndSAM.DataAcces
 
                 datos.Version = nuevaIncidencia.Version.ToString();
                 datos.FolioIncidenciaID = nuevaIncidencia.IncidenciaID;
+                datos.FolioOriginalID = nuevaIncidencia.IncidenciaID.ToString();
                 return datos;
             }
             catch (Exception ex)
@@ -568,7 +569,7 @@ namespace BackEndSAM.DataAcces
                             nuevoRegistro.FechaModificacion = DateTime.Now;
                             //if (fechaRespuesta.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaRespuesta = fechaRespuesta; }
                             //if (fechaSolucion.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaSolucion = fechaSolucion; }
-                            nuevoRegistro.IncidenciaOriginalID = registro.IncidenciaID;
+                            nuevoRegistro.IncidenciaOriginalID = Convert.ToInt32(datos.FolioOriginalID) == 0 ? datos.FolioIncidenciaID : Convert.ToInt32(datos.FolioOriginalID);
                             //nuevoRegistro.MotivoCancelacion = datos.MotivoCancelacion;
                             nuevoRegistro.NoRFI = null;
                             //nuevoRegistro.Respuesta = datos.Respuesta;
@@ -1087,7 +1088,7 @@ namespace BackEndSAM.DataAcces
                         ctx_tran.Commit();
 
                         TransactionalInformation result = new TransactionalInformation();
-                        result.ReturnMessage.Add(nuevoRegistro.IncidenciaID.ToString());
+                        result.ReturnMessage.Add(nuevoRegistro.IncidenciaID.ToString()+','+nuevoRegistro.IncidenciaOriginalID.ToString());
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
                         result.IsAuthenicated = true;
@@ -1366,6 +1367,7 @@ namespace BackEndSAM.DataAcces
                                               ResueltoPor = inc.UsuarioResuelveID.ToString(),
                                               TipoIncidenciaID = inc.TipoIncidenciaID,
                                               Titulo = inc.Titulo,
+                                              FolioOriginalID = inc.IncidenciaOriginalID.ToString(),
                                               Version = inc.Version.ToString()
                                           }).AsParallel().SingleOrDefault();
 

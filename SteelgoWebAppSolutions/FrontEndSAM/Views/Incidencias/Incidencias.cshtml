@@ -368,6 +368,7 @@
 
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _TipoIncidencia = getUrlParameter("TipoIncidencia", "-1");
+    var _folioOriginalID = "";
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
     var _Edicion = getUrlParameter("Edicion", "-1");
     var _LevantarIncidencia = getUrlParameter("LevantarIncidencia", "-1");
@@ -1469,7 +1470,9 @@
                     $.each(data.ArchivosCancelar, function (index, value) {
                         $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
-
+                    
+                    _folioOriginalID=data.FolioOriginalID;
+                    
                     AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
@@ -2049,6 +2052,7 @@
             Listado.ReferenciaID = Registro.RegistroID;
             Listado.Nuevo = false;
             Listado.Estatus = $("#hdEstatus").val();
+            Listado.FolioOriginalID=_folioOriginalID;
             return Listado;
         };
 
@@ -2319,6 +2323,7 @@
                         Nuevo();
                     }
                     _FolioIncidencia = result.FolioIncidenciaID;
+                    _folioOriginalID=result.FolioOriginalID;
                     _Edicion = "1";
                     $("#Version").val(result.Version);
                     BotonAlta();
@@ -2346,7 +2351,8 @@
                     if (Listado.Nuevo) {
                         Nuevo();
                     }
-                    _FolioIncidencia = result.ReturnMessage[0];
+                    _FolioIncidencia = result.ReturnMessage[0].split(",")[0]
+                    _folioOriginalID = result.ReturnMessage[0].split(",")[1]
                     //LimpiarHistorialFiles();
                     CargaInicialEdicion(_FolioIncidencia);
                     displayMessage("notificationslabel0056", "", '0');
