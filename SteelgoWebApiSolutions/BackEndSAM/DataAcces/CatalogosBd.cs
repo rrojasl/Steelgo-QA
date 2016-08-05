@@ -365,6 +365,7 @@ namespace BackEndSAM.DataAcces
                                            select new CatalogoMTR
                                            {
                                                MTRID = mtr.MTRID,
+                                               Proyecto = ic.Sam3_Proyecto.Nombre,
                                                ItemCodeID = ic.ItemCodeID.ToString(),
                                                ItemCode = ic.Codigo,
                                                ColadaID = col.ColadaID.ToString(),

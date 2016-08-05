@@ -181,6 +181,7 @@
             fields: {
                 MTRID: { editable: false, nullable: true },
                 NumeroMTR: { type: "string", validation: { required: true } },
+                Proyecto: { type: "string", validation: { required: true } },
                 ItemCodeID: { type: "string", validation: { required: true } },
                 ItemCode: { type: "string", validation: { required: true } },
                 ColadaID: { type: "string", validation: { required: true } },
@@ -463,7 +464,27 @@
             ],
             "12": [
                 { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()] },
-               
+                {field:"Proyecto", title:_dictionary.ListadoCatalogos0061[$("#language").data("kendoDropDownList").value()], editor:function(container,options){
+                    $('<input id="Proyecto" name="'+options.field+'"/>').appendTo(container).kendoComboBox({
+                        dataTextField: "Nombre",
+                        dataValueField: "ProyectoID",
+                        dataSource:{
+                            transport:{
+                                read:{
+                                    type:"GET",
+                                    url:$Proyecto.Proyecto.urlNoId+"?token="+Cookies.get("token"),
+                                    dataType:"json"
+                                }
+                            }
+                        },
+                        select: function (e) {
+                        },
+                        change: function (e) {
+                            $("#ItemCode").data("kendoAutoComplete").options.dataSource.transport.read.url=$URLItemCode + "proyectoID="+this.value() + "&token=" + Cookies.get("token");
+                        },
+                        filter: "contains",
+                    })
+                }},
                 {
                     field: "ItemCode",
                     title: _dictionary.ListadoCatalogos0045[$("#language").data("kendoDropDownList").value()],
@@ -474,7 +495,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $URLItemCode + "token=" + Cookies.get("token")
+                                        url: ""
                                     }
                                 }
                             },
@@ -525,7 +546,11 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
-                                },
+                                var data= this.dataItem();
+                                options.model.ColadaID = data.ColadaID;
+                                options.model.Colada = data.Nombre;
+                                options.model.ItemCodeID=itemCodeID;
+                            },
                                 dataTextField: "Nombre",
                                 dataValueField: "ColadaID"
                             });
