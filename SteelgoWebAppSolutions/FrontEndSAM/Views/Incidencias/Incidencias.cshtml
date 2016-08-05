@@ -362,12 +362,14 @@
         RespondidoPor = {};
     var tabSelected = "Incidencia";
     var edicion = false;
+    var hasFiles=false;
 
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ListadoIncidenciasUrl = "@Url.Action("ListadoIncidencias", "Incidencias")";
 
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _TipoIncidencia = getUrlParameter("TipoIncidencia", "-1");
+    var _folioOriginalID = "";
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
     var _Edicion = getUrlParameter("Edicion", "-1");
     var _LevantarIncidencia = getUrlParameter("LevantarIncidencia", "-1");
@@ -1072,7 +1074,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosIncidencia,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
         $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
@@ -1096,7 +1098,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosResolver,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosResolver").data("kendoUpload").enable(true);
         $("#DescripcionArchivoResolver").attr("disabled", "disabled");
@@ -1118,7 +1120,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosResponder,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosResponder").data("kendoUpload").enable(true);
         $("#DescripcionArchivoResponder").attr("disabled", "disabled");
@@ -1140,7 +1142,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosCancelar,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(true);
         $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
@@ -1469,7 +1471,9 @@
                     $.each(data.ArchivosCancelar, function (index, value) {
                         $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
-
+                    
+                    _folioOriginalID=data.FolioOriginalID;
+                    
                     AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
@@ -1877,11 +1881,11 @@
                         };
                     }
                     if (_Editando["Incidencia"] && $(elem).attr("id") == "DescripcionArchivoIncidencia") {
-                        if (!$(this).val()) {
+                        if (!$(this).val() && hasFiles) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
                             $(this).closest("div").addClass("clearfix");
-                        } else {
+                        } else if(!$(this).val() && !hasFiles) {
                             $(this).closest("div").find("label").removeClass("error");
                             $(this).closest("div").removeClass("clearfix");
                         };
@@ -2049,6 +2053,7 @@
             Listado.ReferenciaID = Registro.RegistroID;
             Listado.Nuevo = false;
             Listado.Estatus = $("#hdEstatus").val();
+            Listado.FolioOriginalID=_folioOriginalID;
             return Listado;
         };
 
@@ -2319,6 +2324,7 @@
                         Nuevo();
                     }
                     _FolioIncidencia = result.FolioIncidenciaID;
+                    _folioOriginalID=result.FolioOriginalID;
                     _Edicion = "1";
                     $("#Version").val(result.Version);
                     BotonAlta();
@@ -2346,7 +2352,8 @@
                     if (Listado.Nuevo) {
                         Nuevo();
                     }
-                    _FolioIncidencia = result.ReturnMessage[0];
+                    _FolioIncidencia = result.ReturnMessage[0].split(",")[0]
+                    _folioOriginalID = result.ReturnMessage[0].split(",")[1]
                     //LimpiarHistorialFiles();
                     CargaInicialEdicion(_FolioIncidencia);
                     displayMessage("notificationslabel0056", "", '0');
