@@ -12,6 +12,5 @@ namespace BackEndSAM.Models
         public int FolioAvisoLlegadaID { get; set; }
         public int FolioOrdenAlmacenaje { get; set; }
         public string Cadena { get; set; }
-        public int IncidenciaID { get; set; }
     }
 }
