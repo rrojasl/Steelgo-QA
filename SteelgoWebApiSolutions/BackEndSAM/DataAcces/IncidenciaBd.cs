@@ -524,6 +524,7 @@ namespace BackEndSAM.DataAcces
                             //if (datos.RegistradoPor != null && datos.RegistradoPor != "") { registro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
 
                             registro.FechaModificacion = DateTime.Now;
+                            //registro.IncidenciaOriginalID = registro.IncidenciaID;
                             registro.IncidenciaOriginalID = Convert.ToInt32(datos.FolioOriginalID) == 0 ? datos.FolioIncidenciaID : Convert.ToInt32(datos.FolioOriginalID);
                             registro.UsuarioModificacion = usuario.UsuarioID;
 
