@@ -360,6 +360,9 @@ namespace BackEndSAM.DataAcces
                             List<CatalogoMTR> catalogoMTR = new List<CatalogoMTR>();
                             catalogoMTR = (from mtr in ctx.Sam3_MTR
                                            join ic in ctx.Sam3_ItemCode on mtr.ItemCodeID equals ic.ItemCodeID
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                           join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                           join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                            join col in ctx.Sam3_Colada on mtr.ColadaID equals col.ColadaID
                                            where mtr.Activo
                                            select new CatalogoMTR
@@ -371,7 +374,9 @@ namespace BackEndSAM.DataAcces
                                                ColadaID = col.ColadaID.ToString(),
                                                Colada = col.NumeroColada,
                                                NumeroMTR = mtr.NumeroMTR,
-                                               CantidadPiezas = mtr.CantidadPiezas.ToString()
+                                               CantidadPiezas = mtr.CantidadPiezas.ToString(),
+                                               D1 = d1.Valor.ToString(), 
+                                               D2 = d2.Valor.ToString()
                                            }).AsParallel().ToList();
 
                             return catalogoMTR;
@@ -853,7 +858,9 @@ namespace BackEndSAM.DataAcces
                                     Colada = mtr.Colada,
                                     ColadaID = mtr.ColadaID,
                                     ItemCode = mtr.ItemCode,
-                                    ItemCodeID = mtr.ItemCodeID
+                                    ItemCodeID = mtr.ItemCodeID,
+                                    D1 = mtr.D1,
+                                    D2 = mtr.D2
                                 };
                             }
                             else
@@ -1495,7 +1502,10 @@ namespace BackEndSAM.DataAcces
                                     Colada = mtr.Colada,
                                     ColadaID = mtr.ColadaID,
                                     ItemCode = mtr.ItemCode,
-                                    ItemCodeID = mtr.ItemCodeID
+                                    ItemCodeID = mtr.ItemCodeID,
+                                    D1 = mtr.D1, 
+                                    D2 = mtr.D2, 
+                                    Proyecto = mtr.Proyecto
                                 };
                             }
                             else

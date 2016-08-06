@@ -166,6 +166,8 @@ namespace BackEndSAM.Models
         public string ColadaID { get; set; }
         public string CantidadPiezas { get; set; }
         public string Proyecto { get; set; }
+        public string D1 { get; set; }
+        public string D2 { get; set; }
     }
 
     public class ValidarCedulas

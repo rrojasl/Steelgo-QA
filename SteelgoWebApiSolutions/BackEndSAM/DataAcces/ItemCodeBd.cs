@@ -678,7 +678,7 @@ namespace BackEndSAM.DataAcces
                                       && ic.ProyectoID == proyectoID
                                       select new BackEndSAM.Models.ItemCode
                                       {
-                                          ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                           Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
                                           D1 = d1.Valor,
                                           D2 = d2.Valor
