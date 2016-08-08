@@ -36,6 +36,14 @@ function applySecurityPolicy(loadMenu) {
         //Execute REST Petition to obtain the user access
         $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
             //console.log(data);
+            if (data.IsAuthenicated != undefined) {
+                if (!data.IsAuthenicated) {
+                    Cookies.remove("user", { path: '/' });
+                    Cookies.remove("token", { path: '/' });
+                    displayMessage("notificationslabel0001", "", '2');
+                    document.location.href = '/';
+                }
+            }
 
             if (loadMenu) {
                 //Retrieve the context menu definition**
@@ -83,6 +91,7 @@ function applySecurityPolicy(loadMenu) {
             changeLayoutLabels($("#language").data("kendoDropDownList").value());
             changeLayoutSpans($("#language").data("kendoDropDownList").value());
             changeLayoutInputs($("#language").data("kendoDropDownList").value());
+
         });
     } else {
         //Apply Security
