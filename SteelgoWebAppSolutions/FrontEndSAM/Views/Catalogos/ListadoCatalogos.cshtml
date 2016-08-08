@@ -483,6 +483,7 @@
                         },
                         change: function (e) {
                             $("#ItemCode").data("kendoAutoComplete").options.dataSource.transport.read.url=$URLItemCode + "proyectoID="+this.value() + "&token=" + Cookies.get("token");
+                            options.model.Proyecto=this.dataItem().Nombre;
                         },
                         filter: "contains",
                     })
@@ -523,6 +524,8 @@
                                 $ItemCode.ItemCode.read({},{itemCodeID:itemCodeID,proyectoID:$("#Proyecto").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
                                     $("#D1").val(result[0]);
                                     $("#D2").val(result[1]);
+                                    options.model.D1=result[0];
+                                    options.model.D2=result[1];
                                 })
                             }
                         });
