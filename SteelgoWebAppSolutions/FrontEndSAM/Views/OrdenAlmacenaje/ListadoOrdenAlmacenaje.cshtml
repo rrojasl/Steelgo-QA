@@ -394,7 +394,8 @@
     function mostrarDetalle(ordenAlmacenajeID) {
         if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Orden Almacenaje"] != 'undefined') && (typeof returnOfSecurityCheck["Orden Almacenaje"]["detail"] != 'undefined') && returnOfSecurityCheck["Orden Almacenaje"]["detail"]) {
             var detalleIdeaUrl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + ordenAlmacenajeID;
+            var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + ordenAlmacenajeID;
+            openFromList(event,url);
         }
     };
 

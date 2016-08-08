@@ -509,7 +509,8 @@
  
     function mostrarDetalle(FolioIncidenciaID) {
         if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Incidencias"] != 'undefined') && (typeof returnOfSecurityCheck["Incidencias"]["detail"] != 'undefined') && returnOfSecurityCheck["Incidencias"]["detail"]) {
-            window.location.href = _IncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioIncidenciaID=" + FolioIncidenciaID + "&Edicion=1";
+            var url = _IncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioIncidenciaID=" + FolioIncidenciaID + "&Edicion=1";
+            openFromList(event,url);
         }
     };
     

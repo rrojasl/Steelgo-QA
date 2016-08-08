@@ -653,7 +653,8 @@
 
     function mostrarDetalle(ordenid) {
         if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"] != 'undefined') && (typeof returnOfSecurityCheck["Orden Recepcion"]["detail"] != 'undefined') && returnOfSecurityCheck["Orden Recepcion"]["detail"]) {
-            window.location.href = _detalleOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenid;
+            var url = _detalleOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenid;
+            openFromList(event,url);
         }  
     };
 

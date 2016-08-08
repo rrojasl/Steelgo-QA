@@ -442,12 +442,13 @@
                 //REDIRECT
                 if ($("#hdAccionFiltrado").val() == 3) {
                     var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
+                    var url=detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
                 }
                 else {
                     var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
+                    var url=detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
                 }
+                openFromList(event,url);
             }
         }
 

@@ -47,6 +47,11 @@ function getUrlParameter(sParam, notFindValue) {
     return notFindValue;
 }
 
+//function for open links from lists
+function openFromList(event,url) {
+    (event.ctrlKey || event.button === 1) ? window.open(url, "_blank") : window.location.href = url;
+}
+
 //Function to validate the existence of an element
 function validateElementExistence(element) {
     if (typeof (element) !== 'undefined'
