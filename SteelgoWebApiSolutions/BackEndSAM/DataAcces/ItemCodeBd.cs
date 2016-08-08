@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BackEndSAM.Models;
+﻿using BackEndSAM.Models;
+using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using DatabaseManager.Sam2;
-using System.Transactions;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
+using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
@@ -682,7 +678,7 @@ namespace BackEndSAM.DataAcces
                                       && ic.ProyectoID == proyectoID
                                       select new BackEndSAM.Models.ItemCode
                                       {
-                                          ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                           Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
                                           D1 = d1.Valor,
                                           D2 = d2.Valor
@@ -1005,6 +1001,51 @@ namespace BackEndSAM.DataAcces
                 //result.IsAuthenicated = true;
 
                 //return result;
+            }
+        }
+
+        public object ObtenerDiametrosItemCode(int itemCodeID, int proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                string diametro1 = "";
+                string diametro2 = "";
+                List<object> result = new List<object>();
+                using (SamContext ctx = new SamContext())
+                {
+                    diametro1 = (from it in ctx.Sam3_ItemCode
+                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                 join d in ctx.Sam3_Diametro on rid.Diametro1ID equals d.DiametroID
+                                 where it.Activo && rid.Activo
+                                 && it.ProyectoID == proyectoID
+                                 && it.ItemCodeID == itemCodeID
+                                 select d.Valor.ToString()).AsParallel().SingleOrDefault();
+
+                    diametro2 = (from it in ctx.Sam3_ItemCode
+                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                 join d in ctx.Sam3_Diametro on rid.Diametro2ID equals d.DiametroID
+                                 where it.Activo && rid.Activo
+                                 && it.ProyectoID == proyectoID
+                                 && it.ItemCodeID == itemCodeID
+                                 select d.Valor.ToString()).AsParallel().SingleOrDefault();
+
+                    result.Add(diametro1);
+                    result.Add(diametro2);
+                }
+                return result;
+            }
+            catch (System.Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(string.Format("Error al obtener los ItemCodes del Proyecto SAM2. {0}"));
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
     }

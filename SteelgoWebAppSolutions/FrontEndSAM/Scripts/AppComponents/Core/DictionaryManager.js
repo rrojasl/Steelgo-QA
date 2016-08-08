@@ -1357,7 +1357,10 @@ _dictionary = {
         "es-MX": "Transportista",
         "en-US": "Carrier"
     },
-
+    "ListadoCatalogos0061": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "Catálogo ItemCode Steelgo",

@@ -425,11 +425,12 @@
         var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
         var listado = { "Diametro1": "2", "Diametro1ID": "1", "EspesorMM": "", "EspesorIn": "" }
+        //var listado = { "Diametro1": "24", "Diametro1ID": "1", "EspesorMM": "", "EspesorIn": "0.5000" }
         //listado.OrdenRecepcionID = "1004";
         //listado.TipoListado = "32";
 
-        client.add("CatalogoICSteelgo");
-        client.CatalogoICSteelgo.read({}, { data: JSON.stringify(listado), token:"" }).done(function (data) { console.log(data) });
+        client.add("ItemCode");
+        client.ItemCode.read({}, { itemCodeID: 10, proyectoId: 3, token: "3216354698765463131" }).done(function (data) { console.log(data) });
 
 
     </script>

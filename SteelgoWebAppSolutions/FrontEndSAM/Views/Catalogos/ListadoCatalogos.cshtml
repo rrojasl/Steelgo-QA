@@ -206,8 +206,11 @@
             fields: {
                 MTRID: { editable: false, nullable: true },
                 NumeroMTR: { type: "string", validation: { required: true } },
+                Proyecto: { type: "string", validation: { required: true } },
                 ItemCodeID: { type: "string", validation: { required: true } },
                 ItemCode: { type: "string", validation: { required: true } },
+                D1: { type: "string", validation: { required: true } },
+                D2: { type: "string", validation: { required: true } },
                 ColadaID: { type: "string", validation: { required: true } },
                 Colada: { type: "string", validation: { required: true } },
                 CantidadPiezas: { type: "string", validation: { required: true } }
@@ -490,7 +493,28 @@
             ],
             "12": [
                 { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()] },
-               
+                {field:"Proyecto", title:_dictionary.ListadoCatalogos0061[$("#language").data("kendoDropDownList").value()], editor:function(container,options){
+                    $('<input id="Proyecto" name="'+options.field+'"/>').appendTo(container).kendoComboBox({
+                        dataTextField: "Nombre",
+                        dataValueField: "ProyectoID",
+                        dataSource:{
+                            transport:{
+                                read:{
+                                    type:"GET",
+                                    url:$Proyecto.Proyecto.urlNoId+"?token="+Cookies.get("token"),
+                                    dataType:"json"
+                                }
+                            }
+                        },
+                        select: function (e) {
+                        },
+                        change: function (e) {
+                            $("#ItemCode").data("kendoAutoComplete").options.dataSource.transport.read.url=$URLItemCode + "proyectoID="+this.value() + "&token=" + Cookies.get("token");
+                            options.model.Proyecto=this.dataItem().Nombre;
+                        },
+                        filter: "contains",
+                    })
+                }},
                 {
                     field: "ItemCode",
                     title: _dictionary.ListadoCatalogos0045[$("#language").data("kendoDropDownList").value()],
@@ -501,7 +525,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $URLItemCode + "token=" + Cookies.get("token")
+                                        url: ""
                                     }
                                 }
                             },
@@ -524,10 +548,18 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
+                                $ItemCode.ItemCode.read({},{itemCodeID:itemCodeID,proyectoID:$("#Proyecto").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
+                                    $("#D1").val(result[0]);
+                                    $("#D2").val(result[1]);
+                                    options.model.D1=result[0];
+                                    options.model.D2=result[1];
+                                })
                             }
                         });
                     }
                 },
+                { field: "D1", title: "D1" ,editor:function(container,options){$('<input id="D1" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)}},
+                { field: "D2", title: "D2" ,editor:function(container,options){$('<input id="D2" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)}},
                 {
                     field: "Colada",
                     title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()],
@@ -552,7 +584,11 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
-                                },
+                                var data= this.dataItem();
+                                options.model.ColadaID = data.ColadaID;
+                                options.model.Colada = data.Nombre;
+                                options.model.ItemCodeID=itemCodeID;
+                            },
                                 dataTextField: "Nombre",
                                 dataValueField: "ColadaID"
                             });
