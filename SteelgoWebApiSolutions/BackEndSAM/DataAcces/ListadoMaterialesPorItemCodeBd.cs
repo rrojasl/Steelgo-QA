@@ -49,10 +49,14 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listado = (from ic in ctx.Sam3_ItemCode
-                               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                               join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                               join ricd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals ricd.Rel_ItemCodeSteelgo_Diametro_ID
+                               join ics in ctx.Sam3_ItemCodeSteelgo on ricd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                join tm in ctx.Sam3_TipoMaterial on ic.TipoMaterialID equals tm.TipoMaterialID
-                               where ic.Activo && rics.Activo && ics.Activo && tm.Activo
+                               join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                               join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                               where ic.Activo && rics.Activo && ics.Activo && tm.Activo && rid.Activo && ricd.Activo && d1.Activo && d2.Activo
                                && ic.ProyectoID.ToString() == proyectoID
                                select new ListadoMaterialesPorItemCode
                                {
@@ -61,8 +65,8 @@ namespace BackEndSAM.DataAcces
                                    ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    Descripcion = ics.DescripcionEspanol,
-                                   //D1 = ics.Diametro1.ToString(),
-                                   //D2 = ics.Diametro2.ToString(),
+                                   D1 = d1.Valor.ToString(),
+                                   D2 = d2.Valor.ToString(),
                                    TipoMaterial = tm.Nombre,
 
                                    TotalRecibido = (from nui in ctx.Sam3_NumeroUnicoInventario
