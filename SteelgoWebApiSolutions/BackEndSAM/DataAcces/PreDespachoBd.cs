@@ -320,7 +320,7 @@ namespace BackEndSAM.DataAcces
             {
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
-                List<ListaCombos> listado = new List<ListaCombos>();
+                List<ListaCombosICC> listado = new List<ListaCombosICC>();
                 using (SamContext ctx = new SamContext())
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
@@ -362,16 +362,18 @@ namespace BackEndSAM.DataAcces
 
                         listado = (from nu in ctx.Sam3_NumeroUnico
                                    join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam3_NumeroUnicoID
+                                   join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                    where nu.Activo && nueq.Activo
                                    && sam2_NumerosUnicosIDs.Contains(nueq.Sam2_NumeroUnicoID)
                                    && nu.EstatusFisico == "Aprobado" && nu.EstatusDocumental == "Aprobado"
-                                   select new ListaCombos
+                                   select new ListaCombosICC
                                    {
                                        id = nu.NumeroUnicoID.ToString(),
-                                       value = nu.Prefijo + "-" + nu.Consecutivo
+                                       value = nu.Prefijo + "-" + nu.Consecutivo,
+                                       tipoGrupo = it.TipoMaterialID
                                    }).Distinct().AsParallel().ToList();
 
-                        foreach (ListaCombos lst in listado)
+                        foreach (ListaCombosICC lst in listado)
                         {
                             string[] elementos = lst.value.Split('-');
 
