@@ -927,7 +927,7 @@ namespace BackEndSAM.DataAcces
 
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                    int folioCuantificacionID = filtros.FolioCuantificacionID != null ? Convert.ToInt32(filtros.FolioCuantificacionID) : 0;
                     //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
 
                     //Proyectos y patios del usuario
@@ -976,14 +976,14 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
-                        if (folioAvisoLlegadaID > 0)
+                        if (folioCuantificacionID > 0)
                         {
                             elemento.FolioCuantificacion = (from relnu in ctx.Sam3_Rel_NumeroUnico_RelFC_RelB
                                                             join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on relnu.Rel_FolioCuantificacion_ItemCode_ID equals rfci.Rel_FolioCuantificacion_ItemCode_ID
                                                             join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                             join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                             where rfci.Activo && fc.Activo && fe.Activo && relnu.Activo
-                                                            && fe.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                                            && fc.FolioCuantificacionID == folioCuantificacionID
                                                             && relnu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
                                                             select new PackingListCuantificacion
                                                             {
@@ -998,7 +998,7 @@ namespace BackEndSAM.DataAcces
                                                                    join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                                    where rbi.Activo && fc.Activo && b.Activo && fe.Activo && relnu.Activo
-                                                                   && fe.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                                                   && fc.FolioCuantificacionID == folioCuantificacionID
                                                                    && relnu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
                                                                    select new PackingListCuantificacion
                                                                    {
