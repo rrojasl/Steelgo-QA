@@ -178,6 +178,7 @@
     var Proyecto = {}, Cliente = {}, FolioAvisoEntrada = {}, PackingList = {};
     var FechaInicial, FechaFinal, PeriodoTiempo = {}, resultadoJson, UnidadMedida = {};
     var _despachoUrl = "@Url.Action("Despacho", "Despacho")";
+    var _activarBotonDashBoard = getUrlParameter("ActivarBotonDashBoard", "-1");
 
     var $DashBoardDespachoCorteModel = {
         listContainer: {
@@ -470,11 +471,39 @@
 
             ObtenerFechasporDefecto();
             CantidadesDelMenuDashboardTubos();
-
-          
-            
+            ActivarBotonDashboard();
         };
 
+    function ActivarBotonDashboard() {
+        if (_activarBotonDashBoard != "-1") {
+            switch (_activarBotonDashBoard) {
+                case "1":
+                    $("#btnOrdenesTrabajoAccesorios").trigger("click");
+                    $("#btnOrdenesTrabajoTubos").trigger("click");
+                    break;
+                case "2":
+                    $("#btnOrdenesTrabajoActivasAccesorios").trigger("click");
+                    $("#btnOrdenesTrabajoActivasTubos").trigger("click");
+                    break;
+                case "3":
+                    $("#btnPreDespacharAccesorios").trigger("click");
+                    $("#btnPreDespacharTubos").trigger("click");
+                    break;
+                case "4":
+                    $("#btnDespacharAccesorios").trigger("click");
+                    $("#btnDespacharTubos").trigger("click");
+                    break;
+                case "5":
+                    $("#btnEntregarAccesorios").trigger("click");
+                    $("#btnEntregarTubos").trigger("click");
+                    break;
+                case "6":
+                    $("#btnTravelerPendienteAccesorios").trigger("click");
+                    $("#btnTravelerPendienteTubos").trigger("click");
+                    break;
+            }
+        }
+    }
     function CargarGridTubos(dataSource, columnas, detailInit) {
         if($("#gridTubos").data("kendoGrid"))
             $("#gridTubos").empty(); // destroy the Grid
