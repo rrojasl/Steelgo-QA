@@ -349,7 +349,7 @@
         NumeroControl = { NumeroControlID: id, NumeroControl: value };
     };
     function RedirectListado() {
-        window.location.href = _DashboardDespacho + "?leng=" + $("#language").data("kendoDropDownList").value();
+        window.location.href = _DashboardDespacho + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ActivarBotonDashBoard=4";
     };
     function LimpiarDatos() {
         $("#grid").data("kendoGrid").dataSource.data([]);
