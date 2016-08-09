@@ -530,15 +530,7 @@
                                 }
                             },
                             select: function (e) {
-                            },
-                            change: function (e) {
-                                var value = this.value();
-                                if (!value || !e.sender.current()) {
-                                    console.log(this);
-                                    messageindexKendoCombobox(this);
-                                    this.value("");
-                                }
-                                var dataItem = this.dataItem();
+                                var dataItem = this.dataItem(e.item.index());
                                 $("[name='ItemCodeID']").val(dataItem.ItemCodeID);
                                 $("[name='ItemCodeID']").text(dataItem.ItemCodeID);
                                 $("[name='Colada']").data("kendoComboBox").value("");
@@ -548,6 +540,14 @@
                                 $Colada.Colada.read({}, { itemcode: itemCodeID, token: Cookies.get("token") }).done(function (data) {
                                     $("[name='Colada']").data("kendoComboBox").dataSource.data(data);
                                 });
+                            },
+                            change: function (e) {
+                                var value = this.value();
+                                if (!value || !e.sender.current()) {
+                                    console.log(this);
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
                                 $ItemCode.ItemCode.read({},{itemCodeID:itemCodeID,proyectoID:$("#Proyecto").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
                                     if(Array.isArray(result)){
                                         $("#D1").val(result[0]);
