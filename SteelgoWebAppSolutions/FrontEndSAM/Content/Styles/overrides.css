@@ -362,6 +362,10 @@
         word-wrap:break-word;
     }
 
+    .k-grid td.command {
+        padding: 7.5px;
+    }
+
     .k-grid tr:last-child td {
         border-bottom: none;
     }
