@@ -1508,7 +1508,7 @@
         };
 
         function CancelarInformacionItem(e) {
-            if($("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr")).TieneNU==="NO"){
+            if($("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr")).TieneNU.toLowerCase()==="no"){
                 e.preventDefault();
                 if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && returnOfSecurityCheck["Item Code"]["destroy"]) {
                     //loadingStart();
