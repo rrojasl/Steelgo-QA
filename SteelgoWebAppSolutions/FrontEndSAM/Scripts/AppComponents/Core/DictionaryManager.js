@@ -6238,6 +6238,18 @@ _dictionary = {
         "es-MX": "Dashboard despacho y corte",
         "en-US": "Dashboard dispatch and cut"
     },
+    "Entrega0016": {
+        "es-MX": "Llenado Masivo:",
+        "en-US": "filling Mass:"
+    },
+    "Entrega0017": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Entrega0018": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
     //ConvertirSpoolAGranel
     "ConvertirSpoolAGranel0001": {
         "es-MX": "Transacciones",
