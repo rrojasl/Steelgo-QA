@@ -195,17 +195,25 @@
     }
 
     @section JavascriptGlobalFunctions {
-        function changeLanguageCall() {
-            var tmpT = removeGrid($("#gridTubos"));
-            var tmpA = removeGrid($("#gridAccesorios"));
+    function changeLanguageCall() {
+        var tmpT = removeGrid($("#gridTubos"));
+        var tmpA = removeGrid($("#gridAccesorios"));
+
+        if (getUrlParameter("ActivarBotonDashBoard", "-1") == "-1")
+        {
             CargarGridTubos();
             CargarGridAccesorios();
-            CrearPeriodoTiempo();
-            //CrearUnidadMedida();
+        }
+        CrearPeriodoTiempo();
+
+        if (getUrlParameter("ActivarBotonDashBoard", "-1") == "-1")
+        {
             $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
             $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
             Filtros();
-        };
+        }
+
+    };
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
             FechaFinal.setOptions(datePickerOptions);
@@ -321,8 +329,8 @@
                
             });
 
-            $("#btnPreDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("3"); AccionesListado("3", 1,1); });
-            $("#btnDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("4"); AccionesListado("4", 1,1); });
+            $("#btnPreDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("3"); AccionesListado("3", 1, 1); });
+            $("#btnDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("4"); AccionesListado("4", 1, 1); });
             $("#btnEntregarTubos").click(function () { MostrarGrid(1); tabActivoTubos("5"); AccionesListado("5", 1, 1); });
 
             $("#btnTravelerPendienteTubos").click(function () {
@@ -1629,9 +1637,10 @@
                 resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
-
+                   
                     switch ($("#UnidadMedida").data("kendoComboBox").text()) {
                         case "Spool":
+                           
                             dataSource = DefinicionModeloPorDespacharSpool();
                             columnas = DefinicionColumnasPorDespacharSpool();
                             break;
@@ -1652,6 +1661,7 @@
                             columnas = DefinicionColumnasPorDespacharSpool();
                             break;
                     };
+                  
 
                     if (tipomaterial == 1) {
                         CargarGridTubos(dataSource, columnas, "");
