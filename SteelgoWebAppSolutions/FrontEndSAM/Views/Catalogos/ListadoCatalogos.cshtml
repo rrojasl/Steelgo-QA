@@ -558,8 +558,8 @@
                         });
                     }
                 },
-                { field: "D1", title: "D1" ,editor:function(container,options){$('<input id="D1" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)}},
-                { field: "D2", title: "D2" ,editor:function(container,options){$('<input id="D2" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)}},
+                { field: "D1", title: "D1" ,editor:function(container,options){$('<input id="D1" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)},width: "80px"},
+                { field: "D2", title: "D2" ,editor:function(container,options){$('<input id="D2" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)},width: "80px"},
                 {
                     field: "Colada",
                     title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()],
@@ -756,9 +756,10 @@
                     var grid = $("#grid").data("kendoGrid");
                     var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
 
-                    if ((catalogo != "3" && catalogo != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "95px" });
-                    grid.options.columns.push({ command: "edit", title: "Editar", width: "91px" });
-                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
+                    if ((catalogo != "3" && catalogo != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "80px", attributes:{"class":"command"} });
+                    grid.options.columns.push({ command: "edit", title: "Editar",width: "80px", attributes:{"class":"command"} });
+                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "80px", attributes:{"class":"command"} });
+
                     regenerarGrid();
                     checkTH($("#grid").data("kendoGrid"));
                     quickHeadFilter($("#grid").data("kendoGrid"));

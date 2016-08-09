@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-05/08/2016 05:57:10 p. m. - Usuario:samAdmin, pass: 7GgZtwt7
-05/08/2016 05:57:10 p. m. - GUID devuelto: 
-05/08/2016 05:57:10 p. m. - {"UsuarioID":0,"PerfilID":0,"NombreUsuario":null,"ContrasenaHash":null,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"BloqueadoPorAdministracion":false,"Activo":false,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
-=======
-05/08/2016 08:40:07 a. m. - Usuario:samAdmin, pass: 7GgZtwt7
-05/08/2016 08:40:07 a. m. - GUID devuelto: 
-05/08/2016 08:40:07 a. m. - {"UsuarioID":0,"NombreUsuario":null,"ContrasenaHash":null,"PerfilID":0,"BloqueadoPorAdministracion":false,"Activo":false,"Nombre":null,"ApellidoPaterno":null,"ApellidoMaterno":null,"UsuarioModificacion":null,"FechaModificacion":null,"Sam2UserID":null,"Sam3_Incidencia":[],"Sam3_Incidencia1":[],"Sam3_Perfil":null,"Sam3_Rel_Usuario_Preferencia":[],"Sam3_Rel_Usuario_Proyecto":[],"Sam3_Sesion":[],"Sam3_UsuariosNotificaciones":[],"Sam3_ColaCreacionNumerosUnicos":[],"Sam3_Incidencia2":[]}
->>>>>>> DF-736
