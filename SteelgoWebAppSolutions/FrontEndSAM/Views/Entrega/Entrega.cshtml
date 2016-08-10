@@ -77,6 +77,19 @@
                                     <label id="Entrega0009"></label>
                                     <input id="EmpleadoEntrega" />
                                 </div>
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                    <label id="Entrega0016"></label>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                            <label id="Entrega0017" class="centered"></label>
+                                            <input id="todos" class="" type="radio" name="llenadomasivo" value="1">
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                            <label id="Entrega0018" class="centered"></label>
+                                            <input id="vacios" class="" type="radio" name="llenadomasivo" checked value="2" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,8 +186,8 @@
                     this.value("");
                     changeValueColumnEmpleadoEntrega("");
                 } else {
-                    //AgregarRow();
                     changeValueColumnEmpleadoEntrega(value);
+                    this.value("");
                 }
             },
             dataBound: function(e){checkIfOne(this);},
@@ -194,6 +207,8 @@
                 };
                 var FechaEntrega = obtenerFormatoFechaPlanchado(d);
                 changeValueColumnFechaEntrega(FechaEntrega);
+                $("#FechaEntrega").data("kendoDatePicker").value("");
+                this.value = "";
             };
         });
     };
@@ -205,7 +220,15 @@
         var datasource = result;
 
         $(datasource).each(function () {
-            this.set("FechaEntrega", value);
+            if ($('#vacios').is(":checked")) {
+                if (this.get("FechaEntrega") == "")
+                {
+                    this.set("FechaEntrega", value);
+                }
+            } else
+            {
+                this.set("FechaEntrega", value);
+            }
         });
     };
 
@@ -216,7 +239,16 @@
         var datasource = result;
 
         $(datasource).each(function () {
-            this.set("NoEmpleadoEntrega", value);
+            if ($('#vacios').is(":checked")) {
+                if (this.get("NoEmpleadoEntrega") == "")
+                {
+                    this.set("NoEmpleadoEntrega", value);
+                }
+            } else
+            {
+                this.set("NoEmpleadoEntrega", value);
+            }
+            
         });
     };
 
@@ -242,7 +274,7 @@
             NoPickingTicket: { type: "string", editable: true },
             NoEmpleadoEntrega: { type: "string", editable: true },
             NoEmpleadoRecibe: { type: "string", editable: true },
-            FechaEntrega: { type: "date", editable: true },
+            FechaEntrega: { type: "date", editable: true, defaultValue:"" },
         }
     }
 
