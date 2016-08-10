@@ -892,7 +892,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
-          <Property Name="Area" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Area" Type="decimal" Precision="7" Scale="3" Nullable="false" />
           <Property Name="CedulaID" Type="int" />
           <Property Name="Codigo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="GrupoID" Type="int" />
@@ -1463,6 +1463,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
           <Property Name="MM" Type="int" />
           <Property Name="ColadaID" Type="int" Nullable="false" />
+          <Property Name="DimensionPromedio" Type="decimal" Precision="14" Scale="4" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Catalogos_Documento">
           <Key>
@@ -6403,12 +6404,12 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="IncidenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IncidenciaOriginalID" Type="Int32" />
-          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NoRFI" Type="Int32" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UsuarioID" Type="Int32" Nullable="false" />
-          <Property Name="Respuesta" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Respuesta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FechaRespuesta" Type="DateTime" Precision="3" />
           <Property Name="UsuarioIDRespuesta" Type="Int32" />
           <Property Name="Version" Type="Int32" Nullable="false" />
@@ -10168,6 +10169,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="MM" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_NumeroUnico_RelFC_RelB" Relationship="ModelSam3.FK__Sam3_Rel___Rel_B__1F398B65" FromRole="Sam3_Rel_Bulto_ItemCode" ToRole="Sam3_Rel_NumeroUnico_RelFC_RelB" />
           <Property Name="ColadaID" Type="Int32" Nullable="false" />
+          <Property Name="DimensionPromedio" Type="Decimal" Precision="14" Scale="4" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioCuantificacion_ItemCode">
           <Key>
@@ -10299,7 +10301,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="Area" Type="Decimal" Nullable="false" />
+          <Property Name="Area" Type="Decimal" Nullable="false" Precision="7" Scale="3" />
           <Property Name="Codigo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CedulaID" Type="Int32" />
           <Property Name="GrupoID" Type="Int32" />
@@ -14054,6 +14056,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_Bulto_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_Bulto_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_Bulto_ItemCode">
+                <ScalarProperty Name="DimensionPromedio" ColumnName="DimensionPromedio" />
                 <ScalarProperty Name="ColadaID" ColumnName="ColadaID" />
                 <ScalarProperty Name="MM" ColumnName="MM" />
                 <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />

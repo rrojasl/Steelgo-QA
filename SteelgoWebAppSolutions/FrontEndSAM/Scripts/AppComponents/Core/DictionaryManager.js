@@ -1308,7 +1308,10 @@ _dictionary = {
         "es-MX": "Transportista",
         "en-US": "Carrier"
     },
-
+    "ListadoCatalogos0061": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "Catálogo ItemCode Steelgo",
@@ -2462,7 +2465,10 @@ _dictionary = {
         "es-MX": "Dimension Promedio",
         "en-US": "Average Dimension"
     },
-
+    "Cuantificacion0105": {
+        "es-MX": "Este elemento ya cuenta con NU, no puede ser eliminado",
+        "en-US": "This element already has UN, can not be deleted"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -5128,6 +5134,10 @@ _dictionary = {
         "es-MX": "Despacho",
         "en-US": "Dispatch"
     },
+    "Predespacho0026": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
     //Corte
     "Corte0001": {
         "es-MX": "Transacciones",
@@ -6089,7 +6099,10 @@ _dictionary = {
         "es-MX": "Ver Cancelación",
         "en-US": "See Cancellation"
     },
-
+    "Incidencias0079": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Listados",
@@ -6803,6 +6816,11 @@ _dictionary = {
     "notificationslabel0107": {
         "es-MX": "Favor de seleccionar una colada.",
         "en-US": "Please select a wash"
+    },
+    "notificationslabel0108": {
+        "es-MX": "El No. Picking Ticket ya se encuentra asignado.",
+        "en-US": "No. Picking Ticket already assigned.",
+
     },
     //Default to copy
     "label9999": {

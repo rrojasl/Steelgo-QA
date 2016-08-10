@@ -56,7 +56,7 @@
                         <div class="button-section ordenrecepcion">
                             <a id="GenerarOrdenRecepcion" href="#" class="btn btn-primary"><span id="Cuantificacion0011"></span></a>
                         </div>
-                        <div class="button-section listado">
+                        <div class="button-section">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="Cuantificacion0042"></span>
@@ -65,7 +65,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="ImprimirOrdenRecepcion"><span id="Cuantificacion0082"></span></a></li>
                                     <li class="incidencia"><a id="IrIncidencia" href="#"><span id="Cuantificacion0083"></span></a></li>
-                                    <li id="AccionRegresar"><a id="RegresarListadoPadre" href="#" ><span id="Cuantificacion0085"></span></a></li>
+                                    <li class="listado" id="AccionRegresar"><a id="RegresarListadoPadre" href="#" ><span id="Cuantificacion0085"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1508,60 +1508,64 @@
         };
 
         function CancelarInformacionItem(e) {
-            e.preventDefault();
-            if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && returnOfSecurityCheck["Item Code"]["destroy"]) {
-                //loadingStart();
-                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-                var ItemCode = dataItem.ItemCodeID ? dataItem.ItemCodeID : "";
-                var bultoID = dataItem.BultoID ? dataItem.BultoID : "-1";
-                var folioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID;
-                var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
-                var validarBulto = "-1";
-                var relBID=dataItem.RelBID;
-                var relFCID = dataItem.RelFCId;
+            if($("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr")).TieneNU==="NO"){
+                e.preventDefault();
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && returnOfSecurityCheck["Item Code"]["destroy"]) {
+                    //loadingStart();
+                    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                    var ItemCode = dataItem.ItemCodeID ? dataItem.ItemCodeID : "";
+                    var bultoID = dataItem.BultoID ? dataItem.BultoID : "-1";
+                    var folioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID;
+                    var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
+                    var validarBulto = "-1";
+                    var relBID=dataItem.RelBID;
+                    var relFCID = dataItem.RelFCId;
 
-                if (folioCuantificacionID == "-1" || !ItemCode ) {
-                    var grid = $("#grid").data("kendoGrid");
-                    var tr = $(e.currentTarget).closest("tr");
-                    grid.removeRow(tr);
-                    recentlyAdded = false;
-                    //loadingStop();
-                    return;
-                } 
-
-                if (_detalleBulto != "-1") {
-                    validarBulto = relBID
-                } else {
-                    validarBulto = bultoID
-                }
-                
-                $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, bultoID: validarBulto, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
-                    if (!data) {
-                        if (confirm("Estas seguro de cancelar el Item Code?")) {
-                            $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: validarBulto, ItemCode: relFCID, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
-                                var grid = $("#grid").data("kendoGrid");
-                                var tr = $(e.currentTarget).closest("tr");
-                                grid.removeRow(tr);
-                                recentlyAdded = false;
-                                if (_detalleBulto == "-1") {
-                                    var datasource = $("#grid").data("kendoGrid").dataSource.data();
-                                    if (!datasource.length) {
-                                        $("#TipoPackingListID").data("kendoComboBox").enable(true);
-                                    }
-                                }
-                                //loadingStop();
-                            });
-                        } else {
-                            //loadingStop();
-                        };
-                    } else {
-                        displayMessage("notificationslabel0039", "", '1');
+                    if (folioCuantificacionID == "-1" || !ItemCode ) {
+                        var grid = $("#grid").data("kendoGrid");
+                        var tr = $(e.currentTarget).closest("tr");
+                        grid.removeRow(tr);
+                        recentlyAdded = false;
                         //loadingStop();
-                        e.preventDefault();
-                    };
-                });
+                        return;
+                    } 
+
+                    if (_detalleBulto != "-1") {
+                        validarBulto = relBID
+                    } else {
+                        validarBulto = bultoID
+                    }
+                
+                    $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, bultoID: validarBulto, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
+                        if (!data) {
+                            if (confirm("Estas seguro de cancelar el Item Code?")) {
+                                $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: validarBulto, ItemCode: relFCID, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (data) {
+                                    var grid = $("#grid").data("kendoGrid");
+                                    var tr = $(e.currentTarget).closest("tr");
+                                    grid.removeRow(tr);
+                                    recentlyAdded = false;
+                                    if (_detalleBulto == "-1") {
+                                        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+                                        if (!datasource.length) {
+                                            $("#TipoPackingListID").data("kendoComboBox").enable(true);
+                                        }
+                                    }
+                                    //loadingStop();
+                                });
+                            } else {
+                                //loadingStop();
+                            };
+                        } else {
+                            displayMessage("notificationslabel0039", "", '1');
+                            //loadingStop();
+                            e.preventDefault();
+                        };
+                    });
+                }
+            }else{
+                alert(_dictionary["Cuantificacion0105"][$("#language").data("kendoDropDownList").value()]);
+                e.preventDefault();
             }
-            
         };
 
         function ObtenerFoliosAvisoLlegada() {
@@ -1608,6 +1612,7 @@
                     };
                     if(result.FolioLlegada.length>0){
                         ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada)
+                        $("#FolioCuantificacionID").data("kendoComboBox").enable(true);
                     }else{
                         $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
                         $("#FolioCuantificacionID").data("kendoComboBox").dataSource.data([]);

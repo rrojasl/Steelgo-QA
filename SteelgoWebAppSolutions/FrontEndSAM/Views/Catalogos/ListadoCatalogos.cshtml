@@ -181,8 +181,11 @@
             fields: {
                 MTRID: { editable: false, nullable: true },
                 NumeroMTR: { type: "string", validation: { required: true } },
+                Proyecto: { type: "string", validation: { required: true } },
                 ItemCodeID: { type: "string", validation: { required: true } },
                 ItemCode: { type: "string", validation: { required: true } },
+                D1: { type: "string", validation: { required: true } },
+                D2: { type: "string", validation: { required: true } },
                 ColadaID: { type: "string", validation: { required: true } },
                 Colada: { type: "string", validation: { required: true } },
                 CantidadPiezas: { type: "string", validation: { required: true } }
@@ -196,10 +199,12 @@
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
         contadorDataBound = 0;
-        if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value() != "11") {
+        var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
+
+        if (catalogo && catalogo != "11") {
             columnas = getColumnas();
-            cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
-        } else if ($("#listaCatalogos").data("kendoDropDownList").value() == "11") {
+            cargarInicialGrid(catalogo);
+        } else if (catalogo == "11") {
             $("#listaCatalogos").data("kendoDropDownList").trigger("change");
         } else {
             $("#grid").kendoGrid({ columns: [] });
@@ -462,8 +467,29 @@
                 { field: "Telefono", title: _dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()] },
             ],
             "12": [
-                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()] },
-               
+                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()],width:170 },
+                {field:"Proyecto", title:_dictionary.ListadoCatalogos0061[$("#language").data("kendoDropDownList").value()], editor:function(container,options){
+                    $('<input id="Proyecto" name="'+options.field+'"/>').appendTo(container).kendoComboBox({
+                        dataTextField: "Nombre",
+                        dataValueField: "ProyectoID",
+                        dataSource:{
+                            transport:{
+                                read:{
+                                    type:"GET",
+                                    url:$Proyecto.Proyecto.urlNoId+"?token="+Cookies.get("token"),
+                                    dataType:"json"
+                                }
+                            }
+                        },
+                        select: function (e) {
+                        },
+                        change: function (e) {
+                            $("#ItemCode").data("kendoAutoComplete").options.dataSource.transport.read.url=$URLItemCode + "proyectoID="+this.value() + "&token=" + Cookies.get("token");
+                            options.model.Proyecto=this.dataItem().Nombre;
+                        },
+                        filter: "contains",
+                    })
+                }},
                 {
                     field: "ItemCode",
                     title: _dictionary.ListadoCatalogos0045[$("#language").data("kendoDropDownList").value()],
@@ -474,7 +500,7 @@
                                 transport: {
                                     read: {
                                         dataType: "json",
-                                        url: $URLItemCode + "token=" + Cookies.get("token")
+                                        url: ""
                                     }
                                 }
                             },
@@ -497,10 +523,25 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
+                                $ItemCode.ItemCode.read({},{itemCodeID:itemCodeID,proyectoID:$("#Proyecto").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
+                                    if(Array.isArray(result)){
+                                        $("#D1").val(result[0]);
+                                        $("#D2").val(result[1]);
+                                        options.model.D1=result[0];
+                                        options.model.D2=result[1];
+                                    }else{
+                                        $("#D1").val("");
+                                        $("#D2").val("");
+                                        options.model.D1="";
+                                        options.model.D2="";
+                                    }
+                                })
                             }
                         });
                     }
                 },
+                { field: "D1", title: "D1" ,editor:function(container,options){$('<input id="D1" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)},width: "80px"},
+                { field: "D2", title: "D2" ,editor:function(container,options){$('<input id="D2" name="'+options.field+'" disabled readonly class="k-input k-textbox"/>').appendTo(container)},width: "80px"},
                 {
                     field: "Colada",
                     title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()],
@@ -525,13 +566,17 @@
                                     messageindexKendoCombobox(this);
                                     this.value("");
                                 }
-                                },
+                                var data= this.dataItem();
+                                options.model.ColadaID = data.ColadaID;
+                                options.model.Colada = data.Nombre;
+                                options.model.ItemCodeID=itemCodeID;
+                            },
                                 dataTextField: "Nombre",
                                 dataValueField: "ColadaID"
                             });
                     }
                 },
-                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()] },
+                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()],width:140 },
             ],
         }
     }
@@ -617,20 +662,22 @@
     }
 
     function getUrl() {
+        var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
         console.log("Listado");
-        console.log($("#listaCatalogos").data("kendoDropDownList").value());
-        return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + $("#listaCatalogos").data("kendoDropDownList").value() + "&token=";
+        console.log(catalogo);
+        return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + catalogo + "&token=";
     }
 
     function cargarInicialGrid(val) {
         loadingStart();
         removeGrid($("#grid"));
+        var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
         $("#grid").kendoGrid({
-            dataSource: getDataSourceGrid(val),
+            dataSource: getDataSourceGrid(catalogo),
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            columns: columnas[$("#listaCatalogos").data("kendoDropDownList").value()],
+            columns: columnas[catalogo],
             filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 pageSizes: [10, 15, 20],
@@ -684,9 +731,10 @@
                 if (contadorDataBound == 0) {
                     contadorDataBound++;
                     var grid = $("#grid").data("kendoGrid");
-                    if (($("#listaCatalogos").data("kendoDropDownList").value() != "3" && $("#listaCatalogos").data("kendoDropDownList").value() != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "95px" });
-                    grid.options.columns.push({ command: "edit", title: "Editar", width: "91px" });
-                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
+                    var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
+                    if (catalogo != "3" && catalogo != 8) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "80px", attributes:{"class":"command"} });
+                    grid.options.columns.push({ command: "edit", title: "Editar", width: "80px",attributes:{"class":"command"} });
+                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "80px",attributes:{"class":"command"} });
                     regenerarGrid();
                     checkTH($("#grid").data("kendoGrid"));
                     quickHeadFilter($("#grid").data("kendoGrid"));

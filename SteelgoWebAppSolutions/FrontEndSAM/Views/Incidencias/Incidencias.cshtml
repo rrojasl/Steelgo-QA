@@ -61,14 +61,15 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard"><span id="Incidencias0062"></span></a></li>
+                                    <li class="listado"><a id="RedirectDashboard"><span id="Incidencias0062"></span></a></li>
                                     <li><a id="RedirectIncidencia" href="#" class="hidden"><span id="Incidencias0072"></span></a></li>
                                     <li><a id="RedirectResolver" href="#" class="hidden"><span id="Incidencias0073"></span></a></li>
                                     <li><a id="RedirectResponder" href="#" class="hidden"><span id="Incidencias0074"></span></a></li>
+                                    <li><a id="RedirectCancelar" href="#" class="hidden"><span id="Incidencias0079"></span></a></li>
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
+                        <button id="Imprimir" type="button" class="btn btn-blue"></button>
                     </div>
                 </div>
             </div>
@@ -114,11 +115,11 @@
                                                     </div>
                                                     <div id="TituloDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                                                         <label id="Incidencias0006"></label>
-                                                        <input id="Titulo" class="general-input" />
+                                                        <input id="Titulo" class="general-input" maxlength="100"/>
                                                     </div>
                                                     <div id="DescripcionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                                                         <label id="Incidencias0007"></label>
-                                                        <textarea id="Descripcion" rows="4" cols="50"></textarea>
+                                                        <textarea id="Descripcion" rows="4" cols="50" maxlength="1500"></textarea>
                                                     </div>
                                                     <div id="RegistradoPorDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                         <label id="Incidencias0014"></label>
@@ -136,13 +137,13 @@
                                                             <div class="addedSection clearfix">
                                                                 <div id="DescripcionArchivoIncidenciaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                                     <label id="Incidencias0021"></label>
-                                                                    <input id="DescripcionArchivoIncidencia" class="general-input" />
+                                                                    <input id="DescripcionArchivoIncidencia" class="general-input" maxlength="1500"/>
                                                                 </div>
                                                                 <div id="AdjuntarArchivosIncidenciaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                                     <label id="Incidencias0020"></label>
                                                                     <input name="files" id="AdjuntarArchivosIncidencia" type="file" />
                                                                 </div>
-                                                                <div id="listaArchivosIncidenciaDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                <div id="listaArchivosIncidenciaDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                                                                     <div class="row">
                                                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                             <table id="listaArchivosIncidencia" class="filesTable">
@@ -361,12 +362,14 @@
         RespondidoPor = {};
     var tabSelected = "Incidencia";
     var edicion = false;
+    var hasFiles=false;
 
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ListadoIncidenciasUrl = "@Url.Action("ListadoIncidencias", "Incidencias")";
 
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _TipoIncidencia = getUrlParameter("TipoIncidencia", "-1");
+    var _folioOriginalID = "";
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
     var _Edicion = getUrlParameter("Edicion", "-1");
     var _LevantarIncidencia = getUrlParameter("LevantarIncidencia", "-1");
@@ -377,7 +380,7 @@
     var $IncidenciasModel = {
         listContainer: {
             create: ".guardarSecurity",
-            list: "#listaArchivosIncidenciaDiv",
+            list: ".listado",
             detail: "#Editar",
             destroy: "",
             solutionincidence: ""
@@ -998,7 +1001,7 @@
 
         $("#Guardar").text(_dictionary.Incidencias0064[$("#language").data("kendoDropDownList").value()]);
         $("#Editar").text(_dictionary.Incidencias0065[$("#language").data("kendoDropDownList").value()]);
-
+        $("#Imprimir").on("click",function(e){ Imprimir()})
         //ALTA DE UNA INCIDENCIA
         $("#Guardar").click(function () {
             edicion = false;
@@ -1071,7 +1074,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosIncidencia,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosIncidencia").data("kendoUpload").disable();
         $("#DescripcionArchivoIncidencia").attr("disabled", "disabled");
@@ -1095,7 +1098,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosResolver,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosResolver").data("kendoUpload").enable(true);
         $("#DescripcionArchivoResolver").attr("disabled", "disabled");
@@ -1117,7 +1120,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosResponder,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosResponder").data("kendoUpload").enable(true);
         $("#DescripcionArchivoResponder").attr("disabled", "disabled");
@@ -1139,7 +1142,7 @@
             error: function (data) { },
             upload: onUploadAdjuntarArchivosCancelar,
             localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value()),
-            select: notDotName,
+            select: function(e){notDotName(e);hasFiles=true;},
         });
         $("#AdjuntarArchivosCancelar").data("kendoUpload").enable(true);
         $("#DescripcionArchivoCancelar").attr("disabled", "disabled");
@@ -1192,7 +1195,18 @@
                     TipoIncidencia = {};
                     this.value("");
                 }
-                else { ObtenerRegistro(this.value()); }
+                else { 
+                    ObtenerRegistro(this.value());
+                    if(this.value()!=="7"){
+                        document.getElementById("ClasificacionDiv").className="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4";
+                        document.getElementById("TipoIncidenciaDiv").className="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4";
+                        document.getElementById("RegistroDiv").className="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4";
+                    }else{
+                        document.getElementById("ClasificacionDiv").className="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3";
+                        document.getElementById("TipoIncidenciaDiv").className="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3";
+                        document.getElementById("RegistroDiv").className="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6";
+                    }
+                }
             },
             filter: "contains",
             dataBound: function (e) { 
@@ -1468,7 +1482,9 @@
                     $.each(data.ArchivosCancelar, function (index, value) {
                         $("#listaArchivosCancelar tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
-
+                    
+                    _folioOriginalID=data.FolioOriginalID;
+                    
                     AsignarPaginaActualCookie();
                     applySecurityPolicy(false);
                 };
@@ -1876,11 +1892,11 @@
                         };
                     }
                     if (_Editando["Incidencia"] && $(elem).attr("id") == "DescripcionArchivoIncidencia") {
-                        if (!$(this).val()) {
+                        if (!$(this).val() && hasFiles) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
                             $(this).closest("div").addClass("clearfix");
-                        } else {
+                        } else if(!$(this).val() && !hasFiles) {
                             $(this).closest("div").find("label").removeClass("error");
                             $(this).closest("div").removeClass("clearfix");
                         };
@@ -2048,6 +2064,7 @@
             Listado.ReferenciaID = Registro.RegistroID;
             Listado.Nuevo = false;
             Listado.Estatus = $("#hdEstatus").val();
+            Listado.FolioOriginalID=_folioOriginalID;
             return Listado;
         };
 
@@ -2096,7 +2113,28 @@
                 }
             }
         };
+        
+        function Imprimir() {
+            downloadPDF($Reporte.Reporte.urlNoId, {TipoReporte:6,IncidenciaID:_FolioIncidencia});
+        };
 
+        function downloadPDF(url, pdf) {
+            var req = new XMLHttpRequest();
+            req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
+            req.responseType = "blob";
+            name="Incidencia"+_FolioIncidencia;
+            req.onload = function (event) {
+                var blob = req.response;
+                console.log(blob.size);
+                var link=document.createElement('a');
+                link.href=window.URL.createObjectURL(blob);
+                link.download=name + ".pdf";
+                link.click();
+            };
+            req.send();
+            displayMessage("notificationslabel0100", "", "1")
+        }
+        
         function DeshabilitarControles() {
 
             $("#Clasificacion").data("kendoComboBox").enable(false);
@@ -2318,6 +2356,7 @@
                         Nuevo();
                     }
                     _FolioIncidencia = result.FolioIncidenciaID;
+                    _folioOriginalID=result.FolioOriginalID;
                     _Edicion = "1";
                     $("#Version").val(result.Version);
                     BotonAlta();
@@ -2345,7 +2384,8 @@
                     if (Listado.Nuevo) {
                         Nuevo();
                     }
-                    _FolioIncidencia = result.ReturnMessage[0];
+                    _FolioIncidencia = result.ReturnMessage[0].split(",")[0]
+                    _folioOriginalID = result.ReturnMessage[0].split(",")[1]
                     //LimpiarHistorialFiles();
                     CargaInicialEdicion(_FolioIncidencia);
                     displayMessage("notificationslabel0056", "", '0');
@@ -2521,6 +2561,13 @@
             cambiaActivosClick(tabSelected);
         });
 
+        $("#RedirectCancelar").click(function (e) {
+            e.preventDefault();
+            $("#tabstrip").data("kendoTabStrip").select(3);
+            tabSelected = "Cancelar";
+            cambiaActivosClick(tabSelected);
+        });
+
         function NuevaIncidencia() {
             $("#tabstrip").data("kendoTabStrip").select(0);
             tabSelected = "Incidencia";
@@ -2615,12 +2662,14 @@
             $("#RedirectIncidencia").removeClass("hidden");
             $("#RedirectResponder").removeClass("hidden");
             $("#RedirectResolver").removeClass("hidden");
+            $("#RedirectCancelar").removeClass("hidden");
         }
 
         function deshabilitarAcciones() {
             $("#RedirectIncidencia").addClass("hidden");
             $("#RedirectResponder").addClass("hidden");
             $("#RedirectResolver").addClass("hidden");
+            $("#RedirectCancelar").addClass("hidden");
         }
 
         function formatoFechaKendo(splitYear, splitMonth, splitDay) {

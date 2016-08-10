@@ -449,6 +449,7 @@
     <None Include="Properties\PublishProfiles\FrontEnd-QA.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEnd.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEndSam.pubxml" />
+    <None Include="Properties\PublishProfiles\FrontEnd_Prod.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Properties\PublishProfiles\samFrontEnd.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -1200,9 +1201,9 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>61102</DevelopmentServerPort>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52769</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:61102/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

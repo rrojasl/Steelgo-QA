@@ -1894,6 +1894,12 @@ namespace BackEndSAM.DataAcces
                         registroBd.Cantidad = item.Cantidad;
                         registroBd.FechaModificacion = DateTime.Now;
                         registroBd.UsuarioModificacion = usuario.UsuarioID;
+
+                        if (item.DimensionPromedio != string.Empty && item.DimensionPromedio != null)
+                        {
+                            registroBd.DimensionPromedio = Convert.ToDecimal(item.DimensionPromedio);
+                        }
+
                         if (item.MM >= 0)
                         {
                             registroBd.MM = item.MM;

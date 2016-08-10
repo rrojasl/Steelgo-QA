@@ -61,7 +61,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard"><span id="LlegadaMaterial0041"></span></a></li>
+                                    <li class="listado"><a id="RedirectDashboard"><span id="LlegadaMaterial0041"></span></a></li>
                                     <li class="incidencia"><a id="IrIncidencia" href="#"><span id="LlegadaMaterial0042"></span></a></li>
                                     <li class="cancelar"><a id="CancelarFolio" href="#"><span id="LlegadaMaterial0051"></span></a></li>
                                 </ul>
@@ -125,7 +125,7 @@
                             <input name="files" id="AdjuntarArchivos" type="file" />
                         </div>
                     </div>
-                    <div id="listaArchivosDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 actionButtonSection">
+                    <div id="listaArchivosDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <table id="listaArchivos" class="filesTable">
                                 <thead>
@@ -176,7 +176,7 @@
         var $DetalleLlegadaMaterialModel = {
             listContainer: {
                 create: ".creacion",
-                list: ".actionButtonSection",
+                list: ".listado",
                 detail: ".editar",
                 destroy: ".cancelar",
                 createIncidence: ".incidencia"

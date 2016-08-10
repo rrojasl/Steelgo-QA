@@ -28,7 +28,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section editButtonSection">
+                        <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="GenerarOrdenAlmacenaje0005"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,14 +41,14 @@
                            
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="GenerarOrdenAlmacenaje0008"></span></a>
                         </div>
-                        <div class="button-section listado">
+                        <div class="button-section">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="GenerarOrdenAlmacenaje0009"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectListado"><span id="GenerarOrdenAlmacenaje0010"></span></a></li>
+                                    <li class="listado"><a id="RedirectListado"><span id="GenerarOrdenAlmacenaje0010"></span></a></li>
                                     <li class="incidencia"><a id="IrIncidencia"  href="#"><span id="GenerarOrdenAlmacenaje0011"></span></a></li>
                                 </ul>
                             </div>
@@ -115,7 +115,7 @@
         listContainer: {
             create: ".save-group",
             list: ".listado",
-            detail: ".editButtonSection",
+            detail: "",
             destroy: ".k-grid-Cancelar",
             createIncidence: ".incidencia"
         },
@@ -653,11 +653,11 @@
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
         //loadingStart();
-        OrdenAlmacenaje.listaFoliosCuantificacion = folios;
-        OrdenAlmacenaje.listaItemCodes = itemCodes;
+        OrdenAlmacenaje.listaFoliosCuantificacion = folios.length===0 ? itemCodes.folios : folios;
+        OrdenAlmacenaje.listaItemCodes = itemCodes.itemCodes;
         OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
 
-        if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
+        if (OrdenAlmacenaje.listaFoliosCuantificacion.length > 0 || OrdenAlmacenaje.listaItemCodes.length > 0 || OrdenAlmacenaje.listaNumerosUnicos.length > 0) {
             
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 //loadingStop();
@@ -693,7 +693,10 @@
                 x++;
             }
         }
-        return itemCodes;
+        var folios=[];
+        //search the folios of the checked items
+        checkItemCodesID.filter(function(n){ return n.indexOf("true")>-1}).forEach(function(m){folios.filter(function(o){ return o.ID===m.split(",")[0]}).length===0 ? folios.push({ID:m.split(":")[1].split(",")[0]}) : null });
+        return {folios:folios,itemCodes:itemCodes};
     };
 
     function ObtenerNumerosUnicosDeMemoria() {

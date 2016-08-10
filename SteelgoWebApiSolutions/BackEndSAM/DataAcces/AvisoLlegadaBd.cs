@@ -1466,6 +1466,7 @@ namespace BackEndSAM.DataAcces
                                    FolioIncidenciaID = incd.IncidenciaID.ToString(),
                                    RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
                                    TipoIncidencia = ti.Nombre,
+                                   FolioOriginalID = incd.IncidenciaOriginalID.ToString(),
                                    FolioConfiguracionIncidencia = ActivarFolioConfiguracionIncidencias ? (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
                                                                                                           where pc.Rel_Proyecto_Entidad_Configuracion_ID == incd.Rel_Proyecto_Entidad_Configuracion_ID
                                                                                                           select pc.PreFijoFolioIncidencias + ","

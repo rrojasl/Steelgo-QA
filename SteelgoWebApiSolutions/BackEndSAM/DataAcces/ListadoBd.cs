@@ -3316,8 +3316,10 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
-
-                    return listado.OrderBy(x => x.FolioIncidenciaID).ToList();
+                    foreach(var i in listado){
+                        i.FolioOriginalID = (i.FolioOriginalID == null || i.FolioOriginalID == "") ? i.FolioIncidenciaID : i.FolioOriginalID;
+                    }
+                    return listado.OrderBy(x => x.FolioOriginalID).ToList();
                 }
             }
             catch (Exception ex)
@@ -3955,13 +3957,16 @@ namespace BackEndSAM.DataAcces
                             listado = (from it in ctx.Sam3_ItemCode
                                        join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                        where it.Activo && p.Activo && pa.Activo
                                        && proyectos.Contains(p.ProyectoID)
                                        && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
                                            id = it.ItemCodeID.ToString(),
-                                           value = it.Codigo
+                                           value = it.Codigo+"("+d1.Valor.ToString()+","+d2.Valor.ToString()+")("+p.Nombre+")"
                                        }).AsParallel().Distinct().ToList();
                             break;
                         case 8: // Orden de almacenaje
