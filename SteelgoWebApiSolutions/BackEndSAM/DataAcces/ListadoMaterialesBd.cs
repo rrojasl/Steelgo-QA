@@ -238,16 +238,21 @@ namespace BackEndSAM.DataAcces
                     List<ListadoMaterialesPorPL> lista = new List<ListadoMaterialesPorPL>();
 
                     lista = (from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                             join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
-                             join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                             join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                             join ic in ctx.Sam3_ItemCode on rid.ItemCodeID equals ic.ItemCodeID
+                             join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                             join ricd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals ricd.Rel_ItemCodeSteelgo_Diametro_ID
+                             join ics in ctx.Sam3_ItemCodeSteelgo on ricd.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                              join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
                              join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                              join cat in ctx.Sam3_CatalogoCedulas on ics.CedulaID equals cat.CatalogoCedulasID
                              join c in ctx.Sam3_Cedula on cat.CedulaA equals c.CedulaID
-                             where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo &&
-                             rfc.FolioCuantificacionID.ToString() == folioCuantificacion
+                             join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                             join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                             where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo 
+                             && rid.Activo && ricd.Activo && d1.Activo && d2.Activo
+                             && rfc.FolioCuantificacionID.ToString() == folioCuantificacion
                              select new ListadoMaterialesPorPL
                              {
                                  NumeroUnicoID = nu.NumeroUnicoID.ToString(),
@@ -258,8 +263,8 @@ namespace BackEndSAM.DataAcces
                                  Descripcion = ics.DescripcionEspanol,
                                  Cedula = c.Codigo,
                                  TipoAcero = fm.Nombre,
-                                 //D1 = ics.Diametro1.ToString(),
-                                 //D2 = ics.Diametro2.ToString(),
+                                 D1 = d1.Valor.ToString(),
+                                 D2 = d2.Valor.ToString(),
                                  RangoInferior = (from pc in ctx.Sam3_ProyectoConfiguracion
                                                       where pc.Activo &&
                                                       pc.ProyectoID == ic.ProyectoID

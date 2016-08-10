@@ -282,10 +282,11 @@
         if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["LLegada Material"] != 'undefined') && (typeof returnOfSecurityCheck["LLegada Material"]["detail"] != 'undefined') && returnOfSecurityCheck["LLegada Material"]["detail"]) {
             if ($("#btnPorSalir").hasClass("active")) {
                 detalleIdeaUrl = "@Url.Action("PaseDeSalida", "EntradaMaterial")";
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
+                var url=detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
             } else {
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio + "&esAlta=" + esAlta;
+                var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio + "&esAlta=" + esAlta;
             }
+            openFromList(event,url);
         }
     }
 

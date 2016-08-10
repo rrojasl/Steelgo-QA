@@ -806,9 +806,10 @@
         };
 
         function MostrarDetalleOrdenesTrabajo(link) {
-            var dataItem=$(link).closest("div[id^=grid]").data("kendoGrid").dataItem($(link).closest("td"))
+            var dataItem=$(link).closest("div[id^=grid]").data("kendoGrid").dataItem($(link).closest("tr"))
             var detalleIdeaUrl = "@Url.Action("PreDespacho", "PreDespacho")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + dataItem.SpoolID+"&NumeroControl="+dataItem.NumeroControlID;
+            var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + dataItem.SpoolID+"&NumeroControl="+dataItem.NumeroControlID;
+            openFromList(event,url)
         };
 
         function OrdenesTrabajo(tipomaterial, esBoton) {
@@ -871,8 +872,8 @@
 
         function MostrarDetalleOrdenesTrabajoActivas(spoolID) {
             var detalleIdeaUrl = "@Url.Action("PreDespacho", "PreDespacho")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + spoolID;
-
+            var url = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + spoolID;
+            openFromList(event,url)
         };
 
         function OrdenesTrabajoActivas(tipomaterial, esBoton) {
