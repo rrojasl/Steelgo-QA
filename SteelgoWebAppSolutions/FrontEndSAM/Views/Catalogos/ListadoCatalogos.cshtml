@@ -492,7 +492,7 @@
                 { field: "Telefono", title: _dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()] },
             ],
             "12": [
-                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()] },
+                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()],width:170 },
                 {field:"Proyecto", title:_dictionary.ListadoCatalogos0061[$("#language").data("kendoDropDownList").value()], editor:function(container,options){
                     $('<input id="Proyecto" name="'+options.field+'"/>').appendTo(container).kendoComboBox({
                         dataTextField: "Nombre",
@@ -601,7 +601,7 @@
                             });
                     }
                 },
-                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()] },
+                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()],width:140 },
             ],
         }
     }
@@ -762,11 +762,9 @@
                     contadorDataBound++;
                     var grid = $("#grid").data("kendoGrid");
                     var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
-
-                    if ((catalogo != "3" && catalogo != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "80px", attributes:{"class":"command"} });
-                    grid.options.columns.push({ command: "edit", title: "Editar",width: "80px", attributes:{"class":"command"} });
-                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "80px", attributes:{"class":"command"} });
-
+                    if (catalogo != "3" && catalogo != 8) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "80px", attributes:{"class":"command"} });
+                    grid.options.columns.push({ command: "edit", title: "Editar", width: "80px",attributes:{"class":"command"} });
+                    grid.options.columns.push({ command: "destroy", title: "Borrar", width: "80px",attributes:{"class":"command"} });
                     regenerarGrid();
                     checkTH($("#grid").data("kendoGrid"));
                     quickHeadFilter($("#grid").data("kendoGrid"));
