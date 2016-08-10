@@ -467,7 +467,7 @@
                 { field: "Telefono", title: _dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()] },
             ],
             "12": [
-                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()] },
+                { field: "NumeroMTR", title: _dictionary.ListadoCatalogos0047[$("#language").data("kendoDropDownList").value()],width:170 },
                 {field:"Proyecto", title:_dictionary.ListadoCatalogos0061[$("#language").data("kendoDropDownList").value()], editor:function(container,options){
                     $('<input id="Proyecto" name="'+options.field+'"/>').appendTo(container).kendoComboBox({
                         dataTextField: "Nombre",
@@ -576,7 +576,7 @@
                             });
                     }
                 },
-                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()] },
+                { field: "CantidadPiezas", title: _dictionary.ListadoCatalogos0048[$("#language").data("kendoDropDownList").value()],width:140 },
             ],
         }
     }
@@ -731,14 +731,8 @@
                 if (contadorDataBound == 0) {
                     contadorDataBound++;
                     var grid = $("#grid").data("kendoGrid");
-
-                    //var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
-
-                    //if ((catalogo != "3" && catalogo != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "95px" });
-                    //grid.options.columns.push({ command: "edit", title: "Editar", width: "91px" });
-                    //grid.options.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
-
-                    if (($("#listaCatalogos").data("kendoDropDownList").value() != "3" && $("#listaCatalogos").data("kendoDropDownList").value() != 8)) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "80px", attributes:{"class":"command"} });
+                    var catalogo = $("#listaCatalogos").data("kendoDropDownList").value() ? $("#listaCatalogos").data("kendoDropDownList").value() : getUrlParameter("catalog", null);
+                    if (catalogo != "3" && catalogo != 8) grid.options.columns.push({ command: { text: "Archivos", click: showFiles }, title: "Archivos", width: "80px", attributes:{"class":"command"} });
                     grid.options.columns.push({ command: "edit", title: "Editar", width: "80px",attributes:{"class":"command"} });
                     grid.options.columns.push({ command: "destroy", title: "Borrar", width: "80px",attributes:{"class":"command"} });
                     regenerarGrid();
