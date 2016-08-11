@@ -363,6 +363,55 @@ _dictionary = {
         "es-MX": "Revision del Deficit",
         "en-US": "Deficit Revision"
     },
+    "menuLabel1071": {
+        "es-MX": "Camiones",
+        "en-US": "trucks"
+    },
+    "menuLabel1072": {
+        "es-MX": "Cédulas",
+        "en-US": "Certificates"
+    },
+    "menuLabel1073": {
+        "es-MX": "Choferes",
+        "en-US": "Drivers"
+    },
+    "menuLabel1074": {
+        "es-MX": "Fabricantes",
+        "en-US": "Manufacturer"
+    },
+    "menuLabel1075": {
+        "es-MX": "MTR",
+        "en-US": "MTR"
+    },
+    "menuLabel1076": {
+        "es-MX": "Patios",
+        "en-US": "Yards"
+    },
+    "menuLabel1077": {
+        "es-MX": "Planas",
+        "en-US": "Platforms"
+    },
+    "menuLabel1078": {
+        "es-MX": "Proveedores",
+        "en-US": "Providers"
+    },
+    "menuLabel1079": {
+        "es-MX": "Tipo Aviso",
+        "en-US": "Notice Type"
+    },
+    "menuLabel1080": {
+        "es-MX": "Tipo de Uso",
+        "en-US": "Use Type"
+    },
+    "menuLabel1081": {
+        "es-MX": "Tracto",
+        "en-US": "Tract"
+    },
+    "menuLabel1082": {
+        "es-MX": "Transportista",
+        "en-US": "Carriers"
+    },
+   
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
