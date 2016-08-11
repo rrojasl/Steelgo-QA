@@ -1537,8 +1537,13 @@ namespace BackEndSAM.DataAcces
 
                             detalle.ValorReferencia = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
                                                        join it in ctx.Sam3_ItemCode on r.ItemCodeID equals it.ItemCodeID
+                                                       join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                        where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
-                                                       select it.Codigo).AsParallel().SingleOrDefault();
+                                                       select it.Codigo + "(" + d1.Valor.ToString() + "," + d2.Valor.ToString() + ")(" + p.Nombre + ")").AsParallel().SingleOrDefault();
 
                             break;
                         case 8: // Orden de almacenaje
