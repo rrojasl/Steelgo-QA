@@ -426,7 +426,15 @@ namespace BackEndSAM.DataAcces
                 string format = "PDF";
                 string rutaReporte = "/Reportes/ReporteIncidencia";
                 NetworkCredential credenciales = new NetworkCredential(usuarioReportes, passReportes);
+                int Id = 0;
                 #endregion
+
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Incidencia incidencia = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == incidenciaID).FirstOrDefault();
+                    Id = incidencia.IncidenciaOriginalID != null ? incidencia.IncidenciaOriginalID.GetValueOrDefault() : incidenciaID;
+                }
+
 
                 ReportExecutionServiceSoapClient cliente = new ReportExecutionServiceSoapClient();
                 cliente.ClientCredentials.Windows.ClientCredential = credenciales;
@@ -456,7 +464,7 @@ namespace BackEndSAM.DataAcces
                 response.Content = new StreamContent(iStream);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = "Formato_Incidencias" + incidenciaID.ToString() + ".pdf";
+                response.Content.Headers.ContentDisposition.FileName = "Formato_Incidencias" + Id.ToString() + ".pdf";
 
                 return response;
             }

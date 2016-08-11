@@ -2122,7 +2122,12 @@
             var req = new XMLHttpRequest();
             req.open("GET",(url + "?data=" + encodeURI(JSON.stringify(pdf)) + "&token=" + Cookies.get("token")),true)
             req.responseType = "blob";
-            name="Incidencia"+_FolioIncidencia;
+
+            if (_folioOriginalID != null && _folioOriginalID != "")
+                name = "Incidencia" + _folioOriginalID;
+            else
+                name = "Incidencia" + _FolioIncidencia;
+
             req.onload = function (event) {
                 var blob = req.response;
                 console.log(blob.size);
