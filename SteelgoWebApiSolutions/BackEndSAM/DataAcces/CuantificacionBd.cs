@@ -123,7 +123,7 @@ namespace BackEndSAM.DataAcces
                                                     select fm.Nombre).FirstOrDefault().ToString(),
 
                                        TieneNU = ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == fc.Rel_FolioCuantificacion_ItemCode_ID)
-                                                    .Count() == fc.Cantidad ? "SI" : "NO", 
+                                                    .Count() > 0 ? "SI" : "NO", 
                                        RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
                                        ItemCodeOrigenID = ic.ItemCodeID.ToString(),
                                        TipoMaterial = ic.TipoMaterialID,
@@ -248,7 +248,7 @@ namespace BackEndSAM.DataAcces
                                                           && rii.Rel_ItemCode_Diametro_ID == rid.Rel_ItemCode_Diametro_ID
                                                           select fm.Nombre).FirstOrDefault(),
 
-                                       TieneNU = ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_Bulto_ItemCode_ID == rbic.Rel_Bulto_ItemCode_ID).Count() == rbic.Cantidad ? "SI":"NO",
+                                       TieneNU = ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_Bulto_ItemCode_ID == rbic.Rel_Bulto_ItemCode_ID).Count() > 0 ? "SI":"NO",
                                        RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString(),
                                        ItemCodeOrigenID = ic.ItemCodeID.ToString(),
                                        TipoMaterial = ic.TipoMaterialID

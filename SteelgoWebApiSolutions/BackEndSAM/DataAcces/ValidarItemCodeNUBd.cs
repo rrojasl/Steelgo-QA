@@ -121,11 +121,18 @@ namespace BackEndSAM.DataAcces
                         Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.Rel_Bulto_ItemCode_ID.ToString() == BultoID && x.Activo).AsParallel().SingleOrDefault();
                         if (relBulto != null)
                         {
-                            relBulto.Activo = false;
-                            relBulto.UsuarioModificacion = usuario.UsuarioID;
-                            relBulto.FechaModificacion = DateTime.Now;
+                            if (!ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_Bulto_ItemCode_ID == relBulto.Rel_Bulto_ItemCode_ID).Any())
+                            {
+                                relBulto.Activo = false;
+                                relBulto.UsuarioModificacion = usuario.UsuarioID;
+                                relBulto.FechaModificacion = DateTime.Now;
 
-                            ctx.SaveChanges();
+                                ctx.SaveChanges();
+                            }
+                            else
+                            {
+                                throw new Exception("El ItemCode ya cuenta con Números únicos");
+                            }
                         }
                         //Elimino de bulto 
                         Sam3_Bulto bulto = (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
@@ -147,11 +154,19 @@ namespace BackEndSAM.DataAcces
                         //Elimino de Rel Bulto
                         Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode
                             .Where(x => x.Rel_Bulto_ItemCode_ID.ToString() == BultoID && x.Activo).AsParallel().SingleOrDefault();
-                        bulto.Activo = false;
-                        bulto.UsuarioModificacion = usuario.UsuarioID;
-                        bulto.FechaModificacion = DateTime.Now;
 
-                        ctx.SaveChanges();
+                        if (!ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_Bulto_ItemCode_ID == bulto.Rel_Bulto_ItemCode_ID).Any())
+                        {
+                            bulto.Activo = false;
+                            bulto.UsuarioModificacion = usuario.UsuarioID;
+                            bulto.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+                        }
+                        else
+                        {
+                            throw new Exception("El ItemCode ya cuenta con Números únicos");
+                        }
                     }
                     else
                     {
@@ -160,11 +175,18 @@ namespace BackEndSAM.DataAcces
                             .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == itemCodeID && x.FolioCuantificacionID.ToString() == folioCuantificacionID)
                             .AsParallel().SingleOrDefault();
 
-                        itemCode.Activo = false;
-                        itemCode.UsuarioModificacion = usuario.UsuarioID;
-                        itemCode.FechaModificacion = DateTime.Now;
+                        if (!ctx.Sam3_Rel_NumeroUnico_RelFC_RelB.Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == itemCode.Rel_FolioCuantificacion_ItemCode_ID).Any())
+                        {
+                            itemCode.Activo = false;
+                            itemCode.UsuarioModificacion = usuario.UsuarioID;
+                            itemCode.FechaModificacion = DateTime.Now;
 
-                        ctx.SaveChanges();
+                            ctx.SaveChanges();
+                        }
+                        else
+                        {
+                            throw new Exception("El ItemCode ya cuenta con Números únicos");
+                        }
                     }
 
                     TransactionalInformation result = new TransactionalInformation();
