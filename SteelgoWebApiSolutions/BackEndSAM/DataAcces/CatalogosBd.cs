@@ -1496,7 +1496,7 @@ namespace BackEndSAM.DataAcces
 
                                 return new CatalogoMTR
                                 {
-                                    MTRID = mtr.MTRID,
+                                    MTRID = catalogoMTR.MTRID,
                                     NumeroMTR = mtr.NumeroMTR,
                                     CantidadPiezas = mtr.CantidadPiezas,
                                     Colada = mtr.Colada,
