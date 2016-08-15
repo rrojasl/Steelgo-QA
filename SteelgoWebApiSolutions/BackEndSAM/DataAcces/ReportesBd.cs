@@ -436,7 +436,7 @@ namespace BackEndSAM.DataAcces
 
                 ParameterValue[] parametros = new ParameterValue[1];
                 parametros[0] = new ParameterValue();
-                parametros[0].Name = "incidenciaID";
+                parametros[0].Name = "IncidenciaID";
                 parametros[0].Value = incidenciaID.ToString();
 
                 ExecutionInfo infoEjecucion = new ExecutionInfo();
