@@ -360,18 +360,24 @@ namespace BackEndSAM.DataAcces
                             List<CatalogoMTR> catalogoMTR = new List<CatalogoMTR>();
                             catalogoMTR = (from mtr in ctx.Sam3_MTR
                                            join ic in ctx.Sam3_ItemCode on mtr.ItemCodeID equals ic.ItemCodeID
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on mtr.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                           join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                           join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                            join col in ctx.Sam3_Colada on mtr.ColadaID equals col.ColadaID
                                            where mtr.Activo
                                            select new CatalogoMTR
                                            {
                                                MTRID = mtr.MTRID,
-                                               ItemCodeID = ic.ItemCodeID.ToString(),
+                                               Proyecto = ic.Sam3_Proyecto.Nombre,
+                                               ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
                                                ItemCode = ic.Codigo,
                                                ColadaID = col.ColadaID.ToString(),
                                                Colada = col.NumeroColada,
                                                NumeroMTR = mtr.NumeroMTR,
-                                               CantidadPiezas = mtr.CantidadPiezas.ToString()
-                                           }).AsParallel().ToList();
+                                               CantidadPiezas = mtr.CantidadPiezas.ToString(),
+                                               D1 = d1.Valor.ToString(), 
+                                               D2 = d2.Valor.ToString()
+                                           }).AsParallel().Distinct().ToList();
 
                             return catalogoMTR;
                             #endregion
@@ -841,6 +847,7 @@ namespace BackEndSAM.DataAcces
 
                                 mtrEnBd.FechaModificacion = DateTime.Now;
                                 mtrEnBd.UsuarioModificacion = usuario.UsuarioID;
+                                mtrEnBd.Rel_ItemCode_Diametro_ID = valor;
 
                                 ctx.SaveChanges();
 
@@ -852,7 +859,9 @@ namespace BackEndSAM.DataAcces
                                     Colada = mtr.Colada,
                                     ColadaID = mtr.ColadaID,
                                     ItemCode = mtr.ItemCode,
-                                    ItemCodeID = mtr.ItemCodeID
+                                    ItemCodeID = valor.ToString(),
+                                    D1 = mtr.D1,
+                                    D2 = mtr.D2
                                 };
                             }
                             else
@@ -1472,7 +1481,8 @@ namespace BackEndSAM.DataAcces
                                                     where icd.Activo && icd.Rel_ItemCode_Diametro_ID == valor
                                                     select icd.ItemCodeID).AsParallel().SingleOrDefault();
 
-                            if (!ctx.Sam3_MTR.Where(x => x.NumeroMTR == mtr.NumeroMTR && x.ColadaID == coladaID && x.ItemCodeID == itemCodeSam3 && x.Activo).AsParallel().Any())
+                            if (!ctx.Sam3_MTR.Where(x => x.NumeroMTR == mtr.NumeroMTR && x.ColadaID == coladaID 
+                                && x.ItemCodeID == itemCodeSam3 && x.Rel_ItemCode_Diametro_ID == valor && x.Activo).AsParallel().Any())
                             {
                                 Sam3_MTR catalogoMTR = new Sam3_MTR();
                                 catalogoMTR.NumeroMTR = mtr.NumeroMTR;
@@ -1482,19 +1492,23 @@ namespace BackEndSAM.DataAcces
                                 catalogoMTR.Activo = true;
                                 catalogoMTR.FechaModificacion = DateTime.Now;
                                 catalogoMTR.UsuarioModificacion = usuario.UsuarioID;
+                                catalogoMTR.Rel_ItemCode_Diametro_ID = valor;
 
                                 ctx.Sam3_MTR.Add(catalogoMTR);
                                 ctx.SaveChanges();
 
                                 return new CatalogoMTR
                                 {
-                                    MTRID = mtr.MTRID,
+                                    MTRID = catalogoMTR.MTRID,
                                     NumeroMTR = mtr.NumeroMTR,
                                     CantidadPiezas = mtr.CantidadPiezas,
                                     Colada = mtr.Colada,
                                     ColadaID = mtr.ColadaID,
                                     ItemCode = mtr.ItemCode,
-                                    ItemCodeID = mtr.ItemCodeID
+                                    ItemCodeID = valor.ToString(),
+                                    D1 = mtr.D1, 
+                                    D2 = mtr.D2, 
+                                    Proyecto = mtr.Proyecto
                                 };
                             }
                             else

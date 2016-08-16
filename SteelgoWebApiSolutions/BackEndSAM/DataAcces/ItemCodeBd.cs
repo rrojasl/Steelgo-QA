@@ -1013,7 +1013,7 @@ namespace BackEndSAM.DataAcces
                                  join d in ctx.Sam3_Diametro on rid.Diametro1ID equals d.DiametroID
                                  where it.Activo && rid.Activo
                                  && it.ProyectoID == proyectoID
-                                 && it.ItemCodeID == itemCodeID
+                                 && rid.Rel_ItemCode_Diametro_ID == itemCodeID
                                  select d.Valor.ToString()).AsParallel().SingleOrDefault();
 
                     diametro2 = (from it in ctx.Sam3_ItemCode
@@ -1021,7 +1021,7 @@ namespace BackEndSAM.DataAcces
                                  join d in ctx.Sam3_Diametro on rid.Diametro2ID equals d.DiametroID
                                  where it.Activo && rid.Activo
                                  && it.ProyectoID == proyectoID
-                                 && it.ItemCodeID == itemCodeID
+                                 && rid.Rel_ItemCode_Diametro_ID == itemCodeID
                                  select d.Valor.ToString()).AsParallel().SingleOrDefault();
 
                     result.Add(diametro1);
