@@ -788,28 +788,29 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
-
-        public object ObtenerColadasPorItemCodeCatalogoMTR(Sam3_Usuario usuario, int itemCodeID)
+        public object ObtenerColadasPorItemCodeCatalogoMTR(Sam3_Usuario usuario, int relItemCodeDiametroID)
         {
             try
             {
                 List<Coladas> coladas = new List<Coladas>();
 
-
-                int itemID = itemCodeID;
                 using (SamContext ctx = new SamContext())
                 {
-                    coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
-                               join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
-                               join ic in ctx.Sam3_ItemCode on ric.ItemCodeID equals ic.ItemCodeID
-                               where ric.Activo && c.Activo && ic.Activo && ric.ItemCodeID == itemCodeID
-                               select new Coladas
-                               {
-                                   Nombre = c.NumeroColada,
-                                   ColadaID = c.ColadaID
-                               }).AsParallel().Distinct().ToList();
+                                coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
+                                           join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
+                                           join ic in ctx.Sam3_ItemCode on ric.ItemCodeID equals ic.ItemCodeID
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                           where ric.Activo && c.Activo && ic.Activo && rid.Activo
+                                           && rid.Rel_ItemCode_Diametro_ID == relItemCodeDiametroID
+                                           select new Coladas
+                                           {
+                                               Nombre = c.NumeroColada,
+                                               ColadaID = c.ColadaID
+                                           }).AsParallel().Distinct().ToList();
 
-                    coladas = coladas.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
+                             
+
+                        coladas = coladas.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
                 }
                 return coladas;
 
