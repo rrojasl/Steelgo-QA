@@ -402,7 +402,6 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_MTR__ItemCo__4C9641C1" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Nume__MTRID__54376389" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__52442E1F" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_MTR__Rel_It__7775B2CE" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

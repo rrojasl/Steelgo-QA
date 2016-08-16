@@ -681,7 +681,7 @@ namespace BackEndSAM.DataAcces
                                       && ic.ProyectoID == proyectoID
                                       select new BackEndSAM.Models.ItemCode
                                       {
-                                          ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
+                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                           Codigo = ic.Codigo + "(" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")",
                                           D1 = d1.Valor,
                                           D2 = d2.Valor
@@ -1021,7 +1021,7 @@ namespace BackEndSAM.DataAcces
                                  join d in ctx.Sam3_Diametro on rid.Diametro1ID equals d.DiametroID
                                  where it.Activo && rid.Activo
                                  && it.ProyectoID == proyectoID
-                                 && rid.Rel_ItemCode_Diametro_ID == itemCodeID
+                                 && it.ItemCodeID == itemCodeID
                                  select d.Valor.ToString()).AsParallel().SingleOrDefault();
 
                     diametro2 = (from it in ctx.Sam3_ItemCode
@@ -1029,7 +1029,7 @@ namespace BackEndSAM.DataAcces
                                  join d in ctx.Sam3_Diametro on rid.Diametro2ID equals d.DiametroID
                                  where it.Activo && rid.Activo
                                  && it.ProyectoID == proyectoID
-                                 && rid.Rel_ItemCode_Diametro_ID == itemCodeID
+                                 && it.ItemCodeID == itemCodeID
                                  select d.Valor.ToString()).AsParallel().SingleOrDefault();
 
                     result.Add(diametro1);
