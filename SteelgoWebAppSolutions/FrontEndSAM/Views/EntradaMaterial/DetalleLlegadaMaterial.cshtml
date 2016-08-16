@@ -370,7 +370,7 @@
                     var dataItem = this.dataItem();
                     dataItem !== undefined ? CargarFolio(dataItem.id) : CargarFolio("");
                     dataItem !== undefined ? CargarDetalleFolio(dataItem.id) : CargarDetalleFolio("");
-                    validarRequeridosFormaLlegadaMaterial();
+                    
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
@@ -581,6 +581,7 @@
                     folioLlegada = data.FolioAvisoEntradaID == 0 ? -1 : data.FolioAvisoEntradaID;
 
                     if (folioLlegada != -1) {
+                        BotonAlta();
                         CargarFolio(folioAvisoLlegada);
                         cargarTituloFolio(data.FolioConfiguracion);
                         ActualizarTitulosEdicion(data);
@@ -658,8 +659,8 @@
                         $(".k-upload.k-header").addClass("k-upload-empty");
                         $(".k-upload-button").removeClass("k-state-focused");
                         $("#Descripcion").val("");
-                        BotonEdicion();
                     } else {
+                        BotonEdicion();
                         folioLlegada = -1;
                         Cliente = {};
                         Proyecto = {};
@@ -696,6 +697,7 @@
                         $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
                         ObtenerCargarProyectos(data);
                     };
+                    validarRequeridosFormaLlegadaMaterial();
                 });
             }
             function ObtenerProyectos() {

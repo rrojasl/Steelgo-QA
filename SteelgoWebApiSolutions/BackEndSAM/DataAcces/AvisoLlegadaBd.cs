@@ -1084,9 +1084,9 @@ namespace BackEndSAM.DataAcces
                                                    join p in ctx.Sam3_Proyecto on fp.ProyectoID equals p.ProyectoID
                                                    join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                                    where r.Activo && fp.Activo && p.Activo && pa.Activo
-                                                   && !(from av in ctx.Sam3_FolioAvisoEntrada
-                                                        where av.Activo
-                                                        select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
+                                                       //&& !(from av in ctx.Sam3_FolioAvisoEntrada
+                                                       //     where av.Activo
+                                                       //     select av.FolioAvisoLlegadaID.Value).Contains(r.FolioAvisoLlegadaID)
                                                    && proyectos.Contains(p.ProyectoID)
                                                    && patios.Contains(pa.PatioID)
                                                    && patios.Contains(r.PatioID)
@@ -1099,7 +1099,7 @@ namespace BackEndSAM.DataAcces
                                                                                              + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
                                                                                              + r.Consecutivo.ToString() + ","
                                                                                              + pc.PostFijoFolioAvisoLlegada).FirstOrDefault() : r.FolioAvisoLlegadaID.ToString()
-                                                   }).AsParallel().ToList();
+                                                   }).AsParallel().GroupBy(g => g.id).Select(grp => grp.First()).OrderBy(x => x.id).ToList();
 
                     if (activarFolioConfiguracion)
                     {
