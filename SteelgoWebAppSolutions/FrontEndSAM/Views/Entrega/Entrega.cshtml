@@ -325,7 +325,7 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                 quickHeadFilter($("#grid").data("kendoGrid"));
                 stringifyDate(this);
-                plancharRows(this);
+                //plancharRows(this);
                
             }
         });
@@ -371,7 +371,6 @@
                 $(this).find("td")[1].innerHTML = noEmpleadoEntrega;
         });
     };
-
 
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')

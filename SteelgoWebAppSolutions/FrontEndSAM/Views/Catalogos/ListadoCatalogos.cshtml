@@ -1383,7 +1383,7 @@
 
     //Verifies if a cedula currently exists
     function cedIsDuplicated(n){
-        return $("#grid").data("kendoGrid").dataSource.data().filter(function(m){ return m.dirty===false && (n.CedulaA!==null ? parseFloat(n.CedulaA) : n.CedulaA)===m.CedulaA && (n.CedulaB!==null ? parseFloat(n.CedulaB) : n.CedulaB)===m.CedulaB && (n.CedulaC!==null ? parseFloat(n.CedulaC) : n.CedulaC)===m.CedulaC && (n.CedulaMM!==null ? parseFloat(n.CedulaMM) : n.CedulaMM) === m.CedulaMM}).length > 0
+        return ((n.CedulaA===null && n.CedulaB===null && n.CedulaC===null) ? false : ($("#grid").data("kendoGrid").dataSource.data().filter(function(m){ return m.dirty===false && (n.CedulaA!==null ? parseFloat(n.CedulaA) : n.CedulaA)===m.CedulaA && (n.CedulaB!==null ? parseFloat(n.CedulaB) : n.CedulaB)===m.CedulaB && (n.CedulaC!==null ? parseFloat(n.CedulaC) : n.CedulaC)===m.CedulaC && (n.CedulaMM!==null ? parseFloat(n.CedulaMM) : n.CedulaMM) === m.CedulaMM}).length > 0))
     }
     
     //Verifies if a cedula is empty
