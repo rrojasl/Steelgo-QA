@@ -331,6 +331,7 @@
         });
     };
 
+
     function plancharRows(g) {
         var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
         if (d.getFullYear() == "1969") {
@@ -353,6 +354,25 @@
         });
     };
 
+    function validarPickingTicket(value)
+    {
+        var result = $("#grid").data("kendoGrid").dataSource.data();
+        var datasource = result;
+        var count = 0;
+
+        $(datasource).each(function () {
+            if (this.get("NoPickingTicket")) {
+                if (this.get("NoPickingTicket") == value)
+                    count++;
+            }
+        });
+
+        if (count > 1)
+            return false;
+        else
+            return true;
+    };
+
     function ObtenerPickingTicket(container, options) {
         $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
@@ -371,14 +391,21 @@
                change: function (e) {
                    
                    var value = this.value();
-                   if (this.selectedIndex == -1) {
-                       lastEditedCellIDSPickingTicket.NoPickingTicket = "";
-                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = "";
+                   if(validarPickingTicket(value)){
+
+                       if (this.selectedIndex == -1) {
+                           lastEditedCellIDSPickingTicket.NoPickingTicket = "";
+                           lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = "";
+                       } else {
+                           lastEditedCellIDSPickingTicket.NoPickingTicket = value;
+                           lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                       };
+                       $('#grid').data('kendoGrid').refresh();
                    } else {
-                       lastEditedCellIDSPickingTicket.NoPickingTicket = value;
-                       lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
-                   };
-                   $('#grid').data('kendoGrid').refresh();
+                       this.value("");
+                       lastEditedCellIDSPickingTicket.NoPickingTicket = "";
+                       displayMessage("notificationslabel0108", "", "2");
+                   }
                },
                filter: "contains",
            });
