@@ -325,32 +325,9 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                 quickHeadFilter($("#grid").data("kendoGrid"));
                 stringifyDate(this);
-                plancharRows(this);
+                //plancharRows(this);
                
             }
-        });
-    };
-
-
-    function plancharRows(g) {
-        var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
-        if (d.getFullYear() == "1969") {
-            d = new Date();
-        };
-        var fechaEntrega = obtenerFormatoFechaPlanchado(d);
-        var noEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
-
-        g.dataSource.data().forEach(function (n) {
-            if (noEmpleadoEntrega != "")
-                n.NoEmpleadoEntrega = noEmpleadoEntrega;
-
-            n.FechaEntrega = fechaEntrega;
-        });
-
-        $("#grid table tbody tr").each(function (e) {
-            $(this).find("td")[3].innerHTML = fechaEntrega;
-            if (noEmpleadoEntrega != "")
-                $(this).find("td")[1].innerHTML = noEmpleadoEntrega;
         });
     };
 
