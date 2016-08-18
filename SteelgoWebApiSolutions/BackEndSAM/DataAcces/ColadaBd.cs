@@ -789,36 +789,20 @@ namespace BackEndSAM.DataAcces
             }
         }
         
-        public object ObtenerColadasPorItemCodeCatalogoMTR(Sam3_Usuario usuario, int itemCodeID)
+        public object ObtenerColadasPorItemCodeCatalogoMTR(Sam3_Usuario usuario, int relItemCodeDiametroID)
         {
             try
             {
                 List<Coladas> coladas = new List<Coladas>();
 
-
-                int itemID = itemCodeID;
                 using (SamContext ctx = new SamContext())
                 {
-                    using (Sam2Context ctx2 = new Sam2Context())
-                    {
-                        
-                        
-                        int itemCodeSam3 = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
-                                          where icd.Activo && icd.Rel_ItemCode_Diametro_ID == itemID
-                                          select icd.ItemCodeID).AsParallel().SingleOrDefault();
-                       
-
-                        #region agregar coladas
-                        using (var ctx_tran = ctx.Database.BeginTransaction())
-                        {
-                            using (var ctx2_tran = ctx2.Database.BeginTransaction())
-                            {
-                                //int proyectoID = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == itemID).Select(x => x.ProyectoID).SingleOrDefault();
-
                                 coladas = (from ric in ctx.Sam3_Rel_Itemcode_Colada
                                            join c in ctx.Sam3_Colada on ric.ColadaID equals c.ColadaID
                                            join ic in ctx.Sam3_ItemCode on ric.ItemCodeID equals ic.ItemCodeID
-                                           where ric.Activo && c.Activo && ic.Activo && ric.ItemCodeID == itemCodeSam3
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                           where ric.Activo && c.Activo && ic.Activo && rid.Activo
+                                           && rid.Rel_ItemCode_Diametro_ID == relItemCodeDiametroID
                                            select new Coladas
                                            {
                                                Nombre = c.NumeroColada,
@@ -826,19 +810,9 @@ namespace BackEndSAM.DataAcces
                                            }).AsParallel().Distinct().ToList();
 
                              
-                                //}
-                                ctx2_tran.Commit();
-                                ctx_tran.Commit();
-                            }
-                        }
-                        #endregion
 
                         coladas = coladas.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
-
-                        //listColada.AddRange(coladas);
-                        ////Quitar las coladas duplicadas, si es que hay alguna
-                        //listColada = listColada.GroupBy(x => x.ColadaID).Select(x => x.First()).ToList();
-                    }
+                    
                 }
                 return coladas;
 

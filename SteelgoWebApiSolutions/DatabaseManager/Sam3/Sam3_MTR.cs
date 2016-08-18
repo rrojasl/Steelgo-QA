@@ -27,9 +27,11 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int Rel_ItemCode_Diametro_ID { get; set; }
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
     }
 }
