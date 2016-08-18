@@ -267,8 +267,9 @@
                 mode: "incell",
                 confirmation: false
             },
-            toolbar: [
-                        "create"
+            toolbar: [{
+                name: "create",
+                click: function (e) { alert("toolbar");}}
             ],
             pageable: {
                 refresh: false,
@@ -292,7 +293,31 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                 quickHeadFilter($("#grid").data("kendoGrid"));
                 stringifyDate(this);
+                plancharRows(this);
+               
             }
+        });
+    };
+
+    function plancharRows(g) {
+        var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
+        if (d.getFullYear() == "1969") {
+            d = new Date();
+        };
+        var fechaEntrega = obtenerFormatoFechaPlanchado(d);
+        var noEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+
+        g.dataSource.data().forEach(function (n) {
+            if (noEmpleadoEntrega != "")
+                n.NoEmpleadoEntrega = noEmpleadoEntrega;
+
+            n.FechaEntrega = fechaEntrega;
+        });
+
+        $("#grid table tbody tr").each(function (e) {
+            $(this).find("td")[3].innerHTML = fechaEntrega;
+            if (noEmpleadoEntrega != "")
+                $(this).find("td")[1].innerHTML = noEmpleadoEntrega;
         });
     };
 
@@ -524,7 +549,12 @@
         var curr_year = d.getFullYear();
         var horaActual = new Date();
 
-        return curr_date  + "/" +curr_month + "/" + curr_year;
+        var compD = "";
+        var compM = "";
+        10 > d.getDate() ? compD = "0" : null;
+        10 > (d.getMonth() + 1) ? compM = "0" : null;
+
+        return compD + curr_date + "/" + compM + curr_month + "/" + curr_year;
     };
 
     function AgregarRowGrid(container) {
