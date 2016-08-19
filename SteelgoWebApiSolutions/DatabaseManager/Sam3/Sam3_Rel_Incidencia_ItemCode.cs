@@ -22,6 +22,5 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
     
         public virtual Sam3_Incidencia Sam3_Incidencia { get; set; }
-        public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
     }
 }

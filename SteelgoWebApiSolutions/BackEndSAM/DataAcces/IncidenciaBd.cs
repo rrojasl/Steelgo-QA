@@ -272,7 +272,12 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
 
 
-                                    Sam3_ItemCode itemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID == datos.ReferenciaID).FirstOrDefault();
+                                    Sam3_ItemCode itemCode = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
+                                                              join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                                              where rid.Activo && it.Activo
+                                                              && rid.Rel_ItemCode_Diametro_ID == datos.ReferenciaID
+                                                              select it).AsParallel().SingleOrDefault();
+
                                     rel_proyecto_entidad_configuracion = ctx.Sam3_Rel_Proyecto_Entidad_Configuracion.Where(x => x.Activo == 1 && x.Proyecto == itemCode.ProyectoID).FirstOrDefault();
                                     datos.FolioConfiguracionIncidenciaID = ActivarFolioConfiguracionIncidencias ? (rel_proyecto_entidad_configuracion.PreFijoFolioIncidencias + ","
                                                                                                                                   + rel_proyecto_entidad_configuracion.CantidadCerosFolioIncidencias.ToString() + ","
@@ -1536,9 +1541,18 @@ namespace BackEndSAM.DataAcces
                                                     select r.ItemCodeID).AsParallel().SingleOrDefault();
 
                             detalle.ValorReferencia = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
-                                                       join it in ctx.Sam3_ItemCode on r.ItemCodeID equals it.ItemCodeID
-                                                       where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
-                                                       select it.Codigo).AsParallel().SingleOrDefault();
+                                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.Rel_ItemCode_Diametro_ID
+                                                       join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
+                                                       join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
+                                                       where r.Activo && it.Activo && p.Activo && rid.Activo && d1.Activo && d2.Activo
+                                                       && r.ItemCodeID == detalle.ReferenciaID
+                                                       && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                       select it.Codigo + "(" +
+                                                       d1.Valor.ToString() + "," +
+                                                       d2.Valor.ToString() + ")(" +
+                                                       p.Nombre + ")").AsParallel().SingleOrDefault();
 
                             break;
                         case 8: // Orden de almacenaje

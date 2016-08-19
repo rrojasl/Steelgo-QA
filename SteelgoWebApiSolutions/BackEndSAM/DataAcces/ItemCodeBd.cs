@@ -469,24 +469,26 @@ namespace BackEndSAM.DataAcces
                     if (proyectoID > 0)
                     {
                         registros = (from it in ctx.Sam3_ItemCode
+                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
                                      join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
                                      join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                      where it.Activo && p.Activo && pa.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
                                      && p.ProyectoID == proyectoID
-                                     && Ids.Contains(it.ItemCodeID)
+                                     && Ids.Contains(rid.Rel_ItemCode_Diametro_ID)
                                      select it).AsParallel().Distinct().ToList();
                     }
                     else
                     {
                         registros = (from it in ctx.Sam3_ItemCode
+                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
                                      join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
                                      join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                      where it.Activo && p.Activo && pa.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
-                                     && Ids.Contains(it.ItemCodeID)
+                                     && Ids.Contains(rid.Rel_ItemCode_Diametro_ID)
                                      select it).AsParallel().Distinct().ToList();
                     }
 
@@ -503,7 +505,8 @@ namespace BackEndSAM.DataAcces
                     }
 
                     listado = (from r in registros
-                               join riit in ctx.Sam3_Rel_Incidencia_ItemCode on r.ItemCodeID equals riit.ItemCodeID
+                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
+                               join riit in ctx.Sam3_Rel_Incidencia_ItemCode on rid.Rel_ItemCode_Diametro_ID equals riit.ItemCodeID
                                join inc in ctx.Sam3_Incidencia on riit.IncidenciaID equals inc.IncidenciaID
                                join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
                                join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID

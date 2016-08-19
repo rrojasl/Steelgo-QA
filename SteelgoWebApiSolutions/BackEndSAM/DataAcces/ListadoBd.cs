@@ -3965,7 +3965,7 @@ namespace BackEndSAM.DataAcces
                                        && patios.Contains(pa.PatioID)
                                        select new ListaCombos
                                        {
-                                           id = it.ItemCodeID.ToString(),
+                                           id = rid.Rel_ItemCode_Diametro_ID.ToString(),
                                            value = it.Codigo+"("+d1.Valor.ToString()+","+d2.Valor.ToString()+")("+p.Nombre+")"
                                        }).AsParallel().Distinct().ToList();
                             break;

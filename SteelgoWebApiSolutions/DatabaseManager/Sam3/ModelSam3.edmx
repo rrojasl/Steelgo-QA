@@ -10994,7 +10994,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <NavigationProperty Name="Sam3_Incidencia" Relationship="ModelSam3.FK__Sam3_Rel___Incid__32B6742D" FromRole="Sam3_Rel_Incidencia_ItemCode" ToRole="Sam3_Incidencia" />
-          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__33AA9866" FromRole="Sam3_Rel_Incidencia_ItemCode" ToRole="Sam3_ItemCode" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Incidencia_OrdenAlmacenaje">
           <Key>
