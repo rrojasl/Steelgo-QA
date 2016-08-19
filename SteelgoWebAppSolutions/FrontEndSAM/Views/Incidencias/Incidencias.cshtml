@@ -1509,10 +1509,17 @@
             if (referenciaID != "-1") {
                 $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
                     if (Error(data)) {
-                        if (data.length) {
+                        if (data.length && _TipoIncidencia!=="7") {
                             $("#Registro").data("kendoComboBox").value(data[0].value);
                             $("#Registro").data("kendoComboBox").enable(false);
                             CargarRegistro(data[0].id);
+                        }else{
+                            $("#TipoIncidencia").data("kendoComboBox").trigger("change");
+                            setTimeout(function(){
+                                $("#Registro").data("kendoComboBox").select(function(e){return e.id==_ReferenciaID});
+                                $("#Registro").data("kendoComboBox").trigger("change");
+                                $("#Registro").data("kendoComboBox").enable(false);
+                            },800)
                         }
                     }
                     //loadingStop();

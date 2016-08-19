@@ -1461,14 +1461,14 @@
 
                     if (typeof (filaseleccionada) != undefined) {
                         var valor = filaseleccionada.BultoID;
-                        var ItemCode = filaseleccionada.ItemCode;
+                        var ItemCode = filaseleccionada.ItemCodeID;
 
                         if (e.item.id == "Incidencia") {
                             if (!(ItemCode.indexOf("Bulto") != -1)) {
-                                var elemento = ItemCode;
-                                var index = elemento.indexOf("(");
-                                var valor = elemento.substring(0, index);
-                                incidenciaValor = valor;
+                                //var elemento = ItemCode;
+                                //var index = elemento.indexOf("(");
+                                //var valor = elemento.substring(0, index);
+                                incidenciaValor = ItemCode;
                                 esIncidencia = true;
                                 VentanaModal(6);
                                 //window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + (valor ? valor : "-1") + "&TipoIncidencia=7&Clasificacion=1");
