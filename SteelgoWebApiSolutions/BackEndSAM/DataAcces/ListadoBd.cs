@@ -3570,6 +3570,9 @@ namespace BackEndSAM.DataAcces
                         case 7: // ItemCode
                             listado = (from it in ctx.Sam3_ItemCode
                                        join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                       join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                       join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                       join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                        where it.Activo && p.Activo && pa.Activo
                                        && it.Codigo == busqueda
@@ -3578,7 +3581,7 @@ namespace BackEndSAM.DataAcces
                                        select new ListaCombos
                                        {
                                            id = it.ItemCodeID.ToString(),
-                                           value = it.Codigo
+                                           value = it.Codigo + "(" + d1.Valor.ToString() + "," + d2.Valor.ToString() + ")(" + p.Nombre + ")"
                                        }).AsParallel().Distinct().ToList();
                             break;
                         case 8: // Orden de almacenaje
