@@ -735,6 +735,10 @@ header .menu > div {
     background-image: url("/Content/images/SAMC_DashboardIcon_12.png");
 }
 
+.Reporting {
+    background-image: url("/Content/images/SAMC_DashboardIcon_14.png");
+}
+
 .arrow {
     background-image: url("/Content/images/SAMC_MenuDropdownArrowA.png");
 }

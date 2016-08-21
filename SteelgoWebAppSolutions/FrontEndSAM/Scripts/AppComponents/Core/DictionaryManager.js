@@ -6449,6 +6449,33 @@ _dictionary = {
         "es-MX": "Editar",
         "en-US": "Edit"
     },
+    //Reportes
+    "FotoIncidencia": {
+        "es-MX": "FotoIncidencia",
+        "en-US": "Fotoincidence"
+    },
+    "Inventario": {
+        "es-MX": "Inventario",
+        "en-US": "Inventory"
+    },
+    "InventarioXNU": {
+        "es-MX": "InventarioXNU",
+        "en-US": "unique inventory number"
+    },
+    "InventarioXNU": {
+        "es-MX": "InventarioXNU",
+        "en-US": "unique inventory number"
+    },
+    "Materiales":
+    {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "Reportes":
+    {
+        "es-MX": "Reportes",
+        "en-US": "Reports"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
