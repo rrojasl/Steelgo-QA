@@ -30,7 +30,7 @@ namespace FrontEndSAM.Controllers.Reportes
                     reportViewer.ProcessingMode = ProcessingMode.Remote;
                     IReportServerCredentials irsc = new CustomReportCredentials(System.Configuration.ConfigurationManager.AppSettings["Usuario"], System.Configuration.ConfigurationManager.AppSettings["Pass"], System.Configuration.ConfigurationManager.AppSettings["Dominio"]);
                     reportViewer.ServerReport.ReportServerCredentials = irsc;
-                    reportViewer.ServerReport.ReportServerUrl = new Uri("http://www.samaltamira.net/ReportServer");
+                    reportViewer.ServerReport.ReportServerUrl = new Uri(System.Configuration.ConfigurationManager.AppSettings["URLReportingServices"]);
                     reportViewer.ServerReport.ReportPath = path.Replace("?leng=es-MX", "").Replace("?leng=en-US", "");
                     reportViewer.ServerReport.Refresh();
                     ViewBag.ReportViewer = reportViewer;

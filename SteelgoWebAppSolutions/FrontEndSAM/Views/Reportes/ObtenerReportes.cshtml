@@ -6,12 +6,18 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="quickLabel0001"></span></a>
     </li>
 
     <li class="active">
-        <a href="@Url.Action("ObtenerReportes", "Reportes")"><span id="Reportes"></span></a>
+        <a href="#"><span id="Reportes"></span></a>
     </li>
 }
 
-@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { scrolling = "no", width = "100%", height = "auto", })
+@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new
+{
+    scrolling = "yes",
+    width = "100%",
+    height = "auto",
+    style = "border: 0px; margin: 0px; padding: 0px;"
+})

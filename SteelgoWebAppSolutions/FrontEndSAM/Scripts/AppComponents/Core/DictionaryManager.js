@@ -6471,8 +6471,7 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
-    "Reportes":
-    {
+    "Reportes":{
         "es-MX": "Reportes",
         "en-US": "Reports"
     },
