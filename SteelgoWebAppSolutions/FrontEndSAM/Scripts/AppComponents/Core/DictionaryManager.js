@@ -3,7 +3,7 @@
     "en-US": 1
 }
 
-_dictionary = {    
+_dictionary = {
     //Login Page Labels
     "loginLabel0001": {
         "es-MX": "Inicio de Sesión",
@@ -411,7 +411,17 @@ _dictionary = {
         "es-MX": "Transportista",
         "en-US": "Carriers"
     },
-   
+
+    //Labels módulos Maftec
+    "menuServiciosTecnicos": {
+        "es-MX": "Servicios Técnicos",
+        "en-US": "Technical Services"
+    },
+    "menuServiciosTecnicosGenerarRequisicion": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
@@ -1244,7 +1254,7 @@ _dictionary = {
         "es-MX": "Unidad",
         "en-US": "Unit"
     },
-    "ListadoCatalogos0033":{
+    "ListadoCatalogos0033": {
         "es-MX": "Modelo",
         "en-US": "Model"
     },
@@ -3216,7 +3226,7 @@ _dictionary = {
         "es-MX": "Imprimir Orden",
         "en-US": "Print Order"
     },
-//Detalle Orden Recepcion
+    //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -3313,11 +3323,11 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-    "DetalleOrdenRecepcion0025":{
+    "DetalleOrdenRecepcion0025": {
         "es-MX": "Imprimir orden de recepción",
         "en-US": "Print reception order"
     },
-//Orden de Alamacenaje
+    //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Folio Orden de Almacenaje: ",
         "en-US": "Order storage Folio: "
@@ -3418,7 +3428,7 @@ _dictionary = {
         "es-MX": "Almacenaje",
         "en-US": "Storage"
     },
-//Listado de Orden de Almacenaje
+    //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
         "es-MX": "Listados",
         "en-US": "Lists"
@@ -3494,7 +3504,7 @@ _dictionary = {
     "ListadoOrdenAlmacenaje0019": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
-    }, 
+    },
     "ListadoOrdenAlmacenaje0020": {
         "es-MX": "Packing List",
         "en-US": "Packing List"
@@ -3511,7 +3521,7 @@ _dictionary = {
         "es-MX": "Levantar Incidencia",
         "en-US": "Fill Incidence"
     },
-//Generar Orden Almacenaje
+    //Generar Orden Almacenaje
     "GenerarOrdenAlmacenaje0001": {
         "es-MX": "Transacciones",
         "en-US": "Transactions"
@@ -3624,13 +3634,13 @@ _dictionary = {
         "es-MX": "Mostrar",
         "en-US": "Show"
     },
-    "GenerarOrdenAlmacenaje0029":{
+    "GenerarOrdenAlmacenaje0029": {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
-//Dashboard Recepcion y Almacenaje
+    //Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
-        "es-MX":"Transacciones",
+        "es-MX": "Transacciones",
         "en-US": "Dealings"
     },
     "DashboardRecepcionAlmacenaje0002": {
@@ -3926,7 +3936,7 @@ _dictionary = {
         "es-MX": "FolioAvisoLlegadaID",
         "en-US": "EntryFolioID"
     },
-//Listados Recepcion y Almacenaje
+    //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
         "en-US": "Client"
@@ -6340,7 +6350,7 @@ _dictionary = {
         "en-US": "Status"
     },
     //Listado de Spool a Granel
-    "ListadoSpoolGranel0001":{
+    "ListadoSpoolGranel0001": {
         "es-MX": "Listado de Spool a Granel",
         "en-US": "Bulk Spool List"
     },
@@ -6471,7 +6481,7 @@ _dictionary = {
         "es-MX": "Materiales",
         "en-US": "Materials"
     },
-    "Reportes":{
+    "Reportes": {
         "es-MX": "Reportes",
         "en-US": "Reports"
     },
@@ -6687,7 +6697,7 @@ _dictionary = {
     "notificationslabel0053": {
         "es-MX": "El folio captura packing list no tiene registros para realizar la acción.",
         "en-US": "Folio capture packing list has no records to perform the action."
-    }, 
+    },
     "notificationslabel0054": {
         "es-MX": "Favor de seleccionar un Folio de llegada.",
         "en-US": "Please select a Arrival Folio"
