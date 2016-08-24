@@ -412,16 +412,6 @@ _dictionary = {
         "en-US": "Carriers"
     },
 
-    //Labels módulos Maftec
-    "menuServiciosTecnicos": {
-        "es-MX": "Servicios Técnicos",
-        "en-US": "Technical Services"
-    },
-    "menuServiciosTecnicosGenerarRequisicion": {
-        "es-MX": "Requisición PND",
-        "en-US": "PND Requisition"
-    },
-
     //QuickLinks Defaults
     "quickLabel0001": {
         "es-MX": "Inicio",
@@ -6459,6 +6449,118 @@ _dictionary = {
         "es-MX": "Editar",
         "en-US": "Edit"
     },
+
+    //LABELS MÓDULOS MAFTEC
+
+    //Etiquetas generales
+    // Etiquetas Header y Footer
+
+    // Etiquetas
+    "lblInicio": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "lblProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "lblPrueba": {
+        "es-MX": "Prueba",
+        "en-US": "Test"
+    },
+    "lblRequisicion": {
+        "es-MX": "Requisición",
+        "en-US": "Requisition"
+    },
+    "lblMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "lblSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "ID spool"
+    },
+    "lblJunta": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+
+    // Botones
+    "botonGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar1": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar2": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar3": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardarYNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "botonCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "botonAcciones1": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "botonAcciones2": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "botonAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    // Finalizan etiquetas Header y Footer
+
+    // Menú lateral
+    "menuServiciosTecnicos": {
+        "es-MX": "Servicios Técnicos",
+        "en-US": "Technical Services"
+    },
+    "menuServiciosTecnicosGenerarRequisicion": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+    // Finalizan Etiquetas de Menú General
+    // Finalizan Etiquetas generales
+
+    // Inicia Módulo PNDs
+    // Etiquetas Generales PND
+    "ServiciosTecnicosHeader": {
+        "es-MX": "Servicios Técnicos",
+        "en-US": "Technical Services"
+    },
+    // Finalizan Etiquetas Generales PND
+
+    // Pantalla RequisiciónPND
+    "ServiciosTecnicosRequisicionPND": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+    // Finaliza Requisición PND
+
+    // Pantalla Asignar Requisición
+    "ServiciosTecnicosAsignarRequisicion": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Assign Requisition"
+    },
+    "ServiciosTecnicosAsignarRequisicion1": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Assign Requisition"
+    },
+
     //Reportes
     "FotoIncidencia": {
         "es-MX": "FotoIncidencia",
