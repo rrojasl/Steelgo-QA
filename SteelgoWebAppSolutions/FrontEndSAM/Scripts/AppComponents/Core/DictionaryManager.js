@@ -6518,6 +6518,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "botonCancelar1": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     "botonAcciones1": {
         "es-MX": "Acciones",
         "en-US": "Actions"
@@ -6541,14 +6545,22 @@ _dictionary = {
         "es-MX": "Requisición PND",
         "en-US": "PND Requisition"
     },
+    "menuServiciosTecnicosEntregaPlacasGraficas": {
+        "es-MX": "Entrega de Placas-Resultados",
+        "en-US": "Delivery Plate-Graphics"
+    },
     // Finalizan Etiquetas de Menú General
     // Finalizan Etiquetas generales
 
     // Inicia Módulo PNDs
     // Etiquetas Generales PND
-    "ServiciosTecnicosHeader": {
+    "ServiciosTecnicosBreadcrumb": {
         "es-MX": "Servicios Técnicos",
         "en-US": "Technical Services"
+    },
+    "ServiciosTecnicosEntregaPGBreadcrumb": {
+        "es-MX": "Entrega de Placas-Gráficas",
+        "en-US": "Delivering Plate-Graphics"
     },
     // Finalizan Etiquetas Generales PND
 
