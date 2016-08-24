@@ -6484,6 +6484,14 @@ _dictionary = {
         "es-MX": "Jta",
         "en-US": "Jnt"
     },
+    "lblSinCaptura": {
+        "es-MX": "Sin Captura",
+        "en-US": "Empty capture"
+    },
+    "lblTodos": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
 
     // Botones
     "botonGuardar": {
