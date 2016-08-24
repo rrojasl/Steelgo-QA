@@ -6450,163 +6450,6 @@ _dictionary = {
         "en-US": "Edit"
     },
 
-    //LABELS MÓDULOS MAFTEC
-
-    //Etiquetas generales
-    // Etiquetas Header y Footer
-
-    // Etiquetas
-    "lblInicio": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
-    },
-    "lblProyecto": {
-        "es-MX": "Proyecto",
-        "en-US": "Proyect"
-    },
-    "lblPrueba": {
-        "es-MX": "Prueba",
-        "en-US": "Test"
-    },
-    "lblRequisicion": {
-        "es-MX": "Requisición",
-        "en-US": "Requisition"
-    },
-    "lblMostrar": {
-        "es-MX": "Mostrar",
-        "en-US": "Show"
-    },
-    "lblSpoolID": {
-        "es-MX": "Spool ID",
-        "en-US": "ID spool"
-    },
-    "lblJunta": {
-        "es-MX": "Jta",
-        "en-US": "Jnt"
-    },
-    "lblSinCaptura": {
-        "es-MX": "Sin Captura",
-        "en-US": "Empty capture"
-    },
-    "lblTodos": {
-        "es-MX": "Todos",
-        "en-US": "All"
-    },
-
-    // Botones
-    "botonGuardar": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
-    },
-    "botonGuardar1": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
-    },
-    "botonGuardar2": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
-    },
-    "botonGuardar3": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
-    },
-    "botonGuardarYNuevo": {
-        "es-MX": "Guardar y Nuevo",
-        "en-US": "Save and New"
-    },
-    "botonCancelar": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-    "botonCancelar1": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-    "botonAcciones1": {
-        "es-MX": "Acciones",
-        "en-US": "Actions"
-    },
-    "botonAcciones2": {
-        "es-MX": "Acciones",
-        "en-US": "Actions"
-    },
-    "botonAgregar": {
-        "es-MX": "Agregar",
-        "en-US": "Add"
-    },
-    // Finalizan etiquetas Header y Footer
-
-    // Menú lateral
-    "menuServiciosTecnicos": {
-        "es-MX": "Servicios Técnicos",
-        "en-US": "Technical Services"
-    },
-    "menuServiciosTecnicosGenerarRequisicion": {
-        "es-MX": "Requisición PND",
-        "en-US": "PND Requisition"
-    },
-    "menuServiciosTecnicosEntregaPlacasGraficas": {
-        "es-MX": "Entrega de Placas-Resultados",
-        "en-US": "Delivery Plate-Graphics"
-    },
-    // Finalizan Etiquetas de Menú General
-    // Finalizan Etiquetas generales
-
-    // Inicia Módulo PNDs
-    // Etiquetas Generales PND
-    "ServiciosTecnicosBreadcrumb": {
-        "es-MX": "Servicios Técnicos",
-        "en-US": "Technical Services"
-    },
-    "ServiciosTecnicosEntregaPGBreadcrumb": {
-        "es-MX": "Entrega de Placas-Gráficas",
-        "en-US": "Delivering Plate-Graphics"
-    },
-    // Finalizan Etiquetas Generales PND
-
-    // Pantalla RequisiciónPND
-    "ServiciosTecnicosRequisicionPND": {
-        "es-MX": "Requisición PND",
-        "en-US": "PND Requisition"
-    },
-    // Finaliza Requisición PND
-
-    // Pantalla Asignar Requisición
-    "ServiciosTecnicosAsignarRequisicion": {
-        "es-MX": "Asignar Requisición",
-        "en-US": "Assign Requisition"
-    },
-    "ServiciosTecnicosAsignarRequisicion1": {
-        "es-MX": "Asignar Requisición",
-        "en-US": "Assign Requisition"
-    },
-
-    //Reportes
-    "FotoIncidencia": {
-        "es-MX": "FotoIncidencia",
-        "en-US": "Fotoincidence"
-    },
-    "Inventario": {
-        "es-MX": "Inventario",
-        "en-US": "Inventory"
-    },
-    "InventarioXNU": {
-        "es-MX": "InventarioXNU",
-        "en-US": "unique inventory number"
-    },
-    "InventarioXNU": {
-        "es-MX": "InventarioXNU",
-        "en-US": "unique inventory number"
-    },
-    "Materiales":
-    {
-        "es-MX": "Materiales",
-        "en-US": "Materials"
-    },
-    "Reportes": {
-        "es-MX": "Reportes",
-        "en-US": "Reports"
-    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redirecciona a home por error de credenciales",
@@ -7116,5 +6959,186 @@ _dictionary = {
     "KendoDeleteTxt0003": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
+    },
+
+    //LABELS MÓDULOS MAFTEC
+
+    //Etiquetas generales
+    // Etiquetas Header y Footer
+
+    // Etiquetas
+    "lblInicio": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "lblProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "lblPrueba": {
+        "es-MX": "Prueba",
+        "en-US": "Test"
+    },
+    "lblRequisicion": {
+        "es-MX": "Requisición",
+        "en-US": "Requisition"
+    },
+    "lblMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "lblSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "ID spool"
+    },
+    "lblJunta": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+    "lblSinCaptura": {
+        "es-MX": "Sin Captura",
+        "en-US": "Empty capture"
+    },
+    "lblSinAsignar": {
+        "es-MX": "Sin Asignar",
+        "en-US": "Without Assign"
+    },
+    "lblTodos": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+
+    // Botones
+    "botonGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar1": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar2": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar3": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardarYNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "botonCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "botonCancelar1": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "botonAcciones1": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "botonAcciones2": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "botonAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    // Finalizan etiquetas Header y Footer
+
+    // Menú lateral
+    "menuServiciosTecnicos": {
+        "es-MX": "Servicios Técnicos",
+        "en-US": "Technical Services"
+    },
+    "menuServiciosTecnicosGenerarRequisicion": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+    "menuServiciosTecnicosAsignarRequisicion": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Set Requisition"
+    },
+    "menuServiciosTecnicosEntregaPlacasGraficas": {
+        "es-MX": "Entrega de Placas-Resultados",
+        "en-US": "Delivery Plate-Graphics"
+    },
+    // Finalizan Etiquetas de Menú General
+    // Finalizan Etiquetas generales
+
+    // Inicia Módulo PNDs
+    // Etiquetas Generales PND
+    "ServiciosTecnicosBreadcrumb": {
+        "es-MX": "Servicios Técnicos",
+        "en-US": "Technical Services"
+    },
+    "ServiciosTecnicosEntregaPGBreadcrumb": {
+        "es-MX": "Entrega de Placas-Gráficas",
+        "en-US": "Delivering Plate-Graphics"
+    },
+    "ServiciosTecnicosRequisicionPNDBreadcrumb": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+    "ServiciosTecnicosAsignarRequisicionBreadcrumb": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Assign Requisition"
+    },
+    // Finalizan Etiquetas Generales PND
+
+    // Pantalla RequisiciónPND
+    "ServiciosTecnicosAsignarRequisicion": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Assign Requisition"
+    },
+    "ServiciosTecnicosAsignarRequisicion1": {
+        "es-MX": "Asignar Requisición",
+        "en-US": "Assign Requisition"
+    },
+    // Finaliza Requisición PND
+
+    // Pantalla Asignar Requisición
+    "ServiciosTecnicosCapturaReporte": {
+        "es-MX": "Captura Reporte",
+        "en-US": "Report Capture"
+    },
+
+    "ServiciosTecnicosCapturaReporte1": {
+        "es-MX": "Captura Reporte",
+        "en-US": "Report Capture"
+    },
+
+    
+
+    //Reportes
+    "FotoIncidencia": {
+        "es-MX": "FotoIncidencia",
+        "en-US": "Fotoincidence"
+    },
+    "Inventario": {
+        "es-MX": "Inventario",
+        "en-US": "Inventory"
+    },
+    "InventarioXNU": {
+        "es-MX": "InventarioXNU",
+        "en-US": "unique inventory number"
+    },
+    "InventarioXNU": {
+        "es-MX": "InventarioXNU",
+        "en-US": "unique inventory number"
+    },
+    "Materiales":
+    {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "Reportes": {
+        "es-MX": "Reportes",
+        "en-US": "Reports"
     },
 };
