@@ -15,9 +15,9 @@ function cargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        DatosJunta: { type: "string", editable: false },
-                        Folio: { type: "string", editable: false },
-                        Descripcion: { type: "string", editable: false },
+                        Datos: { type: "string", editable: false },
+                        NumeroControl: { type: "string", editable: false },
+                        Junta: { type: "number", editable: false },
                         Recibido: { type: "string", editable: false },
                         CondicionesFisicas: { type: "string", editable: true },
                         Defectos: { type: "string", editable: true }
@@ -49,14 +49,14 @@ function cargarGrid() {
             input: false,
             numeric: true
         },
-        filterable: false,
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "DatosJunta", title: "Datos", filterable: false, width: "100px" },
-            { field: "Folio", title: "No. Control", filterable: false, width: "70px" },
-            { field: "Descripcion", title: "Junta", filterable: false, width: "130px" },
-            { field: "Recibido", title: "Recibido", filterable: false, width: "85px" },
-            { field: "CondicionesFisicas", title: "Condiciones Físicas", filterable: false, width: "150px" },
-            { field: "Defectos", title: "Defectos", filterable: false, width: "125px" }
+            { field: "Datos", title: _dictionary.columnDatos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
+            { field: "Recibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
+            { field: "CondicionesFisicas", title: _dictionary.columnCondicionesFisicas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Defectos", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "125px" }
         ],
     });
 }

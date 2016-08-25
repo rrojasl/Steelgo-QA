@@ -7028,6 +7028,30 @@ _dictionary = {
         "es-MX": "Detalle de las Juntas",
         "en-US": "Joints detail"
     },
+    "lblRecibido": {
+        "es-MX": "Recibido",
+        "en-US": "Received"
+    },
+    "lblCondicionesFisicas": {
+        "es-MX": "Condiciones Físicas",
+        "en-US": "Physicals conditions"
+    },
+    "lblDefectos": {
+        "es-MX": "Defectos",
+        "en-US": "Defects"
+    },
+    "lblPlanchar": {
+        "es-MX": "Planchado",
+        "en-US": "Ironed"
+    },
+    "lblVacio": {
+        "es-MX": "Vacíos",
+        "en-US": "Empty"
+    },
+    "lblTodos1": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
    
     //Formatos 
 
@@ -7196,7 +7220,22 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
-
+    "columnRecibido": {
+        "es-MX": "Recibido",
+        "en-US": "Received"
+    },
+    "columnCondicionesFisicas": {
+        "es-MX": "Condiciones Físicas SIN LUZ",
+        "en-US": "Physical conditions WITHOUT LIGHT"
+    },
+    "columnDefectosRechazos": {
+        "es-MX": "Defectos",
+        "en-US": "Defects"
+    },
+    "columnDatos": {
+        "es-MX": "Datos",
+        "en-US": "Data"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7234,6 +7273,17 @@ _dictionary = {
         "en-US": "Assign Requisition"
     },
     // Finaliza Requisición PND
+
+    // Pantalla Entrega Placas-Graficas
+    "ServiciosTecnicosValidarResultadosSup": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Validation Results"
+    },
+    "ServiciosTecnicosValidarResultadosInf": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Validation Results"
+    },
+    // Finaliza Entrega Placas-Graficas
 
     // Pantalla Asignar Requisición
     "ServiciosTecnicosCapturaReporte": {
