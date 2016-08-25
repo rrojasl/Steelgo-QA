@@ -7028,7 +7028,18 @@ _dictionary = {
         "es-MX": "Detalle de las Juntas",
         "en-US": "Joints detail"
     },
-    
+   
+    //Formatos 
+
+    "FormatoFecha": {
+        "es-MX": "{0: dd/MM/yyyy}",
+        "en-US": "{0: MM/dd/yyyy}"
+    },
+
+    "FormatoFecha2": {
+        "es-MX": "dd/MM/yyyy",
+        "en-US": "MM/dd/yyyy"
+    },
     // Botones
     "botonGuardar": {
         "es-MX": "Guardar",
@@ -7074,6 +7085,7 @@ _dictionary = {
         "es-MX": "Limpiar",
         "en-US": "Clean"
     },
+
     // Finalizan etiquetas Header y Footer
 
     // Menú lateral
@@ -7096,6 +7108,10 @@ _dictionary = {
     // Finalizan Etiquetas de Menú General
 
     // Etiquetas Grids
+    "columnLimpiar": {
+        "es-MX": "LMP",
+        "en-US": "CLN"
+    },
     "columnNumeroControl": {
         "es-MX": "No Control",
         "en-US": "Control Num"
