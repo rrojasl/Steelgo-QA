@@ -7007,6 +7007,14 @@ _dictionary = {
         "es-MX": "Todos",
         "en-US": "All"
     },
+    "lblVerdadero": {
+        "es-MX": "V",
+        "en-US": "T"
+    },
+    "lblFalso": {
+        "es-MX": "F",
+        "en-US": "F"
+    },
 
     // Botones
     "botonGuardar": {
@@ -7069,6 +7077,53 @@ _dictionary = {
         "en-US": "Delivery Plate-Graphics"
     },
     // Finalizan Etiquetas de Menú General
+
+    // Etiquetas Grids
+    "columnNumeroControl": {
+        "es-MX": "No Control",
+        "en-US": "Control Num"
+    },
+    "columnJunta": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+    "columnTipoJta": {
+        "es-MX": "T de Jta",
+        "en-US": "Jnt T"
+    },
+    "columnRequisicion": {
+        "es-MX": "Requisición",
+        "en-US": "Requisition"
+    },
+    "columnCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
+    "columnPrioridad": {
+        "es-MX": "Prior",
+        "en-US": "Prior"
+    },
+    "columnClasificacion": {
+        "es-MX": "Clsf",
+        "en-US": "Clsf"
+    },
+    "columnDiametro": {
+        "es-MX": "Diam",
+        "en-US": "Diam"
+    },
+    "columnEspesor": {
+        "es-MX": "E. (mm)",
+        "en-US": "T. (mm)"
+    },
+    "columnCedula": {
+        "es-MX": "Cédula",
+        "en-US": "Chart"
+    },
+    "columnAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
     // Inicia Módulo PNDs
