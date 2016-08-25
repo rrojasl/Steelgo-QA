@@ -6967,6 +6967,7 @@ _dictionary = {
     // Etiquetas Header y Footer
 
     // Etiquetas
+
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -7019,6 +7020,10 @@ _dictionary = {
         "es-MX": "Proveedor",
         "en-US": "Provider"
     },
+    "lblGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     // Botones
     "botonGuardar": {
         "es-MX": "Guardar",
@@ -7059,6 +7064,10 @@ _dictionary = {
     "botonAgregar": {
         "es-MX": "Agregar",
         "en-US": "Add"
+    },
+    "botonLimpiar": {
+        "es-MX": "Limpiar",
+        "en-US": "Clean"
     },
     // Finalizan etiquetas Header y Footer
 
@@ -7126,6 +7135,43 @@ _dictionary = {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
+    "columnTipoPrueba": {
+        "es-MX": "Tipo Prueba",
+        "en-US": "Test Type"
+    },
+    "columnObservacion": {
+        "es-MX": "Observación",
+        "en-US": "Observation"
+    },
+    "columnFecha": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "columnJuntas": {
+        "es-MX": "Jtas",
+        "en-US": "Jnts"
+    },
+    "columnProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "columnEquipo": {
+        "es-MX": "Equipo",
+        "en-US": "Kit"
+    },
+    "columnTurnoLaboral": {
+        "es-MX": "Turno",
+        "en-US": "Inning"
+    },
+    "columnCapacidad": {
+        "es-MX": "Cap",
+        "en-US": "Cap"
+    },
+    "columnJuntasAsignadas": {
+        "es-MX": "Jts Asg",
+        "en-US": "Jnts Asg"
+    },
+
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 

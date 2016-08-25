@@ -13,7 +13,7 @@ function suscribirEventoJuntas() {
     $(document).on('click', '.EnlaceDetalleJuntas', function (e) {
         e.preventDefault();
 
-        if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+        if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
