@@ -7205,6 +7205,10 @@ _dictionary = {
     // Finalizan Etiquetas Generales PND
 
     // Pantalla RequisiciónPND
+    "ServiciosTecnicosRequisicionPND": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
     "ServiciosTecnicosAsignarRequisicion": {
         "es-MX": "Asignar Requisición",
         "en-US": "Assign Requisition"
