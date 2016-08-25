@@ -7024,6 +7024,11 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "lblDetalleJuntas": {
+        "es-MX": "Detalle de las Juntas",
+        "en-US": "Joints detail"
+    },
+    
     // Botones
     "botonGuardar": {
         "es-MX": "Guardar",
@@ -7170,6 +7175,10 @@ _dictionary = {
     "columnJuntasAsignadas": {
         "es-MX": "Jts Asg",
         "en-US": "Jnts Asg"
+    },
+    "columnProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
     },
 
     // Finalizan Etiquetas Grid
