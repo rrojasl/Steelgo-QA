@@ -148,13 +148,27 @@
         color: #fff;
     }
 
-        .k-multiselect-wrap li span {
-            color: #FFFFFF;
-        }
+.k-multiselect .k-delete {
+    background-position: -163px -82px !important;
+}
 
-            .k-multiselect-wrap li span.k-delete {
-                display: none;
-            }
+.k-multiselect-wrap li span {
+    color: #FFFFFF;
+}
+
+
+
+    .k-multiselect-wrap li span.k-delete {
+        display: block;
+        float: right;
+        opacity: .9;
+        background-color: white;
+        padding-right: 0px;
+        border-left: 5px;
+        max-width: 11px;
+        max-height: 11px;
+        margin-left: 6px;
+    }
 
 .k-block, .k-button, .k-textbox, .k-drag-clue,
 .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content,
@@ -284,7 +298,7 @@
 }
 
 .k-icon.k-i-close.k-delete {
-    background-image:url("/Content/images/SAMC_Delete.png") !important;
+    background-image: url("/Content/images/SAMC_Delete.png") !important;
 }
 
 .k-list-container {
@@ -341,262 +355,299 @@
  Description:   Override kendo grid.
 **********************************************************************************/
 .k-grid {
-    /*margin-top: 15px;*/
     background-color: #EEEEEE;
     z-index: 1;
 }
 
-    /* header + data table */
-    .k-grid > table {
-        table-layout: fixed;
+<<<<<<< HEAD
+/* header + data table */
+.k-grid > table {
+    table-layout: fixed;
+}
+
+.k-grid td {
+    padding: 7.5px 13px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #111111;
+    font-weight: 100;
+    border-bottom: 1px solid #CCCCCC;
+    text-overflow: clip;
+    word-wrap: break-word;
+}
+
+.k-grid tr:last-child td {
+    border-bottom: none;
+}
+
+.k-grid tr {
+    background-color: #FFFFFF;
+}
+
+.k-grid tr.k-alt {
+        background-color: #F5F5F5;
+}
+
+.k-grid tr:not(.k-detail-row):hover {
+        background-color: #FCEED9;
+}
+
+.k-grid tr.k-filter-row{
+    background-color:#E3E3E3!important;
+}
+
+.k-grid .k-grid-header tr,
+.k-grid tbody .k-grouping-row > td {
+    min-height: 39px;
+    height: 39px;
+}
+
+======= .k-grid > table {
+    table-layout: fixed;
+}
+
+> > > > > > > Steelgo-InHouse .k-grid td {
+    padding: 1px !important;
+    font-size: 12px;
+    color: #111111;
+    font-weight: 100;
+    border-bottom: 1px solid #CCCCCC;
+    white-space: nowrap;
+}
+
+<<<<<<< HEAD .k-grid .k-grid-header tr th a.k-link,
+.k-grid .k-grid-header tr th.k-header,
+.k-grid tbody .k-grouping-row p.k-reset {
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: pre-wrap;
+}
+
+.k-grid .k-grid-header tr th .k-filter {
+    background-image: url("/Content/images/SAMC_SearchIconChart.png");
+    background-size: auto;
+    background-position: center 1px;
+}
+
+.k-grid .k-grid-header tr th .k-i-arrow-n {
+    background-image: url("/Content/images/SAMC_FilterUp.png");
+    background-size: auto;
+    background-position: center !important;
+    vertical-align: middle;
+}
+
+.k-grid .k-grid-header tr th .k-i-arrow-s {
+    background-image: url("/Content/images/SAMC_FilterDown.png");
+    background-size: auto;
+    background-position: center !important;
+    vertical-align: middle;
+}
+
+.k-grid .k-grid-header tr.k-filter-row th {
+    border-bottom: 1px solid #CCCCCC;
+    border-top: none;
+}
+
+.k-grid .k-grid-header tr th .k-grid-filter {
+    background-color: transparent;
+}
+
+    .k-grid .k-grid-header tr th .k-grid-filter.k-state-active {
+        background-color: #F35800;
     }
 
-    .k-grid td {
-        padding: 7.5px 13px;
-        font-size: 12px;
-        line-height: 1.4;
-        color: #111111;
-        font-weight: 100;
-        border-bottom: 1px solid #CCCCCC;
-        text-overflow: clip;
-        word-wrap:break-word;
+.k-grid .k-grid-header tr th > input {
+    width: 100%;
+    box-shadow: none !important;
+    text-indent: initial;
+}
+
+.k-grid tbody tr td a.k-button {
+    color: transparent !important;
+    height: 27px;
+    max-width: 18px;
+    padding: 0;
+    margin: 0 4px;
+    font-size: 0;
+    border: none;
+    outline: none;
+    background: none;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-position: center !important;
+    box-shadow: none !important;
+}
+
+    .k-grid tbody tr td a.k-button.k-grid-edit {
+        padding: 5px 0;
     }
 
-    .k-grid td.command {
-        padding: 7.5px;
+    .k-grid tbody tr td a.k-button.k-grid-delete {
+        padding: 7px 0;
     }
 
-    .k-grid tr:last-child td {
-        border-bottom: none;
+.k-grid tbody tr td > input.k-textbox {
+    height: 40px;
+    font-size: 14px;
+    color: #1B3F70;
+}
+
+.k-grid tbody tr td.k-state-selected {
+    background-color: transparent;
+}
+
+======= .k-grid tr:last-child td {
+    border-bottom: none;
+}
+
+.k-grid tr {
+    background-color: #FFFFFF;
+}
+
+> > > > > > > Steelgo-InHouse .k-grid tr.k-alt {
+    background-color: #F5F5F5;
+}
+
+.k-grid tr:not(.k-detail-row):hover {
+    background-color: #FCEED9;
+}
+
+.k-grid .k-grid-header tr th {
+    /*background: none;
+    background-color: #EEEEEE;
+    padding-left: 15px;
+    padding-right: 19px;*/
+}
+
+    .k-grid .k-grid-header tr th a.k-link {
+        /*font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;*/
     }
 
-    .k-grid tr {
-        background-color: #FFFFFF;
+    .k-grid .k-grid-header tr th .k-filter {
+        background-image: url("/Content/images/SAMC_SearchIconChart.png");
+        background-size: auto;
+        background-position: center 1px;
     }
 
-        .k-grid tr.k-alt {
-            background-color: #F5F5F5;
-        }
+<<<<<<< HEAD .k-grid tbody tr td a.k-button.k-grid-Detalle,
+.k-grid tbody tr td a.k-button.k-grid-Detail,
+.k-grid tbody tr td a.k-button.k-grid-Archivos,
+.k-grid tbody tr td a.k-button.k-grid-Files {
+    background-image: url("/Content/images/SAMC_DetailIcon.png");
+}
 
-        .k-grid tr:not(.k-detail-row):hover {
-            background-color: #FCEED9;
-        }
+======= .k-grid .k-grid-header tr th .k-i-arrow-n {
+    background-image: url("/Content/images/SAMC_FilterUp.png");
+    background-size: auto;
+    background-position: center !important;
+    vertical-align: middle;
+}
 
-    .k-grid .k-grid-header tr,
-    .k-grid tbody .k-grouping-row > td {
-        min-height: 39px;
-        height: 39px;
-    }
+> > > > > > > Steelgo-InHouse .k-grid .k-grid-header tr th .k-i-arrow-s {
+    background-image: url("/Content/images/SAMC_FilterDown.png");
+    background-size: auto;
+    background-position: center !important;
+    vertical-align: middle;
+}
 
-        .k-grid .k-grid-header tr th {
-            background: none;
-            background-color: #EEEEEE;
-            padding-left: 15px;
-            padding-right: 19px;
-        }
+.k-grid tbody tr td a.k-button {
+    color: transparent !important;
+    height: 27px;
+    max-width: 18px;
+    padding: 0;
+    margin: 0 4px;
+    font-size: 0;
+    border: none;
+    outline: none;
+    background: none;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-position: center !important;
+    box-shadow: none !important;
+}
 
-            .k-grid .k-grid-header tr th a.k-link,
-            .k-grid .k-grid-header tr th.k-header,
-            .k-grid tbody .k-grouping-row p.k-reset {
-                font-size: 11.5px;
-                font-weight: 600;
-                text-transform: uppercase;
-                white-space: pre-wrap;
-            }
 
-            .k-grid .k-grid-header tr th .k-filter {
-                background-image: url("/Content/images/SAMC_SearchIconChart.png");
-                background-size: auto;
-                background-position: center 1px;
-            }
+.k-grid.entradaMaterial tbody tr td a.k-button {
+    margin: 0 -25px;
+}
 
-            .k-grid .k-grid-header tr th .k-i-arrow-n {
-                background-image: url("/Content/images/SAMC_FilterUp.png");
-                background-size: auto;
-                background-position: center !important;
-                vertical-align: middle;
-            }
-
-            .k-grid .k-grid-header tr th .k-i-arrow-s {
-                background-image: url("/Content/images/SAMC_FilterDown.png");
-                background-size: auto;
-                background-position: center !important;
-                vertical-align: middle;
-            }
-
-        .k-grid .k-grid-header tr.k-filter-row th {
-            border-bottom: 1px solid #CCCCCC;
-            border-top: none;
-        }
-
-        .k-grid .k-grid-header tr th .k-grid-filter{
-            background-color: transparent;
-        }
-
-        .k-grid .k-grid-header tr th .k-grid-filter.k-state-active {
-            background-color: #F35800;
-        }
-
-        .k-grid .k-grid-header tr th > input {
-            width: 100%;
-            box-shadow: none!important;                      
-            text-indent: initial;
-        }
-
-    .k-grid tbody tr td a.k-button {
-        display: block;
-        color: transparent !important;
-        height: 27px;
-        max-width: 18px;
-        padding: 0;
-        margin: 0 auto;
-        font-size: 0;
-        border: none;
-        outline: none;
-        background: none;
-        background-color: transparent !important;
-        background-repeat: no-repeat;
-        background-position: center !important;
-        box-shadow: none !important;
-    }
-
-        .k-grid tbody tr td a.k-button.k-grid-edit {
-            padding: 5px 0;
-        }
-
-        .k-grid tbody tr td a.k-button.k-grid-delete {
-            padding: 7px 0;
-        }
-
-    .k-grid tbody tr td > input.k-textbox {
-        height: 40px;
-        font-size: 14px;
-            color: #1B3F70;
-    }
-
-    .k-grid tbody tr td.k-state-selected {
-        background-color: transparent;
-    }
-
-    .k-grid.entradaMaterial tbody tr td a.k-button {
-        margin: 0 -25px;
-    }
-
-    .k-grid.gridWithInputs tbody tr.k-detail-row .k-grid thead tr th:first-child,
-    .k-grid.gridWithInputs tbody tr.k-detail-row .k-grid tbody tr td:first-child,
-    .k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid thead tr th:nth-child(2),
-    .k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid tbody tr.k-detail-row .k-grid tr th:first-child {
-        padding: 0;
-    }
+.k-grid.gridWithInputs tbody tr.k-detail-row .k-grid thead tr th:first-child,
+.k-grid.gridWithInputs tbody tr.k-detail-row .k-grid tbody tr td:first-child,
+.k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid thead tr th:nth-child(2),
+.k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid tbody tr.k-detail-row .k-grid tr th:first-child {
+    padding: 0;
+}
 
     .k-grid.gridWithInputs tbody tr.k-detail-row .k-grid thead tr th:first-child label,
     .k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid thead tr th label {
         margin: 0;
     }
 
-    .k-grid tbody tr td a.k-button:active:hover {
-        box-shadow: none !important;
-    }
+.k-grid tbody tr td a.k-button:active:hover {
+    box-shadow: none !important;
+}
 
-    .k-grid tbody tr td a.k-button.k-grid-Detalle,
-    .k-grid tbody tr td a.k-button.k-grid-Detail,
-    .k-grid tbody tr td a.k-button.k-grid-Archivos,
-    .k-grid tbody tr td a.k-button.k-grid-Files {
-        background-image: url("/Content/images/SAMC_DetailIcon.png");
-    }
+.k-grid tbody tr td a.k-button.k-grid-Detalle,
+.k-grid tbody tr td a.k-button.k-grid-Detail {
+    background-image: url("/Content/images/SAMC_DetailIcon.png");
+    padding-right: 10px;
+    height: 20px;
+    min-width: 20px !important;
+    margin: 0px;
+}
 
-    .k-grid tbody tr td a.k-button.k-grid-Cancelar,
-    .k-grid tbody tr td a.k-button.k-grid-Cancel {
-        background-image: url("/Content/images/SAMC_Delete.png");
-    }
+.k-grid tbody tr td a.k-button.k-grid-Cancelar,
+.k-grid tbody tr td a.k-button.k-grid-Cancel {
+    background-image: url("/Content/images/SAMC_Delete.png");
+    padding-right: 10px;
+    height: 20px;
+    min-width: 20px !important;
+    margin: 0px;
+}
 
-    .k-grid tbody tr td a.k-button.k-grid-Complemento,
-    .k-grid tbody tr td a.k-button.k-grid-Complement {
-        background-image: url("/Content/images/SAMC_ComplementoIcon.png");
-    }
+.k-grid tbody tr td a.k-button.k-grid-Limpiar,
+.k-grid tbody tr td a.k-button.k-grid-Clean {
+    background-image: url('../images/clean_icon.png') !important;
+    padding-right: 10px;
+    height: 20px;
+    min-width: 20px !important;
+    margin: 0px;
+}
 
-    .k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
-    .k-grid tbody tr td a.k-button.k-grid-Quantification {
-        background-image: url("/Content/images/SAMC_CuantificacionIcon.png");
-    }
+.k-grid tbody tr td a.k-button.k-grid-Complemento,
+.k-grid tbody tr td a.k-button.k-grid-Complement {
+    background-image: url("/Content/images/SAMC_ComplementoIcon.png");
+}
 
-    .k-grid tbody tr td a.k-button.k-grid-Imprimir,
-    .k-grid tbody tr td a.k-button.k-grid-Print,
-    .k-grid tbody tr td a.k-button.k-grid-ImprimirEtiquetas,
-    .k-grid tbody tr td a.k-button.k-grid-PrintLabels {
-        background-image: url("/Content/images/SAMC_Print.png");
-    }
+.k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
+.k-grid tbody tr td a.k-button.k-grid-Quantification {
+    background-image: url("/Content/images/SAMC_CuantificacionIcon.png");
+}
+
+.k-grid tbody tr td a.k-button.k-grid-Descarga,
+.k-grid tbody tr td a.k-button.k-grid-Discharging {
+    background-image: url("/Content/images/SAMC_DischargingIcon.png");
+}
+
+.k-grid tbody tr td a.k-button.k-grid-Imprimir,
+.k-grid tbody tr td a.k-button.k-grid-Print,
+.k-grid tbody tr td a.k-button.k-grid-ImprimirEtiquetas,
+.k-grid tbody tr td a.k-button.k-grid-PrintLabels {
+    background-image: url("/Content/images/SAMC_Print.png");
+}
 
 .k-grid-pager {
     background-color: #EEEEEE;
-    height: 54px; /*57px*/
+    height: 54px;
     padding: 12px 9px;
 }
-
-    /*.k-grid-pager .k-pager-first,
-    .k-grid-pager .k-pager-last {
-        display: none;
-    }*/
-
-    /*.k-grid-pager .k-pager-nav {
-        border-radius: 0;
-        background: none;
-        background-color: #FFFFFF;
-        height: 34px;
-        width: 34px;
-        border-color: #CCCCCC;
-    }*/
 
     .k-grid-pager .k-pager-nav:hover {
         background-color: #FCEED9;
     }
-
-    /*.k-grid-pager .k-pager-nav .k-icon,
-            .k-grid-pager .k-pager-nav:hover .k-icon {
-                height: 16px;
-                width: 9px;
-                position: relative;
-                top: 2px;
-                background-repeat: no-repeat;
-                background-position: 0 0;
-                background-color: transparent;
-                background-size: auto;
-            }
-
-        .k-grid-pager .k-pager-nav .k-i-arrow-w {
-            background-image: url("/Content/images/SAMC_NavigationLeft.png");
-            left: -2px;
-        }
-
-        .k-grid-pager .k-pager-nav .k-i-arrow-e {
-            background-image: url("/Content/images/SAMC_NavigationRight.png");
-            right: -1px;
-        }*/
-
-    /*.k-grid-pager .k-pager-input {
-        background-color: #FFFFFF;
-        height: 26px;
-        border-top: 1px solid #CCCCCC;
-        border-bottom: 1px solid #CCCCCC;
-        margin: 0px -1px;
-        padding: 3px 16px 5px 7.5px;
-    }
-
-        .k-grid-pager .k-pager-input input.k-textbox {
-            padding: 0;
-            margin: 0 0 4px 2px;
-            min-height: 20px;
-            height: 20px;
-            width: 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            box-shadow: none !important;
-        }
-
-    .k-grid-pager .k-pager-numbers {
-        margin: 2px;
-    }*/
 
     .k-grid-pager .k-pager-sizes {
         color: #666666;
@@ -617,18 +668,26 @@
             margin-left: 10px;
         }
 
-        .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
-            min-height: 24px;
-            height: 24px;
-            font-size: 14px;
-            padding: 5px;
-            letter-spacing: normal;
-            line-height: 1.7;
-        }
+<<<<<<< HEAD .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
+    min-height: 24px;
+    height: 24px;
+    font-size: 14px;
+    padding: 5px;
+    letter-spacing: normal;
+    line-height: 1.7;
+}
 
-        .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
-            width: 35px;
-        }
+======= .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
+    min-height: 24px;
+    height: 24px;
+    font-size: 14px;
+    padding: 5px;
+    letter-spacing: normal;
+}
+
+> > > > > > > Steelgo-InHouse .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
+    width: 35px;
+}
 /**********************************************************************************/
 
 
@@ -824,8 +883,8 @@
 
     /*$_k-widget*/
     .k-widget.k-window {
-        min-width: 100%!important;
-        left: 0!important;        
+        min-width: 100% !important;
+        left: 0 !important;
     }
 
     .form-group {
@@ -840,7 +899,7 @@
     .k-grid {
         overflow: hidden;
         overflow-x: auto;
-    }       
+    }
 
         .k-grid > table {
             table-layout: auto;
@@ -935,7 +994,6 @@
     .popup .k-dropdown {
         width: 100%;
     }
-
 }
 
 /* sm viewport */
@@ -957,9 +1015,9 @@
         display: block;
     }
 
-        .form .input-group > .input-group-btn {
-            display: none;
-        }
+    <<<<<<< HEAD .form .input-group > .input-group-btn {
+        display: none;
+    }
 
     /*$_k-grid*/
     .k-grid {
@@ -1018,6 +1076,12 @@
     .k-grid-pager {
         border-top: none;
     }
+
+    ======= .form .input-group > .input-group-btn {
+        display: none;
+    }
+
+    > > > > > > > Steelgo-InHouse
 }
 
 /* md viewport */
@@ -1026,4 +1090,166 @@
 
 /* lg viewport */
 @media (min-width: 1025px) {
+}
+
+/*MAFTEC*/
+/*Controles genericos*/
+
+.altoControl {
+    height: 80px !important;
+    overflow: hidden !important;
+}
+
+h6 {
+    margin: 0;
+    font-weight: 600;
+    font-size: larger;
+    line-height: 40px;
+}
+
+.btn-primary.active {
+    background-color: #1c4070 !important;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    background-color: #1c4070;
+}
+
+    .btn-file:hover {
+        position: relative;
+        overflow: hidden;
+        background-color: #152f52;
+    }
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        cursor: inherit;
+        display: block;
+    }
+/*Grid*/
+.k-grid {
+    margin-top: 15px;
+}
+
+    .k-grid .k-grid {
+        margin-top: 0;
+    }
+
+.k-grid-header {
+    padding-right: 0 !important;
+    width: inherit;
+}
+
+    .k-grid-header th.k-header, .k-filter-row th,
+    .nivel2 .k-grid-header th.k-header, .nivel2 .k-filter-row th {
+        font-weight: 500;
+    }
+
+/*.k-grid-pager {
+    padding:3px;
+    height:auto;
+}
+.k-grid-pager .k-link {
+    width:10px;
+    height:10px;
+    }*/
+
+.ScrollUp {
+    overflow-x: scroll;
+    /*margin-top:-20px;*/
+}
+
+.ScrollUpPestania {
+    overflow-x: scroll;
+}
+
+.DivScrollSup {
+    height: 1px;
+    overflow: hidden;
+}
+
+.stick {
+    position: fixed;
+    max-height: 100%;
+    max-width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.GridMenu {
+    height: 1px;
+}
+
+#grid #contextMenu li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+button[data-bind="visible:operatorVisible"] {
+    display:none;
+}
+
+.k-filter-menu div label{
+    text-align:center;
+}
+
+.k-filter-row *{
+    box-sizing:border-box !important;
+}
+
+
+.k-grid .ra,
+.k-numerictextbox .k-input
+{
+    text-align: right;
+}
+
+.k-input-filter{
+    height: 40px;
+    min-height: 40px;
+    color: #1B3F70;
+    border: 1px solid #666;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 0 5px;
+    z-index: 1;
+    -webkit-appearance: none;
+    
+}
+
+.k-input-filter:focus{
+    border-color: #828282;
+    -moz-box-shadow: 0px 0px 3px #828282; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 3px #828282; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 3px #828282; /* Opera 10.5, IE9, Chrome 10+ */
+    z-index: 3;
+}
+.k-input-filter .k-state-focused{
+    box-shadow:none;
+    -moz-box-shadow: none; /* FF3.5+ */
+    -webkit-box-shadow: none; 
+}
+.k-input-filter span{
+    border:none!important;
+}
+
+.k-input-filter span input[type="text"]:focus{
+    border:none!important;
+    box-shadow:none;
+}
+
+.k-grid-footer{
+    padding-right: 0px!important;
 }

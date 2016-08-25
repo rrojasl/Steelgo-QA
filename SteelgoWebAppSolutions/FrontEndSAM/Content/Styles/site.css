@@ -1141,3 +1141,26 @@ body.loading {
     body.loading .modal {
         display: block;
     }
+
+.MTrabajoAdicionalMas {
+    color:#FF0000;
+}
+
+.MTrabajoAdicionalMenos {
+    color:#0000FF;
+}
+
+.Bginput .k-multiselect-wrap {
+    color: #000000;
+    background: none;
+    min-height: 30px;
+    height: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 4px;
+    height:60px;
+}
+
+.botonSizeGeneral{
+    min-width: 87px;
+}

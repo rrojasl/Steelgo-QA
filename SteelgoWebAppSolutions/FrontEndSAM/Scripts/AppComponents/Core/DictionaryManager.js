@@ -7015,7 +7015,10 @@ _dictionary = {
         "es-MX": "F",
         "en-US": "F"
     },
-
+    "lblProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
     // Botones
     "botonGuardar": {
         "es-MX": "Guardar",
@@ -7073,7 +7076,7 @@ _dictionary = {
         "en-US": "Set Requisition"
     },
     "menuServiciosTecnicosEntregaPlacasGraficas": {
-        "es-MX": "Entrega de Placas-Resultados",
+        "es-MX": "Entrega de Placas-Gráficas",
         "en-US": "Delivery Plate-Graphics"
     },
     // Finalizan Etiquetas de Menú General

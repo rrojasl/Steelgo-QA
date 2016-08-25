@@ -57,13 +57,14 @@
             <label id="lblProveedor"></label>
             <input id="inputProveedor" />
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divFuente">
-            <label id="lblFuente"></label>
-            <input id="inputFuente" />
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divRequisicion">
+            <label id="lblRequisicion"></label>
+            <input id="inputRequisicion" />
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divTurno">
-            <label id="lblTurno"></label>
-            <input id="inputTurno" />
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <label id="lblMostrar"></label>
+            <input type="radio" name="Muestra" style="width:auto;" value="SinCaptura" /><span id="lblSinCaptura"></span>
+            <input type="radio" name="Muestra" style="width:auto;" value="Todos" /><span id="lblTodos"> </span>
         </div>
     </div>
     @*GRID*@
@@ -112,7 +113,7 @@
     </div>
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Handler.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Seguridad.js"></script>
