@@ -1,7 +1,7 @@
 ﻿function changeLanguageCall() {
     //AjaxCargarCamposPredeterminados();
-    //CargarGrid();
-    //CargarGridPopUp();
+    CargarGrid();
+    CargarGridPopUp();
     document.title = _dictionary.ServiciosTecnicosAsignarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
 };
 
@@ -105,7 +105,7 @@ function CargarGrid() {
             { field: "Capacidad", title: _dictionary.columnCapacidad[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "80px" },
             { field: "JuntasAsignadas", title: _dictionary.columnJuntasAsignadas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "100px" },
         //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.tituloEliminar[$("#language").data("kendoDropDownList").value()], width: "50px" },
-{ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.tituloLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -225,7 +225,7 @@ function cancelarCaptura(e) {
 
 function limpiarRenglon(e) {
     e.preventDefault();
-    if ($('#Guardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         itemToClean.Proveedor = "";
