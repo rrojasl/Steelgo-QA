@@ -2,8 +2,9 @@
     SuscribirEventoProyecto();
     SuscribirEventoProveedor();
     SuscribirEventoRequisicion();
-    SuscribirEventoDefectos();
+    SuscribirEventoRecibido();    
     SuscribirEventoCondicionesFisicas();
+    SuscribirEventoDefectos();
 }
 
 function SuscribirEventoProyecto() {
@@ -48,24 +49,46 @@ function SuscribirEventoRequisicion() {
     })
 }
 
-function SuscribirEventoDefectos() {
-    $("#inputDefectos").kendoComboBox({
-        dataTextField: "idFuente",
-        dataValueField: "Fuente",
+function SuscribirEventoRecibido() {
+    $("#inputDocumentoRecibido").kendoComboBox({
+        dataTextField: "DocumentoRecibidoNombre",
+        dataValueField: "DocumentoRecibidoID",
         suggest: true,
         delay: 10,
         filter: "contains",
         index: 3,
         change: function (e) {
-
+            
         }
     })
 }
 
 function SuscribirEventoCondicionesFisicas() {
     $("#inputCondicionesFisicas").kendoComboBox({
-        dataTextField: "idFuente",
-        dataValueField: "Fuente",
+        dataTextField: "DocumentoEstatusNombre",
+        dataValueField: "DocumentoEstatusID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                if (dataItem.DocumentoEstatusID == 2) {
+                    $("#divDefectos").hide();
+                } else {
+                    $("#divDefectos").show();
+                }
+
+            }
+        }
+    })
+}
+
+function SuscribirEventoDefectos() {
+    $("#inputDefectos").kendoComboBox({
+        dataTextField: "DefectoDocumentoNombre",
+        dataValueField: "DefectoDocumentoID",
         suggest: true,
         delay: 10,
         filter: "contains",

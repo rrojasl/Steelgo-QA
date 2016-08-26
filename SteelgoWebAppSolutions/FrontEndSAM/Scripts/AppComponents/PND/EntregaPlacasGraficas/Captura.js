@@ -5,6 +5,7 @@ function IniciarCapturaPlacasGraficas() {
 
 function changeLanguageCall() {
     cargarGrid();
+    AjaxCargaListaDocumentoRecibido();
     document.title = _dictionary.ServiciosTecnicosEntregaPGBreadcrumb[$("#language").data("kendoDropDownList").value()];
     loadingStop();
 }
@@ -15,12 +16,24 @@ function cargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Datos: { type: "string", editable: false },
+                        Accion: { type: "number", editable: false },
+                        RequisicionID: { type: "number", editable: false },
                         NumeroControl: { type: "string", editable: false },
+                        JuntaID:{ type: "number", editable: false },
                         Junta: { type: "number", editable: false },
-                        Recibido: { type: "string", editable: false },
-                        CondicionesFisicas: { type: "string", editable: true },
-                        Defectos: { type: "string", editable: true }
+                        ClasificacionPndID: { type: "number", editable: false },
+                        ClasificacionPnd: { type: "string", editable: false },
+                        TipoPruebaID: { type: "number", editable: false },
+                        TipoPrueba: { type: "string", editable: false },
+                        Observaciones: { type: "string", editable: false },
+                        CodigoAsmeID: { type: "number", editable: false },
+                        CodigoAsme: { type: "string", editable: false },
+                        DocumentoRecibidoID: { type: "number", editable: true },
+                        DocumentoRecibido: { type: "string", editable: true },
+                        DocumentoEstatusID: { type: "number", editable: true },
+                        DocumentoEstatus: { type: "string", editable: true },
+                        DefectoDocumentoID: { type: "number", editable: true},
+                        DefectoDocumento: { type: "string", editable: true }
                     }
                 }
             },
@@ -51,12 +64,17 @@ function cargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Datos", title: _dictionary.columnDatos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
-            { field: "Recibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
-            { field: "CondicionesFisicas", title: _dictionary.columnCondicionesFisicas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Defectos", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "125px" }
+            { field: "ClasificacionPnd", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
+            { field: "DocumentoEstatus", title: _dictionary.columnCondicionesFisicas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "160px" },
+            { field: "DefectoDocumento", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "100px" }
         ],
     });
+
+    CustomisaGrid($("#grid"));
 }

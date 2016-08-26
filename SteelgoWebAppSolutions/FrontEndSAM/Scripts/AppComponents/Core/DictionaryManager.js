@@ -7033,7 +7033,11 @@ _dictionary = {
         "en-US": "Received"
     },
     "lblCondicionesFisicas": {
-        "es-MX": "Condiciones Físicas",
+        "es-MX": "Condiciones Físicas SIN LUZ",
+        "en-US": "Physicals conditions"
+    },
+    "lblCondicionesFisicas1": {
+        "es-MX": "Condiciones Físicas del Documento",
         "en-US": "Physicals conditions"
     },
     "lblDefectos": {
@@ -7108,6 +7112,10 @@ _dictionary = {
     "botonLimpiar": {
         "es-MX": "Limpiar",
         "en-US": "Clean"
+    },
+    "botonPlanchar": {
+        "es-MX": "Aplicar",
+        "en-US": "Apply"
     },
 
     // Finalizan etiquetas Header y Footer
@@ -7225,11 +7233,11 @@ _dictionary = {
         "en-US": "Received"
     },
     "columnCondicionesFisicas": {
-        "es-MX": "Condiciones Físicas SIN LUZ",
-        "en-US": "Physical conditions WITHOUT LIGHT"
+        "es-MX": "Cond Fis SIN LUZ",
+        "en-US": "Physical cond WITHOUT LIGHT"
     },
     "columnCondicionesFisicas1": {
-        "es-MX": "Condiciones Físicas del Documento",
+        "es-MX": "Cond Físicas Docto",
         "en-US": "Physical conditions documents"
     },
     "columnDefectosRechazos": {

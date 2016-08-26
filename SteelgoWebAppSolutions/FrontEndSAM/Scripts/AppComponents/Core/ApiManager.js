@@ -29,9 +29,9 @@
 var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
-var $SearchSAMUri = 'http://localhost:60921';
+var $SearchSAMUri = 'http://localhost:61066';
 var $SearchSAMUri2 = 'http://10.15.10.185:8089';
-var $FilesSAMUri = 'http://localhost:60921';
+var $FilesSAMUri = 'http://localhost:60971';
 
 //Combos Base URL
 var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
@@ -274,4 +274,4 @@ $ValidarCedulas.add("ValidarCedulas");
 $ComplementoRecepcionAlt.add("Listado")
 
 // ServiciosTecnicos
-$EntregaPlacasGraficas.add('EntregaPlacasGraficas');
+$EntregaPlacasGraficas.add("EntregaPlacasGraficas");
