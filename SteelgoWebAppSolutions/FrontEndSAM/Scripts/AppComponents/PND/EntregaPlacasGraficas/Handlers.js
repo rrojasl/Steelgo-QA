@@ -5,6 +5,7 @@
     SuscribirEventoRecibido();    
     SuscribirEventoCondicionesFisicas();
     SuscribirEventoDefectos();
+    SuscribirEventoPlanchado();
 }
 
 function SuscribirEventoProyecto() {
@@ -58,7 +59,12 @@ function SuscribirEventoRecibido() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+
+            } else {
+                $("#inputDocumentoRecibido").data("kendoComboBox").value("");
+            }
         }
     })
 }
@@ -75,11 +81,13 @@ function SuscribirEventoCondicionesFisicas() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 if (dataItem.DocumentoEstatusID == 2) {
-                    $("#divDefectos").hide();
-                } else {
                     $("#divDefectos").show();
+                } else {
+                    $("#divDefectos").hide();
                 }
 
+            } else {
+                $("#inputCondicionesFisicas").data("kendoComboBox").value("");
             }
         }
     })
@@ -94,7 +102,18 @@ function SuscribirEventoDefectos() {
         filter: "contains",
         index: 3,
         change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if(dataItem!=undefined){
 
+            } else {
+                $("#inputDefectos").data("kendoComboBox").value("");
+            }
         }
     })
+}
+
+function SuscribirEventoPlanchado() {
+    $("#botonPlanchar").click(function () {
+        $("#")
+    });
 }

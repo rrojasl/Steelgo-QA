@@ -32,11 +32,23 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
     {
         public int DocumentoEstatusID { get; set; }
         public string DocumentoEstatusNombre { get; set; }
+
+        public DocumentoEstatus()
+        {
+            DocumentoEstatusID = 0;
+            DocumentoEstatusNombre = "";
+        }
     }
 
     public class DocumentoDefecto {
         public int DefectoDocumentoID { get; set; }
         public string DefectoDocumentoNombre { get; set; }
+
+        public DocumentoDefecto()
+        {
+            DefectoDocumentoID = 0;
+            DefectoDocumentoNombre = "";
+        }
     }
         
     public class RequisicionDetalle
@@ -61,7 +73,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public string DefectoDocumento { get; set; }
         public List<DocumentoRecibido> ListaRecibido { get; set; }
         public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
-        public List<DocumentoDefecto> ListaDefectosDocumento { get; set; }
+        public List<DocumentoDefecto> ListaDefectoDocumento { get; set; }
         
     }
 

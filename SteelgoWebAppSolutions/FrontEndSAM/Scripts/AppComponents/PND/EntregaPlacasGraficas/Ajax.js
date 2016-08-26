@@ -26,4 +26,18 @@ function AjaxCargaListaDocumentoDefecto() {
         $("#inputDefectos").data("kendoComboBox").dataSource.data([]);
         $("#inputDefectos").data("kendoComboBox").dataSource.data(data);
     });
+    AjaxObtieneDetalleRequisicion();
+}
+
+function AjaxObtieneDetalleRequisicion() {
+    var token = Cookies.get("token");
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, proyectoID: 0, proveedorID: 0, requisicionID: 0 }).done(function (data) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if(data.length>0){
+            for (var i = 0; i < data.length; i++) {
+                ds.add(data[i]);
+            }
+        }
+    });
 }

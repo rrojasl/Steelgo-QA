@@ -37,11 +37,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 {
                     List<Sam3_ST_EPG_ObtieneCatalogoRecibido_Result> result = ctx.Sam3_ST_EPG_ObtieneCatalogoRecibido().ToList();
                     List<DocumentoRecibido> lista = new List<DocumentoRecibido>();
-                    lista.Add(new DocumentoRecibido
-                    {
-                        DocumentoRecibidoID = 0,
-                        DocumentoRecibidoNombre = ""
-                    });
+                    DocumentoRecibido vacio = new DocumentoRecibido();
+                    lista.Add(vacio);
+
                     foreach (Sam3_ST_EPG_ObtieneCatalogoRecibido_Result item in result)
                     {
                         lista.Add(new DocumentoRecibido
@@ -74,11 +72,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 {
                     List<Sam3_ST_EPG_ObtieneEstatusDocumento_Result> result = ctx.Sam3_ST_EPG_ObtieneEstatusDocumento().ToList();
                     List<DocumentoEstatus> lista = new List<DocumentoEstatus>();
-                    lista.Add(new DocumentoEstatus
-                    {
-                        DocumentoEstatusID = 0,
-                        DocumentoEstatusNombre = ""
-                    });
+                    DocumentoEstatus vacio = new DocumentoEstatus();
+                    lista.Add(vacio);
+
                     foreach (Sam3_ST_EPG_ObtieneEstatusDocumento_Result item in result)
                     {
                         lista.Add(new DocumentoEstatus
@@ -111,12 +107,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 {
                     List<Sam3_ST_EPG_ObtieneDefectosDocumentos_Result> result = ctx.Sam3_ST_EPG_ObtieneDefectosDocumentos().ToList();
                     List<DocumentoDefecto> lista = new List<DocumentoDefecto>();
-
-                    lista.Add(new DocumentoDefecto
-                    {
-                        DefectoDocumentoID = 0,
-                        DefectoDocumentoNombre = ""
-                    });
+                    DocumentoDefecto vacio = new DocumentoDefecto();
+                    lista.Add(vacio);
 
                     foreach (Sam3_ST_EPG_ObtieneDefectosDocumentos_Result item in result)
                     {
@@ -144,7 +136,52 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
 
         public object ObtenerDetalleRequisicion(int proyectoID, int proveedorID, int requisicionID)
         {
-            return null;
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    
+
+                    List<RequisicionDetalle> listaDetalle = new List<RequisicionDetalle>();
+
+                    listaDetalle.Add(new RequisicionDetalle
+                    {
+                        RequisicionID = 1,
+                        NumeroControl = "X002-001",
+                        JuntaID = 1,
+                        Junta = "1",
+                        ClasificacionPndID = 1,
+                        ClasificacionPnd = "RT-M",
+                        TipoPruebaID = 1,
+                        TipoPrueba = "RT",
+                        Observaciones = "Ninguna Observación",
+                        CodigoAsmeID = 1,
+                        CodigoAsme = "VFCXD0918-123",
+                        Accion = 1,
+                        DocumentoRecibidoID = 0,
+                        DocumentoRecibido = "",
+                        DocumentoEstatusID = 0,
+                        DocumentoEstatus = "",
+                        DefectoDocumentoID = 0,
+                        DefectoDocumento = "",
+                        ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(),
+                        ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(),
+                        ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto()
+                    });
+                    return listaDetalle;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
         }
 
         public object InsertarCapturaEntregaPlacasGraficas(DataTable dtDetalleCaptura)
