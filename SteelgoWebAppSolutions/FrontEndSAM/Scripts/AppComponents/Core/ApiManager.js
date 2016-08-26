@@ -157,6 +157,10 @@ var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidarCedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ComplementoRecepcionAlt = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Steelgo - Maftec
+//ServiciosTecnicos
+var $EntregaPlacasGraficas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -173,6 +177,7 @@ function apiManagerToBeExecutedOnDocumentReady() {
 $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
 $SecurityManager.add('authentication');
+
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");
@@ -267,3 +272,6 @@ $Reporte.add("Reporte");
 $Espesor.add("Espesor");
 $ValidarCedulas.add("ValidarCedulas");
 $ComplementoRecepcionAlt.add("Listado")
+
+// ServiciosTecnicos
+$EntregaPlacasGraficas.add('EntregaPlacasGraficas');
