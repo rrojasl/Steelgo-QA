@@ -7126,8 +7126,8 @@ _dictionary = {
         "en-US": "Set Requisition"
     },
     "menuServiciosTecnicosEntregaPlacasGraficas": {
-        "es-MX": "Entrega de Placas-Gráficas",
-        "en-US": "Delivery Plate-Graphics"
+        "es-MX": "Entrega de Placas o Gráficas",
+        "en-US": "Delivery Plate or Graphics"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7228,13 +7228,17 @@ _dictionary = {
         "es-MX": "Condiciones Físicas SIN LUZ",
         "en-US": "Physical conditions WITHOUT LIGHT"
     },
+    "columnCondicionesFisicas1": {
+        "es-MX": "Condiciones Físicas del Documento",
+        "en-US": "Physical conditions documents"
+    },
     "columnDefectosRechazos": {
         "es-MX": "Defectos",
         "en-US": "Defects"
     },
-    "columnDatos": {
-        "es-MX": "Datos",
-        "en-US": "Data"
+    "columnCodigoAsme": {
+        "es-MX": "Código Asme",
+        "en-US": "Asme code"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
@@ -7246,8 +7250,8 @@ _dictionary = {
         "en-US": "Technical Services"
     },
     "ServiciosTecnicosEntregaPGBreadcrumb": {
-        "es-MX": "Entrega de Placas-Gráficas",
-        "en-US": "Delivering Plate-Graphics"
+        "es-MX": "Entrega de Placas o Gráficas",
+        "en-US": "Delivering Plate or Graphics"
     },
     "ServiciosTecnicosRequisicionPNDBreadcrumb": {
         "es-MX": "Requisición PND",
