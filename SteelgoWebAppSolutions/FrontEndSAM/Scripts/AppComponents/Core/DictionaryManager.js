@@ -7295,6 +7295,14 @@ _dictionary = {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
     },
+    "EntregaPlacasGraficasTituloPopup": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+    "EntregaPlacasGraficasPlancharTodos": {
+        "es-MX": "¿Esta seguro de reemplazar todos los datos?",
+        "en-US": "Are you sure to replace all data"
+    },
     // Finaliza Entrega Placas-Graficas
 
     // Pantalla Asignar Requisición
