@@ -43,12 +43,19 @@
     @Scripts.Render("~/Scripts/AppComponents/Core/NotificationsManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/SecurityManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/TranslationManager.js")
+    @Scripts.Render("~/Scripts/Confirm/jquery.confirm.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/UtilitiesManager.js")
 
     @RenderSection("HtmlHead", required: false)
 
     <!-- App Scripts General Validate -->
     @Scripts.Render("~/Scripts/General/Validate/Grid.js")
+
+    <!--App Scripts widgets-->
+    @Scripts.Render("~/Scripts/Widgets/Notify/src/pnotify.js")
+    @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.css")
+    @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.brighttheme.css")
+
 </head>
 <body>
     <header class="clearfix">

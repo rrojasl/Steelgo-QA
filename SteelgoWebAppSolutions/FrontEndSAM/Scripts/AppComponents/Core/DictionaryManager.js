@@ -7056,7 +7056,20 @@ _dictionary = {
         "es-MX": "Todos",
         "en-US": "All"
     },
-   
+    //Etiquetas header alertas
+    "SuccessTitle": {
+        "es-MX": "Correcto",
+        "en-US": "Success"
+    },
+    "WarningTitle": {
+        "es-MX": "Advertencia",
+        "en-US": "Warning"
+    },
+    "ErrorTitle": {
+        "es-MX": "Error",
+        "en-US": "Error"
+    },
+    //Finaliza etiquetas header alertas
     //Formatos 
 
     "FormatoFecha": {
