@@ -7085,7 +7085,15 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "botonGuardar4": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "botonGuardarYNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "botonGuardarYNuevo1": {
         "es-MX": "Guardar y Nuevo",
         "en-US": "Save and New"
     },
@@ -7117,7 +7125,10 @@ _dictionary = {
         "es-MX": "Aplicar",
         "en-US": "Apply"
     },
-
+    "botonEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     // Finalizan etiquetas Header y Footer
 
     // Menú lateral
