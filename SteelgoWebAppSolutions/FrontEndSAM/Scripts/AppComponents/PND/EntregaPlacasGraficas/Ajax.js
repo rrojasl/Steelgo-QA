@@ -1,4 +1,8 @@
-﻿function AjaxCargaListaDocumentoRecibido() {
+﻿function AjaxCargarCamposPredeterminados() {
+    console.log("Hola personi!");
+}
+
+function AjaxCargaListaDocumentoRecibido() {
     var token = Cookies.get("token");
     var respuesta = 1;
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
@@ -40,4 +44,36 @@ function AjaxObtieneDetalleRequisicion() {
             }
         }
     });
+}
+
+function AjaxGuardarCaptura(ds) {
+    if (ds._data.length > 0) {
+
+        if (validaInformacion(ds._data)) {
+            //$EntregaPlacasGraficas.EntregaPlacasGraficas.create({ token: token, proyectoID: 0, proveedorID: 0, requisicionID: 0 }).done(function (data) {
+                
+            //});
+            disableEnableView(true);
+        } else {
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true,
+                animation: {
+                    close: false,
+                    open: false
+                }
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.CapturaGuardarInformacionConNumerosUnicos[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='noButton'> Ok</button></center>");
+
+            ventanaConfirm.open().center();
+        }
+    } else {
+        displayNotify("", "No hay datos para guardar", "1");
+    }
 }
