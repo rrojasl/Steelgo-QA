@@ -32,7 +32,7 @@ function changeLanguageCall() {
     //ajaxRequisicion();
 
     //ajaxObtenerProyectos();
-    //setTimeout(function () { AjaxCargarCamposPredeterminados() }, 1000);
+    setTimeout(function () { AjaxCargarCamposPredeterminados() }, 1000);
     document.title = _dictionary.ServiciosTecnicosRequisicionPND[$("#language").data("kendoDropDownList").value()];
 };
 

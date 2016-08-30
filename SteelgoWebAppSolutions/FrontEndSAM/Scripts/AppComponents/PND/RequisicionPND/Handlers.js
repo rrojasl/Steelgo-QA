@@ -134,9 +134,9 @@ function suscribirEventoProyecto() {
             if (dataItem != undefined && dataItem.Nombre != "") {
                 $("#listaFolio").data("kendoComboBox").value("");
                 $("#tipoPrueba").data("kendoComboBox").value("");
-                ajaxObtenerTipoPruebas();
-                ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
-                AjaxListaRequisiciones($("#Proyecto").data("kendoComboBox").value());
+                //ajaxObtenerTipoPruebas();
+                //ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+                //AjaxListaRequisiciones($("#Proyecto").data("kendoComboBox").value());
                 LimpiarRowJunta();
             }
             else {
@@ -144,7 +144,7 @@ function suscribirEventoProyecto() {
                 $("#tipoPrueba").data("kendoComboBox").value("");
                 $("#Proyecto").data("kendoComboBox").value("");
                 $("#grid").data('kendoGrid').dataSource.data([]);
-                AjaxListaRequisiciones(0);
+                //AjaxListaRequisiciones(0);
             }
         }
     });
@@ -164,13 +164,13 @@ function suscribirEventoTipoPrueba() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 $("#listaFolio").data("kendoComboBox").value("");
-                AjaxListaRequisiciones($("#Proyecto").data("kendoComboBox").value());
-                ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+                //AjaxListaRequisiciones($("#Proyecto").data("kendoComboBox").value());
+                //ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
             }
             else {
                 $("#listaFolio").data("kendoComboBox").value("");
                 $("#tipoPrueba").data("kendoComboBox").value("");
-                AjaxListaRequisiciones($("#Proyecto").data("kendoComboBox").value());
+                //AjaxListaRequisiciones($("#Proyecto").data("kendoComboBox").value());
                 //$("#tipoPrueba").data("kendoComboBox").value("");
             }
         }

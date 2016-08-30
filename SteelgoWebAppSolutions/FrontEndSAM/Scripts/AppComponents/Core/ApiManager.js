@@ -159,6 +159,7 @@ var $ComplementoRecepcionAlt = new $.RestClient($BackEndSAMUri + '/backendsam/ap
 
 //Steelgo - Maftec
 //ServiciosTecnicos
+var $Proyectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RequisicionPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EntregaPlacasGraficas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -275,5 +276,6 @@ $ValidarCedulas.add("ValidarCedulas");
 $ComplementoRecepcionAlt.add("Listado");
 
 // ServiciosTecnicos
+$Proyectos.add("Proyectos");
 $RequisicionPND.add("RequisicionPND");
 $EntregaPlacasGraficas.add("EntregaPlacasGraficas");
