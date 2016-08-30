@@ -272,8 +272,8 @@ $Proxy.add("Proxy");
 $Reporte.add("Reporte");
 $Espesor.add("Espesor");
 $ValidarCedulas.add("ValidarCedulas");
-$ComplementoRecepcionAlt.add("Listado")
+$ComplementoRecepcionAlt.add("Listado");
 
 // ServiciosTecnicos
-$GenerarRequisicion.add("RequisicionPND");
+$RequisicionPND.add("RequisicionPND");
 $EntregaPlacasGraficas.add("EntregaPlacasGraficas");
