@@ -42,7 +42,12 @@ namespace FrontEndSAM.Controllers.PND
         public ActionResult RequisicionesAsignadas()
         {
             return View();
+
         }
 
+        public ActionResult EditarRequisicion()
+        {
+            return View();
+        }
     }
 }
