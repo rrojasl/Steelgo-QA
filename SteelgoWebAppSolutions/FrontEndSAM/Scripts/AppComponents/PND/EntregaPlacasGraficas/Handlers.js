@@ -168,15 +168,15 @@ function plancharTodo(tipoLlenado) {
 function SuscribirEventoGuardar() {
     //GuardarYNuevo
     $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
-        AjaxGuardarCaptura(ds);
-        cleanView();
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        AjaxGuardarCaptura(ds._data, true);
     });
 
     //Guardar
     $("#Guardar, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
         if ($("#Guardar").text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
             var ds = $("#grid").data("kendoGrid").dataSource;
-            AjaxGuardarCaptura(ds);
+            AjaxGuardarCaptura(ds._data, false);
         } else if ($("#Guardar").text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
             disableEnableView(false);
         }

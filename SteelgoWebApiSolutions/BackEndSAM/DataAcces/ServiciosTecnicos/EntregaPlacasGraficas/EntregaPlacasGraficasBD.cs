@@ -1,9 +1,11 @@
 ﻿using BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
@@ -147,16 +149,17 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     listaDetalle.Add(new RequisicionDetalle
                     {
                         RequisicionID = 1,
+                        OrdenTrabajoSpoolID = 1,
                         NumeroControl = "X002-001",
-                        JuntaID = 1,
-                        Junta = "1",
+                        DetalleArmadoID = 1,
+                        JuntaEtiqueta = "1",
                         ClasificacionPndID = 1,
                         ClasificacionPnd = "RT-M",
-                        TipoPruebaID = 1,
-                        TipoPrueba = "RT",
+                        TipoPruebaID = 12,
+                        TipoPrueba = "Hidrostática",
                         Observaciones = "Ninguna Observación",
                         CodigoAsmeID = 1,
-                        CodigoAsme = "VFCXD0918-123",
+                        CodigoAsme = "ASME B31.3",
                         Accion = 1,
                         DocumentoRecibidoID = 0,
                         DocumentoRecibido = "",
@@ -184,8 +187,38 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object InsertarCapturaEntregaPlacasGraficas(DataTable dtDetalleCaptura)
+        public object InsertarCapturaEntregaPlacasGraficas(DataTable dtDetalleCaptura, int usuario, string lenguaje)
         {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje } };
+
+                    //_SQL.Ejecuta(Stords.GUARDACAPTURAENTREGAPLACASGRAFICAS, dtDetalleCaptura, "@EntregaPlacasGraficas", parametro);
+
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
             return null;
         }
     }

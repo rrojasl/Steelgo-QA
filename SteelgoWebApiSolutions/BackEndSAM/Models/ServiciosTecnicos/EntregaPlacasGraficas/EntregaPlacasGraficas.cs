@@ -5,15 +5,16 @@ using System.Web;
 
 namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
 {
-    public class EntregaPlacasGraficas
+    public class DetalleGuardarJson
     {
+        public int Accion { get; set; }
         public int RequisicionID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public int DetalleArmadoID { get; set; }
         public int DocumentoRecibidoID { get; set; }
         public int DocumentoEstatusID { get; set; }
         public int DocumentoDefectoID { get; set; }
-        public int UsuarioID { get; set; }
-        public bool Activo { get; set; }
-        public int Accion { get; set; }
+        public int Estatus { get; set; }
     }
 
     public class DocumentoRecibido
@@ -54,9 +55,10 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
     public class RequisicionDetalle
     {
         public int RequisicionID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }        
         public string NumeroControl { get; set; }
-        public int JuntaID { get; set; }
-        public string Junta { get; set; }
+        public int DetalleArmadoID { get; set; }
+        public string JuntaEtiqueta { get; set; }
         public int ClasificacionPndID { get; set; }
         public string ClasificacionPnd { get; set; }
         public int TipoPruebaID { get; set; }
@@ -79,7 +81,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
 
     public class CapturaPlacasGraficas
     {
-        public List<EntregaPlacasGraficas> ListaDetalles { get; set; }
+        public List<DetalleGuardarJson> Detalles { get; set; }
     }
     
     public class CamposPredeterminados
