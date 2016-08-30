@@ -7037,7 +7037,7 @@ _dictionary = {
         "en-US": "Physicals conditions"
     },
     "lblCondicionesFisicas1": {
-        "es-MX": "Condiciones Físicas del Documento",
+        "es-MX": "Condiciones Físicas docto",
         "en-US": "Physicals conditions"
     },
     "lblDefectos": {
@@ -7257,12 +7257,12 @@ _dictionary = {
         "en-US": "Received"
     },
     "columnCondicionesFisicas": {
-        "es-MX": "Cond Fis SIN LUZ",
+        "es-MX": "Cond Físicas SIN LUZ",
         "en-US": "Physical cond WITHOUT LIGHT"
     },
     "columnCondicionesFisicas1": {
         "es-MX": "Cond Físicas Docto",
-        "en-US": "Physical conditions documents"
+        "en-US": "Physical cond documents"
     },
     "columnDefectosRechazos": {
         "es-MX": "Defectos",
@@ -7326,6 +7326,30 @@ _dictionary = {
     "EntregaPlacasGraficasPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
         "en-US": "Are you sure to replace all data"
+    },
+    "EntregaPlacasGraficasMensajePreguntaGuardado": {
+        "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
+        "en-US": "Marked records will not be saved. Continue anyway?"
+    },
+    "EntregaPlacasGraficasExcepcionGuardado": {
+        "es-MX": "No hay datos para guardar.",
+        "en-US": "No data to save."
+    },
+    "EntregaPlacasGraficasbotonSi": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "EntregaPlacasGraficasbotonNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
+    "EntregaPlacasGraficasMensajeGuardadoExistoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "EntregaPlacasGraficasMensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
     },
     // Finaliza Entrega Placas-Graficas
 
