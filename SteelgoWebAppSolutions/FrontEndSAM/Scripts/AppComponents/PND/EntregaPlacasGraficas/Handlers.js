@@ -11,14 +11,19 @@
 
 function SuscribirEventoProyecto() {
     $("#inputProyecto").kendoComboBox({
-        dataTextField: "idProyecto",
-        dataValueField: "Proyecto",
+        dataTextField: "Nombre",
+        dataValueField: "ProyectoID",
         suggest: true,
         delay: 10,
         filter: "contains",
         index: 3,
         change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
 
+            } else {
+                $("#inputProyecto").data("kendoComboBox").value("");
+            }
         }
     })
 }
@@ -32,7 +37,12 @@ function SuscribirEventoProveedor() {
         filter: "contains",
         index: 3,
         change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
 
+            } else {
+                $("#inputProveedor").data("kendoComboBox").value("");
+            }
         }
     })
 }
@@ -46,9 +56,14 @@ function SuscribirEventoRequisicion() {
         filter: "contains",
         index: 3,
         change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
 
-        }
-    })
+            } else {
+                $("#inputRequisicion").data("kendoComboBox").value("");
+            }
+        }        
+    });
 }
 
 function SuscribirEventoRecibido() {

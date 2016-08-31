@@ -1,11 +1,43 @@
 ﻿function AjaxCargarCamposPredeterminados() {
-    console.log("Hola personi!");
+    var token = Cookies.get("token");
+    var tipoCampo = 3050;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: token, lenguaje: $("#language").val(), id:  tipoCampo}).done(function (data) {
+        if (data == "sin captura") {
+            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+        }
+        else if (data == "Todos") {
+            $('input:radio[name=Muestra]:nth(1)').trigger("click");
+        }
+        AjaxCargaTipoLlenado();
+    });
+}
+function AjaxCargaTipoLlenado() {
+    var token = Cookies.get("token");
+    var tipoCampo = 3051;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: token, lenguaje: $("#language").val(), id: tipoCampo }).done(function (data) {
+        if (data == "vacios") {
+            $('input:radio[name=Planchar]:nth(0)').trigger("click");
+        }
+        else if (data == "Todos") {
+            $('input:radio[name=Planchar]:nth(1)').trigger("click");
+        }        
+    });
+}
+
+function AjaxCargaListaProyectos() {
+    var token = Cookies.get("token");
+    $Proyectos.Proyectos.read({ token: token }).done(function (data) {
+        $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
+        $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+    });
 }
 
 function AjaxCargaListaDocumentoRecibido() {
     var token = Cookies.get("token");
     var respuesta = 1;
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
+    var lenguaje = $("#language").val();
+
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta, lenguaje: lenguaje }).done(function (data) {
         $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
         $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
         AjaxCargaListaDocumentoEstatus();
@@ -16,7 +48,9 @@ function AjaxCargaListaDocumentoRecibido() {
 function AjaxCargaListaDocumentoEstatus() {
     var token = Cookies.get("token");
     var respuesta = 2;
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
+    var lenguaje = $("#language").val();
+
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta, lenguaje: lenguaje }).done(function (data) {
         $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data([]);
         $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data(data);
         AjaxCargaListaDocumentoDefecto();
@@ -26,7 +60,9 @@ function AjaxCargaListaDocumentoEstatus() {
 function AjaxCargaListaDocumentoDefecto() {
     var token = Cookies.get("token");
     var respuesta = 3;
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
+    var lenguaje = $("#language").val();
+
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta, lenguaje: lenguaje }).done(function (data) {
         $("#inputDefectos").data("kendoComboBox").dataSource.data([]);
         $("#inputDefectos").data("kendoComboBox").dataSource.data(data);
     });
@@ -35,7 +71,12 @@ function AjaxCargaListaDocumentoDefecto() {
 
 function AjaxObtieneDetalleRequisicion() {
     var token = Cookies.get("token");
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, proyectoID: 0, proveedorID: 0, requisicionID: 0 }).done(function (data) {
+    var proyectoID = $("#inputProyecto").data("kendoComboBox").value("");
+    var proveedorID = $("#inputProveedor").data("kendoComboBox").value("");
+    var requisicionID = $("#inputRequisicion").data("kendoComboBox").value("");
+    var lenguaje = $("#language").val();
+    
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, proyectoID: proyectoID, proveedorID: proveedorID, requisicionID: requisicionID, lenguaje: lenguaje }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var tipoPrueba;

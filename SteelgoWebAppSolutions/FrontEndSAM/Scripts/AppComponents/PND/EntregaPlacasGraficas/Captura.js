@@ -5,9 +5,10 @@ function IniciarCapturaPlacasGraficas() {
 
 function changeLanguageCall() {
     cargarGrid();
+    AjaxCargarCamposPredeterminados();
+    AjaxCargaListaProyectos();
     AjaxCargaListaDocumentoRecibido();
     document.title = _dictionary.ServiciosTecnicosEntregaPGBreadcrumb[$("#language").data("kendoDropDownList").value()];
-    loadingStop();
 }
 
 function cargarGrid() {

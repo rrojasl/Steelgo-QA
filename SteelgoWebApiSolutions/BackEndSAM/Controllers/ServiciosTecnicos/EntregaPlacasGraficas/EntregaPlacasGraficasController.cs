@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
     public class EntregaPlacasGraficasController : ApiController
     {
         [HttpGet]
-        public object ObtieneCatalogos(string token, int numeroCatalogo)
+        public object ObtieneCatalogos(string token, int numeroCatalogo, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -30,13 +30,13 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 if (numeroCatalogo == 1)
                 {
-                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido();
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje);
                 }else if (numeroCatalogo == 2)
                 {
-                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus();
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje);
                 }else if (numeroCatalogo == 3)
                 {
-                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto();
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje);
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
 
         
         [HttpGet]
-        public object ObtenerDetalleRequisicion(string token, int proyectoID, int proveedorID, int requisicionID)
+        public object ObtenerDetalleRequisicion(string token, int proyectoID, int proveedorID, int requisicionID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -71,7 +71,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EntregaPlacasGraficasBD.Instance.ObtenerDetalleRequisicion(proyectoID, proveedorID, requisicionID);
+                return EntregaPlacasGraficasBD.Instance.ObtenerDetalleRequisicion(proyectoID, proveedorID, requisicionID, lenguaje);
             }
             else
             {

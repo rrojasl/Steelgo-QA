@@ -31,13 +31,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerListadoDocumentoRecibido()
+        public object ObtenerListadoDocumentoRecibido(string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ST_EPG_ObtieneCatalogoRecibido_Result> result = ctx.Sam3_ST_EPG_ObtieneCatalogoRecibido().ToList();
+                    List<Sam3_ST_EPG_ObtieneCatalogoRecibido_Result> result = ctx.Sam3_ST_EPG_ObtieneCatalogoRecibido(lenguaje).ToList();
                     List<DocumentoRecibido> lista = new List<DocumentoRecibido>();
                     DocumentoRecibido vacio = new DocumentoRecibido();
                     lista.Add(vacio);
@@ -66,13 +66,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerListadoDocumentoEstatus()
+        public object ObtenerListadoDocumentoEstatus(string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ST_EPG_ObtieneEstatusDocumento_Result> result = ctx.Sam3_ST_EPG_ObtieneEstatusDocumento().ToList();
+                    List<Sam3_ST_EPG_ObtieneEstatusDocumento_Result> result = ctx.Sam3_ST_EPG_ObtieneEstatusDocumento(lenguaje).ToList();
                     List<DocumentoEstatus> lista = new List<DocumentoEstatus>();
                     DocumentoEstatus vacio = new DocumentoEstatus();
                     lista.Add(vacio);
@@ -101,13 +101,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerListadoDocumentoDefecto()
+        public object ObtenerListadoDocumentoDefecto(string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ST_EPG_ObtieneDefectosDocumentos_Result> result = ctx.Sam3_ST_EPG_ObtieneDefectosDocumentos().ToList();
+                    List<Sam3_ST_EPG_ObtieneDefectosDocumentos_Result> result = ctx.Sam3_ST_EPG_ObtieneDefectosDocumentos(lenguaje).ToList();
                     List<DocumentoDefecto> lista = new List<DocumentoDefecto>();
                     DocumentoDefecto vacio = new DocumentoDefecto();
                     lista.Add(vacio);
@@ -136,7 +136,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerDetalleRequisicion(int proyectoID, int proveedorID, int requisicionID)
+        public object ObtenerDetalleRequisicion(int proyectoID, int proveedorID, int requisicionID, string lenguaje)
         {
             try
             {
@@ -167,9 +167,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         DocumentoEstatus = "",
                         DefectoDocumentoID = 0,
                         DefectoDocumento = "",
-                        ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(),
-                        ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(),
-                        ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto()
+                        ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
+                        ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
+                        ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
                     });
                     return listaDetalle;
                 }
