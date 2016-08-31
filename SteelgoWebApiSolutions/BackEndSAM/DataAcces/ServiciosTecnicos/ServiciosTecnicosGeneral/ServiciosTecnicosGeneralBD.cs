@@ -64,5 +64,43 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                 return result;
             }
         }
+
+        public object ObtenerListadoRequisiciones(Sam3_Usuario usuario, int proyectoID, int tipoPruebaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Requisicion> listaRequisiciones = new List<Requisicion>();
+                    List<Sam3_ST_Get_ListaRequisiciones_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_ListaRequisiciones(usuario.UsuarioID, proyectoID, tipoPruebaID).ToList();
+                    listaRequisiciones.Add(new Requisicion());
+                    foreach (Sam3_ST_Get_ListaRequisiciones_Result item in listaRequisicionesCTX)
+                    {
+                        listaRequisiciones.Add(new Requisicion
+                        {
+                            RequisicionID = item.RequisicionID,
+                            ProyectoID = item.ProyectoID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            NombreRequisicion = item.NombreRequisicion
+                        });
+                    }
+
+                    return listaRequisiciones;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

@@ -24,7 +24,13 @@ function AjaxGetListaProyectos() {
 
 function AjaxGetListaTiposDePrueba() {
     $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        //$("#tipoPrueba").data("kendoComboBox").value("");
         $("#tipoPrueba").data("kendoComboBox").dataSource.data(data);
+    });
+}
+
+function AjaxGetListaRequisiciones(proyectoID, tipoPruebaID) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID }).done(function (data) {
+        $("#listaRequisiciones").data("kendoComboBox").value("");
+        $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
     });
 }

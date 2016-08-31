@@ -18,4 +18,20 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
         public string Categoria { get; set; }
         public int TipoPruebaPorSpool { get; set; }
     }
+
+    public class Requisicion
+    {
+        public Requisicion()
+        {
+            RequisicionID = 0;
+            ProyectoID = 0;
+            TipoPruebaID = 0;
+            NombreRequisicion = "";
+        }
+
+        public int RequisicionID { get; set; }
+        public int ProyectoID { get; set; }
+        public int TipoPruebaID { get; set; }
+        public string NombreRequisicion { get; set; }
+    }
 }
