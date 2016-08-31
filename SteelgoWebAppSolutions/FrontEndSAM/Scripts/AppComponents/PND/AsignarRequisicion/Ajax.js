@@ -3,7 +3,7 @@
 
 function AjaxObtenerProyectos() {
     loadingStart();
-    $AsignarRequisicion.AsignarRequisicion.read({ token: Cookies.get("token") }).done(function (data) {
+    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         $("#inputProyecto").data("kendoComboBox").value("");
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
         loadingStop();

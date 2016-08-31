@@ -9,7 +9,7 @@ IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
     SuscribirEventos();
-    //setTimeout(function () { AjaxObtenerProyectos(); }, 100);
+    setTimeout(function () { AjaxObtenerProyectos(); }, 100);
 
 };
 
