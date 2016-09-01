@@ -7,6 +7,7 @@ namespace BackEndSAM.Models.Sam3General
         public Proyectos() {
             ProyectoID = 0;
             Nombre = "";
+            PatioID = 0;
             PrefijoOrdenTrabajo = "";
         }
         public int ProyectoID { get; set; }
