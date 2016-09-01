@@ -148,10 +148,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
 
                     listaDetalle.Add(new RequisicionDetalle
                     {
+                        Accion = 1,
+                        EntregaPlacasGraficasID = 0,
                         RequisicionID = 1,
-                        OrdenTrabajoSpoolID = 1,
+                        OrdenTrabajoID = 1,
+                        SpoolID = 22,
+                        JuntaID = 1,
                         NumeroControl = "X002-001",
-                        DetalleArmadoID = 1,
                         JuntaEtiqueta = "1",
                         ClasificacionPndID = 1,
                         ClasificacionPnd = "RT-M",
@@ -160,7 +163,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         Observaciones = "Ninguna Observación",
                         CodigoAsmeID = 1,
                         CodigoAsme = "ASME B31.3",
-                        Accion = 1,
                         DocumentoRecibidoID = 0,
                         DocumentoRecibido = "",
                         DocumentoEstatusID = 0,
@@ -219,7 +221,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
 
                 return result;
             }
-            return null;
         }
     }
 }

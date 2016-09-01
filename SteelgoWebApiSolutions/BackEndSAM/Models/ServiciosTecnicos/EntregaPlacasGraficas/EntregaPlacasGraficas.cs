@@ -54,10 +54,12 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         
     public class RequisicionDetalle
     {
+        public int EntregaPlacasGraficasID { get; set; }
         public int RequisicionID { get; set; }
-        public int OrdenTrabajoSpoolID { get; set; }        
+        public int OrdenTrabajoID { get; set; }
+        public int SpoolID { get; set; }
+        public int JuntaID { get; set; }
         public string NumeroControl { get; set; }
-        public int DetalleArmadoID { get; set; }
         public string JuntaEtiqueta { get; set; }
         public int ClasificacionPndID { get; set; }
         public string ClasificacionPnd { get; set; }

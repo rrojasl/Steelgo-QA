@@ -18,10 +18,12 @@ function cargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
+                        EntregaPlacasGraficasID: { type: "number", editable: false },
                         RequisicionID: { type: "number", editable: false },
-                        OrdenTrabajoSpoolID: { type: "number", editable: false },
+                        OrdenTrabajoID: { type: "number", editable: false },
+                        SpoolID: { type: "number", editable: false },
+                        JuntaID: { type: "number", editable: false },
                         NumeroControl: { type: "string", editable: false },
-                        DetalleArmadoID:{ type: "number", editable: false },
                         JuntaEtiqueta: { type: "number", editable: false },
                         ClasificacionPndID: { type: "number", editable: false },
                         ClasificacionPnd: { type: "string", editable: false },

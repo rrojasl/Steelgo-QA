@@ -20,7 +20,9 @@ function SuscribirEventoProyecto() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-
+                if (dataItem.ProyectoID != 0) {
+                    AjaxCargaListaProveedores(dataItem.ProyectoID, dataItem.PatioID);
+                }
             } else {
                 $("#inputProyecto").data("kendoComboBox").value("");
             }
@@ -30,8 +32,8 @@ function SuscribirEventoProyecto() {
 
 function SuscribirEventoProveedor() {
     $("#inputProveedor").kendoComboBox({
-        dataTextField: "idProveedor",
-        dataValueField: "Proveedor",
+        dataTextField: "Nombre",
+        dataValueField: "ProveedorID",
         suggest: true,
         delay: 10,
         filter: "contains",
@@ -77,7 +79,12 @@ function SuscribirEventoRecibido() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-
+                if (dataItem.DocumentoRecibidoID == 1) {
+                    $("#inputCondicionesFisicas").data("kendoComboBox").value(1);
+                    $("#inputCondicionesFisicas").data("kendoComboBox").trigger("change");
+                } else {
+                    $("#inputCondicionesFisicas").data("kendoComboBox").value("");
+                }
             } else {
                 $("#inputDocumentoRecibido").data("kendoComboBox").value("");
             }
@@ -249,14 +256,4 @@ function disableEnableView(disable) {
         $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     }
-}
-
-function validaInformacion(lista) {
-    for (var i = 0; i < lista.length; i++) {
-        if (lista[i].DocumentoRecibido == "" || lista[i].DocumentoEstatus == "" ||
-            (lista[i].DocumentoEstatusID === 2 && lista[i].DefectoDocumentoID =="")) {
-            return false;
-        }
-    }
-    return true;
 }
