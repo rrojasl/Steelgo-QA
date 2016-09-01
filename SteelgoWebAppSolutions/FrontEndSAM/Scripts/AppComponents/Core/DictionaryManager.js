@@ -7056,6 +7056,16 @@ _dictionary = {
         "es-MX": "Todos",
         "en-US": "All"
     },
+    "lblEquipo": {
+        "es-MX": "Equipo",
+        "en-US": "Equipament"
+    },
+    "lblTurno": {
+        "es-MX": "Turno",
+        "en-US": "Inning"
+    },
+   
+
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",

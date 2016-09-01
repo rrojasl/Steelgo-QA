@@ -5,6 +5,10 @@
     suscribirEventoJuntas();
     SuscribirEventoCerrarPopUpJuntas();
     SuscribirEventoComboProyecto();
+    SuscribirEventoComboProveedor();
+    SuscribirEventoComboEquipo();
+    SuscribirEventoComboTurno();
+    SuscribirEventoComboRequisicion();
 };
 
 
@@ -44,14 +48,14 @@ function suscribirEventoChangeRadio() {
 function SuscribirEventoComboPrueba() {
     $('#inputPrueba').kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "PruebasID",
+        dataValueField: "TipoPruebaID",
         suggest: true,
         filter: "contains",
         index: 3,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-                AjaxCargarRequisicionAsignacion();
+                AjaxObtenerProveedor();
 
             }
             else {
@@ -62,6 +66,31 @@ function SuscribirEventoComboPrueba() {
     });
 
 };
+
+
+function SuscribirEventoComboProveedor() {
+    $('#inputProveedor').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ProveedorID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                
+            }
+            else {
+                $("#inputProveedor").data("kendoComboBox").value("");
+
+            }
+        }
+    });
+
+};
+
+
+
 
 function SuscribirEventoComboProyecto() {
     $('#inputProyecto').kendoComboBox({
@@ -77,6 +106,74 @@ function SuscribirEventoComboProyecto() {
             }
             else {
                 $("#inputPrueba").data("kendoComboBox").value("");
+
+            }
+        }
+    });
+
+};
+
+
+function SuscribirEventoComboEquipo() {
+    $('#inputEquipo').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "EquipoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                AjaxCargarRequisicionAsignacion();
+
+            }
+            else {
+                $("#inputEquipo").data("kendoComboBox").value("");
+
+            }
+        }
+    });
+
+};
+
+function SuscribirEventoComboTurno() {
+    $('#inputTurno').kendoComboBox({
+        dataTextField: "Turno",
+        dataValueField: "TurnoLaboralID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                AjaxCargarRequisicionAsignacion();
+
+            }
+            else {
+                $("#inputTurno").data("kendoComboBox").value("");
+
+            }
+        }
+    });
+
+};
+
+
+function SuscribirEventoComboRequisicion() {
+    $('#inputRequisicion').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "RequisicionID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                AjaxCargarRequisicionAsignacion();
+
+            }
+            else {
+                $("#inputRequisicion").data("kendoComboBox").value("");
 
             }
         }

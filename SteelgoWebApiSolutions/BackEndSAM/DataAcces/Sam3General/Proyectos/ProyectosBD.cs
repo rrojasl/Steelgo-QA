@@ -32,15 +32,16 @@ namespace BackEndSAM.DataAcces.Sam3General.Proyectos
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListaProyectos> listaProyectos = new List<ListaProyectos>();
+                    List<Models.Sam3General.Proyectos> listaProyectos = new List<Models.Sam3General.Proyectos>();
                     List<Sam3_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_Get_ListaProyectos(usuario.UsuarioID).ToList();
-                    listaProyectos.Add(new ListaProyectos());
+                    listaProyectos.Add(new Models.Sam3General.Proyectos());
                     foreach (Sam3_Get_ListaProyectos_Result item in listaProyectosCTX)
                     {
-                        listaProyectos.Add(new ListaProyectos
+                        listaProyectos.Add(new Models.Sam3General.Proyectos
                         {
                             ProyectoID = item.ProyectoID,
                             Nombre = item.Nombre,
+                            PatioID = item.PatioID,
                             PrefijoOrdenTrabajo = item.PrefijoOrdenTrabajo
                         });
                     }

@@ -118,6 +118,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                         listaProveedores.Add(new Proveedor
                         {
                             ProveedorID = item.ProveedorID,
+                            
                             Nombre = item.Proveedor
                         });
                     }

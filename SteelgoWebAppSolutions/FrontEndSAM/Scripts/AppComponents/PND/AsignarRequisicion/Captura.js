@@ -1,5 +1,5 @@
 ﻿function changeLanguageCall() {
-    //AjaxCargarCamposPredeterminados();
+    AjaxCargarCamposPredeterminados();
     CargarGrid();
     CargarGridPopUp();
     document.title = _dictionary.ServiciosTecnicosAsignarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];

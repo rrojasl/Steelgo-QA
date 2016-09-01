@@ -2,15 +2,16 @@
 
 namespace BackEndSAM.Models.Sam3General
 {
-    public class ListaProyectos
+    public class Proyectos
     {
-        public ListaProyectos() {
+        public Proyectos() {
             ProyectoID = 0;
             Nombre = "";
             PrefijoOrdenTrabajo = "";
         }
         public int ProyectoID { get; set; }
         public string Nombre { get; set; }
+        public int PatioID { get; set; }
         public string PrefijoOrdenTrabajo { get; set; }
     }
 }
