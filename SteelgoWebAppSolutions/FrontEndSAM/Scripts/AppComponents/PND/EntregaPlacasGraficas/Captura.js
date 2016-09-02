@@ -22,7 +22,7 @@ function cargarGrid() {
                         RequisicionID: { type: "number", editable: false },
                         OrdenTrabajoID: { type: "number", editable: false },
                         SpoolID: { type: "number", editable: false },
-                        JuntaID: { type: "number", editable: false },
+                        JuntaSpoolID: { type: "number", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         JuntaEtiqueta: { type: "number", editable: false },
                         ClasificacionPndID: { type: "number", editable: false },

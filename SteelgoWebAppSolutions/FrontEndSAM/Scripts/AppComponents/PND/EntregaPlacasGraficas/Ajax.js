@@ -117,7 +117,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
             listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
             listaDetalles[cont].SpoolID = ds[i].SpoolID;
-            listaDetalles[cont].JuntaID = ds[i].JuntaID;
+            listaDetalles[cont].JuntaID = ds[i].JuntaSpoolID;
             listaDetalles[cont].DocumentoRecibidoID = ds[i].DocumentoRecibidoID;
             listaDetalles[cont].DocumentoEstatusID = ds[i].DocumentoEstatusID;
             listaDetalles[cont].DocumentoDefectoID = ds[i].DefectoDocumentoID;

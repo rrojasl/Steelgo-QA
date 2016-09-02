@@ -9,8 +9,9 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
     {
         public int Accion { get; set; }
         public int RequisicionID { get; set; }
-        public int OrdenTrabajoSpoolID { get; set; }
-        public int DetalleArmadoID { get; set; }
+        public int OrdenTrabajoID { get; set; }
+        public int SpoolID { get; set; }
+        public int JuntaID { get; set; }
         public int DocumentoRecibidoID { get; set; }
         public int DocumentoEstatusID { get; set; }
         public int DocumentoDefectoID { get; set; }
@@ -58,7 +59,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public int RequisicionID { get; set; }
         public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
-        public int JuntaID { get; set; }
+        public int JuntaSpoolID { get; set; }
         public string NumeroControl { get; set; }
         public string JuntaEtiqueta { get; set; }
         public int ClasificacionPndID { get; set; }

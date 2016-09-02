@@ -153,7 +153,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         RequisicionID = 1,
                         OrdenTrabajoID = 1,
                         SpoolID = 22,
-                        JuntaID = 1,
+                        JuntaSpoolID = 1,
                         NumeroControl = "X002-001",
                         JuntaEtiqueta = "1",
                         ClasificacionPndID = 1,
