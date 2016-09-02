@@ -48,4 +48,29 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
         public int ProveedorID { get; set; }
         public string Nombre { get; set; }
     }
+
+    public class Equipo
+    {
+        public Equipo()
+        {
+            EquipoID = 0;
+            Nombre = "";
+            ProveedorEquipoID = 0;
+            TipoPruebaProveedorID = 0;
+        }
+        public int EquipoID { get; set; }
+        public string Nombre { get; set; }
+        public int ProveedorEquipoID { get; set; }
+        public int TipoPruebaProveedorID { get; set; }
+    }
+
+    public class TurnoLaboral
+    {
+        public int TurnoLaboralID { get; set; }
+        public string Nombre { get; set; }
+        public int Capacidad { get; set; }
+        public int TipoPruebaProveedorID { get; set; }
+        public int CapacidadTurnoProveedorID { get; set; }
+        public int CapacidadTurnoEquipoID { get; set; }
+    }
 }

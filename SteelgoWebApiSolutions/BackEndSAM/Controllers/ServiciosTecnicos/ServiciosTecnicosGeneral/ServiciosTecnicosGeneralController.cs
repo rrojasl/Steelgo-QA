@@ -117,5 +117,76 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
             }
         }
 
+        [HttpGet]
+        public object GetTurnoLaboral(string token, int TipoPruebaID, int ProveedorID, int EquipoID, string Lenguaje )
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoTurnos( TipoPruebaID,ProveedorID,EquipoID,Lenguaje);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object GetEquipo(string token, int TipoPruebaID, int ProveedorID, string lenguaje)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(Usuario, TipoPruebaID, ProveedorID, lenguaje);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
     }
 }

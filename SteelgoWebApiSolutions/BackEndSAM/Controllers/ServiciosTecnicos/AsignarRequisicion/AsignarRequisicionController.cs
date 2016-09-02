@@ -14,8 +14,9 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
 {
     public class AsignarRequisicionController : ApiController
     {
+        
         [HttpGet]
-        public object GetProveedores(string lenguaje, string token, int idPrueba, int ConsultaDetalle)
+        public object GetAsignarRequisicion(string lenguaje, string token, string mostrar, int idPrueba, int proyectoID)
         {
             //Create a generic return object
             string payload = "";
@@ -25,7 +26,9 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return new object();
+                int tipoVista = mostrar == "Todos" ? 1 : 2;
+
+                return new object();// AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, idPrueba, proyectoID);
             }
             else
             {
@@ -38,5 +41,6 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
             }
 
         }
+
     }
 }

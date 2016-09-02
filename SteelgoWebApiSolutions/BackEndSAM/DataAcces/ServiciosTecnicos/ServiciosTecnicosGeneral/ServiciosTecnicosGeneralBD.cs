@@ -141,5 +141,83 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
             }
         }
 
+        public object ObtenerListadoTurnos( int tipoPruebaID, int proveedorID, int equipoID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<TurnoLaboral> listaProveedores = new List<TurnoLaboral>();
+                    List<Sam3_ST_Get_TurnoLaboral_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_TurnoLaboral(tipoPruebaID, proveedorID,equipoID, lenguaje).ToList();
+                    listaProveedores.Add(new TurnoLaboral());
+                    foreach (Sam3_ST_Get_TurnoLaboral_Result item in listaRequisicionesCTX)
+                    {
+                        listaProveedores.Add(new TurnoLaboral
+                        {
+                            TurnoLaboralID = item.TurnoLaboralID,
+                            Nombre = item.Turno,
+                            Capacidad = item.Capacidad,
+                            TipoPruebaProveedorID = item.TipoPruebaProveedorID,
+                            CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
+                            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID
+                        });
+                    }
+
+                    return listaProveedores;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoEquipos(Sam3_Usuario usuario, int tipoPruebaID, int proveedorID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Equipo> listaProveedores = new List<Equipo>();
+                    List<Sam3_ST_Get_Equipo_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_Equipo( tipoPruebaID, proveedorID,lenguaje).ToList();
+                    listaProveedores.Add(new Equipo());
+                    foreach (Sam3_ST_Get_Equipo_Result item in listaRequisicionesCTX)
+                    {
+                        listaProveedores.Add(new Equipo
+                        {
+                            EquipoID = item.EquipoID,
+                            Nombre = item.Equipo,
+                            ProveedorEquipoID = item.ProveedorEquipoID.GetValueOrDefault(),
+                            TipoPruebaProveedorID = item.TipoPruebaProveedorID
+                        });
+                    }
+
+                    return listaProveedores;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }
