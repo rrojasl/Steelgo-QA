@@ -20,6 +20,14 @@
                 if (dataItem != undefined) {
                     options.model.DocumentoRecibido = dataItem.DocumentoRecibidoNombre;
                     options.model.DocumentoRecibidoID = dataItem.DocumentoRecibidoID;
+                                       
+                    if (options.model.DocumentoRecibidoID == 1) {
+                        options.model.DocumentoEstatusID = options.model.ListaEstatusDocumento[1].DocumentoEstatusID;
+                        options.model.DocumentoEstatus = options.model.ListaEstatusDocumento[1].DocumentoEstatusNombre;
+                     } else {
+                         options.model.DocumentoEstatus = "";
+                         options.model.DocumentoEstatusID = 0;
+                     }
                 }
                 else {
                     options.model.DocumentoRecibido = ObtenerDocumentoRecibidoCorrecto(options.model.ListaRecibido, options.model.DocumentoRecibidoID);                    
@@ -60,6 +68,14 @@ function RenderComboBoxDocumentoEstatus(container, options) {
                 if (dataItem != undefined) {
                     options.model.DocumentoEstatus = dataItem.DocumentoEstatusNombre;
                     options.model.DocumentoEstatusID = dataItem.DocumentoEstatusID;
+
+                    if(dataItem.DocumentoEstatusID == 2){
+                        options.model.__proto__.fields.DefectoDocumento.editable = true;
+                    } else {
+                        options.model.DefectoDocumento = "";
+                        options.model.DefectoDocumentoID = 0;
+                        options.model.__proto__.fields.DefectoDocumento.editable = false;
+                    }
                 }
                 else {
                     options.model.DocumentoEstatus = ObtenerDocumentoEstatusCorrecto(options.model.ListaEstatusDocumento, options.model.DocumentoEstatusID);
