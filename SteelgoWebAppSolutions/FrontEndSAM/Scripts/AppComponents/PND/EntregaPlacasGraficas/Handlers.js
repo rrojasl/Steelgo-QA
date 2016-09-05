@@ -22,6 +22,7 @@ function SuscribirEventoProyecto() {
             if (dataItem != undefined) {
                 if (dataItem.ProyectoID != 0) {
                     AjaxCargaListaProveedores(dataItem.ProyectoID, dataItem.PatioID);
+                    AjaxCargaListaRequisicion(dataItem.ProyectoID);
                 }
             } else {
                 $("#inputProyecto").data("kendoComboBox").value("");
@@ -51,8 +52,8 @@ function SuscribirEventoProveedor() {
 
 function SuscribirEventoRequisicion() {
     $("#inputRequisicion").kendoComboBox({
-        dataTextField: "idFuente",
-        dataValueField: "Fuente",
+        dataTextField: "NombreRequisicion",
+        dataValueField: "RequisicionID",
         suggest: true,
         delay: 10,
         filter: "contains",

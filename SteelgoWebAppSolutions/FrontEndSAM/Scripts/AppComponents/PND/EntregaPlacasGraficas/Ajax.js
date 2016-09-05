@@ -33,9 +33,16 @@ function AjaxCargaListaProveedores(proyectoID, patioID) {
     var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
     var tipoPruebaID = 0;//Requisicion.TipoPruebaID!=undefined && Requisicion.TipoPruebaID!=0?Requisicion.TipoPruebaID:0;
 
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, PatioID: patioID, TipoPruebaID: tipoPruebaID }).done(function (data) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, PatioID: patioID, TipoPruebaID: tipoPruebaID, entregaPlacas: 1 }).done(function (data) {
         $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
-        $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+        $("#inputProveedor").data("kendoComboBox").dataSource.data(data);        
+    });
+}
+
+function AjaxCargaListaRequisicion(proyectoID) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val(), proveedorID: 0}).done(function (data) {
+        $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+        $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
     });
 }
 

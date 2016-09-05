@@ -125,6 +125,11 @@ function PlanchaDocumentoEstatus(tipoLlenado) {
                 data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
             }
         }
+        if (data[i].DocumentoEstatusID == 1) {
+            data[i].__proto__.fields.DefectoDocumento.editable = false;
+        } else {
+            data[i].__proto__.fields.DefectoDocumento.editable = true;
+        }
     }
 
     $("#grid").data("kendoGrid").dataSource.sync();
