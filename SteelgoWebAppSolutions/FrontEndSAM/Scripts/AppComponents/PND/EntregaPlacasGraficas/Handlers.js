@@ -22,7 +22,7 @@ function SuscribirEventoProyecto() {
             if (dataItem != undefined) {
                 if (dataItem.ProyectoID != 0) {
                     AjaxCargaListaProveedores(dataItem.ProyectoID, dataItem.PatioID);
-                    AjaxCargaListaRequisicion(dataItem.ProyectoID);
+                    AjaxCargaListaRequisicion(dataItem.ProyectoID, 0);
                 }
             } else {
                 $("#inputProyecto").data("kendoComboBox").value("");
@@ -42,7 +42,9 @@ function SuscribirEventoProveedor() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-
+                if (dataItem.ProveedorID != 0) {
+                    AjaxCargaListaRequisicion($("#inputProyecto").data("kendoComboBox").value(), dataItem.ProveedorID);
+                }
             } else {
                 $("#inputProveedor").data("kendoComboBox").value("");
             }
@@ -61,7 +63,14 @@ function SuscribirEventoRequisicion() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-
+                if (dataItem.RequisicionID != 0) {
+                    if ($("#inputProveedor").data("kendoComboBox").value() == "0" || $("#inputProveedor").data("kendoComboBox").value() == "") {
+                        $("#inputProveedor").data("kendoComboBox").value(1);
+                        $("#inputProveedor").data("kendoComboBox").trigger("change");
+                        AjaxObtieneDetalleRequisicion();
+                    }
+                    
+                }
             } else {
                 $("#inputRequisicion").data("kendoComboBox").value("");
             }

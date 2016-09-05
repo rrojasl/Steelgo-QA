@@ -86,10 +86,32 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
     {
         public List<DetalleGuardarJson> Detalles { get; set; }
     }
-    
-    public class CamposPredeterminados
+
+    public class Requisicion
     {
-        public string Muestra { get; set; }
-        public string Llenado { get; set; }
+        public Requisicion()
+        {
+            RequisicionID = 0;
+            ProyectoID = 0;
+            TipoPruebaID = 0;
+            NombreRequisicion = "";
+        }
+
+        public int RequisicionID { get; set; }
+        public int ProyectoID { get; set; }
+        public int TipoPruebaID { get; set; }
+        public string NombreRequisicion { get; set; }
+    }
+
+    public class Proveedor
+    {
+        public Proveedor()
+        {
+            ProveedorID = 0;
+            Nombre = "";
+        }
+
+        public int ProveedorID { get; set; }
+        public string Nombre { get; set; }
     }
 }
