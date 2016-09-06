@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Proyectos
                         {
                             ProyectoID = item.ProyectoID,
                             Nombre = item.Nombre,
-                            PatioID = item.PatioID,
+                           // PatioID = item.PatioID,
                             PrefijoOrdenTrabajo = item.PrefijoOrdenTrabajo
                         });
                     }
@@ -54,6 +54,41 @@ namespace BackEndSAM.DataAcces.Sam3General.Proyectos
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerIDOrdenTrabajo(Sam3_Usuario usuario, string ordentrabajo, int tipo, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Spool> listaOrdenTrabajoSpool = (from ordentrabajoSpool in ctx.Sam3_Steelgo_Get_SpoolID(tipo,ordentrabajo,lenguaje)
+                                                                            select new Spool
+                                                                            {
+                                                                                HabilitadoHoldFecha= ordentrabajoSpool.HabilitadoHoldFecha,
+                                                                                Nombre= ordentrabajoSpool.ID,
+                                                                                SpoolID= ordentrabajoSpool.OrdenTrabajoSpoolID,
+                                                                                Proyecto= ordentrabajoSpool.NombreProyecto,
+                                                                                ProyectoID= ordentrabajoSpool.ProyectoID,
+                                                                                Status= ordentrabajoSpool.status,
+                                                                                OrdenTrabajo= ordentrabajoSpool.OrdenTrabajo
+                                                                            }).AsParallel().ToList().OrderBy(x => x.CedulaTuboCalificadoDesc).ToList<Spool>();
+                    listaOrdenTrabajoSpool.Insert(0, new Spool());
+
+                    return listaOrdenTrabajoSpool;
+
+                }
+            }
+            catch (Exception ex)
+            {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
