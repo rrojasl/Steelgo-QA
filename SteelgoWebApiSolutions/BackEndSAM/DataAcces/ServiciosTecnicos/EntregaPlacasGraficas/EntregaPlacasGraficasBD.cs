@@ -255,6 +255,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             DocumentoEstatus = item.Accion == 1 ? estatusDefault : item.DocumentoEstatus,
                             DefectoDocumentoID = item.DocumentoDefectoID,
                             DefectoDocumento = item.DocumentoDefecto,
+                            EstatusCaptura = 0,
                             ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
                             ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
                             ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)

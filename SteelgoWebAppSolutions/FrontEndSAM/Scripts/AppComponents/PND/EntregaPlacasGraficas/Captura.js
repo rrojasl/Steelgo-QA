@@ -37,7 +37,8 @@ function cargarGrid() {
                         DocumentoEstatusID: { type: "number", editable: true },
                         DocumentoEstatus: { type: "string", editable: true },
                         DefectoDocumentoID: { type: "number", editable: true},
-                        DefectoDocumento: { type: "string", editable: true }
+                        DefectoDocumento: { type: "string", editable: true },
+                        EstatusCaptura: { type: "number", editable: true }
                     }
                 }
             },
@@ -76,7 +77,7 @@ function cargarGrid() {
             { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
-            { field: "DocumentoEstatus", title: _dictionary.columnCondicionesFisicas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
+            { field: "DocumentoEstatus", title: _dictionary.columnCondicionesPlacasOGraficas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
             { field: "DefectoDocumento", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
@@ -109,11 +110,13 @@ function PlanchaDocumentoRecibido(tipoLlenado) {
         if (tipoLlenado === "Todos") {
             data[i].DocumentoRecibido = $("#inputDocumentoRecibido").data("kendoComboBox").text();
             data[i].DocumentoRecibidoID = $("#inputDocumentoRecibido").data("kendoComboBox").value();
+            data[i].EstatusCaptura = 1;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].DocumentoRecibido === "" || data[i].DocumentoRecibido === null || data[i].DocumentoRecibido === undefined) {
                 data[i].DocumentoRecibido = $("#inputDocumentoRecibido").data("kendoComboBox").text();
                 data[i].DocumentoRecibidoID = $("#inputDocumentoRecibido").data("kendoComboBox").value();
+                data[i].EstatusCaptura = 1;
             }
         }
     }
@@ -133,11 +136,13 @@ function PlanchaDocumentoEstatus(tipoLlenado) {
         if (tipoLlenado === "Todos") {
             data[i].DocumentoEstatus = $("#inputCondicionesFisicas").data("kendoComboBox").text();
             data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
+            data[i].EstatusCaptura = 1;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].DocumentoEstatus === "" || data[i].DocumentoEstatus === null || data[i].DocumentoEstatus === undefined) {
                 data[i].DocumentoEstatus = $("#inputCondicionesFisicas").data("kendoComboBox").text();
                 data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
+                data[i].EstatusCaptura = 1;
             }
         }
         if (data[i].DocumentoEstatusID == 1) {
@@ -162,11 +167,13 @@ function PlanchaDocumentoDefecto(tipoLlenado) {
         if (tipoLlenado === "Todos") {
             data[i].DefectoDocumento = $("#inputDefectos").data("kendoComboBox").text();
             data[i].DefectoDocumentoID = $("#inputDefectos").data("kendoComboBox").value();
+            data[i].EstatusCaptura = 1;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].DefectoDocumento === "" || data[i].DefectoDocumento === null || data[i].DefectoDocumento === undefined) {
                 data[i].DefectoDocumento = $("#inputDefectos").data("kendoComboBox").text();
                 data[i].DefectoDocumentoID = $("#inputDefectos").data("kendoComboBox").value();
+                data[i].EstatusCaptura = 1;
             }
         }
     }
@@ -207,21 +214,19 @@ function validaInformacionCapturada() {
     var allData = ds.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
+
+    var contador = 0;
     if(data.length>0){        
         for (var i=0; i < data.length; i++) {
-            if (data[i].Accion == 2 ) {
-                if ((data[i].DocumentoRecibidoID == 0 && data[i].DocumentoEstatusID == 0
-                    && data[i].DefectoDocumentoID == 0)) {
-                    return true;
-                }
-            } else if (ds._data[i].Accion == 1) {
-                if ((data[i].DocumentoRecibidoID != 0 || data[i].DocumentoEstatusID != 0
-                    || data[i].DefectoDocumentoID != 0)) {
-                    return true;
-                }
+            if (data[i].EstatusCaptura == 1 ) {
+                contador++;
             }
         }
-        return false;
+        if(contador>0){
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }

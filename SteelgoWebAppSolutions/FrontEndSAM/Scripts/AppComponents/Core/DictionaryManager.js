@@ -7036,13 +7036,17 @@ _dictionary = {
         "es-MX": "Recibido",
         "en-US": "Received"
     },
-    "lblCondicionesFisicas": {
-        "es-MX": "Condiciones Físicas SIN LUZ",
-        "en-US": "Physicals conditions"
+    "lblCondicionesPlacasOGraficas": {
+        "es-MX": "N/A",
+        "en-US": "N/A"
     },
-    "lblCondicionesFisicas1": {
-        "es-MX": "Condiciones Físicas docto",
-        "en-US": "Physicals conditions"
+    "lblCondicionesFisicasSL": {
+        "es-MX": "C Físicas SIN LUZ",
+        "en-US": "Physicals C WITHOUT LIGHT"
+    },
+    "lblCondicionesFisicasDocto": {
+        "es-MX": "C Físicas Docto",
+        "en-US": "Physical C Document"
     },
     "lblDefectos": {
         "es-MX": "Defectos",
@@ -7296,13 +7300,17 @@ _dictionary = {
         "es-MX": "Recibido",
         "en-US": "Received"
     },
-    "columnCondicionesFisicas": {
-        "es-MX": "Cond Físicas SIN LUZ",
-        "en-US": "Physical cond WITHOUT LIGHT"
+    "columnCondicionesPlacasOGraficas": {
+        "es-MX": "N/A",
+        "en-US": "N/A"
     },
-    "columnCondicionesFisicas1": {
-        "es-MX": "Cond Físicas Docto",
-        "en-US": "Physical cond documents"
+    "columnCondicionesFisicasSL": {
+        "es-MX": "C Físicas SIN LUZ",
+        "en-US": "Physical C WITHOUT LIGHT"
+    },
+    "columnCondicionesFisicasDocto": {
+        "es-MX": "C Físicas Docto",
+        "en-US": "Physical C Document"
     },
     "columnDefectosRechazos": {
         "es-MX": "Defectos",
