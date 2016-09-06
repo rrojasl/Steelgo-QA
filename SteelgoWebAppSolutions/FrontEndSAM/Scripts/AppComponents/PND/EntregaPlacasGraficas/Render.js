@@ -19,10 +19,11 @@
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.DocumentoRecibido = dataItem.DocumentoRecibidoNombre;
-                    options.model.DocumentoRecibidoID = dataItem.DocumentoRecibidoID;                   
+                    options.model.DocumentoRecibidoID = dataItem.DocumentoRecibidoID;
+                    options.model.EstatusCaptura = 1;
                 }
                 else {
-                    options.model.DocumentoRecibido = ObtenerDocumentoRecibidoCorrecto(options.model.ListaRecibido, options.model.DocumentoRecibidoID);                    
+                    options.model.DocumentoRecibido = ObtenerDocumentoRecibidoCorrecto(options.model.ListaRecibido, options.model.DocumentoRecibidoID);
                 }
             }
         });
@@ -60,18 +61,20 @@ function RenderComboBoxDocumentoEstatus(container, options) {
                 if (dataItem != undefined) {
                     options.model.DocumentoEstatus = dataItem.DocumentoEstatusNombre;
                     options.model.DocumentoEstatusID = dataItem.DocumentoEstatusID;
+                    options.model.EstatusCaptura = 1;
 
                     if(dataItem.DocumentoEstatusID == 2){
                         options.model.__proto__.fields.DefectoDocumento.editable = true;
                     } else {
-                        options.model.DefectoDocumento = "";
                         options.model.DefectoDocumentoID = 0;
+                        options.model.DefectoDocumento = "";
                         options.model.__proto__.fields.DefectoDocumento.editable = false;
                     }
                 }
                 else {
                     options.model.DocumentoEstatus = ObtenerDocumentoEstatusCorrecto(options.model.ListaEstatusDocumento, options.model.DocumentoEstatusID);
                 }
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
     $(".k-combobox").parent().on('mouseleave', function (send) {
@@ -98,21 +101,12 @@ function RenderComboBoxDefectoDocumento(container, options) {
             autoBind: false,
             dataSource: options.model.ListaDefectoDocumento,
             template: "<i class=\"fa fa-#=data.DefectoDocumentoNombre#\"></i> #=data.DefectoDocumentoNombre#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                textAnterior = e.sender._prev;
-            }
-            ,
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                    if(options.model.DocumentoEstatusID==2){                        
                         options.model.DefectoDocumento = dataItem.DefectoDocumentoNombre;
                         options.model.DefectoDocumentoID = dataItem.DefectoDocumentoID;
-                    } else {
-                        options.model.DefectoDocumento = "";
-                        options.model.DefectoDocumentoID = 0;
-                    }
+                        options.model.EstatusCaptura = 1;
                 }
                 else {
                     options.model.DefectoDocumento = ObtenerDocumentoDefectoCorrecto(options.model.ListaDefectoDocumento, options.model.DefectoDocumentoID);

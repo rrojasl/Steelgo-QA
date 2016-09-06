@@ -8,6 +8,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
     public class DetalleGuardarJson
     {
         public int Accion { get; set; }
+        public int EntregaPlacasGraficasID { get; set; }
         public int RequisicionID { get; set; }
         public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
@@ -76,6 +77,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public string DocumentoEstatus { get; set; }
         public int DefectoDocumentoID { get; set; }
         public string DefectoDocumento { get; set; }
+        public int EstatusCaptura { get; set; }
         public List<DocumentoRecibido> ListaRecibido { get; set; }
         public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
         public List<DocumentoDefecto> ListaDefectoDocumento { get; set; }
