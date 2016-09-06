@@ -28,6 +28,6 @@
     public static class Stords
     {
         public static string GUARDACAPTURAENTREGAPLACASGRAFICAS = "dbo.Sam3_ST_EPG_GuardaCaptura";
-        public static string GUARDARNUEVAREQUISICION = "dbo.Sam3_ST_RPND_GuardaCaptura";
+        public static string GUARDARNUEVAREQUISICION = "Sam3_ST_RPND_GuardaCaptura";
     }
 }

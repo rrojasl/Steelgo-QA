@@ -124,12 +124,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                         { "@FechaRequisicion", FechaRequisicion },
                         { "@CodigoAsme", CodigoAsme}, 
                         { "@Observacion", Observacion },
-                        { "@Usuario", usuario.UsuarioID.ToString() }  };
+                        { "@UsuarioID", usuario.UsuarioID.ToString() }  };
 
-                    DataTable dt = _SQL.Tabla(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@Tabla", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok" + "|" + dt.Rows[0][0].ToString());
+                    result.ReturnMessage.Add("Ok");
+
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
