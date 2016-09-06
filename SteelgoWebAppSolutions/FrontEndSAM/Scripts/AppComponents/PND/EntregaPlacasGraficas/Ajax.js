@@ -57,7 +57,7 @@ function AjaxCargaListaProveedores(proyectoID, patioID) {
         $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
         var ProveedorID = 0;
         for (var i = 0; i < data.length; i++) {
-            if (data[i].ProyectoID != 0) {
+            if (data[i].ProveedorID != 0) {
                 ProveedorID = data[i].ProveedorID;
             }
 
@@ -79,7 +79,7 @@ function AjaxCargaListaRequisicion(proyectoID, proveedorID) {
         var RequisicionID = 0;
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
         for (var i = 0; i < data.length; i++) {
-            if (data[i].ProyectoID != 0) {
+            if (data[i].RequisicionID != 0) {
                 RequisicionID = data[i].RequisicionID;
             }
 
@@ -155,11 +155,13 @@ function disableDocumentoDefecto() {
     var allData = ds.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-    for (var i = 0; i < ds._data.length; i++) {
-        if (data[i].DocumentoEstatusID == 1) {
-            data[i].__proto__.fields.DefectoDocumento.editable = false;
-        } else {
-            data[i].__proto__.fields.DefectoDocumento.editable = true;
+    if(data.length>0){        
+        for (var i = 0; i < ds._data.length; i++) {
+            if (data[i].DocumentoEstatusID == 1) {
+                data[i].__proto__.fields.DefectoDocumento.editable = false;
+            } else {
+                data[i].__proto__.fields.DefectoDocumento.editable = true;
+            }
         }
     }
     
