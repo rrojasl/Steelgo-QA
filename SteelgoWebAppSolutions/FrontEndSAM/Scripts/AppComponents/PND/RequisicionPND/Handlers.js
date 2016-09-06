@@ -197,10 +197,10 @@ function suscribirEventoTipoPrueba() {
 
             if (dataItem != undefined) {
                 var RequisicionID = 0;
-                var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value();
+                var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
                 var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
 
-                if (ProyectoID != "" && ProyectoID == 0)
+                if (ProyectoID != "" && ProyectoID != 0)
                     AjaxGetListaElementos(RequisicionID, tipoPruebaID, ProyectoID, $('input:radio[name=Muestra]:checked').val());
                 else
                     $("#grid").data('kendoGrid').dataSource.data([]);
@@ -245,7 +245,7 @@ function suscribirEventoRequisiciones() {
                     $('#containerDiv').css('display', 'none');
 
                     var RequisicionID = 0;
-                    var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value();
+                    var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
                     var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
 
                     AjaxGetListaElementos(RequisicionID, tipoPruebaID, ProyectoID, $('input:radio[name=Muestra]:checked').val());
