@@ -24,24 +24,44 @@ function AjaxCargaTipoLlenado() {
 
 function AjaxCargaListaProyectos() {   
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+        var proyectoID = 0;
         $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].ProyectoID != 0) {
+                proyectoID = data[i].ProyectoID;
+            }
+
+        }
+        if(data.length==2){
+            $("#inputProyecto").data("kendoComboBox").value(proyectoID);
+            $("#inputProyecto").data("kendoComboBox").trigger("change");
+        } else {
+            $("#inputProyecto").data("kendoComboBox").value(0);
+            $("#inputProyecto").data("kendoComboBox").trigger("change");
+        }
     });
 }
 
 function AjaxCargaListaProveedores(proyectoID, patioID) {
     var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
-    var tipoPruebaID = 0;//Requisicion.TipoPruebaID!=undefined && Requisicion.TipoPruebaID!=0?Requisicion.TipoPruebaID:0;
+    var tipoPruebaID = 0;
+
+    if (Requisicion != undefined) {
+        if (Requisicion.TipoPruebaID != 0) {
+            tipoPruebaID = Requisicion.TipoPruebaID;
+        }
+    }
 
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, PatioID: patioID, TipoPruebaID: tipoPruebaID}).done(function (data) {
-        $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
-        $("#inputProveedor").data("kendoComboBox").dataSource.data(data);        
+        $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+        $("#inputProveedor").data("kendoComboBox").value(0);
+        $("#inputProveedor").data("kendoComboBox").trigger("change");
     });
 }
 
 function AjaxCargaListaRequisicion(proyectoID, proveedorID) {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val(), proveedorID: proveedorID }).done(function (data) {
-        $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
     });
 }
@@ -80,7 +100,6 @@ function AjaxObtieneDetalleRequisicion() {
     var requisicionID = $("#inputRequisicion").data("kendoComboBox").value();
     if (proyectoID != 0 && proveedorID != 0 && requisicionID != 0) {
         $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: proyectoID, proveedorID: proveedorID, requisicionID: requisicionID, lenguaje: $("#language").val() }).done(function (data) {
-            $("#grid").data("kendoGrid").dataSource.data([]);
             var ds = $("#grid").data("kendoGrid").dataSource;
             var tipoPrueba;
             if(data.length>0){
@@ -88,13 +107,34 @@ function AjaxObtieneDetalleRequisicion() {
                     ds.add(data[i]);
                     tipoPrueba = data[i].TipoPruebaID;
                 }
-                if(tipoPrueba == 12){
+                var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
+                if(Requisicion.TipoPruebaID == 12){
                     $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicas1[$("#language").data("kendoDropDownList").value()]);
                     $("#lblCondicionesFisicas").text(_dictionary.lblCondicionesFisicas1[$("#language").data("kendoDropDownList").value()]);                
+                } else {
+                    $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicas[$("#language").data("kendoDropDownList").value()]);
+                    $("#lblCondicionesFisicas").text(_dictionary.lblCondicionesFisicas[$("#language").data("kendoDropDownList").value()]);
                 }
+                disableDocumentoDefecto();
             }
         });
     }
+}
+
+function disableDocumentoDefecto() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var filters = ds.filter();
+    var allData = ds.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    for (var i = 0; i < ds._data.length; i++) {
+        if (data[i].DocumentoEstatusID == 1) {
+            data[i].__proto__.fields.DefectoDocumento.editable = false;
+        } else {
+            data[i].__proto__.fields.DefectoDocumento.editable = true;
+        }
+    }
+    
 }
 
 function AjaxGuardarCaptura(ds, guardarYNuevo) {
@@ -128,11 +168,29 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].DocumentoEstatusID = ds[i].DocumentoEstatusID;
             listaDetalles[cont].DocumentoDefectoID = ds[i].DefectoDocumentoID;
 
-            if (listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
-                ( listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == "")) {
-                listaDetalles[cont].Estatus = 0;
-            }
+                if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
+                    listaDetalles[cont].DocumentoDefectoID == 0) &&listaDetalles[cont].Accion != 4) {
+                    if(listaDetalles[cont].Accion == 2){
+                        listaDetalles[cont].Accion = 4;
+                    } else {
+                        
+                        if (listaDetalles[cont].DocumentoRecibidoID == 0) {
+                            listaDetalles[cont].Estatus = 0;
+                            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                        }
+                        if (listaDetalles[cont].DocumentoEstatusID == 0) {
+                            listaDetalles[cont].Estatus = 0;
+                            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                        }
 
+                        if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
+                            listaDetalles[cont].Estatus = 0;
+                            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                        }
+                    }
+                    
+                }
+                cont++;
         }
         Captura[0].Detalles = listaDetalles;
 
@@ -155,7 +213,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             
             });
         } else {
-            RowEmpty($("#grid"));
+            
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -197,7 +255,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                         } else {
                             displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
                         }
-
+                        ventanaConfirm.close();
                     });
                 } else {
                     ventanaConfirm.close();

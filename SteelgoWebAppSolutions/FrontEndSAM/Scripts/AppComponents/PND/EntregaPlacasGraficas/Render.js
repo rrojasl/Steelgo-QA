@@ -19,15 +19,7 @@
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.DocumentoRecibido = dataItem.DocumentoRecibidoNombre;
-                    options.model.DocumentoRecibidoID = dataItem.DocumentoRecibidoID;
-                                       
-                    if (options.model.DocumentoRecibidoID == 1) {
-                        options.model.DocumentoEstatusID = options.model.ListaEstatusDocumento[1].DocumentoEstatusID;
-                        options.model.DocumentoEstatus = options.model.ListaEstatusDocumento[1].DocumentoEstatusNombre;
-                     } else {
-                         options.model.DocumentoEstatus = "";
-                         options.model.DocumentoEstatusID = 0;
-                     }
+                    options.model.DocumentoRecibidoID = dataItem.DocumentoRecibidoID;                   
                 }
                 else {
                     options.model.DocumentoRecibido = ObtenerDocumentoRecibidoCorrecto(options.model.ListaRecibido, options.model.DocumentoRecibidoID);                    

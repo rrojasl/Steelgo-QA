@@ -45,7 +45,8 @@ function cargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 4 }
                 ]
             },
             pageSize: 10,
@@ -76,13 +77,27 @@ function cargarGrid() {
             { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
             { field: "DocumentoEstatus", title: _dictionary.columnCondicionesFisicas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
-            { field: "DefectoDocumento", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" }
+            { field: "DefectoDocumento", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
     });
 
     CustomisaGrid($("#grid"));
 }
-
+function limpiarRenglon(e) {
+    e.preventDefault();
+    if ($('#botonGuardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        itemToClean.DocumentoRecibido = "";
+        itemToClean.DocumentoRecibidoID = 0;
+        itemToClean.DocumentoEstatus = "";
+        itemToClean.DocumentoEstatusID = 0;
+        itemToClean.DefectoDocumento = "";
+        itemToClean.DefectoDocumentoID = 0;
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataSource.sync();
+    }
+}
 function PlanchaDocumentoRecibido(tipoLlenado) {
     var ds = $("#grid").data("kendoGrid").dataSource;
     var filters = ds.filter();
@@ -157,4 +172,57 @@ function PlanchaDocumentoDefecto(tipoLlenado) {
     }
 
     $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+
+
+    }
+    else {
+
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
+        ds.sync();
+    }
+}
+
+function validaInformacionCapturada() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var filters = ds.filter();
+    var allData = ds.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    if(data.length>0){        
+        for (var i=0; i < data.length; i++) {
+            if (data[i].Accion == 2 ) {
+                if ((data[i].DocumentoRecibidoID == 0 && data[i].DocumentoEstatusID == 0
+                    && data[i].DefectoDocumentoID == 0)) {
+                    return true;
+                }
+            } else if (ds._data[i].Accion == 1) {
+                if ((data[i].DocumentoRecibidoID != 0 || data[i].DocumentoEstatusID != 0
+                    || data[i].DefectoDocumentoID != 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } else {
+        return false;
+    }
 }

@@ -143,10 +143,16 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 using (SamContext ctx = new SamContext())
                 {
                     List<Proveedor> listaProveedores = new List<Proveedor>();
-                    listaProveedores.Add(new Proveedor());
-                    listaProveedores.Add(new Proveedor { ProveedorID = 1, Nombre = "SHAW APP" });
+                    List<Sam3_ST_EPG_ObtieneProveedores_Result> result = ctx.Sam3_ST_EPG_ObtieneProveedores(proyectoID, patioID).ToList();
 
-                    listaProveedores.Add(new Proveedor { ProveedorID = 2, Nombre = "EXPORTINTER" });
+                    listaProveedores.Add(new Proveedor());
+                    foreach (Sam3_ST_EPG_ObtieneProveedores_Result item in result)
+                    {
+                        listaProveedores.Add(new Proveedor {
+                                ProveedorID = item.ProveedorID,
+                                NombreProveedor = item.Nombre
+                        });
+                    }
 
                     return listaProveedores;
                 }
@@ -173,20 +179,19 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 using (SamContext ctx = new SamContext())
                 {
                     List<Requisicion> listaRequisiciones = new List<Requisicion>();
+                    List<Sam3_ST_EPG_ObtieneListaRequisiciones_Result> result = ctx.Sam3_ST_EPG_ObtieneListaRequisiciones(proyectoID, proveedorID).ToList();
                     listaRequisiciones.Add(new Requisicion());
 
-                    listaRequisiciones.Add(new Requisicion
+                    foreach (Sam3_ST_EPG_ObtieneListaRequisiciones_Result item in result)
                     {
-                        RequisicionID = 1,
-                        NombreRequisicion = "Requiscion1",
-                        TipoPruebaID = 5
-                    });
-                    listaRequisiciones.Add(new Requisicion
-                    {
-                        RequisicionID = 2,
-                        NombreRequisicion = "Requiscion2",
-                        TipoPruebaID = 12
-                    });
+                        listaRequisiciones.Add(new Requisicion
+                        {
+                            RequisicionID = item.RequisicionID,
+                            NombreRequisicion = item.NombreRequisicion,
+                            TipoPruebaID = item.TipoPruebaID,
+                            ProveedorID = item.ProveedorID
+                        });
+                    }                       
 
                     return listaRequisiciones;
                 }
@@ -212,37 +217,50 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    
+                    string estatusDefault = "";
+                    if (lenguaje.Equals("es-MX"))
+                    {
+                        estatusDefault = "Aprobado";
+                    }
+                    else
+                    {
+                        estatusDefault = "Approved";
+                    }
 
                     List<RequisicionDetalle> listaDetalle = new List<RequisicionDetalle>();
-
-                    listaDetalle.Add(new RequisicionDetalle
+                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle(proyectoID, proveedorID, 
+                        requisicionID, lenguaje).ToList();
+                    foreach (Sam3_ST_EPG_ObtieneRequisicionDetalle_Result item in result)
                     {
-                        Accion = 1,
-                        EntregaPlacasGraficasID = 0,
-                        RequisicionID = 1,
-                        OrdenTrabajoID = 1,
-                        SpoolID = 22,
-                        JuntaSpoolID = 1,
-                        NumeroControl = "X002-001",
-                        JuntaEtiqueta = "1",
-                        ClasificacionPndID = 1,
-                        ClasificacionPnd = "RT-M",
-                        TipoPruebaID = 12,
-                        TipoPrueba = "Hidrostática",
-                        Observaciones = "Ninguna Observación",
-                        CodigoAsmeID = 1,
-                        CodigoAsme = "ASME B31.3",
-                        DocumentoRecibidoID = 0,
-                        DocumentoRecibido = "",
-                        DocumentoEstatusID = 0,
-                        DocumentoEstatus = "",
-                        DefectoDocumentoID = 0,
-                        DefectoDocumento = "",
-                        ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
-                        ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
-                        ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
-                    });
+                        listaDetalle.Add(new RequisicionDetalle
+                        {
+                            Accion = item.Accion,
+                            EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
+                            RequisicionID = item.RequisicionID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            NumeroControl = item.NumeroControl,
+                            JuntaEtiqueta = item.JuntaEtiqueta,
+                            ClasificacionPndID = item.ClasificacionPndID,
+                            ClasificacionPnd = item.ClasificacionPnd,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            TipoPrueba = item.TipoPrueba,
+                            Observaciones = item.Observaciones,
+                            CodigoAsmeID = 1,
+                            CodigoAsme = item.CodigoAsme,
+                            DocumentoRecibidoID = item.DocumentoRecibidoID,
+                            DocumentoRecibido = item.DocumentoRecibido,
+                            DocumentoEstatusID = item.Accion==1?1: item.DocumentoEstatusID,
+                            DocumentoEstatus = item.Accion == 1 ? estatusDefault : item.DocumentoEstatus,
+                            DefectoDocumentoID = item.DocumentoDefectoID,
+                            DefectoDocumento = item.DocumentoDefecto,
+                            ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
+                            ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
+                            ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
+                        });
+                    }
+                    
                     return listaDetalle;
                 }
                 
@@ -268,7 +286,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje } };
 
-                    //_SQL.Ejecuta(Stords.GUARDACAPTURAENTREGAPLACASGRAFICAS, dtDetalleCaptura, "@EntregaPlacasGraficas", parametro);
+                    _SQL.Ejecuta(Stords.GUARDACAPTURAENTREGAPLACASGRAFICAS, dtDetalleCaptura, "@EntregaPlacasGraficas", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

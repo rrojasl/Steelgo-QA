@@ -7371,6 +7371,10 @@ _dictionary = {
         "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
         "en-US": "Marked records will not be saved. Continue anyway?"
     },
+    "EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados": {
+        "es-MX": "Los registros capturados no han sido guardados. ¿Desea continuar?",
+        "en-US": "Captured records will not be saved. Continue anyway?"
+    },
     "EntregaPlacasGraficasExcepcionGuardado": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."

@@ -95,12 +95,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
             ProyectoID = 0;
             TipoPruebaID = 0;
             NombreRequisicion = "";
+            ProveedorID = 0;
         }
 
         public int RequisicionID { get; set; }
         public int ProyectoID { get; set; }
         public int TipoPruebaID { get; set; }
         public string NombreRequisicion { get; set; }
+        public int ProveedorID { get; set; }
     }
 
     public class Proveedor
@@ -108,10 +110,10 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public Proveedor()
         {
             ProveedorID = 0;
-            Nombre = "";
+            NombreProveedor = "";
         }
 
         public int ProveedorID { get; set; }
-        public string Nombre { get; set; }
+        public string NombreProveedor { get; set; }
     }
 }
