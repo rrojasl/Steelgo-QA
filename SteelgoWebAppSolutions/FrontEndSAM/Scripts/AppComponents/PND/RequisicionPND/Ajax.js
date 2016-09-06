@@ -18,7 +18,13 @@ function AjaxGetListaProyectos() {
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         $("#Proyecto").data("kendoComboBox").value("");
         $("#Proyecto").data("kendoComboBox").dataSource.data(data);
-        loadingStop();
+
+        if ($("#Proyecto").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#Proyecto").data("kendoComboBox").select(1);
+            $("#Proyecto").data("kendoComboBox").trigger("change");
+        }
+        else
+            $("#Proyecto").data("kendoComboBox").select(0);
     });
 }
 
@@ -36,6 +42,7 @@ function AjaxGetListaRequisiciones(proyectoID, tipoPruebaID) {
 }
 
 function AjaxGetListaElementos(requisicionID, tipoPruebaID, proyectoID, muestra) {
+    loadingStart();
     $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: requisicionID, TipoPruebaID: tipoPruebaID, ProyectoID: proyectoID, Muestra: muestra }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
 
@@ -87,7 +94,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         Captura[0].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
         Captura[0].Requisicion = "";
         Captura[0].ProyectoID = $("#Proyecto").data("kendoComboBox").value();
-        Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
+        Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value();
         Captura[0].CodigoAsme = "";
         Captura[0].Observacion = "";
         Captura[0].FechaRequisicion = "";
@@ -96,7 +103,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
         loadingStart();
 
-        var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
+        var tipoPruebaID = $("#Proyecto").data("kendoComboBox").value();
 
         loadingStop();
 
