@@ -7167,6 +7167,10 @@ _dictionary = {
         "es-MX": "Editar",
         "en-US": "Edit"
     },
+    "botonBuscar": {
+        "es-MX": "Buscar",
+        "en-US": "Search"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -7385,6 +7389,14 @@ _dictionary = {
     },
     "EntregaPlacasGraficasMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+    "EntregaPlacasGraficasErrorRequisicion": {
+        "es-MX": "Seleccione requisición para realizar la búsqueda",
+        "en-US": "Select a requisition to search"
+    },
+    "EntregaPlacasGraficasErrorRequisicion": {
+        "es-MX": "Seleccione Requisición para realizar la búsqueda",
         "en-US": "Could not save the information."
     },
     // Finaliza Entrega Placas-Graficas
