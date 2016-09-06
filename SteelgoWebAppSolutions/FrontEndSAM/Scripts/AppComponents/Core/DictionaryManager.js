@@ -6984,6 +6984,10 @@ _dictionary = {
         "es-MX": "Requisición",
         "en-US": "Requisition"
     },
+    "lblRequisicion1": {
+        "es-MX": "Requisición",
+        "en-US": "Requisition"
+    },
     "lblMostrar": {
         "es-MX": "Mostrar",
         "en-US": "Show"
@@ -7064,7 +7068,18 @@ _dictionary = {
         "es-MX": "Turno",
         "en-US": "Inning"
     },
-   
+    "lblCodigoAsme": {
+        "es-MX": "Código ASME",
+        "en-US": "ASME Code"
+    },
+    "lblFechaRequisicion": {
+        "es-MX": "Fecha de Requisición",
+        "en-US": "Requisition date"
+    },
+    "lblObservacion": {
+        "es-MX": "Observación",
+        "en-US": "Observation"
+    },
 
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7153,6 +7168,17 @@ _dictionary = {
         "en-US": "Edit"
     },
     // Finalizan etiquetas Header y Footer
+
+    //Inician mensajes Generales
+    "MensajeGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "MensajeNuevaRequisicion": {
+        "es-MX": "Nueva Requisición",
+        "en-US": "New Requisition"
+    },
+    // Finalizan Mensajes generales
 
     // Menú lateral
     "menuServiciosTecnicos": {

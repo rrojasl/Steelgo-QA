@@ -57,37 +57,28 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Proyecto: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Clasificacion: { type: "string", editable: false },
-                        ClasificacionID: { type: "number", editable: false },
-                        Prioridad: { type: "number", editable: false },
-                        Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "number", editable: false },
+                        NumeroControl: { type: "string", editable: false },
                         EtiquetaJunta: { type: "string", editable: false },
+                        TipoJunta: { type: "string", editable: false },
+                        NombreRequisicion: { type: "string", editable: false },
+                        Cuadrante: { type: "string", editable: false },
+                        Prioridad: { type: "number", editable: false },
+                        Clasificacion: { type: "string", editable: false },
                         Diametro: { type: "number", editable: false },
                         Espesor: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
-                        TipoJunta: { type: "string", editable: false },
-                        NombrePrueba: { type: "string", editable: false },
 
-                        JuntaSpoolID: { type: "number", editable: false },
-                        RequisicionJuntaSpoolID: { type: "number", editable: false },
-                        JuntaTrabajoID: { type: "number", editable: false },
-                        CodigoAplicar: { type: "string", editable: false },
-                        observacion: { type: "string", editable: false },
-                        Folio: { type: "string", editable: false },
-                        Agregar: { type: "boolean", editable: false },
-                        NumeroControl: { editable: false }
+                        RequisicionID: { type: "int", editable: false },
+                        ProyectoID: { type: "int", editable: false },
+                        SpoolID: { type: "int", editable: false },
+                        JuntaSpoolID: { type: "int", editable: false },
+                        OrdenTrabajoSpoolID: { type: "int", editable: false },
+                        JuntaSpoolID: { type: "int", editable: false },
+                        TipoPruebaID: { type: "int", editable: false },
+                        Especificacion: { type: "number", editable: false },
+                        Agregar: { type: "boolean", editable: false }
                     }
                 }
-            },
-            filter: {
-                logic: "or",
-                filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
-                ]
             },
             pageSize: 10,
             serverPaging: false,
@@ -112,7 +103,7 @@ function CargarGrid() {
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
             { field: "TipoJunta", title: _dictionary.columnTipoJta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "112px" },
-            { field: "Folio", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
+            { field: "NombreRequisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", attributes: { style: "text-align:right;" } },
             { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
@@ -136,7 +127,7 @@ function CargarGrid() {
                 if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     var grid = $("#grid").data("kendoGrid"),
                         dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (dataItem.Folio == "" && e.target.checked == true)
+                    if (dataItem.RequisicionID == 0 && e.target.checked == true)
                         dataItem.Agregar = true;
                     else
                         dataItem.Agregar = false;
@@ -152,12 +143,12 @@ function CargarGrid() {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.PruebasID != 0) {
+            if (dataItem.RequisicionID != 0 && dataItem.RequisicionID != undefined) {
                 dataItem.Seleccionado = false;
                 displayNotify("", "Este elemento no puede ser asignado a otra requisición", '1');
             }
 
-            $("#grid").data("kendoGrid").dataSource.sync();
+            //$("#grid").data("kendoGrid").dataSource.sync();
         }
         //else {
         //    if ($(this)[0].checked) {
@@ -275,3 +266,59 @@ function tieneClase(item) {
     }
     return false;
 }
+
+function VentanaModal() {
+    var modalTitle = "";
+    modalTitle = _dictionary.MensajeNuevaRequisicion[$("#language").data("kendoDropDownList").value()];
+    var ventanaConfirm = $("#ventanaConfirm");
+    var window = ventanaConfirm.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "50%",
+        minWidth: 30,
+        position: {
+            top: "1%",
+            left: "1%"
+        }
+    }).data("kendoWindow");
+
+    window.content('<div id="ventanaConfirm" z-index: inherit">' +
+                        '<div class="col-sm-11 col-md-11 col-lg-11">' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<label id=""><span>' + _dictionary.lblRequisicion1[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                '<input id="NombreRequisicion" class="form-control" />' +
+                            '</div>' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                '<input id="FechaRequisicion" class="form-control" />' +
+                            '</div>' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                '<input id="CodigoAsme" class="form-control" />' +
+                            '</div>' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<label id=""><span>' + _dictionary.lblObservacion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                '<input id="Observacion" class="form-control" />' +
+                            '</div>' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<center><button class="btn btn-blue" id="YesButton"> Guardar</button>&nbsp;<button class="btn btn-blue" id="NoButton"> Cancelar</button></center>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>');
+    ventanaConfirm.data("kendoWindow").title(modalTitle);
+    ventanaConfirm.data("kendoWindow").center().open();
+
+};
+//function createKendoWindow() {
+
+//    $("#YesButton").click(function (handler) {
+//        ventanaConfirm.close();
+//    });
+//    $("#NoButton").click(function (handler) {
+//        ventanaConfirm.close();
+//    });
+
+//    ventanaConfirm.open().center();
+//}

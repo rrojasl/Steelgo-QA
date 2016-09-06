@@ -14,12 +14,14 @@
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         if ($("#Proyecto").data("kendoComboBox").value() != "" && $("#Proyecto").data("kendoComboBox").value() != 0) {
-            //ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+            var tipoPrueba = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
+            AjaxGetListaElementos($("#listaRequisiciones").data("kendoComboBox").value(), tipoPrueba, $("#Proyecto").data("kendoComboBox").value(), $('input:radio[name=Muestra]:checked').val());
         }
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
         if ($("#Proyecto").data("kendoComboBox").value() != "" && $("#Proyecto").data("kendoComboBox").value() != 0) {
-            //ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+            var tipoPrueba = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
+            AjaxGetListaElementos($("#listaRequisiciones").data("kendoComboBox").value(), tipoPrueba, $("#Proyecto").data("kendoComboBox").value(), $('input:radio[name=Muestra]:checked').val());
         }
     });
 }
@@ -33,8 +35,10 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
             if ($("#Proyecto").data("kendoComboBox").value() != 0 && $("#Proyecto").data("kendoComboBox").value() != "") {
-                if ($("#tipoPrueba").data("kendoComboBox").value() != 0 && $("#tipoPrueba").data("kendoComboBox").value() != "")
-                    AjaxGuardarCaptura(ds._data, 0);
+                if ($("#tipoPrueba").data("kendoComboBox").value() != 0 && $("#tipoPrueba").data("kendoComboBox").value() != "") {
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                    AjaxGuardarCaptura(ds._data);
+                }
                 else
                     displayNotify("", "Favor de seleccionar un tipo de prueba", '1');
             }
@@ -135,7 +139,11 @@ function suscribirEventoProyecto() {
                 $("#listaRequisiciones").data("kendoComboBox").value("");
                 $("#tipoPrueba").data("kendoComboBox").value("");
                 AjaxGetListaTiposDePrueba();
-                //ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+                var tipoPrueba = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
+                var RequisicionID = 0;// $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
+                var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
+                if(ProyectoID != "")
+                    AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
                 var proyectoID = $("#Proyecto").data("kendoComboBox").value();
                 var tipoPruebaID = 0;
                 if ($("#tipoPrueba").data("kendoComboBox").value() != "")
@@ -172,22 +180,25 @@ function suscribirEventoTipoPrueba() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 $("#listaRequisiciones").data("kendoComboBox").value("");
-                var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+                
+                var tipoPrueba = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
+                var RequisicionID = 0; //$("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
+                var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
+                if (ProyectoID != "")
+                    AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
                 var tipoPruebaID = 0;
                 if ($("#tipoPrueba").data("kendoComboBox").value() != "")
                     tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
-                AjaxGetListaRequisiciones(proyectoID, tipoPruebaID);
-                //ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+                AjaxGetListaRequisiciones(ProyectoID, tipoPruebaID);
             }
             else {
                 $("#listaRequisiciones").data("kendoComboBox").value("");
                 $("#tipoPrueba").data("kendoComboBox").value("");
                 var proyectoID = $("#Proyecto").data("kendoComboBox").value();
                 var tipoPruebaID = 0;
-                if ($("#tipoPrueba").data("kendoComboBox").value() != "")
-                    tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
                 AjaxGetListaRequisiciones(proyectoID, tipoPruebaID);
-                //$("#tipoPrueba").data("kendoComboBox").value("");
+                if (ProyectoID != "")
+                    AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
             }
         }
     });
@@ -216,14 +227,14 @@ function suscribirEventoRequisiciones() {
                     $('#containerDiv').css('display', 'block');
                 }
 
-                $("#tipoPrueba").data("kendoComboBox").val();
-
                 AjaxGetListaTiposDePrueba();
 
-                //if ($("#Proyecto").data("kendoComboBox").value() == "")
-                //    ajaxObtenerJuntasSoldadas(0);
-                //else
-                //    ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+                if ($("#Proyecto").data("kendoComboBox").value() == "")
+                    AjaxGetListaElementos(0, 0, 0, 0);
+                else {
+                    var tipoPrueba = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
+                    AjaxGetListaElementos($("#listaRequisiciones").data("kendoComboBox").value(), tipoPrueba, $("#Proyecto").data("kendoComboBox").value(), $('input:radio[name=Muestra]:checked').val());
+                }
             }
         }
     });
