@@ -58,6 +58,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         Requisicion: "",
         ProyectoID: 0,
         TipoPruebaID: 0,
+        FechaRequisicion: "",
         CodigoAsme: "",
         Observacion: "",
         
@@ -87,8 +88,9 @@ function AjaxGuardarCaptura(arregloCaptura) {
         Captura[0].Requisicion = "";
         Captura[0].ProyectoID = $("#Proyecto").data("kendoComboBox").value();
         Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
-        Captura[0].CodigoAsme = "CodigoASME";
-        Captura[0].Observacion = "OBS";
+        Captura[0].CodigoAsme = "";
+        Captura[0].Observacion = "";
+        Captura[0].FechaRequisicion = "";
 
         Captura[0].ListaDetalle = ListaCaptura;
 
@@ -96,35 +98,92 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
         var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaID;
 
-        //windowTemplate = kendo.template($("#windowTemplate").html());
-
-        VentanaModal();
-
         loadingStop();
-        
-        //$RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-        //    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0].split('|')[0] == "Ok") {
-        //        //mensaje = "Se guardo correctamente la informacion" + "-0";
-        //        //if (tipoGuardar == 1) {
-        //        //    Limpiar();
-        //        //    opcionHabilitarView(false, "FieldSetView");
-        //        //    requisicionID = 0;
-        //        //}
-        //        //else {
-        //        //    requisicionID = data.ReturnMessage[0].split('|')[1];
-        //        //    ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
-        //        //    opcionHabilitarView(true, "FieldSetView");
-        //        //}
-        //        //ajaxRequisicion();
-        //        //displayNotify("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-        //        loadingStop();
-        //    }
-        //    else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
-        //        //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-        //        //displayNotify("CapturaMensajeGuardadoErroneo", "", '1');
-        //        loadingStop();
-        //    }
-        //});
+
+        var modalTitle = "";
+        modalTitle = _dictionary.MensajeNuevaRequisicion[$("#language").data("kendoDropDownList").value()];
+        var ventanaConfirm = $("#ventanaConfirm");
+        var window = ventanaConfirm.kendoWindow({
+            modal: true,
+            title: modalTitle,
+            resizable: false,
+            visible: true,
+            width: "50%",
+            minWidth: 30,
+            position: {
+                top: "1%",
+                left: "1%"
+            }
+        }).data("kendoWindow");
+
+        window.content('<div id="ventanaConfirm" z-index: inherit">' +
+                            '<div class="col-sm-11 col-md-11 col-lg-11">' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblRequisicion1[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="NombreRequisicion" class="form-control" />' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="FechaRequisicion" class="form-control" readonly/>' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="CodigoAsme" class="form-control" readonly/>' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblObservacion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="Observacion" class="form-control" />' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<center><button class="btn btn-blue" id="YesButton"> Guardar</button>&nbsp;<button class="btn btn-blue" id="NoButton"> Cancelar</button></center>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>');
+        ventanaConfirm.data("kendoWindow").title(modalTitle);
+
+        var idFechaRequisicion = 2047;
+        $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
+            $("#FechaRequisicion").val(data);
+            $("#CodigoAsme").val("ASME VIII Div 1 App 8"); // Hardcode debido a que no hay codigos asme para el proyectoId 16
+        });
+
+        ventanaConfirm.data("kendoWindow").center().open();
+
+        $("#YesButton").click(function (handler) {
+            Captura[0].Requisicion = $("#NombreRequisicion").val();
+            Captura[0].CodigoAsme = $("#CodigoAsme").val();
+            Captura[0].Observacion = $("#Observacion").val();
+            Captura[0].FechaRequisicion = $("#FechaRequisicion").val();
+
+            $RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0].split('|')[0] == "Ok") {
+                    mensaje = "Se guardo correctamente la informacion" + "-0";
+                    if (tipoGuardar == 1) {
+                        Limpiar();
+                        opcionHabilitarView(false, "FieldSetView");
+                        requisicionID = 0;
+                    }
+                    else {
+                        requisicionID = data.ReturnMessage[0].split('|')[1];
+                        ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
+                        opcionHabilitarView(true, "FieldSetView");
+                    }
+                    ajaxRequisicion();
+                    displayNotify("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
+                    loadingStop();
+                }
+                else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                    //displayNotify("CapturaMensajeGuardadoErroneo", "", '1');
+                    loadingStop();
+                }
+            });
+
+            window.close();
+        });
+        $("#NoButton").click(function (handler) {
+            window.close();
+        });
     }
     else {
         displayNotify("MensajeSeleccioneRequisiciones", "", "1");
