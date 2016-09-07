@@ -93,7 +93,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoProveedores(Usuario, ProyectoID, PatioID, TipoPruebaID);
+                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoProveedores( ProyectoID, PatioID, TipoPruebaID);
                     
                     
                 }
@@ -167,7 +167,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(Usuario, TipoPruebaID, ProveedorID, lenguaje);
+                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos( TipoPruebaID, ProveedorID, lenguaje);
                 }
                 else
                 {

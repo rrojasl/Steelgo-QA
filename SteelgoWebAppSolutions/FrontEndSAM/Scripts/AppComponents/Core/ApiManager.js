@@ -156,7 +156,7 @@ var $Reporte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Espesor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidarCedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ComplementoRecepcionAlt = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $AsignarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Steelgo - Maftec
 //ServiciosTecnicos
 var $CamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -280,7 +280,7 @@ $ComplementoRecepcionAlt.add("Listado");
 
 // ServiciosTecnicos
 $CamposPredeterminados.add("CamposPredeterminados");
-
+$AsignarRequisicion.add("AsignarRequisicion");
 $Proyectos.add("Proyectos");
 $ServiciosTecnicosGeneral.add("ServiciosTecnicosGeneral");
 $RequisicionPND.add("RequisicionPND");

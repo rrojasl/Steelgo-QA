@@ -1,9 +1,11 @@
 ﻿using BackEndSAM.DataAcces.ServiciosTecnicos;
+using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,7 +18,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
     {
         
         [HttpGet]
-        public object GetAsignarRequisicion(string lenguaje, string token, string mostrar, int idPrueba, int proyectoID)
+        public object GetAsignarRequisicion(string lenguaje, string token, string mostrar, int TipoPruebaID, int ProyectoID,int PatioID)
         {
             //Create a generic return object
             string payload = "";
@@ -28,7 +30,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 int tipoVista = mostrar == "Todos" ? 1 : 2;
 
-                return new object();// AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, idPrueba, proyectoID);
+                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, TipoPruebaID, ProyectoID, PatioID);
             }
             else
             {
@@ -40,6 +42,33 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
                 return result;
             }
 
+        }
+
+        [HttpPost]
+        public object GuardarCaptura(Captura listaCaptura, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
+                return AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
     }

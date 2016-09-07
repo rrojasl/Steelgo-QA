@@ -7147,6 +7147,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "botonCerrar": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
     "botonAcciones1": {
         "es-MX": "Acciones",
         "en-US": "Actions"
@@ -7186,6 +7190,16 @@ _dictionary = {
         "es-MX": "Nueva Requisición",
         "en-US": "New Requisition"
     },
+
+    "MensajeGuardadoExistoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+
+    "MensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral
@@ -7206,6 +7220,8 @@ _dictionary = {
         "en-US": "Delivery Plate or Graphics"
     },
     // Finalizan Etiquetas de Menú General
+
+    
 
     // Etiquetas Grids
     "columnLimpiar": {

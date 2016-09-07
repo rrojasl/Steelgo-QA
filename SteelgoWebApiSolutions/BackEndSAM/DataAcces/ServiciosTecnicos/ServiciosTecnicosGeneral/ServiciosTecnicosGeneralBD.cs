@@ -71,6 +71,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    
                     List<Requisicion> listaRequisiciones = new List<Requisicion>();
                     List<Sam3_ST_Get_ListaRequisiciones_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_ListaRequisiciones(usuario.UsuarioID, proyectoID, tipoPruebaID).ToList();
                     listaRequisiciones.Add(new Requisicion());
@@ -104,7 +105,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
         }
 
 
-        public object ObtenerListadoProveedores(Sam3_Usuario usuario, int proyectoID,int PatioID, int tipoPruebaID)
+        public object ObtenerListadoProveedores( int proyectoID,int PatioID, int tipoPruebaID)
         {
             try
             {
@@ -118,7 +119,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                         listaProveedores.Add(new Proveedor
                         {
                             ProveedorID = item.ProveedorID,
-                            
+                            TipoPruebaProveedorID = item.TipoPruebaProveedorID,
                             Nombre = item.Proveedor
                         });
                     }
@@ -181,7 +182,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
             }
         }
 
-        public object ObtenerListadoEquipos(Sam3_Usuario usuario, int tipoPruebaID, int proveedorID, string lenguaje)
+        public object ObtenerListadoEquipos( int tipoPruebaID, int proveedorID, string lenguaje)
         {
             try
             {

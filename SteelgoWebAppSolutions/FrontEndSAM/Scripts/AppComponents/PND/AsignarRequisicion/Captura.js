@@ -59,7 +59,7 @@ function CargarGrid() {
                         Requisicion: { type: "string", editable: false },
                         CantidadJuntas: { type: "number", editable: false },
                         Proveedor: { type: "string", editable: true },
-                        HerramientadePrueba: { type: "string", editable: true },
+                        Equipo: { type: "string", editable: true },
                         TurnoLaboral: { type: "string", editable: true },
                         Capacidad: { type: "string", editable: false },
                         JuntasAsignadas: { type: "string", editable: false }
@@ -100,7 +100,7 @@ function CargarGrid() {
             { field: "Fecha", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "110px" },
             { field: "CantidadJuntas", title: _dictionary.columnJuntas[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJuntas' style='text-align:center;'><a href='\\#'  > <span>#=CantidadJuntas#</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "80px" },
             { field: "Proveedor", title: _dictionary.columnProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "HerramientadePrueba", title: _dictionary.columnEquipo[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Equipo", title: _dictionary.columnEquipo[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "TurnoLaboral", title: _dictionary.columnTurnoLaboral[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Capacidad", title: _dictionary.columnCapacidad[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "80px" },
             { field: "JuntasAsignadas", title: _dictionary.columnJuntasAsignadas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "100px" },
@@ -119,9 +119,9 @@ function CargarGrid() {
 };
 
 function isEditable(fieldName, model) {
-    if (fieldName === "HerramientadePrueba") {
+    if (fieldName === "Equipo") {
         var str = model.Nombre;
-        var respuesta = str.indexOf('RT') >= 0;
+        var respuesta = model.RequiereEquipo;
         return respuesta;
     }
 
@@ -256,25 +256,24 @@ function CargarGridPopUp() {
             schema: {
                 model: {
                     fields: {
-                        Proyecto: { type: "string", editable: false },
+                        NumeroControl: { type: "string", editable: false },
+                        EtiquetaJunta: { type: "string", editable: false },
+                        TipoJunta: { type: "string", editable: false },
+                        NombreRequisicion: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Prioridad: { type: "number", editable: false },
                         Clasificacion: { type: "string", editable: false },
-                        Requisicion: { type: "string", editable: false },
-                        SpoolID: { type: "number", editable: false },
-                        EtiquetaJunta: { type: "string", editable: false },
                         Diametro: { type: "number", editable: false },
                         Espesor: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
-                        TipoJunta: { type: "string", editable: false },
-                        NombrePrueba: { type: "string", editable: false },
-                        RequisicionJuntaSpoolID: { type: "number", editable: false },
-                        JuntaTrabajoID: { type: "number", editable: false },
-                        CodigoAplicar: { type: "string", editable: false },
-                        observacion: { type: "string", editable: false },
-                        Folio: { type: "string", editable: false },
-                        Agregar: { type: "boolean", editable: false },
-                        NumeroControl: { editable: false }
+                        RequisicionID: { type: "int", editable: false },
+                        ProyectoID: { type: "int", editable: false },
+                        SpoolID: { type: "int", editable: false },
+                        OrdenTrabajoSpoolID: { type: "int", editable: false },
+                        JuntaSpoolID: { type: "int", editable: false },
+                        TipoPruebaID: { type: "int", editable: false },
+                        Especificacion: { type: "number", editable: false },
+                        
                     }
                 }
             },
@@ -284,16 +283,16 @@ function CargarGridPopUp() {
         filterable: getGridFilterableMaftec(),
 
         columns: [
-            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px", attributes: { style: "text-align:right;" } },
-            { field: "TipoJunta", title: _dictionary.columnTipoJta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "TipoJunta", title: _dictionary.columnTipoJta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "112px" },
+            { field: "NombreRequisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
+            { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", attributes: { style: "text-align:right;" } },
-            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
-            { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
-            { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
+            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
+            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
         ],
         editable: false,
         navigatable: true,
@@ -305,7 +304,7 @@ function LlenarGridPopUp(data) {
     modeloRenglon = data;
     $("#gridPopUp").data('kendoGrid').dataSource.data([]);
     var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-    var array = data.ListadoDetalleJuntasRequisicion;
+    var array = data.ListaElementosRequisicion;
     for (var i = 0; i < array.length; i++) {
         ds.add(array[i]);
     }
