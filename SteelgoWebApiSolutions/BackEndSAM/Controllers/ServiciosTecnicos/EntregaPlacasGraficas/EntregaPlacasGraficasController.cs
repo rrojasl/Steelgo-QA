@@ -157,7 +157,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object post(CapturaPlacasGraficas Captura, string token, string lenguaje)
+        public object post(CapturaPlacasGraficas Captura, string token, string lenguaje,int requisicionID)
         {
             string payload = "";
             string newToken = "";
@@ -167,7 +167,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleCaptura = EntregaPlacasGraficasController.ToDataTable(Captura.Detalles);
-                return EntregaPlacasGraficasBD.Instance.InsertarCapturaEntregaPlacasGraficas(dtDetalleCaptura, usuario.UsuarioID, lenguaje);
+                return EntregaPlacasGraficasBD.Instance.InsertarCapturaEntregaPlacasGraficas(dtDetalleCaptura, usuario.UsuarioID, lenguaje, requisicionID);
             }
             else
             {

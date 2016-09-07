@@ -169,6 +169,7 @@ function disableDocumentoDefecto() {
 
 function AjaxGuardarCaptura(ds, guardarYNuevo) {
     if (ds.length > 0) {
+        var RequisicionID = 0;
         var Captura = [];
         Captura[0]={Detalles: "" }
         var listaDetalles = [];
@@ -220,12 +221,15 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                     }
                     
                 }
+                if (ds[i].Accion != 2 && RequisicionID==0) {
+                    RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+                }
                 cont++;
         }
         Captura[0].Detalles = listaDetalles;
 
         if (!ExistRowEmpty(listaDetalles)) {
-            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                     if (guardarYNuevo) {
