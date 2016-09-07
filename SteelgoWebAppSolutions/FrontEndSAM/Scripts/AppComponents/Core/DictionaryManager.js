@@ -7219,6 +7219,10 @@ _dictionary = {
         "es-MX": "Entrega de Placas o Gráficas",
         "en-US": "Delivery Plate or Graphics"
     },
+    "menuServiciosTecnicosEditarRequisicion": {
+        "es-MX": "Editar Requisición",
+        "en-US": "Edit Requisition"	
+    },
     // Finalizan Etiquetas de Menú General
 
     
@@ -7356,6 +7360,10 @@ _dictionary = {
     "ServiciosTecnicosAsignarRequisicionBreadcrumb": {
         "es-MX": "Asignar Requisición",
         "en-US": "Assign Requisition"
+    },
+    "ServiciosTecnicosEditarRequisicionBreadcrumb": {
+        "es-MX": "Editar Requisición",
+        "en-US": "Edit Requisition"
     },
     // Finalizan Etiquetas Generales PND
 
