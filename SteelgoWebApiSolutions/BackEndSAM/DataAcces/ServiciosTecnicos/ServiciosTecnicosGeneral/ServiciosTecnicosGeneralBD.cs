@@ -65,7 +65,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
             }
         }
 
-        public object ObtenerListadoRequisiciones(Sam3_Usuario usuario, int proyectoID, int tipoPruebaID)
+        public object ObtenerListadoRequisiciones(Sam3_Usuario usuario, int proyectoID, int tipoPruebaID, int estatusID)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                 {
                     
                     List<Requisicion> listaRequisiciones = new List<Requisicion>();
-                    List<Sam3_ST_Get_ListaRequisiciones_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_ListaRequisiciones(usuario.UsuarioID, proyectoID, tipoPruebaID).ToList();
+                    List<Sam3_ST_Get_ListaRequisiciones_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_ListaRequisiciones(usuario.UsuarioID, proyectoID, tipoPruebaID, estatusID).ToList();
                     listaRequisiciones.Add(new Requisicion());
                     foreach (Sam3_ST_Get_ListaRequisiciones_Result item in listaRequisicionesCTX)
                     {

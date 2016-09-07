@@ -35,7 +35,7 @@ function AjaxGetListaTiposDePrueba() {
 }
 
 function AjaxGetListaRequisiciones(proyectoID, tipoPruebaID) {
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID }).done(function (data) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
         $("#listaRequisiciones").data("kendoComboBox").value("");
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
     });
@@ -94,7 +94,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         Captura[0].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
         Captura[0].Requisicion = "";
         Captura[0].ProyectoID = $("#Proyecto").data("kendoComboBox").value();
-        Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value();
+        Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
         Captura[0].CodigoAsme = "";
         Captura[0].Observacion = "";
         Captura[0].FechaRequisicion = "";
@@ -131,11 +131,11 @@ function AjaxGuardarCaptura(arregloCaptura) {
                                 '</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
-                                    '<input id="FechaRequisicion" class="form-control" readonly/>' +
+                                    '<input id="FechaRequisicion" class="form-control" readonly disabled />' +
                                 '</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
-                                    '<input id="CodigoAsme" class="form-control" readonly/>' +
+                                    '<input id="CodigoAsme" class="form-control" readonly disabled />' +
                                 '</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblObservacion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
@@ -163,26 +163,18 @@ function AjaxGuardarCaptura(arregloCaptura) {
             Captura[0].FechaRequisicion = $("#FechaRequisicion").val();
 
             $RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0].split('|')[0] == "Ok") {
-                    mensaje = "Se guardo correctamente la informacion" + "-0";
-                    if (tipoGuardar == 1) {
-                        Limpiar();
-                        opcionHabilitarView(false, "FieldSetView");
-                        requisicionID = 0;
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                    if (data.ReturnMessage[1] != undefined) {
+                        $("#listaRequisiciones").data("kendoComboBox").value(data.ReturnMessage[1]);
+
+                        AjaxGetListaElementos(Captura[0].Requisicion, Captura[0].TipoPruebaID, Captura[0].ProyectoID, $('input:radio[name=Muestra]:checked').val());
+
+                        displayNotify("", "Guardado exitoso", "0");
                     }
-                    else {
-                        requisicionID = data.ReturnMessage[0].split('|')[1];
-                        ajaxObtenerJuntasSoldadas($("#Proyecto").data("kendoComboBox").value());
-                        opcionHabilitarView(true, "FieldSetView");
-                    }
-                    ajaxRequisicion();
-                    displayNotify("CapturaSoldaduraMensajeGuardadoExitoso", "", "0");
-                    loadingStop();
                 }
-                else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+                else {
                     mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                    //displayNotify("CapturaMensajeGuardadoErroneo", "", '1');
-                    loadingStop();
+                    displayNotify("", mensaje, '1');
                 }
             });
 
