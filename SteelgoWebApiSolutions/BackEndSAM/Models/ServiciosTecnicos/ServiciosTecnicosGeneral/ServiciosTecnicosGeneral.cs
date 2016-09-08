@@ -68,11 +68,27 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
 
     public class TurnoLaboral
     {
+
+        public TurnoLaboral()
+        {
+            TurnoLaboralID = 0;
+            Nombre = "";
+            Capacidad = 0;
+            TipoPruebaProveedorID = 0;
+            CapacidadTurnoProveedorID = 0;
+            CapacidadTurnoEquipoID = 0;
+            JuntasAsignadas = "";
+            ElementosAsignados = 0;
+            ProveedorEquipoID = 0;
+        }
         public int TurnoLaboralID { get; set; }
         public string Nombre { get; set; }
         public int Capacidad { get; set; }
         public int TipoPruebaProveedorID { get; set; }
         public int CapacidadTurnoProveedorID { get; set; }
         public int CapacidadTurnoEquipoID { get; set; }
+        public string JuntasAsignadas {get; set;}
+        public int ElementosAsignados { get; set; }
+        public int ProveedorEquipoID { get; set; }
     }
 }

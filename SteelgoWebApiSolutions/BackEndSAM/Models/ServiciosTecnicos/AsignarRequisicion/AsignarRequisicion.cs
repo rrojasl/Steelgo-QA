@@ -24,7 +24,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public string Requisicion { get; set; }
         public int CantidadJuntas { get; set; }
         public int ProveedorID { get; set; }
-        public int ProveedorOriginalID { get; set; }
+        public int CapacidadTurnoProveedorOriginalID { get; set; }
         public string Proveedor { get; set; }
         public string Capacidad { get; set; }
         public List<ServiciosTecnicosGeneral.Proveedor> ListaProveedor { get; set; }
@@ -34,12 +34,13 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public List<Equipo> ListaEquipos { get; set; }
         public List<Equipo> ListaEquiposTotal { get; set; }
         public int TurnoLaboralID { get; set; }
-        public int TurnoLaboralOriginalID { get; set; }
+        public int CapacidadTurnoEquipoOriginalID { get; set; }
         public string TurnoLaboral { get; set; }
         public bool RequiereEquipo { get; set; }
         public List<TurnoLaboral> ListaTurnoLaboral { get; set; }
         public List<TurnoLaboral> ListaTurnoLaboralTotal { get; set; }
         public List<ElementosRequisicion> ListaElementosRequisicion { get; set; }
+        public List<ElementosRequisicion> ListaElementosAsignadosTurno { get; set; }
         public string JuntasAsignadas { get; set; }
         public string JuntasAsignadasOriginal { get; set; }
         public int CapacidadTurnoProveedorID { get; set; }
@@ -54,9 +55,10 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public int Accion { get; set; }
         public int RequisicionAsignacionID { get; set; }
         public int RequisicionID { get; set; }
-        public int ProveedorID { get; set; }
-        public int EquipoID { get; set; }
-        public int TurnoLaboralID { get; set; }
+        public int TipoPruebaProveedorID { get; set; }
+        public int ProveedorEquipoID { get; set; }
+        public int CapacidadTurnoEquipoID { get; set; }
+        public int CapacidadTurnoProveedorID { get; set; }
         public string Fecha { get; set; }
     }
 

@@ -9,6 +9,7 @@
     SuscribirEventoComboEquipo();
     SuscribirEventoComboTurno();
     SuscribirEventoComboRequisicion();
+    suscribirEventoElementosAsignados();
 };
 
 
@@ -25,6 +26,21 @@ function suscribirEventoJuntas() {
         }
     });
 }
+
+function suscribirEventoElementosAsignados() {
+
+    $(document).on('click', '.EnlaceDetalleElementosAsignados', function (e) {
+        e.preventDefault();
+
+        if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            LlenarGridPopUpElementosAsignados(dataItem);
+        }
+    });
+}
+
 
 
 function SuscribirEventoCerrarPopUpJuntas() {
@@ -55,7 +71,6 @@ function SuscribirEventoComboPrueba() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-                AjaxObtenerProveedor();
                 AjaxCargarRequisicionAsignacion();
             }
             else {
@@ -102,7 +117,6 @@ function SuscribirEventoComboProyecto() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined || dataItem.Nombre != "") {
-                AjaxCargarRequisicionAsignacion();
                 AjaxPruebas();
             }
             else {

@@ -70,17 +70,18 @@ namespace BackEndSAM.DataAcces.Sam3General.Proyectos
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Spool> listaOrdenTrabajoSpool =(from ordentrabajoSpool in ctx.Sam3_Steelgo_Get_SpoolID(tipo, ordentrabajo, lenguaje)
-                                                          select new Spool
-                                                          {
-                                                              HabilitadoHoldFecha = ordentrabajoSpool.HabilitadoHoldFecha,
-                                                              Nombre = ordentrabajoSpool.ID,
-                                                              SpoolID = ordentrabajoSpool.OrdenTrabajoSpoolID,
-                                                              Proyecto = ordentrabajoSpool.NombreProyecto,
-                                                              ProyectoID = ordentrabajoSpool.ProyectoID,
-                                                              Status = ordentrabajoSpool.status,
-                                                              OrdenTrabajo = ordentrabajoSpool.OrdenTrabajo
-                                                          }).AsParallel().ToList().OrderBy(x => x.CedulaTuboCalificadoDesc).ToList<Spool>();
+                    List<Spool> listaOrdenTrabajoSpool = null;
+                        //(from ordentrabajoSpool in ctx.Sam3_Steelgo_Get_SpoolID(tipo, ordentrabajo, lenguaje)
+                        // select new Spool
+                        // {
+                        //     HabilitadoHoldFecha = ordentrabajoSpool.HabilitadoHoldFecha,
+                        //     Nombre = ordentrabajoSpool.ID,
+                        //     SpoolID = ordentrabajoSpool.OrdenTrabajoSpoolID,
+                        //     Proyecto = ordentrabajoSpool.NombreProyecto,
+                        //     ProyectoID = ordentrabajoSpool.ProyectoID,
+                        //     Status = ordentrabajoSpool.status,
+                        //     OrdenTrabajo = ordentrabajoSpool.OrdenTrabajo
+                        // }).AsParallel().ToList().OrderBy(x => x.CedulaTuboCalificadoDesc).ToList<Spool>();
                     listaOrdenTrabajoSpool.Insert(0, new Spool());
 
                     return listaOrdenTrabajoSpool;

@@ -7289,8 +7289,8 @@ _dictionary = {
         "en-US": "Date"
     },
     "columnJuntas": {
-        "es-MX": "Jtas",
-        "en-US": "Jnts"
+        "es-MX": "Elms",
+        "en-US": "Elms"
     },
     "columnProveedor": {
         "es-MX": "Proveedor",
@@ -7309,8 +7309,8 @@ _dictionary = {
         "en-US": "Cap"
     },
     "columnJuntasAsignadas": {
-        "es-MX": "Jts Asg",
-        "en-US": "Jnts Asg"
+        "es-MX": "Elm Asg",
+        "en-US": "Elm Asg"
     },
     "columnProyecto": {
         "es-MX": "Proyecto",

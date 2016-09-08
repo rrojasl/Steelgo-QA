@@ -7,8 +7,17 @@ function AjaxObtenerProyectos() {
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         $("#inputProyecto").data("kendoComboBox").value("");
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+
+        if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputProyecto").data("kendoComboBox").select(1);
+            $("#inputProyecto").data("kendoComboBox").trigger("change");
+        }
+        else {
+            $("#inputProyecto").data("kendoComboBox").select(0);
+            loadingStop();
+        }
+            
         
-        loadingStop();
     });
 }
 
@@ -21,6 +30,14 @@ function AjaxObtenerProveedor() {
                 $("#inputProveedor").data("kendoComboBox").value("");
                 $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
 
+                if ($("#inputProveedor").data("kendoComboBox").dataSource._data.length == 2) {
+                    $("#inputProveedor").data("kendoComboBox").select(1);
+                    $("#inputProveedor").data("kendoComboBox").trigger("change");
+
+                }
+                else {
+                    
+                }
             }
             loadingStop();
         });
@@ -34,9 +51,19 @@ function AjaxPruebas() {
         $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (Error(data)) {
                 $("#inputPrueba").data("kendoComboBox").value("");
-                $("#inputPrueba").data("kendoComboBox").dataSource.data(data);                
+                $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
+
+                if ($("#inputPrueba").data("kendoComboBox").dataSource._data.length == 2) {
+                    $("#inputPrueba").data("kendoComboBox").select(1);
+                    $("#inputPrueba").data("kendoComboBox").trigger("change");
+                    
+                }
+                else {
+                    AjaxCargarRequisicionAsignacion();
+                }
+                
             }
-            loadingStop();
+            
         });
     }
  };
@@ -83,6 +110,10 @@ function AjaxPruebas() {
 
                 }
                 loadingStop();
+                if ($("#inputPrueba").data("kendoComboBox").text() != "") {
+                    AjaxObtenerProveedor();
+                }
+                
             });
 
         }
@@ -122,14 +153,15 @@ function AjaxPruebas() {
             var i = 0;
 
             for (index = 0; index < arregloCaptura.length; index++) {
-                ListaDetalles[i] = { Accion: "", RequisicionAsignacionID: "", RequisicionID: "", ProveedorID: "", EquipoID: "", TurnoLaboralID: "", Fecha: "", Estatus: 1 };
+                ListaDetalles[i] = { Accion: "", RequisicionAsignacionID: "", RequisicionID: "", TipoPruebaProveedorID: "", ProveedorEquipoID: "", CapacidadTurnoEquipoID: "",CapacidadTurnoProveedorID: "", Fecha: "", Estatus: 1 };
 
                 ListaDetalles[i].Accion = arregloCaptura[index].Accion;
                 ListaDetalles[i].RequisicionAsignacionID = arregloCaptura[index].RequisicionAsignacionID;
                 ListaDetalles[i].RequisicionID = arregloCaptura[index].RequisicionID;
-                ListaDetalles[i].ProveedorID = arregloCaptura[index].ProveedorID;
-                ListaDetalles[i].EquipoID = arregloCaptura[index].EquipoID;
-                ListaDetalles[i].TurnoLaboralID = arregloCaptura[index].TurnoLaboralID;
+                ListaDetalles[i].TipoPruebaProveedorID = arregloCaptura[index].TipoPruebaProveedorID;
+                ListaDetalles[i].ProveedorEquipoID = arregloCaptura[index].ProveedorEquipoID;
+                ListaDetalles[i].CapacidadTurnoEquipoID = arregloCaptura[index].CapacidadTurnoEquipoID;
+                ListaDetalles[i].CapacidadTurnoProveedorID = arregloCaptura[index].CapacidadTurnoProveedorID;
                 ListaDetalles[i].Fecha = kendo.toString(arregloCaptura[index].Fecha, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
 
                 if (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2) {

@@ -103,7 +103,7 @@ function CargarGrid() {
             { field: "Equipo", title: _dictionary.columnEquipo[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "TurnoLaboral", title: _dictionary.columnTurnoLaboral[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Capacidad", title: _dictionary.columnCapacidad[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "JuntasAsignadas", title: _dictionary.columnJuntasAsignadas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "JuntasAsignadas", title: _dictionary.columnJuntasAsignadas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, template: "<div class='EnlaceDetalleElementosAsignados' style='text-align:center;'><a href='\\#'  > <span>#=JuntasAsignadas#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "100px" },
         //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.tituloEliminar[$("#language").data("kendoDropDownList").value()], width: "50px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
@@ -236,8 +236,26 @@ function limpiarRenglon(e) {
         itemToClean.TurnoLaboralID = 0;
         itemToClean.JuntasAsignadas = "";
         itemToClean.Capacidad = "";
+        options.model.ListaElementosAsignadosTurno = [];
         if (itemToClean.Accion == 2)
             itemToClean.Accion = 4;
+
+        var JuntasAsignadasFinal = parseInt(itemToClean.JuntasAsignadasOriginal) - parseInt(itemToClean.CantidadJuntas);
+
+        if (!itemToClean.RequiereEquipo) {
+            setListadojuntasAsignadasCapacidadTurnoProveedor(itemToClean.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
+            setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, itemToClean.CapacidadTurnoProveedorOriginalID);
+            removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+            itemToClean.CapacidadTurnoProveedorID = 0;
+            itemToClean.CapacidadTurnoProveedorOriginalID = 0;
+        }
+        else {
+            setListadojuntasAsignadasCapacidadTurnoEquipo(itemToClean.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
+            setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, itemToClean.CapacidadTurnoProveedorOriginalID);
+            removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+            itemToClean.CapacidadTurnoEquipoID = 0;
+            itemToClean.CapacidadTurnoEquipoOriginalID = 0;
+        }
 
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataSource.sync();
@@ -273,7 +291,7 @@ function CargarGridPopUp() {
                         JuntaSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
                         Especificacion: { type: "number", editable: false },
-                        
+
                     }
                 }
             },
@@ -312,6 +330,18 @@ function LlenarGridPopUp(data) {
 
     VentanaModal();
 }
+
+function LlenarGridPopUpElementosAsignados(data) {
+    modeloRenglon = data;
+    $("#gridPopUp").data('kendoGrid').dataSource.data([]);
+    var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+    var array = data.ListaElementosAsignadosTurno;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
+    VentanaModal();
+}
+
 
 function VentanaModal() {
 
@@ -408,27 +438,39 @@ function JuntasAsignadasMayor(ProveedorID, TurnoLaboralID, JuntasAsignadas) {
 }
 
 
-function setJuntasAsignatdas(JuntasAsignadas, ProveedorID, TurnoLaboralID, HerramientaDePruebaID) {
+function setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadas, CapacidadTurnoProveedorID) {
     var ds = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < ds.length; i++) {
-        if (ds[i].JuntasAsignadas != "" && ds[i].ProveedorID == ProveedorID && ds[i].TurnoLaboralID == TurnoLaboralID && ds[i].HerramientadePruebaID == HerramientaDePruebaID) {
+        if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
             ds[i].JuntasAsignadas = JuntasAsignadas;
         }
     }
 }
 
-function setListadojuntasAsignadar(ProveedorID, TurnoLaboralID, JuntasAsignadas) {
+function setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadas, CapacidadTurnoEquipoID) {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < ds.length; i++) {
+        if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+            ds[i].JuntasAsignadas = JuntasAsignadas;
+        }
+    }
+}
+
+
+
+function setListadojuntasAsignadasCapacidadTurnoEquipo(CapacidadTurnoEquipoID, JuntasAsignadas) {
     var ds = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < ds.length; i++) {
         for (var j = 0; j < ds[i].ListaTurnoLaboral.length; j++) {
-            if (ds[i].ListaTurnoLaboral[j].ProveedorID == ProveedorID && ds[i].ListaTurnoLaboral[j].TurnoLaboralID == TurnoLaboralID) {
+            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
                 ds[i].ListaTurnoLaboral[j].JuntasAsignadas = JuntasAsignadas;
             }
         }
         for (var k = 0; k < ds[i].ListaTurnoLaboralTotal.length; k++) {
-            if (ds[i].ListaTurnoLaboralTotal[k].ProveedorID == ProveedorID && ds[i].ListaTurnoLaboralTotal[k].TurnoLaboralID == TurnoLaboralID) {
+            if (ds[i].ListaTurnoLaboralTotal[k].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
                 ds[i].ListaTurnoLaboralTotal[k].JuntasAsignadas = JuntasAsignadas;
             }
         }
@@ -437,3 +479,112 @@ function setListadojuntasAsignadar(ProveedorID, TurnoLaboralID, JuntasAsignadas)
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
+
+function setListadojuntasAsignadasCapacidadTurnoProveedor(CapacidadTurnoProveedorID, JuntasAsignadas) {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < ds.length; i++) {
+        for (var j = 0; j < ds[i].ListaTurnoLaboral.length; j++) {
+            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+                ds[i].ListaTurnoLaboral[j].JuntasAsignadas = JuntasAsignadas;
+            }
+        }
+        for (var k = 0; k < ds[i].ListaTurnoLaboralTotal.length; k++) {
+            if (ds[i].ListaTurnoLaboralTotal[k].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+                ds[i].ListaTurnoLaboralTotal[k].JuntasAsignadas = JuntasAsignadas;
+            }
+        }
+
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+
+
+function generarListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, CapacidadTurnoEquipoID) {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+    loadingStart();
+    var listaAux = [];
+    for (var i = ds.length - 1; i >= 0; i--) {
+        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+            listaAux = ds[i].ListaElementosAsignadosTurno;
+            break;
+        }
+    }
+
+    for (var k = 0; k < ListaElementosRequisicion.length; k++) {
+        listaAux.push(ListaElementosRequisicion[k]);
+    }
+
+
+    for (var i = ds.length - 1; i >= 0; i--) {
+        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+            ds[i].ListaElementosAsignadosTurno = listaAux;
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+    loadingStop();
+}
+
+
+
+function generarListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, CapacidadTurnoProveedorID) {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+    loadingStart();
+    var listaAux = [];
+    for (var i = ds.length-1; i >= 0; i--) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+            listaAux = ds[i].ListaElementosAsignadosTurno;
+            break;
+        }
+    }
+    for (var i = listaAux.length - 1; i >= 0; i--) {
+        for (var k = 0; k < ListaElementosRequisicion.length; k++) {
+            if (ListaElementosRequisicion[k].SpoolID == listaAux[i].SpoolID && ListaElementosRequisicion[k].EtiquetaJunta == listaAux[i].EtiquetaJunta) {
+                listaAux.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+
+    for (var i = ds.length - 1; i >= 0; i--) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+            ds[i].ListaElementosAsignadosTurno = listaAux;
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+    loadingStop();
+}
+
+
+function removerListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, CapacidadTurnoProveedorID) {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+    
+    var listaAux = [];
+    for (var i = ds.length - 1; i >= 0; i--) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+            listaAux = ds[i].ListaElementosAsignadosTurno;
+            break;
+        }
+    }
+    for (var i = listaAux.length - 1; i >= 0; i--) {
+        for (var k = 0; k < ListaElementosRequisicion.length; k++) {
+            if (ListaElementosRequisicion[k].SpoolID == listaAux[i].SpoolID && ListaElementosRequisicion[k].EtiquetaJunta == listaAux[i].EtiquetaJunta) {
+                listaAux.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    for (var i = ds.length - 1; i >= 0; i--) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+            ds[i].ListaElementosAsignadosTurno = listaAux;
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+    
+}

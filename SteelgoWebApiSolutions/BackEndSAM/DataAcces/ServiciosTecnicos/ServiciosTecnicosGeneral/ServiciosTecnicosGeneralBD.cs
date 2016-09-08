@@ -160,7 +160,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                             Capacidad = item.Capacidad,
                             TipoPruebaProveedorID = item.TipoPruebaProveedorID,
                             CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
-                            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID
+                            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
+                            JuntasAsignadas = item.ElementosAsignados.ToString(),
                         });
                     }
 
