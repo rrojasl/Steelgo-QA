@@ -165,6 +165,7 @@ var $Proyectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ServiciosTecnicosGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RequisicionPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EntregaPlacasGraficas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $EditarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -285,3 +286,4 @@ $Proyectos.add("Proyectos");
 $ServiciosTecnicosGeneral.add("ServiciosTecnicosGeneral");
 $RequisicionPND.add("RequisicionPND");
 $EntregaPlacasGraficas.add("EntregaPlacasGraficas");
+$EditarRequisicion.add("EditarRequisicion");
