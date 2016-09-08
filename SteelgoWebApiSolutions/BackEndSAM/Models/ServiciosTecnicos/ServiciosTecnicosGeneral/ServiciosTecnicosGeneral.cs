@@ -11,12 +11,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
             Nombre = "";
             Categoria = "";
             TipoPruebaPorSpool = 0;
+            RequiereEquipo = false;
         }
 
         public int TipoPruebaID { get; set; }
         public string Nombre { get; set; }
         public string Categoria { get; set; }
         public int TipoPruebaPorSpool { get; set; }
+        public bool RequiereEquipo { get; set; }
     }
 
     public class Requisicion
