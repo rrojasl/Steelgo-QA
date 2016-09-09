@@ -1,4 +1,5 @@
 ﻿var CampoMuestra = 29;
+var CampoLlena = 3054;
 
 
 function AjaxObtenerProyectos() {
@@ -21,6 +22,82 @@ function AjaxObtenerProyectos() {
     });
 }
 
+function AjaxObtenerEquipo() {
+    loadingStart();
+    if ($("#inputProveedor").data("kendoComboBox").text() != "") {
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), ProveedorID: $("#inputProveedor").data("kendoComboBox").value(), lenguaje: $("#language").val() }).done(function (data) {
+            $("#inputEquipo").data("kendoComboBox").value("");
+            $("#inputEquipo").data("kendoComboBox").dataSource.data(data);
+
+            if ($("#inputEquipo").data("kendoComboBox").dataSource._data.length == 2) {
+                $("#inputEquipo").data("kendoComboBox").select(1);
+                $("#inputEquipo").data("kendoComboBox").trigger("change");
+            }
+            else {
+                $("#inputEquipo").data("kendoComboBox").select(0);
+                loadingStop();
+            }
+
+        });
+    }
+    else {
+        loadingStop();
+        $("#inputEquipo").data("kendoComboBox").setDataSource();
+        $("#inputEquipo").data("kendoComboBox").value("");
+    }
+}
+
+function AjaxObtenerTurno() {
+    loadingStart();
+    var RequiereEquipo = $('#inputPrueba').data("kendoComboBox").dataSource._data[$('#inputPrueba').data("kendoComboBox").selectedIndex].RequiereEquipo;
+    if ($("#inputProveedor").data("kendoComboBox").text() != "") {
+        if (!RequiereEquipo) {
+
+            $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), ProveedorID: $("#inputProveedor").data("kendoComboBox").value(), EquipoID: 0, lenguaje: $("#language").val() }).done(function (data) {
+                $("#inputTurno").data("kendoComboBox").value("");
+                $("#inputTurno").data("kendoComboBox").dataSource.data(data);
+
+                if ($("#inputTurno").data("kendoComboBox").dataSource._data.length == 2) {
+                    $("#inputTurno").data("kendoComboBox").select(1);
+                    $("#inputTurno").data("kendoComboBox").trigger("change");
+                }
+                else {
+                    $("#inputTurno").data("kendoComboBox").select(0);
+                    loadingStop();
+                }
+                $("#inputTurno").data("kendoComboBox").value("");
+
+            });
+        }
+        else {
+            if ($("#inputEquipo").data("kendoComboBox").value() != "") {
+                $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), ProveedorID: $("#inputProveedor").data("kendoComboBox").value(), EquipoID: $("#inputEquipo").data("kendoComboBox").value(), lenguaje: $("#language").val() }).done(function (data) {
+                    $("#inputTurno").data("kendoComboBox").value("");
+                    $("#inputTurno").data("kendoComboBox").dataSource.data(data);
+
+                    if ($("#inputTurno").data("kendoComboBox").dataSource._data.length == 2) {
+                        $("#inputTurno").data("kendoComboBox").select(1);
+                        $("#inputTurno").data("kendoComboBox").trigger("change");
+                    }
+                    else {
+                        $("#inputTurno").data("kendoComboBox").select(0);
+                        loadingStop();
+                    }
+
+
+                });
+            }
+        }
+    }
+    else {
+        $("#inputTurno").data("kendoComboBox").setDataSource();
+        $("#inputTurno").data("kendoComboBox").value("");
+    }
+    
+}
+
+
+
 function AjaxObtenerProveedor() {
     if ($("#inputPrueba").data("kendoComboBox").value() != "") {
         loadingStart();
@@ -33,7 +110,15 @@ function AjaxObtenerProveedor() {
                 if ($("#inputProveedor").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputProveedor").data("kendoComboBox").select(1);
                     $("#inputProveedor").data("kendoComboBox").trigger("change");
-
+                    var RequiereEquipo = $('#inputPrueba').data("kendoComboBox").dataSource._data[$('#inputPrueba').data("kendoComboBox").selectedIndex].RequiereEquipo;
+                    if (!RequiereEquipo) {
+                        AjaxObtenerTurno();
+                     
+                    }
+                    else {
+                        AjaxObtenerEquipo();
+                     
+                    }
                 }
                 else {
                     
@@ -126,20 +211,34 @@ function AjaxPruebas() {
             if (Error(data)) {
                 if (data == "sin captura") {
                     $('input:radio[name=Muestra]:nth(0)').trigger("click");
-                    //$('input:radio[name=Muestra]:nth(1)').attr('checked', false);
+                    
                     $("#styleSinCaptura").addClass("active");
                     $("#styleTodos").removeClass("active");
                 }
                 else if (data == "Todos") {
-                    //$('input:radio[name=Muestra]:nth(0)').attr('checked', false);
+                    
                     $('input:radio[name=Muestra]:nth(1)').trigger("click");
                     $("#styleTodos").addClass("active");
                     $("#styleSinCaptura").removeClass("active");
                 }
-                // AjaxCargarRequisicionAsignacion();
+                
             }
             loadingStop();
         });
+
+        $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoLlena }).done(function (data) {
+            if (Error(data)) {
+                if (data == "Vacios") {
+                    $('input:radio[name=Planchar]:nth(0)').trigger("click");
+                }
+                else if (data == "Todos") {
+                    $('input:radio[name=Planchar]:nth(1)').trigger("click");
+                }
+            }
+            loadingStop();
+        });
+
+        
 
     }
 

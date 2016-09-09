@@ -10,8 +10,55 @@
     SuscribirEventoComboTurno();
     SuscribirEventoComboRequisicion();
     suscribirEventoElementosAsignados();
+    suscribirEventoPlanchado();
 };
 
+function suscribirEventoPlanchado() {
+    $('#ButtonPlanchar').click(function (e) {
+        e.preventDefault();
+        var ds = $("#grid").data("kendoGrid").dataSource;
+
+        if (ds._data.length > 0) {
+            if ($('input:radio[name=Planchar]:checked').val() === "Todos") {
+                
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+                ventanaConfirm.open().center();
+
+                $("#yesButton").click(function (handler) {
+                    if ($("#inputProveedor").val() != "") PlanchaProveedor();
+                    if ($("#inputEquipo").val() != "") PlanchaEquipo();
+                    if ($("#inputTurno").val() != "") PlanchaTurno();
+                    ventanaConfirm.close();
+                });
+                $("#noButton").click(function (handler) {
+                    ventanaConfirm.close();
+                });
+            }
+            else {
+                if ($("#inputProveedor").val() != "") PlanchaProveedor();
+                if ($("#inputEquipo").val() != "") PlanchaEquipo();
+                if ($("#inputTurno").val() != "") PlanchaTurno();
+
+            }
+        }
+    });
+
+}
 
 function suscribirEventoJuntas() {
 
@@ -72,10 +119,32 @@ function SuscribirEventoComboPrueba() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 AjaxCargarRequisicionAsignacion();
+                var RequiereEquipo = $('#inputPrueba').data("kendoComboBox").dataSource._data[$('#inputPrueba').data("kendoComboBox").selectedIndex].RequiereEquipo;
+                if (!RequiereEquipo) {
+                    $("#divEquipo").css('display', 'none');
+                }
+                else {
+                    $("#divEquipo").css('display', 'block');
+                }
+
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").text("");
+                $("#inputEquipo").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
+                $("#inputProveedor").data("kendoComboBox").setDataSource();
+                $("#inputProveedor").data("kendoComboBox").text("");
             }
             else {
-                $("#inputPrueba").data("kendoComboBox").value("");
+                $("#inputPrueba").data("kendoComboBox").text("");
+                $("#divEquipo").css('display', 'block');
 
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").text("");
+
+                $("#inputEquipo").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
+                $("#inputProveedor").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
             }
         }
     });
@@ -93,10 +162,29 @@ function SuscribirEventoComboProveedor() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-                
+                var RequiereEquipo = $('#inputPrueba').data("kendoComboBox").dataSource._data[$('#inputPrueba').data("kendoComboBox").selectedIndex].RequiereEquipo;
+                if (!RequiereEquipo) {
+                    AjaxObtenerTurno();
+
+                }
+                else {
+                    AjaxObtenerEquipo();
+
+                }
+
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").text("");
+                $("#inputEquipo").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
+
             }
             else {
                 $("#inputProveedor").data("kendoComboBox").value("");
+
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").text("");
+                $("#inputEquipo").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
 
             }
         }
@@ -139,11 +227,14 @@ function SuscribirEventoComboEquipo() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-                AjaxCargarRequisicionAsignacion();
-
+                AjaxObtenerTurno();
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").value("");
             }
             else {
                 $("#inputEquipo").data("kendoComboBox").value("");
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").value("");
 
             }
         }
@@ -153,7 +244,7 @@ function SuscribirEventoComboEquipo() {
 
 function SuscribirEventoComboTurno() {
     $('#inputTurno').kendoComboBox({
-        dataTextField: "Turno",
+        dataTextField: "Nombre",
         dataValueField: "TurnoLaboralID",
         suggest: true,
         filter: "contains",
@@ -161,7 +252,7 @@ function SuscribirEventoComboTurno() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-                AjaxCargarRequisicionAsignacion();
+
 
             }
             else {
@@ -186,10 +277,32 @@ function SuscribirEventoComboRequisicion() {
             if (dataItem != undefined) {
                 AjaxCargarRequisicionAsignacion();
 
+                $("#inputPrueba").data("kendoComboBox").setDataSource();
+                $("#inputPrueba").data("kendoComboBox").text("");
+
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").text("");
+
+                $("#inputEquipo").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
+
+                $("#inputProveedor").data("kendoComboBox").setDataSource();
+                $("#inputProveedor").data("kendoComboBox").text("");
             }
             else {
                 $("#inputRequisicion").data("kendoComboBox").value("");
 
+                $("#inputPrueba").data("kendoComboBox").setDataSource();
+                $("#inputPrueba").data("kendoComboBox").text("");
+
+                $("#inputTurno").data("kendoComboBox").setDataSource();
+                $("#inputTurno").data("kendoComboBox").text("");
+
+                $("#inputEquipo").data("kendoComboBox").setDataSource();
+                $("#inputEquipo").data("kendoComboBox").text("");
+
+                $("#inputProveedor").data("kendoComboBox").setDataSource();
+                $("#inputProveedor").data("kendoComboBox").text("");
             }
         }
     });
