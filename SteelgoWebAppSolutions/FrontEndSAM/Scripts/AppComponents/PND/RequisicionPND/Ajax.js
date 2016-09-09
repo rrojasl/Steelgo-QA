@@ -85,11 +85,13 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
             ListaCaptura[cont] = {
                 RequisicionID: 0,
-                ElementoPorClasificacionPNDID: 0
+                ElementoPorClasificacionPNDID: 0,
+                Accion: 0
             };
 
             ListaCaptura[cont].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
             ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[index].ElementoPorClasificacionPNDID;
+            ListaCaptura[cont].Accion = 1;
 
             cont++;
         }
@@ -196,7 +198,7 @@ function AjaxGetGuardado(RequisicionID) {
     $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: 0, TipoPruebaID: 0, estatusID: 1 }).done(function (data) {
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
 
-        $("#listaRequisiciones").data("kendoComboBox").value(data.ReturnMessage[1]);
+        $("#listaRequisiciones").data("kendoComboBox").value(RequisicionID);
         $("#listaRequisiciones").data("kendoComboBox").trigger("change");
     });
 }
