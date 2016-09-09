@@ -217,6 +217,29 @@ function SuscribirEventoComboProyecto() {
 };
 
 
+function SuscribirEventoComboRequisicion() {
+    $('#inputRequisicion').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "RequisicionID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined || dataItem.Nombre != "") {
+                
+            }
+            else {
+                $("#inputRequisicion").data("kendoComboBox").value("");
+
+            }
+        }
+    });
+
+};
+
+
+
 function SuscribirEventoComboEquipo() {
     $('#inputEquipo').kendoComboBox({
         dataTextField: "Nombre",

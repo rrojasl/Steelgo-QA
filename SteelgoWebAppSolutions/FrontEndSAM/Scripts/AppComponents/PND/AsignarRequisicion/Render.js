@@ -51,6 +51,7 @@
 
                     options.model.TurnoLaboralID = 0;
                     options.model.TurnoLaboral = "";
+                    options.model.Equipo = "";
                     options.model.Capacidad = "";
                     options.model.JuntasAsignadas = "";
                     options.model.ListaElementosAsignadosTurno = [];
@@ -89,6 +90,7 @@
 
                     options.model.TurnoLaboralID = 0;
                     options.model.TurnoLaboral = "";
+                    options.model.Equipo = "";
                     options.model.Capacidad = "";
                     options.model.JuntasAsignadas = "";
                     options.model.JuntasAsignadasOriginal = 0;
@@ -180,7 +182,7 @@ function RenderComboBoxHerramientaPrueba(container, options) {
     //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
 
-    $('<input required data-text-field="Nombre" data-value-field="EquipoID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Nombre" data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
@@ -211,7 +213,7 @@ function RenderComboBoxHerramientaPrueba(container, options) {
                         options.model.CapacidadTurnoEquipoOriginalID = 0;
                     }
 
-                    options.model.EquipoID = dataItem.EquipoID;
+                    
                     options.model.Equipo = dataItem.Nombre;
                     options.model.ProveedorEquipoID = dataItem.ProveedorEquipoID;
                     options.model.ListaTurnoLaboral = obtenerTurnoLaboralEquipo(options.model, dataItem.ProveedorEquipoID);
