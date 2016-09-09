@@ -133,11 +133,13 @@ function suscribirEventoAgregar() {
 function vaciaTiposDePrueba() {
     $("#tipoPrueba").data("kendoComboBox").setDataSource();
     $("#tipoPrueba").data("kendoComboBox").value("");
+    $("#tipoPrueba").data("kendoComboBox").dataSource.data([]);
 }
 
 function vaciaRequisiciones() {
     $("#listaRequisiciones").data("kendoComboBox").setDataSource();
     $("#listaRequisiciones").data("kendoComboBox").value("");
+    $("#listaRequisiciones").data("kendoComboBox").dataSource.data([]);
 }
 
 function suscribirEventoProyecto() {
