@@ -88,5 +88,55 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public int RequisicionID { get; set; }
             public int ElementoPorClasificacionPNDID { get; set; }
         }
+
+        public class Proyecto
+        {
+            public Proyecto()
+            {
+                ProyectoID = 0;
+                Nombre = "";
+            }
+            public int ProyectoID { get; set; }
+            public string Nombre { get; set; }
+        }
+
+        public class TipoPrueba
+        {
+            public TipoPrueba()
+            {
+                TipoPruebaID = 0;
+                Nombre = "";
+            }
+
+            public int TipoPruebaID { get; set; }
+            public string Nombre { get; set; }
+        }
+
+        public class Requisicion
+        {
+            public Requisicion()
+            {
+                RequisicionID = 0;
+                TipoPruebaID = 0;
+                ProyectoID = 0;
+                NombreRequisicion = "";
+            }
+
+            public int RequisicionID { get; set; }
+            public int TipoPruebaID { get; set; }
+            public int ProyectoID { get; set; }
+            public string NombreRequisicion { get; set; }
+
+        }
+
+        public class ElementosRequisicion
+        {
+            public int RequisicionID { get; set; }
+            public int ProyectoID { get; set; }
+            public int TipoPruebaID { get; set; }
+            public List<Proyecto> listaProyecto { get; set; }
+            public List<TipoPrueba> listaTipoPrueba { get; set; }
+            public List<Requisicion> listaRequisicion { get; set; }
+        }
     }
 }
