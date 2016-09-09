@@ -136,6 +136,12 @@ function vaciaTiposDePrueba() {
     }
 }
 
+function vaciaRequisiciones() {
+    if ($("#listaRequisiciones").data("kendoComboBox").dataSource._data.length > 0) {
+        $("#listaRequisiciones").data("kendoComboBox").setDataSource();
+    }
+}
+
 function suscribirEventoProyecto() {
     var dataItem;
     $("#Proyecto").kendoComboBox({
@@ -169,6 +175,7 @@ function suscribirEventoProyecto() {
                 var ProyectoID = 0;
                 var TipoPruebaID = 0;
 
+                vaciaRequisiciones();
                 vaciaTiposDePrueba();
 
                 //AjaxGetListaRequisiciones(ProyectoID, TipoPruebaID);
@@ -188,10 +195,9 @@ function suscribirEventoTipoPrueba() {
         index: 3,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            $("#listaRequisiciones").data("kendoComboBox").select(0);
             var RequisicionID = 0;
 
-            if (dataItem != undefined && dataItem.Nombre != "" && dataItem.TipoPruebaID != 0) {
+            if (dataItem != undefined && dataItem.TipoPruebaID != 0 && dataItem.Nombre != "") {
                 
                 var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value();
                 var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
@@ -204,16 +210,14 @@ function suscribirEventoTipoPrueba() {
                 AjaxGetListaRequisiciones(ProyectoID, tipoPruebaID);
             }
             else {
+                vaciaRequisiciones();
                 $("#tipoPrueba").data("kendoComboBox").select(0);
-
 
                 var proyectoID = $("#Proyecto").data("kendoComboBox").value();
                 var tipoPruebaID = 0;
-
-                AjaxGetListaRequisiciones(proyectoID, tipoPruebaID);
-
-                if (ProyectoID != "" && ProyectoID != 0)
-                    AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
+                
+                if (proyectoID != "" && proyectoID != 0)
+                    AjaxGetListaElementos(RequisicionID, tipoPruebaID, proyectoID, $('input:radio[name=Muestra]:checked').val());
                 else
                     $("#grid").data('kendoGrid').dataSource.data([]);
             }
@@ -234,13 +238,12 @@ function suscribirEventoRequisiciones() {
             dataItem = this.dataItem(e.item.index());
         }, change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem == undefined) {
+            if (dataItem == undefined || dataItem.RequisicionID == 0 || dataItem.NombreRequisicion == "") {
                 $("#listaRequisiciones").data("kendoComboBox").select(0);
 
                 var RequisicionID = 0;
                 var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
                 var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
-
                 AjaxGetListaElementos(RequisicionID, tipoPruebaID, ProyectoID, $('input:radio[name=Muestra]:checked').val());
             }
             else {

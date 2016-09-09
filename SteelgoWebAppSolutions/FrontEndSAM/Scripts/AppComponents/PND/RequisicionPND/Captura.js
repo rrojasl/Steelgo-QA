@@ -119,7 +119,7 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "112px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox'/>", width: "112px", attributes: { style: "text-align:center;" }
             },
         ],
         dataBound: function (a) {
@@ -144,7 +144,7 @@ function CargarGrid() {
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
             if (dataItem.RequisicionID != 0 && dataItem.RequisicionID != undefined) {
-                dataItem.Seleccionado = false;
+                $(this)[0].checked = false;
                 displayNotify("", "Este elemento no puede ser asignado a otra requisición", '1');
             }
 
