@@ -5,16 +5,41 @@ function IniciarEdicionRequisicion() {
 
 function changeLanguageCall() {
     cargarGrid();
+    var paramRequisision = getParameterByName('requisicion'); 
+
     AjaxCargarCamposPredeterminados();
-    document.title = _dictionary.ServiciosTecnicosEntregaPGBreadcrumb[$("#language").data("kendoDropDownList").value()];
+    AjaxCargaListaProyecto();
+    AjaxCargaListaTipoPrueba();
+    AjaxCargaListaRequisicion(paramRequisision, 0);
+    document.title = _dictionary.ServiciosTecnicosEditarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
+    
+}
+
+function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 function cargarGrid() {
     $("#grid").kendoGrid({
+        autoBind: true,
+        autoSync: true,
+        edit: function (e) {
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+                this.closeCell();
+        },
         dataSource: {
+            data: '',
             schema: {
                 model: {
                     fields: {
+                        Accion: { type: "number", editable: true },
                         NumeroControl: { type: "string", editable: false },
                         EtiquetaJunta: { type: "string", editable: false },
                         TipoJunta: { type: "string", editable: false },
@@ -25,6 +50,7 @@ function cargarGrid() {
                         Diametro: { type: "number", editable: false },
                         Espesor: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
+                        ElementoPorClasificacionPNDID: { type: "int", editable: false },
                         RequisicionID: { type: "int", editable: false },
                         ProyectoID: { type: "int", editable: false },
                         SpoolID: { type: "int", editable: false },
@@ -50,17 +76,17 @@ function cargarGrid() {
             serverSorting: false
         },
         navigatable: true,
-        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
+        editable: true,
         selectable: true,
         pageable: {
             refresh: false,
             pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
-            numeric: true
+            numeric: true,
         },
         filterable: getGridFilterableMaftec(),
         columns: [
@@ -85,8 +111,61 @@ function cargarGrid() {
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                 }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "112px", attributes: { style: "text-align:center;" }
             },
-        ]
+        ],
+        dataBound: function (a) {
+            $(".ob-paid").bind("change", function (e) {
+                if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                    var grid = $("#grid").data("kendoGrid"),
+                        dataItem = grid.dataItem($(e.target).closest("tr"));
+                    if (dataItem.RequisicionID == 0 && e.target.checked == true)
+                        dataItem.Agregar = true;
+                    else
+                        dataItem.Agregar = false;
+                }
+                else
+                    $("#grid").data("kendoGrid").closeCell();
+            });
+        }
+    });
+
+    $("#grid").on("change", ":checkbox", function (e) {
+        if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+
+            if ($(this)[0].checked) {
+                dataItem.Agregar = true;
+            } else {
+                dataItem.Agregar = false;
+            }
+        }
     });
 
     CustomisaGrid($("#grid"));
+}
+
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+
+
+    }
+    else {
+
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        ds.sync();
+    }
 }

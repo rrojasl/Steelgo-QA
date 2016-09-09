@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "Edición de Requisición";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -13,7 +12,7 @@
         <a href="@Url.Action("EditarRequisicion","PND" )"><span id="ServiciosTecnicosEditarRequisicionBreadcrumb"></span></a>
     </li>
 }
-<div id="FormEntregaRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="FormEditaRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     @*Menu superior*@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -49,17 +48,17 @@
     </div>
     @*Campos Mandatorios*@
     <div class="row">
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divRequisicion">
-            <label id="lblRequisicion"></label>
-            <input id="inputRequisicion" />
-        </div>
-        <div class="col-xs-12 col-sm-2 col-md-3 col-lg-2" id="divProyecto">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divProyecto">
             <label id="lblProyecto"></label>
             <input id="inputProyecto" />
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divPrueba">
             <label id="lblPrueba"></label>
-            <input id="inputPrueba" />
+            <input id="inputTipoPrueba" />
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divRequisicion">
+            <label id="lblRequisicion"></label>
+            <input id="inputRequisicion" />
         </div>
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
             <label id="lblMostrar"></label>
@@ -70,10 +69,24 @@
     @*GRID*@
     <div class="row addedSectionInLine">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row" id="containerDiv">
+                <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+                    <label id="lblSpoolID"></label>
+                    <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaRequisicionJunta">
+                    <label id="lblJunta"></label>
+                    <input id="Junta" />
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-1">
+                    <label id="">&nbsp;</label>
+                    <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
+                </div>
+
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div id="ContenedorGrid" class="row">
-                    <div id="grid" data-role="grid" class="k-grid k-widget">
-                    </div>
+                    <div id="grid" data-role="grid" class="k-grid k-widget"></div>
                     <input id="hdAccionFiltrado" type="hidden" />
                 </div>
             </div>
@@ -97,7 +110,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="GenerarRequisicionASignarRequisicionDivInf" class="button-section">
-                    <a id="GenerarRequisicionASignarRequisicionInf" href="@Url.Action("ValidacionRT", "PND")" class="btn btn-primary"><span id="ServiciosTecnicosValidarResultadosInf"></span></a>
+                    <a id="GenerarRequisicionASignarRequisicionInf" href="@Url.Action("AsignacionRequisicion", "PND")" class="btn btn-primary"><span id="ServiciosTecnicosValidarResultadosInf"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">

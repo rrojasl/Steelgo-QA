@@ -7195,10 +7195,21 @@ _dictionary = {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
     },
-
     "MensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
+    },
+    "MensajeSeleccionaProyecto": {
+        "es-MX": "Favor de seleccionar un proyecto",
+        "en-US": "Please select a project"
+    },
+    "MensajeSeleccionaTipoPrueba": {
+        "es-MX": "Favor de seleccionar un tipo de prueba",
+        "en-US": "Please select a type of test"
+    },
+    "MensajeSeleccionaRequisicion": {
+        "es-MX": "Favor de seleccionar una requisicion",
+        "en-US": "Please select a requisition"
     },
     // Finalizan Mensajes generales
 
