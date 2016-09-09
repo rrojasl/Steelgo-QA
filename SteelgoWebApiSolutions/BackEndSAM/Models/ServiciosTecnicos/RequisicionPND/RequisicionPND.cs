@@ -74,10 +74,12 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
     {
         public DetalleCaptura()
         {
+            Accion = 0;
             RequisicionID = 0;
             ElementoPorClasificacionPNDID = 0;
         }
         public int RequisicionID { get; set; }
         public int ElementoPorClasificacionPNDID { get; set; }
+        public int Accion { get; set; }
     }
 }
