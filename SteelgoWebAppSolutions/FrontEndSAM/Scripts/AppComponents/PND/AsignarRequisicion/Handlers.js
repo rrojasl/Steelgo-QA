@@ -124,7 +124,7 @@ function SuscribirEventoComboPrueba() {
                     $("#divEquipo").css('display', 'none');
                 }
                 else {
-                    $("#divEquipo").css('display', 'block');
+                    //$("#divEquipo").css('display', 'block');
                 }
 
                 $("#inputTurno").data("kendoComboBox").setDataSource();
@@ -136,7 +136,7 @@ function SuscribirEventoComboPrueba() {
             }
             else {
                 $("#inputPrueba").data("kendoComboBox").text("");
-                $("#divEquipo").css('display', 'block');
+                //$("#divEquipo").css('display', 'block');
 
                 $("#inputTurno").data("kendoComboBox").setDataSource();
                 $("#inputTurno").data("kendoComboBox").text("");

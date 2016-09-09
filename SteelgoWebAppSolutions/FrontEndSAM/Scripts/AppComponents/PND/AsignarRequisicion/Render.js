@@ -298,14 +298,14 @@ function RenderComboBoxTurnoLaboral(container, options) {
 
                             setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorID, JuntasAsignadasFinal);
                             setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, dataItem.CapacidadTurnoProveedorID);
-                            generarListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoProveedorID);
+                            generaListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
                         }
                         else {
                             options.model.CapacidadTurnoEquipoID = dataItem.CapacidadTurnoEquipoID;
                             options.model.CapacidadTurnoEquipoOriginalID = dataItem.CapacidadTurnoEquipoID;
                             setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoID, JuntasAsignadasFinal);
                             setJuntasAsignatdasCapacidadTurnoEquipo(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoEquipoID);
-                            generarListadoCorrectoAsignacionEquipo(options.model.ListaElementosAsignadosTurno, dataItem.CapacidadTurnoEquipoID, 1);
+                            generarListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
                         }
                         
                         options.model.JuntasAsignadas = parseInt(JuntasAsignadasFinal);
