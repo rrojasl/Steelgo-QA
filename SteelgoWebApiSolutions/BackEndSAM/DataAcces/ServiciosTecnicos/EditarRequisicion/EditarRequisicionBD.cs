@@ -81,6 +81,68 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
             }
         }
 
+        public object ObtieneElementosRequisicion(int usuarioID, int requisicionID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ElementosRequisicion elemento = null;
+                    Sam3_ST_Get_RequisicionPorRequisicionUsuario_Result result = ctx.Sam3_ST_Get_RequisicionPorRequisicionUsuario(usuarioID, requisicionID, lenguaje).SingleOrDefault();
+
+                    if (result!=null && result.RequisicionID!=0)
+                    {
+                        elemento = new ElementosRequisicion();
+
+                        List<Proyecto> listaProyecto = new List<Proyecto>();
+                        listaProyecto.Add(new Proyecto());
+                        listaProyecto.Add(new Proyecto
+                        {
+                            ProyectoID = result.ProyectoID,
+                            Nombre = result.Proyecto
+                        });
+
+                        List<TipoPrueba> listaTipoPrueba = new List<TipoPrueba>();
+                        listaTipoPrueba.Add(new TipoPrueba());
+                        listaTipoPrueba.Add(new TipoPrueba
+                        {
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            Nombre = result.TipoPrueba
+                        });
+
+                        List<Requisicion> listaRequisicion = new List<Requisicion>();
+                        listaRequisicion.Add(new Requisicion());
+                        listaRequisicion.Add(new Requisicion
+                        {
+                            RequisicionID = result.RequisicionID,
+                            ProyectoID = result.ProyectoID,
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            NombreRequisicion = result.NumeroRequisicion
+                        });
+
+                        elemento.RequisicionID = result.RequisicionID;
+                        elemento.ProyectoID = result.ProyectoID;
+                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
+                        elemento.listaProyecto = listaProyecto;
+                        elemento.listaTipoPrueba = listaTipoPrueba;
+                        elemento.listaRequisicion = listaRequisicion;
+                    }
+
+                    return elemento;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, string CodigoAsme, string Observacion, Sam3_Usuario usuario)
         {
             try
@@ -95,19 +157,19 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                         { "@NombreRequisicion", NombreRequisicion },
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
-                        { "@FechaRequisicion", FechaRequisicion },
+                        { "@FechaRequisicion", "" },
                         { "@CodigoAsme", CodigoAsme},
                         { "@Observacion", Observacion },
                         { "@UsuarioID", usuario.UsuarioID.ToString() },
                         { "@RequisicionOUTPUT", "0" } };
 
-                    //int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);
+                    int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
 
-                    //if (identityResult > 0)
-                        //result.ReturnMessage.Add(identityResult.ToString());
+                    if (identityResult > 0)
+                        result.ReturnMessage.Add(identityResult.ToString());
 
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;

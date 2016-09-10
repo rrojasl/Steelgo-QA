@@ -10,20 +10,23 @@
     });
 }
 
-function AjaxCargaListaRequisicion(req, tipoPruebaID) {
+function AjaxObtenerElementoRequisicion(paramReq) {
+    
+    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: paramReq }).done(function (data) {
+        if(data!=null){
+            $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
+            $("#inputProyecto").data("kendoComboBox").dataSource.data(data.listaProyecto);
+            $("#inputProyecto").data("kendoComboBox").value(data.ProyectoID);
 
-    var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
+            $("#inputTipoPrueba").data("kendoComboBox").dataSource.data([]);
+            $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data.listaTipoPrueba);
+            $("#inputTipoPrueba").data("kendoComboBox").value(data.TipoPruebaID);
 
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
-        $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
-        $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
-        if (req != null)
-        {
-            $("#inputRequisicion").data("kendoComboBox").value(req);
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data(data.listaRequisicion);
+            $("#inputRequisicion").data("kendoComboBox").value(data.RequisicionID);
             $("#inputRequisicion").data("kendoComboBox").trigger("change");
-        } else {
-            $("#inputRequisicion").data("kendoComboBox").value(0);
-            $("#inputRequisicion").data("kendoComboBox").trigger("change");
+
         }
     });
 }
@@ -38,20 +41,49 @@ function AjaxCargaListaProyecto() {
                 if (data[i].ProyectoID!=0) {
                     proyectoId = data[i].ProyectoID;
                 }
-            }
-            $("#inputProyecto").data("kendoComboBox").value(proyectoId);
-            $("#inputProyecto").data("kendoComboBox").trigger("change");
+            }            
         }
+
+        $("#inputProyecto").data("kendoComboBox").value(proyectoId);
+        $("#inputProyecto").data("kendoComboBox").trigger("change");
     });
 }
 
 function AjaxCargaListaTipoPrueba() {
+    var tipoPruebaId = 0;
     $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         $("#inputTipoPrueba").data("kendoComboBox").dataSource.data([]);
         $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data);
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].TipoPruebaID != 0) {
+                    tipoPruebaId = data[i].TipoPruebaID;
+                }
+            }
+        }
 
-        $("#inputTipoPrueba").data("kendoComboBox").value(0);
+        $("#inputTipoPrueba").data("kendoComboBox").value(tipoPruebaId);
         $("#inputTipoPrueba").data("kendoComboBox").trigger('change');
+    });
+}
+
+function AjaxCargaListaRequisicion(tipoPruebaID, proyectoID) {
+    var requisicionId = 0;
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
+        $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+        $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
+
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].RequisicionID != 0) {
+                    requisicionId = data[i].RequisicionID;
+                }
+            }
+        }
+        $("#inputRequisicion").data("kendoComboBox").value(requisicionId);
+        $("#inputRequisicion").data("kendoComboBox").trigger("change");
+
+         
     });
 }
 
@@ -101,37 +133,35 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
             }
         }
 
-        if (ListaCaptura.length >= 0) {
+        //if (ListaCaptura.length >= 0) {
             Captura[0].RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
             Captura[0].Requisicion = $("#inputRequisicion").data("kendoComboBox").text();
             Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
             Captura[0].TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
             Captura[0].CodigoAsme = "ASME VIII Div 1 App 8";
-            Captura[0].Observacion = "B";
+            Captura[0].Observacion = "xd";
             Captura[0].FechaRequisicion = "";
             Captura[0].ListaDetalle = ListaCaptura;
-            displayNotify("", "Guardado exitoso", "0");
-            //$EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token")}).done(function (data) {
-                //if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                    //if (guardaNuevo) {
-                        //limpiarPantalla();
-                        //displayNotify("", "Guardado exitoso", "0");
-                    //} else {
-                        //AjaxGetListaElementos(Captura[0].Requisicion, Captura[0].TipoPruebaID, Captura[0].ProyectoID, "todos");
-                        //opcionHabilitarView(true, '');
-                        //displayNotify("", "Guardado exitoso", "0");
-                    //}
-                //}
-                //else {
-                //    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                //    displayNotify("", mensaje, '1');
-                //}
-            //});
-        }
-            
+
+            $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token")}).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                    if (guardaNuevo) {
+                        limpiarPantalla();
+                        displayNotify("MensajeGuardadoExistoso", "", "0");
+                    } else {
+                        AjaxGetListaElementos(Captura[0].Requisicion, Captura[0].TipoPruebaID, Captura[0].ProyectoID, "todos");
+                        opcionHabilitarView(true, '');
+                        displayNotify("MensajeGuardadoExistoso", "", "0");
+                    }
+                }
+                else {
+                    displayNotify("MensajeGuardadoErroneo", "", '2');
+                }
+            });
+        //}           
            
     } else {
-        displayNotify("","No hay datos por guardar","2");
+        displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
     }
 
 }

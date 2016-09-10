@@ -4,13 +4,17 @@ function IniciarEdicionRequisicion() {
 }
 
 function changeLanguageCall() {
-    cargarGrid();
-    var paramRequisision = getParameterByName('requisicion'); 
+    var paramReq = getParameterByName('requisicion');
 
+    cargarGrid();   
     AjaxCargarCamposPredeterminados();
-    AjaxCargaListaProyecto();
-    AjaxCargaListaTipoPrueba();
-    AjaxCargaListaRequisicion(paramRequisision, 0);
+        
+    if(paramReq!=null){
+        AjaxObtenerElementoRequisicion(paramReq);
+    } else {
+        AjaxCargaListaProyecto();
+    }
+    
     document.title = _dictionary.ServiciosTecnicosEditarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
     
 }

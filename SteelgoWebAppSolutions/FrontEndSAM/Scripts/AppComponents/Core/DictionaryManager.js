@@ -7487,4 +7487,8 @@ _dictionary = {
         "es-MX": "Reportes",
         "en-US": "Reports"
     },
+    "EditarRequisicionExcepcionGuardado": {
+        "es-MX": "No hay datos para guardar.",
+        "en-US": "No data to save."
+    },
 };
