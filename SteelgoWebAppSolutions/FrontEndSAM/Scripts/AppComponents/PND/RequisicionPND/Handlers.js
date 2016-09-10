@@ -442,6 +442,7 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#Proyecto").data("kendoComboBox").enable(false);
         $("#tipoPrueba").data("kendoComboBox").enable(false);
+        $("#listaRequisiciones").data("kendoComboBox").enable(false);
 
         $("#InputID").data("kendoComboBox").enable(false);
         $("#Junta").data("kendoComboBox").enable(false);
@@ -458,6 +459,7 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#Proyecto").data("kendoComboBox").enable(true);
         $("#tipoPrueba").data("kendoComboBox").enable(true);
+        $("#listaRequisiciones").data("kendoComboBox").enable(true);
 
         $("#InputID").data("kendoComboBox").enable(true);
         $("#Junta").data("kendoComboBox").enable(true);
