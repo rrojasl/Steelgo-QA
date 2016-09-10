@@ -198,6 +198,8 @@ function suscribirEventoTipoPrueba() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             var RequisicionID = 0;
             $("#listaRequisiciones").data("kendoComboBox").value("");
+            $('#containerDiv').css('display', 'none');
+            LimpiarRowJunta();
 
             if (dataItem != undefined && dataItem.TipoPruebaID != 0 && dataItem.Nombre != "") {
 

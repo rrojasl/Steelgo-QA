@@ -59,7 +59,11 @@ function AjaxGetListaElementos(requisicionID, tipoPruebaID, proyectoID, muestra)
                 ds.add(data[i]);
                 tipoPrueba = data[i].TipoPruebaID;
             }
+            ds.page(1);
+        } else {
+            ds.page(0);
         }
+
         loadingStop();
     });
 }
