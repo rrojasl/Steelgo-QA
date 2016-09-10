@@ -119,7 +119,7 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox'/>", width: "112px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= Agregar ? 'hidden=true':'' # />", width: "112px", attributes: { style: "text-align:center;" }
             },
         ],
         dataBound: function (a) {

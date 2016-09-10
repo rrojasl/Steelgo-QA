@@ -166,7 +166,7 @@ function suscribirEventoProyecto() {
                     $("#grid").data('kendoGrid').dataSource.data([]);
 
                 //AjaxGetListaRequisiciones(ProyectoID, TipoPruebaID);
-
+                vaciaRequisiciones();
                 LimpiarRowJunta();
             }
             else {
@@ -197,6 +197,7 @@ function suscribirEventoTipoPrueba() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             var RequisicionID = 0;
+            $("#listaRequisiciones").data("kendoComboBox").value("");
 
             if (dataItem != undefined && dataItem.TipoPruebaID != 0 && dataItem.Nombre != "") {
 
@@ -239,8 +240,9 @@ function suscribirEventoRequisiciones() {
             dataItem = this.dataItem(e.item.index());
         }, change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem == undefined || dataItem.RequisicionID == 0 || dataItem.NombreRequisicion == "") {
+            if (dataItem == undefined || dataItem.NombreRequisicion == "") {
                 $("#listaRequisiciones").data("kendoComboBox").select(0);
+                $('#containerDiv').css('display', 'none');
 
                 var RequisicionID = 0;
                 var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
@@ -466,3 +468,4 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar3').text("Guardar");
     }
 }
+

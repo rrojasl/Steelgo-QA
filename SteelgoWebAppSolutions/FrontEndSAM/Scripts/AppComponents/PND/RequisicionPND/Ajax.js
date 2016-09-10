@@ -74,7 +74,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         FechaRequisicion: "",
         CodigoAsme: "",
         Observacion: "",
-        
+
         ListaDetalle: ""
     };
     ListaCaptura = [];
@@ -154,13 +154,22 @@ function AjaxGuardarCaptura(arregloCaptura) {
                                 '</div>' +
                             '</div>' +
                         '</div>');
+
         ventanaConfirm.data("kendoWindow").title(modalTitle);
 
-        var idFechaRequisicion = 2047;
-        $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
-            $("#FechaRequisicion").val(data);
-            $("#CodigoAsme").val("ASME VIII Div 1 App 8"); // Hardcode debido a que no hay codigos asme para el proyectoId 16
-        });
+        if ($("#listaRequisiciones").data("kendoComboBox").value() != "" && $("#listaRequisiciones").data("kendoComboBox").value() != 0) {
+            $("#NombreRequisicion").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).NombreRequisicion);
+            $("#FechaRequisicion").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).FechaRequisicion);
+            $("#Observacion").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).Observacion);
+            $("#CodigoAsme").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).CodigoAsme);
+        }
+        else {
+            var idFechaRequisicion = 2047;
+            $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
+                $("#FechaRequisicion").val(data);
+                $("#CodigoAsme").val("ASME VIII Div 1 App 8"); // Hardcode debido a que no hay codigos asme para el proyectoId 16
+            });
+        }
 
         ventanaConfirm.data("kendoWindow").center().open();
 
@@ -174,11 +183,13 @@ function AjaxGuardarCaptura(arregloCaptura) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (data.ReturnMessage[1] != undefined) {
                         AjaxGetGuardado(data.ReturnMessage[1]);
+                        opcionHabilitarView(true, "FieldSetView");
                         displayNotify("", "Guardado exitoso", "0");
                     }
                 }
                 else {
-                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                    opcionHabilitarView(false, "FieldSetView");
+                    mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
                     displayNotify("", mensaje, '1');
                 }
             });
@@ -190,7 +201,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         });
     }
     else {
-        displayNotify("MensajeSeleccioneRequisiciones", "", "1");
+        displayNotify("", "Para guardar o modificar una requisición es necesario seleccionar al menos un elemento", "1");
     }
 }
 
