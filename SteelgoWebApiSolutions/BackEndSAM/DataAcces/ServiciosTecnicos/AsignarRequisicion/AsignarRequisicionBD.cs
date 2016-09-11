@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                     List<Sam3_ST_Get_AsignarRequisicion_Result> result = ctx.Sam3_ST_Get_AsignarRequisicion(lenguaje, tipoVista, tipoPruebaID, proyectoID).ToList();
                     List<RequisicionAsignacion> ListadoRequisicionAsignacion = new List<RequisicionAsignacion>();
 
-                    List<TurnoLaboral> listaTurnoLaboralAll = (List<TurnoLaboral>) ObtenerTurnoLaboralTotal(lenguaje);
+                    List<TurnoLaboral> listaTurnoLaboralAll = (List<TurnoLaboral>) ObtenerTurnoLaboralTotal(lenguaje,proyectoID);
                     List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(tipoPruebaID, 0, lenguaje);
 
                     foreach (Sam3_ST_Get_AsignarRequisicion_Result item in result)
@@ -70,7 +70,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             TurnoLaboralID = item.TurnoLaboralID.GetValueOrDefault(),
                             ListaEquipos = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(item.TipoPruebaID.GetValueOrDefault(), item.ProveedorID.GetValueOrDefault(), lenguaje),
                             ListaEquiposTotal = listaEquipoAll,
-                            ListaTurnoLaboral = (List<TurnoLaboral>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoTurnos(item.TipoPruebaID.GetValueOrDefault(), item.ProveedorID.GetValueOrDefault(), item.EquipoID.GetValueOrDefault(), lenguaje),
+                            ListaTurnoLaboral = (List<TurnoLaboral>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoTurnos(item.TipoPruebaID.GetValueOrDefault(), item.ProveedorID.GetValueOrDefault(), item.EquipoID.GetValueOrDefault(),item.ProyectoID, lenguaje),
                             ListaTurnoLaboralTotal = listaTurnoLaboralAll,
                             RequiereEquipo = item.RequiereEquipo,
                             ListaElementosRequisicion = (List<ElementosRequisicion>)ObtenerElementosRequisicion(lenguaje, item.ProyectoID, item.TipoPruebaID.GetValueOrDefault(), item.RequisicionID),
@@ -200,7 +200,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
 
 
 
-        public object ObtenerTurnoLaboralTotal (string lenguaje)
+        public object ObtenerTurnoLaboralTotal (string lenguaje,int proyectoID)
         {
             try
             {
@@ -220,7 +220,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
                             CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
                             JuntasAsignadas = item.ElementosAsignados.ToString(),
-                            ProveedorEquipoID = item.ProveedorEquipoID
+                            ProveedorEquipoID = item.ProveedorEquipoID,
+                            ListaElementosAsignadosTurno = item.ElementosAsignados == 0 ?  new List<ElementosRequisicion>() : (List<ElementosRequisicion>) ObtenerElementosAsignadosTurno(lenguaje,proyectoID,item.CapacidadTurnoEquipoID,item.CapacidadTurnoProveedorID,0)
                         });
                     }
                 }

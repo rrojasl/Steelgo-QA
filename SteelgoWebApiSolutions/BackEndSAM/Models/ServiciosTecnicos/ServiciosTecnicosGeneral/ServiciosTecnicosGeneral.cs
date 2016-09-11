@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -85,9 +86,10 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
             TipoPruebaProveedorID = 0;
             CapacidadTurnoProveedorID = 0;
             CapacidadTurnoEquipoID = 0;
-            JuntasAsignadas = "";
+            JuntasAsignadas = "0";
             ElementosAsignados = 0;
             ProveedorEquipoID = 0;
+            ListaElementosAsignadosTurno = new List<ElementosRequisicion>();
         }
         public int TurnoLaboralID { get; set; }
         public string Nombre { get; set; }
@@ -98,5 +100,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
         public string JuntasAsignadas {get; set;}
         public int ElementosAsignados { get; set; }
         public int ProveedorEquipoID { get; set; }
+        public List<ElementosRequisicion> ListaElementosAsignadosTurno { get; set; }
     }
 }

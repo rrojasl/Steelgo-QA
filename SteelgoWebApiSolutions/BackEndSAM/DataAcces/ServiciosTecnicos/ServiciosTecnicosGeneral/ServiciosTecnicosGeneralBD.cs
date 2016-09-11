@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral;
+﻿using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
+using BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -146,7 +147,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
             }
         }
 
-        public object ObtenerListadoTurnos( int tipoPruebaID, int proveedorID, int equipoID, string lenguaje)
+        public object ObtenerListadoTurnos( int tipoPruebaID, int proveedorID, int equipoID,int proyectoID, string lenguaje)
         {
             try
             {
@@ -166,6 +167,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                             CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
                             CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
                             JuntasAsignadas = item.ElementosAsignados.ToString(),
+                            ListaElementosAsignadosTurno = item.ElementosAsignados == 0 ? new List<ElementosRequisicion>() : (List<ElementosRequisicion>)AsignarRequisicionBD.Instance.ObtenerElementosAsignadosTurno(lenguaje, proyectoID, item.CapacidadTurnoEquipoID, item.CapacidadTurnoProveedorID, 0)
                         });
                     }
 

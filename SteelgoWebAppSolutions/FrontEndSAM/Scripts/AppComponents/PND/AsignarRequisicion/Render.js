@@ -14,7 +14,7 @@
 
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-
+                editado = true;
                 if (dataItem != undefined) {
                     options.model.ProveedorID = dataItem.ProveedorID;
                     options.model.Proveedor = dataItem.Nombre;
@@ -30,24 +30,27 @@
 
 
                     }
-
-                    var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
-
-                    if (!options.model.RequiereEquipo) {
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
-                        options.model.CapacidadTurnoProveedorID = 0;
-                        options.model.CapacidadTurnoProveedorOriginalID = 0;
+                    if (options.model.TurnoLaboral != "") {
+                        var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
+                        if (!options.model.RequiereEquipo) {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoProveedorID = 0;
+                                options.model.CapacidadTurnoProveedorOriginalID = 0;
+                            }
+                        }
+                        else {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoEquipoID = 0;
+                                options.model.CapacidadTurnoEquipoOriginalID = 0;
+                            }
+                        }
                     }
-                    else {
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
-                        options.model.CapacidadTurnoEquipoID = 0;
-                        options.model.CapacidadTurnoEquipoOriginalID = 0;
-                    }
-
 
                     options.model.TurnoLaboralID = 0;
                     options.model.TurnoLaboral = "";
@@ -59,27 +62,32 @@
                     if (options.model.Accion == 4)
                         options.model.Accion = 2;
 
-                    
+
                     $("#grid").data("kendoGrid").dataSource.sync();
 
                 }
                 else {
 
-                    var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
-
-                    if (!options.model.RequiereEquipo) {
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
-                        options.model.CapacidadTurnoProveedorID = 0;
-                        options.model.CapacidadTurnoProveedorOriginalID = 0;
-                    }
-                    else {
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
-                        options.model.CapacidadTurnoEquipoID = 0;
-                        options.model.CapacidadTurnoEquipoOriginalID = 0;
+                    if (options.model.TurnoLaboral != "") {
+                        var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
+                        if (!options.model.RequiereEquipo) {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoProveedorID = 0;
+                                options.model.CapacidadTurnoProveedorOriginalID = 0;
+                            }
+                        }
+                        else {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoEquipoID = 0;
+                                options.model.CapacidadTurnoEquipoOriginalID = 0;
+                            }
+                        }
                     }
 
 
@@ -193,50 +201,68 @@ function RenderComboBoxHerramientaPrueba(container, options) {
 
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-
+                editado = true;
                 if (dataItem != undefined && dataItem.Nombre != "") {
+                    if (options.model.TurnoLaboral != "") {
+                        var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
 
-                    var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
+                        if (!options.model.RequiereEquipo) {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoProveedorID = 0;
+                                options.model.CapacidadTurnoProveedorOriginalID = 0;
+                            }
 
-                    if (!options.model.RequiereEquipo) {
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
-                        options.model.CapacidadTurnoProveedorID = 0;
-                        options.model.CapacidadTurnoProveedorOriginalID = 0;
+
+
+                        }
+                        else {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoEquipoID = 0;
+                                options.model.CapacidadTurnoEquipoOriginalID = 0;
+                            }
+
+                        }
                     }
-                    else {
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
-                        options.model.CapacidadTurnoEquipoID = 0;
-                        options.model.CapacidadTurnoEquipoOriginalID = 0;
-                    }
 
-                    
+
                     options.model.Equipo = dataItem.Nombre;
                     options.model.ProveedorEquipoID = dataItem.ProveedorEquipoID;
                     options.model.ListaTurnoLaboral = obtenerTurnoLaboralEquipo(options.model, dataItem.ProveedorEquipoID);
                     options.model.ListaElementosAsignadosTurno = [];
-                    
+
                 }
                 else {
+                    if (options.model.TurnoLaboral != "") {
+                        var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
 
-                    var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
+                        if (!options.model.RequiereEquipo) {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
 
-                    if (!options.model.RequiereEquipo) {
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
-                        options.model.CapacidadTurnoProveedorID = 0;
-                        options.model.CapacidadTurnoProveedorOriginalID = 0;
-                    }
-                    else {
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
-                        options.model.CapacidadTurnoEquipoID = 0;
-                        options.model.CapacidadTurnoEquipoOriginalID = 0;
+                                options.model.CapacidadTurnoProveedorID = 0;
+                                options.model.CapacidadTurnoProveedorOriginalID = 0;
+                            }
+
+
+                        }
+                        else {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoOriginalID);
+                                setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
+                                options.model.CapacidadTurnoEquipoID = 0;
+                                options.model.CapacidadTurnoEquipoOriginalID = 0;
+                            }
+
+                        }
                     }
 
                     options.model.ProveedorEquipoID = 0
@@ -273,7 +299,7 @@ function RenderComboBoxTurnoLaboral(container, options) {
     //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
 
-    $('<input required data-text-field="Nombre" data-value-field="TurnoLaboralID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Nombre" data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
@@ -284,38 +310,51 @@ function RenderComboBoxTurnoLaboral(container, options) {
 
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-
+                editado = true;
                 if (dataItem != undefined) {
                     if (dataItem.Nombre != "") {
                         loadingStart();
-                        options.model.TurnoLaboral = dataItem.Nombre;
-                        options.model.TurnoLaboralID = dataItem.TurnoLaboralID;
-                        options.model.Capacidad = dataItem.Capacidad;
+
 
                         var JuntasAsignadasFinal = parseInt(dataItem.JuntasAsignadas) + parseInt(options.model.CantidadJuntas);
 
                         if (!options.model.RequiereEquipo) {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
+                            }
+                            options.model.ListaElementosAsignadosTurno = [];
+                            options.model.ListaElementosAsignadosTurno = dataItem.ListaElementosAsignadosTurno;
                             options.model.CapacidadTurnoProveedorID = dataItem.CapacidadTurnoProveedorID;
-                            options.model.CapacidadTurnoProveedorOriginalID = dataItem.CapacidadTurnoProveedorID;
 
-                            setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorID, JuntasAsignadasFinal);
+                            options.model.CapacidadTurnoProveedorOriginalID = dataItem.CapacidadTurnoProveedorID;
+                            setListadojuntasAsignadasCapacidadTurnoProveedor(dataItem.CapacidadTurnoProveedorID, JuntasAsignadasFinal);
                             setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, dataItem.CapacidadTurnoProveedorID);
-                            generaListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                            generaListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoProveedorID);
                         }
                         else {
+                            if (options.model.TurnoLaboral != "") {
+                                removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoOriginalID);
+                            }
+
+                            options.model.ListaElementosAsignadosTurno = [];
+                            options.model.ListaElementosAsignadosTurno = dataItem.ListaElementosAsignadosTurno;
+
+
                             options.model.CapacidadTurnoEquipoID = dataItem.CapacidadTurnoEquipoID;
                             options.model.CapacidadTurnoEquipoOriginalID = dataItem.CapacidadTurnoEquipoID;
-                            setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoID, JuntasAsignadasFinal);
-                            setJuntasAsignatdasCapacidadTurnoEquipo(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoEquipoID);
-                            generarListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
-                        }
-                        
-                        options.model.JuntasAsignadas = parseInt(JuntasAsignadasFinal);
+                            setListadojuntasAsignadasCapacidadTurnoEquipo(dataItem.CapacidadTurnoEquipoID, JuntasAsignadasFinal);
+                            setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, dataItem.CapacidadTurnoEquipoID);
+                            generarListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoEquipoID);
 
-                        options.model.TurnoLaboralOriginalID = dataItem.TurnoLaboralID;
-                        options.model.ProveedorOriginalID = dataItem.ProveedorID;
-                        options.model.EquipoOriginalID = dataItem.EquipoID;
-                        options.model.JuntasAsignadasOriginal = JuntasAsignadasFinal;
+                        }
+
+                        options.model.TurnoLaboral = dataItem.Nombre;
+                        options.model.TurnoLaboralID = dataItem.TurnoLaboralID;
+                        options.model.Capacidad = dataItem.Capacidad;
+                        options.model.JuntasAsignadas = parseInt(JuntasAsignadasFinal);
+                        options.model.JuntasAsignadasOriginal = parseInt(JuntasAsignadasFinal);
                         loadingStop();
                     }
                     else {
@@ -323,20 +362,21 @@ function RenderComboBoxTurnoLaboral(container, options) {
                         var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas);
 
                         if (!options.model.RequiereEquipo) {
-                            setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                            setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
                             removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                            setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
+                            setListadojuntasAsignadasCapacidadTurnoProveedor(options.model.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
                             options.model.CapacidadTurnoProveedorID = 0;
                             options.model.CapacidadTurnoProveedorOriginalID = 0;
                         }
                         else {
-                            setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                            setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorOriginalID);
+
                             removerListadoCorrectoAsignacionEquipo(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoEquipoOriginalID);
+                            setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoOriginalID);
+                            setListadojuntasAsignadasCapacidadTurnoEquipo(options.model.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
                             options.model.CapacidadTurnoEquipoID = 0;
                             options.model.CapacidadTurnoEquipoOriginalID = 0;
                         }
-                        
+
 
                         options.model.TurnoLaboralID = 0;
                         options.model.TurnoLaboralOriginalID = 0;

@@ -119,7 +119,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
         }
 
         [HttpGet]
-        public object GetTurnoLaboral(string token, int TipoPruebaID, int ProveedorID, int EquipoID, string Lenguaje )
+        public object GetTurnoLaboral(string token, int TipoPruebaID, int ProveedorID, int EquipoID,int proyectoID, string Lenguaje )
         {
             try
             {
@@ -131,7 +131,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoTurnos( TipoPruebaID,ProveedorID,EquipoID,Lenguaje);
+                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoTurnos( TipoPruebaID,ProveedorID,EquipoID,proyectoID,Lenguaje);
                 }
                 else
                 {
