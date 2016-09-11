@@ -146,10 +146,10 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
             $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token")}).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                     if (guardaNuevo) {
-                        limpiarPantalla();
+                        Limpiar();
                         displayNotify("MensajeGuardadoExistoso", "", "0");
                     } else {
-                        AjaxGetListaElementos(Captura[0].Requisicion, Captura[0].TipoPruebaID, Captura[0].ProyectoID, "todos");
+                        AjaxCargaDetalleRequisicion(Captura[0].Requisicion, Captura[0].TipoPruebaID, Captura[0].ProyectoID);
                         opcionHabilitarView(true, '');
                         displayNotify("MensajeGuardadoExistoso", "", "0");
                     }

@@ -160,16 +160,12 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                         { "@FechaRequisicion", "" },
                         { "@CodigoAsme", CodigoAsme},
                         { "@Observacion", Observacion },
-                        { "@UsuarioID", usuario.UsuarioID.ToString() },
-                        { "@RequisicionOUTPUT", "0" } };
+                        { "@UsuarioID", usuario.UsuarioID.ToString() }};
 
                     int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-
-                    if (identityResult > 0)
-                        result.ReturnMessage.Add(identityResult.ToString());
+                    result.ReturnMessage.Add("OK");
 
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
