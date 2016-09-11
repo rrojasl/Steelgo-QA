@@ -1,4 +1,6 @@
-﻿function changeLanguageCall() {
+﻿var editado = false;
+
+function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
     CargarGrid();
     CargarGridPopUp();
@@ -229,11 +231,10 @@ function limpiarRenglon(e) {
 
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         itemToClean.Proveedor = "";
-        itemToClean.ProveedorID = 0;
-        itemToClean.HerramientadePrueba = "";
+        itemToClean.TipoPruebaProveedorID = 0;
+        itemToClean.Equipo = "";
         itemToClean.HerramientadePruebaID = 0;
-        itemToClean.TurnoLaboral = "";
-        itemToClean.TurnoLaboralID = 0;
+        
         itemToClean.JuntasAsignadas = "";
         itemToClean.Capacidad = "";
         itemToClean.ListaElementosAsignadosTurno = [];
@@ -243,20 +244,27 @@ function limpiarRenglon(e) {
         var JuntasAsignadasFinal = parseInt(itemToClean.JuntasAsignadasOriginal) - parseInt(itemToClean.CantidadJuntas);
 
         if (!itemToClean.RequiereEquipo) {
+            if (itemToClean.TurnoLaboral != "") {
+                removerListadoCorrectoAsignacionProveedor(itemToClean.ListaElementosRequisicion, itemToClean.CapacidadTurnoProveedorOriginalID);
+                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(itemToClean.JuntasAsignadasOriginal) - parseInt(itemToClean.CantidadJuntas), itemToClean.CapacidadTurnoProveedorOriginalID);
+            }
             setListadojuntasAsignadasCapacidadTurnoProveedor(itemToClean.CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-            setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, itemToClean.CapacidadTurnoProveedorOriginalID);
             removerListadoCorrectoAsignacionProveedor(itemToClean.ListaElementosRequisicion, itemToClean.CapacidadTurnoEquipoOriginalID);
             itemToClean.CapacidadTurnoProveedorID = 0;
             itemToClean.CapacidadTurnoProveedorOriginalID = 0;
         }
         else {
+            if (itemToClean.TurnoLaboral != "") {
+                removerListadoCorrectoAsignacionEquipo(itemToClean.ListaElementosRequisicion, itemToClean.CapacidadTurnoEquipoOriginalID);
+                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(itemToClean.JuntasAsignadasOriginal) - parseInt(itemToClean.CantidadJuntas), itemToClean.CapacidadTurnoEquipoOriginalID);
+            }
+
             setListadojuntasAsignadasCapacidadTurnoEquipo(itemToClean.CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-            setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, itemToClean.CapacidadTurnoProveedorOriginalID);
             removerListadoCorrectoAsignacionEquipo(itemToClean.ListaElementosRequisicion, itemToClean.CapacidadTurnoEquipoOriginalID);
             itemToClean.CapacidadTurnoEquipoID = 0;
             itemToClean.CapacidadTurnoEquipoOriginalID = 0;
         }
-
+        itemToClean.TurnoLaboral = "";
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataSource.sync();
         //alert(itemToClean);
@@ -427,20 +435,58 @@ function setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadas, CapacidadTu
     var ds = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < ds.length; i++) {
-        if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+        if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
             ds[i].JuntasAsignadas = JuntasAsignadas;
         }
     }
+
+    for (var i = 0; i < ds.length; i++) {
+        for (var j = 0; j < ds[i].ListaTurnoLaboralTotal.length; j++) {
+            if (ds[i].ListaTurnoLaboralTotal[j].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
+                ds[i].ListaTurnoLaboralTotal[j].JuntasAsignadas = JuntasAsignadas;
+            }
+        }
+        
+    }
+
+    for (var i = 0; i < ds.length; i++) {
+        for (var j = 0; j < ds[i].ListaTurnoLaboral.length; j++) {
+            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && ds[i].ListaTurnoLaboral[j].Nombre != "" && !ds[i].RequiereEquipo) {
+                ds[i].ListaTurnoLaboral[j].JuntasAsignadas = JuntasAsignadas;
+            }
+        }
+
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
 
 function setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadas, CapacidadTurnoEquipoID) {
     var ds = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < ds.length; i++) {
-        if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+        if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
             ds[i].JuntasAsignadas = JuntasAsignadas;
         }
     }
+
+    for (var i = 0; i < ds.length; i++) {
+        for (var j = 0; j < ds[i].ListaTurnoLaboralTotal.length; j++) {
+            if (ds[i].ListaTurnoLaboralTotal[j].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
+                ds[i].ListaTurnoLaboralTotal[j].JuntasAsignadas = JuntasAsignadas;
+            }
+        }
+
+    }
+
+    for (var i = 0; i < ds.length; i++) {
+        for (var j = 0; j < ds[i].ListaTurnoLaboral.length; j++) {
+            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].ListaTurnoLaboral[j].Nombre != "" && ds[i].RequiereEquipo) {
+                ds[i].ListaTurnoLaboral[j].JuntasAsignadas = JuntasAsignadas;            }
+        }
+
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
 
 
@@ -450,12 +496,12 @@ function setListadojuntasAsignadasCapacidadTurnoEquipo(CapacidadTurnoEquipoID, J
 
     for (var i = 0; i < ds.length; i++) {
         for (var j = 0; j < ds[i].ListaTurnoLaboral.length; j++) {
-            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
                 ds[i].ListaTurnoLaboral[j].JuntasAsignadas = JuntasAsignadas;
             }
         }
         for (var k = 0; k < ds[i].ListaTurnoLaboralTotal.length; k++) {
-            if (ds[i].ListaTurnoLaboralTotal[k].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+            if (ds[i].ListaTurnoLaboralTotal[k].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
                 ds[i].ListaTurnoLaboralTotal[k].JuntasAsignadas = JuntasAsignadas;
             }
         }
@@ -470,12 +516,12 @@ function setListadojuntasAsignadasCapacidadTurnoProveedor(CapacidadTurnoProveedo
 
     for (var i = 0; i < ds.length; i++) {
         for (var j = 0; j < ds[i].ListaTurnoLaboral.length; j++) {
-            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+            if (ds[i].ListaTurnoLaboral[j].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
                 ds[i].ListaTurnoLaboral[j].JuntasAsignadas = JuntasAsignadas;
             }
         }
         for (var k = 0; k < ds[i].ListaTurnoLaboralTotal.length; k++) {
-            if (ds[i].ListaTurnoLaboralTotal[k].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+            if (ds[i].ListaTurnoLaboralTotal[k].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
                 ds[i].ListaTurnoLaboralTotal[k].JuntasAsignadas = JuntasAsignadas;
             }
         }
@@ -491,9 +537,10 @@ function generarListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, Capac
     loadingStart();
     var listaAux = [];
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
-            listaAux = ds[i].ListaElementosAsignadosTurno;
-            break;
+        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
+            if (!listaAux.length < ds[i].ListaElementosAsignadosTurno.length)
+                listaAux = ds[i].ListaElementosAsignadosTurno;
+            
         }
     }
 
@@ -503,7 +550,7 @@ function generarListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, Capac
 
 
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
             ds[i].ListaElementosAsignadosTurno = listaAux;
         }
     }
@@ -519,7 +566,7 @@ function generaListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, Cap
     loadingStart();
     var listaAux = [];
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
             listaAux = ds[i].ListaElementosAsignadosTurno;
             break;
         }
@@ -531,7 +578,7 @@ function generaListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, Cap
 
 
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) { 
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
             ds[i].ListaElementosAsignadosTurno = listaAux;
         }
     }
@@ -545,14 +592,14 @@ function removerListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, Capac
     loadingStart();
     var listaAux = [];
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
             listaAux = ds[i].ListaElementosAsignadosTurno;
             break;
         }
     }
     for (var i = listaAux.length - 1; i >= 0; i--) {
         for (var k = 0; k < ListaElementosRequisicion.length; k++) {
-            if (ListaElementosRequisicion[k].SpoolID == listaAux[i].SpoolID && ListaElementosRequisicion[k].EtiquetaJunta == listaAux[i].EtiquetaJunta) {
+            if (ListaElementosRequisicion[k].SpoolID == listaAux[i].SpoolID && ListaElementosRequisicion[k].EtiquetaJunta == listaAux[i].EtiquetaJunta ) {
                 listaAux.splice(i, 1);
                 break;
             }
@@ -561,7 +608,7 @@ function removerListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, Capac
 
 
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID) {
+        if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
             ds[i].ListaElementosAsignadosTurno = listaAux;
         }
     }
@@ -577,7 +624,7 @@ function removerListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, Ca
 
     var listaAux = [];
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
             listaAux = ds[i].ListaElementosAsignadosTurno;
             break;
         }
@@ -592,7 +639,7 @@ function removerListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, Ca
     }
 
     for (var i = ds.length - 1; i >= 0; i--) {
-        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID) {
+        if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
             ds[i].ListaElementosAsignadosTurno = listaAux;
         }
     }
@@ -601,259 +648,5 @@ function removerListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, Ca
 
 }
 
-
-
-function PlanchaProveedor() {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            if ($("#inputProveedor").data("kendoComboBox").text() != "") {
-                data[i].InspectorID = $("#inputProveedor").data("kendoComboBox").dataSource._data[$('#inputProveedor').data("kendoComboBox").selectedIndex].TipoPruebaProveedorID;
-                data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
-                data[i].ListaTurnoLaboral = obtenerTurnoLaboralEquipo(data[i], $("#inputEquipo").data("kendoComboBox").dataSource._data[$('#inputPrueba').data("kendoComboBox").selectedIndex].ProveedorEquipoID);
-                data[i].ListaElementosAsignadosTurno = [];
-
-                var JuntasAsignadasFinal = parseInt(data[i].JuntasAsignadasOriginal) - parseInt(data[i].CantidadJuntas);
-
-                if (!data[i].RequiereEquipo) {
-                    setListadojuntasAsignadasCapacidadTurnoProveedor(data[i].CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                    setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                    removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                    data[i].CapacidadTurnoProveedorID = 0;
-                    data[i].CapacidadTurnoProveedorOriginalID = 0;
-                }
-                else {
-                    setListadojuntasAsignadasCapacidadTurnoEquipo(data[i].CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                    setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                    removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                    data[i].CapacidadTurnoEquipoID = 0;
-                    data[i].CapacidadTurnoEquipoOriginalID = 0;
-                }
-                data[i].Capacidad = "";
-                data[i].JuntasAsignadas = "";
-                data[i].ListaElementosAsignadosTurno = [];
-
-
-                if (data[i].Accion == 4)
-                    data[i].Accion = 2;
-            }
-
-        }
-        else {
-            if (data[i].Proveedor == "" || data[i].Proveedor == undefined || data[i].Proveedor == null) {
-                if ($("#inputProveedor").data("kendoComboBox").text() != "") {
-                    data[i].InspectorID = $("#inputProveedor").data("kendoComboBox").dataSource._data[$('#inputProveedor').data("kendoComboBox").selectedIndex].TipoPruebaProveedorID;
-                    data[i].Proveedor = $("#inputProveedor").data("kendoComboBox").text();
-
-                    var JuntasAsignadasFinal = parseInt(data[i].JuntasAsignadasOriginal) - parseInt(data[i].CantidadJuntas);
-
-                    if (!data[i].RequiereEquipo) {
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(data[i].CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                        data[i].CapacidadTurnoProveedorID = 0;
-                        data[i].CapacidadTurnoProveedorOriginalID = 0;
-                    }
-                    else {
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(data[i].CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                        data[i].CapacidadTurnoEquipoID = 0;
-                        data[i].CapacidadTurnoEquipoOriginalID = 0;
-                    }
-                    data[i].Capacidad = "";
-                    data[i].JuntasAsignadas = "";
-                    data[i].ListaElementosAsignadosTurno = [];
-
-
-                    if (data[i].Accion == 4)
-                        data[i].Accion = 2;
-                }
-            }
-        }
-    }
-
-    
-
-    
-    
-
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
-
-
-
-function PlanchaEquipo() {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            if ($("#inputEquipo").data("kendoComboBox").text() != "") {
-                data[i].ProveedorEquipoID = $("#inputEquipo").data("kendoComboBox").dataSource._data[$('#inputPrueba').data("kendoComboBox").selectedIndex].ProveedorEquipoID;
-                data[i].Equipo = $("#inputEquipo").data("kendoComboBox").text();
-                data[i].EquipoID = $("#inputEquipo").data("kendoComboBox").value();
-                data[i].ListaTurnoLaboral = obtenerTurnoLaboralEquipo(data[i], $("#inputEquipo").data("kendoComboBox").dataSource._data[$('#inputEquipo').data("kendoComboBox").selectedIndex].ProveedorEquipoID);
-                data[i].ListaElementosAsignadosTurno = [];
-
-                var JuntasAsignadasFinal = parseInt(data[i].JuntasAsignadasOriginal) - parseInt(data[i].CantidadJuntas);
-
-                if (!data[i].RequiereEquipo) {
-                    setListadojuntasAsignadasCapacidadTurnoProveedor(data[i].CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                    setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                    removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                    data[i].CapacidadTurnoProveedorID = 0;
-                    data[i].CapacidadTurnoProveedorOriginalID = 0;
-                }
-                else {
-                    setListadojuntasAsignadasCapacidadTurnoEquipo(data[i].CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                    setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                    removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                    data[i].CapacidadTurnoEquipoID = 0;
-                    data[i].CapacidadTurnoEquipoOriginalID = 0;
-                }
-
-                if (data[i].Accion == 4)
-                    data[i].Accion = 2;
-            }
-
-        }
-        else {
-            if (data[i].Equipo == "" || data[i].Equipo == undefined || data[i].Equipo == null) {
-                if ($("#inputEquipo").data("kendoComboBox").text() != "") {
-                    data[i].ProveedorEquipoID = $("#inputEquipo").data("kendoComboBox").dataSource._data[$('#inputEquipo').data("kendoComboBox").selectedIndex].ProveedorEquipoID;
-                    data[i].Equipo = $("#inputEquipo").data("kendoComboBox").text();
-                    data[i].EquipoID = $("#inputEquipo").data("kendoComboBox").value();
-                    data[i].ListaTurnoLaboral = obtenerTurnoLaboralEquipo(data[i], $("#inputEquipo").data("kendoComboBox").dataSource._data[$('#inputEquipo').data("kendoComboBox").selectedIndex].ProveedorEquipoID);
-                    data[i].ListaElementosAsignadosTurno = [];
-
-                    var JuntasAsignadasFinal = parseInt(data[i].JuntasAsignadasOriginal) - parseInt(data[i].CantidadJuntas);
-
-                    if (!data[i].RequiereEquipo) {
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(data[i].CapacidadTurnoProveedorOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                        data[i].CapacidadTurnoProveedorID = 0;
-                        data[i].CapacidadTurnoProveedorOriginalID = 0;
-                    }
-                    else {
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(data[i].CapacidadTurnoEquipoOriginalID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, data[i].CapacidadTurnoProveedorOriginalID);
-                        removerListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, data[i].CapacidadTurnoProveedorOriginalID);
-                        data[i].CapacidadTurnoEquipoID = 0;
-                        data[i].CapacidadTurnoEquipoOriginalID = 0;
-                    }
-
-                    if (data[i].Accion == 4)
-                        data[i].Accion = 2;
-                }
-            }
-        }
-    }
-}
-
-    function PlanchaTurno() {
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        var filters = dataSource.filter();
-        var allData = dataSource.data();
-        var query = new kendo.data.Query(allData);
-        var data = query.filter(filters).data;
-
-        for (var i = 0; i < data.length; i++) {
-            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-                if ($("#inputTurno").data("kendoComboBox").text() != "") {
-                    data[i].ProveedorEquipoID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].ProveedorEquipoID;
-                    data[i].Equipo = $("#inputTurno").data("kendoComboBox").text();
-                    data[i].EquipoID = $("#inputTurno").data("kendoComboBox").value();
-                    data[i].ListaTurnoLaboral = obtenerTurnoLaboralEquipo(data[i], $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].ProveedorEquipoID);
-                    data[i].ListaElementosAsignadosTurno = [];
-
-                    data[i].Capacidad = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].Capacidad;
-
-                    var JuntasAsignadasFinal = parseInt($("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].JuntasAsignadas) + parseInt(data[i].CantidadJuntas);
-
-                    if (!data[i].RequiereEquipo) {
-                        data[i].CapacidadTurnoProveedorID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID;
-                        data[i].CapacidadTurnoProveedorOriginalID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID;
-
-                        setListadojuntasAsignadasCapacidadTurnoProveedor(data[i].CapacidadTurnoProveedorID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID);
-                        generarListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID);
-                    }
-                    else {
-                        data[i].CapacidadTurnoEquipoID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID;
-                        data[i].CapacidadTurnoEquipoOriginalID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID;
-                        setListadojuntasAsignadasCapacidadTurnoEquipo(data[i].CapacidadTurnoEquipoID, JuntasAsignadasFinal);
-                        setJuntasAsignatdasCapacidadTurnoEquipo(data[i].ListaElementosRequisicion, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID);
-                        generarListadoCorrectoAsignacionEquipo(data[i].ListaElementosAsignadosTurno, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID, 1);
-                    }
-
-                    data[i].JuntasAsignadas = parseInt(JuntasAsignadasFinal);
-
-                    data[i].TurnoLaboralOriginalID = dataItem.TurnoLaboralID;
-                    data[i].ProveedorOriginalID = dataItem.ProveedorID;
-                    data[i].EquipoOriginalID = dataItem.EquipoID;
-                    data[i].JuntasAsignadasOriginal = JuntasAsignadasFinal;
-
-                    if (data[i].Accion == 4)
-                        data[i].Accion = 2;
-                }
-
-            }
-            else {
-                if (data[i].Equipo == "" || data[i].Equipo == undefined || data[i].Equipo == null) {
-                    if ($("#inputTurno").data("kendoComboBox").text() != "") {
-                        data[i].ProveedorEquipoID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].ProveedorEquipoID;
-                        data[i].Equipo = $("#inputTurno").data("kendoComboBox").text();
-                        data[i].EquipoID = $("#inputTurno").data("kendoComboBox").value();
-                        data[i].ListaTurnoLaboral = obtenerTurnoLaboralEquipo(data[i], $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].ProveedorEquipoID);
-                        data[i].ListaElementosAsignadosTurno = [];
-
-                        data[i].Capacidad = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].Capacidad;
-
-                        var JuntasAsignadasFinal = parseInt($("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].JuntasAsignadas) + parseInt(data[i].CantidadJuntas);
-
-                        if (!data[i].RequiereEquipo) {
-                            data[i].CapacidadTurnoProveedorID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID;
-                            data[i].CapacidadTurnoProveedorOriginalID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID;
-
-                            setListadojuntasAsignadasCapacidadTurnoProveedor(data[i].CapacidadTurnoProveedorID, JuntasAsignadasFinal);
-                            setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID);
-                            generarListadoCorrectoAsignacionProveedor(data[i].ListaElementosRequisicion, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoProveedorID);
-                        }
-                        else {
-                            data[i].CapacidadTurnoEquipoID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID;
-                            data[i].CapacidadTurnoEquipoOriginalID = $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID;
-                            setListadojuntasAsignadasCapacidadTurnoEquipo(data[i].CapacidadTurnoEquipoID, JuntasAsignadasFinal);
-                            setJuntasAsignatdasCapacidadTurnoEquipo(data[i].ListaElementosRequisicion, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID);
-                            generarListadoCorrectoAsignacionEquipo(data[i].ListaElementosAsignadosTurno, $("#inputTurno").data("kendoComboBox").dataSource._data[$('#inputTurno').data("kendoComboBox").selectedIndex].CapacidadTurnoEquipoID, 1);
-                        }
-
-                        data[i].JuntasAsignadas = parseInt(JuntasAsignadasFinal);
-
-                        data[i].TurnoLaboralOriginalID = dataItem.TurnoLaboralID;
-                        data[i].ProveedorOriginalID = dataItem.ProveedorID;
-                        data[i].EquipoOriginalID = dataItem.EquipoID;
-                        data[i].JuntasAsignadasOriginal = JuntasAsignadasFinal;
-
-                        if (data[i].Accion == 4)
-                            data[i].Accion = 2;
-                    }
-                }
-            }
-        }
-
-    
-
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
 
 
