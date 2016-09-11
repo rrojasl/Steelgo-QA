@@ -7084,6 +7084,14 @@ _dictionary = {
         "es-MX": "Observación",
         "en-US": "Observation"
     },
+    "lblSi": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "lblNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
 
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7179,6 +7187,10 @@ _dictionary = {
         "es-MX": "Buscar",
         "en-US": "Search"
     },
+    "botonVer": {
+        "es-MX": "Ver",
+        "en-US": "View"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -7232,11 +7244,15 @@ _dictionary = {
     },
     "menuServiciosTecnicosEditarRequisicion": {
         "es-MX": "Editar Requisición",
-        "en-US": "Edit Requisition"	
+        "en-US": "Edit Requisition"
+    },
+    "menuServiciosTecnicosValidacionRT": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Validation Results"
     },
     // Finalizan Etiquetas de Menú General
 
-    
+
 
     // Etiquetas Grids
     "columnLimpiar": {
@@ -7351,6 +7367,42 @@ _dictionary = {
         "es-MX": "Código Asme",
         "en-US": "Asme code"
     },
+    "columnNumPlacas": {
+        "es-MX": "No Placas",
+        "en-US": "Plates Num"
+    },
+    "columnTamaño": {
+        "es-MX": "Tamaño (mm)",
+        "en-US": "Size (mm)"
+    },
+    "columnDensidad": {
+        "es-MX": "Densidad",
+        "en-US": "Density"
+    },
+    "columnUbicacion": {
+        "es-MX": "Ubicación",
+        "en-US": "Location"
+    },
+    "columnResultado": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "columnDefectos": {
+        "es-MX": "Defectos",
+        "en-US": "Defectos"
+    },
+    "columnConciliado": {
+        "es-MX": "Conciliado",
+        "en-US": "Conciliated"
+    },
+    "columnRazonRechazo": {
+        "es-MX": "Razón de Rechazo",
+        "en-US": "Rejection Razon"
+    },
+    "columnFirmado": {
+        "es-MX": "Firmado",
+        "en-US": "Singed"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7375,6 +7427,10 @@ _dictionary = {
     "ServiciosTecnicosEditarRequisicionBreadcrumb": {
         "es-MX": "Editar Requisición",
         "en-US": "Edit Requisition"
+    },
+    "ServiciosTecnicosValidacionRTBreadcrumb": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Validation Results"
     },
     // Finalizan Etiquetas Generales PND
 
@@ -7459,7 +7515,24 @@ _dictionary = {
         "en-US": "Report Capture"
     },
 
-    
+    // Pantalla Validacion de resultados
+    "ImpresionResultadosTitle": {
+        "es-MX": "Validación Resultados",
+        "en-US": "Validation Results"
+    },
+    "ImpresionResultadosBtnSup": {
+        "es-MX": "Impresión de Resultados",
+        "en-US": "Print Results"
+    },
+    "ImpresionResultadosBtnInf": {
+        "es-MX": "Impresión de Resultados",
+        "en-US": "Print Results"
+    },
+    "lblRevisionCon": {
+        "es-MX": "Revisión presencia del subcontratista",
+        "en-US": "review with presence of the subcontractor"
+    },
+    // Finaliza Validacion de resultados
 
     //Reportes
     "FotoIncidencia": {
