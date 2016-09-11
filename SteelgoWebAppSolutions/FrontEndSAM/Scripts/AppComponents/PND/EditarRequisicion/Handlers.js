@@ -24,7 +24,7 @@ function SuscribirEventoProyecto() {
                 if (paramReq == null) {
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     if (dataItem.ProyectoID != 0) {
-                        AjaxCargaListaTipoPrueba(paramReq);
+                        AjaxCargaListaTipoPrueba();
                     } else {
                         $("#inputRequisicion").data("kendoComboBox").value("");
                         $("#inputTipoPrueba").data("kendoComboBox").value("");
