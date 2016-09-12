@@ -31,8 +31,8 @@ function AjaxObtenerElementoRequisicion(paramReq) {
             $("#inputProyecto").data("kendoComboBox").value(data.ProyectoID);
 
             $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
-            $("#inputProveedor").data("kendoComboBox").dataSource.data(data.listaTipoPrueba);
-            $("#inputProveedor").data("kendoComboBox").value(data.TipoPruebaID);
+            $("#inputProveedor").data("kendoComboBox").dataSource.data(data.listaProveedor);
+            $("#inputProveedor").data("kendoComboBox").value(data.ProveedorID);
 
             $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
             $("#inputRequisicion").data("kendoComboBox").dataSource.data(data.listaRequisicion);
@@ -48,19 +48,18 @@ function AjaxCargaListaProyectos() {
         var proyectoID = 0;
         $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].ProyectoID != 0) {
-                proyectoID = data[i].ProyectoID;
-            }
 
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].ProyectoID != 0) {
+                    proyectoID = data[i].ProyectoID;
+                }
+
+            }
         }
-        if(data.length==2){
-            $("#inputProyecto").data("kendoComboBox").value(proyectoID);
-            $("#inputProyecto").data("kendoComboBox").trigger("change");
-        } else {
-            $("#inputProyecto").data("kendoComboBox").value(0);
-            $("#inputProyecto").data("kendoComboBox").trigger("change");
-        }
+
+        $("#inputProyecto").data("kendoComboBox").value(proyectoID);
+        $("#inputProyecto").data("kendoComboBox").trigger("change");
     });
 }
 
@@ -77,19 +76,16 @@ function AjaxCargaListaProveedores(proyectoID, patioID) {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, PatioID: patioID, TipoPruebaID: tipoPruebaID}).done(function (data) {
         $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
         var ProveedorID = 0;
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].ProveedorID != 0) {
-                ProveedorID = data[i].ProveedorID;
-            }
+        if(data.length < 3){            
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].ProveedorID != 0) {
+                    ProveedorID = data[i].ProveedorID;
+                }
 
+            }
         }
-        if (data.length == 2) {
-            $("#inputProveedor").data("kendoComboBox").value(ProveedorID);
-            $("#inputProveedor").data("kendoComboBox").trigger("change");;
-        } else {
-            $("#inputProveedor").data("kendoComboBox").value(0);
-            $("#inputProveedor").data("kendoComboBox").trigger("change");
-        }
+        $("#inputProveedor").data("kendoComboBox").value(ProveedorID);
+        $("#inputProveedor").data("kendoComboBox").trigger("change");;
         
     });
 }
@@ -97,21 +93,20 @@ function AjaxCargaListaProveedores(proyectoID, patioID) {
 function AjaxCargaListaRequisicion(proyectoID, proveedorID) {
 
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val(), proveedorID: proveedorID }).done(function (data) {
-        var RequisicionID = 0;
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].RequisicionID != 0) {
-                RequisicionID = data[i].RequisicionID;
-            }
 
+        var RequisicionID = 0;
+        if(data.length < 3){
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].RequisicionID != 0) {
+                    RequisicionID = data[i].RequisicionID;
+                }
+            }
         }
-        if (data.length == 2) {
-            $("#inputRequisicion").data("kendoComboBox").value(RequisicionID);
-            $("#inputRequisicion").data("kendoComboBox").trigger("change");
-        } else {
-            $("#inputRequisicion").data("kendoComboBox").value(0);
-            $("#inputRequisicion").data("kendoComboBox").trigger("change");
-        }
+
+        $("#inputRequisicion").data("kendoComboBox").value(RequisicionID);
+        $("#inputRequisicion").data("kendoComboBox").trigger("change");
+
     });
 }
 
@@ -120,6 +115,19 @@ function AjaxCargaListaDocumentoRecibido() {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
         $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
         $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
+
+        var DocumentoRecibidoID = 0;
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].DocumentoRecibidoID != 0) {
+                    DocumentoRecibidoID = data[i].DocumentoRecibidoID;
+                }
+            }
+        }
+
+        $("#inputDocumentoRecibido").data("kendoComboBox").value(DocumentoRecibidoID);
+        $("#inputDocumentoRecibido").data("kendoComboBox").trigger("change");
+
         AjaxCargaListaDocumentoEstatus();
     });
 
@@ -131,6 +139,19 @@ function AjaxCargaListaDocumentoEstatus() {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
         $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data([]);
         $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data(data);
+        var DocumentoEstatusID = 0;
+
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].DocumentoEstatusID != 0) {
+                    DocumentoEstatusID = data[i].DocumentoEstatusID;
+                }
+            }
+        }
+
+        $("#inputCondicionesFisicas").data("kendoComboBox").value(DocumentoEstatusID);
+        $("#inputCondicionesFisicas").data("kendoComboBox").trigger("change");
+
         AjaxCargaListaDocumentoDefecto();
     });
 }
@@ -140,6 +161,18 @@ function AjaxCargaListaDocumentoDefecto() {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
         $("#inputDefectos").data("kendoComboBox").dataSource.data([]);
         $("#inputDefectos").data("kendoComboBox").dataSource.data(data);
+
+        var DocumentoDefectoID = 0;
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].DefectoDocumentoID != 0) {
+                    DocumentoDefectoID = data[i].DefectoDocumentoID;
+                }
+            }
+        }
+
+        $("#inputDefectos").data("kendoComboBox").value(DocumentoDefectoID);
+        $("#inputDefectos").data("kendoComboBox").trigger("change");
     });    
 }
 
@@ -147,6 +180,7 @@ function AjaxObtieneDetalleRequisicion() {
     var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
     var proveedorID = $("#inputProveedor").data("kendoComboBox").value();
     var requisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+
     if (proyectoID != 0 && proveedorID != 0 && requisicionID != 0) {
         $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: proyectoID, proveedorID: proveedorID, requisicionID: requisicionID, lenguaje: $("#language").val() }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
