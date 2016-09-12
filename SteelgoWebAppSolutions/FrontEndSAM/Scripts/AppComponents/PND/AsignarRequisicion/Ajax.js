@@ -33,14 +33,14 @@ function AjaxPruebas() {
 
                 if ($("#inputPrueba").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputPrueba").data("kendoComboBox").select(1);
-
+                    
                 }
                 else {
 
                 }
-
+                AjaxCargarRequisicionAsignacion();
             }
-            AjaxCargarRequisicionAsignacion();
+            
         });
     }
 };

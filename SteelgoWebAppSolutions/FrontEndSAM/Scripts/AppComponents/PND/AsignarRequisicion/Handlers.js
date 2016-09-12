@@ -118,7 +118,7 @@ function SuscribirEventoComboPrueba() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if(!editado){
-            if (dataItem != undefined) {
+            if (dataItem != undefined && dataItem.Nombre != "") {
                     if ($("#inputProyecto").data("kendoComboBox").text() != "" && $("#inputPrueba").data("kendoComboBox").text() != "") {
                         AjaxCargarRequisicionAsignacion();
 
@@ -167,7 +167,7 @@ function SuscribirEventoComboPrueba() {
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
-                    if (dataItem != undefined) {
+                    if (dataItem != undefined && dataItem.Nombre != "") 
                         if ($("#inputProyecto").data("kendoComboBox").text() != "" && $("#inputPrueba").data("kendoComboBox").text() != "") {
                             AjaxCargarRequisicionAsignacion();
 
@@ -190,7 +190,7 @@ function SuscribirEventoComboPrueba() {
                             AjaxCargarRequisicionAsignacion();
                         }
 
-                    }
+                    
                     ventanaConfirm.close();
                 });
                 $("#noButtonProy").click(function () {
