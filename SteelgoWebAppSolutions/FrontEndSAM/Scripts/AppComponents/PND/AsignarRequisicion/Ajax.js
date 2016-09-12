@@ -220,7 +220,7 @@ function AjaxCargarRequisicionAsignacion() {
 
             }
             loadingStop();
-            if ($("#inputPrueba").data("kendoComboBox").text() != "") {
+            if ($("#inputPrueba").data("kendoComboBox").text() != "" && $("#inputRequisicion").data("kendoComboBox").text() == "") {
                 AjaxRequisicion();
             }
 
