@@ -189,7 +189,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             RequisicionID = item.RequisicionID,
                             NombreRequisicion = item.NombreRequisicion,
                             TipoPruebaID = item.TipoPruebaID,
-                            ProveedorID = item.ProveedorID
+                            ProveedorID = item.ProveedorID.GetValueOrDefault()
+
                         });
                     }                       
 
@@ -238,11 +239,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
                             RequisicionID = item.RequisicionID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
-                            ClasificacionPndID = item.ClasificacionPndID,
+                            ClasificacionPndID = item.ClasificacionPNDID.GetValueOrDefault(),
                             ClasificacionPnd = item.ClasificacionPnd,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             TipoPrueba = item.TipoPrueba,
@@ -265,6 +266,72 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     return listaDetalle;
                 }
                 
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtieneElementosRequisicion(int usuarioID, int requisicionID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ElementoRequisicion elemento = null;
+                    Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result result = ctx.Sam3_ST_EPG_ObtieneRequisicionPorParametro(requisicionID, usuarioID).SingleOrDefault();
+
+                    if (result != null && result.RequisicionID != 0)
+                    {
+                        elemento = new ElementoRequisicion();
+
+                        List<Proyecto> listaProyecto = new List<Proyecto>();
+                        listaProyecto.Add(new Proyecto());
+                        listaProyecto.Add(new Proyecto
+                        {
+                            ProyectoID = result.ProyectoID,
+                            Nombre = result.Proyecto,
+                            PatioID = result.PatioID
+                        });
+
+                        List<Proveedor> listaProveedor = new List<Proveedor>();
+                        listaProveedor.Add(new Proveedor());
+                        listaProveedor.Add(new Proveedor {
+                            ProveedorID = result.ProveedorID.GetValueOrDefault(),
+                            NombreProveedor = result.NombreProveedor
+                        });
+
+                        List<Requisicion> listaRequisicion = new List<Requisicion>();
+                        listaRequisicion.Add(new Requisicion());
+                        listaRequisicion.Add(new Requisicion {
+                            RequisicionID = result.RequisicionID,
+                            ProyectoID = result.ProyectoID,
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            NombreRequisicion = result.NombreRequisicion,
+                            ProveedorID = result.ProveedorID.GetValueOrDefault()
+                        });
+
+
+                        elemento.RequisicionID = result.RequisicionID;
+                        elemento.ProyectoID = result.ProyectoID;
+                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
+                        elemento.PatioID = result.PatioID;
+                        elemento.ProveedorID = result.ProveedorID.GetValueOrDefault();
+                        elemento.listaProyecto = listaProyecto;
+                        elemento.listaProveedor = listaProveedor;
+                        elemento.listaRequisicion = listaRequisicion;
+                    }
+
+
+                    return elemento;
+                }
             }
             catch (Exception ex)
             {
