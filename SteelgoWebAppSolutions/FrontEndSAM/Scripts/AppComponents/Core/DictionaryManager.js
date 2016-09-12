@@ -7250,6 +7250,10 @@ _dictionary = {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
     },
+    "menuServiciosTecnicosImpresionPruebas": {
+        "es-MX": "Impresión Pruebas",
+        "en-US": "Test Print"
+    },
     // Finalizan Etiquetas de Menú General
 
 
@@ -7260,8 +7264,8 @@ _dictionary = {
         "en-US": "CLN"
     },
     "columnNumeroControl": {
-        "es-MX": "No Control",
-        "en-US": "Control Num"
+        "es-MX": "Spool",
+        "en-US": "Spool"
     },
     "columnJunta": {
         "es-MX": "Jta",
@@ -7403,6 +7407,22 @@ _dictionary = {
         "es-MX": "Firmado",
         "en-US": "Singed"
     },
+    "columnVersion": {
+        "es-MX": "Versión",
+        "en-US": "Version"
+    },
+    "columnFirmadoTipoJunta": {
+        "es-MX": "Tpo jta",
+        "en-US": "Jnt Tpe"
+    },
+    "columnReporte": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
+    "columnSeleccionado": {
+        "es-MX": "Selec",
+        "en-US": "Select"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7514,6 +7534,13 @@ _dictionary = {
         "es-MX": "Captura Reporte",
         "en-US": "Report Capture"
     },
+    // Pantalla Impresion Pruebas
+
+    "lblImpresionPruebas": {
+        "es-MX": "Impresión Pruebas",
+        "en-US": "Test Print"
+    },
+
 
     // Pantalla Validacion de resultados
     "ImpresionResultadosTitle": {

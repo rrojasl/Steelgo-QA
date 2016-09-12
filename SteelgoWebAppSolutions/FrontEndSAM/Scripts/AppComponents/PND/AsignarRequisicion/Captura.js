@@ -76,7 +76,7 @@ function CargarGrid() {
                   { field: "Accion", operator: "eq", value: 4 }
                 ]
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
