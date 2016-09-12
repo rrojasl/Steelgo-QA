@@ -42,7 +42,6 @@ function suscribirEventoGuardar() {
         if ($('#botonGuardar').text() == "Guardar") {
             if ($("#Proyecto").data("kendoComboBox").value() != 0 && $("#Proyecto").data("kendoComboBox").value() != "") {
                 if ($("#tipoPrueba").data("kendoComboBox").value() != 0 && $("#tipoPrueba").data("kendoComboBox").value() != "") {
-                    $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxGuardarCaptura(ds._data, 0);
                 }
                 else
@@ -422,12 +421,16 @@ function Limpiar() {
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
     $("#Junta").data("kendoComboBox").value("");
-    $("#listaRequisiciones").text("");
-    $("#Proyecto").data("kendoComboBox").select(0);
-    $("#tipoPrueba").data("kendoComboBox").value("");
-    //$("#Fecha").data("kendoDatePicker").value("");
+
+    vaciaTiposDePrueba();
+    vaciaRequisiciones();
 
     $("#grid").data('kendoGrid').dataSource.data([]);
+
+    AjaxCargarCamposPredeterminados();
+
+    //$("#Fecha").data("kendoDatePicker").value("");
+
 }
 
 function LimpiarRowJunta() {
