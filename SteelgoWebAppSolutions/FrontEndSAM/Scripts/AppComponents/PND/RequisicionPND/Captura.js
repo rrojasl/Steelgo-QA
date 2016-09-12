@@ -1,5 +1,4 @@
-﻿
-var endRangeDate;
+﻿var endRangeDate;
 var ItemSeleccionado;
 var pruebasID, ProyectoID;
 var requisicionID, pruebaProyID = 0;

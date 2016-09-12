@@ -9,9 +9,9 @@ using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers.ServiciosTecnicos.ValidacionRT
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ValidacionRTController : ApiController
     {
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public object Get(string token)
         {
             try
@@ -25,111 +25,6 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ValidacionRT
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                     return ValidacionRTDB.Instance.ObtenerListadoProyectosVR(Usuario);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payload);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-
-        public object Get(string token, string lenguaje)
-        {
-            try
-            {
-                string payload = "";
-                string newToken = "";
-                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                if (totokenValido)
-                {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                    return ValidacionRTDB.Instance.ObtenerListadoTiposPruebaVR(lenguaje);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payload);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-
-        public object Get(string token, int ProyectoID, int TipoPruebaID, int ProveedorID, int estatusID)
-        {
-            try
-            {
-                string payload = "";
-                string newToken = "";
-                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                if (totokenValido)
-                {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                    return ValidacionRTDB.Instance.ObtenerListadoRequisicionesVR(Usuario, ProyectoID, TipoPruebaID, ProveedorID, estatusID);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payload);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-
-        public object Get(string token, int ProyectoID, int TipoPruebaID)
-        {
-            try
-            {
-                string payload = "";
-                string newToken = "";
-                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                if (totokenValido)
-                {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                    return ValidacionRTDB.Instance.ObtenerListadoProveedoresVR(ProyectoID, TipoPruebaID);
                 }
                 else
                 {

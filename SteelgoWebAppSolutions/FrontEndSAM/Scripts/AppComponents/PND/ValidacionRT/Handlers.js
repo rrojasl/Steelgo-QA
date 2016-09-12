@@ -26,52 +26,36 @@ function suscribirEventoProyecto() {
         suggest: true,
         filter: "contains",
         change: function (e) {
-            AjaxGetListaTiposDePrueba();
+        }
+    });
+}
+
+function suscribirEventoProveedor() {
+    $("#inputProveedor").kendoComboBox({
+        dataTextField: "",
+        dataValueField: "",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
         }
     });
 }
 
 function suscribirEventoTipoPrueba() {
     $("#inputTipoPrueba").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "TipoPruebaID",
+        dataTextField: "",
+        dataValueField: "",
         suggest: true,
         filter: "contains",
         change: function (e) {
-            var tipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
-            var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
-
-            if (proyectoID != "" && proyectoID != 0)
-                AjaxGetListaProveedor();
         }
     });
 }
-function suscribirEventoProveedor() {
-    $("#inputProveedor").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProveedorID",
-        suggest: true,
-        filter: "contains",
-        change: function (e) {
-            var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
-            var tipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
-            var proveedorID = $("#inputProveedor").data("kendoComboBox").value();
-
-                //AjaxGetListaRequisiciones($("#inputProyecto").data("kendoComboBox").value() == "" ? 0 : $("#inputProyecto").data("kendoComboBox").value(),
-                //                        $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value(),
-                //                        $("#inputProveedor").data("kendoComboBox").value() == "" ? 0 : $("#inputProveedor").data("kendoComboBox").value());
-
-            if (proyectoID != "" && proyectoID != 0 && tipoPruebaID != "" && tipoPruebaID != 0 && proveedorID != "" && proveedorID != 0)
-                AjaxGetListaRequisiciones(proyectoID, tipoPruebaID, proveedorID);
-        }
-    });
-}
-
 
 function suscribirEventoRequisicion() {
     $("#inputRequisicion").kendoComboBox({
-        dataTextField: "NombreRequisicion",
-        dataValueField: "RequisicionID",
+        dataTextField: "FolioTexto",
+        dataValueField: "Folio",
         suggest: true,
         filter: "contains",
         change: function (e) {

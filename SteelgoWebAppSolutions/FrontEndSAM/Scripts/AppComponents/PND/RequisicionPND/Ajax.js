@@ -68,7 +68,7 @@ function AjaxGetListaElementos(requisicionID, tipoPruebaID, proyectoID, muestra)
     });
 }
 
-function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
+function AjaxGuardarCaptura(arregloCaptura) {
     Captura = [];
     Captura[0] = {
         RequisicionID: 0,
@@ -95,7 +95,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
             ListaCaptura[cont].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
             ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[index].ElementoPorClasificacionPNDID;
-            ListaCaptura[cont].Accion = arregloCaptura[index].RequisicionID > 0 ? 2 : 0;
+            ListaCaptura[cont].Accion = 1;
 
             cont++;
         }
@@ -186,16 +186,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             $RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (data.ReturnMessage[1] != undefined) {
-                        if (tipoGuardar == 1) {
-                            Limpiar();
-                            opcionHabilitarView(false, "FieldSetView");
-                        }
-                        else {
-                            AjaxGetGuardado(data.ReturnMessage[1]);
-                            opcionHabilitarView(true, "FieldSetView");
-                        }
-
-                        displayNotify("", "Datos guardados correctamente.", "0");
+                        AjaxGetGuardado(data.ReturnMessage[1]);
+                        opcionHabilitarView(true, "FieldSetView");
+                        displayNotify("", "Guardado exitoso", "0");
                     }
                 }
                 else {

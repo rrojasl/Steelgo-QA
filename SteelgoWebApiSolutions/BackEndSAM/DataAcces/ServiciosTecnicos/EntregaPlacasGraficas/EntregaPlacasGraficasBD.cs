@@ -189,7 +189,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             RequisicionID = item.RequisicionID,
                             NombreRequisicion = item.NombreRequisicion,
                             TipoPruebaID = item.TipoPruebaID,
-                            ProveedorID = item.ProveedorID.GetValueOrDefault()
+                            ProveedorID = item.ProveedorID
                         });
                     }                       
 
@@ -238,11 +238,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
                             RequisicionID = item.RequisicionID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID,
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
-                            ClasificacionPndID = item.ClasificacionPNDID.GetValueOrDefault(),
+                            ClasificacionPndID = item.ClasificacionPndID,
                             ClasificacionPnd = item.ClasificacionPnd,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             TipoPrueba = item.TipoPrueba,
