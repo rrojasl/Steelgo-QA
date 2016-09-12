@@ -95,7 +95,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
             ListaCaptura[cont].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
             ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[index].ElementoPorClasificacionPNDID;
-            ListaCaptura[cont].Accion = arregloCaptura[index].RequisicionID > 0 ? 2 : 0;
+            ListaCaptura[cont].Accion = arregloCaptura[index].RequisicionID > 0 ? 2 : 1;
 
             cont++;
         }
