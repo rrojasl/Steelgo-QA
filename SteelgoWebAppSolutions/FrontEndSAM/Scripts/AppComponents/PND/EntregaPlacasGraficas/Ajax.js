@@ -22,6 +22,27 @@ function AjaxCargaTipoLlenado() {
     });
 }
 
+function AjaxObtenerElementoRequisicion(paramReq) {
+
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: paramReq }).done(function (data) {
+        if (data != null) {
+            $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
+            $("#inputProyecto").data("kendoComboBox").dataSource.data(data.listaProyecto);
+            $("#inputProyecto").data("kendoComboBox").value(data.ProyectoID);
+
+            $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
+            $("#inputProveedor").data("kendoComboBox").dataSource.data(data.listaTipoPrueba);
+            $("#inputProveedor").data("kendoComboBox").value(data.TipoPruebaID);
+
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data(data.listaRequisicion);
+            $("#inputRequisicion").data("kendoComboBox").value(data.RequisicionID);
+
+            AjaxObtieneDetalleRequisicion();
+        }
+    });
+}
+
 function AjaxCargaListaProyectos() {   
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         var proyectoID = 0;

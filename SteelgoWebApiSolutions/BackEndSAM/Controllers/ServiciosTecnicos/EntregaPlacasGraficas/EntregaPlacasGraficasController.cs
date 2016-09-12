@@ -97,6 +97,29 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
+        public object Get(string token, string lenguaje, int RequisicionID)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return EntregaPlacasGraficasBD.Instance.ObtieneElementosRequisicion(usuario.UsuarioID, RequisicionID, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
 
         [HttpGet]
         public object ObtenerListaRequisicionEntregaPlacas(string token, int proyectoID, string lenguaje, int proveedorID)

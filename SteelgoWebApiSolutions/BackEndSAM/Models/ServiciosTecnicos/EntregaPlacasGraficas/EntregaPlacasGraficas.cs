@@ -118,4 +118,29 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public int ProveedorID { get; set; }
         public string NombreProveedor { get; set; }
     }
+
+    public class Proyecto
+    {
+        public Proyecto()
+        {
+            ProyectoID = 0;
+            Nombre = "";
+            PatioID = 0;
+        }
+        public int ProyectoID { get; set; }
+        public string Nombre { get; set; }
+        public int PatioID { get; set; }
+    }
+
+    public class ElementoRequisicion
+    {
+        public int RequisicionID { get; set; }
+        public int ProyectoID { get; set; }
+        public int TipoPruebaID { get; set; }
+        public int PatioID { get; set; }
+        public int ProveedorID { get; set; }
+        public List<Proyecto> listaProyecto { get; set; }
+        public List<Proveedor> listaProveedor { get; set; }
+        public List<Requisicion> listaRequisicion { get; set; }
+    }
 }
