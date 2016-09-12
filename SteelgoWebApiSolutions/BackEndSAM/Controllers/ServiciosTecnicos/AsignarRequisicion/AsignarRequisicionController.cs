@@ -20,7 +20,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
     {
         
         [HttpGet]
-        public object GetAsignarRequisicion(string lenguaje, string token, string mostrar, int TipoPruebaID, int ProyectoID,int PatioID)
+        public object GetAsignarRequisicion(string lenguaje, string token, string mostrar, int TipoPruebaID, int ProyectoID,int PatioID, int RequisicionID)
         {
             //Create a generic return object
             string payload = "";
@@ -32,7 +32,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 int tipoVista = mostrar == "Todos" ? 1 : 2;
 
-                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, TipoPruebaID, ProyectoID, PatioID);
+                return AsignarRequisicionBD.Instance.ObtenerRequisicionAsignacion(lenguaje, tipoVista, TipoPruebaID, ProyectoID, PatioID, RequisicionID);
             }
             else
             {

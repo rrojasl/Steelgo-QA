@@ -207,7 +207,7 @@ function AjaxCargarRequisicionAsignacion() {
     if ($("#inputProyecto").data("kendoComboBox").value() != "") {
         var patioID = $('#inputProyecto').data("kendoComboBox").dataSource._data[$('#inputProyecto').data("kendoComboBox").selectedIndex].PatioID;
         loadingStart();
-        $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), TipoPruebaID: $("#inputPrueba").val() == "" ? 0 : $("#inputPrueba").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: patioID }).done(function (data) {
+        $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), TipoPruebaID: $("#inputPrueba").val() == "" ? 0 : $("#inputPrueba").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: patioID, RequisicionID: $("#inputRequisicion").val() == "" ? 0 : $("#inputRequisicion").val() }).done(function (data) {
             if (Error(data)) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 //$("#grid").data("kendoGrid").dataSource.data(data);
@@ -222,8 +222,6 @@ function AjaxCargarRequisicionAsignacion() {
             loadingStop();
             if ($("#inputPrueba").data("kendoComboBox").text() != "") {
                 AjaxRequisicion();
-                //AjaxObtenerProveedor();
-
             }
 
         });
@@ -434,7 +432,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
     } catch (e) {
         loadingStop();
-        displayNotify("Mensajes_error", e.message, '1');
+        displayNotify("", e.message, '1');
 
     }
 
