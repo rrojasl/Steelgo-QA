@@ -1,8 +1,7 @@
 ﻿using System.Web.Mvc;
-using Microsoft.Reporting.WebForms;
 using System.Net;
 using System;
-using System.Web.UI;
+using Microsoft.Reporting.WebForms;
 
 namespace FrontEndSAM.Controllers.Reportes
 {
