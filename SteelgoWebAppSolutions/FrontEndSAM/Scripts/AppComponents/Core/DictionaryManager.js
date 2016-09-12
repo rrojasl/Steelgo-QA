@@ -7223,6 +7223,10 @@ _dictionary = {
         "es-MX": "Favor de seleccionar una requisicion",
         "en-US": "Please select a requisition"
     },
+    "MensajeAdverteciaExcepcionGuardado": {
+        "es-MX": "No hay cambios por guardar",
+        "en-US": "There aren´t any change"
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral

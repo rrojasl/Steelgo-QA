@@ -326,6 +326,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             if (Captura[0].Detalles.length > 0) {
                 loadingStart();
                 $AsignarRequisicion.AsignarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                    editado = true;
                     if (Error(data)) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (tipoGuardar == 1) {
@@ -394,6 +395,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                 if (ArregloGuardado.length > 0) {
                     $AsignarRequisicion.AsignarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                        editado = true;
                         if (Error(data)) {
                             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                                 if (tipoGuardar == 1) {
@@ -418,7 +420,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 }
                 else {
                     loadingStop();
-                    displayNotify("AdverteciaExcepcionGuardado", "", '1');
+                    displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
                 }
                 opcionHabilitarView(false, "FieldSetView");
                 ventanaConfirm.close();

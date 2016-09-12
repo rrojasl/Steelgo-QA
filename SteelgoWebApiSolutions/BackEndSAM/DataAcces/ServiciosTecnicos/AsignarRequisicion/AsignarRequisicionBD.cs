@@ -141,12 +141,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
             }
             catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
+                List<ElementosRequisicion> listaElementosRequisicion = new List<ElementosRequisicion>();
+                return listaElementosRequisicion;
             }
         }
 
@@ -190,12 +186,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
             }
             catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
+                List<ElementosRequisicion> listaElementosRequisicion = new List<ElementosRequisicion>();
+                return listaElementosRequisicion;
             }
         }
 
@@ -230,12 +222,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
             }
             catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
+                List<TurnoLaboral> listaTurnoLaboralTotal = new List<TurnoLaboral>();
+                return listaTurnoLaboralTotal;
             }
         }
 
