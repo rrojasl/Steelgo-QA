@@ -84,9 +84,9 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
                 ElementoPorClasificacionPNDID = 0;
             }
 
-            public int Accion { get; set; }
             public int RequisicionID { get; set; }
             public int ElementoPorClasificacionPNDID { get; set; }
+            public int Accion { get; set; }
         }
 
         public class Proyecto

@@ -117,30 +117,27 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
             ListaDetalle: ""
         };
 
-        var cont = 0;
         for (var i = 0; i < arregloCaptura.length; i++) {
-            if ((arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar)
-                    || (arregloCaptura[i].Accion == 1 && arregloCaptura[i].Agregar)) {
 
-                ListaCaptura[cont] = { RequisicionID: 0, ElementoPorClasificacionPNDID: 0, Accion: 0 };
-                ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
-                ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
-                ListaCaptura[cont].Accion = arregloCaptura[i].Accion;
-                if (arregloCaptura[i].Accion == 2) {
-                    ListaCaptura[cont].Accion = 3;
-                }
-                cont;
-            }
+            ListaCaptura[i] = { RequisicionID: 0, ElementoPorClasificacionPNDID: 0, Accion: 0 };
+            ListaCaptura[i].RequisicionID = arregloCaptura[i].RequisicionID;
+            ListaCaptura[i].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
+            ListaCaptura[i].Accion = arregloCaptura[i].Accion;
+            if (arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar) {
+
+                    ListaCaptura[i].Accion = 3;
+            }            
         }
 
         //if (ListaCaptura.length >= 0) {
-            Captura[0].RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
-            Captura[0].Requisicion = $("#inputRequisicion").data("kendoComboBox").text();
+            var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
+            Captura[0].RequisicionID = Requisicion.RequisicionID;
+            Captura[0].Requisicion = Requisicion.NombreRequisicion;
             Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
             Captura[0].TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
-            Captura[0].CodigoAsme = "ASME VIII Div 1 App 8";
-            Captura[0].Observacion = "xd";
-            Captura[0].FechaRequisicion = "";
+            Captura[0].CodigoAsme = Requisicion.CodigoAsme;
+            Captura[0].Observacion = Requisicion.Observacion;
+            Captura[0].FechaRequisicion = Requisicion.FechaRequisicion;
             Captura[0].ListaDetalle = ListaCaptura;
 
             $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token")}).done(function (data) {
@@ -149,7 +146,7 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
                         Limpiar();
                         displayNotify("MensajeGuardadoExistoso", "", "0");
                     } else {
-                        AjaxCargaDetalleRequisicion(Captura[0].Requisicion, Captura[0].TipoPruebaID, Captura[0].ProyectoID);
+                        AjaxCargaDetalleRequisicion(Captura[0].RequisicionID, Captura[0].TipoPruebaID, Captura[0].ProyectoID);
                         opcionHabilitarView(true, '');
                         displayNotify("MensajeGuardadoExistoso", "", "0");
                     }
