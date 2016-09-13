@@ -130,3 +130,9 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EditarRequisicion/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EditarRequisicion/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EditarRequisicion/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["EditarRequisicion"] = $EditarRequisicionModel;
+    }
+</script>
