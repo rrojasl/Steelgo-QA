@@ -1,18 +1,19 @@
-﻿using BackEndSAM.Models.ServiciosTecnicos.ValidacionRT;
+﻿using BackEndSAM.Models.ServiciosTecnicos.ReporteRT;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
-namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
+namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 {
-    public class ValidacionRTDB
+    public class ReporteRTBD
     {
         private static readonly object _mutex = new object();
-        private static ValidacionRTDB _instance;
+        private static ReporteRTBD _instance;
 
-        public static ValidacionRTDB Instance
+        public static ReporteRTBD Instance
         {
             get
             {
@@ -20,23 +21,23 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 {
                     if (_instance == null)
                     {
-                        _instance = new ValidacionRTDB();
+                        _instance = new ReporteRTBD();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerListadoProyectosVR(Sam3_Usuario usuario)
+        public object ObtenerListadoProyectos(Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Proyectos> listaProyectos = new List<Proyectos>();
-                    List<Sam3_ST_VR_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_ST_VR_Get_ListaProyectos(usuario.UsuarioID).ToList();
+                    List<Sam3_ST_CRRT_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_ST_CRRT_Get_ListaProyectos(usuario.UsuarioID).ToList();
                     listaProyectos.Add(new Proyectos());
-                    foreach (Sam3_ST_VR_Get_ListaProyectos_Result item in listaProyectosCTX)
+                    foreach (Sam3_ST_CRRT_Get_ListaProyectos_Result item in listaProyectosCTX)
                     {
                         listaProyectos.Add(new Proyectos
                         {
@@ -65,28 +66,25 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
-        public object ObtenerListadoTiposPruebaVR(String lenguaje)
+        public object ObtenerListadoProveedores(int proyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<TiposDePrueba> listaTiposDePrueba = new List<TiposDePrueba>();
-                    List<Sam3_ST_VR_Get_TiposDePrueba_Result> listaTiposDePruebaCTX = ctx.Sam3_ST_VR_Get_TiposDePrueba(lenguaje).ToList();
-                    listaTiposDePrueba.Add(new TiposDePrueba());
-                    foreach (Sam3_ST_VR_Get_TiposDePrueba_Result item in listaTiposDePruebaCTX)
+                    List<Proveedor> listaProveedores = new List<Proveedor>();
+                    List<Sam3_ST_CRRT_Get_Proveedores_Result> listaProveedorCTX = ctx.Sam3_ST_CRRT_Get_Proveedores(proyectoID).ToList();
+                    listaProveedores.Add(new Proveedor());
+                    foreach (Sam3_ST_CRRT_Get_Proveedores_Result item in listaProveedorCTX)
                     {
-                        listaTiposDePrueba.Add(new TiposDePrueba
+                        listaProveedores.Add(new Proveedor
                         {
-                            TipoPruebaID = item.TipoPruebaID,
-                            Nombre = item.Nombre,
-                            Categoria = item.Categoria,
-                            TipoPruebaPorSpool = item.TipoPruebaPorSpool.GetValueOrDefault(),
-                            RequiereEquipo = (bool)item.RequiereEquipo
+                            ProveedorID = item.ProveedorID,
+                            Nombre = item.Proveedor
                         });
                     }
 
-                    return listaTiposDePrueba;
+                    return listaProveedores;
                 }
             }
             catch (Exception ex)
@@ -104,7 +102,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
-        public object ObtenerListadoRequisicionesVR(Sam3_Usuario usuario, int proyectoID, int tipoPruebaID, int proveedorID, int estatusID)
+        public object ObtenerListadoRequisiciones(Sam3_Usuario usuario, int proyectoID, int proveedorID)
         {
             try
             {
@@ -112,9 +110,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 {
 
                     List<Requisicion> listaRequisiciones = new List<Requisicion>();
-                    List<Sam3_ST_VR_Get_ListaRequisiciones_Result> listaRequisicionesCTX = ctx.Sam3_ST_VR_Get_ListaRequisiciones(usuario.UsuarioID, proyectoID, tipoPruebaID, proveedorID, estatusID).ToList();
+                    List<Sam3_ST_CRRT_Get_Requisiciones_Result> listaRequisicionesCTX = ctx.Sam3_ST_CRRT_Get_Requisiciones(proyectoID, proveedorID).ToList();
                     listaRequisiciones.Add(new Requisicion());
-                    foreach (Sam3_ST_VR_Get_ListaRequisiciones_Result item in listaRequisicionesCTX)
+                    foreach (Sam3_ST_CRRT_Get_Requisiciones_Result item in listaRequisicionesCTX)
                     {
                         listaRequisiciones.Add(new Requisicion
                         {
@@ -146,27 +144,26 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
-
-        public object ObtenerListadoProveedoresVR(int proyectoID, int tipoPruebaID)
+        public object ObtenerListadoEquipos(string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Proveedor> listaProveedores = new List<Proveedor>();
-                    List<Sam3_ST_VR_Get_Proveedores_Result> listaProveedorCTX = ctx.Sam3_ST_VR_Get_Proveedores(proyectoID, tipoPruebaID).ToList();
-                    listaProveedores.Add(new Proveedor());
-                    foreach (Sam3_ST_VR_Get_Proveedores_Result item in listaProveedorCTX)
+
+                    List<Equipo> listaEquipos = new List<Equipo>();
+                    List<Sam3_ST_CRRT_Get_Equipo_Result> listaEquiposCTX = ctx.Sam3_ST_CRRT_Get_Equipo(lenguaje).ToList();
+                    listaEquipos.Add(new Equipo());
+                    foreach (Sam3_ST_CRRT_Get_Equipo_Result item in listaEquiposCTX)
                     {
-                        listaProveedores.Add(new Proveedor
+                        listaEquipos.Add(new Equipo
                         {
-                            ProveedorID = item.ProveedorID,
-                            TipoPruebaProveedorID = item.TipoPruebaProveedorID,
-                            Nombre = item.Proveedor
+                            EquipoID = item.EquipoID,
+                            NombreEquipo = item.Equipo
                         });
                     }
 
-                    return listaProveedores;
+                    return listaEquipos;
                 }
             }
             catch (Exception ex)
@@ -184,24 +181,26 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
-        public object ObtenerLOGINProveedor(int ProveedorID, int ProyectoID, string NombreProveedor, string Password)
+        public object ObtenerListadoTurnos(string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<LoginProveedor> listaProveedores = new List<LoginProveedor>();
-                    List<Sam3_ST_Get_LOGINProveedores_Result> listaProveedorCTX = ctx.Sam3_ST_Get_LOGINProveedores(ProveedorID, ProyectoID, NombreProveedor, Password).ToList();
-                    foreach (Sam3_ST_Get_LOGINProveedores_Result item in listaProveedorCTX)
+
+                    List<TurnoLaboral> listaTurnosLaborales = new List<TurnoLaboral>();
+                    List<Sam3_ST_CRRT_Get_TurnoLaboral_Result> listaTurnosLaboralesCTX = ctx.Sam3_ST_CRRT_Get_TurnoLaboral(lenguaje).ToList();
+                    listaTurnosLaborales.Add(new TurnoLaboral());
+                    foreach (Sam3_ST_CRRT_Get_TurnoLaboral_Result item in listaTurnosLaboralesCTX)
                     {
-                        listaProveedores.Add(new LoginProveedor
+                        listaTurnosLaborales.Add(new TurnoLaboral
                         {
-                            ProveedorID = item.ProveedorID,
-                            Nombre = item.Nombre
+                            TurnoLaboralID = item.TurnoLaboralID,
+                            Turno = item.Turno
                         });
                     }
 
-                    return listaProveedores;
+                    return listaTurnosLaborales;
                 }
             }
             catch (Exception ex)

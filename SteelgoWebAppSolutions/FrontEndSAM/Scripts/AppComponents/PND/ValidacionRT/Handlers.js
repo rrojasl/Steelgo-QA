@@ -5,6 +5,7 @@ function SuscribirEventos() {
     suscribirEventoProyecto();
     suscribirEventoProveedor();
     suscribirEventoTipoPrueba();
+    suscribirEventoChangeRadio();
     suscribirEventoRequisicion();
 }
 
@@ -17,6 +18,21 @@ function suscribirEventoCancelar() {
 function Limpiar() {
     $("#Requisicion").val("");
     $("#grid").data('kendoGrid').dataSource.data([]);
+}
+
+function suscribirEventoChangeRadio() {
+    $('input:radio[name=Revision]:nth(0)').change(function () {
+        // Opción NO
+        $('#proveedorContainerDiv').hide();
+        $('#usuarioContainerDiv').hide();
+
+        $('#lblUsuarioVRValue').text("");
+        $('#lblProveedorVRValue').text("");
+    });
+    $('input:radio[name=Revision]:nth(1)').change(function () {
+        // Opción SI
+        
+    });
 }
 
 function suscribirEventoProyecto() {

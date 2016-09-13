@@ -5,9 +5,6 @@ using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -28,8 +25,8 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                
-                return ReporteRT_BD.Instance.ObtenerListadoProyectos(usuario.UsuarioID);
+
+                return ReporteRTBD.Instance.ObtenerListadoProyectos(usuario);
             }
             else
             {
@@ -43,7 +40,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetProveedores(string token, int proyectoID, int patioID)
+        public object GetProveedores(string token, int proyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -54,7 +51,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerListadoProveedores(proyectoID, patioID);
+                return ReporteRTBD.Instance.ObtenerListadoProveedores(proyectoID);
             }
             else
             {
@@ -68,7 +65,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetRequisiciones(string token, int proyectoID, int proveedorID, int distinct)
+        public object GetRequisiciones(string token, int ProyectoID, int ProveedorID)
         {
             string payload = "";
             string newToken = "";
@@ -79,7 +76,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerRequisiciones(proyectoID, proveedorID);
+                return ReporteRTBD.Instance.ObtenerListadoRequisiciones(usuario, ProyectoID, ProveedorID);
             }
             else
             {
@@ -93,7 +90,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetEquipos(string token, int tipoPruebaID, int proveedorID, string lenguaje)
+        public object GetEquipos(string token, string lenguaje, string x)
         {
             string payload = "";
             string newToken = "";
@@ -104,7 +101,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerEquipos(tipoPruebaID, proveedorID, lenguaje);
+                return ReporteRTBD.Instance.ObtenerListadoEquipos(lenguaje);
             }
             else
             {
@@ -118,7 +115,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetTurnos(string token, int tipoPruebaID, int proveedorID, int equipoID, string lenguaje)
+        public object GetTurnos(string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -129,7 +126,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerTurnos(tipoPruebaID, proveedorID, equipoID, lenguaje);
+                return ReporteRTBD.Instance.ObtenerListadoTurnos(lenguaje);
             }
             else
             {

@@ -7431,6 +7431,10 @@ _dictionary = {
         "es-MX": "Selec",
         "en-US": "Select"
     },
+    "columnComentario": {
+        "es-MX": "Comentario",
+        "en-US": "Comment"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7460,9 +7464,9 @@ _dictionary = {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
     },
-    // Finalizan Etiquetas Generales PND
+// Finalizan Etiquetas Generales PND
 
-    // Pantalla RequisiciónPND
+// Pantalla RequisiciónPND
     "ServiciosTecnicosRequisicionPND": {
         "es-MX": "Requisición PND",
         "en-US": "PND Requisition"
@@ -7475,9 +7479,9 @@ _dictionary = {
         "es-MX": "Asignar Requisición",
         "en-US": "Assign Requisition"
     },
-    // Finaliza Requisición PND
+// Finaliza Requisición PND
 
-    // Pantalla Entrega Placas-Graficas
+// Pantalla Entrega Placas-Graficas
     "ServiciosTecnicosValidarResultadosSup": {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
@@ -7530,9 +7534,9 @@ _dictionary = {
         "es-MX": "Seleccione Requisición para realizar la búsqueda",
         "en-US": "Could not save the information."
     },
-    // Finaliza Entrega Placas-Graficas
+// Finaliza Entrega Placas-Graficas
 
-    // Pantalla Asignar Requisición
+// Pantalla Asignar Requisición
     "ServiciosTecnicosCapturaReporte": {
         "es-MX": "Captura Reporte",
         "en-US": "Report Capture"
@@ -7542,7 +7546,7 @@ _dictionary = {
         "es-MX": "Captura Reporte",
         "en-US": "Report Capture"
     },
-    // Pantalla Impresion Pruebas
+// Pantalla Impresion Pruebas
 
     "lblImpresionPruebas": {
         "es-MX": "Impresión Pruebas",
@@ -7550,7 +7554,7 @@ _dictionary = {
     },
 
 
-    // Pantalla Validacion de resultados
+// Pantalla Validacion de resultados
     "ImpresionResultadosTitle": {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
@@ -7567,9 +7571,29 @@ _dictionary = {
         "es-MX": "Revisión presencia del subcontratista",
         "en-US": "review with presence of the subcontractor"
     },
-    // Finaliza Validacion de resultados
+    "lblProveedorVR": {
+        "es-MX": "Proveedor: ",
+        "en-US": "Provider: "
+    },
+    "lblUsuarioVR": {
+        "es-MX": "Usuario: ",
+        "en-US": "User: "
+    },
+    "lblUsuarioVRLogin": {
+        "es-MX": "Usuario",
+        "en-US": "User"
+    },
+    "lblContraseniaVRLogin": {
+        "es-MX": "Contraseña",
+        "en-US": "Password"
+    },
+    "lblVentanaVRLogin": {
+        "es-MX": "Acceso del proveedor",
+        "en-US": "Provider acces"
+    },
+// Finaliza Validacion de resultados
 
-    //Reportes
+//Reportes
     "FotoIncidencia": {
         "es-MX": "FotoIncidencia",
         "en-US": "Fotoincidence"
@@ -7600,7 +7624,7 @@ _dictionary = {
         "en-US": "No data to save."
     },
 
-    // Pantalla Captura Reporte RT PND
+// Pantalla Captura Reporte RT PND
 
     "ReporteRTHeader": {
         "es-MX": "Reporte RT",
@@ -7768,6 +7792,6 @@ _dictionary = {
         "es-MX": "Excepcion!!!",
         "en-US": "Exception!!!"
     }
-    // Finaliza Captura Reporte RT PND
+// Finaliza Captura Reporte RT PND
 
 };

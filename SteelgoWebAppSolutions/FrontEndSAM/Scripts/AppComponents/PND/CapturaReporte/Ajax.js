@@ -1,24 +1,19 @@
 ﻿
 function AjaxProyecto() {
-
-
-    loadingStart();
     //console.log($CapturaReporteRT);
     $ReporteRT.ReporteRT.read({ token: Cookies.get("token") }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
-
             /*var data = [{ ProyectoID: 1, Nombre: 'Proyecto 1' }, { ProyectoID: 2, Nombre: 'Proyecto 2' }];*/
             $("#inputProyecto").data("kendoComboBox").value("");
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
-            if (data.length == 1) {
-                $("#inputProyecto").data("kendoComboBox").select(0);
-                AjaxProveedor(data[0].ProyectoID, data[0].PatioID)
+            if (data.length == 2) {
+                $("#inputProyecto").data("kendoComboBox").select(1);
+                $("#inputProyecto").data("kendoComboBox").trigger("change");
             }
             //else
             //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
-        loadingStop();
     });
 
 
@@ -34,29 +29,25 @@ function AjaxProyecto() {
 
 
 
-function AjaxProveedor(proyectoID, patioID) {
-    loadingStart();
+function AjaxProveedor(proyectoID) {
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: proyectoID, patioID: patioID }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: proyectoID}).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
-
             //var data = null;
             //data = [{ ProveedorID: 1, Nombre: 'Juan 1.1' }, { ProveedorID: 2, Nombre: 'Juan 1.2' }, { ProveedorID: 3, Nombre: 'Juan 1.3' }];
             
             $("#inputProveedor").data("kendoComboBox").value("");
             $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length == 1) {
-                $("#inputProveedor").data("kendoComboBox").select(0);
-                AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), data[0].ProveedorID)
+            if (data.length == 2) {
+                $("#inputProveedor").data("kendoComboBox").select(1);
+                $("#inputProveedor").data("kendoComboBox").trigger("change");
             }
             //else
             //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
-        loadingStop();
     });
-
 }
 
 function AjaxRequisicion(proyectoID, proveedorID) {
@@ -87,10 +78,10 @@ function AjaxRequisicion(proyectoID, proveedorID) {
 
 }
 
-function AjaxFuente() {//Equipo
+function AjaxFuente(ProyectoID, ProveedorID) {//Equipo
     loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), tipoPruebaID: 1, proveedorID: 0, lenguaje: "es-MX" }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), x: ""}).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             //var data = [{ FuenteID: 1, Fuente: 'Fuente 1' }, { FuenteID: 2, Fuente: 'Fuente 2' }, { FuenteID: 3, Fuente: 'Fuente 3' }];
@@ -106,7 +97,7 @@ function AjaxFuente() {//Equipo
 function AjaxTurno() {
     loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), tipoPruebaID: 1, proveedorID: 0, equipoID: 1, lenguaje: "es-MX" }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), lenguaje: "es-MX" }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             //var data = [{ TurnoID: 1, Turno: 'Turno 1' }, { TurnoID: 2, Turno: 'Turno 2' }, { TurnoID: 3, Turno: 'Turno 3' }, { TurnoID: 4, Turno: 'Turno 4' }];

@@ -151,5 +151,40 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ValidacionRT
                 return result;
             }
         }
+
+        public object Get(string token, int ProveedorID, int ProyectoID, string NombreProveedor, string Password)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return ValidacionRTDB.Instance.ObtenerLOGINProveedor(ProyectoID, ProyectoID, NombreProveedor, Password);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
     }
 }

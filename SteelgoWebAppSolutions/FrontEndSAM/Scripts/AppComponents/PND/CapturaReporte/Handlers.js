@@ -106,7 +106,7 @@ function suscribirEventoProyecto() {
 
 function suscribirEventoProveedor() {
     $('#inputProveedor').kendoComboBox({
-        dataTextField: "Proveedor",
+        dataTextField: "Nombre",
         dataValueField: "ProveedorID",
         suggest: true,
         filter: "contains",
@@ -168,7 +168,7 @@ function suscribirEventoChangeRadioTipo() {
 
 function suscribirEventoRequisicion() {
     $('#inputRequisicion').kendoComboBox({
-        dataTextField: "RequisicionNombre",
+        dataTextField: "NombreRequisicion",
         dataValueField: "RequisicionID",
         suggest: true,
         filter: "contains",
@@ -220,7 +220,7 @@ function suscribirEventoRequisicion() {
 
 function suscribirEventoFuente() {
     $('#inputFuente').kendoComboBox({
-        dataTextField: "Equipo",
+        dataTextField: "NombreEquipo",
         dataValueField: "EquipoID",
         suggest: true,
         filter: "contains",

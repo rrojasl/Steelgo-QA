@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
+namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
 {
     public class Proyectos
     {
@@ -20,22 +20,28 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
         public string PrefijoOrdenTrabajo { get; set; }
     }
 
-    public class TiposDePrueba
+    public class Proveedor
     {
-        public TiposDePrueba()
+        public Proveedor()
         {
-            TipoPruebaID = 0;
+            ProveedorID = 0;
             Nombre = "";
-            Categoria = "";
-            TipoPruebaPorSpool = 0;
-            RequiereEquipo = false;
         }
 
-        public int TipoPruebaID { get; set; }
+        public int ProveedorID { get; set; }
         public string Nombre { get; set; }
-        public string Categoria { get; set; }
-        public int TipoPruebaPorSpool { get; set; }
-        public bool RequiereEquipo { get; set; }
+    }
+
+    public class Equipo
+    {
+        public Equipo()
+        {
+            EquipoID = 0;
+            NombreEquipo = "";
+        }
+
+        public int EquipoID { get; set; }
+        public string NombreEquipo { get; set; }
     }
 
     public class Requisicion
@@ -60,31 +66,15 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
         public string Observacion { get; set; }
     }
 
-
-
-    public class Proveedor
+    public class TurnoLaboral
     {
-        public Proveedor()
+        public TurnoLaboral()
         {
-            ProveedorID = 0;
-            Nombre = "";
-            TipoPruebaProveedorID = 0;
+            TurnoLaboralID = 0;
+            Turno = "";
         }
 
-        public int ProveedorID { get; set; }
-        public int TipoPruebaProveedorID { get; set; }
-        public string Nombre { get; set; }
-    }
-
-    public class LoginProveedor
-    {
-        public LoginProveedor()
-        {
-            ProveedorID = 0;
-            Nombre = "";
-        }
-
-        public int ProveedorID { get; set; }
-        public string Nombre { get; set; }
+        public int TurnoLaboralID { get; set; }
+        public string Turno { get; set; }
     }
 }
