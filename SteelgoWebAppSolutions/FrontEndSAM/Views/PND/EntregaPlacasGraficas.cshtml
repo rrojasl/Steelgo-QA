@@ -137,3 +137,9 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/EntregaPlacasGraficas/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["EntregaPlacasGraficas"] = $EntregaPlacasGraficasModel;
+    }
+</script>

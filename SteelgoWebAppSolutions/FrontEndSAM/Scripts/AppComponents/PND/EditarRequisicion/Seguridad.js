@@ -14,7 +14,7 @@ var $EditarRequisicionModel = {
             editable: "#inputProyecto",
             required: "#inputProyecto",
         },
-        inputProveedor: {
+        inputTipoPrueba: {
             visible: "#divPrueba",
             editable: "#inputTipoPrueba",
             required: "#inputTipoPrueba",
