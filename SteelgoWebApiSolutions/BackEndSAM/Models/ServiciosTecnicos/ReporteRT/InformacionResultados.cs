@@ -14,5 +14,5 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string Ubicacion { get; set; }
         public int Resultado { get; set; }
         public List<DetalleResultados> DetalleResultados { get; set; }
-}
+    }
 }

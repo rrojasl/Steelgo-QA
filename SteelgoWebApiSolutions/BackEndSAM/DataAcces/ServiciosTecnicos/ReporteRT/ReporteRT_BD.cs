@@ -118,7 +118,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle1_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle1(proyectoID, proveedorID, requisicionID, equipoID, turnoID).ToList();
+                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, proveedorID, requisicionID, equipoID, turnoID).ToList();
 
                     System.Text.StringBuilder cad = new System.Text.StringBuilder();
                     cad.Append('[');

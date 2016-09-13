@@ -42,6 +42,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
+        [HttpGet]
         public object GetProveedores(string token, int proyectoID, int patioID)
         {
             string payload = "";
@@ -66,6 +67,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
+        [HttpGet]
         public object GetRequisiciones(string token, int proyectoID, int proveedorID, int distinct)
         {
             string payload = "";
@@ -90,6 +92,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
+        [HttpGet]
         public object GetEquipos(string token, int tipoPruebaID, int proveedorID, string lenguaje)
         {
             string payload = "";
@@ -114,6 +117,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
+        [HttpGet]
         public object GetTurnos(string token, int tipoPruebaID, int proveedorID, int equipoID, string lenguaje)
         {
             string payload = "";
@@ -138,6 +142,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
+        [HttpGet]
         public object GetRequisicionesDetalle(string token, int proyectoID, int proveedorID, int requisicionID, int equipoID, int turnoID)
         {
             string payload = "";
@@ -162,7 +167,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object post(Models.ServiciosTecnicos.ReporteRT.CapturaReporteRT Captura, string token, string lenguaje)
+        public object Post(Models.ServiciosTecnicos.ReporteRT.CapturaReporteRT Captura, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";

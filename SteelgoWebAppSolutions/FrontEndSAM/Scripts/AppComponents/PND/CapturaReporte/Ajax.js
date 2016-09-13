@@ -179,8 +179,8 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 Tamano: 0,
                 ResultadoConciliacion: "",
                 RazonNoConciliacion: "",
-                InformacionResultados: [],
-                Estatus: 1
+                MiInformacionResultados: []//,
+                //Estatus: 1
             };
 
             listaDetalles[cont].Accion = ds[i].Accion;
@@ -196,8 +196,31 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].Tamano = ds[i].Tamano;
             listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
             listaDetalles[cont].RazonNoConciliacion = ds[i].RazonNoConciliacion;
-            listaDetalles[cont].InformacionResultados = ds[i].InformacionResultados;
-            listaDetalles[cont].Estatus = ds[i].Estatus;
+            
+            var informacion = [];
+            for (var j = 0; j < ds[i].InformacionResultados.length; j++) {
+                informacion[j] = { SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "" }
+                informacion[j].SpoolJunta = ds[i].InformacionResultados[j].SpoolJunta;
+                informacion[j].Junta = ds[i].InformacionResultados[j].Junta;
+                informacion[j].EtiquetaJunta = ds[i].InformacionResultados[j].EtiquetaJunta;
+                informacion[j].NumeroControl = ds[i].InformacionResultados[j].NumeroControl;
+                informacion[j].Ubicacion = ds[i].InformacionResultados[j].Ubicacion;
+                informacion[j].Resultado = ds[i].InformacionResultados[j].Resultado;
+
+                listaDetalles[cont].MiInformacionResultados = informacion;
+
+                var detalles = [];
+                for (var k = 0; k < ds[i].InformacionResultados[j].DetalleResultados.length; k++) {
+                    detalles[k] = { Defectos: 0, InicioMM: 0, FinMM: 0 }
+                    detalles[k].Defectos = ds[i].InformacionResultados[j].DetalleResultados[k].Defectos;
+                    detalles[k].InicioMM = ds[i].InformacionResultados[j].DetalleResultados[k].InicioMM;
+                    detalles[k].FinMM = ds[i].InformacionResultados[j].DetalleResultados[k].FinMM;
+                }
+
+                listaDetalles[cont].MiInformacionResultados[j].DetalleResultados = detalles;
+            }
+
+            
 
             //if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
             //    listaDetalles[cont].DocumentoDefectoID == 0) && listaDetalles[cont].Accion != 4) {

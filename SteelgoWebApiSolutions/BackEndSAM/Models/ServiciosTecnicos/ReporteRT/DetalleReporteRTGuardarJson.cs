@@ -21,6 +21,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string ResultadoConciliacion { get; set; }
         public string RazonNoConciliacion { get; set; }
         public List<InformacionResultados> MiInformacionResultados { get; set; }
-        public int Estatus { get; set; }
+
     }
 }

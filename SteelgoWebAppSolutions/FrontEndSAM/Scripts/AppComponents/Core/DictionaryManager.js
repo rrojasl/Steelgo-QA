@@ -7242,6 +7242,10 @@ _dictionary = {
         "es-MX": "Asignar Requisición",
         "en-US": "Set Requisition"
     },
+    "menuServiciosTecnicosReporteRT": {
+        "es-MX": "Reporte RT",
+        "en-US": "RT Report"
+    },
     "menuServiciosTecnicosEntregaPlacasGraficas": {
         "es-MX": "Entrega de Placas o Gráficas",
         "en-US": "Delivery Plate or Graphics"
@@ -7595,4 +7599,175 @@ _dictionary = {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
     },
+
+    // Pantalla Captura Reporte RT PND
+
+    "ReporteRTHeader": {
+        "es-MX": "Reporte RT",
+        "en-US": "RT Report"
+    },
+
+    "CapturaReporteProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "CapturaReporteProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "CapturaReporteRequisicion": {
+        "es-MX": "Requisicion",
+        "en-US": "Requisition"
+    },
+    "CapturaReporteEquipo": {
+        "es-MX": "Equipo",
+        "en-US": "Team"
+    },
+    "CapturaReporteTurno": {
+        "es-MX": "Turno",
+        "en-US": "Turn"
+    },
+    "CapturaReporteSinCaptura": {
+        "es-MX": "Sin Captura",
+        "en-US": "Without Capture"
+    },
+    "CapturaReporteTodas": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "CapturaReporteGridColumnSpoolJunta": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "CapturaReporteGridColumnNumeroPlacas": {
+        "es-MX": "No Pls",
+        "en-US": "# Pls"
+    },
+    "CapturaReporteGridColumnTamano": {
+        "es-MX": "Tamaño",
+        "en-US": "Tamano"
+    },
+    "CapturaReporteGridColumnDensidad": {
+        "es-MX": "Densidad",
+        "en-US": "Densidad"
+    },
+    "CapturaReporteGridColumnInformacionResultados": {
+        "es-MX": "Detalle por placa",
+        "en-US": "Detail plate"
+    },
+    "CapturaReporteGridColumnJunta": {
+        "es-MX": "Jta",
+        "en-US": "Jta"
+    },
+    "CapturaReporteGridColumnNumeroControl": {
+        "es-MX": "Control",
+        "en-US": "Control"
+    },
+    "CapturaReporteGridColumnEtiquetaJunta": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "CapturaReporteGridColumnClasificacionPND": {
+        "es-MX": "Clasificacion",
+        "en-US": "Clasification"
+    },
+    "CapturaReporteGridColumnTipoPrueba": {
+        "es-MX": "Tipo",
+        "en-US": "Type"
+    },
+    "CapturaReporteGridColumnObservaciones": {
+        "es-MX": "Observaciones",
+        "en-US": "Observations"
+    },
+    "CapturaReporteGridColumnCodigoAsme": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "CapturaReporteGridColumnRusult1": {
+        "es-MX": "Result Valida RT",
+        "en-US": "Result validate"
+    },
+    "CapturaReporteGridColumnRusult2": {
+        "es-MX": "Pantalla Validación",
+        "en-US": "Screen Validation"
+    },
+    "CapturaReporteBotonBuscar": {
+        "es-MX": "Buscar",
+        "en-US": "Search"
+    },
+    "ValidacionResultadosCabeceraUbicacion": {
+        "es-MX": "Ubicacion",
+        "en-US": "Ubication"
+    },
+    "CapturaReportePruebasHeaderResultado": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "CapturaReportePruebasHeaderDetalleDefectos": {
+        "es-MX": "Defectos",
+        "en-US": "Defects"
+    },
+    "ValidacionResultadosComboRechazado": {
+        "es-MX": "Rechazado",
+        "en-US": "Rechazado"
+    },
+    "ValidacionResultadosComboAceptado": {
+        "es-MX": "Aceptado",
+        "en-US": "Accept"
+    },
+    "ValidacionResultadosEnlaceEditar": {
+        "es-MX": "Aceptado",
+        "en-US": "Accept"
+    },
+
+    "CapturaReportePruebasHeaderDefecto": {
+        "es-MX": "Defectos",
+        "en-US": "Defects"
+    },
+    "CapturaReportePruebasHeaderInicio": {
+        "es-MX": "Inicio mm",
+        "en-US": "Start mm"
+    },
+    "CapturaReportePruebasHeaderFin": {
+        "es-MX": "Fin mm",
+        "en-US": "End mm"
+    },
+
+    "CapturaReporteGuardarPopup": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+
+    "CapturaReportePruebasMensajeEliminarDefecto": {
+        "es-MX": "Seguro quiere eliminar este regitro?",
+        "en-US": "Sure you want to delete this record?"
+    },
+    "CapturaReportePruebasMensajeEliminarDatosCapturados": {
+        "es-MX": "Usted tiene datos pendintes por guardar, desea eliminarlos sin guardarlos?",
+        "en-US": "You have pending data to save, you want to delete them without saving?"
+    },
+
+    "CapturaReporteGraficasTituloPopup": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+    "CapturaReporteMensajePreguntaGuardado": {
+        "es-MX": "Usted tiene datos pendintes por guardar, desea eliminarlos sin guardarlos?",
+        "en-US": "You have pending data to save, you want to delete them without saving?"
+    },
+
+    "ReporteRTMensajeGuardadoExistoso": {
+        "es-MX": "Su transacción fue correcta!!!",
+        "en-US": "Your transaction is correct!!!"
+    },
+    "ReporteRTMensajeGuardadoErroneo": {
+        "es-MX": "Error al guardar!!!",
+        "en-US": "Error to save!!!"
+    },
+    "ReporteRTExcepcionGuardado": {
+        "es-MX": "Excepcion!!!",
+        "en-US": "Exception!!!"
+    }
+    // Finaliza Captura Reporte RT PND
+
 };
