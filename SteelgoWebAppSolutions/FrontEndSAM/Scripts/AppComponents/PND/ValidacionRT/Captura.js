@@ -55,6 +55,7 @@ function CargarGrid() {
                         Resultado: { type: "string", editable: false },
                         Defectos: { type: "string", editable: false },
                         Conciliado: { type: "string", editable: true },
+                        Comentario: { type: "string", editable: true },
                         RazonRechazo: { type: "string", editable: false },
                         Limpiar: { type: "string", editable: false },
                         Firmado: { type: "string", editable: false }
@@ -106,6 +107,7 @@ function CargarGrid() {
             { field: "Defectos", title: _dictionary.columnDefectos[$("#language").data("kendoDropDownList").value()], filterable: true, width: "116px" },
             { field: "Conciliado", title: _dictionary.columnConciliado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "126px" },
             { field: "RazonRechazo", title: _dictionary.columnRazonRechazo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
+            { field: "Observacion", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "160px" },
             { field: "Limpiar", title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
             { field: "Firmado", title: _dictionary.columnFirmado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "112px" }
         ]

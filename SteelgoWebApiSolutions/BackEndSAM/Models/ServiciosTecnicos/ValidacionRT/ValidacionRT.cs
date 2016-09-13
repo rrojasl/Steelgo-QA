@@ -75,4 +75,16 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
         public int TipoPruebaProveedorID { get; set; }
         public string Nombre { get; set; }
     }
+
+    public class LoginProveedor
+    {
+        public LoginProveedor()
+        {
+            ProveedorID = 0;
+            Nombre = "";
+        }
+
+        public int ProveedorID { get; set; }
+        public string Nombre { get; set; }
+    }
 }

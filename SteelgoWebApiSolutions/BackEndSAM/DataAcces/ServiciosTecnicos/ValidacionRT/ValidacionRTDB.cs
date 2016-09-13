@@ -183,5 +183,40 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 return result;
             }
         }
+
+        public object ObtenerLOGINProveedor(int ProveedorID, int ProyectoID, string NombreProveedor, string Password)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<LoginProveedor> listaProveedores = new List<LoginProveedor>();
+                    List<Sam3_ST_Get_LOGINProveedores_Result> listaProveedorCTX = ctx.Sam3_ST_Get_LOGINProveedores(ProveedorID, ProyectoID, NombreProveedor, Password).ToList();
+                    foreach (Sam3_ST_Get_LOGINProveedores_Result item in listaProveedorCTX)
+                    {
+                        listaProveedores.Add(new LoginProveedor
+                        {
+                            ProveedorID = item.ProveedorID,
+                            Nombre = item.Nombre
+                        });
+                    }
+
+                    return listaProveedores;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
