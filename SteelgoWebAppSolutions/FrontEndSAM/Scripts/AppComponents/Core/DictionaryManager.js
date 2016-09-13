@@ -7092,7 +7092,22 @@ _dictionary = {
         "es-MX": "No",
         "en-US": "No"
     },
-
+    "lblFechaInicio": {
+        "es-MX": "Fecha inicio",
+        "en-US": "Start date"
+    },
+    "lblFechaFin": {
+        "es-MX": "Fecha fin",
+        "en-US": "End date"
+    },
+    "lblPorRequisicion": {
+        "es-MX": "Por requisicion",
+        "en-US": "By requisition"
+    },
+    "lblPorElemento": {
+        "es-MX": "Por Elemento",
+        "en-US": "By Element"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7261,6 +7276,10 @@ _dictionary = {
     "menuServiciosTecnicosImpresionPruebas": {
         "es-MX": "Impresión Pruebas",
         "en-US": "Test Print"
+    },
+    "menuServiciosTecnicosDashboardPND": {
+        "es-MX": "Dashboard PND",
+        "en-US": "Dashboard PND"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7436,6 +7455,12 @@ _dictionary = {
         "en-US": "Comment"
     },
     // Finalizan Etiquetas Grid
+    //Formatos de Fecha
+    "FormatoFecha": {
+        "es-MX": "dd/MM/yyyy",
+        "en-US": "MM/dd/yyyy"
+    },
+    //Finalizan Formatos de Fecha
     // Finalizan Etiquetas generales
 
     // Inicia Módulo PNDs
@@ -7463,6 +7488,10 @@ _dictionary = {
     "ServiciosTecnicosValidacionRTBreadcrumb": {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
+    },
+    "ServiciosTecnicosDashboardPNDBreadcrumb": {
+        "es-MX": "Dashboard PND",
+        "en-US": "Dashboard PND"
     },
 // Finalizan Etiquetas Generales PND
 
