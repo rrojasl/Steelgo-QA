@@ -63,7 +63,8 @@ function cargarGrid() {
                         JuntaSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
                         Especificacion: { type: "number", editable: false },
-                        Agregar: { type: "boolean", editable: false }
+                        Agregar: { type: "boolean", editable: false },
+                        EstatusCaptura: { type: "number", editable: false }
                     }
                 }
             },
@@ -139,8 +140,14 @@ function cargarGrid() {
 
             if ($(this)[0].checked) {
                 dataItem.Agregar = true;
+                if (dataItem.Accion == 2) {
+                    dataItem.EstatusCaptura = 0;
+                }
             } else {
                 dataItem.Agregar = false;
+                if (dataItem.Accion == 2) {
+                    dataItem.EstatusCaptura = 1;
+                }
             }
         }
     });
@@ -171,5 +178,29 @@ function FiltroMostrar(mostrar) {
 
         filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
         ds.sync();
+    }
+}
+
+function validaInformacionCapturada() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var filters = ds.filter();
+    var allData = ds.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    var contador = 0;
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].EstatusCaptura == 1) {
+                contador++;
+            }
+        }
+        if (contador > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
     }
 }

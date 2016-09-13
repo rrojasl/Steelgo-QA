@@ -31,6 +31,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
                 OrdenTrabajoSpoolID = 0;
                 TipoPruebaID = 0;
                 Especificacion = "";
+                EstatusCaptura = 0;
             }
 
             public int Accion { get; set; }
@@ -53,6 +54,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public int OrdenTrabajoSpoolID { get; set; }
             public int TipoPruebaID { get; set; }
             public string Especificacion { get; set; }
+            public int EstatusCaptura { get; set; }
         }
 
         public class Captura

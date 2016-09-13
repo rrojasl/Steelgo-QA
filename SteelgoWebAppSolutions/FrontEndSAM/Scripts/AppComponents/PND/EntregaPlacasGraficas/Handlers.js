@@ -25,8 +25,8 @@ function SuscribirEventoProyecto() {
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
-                    if(paramReq == null){
-                        $("#inputProyecto").attr("proyectoAntrior", dataItem.ProyectoID);
+                    $("#inputProyecto").attr("proyectoAntrior", dataItem.ProyectoID);
+                    if(paramReq == null){                        
                         $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
                         $("#inputProveedor").data("kendoComboBox").value("");
                         $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);

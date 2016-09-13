@@ -62,7 +62,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             JuntaSpoolID = item.JuntaSpoolID,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
-                            Especificacion = item.Especificacion
+                            Especificacion = item.Especificacion,
+                            EstatusCaptura = 0
                         });
                     }
 
