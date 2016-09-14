@@ -7460,12 +7460,6 @@ _dictionary = {
         "en-US": "Comment"
     },
     // Finalizan Etiquetas Grid
-    //Formatos de Fecha
-    "FormatoFecha": {
-        "es-MX": "dd/MM/yyyy",
-        "en-US": "MM/dd/yyyy"
-    },
-    //Finalizan Formatos de Fecha
     // Finalizan Etiquetas generales
 
     // Inicia Módulo PNDs
