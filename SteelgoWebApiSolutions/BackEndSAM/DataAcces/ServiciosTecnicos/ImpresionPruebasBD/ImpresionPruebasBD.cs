@@ -1,7 +1,10 @@
-﻿using DatabaseManager.Sam3;
+﻿using BackEndSAM.Models.ServiciosTecnicos.impresionPruebas;
+using DatabaseManager.Constantes;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -27,32 +30,112 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
             }
         }
 
-        public object ObtenerImpresionPruebas(string lenguaje,int TipoPruebaID,int TipoPruebaProveedorID, int RequisicionID)
+        public object ObtenerImpresionPruebas(string mostrar, int RequisicionID)
         {
             try
             {
-                //List<TurnoLaboral> listaTurnoLaboralTotal = new List<TurnoLaboral>();
-                //using (SamContext ctx = new SamContext())
-                //{
+                List<ImpresionPruebasDetalle> listaDetalleImpresionPruebas = new List<ImpresionPruebasDetalle>();
+                using (SamContext ctx = new SamContext())
+                {
 
-                //    List<Sam3_ST_Get_TurnoLaboralAsignarRequisicion_Result> result = ctx.Sam3_ST_Get_TurnoLaboralAsignarRequisicion(lenguaje).ToList();
-                //    foreach (var item in result)
-                //    {
-                //        listaTurnoLaboralTotal.Add(new TurnoLaboral
-                //        {
-                //            TurnoLaboralID = item.TurnoLaboralID,
-                //            Nombre = item.Turno,
-                //            TipoPruebaProveedorID = item.TipoPruebaProveedorID,
-                //            Capacidad = item.Capacidad,
-                //            CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
-                //            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
-                //            JuntasAsignadas = item.ElementosAsignados.ToString(),
-                //            ProveedorEquipoID = item.ProveedorEquipoID,
-                //            ListaElementosAsignadosTurno = item.ElementosAsignados == 0 ? new List<ElementosRequisicion>() : (List<ElementosRequisicion>)ObtenerElementosAsignadosTurno(lenguaje, proyectoID, item.CapacidadTurnoEquipoID, item.CapacidadTurnoProveedorID, 0)
-                //        });
-                //    }
-                //}
-                return new object();
+                    List<Sam3_ST_Get_ImpresionPruebasDetalle_Result> result = ctx.Sam3_ST_Get_ImpresionPruebasDetalle(RequisicionID).ToList();
+                    foreach (var item in result)
+                    {
+                        listaDetalleImpresionPruebas.Add(new ImpresionPruebasDetalle
+                        {
+                            Requisicion = item.NombreRequisicion,
+                            Spool = item.NumeroControl,
+                            Junta = item.EtiquetaJunta,
+                            Clasificacion = item.Clasificacion,
+                            Diametro = item.Diametro,
+                            Espesor = item.Diametro,
+                            TipoJunta = item.TipoJunta,
+                            Reporte = item.Reporte,
+                            Seleccionado = false,
+                            Cedula = item.Cedula,
+                            Cuadrante = item.Cuadrante,
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            Especificacion = item.Especificacion,
+                            JuntaSpoolID = item.JuntaSpoolID,
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            ProyectoID = item.ProyectoID,
+                            ReporteRequisicionID = item.ReporteRequisicionID,
+                            RequisicionID = item.RequisicionID,
+                            SpoolID = item.SpoolID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Url = item.Url,
+                            Version = item.Version == 0 ? "": item.Version.ToString()
+                        });
+                    }
+                }
+                return listaDetalleImpresionPruebas;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object ObtenerRequisiciones(int proyectoID, int tipoPruebaID, int proveedorID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<Requisicion> listaRequisiciones = new List<Requisicion>();
+                    List<Sam3_ST_Get_ListaRequisicionesImpresionPruebas_Result> listaRequisicionesCTX = ctx.Sam3_ST_Get_ListaRequisicionesImpresionPruebas( proyectoID, tipoPruebaID, proveedorID).ToList();
+                    listaRequisiciones.Add(new Requisicion());
+                    foreach (Sam3_ST_Get_ListaRequisicionesImpresionPruebas_Result item in listaRequisicionesCTX)
+                    {
+                        listaRequisiciones.Add(new Requisicion
+                        {
+                            RequisicionID = item.RequisicionID,
+                            ProyectoID = item.ProyectoID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            NombreRequisicion = item.NombreRequisicion,
+                            CodigoAsme = item.CodigoAsme,
+                            FechaRequisicion = item.FechaRequisicion.ToString(),
+                            Observacion = item.Observaciones
+                        });
+                    }
+
+                    return listaRequisiciones;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int requisicionID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID", requisicionID.ToString()} };
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAIMPRESIONPRUEBAS, dtDetalleCaptura, "@ImpresionPruebas", parametro);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
             }
             catch (Exception ex)
             {

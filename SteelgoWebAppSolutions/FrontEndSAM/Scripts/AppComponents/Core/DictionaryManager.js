@@ -7108,6 +7108,11 @@ _dictionary = {
         "es-MX": "Por Elemento",
         "en-US": "By Element"
     },
+    "lblSeleccionarTodos": {
+        "es-MX": "Seleccionar todo",
+        "en-US": "Select all"
+    },
+
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7580,6 +7585,10 @@ _dictionary = {
     "lblImpresionPruebas": {
         "es-MX": "Impresión Pruebas",
         "en-US": "Test Print"
+    },
+    "mensajeImpresionPruebasElementoNoSeleccionable": {
+        "es-MX": "No se puede seleccionar elementos de reportes diferentes",
+        "en-US": "You can't select items from different reports"
     },
 
 
