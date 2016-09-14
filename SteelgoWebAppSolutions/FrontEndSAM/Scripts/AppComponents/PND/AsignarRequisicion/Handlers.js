@@ -72,7 +72,7 @@ function SuscribirEventoComboPrueba() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if(!editado){
-            if (dataItem != undefined && dataItem.Nombre != "") {
+            if (dataItem != undefined ) {
                     if ($("#inputProyecto").data("kendoComboBox").text() != "" && $("#inputPrueba").data("kendoComboBox").text() != "") {
                         AjaxCargarRequisicionAsignacion();
                     }

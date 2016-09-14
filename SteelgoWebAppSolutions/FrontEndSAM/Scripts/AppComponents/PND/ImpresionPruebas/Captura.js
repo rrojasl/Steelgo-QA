@@ -3,6 +3,7 @@ var editado = false;
 function changeLanguageCall() {
     CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
+    AjaxCargarCamposPredeterminados();
     document.title = _dictionary.lblImpresionPruebas[$("#language").data("kendoDropDownList").value()];
     //AjaxCargarCamposPredeterminados();
 };
@@ -106,7 +107,7 @@ function CargarGrid() {
                         TipoJunta: { type: "string", editable: false },
                         Reporte: { type: "string", editable: false },
                         Version: { type: "string", editable: false },
-                        Seleccionado: { type: "string", editable: false }
+                        Seleccionado: { type: "boolean", editable: false }
                     }
                 }
             },
@@ -132,24 +133,59 @@ function CargarGrid() {
         },
         columns: [
             { field: "Requisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px " },
-            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
-            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "TipoJunta", title: _dictionary.columnFirmadoTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
+            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "TipoJunta", title: _dictionary.columnFirmadoTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
             { field: "Reporte", title: _dictionary.columnReporte[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "130px" },
+            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
+            { field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "90px" },
         ]
     });
     CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-        dataItem.set("Seleccionado", this.checked);
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+
+        var ds = grid.dataSource._data;
+        var correcto = true;
+        for (var i = 0 ; i < ds.length; i++) {
+            if (dataItem.Reporte != "")
+                if (ds[i].Reporte != "" && ds[i].Reporte != dataItem.Reporte && ds[i].Seleccionado)
+                    correcto = false;
+               
+        }
+        if (correcto) {
+            if ($(this)[0].checked) {
+                dataItem.Seleccionado = true;
+            }
+            else {
+                dataItem.Seleccionado = false;
+            }
+        }
+        else {
+            displayNotify("mensajeImpresionPruebasElementoNoSeleccionable", "", "1");
+            dataItem.Seleccionado = false;
+            $(this)[0].checked = false;
+
+        }
+
+        //$("#grid").data("kendoGrid").dataSource.sync();
+
+
     });
 };
 
+
+function seleccionarTodo(valorPlanchado) {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < ds.length; i++) {
+        ds[i].Seleccionado = valorPlanchado;
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}

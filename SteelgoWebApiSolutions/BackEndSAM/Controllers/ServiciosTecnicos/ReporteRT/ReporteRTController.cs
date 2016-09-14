@@ -174,7 +174,33 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtDetalleCaptura = ReporteRTController.ToDataTable(Captura.Detalles);
+                DataTable dtDetalleCaptura = ReporteRTController.ToDataTable(Captura.Detalles);    
+                DataTable dtDetalleResultados = new DataTable("detalleResultados");
+                DataTable dtDetalleDefectos = new DataTable("detalleDefectos");
+
+                for (int i = 0; i < Captura.Detalles.Count; i++)
+                {
+                    DataTable dtResultados = null;
+                    
+                    DataTable dtDefectos = null;
+
+                    if (Captura.Detalles[i].MiInformacionResultados != null)
+                    {
+                        for (int j = 0; j < Captura.Detalles[i].MiInformacionResultados.Count; j++)
+                        {
+                            if (Captura.Detalles[i].MiInformacionResultados[j].DetalleResultados != null)
+                            {
+                                dtDefectos = ReporteRTController.ToDataTable(Captura.Detalles[i].MiInformacionResultados[j].DetalleResultados);
+                                dtDetalleDefectos.Merge(dtDefectos);
+                            }
+                        }
+
+                        dtResultados = ReporteRTController.ToDataTable(Captura.Detalles[i].MiInformacionResultados);
+                        dtDetalleResultados.Merge(dtResultados);
+                    }
+                }
+                dtDetalleResultados.Columns.RemoveAt(6);
+                dtDetalleCaptura.Columns.RemoveAt(13);
 
                 return ReporteRT_BD.Instance.InsertarCapturaReportesRT(dtDetalleCaptura, usuario.UsuarioID, lenguaje);
             }

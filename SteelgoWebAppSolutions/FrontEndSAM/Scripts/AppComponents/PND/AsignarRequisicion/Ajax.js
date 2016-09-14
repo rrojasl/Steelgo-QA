@@ -149,7 +149,7 @@ function AjaxObtenerProveedor() {
     if ($("#inputPrueba").data("kendoComboBox").value() != "") {
         loadingStart();
         var patioID = $('#inputProyecto').data("kendoComboBox").dataSource._data[$('#inputProyecto').data("kendoComboBox").selectedIndex].PatioID;
-        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: 6, TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value() }).done(function (data) {
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: patioID, TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value() }).done(function (data) {
             if (Error(data)) {
                 $("#inputProveedor").data("kendoComboBox").value("");
                 $("#inputProveedor").data("kendoComboBox").dataSource.data(data);

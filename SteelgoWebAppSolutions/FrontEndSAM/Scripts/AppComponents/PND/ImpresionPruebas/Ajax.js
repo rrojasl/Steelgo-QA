@@ -1,6 +1,9 @@
 ﻿var folioGenerado;
+var CampoMuestra = 3056;
+
 function AjaxCargarDatos() {
-    $ImpresionPruebas.ImpresionPruebas.read({ token: Cookies.get("token"), mostrar: "Todos", TipoPruebaID: 10, TipoPruebaProveedorID: 12, RequisicionID: 1 }).done(function (data) {
+    
+    $ImpresionPruebas.ImpresionPruebas.read({ token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), RequisicionID: $("#inputRequisicion").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
@@ -14,33 +17,40 @@ function AjaxCargarDatos() {
 function AjaxImprimir(arregloJuntas) {
     loadingStart();
     Captura = [];
-    Captura[0] = { Detalles: "" };
-    ListaDetalles = [];
-    contador = 0;
-    ReporteIDConsecutivo;
-
+    ReportePath = "";
+    ReporteRequisicionID = 0;
+    impresionCorrecta = true;
+    
 
     for (var i = 0; i < arregloJuntas.length; i++) {
-        if (arregloJuntas[i].Seleccionado && (arregloJuntas[i].ReporteID != null || arregloJuntas[i].ReporteID != undefined)) {
-            ListaDetalles[contador] = { RequisicionPruebaElementoID: "", ReporteID: "", ReportePath: "" };
-            ListaDetalles[contador].RequisicionPruebaElementoID = arregloJuntas[i].RequisicionPruebaElementoID;
-            ListaDetalles[contador].ReporteID = arregloJuntas[i].ReporteID;
-            ListaDetalles[contador].Status = arregloJuntas[i].Status;
-            ListaDetalles[contador].ReportePath = arregloJuntas[i].ReportePath;
-            contador++;
+        if (arregloJuntas[i].Seleccionado) {
+            if (arregloJuntas[i].Reporte == "") {
+                impresionCorrecta = false;
+                break;
+            }
+            else {
+                ReportePath = arregloJuntas[i].Url;
+                ReporteRequisicionID = arregloJuntas[i].ReporteRequisicionID;
+            }
+            
         }
     }
 
 
 
-    Captura[0].Detalles = ListaDetalles;
-    if (Captura[0].Detalles.length > 0) {
-        for (var m = 0; m < Captura[0].Detalles.length; m++) {
-            SolicitarImpresion(Captura[0].Detalles[m].ReportePath.replace('?1', $("#language").val()).replace('?2', Captura[0].Detalles[m].RequisicionPruebaElementoID));
+    if (ReportePath != "") {
+        if (impresionCorrecta) {
+
+            SolicitarImpresion(ReportePath.replace('***', ReporteRequisicionID));
+            loadingStop();
         }
-        loadingStop();
+        else {
+            displayNotify("", "Hay elementos seleccionados sin asignar en un reporte, imposible imprimir", "1");
+            loadingStop();
+        }
     }
     else {
+        displayNotify("", "No hay elementos seleccionados para imprimir", "1");
         loadingStop();
     }
 }
@@ -61,35 +71,37 @@ function AjaxGenerarReporte(arregloJuntas) {
     ListaDetalles = [];
     contador = 0;
     ReporteIDConsecutivo;
+    reporteReqID = 0;
 
-    if (JuntasSeleccionadasConIDUnico(arregloJuntas) && AsignarIDUnicoXJuntaSeleccionada(arregloJuntas)) {
+    for (var i = 0; i < arregloJuntas.length; i++) {
+        if (arregloJuntas[i].Seleccionado && arregloJuntas[i].ReporteRequisicionID != 0) {
+            reporteReqID = arregloJuntas[i].ReporteRequisicionID;
+        }
+    }
 
         for (var i = 0; i < arregloJuntas.length; i++) {
-            if (arregloJuntas[i].Seleccionado && (arregloJuntas[i].Status == 'N' || arregloJuntas[i].Status == 'NR' || arregloJuntas[i].Status != 'A')) {
-                ListaDetalles[contador] = { RequisicionPruebaElementoID: "", ReporteID: "" };
-                ListaDetalles[contador].RequisicionPruebaElementoID = arregloJuntas[i].RequisicionPruebaElementoID;
-                ListaDetalles[contador].ReporteID = arregloJuntas[i].ReporteID;
-                ListaDetalles[contador].Status = arregloJuntas[i].Status;
+            if (arregloJuntas[i].Seleccionado ) {
+                ListaDetalles[contador] = { ReporteRequisicionID: "", ElementoPorClasificacionPNDID: "", Accion: "" };
+                ListaDetalles[contador].Accion =  arregloJuntas[i].ReporteRequisicionID == 0 ? 1 : 2;
+                ListaDetalles[contador].ElementoPorClasificacionPNDID = arregloJuntas[i].ElementoPorClasificacionPNDID;
+                ListaDetalles[contador].ReporteRequisicionID = reporteReqID;
                 contador++;
             }
         }
 
-
-
         Captura[0].Detalles = ListaDetalles;
         if (Captura[0].Detalles.length > 0) {
-            $ImpresionPruebas.ImpresionPruebas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            $ImpresionPruebas.ImpresionPruebas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: $("#inputRequisicion").val() }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     AjaxCargarDatos();
                     mensaje = "Se guardo correctamente la informacion" + "-0";
-                    displayMessage("CapturaMensajeGuardadoExitoso", "", '1');
+                    displayNotify("MensajeGuardadoExistoso", "", '1');
                 }
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                    mensaje = "No se guardo la informacion el error es: " + data.RetsurnMessage[0] + "-2"
-                    displayMessage("CapturaMensajeGuardadoErroneo", "", '1');
+                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                    displayNotify("MensajeGuardadoErroneo", data.ReturnMessage[0], '2');
                 }
                 loadingStop();
-
 
 
             });
@@ -97,12 +109,7 @@ function AjaxGenerarReporte(arregloJuntas) {
         else {
             loadingStop();
         }
-    }
-    else {
-        displayMessage("CapturaMensajeJuntasErroneas", "", '1');
-        loadingStop();
-    }
-
+   
 }
 
 
@@ -150,7 +157,7 @@ function AjaxObtenerProveedor() {
     if ($("#inputPrueba").data("kendoComboBox").value() != "") {
         loadingStart();
         var patioID = $('#inputProyecto').data("kendoComboBox").dataSource._data[$('#inputProyecto').data("kendoComboBox").selectedIndex].PatioID;
-        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: 6, TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value() }).done(function (data) {
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: patioID, TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value() }).done(function (data) {
             if (Error(data)) {
                 $("#inputProveedor").data("kendoComboBox").value("");
                 $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
@@ -182,7 +189,7 @@ function AjaxObtenerProveedor() {
 function AjaxRequisicion() {
     if ($("#inputPrueba").data("kendoComboBox").value() != "") {
         loadingStart();
-        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), estatusID: 2 }).done(function (data) {
+        $ImpresionPruebas.ImpresionPruebas.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), ProveedorID: $("#inputProveedor").data("kendoComboBox").value() }).done(function (data) {
             if (Error(data)) {
                 $("#inputRequisicion").data("kendoComboBox").value("");
                 $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
@@ -196,3 +203,26 @@ function AjaxRequisicion() {
         });
     }
 };
+
+
+function AjaxCargarCamposPredeterminados() {
+    loadingStart();
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoMuestra }).done(function (data) {
+        if (Error(data)) {
+            if (data == "sin captura") {
+                $('input:radio[name=Muestra]:nth(0)').trigger("click");
+
+                $("#styleSinCaptura").addClass("active");
+                $("#styleTodos").removeClass("active");
+            }
+            else if (data == "Todos") {
+
+                $('input:radio[name=Muestra]:nth(1)').trigger("click");
+                $("#styleTodos").addClass("active");
+                $("#styleSinCaptura").removeClass("active");
+            }
+
+        }
+        loadingStop();
+    });
+}
