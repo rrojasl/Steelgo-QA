@@ -116,8 +116,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     {
                         lista.Add(new DocumentoDefecto
                         {
-                            DefectoDocumentoID = item.DefectoDocumentoID,
-                            DefectoDocumentoNombre = item.DefectoDocumentoNombre
+                            DocumentoDefectoID = item.DocumentoDefectoID,
+                            DocumentoDefectoNombre = item.DocumentoDefectoNombre
                         });
                     }
 
@@ -136,21 +136,22 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerListadoProveedor(Sam3_Usuario usuario, int proyectoID, int patioID, int tipoPruebaID)
+        public object ObtenerListadoProveedor(Sam3_Usuario usuario, int proyectoID, int tipoPruebaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Proveedor> listaProveedores = new List<Proveedor>();
-                    List<Sam3_ST_EPG_ObtieneProveedores_Result> result = ctx.Sam3_ST_EPG_ObtieneProveedores(proyectoID, patioID).ToList();
+                    List<Sam3_ST_EPG_ObtieneProveedores_Result> result = ctx.Sam3_ST_EPG_ObtieneProveedores(proyectoID).ToList();
 
                     listaProveedores.Add(new Proveedor());
                     foreach (Sam3_ST_EPG_ObtieneProveedores_Result item in result)
                     {
-                        listaProveedores.Add(new Proveedor {
-                                ProveedorID = item.ProveedorID,
-                                NombreProveedor = item.Nombre
+                        listaProveedores.Add(new Proveedor
+                        {
+                            ProveedorID = item.ProveedorID,
+                            NombreProveedor = item.NombreProveedor
                         });
                     }
 
@@ -187,12 +188,12 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaRequisiciones.Add(new Requisicion
                         {
                             RequisicionID = item.RequisicionID,
-                            NombreRequisicion = item.NombreRequisicion,
-                            TipoPruebaID = item.TipoPruebaID,
-                            ProveedorID = item.ProveedorID.GetValueOrDefault()
+                            ProyectoID = item.ProveedorID,
+                            NombreRequisicion = item.NumeroRequisicion,
+                            ProveedorID = item.ProveedorID
 
                         });
-                    }                       
+                    }
 
                     return listaRequisiciones;
                 }
@@ -229,17 +230,16 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     }
 
                     List<RequisicionDetalle> listaDetalle = new List<RequisicionDetalle>();
-                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle(proyectoID, proveedorID, 
-                        requisicionID, lenguaje).ToList();
+                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle(proyectoID, proveedorID, requisicionID, lenguaje).ToList();
                     foreach (Sam3_ST_EPG_ObtieneRequisicionDetalle_Result item in result)
                     {
                         listaDetalle.Add(new RequisicionDetalle
                         {
-                            Accion = item.Accion,
+                            Accion = item.EntregaPlacasGraficasID==0?1:2,
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
                             RequisicionID = item.RequisicionID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID,
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
@@ -252,17 +252,17 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             CodigoAsme = item.CodigoAsme,
                             DocumentoRecibidoID = item.DocumentoRecibidoID,
                             DocumentoRecibido = item.DocumentoRecibido,
-                            DocumentoEstatusID = item.Accion==1?1: item.DocumentoEstatusID,
-                            DocumentoEstatus = item.Accion == 1 ? estatusDefault : item.DocumentoEstatus,
-                            DefectoDocumentoID = item.DocumentoDefectoID,
-                            DefectoDocumento = item.DocumentoDefecto,
+                            DocumentoEstatusID = item.EntregaPlacasGraficasID == 0 ? 1 : item.DocumentoEstatusID,                                                 
+                            DocumentoEstatus = item.EntregaPlacasGraficasID == 0 ? estatusDefault : item.DocumentoEstatus,
+                            DocumentoDefectoID = item.DocumentoDefectoID.GetValueOrDefault(),
+                            DocumentoDefecto = item.DefectoDocumento,
                             EstatusCaptura = 0,
                             ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
                             ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
                             ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
                         });
                     }
-                    
+
                     return listaDetalle;
                 }
                 
@@ -297,33 +297,31 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaProyecto.Add(new Proyecto
                         {
                             ProyectoID = result.ProyectoID,
-                            Nombre = result.Proyecto,
-                            PatioID = result.PatioID
+                            Nombre = result.Proyecto
                         });
 
                         List<Proveedor> listaProveedor = new List<Proveedor>();
                         listaProveedor.Add(new Proveedor());
-                        listaProveedor.Add(new Proveedor {
-                            ProveedorID = result.ProveedorID.GetValueOrDefault(),
-                            NombreProveedor = result.NombreProveedor
+                        listaProveedor.Add(new Proveedor
+                        {
+                            ProveedorID = result.ProveedorID,
+                            NombreProveedor = result.Proveedor
                         });
 
                         List<Requisicion> listaRequisicion = new List<Requisicion>();
                         listaRequisicion.Add(new Requisicion());
-                        listaRequisicion.Add(new Requisicion {
+                        listaRequisicion.Add(new Requisicion
+                        {
                             RequisicionID = result.RequisicionID,
                             ProyectoID = result.ProyectoID,
-                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
-                            NombreRequisicion = result.NombreRequisicion,
-                            ProveedorID = result.ProveedorID.GetValueOrDefault()
+                            NombreRequisicion = result.NumeroRequisicion,
+                            ProveedorID = result.ProveedorID
                         });
 
 
                         elemento.RequisicionID = result.RequisicionID;
                         elemento.ProyectoID = result.ProyectoID;
-                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
-                        elemento.PatioID = result.PatioID;
-                        elemento.ProveedorID = result.ProveedorID.GetValueOrDefault();
+                        elemento.ProveedorID = result.ProveedorID;
                         elemento.listaProyecto = listaProyecto;
                         elemento.listaProveedor = listaProveedor;
                         elemento.listaRequisicion = listaRequisicion;

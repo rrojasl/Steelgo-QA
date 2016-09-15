@@ -124,6 +124,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                         { "@FechaRequisicion", FechaRequisicion },
                         { "@CodigoAsme", CodigoAsme}, 
                         { "@Observacion", Observacion },
+                        { "@Lenguaje", "es-MX" },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
 
                     int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);

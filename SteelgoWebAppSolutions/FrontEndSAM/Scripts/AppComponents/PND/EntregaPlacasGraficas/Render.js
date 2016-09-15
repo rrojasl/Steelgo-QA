@@ -64,11 +64,11 @@ function RenderComboBoxDocumentoEstatus(container, options) {
                     options.model.EstatusCaptura = 1;
 
                     if(dataItem.DocumentoEstatusID == 2){
-                        options.model.__proto__.fields.DefectoDocumento.editable = true;
+                        options.model.__proto__.fields.DocumentoDefecto.editable = true;
                     } else {
-                        options.model.DefectoDocumentoID = 0;
-                        options.model.DefectoDocumento = "";
-                        options.model.__proto__.fields.DefectoDocumento.editable = false;
+                        options.model.DocumentoDefectoID = 0;
+                        options.model.DocumentoDefecto = "";
+                        options.model.__proto__.fields.DocumentoDefecto.editable = false;
                     }
                 }
                 else {
@@ -92,7 +92,7 @@ function RenderComboBoxDefectoDocumento(container, options) {
 
     var dataItem;
     var textAnterior;
-    $('<input  data-text-field="DefectoDocumentoNombre" data-value-field="DefectoDocumentoID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="DocumentoDefectoNombre" data-value-field="DocumentoDefectoID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
@@ -100,16 +100,16 @@ function RenderComboBoxDefectoDocumento(container, options) {
             filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaDefectoDocumento,
-            template: "<i class=\"fa fa-#=data.DefectoDocumentoNombre#\"></i> #=data.DefectoDocumentoNombre#",
+            template: "<i class=\"fa fa-#=data.DocumentoDefectoNombre#\"></i> #=data.DocumentoDefectoNombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                        options.model.DefectoDocumento = dataItem.DefectoDocumentoNombre;
-                        options.model.DefectoDocumentoID = dataItem.DefectoDocumentoID;
+                    options.model.DocumentoDefecto = dataItem.DocumentoDefectoNombre;
+                    options.model.DocumentoDefectoID = dataItem.DocumentoDefectoID;
                         options.model.EstatusCaptura = 1;
                 }
                 else {
-                    options.model.DefectoDocumento = ObtenerDocumentoDefectoCorrecto(options.model.ListaDefectoDocumento, options.model.DefectoDocumentoID);
+                    options.model.DocumentoDefecto = ObtenerDocumentoDefectoCorrecto(options.model.ListaDefectoDocumento, options.model.DocumentoDefectoID);
                 }
             }
         });
@@ -140,10 +140,10 @@ function ObtenerDocumentoEstatusCorrecto(lista, DocumentoEstatusID) {
     return "";
 }
 
-function ObtenerDocumentoDefectoCorrecto(lista, DefectoDocumentoID) {
+function ObtenerDocumentoDefectoCorrecto(lista, DocumentoDefectoID) {
     for (var i = 0; i < lista.length; i++) {
-        if (lista[i].DefectoDocumentoID == DefectoDocumentoID)
-            return lista[i].DefectoDocumentoNombre;
+        if (lista[i].DocumentoDefectoID == DocumentoDefectoID)
+            return lista[i].DocumentoDefectoNombre;
     }
     return "";
 }

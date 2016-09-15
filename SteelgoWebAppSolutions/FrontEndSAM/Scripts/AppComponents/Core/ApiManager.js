@@ -161,6 +161,8 @@ var $ImpresionPruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ReporteRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Steelgo - Maftec
+var $Dashboard = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //ServiciosTecnicos
 var $CamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -284,6 +286,8 @@ $ValidarCedulas.add("ValidarCedulas");
 $ComplementoRecepcionAlt.add("Listado");
 $ImpresionPruebas.add("ImpresionPruebas");
 
+//Maftec Consulting
+$Dashboard.add("Dashboard");
 // ServiciosTecnicos
 $CamposPredeterminados.add("CamposPredeterminados");
 $AsignarRequisicion.add("AsignarRequisicion");

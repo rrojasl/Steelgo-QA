@@ -1,19 +1,24 @@
 ﻿
 function AjaxProyecto() {
+
+
+    loadingStart();
     //console.log($CapturaReporteRT);
     $ReporteRT.ReporteRT.read({ token: Cookies.get("token") }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
+
             /*var data = [{ ProyectoID: 1, Nombre: 'Proyecto 1' }, { ProyectoID: 2, Nombre: 'Proyecto 2' }];*/
             $("#inputProyecto").data("kendoComboBox").value("");
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
-            if (data.length == 2) {
-                $("#inputProyecto").data("kendoComboBox").select(1);
-                $("#inputProyecto").data("kendoComboBox").trigger("change");
+            if (data.length == 1) {
+                $("#inputProyecto").data("kendoComboBox").select(0);
+                AjaxProveedor(data[0].ProyectoID, data[0].PatioID)
             }
             //else
             //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
+        loadingStop();
     });
 
 
@@ -29,25 +34,29 @@ function AjaxProyecto() {
 
 
 
-function AjaxProveedor(proyectoID) {
+function AjaxProveedor(proyectoID, patioID) {
+    loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: proyectoID}).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: proyectoID, patioID: patioID }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
+
             //var data = null;
             //data = [{ ProveedorID: 1, Nombre: 'Juan 1.1' }, { ProveedorID: 2, Nombre: 'Juan 1.2' }, { ProveedorID: 3, Nombre: 'Juan 1.3' }];
             
             $("#inputProveedor").data("kendoComboBox").value("");
             $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length == 2) {
-                $("#inputProveedor").data("kendoComboBox").select(1);
-                $("#inputProveedor").data("kendoComboBox").trigger("change");
+            if (data.length == 1) {
+                $("#inputProveedor").data("kendoComboBox").select(0);
+                AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), data[0].ProveedorID)
             }
             //else
             //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
+        loadingStop();
     });
+
 }
 
 function AjaxRequisicion(proyectoID, proveedorID) {
@@ -78,10 +87,10 @@ function AjaxRequisicion(proyectoID, proveedorID) {
 
 }
 
-function AjaxFuente(ProyectoID, ProveedorID) {//Equipo
+function AjaxFuente() {//Equipo
     loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), x: ""}).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), tipoPruebaID: 1, proveedorID: 0, lenguaje: "es-MX" }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             //var data = [{ FuenteID: 1, Fuente: 'Fuente 1' }, { FuenteID: 2, Fuente: 'Fuente 2' }, { FuenteID: 3, Fuente: 'Fuente 3' }];
@@ -97,7 +106,7 @@ function AjaxFuente(ProyectoID, ProveedorID) {//Equipo
 function AjaxTurno() {
     loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), lenguaje: "es-MX" }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), tipoPruebaID: 1, proveedorID: 0, equipoID: 1, lenguaje: "es-MX" }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             //var data = [{ TurnoID: 1, Turno: 'Turno 1' }, { TurnoID: 2, Turno: 'Turno 2' }, { TurnoID: 3, Turno: 'Turno 3' }, { TurnoID: 4, Turno: 'Turno 4' }];
@@ -157,6 +166,11 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
         for (var i = 0; i < ds.length; i++) {
 
             listaDetalles[cont] = {
+                ReporteRTID: 0,
+                RequisicionID: 0,
+                OrdenTrabajoID: 0,
+                SpoolID: 0,
+                JuntaSpoolID: 0,
                 Accion: "",
                 SpoolJunta: "",
                 Junta: "",
@@ -174,6 +188,11 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 //Estatus: 1
             };
 
+            listaDetalles[cont].ReporteRTID= ds[i].ReporteRTID;
+            listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
+            listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
+            listaDetalles[cont].SpoolID = ds[i].SpoolID;
+            listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
             listaDetalles[cont].Accion = ds[i].Accion;
             listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
             listaDetalles[cont].Junta = ds[i].Junta;
@@ -190,7 +209,13 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             
             var informacion = [];
             for (var j = 0; j < ds[i].InformacionResultados.length; j++) {
-                informacion[j] = { SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "" }
+                informacion[j] = { ReporteRTResultadosID: 0, ReporteRTID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "", Accion: 1 }
+                informacion[j].ReporteRTResultadosID = ds[i].InformacionResultados[j].ReporteRTResultadosID;
+                informacion[j].ReporteRTID = ds[i].InformacionResultados[j].ReporteRTID;
+                informacion[j].OrdenTrabajoID = ds[i].InformacionResultados[j].OrdenTrabajoID;
+                informacion[j].SpoolID = ds[i].InformacionResultados[j].SpoolID;
+                informacion[j].JuntaSpoolID = ds[i].InformacionResultados[j].JuntaSpoolID;
+                
                 informacion[j].SpoolJunta = ds[i].InformacionResultados[j].SpoolJunta;
                 informacion[j].Junta = ds[i].InformacionResultados[j].Junta;
                 informacion[j].EtiquetaJunta = ds[i].InformacionResultados[j].EtiquetaJunta;
@@ -198,14 +223,22 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 informacion[j].Ubicacion = ds[i].InformacionResultados[j].Ubicacion;
                 informacion[j].Resultado = ds[i].InformacionResultados[j].Resultado;
 
+                informacion[j].Accion = ds[i].InformacionResultados[j].Accion;
                 listaDetalles[cont].MiInformacionResultados = informacion;
 
                 var detalles = [];
                 for (var k = 0; k < ds[i].InformacionResultados[j].DetalleResultados.length; k++) {
-                    detalles[k] = { Defectos: 0, InicioMM: 0, FinMM: 0 }
-                    detalles[k].Defectos = ds[i].InformacionResultados[j].DetalleResultados[k].Defectos;
+                    detalles[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, DefectoID: 0, InicioMM: 0, FinMM: 0, Accion:1 }
+                    detalles[k].ResultadosDefectoID = ds[i].InformacionResultados[j].DetalleResultados[k].ResultadosDefectoID;
+                    detalles[k].ReporteResultadosID = ds[i].InformacionResultados[j].DetalleResultados[k].ReporteResultadosID;
+                    detalles[k].OrdenTrabajoID = ds[i].InformacionResultados[j].DetalleResultados[k].OrdenTrabajoID;
+                    detalles[k].SpoolID = ds[i].InformacionResultados[j].DetalleResultados[k].SpoolID;
+                    detalles[k].JuntaSpoolID = ds[i].InformacionResultados[j].DetalleResultados[k].JuntaSpoolID;
+
+                    detalles[k].DefectoID = ds[i].InformacionResultados[j].DetalleResultados[k].Defectos;
                     detalles[k].InicioMM = ds[i].InformacionResultados[j].DetalleResultados[k].InicioMM;
                     detalles[k].FinMM = ds[i].InformacionResultados[j].DetalleResultados[k].FinMM;
+                    detalles[k].Accion = ds[i].InformacionResultados[j].DetalleResultados[k].Accion;
                 }
 
                 listaDetalles[cont].MiInformacionResultados[j].DetalleResultados = detalles;

@@ -165,8 +165,8 @@ function AjaxCargaListaDocumentoDefecto() {
         var DocumentoDefectoID = 0;
         if (data.length < 3) {
             for (var i = 0; i < data.length; i++) {
-                if (data[i].DefectoDocumentoID != 0) {
-                    DocumentoDefectoID = data[i].DefectoDocumentoID;
+                if (data[i].DocumentoDefectoID != 0) {
+                    DocumentoDefectoID = data[i].DocumentoDefectoID;
                 }
             }
         }
@@ -177,12 +177,12 @@ function AjaxCargaListaDocumentoDefecto() {
 }
 
 function AjaxObtieneDetalleRequisicion() {
-    var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
-    var proveedorID = $("#inputProveedor").data("kendoComboBox").value();
-    var requisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+    var ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+    var ProveedorID = $("#inputProveedor").data("kendoComboBox").value();
+    var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
 
-    if (proyectoID != 0 && proveedorID != 0 && requisicionID != 0) {
-        $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: proyectoID, proveedorID: proveedorID, requisicionID: requisicionID, lenguaje: $("#language").val() }).done(function (data) {
+    if (ProyectoID != 0 && ProveedorID != 0 && RequisicionID != 0) {
+        $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: ProyectoID, proveedorID: ProveedorID, requisicionID: RequisicionID, lenguaje: $("#language").val() }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var tipoPrueba;
             if(data.length>0){
@@ -213,9 +213,9 @@ function disableDocumentoDefecto() {
     if(data.length>0){        
         for (var i = 0; i < ds._data.length; i++) {
             if (data[i].DocumentoEstatusID == 1) {
-                data[i].__proto__.fields.DefectoDocumento.editable = false;
+                data[i].__proto__.fields.DocumentoDefecto.editable = false;
             } else {
-                data[i].__proto__.fields.DefectoDocumento.editable = true;
+                data[i].__proto__.fields.DocumentoDefecto.editable = true;
             }
         }
     }
@@ -252,7 +252,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].JuntaID = ds[i].JuntaSpoolID;
             listaDetalles[cont].DocumentoRecibidoID = ds[i].DocumentoRecibidoID;
             listaDetalles[cont].DocumentoEstatusID = ds[i].DocumentoEstatusID;
-            listaDetalles[cont].DocumentoDefectoID = ds[i].DefectoDocumentoID;
+            listaDetalles[cont].DocumentoDefectoID = ds[i].DocumentoDefectoID;
 
                 if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
                     listaDetalles[cont].DocumentoDefectoID == 0) &&listaDetalles[cont].Accion != 4) {

@@ -87,7 +87,7 @@ function cargarGrid() {
         }
 
     });
-    //CustomisaGrid($("#grid"));
+    CustomisaGrid($("#grid"));
 };
 
 
