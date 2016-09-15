@@ -49,5 +49,10 @@ namespace FrontEndSAM.Controllers.PND
         {
             return View();
         }
+
+        public ActionResult DashboardPND()
+        {
+            return View();
+        }
     }
 }

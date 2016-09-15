@@ -2,6 +2,7 @@
 using System.Net;
 using System;
 using Microsoft.Reporting.WebForms;
+using System.Configuration;
 
 namespace FrontEndSAM.Controllers.Reportes
 {

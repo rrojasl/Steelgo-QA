@@ -177,12 +177,12 @@ function AjaxCargaListaDocumentoDefecto() {
 }
 
 function AjaxObtieneDetalleRequisicion() {
-    var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
-    var proveedorID = $("#inputProveedor").data("kendoComboBox").value();
-    var requisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+    var ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+    var ProveedorID = $("#inputProveedor").data("kendoComboBox").value();
+    var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
 
-    if (proyectoID != 0 && proveedorID != 0 && requisicionID != 0) {
-        $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: proyectoID, proveedorID: proveedorID, requisicionID: requisicionID, lenguaje: $("#language").val() }).done(function (data) {
+    if (ProyectoID != 0 && ProveedorID != 0 && RequisicionID != 0) {
+        $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: ProyectoID, proveedorID: ProveedorID, requisicionID: RequisicionID, lenguaje: $("#language").val() }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var tipoPrueba;
             if(data.length>0){
