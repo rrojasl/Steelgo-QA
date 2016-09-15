@@ -11,7 +11,7 @@ IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
     SuscribirEventos();
-    setTimeout(function () { AjaxObtenerProyectos(); }, 500);
+    //setTimeout(function () { AjaxObtenerProyectos(); }, 500);
 
 };
 
@@ -336,8 +336,6 @@ function LlenarGridPopUp(data) {
     for (var i = 0; i < array.length; i++) {
         ds.add(array[i]);
     }
-
-
     VentanaModal();
 }
 
@@ -345,7 +343,7 @@ function LlenarGridPopUpElementosAsignados(data) {
     modeloRenglon = data;
     $("#gridPopUp").data('kendoGrid').dataSource.data([]);
     var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-    var array = data.ListaElementosAsignadosTurno;
+    var array = data;
     for (var i = 0; i < array.length; i++) {
         ds.add(array[i]);
     }

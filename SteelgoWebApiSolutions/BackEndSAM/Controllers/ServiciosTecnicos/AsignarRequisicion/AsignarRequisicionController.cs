@@ -46,6 +46,59 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.AsignarRequisicion
 
         }
 
+        [HttpGet]
+        public object GetElementosRequisicion(string lenguaje, string token, int TipoPruebaID, int ProyectoID, int RequisicionID)
+        {
+            //Create a generic return object
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return AsignarRequisicionBD.Instance.ObtenerElementosRequisicion(lenguaje, ProyectoID, TipoPruebaID, RequisicionID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
+        [HttpGet]
+        public object GetElementosAsignadosTurno(string lenguaje, string token, int ProyectoID,int CapacidadTurnoEquipoID, int CapacidadTurnoProveedorID, int RequisicionID)
+        {
+            //Create a generic return object
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return AsignarRequisicionBD.Instance.ObtenerElementosAsignadosTurno(lenguaje, ProyectoID,CapacidadTurnoEquipoID,CapacidadTurnoProveedorID, RequisicionID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
+
         [HttpPost]
         public object GuardarCaptura(Captura listaCaptura, string token, string lenguaje)
         {

@@ -41,12 +41,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                     List<Sam3_ST_Get_AsignarRequisicion_Result> result = ctx.Sam3_ST_Get_AsignarRequisicion(lenguaje, tipoVista, tipoPruebaID, proyectoID,requisicionID).ToList();
                     List<RequisicionAsignacion> ListadoRequisicionAsignacion = new List<RequisicionAsignacion>();
 
-                    
-                    List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(tipoPruebaID, 0, lenguaje);
-
                     foreach (Sam3_ST_Get_AsignarRequisicion_Result item in result)
                     {
                         List<TurnoLaboral> listaTurnoLaboralAll = (List<TurnoLaboral>)ObtenerTurnoLaboralTotal(lenguaje, item.ProyectoID, item.TipoPruebaID.GetValueOrDefault());
+                        List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(item.TipoPruebaID.GetValueOrDefault(), item.ProveedorID.GetValueOrDefault(), lenguaje);
                         ListadoRequisicionAsignacion.Add(new RequisicionAsignacion
                         {
                             Accion = item.RequisicionAsignacionID == 0 ? 1 : 2,
@@ -81,7 +79,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
                             CapacidadTurnoProveedorOriginalID = item.CapacidadTurnoProveedorID,
                             ProveedorEquipoID = item.ProveedorEquipoID,
-                            ListaElementosAsignadosTurno = item.CapacidadTurnoEquipoID == 0 && item.CapacidadTurnoProveedorID == 0 ? new List<ElementosRequisicion>(): (List<ElementosRequisicion>)ObtenerElementosAsignadosTurno(lenguaje, item.ProyectoID, item.CapacidadTurnoEquipoID, item.CapacidadTurnoProveedorID, 0)
+                            ListaElementosAsignadosTurno = new List<ElementosRequisicion>()
+                            //ListaElementosAsignadosTurno = item.CapacidadTurnoEquipoID == 0 && item.CapacidadTurnoProveedorID == 0 ? new List<ElementosRequisicion>(): (List<ElementosRequisicion>)ObtenerElementosAsignadosTurno(lenguaje, item.ProyectoID, item.CapacidadTurnoEquipoID, item.CapacidadTurnoProveedorID, 0)
 
                         });
                     }

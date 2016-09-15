@@ -11,7 +11,7 @@ function AjaxObtenerProyectos() {
 
         if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
             $("#inputProyecto").data("kendoComboBox").select(1);
-            $("#inputProyecto").data("kendoComboBox").trigger("change");
+            AjaxPruebas();
         }
         else {
             $("#inputProyecto").data("kendoComboBox").select(0);
@@ -36,9 +36,9 @@ function AjaxPruebas() {
                     
                 }
                 else {
-
+                    AjaxCargarRequisicionAsignacion();
                 }
-                AjaxCargarRequisicionAsignacion();
+                
             }
             
         });
@@ -250,20 +250,7 @@ function AjaxCargarCamposPredeterminados() {
         }
         loadingStop();
     });
-
-    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoLlena }).done(function (data) {
-        if (Error(data)) {
-            if (data == "Vacios") {
-                $('input:radio[name=Planchar]:nth(0)').trigger("click");
-            }
-            else if (data == "Todos") {
-                $('input:radio[name=Planchar]:nth(1)').trigger("click");
-            }
-        }
-        loadingStop();
-    });
-
-
+    suscribirEventoChangeRadio();
 
 }
 
@@ -439,3 +426,43 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     }
 
 };
+
+
+
+function AjaxCargarElementosRequisicion(requisicionID,tipoPruebaID) {
+
+    if ($("#inputProyecto").data("kendoComboBox").value() != "") {
+        loadingStart();
+        $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), TipoPruebaID: tipoPruebaID, ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), RequisicionID: requisicionID }).done(function (data) {
+            if (Error(data)) {
+                LlenarGridPopUp(data);
+            }
+            loadingStop();
+        });
+
+    }
+
+}
+
+
+function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID, capacidadTurnoProveedorID) {
+
+    if ($("#inputProyecto").data("kendoComboBox").value() != "") {
+        loadingStart();
+        $AsignarRequisicion.AsignarRequisicion.read({
+            lenguaje: $("#language").val(),
+            token: Cookies.get("token"),
+            ProyectoID: $("#inputProyecto").data("kendoComboBox").value(),
+            CapacidadTurnoEquipoID: capacidadTurnoEquipoID,
+            CapacidadTurnoProveedorID: capacidadTurnoProveedorID,
+            RequisicionID: requisicionID
+        }).done(function (data) {
+            if (Error(data)) {
+                LlenarGridPopUpElementosAsignados(data);
+            }
+            loadingStop();
+        });
+
+    }
+
+}

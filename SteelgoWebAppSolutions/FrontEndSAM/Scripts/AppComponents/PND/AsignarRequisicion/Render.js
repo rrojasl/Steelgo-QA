@@ -320,17 +320,17 @@ function RenderComboBoxTurnoLaboral(container, options) {
 
                         if (!options.model.RequiereEquipo) {
                             if (options.model.TurnoLaboral != "") {
-                                removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
+                                //removerListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, options.model.CapacidadTurnoProveedorOriginalID);
                                 setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadasOriginal) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorOriginalID);
                             }
-                            options.model.ListaElementosAsignadosTurno = [];
-                            options.model.ListaElementosAsignadosTurno = dataItem.ListaElementosAsignadosTurno;
+                            //options.model.ListaElementosAsignadosTurno = [];
+                            //options.model.ListaElementosAsignadosTurno = dataItem.ListaElementosAsignadosTurno;
                             options.model.CapacidadTurnoProveedorID = dataItem.CapacidadTurnoProveedorID;
 
                             options.model.CapacidadTurnoProveedorOriginalID = dataItem.CapacidadTurnoProveedorID;
-                            setListadojuntasAsignadasCapacidadTurnoProveedor(dataItem.CapacidadTurnoProveedorID, JuntasAsignadasFinal);
+                            //setListadojuntasAsignadasCapacidadTurnoProveedor(dataItem.CapacidadTurnoProveedorID, JuntasAsignadasFinal);
                             setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, dataItem.CapacidadTurnoProveedorID);
-                            generaListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoProveedorID);
+                            //generaListadoCorrectoAsignacionProveedor(options.model.ListaElementosRequisicion, dataItem.CapacidadTurnoProveedorID);
                         }
                         else {
                             if (options.model.TurnoLaboral != "") {
