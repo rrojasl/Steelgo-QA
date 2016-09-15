@@ -65,7 +65,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
         }
 
         [HttpPost]
-        public object Post(Models.ServiciosTecnicos.EditarRequisicion.EditarRequisicion.Captura listaElementosPorReq, string token)
+        public object Post(Models.ServiciosTecnicos.EditarRequisicion.EditarRequisicion.Captura listaElementosPorReq, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -87,7 +87,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
                 return EditarRequisicionBD.Instance.InsertarNuevaRequisicion(
                     dtDetalleCaptura, listaElementosPorReq.RequisicionID, listaElementosPorReq.Requisicion,
                     listaElementosPorReq.ProyectoID, listaElementosPorReq.TipoPruebaID, listaElementosPorReq.FechaRequisicion,
-                    listaElementosPorReq.CodigoAsme, listaElementosPorReq.Observacion, usuario);
+                    listaElementosPorReq.CodigoAsme, listaElementosPorReq.Observacion, usuario, lenguaje);
             }
             else
             {

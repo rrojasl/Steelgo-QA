@@ -140,7 +140,7 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
             Captura[0].FechaRequisicion = Requisicion.FechaRequisicion;
             Captura[0].ListaDetalle = ListaCaptura;
 
-            $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token")}).done(function (data) {
+            $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                     if (guardaNuevo) {
                         Limpiar();
