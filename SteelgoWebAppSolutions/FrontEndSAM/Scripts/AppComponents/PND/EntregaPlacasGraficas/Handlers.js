@@ -33,7 +33,7 @@ function SuscribirEventoProyecto() {
                         $("#inputRequisicion").data("kendoComboBox").value("");
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         if (dataItem.ProyectoID != 0) {
-                            AjaxCargaListaProveedores(dataItem.ProyectoID, dataItem.PatioID);
+                            AjaxCargaListaProveedores(dataItem.ProyectoID, 0);
                         }
                     }
                     
@@ -69,7 +69,7 @@ function SuscribirEventoProyecto() {
                             $("#grid").data("kendoGrid").dataSource.data([]);
 
                             if (dataItem.ProyectoID != 0) {
-                                AjaxCargaListaProveedores(dataItem.ProyectoID, dataItem.PatioID);
+                                AjaxCargaListaProveedores(dataItem.ProyectoID, 0);
 
                             }
                         }                        
@@ -400,8 +400,8 @@ function SuscribirEventoCondicionesFisicas() {
 
 function SuscribirEventoDefectos() {
     $("#inputDefectos").kendoComboBox({
-        dataTextField: "DefectoDocumentoNombre",
-        dataValueField: "DefectoDocumentoID",
+        dataTextField: "DocumentoDefectoNombre",
+        dataValueField: "DocumentoDefectoID",
         suggest: true,
         delay: 10,
         filter: "contains",
@@ -464,7 +464,7 @@ function plancharTodo(tipoLlenado) {
         PlanchaDocumentoEstatus(tipoLlenado);
     }
 
-    if (itemDefecto != undefined && itemDefecto.DefectoDocumentoID != 0 && itemEstatus.DocumentoEstatusID==2) {
+    if (itemDefecto != undefined && itemDefecto.DocumentoDefectoID != 0 && itemEstatus.DocumentoEstatusID == 2) {
         PlanchaDocumentoDefecto(tipoLlenado);
     }
 }

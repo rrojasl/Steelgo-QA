@@ -56,8 +56,8 @@ function cargarGrid() {
                         DocumentoRecibido: { type: "string", editable: true },
                         DocumentoEstatusID: { type: "number", editable: true },
                         DocumentoEstatus: { type: "string", editable: true },
-                        DefectoDocumentoID: { type: "number", editable: true},
-                        DefectoDocumento: { type: "string", editable: true },
+                        DocumentoDefectoID: { type: "number", editable: true },
+                        DocumentoDefecto: { type: "string", editable: true },
                         EstatusCaptura: { type: "number", editable: true }
                     }
                 }
@@ -98,7 +98,7 @@ function cargarGrid() {
             { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
             { field: "DocumentoEstatus", title: _dictionary.columnCondicionesPlacasOGraficas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
-            { field: "DefectoDocumento", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
+            { field: "DocumentoDefecto", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
     });
@@ -113,8 +113,8 @@ function limpiarRenglon(e) {
         itemToClean.DocumentoRecibidoID = 0;
         itemToClean.DocumentoEstatus = "";
         itemToClean.DocumentoEstatusID = 0;
-        itemToClean.DefectoDocumento = "";
-        itemToClean.DefectoDocumentoID = 0;
+        itemToClean.DocumentoDefecto = "";
+        itemToClean.DocumentoDefectoID = 0;
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataSource.sync();
     }
@@ -166,9 +166,9 @@ function PlanchaDocumentoEstatus(tipoLlenado) {
             }
         }
         if (data[i].DocumentoEstatusID == 1) {
-            data[i].__proto__.fields.DefectoDocumento.editable = false;
+            data[i].__proto__.fields.DocumentoDefecto.editable = false;
         } else {
-            data[i].__proto__.fields.DefectoDocumento.editable = true;
+            data[i].__proto__.fields.DocumentoDefecto.editable = true;
         }
     }
 
@@ -185,14 +185,14 @@ function PlanchaDocumentoDefecto(tipoLlenado) {
 
     for (var i = 0; i < data.length; i++) {
         if (tipoLlenado === "Todos") {
-            data[i].DefectoDocumento = $("#inputDefectos").data("kendoComboBox").text();
-            data[i].DefectoDocumentoID = $("#inputDefectos").data("kendoComboBox").value();
+            data[i].DocumentoDefecto = $("#inputDefectos").data("kendoComboBox").text();
+            data[i].DocumentoDefectoID = $("#inputDefectos").data("kendoComboBox").value();
             data[i].EstatusCaptura = 1;
         }
         else if (tipoLlenado === "Vacios") {
-            if (data[i].DefectoDocumento === "" || data[i].DefectoDocumento === null || data[i].DefectoDocumento === undefined) {
-                data[i].DefectoDocumento = $("#inputDefectos").data("kendoComboBox").text();
-                data[i].DefectoDocumentoID = $("#inputDefectos").data("kendoComboBox").value();
+            if (data[i].DocumentoDefecto === "" || data[i].DocumentoDefecto === null || data[i].DocumentoDefecto === undefined) {
+                data[i].DocumentoDefecto = $("#inputDefectos").data("kendoComboBox").text();
+                data[i].DocumentoDefectoID = $("#inputDefectos").data("kendoComboBox").value();
                 data[i].EstatusCaptura = 1;
             }
         }

@@ -72,7 +72,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoProveedor(Usuario, ProyectoID, PatioID, TipoPruebaID);
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoProveedor(Usuario, ProyectoID, TipoPruebaID);
 
 
                 }
