@@ -128,6 +128,17 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public string Nombre { get; set; }
     }
 
+    public class TipoPrueba
+    {
+        public TipoPrueba()
+        {
+            TipoPruebaID = 0;
+            Nombre = "";
+        }
+        public int TipoPruebaID { get; set; }
+        public string Nombre { get; set; }
+    }
+
     public class ElementoRequisicion
     {
         public int RequisicionID { get; set; }
@@ -138,5 +149,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public List<Proyecto> listaProyecto { get; set; }
         public List<Proveedor> listaProveedor { get; set; }
         public List<Requisicion> listaRequisicion { get; set; }
+        public List<TipoPrueba> listaTipoPrueba { get; set; }
     }
 }

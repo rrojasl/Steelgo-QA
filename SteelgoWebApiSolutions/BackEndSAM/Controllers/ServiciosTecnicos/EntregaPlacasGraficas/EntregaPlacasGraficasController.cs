@@ -61,7 +61,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
         }
 
         [HttpGet]
-        public object ObtenerProveedores(string token, int ProyectoID, int PatioID, int TipoPruebaID)
+        public object ObtenerProyectos(string token)
         {
             try
             {
@@ -72,9 +72,119 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoProveedor(Usuario, ProyectoID, TipoPruebaID);
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoProyecto(Usuario.UsuarioID);
 
 
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object ObtenerTipoPruebas(int proyectoID, string token, string lenguaje)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoTipoPrueba(proyectoID, lenguaje);
+
+
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object ObtenerProveedores(string token, int ProyectoID, int TipoPruebaID)
+        {
+                try
+                {
+                    string payload = "";
+                    string newToken = "";
+                    bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                    if (totokenValido)
+                    {
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                        return EntregaPlacasGraficasBD.Instance.ObtenerListadoProveedor(Usuario, ProyectoID, TipoPruebaID);
+
+
+                    }
+                    else
+                    {
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add(payload);
+                        result.ReturnCode = 401;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = false;
+                        return result;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(ex.Message);
+                    result.ReturnCode = 500;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
+        }
+
+        [HttpGet]
+        public object ObtenerRequisiciones(string token, int proyectoID, string lenguaje, int proveedorID, int tipoPruebaID)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoRequisicion(Usuario, proyectoID, proveedorID, tipoPruebaID);
                 }
                 else
                 {
@@ -118,47 +228,10 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
                 result.IsAuthenicated = false;
                 return result;
             }
-        }
-
-
-        [HttpGet]
-        public object ObtenerListaRequisicionEntregaPlacas(string token, int proyectoID, string lenguaje, int proveedorID)
-        {
-            try
-            {
-                string payload = "";
-                string newToken = "";
-                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                if (totokenValido)
-                {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                    return EntregaPlacasGraficasBD.Instance.ObtenerListadoRequisicionEntregada(Usuario, proyectoID, proveedorID);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payload);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
+        }        
 
         [HttpGet]
-        public object ObtenerDetalleRequisicion(string token, int proyectoID, int proveedorID, int requisicionID, string lenguaje)
+        public object ObtenerDetalleRequisicion(string token, int proyectoID, int proveedorID, int requisicionID, string lenguaje, int tipoPruebaID)
         {
             string payload = "";
             string newToken = "";
@@ -167,7 +240,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EntregaPlacasGraficas
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EntregaPlacasGraficasBD.Instance.ObtenerDetalleRequisicion(proyectoID, proveedorID, requisicionID, lenguaje);
+                return EntregaPlacasGraficasBD.Instance.ObtenerDetalleRequisicion(proyectoID, proveedorID, requisicionID, lenguaje, tipoPruebaID);
             }
             else
             {

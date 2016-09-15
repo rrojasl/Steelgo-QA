@@ -44,7 +44,7 @@ function AjaxObtenerElementoRequisicion(paramReq) {
 }
 
 function AjaxCargaListaProyectos() {   
-    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token") }).done(function (data) {
         var proyectoID = 0;
         $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
@@ -62,19 +62,29 @@ function AjaxCargaListaProyectos() {
         $("#inputProyecto").data("kendoComboBox").trigger("change");
     });
 }
+function AjaxCargaListaTipoPrueba(ProyectoID) {
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ proyectoID: ProyectoID, token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        var tipoPruebaID = 0;
+        $("#inputTipoPrueba").data("kendoComboBox").dataSource.data([]);
+        $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data);
 
-function AjaxCargaListaProveedores(proyectoID, patioID) {
-    var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
-    var tipoPruebaID = 0;
-
-    if (Requisicion != undefined) {
-        if (Requisicion.TipoPruebaID != 0) {
-            tipoPruebaID = Requisicion.TipoPruebaID;
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].TipoPruebaID != 0) {
+                    tipoPruebaID = data[i].TipoPruebaID;
+                }
+            }
         }
-    }
 
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, PatioID: patioID, TipoPruebaID: tipoPruebaID}).done(function (data) {
+        $("#inputTipoPrueba").data("kendoComboBox").value(tipoPruebaID);
+        $("#inputTipoPrueba").data("kendoComboBox").trigger("change");
+    });
+}
+function AjaxCargaListaProveedores(proyectoID, tipoPruebaID) {    
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID }).done(function (data) {
+        $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
         $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+
         var ProveedorID = 0;
         if(data.length < 3){            
             for (var i = 0; i < data.length; i++) {
@@ -90,9 +100,9 @@ function AjaxCargaListaProveedores(proyectoID, patioID) {
     });
 }
 
-function AjaxCargaListaRequisicion(proyectoID, proveedorID) {
+function AjaxCargaListaRequisicion(proyectoID, tipoPruebaID, proveedorID) {
 
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val(), proveedorID: proveedorID }).done(function (data) {
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val(), proveedorID: proveedorID, tipoPruebaID: tipoPruebaID }).done(function (data) {
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
 
         var RequisicionID = 0;
@@ -178,11 +188,12 @@ function AjaxCargaListaDocumentoDefecto() {
 
 function AjaxObtieneDetalleRequisicion() {
     var ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+    var TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
     var ProveedorID = $("#inputProveedor").data("kendoComboBox").value();
     var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
 
-    if (ProyectoID != 0 && ProveedorID != 0 && RequisicionID != 0) {
-        $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: ProyectoID, proveedorID: ProveedorID, requisicionID: RequisicionID, lenguaje: $("#language").val() }).done(function (data) {
+    if (ProyectoID != 0 && TipoPruebaID!=0 && ProveedorID != 0 && RequisicionID != 0) {
+        $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: ProyectoID, proveedorID: ProveedorID, requisicionID: RequisicionID, lenguaje: $("#language").val(), tipoPruebaID: TipoPruebaID }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var tipoPrueba;
             if(data.length>0){
@@ -303,7 +314,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             });
         } else {
             
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                 visible: false,
