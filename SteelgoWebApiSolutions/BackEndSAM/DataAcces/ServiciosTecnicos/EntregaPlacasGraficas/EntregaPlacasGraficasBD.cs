@@ -362,7 +362,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 using (SamContext ctx = new SamContext())
                 {
                     ElementoRequisicion elemento = null;
-                    Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result result = ctx.Sam3_ST_EPG_ObtieneRequisicionPorParametro(requisicionID, usuarioID).SingleOrDefault();
+                    Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result result = ctx.Sam3_ST_EPG_ObtieneRequisicionPorParametro(requisicionID, usuarioID, lenguaje).SingleOrDefault();
 
                     if (result != null && result.RequisicionID != 0)
                     {
@@ -374,6 +374,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         {
                             ProyectoID = result.ProyectoID,
                             Nombre = result.Proyecto
+                        });
+
+                        List<TipoPrueba> listaTipoPrueba = new List<TipoPrueba>();
+                        listaTipoPrueba.Add(new TipoPrueba());
+                        listaTipoPrueba.Add(new TipoPrueba {
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            Nombre = result.TipoPrueba
                         });
 
                         List<Proveedor> listaProveedor = new List<Proveedor>();
@@ -397,8 +404,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
 
                         elemento.RequisicionID = result.RequisicionID;
                         elemento.ProyectoID = result.ProyectoID;
+                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
                         elemento.ProveedorID = result.ProveedorID;
                         elemento.listaProyecto = listaProyecto;
+                        elemento.listaTipoPrueba = listaTipoPrueba;
                         elemento.listaProveedor = listaProveedor;
                         elemento.listaRequisicion = listaRequisicion;
                     }

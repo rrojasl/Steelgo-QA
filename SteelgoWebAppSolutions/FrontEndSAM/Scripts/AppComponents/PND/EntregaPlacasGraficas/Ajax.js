@@ -30,6 +30,10 @@ function AjaxObtenerElementoRequisicion(paramReq) {
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data.listaProyecto);
             $("#inputProyecto").data("kendoComboBox").value(data.ProyectoID);
 
+            $("#inputTipoPrueba").data("kendoComboBox").dataSource.data([]);
+            $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data.listaTipoPrueba);
+            $("#inputTipoPrueba").data("kendoComboBox").value(data.TipoPruebaID);
+
             $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
             $("#inputProveedor").data("kendoComboBox").dataSource.data(data.listaProveedor);
             $("#inputProveedor").data("kendoComboBox").value(data.ProveedorID);
