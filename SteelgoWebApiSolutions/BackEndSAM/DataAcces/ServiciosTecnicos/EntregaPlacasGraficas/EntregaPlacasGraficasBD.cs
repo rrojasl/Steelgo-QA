@@ -461,5 +461,28 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 return result;
             }
         }
+
+        public object EliminaRequisicion(int requisicionID, int usuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int rowsAfected = ctx.Sam3_ERPND_EliminaRequisicion(requisicionID, usuarioID);
+
+                    return rowsAfected;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

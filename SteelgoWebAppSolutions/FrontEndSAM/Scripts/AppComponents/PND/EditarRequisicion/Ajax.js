@@ -162,3 +162,7 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
     }
 
 }
+
+function AjaxEliminaRequisicion(RequisicionID) {
+
+}
