@@ -14,7 +14,53 @@
                 
             }
             $("#tabEstatus").append(option);
+            AjaxObtenerProyectos();
         }
 
     });
 }
+
+
+
+function AjaxObtenerProyectos() {
+    loadingStart();
+
+    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+        $("#inputProyecto").data("kendoComboBox").value("");
+        $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+
+        if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputProyecto").data("kendoComboBox").select(1);
+            AjaxPruebas();
+        }
+        else {
+            $("#inputProyecto").data("kendoComboBox").select(0);
+            loadingStop();
+        }
+
+
+    });
+}
+
+
+function AjaxPruebas() {
+    if ($("#inputProyecto").val() != "") {
+        loadingStart();
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            if (Error(data)) {
+                $("#inputTipoPrueba").data("kendoComboBox").value("");
+                $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data);
+
+                if ($("#inputTipoPrueba").data("kendoComboBox").dataSource._data.length == 2) {
+                    $("#inputTipoPrueba").data("kendoComboBox").select(1);
+
+                }
+                else {
+                    
+                }
+
+            }
+
+        });
+    }
+};

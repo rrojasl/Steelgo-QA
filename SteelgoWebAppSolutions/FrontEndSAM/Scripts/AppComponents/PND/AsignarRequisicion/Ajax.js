@@ -33,14 +33,9 @@ function AjaxPruebas() {
 
                 if ($("#inputPrueba").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputPrueba").data("kendoComboBox").select(1);
-                    
                 }
-                else {
-                    AjaxCargarRequisicionAsignacion();
-                }
-                
             }
-            
+
         });
     }
 };
@@ -56,11 +51,11 @@ function AjaxRequisicion() {
 
                 if ($("#inputRequisicion").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputRequisicion").data("kendoComboBox").select(1);
-                    $("#inputRequisicion").data("kendoComboBox").trigger("change");
-
+                    AjaxCargarRequisicionAsignacion();
                 }
-                
-
+                else {
+                    AjaxCargarRequisicionAsignacion();
+                }
             }
 
         });
@@ -72,7 +67,7 @@ function AjaxRequisicion() {
 function AjaxObtenerEquipo() {
     loadingStart();
     if ($("#inputProveedor").data("kendoComboBox").text() != "") {
-        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProveedorID: $("#inputProveedor").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(),estatusID: 2, lenguaje: $("#language").val() }).done(function (data) {
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProveedorID: $("#inputProveedor").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), estatusID: 2, lenguaje: $("#language").val() }).done(function (data) {
             $("#inputEquipo").data("kendoComboBox").value("");
             $("#inputEquipo").data("kendoComboBox").dataSource.data(data);
 
@@ -204,7 +199,7 @@ function ObtenerDato(fecha, tipoDatoObtener) {
 
 function AjaxCargarRequisicionAsignacion() {
 
-    if ($("#inputProyecto").data("kendoComboBox").value() != "") {
+    if ($("#inputProyecto").data("kendoComboBox").value() != "" && $("#inputPrueba").data("kendoComboBox").text() != "") {
         var patioID = $('#inputProyecto').data("kendoComboBox").dataSource._data[$('#inputProyecto').data("kendoComboBox").selectedIndex].PatioID;
         loadingStart();
         $AsignarRequisicion.AsignarRequisicion.read({ lenguaje: $("#language").val(), token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), TipoPruebaID: $("#inputPrueba").val() == "" ? 0 : $("#inputPrueba").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: patioID, RequisicionID: $("#inputRequisicion").val() == "" ? 0 : $("#inputRequisicion").val() }).done(function (data) {
@@ -220,9 +215,7 @@ function AjaxCargarRequisicionAsignacion() {
 
             }
             loadingStop();
-            if ($("#inputPrueba").data("kendoComboBox").text() != "" && $("#inputRequisicion").data("kendoComboBox").text() == "") {
-                AjaxRequisicion();
-            }
+
 
         });
 
@@ -429,7 +422,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
 
 
-function AjaxCargarElementosRequisicion(requisicionID,tipoPruebaID) {
+function AjaxCargarElementosRequisicion(requisicionID, tipoPruebaID) {
 
     if ($("#inputProyecto").data("kendoComboBox").value() != "") {
         loadingStart();
@@ -445,7 +438,9 @@ function AjaxCargarElementosRequisicion(requisicionID,tipoPruebaID) {
 }
 
 
-function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID, capacidadTurnoProveedorID) {
+function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID, capacidadTurnoProveedorID, dataItem) {
+
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
 
     if ($("#inputProyecto").data("kendoComboBox").value() != "") {
         loadingStart();
@@ -455,9 +450,74 @@ function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID
             ProyectoID: $("#inputProyecto").data("kendoComboBox").value(),
             CapacidadTurnoEquipoID: capacidadTurnoEquipoID,
             CapacidadTurnoProveedorID: capacidadTurnoProveedorID,
-            RequisicionID: requisicionID
+            RequisicionID: 0
         }).done(function (data) {
             if (Error(data)) {
+                if (dataItem.RequiereEquipo) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < ds.length; i++) {
+                            if (ds[i].CapacidadTurnoEquipoID == data[0].CapacidadTurnoEquipoID) {
+                                if (ds[i].CapacidadTurnoEquipoOriginalID != data[0].CapacidadTurnoEquipoID) {
+                                    for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
+                                        data.push(dataItem.ListaElementosRequisicion[k]);
+                                    }
+                                }
+
+                            }
+                            else {
+                                if (ds[i].CapacidadTurnoEquipoOriginalID == data[0].CapacidadTurnoEquipoID) {
+                                    for (var j = data.length - 1; j >= 0; j--) {
+                                        for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
+                                            if (ds[i].ListaElementosRequisicion[k].SpoolID == data[j].SpoolID && ds[i].ListaElementosRequisicion[k].EtiquetaJunta == data[j].EtiquetaJunta) {
+                                                data.splice(j, 1);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
+                            data.push(dataItem.ListaElementosRequisicion[k]);
+                        }
+                    }
+                }
+                else {
+                    if (data.length > 0) {
+                        for (var i = 0; i < ds.length; i++) {
+                            if (ds[i].CapacidadTurnoProveedorID == data[0].CapacidadTurnoProveedorID) {
+                                if (ds[i].CapacidadTurnoProveedorOriginalID != data[0].CapacidadTurnoProveedorID) {
+                                    for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
+                                        data.push(dataItem.ListaElementosRequisicion[k]);
+                                    }
+                                }
+
+                            }
+                            else {
+                                if (ds[i].CapacidadTurnoProveedorOriginalID == data[0].CapacidadTurnoProveedorID) {
+                                    for (var j = data.length - 1; j >= 0; j--) {
+                                        for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
+                                            if (ds[i].ListaElementosRequisicion[k].SpoolID == data[j].SpoolID && ds[i].ListaElementosRequisicion[k].EtiquetaJunta == data[j].EtiquetaJunta) {
+                                                data.splice(j, 1);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
+                            data.push(dataItem.ListaElementosRequisicion[k]);
+                        }
+                    }
+                }
+
+
+
                 LlenarGridPopUpElementosAsignados(data);
             }
             loadingStop();

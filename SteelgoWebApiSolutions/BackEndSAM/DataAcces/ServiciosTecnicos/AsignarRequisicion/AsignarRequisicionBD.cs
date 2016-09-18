@@ -44,7 +44,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                     foreach (Sam3_ST_Get_AsignarRequisicion_Result item in result)
                     {
                         List<TurnoLaboral> listaTurnoLaboralAll = (List<TurnoLaboral>)ObtenerTurnoLaboralTotal(lenguaje, item.ProyectoID, item.TipoPruebaID.GetValueOrDefault());
-                        List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(item.TipoPruebaID.GetValueOrDefault(), item.ProveedorID.GetValueOrDefault(), lenguaje);
+                        List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(item.TipoPruebaID.GetValueOrDefault(),0, lenguaje);
                         ListadoRequisicionAsignacion.Add(new RequisicionAsignacion
                         {
                             Accion = item.RequisicionAsignacionID == 0 ? 1 : 2,
@@ -76,7 +76,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             TipoPruebaProveedorID = item.TipoPruebaProveedorID,
                             CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
                             CapacidadTurnoEquipoOriginalID = item.CapacidadTurnoEquipoID,
+                            CapacidadTurnoEquipoAnteriorID = item.CapacidadTurnoEquipoID,
                             CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
+                            CapacidadTurnoProveedorAnteriorID = item.CapacidadTurnoProveedorID,
                             CapacidadTurnoProveedorOriginalID = item.CapacidadTurnoProveedorID,
                             ProveedorEquipoID = item.ProveedorEquipoID,
                             ListaElementosAsignadosTurno = new List<ElementosRequisicion>()
@@ -176,7 +178,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             RequisicionID = item.RequisicionID,
                             SpoolID = item.SpoolID,
                             TipoJunta = item.TipoJunta,
-                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault()
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID.GetValueOrDefault(),
+                            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID.GetValueOrDefault()
 
                         });
                     }

@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "DashboardPND";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -71,6 +70,19 @@
             </button>-->
         </div>
     </div>
+    @*GRID*@
+    <div class="row addedSectionInLine">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="ContenedorGrid">
+                <div id="grid" data-role="grid" class="k-grid k-widget">
+                </div>
+                <input id="hdAccionFiltrado" type="hidden" />
+            </div>
+
+        </div>
+    </div>
+    @*GRID*@
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Handlers.js"></script>

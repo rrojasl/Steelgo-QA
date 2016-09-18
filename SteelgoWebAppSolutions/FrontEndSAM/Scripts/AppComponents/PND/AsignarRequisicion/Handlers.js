@@ -43,7 +43,7 @@ function suscribirEventoElementosAsignados() {
 
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            AjaxCargarElementosTurnoAsignados(dataItem.RequisicionID, dataItem.CapacidadTurnoEquipoID, dataItem.CapacidadTurnoProveedorID, dataItem.RequisicionID);
+            AjaxCargarElementosTurnoAsignados(dataItem.RequisicionID, dataItem.CapacidadTurnoEquipoID, dataItem.CapacidadTurnoProveedorID,dataItem);
         }
     });
 }
@@ -81,14 +81,17 @@ function SuscribirEventoComboPrueba() {
                 if (dataItem != undefined) {
                     $("#inputRequisicion").data("kendoComboBox").text("");
                     $("#inputRequisicion").data("kendoComboBox").setDataSource();
-                    AjaxCargarRequisicionAsignacion();
+                    AjaxRequisicion();
                     pruebaOriginal = $("#inputPrueba").data("kendoComboBox").value();
+                    if (dataItem.Nombre == "") {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                    }
                 }
                 else {
                     $("#inputPrueba").data("kendoComboBox").text("");
                     $("#inputRequisicion").data("kendoComboBox").text("");
                     $("#inputRequisicion").data("kendoComboBox").setDataSource();
-                    AjaxCargarRequisicionAsignacion();
+                    $("#grid").data("kendoGrid").dataSource.data([]);
                 }
             }
             else {
@@ -117,13 +120,12 @@ function SuscribirEventoComboPrueba() {
                 $("#yesButtonProy").click(function () {
                     if (dataItem != undefined && dataItem.Nombre != "")
                         if ($("#inputProyecto").data("kendoComboBox").text() != "" && $("#inputPrueba").data("kendoComboBox").text() != "") {
-                            AjaxCargarRequisicionAsignacion();
+                            AjaxRequisicion();
                         }
                         else {
                             $("#inputPrueba").data("kendoComboBox").text("");
                             $("#inputProveedor").data("kendoComboBox").setDataSource();
 
-                            AjaxCargarRequisicionAsignacion();
                         }
                     $("#inputRequisicion").data("kendoComboBox").text("");
                     $("#inputRequisicion").data("kendoComboBox").setDataSource();
@@ -217,10 +219,12 @@ function SuscribirEventoComboRequisicion() {
         dataValueField: "RequisicionID",
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined || dataItem.Nombre != "") {
+            if (dataItem != undefined ) {
                 if (!editado) {
-                    AjaxCargarRequisicionAsignacion();
+                    
                     requisicionOriginal = $("#inputRequisicion").data("kendoComboBox").value();
+
+                    AjaxCargarRequisicionAsignacion();
                 }
                 else {
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({

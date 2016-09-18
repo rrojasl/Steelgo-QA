@@ -24,7 +24,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public string Requisicion { get; set; }
         public int CantidadJuntas { get; set; }
         public int ProveedorID { get; set; }
-        public int CapacidadTurnoProveedorOriginalID { get; set; }
         public string Proveedor { get; set; }
         public string Capacidad { get; set; }
         public List<ServiciosTecnicosGeneral.Proveedor> ListaProveedor { get; set; }
@@ -34,7 +33,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public List<Equipo> ListaEquipos { get; set; }
         public List<Equipo> ListaEquiposTotal { get; set; }
         public int TurnoLaboralID { get; set; }
-        public int CapacidadTurnoEquipoOriginalID { get; set; }
         public string TurnoLaboral { get; set; }
         public bool RequiereEquipo { get; set; }
         public List<TurnoLaboral> ListaTurnoLaboral { get; set; }
@@ -44,7 +42,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public string JuntasAsignadas { get; set; }
         public string JuntasAsignadasOriginal { get; set; }
         public int CapacidadTurnoProveedorID { get; set; }
+        public int CapacidadTurnoProveedorAnteriorID { get; set; }
+        public int CapacidadTurnoProveedorOriginalID { get; set; }
         public int CapacidadTurnoEquipoID { get; set; }
+        public int CapacidadTurnoEquipoAnteriorID { get; set; }
+        public int CapacidadTurnoEquipoOriginalID { get; set; }
         public int ProveedorEquipoID { get; set; }
         public int TipoPruebaProveedorID { get; set; }
     }
@@ -87,6 +89,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public int OrdenTrabajoSpoolID { get; set; }
         public int TipoPruebaID { get; set; }
         public string Especificacion { get; set; }
+        public int CapacidadTurnoEquipoID { get; set; }
+        public int CapacidadTurnoProveedorID { get; set; }
     }
 
 }

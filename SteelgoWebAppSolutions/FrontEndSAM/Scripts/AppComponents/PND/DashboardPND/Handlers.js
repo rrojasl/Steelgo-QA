@@ -15,7 +15,13 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            
+
+            if (dataItem != undefined) {
+                AjaxPruebas();
+            }
+            else {
+                $("#inputProyecto").data("kendoComboBox").value("");
+            }
         }
     });
 }
@@ -30,7 +36,12 @@ function SuscribirEventoTipoPrueba() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
 
+            }
+            else {
+                $("#inputTipoPrueba").data("kendoComboBox").value("");
+            }
         }
     });
 }
@@ -45,7 +56,12 @@ function SuscribirEventoProveedor() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
 
+            }
+            else {
+                $("#inputProveedor").data("kendoComboBox").value("");
+            }
         }
     });
 }
