@@ -215,7 +215,7 @@ function AjaxCargarRequisicionAsignacion() {
 
             }
             loadingStop();
-
+            editado = false;
 
         });
 
@@ -310,6 +310,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (Error(data)) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (tipoGuardar == 1) {
+                                $("#grid").data("kendoGrid").dataSource.data([]);
                                 setTimeout(function () { AjaxObtenerProyectos(); }, 500);
                                 opcionHabilitarView(false, "FieldSetView");
                             }
@@ -319,11 +320,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                                 opcionHabilitarView(true, "FieldSetView");
 
                             }
-                            displayNotify("CapturaMensajeGuardadoExitoso", "", "0");
+                            displayNotify("MensajeGuardadoExistoso", "", "0");
+                            editado = false;
                         }
                         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                             mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                            displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+                            displayNotify("MensajeGuardadoErroneo", "", '2');
                         }
                     }
                 });
@@ -389,10 +391,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                                 }
                                 displayNotify("MensajeGuardadoExistoso", "", '0');
+                                editado = false;
                             }
                             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                                 mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                                displayNotify("MensajeGuardadoErroneo", "", '1');
+                                displayNotify("MensajeGuardadoErroneo", "", '2');
                             }
                         }
                     });
@@ -479,8 +482,12 @@ function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID
                         }
                     }
                     else {
-                        for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
-                            data.push(dataItem.ListaElementosRequisicion[k]);
+                        for (var i = 0; i < ds.length; i++) {
+                            if (ds[i].CapacidadTurnoEquipoID == dataItem.CapacidadTurnoEquipoID) {
+                                for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
+                                    data.push(ds[i].ListaElementosRequisicion[k]);
+                                }
+                            }
                         }
                     }
                 }

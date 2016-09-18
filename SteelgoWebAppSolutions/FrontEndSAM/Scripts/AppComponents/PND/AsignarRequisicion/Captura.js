@@ -282,8 +282,8 @@ function CargarGridPopUp() {
                         Cuadrante: { type: "string", editable: false },
                         Prioridad: { type: "number", editable: false },
                         Clasificacion: { type: "string", editable: false },
-                        Diametro: { type: "number", editable: false },
-                        Espesor: { type: "number", editable: false },
+                        Diametro: { type: "string", editable: false },
+                        Espesor: { type: "string", editable: false },
                         Cedula: { type: "string", editable: false },
                         RequisicionID: { type: "int", editable: false },
                         ProyectoID: { type: "int", editable: false },
@@ -295,7 +295,18 @@ function CargarGridPopUp() {
                     }
                 }
             },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
 
+        },
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 15, 20],
+            info: false,
+            input: false,
+            numeric: true,
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),

@@ -78,8 +78,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public string Cuadrante { get; set; }
         public int Prioridad { get; set; }
         public string Clasificacion { get; set; }
-        public decimal Diametro { get; set; }
-        public decimal Espesor { get; set; }
+        public string Diametro { get; set; }
+        public string Espesor { get; set; }
         public string Cedula { get; set; }
         public int ElementoPorClasificacionPNDID { get; set; }
         public int RequisicionID { get; set; }
