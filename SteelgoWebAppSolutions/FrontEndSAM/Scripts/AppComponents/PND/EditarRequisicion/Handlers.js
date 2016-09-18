@@ -5,7 +5,8 @@
     SuscribirEventoSpool();
     SuscribirEventoJuntaSpool();
     suscribirEventoChangeRadio();
-    SuscribirEventoGuardar();    
+    SuscribirEventoGuardar();
+    SuscribirEventoEliminar();
 }
 
 function SuscribirEventoProyecto() {
@@ -428,6 +429,17 @@ function SuscribirEventoGuardar() {
             }
         } else if ($("#Guardar").text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
             opcionHabilitarView(false, '');
+        }
+    });
+}
+
+function SuscribirEventoEliminar() {
+    $("#btnEliminaRequiscion, #btnEliminaRequiscion2").click(function (e) {
+        var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+        if (RequisicionID != "" && RequisicionID != "0") {
+            //AjaxEliminaRequisicion(RequisicionID);
+        } else {
+            displayNotify("MensajeSeleccionaRequisicion", "", "1");
         }
     });
 }

@@ -33,6 +33,11 @@ function AjaxGetListaTiposDePrueba() {
             $("#tipoPrueba").data("kendoComboBox").select(1);
             $("#tipoPrueba").data("kendoComboBox").trigger("change");
         }
+        else {
+            var RequisicionID;
+
+            AjaxGetListaElementos();
+        }
     });
 }
 
@@ -143,7 +148,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                                 '</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
-                                    '<input id="FechaRequisicion" class="form-control" readonly disabled />' +
+                                    '<input id="FechaRequisicion" class="form-control"/>' +
                                 '</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
@@ -188,6 +193,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (data.ReturnMessage[1] != undefined) {
                         if (tipoGuardar == 1) {
                             Limpiar();
+                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
                             opcionHabilitarView(false, "FieldSetView");
                         }
                         else {

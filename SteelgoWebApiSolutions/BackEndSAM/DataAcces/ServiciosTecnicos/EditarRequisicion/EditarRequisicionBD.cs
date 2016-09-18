@@ -51,15 +51,15 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Cuadrante = item.Cuadrante,
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
-                            Diametro = item.Diametro,
+                            Diametro = item.DiametroPlano.GetValueOrDefault(),
                             Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
                             RequisicionID = item.RequisicionID.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
-                            SpoolID = item.SpoolID,
-                            JuntaSpoolID = item.JuntaSpoolID,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
@@ -144,7 +144,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
             }
         }
 
-        public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, string CodigoAsme, string Observacion, Sam3_Usuario usuario)
+        public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, string CodigoAsme, string Observacion, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {
@@ -161,6 +161,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                         { "@FechaRequisicion", "" },
                         { "@CodigoAsme", CodigoAsme},
                         { "@Observacion", Observacion },
+                        { "@Lenguaje", lenguaje },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
 
                     int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);

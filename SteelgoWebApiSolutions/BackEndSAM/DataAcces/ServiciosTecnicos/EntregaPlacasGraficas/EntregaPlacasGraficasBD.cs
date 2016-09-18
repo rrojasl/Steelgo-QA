@@ -116,8 +116,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     {
                         lista.Add(new DocumentoDefecto
                         {
-                            DefectoDocumentoID = item.DefectoDocumentoID,
-                            DefectoDocumentoNombre = item.DefectoDocumentoNombre
+                            DocumentoDefectoID = item.DocumentoDefectoID,
+                            DocumentoDefectoNombre = item.DocumentoDefectoNombre
                         });
                     }
 
@@ -136,21 +136,98 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerListadoProveedor(Sam3_Usuario usuario, int proyectoID, int patioID, int tipoPruebaID)
+        public object ObtenerListadoProyecto(int usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Proyecto> listaProyectos = new List<Proyecto>();
+                    List<Sam3_ST_EPG_ObtieneProyectos_Result> result = ctx.Sam3_ST_EPG_ObtieneProyectos(usuario).ToList();
+
+
+                    listaProyectos.Add(new Proyecto());
+                    foreach (Sam3_ST_EPG_ObtieneProyectos_Result item in result)
+                    {
+                        listaProyectos.Add(new Proyecto
+                        {
+                            ProyectoID = item.ProyectoID,
+                            Nombre = item.NombreProyecto
+                        });
+                    }
+
+                    return listaProyectos;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoTipoPrueba(int proyectoID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<TipoPrueba> listaTipoPrueba = new List<TipoPrueba>();
+                    List<Sam3_ST_EPG_ObtieneTipoPrueba_Result> result = ctx.Sam3_ST_EPG_ObtieneTipoPrueba(proyectoID, lenguaje).ToList();
+
+
+                    listaTipoPrueba.Add(new TipoPrueba());
+                    foreach (Sam3_ST_EPG_ObtieneTipoPrueba_Result item in result)
+                    {
+                        listaTipoPrueba.Add(new TipoPrueba
+                        {
+                            TipoPruebaID = item.TipoPruebaID,
+                            Nombre = item.Nombre
+                        });
+                    }
+
+                    return listaTipoPrueba;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoProveedor(Sam3_Usuario usuario, int proyectoID, int tipoPruebaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Proveedor> listaProveedores = new List<Proveedor>();
-                    List<Sam3_ST_EPG_ObtieneProveedores_Result> result = ctx.Sam3_ST_EPG_ObtieneProveedores(proyectoID, patioID).ToList();
+                    List<Sam3_ST_EPG_ObtieneProveedores_Result> result = ctx.Sam3_ST_EPG_ObtieneProveedores(proyectoID, tipoPruebaID).ToList();
 
                     listaProveedores.Add(new Proveedor());
                     foreach (Sam3_ST_EPG_ObtieneProveedores_Result item in result)
                     {
-                        listaProveedores.Add(new Proveedor {
-                                ProveedorID = item.ProveedorID,
-                                NombreProveedor = item.Nombre
+                        listaProveedores.Add(new Proveedor
+                        {
+                            ProveedorID = item.ProveedorID,
+                            NombreProveedor = item.NombreProveedor
                         });
                     }
 
@@ -172,14 +249,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerListadoRequisicionEntregada(Sam3_Usuario usuario, int proyectoID, int proveedorID)
+        public object ObtenerListadoRequisicion(Sam3_Usuario usuario, int proyectoID, int proveedorID, int tipoPruebaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Requisicion> listaRequisiciones = new List<Requisicion>();
-                    List<Sam3_ST_EPG_ObtieneListaRequisiciones_Result> result = ctx.Sam3_ST_EPG_ObtieneListaRequisiciones(proyectoID, proveedorID).ToList();
+                    List<Sam3_ST_EPG_ObtieneListaRequisiciones_Result> result = ctx.Sam3_ST_EPG_ObtieneListaRequisiciones(proyectoID, tipoPruebaID, proveedorID).ToList();
                     listaRequisiciones.Add(new Requisicion());
 
                     foreach (Sam3_ST_EPG_ObtieneListaRequisiciones_Result item in result)
@@ -187,12 +264,12 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaRequisiciones.Add(new Requisicion
                         {
                             RequisicionID = item.RequisicionID,
-                            NombreRequisicion = item.NombreRequisicion,
-                            TipoPruebaID = item.TipoPruebaID,
-                            ProveedorID = item.ProveedorID.GetValueOrDefault()
+                            ProyectoID = item.ProveedorID,
+                            NombreRequisicion = item.NumeroRequisicion,
+                            ProveedorID = item.ProveedorID
 
                         });
-                    }                       
+                    }
 
                     return listaRequisiciones;
                 }
@@ -212,7 +289,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object ObtenerDetalleRequisicion(int proyectoID, int proveedorID, int requisicionID, string lenguaje)
+        public object ObtenerDetalleRequisicion(int proyectoID, int proveedorID, int requisicionID, string lenguaje, int tipoPruebaID)
         {
             try
             {
@@ -229,17 +306,16 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     }
 
                     List<RequisicionDetalle> listaDetalle = new List<RequisicionDetalle>();
-                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle(proyectoID, proveedorID, 
-                        requisicionID, lenguaje).ToList();
+                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, lenguaje).ToList();
                     foreach (Sam3_ST_EPG_ObtieneRequisicionDetalle_Result item in result)
                     {
                         listaDetalle.Add(new RequisicionDetalle
                         {
-                            Accion = item.Accion,
+                            Accion = item.EntregaPlacasGraficasID==0?1:2,
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
                             RequisicionID = item.RequisicionID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID,
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
@@ -252,17 +328,17 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             CodigoAsme = item.CodigoAsme,
                             DocumentoRecibidoID = item.DocumentoRecibidoID,
                             DocumentoRecibido = item.DocumentoRecibido,
-                            DocumentoEstatusID = item.Accion==1?1: item.DocumentoEstatusID,
-                            DocumentoEstatus = item.Accion == 1 ? estatusDefault : item.DocumentoEstatus,
-                            DefectoDocumentoID = item.DocumentoDefectoID,
-                            DefectoDocumento = item.DocumentoDefecto,
+                            DocumentoEstatusID = item.EntregaPlacasGraficasID == 0 ? 1 : item.DocumentoEstatusID,                                                 
+                            DocumentoEstatus = item.EntregaPlacasGraficasID == 0 ? estatusDefault : item.DocumentoEstatus,
+                            DocumentoDefectoID = item.DocumentoDefectoID.GetValueOrDefault(),
+                            DocumentoDefecto = item.DefectoDocumento,
                             EstatusCaptura = 0,
                             ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
                             ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
                             ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
                         });
                     }
-                    
+
                     return listaDetalle;
                 }
                 
@@ -286,7 +362,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                 using (SamContext ctx = new SamContext())
                 {
                     ElementoRequisicion elemento = null;
-                    Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result result = ctx.Sam3_ST_EPG_ObtieneRequisicionPorParametro(requisicionID, usuarioID).SingleOrDefault();
+                    Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result result = ctx.Sam3_ST_EPG_ObtieneRequisicionPorParametro(requisicionID, usuarioID, lenguaje).SingleOrDefault();
 
                     if (result != null && result.RequisicionID != 0)
                     {
@@ -297,34 +373,41 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaProyecto.Add(new Proyecto
                         {
                             ProyectoID = result.ProyectoID,
-                            Nombre = result.Proyecto,
-                            PatioID = result.PatioID
+                            Nombre = result.Proyecto
+                        });
+
+                        List<TipoPrueba> listaTipoPrueba = new List<TipoPrueba>();
+                        listaTipoPrueba.Add(new TipoPrueba());
+                        listaTipoPrueba.Add(new TipoPrueba {
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            Nombre = result.TipoPrueba
                         });
 
                         List<Proveedor> listaProveedor = new List<Proveedor>();
                         listaProveedor.Add(new Proveedor());
-                        listaProveedor.Add(new Proveedor {
-                            ProveedorID = result.ProveedorID.GetValueOrDefault(),
-                            NombreProveedor = result.NombreProveedor
+                        listaProveedor.Add(new Proveedor
+                        {
+                            ProveedorID = result.ProveedorID,
+                            NombreProveedor = result.Proveedor
                         });
 
                         List<Requisicion> listaRequisicion = new List<Requisicion>();
                         listaRequisicion.Add(new Requisicion());
-                        listaRequisicion.Add(new Requisicion {
+                        listaRequisicion.Add(new Requisicion
+                        {
                             RequisicionID = result.RequisicionID,
                             ProyectoID = result.ProyectoID,
-                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
-                            NombreRequisicion = result.NombreRequisicion,
-                            ProveedorID = result.ProveedorID.GetValueOrDefault()
+                            NombreRequisicion = result.NumeroRequisicion,
+                            ProveedorID = result.ProveedorID
                         });
 
 
                         elemento.RequisicionID = result.RequisicionID;
                         elemento.ProyectoID = result.ProyectoID;
                         elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
-                        elemento.PatioID = result.PatioID;
-                        elemento.ProveedorID = result.ProveedorID.GetValueOrDefault();
+                        elemento.ProveedorID = result.ProveedorID;
                         elemento.listaProyecto = listaProyecto;
+                        elemento.listaTipoPrueba = listaTipoPrueba;
                         elemento.listaProveedor = listaProveedor;
                         elemento.listaRequisicion = listaRequisicion;
                     }
@@ -365,6 +448,29 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     result.IsAuthenicated = true;
 
                     return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminaRequisicion(int requisicionID, int usuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int rowsAfected = ctx.Sam3_ERPND_EliminaRequisicion(requisicionID, usuarioID);
+
+                    return rowsAfected;
                 }
             }
             catch (Exception ex)

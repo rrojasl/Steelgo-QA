@@ -68,12 +68,12 @@ function CargarGrid() {
                         Espesor: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
 
+                        ElementoPorClasificacionPNDID: { type: "int", editable: false },
                         RequisicionID: { type: "int", editable: false },
                         ProyectoID: { type: "int", editable: false },
                         SpoolID: { type: "int", editable: false },
                         JuntaSpoolID: { type: "int", editable: false },
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
-                        JuntaSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
                         Especificacion: { type: "number", editable: false },
                         Agregar: { type: "boolean", editable: false }
@@ -107,7 +107,7 @@ function CargarGrid() {
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", attributes: { style: "text-align:right;" } },
             { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
+            { field: "DiametroPlano", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
             { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
             {

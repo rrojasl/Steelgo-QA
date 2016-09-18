@@ -12,31 +12,40 @@ function SuscribirEventos() {
 };
 
 function SuscribirEventoPlanchado() {
+
+
+
     $("#ButtonPlanchar").click(function () {
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-            visible: false,
-            width: "auto",
-            height: "auto",
-            modal: true,
-            animation: false
-        }).data("kendoWindow");
+        if ($("#grid").data('kendoGrid').dataSource._data.lenght > 0) {
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false,
+                width: "auto",
+                height: "auto",
+                modal: true,
+                animation: false
+            }).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] +
-                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
-        ventanaConfirm.open().center();
+            ventanaConfirm.open().center();
 
-        $("#yesButton").click(function (handler) {
-            var elementoPlanchado = $("#seleccionarTodos").is(':checked');
-            seleccionarTodo(elementoPlanchado);
-            ventanaConfirm.close();
-        });
-        $("#noButton").click(function (handler) {
-            ventanaConfirm.close();
-        });
+            $("#yesButton").click(function (handler) {
+                var elementoPlanchado = $("#seleccionarTodos").is(':checked');
+                seleccionarTodo(elementoPlanchado);
+                ventanaConfirm.close();
+            });
+            $("#noButton").click(function (handler) {
+                ventanaConfirm.close();
+            });
+        }
+        else {
+            displayNotify("", "No hay elementos por seleccionar", "1")
+        }
     });
+
 }
 
 
@@ -97,7 +106,7 @@ function suscribirEventoGenerarReporte() {
 }
 
 function suscribirEventoImprimir() {
-    $('#Imprimir').click(function (e) {
+    $('.Imprimir').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxImprimir(ds._data);
     });
@@ -127,6 +136,11 @@ function SuscribirEventoComboPrueba() {
             else {
                 $("#inputPrueba").data("kendoComboBox").value("");
             }
+            $("#inputProveedor").data("kendoComboBox").text("");
+            $("#inputProveedor").data("kendoComboBox").setDataSource();
+            $("#inputRequisicion").data("kendoComboBox").text("");
+            $("#inputRequisicion").data("kendoComboBox").setDataSource();
+            $("#grid").data('kendoGrid').dataSource.data([]);
         }
     });
 
@@ -148,6 +162,9 @@ function SuscribirEventoComboProveedor() {
             else {
                 $("#inputProveedor").data("kendoComboBox").value("");
             }
+            $("#inputRequisicion").data("kendoComboBox").text("");
+            $("#inputRequisicion").data("kendoComboBox").setDataSource();
+            $("#grid").data('kendoGrid').dataSource.data([]);
         }
     });
 
@@ -165,13 +182,23 @@ function SuscribirEventoComboProyecto() {
         index: 3,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined || dataItem.Nombre != "") {
+            if (dataItem != undefined ) {
                 AjaxPruebas();
             }
             else {
                 $("#inputProyecto").data("kendoComboBox").value("");
-
             }
+            
+            $("#inputPrueba").data("kendoComboBox").setDataSource();
+            
+
+            //$("#inputRequisicion").data("kendoComboBox").setDataSource();
+            
+
+            //$("#inputProveedor").data("kendoComboBox").setDataSource();
+            $("#grid").data('kendoGrid').dataSource.data([]);
+            
+            
         }
     });
 
@@ -193,7 +220,7 @@ function SuscribirEventoComboRequisicion() {
             }
             else {
                 $("#inputRequisicion").data("kendoComboBox").value("");
-
+                $("#grid").data('kendoGrid').dataSource.data([]);
             }
         }
     });

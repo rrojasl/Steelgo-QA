@@ -95,7 +95,7 @@ function AjaxGenerarReporte(arregloJuntas) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     AjaxCargarDatos();
                     mensaje = "Se guardo correctamente la informacion" + "-0";
-                    displayNotify("MensajeGuardadoExistoso", "", '1');
+                    displayNotify("MensajeGuardadoExistoso", "", '0');
                 }
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
@@ -136,7 +136,7 @@ function AjaxObtenerProyectos() {
 
 
 function AjaxPruebas() {
-    if ($("#inputProyecto").val() != "") {
+    if ($("#inputProyecto").data("kendoComboBox").text() != "") {
         loadingStart();
         $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (Error(data)) {
@@ -187,7 +187,8 @@ function AjaxObtenerProveedor() {
 
 
 function AjaxRequisicion() {
-    if ($("#inputPrueba").data("kendoComboBox").value() != "") {
+
+    if ($("#inputPrueba").data("kendoComboBox").text() != "") {
         loadingStart();
         $ImpresionPruebas.ImpresionPruebas.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), ProveedorID: $("#inputProveedor").data("kendoComboBox").value() }).done(function (data) {
             if (Error(data)) {

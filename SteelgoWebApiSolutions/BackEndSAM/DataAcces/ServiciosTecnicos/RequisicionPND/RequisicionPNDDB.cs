@@ -76,7 +76,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Cuadrante = item.Cuadrante,
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
-                            Diametro = item.Diametro,
+                            DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
                             Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,
 
@@ -84,8 +84,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
                             RequisicionID = item.RequisicionID.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
-                            SpoolID = item.SpoolID,
-                            JuntaSpoolID = item.JuntaSpoolID,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion
@@ -122,8 +122,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
                         { "@FechaRequisicion", FechaRequisicion },
-                        { "@CodigoAsme", CodigoAsme}, 
-                        { "@Observacion", Observacion },
+                        { "@CodigoAsme", CodigoAsme }, 
+                        { "@Observacion", Observacion == null ? "" : Observacion },
+                        { "@Lenguaje", "es-MX" },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
 
                     int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);

@@ -7211,6 +7211,14 @@ _dictionary = {
         "es-MX": "Ver",
         "en-US": "View"
     },
+    "botonAccionEliminar": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    },
+    "botonAccionEliminar2": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales

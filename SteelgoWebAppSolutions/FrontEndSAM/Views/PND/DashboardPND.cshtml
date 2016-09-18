@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="DashboardDespachoCorte0001"></span></a>
+    </li>
+    <li class="">
+        <a href="#"><span id="ServiciosTecnicosBreadcrumb"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DashboardPND", "PND")"><span id="ServiciosTecnicosDashboardPNDBreadcrumb"></span></a>
+    </li>
+}
+
+<div id="formDashboardPND" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divProyecto">
+            <label id="lblProyecto"></label>
+            <input id="inputProyecto"/>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divTipoPrueba">
+            <label id="lblPrueba"></label>
+            <input id="inputTipoPrueba" />
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-3 col-lg-2" id="divProveedor">
+            <label id="lblProveedor"></label>
+            <input id="inputProveedor" />
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divFechaInicio">
+            <label id="lblFechaInicio"></label>
+            <input id="inputFechaInicio" />
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divFechaFin">
+            <label id="lblFechaFin"></label>
+            <input id="inputFechaFin" />
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divMuestra">
+            <label id="lblMuestra"></label>
+            <input type="radio" name="Muestra" style="width:auto;" value="requisicion" /><span id="lblPorRequisicion"></span>
+            <input type="radio" name="Muestra" style="width:auto;" value="elemento" /><span id="lblPorElemento"> </span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div id="tabEstatus" class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+            <!--<button id="btnOrdenesTrabajoTubos" class="btn btn-tab Tubos">
+                <label id="DashboardDespachoCorte0021"></label>
+                <span id="spanOrdenesTrabajoTubos"></span>
+            </button>
+            <button id="btnOrdenesTrabajoActivasTubos" class="btn btn-tab Tubos">
+                <label id="DashboardDespachoCorte0022"></label>
+                <span id="spanOrdenesTrabajoActivasTubos"></span>
+            </button>
+            <button id="btnPreDespacharTubos" class="btn btn-tab Tubos">
+                <label id="DashboardDespachoCorte0023"></label>
+                <span id="spanPreDespacharTubos"></span>
+            </button>
+            <button id="btnDespacharTubos" class="btn btn-tab Tubos">
+                <label id="DashboardDespachoCorte0024"></label>
+                <span id="spanDespacharTubos"></span>
+            </button>
+            <button id="btnEntregarTubos" class="btn btn-tab Tubos">
+                <label id="DashboardDespachoCorte0025"></label>
+                <span id="spanEntregarTubos"></span>
+            </button>
+            <button id="btnTravelerPendienteTubos" class="btn btn-tab Tubos">
+                <label id="DashboardDespachoCorte0026"></label>
+                <span id="spanTravelerPendienteTubos"></span>
+            </button>-->
+        </div>
+    </div>
+    @*GRID*@
+    <div class="row addedSectionInLine">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="ContenedorGrid">
+                <div id="grid" data-role="grid" class="k-grid k-widget">
+                </div>
+                <input id="hdAccionFiltrado" type="hidden" />
+            </div>
+
+        </div>
+    </div>
+    @*GRID*@
+</div>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Seguridad.js"></script>

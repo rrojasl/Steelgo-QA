@@ -44,13 +44,13 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
     }
 
     public class DocumentoDefecto {
-        public int DefectoDocumentoID { get; set; }
-        public string DefectoDocumentoNombre { get; set; }
+        public int DocumentoDefectoID { get; set; }
+        public string DocumentoDefectoNombre { get; set; }
 
         public DocumentoDefecto()
         {
-            DefectoDocumentoID = 0;
-            DefectoDocumentoNombre = "";
+            DocumentoDefectoID = 0;
+            DocumentoDefectoNombre = "";
         }
     }
         
@@ -75,8 +75,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public string DocumentoRecibido { get; set; }
         public int DocumentoEstatusID { get; set; }
         public string DocumentoEstatus { get; set; }
-        public int DefectoDocumentoID { get; set; }
-        public string DefectoDocumento { get; set; }
+        public int DocumentoDefectoID { get; set; }
+        public string DocumentoDefecto { get; set; }
         public int EstatusCaptura { get; set; }
         public List<DocumentoRecibido> ListaRecibido { get; set; }
         public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
@@ -95,14 +95,12 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         {
             RequisicionID = 0;
             ProyectoID = 0;
-            TipoPruebaID = 0;
             NombreRequisicion = "";
             ProveedorID = 0;
         }
 
         public int RequisicionID { get; set; }
         public int ProyectoID { get; set; }
-        public int TipoPruebaID { get; set; }
         public string NombreRequisicion { get; set; }
         public int ProveedorID { get; set; }
     }
@@ -125,11 +123,20 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         {
             ProyectoID = 0;
             Nombre = "";
-            PatioID = 0;
         }
         public int ProyectoID { get; set; }
         public string Nombre { get; set; }
-        public int PatioID { get; set; }
+    }
+
+    public class TipoPrueba
+    {
+        public TipoPrueba()
+        {
+            TipoPruebaID = 0;
+            Nombre = "";
+        }
+        public int TipoPruebaID { get; set; }
+        public string Nombre { get; set; }
     }
 
     public class ElementoRequisicion
@@ -142,5 +149,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public List<Proyecto> listaProyecto { get; set; }
         public List<Proveedor> listaProveedor { get; set; }
         public List<Requisicion> listaRequisicion { get; set; }
+        public List<TipoPrueba> listaTipoPrueba { get; set; }
     }
 }
