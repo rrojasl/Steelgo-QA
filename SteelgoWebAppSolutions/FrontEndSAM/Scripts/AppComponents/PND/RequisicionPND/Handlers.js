@@ -201,7 +201,7 @@ function suscribirEventoTipoPrueba() {
             LimpiarRowJunta();
 
             if (dataItem != undefined && dataItem.TipoPruebaID != 0 && dataItem.Nombre != "") {
-
+                $('#containerDiv').css('display', 'block');
                 var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value();
                 var ProyectoID = $("#Proyecto").data("kendoComboBox").value();
 
@@ -213,6 +213,7 @@ function suscribirEventoTipoPrueba() {
                 AjaxGetListaRequisiciones(ProyectoID, tipoPruebaID);
             }
             else {
+                $('#containerDiv').css('display', 'none');
                 vaciaRequisiciones();
                 $("#tipoPrueba").data("kendoComboBox").select(0);
 
@@ -243,7 +244,6 @@ function suscribirEventoRequisiciones() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem == undefined || dataItem.NombreRequisicion == "") {
                 $("#listaRequisiciones").data("kendoComboBox").select(0);
-                $('#containerDiv').css('display', 'none');
 
                 var RequisicionID = 0;
                 var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
@@ -252,7 +252,6 @@ function suscribirEventoRequisiciones() {
             }
             else {
                 if (dataItem.RequisicionID == 0) {
-                    $('#containerDiv').css('display', 'none');
 
                     var RequisicionID = 0;
                     var tipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
@@ -260,12 +259,10 @@ function suscribirEventoRequisiciones() {
 
                     AjaxGetListaElementos(RequisicionID, tipoPruebaID, ProyectoID, $('input:radio[name=Muestra]:checked').val());
                 } else {
-                    $('#containerDiv').css('display', 'block');
 
                     if ($("#Proyecto").data("kendoComboBox").value() == "" || $("#Proyecto").data("kendoComboBox").value() == 0) {
                         displayNotify("", "El campo proyecto es mandatorio", '1');
                         $("#listaRequisiciones").data("kendoComboBox").select(0);
-                        $('#containerDiv').css('display', 'none');
                     }
                     else {
                         AjaxGetListaTiposDePrueba();

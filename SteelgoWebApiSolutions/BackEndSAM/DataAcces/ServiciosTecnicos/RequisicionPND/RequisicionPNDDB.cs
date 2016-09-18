@@ -122,8 +122,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
                         { "@FechaRequisicion", FechaRequisicion },
-                        { "@CodigoAsme", CodigoAsme}, 
-                        { "@Observacion", Observacion },
+                        { "@CodigoAsme", CodigoAsme }, 
+                        { "@Observacion", Observacion == null ? "" : Observacion },
                         { "@Lenguaje", "es-MX" },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
 
