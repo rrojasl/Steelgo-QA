@@ -55,7 +55,7 @@ function cargarGrid() {
         columns: [
 
             { field: "SpoolJunta", title: _dictionary.CapturaReporteGridColumnSpoolJunta[/*"es-MX"*/$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "Junta", title: _dictionary.CapturaReporteGridColumnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "40px" },
+            { field: "Junta", title: _dictionary.CapturaReporteGridColumnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "50px" },
             { field: "NumeroControl", title: _dictionary.CapturaReporteGridColumnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "EtiquetaJunta", title: _dictionary.CapturaReporteGridColumnEtiquetaJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
             { field: "ClasificacionPND", title: _dictionary.CapturaReporteGridColumnClasificacionPND[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },

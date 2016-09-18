@@ -31,5 +31,6 @@
         public static string GUARDARNUEVAREQUISICION = "Sam3_ST_RPND_GuardaCaptura";
         public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ST_ARPND_GuardaCaptura";
         public static string GUARDARCAPTURAIMPRESIONPRUEBAS = "Sam3_ST_IP_GuardaCaptura";
+        public static string GUARDARCAPTURAREPORTERT = "Sam3_ST_CRRT_Guarda_ReporteRT";
     }
 }
