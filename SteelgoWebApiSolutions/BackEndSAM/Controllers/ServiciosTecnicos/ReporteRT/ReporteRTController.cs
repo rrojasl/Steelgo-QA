@@ -199,10 +199,25 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                         dtDetalleResultados.Merge(dtResultados);
                     }
                 }
-                dtDetalleResultados.Columns.RemoveAt(6);
-                dtDetalleCaptura.Columns.RemoveAt(13);
 
-                return ReporteRT_BD.Instance.InsertarCapturaReportesRT(dtDetalleCaptura, usuario.UsuarioID, lenguaje);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(10);
+
+                dtDetalleResultados.Columns.RemoveAt(8);
+                dtDetalleResultados.Columns.RemoveAt(8);
+                dtDetalleResultados.Columns.RemoveAt(8);
+                dtDetalleResultados.Columns.RemoveAt(8);
+                dtDetalleResultados.Columns.RemoveAt(8);
+
+
+                return ReporteRT_BD.Instance.InsertarCapturaReportesRT(dtDetalleCaptura, dtDetalleResultados, dtDetalleDefectos, usuario.UsuarioID, lenguaje);
             }
             else
             {

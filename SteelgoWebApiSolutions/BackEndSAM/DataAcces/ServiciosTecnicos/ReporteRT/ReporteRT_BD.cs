@@ -1,5 +1,6 @@
 ﻿
 using BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -198,26 +199,20 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object InsertarCapturaReportesRT(DataTable dtDetalleCaptura, int usuario, string lenguaje)
+        public object InsertarCapturaReportesRT(DataTable dtDetalleCaptura, DataTable dtDetalleResultados, DataTable dtDetalleDefectos, int usuario, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje } };
-
-                    //_SQL.Ejecuta(Stords.GUARDACAPTURAENTREGAPLACASGRAFICAS, dtDetalleCaptura, "@EntregaPlacasGraficas", parametro);
-                    //Ejecuta(Stords.GUARDACAPTURAENTREGAPLACASGRAFICAS, dtDetalleCaptura, "@EntregaPlacasGraficas", parametro);
-
-
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@UsuarioID", usuario.ToString() }, { "@lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAREPORTERT, dtDetalleCaptura, "@ReporteRT", dtDetalleResultados, "@ReporteRTResultados", dtDetalleDefectos, "@ReporteRTResultadosDefectos", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
-
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
-
                     return result;
                 }
             }

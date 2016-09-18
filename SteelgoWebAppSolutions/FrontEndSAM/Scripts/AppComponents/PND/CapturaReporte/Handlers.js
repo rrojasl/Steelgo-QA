@@ -34,33 +34,61 @@ function suscribirEventoGuardar() {
     //GuardarYNuevo
     $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
         //alert('1');
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data, true);
+        filtrarDatosParaGuardar();
+
+        if (validarReglasDeLlenado()) {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            AjaxGuardarCaptura(ds._data, true);
+        }
     });
 
     //Guardar
     $("#Guardar, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
         //alert('2');
-        if ($("#Guardar").text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            AjaxGuardarCaptura(ds._data, false);
-        } else if ($("#Guardar").text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
-            disableEnableView(false);
+        filtrarDatosParaGuardar();
+
+        if (validarReglasDeLlenado()) {
+            if ($("#Guardar").text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                AjaxGuardarCaptura(ds._data, false);
+            } else if ($("#Guardar").text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+                disableEnableView(false);
+            }
         }
     });
 
     $('#btnAgregar').click(function (e) {
         var hacerAjax = false;
-        if (hayDatosCapturados()) {
-            if (confirm(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()])) {
-                hacerAjax = true;
+
+        if ($('input:radio[name=Muestra]:checked').val() == "SinCaptura") {
+            filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
+        }
+        else if ($('input:radio[name=Muestra]:checked').val() == "Todos") {
+            if ((llamadasATodos >= 1) || (infoGridTemp == null)) {
+                if (hayDatosCapturados()) {
+                    if (confirm(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()])) {
+                        hacerAjax = true;
+                    }
+                }
+                else
+                    hacerAjax = true;
+
+                if (hacerAjax) {
+                    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                    infoGridTemp = null;
+                    llamadasATodos = 0;
+                }
+                //else {
+                //    llamadasATodos++;
+                //    filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
+                //}
+            }
+            else {//Filtra los capturados
+                filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
+                llamadasATodos++;
             }
         }
-        else
-            hacerAjax = true;
 
-        if(hacerAjax)
-            ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
     });
 }
 

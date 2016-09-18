@@ -12,7 +12,12 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
         public int JuntaSpoolID { get; set; }
+        public int Tamano { get; set; }
+        public int Densidad { get; set; }
+        public string ResultadoConciliacion { get; set; }
+        public string RazonNoConciliacion { get; set; }
         public int Accion { get; set; }
+
         public int SpoolJunta { get; set; }
         public int Junta { get; set; }
         public int EtiquetaJunta { get; set; }
@@ -21,11 +26,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string Observaciones { get; set; }
         public string CodigoAsme { get; set; }
         public int NumeroPlacas { get; set; }
-        public int Densidad { get; set; }
-        public int Tamano { get; set; }
-        public string ResultadoConciliacion { get; set; }
-        public string RazonNoConciliacion { get; set; }
         public List<InformacionResultados> MiInformacionResultados { get; set; }
-
+        
     }
 }
