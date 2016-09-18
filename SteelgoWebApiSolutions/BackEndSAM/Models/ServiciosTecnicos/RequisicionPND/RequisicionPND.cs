@@ -12,12 +12,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             Cuadrante = "";
             Prioridad = 0;
             Clasificacion = "";
-            Diametro = 0;
+            DiametroPlano = 0;
             Espesor = 0;
             Cedula = "";
 
             ElementoPorClasificacionPNDID = 0;
-            Agregar = false;
             RequisicionID = 0;
             ProyectoID = 0;
             SpoolID = 0;
@@ -25,6 +24,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             OrdenTrabajoSpoolID = 0;
             TipoPruebaID = 0;
             Especificacion = "";
+            Agregar = false;
         }
 
         public string NumeroControl { get; set; }
@@ -34,12 +34,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public string Cuadrante { get; set; }
         public int Prioridad { get; set; }
         public string Clasificacion { get; set; }
-        public decimal Diametro { get; set; }
+        public decimal DiametroPlano { get; set; }
         public decimal Espesor { get; set; }
         public string Cedula { get; set; }
 
         public int ElementoPorClasificacionPNDID { get; set; }
-        public bool Agregar { get; set; }
         public int RequisicionID { get; set; }
         public int ProyectoID { get; set; }
         public int SpoolID { get; set; }
@@ -47,6 +46,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int OrdenTrabajoSpoolID { get; set; }
         public int TipoPruebaID { get; set; }
         public string Especificacion { get; set; }
+        public bool Agregar { get; set; }
     }
 
     public class Captura

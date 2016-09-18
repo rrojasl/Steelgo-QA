@@ -33,6 +33,11 @@ function AjaxGetListaTiposDePrueba() {
             $("#tipoPrueba").data("kendoComboBox").select(1);
             $("#tipoPrueba").data("kendoComboBox").trigger("change");
         }
+        else {
+            var RequisicionID;
+
+            AjaxGetListaElementos();
+        }
     });
 }
 
