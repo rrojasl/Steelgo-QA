@@ -437,7 +437,36 @@ function SuscribirEventoEliminar() {
     $("#btnEliminaRequiscion, #btnEliminaRequiscion2").click(function (e) {
         var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
         if (RequisicionID != "" && RequisicionID != "0") {
-            //AjaxEliminaRequisicion(RequisicionID);
+            var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                iframe: true,
+                title: _dictionary.EditarRequisicionMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()],
+                visible: false,
+                width: "auto",
+                height: "auto",
+                modal: true,
+                animation: {
+                    close: function () {
+                        $("#inputProyecto").data("kendoComboBox").value($("#inputProyecto").attr("proyectoAntrior"));
+                    },
+                    open: false
+                },
+                actions: [
+                    "Close"
+                ]
+            }).data("kendoWindow");
+            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+            ventanaConfirm.open().center();
+
+            $("#yesButtonProy").click(function () {
+                AjaxEliminaRequisicion(RequisicionID);
+                ventanaConfirm.close();
+            });
+            $("#noButtonProy").click(function () {
+                
+                ventanaConfirm.close();
+            });
         } else {
             displayNotify("MensajeSeleccionaRequisicion", "", "1");
         }

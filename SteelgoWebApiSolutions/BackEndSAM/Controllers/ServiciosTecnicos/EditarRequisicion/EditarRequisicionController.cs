@@ -100,6 +100,33 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
             }
         }
 
+        [HttpPut]
+        public object EliminaRequisicion(string token, int RequisicionID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return EditarRequisicionBD.Instance.EliminarRequisicion(RequisicionID, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
        
     }
 }

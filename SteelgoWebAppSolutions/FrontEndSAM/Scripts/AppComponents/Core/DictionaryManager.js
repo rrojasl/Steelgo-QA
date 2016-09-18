@@ -7831,7 +7831,12 @@ _dictionary = {
     "ReporteRTExcepcionGuardado": {
         "es-MX": "Excepcion!!!",
         "en-US": "Exception!!!"
+    },
+    // Finaliza Captura Reporte RT PND
+    //Editar Requisicion PND    
+    "EditarRequisicionMensajeConfirmaEliminar": {
+        "es-MX": "¿Esta seguro de eliminar la requisición?",
+        "en-US": "Are you sure to remove the requisition ?"
     }
-// Finaliza Captura Reporte RT PND
-
+    // Finaliza Editar Requisicion PND
 };

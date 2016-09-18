@@ -187,5 +187,35 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                 return result;
             }
         }
+
+        public object EliminarRequisicion(int requisicionID, int usuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int r = ctx.Sam3_ERPND_EliminaRequisicion(requisicionID, usuarioID);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
