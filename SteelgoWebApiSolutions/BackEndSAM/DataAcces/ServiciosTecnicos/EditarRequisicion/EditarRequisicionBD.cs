@@ -160,7 +160,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
                         { "@FechaRequisicion", "" },
                         { "@CodigoAsme", CodigoAsme},
-                        { "@Observacion", Observacion },
+                        { "@Observacion", Observacion == null ? "":Observacion },
                         { "@Lenguaje", lenguaje },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
 

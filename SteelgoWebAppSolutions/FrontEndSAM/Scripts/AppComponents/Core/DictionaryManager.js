@@ -7837,6 +7837,10 @@ _dictionary = {
     "EditarRequisicionMensajeConfirmaEliminar": {
         "es-MX": "¿Esta seguro de eliminar la requisición?",
         "en-US": "Are you sure to remove the requisition ?"
+    },
+    "EditarRequisicionMensajeEliminadoCorrecto": {
+        "es-MX": "La requisición se ha eliminado correctamente",
+        "en-US": "The requisition was removed successfully"
     }
     // Finaliza Editar Requisicion PND
 };
