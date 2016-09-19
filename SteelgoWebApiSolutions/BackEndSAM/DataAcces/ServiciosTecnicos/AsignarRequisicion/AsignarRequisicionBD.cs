@@ -167,7 +167,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             Diametro = item.Diametro.ToString(),
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Especificacion = item.Especificacion,
-                            Espesor = item.Espesor.GetValueOrDefault().ToString(),
+                            Espesor = item.Espesor.ToString(),
                             EtiquetaJunta = item.EtiquetaJunta,
                             JuntaSpoolID = item.JuntaSpoolID,
                             NombreRequisicion = item.NombreRequisicion,
