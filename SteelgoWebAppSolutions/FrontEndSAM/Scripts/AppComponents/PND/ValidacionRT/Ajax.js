@@ -36,6 +36,11 @@ function AjaxGetListaTiposDePrueba() {
                 $("#inputTipoPrueba").data("kendoComboBox").select(1);
                 $("#inputTipoPrueba").data("kendoComboBox").trigger("change");
             }
+            else {
+                var ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+
+                AjaxGetListaElementos(ProyectoID == "" ? 0 : ProyectoID, 0, 0, 0);
+            }
         }
     });
 }
@@ -165,5 +170,27 @@ function LoginProveedor() {
 
         Correcto = false;
         window.close();
+    });
+}
+
+function AjaxGetListaElementos(proyectoID, tipoPruebaID, proveedorID, requisicionID) {
+    loadingStart();
+    $ValidacionRT.ValidacionRT.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, ProveedorID: proveedorID, RequisicionID: requisicionID, Lenguaje: $("#language").val()}).done(function (data) {
+        if (Error(data)) {
+            $("#grid").data("kendoGrid").dataSource.data([]);
+
+            var ds = $("#grid").data("kendoGrid").dataSource;
+
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    ds.add(data[i]);
+                }
+                ds.page(1);
+            } else {
+                ds.page(0);
+            }
+
+            loadingStop();
+        }
     });
 }

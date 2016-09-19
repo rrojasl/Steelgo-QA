@@ -31,7 +31,7 @@ function suscribirEventoChangeRadio() {
     });
     $('input:radio[name=Revision]:nth(1)').change(function () {
         // Opción SI
-        
+        LoginProveedor();
     });
 }
 

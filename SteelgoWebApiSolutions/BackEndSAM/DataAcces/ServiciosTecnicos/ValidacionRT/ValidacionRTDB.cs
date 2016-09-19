@@ -218,5 +218,49 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 return result;
             }
         }
+
+        public object ObtenerListadoElementosVR(int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<GridElement> listaElementos = new List<GridElement>();
+                    List<Sam3_ST_VR_Get_ListadoElementos_Result> listaElementosCTX = ctx.Sam3_ST_VR_Get_ListadoElementos(proyectoID, tipoPruebaID, proveedorID, requisicionID, lenguaje).ToList();
+                    foreach (Sam3_ST_VR_Get_ListadoElementos_Result item in listaElementosCTX)
+                    {
+                        listaElementos.Add(new GridElement
+                        {
+                            NumeroControl = item.NumeroControl,
+                            Etiqueta = item.Etiqueta,
+                            NumeroRequisicion = item.NumeroRequisicion,
+                            ClasificacionPND = item.ClasificacionPND,
+                            TipoPrueba = item.TipoPrueba,
+                            Observaciones = item.Observaciones,
+                            RequisicionID = item.RequisicionID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            ReporteRTID = item.ReporteRTID
+                        });
+                    }
+
+                    return listaElementos;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
