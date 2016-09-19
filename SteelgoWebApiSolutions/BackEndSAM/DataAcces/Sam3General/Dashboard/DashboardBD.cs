@@ -50,5 +50,28 @@ namespace BackEndSAM.DataAcces.Sam3General.Dashboard
                 return result;
             }
         }
+
+        public object ObtenerInformacionGrid(int requisicionID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    
+                    return new object();
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

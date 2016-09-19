@@ -10,10 +10,25 @@ function changeLanguageCall() {
 IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
-    SuscribirEventos();
-    //setTimeout(function () { AjaxObtenerProyectos(); }, 500);
+    
 
+    SuscribirEventos();
+ 
+    
 };
+
+function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
 
 function CargarGrid() {
     kendo.ui.Grid.fn.editCell = (function (editCell) {

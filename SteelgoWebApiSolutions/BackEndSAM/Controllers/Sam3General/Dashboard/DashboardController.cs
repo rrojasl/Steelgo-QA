@@ -15,7 +15,8 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DashboardController: ApiController
     {
-        public object Get(string token, string lenguaje, int modulo)
+        [HttpGet]
+        public object getHeaderDashboard(string token, string lenguaje, int modulo)
         {
             string payload = "";
             string newToken = "";
@@ -37,5 +38,29 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
                 return result;
             }
         }
+        [HttpGet]
+        public object getInformacionGrid(string token, string lenguaje, int EstatusID, int TipoPruebaID, int CapacidadTurnoProveedorID, int CapacidadTurnoEquipoID, string FechaInicial, string FechaFinal)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return DashboardBD.Instance.ObtenerInformacionGrid(EstatusID, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
     }
 }

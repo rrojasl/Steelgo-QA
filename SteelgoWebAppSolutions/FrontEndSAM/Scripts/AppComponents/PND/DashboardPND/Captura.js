@@ -11,6 +11,39 @@ function changeLanguageCall() {
     
 }
 
+function AgregarStatusDinamicos(listaStatus) {
+    document.getElementById("divStatusRequisiciones").innerHTML = "";
+
+    for (var i = 0; i < listaStatus.length; i++) {
+        $("#divStatusRequisiciones").append("<button  onclick='ActivarRefrescarGrid(" + listaStatus[i].Estatus_DashboardID + ")' id='"
+            + listaStatus[i].Estatus_DashboardID + "' class='btn btn-tabList btn-listRequisicion'><span class='porElemento' id='" + listaStatus[i].Estatus_DashboardID + "'>"
+            + listaStatus[i].Descripcion + " </span><span  class='porElemento'  id='" + listaStatus[i].NumeroElementos + "'>" + listaStatus[i].NumeroElementos
+            + "</span><span class='porRequisicion' style='display:none;' id='" + listaStatus[i].Estatus_DashboardID + "'>" + listaStatus[i].Descripcion +
+            " </span><span class='porRequisicion' style='display:none;  id='" + listaStatus[i].NumeroRequisiciones + "'>" + listaStatus[i].NumeroRequisiciones + "</span></button>");
+        if (i == 0) {
+            //AjaxAccionesListado(listaStatus[i].Estatus_DashboardID);
+            $("#" + listaStatus[i].Estatus_DashboardID).addClass("active");
+        }
+    }
+}
+
+function VerDetalle(e) {
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    document.location.target = "_blank";
+    document.location.href = "/serviciostecnicos/CapturaReportePruebas?id=" + dataItem.Folio;
+};
+
+function tabActivo(idButton) {
+    $(".btn-tabList").removeClass("active");
+    var list = document.getElementById("divStatusRequisiciones").getElementsByTagName("button");
+
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id == idButton) {
+            $("#" + idButton).addClass("active");
+            break;
+        }
+    }
+};
 
 
 function CargarGrid() {

@@ -50,7 +50,7 @@ function SuscribirEventoTipoPrueba() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-
+                AjaxObtenerProveedor();
             }
             else {
                 $("#inputTipoPrueba").data("kendoComboBox").value("");
@@ -99,4 +99,12 @@ function SuscribirFechaInicio() {
     //$("#inputFechaFin").data("kendoDatePicker").setOptions({
     //    format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     //});
+}
+
+function ActivarRefrescarGrid(idBoton) {
+    $("#contenidoDashboard").css('display', 'block');
+    
+    $("#tabEstatus").html("");
+    tabActivo(idBoton);
+    AjaxAccionesListado(idBoton);
 }

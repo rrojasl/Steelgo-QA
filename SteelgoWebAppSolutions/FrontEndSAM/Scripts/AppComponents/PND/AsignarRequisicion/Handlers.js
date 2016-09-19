@@ -16,7 +16,12 @@ function SuscribirEventos() {
 
 function suscribirEventoReady() {
     $(document).on('ready', function () {
-        setTimeout(function () { AjaxObtenerProyectos(); }, 500);
+        var requisicionID = getParameterByName('requisicion');
+        if (requisicionID == null) {
+            AjaxObtenerProyectos();
+        } else {
+            AjaxObtenerElementoRequisicion(requisicionID)
+        }
     });
 
 }

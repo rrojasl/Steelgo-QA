@@ -533,3 +533,25 @@ function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID
     }
 
 }
+
+
+function AjaxObtenerElementoRequisicion(paramReq) {
+
+    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: paramReq }).done(function (data) {
+        if (data != null) {
+            $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
+            $("#inputProyecto").data("kendoComboBox").dataSource.data(data.listaProyecto);
+            $("#inputProyecto").data("kendoComboBox").value(data.ProyectoID);
+
+            $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
+            $("#inputPrueba").data("kendoComboBox").dataSource.data(data.listaTipoPrueba);
+            $("#inputPrueba").data("kendoComboBox").value(data.TipoPruebaID);
+
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data(data.listaRequisicion);
+            $("#inputRequisicion").data("kendoComboBox").value(data.RequisicionID);
+
+            AjaxCargarRequisicionAsignacion();
+        }
+    });
+}
