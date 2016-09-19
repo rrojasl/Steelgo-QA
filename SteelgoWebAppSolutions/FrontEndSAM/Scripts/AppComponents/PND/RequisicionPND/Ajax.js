@@ -194,10 +194,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (data.ReturnMessage[1] != undefined) {
                         if (tipoGuardar == 1) {
                             Limpiar();
-                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
                             opcionHabilitarView(false, "FieldSetView");
                         }
                         else {
+                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
                             AjaxGetGuardado(data.ReturnMessage[1]);
                             opcionHabilitarView(true, "FieldSetView");
                         }
@@ -228,6 +228,6 @@ function AjaxGetGuardado(RequisicionID) {
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
 
         $("#listaRequisiciones").data("kendoComboBox").value(RequisicionID);
-        $("#listaRequisiciones").data("kendoComboBox").trigger("change");
+        AjaxGetListaElementos(RequisicionID, 0, 0, $('input:radio[name=Muestra]:checked').val());
     });
 }
