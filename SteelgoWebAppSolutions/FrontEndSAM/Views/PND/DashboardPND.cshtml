@@ -15,11 +15,11 @@
 
 <div id="formDashboardPND" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divProyecto">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divProyecto">
             <label id="lblProyecto"></label>
-            <input id="inputProyecto"/>
+            <input id="inputProyecto" />
         </div>
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divTipoPrueba">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divTipoPrueba">
             <label id="lblPrueba"></label>
             <input id="inputTipoPrueba" />
         </div>
@@ -35,52 +35,50 @@
             <label id="lblFechaFin"></label>
             <input id="inputFechaFin" />
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divMuestra">
-            <label id="lblMuestra"></label>
-            <input type="radio" name="Muestra" style="width:auto;" value="requisicion" /><span id="lblPorRequisicion" ></span>
-            <input type="radio" name="Muestra" style="width:auto;" value="elemento"  checked="checked" /><span id="lblPorElemento"> </span>
-        </div>
+
     </div>
     <br />
     <div class="row">
-        <div id="tabEstatus" class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
-            <!--<button id="btnOrdenesTrabajoTubos" class="btn btn-tab Tubos">
-                <label id="DashboardDespachoCorte0021"></label>
-                <span id="spanOrdenesTrabajoTubos"></span>
-            </button>
-            <button id="btnOrdenesTrabajoActivasTubos" class="btn btn-tab Tubos">
-                <label id="DashboardDespachoCorte0022"></label>
-                <span id="spanOrdenesTrabajoActivasTubos"></span>
-            </button>
-            <button id="btnPreDespacharTubos" class="btn btn-tab Tubos">
-                <label id="DashboardDespachoCorte0023"></label>
-                <span id="spanPreDespacharTubos"></span>
-            </button>
-            <button id="btnDespacharTubos" class="btn btn-tab Tubos">
-                <label id="DashboardDespachoCorte0024"></label>
-                <span id="spanDespacharTubos"></span>
-            </button>
-            <button id="btnEntregarTubos" class="btn btn-tab Tubos">
-                <label id="DashboardDespachoCorte0025"></label>
-                <span id="spanEntregarTubos"></span>
-            </button>
-            <button id="btnTravelerPendienteTubos" class="btn btn-tab Tubos">
-                <label id="DashboardDespachoCorte0026"></label>
-                <span id="spanTravelerPendienteTubos"></span>
-            </button>-->
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divMuestra">
+            <label id="lblMuestra"></label>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divMuestra">
+                <div class="col-xs-12 col-sm-3 col-md-6 col-lg-3" id="divMuestra">
+                    <input type="radio" name="Muestra" style="width:auto;" value="requisicion" />
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divMuestra">
+                    <span id="lblPorRequisicion"></span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="divMuestra">
+                <div class="col-xs-6 col-sm-3 col-md-6 col-lg-3" id="divMuestra">
+                    <input type="radio" name="Muestra" style="width:auto;" value="elemento" checked="checked" />
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="divMuestra">
+                    <span id="lblPorElemento"> </span>
+                </div>
+                </div>
         </div>
     </div>
-    @*GRID*@
-    <div class="row addedSectionInLine">
-
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="ContenedorGrid">
-                <div id="grid" data-role="grid" class="k-grid k-widget">
-                </div>
-                <input id="hdAccionFiltrado" type="hidden" />
-            </div>
-
+    <br />
+   <div  class="row">
+        <div id="tabEstatus" class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
         </div>
+    </div>
+    
+    @*GRID*@
+    <div class="row addedSectionInLine"  style="display:none;" id="contenidoDashboard">
+        <div id="divStatusRequisiciones" class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="z-index:999; position:absolute;" role="group" arial-label="tabs"></div>
+        <br>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    
+                <div id="ContenedorGrid">
+                    <div id="grid" data-role="grid" class="k-grid k-widget">
+                    </div>
+                    <input id="hdAccionFiltrado" type="hidden" />
+                </div>
+
+            </div>
     </div>
     @*GRID*@
 </div>

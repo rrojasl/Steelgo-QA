@@ -535,6 +535,7 @@ function cleanView() {
     var paramReq = getParameterByName('requisicion');
 
     $("#inputProyecto").data("kendoComboBox").value("");
+    $("#inputTipoPrueba").data("kendoComboBox").value("");
     $("#inputProveedor").data("kendoComboBox").value("");
     $("#inputRequisicion").data("kendoComboBox").value("");
     $("#inputDocumentoRecibido").data("kendoComboBox").value("");
@@ -556,6 +557,7 @@ function disableEnableView(disable) {
 
         $("#inputProyecto").data("kendoComboBox").enable(false);
         $("#inputProveedor").data("kendoComboBox").enable(false);
+        $("#inputTipoPrueba").data("kendoComboBox").enable(false);
         $("#inputRequisicion").data("kendoComboBox").enable(false);
         $("input[name='Muestra']").attr("disabled", true);
         $("#ButtonBuscar").attr("disabled", true);
@@ -575,6 +577,7 @@ function disableEnableView(disable) {
         $(".addedSectionInLine").find('*').attr("disabled", false);
 
         $("#inputProyecto").data("kendoComboBox").enable(true);
+        $("#inputTipoPrueba").data("kendoComboBox").enable(true);
         $("#inputProveedor").data("kendoComboBox").enable(true);
         $("#inputRequisicion").data("kendoComboBox").enable(true);
         $("input[name='Muestra']").attr("disabled", false);

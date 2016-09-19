@@ -118,7 +118,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             RequisicionID = result.RequisicionID,
                             ProyectoID = result.ProyectoID,
                             TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
-                            NombreRequisicion = result.NumeroRequisicion
+                            NombreRequisicion = result.NumeroRequisicion,
+                            CodigoAsme = result.CodigoAsme,
+                            FechaRequisicion = result.FechaRequisicion.ToString(),
+                            Observacion = result.Observaciones
                         });
 
                         elemento.RequisicionID = result.RequisicionID;
@@ -194,7 +197,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int r = ctx.Sam3_ERPND_EliminaRequisicion(requisicionID, usuarioID);
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@RequisicionID", requisicionID.ToString() }, 
+                        { "@UsuarioID", usuarioID.ToString() }};
+
+                    _SQL.Ejecuta(Stords.ELIMINAREQUISICIONPND, parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");

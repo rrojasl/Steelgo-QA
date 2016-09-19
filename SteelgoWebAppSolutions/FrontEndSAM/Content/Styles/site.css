@@ -255,8 +255,8 @@ input {
     outline: none;
     box-shadow: none;
     width: 100%;
-    box-sizing: border-box;    
-}    
+    box-sizing: border-box;
+}
 
     input:focus {
         outline: none;
@@ -301,7 +301,7 @@ input {
     height: 40px;
     min-height: 40px;
     color: #1B3F70;
-    border: 1px solid #CCCCCC!important;
+    border: 1px solid #CCCCCC !important;
     border-radius: 0;
     font-size: 14px;
     padding: 0 5px;
@@ -333,12 +333,12 @@ input {
     //min-height: 31px;
 }
 
-#window input[type="checkbox"], 
+#window input[type="checkbox"],
 .popup input[type="checkbox"],
 #formBusqueda input[type="checkbox"] {
-    width: auto!important;
+    width: auto !important;
     position: relative;
-    top: 2px;     
+    top: 2px;
 }
 
 input.quickFilters {
@@ -350,7 +350,7 @@ input.quickFilters {
 
     input.quickFilters[disabled] {
         background: #FFFFFF;
-        opacity: 1!important;
+        opacity: 1 !important;
         max-width: 100px;
         //min-width: 100px;
         width: 100px;
@@ -408,10 +408,10 @@ input.quickFilters {
 
 .content-container .form textarea {
     width: 100%;
-    border: 1px solid #CCCCCC!important;
-    resize:none;
-    overflow:auto;
-    border-radius: 0!important;
+    border: 1px solid #CCCCCC !important;
+    resize: none;
+    overflow: auto;
+    border-radius: 0 !important;
     -webkit-appearance: none;
 }
 /**********************************************************************************/
@@ -448,7 +448,7 @@ input.quickFilters {
 
 .btn-group > .btn:hover, .btn-group > .btn:focus,
 .btn-group > .btn.active {
-    z-index: 0!important;
+    z-index: 0 !important;
 }
 
 .btn-default span, .btn-default label {
@@ -551,7 +551,7 @@ input.quickFilters {
 .btn-tab span {
     position: absolute;
     bottom: 0;
-    left: 0; 
+    left: 0;
     right: 0;
     width: 100%;
     color: #305E8D;
@@ -743,7 +743,7 @@ input.quickFilters {
     }
 
     #Nuevo.btn.btn-Despachar {
-        height: 34px!important;
+        height: 34px !important;
         padding-right: 33px;
     }
 
@@ -862,7 +862,7 @@ h2 {
         width: 25.1%;
         border-radius: 0;
         margin-top: -1px;
-        margin-left: -1px!important;
+        margin-left: -1px !important;
     }
 
     .btn.btn-tabList,
@@ -883,19 +883,19 @@ h2 {
     }
 
     .standalone {
-    margin-top: 0;
-}
-
-    .standalone > .btn,
-    #selectFiles, #fcarga {
-        width: 100%;
+        margin-top: 0;
     }
+
+        .standalone > .btn,
+        #selectFiles, #fcarga {
+            width: 100%;
+        }
 
     /*$_input*/
     .content-container .form input[type="radio"] {
         width: auto;
         text-align: center;
-        margin: 4px 45% 0;        
+        margin: 4px 45% 0;
     }
 
     input.quickFilters,
@@ -904,7 +904,7 @@ h2 {
         -webkit-appearance: none;
     }
 
-        /*input.quickFilters:first-of-type,
+    /*input.quickFilters:first-of-type,
         .expanded input.quickFilters:first-of-type {
             width: 24.9%;
         }
@@ -918,7 +918,6 @@ h2 {
     .dropdown-menu > li > a {
         white-space: normal;
     }
-
 }
 
 /* sm viewport */
@@ -940,7 +939,7 @@ h2 {
         width: 25.04%;
         border-radius: 0;
         margin-top: -1px;
-        margin-left: -1px!important;
+        margin-left: -1px !important;
     }
 
     #DespachoCorte .btn-tab.Accesorios,
@@ -948,10 +947,12 @@ h2 {
         width: 14.41%;
     }
 
+
+
     .btn-tabList span {
         display: block;
         font-size: 11px;
-    }    
+    }
 
     /*input*/
     /*input.quickFilters {
@@ -1031,7 +1032,7 @@ h2 {
 
     /*.formButtons {
         margin-top: 25px;
-    }*/    
+    }*/
 }
 
 @media (max-width: 1199px) {
@@ -1042,7 +1043,7 @@ h2 {
     }
 
     .btn-tab span {
-        font-size: 46px;        
+        font-size: 46px;
     }
 }
 
@@ -1107,7 +1108,6 @@ h2 {
         width: auto;
         margin: 4px 45% 0;
     }
-   
 }
 
 /* lg viewport */
@@ -1143,11 +1143,11 @@ body.loading {
     }
 
 .MTrabajoAdicionalMas {
-    color:#FF0000;
+    color: #FF0000;
 }
 
 .MTrabajoAdicionalMenos {
-    color:#0000FF;
+    color: #0000FF;
 }
 
 .Bginput .k-multiselect-wrap {
@@ -1158,9 +1158,18 @@ body.loading {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 4px;
-    height:60px;
+    height: 60px;
 }
 
-.botonSizeGeneral{
+.botonSizeGeneral {
     min-width: 87px;
 }
+
+
+.btn-tab.btn-Requisicion {
+    width: 16.66%;
+}
+
+  .btn.btn-tabList.btn-listRequisicion {
+        width: 16.33%;
+    }

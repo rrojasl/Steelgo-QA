@@ -269,10 +269,26 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].DocumentoEstatusID = ds[i].DocumentoEstatusID;
             listaDetalles[cont].DocumentoDefectoID = ds[i].DocumentoDefectoID;
 
-                if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
-                    listaDetalles[cont].DocumentoDefectoID == 0) &&listaDetalles[cont].Accion != 4) {
-                    if(listaDetalles[cont].Accion == 2){
-                        listaDetalles[cont].Accion = 4;
+                if (listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 || listaDetalles[cont].DocumentoDefectoID == 0) {
+                    if (listaDetalles[cont].Accion == 2) {
+                        if (listaDetalles[cont].DocumentoRecibidoID == 0 && listaDetalles[cont].DocumentoEstatusID == 0 && listaDetalles[cont].DocumentoDefectoID == 0) {
+                            listaDetalles[cont].Accion = 4;
+                        } else {
+                            if (listaDetalles[cont].DocumentoRecibidoID == 0) {
+                                listaDetalles[cont].Estatus = 0;
+                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                            }
+                            if (listaDetalles[cont].DocumentoEstatusID == 0) {
+                                listaDetalles[cont].Estatus = 0;
+                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                            }
+
+                            if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
+                                listaDetalles[cont].Estatus = 0;
+                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                            }
+                        }
+                        
                     } else {
                         
                         if (listaDetalles[cont].DocumentoRecibidoID == 0) {
@@ -305,7 +321,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                     if (guardarYNuevo) {
                         cleanView();
                     } else {
-
+                        $("#grid").data("kendoGrid").dataSource.data([]);
                         AjaxObtieneDetalleRequisicion();
                         disableEnableView(true);
                     }
@@ -350,7 +366,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                             if (guardarYNuevo) {
                                 cleanView();
                             } else {
-
+                                $("#grid").data("kendoGrid").dataSource.data([]);
                                 AjaxObtieneDetalleRequisicion();
                                 disableEnableView(true);
                             }

@@ -163,8 +163,18 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
 
 }
 
-function AjaxEliminaRequisicion(requisicionID) {
-    $EditarRequisicion.EditarRequisicion.update({ token: Cookies.get("token"), RequisicionID: requisicionID }).done(function (data) {
+function AjaxEliminaRequisicion(itemRequisicion) {
+    var Requisicion = {
+        RequisicionID: itemRequisicion.RequisicionID,
+        TipoPruebaID : itemRequisicion.TipoPruebaID,
+        ProyectoID : itemRequisicion.ProyectoID,
+        NombreRequisicion: itemRequisicion.NombreRequisicion,
+        CodigoAsme: itemRequisicion.CodigoAsme,
+        FechaRequisicion: itemRequisicion.FechaRequisicion,
+        Observacion: itemRequisicion.Observacion
+    }
+
+    $EditarRequisicion.EditarRequisicion.update( Requisicion, { token: Cookies.get("token")}).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                 Limpiar();
                 displayNotify("EditarRequisicionMensajeEliminadoCorrecto", "", "0");
