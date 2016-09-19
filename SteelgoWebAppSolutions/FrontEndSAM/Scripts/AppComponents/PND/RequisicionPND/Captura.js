@@ -266,3 +266,11 @@ function tieneClase(item) {
     }
     return false;
 }
+
+function existenCambios(arregloCaptura) {
+    for (index = 0; index < arregloCaptura.length; index++) {
+        if (arregloCaptura[index].Agregar == true)
+            return true;
+    }
+    return false;
+}

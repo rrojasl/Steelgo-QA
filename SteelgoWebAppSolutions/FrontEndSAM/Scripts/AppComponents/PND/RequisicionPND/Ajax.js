@@ -68,7 +68,7 @@ function AjaxGetListaElementos(requisicionID, tipoPruebaID, proyectoID, muestra)
         } else {
             ds.page(0);
         }
-
+        ds.sync();
         loadingStop();
     });
 }
@@ -83,7 +83,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         FechaRequisicion: "",
         CodigoAsme: "",
         Observacion: "",
-
+        Lenguaje: "",
         ListaDetalle: ""
     };
     ListaCaptura = [];
@@ -114,6 +114,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
         Captura[0].CodigoAsme = "";
         Captura[0].Observacion = "";
+        Captura[0].Lenguaje = $("#language").val();
         Captura[0].FechaRequisicion = "";
 
         Captura[0].ListaDetalle = ListaCaptura;
