@@ -59,6 +59,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             TipoPruebaID = 0;
             CodigoAsme = "";
             Observacion = "";
+            Lenguaje = "";
         }
         public int RequisicionID { get; set; }
         public string Requisicion { get; set; }
@@ -67,6 +68,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public string FechaRequisicion { get; set; }
         public string CodigoAsme { get; set; }
         public string Observacion { get; set; }
+        public string Lenguaje { get; set; }
         public List<DetalleCaptura> listaDetalle { get; set; }
     }
 
