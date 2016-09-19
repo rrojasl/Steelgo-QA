@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using static BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion.EditarRequisicion;
 
 namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
 {
@@ -101,7 +102,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
         }
 
         [HttpPut]
-        public object EliminaRequisicion(string token, int RequisicionID)
+        public object EliminaRequisicion(Requisicion req, string token)
         {
             string payload = "";
             string newToken = "";
@@ -114,7 +115,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
 
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return EditarRequisicionBD.Instance.EliminarRequisicion(RequisicionID, usuario.UsuarioID);
+                return EditarRequisicionBD.Instance.EliminarRequisicion(req.RequisicionID, usuario.UsuarioID);
             }
             else
             {

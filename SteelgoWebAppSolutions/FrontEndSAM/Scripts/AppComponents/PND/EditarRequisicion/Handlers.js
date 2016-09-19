@@ -435,11 +435,11 @@ function SuscribirEventoGuardar() {
 
 function SuscribirEventoEliminar() {
     $("#btnEliminaRequiscion, #btnEliminaRequiscion2").click(function (e) {
-        var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
-        if (RequisicionID != "" && RequisicionID != "0") {
+        var itemRequisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
+        if (itemRequisicion.RequisicionID != "" && itemRequisicion.RequisicionID != "0") {
             var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                 iframe: true,
-                title: _dictionary.EditarRequisicionMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()],
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                 visible: false,
                 width: "auto",
                 height: "auto",
@@ -454,13 +454,13 @@ function SuscribirEventoEliminar() {
                     "Close"
                 ]
             }).data("kendoWindow");
-            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+            ventanaConfirm.content(_dictionary.EditarRequisicionMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
                         "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
 
             ventanaConfirm.open().center();
 
             $("#yesButtonProy").click(function () {
-                AjaxEliminaRequisicion(RequisicionID);
+                AjaxEliminaRequisicion(itemRequisicion);
                 ventanaConfirm.close();
             });
             $("#noButtonProy").click(function () {
