@@ -43,7 +43,7 @@ function CargarGrid() {
                 model: {
                     fields: {
                         NumeroControl: { type: "string", editable: false },
-                        EtiquetaJunta: { type: "string", editable: false },
+                        Etiqueta: { type: "string", editable: false },
                         ClasificacionPND: { type: "string", editable: false },
                         TipoPrueba: { type: "string", editable: false },
                         Observaciones: { type: "string", editable: false },
@@ -94,7 +94,7 @@ function CargarGrid() {
         },
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
+            { field: "Etiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
             { field: "ClasificacionPND", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "85px" },
             { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true, width: "137px" },
             { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "140px" },

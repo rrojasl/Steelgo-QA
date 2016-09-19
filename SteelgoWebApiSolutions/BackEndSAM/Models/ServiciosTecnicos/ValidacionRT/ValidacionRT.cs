@@ -87,4 +87,20 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
         public int ProveedorID { get; set; }
         public string Nombre { get; set; }
     }
+
+    public class GridElement
+    {
+        public string NumeroControl { get; set; }
+        public string Etiqueta { get; set; }
+        public string NumeroRequisicion { get; set; }
+        public string ClasificacionPND { get; set; }
+        public string TipoPrueba { get; set; }
+        public string Observaciones { get; set; }
+        public string CodigoAsme { get; set; }
+        public int RequisicionID { get; set; }
+        public int OrdenTrabajoID { get; set; }
+        public int SpoolID { get; set; }
+        public int JuntaSpoolID { get; set; }
+        public int ReporteRTID { get; set; }
+    }
 }

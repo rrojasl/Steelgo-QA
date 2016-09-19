@@ -119,15 +119,21 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public Requisicion()
             {
                 RequisicionID = 0;
-                TipoPruebaID = 0;
                 ProyectoID = 0;
+                TipoPruebaID = 0;
                 NombreRequisicion = "";
+                CodigoAsme = "";
+                FechaRequisicion = "";
+                Observacion = "";
             }
 
             public int RequisicionID { get; set; }
-            public int TipoPruebaID { get; set; }
             public int ProyectoID { get; set; }
+            public int TipoPruebaID { get; set; }
             public string NombreRequisicion { get; set; }
+            public string CodigoAsme { get; set; }
+            public string FechaRequisicion { get; set; }
+            public string Observacion { get; set; }
 
         }
 

@@ -14,6 +14,11 @@ var $EntregaPlacasGraficasModel = {
             editable: "#inputProyecto",
             required: "#inputProyecto",
         },
+        inputTipoPrueba: {
+            visible: "#divPrueba ",
+            editable: "#inputTipoPrueba",
+            required: "#inputTipoPrueba",
+        },
         inputProveedor: {
             visible: "#divProveedor ",
             editable: "#inputProveedor",

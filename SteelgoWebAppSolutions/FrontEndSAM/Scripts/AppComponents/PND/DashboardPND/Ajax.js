@@ -4,8 +4,10 @@
             var tab = '';
             var option = '';
             for (var i = 0; i < data.length; i++) {
-                option = option + '<button id="' + data[i].Estatus_DashboardID 
-                    + '" class="btn btn-tab Tubos">'
+                option = option + '<button '
+                    + 'onclick="ActivarRefrescarGrid(' + data[i].Estatus_DashboardID + ');" '
+                    +'id="' + data[i].Estatus_DashboardID 
+                    + '" class="btn btn-tab btn-Requisicion">'
                     + '<label>' 
                     + data[i].Descripcion
                     + '</label><span id="span'+i+ 
@@ -18,6 +20,7 @@
                 
             }
             $("#tabEstatus").append(option);
+            AgregarStatusDinamicos(data);
             AjaxObtenerProyectos();
         }
 
@@ -68,3 +71,44 @@ function AjaxPruebas() {
         });
     }
 };
+
+function AjaxObtenerProveedor() {
+    if ($("#inputTipoPrueba").data("kendoComboBox").value() != "") {
+        loadingStart();
+        var patioID = $('#inputProyecto').data("kendoComboBox").dataSource._data[$('#inputProyecto').data("kendoComboBox").selectedIndex].PatioID;
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), PatioID: patioID, TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value() }).done(function (data) {
+            if (Error(data)) {
+                $("#inputProveedor").data("kendoComboBox").value("");
+                $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+
+                if ($("#inputProveedor").data("kendoComboBox").dataSource._data.length == 2) {
+                    $("#inputProveedor").data("kendoComboBox").select(1);
+                    $("#inputProveedor").data("kendoComboBox").trigger("change");
+                    var RequiereEquipo = $('#inputTipoPrueba').data("kendoComboBox").dataSource._data[$('#inputTipoPrueba').data("kendoComboBox").selectedIndex].RequiereEquipo;
+                    if (!RequiereEquipo) {
+                        
+
+                    }
+                    else {
+                        AjaxObtenerEquipo();
+
+                    }
+                }
+                else {
+
+                }
+            }
+            loadingStop();
+        });
+    }
+}
+
+
+function AjaxAccionesListado(requisicionID) {
+    $Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), EstatusID: requisicionID }).done(function (data) {
+        if (data.length > 0) {
+            
+        }
+
+    });
+}
