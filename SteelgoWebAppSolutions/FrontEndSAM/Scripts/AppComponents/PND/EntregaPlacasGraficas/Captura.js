@@ -107,7 +107,7 @@ function cargarGrid() {
 }
 function limpiarRenglon(e) {
     e.preventDefault();
-    if ($('#botonGuardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+    if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         itemToClean.DocumentoRecibido = "";
         itemToClean.DocumentoRecibidoID = 0;
