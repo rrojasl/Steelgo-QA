@@ -68,7 +68,7 @@ function AjaxGetListaElementos(requisicionID, tipoPruebaID, proyectoID, muestra)
         } else {
             ds.page(0);
         }
-
+        ds.sync();
         loadingStop();
     });
 }
@@ -83,7 +83,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         FechaRequisicion: "",
         CodigoAsme: "",
         Observacion: "",
-
+        Lenguaje: "",
         ListaDetalle: ""
     };
     ListaCaptura = [];
@@ -114,6 +114,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
         Captura[0].CodigoAsme = "";
         Captura[0].Observacion = "";
+        Captura[0].Lenguaje = $("#language").val();
         Captura[0].FechaRequisicion = "";
 
         Captura[0].ListaDetalle = ListaCaptura;
@@ -193,10 +194,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (data.ReturnMessage[1] != undefined) {
                         if (tipoGuardar == 1) {
                             Limpiar();
-                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
                             opcionHabilitarView(false, "FieldSetView");
                         }
                         else {
+                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
                             AjaxGetGuardado(data.ReturnMessage[1]);
                             opcionHabilitarView(true, "FieldSetView");
                         }
@@ -227,6 +228,6 @@ function AjaxGetGuardado(RequisicionID) {
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
 
         $("#listaRequisiciones").data("kendoComboBox").value(RequisicionID);
-        $("#listaRequisiciones").data("kendoComboBox").trigger("change");
+        AjaxGetListaElementos(RequisicionID, 0, 0, $('input:radio[name=Muestra]:checked').val());
     });
 }

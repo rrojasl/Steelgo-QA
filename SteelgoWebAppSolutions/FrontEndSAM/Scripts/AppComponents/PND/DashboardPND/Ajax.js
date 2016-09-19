@@ -4,13 +4,17 @@
             var tab = '';
             var option = '';
             for (var i = 0; i < data.length; i++) {
-                option = option + '<button id="btn' + data[i].Estatus_DashboardID 
+                option = option + '<button id="' + data[i].Estatus_DashboardID 
                     + '" class="btn btn-tab Tubos">'
                     + '<label>' 
                     + data[i].Descripcion
-                    + '</label><span id="span'
+                    + '</label><span id="span'+i+ 
                     + data[i].Estatus_DashboardID
-                    + '">' + data[i].Contador + '</span></button>';
+                    + '" class="porElemento" >' + data[i].NumeroElementos + '</span>'
+                    +'<span id="span' +i+i
+                    + data[i].Estatus_DashboardID
+                    + '" class="porRequisicion" style="display: none;" >' + data[i].NumeroRequisiciones + '</span>'
+                    +'</button>';
                 
             }
             $("#tabEstatus").append(option);

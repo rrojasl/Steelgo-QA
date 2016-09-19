@@ -3,6 +3,19 @@
     SuscribirEventoTipoPrueba();
     SuscribirEventoProveedor();
     SuscribirFechaInicio();
+    suscribirEventoChangeRadio();
+}
+
+
+function suscribirEventoChangeRadio() {
+    $('input:radio[name=Muestra]:nth(1)').change(function () {
+        $('.porElemento').css('display', 'block');
+        $('.porRequisicion').css('display', 'none');
+    });
+    $('input:radio[name=Muestra]:nth(0)').change(function () {
+        $('.porElemento').css('display', 'none');
+        $('.porRequisicion').css('display', 'block');
+    });
 }
 
 function SuscribirEventoProyecto() {
