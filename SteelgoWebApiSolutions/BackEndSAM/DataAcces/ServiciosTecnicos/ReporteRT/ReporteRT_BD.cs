@@ -112,20 +112,20 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object ObtenerRequisicionesDetalle(int proyectoID, int proveedorID, int requisicionID, int equipoID, int turnoID)
+        public object ObtenerRequisicionesDetalle(int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID)
         {
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, proveedorID, requisicionID, equipoID, turnoID).ToList();
+                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID).ToList();
 
                     System.Text.StringBuilder cad = new System.Text.StringBuilder();
                     cad.Append('[');
                     for (int i = 0; i < result.Count; i++)
                     {
-                        cad.Append("{\"ReporteRTID\": \"0\", \"RequisicionID\":\"" + result[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"SpoolJunta\": \"" + result[i].JuntaSpoolID + "\", \"Junta\": \"" + result[i].Etiqueta + "\", \"NumeroControl\": \"" + result[i].SpoolID + "\", \"EtiquetaJunta\": \"" + result[i].NumeroRequisicion + "\", \"ClasificacionPND\": \"" + result[i].ClasificacionPND + "\", \"TipoPruebaID\": \"" + result[i].TipoPruebaID + "\", \"TipoPrueba\": \"" + result[i].TipoPrueba + "\", \"Observaciones\": \"" + result[i].Observaciones + "\", \"CodigoAsme\": \"" + result[i].CodigoAsme + "\", \"NumeroPlacas\": 0, \"Tamano\": 0, \"Densidad\": 0, \"ResultadoConciliacion\": \"N/A\", \"RazonNoConciliacion\": \"N/A\", \"InformacionResultados\": [], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\" }");
+                        cad.Append("{\"ReporteRTID\": \"0\", \"RequisicionID\":\"" + result[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"SpoolJunta\": \"" + result[i].JuntaSpoolID + "\", \"Junta\": \"" + result[i].Etiqueta + "\", \"NumeroControl\": \"" + result[i].SpoolID + "\", \"EtiquetaJunta\": \"" + result[i].NumeroRequisicion + "\", \"ClasificacionPND\": \"" + result[i].ClasificacionPND + "\", \"TipoPrueba\": \"" + result[i].TipoPrueba + "\", \"Observaciones\": \"" + result[i].Observaciones + "\", \"CodigoAsme\": \"" + result[i].CodigoAsme + "\", \"NumeroPlacas\": 0, \"Tamano\": 0, \"Densidad\": 0, \"ResultadoConciliacion\": \"N/A\", \"RazonNoConciliacion\": \"N/A\", \"InformacionResultados\": [], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\" }");
                         if (i != (result.Count - 1))
                             cad.Append(',');
                     }

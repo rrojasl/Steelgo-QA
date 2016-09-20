@@ -165,7 +165,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetRequisicionesDetalle(string token, int proyectoID, int proveedorID, int requisicionID, int equipoID, int turnoID)
+        public object GetRequisicionesDetalle(string token, int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID)
         {
             string payload = "";
             string newToken = "";
@@ -176,7 +176,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerRequisicionesDetalle(proyectoID, proveedorID, requisicionID, equipoID, turnoID);
+                return ReporteRT_BD.Instance.ObtenerRequisicionesDetalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID);
             }
             else
             {
