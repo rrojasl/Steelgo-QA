@@ -20,6 +20,18 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string PrefijoOrdenTrabajo { get; set; }
     }
 
+    public class TipoPruebaRT
+    {
+        public TipoPruebaRT()
+        {
+            TipoPruebaID = 0;
+            Nombre = "";
+        }
+
+        public int TipoPruebaID { get; set; }
+        public string Nombre { get; set; }
+    }
+
     public class Proveedor
     {
         public Proveedor()

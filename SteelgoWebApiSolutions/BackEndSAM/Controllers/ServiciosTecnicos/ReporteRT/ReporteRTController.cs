@@ -65,6 +65,31 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
+        public object GetTipoPruebas(string token, int proyectoID, string x, string y)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+
+                return ReporteRTBD.Instance.ObtenerTipoPruebas(proyectoID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        [HttpGet]
         public object GetRequisiciones(string token, int ProyectoID, int ProveedorID)
         {
             string payload = "";

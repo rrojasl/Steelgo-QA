@@ -13,7 +13,8 @@ function AjaxProyecto() {
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
             if (data.length == 2) {
                 $("#inputProyecto").data("kendoComboBox").select(1);
-                AjaxProveedor(data[0].ProyectoID, data[0].PatioID)
+                AjaxProveedor(data[1].ProyectoID, data[1].PatioID)
+                AjaxPruebas(data[1].ProyectoID);
             }
             //else
             //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
@@ -49,7 +50,7 @@ function AjaxProveedor(proyectoID, patioID) {
 
             if (data.length == 2) {
                 $("#inputProveedor").data("kendoComboBox").select(1);
-                AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), data[0].ProveedorID)
+                AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), data[1].ProveedorID)
             }
             //else
             //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
@@ -58,6 +59,18 @@ function AjaxProveedor(proyectoID, patioID) {
     });
 
 }
+
+function AjaxPruebas(ProyectoID) {
+    //if ($("#inputProyecto").val() != "") {
+    loadingStart();
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: ProyectoID, x: $("#language").val(), y:"" }).done(function (data) {
+        var tipoPruebaID = 0;
+        $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
+        $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
+
+    });
+    //}
+};
 
 function AjaxRequisicion(proyectoID, proveedorID) {
     loadingStart();
@@ -75,8 +88,9 @@ function AjaxRequisicion(proyectoID, proveedorID) {
             if (data.length == 2) {
                 $("#inputRequisicion").data("kendoComboBox").select(1);
 
-                $("#inputFuente").data("kendoComboBox").value(data[0].FuenteID);
-                $("#inputTurno").data("kendoComboBox").value(data[0].TurnoID);
+                $("#inputFuente").data("kendoComboBox").value(data[1].FuenteID);
+                $("#inputTurno").data("kendoComboBox").value(data[1].TurnoID);
+                $("#inputPrueba").data("kendoComboBox").value(data[1].TipoPruebaID);
             }
 
             //ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());

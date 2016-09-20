@@ -102,6 +102,44 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
+
+        public object ObtenerTipoPruebas(int proyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<TipoPruebaRT> listatiposPruebas = new List<TipoPruebaRT>();
+                    List<Sam3_ReportesRT_ST_Get_Tipos_Pruebas_Result> listaTipoPruebasCTX = ctx.Sam3_ReportesRT_ST_Get_Tipos_Pruebas(proyectoID).ToList();
+                    listatiposPruebas.Add(new TipoPruebaRT());
+                    foreach (Sam3_ReportesRT_ST_Get_Tipos_Pruebas_Result item in listaTipoPruebasCTX)
+                    {
+                        listatiposPruebas.Add(new TipoPruebaRT
+                        {
+                            TipoPruebaID = item.TipoPruebaID,
+                            Nombre = item.Nombre
+                        });
+                    }
+
+                    return listatiposPruebas;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
         public object ObtenerListadoRequisiciones(Sam3_Usuario usuario, int proyectoID, int proveedorID)
         {
             try
