@@ -227,25 +227,42 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 {
                     List<GridElement> listaElementos = new List<GridElement>();
                     List<Sam3_ST_VR_Get_ListadoElementos_Result> listaElementosCTX = ctx.Sam3_ST_VR_Get_ListadoElementos(proyectoID, tipoPruebaID, proveedorID, requisicionID, lenguaje).ToList();
-                    foreach (Sam3_ST_VR_Get_ListadoElementos_Result item in listaElementosCTX)
-                    {
-                        listaElementos.Add(new GridElement
-                        {
-                            NumeroControl = item.NumeroControl,
-                            Etiqueta = item.Etiqueta,
-                            NumeroRequisicion = item.NumeroRequisicion,
-                            ClasificacionPND = item.ClasificacionPND,
-                            TipoPrueba = item.TipoPrueba,
-                            Observaciones = item.Observaciones,
-                            RequisicionID = item.RequisicionID,
-                            OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID,
-                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
-                            ReporteRTID = item.ReporteRTID
-                        });
-                    }
 
-                    return listaElementos;
+                    System.Text.StringBuilder cad = new System.Text.StringBuilder();
+                    cad.Append('[');
+                    int numPlacas = 0;
+                    string detalleTemp = "";
+                    for (int i = 0; i < listaElementosCTX.Count; i++)
+                    {
+                        detalleTemp = ObtenerReportesRTResultados(listaElementosCTX[i].OrdenTrabajoID, listaElementosCTX[i].SpoolID, listaElementosCTX[i].JuntaSpoolID.GetValueOrDefault(), out numPlacas);
+                        cad.Append("{\"ReporteRTID\": \"0\", \"RequisicionID\":\"" + listaElementosCTX[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + listaElementosCTX[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + listaElementosCTX[i].SpoolID + "\", \"JuntaSpoolID\":\"" + listaElementosCTX[i].JuntaSpoolID + "\", \"SpoolJunta\": \"" + listaElementosCTX[i].JuntaSpoolID + "\", \"Junta\": \"" + listaElementosCTX[i].Etiqueta + "\", \"NumeroControl\": \"" + listaElementosCTX[i].SpoolID + "\", \"EtiquetaJunta\": \"" + listaElementosCTX[i].NumeroRequisicion + "\", \"ClasificacionPND\": \"" + listaElementosCTX[i].ClasificacionPND + "\", \"TipoPruebaID\": \"" + listaElementosCTX[i].TipoPrueba + "\", \"Observaciones\": \"" + listaElementosCTX[i].Observaciones + "\", \"CodigoAsme\": \"" + listaElementosCTX[i].CodigoAsme + "\", \"NumeroPlacas\": " + numPlacas + ", \"Tamano\": 0, \"Densidad\": 0, \"ResultadoConciliacion\": \"N/A\", \"RazonNoConciliacion\": \"N/A\", \"InformacionResultados\": [" + detalleTemp + "], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\" }");
+                        if (i != (listaElementosCTX.Count - 1))
+                            cad.Append(',');
+                    }
+                    cad.Append(']');
+
+                    return cad.ToString();
+
+                    //foreach (Sam3_ST_VR_Get_ListadoElementos_Result item in listaElementosCTX)
+                    //{
+                    //    listaElementos.Add(new GridElement
+                    //    {
+                    //        NumeroControl = item.NumeroControl,
+                    //        Etiqueta = item.Etiqueta,
+                    //        NumeroRequisicion = item.NumeroRequisicion,
+                    //        ClasificacionPND = item.ClasificacionPND,
+                    //        TipoPrueba = item.TipoPrueba,
+                    //        Observaciones = item.Observaciones,
+                    //        RequisicionID = item.RequisicionID,
+                    //        OrdenTrabajoID = item.OrdenTrabajoID,
+                    //        SpoolID = item.SpoolID,
+                    //        JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                    //        ReporteRTID = item.ReporteRTID
+                    //    });
+                    //}
+
+                    //return listaElementos;
+
                 }
             }
             catch (Exception ex)
@@ -260,6 +277,66 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 result.IsAuthenicated = true;
 
                 return result;
+            }
+        }
+
+        public string ObtenerReportesRTResultados(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int numeroPlacas)
+        {
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+
+                    numeroPlacas = result.Count;
+                    System.Text.StringBuilder cad = new System.Text.StringBuilder();
+                    //cad.Append('[');
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        cad.Append("{\"ReporteRTResultadosID\": \"" + result[i].ReporteRTResultadosID + "\", \"ReporteRTID\":\"" + result[i].ReporteRTID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"Ubicacion:\": \"" + result[i].Ubicacion + "\", \"Resultado:\": \"" + result[i].Resultado + "\", \"DetalleResultados\": [" + ObtenerReportesRTResultadosDetalle(result[i].OrdenTrabajoID, result[i].SpoolID, result[i].JuntaSpoolID.GetValueOrDefault()) + "] }");
+                        if (i != (result.Count - 1))
+                            cad.Append(',');
+                    }
+                    //cad.Append(']');
+
+                    return cad.ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                numeroPlacas = 0;
+                return "";
+            }
+        }
+
+        public string ObtenerReportesRTResultadosDetalle(int ordenTrabajoID, int spoolID, int juntaSpoolID)
+        {
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+
+                    System.Text.StringBuilder cad = new System.Text.StringBuilder();
+                    //cad.Append('[');
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        cad.Append("{\"ResultadosDefectoID\": \"" + result[i].ResultadosDefectoID + "\", \"ReporteRTID\":\"" + result[i].ReporteResultadosID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"DefectoID:\": \"" + result[i].DefectoID + "\", \"InicioMM:\": \"" + result[i].InicioMM + "\", \"FinMM\": \"" + result[i].FinMM + "\" }");
+                        if (i != (result.Count - 1))
+                            cad.Append(',');
+                    }
+                    //cad.Append(']');
+
+                    return cad.ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return "";
             }
         }
     }

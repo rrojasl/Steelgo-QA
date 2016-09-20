@@ -257,7 +257,7 @@ function suscribirEventoRequisicion() {
                     //$("#grid").data('kendoGrid').dataSource.data([]);
                     $("#inputFuente").data("kendoComboBox").value(dataItem.FuenteID);
                     $("#inputTurno").data("kendoComboBox").value(dataItem.TurnoID);
-                    $("#inputPrueba").data("kendoComboBox").value(datadataItem.TipoPruebaID);
+                    $("#inputPrueba").data("kendoComboBox").value(dataItem.TipoPruebaID);
                 }
                 else
                     $('#inputRequisicion').data("kendoComboBox").value(previousCurrentItem);

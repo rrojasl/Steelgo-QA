@@ -176,6 +176,7 @@ function LoginProveedor() {
 function AjaxGetListaElementos(proyectoID, tipoPruebaID, proveedorID, requisicionID) {
     loadingStart();
     $ValidacionRT.ValidacionRT.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, ProveedorID: proveedorID, RequisicionID: requisicionID, Lenguaje: $("#language").val()}).done(function (data) {
+        data = jQuery.parseJSON(data);
         if (Error(data)) {
             $("#grid").data("kendoGrid").dataSource.data([]);
 
