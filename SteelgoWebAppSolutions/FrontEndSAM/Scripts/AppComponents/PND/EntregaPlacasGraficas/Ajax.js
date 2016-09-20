@@ -227,11 +227,14 @@ function disableDocumentoDefecto() {
     var data = query.filter(filters).data;
     if(data.length>0){        
         for (var i = 0; i < ds._data.length; i++) {
-            if (data[i].DocumentoEstatusID == 1) {
-                data[i].__proto__.fields.DocumentoDefecto.editable = false;
-            } else {
-                data[i].__proto__.fields.DocumentoDefecto.editable = true;
+            if (data[i] != undefined) {
+                if (data[i].DocumentoEstatusID == 1) {
+                    data[i].__proto__.fields.DocumentoDefecto.editable = false;
+                } else {
+                    data[i].__proto__.fields.DocumentoDefecto.editable = true;
+                }
             }
+            
         }
     }
     
@@ -360,7 +363,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 }
 
                 if(Captura[0].Detalles.length>0){
-                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID }).done(function (data) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                             if (guardarYNuevo) {
