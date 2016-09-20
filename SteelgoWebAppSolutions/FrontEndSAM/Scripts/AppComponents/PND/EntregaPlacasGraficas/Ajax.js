@@ -41,7 +41,7 @@ function AjaxObtenerElementoRequisicion(paramReq) {
             $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
             $("#inputRequisicion").data("kendoComboBox").dataSource.data(data.listaRequisicion);
             $("#inputRequisicion").data("kendoComboBox").value(data.RequisicionID);
-
+            changeLabel(data.TipoPruebaID);
             AjaxObtieneDetalleRequisicion();
         }
     });
@@ -204,15 +204,7 @@ function AjaxObtieneDetalleRequisicion() {
                 for (var i = 0; i < data.length; i++) {
                     ds.add(data[i]);
                     tipoPrueba = data[i].TipoPruebaID;
-                }
-                var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
-                if(Requisicion.TipoPruebaID == 12){
-                    $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicasDocto[$("#language").data("kendoDropDownList").value()]);
-                    $("#lblCondicionesPlacasOGraficas").text(_dictionary.lblCondicionesFisicasDocto[$("#language").data("kendoDropDownList").value()]);
-                } else {
-                    $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicasSL[$("#language").data("kendoDropDownList").value()]);
-                    $("#lblCondicionesPlacasOGraficas").text(_dictionary.lblCondicionesFisicasSL[$("#language").data("kendoDropDownList").value()]);
-                }
+                }                
                 disableDocumentoDefecto();
             }
         });
@@ -316,9 +308,9 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 cont++;
         }
         Captura[0].Detalles = listaDetalles;
-
+        var TipoPrueba = $("#inputTipoPrueba").data("kendoComboBox").dataItem($("#inputTipoPrueba").data("kendoComboBox").select());
         if (!ExistRowEmpty(listaDetalles)) {
-            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID }).done(function (data) {
+            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                     if (guardarYNuevo) {
@@ -363,7 +355,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 }
 
                 if(Captura[0].Detalles.length>0){
-                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID }).done(function (data) {
+                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                             if (guardarYNuevo) {

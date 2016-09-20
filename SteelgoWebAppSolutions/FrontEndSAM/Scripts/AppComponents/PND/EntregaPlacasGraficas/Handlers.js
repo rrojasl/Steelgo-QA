@@ -111,6 +111,7 @@ function SuscribirEventoTipoPrueba() {
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
                     $("#inputTipoPrueba").attr("tipoPruebaAntrior", dataItem.TipoPruebaID)
+                    changeLabel(dataItem.TipoPruebaID);
 
                     if (paramReq == null) {
                         $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
@@ -259,21 +260,21 @@ function SuscribirEventoRequisicion() {
             var paramReq = getParameterByName('requisicion');
 
             if (dataItem != undefined) {
-                if (!validaInformacionCapturada()) {
-                    if (dataItem.RequisicionID != 0) {
+                if (!validaInformacionCapturada()) {                    
                         $("#inputRequisicion").attr("requisicionAntrior", dataItem.RequisicionID);
                         if(paramReq==null){
                             $("#grid").data("kendoGrid").dataSource.data([]);
-                            if ($("#inputProveedor").data("kendoComboBox").value() == "0" || $("#inputProveedor").data("kendoComboBox").value() == "") {
-                                $("#inputProveedor").data("kendoComboBox").value(dataItem.ProveedorID);
+                            if (dataItem.RequisicionID != 0) {
+                                if ($("#inputProveedor").data("kendoComboBox").value() == "0" || $("#inputProveedor").data("kendoComboBox").value() == "") {
+                                    $("#inputProveedor").data("kendoComboBox").value(dataItem.ProveedorID);
+                                }
                             }
                         } else {
-                            $("#inputProyecto").data("kendoComboBox").value(data.ProyectoID);
-                            $("#inputProveedor").data("kendoComboBox").value(data.ProveedorID);
+                            $("#inputProyecto").data("kendoComboBox").value(dataItem.ProyectoID);
+                            $("#inputTipoPrueba").data("kendoComboBox").value(dataItem.TipoPruebaID);
+                            $("#inputProveedor").data("kendoComboBox").value(dataItem.ProveedorID);
                         }
-                    } else {
-                        $("#inputRequisicion").data("kendoComboBox").value("");
-                    }
+                    
                 } else {
                     $("#ventanaConfirmCaptura").empty();
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
@@ -630,4 +631,17 @@ function SuscribirEventoBuscar() {
         }
     });
 
+}
+
+function changeLabel(tipoPruebaID){
+    if (tipoPruebaID == 12) {
+        $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicasDocto[$("#language").data("kendoDropDownList").value()]);
+        $("#lblCondicionesPlacasOGraficas").text(_dictionary.lblCondicionesFisicasDocto[$("#language").data("kendoDropDownList").value()]);
+    } else if (tipoPruebaID > 0 && tipoPruebaID < 12) {
+        $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicasSL[$("#language").data("kendoDropDownList").value()]);
+        $("#lblCondicionesPlacasOGraficas").text(_dictionary.lblCondicionesFisicasSL[$("#language").data("kendoDropDownList").value()]);
+    }else{
+        $("#grid th[data-field=DocumentoEstatus]").html("N/A");
+        $("#lblCondicionesPlacasOGraficas").text("N/A");
+    }
 }
