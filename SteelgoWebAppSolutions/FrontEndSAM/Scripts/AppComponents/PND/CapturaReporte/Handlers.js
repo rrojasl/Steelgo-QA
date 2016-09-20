@@ -8,6 +8,7 @@ function SuscribirEventos() {
 
     suscribirEventoProyecto();
     suscribirEventoProveedor();
+    SuscribirEventoComboPrueba();
     suscribirEventoRequisicion();
     suscribirEventoFuente();
     suscribirEventTurno();
@@ -183,6 +184,21 @@ function suscribirEventoProveedor() {
         previousCurrentItem = this.value;
     });
 }
+
+function SuscribirEventoComboPrueba() {
+    $('#inputPrueba').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "TipoPruebaID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            
+        }
+    });
+
+};
 
 function suscribirEventoChangeRadioTipo() {
 

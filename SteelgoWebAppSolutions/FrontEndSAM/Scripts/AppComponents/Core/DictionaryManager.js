@@ -7271,8 +7271,8 @@ _dictionary = {
         "en-US": "Set Requisition"
     },
     "menuServiciosTecnicosReporteRT": {
-        "es-MX": "Reporte RT",
-        "en-US": "RT Report"
+        "es-MX": "Captura de Reporte",
+        "en-US": "Capture of Report"
     },
     "menuServiciosTecnicosEntregaPlacasGraficas": {
         "es-MX": "Entrega de Placas o Gráficas",
@@ -7667,8 +7667,8 @@ _dictionary = {
 // Pantalla Captura Reporte RT PND
 
     "ReporteRTHeader": {
-        "es-MX": "Reporte RT",
-        "en-US": "RT Report"
+        "es-MX": "Captura de Reporte",
+        "en-US": "Capture of Report"
     },
 
     "CapturaReporteProyecto": {
@@ -7704,8 +7704,8 @@ _dictionary = {
         "en-US": "Spool"
     },
     "CapturaReporteGridColumnNumeroPlacas": {
-        "es-MX": "No Pls",
-        "en-US": "# Pls"
+        "es-MX": "No Placas",
+        "en-US": "# Plates"
     },
     "CapturaReporteGridColumnTamano": {
         "es-MX": "Tamaño",
@@ -7748,12 +7748,12 @@ _dictionary = {
         "en-US": "Code"
     },
     "CapturaReporteGridColumnRusult1": {
-        "es-MX": "Result Valida RT",
-        "en-US": "Result validate"
+        "es-MX": "Resultado Conciliacion",
+        "en-US": "Result Conciliation"
     },
     "CapturaReporteGridColumnRusult2": {
-        "es-MX": "Pantalla Validación",
-        "en-US": "Screen Validation"
+        "es-MX": "Razon No Conciliacion",
+        "en-US": "Razon No Conciliation"
     },
     "CapturaReporteBotonBuscar": {
         "es-MX": "Buscar",

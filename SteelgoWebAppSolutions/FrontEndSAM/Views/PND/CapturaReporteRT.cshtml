@@ -10,7 +10,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="ReporteRTHeader"></span></a>
+        <a href="#"><span id="ServiciosTecnicosBreadcrumb"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("CapturaReporteRT", "PND")"><span id="ReporteRTHeader"></span></a>
@@ -56,21 +56,17 @@
             <label id="CapturaReporteProyecto"></label>
             <input id="inputProyecto" />
         </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="lblPrueba"></label>
+            <input id="inputPrueba" class="" />
+        </div>
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <label id="CapturaReporteProveedor"></label>
             <input id="inputProveedor" />
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <label id="CapturaReporteRequisicion"> </label>
             <input id="inputRequisicion" />
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <label id="CapturaReporteEquipo"> </label>
-            <input id="inputFuente" />
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <label id="CapturaReporteTurno"> </label>
-            <input id="inputTurno" />
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
@@ -82,6 +78,22 @@
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
             <button type="button" id="btnAgregar" class="btn btn-blue"><span id="CapturaReporteBotonBuscar"></span></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <label>&nbsp;</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label id="CapturaReporteEquipo"> </label>
+            <input id="inputFuente" />
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label id="CapturaReporteTurno"> </label>
+            <input id="inputTurno" />
         </div>
     </div>
     <div class="row">
@@ -101,6 +113,37 @@
             </div>
         </div>
 
+    </div>
+
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
+                </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+            </div>
+        </div>
     </div>
 </div>
 
