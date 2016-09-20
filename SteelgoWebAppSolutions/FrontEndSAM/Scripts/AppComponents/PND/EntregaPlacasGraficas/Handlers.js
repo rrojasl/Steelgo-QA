@@ -41,6 +41,7 @@ function SuscribirEventoProyecto() {
                     }
                     
                 } else {
+                    $("#ventanaConfirmCaptura").empty();
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -123,6 +124,7 @@ function SuscribirEventoTipoPrueba() {
                         }
                     }
                 } else {
+                    $("#ventanaConfirmCaptura").empty();
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -197,6 +199,7 @@ function SuscribirEventoProveedor() {
                         AjaxCargaListaRequisicion($("#inputProyecto").data("kendoComboBox").value(), $("#inputTipoPrueba").data("kendoComboBox").value(), dataItem.ProveedorID);
                     }
                 } else {
+                    $("#ventanaConfirmCaptura").empty();
                  var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -272,6 +275,7 @@ function SuscribirEventoRequisicion() {
                         $("#inputRequisicion").data("kendoComboBox").value("");
                     }
                 } else {
+                    $("#ventanaConfirmCaptura").empty();
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -345,6 +349,7 @@ function SuscribirEventoRequisicion() {
                         }
                     }
                 } else {
+                    $("#ventanaConfirmCaptura").empty();
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],

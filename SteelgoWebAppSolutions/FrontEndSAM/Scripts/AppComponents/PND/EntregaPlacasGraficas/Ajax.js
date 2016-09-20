@@ -333,7 +333,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             
             });
         } else {
-            
+            $("#ventanaConfirm").empty();
             var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
