@@ -22,7 +22,7 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicion');
+            var paramReq = getParameterByName('requisicionID');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
@@ -106,7 +106,7 @@ function SuscribirEventoTipoPrueba() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicion');
+            var paramReq = getParameterByName('requisicionID');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
@@ -187,7 +187,7 @@ function SuscribirEventoProveedor() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicion');
+            var paramReq = getParameterByName('requisicionID');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
@@ -257,7 +257,7 @@ function SuscribirEventoRequisicion() {
         index: 3,
         change: function (e) {            
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicion');
+            var paramReq = getParameterByName('requisicionID');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {                    
@@ -328,7 +328,7 @@ function SuscribirEventoRequisicion() {
 
         if (e.keyCode == 13) {
 
-            var paramReq = getParameterByName('requisicion');
+            var paramReq = getParameterByName('requisicionID');
             var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
             if (Requisicion != undefined) {
                 if (!validaInformacionCapturada())
@@ -438,6 +438,7 @@ function SuscribirEventoCondicionesFisicas() {
                 if (dataItem.DocumentoEstatusID == 2) {
                     $("#divDefectos").show();
                 } else {
+                    $("#inputDefectos").data("kendoComboBox").value("");
                     $("#divDefectos").hide();
                 }
 
@@ -489,6 +490,7 @@ function SuscribirEventoPlanchado() {
 
                 $("#yesButton").click(function (handler) {
                     plancharTodo(tipoLlenado);
+                    limpiaPlanchado();
                     ventanaConfirm.close();
                 });
                 $("#noButton").click(function (handler) {
@@ -496,6 +498,7 @@ function SuscribirEventoPlanchado() {
                 });
             } else {
                 plancharTodo(tipoLlenado);
+                limpiaPlanchado();
             }
         }
     });
@@ -538,7 +541,7 @@ function SuscribirEventoGuardar() {
 }
 
 function cleanView() {
-    var paramReq = getParameterByName('requisicion');
+    var paramReq = getParameterByName('requisicionID');
 
     $("#inputProyecto").data("kendoComboBox").value("");
     $("#inputTipoPrueba").data("kendoComboBox").value("");
@@ -555,6 +558,12 @@ function cleanView() {
     }
     disableEnableView(false);
     AjaxCargarCamposPredeterminados();
+}
+
+function limpiaPlanchado() {
+    $("#inputDocumentoRecibido").data("kendoComboBox").value("");
+    $("#inputCondicionesFisicas").data("kendoComboBox").value("");
+    $("#inputDefectos").data("kendoComboBox").value("");
 }
 
 function disableEnableView(disable) {
@@ -604,12 +613,10 @@ function disableEnableView(disable) {
 
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        FiltroMostrar(0);
-        disableDocumentoDefecto();
+        FiltroMostrar(0);        
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
         FiltroMostrar(1);
-        disableDocumentoDefecto()
     });
 }
 
