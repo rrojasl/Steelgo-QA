@@ -4,13 +4,13 @@ function IniciarCapturaPlacasGraficas() {
 }
 
 function changeLanguageCall() {
-    var paramReq = getParameterByName('requisicion');
+    var paramReq = getParameterByName('requisicionID');
     
     cargarGrid();
 
     AjaxCargarCamposPredeterminados();
     AjaxCargaListaDocumentoRecibido();
-
+    SiguienteProceso(paramReq);
     if (paramReq == null) {
         AjaxCargaListaProyectos();
     } else {
@@ -19,6 +19,20 @@ function changeLanguageCall() {
     document.title = _dictionary.ServiciosTecnicosEntregaPGBreadcrumb[$("#language").data("kendoDropDownList").value()];
 }
 
+function SiguienteProceso(paramReq)
+{
+    var url = "";
+    if(paramReq==null){
+        url = "/PND/ValidacionRT?leng=" + $("#language").data("kendoDropDownList").value();
+    }else{
+        url = "/PND/ValidacionRT?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&requisicionID="+paramReq;
+    }
+    $("#EntregaResultadosValidarResultadosSup").attr("href", url);
+    $("#EntregaResultadosValidarResultadosInf").attr("href", url);
+
+    
+}
 
 function getParameterByName(name, url) {
 
@@ -32,6 +46,29 @@ function getParameterByName(name, url) {
 }
 
 function cargarGrid() {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         edit: function (e) {
 
@@ -107,10 +144,31 @@ function cargarGrid() {
             { field: "DocumentoDefecto", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
     });
 
     CustomisaGrid($("#grid"));
 }
+
+function isEditable(fieldName, model) {
+    if (fieldName === "DocumentoDefecto") {
+        var estatusID = model.DocumentoEstatusID
+
+        if(estatusID == 2){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
 function limpiarRenglon(e) {
     e.preventDefault();
     if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -178,12 +236,7 @@ function PlanchaDocumentoEstatus(tipoLlenado) {
                     data[i].DocumentoDefectoID = 0;
                 }
             }
-        }
-        if (data[i].DocumentoEstatusID == 1) {
-            data[i].__proto__.fields.DocumentoDefecto.editable = false;
-        } else {
-            data[i].__proto__.fields.DocumentoDefecto.editable = true;
-        }
+        }        
     }
 
     $("#grid").data("kendoGrid").dataSource.sync();
