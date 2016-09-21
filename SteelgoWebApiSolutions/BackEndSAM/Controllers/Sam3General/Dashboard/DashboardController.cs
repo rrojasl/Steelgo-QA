@@ -39,7 +39,7 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
             }
         }
         [HttpGet]
-        public object getInformacionGrid(string token, string lenguaje, int EstatusID, int TipoPruebaID, int CapacidadTurnoProveedorID, int CapacidadTurnoEquipoID, string FechaInicial, string FechaFinal)
+        public object getInformacionGrid(string token, string lenguaje,int ProyectoID, int EstatusID, int TipoPruebaID, int ProveedorID, string FechaInicial, string FechaFinal)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +49,7 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return DashboardBD.Instance.ObtenerInformacionGrid(EstatusID, lenguaje);
+                return DashboardBD.Instance.ObtenerInformacionGrid(lenguaje, ProyectoID, TipoPruebaID,ProveedorID,FechaInicial,FechaFinal, EstatusID);
             }
             else
             {

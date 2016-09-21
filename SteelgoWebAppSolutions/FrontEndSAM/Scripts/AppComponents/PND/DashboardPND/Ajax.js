@@ -104,11 +104,48 @@ function AjaxObtenerProveedor() {
 }
 
 
-function AjaxAccionesListado(requisicionID) {
-    $Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), EstatusID: requisicionID }).done(function (data) {
-        if (data.length > 0) {
-            
-        }
+function AjaxAccionesListado(estatusID) {
+    loadingStart();
+    if ($("#inputProyecto").data("kendoComboBox").value() != "") {
+        var pruebaID = $('#inputTipoPrueba').data("kendoComboBox").text() == "" ? 0 : $('#inputTipoPrueba').data("kendoComboBox").value();
+        var proveedorID = $('#inputProveedor').data("kendoComboBox").text() == "" ? 0 : $('#inputProveedor').data("kendoComboBox").value();
 
-    });
+        $Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), EstatusID: estatusID, TipoPruebaID: pruebaID, ProveedorID: proveedorID, FechaInicial: $("#inputFechaInicio").val(), FechaFinal: $("#inputFechaFin").val() }).done(function (data) {
+            if (Error(data)) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                var array = data;
+                for (var i = 0; i < array.length; i++) {
+                    array[i].Fecha = new Date(ObtenerDato(array[i].Fecha, 1), ObtenerDato(array[i].Fecha, 2), ObtenerDato(array[i].Fecha, 3));//año, mes, dia
+                    ds.add(array[i]);
+                }
+            }
+            loadingStop();
+        });
+    }
+    else
+        loadingStop();
+}
+
+
+function ObtenerDato(fecha, tipoDatoObtener) {
+    var cultura = $("#language").val();
+
+    switch (tipoDatoObtener) {
+        case 1://anho
+            return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura = 'es-MX')
+                return fecha.split('/')[1]
+            else
+                return fecha.split('/')[0]
+            break;
+        case 3://dia
+            if (cultura = 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
 }
