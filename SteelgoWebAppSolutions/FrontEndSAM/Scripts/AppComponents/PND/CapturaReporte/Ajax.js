@@ -136,7 +136,7 @@ function AjaxTurno() {
 function ajaxGridPrincipal(proyectoID, proveedorID, requisicionID) {
     loadingStart();
 
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: (($("#inputProyecto").data("kendoComboBox").value() != "") ? ($("#inputProyecto").data("kendoComboBox").value()) : (0)), proveedorID: (($("#inputProveedor").data("kendoComboBox").value() != "") ? ($("#inputProveedor").data("kendoComboBox").value()) : (0)), requisicionID: (($("#inputRequisicion").data("kendoComboBox").value() != "") ? ($("#inputRequisicion").data("kendoComboBox").value()) : (0)), equipoID: (($("#inputFuente").data("kendoComboBox").value() != "") ? ($("#inputFuente").data("kendoComboBox").value()) : (0)), turnoID: (($("#inputTurno").data("kendoComboBox").value() != "") ? ($("#inputTurno").data("kendoComboBox").value()) : (0)) }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: (($("#inputProyecto").data("kendoComboBox").value() != "") ? ($("#inputProyecto").data("kendoComboBox").value()) : (0)), tipoPruebaID: (($("#inputPrueba").data("kendoComboBox").value() != "") ? ($("#inputPrueba").data("kendoComboBox").value()): (0)), proveedorID: (($("#inputProveedor").data("kendoComboBox").value() != "") ? ($("#inputProveedor").data("kendoComboBox").value()): (0)), requisicionID: (($("#inputRequisicion").data("kendoComboBox").value() != "") ? ($("#inputRequisicion").data("kendoComboBox").value()): (0)), equipoID: (($("#inputFuente").data("kendoComboBox").value() != "") ? ($("#inputFuente").data("kendoComboBox").value()): (0)), turnoID: (($("#inputTurno").data("kendoComboBox").value() != "") ? ($("#inputTurno").data("kendoComboBox").value()): (0)) }).done(function(data) {
         data = jQuery.parseJSON(data);
         if (Error(data)) {
             $("#grid").data('kendoGrid').dataSource.data([]);
@@ -295,7 +295,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
 
                     displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
                 } else {
-                    displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
+                    displayNotify("CapturaReporteGuardadoErroneo", "", '2');
                 }
 
             });

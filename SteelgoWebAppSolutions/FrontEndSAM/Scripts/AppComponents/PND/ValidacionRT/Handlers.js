@@ -91,6 +91,15 @@ function suscribirEventoRequisicion() {
         suggest: true,
         filter: "contains",
         change: function (e) {
+            var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
+            var tipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
+            var proveedorID = $("#inputProveedor").data("kendoComboBox").value();
+            var requisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+
+
+            //if (proyectoID != "" && proyectoID != 0 && tipoPruebaID != "" && tipoPruebaID != 0 && proveedorID != "" && proveedorID != 0)
+            AjaxGetListaElementos(proyectoID, tipoPruebaID, proveedorID, requisicionID);
+                //AjaxGetListaRequisiciones(proyectoID, tipoPruebaID, proveedorID);
         }
     });
 }

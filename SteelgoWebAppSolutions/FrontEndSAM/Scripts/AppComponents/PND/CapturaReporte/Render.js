@@ -9,6 +9,28 @@ function RenderNumeroPlacas(container, options) {
     });
 }
 
+function RenderTamano(container, options) {
+    var dataItem;
+    $('<input data-text-field="Tamano" id=' + options.model.uid + ' data-value-field="Tamano" data-bind="value:' + options.field + '"/>')
+    .appendTo(container)
+    .kendoNumericTextBox({
+        format: "#.0000",
+        min: 0
+    });
+}
+
+function RenderDensidad(container, options) {
+    var dataItem;
+    $('<input data-text-field="Densidad" id=' + options.model.uid + ' data-value-field="Densidad" data-bind="value:' + options.field + '"/>')
+    .appendTo(container)
+    .kendoNumericTextBox({
+        format: "#.0000",
+        min: 0
+    });
+}
+
+
+
 function renderDataSourceNumeroPlacas(spoolJunta, junta, numeroControl) {
     //alert(spoolJunta);
     //var infoResults = new Array($("#grid").data("kendoGrid").dataSource._data.NumeroPlacas);
@@ -124,6 +146,7 @@ function RenderGridDetalle(container, options) {
       navigatable: true,
   });
 
+    //CustomisaGrid($("#grid"));
 };
 
 
@@ -438,6 +461,7 @@ function disableEnableView(disable) {
         $("#inputRequisicion").data("kendoComboBox").enable(true);
         $("#inputFuente").data("kendoComboBox").enable(true);
         $("#inputTurno").data("kendoComboBox").enable(true);
+        $("#inputPrueba").data("kendoComboBox").enable(true);
 
         $("#btnAgregar").attr("disabled", false);
 
@@ -457,6 +481,7 @@ function cleanView() {
     $("#inputRequisicion").data("kendoComboBox").value("");
     $("#inputFuente").data("kendoComboBox").value("");
     $("#inputTurno").data("kendoComboBox").value("");
+    $("#inputPrueba").data("kendoComboBox").value("");
     
     $("#grid").data("kendoGrid").dataSource.data([]);
     //if (paramReq == null) {

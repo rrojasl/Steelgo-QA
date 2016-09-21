@@ -41,7 +41,7 @@ function AjaxObtenerElementoRequisicion(paramReq) {
             $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
             $("#inputRequisicion").data("kendoComboBox").dataSource.data(data.listaRequisicion);
             $("#inputRequisicion").data("kendoComboBox").value(data.RequisicionID);
-
+            changeLabel(data.TipoPruebaID);
             AjaxObtieneDetalleRequisicion();
         }
     });
@@ -204,40 +204,10 @@ function AjaxObtieneDetalleRequisicion() {
                 for (var i = 0; i < data.length; i++) {
                     ds.add(data[i]);
                     tipoPrueba = data[i].TipoPruebaID;
-                }
-                var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
-                if(Requisicion.TipoPruebaID == 12){
-                    $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicasDocto[$("#language").data("kendoDropDownList").value()]);
-                    $("#lblCondicionesPlacasOGraficas").text(_dictionary.lblCondicionesFisicasDocto[$("#language").data("kendoDropDownList").value()]);
-                } else {
-                    $("#grid th[data-field=DocumentoEstatus]").html(_dictionary.columnCondicionesFisicasSL[$("#language").data("kendoDropDownList").value()]);
-                    $("#lblCondicionesPlacasOGraficas").text(_dictionary.lblCondicionesFisicasSL[$("#language").data("kendoDropDownList").value()]);
-                }
-                disableDocumentoDefecto();
+                }                
             }
         });
     }
-}
-
-function disableDocumentoDefecto() {
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var filters = ds.filter();
-    var allData = ds.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-    if(data.length>0){        
-        for (var i = 0; i < ds._data.length; i++) {
-            if (data[i] != undefined) {
-                if (data[i].DocumentoEstatusID == 1) {
-                    data[i].__proto__.fields.DocumentoDefecto.editable = false;
-                } else {
-                    data[i].__proto__.fields.DocumentoDefecto.editable = true;
-                }
-            }
-            
-        }
-    }
-    
 }
 
 function AjaxGuardarCaptura(ds, guardarYNuevo) {
@@ -315,10 +285,10 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 }
                 cont++;
         }
-        Captura[0].Detalles = listaDetalles;
-
+        var TipoPrueba = $("#inputTipoPrueba").data("kendoComboBox").dataItem($("#inputTipoPrueba").data("kendoComboBox").select());
         if (!ExistRowEmpty(listaDetalles)) {
-            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID }).done(function (data) {
+            Captura[0].Detalles = listaDetalles;
+            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                     if (guardarYNuevo) {
@@ -341,8 +311,9 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                 visible: false,
-                width: "auto",
-                height: "auto",
+                width: 450,
+                height: 70,
+                draggable: false,
                 modal: true,
                 animation: {
                     close: false,
@@ -355,15 +326,40 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
 
             ventanaConfirm.open().center();
             $("#yesButton").click(function () {
+                var x = 0;
+                var listaDetallesGuardar = [];
+                for (var i = 0; i < listaDetalles.length; i++) {
+                    if (listaDetalles[i].Estatus == 1) {
+                        listaDetallesGuardar[x] = {
+                            Accion: "",
+                            EntregaPlacasGraficasID: "",
+                            RequisicionID: "",
+                            OrdenTrabajoID: "",
+                            SpoolID: "",
+                            JuntaID: "",
+                            DocumentoRecibidoID: "",
+                            DocumentoEstatusID: "",
+                            DocumentoDefectoID: "",
+                            Estatus: 1
+                        };
 
-                for (var i = 0; i < Captura[0].Detalles.length; i++) {
-                    if (Captura[0].Detalles[i].Estatus == 0) {
-                        Captura[0].Detalles.pop(Captura[0].Detalles[i]);
+                        listaDetallesGuardar[x].Accion = ds[i].Accion;
+                        listaDetallesGuardar[x].EntregaPlacasGraficasID = ds[i].EntregaPlacasGraficasID;
+                        listaDetallesGuardar[x].RequisicionID = ds[i].RequisicionID;
+                        listaDetallesGuardar[x].OrdenTrabajoID = ds[i].OrdenTrabajoID;
+                        listaDetallesGuardar[x].SpoolID = ds[i].SpoolID;
+                        listaDetallesGuardar[x].JuntaID = ds[i].JuntaSpoolID;
+                        listaDetallesGuardar[x].DocumentoRecibidoID = ds[i].DocumentoRecibidoID;
+                        listaDetallesGuardar[x].DocumentoEstatusID = ds[i].DocumentoEstatusID;
+                        listaDetallesGuardar[x].DocumentoDefectoID = ds[i].DocumentoDefectoID;
+
+                        x++;
                     }
                 }
 
+                Captura[0].Detalles = listaDetallesGuardar;
                 if(Captura[0].Detalles.length>0){
-                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID }).done(function (data) {
+                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                             if (guardarYNuevo) {
@@ -380,6 +376,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                         }
                         ventanaConfirm.close();
                     });
+                    ventanaConfirm.close();
                 } else {
                     ventanaConfirm.close();
                     displayNotify("EntregaPlacasGraficasExcepcionGuardado", "", '1');

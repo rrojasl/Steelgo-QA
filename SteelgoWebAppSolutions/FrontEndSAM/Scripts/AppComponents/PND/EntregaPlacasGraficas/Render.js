@@ -63,13 +63,11 @@ function RenderComboBoxDocumentoEstatus(container, options) {
                     options.model.DocumentoEstatusID = dataItem.DocumentoEstatusID;
                     options.model.EstatusCaptura = 1;
 
-                    if(dataItem.DocumentoEstatusID == 2){
-                        options.model.__proto__.fields.DocumentoDefecto.editable = true;
-                    } else {
+                    if (dataItem.DocumentoEstatusID != 2) {
                         options.model.DocumentoDefectoID = 0;
                         options.model.DocumentoDefecto = "";
-                        options.model.__proto__.fields.DocumentoDefecto.editable = false;
                     }
+                        
                 }
                 else {
                     options.model.DocumentoEstatus = ObtenerDocumentoEstatusCorrecto(options.model.ListaEstatusDocumento, options.model.DocumentoEstatusID);
@@ -106,7 +104,7 @@ function RenderComboBoxDefectoDocumento(container, options) {
                 if (dataItem != undefined) {
                     options.model.DocumentoDefecto = dataItem.DocumentoDefectoNombre;
                     options.model.DocumentoDefectoID = dataItem.DocumentoDefectoID;
-                        options.model.EstatusCaptura = 1;
+                    options.model.EstatusCaptura = 1;
                 }
                 else {
                     options.model.DocumentoDefecto = ObtenerDocumentoDefectoCorrecto(options.model.ListaDefectoDocumento, options.model.DocumentoDefectoID);

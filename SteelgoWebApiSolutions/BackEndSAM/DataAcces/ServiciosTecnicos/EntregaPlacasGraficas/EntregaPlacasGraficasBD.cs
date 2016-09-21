@@ -190,7 +190,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaTipoPrueba.Add(new TipoPrueba
                         {
                             TipoPruebaID = item.TipoPruebaID,
-                            Nombre = item.Nombre
+                            Nombre = item.Nombre,
+                            TipoPruebaPorSpool = item.TipoPruebaPorSpool.GetValueOrDefault()
                         });
                     }
 
@@ -330,7 +331,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             DocumentoRecibido = item.DocumentoRecibido,
                             DocumentoEstatusID = item.EntregaPlacasGraficasID == 0 ? 1 : item.DocumentoEstatusID,                                                 
                             DocumentoEstatus = item.EntregaPlacasGraficasID == 0 ? estatusDefault : item.DocumentoEstatus,
-                            DocumentoDefectoID = item.DocumentoDefectoID,
+                            DocumentoDefectoID = item.DocumentoDefectoID.GetValueOrDefault(),
                             DocumentoDefecto = item.DefectoDocumento,
                             EstatusCaptura = 0,
                             ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
@@ -380,7 +381,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaTipoPrueba.Add(new TipoPrueba());
                         listaTipoPrueba.Add(new TipoPrueba {
                             TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
-                            Nombre = result.TipoPrueba
+                            Nombre = result.TipoPrueba,
+                            TipoPruebaPorSpool = result.TipoPruebaPorSpool.GetValueOrDefault()
                         });
 
                         List<Proveedor> listaProveedor = new List<Proveedor>();
@@ -398,6 +400,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             RequisicionID = result.RequisicionID,
                             ProyectoID = result.ProyectoID,
                             NombreRequisicion = result.NumeroRequisicion,
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
                             ProveedorID = result.ProveedorID
                         });
 
@@ -428,14 +431,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
-        public object InsertarCapturaEntregaPlacasGraficas(DataTable dtDetalleCaptura, int usuario, string lenguaje, int requisicionID)
+        public object InsertarCapturaEntregaPlacasGraficas(DataTable dtDetalleCaptura, int usuario, string lenguaje, int requisicionID, int tipoPruebaPorSpool)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID", requisicionID.ToString()} };
+                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID", requisicionID.ToString()}, { "@TipoPruebaPorSpool", tipoPruebaPorSpool.ToString()} };
 
                     _SQL.Ejecuta(Stords.GUARDACAPTURAENTREGAPLACASGRAFICAS, dtDetalleCaptura, "@EntregaPlacasGraficas", parametro);
 

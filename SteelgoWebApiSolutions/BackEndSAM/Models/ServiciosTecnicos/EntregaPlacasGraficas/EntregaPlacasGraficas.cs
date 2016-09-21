@@ -96,12 +96,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
             RequisicionID = 0;
             ProyectoID = 0;
             NombreRequisicion = "";
+            TipoPruebaID = 0;
             ProveedorID = 0;
         }
 
         public int RequisicionID { get; set; }
         public int ProyectoID { get; set; }
         public string NombreRequisicion { get; set; }
+        public int TipoPruebaID { get; set; }
         public int ProveedorID { get; set; }
     }
 
@@ -134,9 +136,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         {
             TipoPruebaID = 0;
             Nombre = "";
+            TipoPruebaPorSpool = 0;
         }
         public int TipoPruebaID { get; set; }
         public string Nombre { get; set; }
+        public int TipoPruebaPorSpool { get; set; }
     }
 
     public class ElementoRequisicion
