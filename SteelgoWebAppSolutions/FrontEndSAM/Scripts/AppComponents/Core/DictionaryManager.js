@@ -7709,11 +7709,11 @@ _dictionary = {
     },
     "CapturaReporteGridColumnTamano": {
         "es-MX": "Tamaño",
-        "en-US": "Tamano"
+        "en-US": "Size"
     },
     "CapturaReporteGridColumnDensidad": {
         "es-MX": "Densidad",
-        "en-US": "Densidad"
+        "en-US": "Density"
     },
     "CapturaReporteGridColumnInformacionResultados": {
         "es-MX": "Detalle por placa",
@@ -7728,16 +7728,16 @@ _dictionary = {
         "en-US": "Control"
     },
     "CapturaReporteGridColumnEtiquetaJunta": {
-        "es-MX": "Etiqueta",
-        "en-US": "Label"
+        "es-MX": "Requisición",
+        "en-US": "Requisition"
     },
     "CapturaReporteGridColumnClasificacionPND": {
         "es-MX": "Clasificacion",
         "en-US": "Clasification"
     },
     "CapturaReporteGridColumnTipoPrueba": {
-        "es-MX": "Tipo",
-        "en-US": "Type"
+        "es-MX": "Tipo Prueba",
+        "en-US": "Test Type"
     },
     "CapturaReporteGridColumnObservaciones": {
         "es-MX": "Observaciones",
@@ -7801,9 +7801,12 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
-
+    "CapturaReporteGuardadoErroneo": {
+        "es-MX": "No hay elementos por guardar.",
+        "en-US": "Not have information to save."
+    },
     "CapturaReportePruebasMensajeEliminarDefecto": {
-        "es-MX": "Seguro quiere eliminar este regitro?",
+        "es-MX": "Seguro quiere eliminar este registro?",
         "en-US": "Sure you want to delete this record?"
     },
     "CapturaReportePruebasMensajeEliminarDatosCapturados": {

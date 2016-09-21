@@ -295,7 +295,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
 
                     displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
                 } else {
-                    displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
+                    displayNotify("CapturaReporteGuardadoErroneo", "", '2');
                 }
 
             });
