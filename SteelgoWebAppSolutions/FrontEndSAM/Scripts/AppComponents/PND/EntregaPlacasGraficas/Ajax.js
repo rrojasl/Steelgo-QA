@@ -343,15 +343,15 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                             Estatus: 1
                         };
 
-                        listaDetallesGuardar[x].Accion = ds[i].Accion;
-                        listaDetallesGuardar[x].EntregaPlacasGraficasID = ds[i].EntregaPlacasGraficasID;
-                        listaDetallesGuardar[x].RequisicionID = ds[i].RequisicionID;
-                        listaDetallesGuardar[x].OrdenTrabajoID = ds[i].OrdenTrabajoID;
-                        listaDetallesGuardar[x].SpoolID = ds[i].SpoolID;
-                        listaDetallesGuardar[x].JuntaID = ds[i].JuntaSpoolID;
-                        listaDetallesGuardar[x].DocumentoRecibidoID = ds[i].DocumentoRecibidoID;
-                        listaDetallesGuardar[x].DocumentoEstatusID = ds[i].DocumentoEstatusID;
-                        listaDetallesGuardar[x].DocumentoDefectoID = ds[i].DocumentoDefectoID;
+                        listaDetallesGuardar[x].Accion = listaDetalles[i].Accion;
+                        listaDetallesGuardar[x].EntregaPlacasGraficasID = listaDetalles[i].EntregaPlacasGraficasID;
+                        listaDetallesGuardar[x].RequisicionID = listaDetalles[i].RequisicionID;
+                        listaDetallesGuardar[x].OrdenTrabajoID = listaDetalles[i].OrdenTrabajoID;
+                        listaDetallesGuardar[x].SpoolID = listaDetalles[i].SpoolID;
+                        listaDetallesGuardar[x].JuntaID = listaDetalles[i].JuntaID;
+                        listaDetallesGuardar[x].DocumentoRecibidoID = listaDetalles[i].DocumentoRecibidoID;
+                        listaDetallesGuardar[x].DocumentoEstatusID = listaDetalles[i].DocumentoEstatusID;
+                        listaDetallesGuardar[x].DocumentoDefectoID = listaDetalles[i].DocumentoDefectoID;
 
                         x++;
                     }
