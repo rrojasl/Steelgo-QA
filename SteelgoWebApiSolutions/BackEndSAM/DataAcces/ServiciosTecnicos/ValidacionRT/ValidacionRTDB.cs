@@ -294,7 +294,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                     //cad.Append('[');
                     for (int i = 0; i < result.Count; i++)
                     {
-                        cad.Append("{\"ReporteRTResultadosID\": \"" + result[i].ReporteRTResultadosID + "\", \"ReporteRTID\":\"" + result[i].ReporteRTID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"Ubicacion:\": \"" + result[i].Ubicacion + "\", \"Resultado:\": \"" + result[i].Resultado + "\", \"DetalleResultados\": [" + ObtenerReportesRTResultadosDetalle(result[i].OrdenTrabajoID, result[i].SpoolID, result[i].JuntaSpoolID.GetValueOrDefault()) + "] }");
+                        cad.Append("{\"ReporteRTResultadosID\": \"" + result[i].ReporteRTResultadosID + "\", \"ReporteRTID\":\"" + result[i].ReporteRTID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"Ubicacion\": \"" + result[i].Ubicacion + "\", \"Resultado\": \"" + result[i].Resultado + "\", \"DetalleResultados\": [" + ObtenerReportesRTResultadosDetalle(result[i].ReporteRTResultadosID, result[i].OrdenTrabajoID, result[i].SpoolID, result[i].JuntaSpoolID.GetValueOrDefault()) + "] }");
                         if (i != (result.Count - 1))
                             cad.Append(',');
                     }
@@ -311,14 +311,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
-        public string ObtenerReportesRTResultadosDetalle(int ordenTrabajoID, int spoolID, int juntaSpoolID)
+        public string ObtenerReportesRTResultadosDetalle(int reporteResultadosID, int ordenTrabajoID, int spoolID, int juntaSpoolID)
         {
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(reporteResultadosID,ordenTrabajoID, spoolID, juntaSpoolID).ToList();
 
                     System.Text.StringBuilder cad = new System.Text.StringBuilder();
                     //cad.Append('[');
