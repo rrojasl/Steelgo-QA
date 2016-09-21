@@ -4,7 +4,7 @@ function IniciarCapturaPlacasGraficas() {
 }
 
 function changeLanguageCall() {
-    var paramReq = getParameterByName('requisicionID');
+    var paramReq = getParameterByName('requisicion');
     
     cargarGrid();
 
@@ -26,7 +26,7 @@ function SiguienteProceso(paramReq)
         url = "/PND/ValidacionRT?leng=" + $("#language").data("kendoDropDownList").value();
     }else{
         url = "/PND/ValidacionRT?leng=" + $("#language").data("kendoDropDownList").value()
-            + "&requisicionID="+paramReq;
+            + "&requisicion="+paramReq;
     }
     $("#EntregaResultadosValidarResultadosSup").attr("href", url);
     $("#EntregaResultadosValidarResultadosInf").attr("href", url);
