@@ -225,15 +225,15 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                     }
                 }
 
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
-                dtDetalleCaptura.Columns.RemoveAt(10);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
+                dtDetalleCaptura.Columns.RemoveAt(11);
 
                 dtDetalleResultados.Columns.RemoveAt(8);
                 dtDetalleResultados.Columns.RemoveAt(8);

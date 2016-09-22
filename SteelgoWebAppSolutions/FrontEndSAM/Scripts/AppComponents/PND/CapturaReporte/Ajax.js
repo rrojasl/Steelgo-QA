@@ -176,6 +176,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 SpoolID: 0,
                 JuntaSpoolID: 0,
                 Accion: "",
+                Estatus: 0,
                 SpoolJunta: "",
                 Junta: "",
                 EtiquetaJunta: "",
@@ -198,6 +199,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].SpoolID = ds[i].SpoolID;
             listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
             listaDetalles[cont].Accion = ds[i].Accion;
+            listaDetalles[cont].Estatus = ds[i].Estatus;
             listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
             listaDetalles[cont].Junta = ds[i].Junta;
             listaDetalles[cont].EtiquetaJunta = ds[i].EtiquetaJunta;

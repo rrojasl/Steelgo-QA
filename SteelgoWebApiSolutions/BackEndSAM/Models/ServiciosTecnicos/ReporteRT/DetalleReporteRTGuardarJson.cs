@@ -17,6 +17,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string ResultadoConciliacion { get; set; }
         public string RazonNoConciliacion { get; set; }
         public int Accion { get; set; }
+        public int Estatus { get; set; }
 
         public int SpoolJunta { get; set; }
         public int Junta { get; set; }
