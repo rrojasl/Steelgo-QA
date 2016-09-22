@@ -42,38 +42,45 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        //NumeroControl: { type: "string", editable: false },
-                        //Etiqueta: { type: "string", editable: false },
-                        //ClasificacionPND: { type: "string", editable: false },
-                        //TipoPrueba: { type: "string", editable: false },
-                        //Observaciones: { type: "string", editable: false },
-                        //CodigoAsme: { type: "string", editable: false },
-                        //NumeroPlacas: { type: "string", editable: false },
-                        //Tamañomm: { type: "string", editable: false },
-                        //Densidad: { type: "string", editable: false },
-                        //Ubicacion: { type: "string", editable: false },
-                        //Resultado: { type: "string", editable: false },
-                        //Defectos: { type: "string", editable: false },
-                        //Conciliado: { type: "string", editable: true },
-                        //Comentario: { type: "string", editable: true },
-                        //RazonRechazo: { type: "string", editable: false },
-                        //Limpiar: { type: "string", editable: false },
-                        //Firmado: { type: "string", editable: false }
-
-                        SpoolJunta: { type: "string", editable: false },
-                        Junta: { type: "string", editable: false },
                         NumeroControl: { type: "string", editable: false },
-                        EtiquetaJunta: { type: "string", editable: false },
+                        Etiqueta: { type: "string", editable: false },
                         ClasificacionPND: { type: "string", editable: false },
                         TipoPrueba: { type: "string", editable: false },
                         Observaciones: { type: "string", editable: false },
                         CodigoAsme: { type: "string", editable: false },
                         NumeroPlacas: { type: "number", editable: true },
-                        Tamano: { type: "number", editable: true },
+                        Tamanomm: { type: "number", editable: true },
                         Densidad: { type: "number", editable: true },
-                        ResultadoConciliacion: { type: "string", editable: true },
-                        RazonNoConciliacion: { type: "string", editable: true },
-                        InformacionResultados: { type: "string", editable: true }
+                        Ubicacion: { type: "string", editable: false },
+                        Resultado: { type: "string", editable: false },
+                        Defectos: { type: "string", editable: false },
+                        Conciliado: { type: "string", editable: true },
+                        Comentario: { type: "string", editable: true },
+                        RazonRechazo: { type: "string", editable: false },
+                        Comentario: { type: "string", editable: true },
+                        Limpiar: { type: "string", editable: false },
+                        Firmado: { type: "string", editable: false },
+                        InformacionResultados: { type: "string", editable: true },
+
+                        ReporteRTID: { type: "number", editable: false },
+                        RequisicionID: { type: "number", editable: false },
+                        OrdenTrabajoID: { type: "number", editable: false },
+                        SpoolID: { type: "number", editable: false },
+                        JuntaSpoolID: { type: "number", editable: false },
+
+                        //SpoolJunta: { type: "string", editable: false },
+                        //Junta: { type: "string", editable: false },
+                        //NumeroControl: { type: "string", editable: false },
+                        //EtiquetaJunta: { type: "string", editable: false },
+                        //ClasificacionPND: { type: "string", editable: false },
+                        //TipoPrueba: { type: "string", editable: false },
+                        //Observaciones: { type: "string", editable: false },
+                        //CodigoAsme: { type: "string", editable: false },
+                        //NumeroPlacas: { type: "number", editable: true },
+                        //Tamano: { type: "number", editable: true },
+                        //Densidad: { type: "number", editable: true },
+                        //ResultadoConciliacion: { type: "string", editable: true },
+                        //RazonNoConciliacion: { type: "string", editable: true },
                     }
                 }
             },
@@ -107,39 +114,41 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            //{ field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            //{ field: "Etiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
-            //{ field: "ClasificacionPND", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "85px" },
-            //{ field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: true, width: "137px" },
-            //{ field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "140px" },
-            //{ field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: true, width: "145px" },
-            //{ field: "NumeroPlacas", title: _dictionary.columnNumPlacas[$("#language").data("kendoDropDownList").value()], filterable: true, width: "125px" },
-            //{ field: "Tamañomm", title: _dictionary.columnTamaño[$("#language").data("kendoDropDownList").value()], filterable: true, width: "149px" },
-            //{ field: "Densidad", title: _dictionary.columnDensidad[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
-            //{ field: "Ubicacion", title: _dictionary.columnUbicacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "122px" },
-            //{ field: "Resultado", title: _dictionary.columnResultado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "124px" },
-            //{ field: "Defectos", title: _dictionary.columnDefectos[$("#language").data("kendoDropDownList").value()], filterable: true, width: "116px" },
-            //{ field: "Conciliado", title: _dictionary.columnConciliado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "126px" },
-            //{ field: "RazonRechazo", title: _dictionary.columnRazonRechazo[$("#language").data("kendoDropDownList").value()], filterable: true, width: "180px" },
-            //{ field: "Observacion", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "160px" },
-            //{ field: "Limpiar", title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
-            //{ field: "Firmado", title: _dictionary.columnFirmado[$("#language").data("kendoDropDownList").value()], filterable: true, width: "112px" }
-
-            { field: "SpoolJunta", title: _dictionary.CapturaReporteGridColumnSpoolJunta[/*"es-MX"*/$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "Junta", title: _dictionary.CapturaReporteGridColumnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "50px" },
-            { field: "NumeroControl", title: _dictionary.CapturaReporteGridColumnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
-            { field: "EtiquetaJunta", title: _dictionary.CapturaReporteGridColumnEtiquetaJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "ClasificacionPND", title: _dictionary.CapturaReporteGridColumnClasificacionPND[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px" },
-            { field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
-            { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
-            { field: "Tamano", title: _dictionary.CapturaReporteGridColumnTamano[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", /*editor: RenderTamano,*/ format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "Densidad", title: _dictionary.CapturaReporteGridColumnDensidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", /*editor: RenderDensidad,*/ format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
-            { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Etiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
+            { field: "ClasificacionPND", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
+            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "137px" },
+            { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px" },
+            { field: "NumeroPlacas", title: _dictionary.columnNumPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: RenderNumeroPlacas, width: "125px" },
+            { field: "Tamanomm", title: _dictionary.columnTamaño[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: RenderTamano, format: "{0:n4}", width: "149px" },
+            { field: "Densidad", title: _dictionary.columnDensidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: RenderDensidad, format: "{0:n4}", width: "120px" },
+            { field: "Ubicacion", title: _dictionary.columnUbicacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "122px" },
+            { field: "Resultado", title: _dictionary.columnResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "124px" },
+            { field: "Defectos", title: _dictionary.columnDefectos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "116px" },
             { field: "InformacionResultados", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: RenderGridDetalle, template: "Tiene:  Numero de placas" },
+            { field: "Conciliado", title: _dictionary.columnConciliado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "126px" },
+            { field: "RazonRechazo", title: _dictionary.columnRazonRechazo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
+            { field: "Comentario", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "Firmado", title: _dictionary.columnFirmado[$("#language").data("kendoDropDownList").value()], filterable: false, width: "112px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+
+            //{ field: "SpoolJunta", title: _dictionary.CapturaReporteGridColumnSpoolJunta[/*"es-MX"*/$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            //{ field: "Junta", title: _dictionary.CapturaReporteGridColumnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
+            //{ field: "NumeroControl", title: _dictionary.CapturaReporteGridColumnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
+            //{ field: "EtiquetaJunta", title: _dictionary.CapturaReporteGridColumnEtiquetaJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "137px" },
+            //{ field: "ClasificacionPND", title: _dictionary.CapturaReporteGridColumnClasificacionPND[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
+            //{ field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px" },
+            //{ field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "125px" },
+            //{ field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "149px" },
+            //{ field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "120px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
+            //{ field: "Tamano", title: _dictionary.CapturaReporteGridColumnTamano[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "122px", /*editor: RenderTamano,*/ format: "{0:n4}", attributes: { style: "text-align:right;" } },
+            //{ field: "Densidad", title: _dictionary.CapturaReporteGridColumnDensidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "124px", /*editor: RenderDensidad,*/ format: "{0:n4}", attributes: { style: "text-align:right;" } },
+            //{ field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "116px" },
+            //{ field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
+            //{ field: "InformacionResultados", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "500px", editor: RenderGridDetalle, template: "Tiene:  Numero de placas" },
 
         ]
     });
@@ -151,6 +160,21 @@ function isEditable(fieldName, model) {
         return model.Conciliado !== 1;
     }
     return true;
+}
+
+function limpiarRenglon(e) {
+    e.preventDefault();
+    if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //itemToClean.DocumentoRecibido = "";
+        //itemToClean.DocumentoRecibidoID = 0;
+        //itemToClean.DocumentoEstatus = "";
+        //itemToClean.DocumentoEstatusID = 0;
+        //itemToClean.DocumentoDefecto = "";
+        //itemToClean.DocumentoDefectoID = 0;
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataSource.sync();
+    }
 }
 
 //function CargarGridPopUp() {
