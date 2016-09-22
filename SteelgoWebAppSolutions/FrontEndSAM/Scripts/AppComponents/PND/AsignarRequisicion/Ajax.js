@@ -9,6 +9,11 @@ function AjaxObtenerProyectos() {
         $("#inputProyecto").data("kendoComboBox").value("");
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
 
+        $("#inputPrueba").data("kendoComboBox").value("");
+        $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
+        $("#inputRequisicion").data("kendoComboBox").value("");
+        $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+
         if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
             $("#inputProyecto").data("kendoComboBox").select(1);
             AjaxPruebas();
@@ -24,12 +29,14 @@ function AjaxObtenerProyectos() {
 
 
 function AjaxPruebas() {
-    if ($("#inputProyecto").val() != "") {
+    if ($("#inputProyecto").data("kendoComboBox").text() != "") {
         loadingStart();
         $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (Error(data)) {
                 $("#inputPrueba").data("kendoComboBox").value("");
                 $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
+                $("#inputRequisicion").data("kendoComboBox").value("");
+                $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
 
                 if ($("#inputPrueba").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputPrueba").data("kendoComboBox").select(1);
@@ -42,7 +49,7 @@ function AjaxPruebas() {
 
 
 function AjaxRequisicion() {
-    if ($("#inputPrueba").data("kendoComboBox").value() != "") {
+    if ($("#inputPrueba").data("kendoComboBox").text() != "") {
         loadingStart();
         $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), estatusID: 2 }).done(function (data) {
             if (Error(data)) {
@@ -223,7 +230,7 @@ function AjaxCargarRequisicionAsignacion() {
 
 }
 
-function AjaxCargarCamposPredeterminados() {
+function AjaxCargarCamposPredeterminados(capturaNormal) {
     loadingStart();
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoMuestra }).done(function (data) {
         if (Error(data)) {
@@ -244,6 +251,10 @@ function AjaxCargarCamposPredeterminados() {
         loadingStop();
     });
     suscribirEventoChangeRadio();
+    if (capturaNormal) {
+        AjaxObtenerProyectos();
+    }
+    
 
 }
 
@@ -311,7 +322,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (tipoGuardar == 1) {
                                 $("#grid").data("kendoGrid").dataSource.data([]);
-                                setTimeout(function () { AjaxObtenerProyectos(); }, 500);
+                                setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 500);
                                 opcionHabilitarView(false, "FieldSetView");
                             }
                             else {
@@ -517,8 +528,12 @@ function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID
                         }
                     }
                     else {
-                        for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
-                            data.push(dataItem.ListaElementosRequisicion[k]);
+                        for (var i = 0; i < ds.length; i++) {
+                            if (ds[i].CapacidadTurnoProveedorID == dataItem.CapacidadTurnoProveedorID) {
+                                for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
+                                    data.push(ds[i].ListaElementosRequisicion[k]);
+                                }
+                            }
                         }
                     }
                 }
@@ -537,7 +552,7 @@ function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID
 
 function AjaxObtenerElementoRequisicion(paramReq) {
 
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: paramReq }).done(function (data) {
+    $AsignarRequisicion.AsignarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: paramReq }).done(function (data) {
         if (data != null) {
             $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data.listaProyecto);

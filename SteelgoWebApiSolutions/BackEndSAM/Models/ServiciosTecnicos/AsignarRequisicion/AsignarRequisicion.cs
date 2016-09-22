@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral;
+﻿using BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas;
+using BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,4 +94,16 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public int CapacidadTurnoProveedorID { get; set; }
     }
 
+    public class ElementoRequisicion
+    {
+        public int RequisicionID { get; set; }
+        public int ProyectoID { get; set; }
+        public int TipoPruebaID { get; set; }
+        public int PatioID { get; set; }
+        public int ProveedorID { get; set; }
+        public List<EntregaPlacasGraficas.Proyecto> listaProyecto { get; set; }
+        
+        public List<EntregaPlacasGraficas.Requisicion> listaRequisicion { get; set; }
+        public List<EntregaPlacasGraficas.TipoPrueba> listaTipoPrueba { get; set; }
+    }
 }

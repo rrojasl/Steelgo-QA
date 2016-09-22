@@ -102,4 +102,16 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
         public int ProveedorEquipoID { get; set; }
         public List<ElementosRequisicion> ListaElementosAsignadosTurno { get; set; }
     }
+
+
+    public class ElementoRequisicion
+    {
+        public int RequisicionID { get; set; }
+        public int ProyectoID { get; set; }
+        public int TipoPruebaID { get; set; }
+        public int PatioID { get; set; }
+        public List<Proyecto> listaProyecto { get; set; }
+        public List<Requisicion> listaRequisicion { get; set; }
+        public List<TiposDePrueba> listaTipoPrueba { get; set; }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
+﻿using BackEndSAM.Models.Sam3General;
+using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
 using BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
@@ -229,6 +230,75 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                 return listaTurnoLaboralTotal;
             }
         }
+
+
+        public object ObtieneElementosRequisicion(string lenguaje, int requisicionID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Models.ServiciosTecnicos.AsignarRequisicion.ElementoRequisicion elemento = null;
+                    Sam3_ST_Get_AR_RequisicionParametro_Result result = ctx.Sam3_ST_Get_AR_RequisicionParametro(lenguaje,requisicionID).SingleOrDefault();
+
+                    if (result != null && result.RequisicionID != 0)
+                    {
+                        elemento = new Models.ServiciosTecnicos.AsignarRequisicion.ElementoRequisicion();
+
+                        List<Models.ServiciosTecnicos.EntregaPlacasGraficas.Proyecto> listaProyecto = new List<Models.ServiciosTecnicos.EntregaPlacasGraficas.Proyecto>();
+                        listaProyecto.Add(new Models.ServiciosTecnicos.EntregaPlacasGraficas.Proyecto());
+                        listaProyecto.Add(new Models.ServiciosTecnicos.EntregaPlacasGraficas.Proyecto
+                        {
+                            ProyectoID = result.ProyectoID,
+                            Nombre = result.Proyecto,
+                            PatioID = result.PatioID
+                              
+                        });
+
+                        List<Models.ServiciosTecnicos.EntregaPlacasGraficas.TipoPrueba> listaTipoPrueba = new List<Models.ServiciosTecnicos.EntregaPlacasGraficas.TipoPrueba>();
+                        listaTipoPrueba.Add(new Models.ServiciosTecnicos.EntregaPlacasGraficas.TipoPrueba());
+                        listaTipoPrueba.Add(new Models.ServiciosTecnicos.EntregaPlacasGraficas.TipoPrueba
+                        {
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            Nombre = result.TipoPrueba
+                        });
+
+
+                        List<Models.ServiciosTecnicos.EntregaPlacasGraficas.Requisicion> listaRequisicion = new List<Models.ServiciosTecnicos.EntregaPlacasGraficas.Requisicion>();
+                        listaRequisicion.Add(new Models.ServiciosTecnicos.EntregaPlacasGraficas.Requisicion());
+                        listaRequisicion.Add(new Models.ServiciosTecnicos.EntregaPlacasGraficas.Requisicion
+                        {
+                            RequisicionID = result.RequisicionID,
+                            ProyectoID = result.ProyectoID,
+                            NombreRequisicion = result.NumeroRequisicion,
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                        });
+
+
+                        elemento.RequisicionID = result.RequisicionID;
+                        elemento.ProyectoID = result.ProyectoID;
+                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
+                        elemento.listaProyecto = listaProyecto;
+                        elemento.listaTipoPrueba = listaTipoPrueba;
+                        elemento.listaRequisicion = listaRequisicion;
+                    }
+
+
+                    return elemento;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
 
         public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje)
         {

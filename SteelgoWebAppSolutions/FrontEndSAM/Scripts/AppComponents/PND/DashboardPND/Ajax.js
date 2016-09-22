@@ -84,15 +84,7 @@ function AjaxObtenerProveedor() {
                 if ($("#inputProveedor").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputProveedor").data("kendoComboBox").select(1);
                     $("#inputProveedor").data("kendoComboBox").trigger("change");
-                    var RequiereEquipo = $('#inputTipoPrueba').data("kendoComboBox").dataSource._data[$('#inputTipoPrueba').data("kendoComboBox").selectedIndex].RequiereEquipo;
-                    if (!RequiereEquipo) {
-                        
-
-                    }
-                    else {
-                        AjaxObtenerEquipo();
-
-                    }
+                    
                 }
                 else {
 
