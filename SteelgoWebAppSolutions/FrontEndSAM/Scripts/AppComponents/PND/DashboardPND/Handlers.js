@@ -4,7 +4,28 @@
     SuscribirEventoProveedor();
     SuscribirFechaInicio();
     suscribirEventoChangeRadio();
+    suscribirEventoElementos();
+    SuscribirEventoCerrarPopUpJuntas();
 }
+
+function suscribirEventoElementos() {
+
+    $(document).on('click', '.EnlaceDetalleElementos', function (e) {
+        e.preventDefault();
+        var grid = $("#grid").data("kendoGrid");
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        LlenarGridPopUp(dataItem);
+
+    });
+}
+
+function SuscribirEventoCerrarPopUpJuntas() {
+    $("#CerrarDetalleJunta").click(function (e) {
+        e.preventDefault();
+        $("#windowGrid").data("kendoWindow").close();
+    });
+}
+
 
 
 function suscribirEventoChangeRadio() {
@@ -83,7 +104,7 @@ function SuscribirFechaInicio() {
     $("#inputFechaInicio").kendoDatePicker({
         max: new Date(),
         change: function (e) {
-            
+
         }
     });
     //$("#inputFechaInicio").data("kendoDatePicker").setOptions({
@@ -93,7 +114,7 @@ function SuscribirFechaInicio() {
     $("#inputFechaFin").kendoDatePicker({
         max: new Date(),
         change: function (e) {
-            
+
         }
     });
     //$("#inputFechaFin").data("kendoDatePicker").setOptions({
@@ -103,7 +124,7 @@ function SuscribirFechaInicio() {
 
 function ActivarRefrescarGrid(idBoton) {
     $("#contenidoDashboard").css('display', 'block');
-    
+
     $("#tabEstatus").html("");
     tabActivo(idBoton);
     AjaxAccionesListado(idBoton);

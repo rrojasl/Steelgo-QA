@@ -104,12 +104,12 @@ function RenderGridDetalle(container, options) {
     .appendTo(container)
     .kendoGrid({
       dataSource: {
-          data: options.model.NumeroPlacas == "0" ? "" : options.model.InformacionResultados,
+          data: options.model.InformacionResultados,
           schema: {
               model: {
                   fields: {
                       Ubicacion: { type: "string", editable: false },
-                      Resultado: { type: "number", editable: true },
+                      Resultado: { type: "String", editable: true },
                       DetalleResultados: { type: "object", editable: true },
                   }
               }
@@ -153,7 +153,7 @@ function RenderGridDetalle(container, options) {
 function comboBoxResultado(container, options) {
     var dataItem;
 
-    $('<input required data-text-field="NombreCombo" id=' + options.model.uid + ' data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="NombreCombo" id=' + options.model.uid + ' data-value-field="ResultadoCombo" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             //autoBind: false,
@@ -198,7 +198,7 @@ function actualizaResultado(dataItem, nuevoValor) {
                 //else 
                 //    ubicacionTemp = j + '-' + 0;
                 if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Ubicacion == dataItem.Ubicacion) {
-                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado = nuevoValor.ResultadoCombo;
+                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado = nuevoValor.NombreCombo;
                     break;
                 }
             }

@@ -488,6 +488,7 @@ function suscribirEventoRequisiciones() {
                             AjaxGetListaElementos(requisicionID, tipoPruebaReq, proyectoReq, $('input:radio[name=Muestra]:checked').val());
                         }
                     }
+                    SiguienteProceso(dataItem.RequisicionID);
                 }
             }
             else {
@@ -552,6 +553,8 @@ function suscribirEventoRequisiciones() {
                                 AjaxGetListaElementos(requisicionID, tipoPruebaReq, proyectoReq, $('input:radio[name=Muestra]:checked').val());
                             }
                         }
+
+                        SiguienteProceso(dataItem.RequisicionID);
                     }
                     ventanaConfirm.close();
                 });

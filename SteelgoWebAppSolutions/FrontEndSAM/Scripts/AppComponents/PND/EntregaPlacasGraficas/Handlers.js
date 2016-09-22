@@ -22,7 +22,7 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicionID');
+            var paramReq = getParameterByName('requisicion');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
@@ -46,8 +46,9 @@ function SuscribirEventoProyecto() {
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false,
-                        width: "auto",
-                        height: "auto",
+                        width: 450,
+                        height: 70,
+                        draggable: false,
                         modal: true,
                         animation: {
                             close: function () {
@@ -106,7 +107,7 @@ function SuscribirEventoTipoPrueba() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicionID');
+            var paramReq = getParameterByName('requisicion');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
@@ -130,8 +131,9 @@ function SuscribirEventoTipoPrueba() {
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false,
-                        width: "auto",
-                        height: "auto",
+                        width: 450,
+                        height: 70,
+                        draggable: false,
                         modal: true,
                         animation: {
                             close: function () {
@@ -171,7 +173,7 @@ function SuscribirEventoTipoPrueba() {
                 }
 
             } else {
-                $("#inputProveedor").data("kendoComboBox").value("");
+                $("#inputTipoPrueba").data("kendoComboBox").value("");
             }
         }
     });
@@ -187,7 +189,7 @@ function SuscribirEventoProveedor() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicionID');
+            var paramReq = getParameterByName('requisicion');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {
@@ -205,8 +207,9 @@ function SuscribirEventoProveedor() {
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false,
-                        width: "auto",
-                        height: "auto",
+                        width: 450,
+                        height: 70,
+                        draggable: false,
                         modal: true,
                         animation: {
                             close: function () {
@@ -257,7 +260,7 @@ function SuscribirEventoRequisicion() {
         index: 3,
         change: function (e) {            
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var paramReq = getParameterByName('requisicionID');
+            var paramReq = getParameterByName('requisicion');
 
             if (dataItem != undefined) {
                 if (!validaInformacionCapturada()) {                    
@@ -281,8 +284,9 @@ function SuscribirEventoRequisicion() {
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false,
-                        width: "auto",
-                        height: "auto",
+                        width: 450,
+                        height: 70,
+                        draggable: false,
                         modal: true,
                         animation: {
                             close: function (e) {
@@ -328,7 +332,7 @@ function SuscribirEventoRequisicion() {
 
         if (e.keyCode == 13) {
 
-            var paramReq = getParameterByName('requisicionID');
+            var paramReq = getParameterByName('requisicion');
             var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
             if (Requisicion != undefined) {
                 if (!validaInformacionCapturada())
@@ -355,8 +359,9 @@ function SuscribirEventoRequisicion() {
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false,
-                        width: "auto",
-                        height: "auto",
+                        width: 450,
+                        height: 70,
+                        draggable: false,
                         modal: true,
                         animation: {
                             close: function (e) {
@@ -541,7 +546,7 @@ function SuscribirEventoGuardar() {
 }
 
 function cleanView() {
-    var paramReq = getParameterByName('requisicionID');
+    var paramReq = getParameterByName('requisicion');
 
     $("#inputProyecto").data("kendoComboBox").value("");
     $("#inputTipoPrueba").data("kendoComboBox").value("");

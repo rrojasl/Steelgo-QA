@@ -8,7 +8,7 @@ function changeLanguageCall() {
 
     cargarGrid();   
     AjaxCargarCamposPredeterminados();
-        
+    SiguienteProceso(paramReq);
     if(paramReq!=null){
         AjaxObtenerElementoRequisicion(paramReq);
     } else {
@@ -17,6 +17,20 @@ function changeLanguageCall() {
     
     document.title = _dictionary.ServiciosTecnicosEditarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
     
+}
+
+function SiguienteProceso(paramReq) {
+    var url = "";
+    if (paramReq == null) {
+        url = "/PND/AsignacionRequisicion?leng=" + $("#language").data("kendoDropDownList").value();
+    } else {
+        url = "/PND/AsignacionRequisicion?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&requisicion=" + paramReq;
+    }
+    $("#GenerarRequisicionASignarRequisicionSup").attr("href", url);
+    $("#GenerarRequisicionASignarRequisicionInf").attr("href", url);
+
+
 }
 
 function getParameterByName(name, url) {

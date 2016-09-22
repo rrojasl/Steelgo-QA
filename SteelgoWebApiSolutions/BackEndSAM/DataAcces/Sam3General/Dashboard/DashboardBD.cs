@@ -1,4 +1,7 @@
-﻿using DatabaseManager.Sam3;
+﻿using BackEndSAM.DataAcces.ServiciosTecnicos;
+using BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion;
+using BackEndSAM.Models.ServiciosTecnicos.DashboardPND;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
@@ -51,14 +54,37 @@ namespace BackEndSAM.DataAcces.Sam3General.Dashboard
             }
         }
 
-        public object ObtenerInformacionGrid(int requisicionID, string lenguaje)
+        public object ObtenerInformacionGrid(string lenguaje,int ProyectoID,int TipoPruebaID, int ProveedorID, string FechaInicial, string FechaFinal, int EstatusID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    
-                    return new object();
+                    List<DetalleDashboard> listadoDetalleDashboard = new List<DetalleDashboard>();
+                    List<Sam3_GET_RequisicionesDashboard_Result> result =  ctx.Sam3_GET_RequisicionesDashboard(lenguaje,ProyectoID,TipoPruebaID,ProveedorID,FechaInicial,FechaInicial,EstatusID).ToList();
+
+                    foreach (Sam3_GET_RequisicionesDashboard_Result item in result)
+                    {
+                        listadoDetalleDashboard.Add( new DetalleDashboard{
+                            RequisicionID = item.RequisicionID,
+                            Requisicion = item.NumeroRequisicion,
+                            TipoPrueba = item.TipoPrueba,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Equipo = item.Equipo,
+                            EquipoID = item.EquipoID.GetValueOrDefault(),
+                            EstatusRequisicion= item.EstatusRequisicion.GetValueOrDefault(),
+                            Fecha = item.Fecha,
+                            NumeroElementos = item.NumeroElementos.GetValueOrDefault(),
+                            Proveedor = item.Proveedor,
+                            ProveedorID = item.ProveedorID.GetValueOrDefault(),
+                            Turno = item.TurnoLaboral,
+                            TurnoLaboralID = item.TurnoLaboralID.GetValueOrDefault(),
+                            listaElementosRequisicion =  (List<ElementosRequisicion>) AsignarRequisicionBD.Instance.ObtenerElementosRequisicion(lenguaje, ProyectoID, item.TipoPruebaID.GetValueOrDefault(), item.RequisicionID),
+
+
+                        });
+                    }
+                    return listadoDetalleDashboard;
                 }
             }
             catch (Exception ex)

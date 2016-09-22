@@ -22,6 +22,8 @@ function changeLanguageCall() {
     //endRangeDate.data("kendoDatePicker").setOptions({
     //    format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     //});
+
+    SiguienteProceso("");
     CargarGrid();
     $("#tipoPrueba").data("kendoComboBox").value("");
     $("#Proyecto").data("kendoComboBox").value("");
@@ -36,6 +38,18 @@ function changeLanguageCall() {
     document.title = _dictionary.ServiciosTecnicosRequisicionPND[$("#language").data("kendoDropDownList").value()];
 };
 
+function SiguienteProceso(paramReq) {
+    var url = "";
+    if (paramReq == 0 || paramReq == undefined || paramReq == "") {
+        url = "/PND/AsignacionRequisicion?leng=" + $("#language").data("kendoDropDownList").value();
+    } else {
+        url = "/PND/AsignacionRequisicion?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&requisicion=" + paramReq;
+    }
+
+    $("#GenerarRequisicionASignarRequisicionSup").attr("href", url);
+    $("#GenerarRequisicionASignarRequisicionInf").attr("href", url);
+}
 
 function cargaInicialRequisicionEditar() {
     if (requisicionID != 0) {

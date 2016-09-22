@@ -67,7 +67,7 @@
     
     @*GRID*@
     <div class="row addedSectionInLine"  style="display:none;" id="contenidoDashboard">
-        <div id="divStatusRequisiciones" class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="z-index:999; position:absolute;" role="group" arial-label="tabs"></div>
+        <div id="divStatusRequisiciones" class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="z-index:999; position:absolute; padding-bottom:10px;" role="group" arial-label="tabs"></div>
         <br>
         
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -80,7 +80,28 @@
 
             </div>
     </div>
-    @*GRID*@
+    @*GRIDPOPUP*@
+    @*GRID POPUP*@
+    <div id="windowGrid" style="display: none; z-index:inherit;">
+
+        <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
+            <div class="form-group">
+                <div id="ContenedorGridPopUp">
+                    <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-5 col-md-5 col-lg-5"></div>
+            <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
+                <span id="botonCerrar"></span>
+            </a>
+        </div>
+
+    </div>
+
+
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/DashboardPND/Handlers.js"></script>
