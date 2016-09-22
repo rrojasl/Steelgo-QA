@@ -2,6 +2,9 @@
 var comboDefectos;
 
 function changeLanguageCall() {
+    var paramReq = getParameterByName('requisicion');
+
+    SiguienteProceso(paramReq);
     CargarGrid();
     //CargarGridPopUp();
     document.title = _dictionary.ImpresionResultadosTitle[$("#language").data("kendoDropDownList").value()];
@@ -10,6 +13,30 @@ function changeLanguageCall() {
     //AjaxCargarRequisicionesParaValidacion();
     setTimeout(function () { AjaxCargarCamposPredeterminados() }, 1000);
 };
+
+function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function SiguienteProceso(paramReq) {
+    var url = "";
+    if (paramReq == null) {
+        url = "/PND/ImpresionPruebas?leng=" + $("#language").data("kendoDropDownList").value();
+    } else {
+        url = "/PND/ImpresionPruebas?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&requisicion=" + paramReq;
+    }
+
+    $("#ImpresionResultadosSup").attr("href", url);
+    $("#ImpresionResultadosInf").attr("href", url);
+}
 
 function CargarGrid() {
     kendo.ui.Grid.fn.editCell = (function (editCell) {

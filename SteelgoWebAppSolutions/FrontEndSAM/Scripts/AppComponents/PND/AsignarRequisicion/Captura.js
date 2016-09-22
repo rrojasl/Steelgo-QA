@@ -1,7 +1,9 @@
 ﻿var editado = false;
 
 function changeLanguageCall() {
-    
+    var paramReq = getParameterByName('requisicion');
+
+    SiguienteProceso(paramReq);
     CargarGrid();
     CargarGridPopUp();
     document.title = _dictionary.ServiciosTecnicosAsignarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
@@ -28,7 +30,18 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function SiguienteProceso(paramReq) {
+    var url = "";
+    if (paramReq == null) {
+        url = "/PND/CapturaReporteRT?leng=" + $("#language").data("kendoDropDownList").value();
+    } else {
+        url = "/PND/CapturaReporteRT?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&requisicion=" + paramReq;
+    }
 
+    $("#EntregaresultadosSup").attr("href", url);
+    $("#EntregaresultadosINF").attr("href", url);
+}
 
 function CargarGrid() {
     kendo.ui.Grid.fn.editCell = (function (editCell) {
