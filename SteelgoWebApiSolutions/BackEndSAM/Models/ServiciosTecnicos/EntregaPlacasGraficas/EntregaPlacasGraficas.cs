@@ -125,9 +125,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         {
             ProyectoID = 0;
             Nombre = "";
+            PatioID = 0;
         }
         public int ProyectoID { get; set; }
         public string Nombre { get; set; }
+        public int PatioID { get; set; }
     }
 
     public class TipoPrueba

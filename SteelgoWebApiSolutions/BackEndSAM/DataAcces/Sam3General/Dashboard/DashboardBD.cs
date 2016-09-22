@@ -37,7 +37,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Dashboard
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Get_EstatusPorModulo_Result> result = ctx.Sam3_Get_EstatusPorModulo(modulo, lenguaje).ToList();
+                    List<Sam3_Get_EstatusPorModulo_Result> result = ctx.Sam3_Get_EstatusPorModulo(modulo, lenguaje).OrderBy(x => x.Orden).ToList();
 
                     return result;
                 }
@@ -79,9 +79,8 @@ namespace BackEndSAM.DataAcces.Sam3General.Dashboard
                             ProveedorID = item.ProveedorID.GetValueOrDefault(),
                             Turno = item.TurnoLaboral,
                             TurnoLaboralID = item.TurnoLaboralID.GetValueOrDefault(),
+                            Url = item.Url,
                             listaElementosRequisicion =  (List<ElementosRequisicion>) AsignarRequisicionBD.Instance.ObtenerElementosRequisicion(lenguaje, ProyectoID, item.TipoPruebaID.GetValueOrDefault(), item.RequisicionID),
-
-
                         });
                     }
                     return listadoDetalleDashboard;

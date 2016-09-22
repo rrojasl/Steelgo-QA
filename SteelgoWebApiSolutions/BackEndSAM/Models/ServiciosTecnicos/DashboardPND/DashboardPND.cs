@@ -21,6 +21,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.DashboardPND
         public string Equipo { get; set; }
         public int EstatusRequisicion { get; set; }
         public int NumeroElementos { get; set; }
+        public string Url { get; set; }
         public List<ElementosRequisicion> listaElementosRequisicion { get; set; }
         
     }

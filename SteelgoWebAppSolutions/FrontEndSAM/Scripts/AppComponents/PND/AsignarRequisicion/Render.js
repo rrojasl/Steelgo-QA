@@ -1,17 +1,19 @@
 ﻿function RenderComboBoxProveedor(container, options) {
-    //container  contiene las propiedades de la celda
-    //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
-
-    $('<input required data-text-field="Nombre" data-value-field="ProveedorID" data-bind="value:' + options.field + '"/>')
+    var textAnterior;
+    $('<input  data-text-field="Nombre" data-value-field="ProveedorID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
+            delay: 10,
             filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaProveedor,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
-
+            select: function (e) {
+                dataItem = this.dataItem(e.item.index());
+                textAnterior = e.sender._prev; 
+            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 editado = true;
@@ -22,35 +24,82 @@
                     if (dataItem.Nombre != "") {
                         if (!options.model.RequiereEquipo) {
                             options.model.ListaTurnoLaboral = obtenerTurnoLaboralProveedor(options.model, dataItem.TipoPruebaProveedorID);
+                            if (options.model.ListaTurnoLaboral.length == 2) {
+
+                                var JuntasAsignadasBusqueda = 0;
+                                if (options.model.RequiereEquipo) {
+                                    JuntasAsignadasBusqueda = getNumeroJuntasAsignadasEquipo(options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID);
+                                }
+                                else {
+                                    JuntasAsignadasBusqueda = getNumeroJuntasAsignadasProveedor(options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID)
+                                }
+
+
+                                var JuntasAsignadasFinal = parseInt(JuntasAsignadasBusqueda) + parseInt(options.model.CantidadJuntas);
+
+                                if (!options.model.RequiereEquipo) {
+                                    
+                                    options.model.CapacidadTurnoProveedorID = options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID;
+                                    options.model.CapacidadTurnoProveedorAnteriorID = options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID;
+
+                                    setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID);
+                                }
+                                else {
+
+                                    options.model.CapacidadTurnoEquipoID = options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID;
+                                    options.model.CapacidadTurnoEquipoAnteriorID = options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID;
+
+                                    setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID);
+
+                                }
+
+                                options.model.TurnoLaboral = options.model.ListaTurnoLaboral[1].Nombre;
+                                options.model.TurnoLaboralID = options.model.ListaTurnoLaboral[1].TurnoLaboralID;
+                                options.model.Capacidad = options.model.ListaTurnoLaboral[1].Capacidad;
+                                options.model.JuntasAsignadas = parseInt(JuntasAsignadasFinal).toString();
+                                $("#grid").data("kendoGrid").dataSource.sync();
+
+                            }
+                            else {
+                                options.model.TurnoLaboralID = 0;
+                                options.model.TurnoLaboral = "";
+                                options.model.Equipo = "";
+                                options.model.Capacidad = "";
+                                options.model.JuntasAsignadas = "";
+                            }
                         }
                         else {
                             options.model.ListaEquipos = obtenerProveedorEquipo(options.model, dataItem.TipoPruebaProveedorID);
                         }
                         options.model.TipoPruebaProveedorID = dataItem.TipoPruebaProveedorID;
 
-
+                        
                     }
-                    if (options.model.TurnoLaboral != "") {
-                        var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas);
+                    else {
+                        options.model.TurnoLaboralID = 0;
+                        options.model.TurnoLaboral = "";
+                        options.model.Equipo = "";
+                        options.model.Capacidad = "";
+                        options.model.JuntasAsignadas = "";
 
-                        if (!options.model.RequiereEquipo) {
-                            setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorAnteriorID);
-                            options.model.CapacidadTurnoProveedorID = 0;
-                            options.model.CapacidadTurnoProveedorAnteriorID = 0;
-                        }
-                        else {
-                            setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoAnteriorID);
-                            options.model.CapacidadTurnoEquipoID = 0;
-                            options.model.CapacidadTurnoEquipoAnteriorID = 0;
+                        if (options.model.TurnoLaboral != "") {
+                            var JuntasAsignadasFinal = parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas);
+
+                            if (!options.model.RequiereEquipo) {
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorAnteriorID);
+                                options.model.CapacidadTurnoProveedorID = 0;
+                                options.model.CapacidadTurnoProveedorAnteriorID = 0;
+                            }
+                            else {
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoAnteriorID);
+                                options.model.CapacidadTurnoEquipoID = 0;
+                                options.model.CapacidadTurnoEquipoAnteriorID = 0;
+                            }
                         }
                     }
+                    
 
-                    options.model.TurnoLaboralID = 0;
-                    options.model.TurnoLaboral = "";
-                    options.model.Equipo = "";
-                    options.model.Capacidad = "";
-                    options.model.JuntasAsignadas = "";
-                    options.model.ListaElementosAsignadosTurno = [];
+                    
 
                     if (options.model.Accion == 4)
                         options.model.Accion = 2;
@@ -79,7 +128,6 @@
 
                     options.model.ProveedorID = 0;
                     options.model.Proveedor = "";
-                    options.model.ListaTurnoLaboral = [];
                     options.model.TipoPruebaProveedorID = 0;
 
                     options.model.TurnoLaboralID = 0;
@@ -88,14 +136,13 @@
                     options.model.Capacidad = "";
                     options.model.JuntasAsignadas = "";
                     options.model.JuntasAsignadasOriginal = 0;
-                    options.model.ListaElementosAsignadosTurno = [];
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 
 
             }
 
-        }
-      );
+        });
     $(".k-combobox").parent().on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = $(this).find(".k-combobox")[0];
@@ -176,7 +223,7 @@ function RenderComboBoxHerramientaPrueba(container, options) {
     //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
 
-    $('<input required data-text-field="Nombre" data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Nombre" data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
@@ -213,7 +260,48 @@ function RenderComboBoxHerramientaPrueba(container, options) {
                     options.model.Capacidad = "";
                     options.model.ProveedorEquipoID = dataItem.ProveedorEquipoID;
                     options.model.ListaTurnoLaboral = obtenerTurnoLaboralEquipo(options.model, dataItem.ProveedorEquipoID);
-                    options.model.ListaElementosAsignadosTurno = [];
+                    
+
+                    if (options.model.ListaTurnoLaboral.length == 2) {
+
+                        var JuntasAsignadasBusqueda = 0;
+                        if (options.model.RequiereEquipo) {
+                            JuntasAsignadasBusqueda = getNumeroJuntasAsignadasEquipo(options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID);
+                        }
+                        else {
+                            JuntasAsignadasBusqueda = getNumeroJuntasAsignadasProveedor(options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID)
+                        }
+
+
+                        var JuntasAsignadasFinal = parseInt(JuntasAsignadasBusqueda) + parseInt(options.model.CantidadJuntas);
+
+                        if (!options.model.RequiereEquipo) {
+                            if (options.model.TurnoLaboral != "") {
+                                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorAnteriorID);
+                            }
+                            options.model.CapacidadTurnoProveedorID = options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID;
+                            options.model.CapacidadTurnoProveedorAnteriorID = options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID;
+
+                            setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.ListaTurnoLaboral[1].CapacidadTurnoProveedorID);
+                        }
+                        else {
+                            if (options.model.TurnoLaboral != "") {
+                                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoEquipoAnteriorID);
+                            }
+
+                            options.model.CapacidadTurnoEquipoID = options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID;
+                            options.model.CapacidadTurnoEquipoAnteriorID = options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID;
+
+                            setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.ListaTurnoLaboral[1].CapacidadTurnoEquipoID);
+
+                        }
+
+                        options.model.TurnoLaboral = options.model.ListaTurnoLaboral[1].Nombre;
+                        options.model.TurnoLaboralID = options.model.ListaTurnoLaboral[1].TurnoLaboralID;
+                        options.model.Capacidad = options.model.ListaTurnoLaboral[1].Capacidad;
+                        options.model.JuntasAsignadas = parseInt(JuntasAsignadasFinal);
+                    }
+
                     $("#grid").data("kendoGrid").dataSource.sync();
 
                 }
@@ -268,7 +356,7 @@ function RenderComboBoxTurnoLaboral(container, options) {
     //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
 
-    $('<input required data-text-field="Nombre" data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Nombre" data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,

@@ -60,6 +60,7 @@ function CargarGrid() {
                         Proveedor: { type: "string", editable: false },
                         Equipo: { type: "string", editable: false },
                         Turno: { type: "string", editable: false },
+                        Url: { type: "string", editable: false },
                     }
                 }
             },
@@ -86,7 +87,7 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-            { field: "Requisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "Requisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), template: " <div class='' style='text-align:center;'><a href='#=Url##=RequisicionID#'  > <span>#=Requisicion#</span></a></div> " },
             { field: "Fecha", title: _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } },  format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "NumeroElementos", title: _dictionary.columnJuntas[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleElementos' style='text-align:center;'><a href='\\#'  > <span>#=NumeroElementos#</span></a></div>", filterable: getGridFilterableCellMaftec() },
             { field: "Proveedor", title: _dictionary.columnProveedor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },

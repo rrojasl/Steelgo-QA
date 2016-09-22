@@ -187,8 +187,8 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 NumeroPlacas: 0,
                 Densidad: 0,
                 Tamano: 0,
-                ResultadoConciliacion: "",
-                RazonNoConciliacion: "",
+                ResultadoConciliacionID: 0,
+                RazonNoConciliacionID: 0,
                 MiInformacionResultados: []//,
                 //Estatus: 1
             };
@@ -210,8 +210,8 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].NumeroPlacas = ds[i].NumeroPlacas;
             listaDetalles[cont].Densidad = ds[i].Densidad;
             listaDetalles[cont].Tamano = ds[i].Tamano;
-            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
-            listaDetalles[cont].RazonNoConciliacion = ds[i].RazonNoConciliacion;
+            listaDetalles[cont].ResultadoConciliacionID = ds[i].ResultadoConciliacionID;
+            listaDetalles[cont].RazonNoConciliacionID = ds[i].RazonNoConciliacionID;
             
             var informacion = [];
             for (var j = 0; j < ds[i].InformacionResultados.length; j++) {

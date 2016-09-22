@@ -30,12 +30,12 @@ function SuscribirEventoCerrarPopUpJuntas() {
 
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        $('.porElemento').css('display', 'block');
+        $('.porElemento').css('display', 'inline-block');
         $('.porRequisicion').css('display', 'none');
     });
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         $('.porElemento').css('display', 'none');
-        $('.porRequisicion').css('display', 'block');
+        $('.porRequisicion').css('display', 'inline-block');
     });
 }
 
@@ -72,6 +72,7 @@ function SuscribirEventoTipoPrueba() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 AjaxObtenerProveedor();
+                AjaxPruebas();
             }
             else {
                 $("#inputTipoPrueba").data("kendoComboBox").value("");
