@@ -444,6 +444,7 @@ function disableEnableView(disable) {
         $("#inputRequisicion").data("kendoComboBox").enable(false);
         $("#inputFuente").data("kendoComboBox").enable(false);
         $("#inputTurno").data("kendoComboBox").enable(false);
+        $("#inputPrueba").data("kendoComboBox").enable(false);
         //$("input[name='Muestra']").attr("disabled", true);
         $("#btnAgregar").attr("disabled", true);
 
