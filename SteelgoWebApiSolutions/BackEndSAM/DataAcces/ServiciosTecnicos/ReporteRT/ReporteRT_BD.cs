@@ -1,5 +1,6 @@
 ﻿
 using BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT;
+using BackEndSAM.Models.ServiciosTecnicos.ReporteRT;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -121,26 +122,47 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                 {
                     List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID,lenguaje).ToList();
 
-                    System.Text.StringBuilder cad = new System.Text.StringBuilder();
-                    cad.Append('[');
                     int? numPlacas = 0;
-                    string detalleTemp = "";
-                    for (int i = 0; i < result.Count; i++)
+
+                    List<DetalleCaptura> listaDetalleJunta = new List<DetalleCaptura>();
+                    DetalleCaptura detalle = null;
+                    foreach (Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result item in result)
                     {
                         numPlacas = 0;
-                        detalleTemp = ObtenerReportesRTResultados(result[i].OrdenTrabajoID, result[i].SpoolID.GetValueOrDefault(), result[i].JuntaSpoolID.GetValueOrDefault(), out numPlacas);
-                        //cad.Append("{\"ReporteRTID\": \""+listaElementosCTX[i].ReporteRTID+"\", \"RequisicionID\":\"" + listaElementosCTX[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + listaElementosCTX[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + listaElementosCTX[i].SpoolID + "\", \"JuntaSpoolID\":\"" + listaElementosCTX[i].JuntaSpoolID + "\", \"NumeroControl\": \"" + listaElementosCTX[i].NumeroControl + "\", \"Etiqueta\": \"" + listaElementosCTX[i].Etiqueta + "\", \"ClasificacionPND\": \"" + listaElementosCTX[i].ClasificacionPND + "\", \"TipoPrueba\": \"" + listaElementosCTX[i].TipoPrueba + "\", \"Observaciones\": \"" + listaElementosCTX[i].Observaciones + "\", \"CodigoAsme\": \"" + listaElementosCTX[i].CodigoAsme + "\", \"NumeroPlacas\": \"" + numPlacas + "\", \"Tamanomm\": \""+listaElementosCTX[i].Tamano+"\", \"Densidad\": "+listaElementosCTX[i].Densidad+", \"Conciliado\": \""+listaElementosCTX[i].ResultadoConciliacion+ "\", \"RazonRechazo\": \"" + listaElementosCTX[i].RazonNoConciliacion+"\", \"InformacionResultados\": [" + detalleTemp + "], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\" }");
-                        //cad.Append("{\"ReporteRTID\": \"" + result[i].ReporteRTID + "\", \"RequisicionID\":\"" + result[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"SpoolJunta\": \"" + result[i].JuntaSpoolID + "\", \"Junta\": \"" + result[i].Etiqueta + "\", \"NumeroControl\": \"" + result[i].SpoolID + "\", \"EtiquetaJunta\": \"" + result[i].NumeroRequisicion + "\", \"ClasificacionPND\": \"" + result[i].ClasificacionPND + "\", \"TipoPruebaID\": \"" + result[i].TipoPrueba + "\", \"Observaciones\": \"" + result[i].Observaciones + "\", \"CodigoAsme\": \"" + result[i].CodigoAsme + "\", \"NumeroPlacas\": " + numPlacas + ", \"Tamano\": 0, \"Densidad\": 0, \"ResultadoConciliacion\": \"N/A\", \"RazonNoConciliacion\": \"N/A\", \"InformacionResultados\": [" + detalleTemp + "], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\", \"Estatus\": " + result[i].Estatus + ", \"Origen\": \"" + result[i].ORIGEN + "\" }");
+
+                        List<InformacionResultados> detalleResultados = ObtenerReportesRTResultados(item.OrdenTrabajoID, item.SpoolID.GetValueOrDefault(), item.JuntaSpoolID.GetValueOrDefault(), out numPlacas);
+
                         numPlacas = (numPlacas == 0 ? null : numPlacas);
 
-                        cad.Append("{\"ReporteRTID\": \"" + result[i].ReporteRTID + "\", \"RequisicionID\":\"" + result[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"SpoolJunta\": \"" + result[i].JuntaSpoolID + "\", \"Junta\": \"" + result[i].Etiqueta + "\", \"NumeroControl\": \"" + result[i].NumeroControl + "\", \"EtiquetaJunta\": \"" + result[i].NumeroRequisicion + "\", \"ClasificacionPND\": \"" + result[i].ClasificacionPND + "\", \"TipoPrueba\": \"" + result[i].TipoPrueba + "\", \"Observaciones\": \"" + result[i].Observaciones + "\", \"CodigoAsme\": \"" + result[i].CodigoAsme + "\", \"NumeroPlacas\": \"" + numPlacas + "\", \"Tamano\": \"" + result[i].Tamano+ "\", \"Densidad\": \"" + result[i].Densidad+ "\", \"ResultadoConciliacion\": \"" + result[i].ResultadoConciliacion + "\", \"RazonNoConciliacion\": \""+result[i].RazonNoConciliacion + "\", \"InformacionResultados\": [" + detalleTemp + "], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\", \"Estatus\": " + result[i].Estatus + ", \"Origen\": \"" + result[i].ORIGEN + "\" }");
+                        detalle = new DetalleCaptura
+                        {
+                            ReporteRTID= item.ReporteRTID.GetValueOrDefault(),
+                            RequisicionID=item.RequisicionID,
+                            OrdenTrabajoID=item.OrdenTrabajoID,
+                            SpoolID=item.SpoolID.GetValueOrDefault(),
+                            JuntaSpoolID=item.JuntaSpoolID.GetValueOrDefault(),
+                            SpoolJunta=item.JuntaSpoolID.GetValueOrDefault(),
+                            Junta=int.Parse(item.Etiqueta.ToString()),
+                            NumeroControl=item.NumeroControl,
+                            EtiquetaJunta=item.NumeroRequisicion,
+                            ClasificacionPND=item.ClasificacionPND,
+                            TipoPrueba=item.TipoPrueba,
+                            Observaciones=item.Observaciones,
+                            CodigoAsme=item.CodigoAsme,
+                            NumeroPlacas= numPlacas,
+                            Tamano= item.Tamano ,
+                            Densidad=item.Densidad,
+                            ResultadoConciliacion=item.ResultadoConciliacion,
+                            RazonNoConciliacion=item.RazonNoConciliacion,
+                            InformacionResultados= detalleResultados,
+                            Accion= 1,
+                            Estatus=item.Estatus.GetValueOrDefault(),
+                            Origen= item.ORIGEN,
+                        };
+                        listaDetalleJunta.Add(detalle);
 
-                        if (i != (result.Count - 1))
-                            cad.Append(',');
                     }
-                    cad.Append(']');
-
-                    return cad.ToString();//result;
+                    return listaDetalleJunta;
                 }
 
             }
@@ -156,8 +178,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public string ObtenerReportesRTResultados(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int? numeroPlacas)
+        public List<InformacionResultados> ObtenerReportesRTResultados(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int? numeroPlacas)
         {
+            List<InformacionResultados> listaDetalleResultado = new List<InformacionResultados>();
             try
             {
 
@@ -165,54 +188,74 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                 {
                     List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID).ToList();
 
-                    System.Text.StringBuilder cad = new System.Text.StringBuilder();
-                    //cad.Append('[');
+                  
                     numeroPlacas = result.Count;
-                    for (int i = 0; i < result.Count; i++)
-                    {
-                        cad.Append("{\"ReporteRTResultadosID\": \"" + result[i].ReporteRTResultadosID + "\", \"ReporteRTID\":\"" + result[i].ReporteRTID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"Ubicacion\": \"" + result[i].Ubicacion + "\", \"Resultado\": \"" + result[i].Resultado + "\", \"DetalleResultados\": [" + ObtenerReportesRTResultadosDetalle(result[i].ReporteRTResultadosID, result[i].OrdenTrabajoID, result[i].SpoolID, result[i].JuntaSpoolID.GetValueOrDefault()) + "] }");
-                        if (i != (result.Count - 1))
-                            cad.Append(',');
-                    }
-                    //cad.Append(']');
 
-                    return cad.ToString();
+                    InformacionResultados detalleResultado = null;
+
+                    
+
+                    foreach (Sam3_ReportesRT_Get_Resultados_Result item in result)
+                    {
+                        detalleResultado = new InformacionResultados
+                        {
+                            ReporteRTResultadosID=item.ReporteRTResultadosID,
+                            ReporteRTID=item.ReporteRTID,
+                            OrdenTrabajoID=item.OrdenTrabajoID,
+                            SpoolID=item.SpoolID,
+                            JuntaSpoolID=item.JuntaSpoolID.GetValueOrDefault(),
+                            Ubicacion= item.Ubicacion,
+                            Resultado=int.Parse( item.Resultado.ToString()),
+                            DetalleResultados = ObtenerReportesRTResultadosDetalle(item.ReporteRTResultadosID, item.OrdenTrabajoID, item.SpoolID, item.JuntaSpoolID.GetValueOrDefault())
+                        };
+                        listaDetalleResultado.Add(detalleResultado);
+                    }
+                    return listaDetalleResultado;
                 }
 
             }
             catch (Exception ex)
             {
                 numeroPlacas = 0;
-                return "";
+                return listaDetalleResultado;
             }
         }
 
-        public string ObtenerReportesRTResultadosDetalle(int reporteResultadosID, int ordenTrabajoID, int spoolID, int juntaSpoolID)
+        public List<DetalleResultadosDefectos> ObtenerReportesRTResultadosDetalle(int reporteResultadosID, int ordenTrabajoID, int spoolID, int juntaSpoolID)
         {
+            List<DetalleResultadosDefectos> listaDetalleResultados = new List<DetalleResultadosDefectos>();
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(reporteResultadosID ,ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+                    DetalleResultadosDefectos detalleResulado = null;
 
-                    System.Text.StringBuilder cad = new System.Text.StringBuilder();
-                    //cad.Append('[');
-                    for (int i = 0; i < result.Count; i++)
+                    foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
                     {
-                        cad.Append("{\"ResultadosDefectoID\": \"" + result[i].ResultadosDefectoID + "\", \"ReporteRTID\":\"" + result[i].ReporteResultadosID + "\", \"OrdenTrabajoID\":\"" + result[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + result[i].SpoolID + "\", \"JuntaSpoolID\":\"" + result[i].JuntaSpoolID + "\", \"DefectoID\": \"" + result[i].DefectoID + "\", \"InicioMM\": \"" + result[i].InicioMM + "\", \"FinMM\": \"" + result[i].FinMM + "\" }");
-                        if (i != (result.Count - 1))
-                            cad.Append(',');
+                        detalleResulado = new DetalleResultadosDefectos
+                        {
+                            ResultadosDefectoID=item.ResultadosDefectoID,
+                            ResultadosDefecto = item.ResultadosDefectoID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID=item.SpoolID,
+                            JuntaSpoolID=item.JuntaSpoolID.GetValueOrDefault(),
+                            DefectoID= item.DefectoID,
+                            InicioMM=int.Parse( item.InicioMM.ToString()),
+                            FinMM= int.Parse(item.FinMM.ToString()),
+                            ReporteRTID = item.ReporteResultadosID
+                        };
+                        listaDetalleResultados.Add(detalleResulado);
                     }
-                    //cad.Append(']');
 
-                    return cad.ToString();
+                    return listaDetalleResultados;
                 }
 
             }
             catch (Exception ex)
             {
-                return "";
+                return listaDetalleResultados;
             }
         }
 

@@ -7863,8 +7863,8 @@ _dictionary = {
         "en-US": "Requisition"
     },
     "CapturaReporteGridColumnClasificacionPND": {
-        "es-MX": "Clasificacion",
-        "en-US": "Clasification"
+        "es-MX": "Clsf",
+        "en-US": "Clsf"
     },
     "CapturaReporteGridColumnTipoPrueba": {
         "es-MX": "Tipo Prueba",
@@ -7875,8 +7875,8 @@ _dictionary = {
         "en-US": "Observations"
     },
     "CapturaReporteGridColumnCodigoAsme": {
-        "es-MX": "Codigo",
-        "en-US": "Code"
+        "es-MX": "Código ASME",
+        "en-US": "ASME Code"
     },
     "CapturaReporteGridColumnRusult1": {
         "es-MX": "Resultado Conciliacion",

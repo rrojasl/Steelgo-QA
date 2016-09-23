@@ -268,30 +268,31 @@ function comboBoxDefectos(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                    options.model.DefectoIDCombo = dataItem.DefectoIDCombo;
-                    options.model.DefectoCombo = dataItem.DefectoCombo;
+                //    options.model.DefectoIDCombo = dataItem.DefectoIDCombo;
+                    //    options.model.DefectoCombo = dataItem.DefectoCombo;
+                    actualizaDefectoComboItem(options.model, dataItem);
                 }
-                //else
+                ////else
                 //    options.model.DefectoCombo = dataItem.DefectoIDCombo;//ObtenerDescCorrectaDefectos(comboDefectos, options.model.DefectoID);
 
-                //actualizaDefectoComboItem(options.model, dataItem);
+                
             }
         }
         );
 }
 
-function actualizaDefectoComboItem(dataItem, nuevoValor) {
-    //for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-    //    if ((dataItem.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (dataItem.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (dataItem.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
-    //        for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; j++) {
-    //            if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Ubicacion == dataItem.Ubicacion) {
-    //                $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado = nuevoValor.ResultadoCombo;
-    //                break;
-    //            }
-    //        }
-    //        break;
-    //    }
-    //}
+function actualizaDefectoComboItem(dataItem, comboBoxItemSelected) {
+    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+        if ((dataItem.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (dataItem.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (dataItem.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; j++) {
+                if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Ubicacion == dataItem.Ubicacion) {
+                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado = comboBoxItemSelected.ResultadoCombo;
+                    break;
+                }
+            }
+            break;
+        }
+    }
 }
 
 

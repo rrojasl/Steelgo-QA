@@ -20,6 +20,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public int Junta { get; set; }
         public int EtiquetaJunta { get; set; }
         public int NumeroControl { get; set; }
-        public List<DetalleResultados> DetalleResultados { get; set; }
+        public List<DetalleResultadosDefectos> DetalleResultados { get; set; }
     }
+
 }
