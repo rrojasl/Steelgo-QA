@@ -7156,6 +7156,10 @@ _dictionary = {
         "es-MX": "Código",
         "en-US": "Code"
     },
+    "lblCuadrante": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7578,6 +7582,22 @@ _dictionary = {
         "es-MX": "Cuadrante",
         "en-US": "Quadrant"
     },
+    "columnFechaShotblast": {
+        "es-MX": "Fecha ShotBlast",
+        "en-US": "ShotBlast Date"
+    },
+    "columnFechaPrimario": {
+        "es-MX": "Fecha Primario",
+        "en-US": "Primary Date"
+    },
+    "columnShotblastero": {
+        "es-MX": "Shotblastero",
+        "en-US": "Shotblaster"
+    },
+    "columnPintor": {
+        "es-MX": "Pintor",
+        "en-US": "Painter"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7969,6 +7989,10 @@ _dictionary = {
         "es-MX": "Carga Carro",
         "en-US": "Load Carriage"
     },
+    "PinturaCapturaAvanceBreadcrumb": {
+        "es-MX": "Avance",
+        "en-US": "Progress"
+    },
     "PinturaCargaOpcionSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
@@ -7997,4 +8021,35 @@ _dictionary = {
         "en-US": "Progress"
     },
     //Finaliza Carga de Carro
+
+    //Inicia Captura Avance
+    "CapturaAvanceIntermedioSup": {
+        "es-MX": "Avance Intermedio Acabado",
+        "en-US": "Progress Intermediate Finishes"
+    },
+    "CapturaAvanceIntermedioInf": {
+        "es-MX": "Avance Intermedio Acabado",
+        "en-US": "Progress Intermediate Finishes"
+    },
+    "lblFechaShotblast": {
+        "es-MX": "Fecha ShotBlast",
+        "en-US": "ShotBlast Date"
+    },
+    "lblFechaPrimario": {
+        "es-MX": "Fecha Primario",
+        "en-US": "Primary Date"
+    },
+    "lblShotblastero": {
+        "es-MX": "Shotblastero",
+        "en-US": "Shotblaster"
+    },
+    "lblPintor": {
+        "es-MX": "Pintor",
+        "en-US": "Painter"
+    },
+    "lblCapturaAvance": {
+        "es-MX": "Avance",
+        "en-US": "Progress"
+    },
+    //Finaliza Captura Avance
 };

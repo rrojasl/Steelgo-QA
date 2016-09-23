@@ -12,5 +12,10 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult CapturaAvance()
+        {
+            return View();
+        }
     }
 }
