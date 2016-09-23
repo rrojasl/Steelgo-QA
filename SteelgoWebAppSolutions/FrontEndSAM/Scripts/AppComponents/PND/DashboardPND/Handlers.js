@@ -5,6 +5,7 @@
     SuscribirFechaInicio();
     suscribirEventoChangeRadio();
     suscribirEventoElementos();
+    suscribirEventobuscar();
     SuscribirEventoCerrarPopUpJuntas();
 }
 
@@ -21,6 +22,13 @@ function suscribirEventoElementos() {
 
 function SuscribirEventoCerrarPopUpJuntas() {
     $("#CerrarDetalleJunta").click(function (e) {
+        e.preventDefault();
+        $("#windowGrid").data("kendoWindow").close();
+    });
+}
+
+function suscribirEventobuscar() {
+    $("#botonBuscar").click(function (e) {
         e.preventDefault();
         $("#windowGrid").data("kendoWindow").close();
     });
@@ -72,7 +80,7 @@ function SuscribirEventoTipoPrueba() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 AjaxObtenerProveedor();
-                AjaxPruebas();
+                
             }
             else {
                 $("#inputTipoPrueba").data("kendoComboBox").value("");

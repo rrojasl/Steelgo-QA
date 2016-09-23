@@ -31,13 +31,13 @@ namespace BackEndSAM.DataAcces.Sam3General.Dashboard
             }
         }
 
-        public object ObtieneHeaderDashBoard(int modulo, string lenguaje)
+        public object ObtieneHeaderDashBoard(int modulo, string lenguaje,int proyectoID, int tipoPruebaID,int proveedorID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Get_EstatusPorModulo_Result> result = ctx.Sam3_Get_EstatusPorModulo(modulo, lenguaje).OrderBy(x => x.Orden).ToList();
+                    List<Sam3_Get_EstatusPorModulo_Result> result = ctx.Sam3_Get_EstatusPorModulo(modulo, lenguaje,proyectoID,tipoPruebaID,proveedorID,"","").OrderBy(x => x.Orden).ToList();
 
                     return result;
                 }

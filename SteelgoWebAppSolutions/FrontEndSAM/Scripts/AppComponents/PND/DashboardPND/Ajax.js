@@ -60,7 +60,7 @@ function AjaxPruebas() {
 
                 if ($("#inputTipoPrueba").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputTipoPrueba").data("kendoComboBox").select(1);
-
+                    AjaxObtenerProveedor();
                 }
                 else {
                     

@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return DashboardBD.Instance.ObtieneHeaderDashBoard(modulo, lenguaje);
+                return DashboardBD.Instance.ObtieneHeaderDashBoard(modulo, lenguaje,16,0,0);
             }
             else
             {
