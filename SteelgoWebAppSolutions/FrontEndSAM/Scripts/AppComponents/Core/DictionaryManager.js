@@ -7120,9 +7120,21 @@ _dictionary = {
         "es-MX": "Carro",
         "en-US": "Car"
     },
+    "lblCarroPatio": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
     "lblCerrarCarroEscritorio": {
         "es-MX": "Cerrar",
         "en-US": "Close"
+    },
+    "lblCerrarCarroPatio": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    "lblAreaPatio": {
+        "es-MX": "M2",
+        "en-US": "M2"
     },
     "lblAreaEscritorio": {
         "es-MX": "M2",
@@ -7131,7 +7143,11 @@ _dictionary = {
     "lblPesoEscritorio": {
         "es-MX": "Toneladas",
         "en-US": "Tons"
-    }, 
+    },
+    "lblPesoPatio": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
     "lblSeleccionaOpcion": {
         "es-MX": "Selecciona una opción",
         "en-US": "Select a option"
@@ -7245,6 +7261,10 @@ _dictionary = {
     "botonAccionEliminar2": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
+    },    
+    "botonDescarga": {
+        "es-MX": "Descarga",
+        "en-US": "Download"
     },
     // Finalizan etiquetas Header y Footer
 
@@ -7328,6 +7348,10 @@ _dictionary = {
     "menuPinturaCargaCarro": {
         "es-MX": "Carga de Carro",
         "en-US": "Load Carriage"
+    },
+    "menuPinturaCargaAvance": {
+        "es-MX": "Avance",
+        "en-US": "Progress"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7501,6 +7525,58 @@ _dictionary = {
     "columnComentario": {
         "es-MX": "Comentario",
         "en-US": "Comment"
+    },
+    "columnNumeroControl1": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "columnDescargar": {
+        "es-MX": "DSCG",
+        "en-US": "DL"
+    },
+    "columnDescargar1": {
+        "es-MX": "DSCG",
+        "en-US": "DL"
+    },
+    "columnSistemaPintura": {
+        "es-MX": "Sist Pintura",
+        "en-US": "Paint Sys"
+    },
+    "columnSistemaPintura1": {
+        "es-MX": "Sist Pintura",
+        "en-US": "Paint Sys"
+    },
+    "columnColor": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "columnColor1": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "columnM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "columnM21": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "columnPeso": {
+        "es-MX": "KG",
+        "en-US": "KG"
+    },
+    "columnPeso1": {
+        "es-MX": "KG",
+        "en-US": "KG"
+    },
+    "columnMedioTransporte": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "columnCuadrante1": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
