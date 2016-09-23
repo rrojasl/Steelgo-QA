@@ -39,9 +39,9 @@ function renderDataSourceNumeroPlacas(spoolJunta, junta, numeroControl) {
             $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados = new Array($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas);
             for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; j++) {
                 if (j != ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas - 1))
-                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j] = { ReporteRTResultadosID: 0, ReporteRTID: $("#grid").data("kendoGrid").dataSource._data[i].ReporteRTID, OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, NumeroControl: $("#grid").data("kendoGrid").dataSource._data[i].NumeroControl, Ubicacion: j + '-' + (j + 1), Resultado: -1, DetalleResultados: [], Accion:1 };
+                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j] = { ReporteRTResultadosID: 0, ReporteRTID: $("#grid").data("kendoGrid").dataSource._data[i].ReporteRTID, OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, NumeroControl: $("#grid").data("kendoGrid").dataSource._data[i].NumeroControl, Ubicacion: j + '-' + (j + 1), Resultado: '', DetalleResultados: [], Accion:1 };
                 else
-                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j] = { ReporteRTResultadosID: 0, ReporteRTID: $("#grid").data("kendoGrid").dataSource._data[i].ReporteRTID, OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, NumeroControl: $("#grid").data("kendoGrid").dataSource._data[i].NumeroControl, Ubicacion: j + '-' + 0, Resultado: -1, DetalleResultados: [], Accion: 1 };
+                    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j] = { ReporteRTResultadosID: 0, ReporteRTID: $("#grid").data("kendoGrid").dataSource._data[i].ReporteRTID, OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, NumeroControl: $("#grid").data("kendoGrid").dataSource._data[i].NumeroControl, Ubicacion: j + '-' + 0, Resultado: '', DetalleResultados: [], Accion: 1 };
             }
             break;
         }
@@ -62,15 +62,6 @@ function VentanaModal(model) {
     loadingStart();
     //modeloRenglon = model;
     $("#gridPopUp").data('kendoGrid').dataSource.data(model.DetalleResultados);
-    //var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-    //var array = model.ListaDetalleDefectos;
-    //if (array != null) {
-    //    for (var i = 0; i < array.length; i++) {
-    //        ds.add(array[i]);
-    //    }
-    //}
-    //VentanaModal();
-    
 
     var modalTitle = model.SpoolID + "_" + model.JuntaSpoolID + "_" + model.OrdenTrabajoID + "_" + model.Ubicacion;
     //modalTitle = _dictionary.ValidacionResultadosRequisicion[$("#language").data("kendoDropDownList").value()];
@@ -121,26 +112,6 @@ function RenderGridDetalle(container, options) {
         { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
         { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxResultado, width: "100px" },
         { field: "DetalleResultados", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "200px", editor: renderEnlaceEditar, template: "Tienes " + "#=DetalleResultados.length#" + " defectos" }
-        //,
-        //{
-        //    command: {
-        //        text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
-        //        click: function (e) {
-        //            e.preventDefault();
-        //            dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
-
-        //            if (confirm(_dictionary.CapturaEliminar[$("#language").data("kendoDropDownList").value()])) {
-        //                var dataSource = this.dataSource;
-        //                dataSource.remove(dataItem);
-        //            }
-        //            options.model.NumeroPlacas = String(dataSource._data.length);
-
-        //            this.dataSource.sync();
-        //        }
-        //    }, width: "100px"
-        //}
-
       ],
       editable: true,
       navigatable: true,
@@ -158,6 +129,7 @@ function comboBoxResultado(container, options) {
         .kendoComboBox({
             //autoBind: false,
             dataSource: [
+                    { ResultadoCombo: -1, NombreCombo: "" },
                     { ResultadoCombo: 0, NombreCombo: "Rechazado"/*_dictionary.ValidacionResultadosComboRechazado[$("#language").data("kendoDropDownList").value()]*/ },
                     { ResultadoCombo: 1, NombreCombo: "Aceptado"/*_dictionary.ValidacionResultadosComboAceptado[$("#language").data("kendoDropDownList").value()]*/ }
             ],
