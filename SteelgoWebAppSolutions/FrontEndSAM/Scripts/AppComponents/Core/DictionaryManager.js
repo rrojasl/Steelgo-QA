@@ -7112,7 +7112,34 @@ _dictionary = {
         "es-MX": "Seleccionar todo",
         "en-US": "Select all"
     },
-
+    "lblCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "lblCarroEscritorio": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "lblCerrarCarroEscritorio": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    "lblAreaEscritorio": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "lblPesoEscritorio": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    }, 
+    "lblSeleccionaOpcion": {
+        "es-MX": "Selecciona una opción",
+        "en-US": "Select a option"
+    },
+    "lblCodigo": {
+        "es-MX": "Código",
+        "en-US": "Code"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7293,6 +7320,14 @@ _dictionary = {
     "menuServiciosTecnicosDashboardPND": {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
+    },
+    "menuPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "menuPinturaCargaCarro": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7844,6 +7879,46 @@ _dictionary = {
     "EditarRequisicionMensajeEliminadoCorrecto": {
         "es-MX": "La requisición se ha eliminado correctamente",
         "en-US": "The requisition was removed successfully"
-    }
+    },
     // Finaliza Editar Requisicion PND
+    //Finaliza Módulo PNDs
+
+    // Inicia Módulo Pintura
+    // Etiquetas Generales Pintura
+    "PinturaBreadcrumb": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "PinturaCargaCarroBreadcrumb": {
+        "es-MX": "Carga Carro",
+        "en-US": "Load Carriage"
+    },
+    "PinturaCargaOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "PinturaCargaOpcionCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    //Finaliza Etiquetas Generales Pintura
+
+    //Inicia Carga de Carro
+    "PinturaCargaCarroEscritorio": {
+        "es-MX": "Escritorio",
+        "en-US": "Desktop"
+    },
+    "PinturaCargaCarroPatio": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "PinturaCapturaAvanceSup": {
+        "es-MX": "Avance",
+        "en-US": "Progress"
+    },
+    "PinturaCapturaAvanceInf": {
+        "es-MX": "Avance",
+        "en-US": "Progress"
+    },
+    //Finaliza Carga de Carro
 };
