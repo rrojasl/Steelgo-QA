@@ -69,7 +69,7 @@ function CargarGridCapturaAvanceIntAcabado() {
                   { field: "Accion", operator: "eq", value: 2 }
                 ]
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -82,7 +82,7 @@ function CargarGridCapturaAvanceIntAcabado() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
@@ -96,7 +96,7 @@ function CargarGridCapturaAvanceIntAcabado() {
             { field: "Componente", title: _dictionary.columnComponente[$("#language").data("kendoDropDownList").value()], width: "120px", filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxPinturaComponenteComposicion },
             { field: "FechaPintura", title: _dictionary.columnFechaPintura[$("#language").data("kendoDropDownList").value()], width: "90px", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaDetallePintoresPorSpool", title: _dictionary.columnPintores[$("#language").data("kendoDropDownList").value()], width: "120px", filterable: false, editor: RenderMultiselectPintores, template: "#:TemplatePintoresPorSpool#" },
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
+            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
     });
     CustomisaGrid($("#grid"));
