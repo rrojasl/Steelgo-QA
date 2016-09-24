@@ -7357,10 +7357,23 @@ _dictionary = {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
+
+
     "menuCapturaAvanceIntAcabado": {
         "es-MX": "Avance Intermedio Acabado",
         "en-US": "Progress Intermediate Finishes"
     },
+
+      "menuDescargaCarritos": {
+             "es-MX": "Descarga de Carro",
+             "en-US": "Download Carriage"
+      },
+
+      "menuLotesCapturaPrueba": {
+          "es-MX": "Lote Captura Prueba",
+          "en-US": "Batch Capture Test "
+
+      },
     // Finalizan Etiquetas de Menú General
 
 
@@ -7997,6 +8010,18 @@ _dictionary = {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
+    "PinturaAvanceIntermedioAcabadoBreadcrumb": {
+        "es-MX": "Avance Intermedio Acabado",
+        "en-US": "Advance Intermediate Finish"
+    },
+    "PinturaLotesCapturaPruebaBreadcrumb": {
+        "es-MX": "Lotes Captura Prueba",
+        "en-US": "Batch Capture Tes"
+    },
+    "PinturaDescargaCarritosBreadcrumb": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carriage"
+    },
     "PinturaCargaOpcionSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
@@ -8059,12 +8084,24 @@ _dictionary = {
     
     //Comienza Avance Intermedio Acabado
     "lblLotesCapturaReporteSup": {
-        "es-MX": "Captura Reporte",
+        "es-MX": "Lotes Captura Reporte",
         "en-US": "Capture Report "
     },
     "lblLotesCapturaReporteInf": {
-        "es-MX": "Captura Reporte",
+        "es-MX": "Lotes Captura Reporte",
         "en-US": "Capture Report "
     },
     // Finaliza Avance Intermedio Acabado
+
+    //Comienza Lote Captura Reporte 
+    "lblDescargaDeCarroSup": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carrige "
+    },
+    "lblDescargaDeCarroInf": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carrige "
+    },
+    // Finaliza Lote Captura Reporte 
+
 };

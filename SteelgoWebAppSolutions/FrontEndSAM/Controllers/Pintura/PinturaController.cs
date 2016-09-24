@@ -22,5 +22,16 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult LotesCapturaPrueba()
+        {
+            return View();
+        }
+       
+            public ActionResult DescargaCarritos()
+        {
+            return View();
+        }
+
     }
 }

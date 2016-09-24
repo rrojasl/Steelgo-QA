@@ -6,10 +6,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblPintura"></span></a>
+        <a href="#"><span id="PinturaBreadcrumb"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaAvanceIntAcabado", "Pintura")"><span id="menuPinturaCapturaAvanceIntAcabadoTop"></span></a>
+        <a href="@Url.Action("CapturaAvanceIntAcabado", "Pintura")"><span id="PinturaAvanceIntermedioAcabadoBreadcrumb"></span></a>
     </li>
 }
 
@@ -28,11 +28,11 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo"><span id="lblGuardarYNuevo"></span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
                             </div>
 
-                            <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="lblCancelar"></span></a>
+                            <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="CapturaAvanceIntAcabadoDivSuperior" class="button-section">
                             <a id="CapturaAvanceIntAcabadoSuperior" href="@Url.Action("LotesCapturaReporte", "Pintura")" class="btn btn-primary"><span id="lblLotesCapturaReporteSup"></span></a>
@@ -131,7 +131,7 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow GuardarFooter"><span id="lblGuardarFooter"></span></button>
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow GuardarFooter"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
@@ -140,7 +140,7 @@
                             <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
-                    <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="lblCancelarFooter"></span></a>
+                    <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="CapturaAvanceIntAcabadoDivInferior" class="button-section">
                     <a id="CapturaAvanceIntAcabadoInferior" href="@Url.Action("LotesCapturaReporte", "Pintura")" class="btn btn-primary"><span id="lblLotesCapturaReporteInf"></span></a>
