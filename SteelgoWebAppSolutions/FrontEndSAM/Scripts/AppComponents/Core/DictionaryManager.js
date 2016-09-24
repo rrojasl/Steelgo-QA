@@ -7012,6 +7012,10 @@ _dictionary = {
         "es-MX": "Todos",
         "en-US": "All"
     },
+    "lblVacios": {
+        "es-MX": "Vacíos",
+        "en-US": "Empty"
+    },
     "lblVerdadero": {
         "es-MX": "V",
         "en-US": "T"
@@ -7159,6 +7163,38 @@ _dictionary = {
     "lblCuadrante": {
         "es-MX": "Cuadrante",
         "en-US": "Quadrant"
+    },
+    "lblPaso": {
+        "es-MX": "Paso",
+        "en-US": "Footprint"
+    },
+    "lblPasoIntermedio": {
+        "es-MX": "Intermedio",
+        "en-US": "Medium"
+    },
+    "lblPasoAcabado": {
+        "es-MX": "Acabado",
+        "en-US": "Finishes"
+    },
+    "lblColor": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "lblFecha": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "lblLote": {
+        "es-MX": "Lote",
+        "en-US": "Lot"
+    },
+    "lblSistemaPintura": {
+        "es-MX": "Sist Pintura",
+        "en-US": "Paint Sys"
+    },
+    "lblComposicion": {
+        "es-MX": "Componente",
+        "en-US": "Component"
     },
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7614,6 +7650,18 @@ _dictionary = {
     "columnPintor": {
         "es-MX": "Pintor",
         "en-US": "Painter"
+    },
+    "columnMetros2": {
+        "es-MX": "Metros2",
+        "en-US": "Meters2"
+    },
+    "columnLote": {
+        "es-MX": "Lote",
+        "en-US": "Lot"
+    },
+    "columnComponente": {
+        "es-MX": "Componente",
+        "en-US": "Component"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
