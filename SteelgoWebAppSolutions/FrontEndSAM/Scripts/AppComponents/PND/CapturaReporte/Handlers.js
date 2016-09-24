@@ -25,7 +25,7 @@ function suscribirEventoGuardar() {
         //modeloRenglon.ListaDetalleDefectos = ds._data;
             var window = $("#windowGrid");
             //var temp = window.data("kendoWindow").title();
-            actualizaDefectos(window.data("kendoWindow").title(), ds._data)
+            //actualizaDefectos(window.data("kendoWindow").title(), ds._data)
             $("#windowGrid").data("kendoWindow").close();
         //}
         //else if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0082[$("#language").data("kendoDropDownList").value()])

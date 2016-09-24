@@ -67,9 +67,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    
+
                     List<Sam3_ReportesRT_ST_Get_Proveedores_Result> result = ctx.Sam3_ReportesRT_ST_Get_Proveedores(proyectoID, 0, patioID).ToList();
-                    
+
 
                     return result;
                 }
@@ -113,51 +113,60 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object ObtenerRequisicionesDetalle(int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID,string lenguaje)
+        public object ObtenerRequisicionesDetalle(int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID, string lenguaje)
         {
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID,lenguaje).ToList();
+                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID, lenguaje).ToList();
 
                     int? numPlacas = 0;
 
+                    List<Resultados> listaResultados = ObtenerReportesRTResultados(lenguaje);
+                    
+                    
                     List<DetalleCaptura> listaDetalleJunta = new List<DetalleCaptura>();
                     DetalleCaptura detalle = null;
                     foreach (Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result item in result)
                     {
                         numPlacas = 0;
 
-                        List<InformacionResultados> detalleResultados = ObtenerReportesRTResultados(item.OrdenTrabajoID, item.SpoolID.GetValueOrDefault(), item.JuntaSpoolID.GetValueOrDefault(), out numPlacas);
+                        List<Defectos> listaDefectos = ObtenerCatalogoDefectos(item.JuntaSpoolID == null ? 0 : 1, lenguaje);//por junta
+
+                        List<DetallePorPlacas> listaDetallePorPlacas = ObtenerDetallePorPlacas(item.OrdenTrabajoID, item.SpoolID.GetValueOrDefault(), item.JuntaSpoolID.GetValueOrDefault(), out numPlacas, lenguaje, listaResultados, listaDefectos);
 
                         numPlacas = (numPlacas == 0 ? null : numPlacas);
 
+                        
+
                         detalle = new DetalleCaptura
                         {
-                            ReporteRTID= item.ReporteRTID.GetValueOrDefault(),
-                            RequisicionID=item.RequisicionID,
-                            OrdenTrabajoID=item.OrdenTrabajoID,
-                            SpoolID=item.SpoolID.GetValueOrDefault(),
-                            JuntaSpoolID=item.JuntaSpoolID.GetValueOrDefault(),
-                            SpoolJunta=item.JuntaSpoolID.GetValueOrDefault(),
-                            Junta=int.Parse(item.Etiqueta.ToString()),
-                            NumeroControl=item.NumeroControl,
-                            EtiquetaJunta=item.NumeroRequisicion,
-                            ClasificacionPND=item.ClasificacionPND,
-                            TipoPrueba=item.TipoPrueba,
-                            Observaciones=item.Observaciones,
-                            CodigoAsme=item.CodigoAsme,
-                            NumeroPlacas= numPlacas,
-                            Tamano= item.Tamano ,
-                            Densidad=item.Densidad,
-                            ResultadoConciliacion=item.ResultadoConciliacion,
-                            RazonNoConciliacion=item.RazonNoConciliacion,
-                            InformacionResultados= detalleResultados,
-                            Accion= 1,
-                            Estatus=item.Estatus.GetValueOrDefault(),
-                            Origen= item.ORIGEN,
+                            ReporteRTID = item.ReporteRTID.GetValueOrDefault(),
+                            RequisicionID = item.RequisicionID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            SpoolJunta = item.JuntaSpoolID.GetValueOrDefault(),
+                            Junta = int.Parse(item.Etiqueta.ToString()),
+                            NumeroControl = item.NumeroControl,
+                            EtiquetaJunta = item.NumeroRequisicion,
+                            ClasificacionPND = item.ClasificacionPND,
+                            TipoPrueba = item.TipoPrueba,
+                            Observaciones = item.Observaciones,
+                            CodigoAsme = item.CodigoAsme,
+                            NumeroPlacas = numPlacas,
+                            Tamano = item.Tamano,
+                            Densidad = item.Densidad,
+                            ResultadoConciliacion = item.ResultadoConciliacion,
+                            RazonNoConciliacion = item.RazonNoConciliacion,
+                            ListaDetallePorPlacas = listaDetallePorPlacas,
+                            Accion = 1,
+                            Estatus = item.Estatus.GetValueOrDefault(),
+                            Origen = item.ORIGEN,
+                            ListaResultados = listaResultados,
+                            ListaDefectos= listaDefectos
                         };
                         listaDetalleJunta.Add(detalle);
 
@@ -178,35 +187,104 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public List<InformacionResultados> ObtenerReportesRTResultados(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int? numeroPlacas)
+
+        public List<Defectos> ObtenerCatalogoDefectos(int catalogo, string lenguaje)
         {
-            List<InformacionResultados> listaDetalleResultado = new List<InformacionResultados>();
+            List<Defectos> listaDefectos = new List<Defectos>();
+            try
+            {
+                
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos_Result> result = ctx.Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos(catalogo, lenguaje).ToList();
+
+                    Defectos defecto = null;
+                    listaDefectos.Add(new Defectos());
+                    foreach (Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos_Result item in result)
+                    {
+                        defecto = new Defectos
+                        {
+                            DefectoID = item.DefectoID,
+                            Defecto = item.Defecto
+                        };
+
+                        listaDefectos.Add(defecto);
+                    }
+                    return listaDefectos;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaDefectos;
+            }
+        }
+
+        public List<Resultados> ObtenerReportesRTResultados(string lenguaje)
+        {
+            List<Resultados> listaResultados = new List<Resultados>();
+
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+                    List<Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result> result = ctx.Sam3_ReportesRT_ST_CRRT_Get_Resultado(lenguaje).ToList();
 
-                  
+                    Resultados resultado = null;
+                    listaResultados.Add(new Resultados());
+                    foreach (Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result item in result)
+                    {
+                        resultado = new Resultados
+                        {
+                            ResultadosID = item.ResultadosID,
+                            Resultado = item.Resultado
+                        };
+
+                        listaResultados.Add(resultado);
+                    }
+                    return listaResultados;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaResultados;
+            }
+        }
+
+
+        public List<DetallePorPlacas> ObtenerDetallePorPlacas(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int? numeroPlacas, string lenguaje, List<Resultados> listaResultados, List<Defectos> listaDefectos)
+        {
+            List<DetallePorPlacas> listaDetalleResultado = new List<DetallePorPlacas>();
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
+
                     numeroPlacas = result.Count;
 
-                    InformacionResultados detalleResultado = null;
 
-                    
+
+                    DetallePorPlacas detalleResultado = null;
 
                     foreach (Sam3_ReportesRT_Get_Resultados_Result item in result)
                     {
-                        detalleResultado = new InformacionResultados
+                        detalleResultado = new DetallePorPlacas
                         {
-                            ReporteRTResultadosID=item.ReporteRTResultadosID,
-                            ReporteRTID=item.ReporteRTID,
-                            OrdenTrabajoID=item.OrdenTrabajoID,
-                            SpoolID=item.SpoolID,
-                            JuntaSpoolID=item.JuntaSpoolID.GetValueOrDefault(),
-                            Ubicacion= item.Ubicacion,
-                            Resultado=int.Parse( item.Resultado.ToString()),
-                            DetalleResultados = ObtenerReportesRTResultadosDetalle(item.ReporteRTResultadosID, item.OrdenTrabajoID, item.SpoolID, item.JuntaSpoolID.GetValueOrDefault())
+                            ReporteRTResultadosID = item.ReporteRTResultadosID,
+                            ReporteRTID = item.ReporteRTID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            Ubicacion = item.Ubicacion,
+                            ResultadoID = int.Parse(item.ResultadosID.ToString()),
+                            Resultado = item.Resultado,
+                            ListaDetalleDefectos = ObtenerReportesRTResultadosDetalle(item.ReporteRTResultadosID, item.OrdenTrabajoID, item.SpoolID, item.JuntaSpoolID.GetValueOrDefault(), listaDefectos),
+                            ListaResultados = listaResultados,
+                            ListaDefectos=listaDefectos
                         };
                         listaDetalleResultado.Add(detalleResultado);
                     }
@@ -221,7 +299,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public List<DetalleResultadosDefectos> ObtenerReportesRTResultadosDetalle(int reporteResultadosID, int ordenTrabajoID, int spoolID, int juntaSpoolID)
+        public List<DetalleResultadosDefectos> ObtenerReportesRTResultadosDetalle(int reporteResultadosID, int ordenTrabajoID, int spoolID, int juntaSpoolID, List<Defectos> listaDefectos)
         {
             List<DetalleResultadosDefectos> listaDetalleResultados = new List<DetalleResultadosDefectos>();
             try
@@ -229,22 +307,23 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(reporteResultadosID ,ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(reporteResultadosID, ordenTrabajoID, spoolID, juntaSpoolID).ToList();
                     DetalleResultadosDefectos detalleResulado = null;
 
                     foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
                     {
                         detalleResulado = new DetalleResultadosDefectos
                         {
-                            ResultadosDefectoID=item.ResultadosDefectoID,
+                            ResultadosDefectoID = item.ResultadosDefectoID,
                             ResultadosDefecto = item.ResultadosDefectoID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID=item.SpoolID,
-                            JuntaSpoolID=item.JuntaSpoolID.GetValueOrDefault(),
-                            DefectoID= item.DefectoID,
-                            InicioMM=int.Parse( item.InicioMM.ToString()),
-                            FinMM= int.Parse(item.FinMM.ToString()),
-                            ReporteRTID = item.ReporteResultadosID
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            DefectoID = item.DefectoID,
+                            InicioMM = int.Parse(item.InicioMM.ToString()),
+                            FinMM = int.Parse(item.FinMM.ToString()),
+                            ReporteRTID = item.ReporteResultadosID,
+                            ListaDefectos=listaDefectos
                         };
                         listaDetalleResultados.Add(detalleResulado);
                     }

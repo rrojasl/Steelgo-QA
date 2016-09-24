@@ -27,7 +27,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string Observaciones { get; set; }
         public string CodigoAsme { get; set; }
         public int NumeroPlacas { get; set; }
-        public List<InformacionResultados> MiInformacionResultados { get; set; }
+        public List<DetallePorPlacas> ListaDetallePorPlacasGuardar { get; set; }
         
     }
 }
