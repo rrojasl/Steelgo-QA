@@ -7357,6 +7357,10 @@ _dictionary = {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
+    "menuCapturaAvanceIntAcabado": {
+        "es-MX": "Avance Intermedio Acabado",
+        "en-US": "Progress Intermediate Finishes"
+    },
     // Finalizan Etiquetas de Menú General
 
 
@@ -8052,4 +8056,15 @@ _dictionary = {
         "en-US": "Progress"
     },
     //Finaliza Captura Avance
+    
+    //Comienza Avance Intermedio Acabado
+    "lblLotesCapturaReporteSup": {
+        "es-MX": "Captura Reporte",
+        "en-US": "Capture Report "
+    },
+    "lblLotesCapturaReporteInf": {
+        "es-MX": "Captura Reporte",
+        "en-US": "Capture Report "
+    },
+    // Finaliza Avance Intermedio Acabado
 };

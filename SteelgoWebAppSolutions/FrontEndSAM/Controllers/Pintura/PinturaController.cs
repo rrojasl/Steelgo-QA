@@ -17,5 +17,10 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult AvanceIntermedioAcabado()
+        {
+            return View();
+        }
     }
 }
