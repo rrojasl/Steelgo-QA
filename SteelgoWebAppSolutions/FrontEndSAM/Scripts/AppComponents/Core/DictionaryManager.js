@@ -7393,23 +7393,62 @@ _dictionary = {
         "es-MX": "Avance",
         "en-US": "Progress"
     },
-
-
     "menuCapturaAvanceIntAcabado": {
         "es-MX": "Avance Intermedio Acabado",
         "en-US": "Progress Intermediate Finishes"
     },
-
-      "menuDescargaCarritos": {
-             "es-MX": "Descarga de Carro",
-             "en-US": "Download Carriage"
-      },
-
-      "menuLotesCapturaPrueba": {
-          "es-MX": "Lote Captura Prueba",
-          "en-US": "Batch Capture Test "
-
-      },
+    "menuDescargaCarritos": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carriage"
+    },
+    "menuLotesCapturaPrueba": {
+        "es-MX": "Lote Captura Prueba",
+        "en-US": "Batch Capture Test "
+    },
+    "menuLotesCapturaPrueba": {
+        "es-MX": "Lote Captura Prueba",
+        "en-US": "Batch Capture Test "
+    },
+    "menuEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "menuEmbarqueConsulta": {
+        "es-MX": "Consulta",
+        "en-US": "Query"
+    },
+    "menuEmbarqueEtiquetar": {
+        "es-MX": "Etiquetar",
+        "en-US": "Label"
+    },
+    "menuEmbarqueEncintar": {
+        "es-MX": "Encintar",
+        "en-US": "Taping"
+    },
+    "menuEmbarqueCarga": {
+        "es-MX": "Carga",
+        "en-US": "Charge"
+    },
+    "menuEmbarqueEmpaquetado": {
+        "es-MX": "Empaquetado",
+        "en-US": "Packaging"
+    },
+    "menuEmbarqueCarro": {
+        "es-MX": "Carro",
+        "en-US": "Car"
+    },
+    "menuEmbarqueListadoEmbarque": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
+    "menuEmbarqueRevision": {
+        "es-MX": "Revisión",
+        "en-US": "Review"
+    },
+    "menuEmbarqueDashboard": {
+        "es-MX": "Dashboard Embarque",
+        "en-US": "Dashboard Shipment"
+    },
     // Finalizan Etiquetas de Menú General
 
 
