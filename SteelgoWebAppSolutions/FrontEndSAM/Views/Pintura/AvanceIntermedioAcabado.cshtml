@@ -22,12 +22,12 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow Guardar"><span id="lblGuardar"></span></button>
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar2"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                                    <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar"></span></a></li>
                                     <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                                 </ul>
                             </div>
@@ -75,41 +75,41 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row" id="FieldSetView2">
                 <div class="col-sm-3 col-md-3 col-lg-3" id="divColor">
-                    <label id="lblCapturaAvanceIntAcabadoColor"></label>
+                    <label id="lblColor"></label>
                     <input id="inputColor" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3" id="divFecha">
-                    <label id="lblCapturaAvanceIntAcabadoFecha"></label>
+                    <label id="lblFecha"></label>
                     <input id="inputFechaCapturaAvanceIntAcabado" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3" id="divPintor">
-                    <label id="lblCapturaAvanceIntAcabadoPintor"></label>
+                    <label id="lblPintor"></label>
                     <input id="inputPintor" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3" id="divLote">
-                    <label id="lblCapturaAvanceIntAcabadoLote"></label>
+                    <label id="lblLote"></label>
                     <input id="inputLote" />
                 </div>
 
             </div>
             <div class="row" id="FieldSetView3">
                 <div class="col-sm-3 col-md-3 col-lg-3" id="divPinturaComponenteComposicion">
-                    <label id="lblCapturaAvanceIntAcabadoSistemaPintura"></label>
+                    <label id="lblSistemaPintura"></label>
                     <input id="inputSistemaPintura" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3" id="divPinturaComponenteComposicion">
-                    <label id="lblCapturaAvanceIntAcabadoPinturaComponenteComposicion"></label>
+                    <label id="lblComposicion"></label>
                     <input id="inputPinturaComponenteComposicion" />
                 </div>
 
                 <div class="btn-group col-xs-3 col-sm-3 col-md-3 col-lg-3" role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
-                    <label id="CapturaAvanceIntAcabadoHeaderLlenadoMasivo"></label>
-                    <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="CapturaLlenadoMasivoTodos"></span>
-                    <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="CapturaLlenadoMasivoVacios"></span>
+                    <label id="lblPlanchar"></label>
+                    <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="lblTodos"></span>
+                    <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="lblVacios"></span>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <label id="">&nbsp;</label>
-                    <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonAplicar"></span></button>
+                    <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonPlanchar"></span></button>
                 </div>
             </div>
 
@@ -131,15 +131,16 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow GuardarFooter"><span id="botonGuardar3"></span></button>
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="Guardar1"><span id="botonGuardar4"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                            <li><a href="#" id="btnGuardar4" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo2"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
+
                     <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="CapturaAvanceIntAcabadoDivInferior" class="button-section">

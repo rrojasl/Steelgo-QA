@@ -7663,6 +7663,18 @@ _dictionary = {
         "es-MX": "Componente",
         "en-US": "Component"
     },
+    "columnFechaPintura": {
+        "es-MX": "Fecha Pintura",
+        "en-US": "Painting Date"
+    },
+    "columnPintores": {
+        "es-MX": "Pintores",
+        "en-US": "Painters"
+    },
+    "columnELM": {
+        "es-MX": "ELM",
+        "en-US": "DEL"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
