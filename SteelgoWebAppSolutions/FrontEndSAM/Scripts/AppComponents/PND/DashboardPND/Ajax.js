@@ -1,6 +1,7 @@
 ﻿function AjaxCargarHeaderDashboard() {
     $Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), modulo: 1}).done(function (data) {
-        if(data.length>0){
+        if (data.length > 0) {
+            $("#tabEstatus").html("");
             var tab = '';
             var option = '';
             for (var i = 0; i < data.length; i++) {

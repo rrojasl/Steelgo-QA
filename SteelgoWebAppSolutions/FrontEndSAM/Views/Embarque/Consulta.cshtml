@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio">Inicio</span></a>
+    </li>
+    <li>
+        <a href="#"><span id="lblEmbarque">Embarque</span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("Consulta", "Embarque")"><span id="">Consulta</span></a>
+    </li>
+}
+<div id="FormEmbarqueConsulta" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="AreaDiv">
+            <label id=""><span id="EmbarqueConsultaArea">Proyecto</span></label>
+            <input id="Proyecto" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="AreaDiv">
+            <label id=""><span id="EmbarqueConsultaArea">Area</span></label>
+            <input id="Area" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="CuadranteDiv">
+            <label id=""><span id="EmbarqueConsultaCuadrante">Cuadrante</span></label>
+            <input id="Cuadrante" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="">&nbsp;</label>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonBuscar">Buscar</span></button>
+        </div>
+    </div>
+    <div class="row addedSectionInLine">
+        <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+    </div>
+    <input id="hdAccionFiltrado" type="hidden" />
+</div>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Consulta/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Consulta/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Consulta/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Consulta/Captura.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Consulta/Seguridad.js"></script>
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    //$authorizationModel["Consulta"] = $ConsultaModel;
+    }
+</script>
