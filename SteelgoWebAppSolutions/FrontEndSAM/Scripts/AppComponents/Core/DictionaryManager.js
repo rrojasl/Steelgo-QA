@@ -7704,6 +7704,10 @@ _dictionary = {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
     },
+    "columnSeRealizoPrueba": {
+        "es-MX": "¿Se realizo alguna prueba?",
+        "en-US": "did you make any proof?"
+    },
     "ServiciosTecnicosDashboardPNDBreadcrumb": {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
