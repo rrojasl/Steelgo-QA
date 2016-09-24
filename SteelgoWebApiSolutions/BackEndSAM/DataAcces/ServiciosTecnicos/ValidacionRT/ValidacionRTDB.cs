@@ -234,7 +234,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                     string detalleTemp = "";
                     for (int i = 0; i < listaElementosCTX.Count; i++)
                     {
-                        detalleTemp = ObtenerReportesRTResultados(listaElementosCTX[i].OrdenTrabajoID, listaElementosCTX[i].SpoolID, listaElementosCTX[i].JuntaSpoolID.GetValueOrDefault(), out numPlacas);
+                        detalleTemp = ObtenerReportesRTResultados(listaElementosCTX[i].OrdenTrabajoID, listaElementosCTX[i].SpoolID, listaElementosCTX[i].JuntaSpoolID.GetValueOrDefault(), out numPlacas, lenguaje);
                         cad.Append("{\"ReporteRTID\": \""+listaElementosCTX[i].ReporteRTID+"\", \"RequisicionID\":\"" + listaElementosCTX[i].RequisicionID + "\", \"OrdenTrabajoID\":\"" + listaElementosCTX[i].OrdenTrabajoID + "\",\"SpoolID\":\"" + listaElementosCTX[i].SpoolID + "\", \"JuntaSpoolID\":\"" + listaElementosCTX[i].JuntaSpoolID + "\", \"NumeroControl\": \"" + listaElementosCTX[i].NumeroControl + "\", \"Etiqueta\": \"" + listaElementosCTX[i].Etiqueta + "\", \"ClasificacionPND\": \"" + listaElementosCTX[i].ClasificacionPND + "\", \"TipoPrueba\": \"" + listaElementosCTX[i].TipoPrueba + "\", \"Observaciones\": \"" + listaElementosCTX[i].Observaciones + "\", \"CodigoAsme\": \"" + listaElementosCTX[i].CodigoAsme + "\", \"NumeroPlacas\": \"" + numPlacas + "\", \"Tamanomm\": \""+listaElementosCTX[i].Tamano+"\", \"Densidad\": "+listaElementosCTX[i].Densidad+", \"Conciliado\": \""+listaElementosCTX[i].ResultadoConciliacionID+ "\", \"RazonRechazo\": \"" + listaElementosCTX[i].RazonNoConciliacionID+"\", \"InformacionResultados\": [" + detalleTemp + "], \"Accion\": 1, \"Activo\": 1, \"UsuarioModificacion\": 1, \"FechaModificacion\": \"" + DateTime.Now.ToString("yyyy-MM-dd") + "\" }");
                         if (i != (listaElementosCTX.Count - 1))
                             cad.Append(',');
@@ -280,14 +280,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
-        public string ObtenerReportesRTResultados(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int numeroPlacas)
+        public string ObtenerReportesRTResultados(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int numeroPlacas,string lenguaje)
         {
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID).ToList();
+                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
 
                     numeroPlacas = result.Count;
                     System.Text.StringBuilder cad = new System.Text.StringBuilder();

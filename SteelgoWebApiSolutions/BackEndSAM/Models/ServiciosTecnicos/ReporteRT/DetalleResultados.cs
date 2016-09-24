@@ -34,5 +34,19 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public int Accion { get; set; }
         public int ReporteRTID { get; set; }
         public string Ubicacion { get; set; }
+
+        public List<Defectos> ListaDefectos { get; set; }
+    }
+
+    public class Defectos
+    {
+        public int? DefectoID { get; set; }
+        public string Defecto { get; set; }
+
+        public Defectos()
+        {
+            DefectoID = 0;
+            Defecto = "";
+        }
     }
 }

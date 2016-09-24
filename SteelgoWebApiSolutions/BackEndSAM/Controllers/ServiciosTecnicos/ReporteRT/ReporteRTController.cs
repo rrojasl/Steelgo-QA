@@ -209,18 +209,18 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                     
                     DataTable dtDefectos = null;
 
-                    if (Captura.Detalles[i].MiInformacionResultados != null)
+                    if (Captura.Detalles[i].ListaDetallePorPlacasGuardar != null)
                     {
-                        for (int j = 0; j < Captura.Detalles[i].MiInformacionResultados.Count; j++)
+                        for (int j = 0; j < Captura.Detalles[i].ListaDetallePorPlacasGuardar.Count; j++)
                         {
-                            if (Captura.Detalles[i].MiInformacionResultados[j].DetalleResultados != null)
+                            if (Captura.Detalles[i].ListaDetallePorPlacasGuardar[j].ListaDetalleDefectos != null)
                             {
-                                dtDefectos = ReporteRTController.ToDataTable(Captura.Detalles[i].MiInformacionResultados[j].DetalleResultados);
+                                dtDefectos = ReporteRTController.ToDataTable(Captura.Detalles[i].ListaDetallePorPlacasGuardar[j].ListaDetalleDefectos);
                                 dtDetalleDefectos.Merge(dtDefectos);
                             }
                         }
 
-                        dtResultados = ReporteRTController.ToDataTable(Captura.Detalles[i].MiInformacionResultados);
+                        dtResultados = ReporteRTController.ToDataTable(Captura.Detalles[i].ListaDetallePorPlacasGuardar);
                         dtDetalleResultados.Merge(dtResultados);
                     }
                 }
