@@ -8,6 +8,7 @@
     SuscribirEventoGuardarMedioTransporte();
     SuscribirEventoMostrarSpool();
     SuscribirEventoGuardar();
+    SuscribirEventoCheckCerrarCarro();
 
 }
 
@@ -51,6 +52,7 @@ function SuscribirEventoCarro() {
                     CargaPopupNuevoMedioTransporte();
                 } else {
                     $("#inputCarroEscritorio").attr("mediotransporteid", dataItem.MedioTransporteCargaID);
+                    $("#inputCarroEscritorio").attr("mediotransportecerrado", dataItem.CarroCerrado);
                     AjaxCargarSpoolBacklog(false, dataItem.MedioTransporteID);
                 }
             } else {
@@ -72,6 +74,7 @@ function SuscribirEventoCarro() {
                 
                 if (dataItem.MedioTransporteID != 0) {
                     $("#inputCarroPatio").attr("mediotransporteid", dataItem.MedioTransporteCargaID);
+                    $("#inputCarroPatio").attr("mediotransportecerrado", dataItem.CarroCerrado);
                     if(dataItem.MedioTransporteID == -1){
                         CargaPopupNuevoMedioTransporte();
                     } else {                        
@@ -358,6 +361,35 @@ function SuscribirEventoGuardar() {
         }
     });
 };
+
+function SuscribirEventoCheckCerrarCarro() {
+    $('#chkCerrarEscritorio, #chkCerrarPatio').change(function () {
+        var checked = $(this)[0].checked;
+        if ($("#styleEscritorio").hasClass("active")) {
+            if ($("#inputCarroEscritorio").data("kendoComboBox").value() != "" &&
+                $("#inputCarroEscritorio").data("kendoComboBox").value() != "0") {
+
+                var ds = $("#grid[name='grid-Escritorio']").data("kendoGrid").dataSource;
+
+                if (ds._data.length > 0 && $("#inputCarroEscritorio").data("kendoComboBox").value() != "") {
+                    if ($("#inputCarroEscritorio").attr("mediotransportecerrado")) {
+                        $(this)[0].checked = true;
+                    }
+                }
+            }
+        }
+        else if ($("#stylePatio").hasClass("active")) {
+            var ds = $("#grid[name='grid-Patio']").data("kendoGrid").dataSource;
+            
+            if (ds._data.length > 0 && $("#inputCarroPatio").data("kendoComboBox").value() != "") {
+                if ($("#inputCarroPatio").attr("mediotransportecerrado")) {
+                    $(this)[0].checked = true;
+                }
+            }
+
+        }
+    });
+}
 
 function opcionHabilitarView(valor, name) {
     var $menu = $('.save-group');

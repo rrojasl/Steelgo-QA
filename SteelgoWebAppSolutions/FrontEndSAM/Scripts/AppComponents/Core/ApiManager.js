@@ -177,6 +177,7 @@ var $ValidacionRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Pintura
 var $PinturaGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaCarro = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -308,4 +309,5 @@ $ReporteRT.add("ReporteRT");
 
 //Pintura
 $PinturaGeneral.add("PinturaGeneral");
-$CargaCarro.add("CargaCarro")
+$CargaCarro.add("CargaCarro");
+$CapturaAvance.add('CapturaAvance');
