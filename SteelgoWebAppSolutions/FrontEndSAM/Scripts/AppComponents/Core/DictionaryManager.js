@@ -7457,7 +7457,7 @@ _dictionary = {
         "es-MX": "Mediciones Climatológicas",
         "en-US": "Weather Measurements"
     },
-    "MenuMedClimCondicionesClimatologicas": {
+    "menuMedClimCondicionesClimatologicas": {
         "es-MX": "Condiciones Climatológicas",
         "en-US": "Weather conditions"
     },
