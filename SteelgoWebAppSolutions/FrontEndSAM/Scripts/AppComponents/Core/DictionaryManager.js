@@ -7453,6 +7453,14 @@ _dictionary = {
         "es-MX": "Dashboard Embarque",
         "en-US": "Dashboard Shipment"
     },
+    "menuMedicionesClimatologicas": {
+        "es-MX": "Mediciones Climatológicas",
+        "en-US": "Weather Measurements"
+    },
+    "menuMedClimCondicionesClimatologicas": {
+        "es-MX": "Condiciones Climatológicas",
+        "en-US": "Weather conditions"
+    },
     // Finalizan Etiquetas de Menú General
 
 
