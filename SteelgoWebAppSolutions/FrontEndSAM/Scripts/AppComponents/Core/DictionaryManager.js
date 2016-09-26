@@ -7200,6 +7200,54 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    "lblPatio": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "lblArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "lblFechaToma": {
+        "es-MX": "Fecha de la toma",
+        "en-US": "Date of taking"
+    },
+    "lblHoraToma": {
+        "es-MX": "Hora de la toma",
+        "en-US": "Hour of taking"
+    },
+    "lblMedicionesTempAmbiente": {
+        "es-MX": "Temp Ambiente °C:  ",
+        "en-US": "Room Temp:  °C:"
+    },
+    "lblMedicionesHumedad": {
+        "es-MX": "Humedad:  ",
+        "en-US": "Humidity: "
+    },
+    "lblMedicionesPuntoRocio": {
+        "es-MX": "Punto Rocio: ",
+        "en-US": "Dewpoint: "
+    },
+    "lblMedicionesCampoX": {
+        "es-MX": "Campo X: ",
+        "en-US": "Field X: "
+    },
+    "lblEquipoTomaTemperatura": {
+        "es-MX": "Equipo de Toma: ",
+        "en-US": "Equipment taking: "
+    },
+    "lblEquipoTomaHumedad": {
+        "es-MX": "Equipo de Toma: ",
+        "en-US": "Equipment taking: "
+    },
+    "lblEquipoTomaRocio": {
+        "es-MX": "Equipo de Toma: ",
+        "en-US": "Equipment taking: "
+    },
+    "lblEquipoTomaCampoX": {
+        "es-MX": "Equipo de Toma: ",
+        "en-US": "Equipment taking: "
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -8308,5 +8356,17 @@ _dictionary = {
         "en-US": "Download Carrige "
     },
     // Finaliza Lote Captura Reporte 
+
+
+    //Comienza Condiciones Climatologicas 
+    "lblDescargaDeCarroSup": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carrige "
+    },
+    "lblDescargaDeCarroInf": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carrige "
+    },
+    // Finaliza Condiciones Climatologicas 
 
 };
