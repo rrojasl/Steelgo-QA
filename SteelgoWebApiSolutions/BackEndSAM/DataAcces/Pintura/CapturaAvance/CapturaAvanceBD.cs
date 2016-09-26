@@ -107,7 +107,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolCapturaAvance(medioTransporteCargaID, lenguaje).ToList();
                     List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> spoolsCargados = new List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result>();
-                    List<Sam3_Steelgo_Get_Cuadrante_Result> GetlistaCuandrantes = (List<Sam3_Steelgo_Get_Cuadrante_Result>)CuadranteBD.Instance.ObtenerCuadrante(0);
+                    List<Sam3_Steelgo_Get_Cuadrante_Result> GetlistaCuandrantes = (List<Sam3_Steelgo_Get_Cuadrante_Result>)CuadranteBD.Instance.ObtenerCuadrante(6);
 
                     List<Cuadrante> ListaCuandrantes = new List<Cuadrante>();
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in GetlistaCuandrantes)

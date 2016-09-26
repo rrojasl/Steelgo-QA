@@ -103,7 +103,30 @@ function CargarGridEscritorio(){
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaEscritorio }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } }
         ]
     });
+    $("#grid[name='grid-Escritorio'] .k-grid-content").on("change", ":checkbox", function (e) {
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid[name='grid-Escritorio']").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            var SistemaPintura = grid.dataSource._data[0].SistemaPintura;
+            if(SistemaPintura == dataItem.SistemaPintura){
+                if (!dataItem.Status) {
+                    if ($(this)[0].checked) {
+                        dataItem.Seleccionado = true;
+                    } else {
+                        dataItem.Seleccionado = false;
+                    }
+                } else {
+                    $(this)[0].checked = true;
+                }
+            } else {
+                $(this)[0].checked = false;
+                displayNotify("", _dictionary.PinturaCargaBackLogMensajeErrorServicioPintura[$("#language").data("kendoDropDownList").value()] + SistemaPintura, "1");
+            }
+            
 
+            ImprimirAreaToneladaBackLog();
+        }
+    });
     CustomisaGrid($("#grid[name='grid-Escritorio']"));
 }
 
@@ -200,7 +223,7 @@ function eliminarCapturaEscritorio(e) {
             windowDownload.open().center();
 
             $("#btnDescargar").click(function (handler) {
-                var dataSource = $("#grid[nombre='grid-backlog']").data("kendoGrid").dataSource;
+                var dataSource = $("#grid[nombre='grid-Escritorio']").data("kendoGrid").dataSource;
                 if ($("#inputCuadrantePopup").data("kendoComboBox").value() != "") {
                     if (dataItem.Accion === 1) {
                         dataSource.remove(dataItem);
@@ -256,7 +279,7 @@ function eliminarCapturaPatio(e) {
             windowDownload.open().center();
 
             $("#btnDescargar").click(function (handler) {
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                var dataSource = $("#grid[nombre='grid-Patio']").data("kendoGrid").dataSource;
                 if ($("#inputCuadrantePopup").data("kendoComboBox").value() != "") {
                     if (dataItem.Accion === 1)
                     { dataSource.remove(dataItem); }

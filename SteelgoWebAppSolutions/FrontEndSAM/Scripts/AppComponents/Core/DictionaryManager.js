@@ -8302,6 +8302,10 @@ _dictionary = {
         "es-MX": "No existe el spool",
         "en-US": "No spool"
     },
+    "PinturaCargaCuadrante": {
+        "es-MX": "Por favor seleccione el cuadrante de descarga",
+        "en-US": "Please select the quadrant from discharge"
+    },
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance
@@ -8332,6 +8336,46 @@ _dictionary = {
     "lblCapturaAvance": {
         "es-MX": "Avance",
         "en-US": "Progress"
+    },
+
+    "CapturaAvanceGuardadoCorrecto": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+        },
+    "CapturaMensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+    "PinturaGuardarDescarga": {
+        "es-MX": "Se actualizo correctamente los spools",
+        "en-US": "updated was done sucesfull"
+    }
+    ,
+    "PinturaGuardarErrorDesGuardar": {
+        "es-MX": "Hay un error en la actualizacion de la informacion",
+        "en-US": "no information was saved"
+    },
+    "CapturaAvancePintoresShotblastNoExistentes": {
+        "es-MX": "No hay shotblasteros seleccionados",
+        "en-US": "Dont exist selected shotblasteros"
+    },
+
+    "CapturaAvancePintoresShotblastExistentes": {
+        "es-MX": "Pintores shotblast seleccionados:",
+        "en-US": "Selected shotblast painters:"
+    },
+    "CapturaAvancePintoresPrimariosNoExistentes": {
+        "es-MX": "No hay pintores seleccionados",
+        "en-US": "Dont exist selected painters"
+
+    },
+    "CapturaAvancePintoresPrimariosExistentes": {
+        "es-MX": "Pintores primarios seleccionados:",
+        "en-US": "Selected primary painters:"
+    },
+    "CapturaTodos": {
+        "es-MX": "Todos",
+        "en-US": "All"
     },
     //Finaliza Captura Avance
     

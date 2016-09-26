@@ -17,12 +17,12 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
     CargarGrid();
-    //AjaxCargarCamposPredeterminados();
-    //AjaxCargarCarrosCargados();
-    //AjaxCargarPintor();
-    //AjaxCargarShotBlastero();
-    //AjaxCargarCuadrante(0);
-    //AjaxCargarCuadranteMain();
+    AjaxCargarCamposPredeterminados();
+    AjaxCargarCarrosCargados();
+    AjaxCargarPintor();
+    AjaxCargarShotBlastero();
+    AjaxCargarCuadrante(0);
+    AjaxCargarCuadranteMain();
     document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -39,7 +39,7 @@ function AltaFecha() {
 
     endRangeDateShotblast.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            //PlanchaFechaShotblast();
+            PlanchaFechaShotblast();
         }
         if (e.keyCode == 9) {
             ValidarFechaShot($("#FechaShotBlast").data("kendoDatePicker").value());
@@ -59,7 +59,7 @@ function AltaFecha() {
 
     endRangeDatePrimario.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            //PlanchaFechaPrimario();
+            PlanchaFechaPrimario();
         }
         if (e.keyCode == 9) {
             ValidarFechaPrimario($("#Fechaprimario").data("kendoDatePicker").value());
@@ -143,7 +143,7 @@ function CargarGrid() {
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
             { field: "Metros2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), width: "150px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "FechaPrimario", title: _dictionary.columnFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), width: "140px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "130px" },
             { field: "ListaPintorGuargado", title: _dictionary.columnPintor[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxPintor, template: "#:plantillaPintor#", width: "130px" },
@@ -371,4 +371,31 @@ function PlanchaCuadranteDescarga() {
     }
 
     $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+
+
+    }
+    else {
+
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
+        ds.sync();
+    }
 }

@@ -45,7 +45,8 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                             MedioTransporteID = item.MedioTransporteID,
                             MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             Nombre = item.Nombre,
-                            ProyectoID = item.ProyectoID.GetValueOrDefault()
+                            ProyectoID = item.ProyectoID.GetValueOrDefault(),
+                            CarroCerrado = item.CarroCerrado.GetValueOrDefault()
                         });
                     }
 

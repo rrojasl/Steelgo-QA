@@ -10,6 +10,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public int MedioTransporteID { get; set; }
         public int MedioTransporteCargaID { get; set; }
         public string Nombre { get; set; }
+        public bool CarroCerrado { get; set; }
         public int  ProyectoID { get; set; }
 
         public MedioTransporte()
@@ -17,6 +18,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
             MedioTransporteID = 0;
             MedioTransporteCargaID = 0;
             Nombre = "";
+            CarroCerrado = false;
             ProyectoID = 0;
         }
     }
