@@ -36,5 +36,6 @@
         public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoMedioTransporte";
         public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_Guardar_CargaMedioTransporte";
         public static string SETCIERRACARRO = "Sam3_Pintura_Set_CierraCarro";
+        public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_Guarda_CapturaAvance";
     }
 }

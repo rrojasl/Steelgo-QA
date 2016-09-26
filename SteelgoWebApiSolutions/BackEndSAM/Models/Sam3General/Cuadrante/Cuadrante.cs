@@ -9,7 +9,7 @@ namespace BackEndSAM.Models.Sam3General.Cuadrante
     {
         public int CuadranteID { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> AreaID { get; set; }
-        public Nullable<int> PatioID { get; set; }
+        public int PatioID { get; set; }
+        
     }
 }
