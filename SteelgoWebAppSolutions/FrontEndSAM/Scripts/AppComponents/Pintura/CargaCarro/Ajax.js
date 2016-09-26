@@ -236,7 +236,7 @@ function ajaxGuardar(arregloCaptura, guardarYNuevo) {
                     Captura[0].Detalles = ListaGuardarDetalles;
 
                     var disponible = 1;
-                    if ($('#chkCerrar2').is(':checked') && carroCerrado == "false") {
+                    if ($('#chkCerrarPatio').is(':checked') && carroCerrado == "false") {
                         disponible = 0;
                     }
                     $CargaCarro.CargaCarro.create(Captura[0], {
@@ -310,7 +310,7 @@ function AjaxSubirSpool(listaSpool, guardarYNuevo) {
                 }
 
                 var disponible = 1;
-                if ($('#chkCerrar').is(':checked') && carroCerrado == "false") {
+                if ($('#chkCerrarEscritorio').is(':checked') && carroCerrado == "false") {
                     disponible = 0;
                 }
 
@@ -472,4 +472,17 @@ function AjaxAgregarCarga() {
     } else {
         displayNotify("PinturaSeleccionarProyecto", "", '2');
     }
+}
+
+function ServicioPinturaCorrecto(ListaDetalles) {
+    var sistema;
+    for (var i = 0 ; i < ListaDetalles.length ; i++) {
+        if (i == 0) {
+            sistema = ListaDetalles[0].SistemaPintura;
+        }
+        if (sistema != ListaDetalles[i].SistemaPintura) {
+            return false;
+        }
+    }
+    return true;
 }
