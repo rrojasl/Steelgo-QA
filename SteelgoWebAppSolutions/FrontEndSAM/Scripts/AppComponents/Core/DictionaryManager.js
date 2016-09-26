@@ -8302,6 +8302,10 @@ _dictionary = {
         "es-MX": "No existe el spool",
         "en-US": "No spool"
     },
+    "PinturaCargaCuadrante": {
+        "es-MX": "Por favor seleccione el cuadrante de descarga",
+        "en-US": "Please select the quadrant from discharge"
+    },
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance
