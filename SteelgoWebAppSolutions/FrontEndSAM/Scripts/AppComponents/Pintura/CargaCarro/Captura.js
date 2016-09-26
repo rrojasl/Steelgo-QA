@@ -103,7 +103,24 @@ function CargarGridEscritorio(){
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaEscritorio }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } }
         ]
     });
+    $("#grid[name='grid-Escritorio'] .k-grid-content").on("change", ":checkbox", function (e) {
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid[name='grid-Escritorio']").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
 
+            if (!dataItem.Status) {
+                if ($(this)[0].checked) {
+                    dataItem.Seleccionado = true;
+                } else {
+                    dataItem.Seleccionado = false;
+                }
+            } else {
+                $(this)[0].checked = true;
+            }
+
+            ImprimirAreaToneladaBackLog();
+        }
+    });
     CustomisaGrid($("#grid[name='grid-Escritorio']"));
 }
 
