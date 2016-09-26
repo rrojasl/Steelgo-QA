@@ -7196,6 +7196,10 @@ _dictionary = {
         "es-MX": "Componente",
         "en-US": "Component"
     },
+    "lblCerrar": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -8151,6 +8155,96 @@ _dictionary = {
     "PinturaCapturaAvanceInf": {
         "es-MX": "Avance",
         "en-US": "Progress"
+    },
+    "PinturaCargaTitulo": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+    "PinturaCargaDescargar": {
+        "es-MX": "Descargar",
+        "en-US": "Discharge"
+    },
+    "PinturaCargaCerrarPopup": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    "PinturaCargaMsjDescargaSpool": {
+        "es-MX": "El spool será descargado del carrito. Seleccione el cuadrante de descarga",
+        "en-US": "The spool will discharge cart. Select the quadrant discharge"
+
+    },
+    "PinturaCargaGuardar": {
+        "es-MX": "Se guardo la informacion correctamente",
+        "en-US": "saved information"
+    }
+     ,
+    "PinturaCerrarCarro": {
+        "es-MX": "Se cerró el carro correctamente",
+        "en-US": "Cart closed successfuly"
+    },
+    "PinturaGuardarErrorGuardar": {
+        "es-MX": "No se guardo la informacion",
+        "en-US": "no information was saved"
+    },
+    "PinturaCargaAgregarNuevoCarro": {
+        "es-MX": "Agregar nuevo carro",
+        "en-US": "Add new car"
+    },
+    "PinturaCargaNuevoCarro": {
+        "es-MX": "Crear nuevo carro",
+        "en-US": "Create new car"
+    },
+    "lblNombreMedioTransporte": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "PinturaGuardarNuevoCarro": {
+        "es-MX": "El carro fue creado satisfactoriamente",
+        "en-US": "The carr was created sucessfull"
+    },
+    "PinturaErrorGuardarNuevoCarro": {
+        "es-MX": "El carro ya existe",
+        "en-US": "The car already exists"
+    },
+    "PinturaGuardarNuevoCarroNombre": {
+        "es-MX": "Favor de ingresar el nombre del carro",
+        "en-US": "Please enter the name of the car"
+    },
+    "PinturaHeaderCargaCarro": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
+    },
+    "PinturaCargaBackLogMensajeErrorServicioPintura": {
+        "es-MX": "El sistema de pintura debe ser ",
+        "en-US": "The paint system should be "
+    },
+    "PinturaCargaBackLogMensajeGuardadoExitoso": {
+        "es-MX": "Se subio al carro correctamente",
+        "en-US": "uploaded to car correctly"
+    },
+    "PinturaCargaBackLogMensajeSeleccionaSpool": {
+        "es-MX": "Selecciona al menos un spool",
+        "en-US": "Select at least one Spool"
+    },
+    "PinturaCargaSeleccionaSpool": {
+        "es-MX": "Por favor selecciona un spool",
+        "en-US": "Select a spool please"
+    },
+    "PinturaCargaNoHaySpoolsEnElCarro": {
+        "es-MX": "No hay spools en el carro",
+        "en-US": "There aren't any spool in the car"
+    },
+    "PinturaCargaSeleccionaCodigo": {
+        "es-MX": "Por favor selecciona un código",
+        "en-US": "Select a code please"
+    },
+    "PinturaCargaMensajeOrdenTrabajo": {
+        "es-MX": "La Orden de trabajo no es valida.",
+        "en-US": "The work order is not valid."
+    },
+    "PinturaCargaNoExisteSpoolID": {
+        "es-MX": "No existe el spool",
+        "en-US": "No spool"
     },
     //Finaliza Carga de Carro
 

@@ -33,5 +33,8 @@
         public static string GUARDARCAPTURAIMPRESIONPRUEBAS = "Sam3_ST_IP_GuardaCaptura";
         public static string GUARDARCAPTURAREPORTERT = "Sam3_ST_CRRT_Guarda_ReporteRT";
         public static string ELIMINAREQUISICIONPND = "Sam3_ERPND_EliminaRequisicion";
+        public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoMedioTransporte";
+        public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_Guardar_CargaMedioTransporte";
+        public static string SETCIERRACARRO = "Sam3_Pintura_Set_CierraCarro";
     }
 }
