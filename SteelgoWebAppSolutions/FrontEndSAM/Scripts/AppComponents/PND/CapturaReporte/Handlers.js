@@ -12,24 +12,51 @@ function SuscribirEventos() {
     suscribirEventoRequisicion();
     suscribirEventoFuente();
     suscribirEventTurno();
-
-    cargarGrid();
+    suscribirEventoDetallePlaca();
+    suscribirEventoDetalleDefectoPorPlaca();
 }
+
+function suscribirEventoDetallePlaca() {
+
+    $(document).on('click', '.EnlacePorPlaca', function (e) {
+        e.preventDefault();
+        var grid = $("#grid").data("kendoGrid");
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        LlenarGridPopUpDetallePlaca(dataItem);
+
+    });
+}
+
+function suscribirEventoDetalleDefectoPorPlaca() {
+
+    $(document).on('click', '.EnlaceDefectoPorPlaca', function (e) {
+        e.preventDefault();
+        var grid = $("#gridPopUp").data("kendoGrid");
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        $("#PlacaID").text("XDXDXD");
+        LlenarGridPopUpDetalleDefectoPorPlaca(dataItem);
+
+    });
+}
+
 
 function suscribirEventoGuardar() {
 
-    $('#GuardarDefectos').click(function (e) {
-        //if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
-
-            var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-        //modeloRenglon.ListaDetalleDefectos = ds._data;
-            var window = $("#windowGrid");
-            //var temp = window.data("kendoWindow").title();
-            //actualizaDefectos(window.data("kendoWindow").title(), ds._data)
+    $('#GuardarPlacas').click(function (e) {
+        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        var window = $("#windowGrid");
+        if (actualizaGridGeneralPorPlaca())
             $("#windowGrid").data("kendoWindow").close();
-        //}
-        //else if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0082[$("#language").data("kendoDropDownList").value()])
-        //    opcionHabilitarView(false, "FieldSetView")
+        //        $("#grid").data("kendoGrid").dataSource.sync();
+    });
+
+    $('#GuardarDefectos').click(function (e) {
+        var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
+        alert( $("#PlacaID").text());
+        var window = $("#windowGridDefectos");
+        if (actualizaGridGeneralPorDefectos())
+        actualizaDefectos(window.data("kendoWindow").title(), ds._data)
+        $("#windowGridDefectos").data("kendoWindow").close();
     });
 
     //GuardarYNuevo
@@ -225,10 +252,10 @@ function SuscribirEventoComboPrueba() {
 function suscribirEventoChangeRadioTipo() {
 
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        
+
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        
+
     });
 }
 

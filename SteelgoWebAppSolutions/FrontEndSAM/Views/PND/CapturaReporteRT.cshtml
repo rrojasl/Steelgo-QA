@@ -150,7 +150,8 @@
 <div id="windowGrid" style="display: none; z-index:inherit;">
     <div class="form-group">
         <div class="col-sm-3 col-md-3 col-lg-3">
-            <a class="btn btn-blue" href="#" id="GuardarDefectos"><span id="CapturaReporteGuardarPopup"></span></a>
+            <a class="btn btn-blue" href="#" id="GuardarPlacas"><span id="CapturaReporteGuardarPopup"></span></a>
+            
         </div>
     </div>
     <br />
@@ -161,6 +162,22 @@
         </div>
     </div>
 
+</div>
+<div id="windowGridDefectos" style="display: none; z-index:inherit;">
+    <div class="form-group">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <a class="btn btn-blue" href="#" id="GuardarDefectos"><span id="CapturaReporteGuardarPopup"></span></a>
+            <input type="hidden" id="PlacaID" />
+        </div>
+    </div>
+    <br />
+    
+    <div class="form-group">
+        <div id="ContenedorGridPopUpDefectos">
+            <div id="gridPopUpDefectos" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/CapturaReporte/Ajax.js"></script>
