@@ -46,6 +46,8 @@ function getParameterByName(name, url) {
 }
 
 function cargarGrid() {
+
+    //BeforeEdit
     kendo.ui.Grid.fn.editCell = (function (editCell) {
         return function (cell) {
             cell = $(cell);
@@ -69,6 +71,7 @@ function cargarGrid() {
             editCell.call(this, cell);
         };
     })(kendo.ui.Grid.fn.editCell);
+
     $("#grid").kendoGrid({
         edit: function (e) {
 

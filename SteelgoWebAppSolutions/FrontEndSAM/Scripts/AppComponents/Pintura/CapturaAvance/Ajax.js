@@ -429,7 +429,7 @@ function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
         listaDetalleSpool[contIndice].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
         listaDetalleSpool[contIndice].ColorPinturaID = arregloCaptura[index].ColorPinturaID;
         listaDetalleSpool[contIndice].LotePinturaID = 0;
-        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = $("#inputComponente").data("kendoComboBox").value();
+        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = 1;
 
         if (arregloCaptura[index].FechaShotblast != null) {
             listaDetalleSpool[contIndice].Fecha = kendo.toString(arregloCaptura[index].FechaShotblast,

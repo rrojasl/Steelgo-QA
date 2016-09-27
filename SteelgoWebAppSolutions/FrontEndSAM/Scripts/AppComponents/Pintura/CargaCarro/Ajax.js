@@ -109,16 +109,15 @@ function AjaxGuardarNuevoCarro() {
     try {
         loadingStart();
         var Captura = { Nombre: $("#InputNombre").val(), UsuarioID: 0 };
-        
+        var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
 
 
         if ($("#InputNombre").val() != "" && $("#InputNombre").val()!=undefined) {
             $PinturaGeneral.PinturaGeneral.create(Captura, { token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     windowNewCarriage.close();
-                    setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
+                    setTimeout(function () { AjaxCargarMedioTransporte(proyectoID); }, 1100);
                     displayNotify("PinturaGuardarNuevoCarro", "", '0');
-
                 }
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     displayNotify("PinturaErrorGuardarNuevoCarro", "", '2');

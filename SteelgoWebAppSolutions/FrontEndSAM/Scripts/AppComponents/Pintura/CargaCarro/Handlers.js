@@ -164,8 +164,9 @@ function SuscribirEventoCuadrante() {
         dataValueField: "CuadranteID",
         suggest: true,
         filter: "contains",
-        change: function () {
-            if ($("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select()) != undefined) {
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem!=undefined) {
 
             }
             else {

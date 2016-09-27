@@ -73,11 +73,11 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
 
-                    DataTable dt = _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtMedioTransporte, "@Tabla", null);
+                    int resultSp = _SQL.EjecutaInsertUpdate(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtMedioTransporte, "@Tabla");
                     TransactionalInformation result = new TransactionalInformation();
-                    if (dt.Rows.Count == 0)
+                    
+                    if (resultSp > 0)
                     {
-
                         result.ReturnMessage.Add("Ok");
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
@@ -85,14 +85,11 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     }
                     else
                     {
-
-                        result.ReturnMessage.Add(dt.Rows[0][0].ToString());
-                        result.ReturnCode = 500;
-                        result.ReturnStatus = false;
+                        result.ReturnMessage.Add("El Carro ya existe");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
                         result.IsAuthenicated = true;
                     }
-
-
                     return result;
                 }
             
