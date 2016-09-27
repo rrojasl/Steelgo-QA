@@ -125,6 +125,7 @@ function CargarGridEscritorio(){
                 }
             } else {
                 $(this)[0].checked = false;
+                displayNotify("PinturaSeleccionaCarro","", "1");
             }
             ImprimirAreaToneladaBackLog();
         }
@@ -248,6 +249,8 @@ function eliminarCapturaEscritorio(e) {
             $("#btnCerrarPopup").click(function () {
                 windowDownload.close();
             });
+        } else {
+            displayNotify("PinturaSeleccionaCarroDescarga", '', '1');
         }
     }
 }
