@@ -1,19 +1,59 @@
 ﻿var listaDefectosAuxiliar;
 var infoGridTemp = null;
 var llamadasATodos = 0;
+var numeroPlacasAnteriorElemento;
+var dataItem;
 
 function RenderNumeroPlacas(container, options) {
-    var dataItem;
-    $('<input data-text-field="NumeroPlacas" id=' + options.model.uid + ' data-value-field="NumeroPlacas" data-bind="value:' + options.field + '" onblur="renderDataSourceNumeroPlacas(\'' + options.model.SpoolID + '\', \'' + options.model.JuntaSpoolID + '\',\'' + options.model.OrdenTrabajoID + '\');" />')
+    
+    numeroPlacasAnteriorElemento = options.model.NumeroPlacas;
+    $('<input data-text-field="NumeroPlacas" id=' + options.model.uid + ' data-value-field="NumeroPlacas" data-bind="value:' + options.field + '" />')
     .appendTo(container)
     .kendoNumericTextBox({
         format: "#",
         min: 0
-        //,
-        //change: function (e)
-        //{
-        //    alert("xd");
-        //}
+        ,
+        change: function (e)
+        {
+            var grid = $("#grid").data("kendoGrid");
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+
+            var value = this.value();
+            if (numeroPlacasAnteriorElemento != null && numeroPlacasAnteriorElemento != this.value()) {
+                
+
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
+                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                ventanaConfirm.open().center();
+
+                $("#yesButton").click(function () {
+                    renderDataSourceNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                    ventanaConfirm.close();
+                });
+                $("#noButton").click(function () {
+                    dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
+
+                    ventanaConfirm.close();
+                });
+            }
+            else if (numeroPlacasAnteriorElemento == null) {
+                renderDataSourceNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+            }
+        }
     });
 }
 
@@ -45,14 +85,14 @@ function renderDataSourceNumeroPlacas(spoolJunta, junta, numeroControl) {
             $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas = new Array($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas);
             for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; j++) {
                 if (j != ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas - 1))
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = {  OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID , Ubicacion: j + '-' + (j + 1),ResultadoID:undefined, Resultado: '', ListaDetalleDefectos: [], Accion: 1, ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados, ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: "Ver detalle defectos", Posicion: j };
+                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = { OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, Ubicacion: j + '-' + (j + 1), ResultadoID: undefined, Resultado: '', ListaDetalleDefectos: [], Accion: 1, ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados, ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: "Ver detalle defectos", Posicion: j };
                 else
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = {  OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID , Ubicacion: j + '-' + 0,ResultadoID:undefined, Resultado: '', ListaDetalleDefectos: [], Accion: 1, ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados, ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: "Ver detalle defectos", Posicion: j };
+                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = { OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, Ubicacion: j + '-' + 0, ResultadoID: undefined, Resultado: '', ListaDetalleDefectos: [], Accion: 1, ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados, ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: "Ver detalle defectos", Posicion: j };
             }
             break;
         }
     }
-}   
+}
 
 function renderDataSourceDetalleDefectos(spoolJunta, junta, numeroControl) {
     //alert(spoolJunta);
@@ -140,9 +180,16 @@ function comboBoxDefectos(container, options) {
             //template: "<i class=\"fa fa-#=data.Defecto#\"></i> #=data.Defecto#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined && dataItem.DefectoID != undefined) {
+                if (dataItem != undefined && dataItem.DefectoID != 0) {
                     options.model.DefectoID = dataItem.DefectoID;
                     options.model.Defecto = dataItem.Defecto;
+                    //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
+                    var itemPlaca = $("#PlacaID").text().split("°")
+                    options.model.OrdenTrabajoID = itemPlaca[0];
+                    options.model.SpoolID = itemPlaca[1];
+                    options.model.JuntaSpoolID = itemPlaca[2];
+                    options.model.Ubicacion = itemPlaca[3];
+                    options.model.Posicion = itemPlaca[4];
                 }
             }
         }
@@ -186,7 +233,7 @@ function filtraDatosCapturados(tipoFiltro) {
     else if (tipoFiltro == "Todos") {
         for (var i = 0; i < infoGridTemp.length; i++) {
             //if (infoGridTemp[i].NumeroPlacas != 0) {
-                $("#grid").data("kendoGrid").dataSource.add(infoGridTemp[i]);
+            $("#grid").data("kendoGrid").dataSource.add(infoGridTemp[i]);
             //}
         }
     }
@@ -248,7 +295,7 @@ function disableEnableView(disable) {
         //$("input[name='Muestra']").attr("disabled", true);
         $("#btnAgregar").attr("disabled", true);
 
-        
+
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -266,7 +313,7 @@ function disableEnableView(disable) {
 
         $("#btnAgregar").attr("disabled", false);
 
-        
+
         $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -283,7 +330,7 @@ function cleanView() {
     $("#inputFuente").data("kendoComboBox").value("");
     $("#inputTurno").data("kendoComboBox").value("");
     $("#inputPrueba").data("kendoComboBox").value("");
-    
+
     $("#grid").data("kendoGrid").dataSource.data([]);
     //if (paramReq == null) {
     //    AjaxCargaListaProyectos();

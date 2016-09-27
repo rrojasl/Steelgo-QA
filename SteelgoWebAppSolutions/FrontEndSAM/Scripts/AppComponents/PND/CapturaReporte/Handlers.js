@@ -33,7 +33,8 @@ function suscribirEventoDetalleDefectoPorPlaca() {
         e.preventDefault();
         var grid = $("#gridPopUp").data("kendoGrid");
         dataItem = grid.dataItem($(e.target).closest("tr"));
-        $("#PlacaID").text("XDXDXD");
+        $("#PlacaID").text(dataItem.OrdenTrabajoID + "°" + dataItem.SpoolID + "°" + dataItem.JuntaSpoolID + "°" + dataItem.Ubicacion + "°" + dataItem.Posicion);
+        //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
         LlenarGridPopUpDetalleDefectoPorPlaca(dataItem);
 
     });
@@ -47,16 +48,13 @@ function suscribirEventoGuardar() {
         var window = $("#windowGrid");
         if (actualizaGridGeneralPorPlaca())
             $("#windowGrid").data("kendoWindow").close();
-        //        $("#grid").data("kendoGrid").dataSource.sync();
     });
 
     $('#GuardarDefectos').click(function (e) {
         var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
-        alert( $("#PlacaID").text());
         var window = $("#windowGridDefectos");
         if (actualizaGridGeneralPorDefectos())
-        actualizaDefectos(window.data("kendoWindow").title(), ds._data)
-        $("#windowGridDefectos").data("kendoWindow").close();
+            $("#windowGridDefectos").data("kendoWindow").close();
     });
 
     //GuardarYNuevo

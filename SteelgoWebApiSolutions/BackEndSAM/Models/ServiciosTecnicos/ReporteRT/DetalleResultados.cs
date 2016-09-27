@@ -31,6 +31,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public int FinMM { get; set; }
         public int Accion { get; set; }
         public int Posicion { get; set; }
+        public string Ubicacion { get; set; }
     }
 
     public class Defectos

@@ -296,18 +296,18 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
         public List<DetalleResultadosDefectos> ObtenerReportesRTResultadosDetalle( int ordenTrabajoID, int spoolID, int juntaSpoolID, List<Defectos> listaDefectos,string lenguaje)
         {
-            List<DetalleResultadosDefectos> listaDetalleResultados = new List<DetalleResultadosDefectos>();
+            List<DetalleResultadosDefectos> listaDetalleDefectos = new List<DetalleResultadosDefectos>();
             try
             {
 
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle( ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
-                    DetalleResultadosDefectos detalleResulado = null;
+                    DetalleResultadosDefectos detalleDefecto = null;
 
                     foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
                     {
-                        detalleResulado = new DetalleResultadosDefectos
+                        detalleDefecto = new DetalleResultadosDefectos
                         {
                             OrdenTrabajoID = item.OrdenTrabajoID,
                             SpoolID = item.SpoolID,
@@ -319,16 +319,16 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             Accion=2,
                             Posicion=item.Posicion.GetValueOrDefault(),
                         };
-                        listaDetalleResultados.Add(detalleResulado);
+                        listaDetalleDefectos.Add(detalleDefecto);
                     }
 
-                    return listaDetalleResultados;
+                    return listaDetalleDefectos;
                 }
 
             }
             catch (Exception ex)
             {
-                return listaDetalleResultados;
+                return listaDetalleDefectos;
             }
         }
 
