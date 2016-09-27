@@ -8399,6 +8399,10 @@ _dictionary = {
         "es-MX": "Descarga de Carro",
         "en-US": "Download Carrige "
     },
+    "lblCerrarLote": {
+        "es-MX": "Cerrar Lote",
+        "en-US": "Close Lot"
+    },
     // Finaliza Lote Captura Reporte 
 
 

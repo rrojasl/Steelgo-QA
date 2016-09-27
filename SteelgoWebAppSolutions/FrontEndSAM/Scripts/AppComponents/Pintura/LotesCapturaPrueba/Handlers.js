@@ -3,13 +3,25 @@
     SuscribirEventoLote();
     SuscribirEventoBuscar();
     SuscribirEventoGuardar();
-
+    SuscribirEventoProyecto();
 }
 
 function SuscribirEventoSistemaPintura() {
     $("#inputSistemaPintura").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "ProyectoID",
+        dataValueField: "SistPintID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3
+
+    });
+}
+
+function SuscribirEventoProyecto() {
+    $("#inputProyecto").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "Proyecto",
         suggest: true,
         delay: 10,
         filter: "contains",
@@ -18,8 +30,6 @@ function SuscribirEventoSistemaPintura() {
     });
 
 }
-
-
 
 function SuscribirEventoLote() {
 
