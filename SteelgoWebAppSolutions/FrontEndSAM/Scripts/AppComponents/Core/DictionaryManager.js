@@ -7975,8 +7975,15 @@ _dictionary = {
         "en-US": "No data to save."
     },
 
-// Pantalla Captura Reporte RT PND
-
+    // Pantalla Captura Reporte RT PND
+    "CapturaReporteModificarNoPlacas": {
+        "es-MX": "¿Deseas cambiar el numero de placas?",
+        "en-US": "¿Do You want to change the number plates?"
+    },
+    "CapturaReporteGuardarDefectosPopup": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "ReporteRTHeader": {
         "es-MX": "Captura de Reporte",
         "en-US": "Capture of Report"
