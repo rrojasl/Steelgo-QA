@@ -25,7 +25,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
 
     public class CapturaMedioTransporte
     {
-        public string MedioTransporteNombre { get; set; }
+        public string Nombre { get; set; }
         public int UsuarioID { get; set; }
     }
 }

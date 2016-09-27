@@ -9,7 +9,9 @@
             $('input:radio[name=TipoVista]:nth(1)').attr('checked', false);
 
             $("#contenedorPrincipalEscritorio").show();
+            $("#contenedorSecundarioEscritorio").show();
             $("#contenedorPrincipalPatio").hide();
+            $("#contenedorSecundarioPatio").hide();
         }
         else if (data == "Patio") {
             $("#styleEscritorio").removeClass("active");
@@ -19,7 +21,9 @@
             $('input:radio[name=TipoVista]:nth(1)').attr('checked', true);
 
             $("#contenedorPrincipalEscritorio").hide();
+            $("#contenedorSecundarioEscritorio").hide();
             $("#contenedorPrincipalPatio").show();
+            $("#contenedorSecundarioPatio").show();
         }
         //loadingStop();
     });
@@ -75,13 +79,21 @@ function AjaxCargaProyecto(){
     });
 }
 
-function AjaxCargarMedioTransporte(ProyectoID) {
+function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
     $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), proyectoID: ProyectoID }).done(function (data) {
         var medioTranporteId = 0;        
         if (data.length < 3) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].MedioTransporteID != 0) {
                     medioTranporteId = data[i].MedioTransporteID;
+                }
+            }
+        } else {
+            if(nuevoCarro!=null){
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nuevoCarro) {
+                        medioTranporteId = data[i].MedioTransporteID;
+                    }
                 }
             }
         }
@@ -109,16 +121,15 @@ function AjaxGuardarNuevoCarro() {
     try {
         loadingStart();
         var Captura = { Nombre: $("#InputNombre").val(), UsuarioID: 0 };
-        
+        var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
 
 
         if ($("#InputNombre").val() != "" && $("#InputNombre").val()!=undefined) {
             $PinturaGeneral.PinturaGeneral.create(Captura, { token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     windowNewCarriage.close();
-                    setTimeout(function () { AjaxPinturaCargaMedioTransporte(); }, 1100);
+                    setTimeout(function () { AjaxCargarMedioTransporte(proyectoID, $("#InputNombre").val()); }, 1100);
                     displayNotify("PinturaGuardarNuevoCarro", "", '0');
-
                 }
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     displayNotify("PinturaErrorGuardarNuevoCarro", "", '2');

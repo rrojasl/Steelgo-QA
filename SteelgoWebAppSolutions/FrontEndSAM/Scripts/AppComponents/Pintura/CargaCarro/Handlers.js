@@ -26,7 +26,7 @@ function SuscribirEventoProyecto() {
 
             if (dataItem != undefined) {
                 if (dataItem.ProyectoID != 0) {
-                    AjaxCargarMedioTransporte(dataItem.ProyectoID);
+                    AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
                     AjaxCargarCuadrante(dataItem.PatioID);
                 }
             } else {
@@ -47,6 +47,8 @@ function SuscribirEventoCarro() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             $("#grid[name='grid-Escritorio']").data('kendoGrid').dataSource.data([]);
+            $("#labelM2E").text("");
+            $("#labelToneladasE").text("");
             if (dataItem != undefined) {
                 if (dataItem.MedioTransporteID == -1) {
                     CargaPopupNuevoMedioTransporte();
@@ -70,8 +72,12 @@ function SuscribirEventoCarro() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             $("#grid[name='grid-Patio']").data('kendoGrid').dataSource.data([]);
+            $("#labelM2P").text("");
+            $("#labelToneladasP").text("");
+            $("#InputOrdenTrabajo").val('');
+            $("#InputID").data("kendoComboBox").value("");
+
             if (dataItem != undefined) {
-                
                 if (dataItem.MedioTransporteID != 0) {
                     $("#inputCarroPatio").attr("mediotransporteid", dataItem.MedioTransporteCargaID);
                     $("#inputCarroPatio").attr("mediotransportecerrado", dataItem.CarroCerrado);
@@ -119,7 +125,7 @@ function SuscribirEventoSpoolID() {
                 try {
                     AjaxObtenerSpoolID();
                 } catch (e) {
-                    displayNotify("Mensajes_error", e.message, '0');
+                    displayNotify("Mensajes_error", e.message, '2');
                 }
             } else {
                 $("#InputOrdenTrabajo").val("");
@@ -164,8 +170,9 @@ function SuscribirEventoCuadrante() {
         dataValueField: "CuadranteID",
         suggest: true,
         filter: "contains",
-        change: function () {
-            if ($("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select()) != undefined) {
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem!=undefined) {
 
             }
             else {
@@ -192,7 +199,9 @@ function SuscribirEventoCambiarVista() {
         $("#labelToneladasE").text("");
 
         $("#contenedorPrincipalEscritorio").show();
+        $("#contenedorSecundarioEscritorio").show();
         $("#contenedorPrincipalPatio").hide();
+        $("#contenedorSecundarioPatio").hide();
     });
     $('#stylePatio').click(function () {
         $("#styleEscritorio").removeClass("active");
@@ -214,7 +223,9 @@ function SuscribirEventoCambiarVista() {
         $("#grid[name='grid-Patio']").data('kendoGrid').dataSource.data([]);
 
         $("#contenedorPrincipalEscritorio").hide();
+        $("#contenedorSecundarioEscritorio").hide();
         $("#contenedorPrincipalPatio").show();
+        $("#contenedorSecundarioPatio").show();
 
     });
 
@@ -294,6 +305,11 @@ function LimpiarCargaProyecto() {
 
     $("#grid[name='grid-Escritorio']").data('kendoGrid').dataSource.data([]);
     $("#grid[name='grid-Patio']").data('kendoGrid').dataSource.data([]);
+
+    $("#labelM2E").text();
+    $("#labelM2P").text();
+    $("#labelToneladasE").text();
+    $("#labelToneladasP").text();
 }
 
 function CargaPopupNuevoMedioTransporte(e) {
@@ -313,7 +329,8 @@ function CargaPopupNuevoMedioTransporte(e) {
             "Close"
         ],
         close: function () {
-            //$("#inputCarro").data("kendoComboBox").value("");
+            $("#inputCarroEscritorio").data("kendoComboBox").value("");
+            $("#inputCarroPatio").data("kendoComboBox").value("");
         }
     }).data("kendoWindow");
     $("#divNuevoMedioTransporte").data("kendoWindow").title(_dictionary.PinturaCargaNuevoCarro[$("#language").data("kendoDropDownList").value()]);

@@ -7975,8 +7975,15 @@ _dictionary = {
         "en-US": "No data to save."
     },
 
-// Pantalla Captura Reporte RT PND
-
+    // Pantalla Captura Reporte RT PND
+    "CapturaReporteModificarNoPlacas": {
+        "es-MX": "¿Deseas cambiar el numero de placas?",
+        "en-US": "¿Do You want to change the number plates?"
+    },
+    "CapturaReporteGuardarDefectosPopup": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "ReporteRTHeader": {
         "es-MX": "Captura de Reporte",
         "en-US": "Capture of Report"
@@ -8306,6 +8313,14 @@ _dictionary = {
         "es-MX": "Por favor seleccione el cuadrante de descarga",
         "en-US": "Please select the quadrant from discharge"
     },
+    "PinturaSeleccionaCarro": {
+        "es-MX": "Por favor seleccione un carro para la carga del spool",
+        "en-US": "Please select a cart to load the spool"
+    },
+    "PinturaSeleccionaCarroDescarga": {
+        "es-MX": "Por favor seleccione un carro para la descarga del spool",
+        "en-US": "Please select a cart to discharge the spool"
+    },
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance
@@ -8398,6 +8413,10 @@ _dictionary = {
     "lblDescargaDeCarroInf": {
         "es-MX": "Descarga de Carro",
         "en-US": "Download Carrige "
+    },
+    "lblCerrarLote": {
+        "es-MX": "Cerrar Lote",
+        "en-US": "Close Lot"
     },
     // Finaliza Lote Captura Reporte 
 
