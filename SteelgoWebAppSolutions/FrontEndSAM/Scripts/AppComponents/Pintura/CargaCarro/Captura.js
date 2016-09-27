@@ -284,7 +284,7 @@ function eliminarCapturaPatio(e) {
             windowDownload.open().center();
 
             $("#btnDescargar").click(function (handler) {
-                var dataSource = $("#grid[nombre='grid-Patio']").data("kendoGrid").dataSource;
+                var dataSource = $("#grid[name='grid-Patio']").data("kendoGrid").dataSource;
                 if ($("#inputCuadrantePopup").data("kendoComboBox").value() != "") {
                     if (dataItem.Accion === 1)
                     { dataSource.remove(dataItem); }

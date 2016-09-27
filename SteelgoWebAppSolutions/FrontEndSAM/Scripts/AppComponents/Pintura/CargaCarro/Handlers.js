@@ -74,6 +74,8 @@ function SuscribirEventoCarro() {
             $("#grid[name='grid-Patio']").data('kendoGrid').dataSource.data([]);
             $("#labelM2P").text("");
             $("#labelToneladasP").text("");
+            $("#InputOrdenTrabajo").val('');
+            $("#InputID").data("kendoComboBox").value("");
 
             if (dataItem != undefined) {
                 if (dataItem.MedioTransporteID != 0) {
