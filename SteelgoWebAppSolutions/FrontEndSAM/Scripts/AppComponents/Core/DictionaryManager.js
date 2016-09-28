@@ -8264,6 +8264,10 @@ _dictionary = {
         "es-MX": "Avance Intermedio Acabado",
         "en-US": "Advance Intermediate Finish"
     },
+    "PinturaEdicionSPBreadcrumb": {
+        "es-MX": "Edicion Sistema de Pintura",
+        "en-US": "Edit System Paint"
+    },
     "PinturaLotesCapturaPruebaBreadcrumb": {
         "es-MX": "Lotes Captura Prueba",
         "en-US": "Batch Capture Tes"

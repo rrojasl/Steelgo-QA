@@ -25,6 +25,7 @@ function CargarGrid() {
                         "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                         "<th width='auto'  colspan='4' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                         "<th width='auto'  colspan='4' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                        "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
                         "</tr>");
                 }
         },
@@ -94,6 +95,11 @@ function CargarGrid() {
             { field: "UnidadMinAcabado", title: _dictionary.columnUnidadMinima3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "UnidadMaxAcabado", title: _dictionary.columnUnidadMaxima3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "PruebaAcabado", title: _dictionary.columnPrueba3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
         ]
     });
+}
+
+function eliminarCaptura(e) {
+
 }
