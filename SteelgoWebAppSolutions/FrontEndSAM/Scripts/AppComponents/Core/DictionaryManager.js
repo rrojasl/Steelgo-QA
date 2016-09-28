@@ -6992,11 +6992,19 @@ _dictionary = {
         "es-MX": "Mostrar",
         "en-US": "Show"
     },
+    "lblSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
     "lblSpoolID": {
         "es-MX": "Spool ID",
         "en-US": "ID spool"
     },
     "lblJunta": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+    "lblJunta1": {
         "es-MX": "Jta",
         "en-US": "Jnt"
     },
@@ -7264,6 +7272,14 @@ _dictionary = {
         "es-MX": "Acabado",
         "en-US": "Finished"
     },
+    "lblTubero": {
+        "es-MX": "Tubero",
+        "en-US": "Assembler"
+    },
+    "lblTaller": {
+        "es-MX": "Taller",
+        "en-US": "Workshop"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7420,6 +7436,10 @@ _dictionary = {
     "menuArmado": {
         "es-MX": "Armado",
         "en-US": "Assembly"
+    },
+    "menuSoldadura": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
     },
     "menuServiciosTecnicos": {
         "es-MX": "Servicios Técnicos",
@@ -7854,6 +7874,30 @@ _dictionary = {
         "es-MX": "Pruebas",
         "en-US": "Tests"
     },
+    "columnDetalleJunta": {
+        "es-MX": "Detalle",
+        "en-US": "Detail"
+    },
+    "columnTubero": {
+        "es-MX": "Tubero",
+        "en-US": "Assembler"
+    },
+    "columnTaller": {
+        "es-MX": "Taller",
+        "en-US": "Workshop"
+    },
+    "columnNumeroUnico1": {
+        "es-MX": "Único 1",
+        "en-US": "Unique 1"
+    },
+    "columnNumeroUnico2": {
+        "es-MX": "Único 2",
+        "en-US": "Unique 2"
+    },
+    "columnAdicionales": {
+        "es-MX": "Adicionales",
+        "en-US": "Additional"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7892,6 +7936,17 @@ _dictionary = {
         "en-US": "Dashboard PND"
     },
 // Finalizan Etiquetas Generales PND
+
+    //Pantalla Armado
+    "armadoSoldaduraSup": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    "armadoSoldaduraInf": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    //Finaliza Armado
 
 // Pantalla RequisiciónPND
     "ServiciosTecnicosRequisicionPND": {
