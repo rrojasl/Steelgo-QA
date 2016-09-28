@@ -28,10 +28,19 @@ namespace FrontEndSAM.Controllers.Pintura
             return View();
         }
        
-            public ActionResult DescargaCarritos()
+        public ActionResult DescargaCarritos()
         {
             return View();
         }
 
+        public ActionResult SistemaPintura()
+        {
+            return View();
+        }
+
+        public ActionResult EdicionSistemaPintura()
+        {
+            return View();
+        }
     }
 }
