@@ -6,7 +6,7 @@ var dataItem;
 
 function RenderNumeroPlacas(container, options) {
     
-    numeroPlacasAnteriorElemento = options.model.NumeroPlacas;
+    numeroPlacasAnteriorElemento = { NumeroPlacas: options.model.NumeroPlacas, OrdenTrabajoID: options.model.OrdenTrabajoID, SpoolID: options.model.SpoolID, JuntaSpoolID: options.model.JuntaSpoolID };
     $('<input data-text-field="NumeroPlacas" id=' + options.model.uid + ' data-value-field="NumeroPlacas" data-bind="value:' + options.field + '" />')
     .appendTo(container)
     .kendoNumericTextBox({
@@ -19,7 +19,7 @@ function RenderNumeroPlacas(container, options) {
             dataItem = grid.dataItem($(e.target).closest("tr"));
 
             var value = this.value();
-            if (numeroPlacasAnteriorElemento != null && numeroPlacasAnteriorElemento != this.value()) {
+            if (numeroPlacasAnteriorElemento.NumeroPlacas != null && numeroPlacasAnteriorElemento.NumeroPlacas != this.value()) {
                 
 
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -45,12 +45,19 @@ function RenderNumeroPlacas(container, options) {
                     ventanaConfirm.close();
                 });
                 $("#noButton").click(function () {
-                    dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
+                    //dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
+                    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                        if ((numeroPlacasAnteriorElemento.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (numeroPlacasAnteriorElemento.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (numeroPlacasAnteriorElemento.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas = numeroPlacasAnteriorElemento.NumeroPlacas;
+                            $("#grid").data("kendoGrid").refresh();
+                            break;
+                        }
+                    }
 
                     ventanaConfirm.close();
                 });
             }
-            else if (numeroPlacasAnteriorElemento == null) {
+            else if (numeroPlacasAnteriorElemento.NumeroPlacas == null) {
                 renderDataSourceNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
             }
         }
