@@ -7413,6 +7413,14 @@ _dictionary = {
     // Finalizan Mensajes generales
 
     // Menú lateral
+    "menuFabricacion": {
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
+    },
+    "menuArmado": {
+        "es-MX": "Armado",
+        "en-US": "Assembly"
+    },
     "menuServiciosTecnicos": {
         "es-MX": "Servicios Técnicos",
         "en-US": "Technical Services"
