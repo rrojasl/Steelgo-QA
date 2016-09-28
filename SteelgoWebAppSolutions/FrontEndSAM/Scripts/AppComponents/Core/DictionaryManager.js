@@ -7248,6 +7248,22 @@ _dictionary = {
         "es-MX": "Equipo de Toma: ",
         "en-US": "Equipment taking: "
     },
+    "lblShotblast": {
+        "es-MX": "Shotblast",
+        "en-US": "Shotblast"
+    },
+    "lblPrimario": {
+        "es-MX": "Primario",
+        "en-US": "Primary"
+    },
+    "lblIntermedio": {
+        "es-MX": "Intermedio",
+        "en-US": "Intermediate"
+    },
+    "lblAcabado": {
+        "es-MX": "Acabado",
+        "en-US": "Finished"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7508,6 +7524,14 @@ _dictionary = {
     "menuMedClimCondicionesClimatologicas": {
         "es-MX": "Condiciones Climatológicas",
         "en-US": "Weather conditions"
+    },
+    "menuSistemaPintura": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "System Paint"
+    },
+    "menuEdicionSistemaPintura": {
+        "es-MX": "Edicion de Sistema Pintura",
+        "en-US": "Edit System Paint"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7773,6 +7797,54 @@ _dictionary = {
     "columnELM": {
         "es-MX": "ELM",
         "en-US": "DEL"
+    },
+    "columnUnidadMinima": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMinima1": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMinima2": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMinima3": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMaxima": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnUnidadMaxima1": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnUnidadMaxima2": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnUnidadMaxima3": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnPrueba": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnPrueba1": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnPrueba2": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnPrueba3": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
