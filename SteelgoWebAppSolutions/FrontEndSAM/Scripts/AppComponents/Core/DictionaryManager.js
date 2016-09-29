@@ -6992,11 +6992,19 @@ _dictionary = {
         "es-MX": "Mostrar",
         "en-US": "Show"
     },
+    "lblSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
     "lblSpoolID": {
         "es-MX": "Spool ID",
         "en-US": "ID spool"
     },
     "lblJunta": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+    "lblJunta1": {
         "es-MX": "Jta",
         "en-US": "Jnt"
     },
@@ -7248,6 +7256,30 @@ _dictionary = {
         "es-MX": "Equipo de Toma: ",
         "en-US": "Equipment taking: "
     },
+    "lblShotblast": {
+        "es-MX": "Shotblast",
+        "en-US": "Shotblast"
+    },
+    "lblPrimario": {
+        "es-MX": "Primario",
+        "en-US": "Primary"
+    },
+    "lblIntermedio": {
+        "es-MX": "Intermedio",
+        "en-US": "Intermediate"
+    },
+    "lblAcabado": {
+        "es-MX": "Acabado",
+        "en-US": "Finished"
+    },
+    "lblTubero": {
+        "es-MX": "Tubero",
+        "en-US": "Assembler"
+    },
+    "lblTaller": {
+        "es-MX": "Taller",
+        "en-US": "Workshop"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7397,6 +7429,18 @@ _dictionary = {
     // Finalizan Mensajes generales
 
     // Menú lateral
+    "menuFabricacion": {
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
+    },
+    "menuArmado": {
+        "es-MX": "Armado",
+        "en-US": "Assembly"
+    },
+    "menuSoldadura": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
     "menuServiciosTecnicos": {
         "es-MX": "Servicios Técnicos",
         "en-US": "Technical Services"
@@ -7508,6 +7552,14 @@ _dictionary = {
     "menuMedClimCondicionesClimatologicas": {
         "es-MX": "Condiciones Climatológicas",
         "en-US": "Weather conditions"
+    },
+    "menuSistemaPintura": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "System Paint"
+    },
+    "menuEdicionSistemaPintura": {
+        "es-MX": "Edicion de Sistema Pintura",
+        "en-US": "Edit System Paint"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7774,6 +7826,78 @@ _dictionary = {
         "es-MX": "ELM",
         "en-US": "DEL"
     },
+    "columnUnidadMinima": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMinima1": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMinima2": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMinima3": {
+        "es-MX": "Unidad Min",
+        "en-US": "Unit Min"
+    },
+    "columnUnidadMaxima": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnUnidadMaxima1": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnUnidadMaxima2": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnUnidadMaxima3": {
+        "es-MX": "Unidad Max",
+        "en-US": "Unit Max"
+    },
+    "columnPrueba": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnPrueba1": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnPrueba2": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnPrueba3": {
+        "es-MX": "Pruebas",
+        "en-US": "Tests"
+    },
+    "columnDetalleJunta": {
+        "es-MX": "Detalle",
+        "en-US": "Detail"
+    },
+    "columnTubero": {
+        "es-MX": "Tubero",
+        "en-US": "Assembler"
+    },
+    "columnTaller": {
+        "es-MX": "Taller",
+        "en-US": "Workshop"
+    },
+    "columnNumeroUnico1": {
+        "es-MX": "Único 1",
+        "en-US": "Unique 1"
+    },
+    "columnNumeroUnico2": {
+        "es-MX": "Único 2",
+        "en-US": "Unique 2"
+    },
+    "columnAdicionales": {
+        "es-MX": "Adicionales",
+        "en-US": "Additional"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -7812,6 +7936,17 @@ _dictionary = {
         "en-US": "Dashboard PND"
     },
 // Finalizan Etiquetas Generales PND
+
+    //Pantalla Armado
+    "armadoSoldaduraSup": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    "armadoSoldaduraInf": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    //Finaliza Armado
 
 // Pantalla RequisiciónPND
     "ServiciosTecnicosRequisicionPND": {
@@ -8183,6 +8318,10 @@ _dictionary = {
     "PinturaAvanceIntermedioAcabadoBreadcrumb": {
         "es-MX": "Avance Intermedio Acabado",
         "en-US": "Advance Intermediate Finish"
+    },
+    "PinturaEdicionSPBreadcrumb": {
+        "es-MX": "Edicion Sistema de Pintura",
+        "en-US": "Edit System Paint"
     },
     "PinturaLotesCapturaPruebaBreadcrumb": {
         "es-MX": "Lotes Captura Prueba",
