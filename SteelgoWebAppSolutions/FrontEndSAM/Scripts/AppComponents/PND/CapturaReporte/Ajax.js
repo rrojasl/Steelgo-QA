@@ -176,9 +176,9 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 JuntaSpoolID: 0,
                 Accion: "",
                 Estatus: 0,
-                SpoolJunta: "",
+                //SpoolJunta: "",
                 Junta: "",
-                EtiquetaJunta: "",
+                //EtiquetaJunta: "",
                 ClasificacionPND: "",
                 TipoPrueba: "",
                 Observaciones: "",
@@ -186,9 +186,10 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 NumeroPlacas: 0,
                 Densidad: 0,
                 Tamano: 0,
+                NumeroControl: "",
                 ResultadoConciliacionID: 0,
                 RazonNoConciliacionID: 0,
-                MiInformacionResultados: []//,
+                ListaDetallePorPlacas: []//,
                 //Estatus: 1
             };
 
@@ -199,9 +200,9 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
             listaDetalles[cont].Accion = ds[i].Accion;
             listaDetalles[cont].Estatus = ds[i].Estatus;
-            listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
+            //listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
             listaDetalles[cont].Junta = ds[i].Junta;
-            listaDetalles[cont].EtiquetaJunta = ds[i].EtiquetaJunta;
+            //listaDetalles[cont].EtiquetaJunta = ds[i].EtiquetaJunta;
             listaDetalles[cont].ClasificacionPND = ds[i].ClasificacionPND;
             listaDetalles[cont].TipoPrueba = ds[i].TipoPrueba;
             listaDetalles[cont].Observaciones = ds[i].Observaciones;
@@ -209,44 +210,48 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].NumeroPlacas = ds[i].NumeroPlacas;
             listaDetalles[cont].Densidad = ds[i].Densidad;
             listaDetalles[cont].Tamano = ds[i].Tamano;
-            listaDetalles[cont].ResultadoConciliacionID = ds[i].ResultadoConciliacionID;
-            listaDetalles[cont].RazonNoConciliacionID = ds[i].RazonNoConciliacionID;
+            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
+            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
             
             var informacion = [];
-            for (var j = 0; j < ds[i].InformacionResultados.length; j++) {
+            for (var j = 0; j < ds[i].ListaDetallePorPlacas.length; j++) {
                 informacion[j] = { ReporteRTResultadosID: 0, ReporteRTID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "", Accion: 1 }
-                informacion[j].ReporteRTResultadosID = ds[i].InformacionResultados[j].ReporteRTResultadosID;
-                informacion[j].ReporteRTID = ds[i].InformacionResultados[j].ReporteRTID;
-                informacion[j].OrdenTrabajoID = ds[i].InformacionResultados[j].OrdenTrabajoID;
-                informacion[j].SpoolID = ds[i].InformacionResultados[j].SpoolID;
-                informacion[j].JuntaSpoolID = ds[i].InformacionResultados[j].JuntaSpoolID;
+                //informacion[j].ReporteRTResultadosID = ds[i].ListaDetallePorPlacas[j].ReporteRTResultadosID;
+                informacion[j].ReporteRTID = ds[i].ListaDetallePorPlacas[j].ReporteRTID;
+                informacion[j].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].OrdenTrabajoID;
+                informacion[j].SpoolID = ds[i].ListaDetallePorPlacas[j].SpoolID;
+                informacion[j].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].JuntaSpoolID;
                 
-                informacion[j].SpoolJunta = ds[i].InformacionResultados[j].SpoolJunta;
-                informacion[j].Junta = ds[i].InformacionResultados[j].Junta;
-                informacion[j].EtiquetaJunta = ds[i].InformacionResultados[j].EtiquetaJunta;
-                informacion[j].NumeroControl = ds[i].InformacionResultados[j].NumeroControl;
-                informacion[j].Ubicacion = ds[i].InformacionResultados[j].Ubicacion;
-                informacion[j].Resultado = ds[i].InformacionResultados[j].Resultado;
+                //informacion[j].SpoolJunta = ds[i].ListaDetallePorPlacas[j].SpoolJunta;
+                //informacion[j].Junta = ds[i].ListaDetallePorPlacas[j].Junta;
+                //informacion[j].EtiquetaJunta = ds[i].ListaDetallePorPlacas[j].EtiquetaJunta;
+                //informacion[j].NumeroControl = ds[i].ListaDetallePorPlacas[j].NumeroControl;
+                informacion[j].ResultadoID = ds[i].ListaDetallePorPlacas[j].ResultadoID;
+                informacion[j].Resultado = ds[i].ListaDetallePorPlacas[j].Resultado;
+                informacion[j].Ubicacion = ds[i].ListaDetallePorPlacas[j].Ubicacion;
 
-                informacion[j].Accion = ds[i].InformacionResultados[j].Accion;
-                listaDetalles[cont].MiInformacionResultados = informacion;
+                informacion[j].Accion = ds[i].ListaDetallePorPlacas[j].Accion;
+                listaDetalles[cont].ListaDetallePorPlacas = informacion;
 
                 var detalles = [];
-                for (var k = 0; k < ds[i].InformacionResultados[j].DetalleResultados.length; k++) {
+                for (var k = 0; k < ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length; k++) {
                     detalles[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, DefectoID: 0, InicioMM: 0, FinMM: 0, Accion:1 }
-                    detalles[k].ResultadosDefectoID = ds[i].InformacionResultados[j].DetalleResultados[k].ResultadosDefectoID;
-                    detalles[k].ReporteResultadosID = ds[i].InformacionResultados[j].DetalleResultados[k].ReporteResultadosID;
-                    detalles[k].OrdenTrabajoID = ds[i].InformacionResultados[j].DetalleResultados[k].OrdenTrabajoID;
-                    detalles[k].SpoolID = ds[i].InformacionResultados[j].DetalleResultados[k].SpoolID;
-                    detalles[k].JuntaSpoolID = ds[i].InformacionResultados[j].DetalleResultados[k].JuntaSpoolID;
+                    //detalles[k].ResultadosDefectoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ResultadosDefectoID;
+                    //detalles[k].ReporteResultadosID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ReporteResultadosID;
+                    detalles[k].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].OrdenTrabajoID;
+                    detalles[k].SpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].SpoolID;
+                    detalles[k].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].JuntaSpoolID;
 
-                    detalles[k].DefectoID = ds[i].InformacionResultados[j].DetalleResultados[k].DefectoID;
-                    detalles[k].InicioMM = ds[i].InformacionResultados[j].DetalleResultados[k].InicioMM;
-                    detalles[k].FinMM = ds[i].InformacionResultados[j].DetalleResultados[k].FinMM;
-                    detalles[k].Accion = ds[i].InformacionResultados[j].DetalleResultados[k].Accion;
+                    detalles[k].Defecto = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Defecto;
+                    detalles[k].InicioMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].InicioMM;
+                    detalles[k].FinMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].FinMM;
+                    detalles[k].Accion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Accion;
+                    detalles[k].Posicion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Posicion;
+                    detalles[k].Ubicacion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Ubicacion;
+
                 }
 
-                listaDetalles[cont].MiInformacionResultados[j].DetalleResultados = detalles;
+                listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
             }
 
             

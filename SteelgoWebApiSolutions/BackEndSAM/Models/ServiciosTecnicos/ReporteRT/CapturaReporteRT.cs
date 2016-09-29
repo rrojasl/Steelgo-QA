@@ -7,6 +7,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
 {
     public class CapturaReporteRT
     {
-        public List<DetalleReporteRTGuardarJson> Detalles { get; set; }
+        public List<DetalleCaptura> Detalles { get; set; }
     }
 }

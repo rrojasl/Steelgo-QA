@@ -15,6 +15,7 @@ function inicio() {
 }
 
 function validarReglasDeLlenado() {
+    return true;
     for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
         for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
 
@@ -242,8 +243,10 @@ function LlenarGridPopUpDetallePlaca(data) {
     VentanaModalDetallePlaca();
 }
 
+var currentDefectosPorPlaca = null;
 function LlenarGridPopUpDetalleDefectoPorPlaca(data) {
     modeloRenglon = data;
+    currentDefectosPorPlaca = data;
     $("#gridPopUpDefectos").data('kendoGrid').dataSource.data([]);
     var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
     var array = data.ListaDetalleDefectos;
@@ -326,6 +329,7 @@ function actualizaGridGeneralPorPlaca() {
                    
                     //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].TemplateDetallePorPlaca = $("#gridPopUp").data("kendoGrid").dataSource._data.length > 0 ? "Tienes " + $("#gridPopUp").data("kendoGrid").dataSource._data.length + "Defectos" : $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].TemplateDetallePorPlaca
                 }
+                break;
             }
         }
         return true;
@@ -355,28 +359,30 @@ function actualizaGridGeneralPorPlaca() {
 }
 
 function actualizaGridGeneralPorDefectos() {
+    //currentDefectosPorPlaca
     try {
         //buscar la manera de pasar un valor de una ventana modal a otra para saber de que placa se esta agregando el defecto.
         for (var i = 0; i < $("#gridPopUp").data("kendoGrid").dataSource._data.length; i++) {
             var listaDetalleDefectos = [];
+            if ((currentDefectosPorPlaca.Ubicacion == $("#gridPopUp").data("kendoGrid").dataSource._data[i].Ubicacion) && (currentDefectosPorPlaca.SpoolID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].SpoolID) && (currentDefectosPorPlaca.JuntaSpoolID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (currentDefectosPorPlaca.OrdenTrabajoID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+                for (var j = 0; j < $("#gridPopUpDefectos").data("kendoGrid").dataSource._data.length; j++) {
 
-            for (var j = 0; j < $("#gridPopUpDefectos").data("kendoGrid").dataSource._data.length; j++) {
-
-                if ($("#gridPopUp").data("kendoGrid").dataSource._data[i].OrdenTrabajoID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].SpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].JuntaSpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].Posicion == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion) {
-                    listaDetalleDefectos[j] = { OrdenTrabajoID: "", SpoolID: "", JuntaSpoolID: "", DefectoID: "", Defecto: "", InicioMM: "", FinMM: "", Accion: "", Posicion: "" };
-                    listaDetalleDefectos[j].OrdenTrabajoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID;
-                    listaDetalleDefectos[j].SpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID;
-                    listaDetalleDefectos[j].JuntaSpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID;
-                    listaDetalleDefectos[j].DefectoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].DefectoID;
-                    listaDetalleDefectos[j].Defecto = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Defecto;
-                    listaDetalleDefectos[j].InicioMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM;
-                    listaDetalleDefectos[j].FinMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM;
-                    listaDetalleDefectos[j].Accion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion;
-                    listaDetalleDefectos[j].Posicion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion;
+                    //if ($("#gridPopUp").data("kendoGrid").dataSource._data[i].OrdenTrabajoID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].SpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].JuntaSpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].Posicion == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion) {
+                        listaDetalleDefectos[j] = { OrdenTrabajoID: "", SpoolID: "", JuntaSpoolID: "", DefectoID: "", Defecto: "", InicioMM: "", FinMM: "", Accion: "", Posicion: "" };
+                        listaDetalleDefectos[j].OrdenTrabajoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID;
+                        listaDetalleDefectos[j].SpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID;
+                        listaDetalleDefectos[j].JuntaSpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID;
+                        listaDetalleDefectos[j].DefectoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].DefectoID;
+                        listaDetalleDefectos[j].Defecto = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Defecto;
+                        listaDetalleDefectos[j].InicioMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM;
+                        listaDetalleDefectos[j].FinMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM;
+                        listaDetalleDefectos[j].Accion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion;
+                        listaDetalleDefectos[j].Posicion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion;
+                    //}
                 }
-            }
-            if (listaDetalleDefectos.length != 0) {
-                $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                if (listaDetalleDefectos.length != 0) {
+                    $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                }
             }
         }
         return true;
