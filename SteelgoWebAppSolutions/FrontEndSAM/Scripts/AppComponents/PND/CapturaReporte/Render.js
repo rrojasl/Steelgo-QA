@@ -248,48 +248,6 @@ function filtraDatosCapturados(tipoFiltro) {
     loadingStop();
 }
 
-function filtrarDatosParaGuardar() {
-    var infoTemp = null;
-    if (infoGridTemp != null)
-        infoTemp = infoGridTemp;
-    else
-        infoTemp = $("#grid").data("kendoGrid").dataSource._data;
-
-    $("#grid").data('kendoGrid').dataSource.data([]);
-
-    for (var i = 0; i < infoTemp.length; i++) {
-        if (infoTemp[i].NumeroPlacas != 0) {
-            $("#grid").data("kendoGrid").dataSource.add(infoTemp[i]);
-        }
-    }
-}
-
-function validarReglasDeLlenado() {
-    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-        for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados.length; j++) {
-            if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado == (-1)) {
-                alert("Tienes por lo menos un resultado sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
-                return false;
-            }
-            else if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado == 0) {//Si esta evaluado pero hay que revisar si esta rechazado tiene que tenes defectos
-                if (!($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados.length > 0)) {
-                    alert("Si calificas como rechazado un defecto, tiene que tener por lo menos un resultado, en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
-                    return false;
-                }
-            }
-            for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados.length; k++) {
-                if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k].DefectoID == (-1)) {
-                    alert("Tienes por lo menos un defecto sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta)
-                    return false;
-                }
-            }
-
-        }
-    }
-
-    return true;
-}
-
 function disableEnableView(disable) {
     if (disable) {
 

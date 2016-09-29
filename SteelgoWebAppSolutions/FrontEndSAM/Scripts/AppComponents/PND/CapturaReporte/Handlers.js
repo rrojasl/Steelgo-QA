@@ -60,8 +60,7 @@ function suscribirEventoGuardar() {
     //GuardarYNuevo
     $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
         //alert('1');
-        filtrarDatosParaGuardar();
-
+        
         if (validarReglasDeLlenado()) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             AjaxGuardarCaptura(ds._data, true);
@@ -71,8 +70,6 @@ function suscribirEventoGuardar() {
     //Guardar
     $("#Guardar, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
         //alert('2');
-        filtrarDatosParaGuardar();
-
         if (validarReglasDeLlenado()) {
             if ($("#Guardar").text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
                 var ds = $("#grid").data("kendoGrid").dataSource;
