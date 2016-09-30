@@ -167,121 +167,127 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
         var listaDetalles = [];
         var cont = 0;
         for (var i = 0; i < ds.length; i++) {
+            if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad))) {
+                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffffff");
 
-            listaDetalles[cont] = {
-                ReporteRTID: 0,
-                RequisicionID: 0,
-                OrdenTrabajoID: 0,
-                SpoolID: 0,
-                JuntaSpoolID: 0,
-                Accion: "",
-                Estatus: 0,
-                //SpoolJunta: "",
-                Junta: "",
-                //EtiquetaJunta: "",
-                ClasificacionPND: "",
-                TipoPrueba: "",
-                Observaciones: "",
-                CodigoAsme: "",
-                NumeroPlacas: 0,
-                Densidad: 0,
-                Tamano: 0,
-                NumeroControl: "",
-                ResultadoConciliacionID: 0,
-                RazonNoConciliacionID: 0,
-                ListaDetallePorPlacas: []//,
-                //Estatus: 1
-            };
+                listaDetalles[cont] = {
+                    ReporteRTID: 0,
+                    RequisicionID: 0,
+                    OrdenTrabajoID: 0,
+                    SpoolID: 0,
+                    JuntaSpoolID: 0,
+                    Accion: "",
+                    Estatus: 0,
+                    //SpoolJunta: "",
+                    Junta: "",
+                    //EtiquetaJunta: "",
+                    ClasificacionPND: "",
+                    TipoPrueba: "",
+                    Observaciones: "",
+                    CodigoAsme: "",
+                    NumeroPlacas: 0,
+                    Densidad: 0,
+                    Tamano: 0,
+                    NumeroControl: "",
+                    ResultadoConciliacionID: 0,
+                    RazonNoConciliacionID: 0,
+                    ListaDetallePorPlacas: []//,
+                    //Estatus: 1
+                };
 
-            listaDetalles[cont].ReporteRTID= ds[i].ReporteRTID;
-            listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
-            listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
-            listaDetalles[cont].SpoolID = ds[i].SpoolID;
-            listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
-            listaDetalles[cont].Accion = ds[i].Accion;
-            listaDetalles[cont].Estatus = ds[i].Estatus;
-            //listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
-            listaDetalles[cont].Junta = ds[i].Junta;
-            //listaDetalles[cont].EtiquetaJunta = ds[i].EtiquetaJunta;
-            listaDetalles[cont].ClasificacionPND = ds[i].ClasificacionPND;
-            listaDetalles[cont].TipoPrueba = ds[i].TipoPrueba;
-            listaDetalles[cont].Observaciones = ds[i].Observaciones;
-            listaDetalles[cont].CodigoAsme = ds[i].CodigoAsme;
-            listaDetalles[cont].NumeroPlacas = ds[i].NumeroPlacas;
-            listaDetalles[cont].Densidad = ds[i].Densidad;
-            listaDetalles[cont].Tamano = ds[i].Tamano;
-            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
-            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
-            
-            var informacion = [];
-            for (var j = 0; j < ds[i].ListaDetallePorPlacas.length; j++) {
-                informacion[j] = { ReporteRTResultadosID: 0, ReporteRTID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "", Accion: 1 }
-                //informacion[j].ReporteRTResultadosID = ds[i].ListaDetallePorPlacas[j].ReporteRTResultadosID;
-                informacion[j].ReporteRTID = ds[i].ListaDetallePorPlacas[j].ReporteRTID;
-                informacion[j].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].OrdenTrabajoID;
-                informacion[j].SpoolID = ds[i].ListaDetallePorPlacas[j].SpoolID;
-                informacion[j].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].JuntaSpoolID;
-                
-                //informacion[j].SpoolJunta = ds[i].ListaDetallePorPlacas[j].SpoolJunta;
-                //informacion[j].Junta = ds[i].ListaDetallePorPlacas[j].Junta;
-                //informacion[j].EtiquetaJunta = ds[i].ListaDetallePorPlacas[j].EtiquetaJunta;
-                //informacion[j].NumeroControl = ds[i].ListaDetallePorPlacas[j].NumeroControl;
-                informacion[j].ResultadoID = ds[i].ListaDetallePorPlacas[j].ResultadoID;
-                informacion[j].Resultado = ds[i].ListaDetallePorPlacas[j].Resultado;
-                informacion[j].Ubicacion = ds[i].ListaDetallePorPlacas[j].Ubicacion;
+                listaDetalles[cont].ReporteRTID = ds[i].ReporteRTID;
+                listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
+                listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
+                listaDetalles[cont].SpoolID = ds[i].SpoolID;
+                listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
+                listaDetalles[cont].Accion = ds[i].Accion;
+                listaDetalles[cont].Estatus = ds[i].Estatus;
+                //listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
+                listaDetalles[cont].Junta = ds[i].Junta;
+                //listaDetalles[cont].EtiquetaJunta = ds[i].EtiquetaJunta;
+                listaDetalles[cont].ClasificacionPND = ds[i].ClasificacionPND;
+                listaDetalles[cont].TipoPrueba = ds[i].TipoPrueba;
+                listaDetalles[cont].Observaciones = ds[i].Observaciones;
+                listaDetalles[cont].CodigoAsme = ds[i].CodigoAsme;
+                listaDetalles[cont].NumeroPlacas = ds[i].NumeroPlacas;
+                listaDetalles[cont].Densidad = ds[i].Densidad;
+                listaDetalles[cont].Tamano = ds[i].Tamano;
+                listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
+                listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
 
-                informacion[j].Accion = ds[i].ListaDetallePorPlacas[j].Accion;
-                listaDetalles[cont].ListaDetallePorPlacas = informacion;
+                var informacion = [];
+                for (var j = 0; j < ds[i].ListaDetallePorPlacas.length; j++) {
+                    informacion[j] = { ReporteRTResultadosID: 0, ReporteRTID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "", Accion: 1 }
+                    //informacion[j].ReporteRTResultadosID = ds[i].ListaDetallePorPlacas[j].ReporteRTResultadosID;
+                    informacion[j].ReporteRTID = ds[i].ListaDetallePorPlacas[j].ReporteRTID;
+                    informacion[j].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].OrdenTrabajoID;
+                    informacion[j].SpoolID = ds[i].ListaDetallePorPlacas[j].SpoolID;
+                    informacion[j].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].JuntaSpoolID;
 
-                var detalles = [];
-                for (var k = 0; k < ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length; k++) {
-                    detalles[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, DefectoID: 0, InicioMM: 0, FinMM: 0, Accion:1 }
-                    //detalles[k].ResultadosDefectoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ResultadosDefectoID;
-                    //detalles[k].ReporteResultadosID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ReporteResultadosID;
-                    detalles[k].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].OrdenTrabajoID;
-                    detalles[k].SpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].SpoolID;
-                    detalles[k].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].JuntaSpoolID;
+                    //informacion[j].SpoolJunta = ds[i].ListaDetallePorPlacas[j].SpoolJunta;
+                    //informacion[j].Junta = ds[i].ListaDetallePorPlacas[j].Junta;
+                    //informacion[j].EtiquetaJunta = ds[i].ListaDetallePorPlacas[j].EtiquetaJunta;
+                    //informacion[j].NumeroControl = ds[i].ListaDetallePorPlacas[j].NumeroControl;
+                    informacion[j].ResultadoID = ds[i].ListaDetallePorPlacas[j].ResultadoID;
+                    informacion[j].Resultado = ds[i].ListaDetallePorPlacas[j].Resultado;
+                    informacion[j].Ubicacion = ds[i].ListaDetallePorPlacas[j].Ubicacion;
 
-                    detalles[k].Defecto = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Defecto;
-                    detalles[k].InicioMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].InicioMM;
-                    detalles[k].FinMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].FinMM;
-                    detalles[k].Accion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Accion;
-                    detalles[k].Posicion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Posicion;
-                    detalles[k].Ubicacion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Ubicacion;
+                    informacion[j].Accion = ds[i].ListaDetallePorPlacas[j].Accion;
+                    listaDetalles[cont].ListaDetallePorPlacas = informacion;
 
+                    var detalles = [];
+                    for (var k = 0; k < ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length; k++) {
+                        detalles[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, DefectoID: 0, InicioMM: 0, FinMM: 0, Accion: 1 }
+                        //detalles[k].ResultadosDefectoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ResultadosDefectoID;
+                        //detalles[k].ReporteResultadosID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ReporteResultadosID;
+                        detalles[k].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].OrdenTrabajoID;
+                        detalles[k].SpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].SpoolID;
+                        detalles[k].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].JuntaSpoolID;
+
+                        detalles[k].Defecto = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Defecto;
+                        detalles[k].InicioMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].InicioMM;
+                        detalles[k].FinMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].FinMM;
+                        detalles[k].Accion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Accion;
+                        detalles[k].Posicion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Posicion;
+                        detalles[k].Ubicacion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Ubicacion;
+
+                    }
+
+                    listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
                 }
 
-                listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
+
+
+                //if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
+                //    listaDetalles[cont].DocumentoDefectoID == 0) && listaDetalles[cont].Accion != 4) {
+                //    if (listaDetalles[cont].Accion == 2) {
+                //        listaDetalles[cont].Accion = 4;
+                //    } else {
+
+                //        if (listaDetalles[cont].DocumentoRecibidoID == 0) {
+                //            listaDetalles[cont].Estatus = 0;
+                //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                //        }
+                //        if (listaDetalles[cont].DocumentoEstatusID == 0) {
+                //            listaDetalles[cont].Estatus = 0;
+                //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                //        }
+
+                //        if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
+                //            listaDetalles[cont].Estatus = 0;
+                //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                //        }
+                //    }
+
+                //}
+                //if (ds[i].Accion != 2 && RequisicionID == 0) {
+                //    RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+                //}
+                cont++;
             }
-
-            
-
-            //if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
-            //    listaDetalles[cont].DocumentoDefectoID == 0) && listaDetalles[cont].Accion != 4) {
-            //    if (listaDetalles[cont].Accion == 2) {
-            //        listaDetalles[cont].Accion = 4;
-            //    } else {
-
-            //        if (listaDetalles[cont].DocumentoRecibidoID == 0) {
-            //            listaDetalles[cont].Estatus = 0;
-            //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-            //        }
-            //        if (listaDetalles[cont].DocumentoEstatusID == 0) {
-            //            listaDetalles[cont].Estatus = 0;
-            //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-            //        }
-
-            //        if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
-            //            listaDetalles[cont].Estatus = 0;
-            //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-            //        }
-            //    }
-
-            //}
-            //if (ds[i].Accion != 2 && RequisicionID == 0) {
-            //    RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
-            //}
-            cont++;
+            else {
+                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+            }
         }
 
         Captura[0].Detalles = listaDetalles;

@@ -46,15 +46,18 @@ function suscribirEventoGuardar() {
     $('#GuardarPlacas').click(function (e) {
         var ds = $("#gridPopUp").data("kendoGrid").dataSource;
         var window = $("#windowGrid");
-        if (actualizaGridGeneralPorPlaca())
-            $("#windowGrid").data("kendoWindow").close();
+
+        actualizaGridGeneralPorPlaca();
+        //if (actualizaGridGeneralPorPlaca())
+        //    $("#windowGrid").data("kendoWindow").close();
     });
 
     $('#GuardarDefectos').click(function (e) {
         var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
         var window = $("#windowGridDefectos");
-        if (actualizaGridGeneralPorDefectos())
-            $("#windowGridDefectos").data("kendoWindow").close();
+
+        actualizaGridGeneralPorDefectos();//if (actualizaGridGeneralPorDefectos())
+        //    $("#windowGridDefectos").data("kendoWindow").close();
     });
 
     //GuardarYNuevo

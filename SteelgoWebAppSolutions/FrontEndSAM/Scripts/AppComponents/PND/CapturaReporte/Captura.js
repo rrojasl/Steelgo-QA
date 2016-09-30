@@ -17,30 +17,36 @@ function inicio() {
 function validarReglasDeLlenado() {
     return true;
     for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-        for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
+        if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length > 0) {
+            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
 
-            if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Resultado == (-1)) {
-                //alert("Tienes por lo menos un resultado sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
-                displayNotify("MensajeGuardado", "", "0");
-                $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                return false;
+                $('tr[data-uid="' + $("#grid").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffffff");
+                //if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].ResultadosID == (0)) {
+                //    //alert("Tienes por lo menos un resultado sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
+                //    //displayNotify("MensajeGuardado", "", "0");
+                //    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                //    return false;
+                //}
+                //else if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Resultado == 0) {//Si esta evaluado pero hay que revisar si esta rechazado tiene que tenes defectos
+                //    if (!($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados.length > 0)) {
+                //        //alert("Si calificas como rechazado un defecto, tiene que tener por lo menos un resultado, en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
+                //        displayNotify("MensajeGuardadoExistoso", "", "0");
+                //        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                //        return false;
+                //    }
+                //}
+                //for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados.length; k++) {
+                //    if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k].DefectoID == (-1)) {
+                //        //alert("Tienes por lo menos un defecto sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta)
+                //        displayNotify("MensajeGuardadoExistoso", "", "0");
+                //        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                //        return false;
+                //    }
+                //}
             }
-            else if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Resultado == 0) {//Si esta evaluado pero hay que revisar si esta rechazado tiene que tenes defectos
-                if (!($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados.length > 0)) {
-                    //alert("Si calificas como rechazado un defecto, tiene que tener por lo menos un resultado, en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
-                    displayNotify("MensajeGuardadoExistoso", "", "0");
-                    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                    return false;
-                }
-            }
-            for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados.length; k++) {
-                if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k].DefectoID == (-1)) {
-                    //alert("Tienes por lo menos un defecto sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta)
-                    displayNotify("MensajeGuardadoExistoso", "", "0");
-                    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                    return false;
-                }
-            }
+        }
+        else {
+            $('tr[data-uid="' + $("#grid").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffcccc");
         }
     }
     return true;
@@ -131,9 +137,9 @@ function CargarGridPopUpDetallePorPlaca() {
         },
         selectable: true,
         columns: [
-          { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
-          { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxResultadoDetallePlaca, width: "100px" },
-          { field: "TemplateDetallePorPlaca", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "200px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
+          { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "60px" },
+          { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxResultadoDetallePlaca, width: "80px" },
+          { field: "TemplateDetallePorPlaca", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
         ],
         editable: true,
         navigatable: true,
@@ -173,7 +179,8 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                         DefectoID: { type: "number", editable: true },
                         Defecto: { type: "string", editable: true },
                         InicioMM: { type: "number", editable: true },
-                        FinMM: { type: "number", editable: true }
+                        FinMM: { type: "number", editable: true },
+                        Accion: { type: "number", editable: true }
                     }
                 }
             }, filter: {
@@ -202,23 +209,57 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                 { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px" },
                 { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px" }
             ,
+          {
+              command: {
+                  name: "",
+                  title: "",
+                  text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                  click: function (e) {
+                      e.preventDefault();
+                      //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                      var dataItem = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+                      if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
+                          $("#gridPopUpDefectos").data("kendoGrid").dataSource.remove(dataItem);
+                      }
+                      else {
+                          dataItem.Accion = 3;
+                      }
+
+                      $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
+                  }
+              },
+              width: "20px"
+          },
             {
                 command: {
-                    name: "",
-                    title: "",
-                    text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                    text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()],
                     click: function (e) {
                         e.preventDefault();
-                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                        var dataSource = this.dataSource;
-                        if (confirm(_dictionary.CapturaReportePruebasMensajeEliminarDefecto[$("#language").data("kendoDropDownList").value()])) {
-                            dataItem.Accion = 3;
-                            //this.removeRow("tr:eq("+dataItem+")");
+                        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+                            var itemToClean = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+                            if (itemToClean.Accion == 2)
+                                itemToClean.Accion = 4;
+
+
+                            if (itemToClean.DefectoID != "") {
+                                itemToClean.DefectoID = 0;
+                            }
+
+                            itemToClean.Defecto = "";
+                            itemToClean.InicioMM = "";
+                            itemToClean.FinMM = "";
+
+                            var dataSource = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
+                            dataSource.sync();
+                            //alert(itemToClean);
                         }
-                        dataSource.sync();
                     }
                 },
-                width: "10px"
+                title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()],
+                width: "50px"
             }
         ],
         editable: "incell",
@@ -316,25 +357,83 @@ function VentanaModalDetalleDefectoPorPlaca() {
 
 };
 
+var listaDetallePorPlaca = [];
 function actualizaGridGeneralPorPlaca() {
     //currentPlaca
+    var itera = 0;
+    var datosCompletos = true;
     try {
         for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
             if ((currentPlaca.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (currentPlaca.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (currentPlaca.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
                 for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; k++) {
-                    //para iterar por ubicaciones/placas
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
-                   
+                    if (($("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID != null) && ($("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID != 0)) {
+                        //para iterar por ubicaciones/placas
+                        //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
+                        //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
+                        //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
+
+                        //listaDetalleDefectos[itera] = { ResultadoID: 0, Resultado: "", ListaDetalleDefectos: [] };
+                        //listaDetalleDefectos[itera].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
+                        //listaDetalleDefectos[itera].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
+                        //listaDetalleDefectos[itera].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
+                        //itera++;
+                        $('tr[data-uid="' + $("#gridPopUp").data("kendoGrid").dataSource._data[k].uid + '"] ').css("background-color", "#ffffff");
+                    }
+                    else {
+                        $('tr[data-uid="' + $("#gridPopUp").data("kendoGrid").dataSource._data[k].uid + '"] ').css("background-color", "#ffcccc");
+                        datosCompletos = false;
+                    }
                     //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].TemplateDetallePorPlaca = $("#gridPopUp").data("kendoGrid").dataSource._data.length > 0 ? "Tienes " + $("#gridPopUp").data("kendoGrid").dataSource._data.length + "Defectos" : $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].TemplateDetallePorPlaca
+                }
+
+                if (!datosCompletos) {
+                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                        visible: false, //the window will not appear before its .open method is called
+                        width: "auto",
+                        height: "auto",
+                        modal: true,
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
+
+                    ventanaConfirm.content(_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
+                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                    ventanaConfirm.open().center();
+
+                    $("#yesButton").click(function () {
+                        for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; k++) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
+                            $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
+                            $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
+                        }
+                        ventanaConfirm.close();
+                        $("#windowGrid").data("kendoWindow").close();
+                    });
+                    $("#noButton").click(function () {
+                        ventanaConfirm.close();
+                        //return false;
+                    });
+                }
+                else {
+                    for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; k++) {
+                        $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
+                        $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
+                        $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
+                    }
+                    $("#windowGrid").data("kendoWindow").close();
                 }
                 break;
             }
         }
-        return true;
+        //return true;
     } catch (e) {
-        return false;
+        //return false;
+        return;
     }
    
     
@@ -358,34 +457,79 @@ function actualizaGridGeneralPorPlaca() {
     //}
 }
 
+var listaDetalleDefectos = [];
 function actualizaGridGeneralPorDefectos() {
     //currentDefectosPorPlaca
+    listaDetalleDefectos = [];
+    var itera = 0;
     try {
         //buscar la manera de pasar un valor de una ventana modal a otra para saber de que placa se esta agregando el defecto.
         for (var i = 0; i < $("#gridPopUp").data("kendoGrid").dataSource._data.length; i++) {
-            var listaDetalleDefectos = [];
+            
             if ((currentDefectosPorPlaca.Ubicacion == $("#gridPopUp").data("kendoGrid").dataSource._data[i].Ubicacion) && (currentDefectosPorPlaca.SpoolID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].SpoolID) && (currentDefectosPorPlaca.JuntaSpoolID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (currentDefectosPorPlaca.OrdenTrabajoID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
-                for (var j = 0; j < $("#gridPopUpDefectos").data("kendoGrid").dataSource._data.length; j++) {
 
-                    //if ($("#gridPopUp").data("kendoGrid").dataSource._data[i].OrdenTrabajoID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].SpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].JuntaSpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].Posicion == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion) {
-                        listaDetalleDefectos[j] = { OrdenTrabajoID: "", SpoolID: "", JuntaSpoolID: "", DefectoID: "", Defecto: "", InicioMM: "", FinMM: "", Accion: "", Posicion: "" };
-                        listaDetalleDefectos[j].OrdenTrabajoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID;
-                        listaDetalleDefectos[j].SpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID;
-                        listaDetalleDefectos[j].JuntaSpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID;
-                        listaDetalleDefectos[j].DefectoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].DefectoID;
-                        listaDetalleDefectos[j].Defecto = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Defecto;
-                        listaDetalleDefectos[j].InicioMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM;
-                        listaDetalleDefectos[j].FinMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM;
-                        listaDetalleDefectos[j].Accion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion;
-                        listaDetalleDefectos[j].Posicion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion;
-                    //}
+                for (var j = 0; j < $("#gridPopUpDefectos").data("kendoGrid").dataSource._data.length; j++) {
+                    if (($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].DefectoID != null) && ($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].DefectoID != 0) && ($.isNumeric($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM)) && ($.isNumeric($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM))) {
+                        //if ($("#gridPopUp").data("kendoGrid").dataSource._data[i].OrdenTrabajoID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].SpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].JuntaSpoolID == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID && $("#gridPopUp").data("kendoGrid").dataSource._data[i].Posicion == $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion) {
+                        listaDetalleDefectos[itera] = { OrdenTrabajoID: "", SpoolID: "", JuntaSpoolID: "", DefectoID: "", Defecto: "", InicioMM: "", FinMM: "", Accion: "", Posicion: "" };
+                        listaDetalleDefectos[itera].OrdenTrabajoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].OrdenTrabajoID;
+                        listaDetalleDefectos[itera].SpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].SpoolID;
+                        listaDetalleDefectos[itera].JuntaSpoolID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].JuntaSpoolID;
+                        listaDetalleDefectos[itera].DefectoID = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].DefectoID;
+                        listaDetalleDefectos[itera].Defecto = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Defecto;
+                        listaDetalleDefectos[itera].InicioMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM;
+                        listaDetalleDefectos[itera].FinMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM;
+                        listaDetalleDefectos[itera].Accion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion;
+                        listaDetalleDefectos[itera].Posicion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion;
+                        //}
+                        itera++;
+                    }
+                    else {
+                        $('tr[data-uid="' + $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffcccc");
+                    }
                 }
-                if (listaDetalleDefectos.length != 0) {
+                
+                if (listaDetalleDefectos.length != $("#gridPopUpDefectos").data("kendoGrid").dataSource._data.length) {
+                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                        visible: false, //the window will not appear before its .open method is called
+                        width: "auto",
+                        height: "auto",
+                        modal: true,
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
+
+                    ventanaConfirm.content(_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
+                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                    ventanaConfirm.open().center();
+
+                    $("#yesButton").click(function () {
+                        $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                        ventanaConfirm.close();
+                        $("#windowGridDefectos").data("kendoWindow").close();
+                    });
+                    $("#noButton").click(function () {
+                        ventanaConfirm.close();
+                        //return false;
+                    });
+                }
+                else if (listaDetalleDefectos.length != 0) {
                     $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                    $("#windowGridDefectos").data("kendoWindow").close();
                 }
+
+                break;
             }
         }
-        return true;
+
+        
+
+        //return true;
     } catch (e) {
         return false;
     }
