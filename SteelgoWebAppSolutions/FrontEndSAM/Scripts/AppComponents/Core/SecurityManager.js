@@ -389,11 +389,15 @@ function createUserSession(username, password) {
             Cookies.set("user", username, { path: '/' });
             Cookies.set("nameUserLogged", data.ReturnMessage[0], { path: '/' });
             Cookies.set("token", data.ReturnMessage[1], { path: '/' });
+            $('#username').css('border-color', "");
+            $('#password').css('border-color', "");
             //RedirectToLanding
             document.location.href = $homeURI;
         } else {
             //loadingStop();
             displayError("notificationslabel0095", "", '2');
+            $('#username').css('border-color', "red");
+            $('#password').css('border-color', "red");
         }
     });
 }
