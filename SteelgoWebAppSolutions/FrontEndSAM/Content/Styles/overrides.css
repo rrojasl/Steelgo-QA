@@ -616,7 +616,14 @@
     min-width: 20px !important;
     margin: 0px;
 }
-
+.k-grid tbody tr td a.k-button.k-grid-Editar,
+.k-grid tbody tr td a.k-button.k-grid-Update {
+    background-image: url('../images/SAMC_Edit.png') !important;
+    padding-right: 10px;
+    height: 20px;
+    min-width: 20px !important;
+    margin: 0px;
+}
 .k-grid tbody tr td a.k-button.k-grid-Complemento,
 .k-grid tbody tr td a.k-button.k-grid-Complement {
     background-image: url("/Content/images/SAMC_ComplementoIcon.png");

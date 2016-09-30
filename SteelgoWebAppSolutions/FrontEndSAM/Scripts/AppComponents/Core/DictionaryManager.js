@@ -7450,6 +7450,10 @@ _dictionary = {
         "es-MX": "Descarga",
         "en-US": "Download"
     },
+    "botonEditar1": {
+        "es-MX": "Editar",
+        "en-US": "Update"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -7919,36 +7923,44 @@ _dictionary = {
         "en-US": "DEL"
     },
     "columnUnidadMinima": {
-        "es-MX": "Unidad Min",
-        "en-US": "Unit Min"
-    },
-    "columnUnidadMinima1": {
-        "es-MX": "Unidad Min",
-        "en-US": "Unit Min"
-    },
-    "columnUnidadMinima2": {
-        "es-MX": "Unidad Min",
-        "en-US": "Unit Min"
-    },
-    "columnUnidadMinima3": {
-        "es-MX": "Unidad Min",
-        "en-US": "Unit Min"
+        "es-MX": "U. Min",
+        "en-US": "U. Min"
     },
     "columnUnidadMaxima": {
-        "es-MX": "Unidad Max",
-        "en-US": "Unit Max"
+        "es-MX": "U. Max",
+        "en-US": "U. Max"
     },
-    "columnUnidadMaxima1": {
-        "es-MX": "Unidad Max",
-        "en-US": "Unit Max"
+    "columnPruebasPorLote": {
+        "es-MX": "Pbas. lote",
+        "en-US": "Test lot"
     },
-    "columnUnidadMaxima2": {
-        "es-MX": "Unidad Max",
-        "en-US": "Unit Max"
+    "columnPruebasPorLote1": {
+        "es-MX": "Pbas. lote",
+        "en-US": "Test lot"
     },
-    "columnUnidadMaxima3": {
-        "es-MX": "Unidad Max",
-        "en-US": "Unit Max"
+    "columnPruebasPorLote2": {
+        "es-MX": "Pbas. lote",
+        "en-US": "Test lot"
+    },
+    "columnPruebasPorLote3": {
+        "es-MX": "Pbas. lote",
+        "en-US": "Test lot"
+    },
+    "columnMetrosPorLote": {
+        "es-MX": "Mts. lote",
+        "en-US": "Mts. lot"
+    },
+    "columnMetrosPorLote1": {
+        "es-MX": "Mts. lote",
+        "en-US": "Mts. lot"
+    },
+    "columnMetrosPorLote2": {
+        "es-MX": "Mts. lote",
+        "en-US": "Mts. lot"
+    },
+    "columnMetrosPorLote3": {
+        "es-MX": "Mts. lote",
+        "en-US": "Mts. lot"
     },
     "columnPrueba": {
         "es-MX": "Pruebas",
