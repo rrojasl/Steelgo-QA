@@ -8115,6 +8115,14 @@ _dictionary = {
         "es-MX": "¿Deseas cambiar el numero de placas?",
         "en-US": "¿Do You want to change the number plates?"
     },
+    "CapturaReporteGuardadoPlacasIncompleto": {
+        "es-MX": "¿Los datos de tus placas estan incompletos, seguro desea guardar?",
+        "en-US": "Your data are incomplete plates, sure to save?"
+    },
+    "CapturaReporteGuardadoDefectosIncompleto": {
+        "es-MX": "¿Los datos de tus defectos estan incompletos, seguro desea guardar?",
+        "en-US": "Data from your weaknesses are incomplete, sure to save?"
+    },
     "CapturaReporteGuardarDefectosPopup": {
         "es-MX": "Guardar",
         "en-US": "Save"
