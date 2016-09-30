@@ -7280,6 +7280,66 @@ _dictionary = {
         "es-MX": "Taller",
         "en-US": "Workshop"
     },
+    "lblFabricacion": {
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
+    },
+    "lblResultadoDimensional": {
+        "es-MX": "Resultado dimensional",
+        "en-US": "Dimensional result"
+    },
+    "lblResultadoVisual": {
+        "es-MX": "Resultado Visual",
+        "en-US": "Visual Result"
+    },
+    "lblAprobado": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "lblRechazado": {
+        "es-MX": "  Rechazado",
+        "en-US": "  Rejected"
+    },
+    "lblAprobadoVisual": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "lblRechazadoVisual": {
+        "es-MX": "  Rechazado",
+        "en-US": "  Rejected"
+    },
+    "lblDefectoDimesional": {
+        "es-MX": "Defecto Dimensional",
+        "en-US": "Dimensional defect"
+    },
+    "lblDefectoVisual": {
+        "es-MX": "Defecto Visual",
+        "en-US": "Visual Defect"
+    },
+    "lblFechaDimesional": {
+        "es-MX": "Fecha de Inspección",
+        "en-US": "Inspection date"
+    },
+    "lblFechaVisual": {
+        "es-MX": "Fecha de Inspección",
+        "en-US": "Inspection date"
+    },
+    "lblInspectorDimesional": {
+        "es-MX": "Inspector",
+        "en-US": "Checker"
+    },
+    "lblInspectorVisual": {
+        "es-MX": "Inspector",
+        "en-US": "Checker"
+    },
+    "lblInspeccionDimensional": {
+        "es-MX": "Inspección Dimensional ",
+        "en-US": " Dimensional Inspection"
+    },
+    "lblInspeccionVisual": {
+        "es-MX": "Inspección Visual ",
+        "en-US": "Visual Inspection"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7385,7 +7445,7 @@ _dictionary = {
     "botonAccionEliminar2": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
-    },    
+    },
     "botonDescarga": {
         "es-MX": "Descarga",
         "en-US": "Download"
@@ -7440,6 +7500,18 @@ _dictionary = {
     "menuSoldadura": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
+    },
+    "menuInspeccion": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
+    "menuInspeccionDimensional": {
+        "es-MX": "Inspección Dimensional",
+        "en-US": "Dimensional Inspection"
+    },
+    "menuInspeccionVisualDimensional": {
+        "es-MX": "Inspección Visual Dimensional",
+        "en-US": "Dimensional Visual Inspection"
     },
     "menuServiciosTecnicos": {
         "es-MX": "Servicios Técnicos",
@@ -7560,6 +7632,26 @@ _dictionary = {
     "menuEdicionSistemaPintura": {
         "es-MX": "Edicion de Sistema Pintura",
         "en-US": "Edit System Paint"
+    },
+    "menuConfiguracionSoldadura": {
+        "es-MX": "Configuración de soldadura",
+        "en-US": "Welging Configuration"
+    },
+    "menuPQR": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "menuWPS": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "menuSoldadorCertificacion": {
+        "es-MX": "Soldador Certificación",
+        "en-US": "Welder Certification"
+    },
+    "menuOKPND": {
+        "es-MX": "OK PND",
+        "en-US": "OK PND"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -7878,6 +7970,10 @@ _dictionary = {
         "es-MX": "Detalle",
         "en-US": "Detail"
     },
+    "columnDetalleAdicional": {
+        "es-MX": "Detalle adicional",
+        "en-US": "Aditional Detail"
+    },
     "columnTubero": {
         "es-MX": "Tubero",
         "en-US": "Assembler"
@@ -7897,6 +7993,46 @@ _dictionary = {
     "columnAdicionales": {
         "es-MX": "Adicionales",
         "en-US": "Additional"
+    },
+    "columnProcesoRaiz": {
+        "es-MX": "Proceso Raiz",
+        "en-US": "Root process"
+    },
+    "columnProcesoRelleno": {
+        "es-MX": "Proceso Relleno",
+        "en-US": "Fill process"
+    },
+    "columnSoldadoresRaiz": {
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Root Welders"
+    },
+    "columnSoldadoresRelleno": {
+        "es-MX": "Soldadores Relleno",
+        "en-US": "Fill Welders"
+    },
+    "columnWPS": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "columnInspector": {
+        "es-MX": "Inspector",
+        "en-US": "Inspector"
+    },
+    "columnInspectorDimensional": {
+        "es-MX": "Inspector Dimensional",
+        "en-US": "Dimensional Inspector"
+    },
+    "columnInspectorVisual": {
+        "es-MX": "Inspector Visual",
+        "en-US": "Visual Inspector"
+    },
+    "columnOkPND": {
+        "es-MX": "PND OK",
+        "en-US": "OK PND"
+    },
+    "columnStatus": {
+        "es-MX": "Estatus por Spool",
+        "en-US": "Spool Status"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
@@ -7935,7 +8071,7 @@ _dictionary = {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
     },
-// Finalizan Etiquetas Generales PND
+    // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
     "armadoSoldaduraSup": {
@@ -7948,7 +8084,49 @@ _dictionary = {
     },
     //Finaliza Armado
 
-// Pantalla RequisiciónPND
+    //Pantalla Soldadura
+    "lblSoldaduraBreadcrum": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    "lblFechaSoldadura": {
+        "es-MX": "Fecha Soldadura",
+        "en-US": "Welding Date"
+    },
+    "soldaduraInspeccionVisualSup": {
+        "es-MX": "Inspección Visual",
+        "en-US": "Visual Inspection"
+    },
+    "soldaduraInspeccionVisualInf": {
+        "es-MX": "Inspección Visual",
+        "en-US": "Visual Inspection"
+    },
+    //Finaliza Soldadura
+
+    //Pantalla Inspeccion Dimensional
+    "InspeccionBreadCrum": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
+    },
+    "InspeccionDimensionalBreadCrum": {
+        "es-MX": "Inspección Dimensional",
+        "en-US": "Dimensional Inspection"
+    },
+    "InspeccionVisualDimensionalBreadCrum": {
+        "es-MX": "Inspección Visual Dimensional",
+        "en-US": "Dimensional Visual Inspection"
+    },
+    "botonRequisicionPNDSup": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+    "botonRequisicionPNDInf": {
+        "es-MX": "Requisición PND",
+        "en-US": "PND Requisition"
+    },
+    //Finaliza Inspeccion Dimensional
+
+    // Pantalla RequisiciónPND
     "ServiciosTecnicosRequisicionPND": {
         "es-MX": "Requisición PND",
         "en-US": "PND Requisition"
@@ -7961,9 +8139,16 @@ _dictionary = {
         "es-MX": "Asignar Requisición",
         "en-US": "Assign Requisition"
     },
-// Finaliza Requisición PND
+    // Finaliza Requisición PND
 
-// Pantalla Entrega Placas-Graficas
+    //Comienza Pantalla OKPND
+    "OKPNDBreadcrum": {
+        "es-MX": "OK PND",
+        "en-US": "OK PND"
+    },
+    //Finaliza Pantalla OKPND
+
+    // Pantalla Entrega Placas-Graficas
     "ServiciosTecnicosValidarResultadosSup": {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
@@ -8016,9 +8201,9 @@ _dictionary = {
         "es-MX": "Seleccione Requisición para realizar la búsqueda",
         "en-US": "Could not save the information."
     },
-// Finaliza Entrega Placas-Graficas
+    // Finaliza Entrega Placas-Graficas
 
-// Pantalla Asignar Requisición
+    // Pantalla Asignar Requisición
     "ServiciosTecnicosCapturaReporte": {
         "es-MX": "Captura Reporte",
         "en-US": "Report Capture"
@@ -8028,7 +8213,7 @@ _dictionary = {
         "es-MX": "Captura Reporte",
         "en-US": "Report Capture"
     },
-// Pantalla Impresion Pruebas
+    // Pantalla Impresion Pruebas
 
     "lblImpresionPruebas": {
         "es-MX": "Impresión Pruebas",
@@ -8040,7 +8225,7 @@ _dictionary = {
     },
 
 
-// Pantalla Validacion de resultados
+    // Pantalla Validacion de resultados
     "ImpresionResultadosTitle": {
         "es-MX": "Validación Resultados",
         "en-US": "Validation Results"
@@ -8077,9 +8262,9 @@ _dictionary = {
         "es-MX": "Acceso del proveedor",
         "en-US": "Provider acces"
     },
-// Finaliza Validacion de resultados
+    // Finaliza Validacion de resultados
 
-//Reportes
+    //Reportes
     "FotoIncidencia": {
         "es-MX": "FotoIncidencia",
         "en-US": "Fotoincidence"
@@ -8114,14 +8299,6 @@ _dictionary = {
     "CapturaReporteModificarNoPlacas": {
         "es-MX": "¿Deseas cambiar el numero de placas?",
         "en-US": "¿Do You want to change the number plates?"
-    },
-    "CapturaReporteGuardadoPlacasIncompleto": {
-        "es-MX": "¿Los datos de tus placas estan incompletos, seguro desea guardar?",
-        "en-US": "Your data are incomplete plates, sure to save?"
-    },
-    "CapturaReporteGuardadoDefectosIncompleto": {
-        "es-MX": "¿Los datos de tus defectos estan incompletos, seguro desea guardar?",
-        "en-US": "Data from your weaknesses are incomplete, sure to save?"
     },
     "CapturaReporteGuardarDefectosPopup": {
         "es-MX": "Guardar",
@@ -8503,7 +8680,7 @@ _dictionary = {
     "CapturaAvanceGuardadoCorrecto": {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
-        },
+    },
     "CapturaMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
@@ -8540,7 +8717,7 @@ _dictionary = {
         "en-US": "All"
     },
     //Finaliza Captura Avance
-    
+
     //Comienza Avance Intermedio Acabado
     "lblLotesCapturaReporteSup": {
         "es-MX": "Lotes Captura Reporte",
@@ -8564,6 +8741,14 @@ _dictionary = {
     "lblCerrarLote": {
         "es-MX": "Cerrar Lote",
         "en-US": "Close Lot"
+    },
+    "CapturaReporteGuardadoPlacasIncompleto": {
+        "es-MX": "¿Los datos de tus placas estan incompletos, seguro desea guardar?",
+        "en-US": "Your data are incomplete plates, sure to save?"
+    },
+    "CapturaReporteGuardadoDefectosIncompleto": {
+        "es-MX": "¿Los datos de tus defectos estan incompletos, seguro desea guardar?",
+        "en-US": "Data from your weaknesses are incomplete, sure to save?"
     },
     // Finaliza Lote Captura Reporte 
 
