@@ -38,7 +38,7 @@ namespace FrontEndSAM.Controllers.Pintura
             return View();
         }
 
-        public ActionResult EdicionSistemaPintura()
+        public ActionResult ListadoSistemaPintura()
         {
             return View();
         }

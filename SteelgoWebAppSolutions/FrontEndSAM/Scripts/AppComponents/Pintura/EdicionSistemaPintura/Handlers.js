@@ -1,6 +1,7 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoProyecto();
     SuscribirEventoSistemaPintura();
+    SuscribirEventoMostrarDetalle();
 }
 
 function SuscribirEventoProyecto() {
@@ -40,5 +41,23 @@ function SuscribirEventoSistemaPintura() {
                 $("#inputSistemaPintura").data("kendoComboBox").value("");
             }
         }
+    });
+}
+
+function SuscribirEventoMostrarDetalle() {
+
+    $(document).on('click', '.EnlacePorPlaca', function (e) {
+        e.preventDefault();
+        var grid = $("#grid").data("kendoGrid");
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        showModalDetail(dataItem);
+
+    });
+
+    $("#btnDescargar").click(function (e) {
+        windowDetailTest.close();
+    });
+    $("#btnCerrarPopup").click(function (e) {
+        windowDetailTest.close();
     });
 }

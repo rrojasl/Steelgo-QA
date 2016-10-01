@@ -7633,9 +7633,9 @@ _dictionary = {
         "es-MX": "Sistema Pintura",
         "en-US": "System Paint"
     },
-    "menuEdicionSistemaPintura": {
-        "es-MX": "Edicion de Sistema Pintura",
-        "en-US": "Edit System Paint"
+    "menuListadoSistemaPintura": {
+        "es-MX": "Listado Sistema de Pintura",
+        "en-US": "List System Paint"
     },
     "menuConfiguracionSoldadura": {
         "es-MX": "Configuración de soldadura",
@@ -8045,6 +8045,10 @@ _dictionary = {
     "columnStatus": {
         "es-MX": "Estatus por Spool",
         "en-US": "Spool Status"
+    },
+    "columnEditar": {
+        "es-MX": "EDT",
+        "en-US": "EDT"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
@@ -8517,8 +8521,8 @@ _dictionary = {
         "en-US": "Advance Intermediate Finish"
     },
     "PinturaEdicionSPBreadcrumb": {
-        "es-MX": "Edicion Sistema de Pintura",
-        "en-US": "Edit System Paint"
+        "es-MX": "Listado Sistema de Pintura",
+        "en-US": "List System Paint"
     },
     "PinturaLotesCapturaPruebaBreadcrumb": {
         "es-MX": "Lotes Captura Prueba",
@@ -8775,5 +8779,18 @@ _dictionary = {
         "en-US": "Download Carrige "
     },
     // Finaliza Condiciones Climatologicas 
-
+    //Comienza Listado Sistema Pintura
+    "lblDescargaDeCarroSup": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carrige "
+    },
+    "lblDescargaDeCarroInf": {
+        "es-MX": "Descarga de Carro",
+        "en-US": "Download Carrige "
+    },
+    "SistemaPinturaMensajeConfirmaEliminar": {
+        "es-MX": "¿Esta seguro de eliminar el Sistema de Pintura?",
+        "en-US": "Are you sure to remove the paint system?"
+    },
+    // Finaliza Listado Sistema Pintura
 };
