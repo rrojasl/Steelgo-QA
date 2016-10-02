@@ -44,7 +44,7 @@ function AjaxProveedor(proyectoID, patioID) {
 
             //var data = null;
             //data = [{ ProveedorID: 1, Nombre: 'Juan 1.1' }, { ProveedorID: 2, Nombre: 'Juan 1.2' }, { ProveedorID: 3, Nombre: 'Juan 1.3' }];
-            
+
             $("#inputProveedor").data("kendoComboBox").value("");
             $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
 
@@ -63,7 +63,7 @@ function AjaxProveedor(proyectoID, patioID) {
 function AjaxPruebas(ProyectoID) {
     //if ($("#inputProyecto").val() != "") {
     loadingStart();
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: ProyectoID, x: $("#language").val(), y:"" }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: ProyectoID, x: $("#language").val(), y: "" }).done(function (data) {
         var tipoPruebaID = 0;
         $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
         $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
@@ -146,17 +146,6 @@ function ajaxGridPrincipal(proyectoID, proveedorID, requisicionID) {
         }
         loadingStop();
     });
-
-
-    //var data = [];
-
-    //if((proyectoID != "")&&(proveedorID == "")&&(requisicionID == ""))
-    //    data = [{ SpoolJunta: 'X005-001', Junta: '1', NumeroControl: '001', EtiquetaJunta: 'Etiqueta 1', ClasificacionPND: 'ClasificacionPND 1', TipoPrueba: 'TipoPrueba 1', Observaciones: 'Observa 1', CodigoAsme: 'CodigoAsme 1', NumeroPlacas: 0, Densidad: 0, Tamano: 0, ResultadoConciliacion: 'N/A', RazonNoConciliacion: 'N/A', InformacionResultados: [] }, { SpoolJunta: 'X005-002', Junta: '2', NumeroControl: '002', EtiquetaJunta: 'Etiqueta 2', ClasificacionPND: 'ClasificacionPND 2', TipoPrueba: 'TipoPrueba 2', Observaciones: 'Observa 2', CodigoAsme: 'CodigoAsme 2', NumeroPlacas: 0, Densidad: 0, Tamano: 0, ResultadoConciliacion: 'N/A', RazonNoConciliacion: 'N/A', InformacionResultados: [] }, { SpoolJunta: 'X005-003', Junta: '3', NumeroControl: '003', EtiquetaJunta: 'Etiqueta 3', ClasificacionPND: 'ClasificacionPND 3', TipoPrueba: 'TipoPrueba 3', Observaciones: 'Observa 3', CodigoAsme: 'CodigoAsme 3', NumeroPlacas: 0, Densidad: 0, Tamano: 0, ResultadoConciliacion: 'N/A', RazonNoConciliacion: 'N/A', InformacionResultados: [] }];
-    //else if ((proyectoID != "") && (proveedorID != "") && (requisicionID == ""))
-    //    data = [{ SpoolJunta: 'X005-001', Junta: '1', NumeroControl: '001', EtiquetaJunta: 'Etiqueta 1', ClasificacionPND: 'ClasificacionPND 1', TipoPrueba: 'TipoPrueba 1', Observaciones: 'Observa 1', CodigoAsme: 'CodigoAsme 1', NumeroPlacas: 0, Densidad: 0, Tamano: 0, ResultadoConciliacion: 'N/A', RazonNoConciliacion: 'N/A', InformacionResultados: [] }, { SpoolJunta: 'X005-002', Junta: '2', NumeroControl: '002', EtiquetaJunta: 'Etiqueta 2', ClasificacionPND: 'ClasificacionPND 2', TipoPrueba: 'TipoPrueba 2', Observaciones: 'Observa 2', CodigoAsme: 'CodigoAsme 2', NumeroPlacas: 0, Densidad: 0, Tamano: 0, ResultadoConciliacion: 'N/A', RazonNoConciliacion: 'N/A', InformacionResultados: [] }];
-    //else if ((proyectoID != "") && (proveedorID != "") && (requisicionID != ""))
-    //    data = [{ SpoolJunta: 'X005-001', Junta: '1', NumeroControl: '001', EtiquetaJunta: 'Etiqueta 1', ClasificacionPND: 'ClasificacionPND 1', TipoPrueba: 'TipoPrueba 1', Observaciones: 'Observa 1', CodigoAsme: 'CodigoAsme 1', NumeroPlacas: 0, Densidad: 0, Tamano: 0, ResultadoConciliacion: 'N/A', RazonNoConciliacion: 'N/A', InformacionResultados: [] }];
-
 }
 
 function AjaxGuardarCaptura(ds, guardarYNuevo) {
@@ -167,133 +156,95 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
         var listaDetalles = [];
         var cont = 0;
         for (var i = 0; i < ds.length; i++) {
-            if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad))) {
-                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffffff");
+            //valida que tenga numero de placas y se ha capturado tamaño y densidad
 
-                listaDetalles[cont] = {
-                    ReporteRTID: 0,
-                    RequisicionID: 0,
-                    OrdenTrabajoID: 0,
-                    SpoolID: 0,
-                    JuntaSpoolID: 0,
-                    Accion: "",
-                    Estatus: 0,
-                    //SpoolJunta: "",
-                    Junta: "",
-                    //EtiquetaJunta: "",
-                    ClasificacionPND: "",
-                    TipoPrueba: "",
-                    Observaciones: "",
-                    CodigoAsme: "",
-                    NumeroPlacas: 0,
-                    Densidad: 0,
-                    Tamano: 0,
-                    NumeroControl: "",
-                    ResultadoConciliacionID: 0,
-                    RazonNoConciliacionID: 0,
-                    ListaDetallePorPlacas: []//,
-                    //Estatus: 1
-                };
+            listaDetalles[cont] = {
+                ReporteRTID: 0,
+                RequisicionID: 0,
+                OrdenTrabajoID: 0,
+                SpoolID: 0,
+                JuntaSpoolID: 0,
+                Accion: "",
+                Estatus: 0,
+                Junta: "",
+                ClasificacionPND: "",
+                TipoPrueba: "",
+                Observaciones: "",
+                CodigoAsme: "",
+                NumeroPlacas: 0,
+                Densidad: 0,
+                Tamano: 0,
+                NumeroControl: "",
+                ResultadoConciliacionID: 0,
+                RazonNoConciliacionID: 0,
+                ListaDetallePorPlacas: [],
+                Estatus: 1
+            };
 
-                listaDetalles[cont].ReporteRTID = ds[i].ReporteRTID;
-                listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
-                listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
-                listaDetalles[cont].SpoolID = ds[i].SpoolID;
-                listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
-                listaDetalles[cont].Accion = ds[i].Accion;
-                listaDetalles[cont].Estatus = ds[i].Estatus;
-                //listaDetalles[cont].SpoolJunta = ds[i].SpoolJunta;
-                listaDetalles[cont].Junta = ds[i].Junta;
-                //listaDetalles[cont].EtiquetaJunta = ds[i].EtiquetaJunta;
-                listaDetalles[cont].ClasificacionPND = ds[i].ClasificacionPND;
-                listaDetalles[cont].TipoPrueba = ds[i].TipoPrueba;
-                listaDetalles[cont].Observaciones = ds[i].Observaciones;
-                listaDetalles[cont].CodigoAsme = ds[i].CodigoAsme;
-                listaDetalles[cont].NumeroPlacas = ds[i].NumeroPlacas;
-                listaDetalles[cont].Densidad = ds[i].Densidad;
-                listaDetalles[cont].Tamano = ds[i].Tamano;
-                listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
-                listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
+            listaDetalles[cont].ReporteRTID = ds[i].ReporteRTID;
+            listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
+            listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
+            listaDetalles[cont].SpoolID = ds[i].SpoolID;
+            listaDetalles[cont].JuntaSpoolID = ds[i].JuntaSpoolID;
+            listaDetalles[cont].Accion = ds[i].Accion;
+            listaDetalles[cont].Junta = ds[i].Junta;
+            listaDetalles[cont].ClasificacionPND = ds[i].ClasificacionPND;
+            listaDetalles[cont].TipoPrueba = ds[i].TipoPrueba;
+            listaDetalles[cont].Observaciones = ds[i].Observaciones;
+            listaDetalles[cont].CodigoAsme = ds[i].CodigoAsme;
+            listaDetalles[cont].NumeroPlacas = ds[i].NumeroPlacas;
+            listaDetalles[cont].Densidad = ds[i].Densidad;
+            listaDetalles[cont].Tamano = ds[i].Tamano;
+            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
+            listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
 
-                var informacion = [];
-                for (var j = 0; j < ds[i].ListaDetallePorPlacas.length; j++) {
-                    informacion[j] = { ReporteRTResultadosID: 0, ReporteRTID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "", Accion: 1 }
-                    //informacion[j].ReporteRTResultadosID = ds[i].ListaDetallePorPlacas[j].ReporteRTResultadosID;
-                    informacion[j].ReporteRTID = ds[i].ListaDetallePorPlacas[j].ReporteRTID;
-                    informacion[j].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].OrdenTrabajoID;
-                    informacion[j].SpoolID = ds[i].ListaDetallePorPlacas[j].SpoolID;
-                    informacion[j].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].JuntaSpoolID;
 
-                    //informacion[j].SpoolJunta = ds[i].ListaDetallePorPlacas[j].SpoolJunta;
-                    //informacion[j].Junta = ds[i].ListaDetallePorPlacas[j].Junta;
-                    //informacion[j].EtiquetaJunta = ds[i].ListaDetallePorPlacas[j].EtiquetaJunta;
-                    //informacion[j].NumeroControl = ds[i].ListaDetallePorPlacas[j].NumeroControl;
-                    informacion[j].ResultadoID = ds[i].ListaDetallePorPlacas[j].ResultadoID;
-                    informacion[j].Resultado = ds[i].ListaDetallePorPlacas[j].Resultado;
-                    informacion[j].Ubicacion = ds[i].ListaDetallePorPlacas[j].Ubicacion;
+            var informacion = [];
+            for (var j = 0; j < ds[i].ListaDetallePorPlacas.length; j++) {
+                informacion[j] = { ReporteRTResultadosID: 0, ReporteRTID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, SpoolJunta: "", Junta: "", EtiquetaJunta: "", NumeroControl: "", Ubicacion: "", Resultado: "", Accion: "" }
+                informacion[j].ReporteRTID = ds[i].ListaDetallePorPlacas[j].ReporteRTID;
+                informacion[j].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].OrdenTrabajoID;
+                informacion[j].SpoolID = ds[i].ListaDetallePorPlacas[j].SpoolID;
+                informacion[j].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].JuntaSpoolID;
+                informacion[j].ResultadoID = ds[i].ListaDetallePorPlacas[j].ResultadoID;
+                informacion[j].Resultado = ds[i].ListaDetallePorPlacas[j].Resultado;
+                informacion[j].Ubicacion = ds[i].ListaDetallePorPlacas[j].Ubicacion;
+                informacion[j].Accion = ds[i].ListaDetallePorPlacas[j].Accion;
+                listaDetalles[cont].ListaDetallePorPlacas = informacion;
 
-                    informacion[j].Accion = ds[i].ListaDetallePorPlacas[j].Accion;
-                    listaDetalles[cont].ListaDetallePorPlacas = informacion;
-
-                    var detalles = [];
-                    for (var k = 0; k < ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length; k++) {
-                        detalles[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, DefectoID: 0, InicioMM: 0, FinMM: 0, Accion: 1 }
-                        //detalles[k].ResultadosDefectoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ResultadosDefectoID;
-                        //detalles[k].ReporteResultadosID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].ReporteResultadosID;
-                        detalles[k].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].OrdenTrabajoID;
-                        detalles[k].SpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].SpoolID;
-                        detalles[k].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].JuntaSpoolID;
-
-                        detalles[k].Defecto = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Defecto;
-                        detalles[k].InicioMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].InicioMM;
-                        detalles[k].FinMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].FinMM;
-                        detalles[k].Accion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Accion;
-                        detalles[k].Posicion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Posicion;
-                        detalles[k].Ubicacion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Ubicacion;
-
-                    }
-
-                    listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
+                var detalles = [];
+                for (var k = 0; k < ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length; k++) {
+                    detalles[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: 0, SpoolID: 0, JuntaSpoolID: 0, DefectoID: 0, InicioMM: 0, FinMM: 0, Accion: 1 }
+                    detalles[k].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].OrdenTrabajoID;
+                    detalles[k].SpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].SpoolID;
+                    detalles[k].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].JuntaSpoolID;
+                    detalles[k].Defecto = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Defecto;
+                    detalles[k].InicioMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].InicioMM;
+                    detalles[k].FinMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].FinMM;
+                    detalles[k].Accion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Accion;
+                    detalles[k].Posicion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Posicion;
+                    detalles[k].Ubicacion = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Ubicacion;
                 }
+                listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
+            }
+           
 
-
-
-                //if ((listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 ||
-                //    listaDetalles[cont].DocumentoDefectoID == 0) && listaDetalles[cont].Accion != 4) {
-                //    if (listaDetalles[cont].Accion == 2) {
-                //        listaDetalles[cont].Accion = 4;
-                //    } else {
-
-                //        if (listaDetalles[cont].DocumentoRecibidoID == 0) {
-                //            listaDetalles[cont].Estatus = 0;
-                //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                //        }
-                //        if (listaDetalles[cont].DocumentoEstatusID == 0) {
-                //            listaDetalles[cont].Estatus = 0;
-                //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                //        }
-
-                //        if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
-                //            listaDetalles[cont].Estatus = 0;
-                //            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                //        }
-                //    }
-
-                //}
-                //if (ds[i].Accion != 2 && RequisicionID == 0) {
-                //    RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
-                //}
-                cont++;
+            if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad)) && ds[i].Tamano > 0 && ds[i].Densidad > 0) {
+                listaDetalles[cont].Estatus = 1 // el elemento esta bien.
+                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
             }
             else {
+                listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                 $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
             }
+            cont++;
+
+
+            Captura[0].Detalles = listaDetalles;
         }
 
-        Captura[0].Detalles = listaDetalles;
-
-        if (true/*!ExistRowEmpty(listaDetalles)*/) {
-            $ReporteRT.ReporteRT.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val()}).done(function (data) {
+        if (!ExistRowEmpty(listaDetalles)) {
+            $ReporteRT.ReporteRT.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
                     if (guardarYNuevo) {
@@ -315,7 +266,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
 
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
-                title: _dictionary.CapturaReporteGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
                 visible: false,
                 width: "auto",
                 height: "auto",
@@ -326,16 +277,20 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 }
             }).data("kendoWindow");
 
-            ventanaConfirm.content(_dictionary.CapturaReporteMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+            ventanaConfirm.content(_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()] +
                 "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
 
             ventanaConfirm.open().center();
             $("#yesButton").click(function () {
 
-                for (var i = 0; i < Captura[0].Detalles.length; i++) {
-                    if (Captura[0].Detalles[i].Estatus == 0) {
-                        Captura[0].Detalles.pop(Captura[0].Detalles[i]);
+                var elemento = 0;
+
+                while (elemento < Captura[0].Detalles.length &&  Captura[0].Detalles.length !=0 ) {
+                    if (Captura[0].Detalles[elemento].Estatus == 0) {
+                        Captura[0].Detalles.pop(Captura[0].Detalles[elemento]);
                     }
+                    else
+                        elemento++;
                 }
 
                 if (Captura[0].Detalles.length > 0) {
@@ -367,8 +322,6 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 ventanaConfirm.close();
             });
         }
-    } else {
-        displayNotify("ReporteRTExcepcionGuardado", "", '2');
     }
 }
 
