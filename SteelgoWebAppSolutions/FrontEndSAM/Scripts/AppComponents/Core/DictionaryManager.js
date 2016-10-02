@@ -7657,6 +7657,10 @@ _dictionary = {
         "es-MX": "OK PND",
         "en-US": "OK PND"
     },
+    "menuSistemaAplicable": {
+        "es-MX": "Sistema Pintura Aplicable",
+        "en-US": "Applicable Paint System"
+    },
     // Finalizan Etiquetas de Menú General
 
 
@@ -8539,6 +8543,10 @@ _dictionary = {
     "PinturaCargaOpcionCodigo": {
         "es-MX": "Codigo",
         "en-US": "Code"
+    },
+    "PinturaSistemaPinturaAplicableBreadcrumb": {
+        "es-MX": "Sistema de Pintura Aplicable",
+        "en-US": "List System Paint"
     },
     //Finaliza Etiquetas Generales Pintura
 
