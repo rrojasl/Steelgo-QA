@@ -7340,6 +7340,146 @@ _dictionary = {
         "es-MX": "Inspección Visual ",
         "en-US": "Visual Inspection"
     },
+    "lblNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "lblPREHEAT": {
+        "es-MX": "PREHEAT",
+        "en-US": "PREHEAT"
+    },
+    "lblPWHT": {
+        "es-MX": "PWHT",
+        "en-US": "PWHT"
+    },
+    "lblPREHEAT1": {
+        "es-MX": "PREHEAT",
+        "en-US": "PREHEAT"
+    },
+    "lblPWHT1y": {
+        "es-MX": "PWHT",
+        "en-US": "PWHT"
+    },
+    "lblEspesorRelleno": {
+        "es-MX": "E. Relleno(mm)",
+        "en-US": "Fill Thk(mm)"
+    },
+    "lblEspesorRaiz": {
+        "es-MX": "E. Raiz(mm)",
+        "en-US": "Root Thck(mm)"
+    },
+    "lblEspesorRelleno1": {
+        "es-MX": "E. Relleno(mm)",
+        "en-US": "Fill Thk(mm)"
+    },
+    "lblEspesorRaiz1": {
+        "es-MX": "E. Raiz(mm)",
+        "en-US": "Root Thck(mm)"
+    },
+    "lblProcesoSoldaduraRelleno": {
+        "es-MX": "Proc Relleno",
+        "en-US": "Fill Proc"
+    },
+    "lblProcesoSoldaduraRaiz": {
+        "es-MX": "Proc Raiz",
+        "en-US": "Root Proc"
+    },
+    "lblNumeroP": {
+        "es-MX": "Numero P",
+        "en-US": "P number"
+    },
+    "lblGrupoP": {
+        "es-MX": "Grupo P",
+        "en-US": "P Group"
+    },
+    "lblGrupoP1": {
+        "es-MX": "Grupo P",
+        "en-US": "P Group"
+    },
+    "lblGrupoPMaterialBase1": {
+        "es-MX": "Gpo P Base 1",
+        "en-US": "P grp Base 1"
+    },
+    "lblGrupoPMaterialBase2": {
+        "es-MX": "Gpo P Base 2",
+        "en-US": "P grp Base 2"
+    },
+    "lblBase1": {
+        "es-MX": "Base 1",
+        "en-US": "Base 1"
+    },
+    "lblBase2": {
+        "es-MX": "Base 2",
+        "en-US": "Base 2"
+    },
+    "lblAporte": {
+        "es-MX": "Aporte",
+        "en-US": "filler"
+    },
+    "lblMezcla": {
+        "es-MX": "Mezcla",
+        "en-US": "Mix"
+    },
+    "lblRespaldo": {
+        "es-MX": "Respaldo",
+        "en-US": "Back"
+    },
+    "lblGrupoF": {
+        "es-MX": "Grupo F",
+        "en-US": "F group"
+    },
+    "lblEspesorMinimo": {
+        "es-MX": "Espesor Mínimo(mm)",
+        "en-US": "Minimum Thickness(mm)"
+    },
+    "lblEspesorMaximo": {
+        "es-MX": "Espesor Máximo(mm)",
+        "en-US": "Maximum Thickness(mm)"
+    },
+    "lblWPS": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "lblPQR": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "lblPQR1": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "lblSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+    "lblDesde": {
+        "es-MX": "Desde:",
+        "en-US": "From:"
+    },
+    "lblHasta": {
+        "es-MX": "Hasta:",
+        "en-US": "Until:"
+    },
+    "lblNumeroPasos": {
+        "es-MX": "# Pasos",
+        "en-US": "Steps #"
+    },
+    "lblCedulaTubo": {
+        "es-MX": "Cédula Tubo",
+        "en-US": "Certificate tube"
+    },
+    "lblDiametroCalificado": {
+        "es-MX": "Diametro C.",
+        "en-US": "Diameter Q."
+    },
+    "lblTipoPrueba": {
+        "es-MX": "Tipo Prueba",
+        "en-US": "Test Type"
+    },
+    "lblPosicion": {
+        "es-MX": "Posición °",
+        "en-US": "Position °"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7453,6 +7593,10 @@ _dictionary = {
     "botonEditar1": {
         "es-MX": "Editar",
         "en-US": "Update"
+    },
+    "botonNuevo": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
     },
     // Finalizan etiquetas Header y Footer
 
@@ -8054,6 +8198,130 @@ _dictionary = {
         "es-MX": "EDT",
         "en-US": "EDT"
     },
+    "columnNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "columnPreheat": {
+        "es-MX": "PREHEAT",
+        "en-US": "PREHEAT"
+    },
+    "columnPWHT": {
+        "es-MX": "PWHT",
+        "en-US": "PWHT"
+    },
+    "columnRelleno": {
+        "es-MX": "RLL",
+        "en-US": "Fll"
+    },
+    "columnRaiz": {
+        "es-MX": "RZ",
+        "en-US": "RT"
+    },
+    "columnBase1": {
+        "es-MX": "Base 1",
+        "en-US": "Base 1"
+    },
+    "columnBase2": {
+        "es-MX": "Base 2",
+        "en-US": "Base 2"
+    },
+    "columnAporte": {
+        "es-MX": "Aporte",
+        "en-US": "filler"
+    },
+    "columnMezcla": {
+        "es-MX": "Mezcla",
+        "en-US": "Mix"
+    },
+    "columnRespaldo": {
+        "es-MX": "Respaldo",
+        "en-US": "Back"
+    },
+    "columnGrupoF": {
+        "es-MX": "Grupo F",
+        "en-US": "F group"
+    },
+    "columnGrupoP": {
+        "es-MX": "Grupo P",
+        "en-US": "P group"
+    },
+    "columnCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "columnProceso": {
+        "es-MX": "PROC",
+        "en-US": "PROC"
+    },
+    "columnEspesormm": {
+        "es-MX": "ESPESOR (mm)",
+        "en-US": "THICKNESS (mm)"
+    },
+    "columnPQR": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "columnEspesorRaiz": {
+        "es-MX": "E. Raíz(mm)",
+        "en-US": "Root T.(mm)"
+    },
+    "columnEspesorRelleno": {
+        "es-MX": "E. Relleno(mm)",
+        "en-US": "Fill T.(mm)"
+    },
+    "columnMin": {
+        "es-MX": "Mín",
+        "en-US": "Min"
+    },
+    "columnMax": {
+        "es-MX": "Max",
+        "en-US": "Max"
+    },
+    "columnSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+    "columnNombreWPS": {
+        "es-MX": "Nombre WPS",
+        "en-US": "WPS name"
+    },
+    "columnProcesoSoldadura": {
+        "es-MX": "P. Soldadura",
+        "en-US": "Weldind P."
+    },
+    "columnDesde": {
+        "es-MX": "Desde:",
+        "en-US": "From:"
+    },
+    "columnHasta": {
+        "es-MX": "Hasta:",
+        "en-US": "Until:"
+    },
+    "columnNumeroPasos": {
+        "es-MX": "# Pasos",
+        "en-US": "Steps #"
+    },
+    "columnCedulaTubo": {
+        "es-MX": "Cédula Tubo",
+        "en-US": "Certificate tube"
+    },
+    "columnEspesorMin": {
+        "es-MX": "E. min(mm)",
+        "en-US": "Min T(mm)"
+    },
+    "columnEspesorMax": {
+        "es-MX": "E. max(mm)",
+        "en-US": "Max T(mm)"
+    },
+    "columnDiametroCalificado": {
+        "es-MX": "Diametro C.",
+        "en-US": "Diameter Q."
+    },
+    "columnPosicion": {
+        "es-MX": "Posición °",
+        "en-US": "Position °"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -8122,6 +8390,80 @@ _dictionary = {
         "en-US": "Visual Inspection"
     },
     //Finaliza Soldadura
+
+    //Pantalla PQR
+    "ConfiguracionSoldaduraBreadcrumb": {
+        "es-MX": "Configuración de soldadura",
+        "en-US": "Welding Configuration"
+    },
+    "PQRBreadcrumb": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "botonSoldaduraSup": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    "botonSoldaduraInf": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    //Finaliza PQR
+
+    //Pantalla WPS
+    "WPSBreadcrumb": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    //Finaliza WPS
+
+    //Pantalla Soldador Certificacion
+    "SoldadorCertificacionBreadcrumb": {
+        "es-MX": "Soldador Certificación",
+        "en-US": "Certification Welder"
+    },
+    //Finaliza Soldador Certificacion
+
+    //Pantalla Nuevo Soldador Certificacion
+    "lblNuevoSoldadorCertificacionBreadCrum": {
+        "es-MX": "Nuevo Soldador Certificación",
+        "en-US": "New Welder Certification"
+    },
+    //Finaliza Nuevo Soldador Certificacion
+
+    //Pantalla Nuevo PQR
+    "NuevoPQRBreadcrumb": {
+        "es-MX": "Nuevo PQR",
+        "en-US": "New PQR"
+    },
+    "botonPQRSup": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "botonPQRInf": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    //Finaliza Nuevo PQR
+
+    //Pantalla Nuevo PQR
+    "NuevoWPSBreadcrumb": {
+        "es-MX": "Nuevo WPS",
+        "en-US": "New PQR"
+    },
+    "WPSBreadcrumb": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "botonWPSSup": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "botonWPSInf": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    //Finaliza Nuevo PQR
 
     //Pantalla Inspeccion Dimensional
     "InspeccionBreadCrum": {
