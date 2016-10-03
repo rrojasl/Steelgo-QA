@@ -42,5 +42,10 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult SistemaPinturaAplicable()
+        {
+            return View();
+        }
     }
 }

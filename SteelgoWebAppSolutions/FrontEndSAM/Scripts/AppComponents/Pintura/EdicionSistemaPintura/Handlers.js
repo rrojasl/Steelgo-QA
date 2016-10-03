@@ -1,27 +1,6 @@
 ﻿function SuscribirEventos() {
-    SuscribirEventoProyecto();
     SuscribirEventoSistemaPintura();
     SuscribirEventoMostrarDetalle();
-}
-
-function SuscribirEventoProyecto() {
-    $("#inputProyecto").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProyectoID",
-        suggest: true,
-        delay: 10,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);            
-
-            if (dataItem != undefined) {
-                
-            } else {
-                $("#inputProyecto").data("kendoComboBox").value("");
-            }
-        }
-    });
 }
 
 function SuscribirEventoSistemaPintura() {
@@ -54,9 +33,6 @@ function SuscribirEventoMostrarDetalle() {
 
     });
 
-    $("#btnDescargar").click(function (e) {
-        windowDetailTest.close();
-    });
     $("#btnCerrarPopup").click(function (e) {
         windowDetailTest.close();
     });
