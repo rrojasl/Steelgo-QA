@@ -84,6 +84,16 @@ function RenderDensidad(container, options) {
     });
 }
 
+function RenderInicioMM(container, options) {
+    var dataItem;
+    $('<input data-text-field="InicioMM" id=' + options.model.uid + ' data-value-field="Tamano" data-bind="value:' + options.field + '"/>')
+    .appendTo(container)
+    .kendoNumericTextBox({
+        format: "#",
+        min: 0
+    });
+}
+
 function renderDataSourceNumeroPlacas(spoolJunta, junta, numeroControl) {
     //alert(spoolJunta);
     //var infoResults = new Array($("#grid").data("kendoGrid").dataSource._data.NumeroPlacas);

@@ -136,9 +136,10 @@ function CargarGridPopUpDetallePorPlaca() {
             },
         },
         selectable: true,
+        filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "60px" },
-          { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: true, editor: comboBoxResultadoDetallePlaca, width: "80px" },
+          { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px" },
+          { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoDetallePlaca, width: "80px" },
           { field: "TemplateDetallePorPlaca", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
         ],
         editable: true,
@@ -204,15 +205,16 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
         autoHeight: true,
         sortable: true,
         scrollable: true,
+        filterable: getGridFilterableMaftec(),
         columns: [
                 { field: "Defecto", title: _dictionary.CapturaReportePruebasHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxDefectos, width: "20px" },
-                { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px" },
-                { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px" }
+                { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px"/*, editor: RenderInicioMM*/, format: "{0: }", attributes: { style: "text-align:right;" } },
+                { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", format: "{0: }", attributes: { style: "text-align:right;" } }
             ,
           {
               command: {
-                  name: "",
-                  title: "",
+                  //name: "",
+                  //title: "",
                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                   click: function (e) {
                       e.preventDefault();
@@ -229,7 +231,8 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                       $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
                   }
               },
-              width: "20px"
+              title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
+              width: "10px"
           },
             {
                 command: {
@@ -259,7 +262,7 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                     }
                 },
                 title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()],
-                width: "50px"
+                width: "10px"
             }
         ],
         editable: "incell",

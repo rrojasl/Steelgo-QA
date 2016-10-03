@@ -218,6 +218,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                     detalles[k].OrdenTrabajoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].OrdenTrabajoID;
                     detalles[k].SpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].SpoolID;
                     detalles[k].JuntaSpoolID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].JuntaSpoolID;
+                    detalles[k].DefectoID = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].DefectoID;
                     detalles[k].Defecto = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].Defecto;
                     detalles[k].InicioMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].InicioMM;
                     detalles[k].FinMM = ds[i].ListaDetallePorPlacas[j].ListaDetalleDefectos[k].FinMM;
@@ -230,8 +231,33 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
            
 
             if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad)) && ds[i].Tamano > 0 && ds[i].Densidad > 0) {
-                listaDetalles[cont].Estatus = 1 // el elemento esta bien.
-                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
+                
+                if (ds[i].ListaDetallePorPlacas.length > 0) {
+                    for (var l = 0; l < ds[i].ListaDetallePorPlacas.length; l++) {
+                        if (!(($.isNumeric(ds[i].ListaDetallePorPlacas[l].ResultadoID)) || ($.isNumeric(ds[i].ListaDetallePorPlacas[l].ResultadoID != 0)))) {
+                            listaDetalles[cont].Estatus = 0 //el elemento esta mal.
+                            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                            break;
+                        }
+                        else {
+                            if (ds[i].ListaDetallePorPlacas[l].ListaDetalleDefectos.length > 0) {
+                                listaDetalles[cont].Estatus = 1 // el elemento esta bien.
+                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
+                            }
+                            else {
+                                listaDetalles[cont].Estatus = 0 //el elemento esta mal.
+                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                else {
+                    listaDetalles[cont].Estatus = 0 //el elemento esta mal.
+                    $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                }
+                
             }
             else {
                 listaDetalles[cont].Estatus = 0 //el elemento esta mal.
