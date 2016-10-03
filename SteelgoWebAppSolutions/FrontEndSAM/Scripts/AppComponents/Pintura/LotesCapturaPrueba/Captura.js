@@ -10,7 +10,7 @@ function IniciarCapturaLotesCapturaReporte() {
 
 function changeLanguageCall() {
     CargarGrid();
-   // llenarComo();
+    llenarCombo();
 }
 
 function CargarGrid() {
@@ -18,6 +18,14 @@ function CargarGrid() {
         autoBind: true,
         dataSource: {
             data: [
+                //{
+                //    Accion: 1,
+                //    NombreSpool: "X001-014",
+                //    SistemaPintura: "A1",
+                //    Color: "Alumninio",
+                //    M2:"12 m2",
+                //    NombreCuadrante:"ZZ0-12"
+                //}
                    
             ],
             schema: {
@@ -27,7 +35,8 @@ function CargarGrid() {
                         NombreSpool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
-                        NombreCuadrante: { type: "string", editable: true }
+                        M2:{type:"String",editable:false},
+                        NombreCuadrante: { type: "string", editable: false}
                     }
                 }
             },
@@ -72,24 +81,26 @@ function CargarGrid() {
 }
 
 
-function llenarComo() {
-
-
+function llenarCombo() {
                var p = [
-                        { ProyectoID: 0, Nombre: "" },
-                        { ProyectoID: 16, Nombre: "ETILENO XXI" },
+                        { Proyecto: 0, Nombre: "" },
+                        { Proyecto: 16, Nombre: "ETILENO XXI" },
                 ];
 
                 var sp = [
-                    { SistemaPinturaID: 0, SistemaPintura: "" },
-                    { SistemaPinturaID: 1, SistemaPintura: "A1" },
-                    { SistemaPinturaID: 2, SistemaPintura: "A2" },
-                    { SistemaPinturaID: 3, SistemaPintura: "18.1" },
+                    { SistPintID: 0, Nombre: "" },
+                    { SistPintID: 1, Nombre: "A1" },
+                    { SistPintID: 2, Nombre: "A2" },
+                    { SistPintID: 3, Nombre: "18.1" },
+                ];
+                var l = [
+                         { LotePinturaID: 0, NumeroLote: "" },
+                         { LotePinturaID: 1, NumeroLote: "1/33" },
+                         { LotePinturaID: 2, NumeroLote: "12" },
+                         { LotePinturaID: 3, NumeroLote: "123/23" },
                 ];
 
-                var grid = $("#grid").data("kendoGrid");
-                grid.dataSource.data(data);
-                grid.dataSource.sync();
+              
 
                 $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
                 $("#inputProyecto").data("kendoComboBox").dataSource.data(p);
@@ -98,5 +109,9 @@ function llenarComo() {
 
                 $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
                 $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
+
+                $("#inputLote").data("kendoComboBox").dataSource.data([]);
+                $("#inputLote").data("kendoComboBox").dataSource.data(l);
+
 
                 }

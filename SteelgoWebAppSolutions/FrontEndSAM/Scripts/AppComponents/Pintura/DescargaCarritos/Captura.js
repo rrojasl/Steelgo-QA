@@ -1,9 +1,4 @@
-﻿function changeLanguageCall() {
-    CargarGrid();
-    //document.title = _dictionary.PinturaHeaderDescargaCarroPintura[$("#language").data("kendoDropDownList").value()];
-}
-
-IniciarCapturaPinturaDescarga();
+﻿IniciarCapturaPinturaDescarga();
 function IniciarCapturaPinturaDescarga() {
     SuscribirEventos();
     //setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
@@ -11,24 +6,49 @@ function IniciarCapturaPinturaDescarga() {
 
 }
 
+function changeLanguageCall() {
+    CargarGrid();
+ llenarCombo();
+
+
+    //document.title = _dictionary.PinturaHeaderDescargaCarroPintura[$("#language").data("kendoDropDownList").value()];
+}
+
 
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-
+            data: [{
+                Accion:1,
+                NombreSpool: "X001-01",
+                SistemaPintura:"18.1",
+                Color: "Amarillo",
+                M2:"40 m2",
+                NombreCuadrante:"ZZ0-01"
+            },
+            {
+                Accion: 1,
+                NombreSpool: "X001-016",
+                SistemaPintura: "A1",
+                Color: "Cafe",
+                M2: "60 m2",
+                NombreCuadrante: "E-01"
+            }
+            ],
             schema: {
                 model: {
                     fields: {
+                        Accion: { type: "number", editable: false },
                         NombreSpool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
+                        M2:{type:"String",editable:false},
                         NombreCuadrante: { type: "string", editable: true }
                     }
                 }
 
             },
-
             filter: {
                 logic: "or",
                 filters: [
@@ -74,6 +94,32 @@ function CargarGrid() {
 }
 
 
+function llenarCombo() {
+    //var data = [{Accion: 1, }]
+
+    var c = [
+             { MedioTransporteID: 0, NombreMedioTransporte: "" },
+             { MedioTransporteID: 1, NombreMedioTransporte: "Carro-1" },
+             { MedioTransporteID: 2, NombreMedioTransporte: "Carro-Prueba" },
+    ];
+
+    var sp = [
+        { SistemaPinturaID: 0, Nombre: "" },
+        { SistemaPinturaID: 1, Nombre: "A1" },
+        { SistemaPinturaID: 2, Nombre: "A2" },
+        { SistemaPinturaID: 3, Nombre: "18.1" },
+    ];
+
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").dataSource.data(c);
+    $("#inputCarro").data("kendoComboBox").value(1);
+    $("#inputCarro").data("kendoComboBox").trigger('changes');
+    
+
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
+
+}
 
 
 
