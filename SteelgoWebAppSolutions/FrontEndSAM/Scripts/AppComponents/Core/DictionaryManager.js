@@ -7352,11 +7352,27 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
+    "lblPREHEAT1": {
+        "es-MX": "PREHEAT",
+        "en-US": "PREHEAT"
+    },
+    "lblPWHT1y": {
+        "es-MX": "PWHT",
+        "en-US": "PWHT"
+    },
     "lblEspesorRelleno": {
         "es-MX": "E. Relleno(mm)",
         "en-US": "Fill Thk(mm)"
     },
     "lblEspesorRaiz": {
+        "es-MX": "E. Raiz(mm)",
+        "en-US": "Root Thck(mm)"
+    },
+    "lblEspesorRelleno1": {
+        "es-MX": "E. Relleno(mm)",
+        "en-US": "Fill Thk(mm)"
+    },
+    "lblEspesorRaiz1": {
         "es-MX": "E. Raiz(mm)",
         "en-US": "Root Thck(mm)"
     },
@@ -7371,6 +7387,14 @@ _dictionary = {
     "lblNumeroP": {
         "es-MX": "Numero P",
         "en-US": "P number"
+    },
+    "lblGrupoP": {
+        "es-MX": "Grupo P",
+        "en-US": "P Group"
+    },
+    "lblGrupoP1": {
+        "es-MX": "Grupo P",
+        "en-US": "P Group"
     },
     "lblGrupoPMaterialBase1": {
         "es-MX": "Gpo P Base 1",
@@ -7403,6 +7427,58 @@ _dictionary = {
     "lblGrupoF": {
         "es-MX": "Grupo F",
         "en-US": "F group"
+    },
+    "lblEspesorMinimo": {
+        "es-MX": "Espesor Mínimo(mm)",
+        "en-US": "Minimum Thickness(mm)"
+    },
+    "lblEspesorMaximo": {
+        "es-MX": "Espesor Máximo(mm)",
+        "en-US": "Maximum Thickness(mm)"
+    },
+    "lblWPS": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "lblPQR": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "lblPQR1": {
+        "es-MX": "PQR",
+        "en-US": "PQR"
+    },
+    "lblSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+    "lblDesde": {
+        "es-MX": "Desde:",
+        "en-US": "From:"
+    },
+    "lblHasta": {
+        "es-MX": "Hasta:",
+        "en-US": "Until:"
+    },
+    "lblNumeroPasos": {
+        "es-MX": "# Pasos",
+        "en-US": "Steps #"
+    },
+    "lblCedulaTubo": {
+        "es-MX": "Cédula Tubo",
+        "en-US": "Certificate tube"
+    },
+    "lblDiametroCalificado": {
+        "es-MX": "Diametro C.",
+        "en-US": "Diameter Q."
+    },
+    "lblTipoPrueba": {
+        "es-MX": "Tipo Prueba",
+        "en-US": "Test Type"
+    },
+    "lblPosicion": {
+        "es-MX": "Posición °",
+        "en-US": "Position °"
     },
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -8348,6 +8424,13 @@ _dictionary = {
     },
     //Finaliza Soldador Certificacion
 
+    //Pantalla Nuevo Soldador Certificacion
+    "lblNuevoSoldadorCertificacionBreadCrum": {
+        "es-MX": "Nuevo Soldador Certificación",
+        "en-US": "New Welder Certification"
+    },
+    //Finaliza Nuevo Soldador Certificacion
+
     //Pantalla Nuevo PQR
     "NuevoPQRBreadcrumb": {
         "es-MX": "Nuevo PQR",
@@ -8360,6 +8443,25 @@ _dictionary = {
     "botonPQRInf": {
         "es-MX": "PQR",
         "en-US": "PQR"
+    },
+    //Finaliza Nuevo PQR
+
+    //Pantalla Nuevo PQR
+    "NuevoWPSBreadcrumb": {
+        "es-MX": "Nuevo WPS",
+        "en-US": "New PQR"
+    },
+    "WPSBreadcrumb": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "botonWPSSup": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
+    },
+    "botonWPSInf": {
+        "es-MX": "WPS",
+        "en-US": "WPS"
     },
     //Finaliza Nuevo PQR
 
