@@ -252,6 +252,8 @@ function SubscribeMedicionesCampoX() {
 
 }
 
+
+
 function SubscribeCalendarFechaToma() {
     $("#inputMedicionesfechaToma").kendoDatePicker({
         parseFormats: ["MMddyyyy"]
@@ -270,13 +272,19 @@ function SubscribeNumerosDecimal() {
     $("#inputMedicionesPuntoRocio").kendoMaskedTextBox({
         mask: "000.00",
     });
-}
+
+    $("#inputMedicionesCampoX").kendoMaskedTextBox({
+            mask: "00:00",
+        });
+    }
 //
 function SubscribeHora() {
     $("#inputMedicionesHoraToma").kendoMaskedTextBox({
         mask: "00:00",
     });
 }
+
+
 //habilitar botones 
 function opcionHabilitarView(valor, name) {
 

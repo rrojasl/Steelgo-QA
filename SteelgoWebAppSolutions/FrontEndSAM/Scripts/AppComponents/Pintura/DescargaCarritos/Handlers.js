@@ -1,5 +1,6 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoCarro();
+    SuscribirEventoSistemaPintura();
     SuscribirEventoCuadrante();
     SuscribirEventoGuardar();
     suscribirEventoDescargar();
@@ -68,6 +69,26 @@ function SuscribirEventoCarro() {
         }
     });
 
+}
+
+function SuscribirEventoSistemaPintura() {
+    $("#inputSistemaPintura").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "SistemaPinturaID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (dataItem != undefined) {
+
+            } else {
+                $("#inputSistemaPintura").data("kendoComboBox").value("");
+            }
+        }
+    });
 }
 
 function SuscribirEventoCuadrante() {

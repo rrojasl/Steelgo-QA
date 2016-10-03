@@ -10,27 +10,25 @@ function IniciarCapturaPinturaDescarga() {
     //setTimeout(function () { AjaxCargarCarrosCargados(); }, 1500);
 
 }
+
+
 function CargarGrid() {
     $("#grid").kendoGrid({
-        edit: function (e) {
-            if ($('#botonGuardar2').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            }
-            else {
-                this.closeCell();
-            }
-        },
         autoBind: true,
         dataSource: {
+
             schema: {
                 model: {
                     fields: {
-                        SpoolJunta: { type: "string", editable: false },
+                        NombreSpool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "number", editable: false },
-                        Cuadrante: { type: "string", editable: true }
+                        Color: { type: "string", editable: false },
+                        NombreCuadrante: { type: "string", editable: true }
                     }
                 }
+
             },
+
             filter: {
                 logic: "or",
                 filters: [
@@ -58,16 +56,29 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
-            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
-            { field: "Metros2", title: _dictionary.columnMetros2[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
-            { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], width: "240px", editor: RenderComboBoxCuadrante, filterable: true },
-            { command: { text: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "99px", click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()] }
+            { field: "NombreSpool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
+            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
+            { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            //{ field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= CapturaPrueba ? "checked=checked" : "" # class="chkbx"  ></input>  ' }
+           { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaPatio }, title: _dictionary.columnDescargar1[$("#language").data("kendoDropDownList").value()], width: "100px", attributes: { style: "text-align:center;" } }
+
         ]
+
+
     });
     CustomisaGrid($("#grid"));
 }
+
+
+
+
+
+
+
 
 function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
@@ -115,4 +126,9 @@ function PlanchaCuadrante() {
         }
         $("#grid").data("kendoGrid").dataSource.sync();
     }
+}
+
+
+function eliminarCapturaPatio(e)
+{
 }
