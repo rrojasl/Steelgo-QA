@@ -7,7 +7,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblPintura"></span></a>
+        <a href="#"><span id="lblPintura">Pintura</span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("AsignacionRequisicion", "PND")"><span id="">Sistema Pintura</span></a>
@@ -36,11 +36,13 @@
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones" class="eliminarSistema">
+                            <li> <a href="#" class="eliminarSistema"><span>Eliminar</span></a></li>
+                        </ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -56,12 +58,8 @@
             <input id="inputNombre"  class="general-input item-select"  />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
-            <label id="">Unidad medida</label>
-            <input id="inputUnidad" class=""/>
-        </div>
-        <div class="col-sm-3 col-d-3 col-lg-3">
-            <label id="">Descripción</label>
-            <input id="inputDescripcion" class="general-input item-select"/>
+            <label id="">Color</label>
+            <input id="inputColor" class=""/>
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
             <label id="">Proyecto</label>
@@ -138,14 +136,12 @@
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones2" data-target="#" href="#Acciones2" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            @*<li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>*@
+                            <li> <a href="#" class="eliminarSistema"><span>Eliminar</span></a></li>
                         </ul>
                     </div>
                 </div>
