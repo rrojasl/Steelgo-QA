@@ -251,10 +251,11 @@ function filtraDatosCapturados(tipoFiltro) {
 
     if (tipoFiltro == "SinCaptura") {
         for (var i = 0; i < infoGridTemp.length; i++) {
-            if (infoGridTemp[i].NumeroPlacas == 0) {
+            if ((infoGridTemp[i].NumeroPlacas == 0) || (infoGridTemp[i].NumeroPlacas == null)) {
                 $("#grid").data("kendoGrid").dataSource.add(infoGridTemp[i]);
             }
         }
+        llamadasATodos = 0;
     }
     else if (tipoFiltro == "Todos") {
         for (var i = 0; i < infoGridTemp.length; i++) {
