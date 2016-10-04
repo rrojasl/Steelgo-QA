@@ -72,25 +72,13 @@ function CargarGrid() {
                 model: {
                     fields: {
                         NumeroControl: { type: "string", editable: false },
-                        EtiquetaJunta: { type: "string", editable: false },
-                        TipoJunta: { type: "string", editable: false },
-                        NombreRequisicion: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Prioridad: { type: "number", editable: false },
-                        Clasificacion: { type: "string", editable: false },
-                        Diametro: { type: "number", editable: false },
-                        Espesor: { type: "number", editable: false },
-                        Cedula: { type: "string", editable: false },
+                        Estatus: { type: "string", editable: false },
 
-                        ElementoPorClasificacionPNDID: { type: "int", editable: false },
-                        RequisicionID: { type: "int", editable: false },
-                        ProyectoID: { type: "int", editable: false },
                         SpoolID: { type: "int", editable: false },
-                        JuntaSpoolID: { type: "int", editable: false },
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
-                        TipoPruebaID: { type: "int", editable: false },
-                        Especificacion: { type: "number", editable: false },
-                        Agregar: { type: "boolean", editable: false }
+                        OkPND: { type: "int", editable: false }
                     }
                 }
             },
@@ -115,25 +103,20 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            //{ field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            //{ field: "TipoJunta", title: _dictionary.columnTipoJta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "112px" },
-            //{ field: "NombreRequisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", attributes: { style: "text-align:right;" } },
-            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "85px" },
-            //{ field: "DiametroPlano", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
-            { field: "Espesor", title: _dictionary.columnStatus[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
+            { field: "Estatus", title: _dictionary.columnStatus[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
             { field: "Cedula", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
             {
-                field: "Agregar", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:100px;"
                     },
-                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= (Agregar && (RequisicionID != 0)) ? 'hidden=true':(Agregar ? 'checked=checked':'') # />", width: "112px", attributes: { style: "text-align:center;" }
+                    //dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= (OkPND && (RequisicionID != 0)) ? 'hidden=true':(OkPND ? 'checked=checked':'') # />", width: "112px", attributes: { style: "text-align:center;" }
             },
         ],
         dataBound: function (a) {

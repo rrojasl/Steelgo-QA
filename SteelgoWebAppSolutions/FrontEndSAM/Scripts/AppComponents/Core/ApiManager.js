@@ -173,6 +173,7 @@ var $RequisicionPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EntregaPlacasGraficas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EditarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $OKPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Pintura
 var $PinturaGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -306,6 +307,7 @@ $EntregaPlacasGraficas.add("EntregaPlacasGraficas");
 $EditarRequisicion.add("EditarRequisicion");
 $ValidacionRT.add("ValidacionRT");
 $ReporteRT.add("ReporteRT");
+$OKPND.add("OKPND");
 
 //Pintura
 $PinturaGeneral.add("PinturaGeneral");

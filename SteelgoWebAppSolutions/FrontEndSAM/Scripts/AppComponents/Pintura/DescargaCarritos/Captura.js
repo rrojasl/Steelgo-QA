@@ -1,35 +1,53 @@
-﻿function changeLanguageCall() {
-    CargarGrid();
-    //document.title = _dictionary.PinturaHeaderDescargaCarroPintura[$("#language").data("kendoDropDownList").value()];
-}
-
-IniciarCapturaPinturaDescarga();
+﻿IniciarCapturaPinturaDescarga();
 function IniciarCapturaPinturaDescarga() {
     SuscribirEventos();
     //setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
     //setTimeout(function () { AjaxCargarCarrosCargados(); }, 1500);
 
 }
+
+function changeLanguageCall() {
+    CargarGrid();
+ llenarCombo();
+
+
+    //document.title = _dictionary.PinturaHeaderDescargaCarroPintura[$("#language").data("kendoDropDownList").value()];
+}
+
+
 function CargarGrid() {
     $("#grid").kendoGrid({
-        edit: function (e) {
-            if ($('#botonGuardar2').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            }
-            else {
-                this.closeCell();
-            }
-        },
         autoBind: true,
         dataSource: {
+            data: [{
+                Accion:1,
+                NombreSpool: "X001-01",
+                SistemaPintura:"18.1",
+                Color: "Amarillo",
+                M2:"40 m2",
+                NombreCuadrante:"ZZ0-01"
+            },
+            {
+                Accion: 1,
+                NombreSpool: "X001-016",
+                SistemaPintura: "A1",
+                Color: "Cafe",
+                M2: "60 m2",
+                NombreCuadrante: "E-01"
+            }
+            ],
             schema: {
                 model: {
                     fields: {
-                        SpoolJunta: { type: "string", editable: false },
+                        Accion: { type: "number", editable: false },
+                        NombreSpool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "number", editable: false },
-                        Cuadrante: { type: "string", editable: true }
+                        Color: { type: "string", editable: false },
+                        M2:{type:"String",editable:false},
+                        NombreCuadrante: { type: "string", editable: true }
                     }
                 }
+
             },
             filter: {
                 logic: "or",
@@ -58,16 +76,55 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
-            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
-            { field: "Metros2", title: _dictionary.columnMetros2[$("#language").data("kendoDropDownList").value()], width: "240px", filterable: true },
-            { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], width: "240px", editor: RenderComboBoxCuadrante, filterable: true },
-            { command: { text: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "99px", click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()] }
+            { field: "NombreSpool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
+            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
+            { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            //{ field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= CapturaPrueba ? "checked=checked" : "" # class="chkbx"  ></input>  ' }
+           { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaPatio }, title: _dictionary.columnDescargar1[$("#language").data("kendoDropDownList").value()], width: "100px", attributes: { style: "text-align:center;" } }
+
         ]
+
+
     });
     CustomisaGrid($("#grid"));
 }
+
+
+function llenarCombo() {
+    //var data = [{Accion: 1, }]
+
+    var c = [
+             { MedioTransporteID: 0, NombreMedioTransporte: "" },
+             { MedioTransporteID: 1, NombreMedioTransporte: "Carro-1" },
+             { MedioTransporteID: 2, NombreMedioTransporte: "Carro-Prueba" },
+    ];
+
+    var sp = [
+        { SistemaPinturaID: 0, Nombre: "" },
+        { SistemaPinturaID: 1, Nombre: "A1" },
+        { SistemaPinturaID: 2, Nombre: "A2" },
+        { SistemaPinturaID: 3, Nombre: "18.1" },
+    ];
+
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").dataSource.data(c);
+    $("#inputCarro").data("kendoComboBox").value(1);
+    $("#inputCarro").data("kendoComboBox").trigger('changes');
+    
+
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
+
+}
+
+
+
+
+
 
 function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
@@ -115,4 +172,9 @@ function PlanchaCuadrante() {
         }
         $("#grid").data("kendoGrid").dataSource.sync();
     }
+}
+
+
+function eliminarCapturaPatio(e)
+{
 }

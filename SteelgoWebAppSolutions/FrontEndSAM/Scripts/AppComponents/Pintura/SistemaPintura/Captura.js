@@ -3,7 +3,7 @@
 function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUp();
-    document.title = "SistemaPintura";
+    document.title = "Sistema Pintura";
 };
 
 IniciarSistemaPintura();
@@ -72,17 +72,19 @@ function CargarGrid() {
 
         dataSource: {
             data: [
-                    { plantillaColor: "", Proceso: "ShotBlast", Color: "", UnidadMinima: 1, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, ListaColor: [], listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
-                    { plantillaColor: "", Proceso: "Primario", Color: "", UnidadMinima: 3, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, ListaColor: [], listadoPruebas: [{ Prueba: "PullOff", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
-                    { plantillaColor: "", Proceso: "Intermedio", Color: "Rojo", UnidadMinima: 2, UnidadMaxima: 4, Pruebas: "Detalle pruebas", Accion: 1, ListaColor: [{ Nombre: "Rojo", ColorID: 1 }, { Nombre: "Azul", ColorID: 2 }, { Nombre: "Verde", ColorID: 3 }], listadoPruebas: [{ Prueba: "Adherencia", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2,  }, { Nombre: "holliday", PruebaID: 3 }] }] },
-                    { plantillaColor: "", Proceso: "Acabado", Color: "Azul, Verde", UnidadMinima: 1, UnidadMaxima: 10, Pruebas: "Detalle pruebas", Accion: 1, ListaColor: [{ Nombre: "Rojo", ColorID: 1 }, { Nombre: "Azul", ColorID: 2 }, { Nombre: "Verde", ColorID: 3 }], listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }, { Prueba: "holliday", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
+                    { Agregar: false, Proceso: "No aplica", Color: "", UnidadMinima: "", UnidadMaxima: "", Pruebas: "", Accion: 1, listadoPruebas: []},
+                    { Agregar: false, Proceso: "ShotBlast", Color: "", UnidadMinima: 1, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
+                    { Agregar: false, Proceso: "Primario", Color: "", UnidadMinima: 3, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "PullOff", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
+                    { Agregar: false, Proceso: "Intermedio", Color: "Rojo", UnidadMinima: 2, UnidadMaxima: 4, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Adherencia", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2,  }, { Nombre: "holliday", PruebaID: 3 }] }] },
+                    { Agregar: false, Proceso: "Acabado", Color: "Azul, Verde", UnidadMinima: 1, UnidadMaxima: 10, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }, { Prueba: "holliday", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
             ],
             schema: {
                 model: {
                     fields: {
+                        Agregar:{type: "boolean", editable: false},
                         Proceso: { type: "string", editable: false },
-                        UnidadMinima: { type: "number", editable: true },
-                        UnidadMaxima: { type: "number", editable: true },
+                        MetrosPorLote: { type: "number", editable: true },
+                        NumeroPruebas: { type: "number", editable: true },
                         Pruebas: { type: "string", editable: false }
                     }
                 }
@@ -109,11 +111,21 @@ function CargarGrid() {
         
         filterable: getGridFilterableMaftec(),
         columns: [
+            {
+                field: "Agregar", title: _dictionary.columnAgregar[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
+            },
             { field: "Proceso", title: "Proceso", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Color", title: "Color", filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderMultiselectColor, template: "<span>#=plantillaColor#</span>" },
-            { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" } },
-            { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" } },
-            { field: "Pruebas", title: "Pruebas", template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#'  > <span>#=Pruebas#</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
+            { field: "MetrosPorLote", title: "Mts. Lote", filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "NumeroPruebas", title: "Pbas. lote", filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Pruebas", title: "Pruebas", template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#/'  > <span>#=Pruebas#</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
 
         ],
         beforeEdit: function (e) {
@@ -128,10 +140,15 @@ function CargarGrid() {
 };
 
 function isEditable(fieldName, model) {
-    if (fieldName === "Color") {
-        if (model.Proceso == "Primario" || model.Proceso == "ShotBlast")
+    if (fieldName === "MetrosPorLote") {
+        if (model.Proceso == "No aplica")
             return false;
         
+    }
+    if (fieldName === "NumeroPruebas") {
+        if (model.Proceso == "No aplica")
+            return false;
+
     }
 
     return true; // default to editable
@@ -278,8 +295,9 @@ function CargarGridPopUp() {
                 model: {
                     fields: {
                         Prueba: { type: "string", editable: true },
-                        NumeroPruebas: { type: "number", editable: true },
-
+                        UnidadMedida: { type: "number", editable: true },
+                        UnidadMinima: { type: "number", editable: true },
+                        UnidadMaxima: { type: "number", editable: true },
                     }
                 }
             },
@@ -295,7 +313,9 @@ function CargarGridPopUp() {
 
         columns: [
             { field: "Prueba", title: "Prueba", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
-            { field: "NumeroPruebas", title: "No. pruebas", filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "UnidadMedida", title: "U. medida", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
+            { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" } },
+            { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
@@ -322,7 +342,7 @@ function LlenarGridPopUp(data) {
 function VentanaModal() {
 
     var modalTitle = "";
-    modalTitle = _dictionary.lblDetalleJuntas[$("#language").data("kendoDropDownList").value()];
+    modalTitle = "Detalle pruebas";
     var window = $("#windowGrid");
     var win = window.kendoWindow({
         modal: true,

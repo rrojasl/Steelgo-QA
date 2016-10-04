@@ -5,7 +5,7 @@ var requisicionOriginal = 0;
 function SuscribirEventos() {
     
     suscribirEventoGuardar();
-    SuscribirEventoComboUnidadMedida();
+    SuscribirEventoComboColor();
     suscribirEventoDetallePruebas();
     SuscribirEventoCerrarPopUpPruebas();
     suscribirEventoProyecto();
@@ -59,22 +59,16 @@ function suscribirEventoChangeRadio() {
 }
 
 
-function SuscribirEventoComboUnidadMedida() {
-    $('#inputUnidad').kendoComboBox({
+function SuscribirEventoComboColor() {
+    $("#inputColor").kendoMultiSelect({
+        dataSource: '',
         dataTextField: "Nombre",
-        dataValueField: "UnidadMedidaID",
+        dataValueField: "ProyectoID",
         suggest: true,
         filter: "contains",
-        index: 3,
         change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
-            }
-            else {
-                
-            }
         }
-    });
+    }).data("kendoMultiSelect");
 
 };
 

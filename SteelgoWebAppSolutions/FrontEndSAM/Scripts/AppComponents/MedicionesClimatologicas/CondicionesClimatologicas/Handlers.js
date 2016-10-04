@@ -22,7 +22,7 @@ function SuscribirEventos() {
     SubscribeMedicionesHumedad();
     SubscribeMedicionesPuntoRocio();
     SubscribeCalendarFechaToma();
-    SubscribeNumerosDecimal();
+    //SubscribeNumerosDecimal();
     SubscribeHora();
 
 };
@@ -252,6 +252,8 @@ function SubscribeMedicionesCampoX() {
 
 }
 
+
+
 function SubscribeCalendarFechaToma() {
     $("#inputMedicionesfechaToma").kendoDatePicker({
         parseFormats: ["MMddyyyy"]
@@ -270,13 +272,29 @@ function SubscribeNumerosDecimal() {
     $("#inputMedicionesPuntoRocio").kendoMaskedTextBox({
         mask: "000.00",
     });
-}
+
+    $("#inputMedicionesCampoX").kendoMaskedTextBox({
+            mask: "00:00",
+        });
+    }
 //
 function SubscribeHora() {
     $("#inputMedicionesHoraToma").kendoMaskedTextBox({
         mask: "00:00",
+        //format: "";
+    });
+    $("#inputMedicionesHoraToma").blur(function (e) {        
+        if ($(this).val().match("^[0-2][0-3]:[0-5][0-9]$")) {
+
+        } else {
+            displayNotify("", "El formato de hora es incorrecto", 1);
+            $(this).val("");
+        }
+
     });
 }
+
+
 //habilitar botones 
 function opcionHabilitarView(valor, name) {
 
