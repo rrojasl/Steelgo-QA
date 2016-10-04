@@ -17,10 +17,11 @@ function RenderNumeroPlacas(container, options) {
         {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
+            hayDatosCapturados = true;
 
             var value = this.value();
             if (numeroPlacasAnteriorElemento.NumeroPlacas != null && numeroPlacasAnteriorElemento.NumeroPlacas != this.value()) {
-                
+                //hayDatosCapturados = true;
 
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
@@ -42,6 +43,7 @@ function RenderNumeroPlacas(container, options) {
 
                 $("#yesButton").click(function () {
                     renderDataSourceNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                    
                     ventanaConfirm.close();
                 });
                 $("#noButton").click(function () {
@@ -70,8 +72,12 @@ function RenderTamano(container, options) {
     .appendTo(container)
     .kendoNumericTextBox({
         format: "#.0000",
-        min: 0
+        min: 0,
+        change: function (e) {
+            hayDatosCapturados = true;
+        }
     });
+    
 }
 
 function RenderDensidad(container, options) {
@@ -80,8 +86,11 @@ function RenderDensidad(container, options) {
     .appendTo(container)
     .kendoNumericTextBox({
         format: "#.0000",
-        min: 0
-    });
+        min: 0,
+        change: function (e) {
+            hayDatosCapturados = true;
+        }
+    });    
 }
 
 function RenderInicioMM(container, options) {
@@ -213,24 +222,24 @@ function comboBoxDefectos(container, options) {
         );
 }
 
+var hayDatosCapturados = false;
+//function hayDatosCapturados() {
+//    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+//        if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas != 0) {
+//            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados.length; j++) {
 
-function hayDatosCapturados() {
-    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-        if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas != 0) {
-            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados.length; j++) {
+//                if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados.length != 0) {
+//                    return true;
+//                    //for (var k = 0; k < defectosArray.length; k++) {
+//                    //    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k] = { Defectos: defectosArray[k].Defectos, InicioMM: defectosArray[k].InicioMM, FinMM: defectosArray[k].FinMM };
+//                    //}
+//                }
+//            }
+//        }
+//    }
 
-                if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados.length != 0) {
-                    return true;
-                    //for (var k = 0; k < defectosArray.length; k++) {
-                    //    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k] = { Defectos: defectosArray[k].Defectos, InicioMM: defectosArray[k].InicioMM, FinMM: defectosArray[k].FinMM };
-                    //}
-                }
-            }
-        }
-    }
-
-    return false;
-}
+//    return false;
+//}
 
 function filtraDatosCapturados(tipoFiltro) {
     loadingStart();
