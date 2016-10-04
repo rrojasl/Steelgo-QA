@@ -22,7 +22,7 @@ function SuscribirEventos() {
     SubscribeMedicionesHumedad();
     SubscribeMedicionesPuntoRocio();
     SubscribeCalendarFechaToma();
-    SubscribeNumerosDecimal();
+    //SubscribeNumerosDecimal();
     SubscribeHora();
 
 };
@@ -281,6 +281,10 @@ function SubscribeNumerosDecimal() {
 function SubscribeHora() {
     $("#inputMedicionesHoraToma").kendoMaskedTextBox({
         mask: "00:00",
+        //format: "";
+    });
+    $("#inputMedicionesHoraToma").blur(function (e) {
+       // $(this).val();
     });
 }
 
