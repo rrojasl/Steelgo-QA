@@ -22,7 +22,7 @@ function SuscribirEventos() {
     SubscribeMedicionesHumedad();
     SubscribeMedicionesPuntoRocio();
     SubscribeCalendarFechaToma();
-    SubscribeNumerosDecimal();
+    //SubscribeNumerosDecimal();
     SubscribeHora();
 
 };
@@ -281,6 +281,16 @@ function SubscribeNumerosDecimal() {
 function SubscribeHora() {
     $("#inputMedicionesHoraToma").kendoMaskedTextBox({
         mask: "00:00",
+        //format: "";
+    });
+    $("#inputMedicionesHoraToma").blur(function (e) {        
+        if ($(this).val().match("^[0-2][0-3]:[0-5][0-9]$")) {
+
+        } else {
+            displayNotify("", "El formato de hora es incorrecto", 1);
+            $(this).val("");
+        }
+
     });
 }
 
