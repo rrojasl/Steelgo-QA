@@ -78,7 +78,9 @@ function CargarGrid() {
 
                         SpoolID: { type: "int", editable: false },
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
-                        OkPND: { type: "int", editable: false }
+                        OkPND: { type: "boolean", editable: false },
+
+                        TemplateMensajeTrabajosAdicionales: { type: "string", editable: false }
                     }
                 }
             },
@@ -104,9 +106,9 @@ function CargarGrid() {
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
-            { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", attributes: { style: "text-align:right;" } },
-            { field: "Estatus", title: _dictionary.columnStatus[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
-            { field: "Cedula", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
+            { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px", attributes: { style: "text-align:right;" } },
+            //{ field: "Estatus", title: _dictionary.columnStatus[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
+            { field: "InformacionDetalle", title: _dictionary.columnAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "115px", template: "<div class='botonAdicionales'><a href='\\#'  > <span>#=TemplateMensajeTrabajosAdicionales#</span></a></div>" },
             {
                 field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
@@ -115,8 +117,8 @@ function CargarGrid() {
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:100px;"
                     },
-                    //dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= (OkPND && (RequisicionID != 0)) ? 'hidden=true':(OkPND ? 'checked=checked':'') # />", width: "112px", attributes: { style: "text-align:center;" }
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= (OkPND && (RequisicionID != 0)) ? 'hidden=true':(OkPND ? 'checked=checked':'') # />", width: "50px", attributes: { style: "text-align:center;" }
             },
         ],
         dataBound: function (a) {

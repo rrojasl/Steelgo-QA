@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Requisicion PND";
+    ViewBag.Title = "OK PND";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -66,10 +66,18 @@
                 <label id=""><span id="lblRequisicion"></span></label>
                 <input id="listaRequisiciones" class="" />
             </div>*@
+            <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+                <label id="lblSpoolID"></label>
+                <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+            </div>
             <div class="col-sm-6 col-md-4 col-lg-2 altoControl">
                 <label id="lblMostrar"></label>
                 <input type="radio" name="Muestra" style=" width:auto;" value="SinCaptura" /><span id="lblSinCaptura"></span>
                 <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="lblTodos"> </span>
+            </div>
+            <div class="col-sm-1 col-md-1 col-lg-1">
+                <label id="">&nbsp;</label>
+                <button type="button" id="ButtonBuscar" class="btn btn-blue botonSizeGeneral"><span id="botonBuscar"></span></button>
             </div>
         </div>
         @*GRID*@

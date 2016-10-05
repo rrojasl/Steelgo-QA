@@ -46,7 +46,7 @@ namespace BackEndSAM.Models.Armado
     public class DetalleDatosJson
     {
         public int Accion { get; set; }
-        public int JuntaTrabajoID { get; set; }
+        public int DetalleArmadoID { get; set; }
         public int JuntaArmadoID { get; set; }
         public int IDProyecto { get; set; }
         public string Proyecto { get; set; }
@@ -102,11 +102,14 @@ namespace BackEndSAM.Models.Armado
     {
         public int ObreroID { get; set; }
         public string Codigo { get; set; }
-
+        public string TipoObrero { get; set; }
+        public string NombreCompleto { get; set; }
         public Tubero()
         {
             ObreroID = 0;
             Codigo = "";
+            TipoObrero = "";
+            NombreCompleto = "";
         }
     }
 
@@ -171,7 +174,7 @@ namespace BackEndSAM.Models.Armado
         public string Localizacion1 { get; set; }
         public string Localizacion2 { get; set; }
         public int JuntaArmadoID { get; set; }
-        public int JuntaTrabajoID { get; set; }
+        public int DetalleArmadoID { get; set; }
         public string NumeroUnico1ID { get; set; }
         public string NumeroUnico2ID { get; set; }
         public string TallerID { get; set; }

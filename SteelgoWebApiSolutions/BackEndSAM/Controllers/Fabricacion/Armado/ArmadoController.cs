@@ -103,106 +103,106 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        //public object Get(string JsonCaptura, bool isReporte, string token, string lenguaje)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-        //        DetalleDatosJson capturaDatosJson = serializer.Deserialize<DetalleDatosJson>(JsonCaptura);
-        //        capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
-        //        List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
-        //        List<Sam3_Steelgo_Get_JuntaSpool_Result> listaJuntasXSpool = null;
-        //        if (isReporte)
-        //            listaJuntasXSpool = (List<Sam3_Steelgo_Get_JuntaSpool_Result>)ArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, capturaDatosJson.OrdenTrabajo, capturaDatosJson.IdVal, int.Parse(capturaDatosJson.SinCaptura));
-        //        else
-        //        {
-        //            listaJuntasXSpool = new List<Sam3_Steelgo_Get_JuntaSpool_Result>();
-        //            listaJuntasXSpool.Add(new Sam3_Steelgo_Get_JuntaSpool_Result());
-        //        }
-        //        for (int i = 0; i < listaJuntasXSpool.Count; i++)
-        //        {
-        //            if (isReporte)
-        //            {
-        //                capturaDatosJson.JuntaID = listaJuntasXSpool[i].JuntaSpoolID.ToString();
-        //                capturaDatosJson.Junta = listaJuntasXSpool[i].Etiqueta.ToString();
-        //            }
-        //            List<Sam3_Armado_Get_DetalleJunta_Result> detalle = (List<Sam3_Armado_Get_DetalleJunta_Result>)ArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario, lenguaje);
-        //            List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> detallaArmadoAdicional = (List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>)ArmadoBD.Instance.DetallaArmadoAdicional(capturaDatosJson, usuario);
-        //            List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)ArmadoBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario, 2);
-        //            List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
-        //            List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
-        //            List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2);
-        //            List<Sam3_Steelgo_Get_TrabajoAdicional_Result> listaTrabajoAdicionalXJunta = (List<Sam3_Steelgo_Get_TrabajoAdicional_Result>)ArmadoBD.Instance.listaTrabajosAdicionalesXJunta(usuario);
-        //            List<TrabajosAdicionalesXJunta> listaDetalleAdicionalXJuntaConvertida = listaTrabajoAdicionalXJunta.ConvertAll(new Converter<Sam3_Steelgo_Get_TrabajoAdicional_Result, TrabajosAdicionalesXJunta>(DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta));
-        //            IFormatProvider culture = new System.Globalization.CultureInfo("es-MX", true);
-        //            foreach (Sam3_Armado_Get_DetalleJunta_Result item in detalle)
-        //            {
-        //                //item.TipoJunta
-        //                DetalleDatosJson detalleDatos = new DetalleDatosJson
-        //                {
-        //                    Accion = item.JuntaArmadoID == null ? 1 : 2,
-        //                    JuntaTrabajoID = item.JuntaTrabajoID == null ? 0 : item.JuntaTrabajoID.GetValueOrDefault(),
-        //                    JuntaArmadoID = item.JuntaArmadoID == null ? 0 : int.Parse(item.JuntaArmadoID.ToString()),
-        //                    IDProyecto = capturaDatosJson.IDProyecto,
-        //                    Proyecto = capturaDatosJson.Proyecto,
-        //                    IdOrdenTrabajo = capturaDatosJson.IdOrdenTrabajo,
-        //                    OrdenTrabajo = capturaDatosJson.OrdenTrabajo,
-        //                    IdVal = capturaDatosJson.IdVal,
-        //                    IdText = capturaDatosJson.IdText,
-        //                    SpoolID = capturaDatosJson.OrdenTrabajo + "-" + capturaDatosJson.IdText,
-        //                    JuntaID = capturaDatosJson.JuntaID,
-        //                    Junta = capturaDatosJson.Junta,
-        //                    TipoJunta = item.TipoJunta,
-        //                    Diametro = item.Diametro.ToString().Replace(',', '.'),
-        //                    Cedula = item.Cedula,
-        //                    FechaArmado = item.FechaArmado,
-        //                    TipoJuntaID = item.TipoJuntaID,
-        //                    TuberoID = item.Tubero == null ? "" : item.ObreroID.ToString(),
-        //                    Tubero = item.Tubero == null ? "" : item.Tubero,
-        //                    TallerID = item.TallerID == null ? "" : item.TallerID.ToString(),
-        //                    Taller = item.Taller == null ? "" : item.Taller,
-        //                    Localizacion = item.Localizacion,
-        //                    FamiliaAcero = item.FamiliaAcero,
-        //                    NumeroUnico1 = (item.NumeroUnico1ID == null || item.NumeroUnico1ID == 0) ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].Clave : "") : item.Clave1.ToString(),
-        //                    NumeroUnico2 = (item.NumeroUnico2ID == null || item.NumeroUnico2ID == 0) ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].Clave : "") : item.Clave2.ToString(),
-        //                    TemplateMensajeTrabajosAdicionales = item.TabajosAdicionales,
-        //                    ListaNumerosUnicos1 = listNumeroUnico1,
-        //                    ListaNumerosUnicos2 = listNumeroUnico2,
-        //                    ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)ArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
-        //                    ListaTubero = ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)ArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, capturaDatosJson.IDProyecto, 4)),
-        //                    ListaDetalleTrabajoAdicional = listDetalleTrabajoAdicional,
-        //                    listadoTrabajosAdicionalesXJunta = listaDetalleAdicionalXJuntaConvertida,
-        //                    SinCaptura = capturaDatosJson.SinCaptura,
-        //                    NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
-        //                    NumeroUnico2ID = item.NumeroUnico1ID == null ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
-        //                    DetalleJunta = "Junta: " + item.TipoJunta + " - " + "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + ""
-        //                };
-        //                detalleDatos.listadoTrabajosAdicionalesXJunta.Insert(0,
-        //                    new TrabajosAdicionalesXJunta
-        //                    {
-        //                        NombreCorto = "",
-        //                        SignoInformativo = "",
-        //                        TrabajoAdicionalID = 0
-        //                    });
-        //                listaDetalleDatos.Add(detalleDatos);
-        //            }
-        //        }
-        //        return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => int.Parse(x.Junta)));
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
-        //        return result;
-        //    }
-        //}
+        public object Get(string JsonCaptura, bool isReporte, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DetalleDatosJson capturaDatosJson = serializer.Deserialize<DetalleDatosJson>(JsonCaptura);
+                capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
+                List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
+                List<Sam3_Steelgo_Get_JuntaSpool_Result> listaJuntasXSpool = null;
+                if (isReporte)
+                    listaJuntasXSpool = (List<Sam3_Steelgo_Get_JuntaSpool_Result>)ArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, capturaDatosJson.OrdenTrabajo, capturaDatosJson.IdVal, int.Parse(capturaDatosJson.SinCaptura));
+                else
+                {
+                    listaJuntasXSpool = new List<Sam3_Steelgo_Get_JuntaSpool_Result>();
+                    listaJuntasXSpool.Add(new Sam3_Steelgo_Get_JuntaSpool_Result());
+                }
+                for (int i = 0; i < listaJuntasXSpool.Count; i++)
+                {
+                    if (isReporte)
+                    {
+                        capturaDatosJson.JuntaID = listaJuntasXSpool[i].JuntaSpoolID.ToString();
+                        capturaDatosJson.Junta = listaJuntasXSpool[i].Etiqueta.ToString();
+                    }
+                    List<Sam3_Armado_Get_DetalleJunta_Result> detalle = (List<Sam3_Armado_Get_DetalleJunta_Result>)ArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario, lenguaje);
+                    List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> detallaArmadoAdicional = (List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>)ArmadoBD.Instance.DetallaArmadoAdicional(capturaDatosJson, usuario);
+                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)ArmadoBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario, 2);
+                    List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
+                    List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
+                    List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2);
+                    List<Sam3_Steelgo_Get_TrabajoAdicional_Result> listaTrabajoAdicionalXJunta = (List<Sam3_Steelgo_Get_TrabajoAdicional_Result>)ArmadoBD.Instance.listaTrabajosAdicionalesXJunta(usuario);
+                    List<TrabajosAdicionalesXJunta> listaDetalleAdicionalXJuntaConvertida = listaTrabajoAdicionalXJunta.ConvertAll(new Converter<Sam3_Steelgo_Get_TrabajoAdicional_Result, TrabajosAdicionalesXJunta>(DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta));
+                    IFormatProvider culture = new System.Globalization.CultureInfo("es-MX", true);
+                    foreach (Sam3_Armado_Get_DetalleJunta_Result item in detalle)
+                    {
+                        //item.TipoJunta
+                        DetalleDatosJson detalleDatos = new DetalleDatosJson
+                        {
+                            Accion = item.JuntaArmadoID == null ? 1 : 2,
+                            DetalleArmadoID = item.DetalleArmadoID == null ? 0 : item.DetalleArmadoID.GetValueOrDefault(),
+                            JuntaArmadoID = item.JuntaArmadoID == null ? 0 : int.Parse(item.JuntaArmadoID.ToString()),
+                            IDProyecto = capturaDatosJson.IDProyecto,
+                            Proyecto = capturaDatosJson.Proyecto,
+                            IdOrdenTrabajo = capturaDatosJson.IdOrdenTrabajo,
+                            OrdenTrabajo = capturaDatosJson.OrdenTrabajo,
+                            IdVal = capturaDatosJson.IdVal,
+                            IdText = capturaDatosJson.IdText,
+                            SpoolID = capturaDatosJson.OrdenTrabajo + "-" + capturaDatosJson.IdText,
+                            JuntaID = capturaDatosJson.JuntaID,
+                            Junta = capturaDatosJson.Junta,
+                            TipoJunta = item.TipoJunta,
+                            Diametro = item.Diametro.ToString().Replace(',', '.'),
+                            Cedula = item.Cedula,
+                            FechaArmado = item.FechaArmado,
+                            TipoJuntaID = item.TipoJuntaID,
+                            TuberoID = item.Tubero == null ? "" : item.ObreroID.ToString(),
+                            Tubero = item.Tubero == null ? "" : item.Tubero,
+                            TallerID = item.TallerID == null ? "" : item.TallerID.ToString(),
+                            Taller = item.Taller == null ? "" : item.Taller,
+                            Localizacion = item.Localizacion,
+                            FamiliaAcero = item.FamiliaAcero,
+                            NumeroUnico1 = (item.NumeroUnico1ID == null || item.NumeroUnico1ID == 0) ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].Clave : "") : item.Clave1.ToString(),
+                            NumeroUnico2 = (item.NumeroUnico2ID == null || item.NumeroUnico2ID == 0) ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].Clave : "") : item.Clave2.ToString(),
+                            TemplateMensajeTrabajosAdicionales = item.TabajosAdicionales,
+                            ListaNumerosUnicos1 = listNumeroUnico1,
+                            ListaNumerosUnicos2 = listNumeroUnico2,
+                            ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)ArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
+                            ListaTubero = ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)ArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, capturaDatosJson.IDProyecto, 2)),
+                            ListaDetalleTrabajoAdicional = listDetalleTrabajoAdicional,
+                            listadoTrabajosAdicionalesXJunta = listaDetalleAdicionalXJuntaConvertida,
+                            SinCaptura = capturaDatosJson.SinCaptura,
+                            NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
+                            NumeroUnico2ID = item.NumeroUnico1ID == null ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
+                            DetalleJunta = "Junta: " + item.TipoJunta + " - " + "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + ""
+                        };
+                        detalleDatos.listadoTrabajosAdicionalesXJunta.Insert(0,
+                            new TrabajosAdicionalesXJunta
+                            {
+                                NombreCorto = "",
+                                SignoInformativo = "",
+                                TrabajoAdicionalID = 0
+                            });
+                        listaDetalleDatos.Add(detalleDatos);
+                    }
+                }
+                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => int.Parse(x.Junta)));
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
         private List<Tubero> ObtenerListaTubero(List<Sam3_Steelgo_Get_Obrero_Result> listaTubero)
         {
@@ -220,95 +220,95 @@ namespace BackEndSAM.Controllers
             return listaTuberos;
         }
 
-        //private List<Taller> ObtenerListaTaller(List<Sam3_SteelGo_Get_Taller_Result> listaTaller)
-        //{
-        //    List<Taller> listaTalleres = new List<Taller>();
-        //    foreach (Sam3_SteelGo_Get_Taller_Result item in listaTaller)
-        //    {
-        //        Taller taller = new Taller
-        //        {
-        //            TallerID = item.TallerID,
-        //            Nombre = item.Nombre
-        //        };
-        //        listaTalleres.Add(taller);
-        //    }
-        //    return listaTalleres;
-        //}
+        private List<Taller> ObtenerListaTaller(List<Sam3_SteelGo_Get_Taller_Result> listaTaller)
+        {
+            List<Taller> listaTalleres = new List<Taller>();
+            foreach (Sam3_SteelGo_Get_Taller_Result item in listaTaller)
+            {
+                Taller taller = new Taller
+                {
+                    TallerID = item.TallerID,
+                    Nombre = item.Nombre
+                };
+                listaTalleres.Add(taller);
+            }
+            return listaTalleres;
+        }
 
-        //public List<NumeroUnico> GenerarListaNumerosUnicos(List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumerosUnicos, int numeroSeleccionado)
-        //{
-        //    List<NumeroUnico> numerosUnicos = new List<NumeroUnico>();
-        //    numerosUnicos.Add(new NumeroUnico());
-        //    foreach (Sam3_Armado_Get_MaterialesSpool_Result item in listaNumerosUnicos)
-        //    {
-        //        if (int.Parse(item.Etiqueta.ToString()) == numeroSeleccionado)
-        //        {
-        //            NumeroUnico numeroUnico = new NumeroUnico
-        //            {
-        //                NumeroUnicoID = item.NumeroUnicoID,
-        //                Clave = item.Clave,
-        //                EtiquetaMaterial = int.Parse(item.EtiquetaMaterial.ToString()),
-        //                Etiqueta = item.Etiqueta,
-        //                JuntasEncontradas = item.JuntasEntocontradas
-        //            };
-        //            numerosUnicos.Add(numeroUnico);
-        //        }
-        //    }
-        //    return numerosUnicos;
-        //}
+        public List<NumeroUnico> GenerarListaNumerosUnicos(List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumerosUnicos, int numeroSeleccionado)
+        {
+            List<NumeroUnico> numerosUnicos = new List<NumeroUnico>();
+            numerosUnicos.Add(new NumeroUnico());
+            foreach (Sam3_Armado_Get_MaterialesSpool_Result item in listaNumerosUnicos)
+            {
+                if (int.Parse(item.Etiqueta.ToString()) == numeroSeleccionado)
+                {
+                    NumeroUnico numeroUnico = new NumeroUnico
+                    {
+                        NumeroUnicoID = item.NumeroUnicoID,
+                        Clave = item.Clave,
+                        EtiquetaMaterial = int.Parse(item.EtiquetaMaterial.ToString()),
+                        Etiqueta = item.Etiqueta,
+                        JuntasEncontradas = item.JuntasEntocontradas
+                    };
+                    numerosUnicos.Add(numeroUnico);
+                }
+            }
+            return numerosUnicos;
+        }
 
-        //public static TrabajosAdicionalesXJunta DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta(Sam3_Steelgo_Get_TrabajoAdicional_Result trabajoAdicionalXjunta)
-        //{
-        //    return new TrabajosAdicionalesXJunta
-        //    {
-        //        NombreCorto = trabajoAdicionalXjunta.NombreCorto,
-        //        SignoInformativo = trabajoAdicionalXjunta.SignoInformativo,
-        //        TrabajoAdicionalID = trabajoAdicionalXjunta.TrabajoAdicionalID
-        //    };
-        //}
+        public static TrabajosAdicionalesXJunta DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta(Sam3_Steelgo_Get_TrabajoAdicional_Result trabajoAdicionalXjunta)
+        {
+            return new TrabajosAdicionalesXJunta
+            {
+                NombreCorto = trabajoAdicionalXjunta.NombreCorto,
+                SignoInformativo = trabajoAdicionalXjunta.SignoInformativo,
+                TrabajoAdicionalID = trabajoAdicionalXjunta.TrabajoAdicionalID
+            };
+        }
 
-        //public List<DetalleTrabajoAdicional> GenerarDetalleAdicionalJson(List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaTrabajoAdicional, Sam3_Usuario usuario)
-        //{
-        //    List<DetalleTrabajoAdicional> listaDetalleAdicional = new List<DetalleTrabajoAdicional>();
-        //    foreach (Sam3_Armado_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
-        //    {
-        //        DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
-        //        {
-        //            Accion = item.JuntaArmadoID == 0 ? 1 : 2,
-        //            Observacion = item.Observacion,
-        //            ArmadoTrabajoAdicionalID = item.ArmadoTrabajoAdicionalID,
-        //            JuntaArmadoID = item.JuntaArmadoID,
-        //            ObreroID = item.ObreroID,
-        //            TrabajoAdicional = item.TrabajoAdicional,
-        //            TrabajoAdicionalID = item.TrabajoAdicionalID,
-        //            Tubero = item.Tubero
-        //        };
-        //        listaDetalleAdicional.Add(detalleAdicional);
-        //    }
-        //    return listaDetalleAdicional;
-        //}
+        public List<DetalleTrabajoAdicional> GenerarDetalleAdicionalJson(List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaTrabajoAdicional, Sam3_Usuario usuario)
+        {
+            List<DetalleTrabajoAdicional> listaDetalleAdicional = new List<DetalleTrabajoAdicional>();
+            foreach (Sam3_Armado_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
+            {
+                DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
+                {
+                    Accion = item.JuntaArmadoID == 0 ? 1 : 2,
+                    Observacion = item.Observacion,
+                    ArmadoTrabajoAdicionalID = item.ArmadoTrabajoAdicionalID,
+                    JuntaArmadoID = item.JuntaArmadoID,
+                    ObreroID = item.ObreroID,
+                    TrabajoAdicional = item.TrabajoAdicional,
+                    TrabajoAdicionalID = item.TrabajoAdicionalID,
+                    Tubero = item.Tubero
+                };
+                listaDetalleAdicional.Add(detalleAdicional);
+            }
+            return listaDetalleAdicional;
+        }
 
-        //public object Get(string ordenTrabajo, string id, string sinCaptura, string token)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-        //        return ArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, ordenTrabajo, id, sinCaptura == "Todos" ? 1 : 0);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
-        //        return result;
-        //    }
-        //}
+        public object Get(string ordenTrabajo, string id, string sinCaptura, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, ordenTrabajo, id, sinCaptura == "Todos" ? 1 : 0);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
         public object Get(int idProyecto, int tipo, string token)
         {
@@ -333,70 +333,70 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        //public object Get(int idProyecto, string token)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-        //        return ArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, idProyecto);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
-        //        return result;
-        //    }
-        //}
+        public object Get(int idProyecto, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, idProyecto);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
-        //public object Post(Captura listaCapturaArmado, string token, string lenguaje)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
-        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        DataTable TabajosAdicionales = null;
-        //        foreach (DetalleGuardarJson item in listaCapturaArmado.Detalles)
-        //        {
-        //            if (item.ListaDetalleTrabajoAdicional != null)
-        //            {
-        //                foreach (DetalleGuardarTrabajoAdicional detalleTrabajoAdicional in item.ListaDetalleTrabajoAdicional)
-        //                {
-        //                    detalleTrabajoAdicional.Accion = detalleTrabajoAdicional.Accion == 0 ? 1 : detalleTrabajoAdicional.Accion;
-        //                    detalleTrabajoAdicional.JuntaID = detalleTrabajoAdicional.JuntaID == null ? item.JuntaID : detalleTrabajoAdicional.JuntaID;
-        //                    detalleTrabajoAdicional.ObreroID = detalleTrabajoAdicional.ObreroID == 0 ? int.Parse(item.TuberoID) : detalleTrabajoAdicional.ObreroID;
-        //                    detalleTrabajoAdicional.JuntaArmadoID = item.Accion == 2 ? item.JuntaArmadoID : detalleTrabajoAdicional.JuntaArmadoID;
-        //                }
-        //                if (TabajosAdicionales == null)
-        //                    TabajosAdicionales = ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional);
-        //                else
-        //                    TabajosAdicionales.Merge(ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional));
-        //            }
-        //            item.FechaReporte = "";
-        //        }
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-        //        DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCapturaArmado.Detalles);
-        //        dtDetalleCaptura.Columns.Remove("ListaDetalleTrabajoAdicional");
-        //        return ArmadoBD.Instance.InsertarCapturaArmado(dtDetalleCaptura, TabajosAdicionales, usuario, lenguaje);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
-        //        return result;
-        //    }
-        //}
+        public object Post(Captura listaCapturaArmado, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                DataTable TabajosAdicionales = null;
+                foreach (DetalleGuardarJson item in listaCapturaArmado.Detalles)
+                {
+                    if (item.ListaDetalleTrabajoAdicional != null)
+                    {
+                        foreach (DetalleGuardarTrabajoAdicional detalleTrabajoAdicional in item.ListaDetalleTrabajoAdicional)
+                        {
+                            detalleTrabajoAdicional.Accion = detalleTrabajoAdicional.Accion == 0 ? 1 : detalleTrabajoAdicional.Accion;
+                            detalleTrabajoAdicional.JuntaID = detalleTrabajoAdicional.JuntaID == null ? item.JuntaID : detalleTrabajoAdicional.JuntaID;
+                            detalleTrabajoAdicional.ObreroID = detalleTrabajoAdicional.ObreroID == 0 ? int.Parse(item.TuberoID) : detalleTrabajoAdicional.ObreroID;
+                            detalleTrabajoAdicional.JuntaArmadoID = item.Accion == 2 ? item.JuntaArmadoID : detalleTrabajoAdicional.JuntaArmadoID;
+                        }
+                        if (TabajosAdicionales == null)
+                            TabajosAdicionales = ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional);
+                        else
+                            TabajosAdicionales.Merge(ArmadoController.ToDataTable(item.ListaDetalleTrabajoAdicional));
+                    }
+                    item.FechaReporte = "";
+                }
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCapturaArmado.Detalles);
+                dtDetalleCaptura.Columns.Remove("ListaDetalleTrabajoAdicional");
+                return ArmadoBD.Instance.InsertarCapturaArmado(dtDetalleCaptura, TabajosAdicionales, usuario, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
         public static DataTable ToDataTable<T>(List<T> l_oItems)
         {

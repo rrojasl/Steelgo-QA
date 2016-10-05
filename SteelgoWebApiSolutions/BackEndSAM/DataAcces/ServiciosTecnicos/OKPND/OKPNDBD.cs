@@ -49,7 +49,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
-                            OkPND = 0
+                            OkPND = 0,
+                            TemplateMensajeTrabajosAdicionales = "Ver detalle"
                         });
                     }
 

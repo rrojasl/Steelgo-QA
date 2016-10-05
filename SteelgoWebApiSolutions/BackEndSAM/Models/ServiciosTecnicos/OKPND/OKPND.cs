@@ -29,5 +29,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public int OkPND { get; set; }
+        public string TemplateMensajeTrabajosAdicionales { get; set; }
     }
 }
