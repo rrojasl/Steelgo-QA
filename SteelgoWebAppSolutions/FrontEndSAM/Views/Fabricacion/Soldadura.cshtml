@@ -1,5 +1,5 @@
 ﻿@{
-
+    ViewBag.Title = "Soldadura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -35,7 +35,7 @@
 
                 </div>
                 <div id="SoldaduraInspeccionDivSuperior" class="button-section">
-                    <a id="SoldaduraInspeccionSuperior" href="@Url.Action("VisualDimensional", "inspeccion")" class="btn btn-primary"><span id="soldaduraInspeccionVisualSup"></span></a>
+                    <a id="SoldaduraInspeccionSuperior" href="@Url.Action("InspeccionVisualDimensional", "inspeccion")" class="btn btn-primary"><span id="soldaduraInspeccionVisualSup"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -143,13 +143,13 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection ">
                     <div class="btn-group save-group ">
-                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="btnGuardarPiePagina"></span></button>
+                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar1"></span></button>
                         <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="botonEdtar2"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardarPie"><span id="botonGuardar3"></span></a></li>
+                            <li><a href="#" id="btnGuardarPie"><span id="botonGuardar2"></span></a></li>
                             <li><a href="#" id="btnGuardarYNuevoPie"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
