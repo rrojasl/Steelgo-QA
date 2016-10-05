@@ -28,4 +28,19 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public string Nombre { get; set; }
         public int UsuarioID { get; set; }
     }
+
+    public class Color
+    {
+        public Color()
+        {
+            ColorID = 0;
+            Nombre = "";
+            CodigoHexadecimal = "";
+    }
+
+        public int ColorID { get; set; }
+        public string Nombre { get; set; }
+        public string CodigoHexadecimal { get; set; }
+    }
+
 }

@@ -10,6 +10,7 @@ IniciarSistemaPintura();
 
 function IniciarSistemaPintura() {
     SuscribirEventos();
+    setTimeout(function () { AjaxObtenerColor(); }, 100);
 };
 
 function getParameterByName(name, url) {
@@ -72,7 +73,6 @@ function CargarGrid() {
 
         dataSource: {
             data: [
-                    { Agregar: false, Proceso: "No aplica", Color: "", UnidadMinima: "", UnidadMaxima: "", Pruebas: "", Accion: 1, listadoPruebas: []},
                     { Agregar: false, Proceso: "ShotBlast", Color: "", UnidadMinima: 1, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
                     { Agregar: false, Proceso: "Primario", Color: "", UnidadMinima: 3, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "PullOff", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
                     { Agregar: false, Proceso: "Intermedio", Color: "Rojo", UnidadMinima: 2, UnidadMaxima: 4, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Adherencia", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2,  }, { Nombre: "holliday", PruebaID: 3 }] }] },

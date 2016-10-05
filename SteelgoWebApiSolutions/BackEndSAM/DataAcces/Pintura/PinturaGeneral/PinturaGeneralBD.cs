@@ -46,7 +46,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                             MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             Nombre = item.Nombre,
                             ProyectoID = item.ProyectoID.GetValueOrDefault(),
-                            CarroCerrado = item.CarroCerrado.GetValueOrDefault()
+                            CarroCerrado = true//item.CarroCerrado.GetValueOrDefault()
                         });
                     }
 
@@ -93,6 +93,41 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     return result;
                 }
             
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerColor(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Color> listaColor = new List<Color>();
+                    List<Sam3_Steelgo_Get_Color_Result> result = ctx.Sam3_Steelgo_Get_Color(lenguaje).ToList();
+
+                    listaColor.Add(new Color());
+                    foreach (Sam3_Steelgo_Get_Color_Result item in result)
+                    {
+                        listaColor.Add(new Color
+                        {
+                            ColorID = item.ColorID,
+                            Nombre = item.Nombre,
+                            CodigoHexadecimal = item.CodigoHexadecimal
+                        });
+                    }
+
+                    return listaColor;
+                }
             }
             catch (Exception ex)
             {
