@@ -414,6 +414,7 @@ function actualizaGridGeneralPorPlaca() {
                             $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
                             $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
                         }
+                        hayDatosCapturados = true;
                         ventanaConfirm.close();
                         $("#windowGrid").data("kendoWindow").close();
                     });
@@ -428,6 +429,7 @@ function actualizaGridGeneralPorPlaca() {
                         $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
                         $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
                     }
+                    hayDatosCapturados = true;
                     $("#windowGrid").data("kendoWindow").close();
                 }
                 break;
@@ -513,6 +515,7 @@ function actualizaGridGeneralPorDefectos() {
 
                     $("#yesButton").click(function () {
                         $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                        hayDatosCapturados = true;
                         ventanaConfirm.close();
                         $("#windowGridDefectos").data("kendoWindow").close();
                     });
@@ -523,6 +526,7 @@ function actualizaGridGeneralPorDefectos() {
                 }
                 else if (listaDetalleDefectos.length != 0) {
                     $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                    hayDatosCapturados = true;
                     $("#windowGridDefectos").data("kendoWindow").close();
                 }
 
