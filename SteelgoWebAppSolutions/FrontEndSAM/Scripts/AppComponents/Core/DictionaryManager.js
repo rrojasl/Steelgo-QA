@@ -7606,6 +7606,22 @@ _dictionary = {
         "es-MX": "Nuevo",
         "en-US": "New"
     },
+    "botonCargaExcel": {
+        "es-MX": "Cargar CSV",
+        "en-US": "New"
+    },
+    "botonDescargaExcel": {
+        "es-MX": "Plantilla CSV",
+        "en-US": "New"
+    },
+    "botonCargaExcel1": {
+        "es-MX": "Cargar CSV",
+        "en-US": "New"
+    },
+    "botonDescargaExcel1": {
+        "es-MX": "Plantilla CSV",
+        "en-US": "New"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales

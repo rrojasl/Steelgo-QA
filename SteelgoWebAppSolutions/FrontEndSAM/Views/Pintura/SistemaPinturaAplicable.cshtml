@@ -38,7 +38,10 @@
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a href="#" id="btnCargaCsv"><span id="botonCargaExcel"></span></a></li>
+                            <li><a href="#" id="btnDescargaCsv"><span id="botonDescargaExcel"></span></a></li>
+                        </ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -47,15 +50,30 @@
     </div>
     @*Filtros de Búsqueda*@
     <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
+                <label>&nbsp;</label>
+                <div class="btn btn-primary" id="styleSpool">
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="spool" /><span id="SistemaPinturaAplicableSpool">Spool</span>
+                </div>
+                <div class="btn btn-primary" id="styleNc">
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="nc" /><span id="SistemaPinturaAplicableNC">No Control</span>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divProyecto">
             <label id="lblProyecto"></label>
             <input id="inputProyecto" />
         </div>
-        <!--<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="diTipoPrueba">
-            <label id="lblSistemaPintura"></label>
-            <input id="inputSistemaPintura" />
-        </div>-->
-    </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divSpool">
+            <label id="lblSpoolContiene"></label>
+            <input id="inputSpool" class="general-input" />
+        </div>       
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divNc" style="display:none">
+            <label id="lblNcContiene"></label>
+            <input  style="width:75%" id="inputNc" class="general-input" />
+        </div>
+    </div>  
     @*GRID*@
     <div class="row addedSectionInLine">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -71,7 +89,7 @@
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                     <label id="lblPlanchar">Planchado</label>
                     <input name="Planchar" style="width: auto;" type="radio" value="Vacios"><span id="lblVacio">Vacíos</span>
-                    <input name="Planchar" style="width: auto;" type="radio" value="Todos" checked><span id="lblTodos1">Todos</span>
+                    <input name="Planchar" style="width: auto;" type="radio" value="Todos"><span id="lblTodos1">Todos</span>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2" id="">
                     <label id="">&nbsp;</label>
@@ -106,7 +124,10 @@
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a href="#" id="btnCargaCsv1"><span id="botonCargaExcel1"></span></a></li>
+                            <li><a href="#" id="btnDescargaCsv1"><span id="botonDescargaExcel1"></span></a></li>
+                        </ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
