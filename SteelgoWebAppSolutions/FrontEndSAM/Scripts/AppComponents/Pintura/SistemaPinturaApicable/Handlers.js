@@ -3,6 +3,7 @@
     SuscribirEventoSistemaPintura();
     SuscribirEventoColor();
     SuscribirEventoPlanchado();
+    SuscribirEventoTipoBusqueda();
 }
 
 function SuscribirEventoProyecto() {
@@ -100,5 +101,16 @@ function SuscribirEventoPlanchado() {
                 //limpiaPlanchado();
             }
         }
+    });
+}
+
+function SuscribirEventoTipoBusqueda() {
+    $('#styleSpool').click(function (e) {
+        $("#divSpool").show();
+        $("#divNc").hide();
+    });
+    $('#styleNc').click(function (e) {
+        $("#divSpool").hide();
+        $("#divNc").show();
     });
 }

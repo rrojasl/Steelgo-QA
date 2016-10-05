@@ -84,7 +84,7 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
+            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px", template: "<div class='EditSystemPaint' style='text-align:center;'><a href='\\#'  > <span>#=SistemaPintura#</span></a></div> " },
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> " },
@@ -100,7 +100,7 @@ function CargarGrid() {
             { field: "PruebaPorLoteAcabado", title: _dictionary.columnPruebasPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteAcabado", title: _dictionary.columnMetrosPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.botonEditar1[$("#language").data("kendoDropDownList").value()], click: editaSistemaPintura }, title: _dictionary.columnEditar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
+            //{ command: { text: _dictionary.botonEditar1[$("#language").data("kendoDropDownList").value()], click: editaSistemaPintura }, title: _dictionary.columnEditar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
         editable: true,
         navigatable: true
@@ -142,11 +142,9 @@ function eliminarCaptura(e) {
             });
     }
 }
-function editaSistemaPintura(e) {
+function editaSistemaPintura(dataItem) {
     
-    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-        e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {        
         var SistemaPinturaID = dataItem.SistemaPinturaID;
         var url = '/Pintura/SistemaPintura/?sistPinturaID=' + SistemaPinturaID
         window.location.href = url;

@@ -6,8 +6,9 @@ function IniciarSistemaPinturaAplicable() {
 
 function changeLanguageCall() {
     CargarGrid();
-    //document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
-    insertRows();
+    AjaxCargarCamposPredeterminados();
+    AjaxCargaProyecto();
+    document.title = _dictionary.SistemaPinturaAplicableHeader[$("#language").data("kendoDropDownList").value()];
 }
 
 function CargarGrid() {
@@ -21,18 +22,6 @@ function CargarGrid() {
             }
 
         },
-        //dataBound: function () {
-        //        var myElem = document.getElementById('trParentHeader');
-        //        if (myElem == null) {
-        //            $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
-        //                "<th scope='col' colspan='3' class='k-header'></th><th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-        //                "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-        //                "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-        //                "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-        //                "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''></span></th>" +
-        //                "</tr>");
-        //        }
-        //},
         autoBind: true,
         dataSource: {
             data: [],
@@ -77,8 +66,8 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Spool", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "NumeroControl", title: "No. de Control", filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Spool", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", format: "{0:n4}", attributes: { style: "text-align:right;" } },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], editor: comboBoxSistemaPintura, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], editor: comboBoxColor, filterable: getGridFilterableCellMaftec(), width: "110px" },
@@ -107,7 +96,7 @@ function eliminaCaptura(e) {
             }
         }).data("kendoWindow");
 
-        ventanaConfirm.content("¿Esta seguro de eliminar el registro?" +
+        ventanaConfirm.content(_dictionary.SistemaPinturaAplicableMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
                      "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
         ventanaConfirm.open().center();

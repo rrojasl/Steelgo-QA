@@ -1,6 +1,7 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoSistemaPintura();
     SuscribirEventoMostrarDetalle();
+    SuscribirEventoEdicion();
 }
 
 function SuscribirEventoSistemaPintura() {
@@ -35,5 +36,15 @@ function SuscribirEventoMostrarDetalle() {
 
     $("#btnCerrarPopup").click(function (e) {
         windowDetailTest.close();
+    });
+}
+
+function SuscribirEventoEdicion() {
+    $(document).on('click', '.EditSystemPaint', function (e) {
+        e.preventDefault();
+        var grid = $("#grid").data("kendoGrid");
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+        editaSistemaPintura(dataItem);
+
     });
 }
