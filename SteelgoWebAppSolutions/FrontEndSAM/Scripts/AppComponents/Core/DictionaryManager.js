@@ -7480,6 +7480,14 @@ _dictionary = {
         "es-MX": "Posición °",
         "en-US": "Position °"
     },
+    "lblSpoolContiene": {
+        "es-MX": "Spool Contiene",
+        "en-US": "Contain Spool"
+    },
+    "lblNcContiene": {
+        "es-MX": "No. de Control Contiene",
+        "en-US": "Contain Control No."
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7815,8 +7823,8 @@ _dictionary = {
         "en-US": "CLN"
     },
     "columnNumeroControl": {
-        "es-MX": "Spool",
-        "en-US": "Spool"
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
     },
     "columnJunta": {
         "es-MX": "Jta",
@@ -7979,8 +7987,8 @@ _dictionary = {
         "en-US": "Comment"
     },
     "columnNumeroControl1": {
-        "es-MX": "Spool",
-        "en-US": "Spool"
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
     },
     "columnDescargar": {
         "es-MX": "DSCG",
@@ -8321,6 +8329,14 @@ _dictionary = {
     "columnPosicion": {
         "es-MX": "Posición °",
         "en-US": "Position °"
+    },
+    "columnNumeroControl2": {
+        "es-MX": "No. de Control",
+        "en-US": "Control No."
+    },
+    "columnSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
@@ -8888,7 +8904,7 @@ _dictionary = {
     },
     "PinturaSistemaPinturaAplicableBreadcrumb": {
         "es-MX": "Sistema de Pintura Aplicable",
-        "en-US": "List System Paint"
+        "en-US": "Applicable Paint System"
     },
     //Finaliza Etiquetas Generales Pintura
 
@@ -9130,17 +9146,25 @@ _dictionary = {
     },
     // Finaliza Condiciones Climatologicas 
     //Comienza Listado Sistema Pintura
-    "lblDescargaDeCarroSup": {
-        "es-MX": "Descarga de Carro",
-        "en-US": "Download Carrige "
+    "SistemaPinturaAplicableSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
     },
-    "lblDescargaDeCarroInf": {
-        "es-MX": "Descarga de Carro",
-        "en-US": "Download Carrige "
+    "SistemaPinturaAplicableNC": {
+        "es-MX": "No. Control",
+        "en-US": "N"
+    },
+    "SistemaPinturaAplicableHeader": {
+        "es-MX": "Sistema de Pintura Aplicable",
+        "en-US": "Applicable Paint System"
     },
     "SistemaPinturaMensajeConfirmaEliminar": {
         "es-MX": "¿Esta seguro de eliminar el Sistema de Pintura?",
         "en-US": "Are you sure to remove the paint system?"
+    },
+    "SistemaPinturaAplicableMensajeConfirmaEliminar": {
+        "es-MX": "¿Esta seguro de eliminar el registro?",
+        "en-US": "Are you sure to delete the record?"
     },
     // Finaliza Listado Sistema Pintura
 };
