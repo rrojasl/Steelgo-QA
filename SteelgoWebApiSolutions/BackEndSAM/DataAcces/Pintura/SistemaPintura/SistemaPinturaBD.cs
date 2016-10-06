@@ -44,9 +44,13 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         listaColor.Add(new SistemaPinturaNuevo
                         {
+                            Accion = 1,
+                            Agregar = false,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
-                            listadoUnidadesMedida = listadoUnidadesMedida
+                            listadoUnidadesMedida = listadoUnidadesMedida,
+                            listadoPruebasProceso = (List<PruebasProcesos>)ObtenerPruebasProceso(lenguaje,item.ProcesoPinturaID),
+                            listadoPruebasDetalle = new List<DetallePruebas>()
                         });
                     }
 
@@ -85,6 +89,42 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     }
 
                     return listaunidadMedida;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        public object ObtenerPruebasProceso(string lenguaje, int ProcesoPinturaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<PruebasProcesos> listaPruebasProceso = new List<PruebasProcesos>();
+                    List<Sam3_Pintura_Get_PruebasProcesos_Result> result = ctx.Sam3_Pintura_Get_PruebasProcesos(lenguaje,ProcesoPinturaID).ToList();
+
+
+                    foreach (Sam3_Pintura_Get_PruebasProcesos_Result item in result)
+                    {
+                        listaPruebasProceso.Add(new PruebasProcesos
+                        {
+                            Nombre = item.Nombre,
+                            ProcesoPinturaID = item.ProcesoPinturaID,
+                            PruebaProcesoPinturaID = item.PruebaProcesoPinturaID
+                        });
+                    }
+
+                    return listaPruebasProceso;
                 }
             }
             catch (Exception ex)

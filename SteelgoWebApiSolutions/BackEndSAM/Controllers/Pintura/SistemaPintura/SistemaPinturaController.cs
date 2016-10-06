@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return SistemaPinturaBD.Instance.ObtenerColor(Lenguaje);
+                return SistemaPinturaBD.Instance.ObtenerSistemaPinturaNuevo(Lenguaje);
             }
             else
             {

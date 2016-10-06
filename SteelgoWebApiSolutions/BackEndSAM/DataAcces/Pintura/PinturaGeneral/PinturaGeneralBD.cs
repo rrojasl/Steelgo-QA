@@ -121,8 +121,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                         listaColor.Add(new Color
                         {
                             ColorID = item.ColorID,
-                            Nombre = item.Nombre,
-                            CodigoHexadecimal = item.CodigoHexadecimal
+                            Nombre = item.Nombre
                         });
                     }
 

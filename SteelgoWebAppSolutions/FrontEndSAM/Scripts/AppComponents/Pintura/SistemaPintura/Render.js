@@ -1,31 +1,4 @@
-﻿function RenderMultiselectColor(container, options) {
-    var dataItem;
-    var valores;
-    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="ColorID" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoMultiSelect({
-            autoBind: false,
-            dataSource: options.model.ListaColor,
-            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
-            select: function (e) {
-                dataItem = e.item;
-                this
-            },
-            change: function (e) {
-                dataItem = e.sender;
-                var textoPlantilla = "";
-                for (var i = 0; i < dataItem._dataItems.length; i++) {
-                    textoPlantilla += dataItem._dataItems[i].Nombre 
-                    if(i != dataItem._dataItems.length-1){
-                        textoPlantilla += ", ";
-                    }
-                }
-                options.model.plantillaColor = textoPlantilla;
-
-            }
-        }
-        );
-}
+﻿
 
 
 function comboBoxPruebas(container, options) {
@@ -35,9 +8,41 @@ function comboBoxPruebas(container, options) {
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.ListaPruebas,
-            dataTextField: "Resultado",
-            dataValueField: "ResultadosID",
+            dataSource: ListaPruebas,
+            dataTextField: "Nombre",
+            dataValueField: "PruebaProcesoPinturaID",
+            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined && dataItem.PruebaProcesoPinturaID != undefined) {
+                    options.model.PruebaID = dataItem.PruebaID;
+                    options.model.Prueba = dataItem.Nombre;
+                }
+                //$("#gridPopUp").data("kendoGrid").dataSource.sync();
+            }
+        });
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+}
+
+
+function comboBoxUnidadMedida(container, options) {
+    var dataItem;
+
+    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: ListaUnidadMedida,
+            dataTextField: "Nombre",
+            dataValueField: "UnidadMedidaID",
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -47,6 +52,24 @@ function comboBoxPruebas(container, options) {
                 }
                 //$("#gridPopUp").data("kendoGrid").dataSource.sync();
             }
+        });
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
         }
-    );
+    });
+}
+
+
+function tieneClase(item) {
+    for (var i = 0; i < item.classList.length; i++) {
+        if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
+            return true;
+        }
+    }
+    return false
 }

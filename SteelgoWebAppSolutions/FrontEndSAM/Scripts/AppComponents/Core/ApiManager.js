@@ -180,6 +180,7 @@ var $OKPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Pintura
 var $PinturaGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $SistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaCarro = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -317,5 +318,6 @@ $OKPND.add("OKPND");
 
 //Pintura
 $PinturaGeneral.add("PinturaGeneral");
+$SistemaPintura.add("SistemaPintura");
 $CargaCarro.add("CargaCarro");
 $CapturaAvance.add('CapturaAvance');
