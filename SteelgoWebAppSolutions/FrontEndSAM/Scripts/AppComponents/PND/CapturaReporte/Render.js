@@ -42,7 +42,7 @@ function RenderNumeroPlacas(container, options) {
                 ventanaConfirm.open().center();
 
                 $("#yesButton").click(function () {
-                    renderDataSourceNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                    renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
                     
                     ventanaConfirm.close();
                 });
@@ -60,7 +60,7 @@ function RenderNumeroPlacas(container, options) {
                 });
             }
             else if (numeroPlacasAnteriorElemento.NumeroPlacas == null) {
-                renderDataSourceNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
             }
         }
     });
@@ -103,7 +103,7 @@ function RenderInicioMM(container, options) {
     });
 }
 
-function renderDataSourceNumeroPlacas(spoolJunta, junta, numeroControl) {
+function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl) {
     //alert(spoolJunta);
     //var infoResults = new Array($("#grid").data("kendoGrid").dataSource._data.NumeroPlacas);
     for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {

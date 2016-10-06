@@ -16,7 +16,7 @@
                 AjaxPruebas(data[1].ProyectoID);
             }
             //else
-            //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+            //    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
         loadingStop();
     });
@@ -50,7 +50,7 @@ function AjaxProveedor(proyectoID, patioID) {
                 AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), data[1].ProveedorID)
             }
             //else
-            //    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+            //    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
         loadingStop();
     });
@@ -90,7 +90,7 @@ function AjaxRequisicion(proyectoID, proveedorID) {
                 $("#inputPrueba").data("kendoComboBox").value(data[1].TipoPruebaID);
             }
 
-            //ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+            //ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
 
         }
         loadingStop();
@@ -128,7 +128,7 @@ function AjaxTurno() {
 
 }
 
-function ajaxGridPrincipal(proyectoID, proveedorID, requisicionID) {
+function ajaxResultadosDetalle(proyectoID, proveedorID, requisicionID) {
     loadingStart();
 
     $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: (($("#inputProyecto").data("kendoComboBox").value() != "") ? ($("#inputProyecto").data("kendoComboBox").value()) : (0)), tipoPruebaID: (($("#inputPrueba").data("kendoComboBox").value() != "") ? ($("#inputPrueba").data("kendoComboBox").value()) : (0)), proveedorID: (($("#inputProveedor").data("kendoComboBox").value() != "") ? ($("#inputProveedor").data("kendoComboBox").value()) : (0)), requisicionID: (($("#inputRequisicion").data("kendoComboBox").value() != "") ? ($("#inputRequisicion").data("kendoComboBox").value()) : (0)), equipoID: (($("#inputFuente").data("kendoComboBox").value() != "") ? ($("#inputFuente").data("kendoComboBox").value()) : (0)), turnoID: (($("#inputTurno").data("kendoComboBox").value() != "") ? ($("#inputTurno").data("kendoComboBox").value()) : (0)), lenguaje: $("#language").val() }).done(function (data) {
@@ -235,15 +235,18 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                             break;
                         }
                         else {
-                            if (ds[i].ListaDetallePorPlacas[l].ListaDetalleDefectos.length > 0) {
-                                listaDetalles[cont].Estatus = 1 // el elemento esta bien.
-                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
-                            }
-                            else {
-                                listaDetalles[cont].Estatus = 0 //el elemento esta mal.
-                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                                break;
-                            }
+                            listaDetalles[cont].Estatus = 1 // el elemento esta bien.
+                            $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
+
+                            //if (ds[i].ListaDetallePorPlacas[l].ListaDetalleDefectos.length > 0) {
+                            //    listaDetalles[cont].Estatus = 1 // el elemento esta bien.
+                            //    $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
+                            //}
+                            //else {
+                            //    listaDetalles[cont].Estatus = 0 //el elemento esta mal.
+                            //    $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                            //    break;
+                            //}
                         }
 
                     }
@@ -273,7 +276,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                     } else {
 
                         //AjaxObtieneDetalleRequisicion();
-                        ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                        ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
                         disableEnableView(true);
                     }
 
@@ -323,7 +326,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                             } else {
 
                                 //AjaxObtieneDetalleRequisicion();
-                                ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                                ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
                                 disableEnableView(true);
                             }
 

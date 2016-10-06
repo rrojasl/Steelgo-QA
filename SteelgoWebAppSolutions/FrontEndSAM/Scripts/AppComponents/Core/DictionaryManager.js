@@ -8695,8 +8695,8 @@ _dictionary = {
         "en-US": "¿Do You want to change the number plates?"
     },
     "CapturaReporteGuardarDefectosPopup": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
     "ReporteRTHeader": {
         "es-MX": "Captura de Reporte",
@@ -8830,8 +8830,20 @@ _dictionary = {
     },
 
     "CapturaReporteGuardarPopup": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    "CapturaReporteCancelarPlacasPopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "CapturaReporteCancelarDefectosPopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "CapturaReporteValidacionErroneaDefecto": {
+        "es-MX": "Error de validación,  le recormamos que Inicio mm y Fin mm, deben de ser mayores a cero y Fin mm debe de ser mayor a Inicio mm.",
+        "en-US": "Error validation remind you that Home and End mm mm, must be greater than zero and End mm must be greater than Start mm."
     },
     "CapturaReporteGuardadoErroneo": {
         "es-MX": "No hay elementos por guardar.",

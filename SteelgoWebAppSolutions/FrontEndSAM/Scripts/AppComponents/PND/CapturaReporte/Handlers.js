@@ -58,6 +58,15 @@ function suscribirEventoGuardar() {
         //    $("#windowGridDefectos").data("kendoWindow").close();
     });
 
+    $('#CancelarPlacas').click(function (e) {
+        $("#windowGrid").data("kendoWindow").close();
+    });
+
+    $('#CancelarDefectos').click(function (e) {
+        $("#windowGridDefectos").data("kendoWindow").close();
+    });
+
+
     //GuardarYNuevo
     $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
         //alert('1');
@@ -122,7 +131,7 @@ function suscribirEventoGuardar() {
                     ventanaConfirm.open().center();
 
                     $("#yesButton").click(function () {
-                        ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                        ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
                         infoGridTemp = null;
                         llamadasATodos = 0;
 
@@ -141,7 +150,7 @@ function suscribirEventoGuardar() {
                     hacerAjax = true;
 
                 if (hacerAjax) {
-                    ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
                     infoGridTemp = null;
                     llamadasATodos = 0;
                     hayDatosCapturados = false;
@@ -473,7 +482,7 @@ function suscribirEventoRequisicion() {
                 //    $('#inputRequisicion').data("kendoComboBox").value(previousCurrentItem);
 
 
-                //ajaxGridPrincipal($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                //ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
             }
 
             //if (dataItem != undefined && dataItem.Folio != "") {

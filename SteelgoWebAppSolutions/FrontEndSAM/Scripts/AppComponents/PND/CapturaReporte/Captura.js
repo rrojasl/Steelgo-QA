@@ -15,7 +15,7 @@ function inicio() {
 }
 
 function validarReglasDeLlenado() {
-    return true;
+    //return true;
     for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
         if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length > 0) {
             for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
@@ -138,11 +138,12 @@ function CargarGridPopUpDetallePorPlaca() {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px" },
-          { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoDetallePlaca, width: "80px" },
-          { field: "TemplateDetallePorPlaca", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
+          { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "10px" },
+          { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoDetallePlaca, width: "10px" },
+          { field: "TemplateDetallePorPlaca", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "10px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
         ],
         editable: true,
+        //toolbar: [{ name: "cancel" }],
         navigatable: true,
         dataBound: function (a) {
             //var that = this;
@@ -232,7 +233,7 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                   }
               },
               title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
-              width: "10px"
+              width: "5px"
           },
             {
                 command: {
@@ -262,7 +263,7 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                     }
                 },
                 title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()],
-                width: "10px"
+                width: "5px"
             }
         ],
         editable: "incell",
@@ -488,6 +489,21 @@ function actualizaGridGeneralPorDefectos() {
                         listaDetalleDefectos[itera].Posicion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion;
                         //}
                         itera++;
+
+                        if(($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM > 0) && ($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM > 0)){
+                            if($("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM < $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM)
+                                $('tr[data-uid="' + $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffffff");
+                            else {
+                                $('tr[data-uid="' + $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffcccc");
+                                displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
+                                return;
+                            }
+                        }
+                        else{
+                            $('tr[data-uid="' + $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffcccc");
+                            displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
+                            return;
+                        }
                     }
                     else {
                         $('tr[data-uid="' + $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffcccc");
@@ -529,6 +545,10 @@ function actualizaGridGeneralPorDefectos() {
                     hayDatosCapturados = true;
                     $("#windowGridDefectos").data("kendoWindow").close();
                 }
+                else {
+                    $("#windowGridDefectos").data("kendoWindow").close();
+                }
+
 
                 break;
             }
