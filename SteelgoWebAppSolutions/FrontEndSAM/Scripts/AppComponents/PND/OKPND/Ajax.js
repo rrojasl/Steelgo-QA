@@ -25,9 +25,9 @@ function AjaxGetListaProyectos() {
     });
 }
 
-function AjaxGetListaElementos(proyectoID, muestra) {
+function AjaxGetListaElementos(proyectoID, numControl) {
     loadingStart();
-    $OKPND.OKPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: proyectoID, Muestra: muestra }).done(function (data) {
+    $OKPND.OKPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: proyectoID, NumControl: numControl }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -42,5 +42,57 @@ function AjaxGetListaElementos(proyectoID, muestra) {
         }
         ds.sync();
         loadingStop();
+    });
+}
+
+function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
+    Captura = [];
+    Captura[0] = {
+        listaDetalle: ""
+    };
+    ListaCaptura = [];
+
+    var cont = 0;
+    for (index = 0; index < arregloCaptura.length; index++) {
+        if (arregloCaptura[index].OkPND == true || arregloCaptura[index].OKPNDID != 0) {
+
+            ListaCaptura[cont] = {
+                OKPNDID: 0,
+                SpoolID: 0,
+                OrdenTrabajoSpoolID: 0,
+                OkPND: false
+            };
+
+            ListaCaptura[cont].OKPNDID = arregloCaptura[index].OKPNDID;
+            ListaCaptura[cont].OrdenTrabajoSpoolID = arregloCaptura[index].OrdenTrabajoSpoolID;
+            ListaCaptura[cont].SpoolID = arregloCaptura[index].SpoolID;
+            ListaCaptura[cont].OkPND = arregloCaptura[index].OkPND;
+
+            cont++;
+        }
+    }
+    
+    Captura[0].listaDetalle = ListaCaptura;
+
+    $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            if (data.ReturnMessage[0] != undefined) {
+                if (tipoGuardado == 1) {
+                    Limpiar();
+                    opcionHabilitarView(false, "FieldSetView");
+                }
+                else {
+                    $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                    opcionHabilitarView(true, "FieldSetView");
+                }
+
+                displayNotify("", "Datos guardados correctamente.", "0");
+            }
+        }
+        else {
+            opcionHabilitarView(false, "FieldSetView");
+            //mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
+            //displayNotify("", mensaje, '1');
+        }
     });
 }

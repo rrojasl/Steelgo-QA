@@ -9,26 +9,36 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
     {
         public Elementos()
         {
+            OKPNDID = 0;
             NumeroControl = "";
             Cuadrante = "";
             Prioridad = 0;
-            Estatus = "";
             ProyectoID = 0;
             SpoolID = 0;
             OrdenTrabajoSpoolID = 0;
-            OkPND = 0;
+            OkPND = false;
         }
 
+        public int OKPNDID { get; set; }
         public string NumeroControl { get; set; }
         public string Cuadrante { get; set; }
         public int Prioridad { get; set; }
-        public string Estatus { get; set; }
 
-        
         public int SpoolID { get; set; }
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
-        public int OkPND { get; set; }
-        public string TemplateMensajeTrabajosAdicionales { get; set; }
+        public bool OkPND { get; set; }
+        public string Detalle { get; set; }
+    }
+
+    public class Captura{
+        public List<ListaElementos> listaDetalle { get; set; }
+    }
+
+    public class ListaElementos {
+        public int OKPNDID { get; set; }
+        public int SpoolID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public bool OkPND { get; set; }
     }
 }
