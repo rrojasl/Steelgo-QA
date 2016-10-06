@@ -7488,6 +7488,10 @@ _dictionary = {
         "es-MX": "No. de Control Contiene",
         "en-US": "Contain Control No."
     },
+    "lblSeleccionarTodos": {
+        "es-MX": "Seleccionar todos",
+        "en-US": "Select all"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
