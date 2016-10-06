@@ -18,10 +18,11 @@ function suscribirEventoDetallePlaca() {
 
     $(document).on('click', '.EnlacePorPlaca', function (e) {
         e.preventDefault();
-        var grid = $("#grid").data("kendoGrid");
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        LlenarGridPopUpDetallePlaca(dataItem);
-
+        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid");
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            LlenarGridPopUpDetallePlaca(dataItem);
+        }
     });
 }
 
@@ -29,12 +30,13 @@ function suscribirEventoDetalleDefectoPorPlaca() {
 
     $(document).on('click', '.EnlaceDefectoPorPlaca', function (e) {
         e.preventDefault();
-        var grid = $("#gridPopUp").data("kendoGrid");
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        $("#PlacaID").text(dataItem.OrdenTrabajoID + "°" + dataItem.SpoolID + "°" + dataItem.JuntaSpoolID + "°" + dataItem.Ubicacion + "°" + dataItem.Posicion);
-        //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
-        LlenarGridPopUpDetalleDefectoPorPlaca(dataItem);
-
+        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#gridPopUp").data("kendoGrid");
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            $("#PlacaID").text(dataItem.OrdenTrabajoID + "°" + dataItem.SpoolID + "°" + dataItem.JuntaSpoolID + "°" + dataItem.Ubicacion + "°" + dataItem.Posicion);
+            //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
+            LlenarGridPopUpDetalleDefectoPorPlaca(dataItem);
+        }
     });
 }
 
@@ -70,7 +72,7 @@ function suscribirEventoGuardar() {
     //GuardarYNuevo
     $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
         //alert('1');
-        
+
         if (infoGridTemp != null)
             if ($("#grid").data("kendoGrid").dataSource._data.length != infoGridTemp.length)
                 $("#grid").data("kendoGrid").dataSource._data = infoGridTemp;
@@ -214,7 +216,7 @@ function suscribirEventoProyecto() {
                         $("#inputTurno").data("kendoComboBox").value("");
                         hayDatosCapturados = false;
                         ventanaConfirm.close();
-                        
+
                     });
                     $("#noButton").click(function () {
                         $('#inputProyecto').data("kendoComboBox").value(previousCurrentItem);
