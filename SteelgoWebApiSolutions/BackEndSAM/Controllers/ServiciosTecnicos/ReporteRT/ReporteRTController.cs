@@ -236,26 +236,25 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 dtDetalleCaptura.Columns.RemoveAt(11);
                 dtDetalleCaptura.Columns.RemoveAt(11);
                 dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(6);
-                dtDetalleCaptura.Columns.RemoveAt(6);
-                dtDetalleCaptura.Columns.RemoveAt(6);
-                dtDetalleCaptura.Columns.RemoveAt(6);
-                dtDetalleCaptura.Columns.RemoveAt(6);
-                dtDetalleCaptura.Columns.RemoveAt(6);
+                dtDetalleCaptura.Columns.RemoveAt(7);
+                dtDetalleCaptura.Columns.RemoveAt(7);
+                dtDetalleCaptura.Columns.RemoveAt(7);
+                dtDetalleCaptura.Columns.RemoveAt(7);
+                dtDetalleCaptura.Columns.RemoveAt(7);
 
                 if (dtDetalleResultados.Rows.Count > 0)
                 {
                     dtDetalleResultados.Columns.RemoveAt(8);
                     dtDetalleResultados.Columns.RemoveAt(7);
-                    dtDetalleResultados.Columns.RemoveAt(6);
+                    dtDetalleResultados.Columns.RemoveAt(7);
                     dtDetalleResultados.Columns.RemoveAt(5);
+                    dtDetalleResultados.Columns.RemoveAt(6);
                 }
 
                 if (dtDetalleDefectos.Rows.Count > 0)
                 {
                     dtDetalleDefectos.Columns.RemoveAt(9);
                     dtDetalleDefectos.Columns.RemoveAt(8);
-                    dtDetalleDefectos.Columns.RemoveAt(7);
                     dtDetalleDefectos.Columns.RemoveAt(4);
                 }
                 return ReporteRT_BD.Instance.InsertarCapturaReportesRT(dtDetalleCaptura, dtDetalleResultados, dtDetalleDefectos, usuario.UsuarioID, lenguaje);

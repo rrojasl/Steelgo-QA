@@ -278,8 +278,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             ResultadoID = int.Parse(item.ResultadosID.ToString()),
                             Resultado = item.Resultado,
                             ListaDetalleDefectos = listadoDetalleResultadoDefectos,
-                            TemplateDetallePorPlaca = listadoDetalleResultadoDefectos.Count + "",
-                            Accion=2
+                            TemplateDetallePorPlaca = (lenguaje== "es-MX" ?"Tienes ": "You have ")+  listadoDetalleResultadoDefectos.Count + (lenguaje == "es-MX" ? " Defecto (s)" : " Defects"),
+                            Accion=2,
+                            ListaResultados= listaResultados,
+                            ListaDefectos= listaDefectos
                         };
                         listaDetalleResultado.Add(detalleResultado);
                     }
@@ -315,9 +317,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             SpoolID = item.SpoolID,
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             DefectoID = item.DefectoID,
-                            Defecto = item.DefectoID.ToString(),
-                            InicioMM = int.Parse(item.InicioMM.ToString()),
-                            FinMM = int.Parse(item.FinMM.ToString()),
+                            Defecto = item.Defecto,
+                            InicioMM =item.InicioMM,
+                            FinMM = item.FinMM,
                             Accion = 2,
                             Posicion = posicion,//item.Posicion.GetValueOrDefault(),
                         };

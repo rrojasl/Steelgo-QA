@@ -484,7 +484,7 @@ function actualizaGridGeneralPorDefectos() {
                         listaDetalleDefectos[itera].Defecto = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Defecto;
                         listaDetalleDefectos[itera].InicioMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].InicioMM;
                         listaDetalleDefectos[itera].FinMM = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].FinMM;
-                        listaDetalleDefectos[itera].Accion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion;
+                        listaDetalleDefectos[itera].Accion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion == 0 ? 1 : $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Accion;
                         listaDetalleDefectos[itera].Posicion = $("#gridPopUpDefectos").data("kendoGrid").dataSource._data[j].Posicion;
                         //}
                         itera++;

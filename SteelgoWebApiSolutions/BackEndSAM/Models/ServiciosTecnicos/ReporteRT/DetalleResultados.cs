@@ -27,8 +27,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public int JuntaSpoolID { get; set; }
         public int? DefectoID { get; set; }
         public string Defecto { get; set; }
-        public int InicioMM { get; set; }
-        public int FinMM { get; set; }
+        public decimal? InicioMM { get; set; }
+        public decimal? FinMM { get; set; }
         public int Accion { get; set; }
         public int Posicion { get; set; }
         public string Ubicacion { get; set; }

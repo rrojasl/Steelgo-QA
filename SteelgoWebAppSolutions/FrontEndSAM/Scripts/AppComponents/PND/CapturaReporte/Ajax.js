@@ -1,5 +1,4 @@
-﻿
-function AjaxProyecto() {
+﻿function AjaxProyecto() {
 
 
     loadingStart();
@@ -32,8 +31,6 @@ function AjaxProyecto() {
     //    //AjaxCargaListaDocumentoEstatus();
     //});
 }
-
-
 
 function AjaxProveedor(proyectoID, patioID) {
     loadingStart();
@@ -116,7 +113,6 @@ function AjaxFuente() {//Equipo
 
 }
 
-
 function AjaxTurno() {
     loadingStart();
     //console.log($CapturaReporteRT);
@@ -131,7 +127,6 @@ function AjaxTurno() {
     });
 
 }
-
 
 function ajaxGridPrincipal(proyectoID, proveedorID, requisicionID) {
     loadingStart();

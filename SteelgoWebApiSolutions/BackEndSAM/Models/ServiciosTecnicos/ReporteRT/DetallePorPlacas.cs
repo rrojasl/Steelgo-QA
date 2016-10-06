@@ -15,6 +15,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string Resultado { get; set; }
         public int Accion { get; set; }
         public List<DetalleResultadosDefectos> ListaDetalleDefectos { get; set; }
+        public List<Resultados> ListaResultados { get; set; }
+        public List<Defectos> ListaDefectos { get; set; }
         public string TemplateDetallePorPlaca { get; set; }
     }
 

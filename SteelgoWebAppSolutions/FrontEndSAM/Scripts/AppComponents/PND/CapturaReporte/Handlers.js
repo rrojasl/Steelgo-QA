@@ -3,9 +3,7 @@
 function SuscribirEventos() {
     suscribirEventoGuardar();
     //suscribirEventoCancelar();
-
     suscribirEventoChangeRadioTipo();
-
     suscribirEventoProyecto();
     suscribirEventoProveedor();
     SuscribirEventoComboPrueba();
