@@ -8,6 +8,8 @@ using BackEndSAM.Models.Pintura.SistemaPintura;
 using BackEndSAM.Models.Pintura.PinturaGeneral;
 using BackEndSAM.Models;
 using BackEndSAM.Models.Sam3General;
+using System.Data;
+using DatabaseManager.Constantes;
 
 namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
 {
@@ -292,6 +294,34 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
+
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAREQUISICIONASIGNACION, dtDetalleCaptura, "@AsignarRequisicion", parametro);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
                 return result;
             }
         }
