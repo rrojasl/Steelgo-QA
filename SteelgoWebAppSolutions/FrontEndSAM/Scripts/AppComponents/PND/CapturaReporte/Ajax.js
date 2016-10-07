@@ -149,6 +149,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
         var Captura = [];
         Captura[0] = { Detalles: "" }
         var listaDetalles = [];
+        var listaErrores = "";
         var cont = 0;
         for (var i = 0; i < ds.length; i++) {
             //valida que tenga numero de placas y se ha capturado tamaño y densidad
@@ -225,6 +226,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             }
            
 
+            //listaErrores += ds[i].NumeroControl + ",";
             if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad)) && ds[i].Tamano > 0 && ds[i].Densidad > 0) {
                 
                 if (ds[i].ListaDetallePorPlacas.length > 0) {
@@ -232,6 +234,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                         if (!(($.isNumeric(ds[i].ListaDetallePorPlacas[l].ResultadoID)) || ($.isNumeric(ds[i].ListaDetallePorPlacas[l].ResultadoID != 0)))) {
                             listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                             $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                            //listaErrores += "Te falta asignar resultados las placas,";
                             break;
                         }
                         else {
@@ -254,13 +257,16 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 else {
                     listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                     $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                    //listaErrores += "No tiene placas,";
                 }
                 
             }
             else {
                 listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                 $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                //listaErrores += "Te falta llenar el tamaño o la densidad,";
             }
+            //listaErrores += "|";
             cont++;
 
 

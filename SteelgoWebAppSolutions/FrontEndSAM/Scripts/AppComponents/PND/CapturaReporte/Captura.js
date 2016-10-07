@@ -467,6 +467,7 @@ function actualizaGridGeneralPorPlaca() {
     //}
 }
 
+var validacionCorrecta = false;
 var listaDetalleDefectos = [];
 function actualizaGridGeneralPorDefectos() {
     //currentDefectosPorPlaca
@@ -481,6 +482,7 @@ function actualizaGridGeneralPorDefectos() {
 
     var itera = 0;
     try {
+        validacionCorrecta = true;
         //buscar la manera de pasar un valor de una ventana modal a otra para saber de que placa se esta agregando el defecto.
         for (var i = 0; i < $("#gridPopUp").data("kendoGrid").dataSource._data.length; i++) {
             
@@ -509,17 +511,19 @@ function actualizaGridGeneralPorDefectos() {
 
                         if((data[j].InicioMM > 0) && (data[j].FinMM > 0)){
                             if(data[j].InicioMM < data[j].FinMM)
-                                $('tr[data-uid="' + data[i].uid + '"] ').css("background-color", "#ffffff");
+                                $('tr[data-uid="' + data[j].uid + '"] ').css("background-color", "#ffffff");
                             else {
                                 $('tr[data-uid="' + data[j].uid + '"] ').css("background-color", "#ffcccc");
-                                displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
-                                return;
+                                //displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
+                                validacionCorrecta = false;
+                                //return;
                             }
                         }
                         else{
                             $('tr[data-uid="' + data[j].uid + '"] ').css("background-color", "#ffcccc");
-                            displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
-                            return;
+                            //displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
+                            validacionCorrecta = false;
+                            //return;
                         }
                     }
                     else {
@@ -528,45 +532,51 @@ function actualizaGridGeneralPorDefectos() {
                 }
                 
                 $("#gridPopUp").data("kendoGrid").dataSource.sync();
-                if (listaDetalleDefectos.length != data.length) {
-                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                        visible: false, //the window will not appear before its .open method is called
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        animation: {
-                            close: false,
-                            open: false
-                        }
-                    }).data("kendoWindow");
 
-                    ventanaConfirm.content(_dictionary.CapturaReporteGuardadoDefectosIncompleto[$("#language").data("kendoDropDownList").value()] +
-                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                if (validacionCorrecta) {
+                    if (listaDetalleDefectos.length != data.length) {
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                            visible: false, //the window will not appear before its .open method is called
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            }
+                        }).data("kendoWindow");
 
-                    ventanaConfirm.open().center();
+                        ventanaConfirm.content(_dictionary.CapturaReporteGuardadoDefectosIncompleto[$("#language").data("kendoDropDownList").value()] +
+                                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-                    $("#yesButton").click(function () {
+                        ventanaConfirm.open().center();
+
+                        $("#yesButton").click(function () {
+                            $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+                            hayDatosCapturados = true;
+                            ventanaConfirm.close();
+                            $("#windowGridDefectos").data("kendoWindow").close();
+                        });
+                        $("#noButton").click(function () {
+                            ventanaConfirm.close();
+                            //return false;
+                        });
+                    }
+                    else if (listaDetalleDefectos.length != 0) {
                         $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
                         hayDatosCapturados = true;
-                        ventanaConfirm.close();
                         $("#windowGridDefectos").data("kendoWindow").close();
-                    });
-                    $("#noButton").click(function () {
-                        ventanaConfirm.close();
-                        //return false;
-                    });
-                }
-                else if (listaDetalleDefectos.length != 0) {
-                    $("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
-                    hayDatosCapturados = true;
-                    $("#windowGridDefectos").data("kendoWindow").close();
+                    }
+                    else {
+                        $("#windowGridDefectos").data("kendoWindow").close();
+                    }
+
                 }
                 else {
-                    $("#windowGridDefectos").data("kendoWindow").close();
+                    displayNotify("CapturaReporteValidacionErroneaDefecto", "", '2');
                 }
-
 
                 break;
             }
