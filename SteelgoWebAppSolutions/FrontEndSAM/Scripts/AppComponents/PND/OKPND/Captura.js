@@ -106,6 +106,61 @@ function CargarGrid() {
     });
 
     CustomisaGrid($("#grid"));
+
+    $("#gridMasivo").kendoGrid({
+        autoBind: true,
+        autoSync: true,
+        edit: function (e) {
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+                this.closeCell();
+        },
+        dataSource: {
+            data: '',
+            schema: {
+                model: {
+                    fields: {
+                        ID: { type: "number", editable: false, nullable: true },
+                        NumeroControl: { type: "string", editable: false },
+                        OKPND: { type: "boolean", editable: false }
+                    }
+                }
+            },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
+        },
+        navigatable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        editable: true,
+        selectable: true,
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 25, 50, 100],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        filterable: getGridFilterableMaftec(),
+        columns: [
+            { field: "ID", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            {
+                field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPND ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+            },
+        ]
+    });
+    $("#gridMasivo").hide();
 };
 
 function existenCambios(arregloCaptura) {

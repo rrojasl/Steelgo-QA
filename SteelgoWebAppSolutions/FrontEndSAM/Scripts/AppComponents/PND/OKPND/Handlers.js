@@ -1,4 +1,5 @@
-﻿var proyectoInicial = 0;
+﻿var tiposCSV = ["application/csv", "application/excel", "application/lotus123", "application/msexcel", "application/vnd.lotus-1-2-3", "application/vnd.ms-excel", "application/vnd.ms-works", "application/vnd.msexcel", "application/wk1", "application/wks", "application/x-123", "application/x-dos_ms_excel", "application/x-excel", "application/x-lotus123", "application/x-ms-excel", "application/x-msexcel", "application/x-msworks", "application/x-wks", "application/x-xls", "application/xlc", "application/xls", "text/anytext", "text/comma-separated-values", "text/csv", "zz-application/zz-winassoc-wk1"];
+var proyectoInicial = 0;
 var pruebaInicial = 0;
 var requisicionOriginal = 0;
 
@@ -8,6 +9,7 @@ function SuscribirEventos() {
     suscribirEventoProyecto();
     SuscribirEventoBuscar();
     SuscribirEventoAplicar();
+    suscribirEventoCarGaCSV();
 }
 
 function suscribirEventoGuardar() {
@@ -140,4 +142,115 @@ function opcionHabilitarView(valor, name) {
         $('#BotonGuardar4').text("Guardar");
         $('#BotonGuardar3').text("Guardar");
     }
+}
+
+function suscribirEventoCarGaCSV(){
+    $('#btnCargaCsv').click(function (e) {
+        $("#files").click();
+    });
+
+    $('#btnCargaCsv1').click(function (e) {
+        $("#files").click();
+    });
+
+    document.getElementById("files").addEventListener("change", function (evt) {
+        if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+            displayMessage("ListadoCatalogos0007", "", '2');
+        } else {
+            var data = null;
+            var file = evt.target.files[0];
+            if (tiposCSV.indexOf(file.type.toLowerCase()) == -1) {
+                this.value = null;
+                displayMessage("ListadoCatalogos0008", "", '2');
+            } else {
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = function (event) {
+                    var csvData = event.target.result;
+                    csvToJson(csvData, "NumeroControl").forEach(function (c) {
+                        var cedVal = cedulaValida(c);
+                        if (cedVal !== -2) {
+                            var modVal = validModelData(c);
+                            if (modVal && cedVal == 0) {
+                                checkMM(c);
+                            } else {
+                                if (modVal && cedVal == 1) {
+                                    checkMM(c);
+                                    c["advertencia"] = true;
+                                } else {
+                                    c["valido"] = false;
+                                }
+                            }
+                            $("#gridMasivo").data("kendoGrid").dataSource.insert(c).dirty = true;
+                        }
+                    });
+                };
+                reader.onerror = function () {
+                    alert('Unable to read ' + file.fileName);
+                };
+                reader.onloadend = function () {
+                    var valido = true;
+                    var nuevos = $("#gridMasivo").data("kendoGrid").dataSource.data().filter(function (n) { return n.dirty === true });
+                    var advertencia = null;
+                    nuevos.forEach(function (n) {
+                        if (n.valido !== false) {
+                            if (n.advertencia) {
+                                $("[data-uid=" + n.uid + "]").attr("style", "background-color:#FDF9AA")
+                                advertencia = true;
+                            } else {
+                                $("[data-uid=" + n.uid + "]").attr("style", "background-color:#E3FCCB")
+                            }
+                        } else {
+                            $("[data-uid=" + n.uid + "]").attr("style", "background-color:#FEDEE8")
+                            valido = false;
+                        }
+                    });
+                    var mensaje = null;
+                    if (!valido && advertencia) {
+                        mensaje = _dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()] + "\n" + _dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
+                    } else if (!valido) {
+                        mensaje = _dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()];
+                    } else if (advertencia) {
+                        mensaje = _dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
+                    }
+                    if (mensaje != null) {
+                        displayMessage("", mensaje, '2');
+                    }
+                    nuevasCedulas = nuevos;
+                }
+            }
+        }
+    });
+}
+
+function csvToJson(data, idField) {
+    data = data.split("\n");
+    data.shift();
+    data.pop();
+    data = data.join("\n");
+    data = data.split("\r").join("");
+    var encabezados = Object.keys($("#gridMasivo").data("kendoGrid").options.dataSource.schema.model.fields);
+    encabezados.splice(encabezados.indexOf(idField), 1);
+    var csv = [];
+    try {
+        data.split("\n").forEach(function (d, i) {
+            if (d.substring(0, d.length).split(";").length === encabezados.length - (encabezados.length - $("#gridMasivo").data("kendoGrid").columns.length)) {
+                var tmp = {};
+                tmp[idField] = null;
+                d.split(";").forEach(function (cell, z) {
+                    tmp[encabezados[z]] = cell;
+                });
+                csv.push(tmp);
+            } else {
+                throw -1;
+            }
+        })
+    } catch (e) {
+        if (e !== -1) {
+            throw e;
+        } else {
+            displayMessage("ListadoCatalogos0012", "", '2');
+        }
+    }
+    return csv;
 }
