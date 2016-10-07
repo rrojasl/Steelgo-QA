@@ -12,6 +12,30 @@ function changeLanguageCall() {
 }
 
 function CargarGrid() {
+    //BeforeEdit
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         edit: function (e) {
             if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -29,12 +53,16 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
+                        SpoolAplicableID: { type: "number", editable: false },
+                        OrdenTrabajoID: { type: "number", editable: false },
+                        SpoolID: { type: "number", editable: false },
                         Spool: { type: "string", editable: false },
                         NumeroControl: { type: "string", editable: false },
-                        Diametro: { type: "number", editable: false },
+                        Diametro: { type: "decimal", editable: false },
+                        SistemaPinturaColorID: { type: "number", editable: true },
                         SistemaPinturaID: { type: "number", editable: true },
                         SistemaPintura: { type: "string", editable: true },
-                        ColorID: { type: "number", editable: true },
+                        ColorPinturaID: { type: "number", editable: true },
                         Color: { type: "string", editable: true },
                         EstatusCaptura: { type: "number", editable: true },
                     }
@@ -73,11 +101,27 @@ function CargarGrid() {
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], editor: comboBoxColor, filterable: getGridFilterableCellMaftec(), width: "110px" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminaCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "99px", attributes: { style: "text-align:center;" } }
 
-        ]
+        ],
+        beforeEdit: function (e) {
+        var columnIndex = this.cellIndex(e.container);
+        var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+        if (!isEditable(fieldName, e.model)) {
+            e.preventDefault();
+        }
+    },
     });
     CustomisaGrid($("#grid"));
 }
 
+function isEditable(fieldName, model) {
+    if (fieldName === "Color") {
+        var sistemaPinturaID = model.SistemaPinturaID
+        if (sistemaPinturaID == 0) {
+            return false;
+        }
+    }
+    return true;
+}
 function eliminaCaptura(e) {
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
         e.preventDefault();
@@ -86,7 +130,7 @@ function eliminaCaptura(e) {
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
             title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
-            visible: false, //the window will not appear before its .open method is called
+            visible: false, 
             width: "auto",
             height: "auto",
             modal: true,
@@ -111,83 +155,10 @@ function eliminaCaptura(e) {
     }
 }
 
-function insertRows() {
-    var data = [{
-        Accion: 1,
-        Spool: "B6AE10-20VA29034-01-01-02",
-        NumeroControl: "X160-001",
-        Diametro: 4.0000,
-        SistemaPinturaID: 0,
-        SistemaPintura: "",
-        ColorID: 0,
-        Color: "",
-        ListaSistema: [
-            { SistemaPinturaID: 0, SistemaPintura: "" },
-            { SistemaPinturaID: 1, SistemaPintura: "A1" },
-            { SistemaPinturaID: 2, SistemaPintura: "A2" },
-            { SistemaPinturaID: 3, SistemaPintura: "18.1" },
-        ],
-        ListaColor: [
-            { ColorID: 0, Color: "" },
-            { ColorID: 1, Color: "Aluminio" },
-            { ColorID: 2, Color: "Amarillo" },
-            { ColorID: 3, Color: "Azul" }
-        ],
-        EstatusCaptura: 1
-    },
-    {
-        Accion: 2,
-        Spool: "B6AE10-20VA29034-01-01-03",
-        NumeroControl: "X160-002",
-        Diametro: 4.0000,
-        SistemaPinturaID: 1,
-        SistemaPintura: "A1",
-        ColorID: 1,
-        Color: "Alumnio",
-        ListaSistema: [
-            { SistemaPinturaID: 0, SistemaPintura: "" },
-            { SistemaPinturaID: 1, SistemaPintura: "A1" },
-            { SistemaPinturaID: 2, SistemaPintura: "A2" },
-            { SistemaPinturaID: 3, SistemaPintura: "18.1" },
-        ],
-        ListaColor: [
-            { ColorID: 0, Color: "" },
-            { ColorID: 1, Color: "Aluminio" },
-            { ColorID: 2, Color: "Amarillo" },
-            { ColorID: 3, Color: "Azul" }
-        ],
-        EstatusCaptura: 1
-    }];
-    var p = [
-        { ProyectoID: 0, Nombre: "" },
-        { ProyectoID: 16, Nombre: "ETILENO XXI" },
-    ];
-
-    var sp = [
-        { SistemaPinturaID: 0, SistemaPintura: "" },
-        { SistemaPinturaID: 1, SistemaPintura: "A1" },
-        { SistemaPinturaID: 2, SistemaPintura: "A2" },
-        { SistemaPinturaID: 3, SistemaPintura: "18.1" },
-    ];
-
-    var grid = $("#grid").data("kendoGrid");
-    grid.dataSource.data(data);
-    grid.dataSource.sync();
-
-    $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
-    $("#inputProyecto").data("kendoComboBox").dataSource.data(p);
-    $("#inputProyecto").data("kendoComboBox").value(16);
-    $("#inputProyecto").data("kendoComboBox").trigger('changes');
-
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
-
- }
-
 function plancharTodo(tipoLlenado) {
 
     var itemSistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
-    var itemColor = $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select());
+    var itemColor = $("#inputColorPintura").data("kendoComboBox").dataItem($("#inputColorPintura").data("kendoComboBox").select());
 
     if (itemSistemaPintura != undefined && itemSistemaPintura.SistemaPinturaID!= 0) {
         PlanchadoSistemaPintura(tipoLlenado);
@@ -232,14 +203,14 @@ function PlanchadoColor(tipoLlenado) {
 
     for (var i = 0; i < data.length; i++) {
         if (tipoLlenado === "Todos") {
-            data[i].Color = $("#inputColor").data("kendoComboBox").text();
-            data[i].ColorID = $("#inputColor").data("kendoComboBox").value();
+            data[i].Color = $("#inputColorPintura").data("kendoComboBox").text();
+            data[i].ColorID = $("#inputColorPintura").data("kendoComboBox").value();
             data[i].EstatusCaptura = 1;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined) {
-                data[i].Color = $("#inputColor").data("kendoComboBox").text();
-                data[i].ColorID = $("#inputColor").data("kendoComboBox").value();
+                data[i].Color = $("#inputColorPintura").data("kendoComboBox").text();
+                data[i].ColorID = $("#inputColorPintura").data("kendoComboBox").value();
                 data[i].EstatusCaptura = 1;
             }            
         }

@@ -105,14 +105,15 @@
 </div>
 <div id="windowDetailTest" style="display:none;">
     <div class="row" style="margin:0px">
-        <span id="spanDetalle"></span>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="gridDetalle" data-role="grid" class="k-grid k-widget"></div>
-        </div><br /><br />
+        <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
+            <div class="form-group">
+                <div id="ContenedorGridPopUp">
+                    <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <!--<button type="button" class='confirm_yes btn btn-blue' id="btnDescargar">
-                <span id="PinturaCargaDescargar"></span>
-            </button>-->
             <button type="button" class='confirm_yes btn btn-blue' id='btnCerrarPopup'>
                 <span id="PinturaCargaCerrarPopup"></span>
             </button>

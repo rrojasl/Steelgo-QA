@@ -8,7 +8,7 @@ function changeLanguageCall() {
     CargarGrid();
     CargarGridDetalle();
     //document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
-    InsertRows();
+    AjaxCargaDetalleSistemaPintura();
 }
 
 function CargarGrid() {
@@ -41,7 +41,6 @@ function CargarGrid() {
                         SistemaPintura: { type: "string", editable: false },
                         ProyectoID: { type: "number", editable: false },
                         Proyecto: { type: "string", editable: false },
-                        ColorID: { type: "number", editable: false },
                         Color: { type: "string", editable: false },
                         PruebaPorLoteShotblast: { type: "number", editable: false },
                         MetrosPorLoteShotblast: { type: "number", editable: false },
@@ -61,7 +60,7 @@ function CargarGrid() {
             filter: {
                 logic: "or",
                 filters: [
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 1 }
                 ]
             },
             pageSize: 10,
@@ -86,17 +85,17 @@ function CargarGrid() {
         columns: [
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px", template: "<div class='EditSystemPaint' style='text-align:center;'><a href='\\#'  > <span>#=SistemaPintura#</span></a></div> " },
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
-            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
-            { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> " },
+            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetalleShotblast' style='text-align:center;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> " },
             { field: "PruebaPorLoteShotblast", title: _dictionary.columnPruebasPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteShotblast", title: _dictionary.columnMetrosPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
-            { field: "PruebaPrimario", title: _dictionary.columnPrueba1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=PruebaShotblast#</span></a></div> " },
+            { field: "PruebaPrimario", title: _dictionary.columnPrueba1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetallePrimario' style='text-align:center;'><a href='\\#'  > <span>#=PruebaPrimario#</span></a></div> " },
             { field: "PruebaPorLotePrimario", title: _dictionary.columnPruebasPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLotePrimario", title: _dictionary.columnMetrosPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
-            { field: "PruebaIntermedio", title: _dictionary.columnPrueba2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=PruebaShotblast#</span></a></div> " },
+            { field: "PruebaIntermedio", title: _dictionary.columnPrueba2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetalleItermedio' style='text-align:center;'><a href='\\#'  > <span>#=PruebaIntermedio#</span></a></div> " },
             { field: "PruebaPorLoteIntermedio", title: _dictionary.columnPruebasPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteIntermedio", title: _dictionary.columnMetrosPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
-            { field: "PruebaAcabado", title: _dictionary.columnPrueba3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=PruebaAcabado#</span></a></div> " },
+            { field: "PruebaAcabado", title: _dictionary.columnPrueba3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetalleAcabado' style='text-align:center;'><a href='\\#'  > <span>#=PruebaAcabado#</span></a></div> " },
             { field: "PruebaPorLoteAcabado", title: _dictionary.columnPruebasPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteAcabado", title: _dictionary.columnMetrosPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
@@ -134,7 +133,8 @@ function eliminarCaptura(e) {
             ventanaConfirm.open().center();
 
             $("#yesButton").click(function () {                
-
+                AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID, dataItem.ProyectoProcesoShotblastID, dataItem.ProyectoProcesoPrimarioID,
+                    dataItem.ProyectoProcesoIntermedioID, dataItem.ProyectoProcesoAcabadoID);
                 ventanaConfirm.close();
             });
             $("#noButton").click(function () {
@@ -146,13 +146,13 @@ function editaSistemaPintura(dataItem) {
     
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {        
         var SistemaPinturaID = dataItem.SistemaPinturaID;
-        var url = '/Pintura/SistemaPintura/?sistPinturaID=' + SistemaPinturaID
+        var url = '/Pintura/SistemaPintura/?sistemaPinturaID=' + SistemaPinturaID
         window.location.href = url;
     }
 }
 
 function CargarGridDetalle() {
-    $("#gridDetalle").kendoGrid({
+    $("#gridPopUp").kendoGrid({
         autoBind: true,
         dataSource: {
             data: [],
@@ -160,16 +160,16 @@ function CargarGridDetalle() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        PruebaID: { type: "number", editable: true },
-                        Prueba: { type: "string", editable: true },
-                        NumPruebas: { type: "number", editable: true }
+                        Prueba: { type: "string", editable: false },
+                        UnidadMedida: { type: "string", editable: false },
+                        UnidadMin: { type: "double", editable: false },
+                        UnidadMax: { type: "double", editable: false },
                     }
                 }
             }, filter: {
                 logic: "or",
                 filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 1 }
                 ]
             },
         },
@@ -184,68 +184,17 @@ function CargarGridDetalle() {
         sortable: true,
         scrollable: true,
         columns: [
-                { field: "Prueba", title: _dictionary.lblPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), /*editor: comboBoxDefectos,*/ width: "20px" },
-                { field: "NumPruebas", title: "No. Pruebas", filterable: getGridFilterableCellNumberMaftec(), width: "15px" },
-                { field: "UnidadMinShotblast", title: _dictionary.columnUnidadMinima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "20px", attributes: { style: "text-align:right;" } },
-                { field: "UnidadMAxShotblast", title: _dictionary.columnUnidadMaxima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "20px", attributes: { style: "text-align:right;" } },
+                { field: "Prueba", title: _dictionary.lblPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
+                { field: "UnidadMedida", title: "U. Medida", filterable: getGridFilterableCellMaftec(), width: "20px" },
+                { field: "UnidadMin", title: _dictionary.columnUnidadMinima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "20px", attributes: { style: "text-align:right;" } },
+                { field: "UnidadMax", title: _dictionary.columnUnidadMaxima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "20px", attributes: { style: "text-align:right;" } }
         ]
 
     });
-    CustomisaGrid($("#gridDetalle"));
-}
-
-function InsertRows() {
-    var data = {
-        Accion: 2,
-        SistemaPinturaID: 1,
-        SistemaPintura: "A1",
-        ProyectoID: 16,
-        Proyecto: "ETILENO XXI",
-        ColorID: 123,
-        Color: "Amarillo, Azul, Aluminio",
-        PruebaPorLoteShotblast: 3,
-        MetrosPorLoteShotblast: 500,
-        PruebaShotblast: "Ver detalle",
-        PruebaPorLotePrimario: 4,
-        MetrosPorLotePrimario: 500,
-        PruebaPrimario: "Ver detalle",
-        PruebaPorLoteIntermedio: 3,
-        MetrosPorLoteIntermedio: 500,
-        PruebaIntermedio: "Ver detalle",
-        PruebaPorLoteAcabado: 4,
-        MetrosPorLoteAcabado: 500,
-        PruebaAcabado: "Ver detalle",
-    }
-    var data1 = {
-        Accion: 2,
-        SistemaPinturaID: 2,
-        SistemaPintura: "A2",
-        ProyectoID: 16,
-        Proyecto: "ETILENO XXI",
-        ColorID: 123,
-        Color: "Amarillo, Azul, Aluminio",
-        PruebaPorLoteShotblast: 3,
-        MetrosPorLoteShotblast: 500,
-        PruebaShotblast: "Ver detalle",
-        PruebaPorLotePrimario: 4,
-        MetrosPorLotePrimario: 500,
-        PruebaPrimario: "Ver detalle",
-        PruebaPorLoteIntermedio: 3,
-        MetrosPorLoteIntermedio: 500,
-        PruebaIntermedio: "Ver detalle",
-        PruebaPorLoteAcabado: 4,
-        MetrosPorLoteAcabado: 500,
-        PruebaAcabado: "Ver detalle",
-    }
-    var grid = $("#grid").data("kendoGrid");
-    grid.dataSource.add(data);
-    grid.dataSource.add(data1);
-    grid.dataSource.sync();
+    CustomisaGrid($("#gridPopUp"));
 }
 
 function showModalDetail(data) {
-    $("#spanDetalle").text('');
-    $("#PinturaCargaDescargar").text("Guardar");
     windowDetailTest = $("#windowDetailTest").kendoWindow({
         iframe: true,
         modal: true,
@@ -261,9 +210,16 @@ function showModalDetail(data) {
             "Close"
         ],
         close: function onClose(e) {
-            //var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-            //gridDataSource.filter([]);
+            var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+            gridDataSource.data([]);
         }
     }).data("kendoWindow");
+
+    var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            ds.add(data[i]);
+        }
+    }
     windowDetailTest.open().center();
 };

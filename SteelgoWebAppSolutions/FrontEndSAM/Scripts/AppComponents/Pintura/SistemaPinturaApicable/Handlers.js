@@ -4,6 +4,8 @@
     SuscribirEventoColor();
     SuscribirEventoPlanchado();
     SuscribirEventoTipoBusqueda();
+    SuscribirEventoCargarCsv();
+    SuscribirEventoBusqueda();
 }
 
 function SuscribirEventoProyecto() {
@@ -16,9 +18,11 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-
+            LimpiaCargaProyecto();
             if (dataItem != undefined) {
-
+                if(dataItem.ProyectoID!=0){
+                    AjaxCargarSistemaPintura(dataItem.ProyectoID);
+                }
             } else {
                 $("#inputProyecto").data("kendoComboBox").value("");
             }
@@ -28,7 +32,7 @@ function SuscribirEventoProyecto() {
 
 function SuscribirEventoSistemaPintura() {
     $("#inputSistemaPintura").kendoComboBox({
-        dataTextField: "SistemaPintura",
+        dataTextField: "Nombre",
         dataValueField: "SistemaPinturaID",
         suggest: true,
         delay: 10,
@@ -36,10 +40,10 @@ function SuscribirEventoSistemaPintura() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            $("#inputColor").data("kendoComboBox").dataSource.data([]);
+            LimpiaCargaSP();
             if (dataItem != undefined) {
                 if(dataItem.SistemaPinturaID!=0){                    
-                    AjaxCargarColor();
+                    AjaxCargarColorPintura(dataItem.SistemaPinturaID);
                 }
             } else {
                 $("#inputSistemaPintura").data("kendoComboBox").value("");
@@ -49,9 +53,9 @@ function SuscribirEventoSistemaPintura() {
 }
 
 function SuscribirEventoColor() {
-    $("#inputColor").kendoComboBox({
-        dataTextField: "Color",
-        dataValueField: "ColorID",
+    $("#inputColorPintura").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ColorPinturaID",
         suggest: true,
         delay: 10,
         filter: "contains",
@@ -62,7 +66,7 @@ function SuscribirEventoColor() {
             if (dataItem != undefined) {
 
             } else {
-                $("#inputColor").data("kendoComboBox").value("");
+                $("#inputColorPintura").data("kendoComboBox").value("");
             }
         }
     });
@@ -112,5 +116,69 @@ function SuscribirEventoTipoBusqueda() {
     $('#styleNc').click(function (e) {
         $("#divSpool").hide();
         $("#divNc").show();
+    });
+}
+
+function SuscribirEventoCargarCsv() {
+    $("#btnCargaCsv, #btnCargaCsv1").click(function (e) {
+        windowLoadFile = $("#windowLoadFile").kendoWindow({
+            iframe: true,
+            title: _dictionary.SPATituloCargarCsv[$("#language").data("kendoDropDownList").value()],
+            visible: false,
+            width: "65%",
+            modal: true,
+            animation: {
+                close: false,
+                open: false
+            }
+        }).data("kendoWindow");
+
+        windowLoadFile.open().center();
+
+    });
+}
+
+function LimpiaCargaProyecto() {
+
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputSistemaPintura").data("kendoComboBox").value("");
+    $("#inputColorPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputColorPintura").data("kendoComboBox").value("");
+}
+
+function LimpiaCargaSP() {
+    $("#inputColorPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputColorPintura").data("kendoComboBox").value("");
+}
+
+function SuscribirEventoBusqueda() {
+    $("#btnBuscar").click(function (e) {
+        var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+        var tipoBusqueda = 0;
+        var cadena = "";
+
+        if (Proyecto != undefined && Proyecto.ProyectoID != "" && Proyecto.ProyectoID != 0) {
+            if ($("#styleSpool").hasClass("active")) {
+                if ($("#inputSpool").val() != null && $("#inputSpool").val() != "") {
+                    tipoBusqueda = 1;
+                    cadena = $("#inputSpool").val().trim();
+                    AjaxCargarDetalleSpool(Proyecto.ProyectoID, tipoBusqueda, cadena);
+                } else {
+                    displayNotify("SPAMensajeIngresaSpool", "", '1');
+                }
+
+            } else if ($("#styleNc").hasClass("active")) {
+                if ($("#inputNc").val() != null && $("#inputNc").val() != "") {
+                    tipoBusqueda = 2;
+                    cadena = $("#inputNc").val().trim();
+                    AjaxCargarDetalleSpool(Proyecto.ProyectoID, tipoBusqueda, cadena);
+                } else {
+                    displayNotify("SPAMensajeIngresaNc", "", '1');
+                }
+            }
+
+        } else {
+            displayNotify("MensajeSeleccionaProyecto", "", '1');
+        }
     });
 }

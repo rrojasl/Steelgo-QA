@@ -41,14 +41,55 @@ function AjaxCargaProyecto() {
     });
 }
 
-function AjaxCargarColor() {
-    var c = [
-      { ColorID: 0, Color: "" },
-      { ColorID: 1, Color: "Aluminio" },
-      { ColorID: 2, Color: "Amarillo" },
-      { ColorID: 3, Color: "Azul" },
-    ];
+function AjaxCargarSistemaPintura(proyectoID) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+        
+        $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(data);
 
-    $("#inputColor").data("kendoComboBox").dataSource.data([]);
-    $("#inputColor").data("kendoComboBox").dataSource.data(c);
+        var spid = 0;
+
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].SistemaPinturaID != 0) {
+                    spid = data[i].SistemaPinturaID;
+                }
+            }
+        }
+
+        $("#inputSistemaPintura").data("kendoComboBox").value(spid);
+        $("#inputSistemaPintura").data("kendoComboBox").trigger("change");
+    });
+}
+
+function AjaxCargarColorPintura(sistemaPinturaID) {    
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, Lenguaje: $("#language").val() }).done(function (data) {
+        
+        $("#inputColorPintura").data("kendoComboBox").dataSource.data(data);
+
+        var cpid = 0;
+
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].ColorPinturaID != 0) {
+                    cpid = data[i].ColorPinturaID;
+                }
+            }
+        }
+
+        $("#inputColorPintura").data("kendoComboBox").value(cpid);
+        $("#inputColorPintura").data("kendoComboBox").trigger("change");
+    });
+}
+
+function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoBusqueda: tipoBusqueda, Cadena: cadena, Lenguaje: $("#language").val() }).done(function (data) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if(data.length>0){
+            for (var i = 0; i < data.length; i++) {
+                ds.add(data[i]);
+            }
+        }    
+    });
 }

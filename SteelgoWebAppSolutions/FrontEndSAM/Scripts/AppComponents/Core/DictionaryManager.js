@@ -9206,5 +9206,25 @@ _dictionary = {
         "es-MX": "¿Esta seguro de eliminar el registro?",
         "en-US": "Are you sure to delete the record?"
     },
+    "SPAMensajeIngresaSpool": {
+        "es-MX": "Favor de ingresar spool contiene",
+        "en-US": "Please enter a contain spool"
+    },
+    "SPAMensajeIngresaNc": {
+        "es-MX": "Favor de ingresar No. control contiene",
+        "en-US": "Please enter a contain control no."
+    },
+    "SPATituloCargarCsv": {
+        "es-MX": "Carga Masiva",
+        "en-US": "Bulk Upload"
+    },
+    "SistemaPinturaEliminadoExitoso": {
+        "es-MX": "El Sistema de Pintura se ha eliminado con éxito",
+        "en-US": "The paint system was successfully removed"
+    },
+    "SistemaPinturaErrorEliminado": {
+        "es-MX": "El sistema de pintura no se puede eliminar porque tiene asignados spool",
+        "en-US": "The paint system can't be deleted because it has assigned spool"
+    },
     // Finaliza Listado Sistema Pintura
 };

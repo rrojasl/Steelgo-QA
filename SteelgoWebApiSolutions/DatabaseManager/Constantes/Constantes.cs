@@ -39,5 +39,7 @@
         public static string SETCIERRACARRO = "Sam3_Pintura_Set_CierraCarro";
         public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_Guarda_CapturaAvance";
         public static string OKPND = "Sam3_ST_GuardaOKPND";
+        public static string GUARDACAPTURASISTEMAPINTURAAPLICABLE = "Sam3_SPA_GuardaCaptura";
+        public static string ELIMINASISTEMAPINTURA = "Sam3_SP_EliminaSistemaPintura";
     }
 }

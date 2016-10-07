@@ -183,6 +183,8 @@ var $PinturaGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaCarro = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $SistemaPinturaAplicable = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -321,3 +323,5 @@ $PinturaGeneral.add("PinturaGeneral");
 $SistemaPintura.add("SistemaPintura");
 $CargaCarro.add("CargaCarro");
 $CapturaAvance.add('CapturaAvance');
+$SistemaPinturaAplicable.add("SistemaPinturaAplicable");
+$ListadoSistemaPintura.add("ListadoSistemaPintura");
