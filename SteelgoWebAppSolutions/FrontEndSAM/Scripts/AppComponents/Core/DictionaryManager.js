@@ -8602,6 +8602,14 @@ _dictionary = {
     // Finaliza Entrega Placas-Graficas
 
     // Pantalla Asignar Requisición
+    "ServiciosTecnicosCapturaReporteCantidadDefectos": {
+        "es-MX": "Tienes ? Defecto (s)",
+        "en-US": "You have ? Defects"
+    },
+    "ServiciosTecnicosCapturaReporteTemplatePlacasDefecto": {
+        "es-MX": "Sin Defectos",
+        "en-US": "Faultless"
+    },
     "ServiciosTecnicosCapturaReporte": {
         "es-MX": "Captura Reporte",
         "en-US": "Report Capture"
