@@ -104,13 +104,24 @@ function RenderDensidad(container, options) {
 
 function RenderInicioMM(container, options) {
     var dataItem;
-    $('<input data-text-field="InicioMM" id=' + options.model.uid + ' data-value-field="Tamano" data-bind="value:' + options.field + '"/>')
+    $('<input data-text-field="InicioMM" id=' + options.model.uid + ' data-value-field="InicioMM" data-bind="value:' + options.field + '"/>')
     .appendTo(container)
     .kendoNumericTextBox({
         format: "{0: }",
         min: 0
     });
     
+}
+
+function RenderFinMM(container, options) {
+    var dataItem;
+    $('<input data-text-field="FinMM" id=' + options.model.uid + ' data-value-field="FinMM" data-bind="value:' + options.field + '"/>')
+    .appendTo(container)
+    .kendoNumericTextBox({
+        format: "{0: }",
+        min: 0
+    });
+
 }
 
 function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl) {

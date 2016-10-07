@@ -213,7 +213,7 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
         columns: [
                 { field: "Defecto", title: _dictionary.CapturaReportePruebasHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxDefectos, width: "20px" },
                 { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", editor: RenderInicioMM, attributes: { style: "text-align:right;" } },
-                { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", format: "{0: }", min: 0, attributes: { style: "text-align:right;" } }
+                { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", editor: RenderFinMM, attributes: { style: "text-align:right;" } }
             ,
           {
               command: {
@@ -296,6 +296,21 @@ function LlenarGridPopUpDetalleDefectoPorPlaca(data) {
     modeloRenglon = data;
     currentDefectosPorPlaca = data;
     $("#gridPopUpDefectos").data('kendoGrid').dataSource.data([]);
+
+    if ($("#gridPopUpDefectos").data('kendoGrid').dataSource._filter == undefined) {
+        //investigar porque al destruir una ventana se eliminan solo los filtros.
+        $("#gridPopUpDefectos").data('kendoGrid').dataSource._filter = {
+            logic: "or",
+            filters: [
+              { field: "Accion", operator: "eq", value: 1 },
+              { field: "Accion", operator: "eq", value: 2 },
+                { field: "Accion", operator: "eq", value: 0 },
+                { field: "Accion", operator: "eq", value: undefined }
+            ]
+        };
+    }
+
+
     var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
     var array = data.ListaDetalleDefectos;
     listaDefectosAuxiliar = data.ListaDefectos;
