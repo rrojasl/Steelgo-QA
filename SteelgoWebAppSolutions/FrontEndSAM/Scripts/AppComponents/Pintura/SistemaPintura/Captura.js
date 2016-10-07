@@ -1,18 +1,35 @@
 ﻿var editado = false;
 var ListaPruebas = [];
 var ListaUnidadMedida = [];
+var modeloRenglon;
 
 function changeLanguageCall() {
+    var paramReq = getParameterByName('SistemaPinturaID');
+    paramReq = paramReq == null ? "" : paramReq;
+    $("#inputSistemaPinturaID").val(paramReq);
+    setTimeout(function () { AjaxObtenerColor(); }, 100);
+    
     CargarGrid();
     CargarGridPopUp();
     document.title = "Sistema Pintura";
+    
 };
+
+function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 IniciarSistemaPintura();
 
 function IniciarSistemaPintura() {
     SuscribirEventos();
-    setTimeout(function () { AjaxObtenerColor(); }, 100);
 };
 
 function getParameterByName(name, url) {
@@ -74,12 +91,7 @@ function CargarGrid() {
         },
 
         dataSource: {
-            data: [
-                    //{ Agregar: false, Proceso: "ShotBlast", Color: "", UnidadMinima: 1, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
-                    //{ Agregar: false, Proceso: "Primario", Color: "", UnidadMinima: 3, UnidadMaxima: 5, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "PullOff", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
-                    //{ Agregar: false, Proceso: "Intermedio", Color: "Rojo", UnidadMinima: 2, UnidadMaxima: 4, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Adherencia", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2,  }, { Nombre: "holliday", PruebaID: 3 }] }] },
-                    //{ Agregar: false, Proceso: "Acabado", Color: "Azul, Verde", UnidadMinima: 1, UnidadMaxima: 10, Pruebas: "Detalle pruebas", Accion: 1, listadoPruebas: [{ Prueba: "Espesores", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }, { Prueba: "holliday", NumeroPruebas: 2, ListaPruebas: [{ Nombre: "Espesores", PruebaID: 1 }, { Nombre: "Adherencia", PruebaID: 2 }, { Nombre: "holliday", PruebaID: 3 }] }] },
-            ],
+            data: [],
             schema: {
                 model: {
                     fields: {
@@ -122,11 +134,11 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
             },
             { field: "Proceso", title: "Proceso", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "MetrosPorLote", title: "Mts. Lote", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "NumeroPruebas", title: "Pbas. lote", filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "MetrosLote", title: "Mts. Lote", filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "NumeroPruebas", title: "Pbas. lote", filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" }, format: "{0: }" },
             { field: "Pruebas", title: "Pruebas", template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#/'  > <span>Detalle Pruebas</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
 
         ],
@@ -139,6 +151,54 @@ function CargarGrid() {
         },
     });
     CustomisaGrid($("#grid"));
+
+    $("#grid .k-grid-content").on("change", "input.chk-agregar", function (e) {
+        if ($("#language").val() == "es-MX") {
+            if ($('#Guardar').text() != "Editar") {
+                var grid = $("#grid").data("kendoGrid")
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                if ($(this)[0].checked) {
+                    dataItem.Agregar = true;
+                }
+                else {
+                    dataItem.Agregar = false;
+                    
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+            else {
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
+        }
+        else {
+            if ($('#Guardar').text() != "Edit") {
+                var grid = $("#grid").data("kendoGrid")
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                if ($(this)[0].checked) {
+                    dataItem.Agregar = true;
+                }
+                else {
+                    dataItem.Agregar = false;
+                    
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+            else {
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
+        }
+    });
+
 };
 
 function isEditable(fieldName, model) {
@@ -296,6 +356,7 @@ function CargarGridPopUp() {
             schema: {
                 model: {
                     fields: {
+                        Accion: { type: "int", editable: false },
                         Prueba: { type: "string", editable: true },
                         UnidadMedida: { type: "string", editable: true },
                         UnidadMinima: { type: "number", editable: true },
@@ -314,7 +375,7 @@ function CargarGridPopUp() {
         filterable: getGridFilterableMaftec(),
 
         columns: [
-            { field: "Prueba", title: "Prueba", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
+            { field: "ProyectoProcesoPrueba", title: "Prueba", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
             { field: "UnidadMedida", title: "U. medida", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxUnidadMedida },
             { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" }, format: "{0: }" },
             { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" }, format: "{0: }" },

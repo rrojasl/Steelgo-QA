@@ -15,10 +15,10 @@ function comboBoxPruebas(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && dataItem.PruebaProcesoPinturaID != undefined) {
-                    options.model.PruebaID = dataItem.PruebaID;
-                    options.model.Prueba = dataItem.Nombre;
+                    options.model.PruebaProcesoPinturaID = dataItem.PruebaProcesoPinturaID;
+                    options.model.ProyectoProcesoPrueba = dataItem.Nombre;
                 }
-                //$("#gridPopUp").data("kendoGrid").dataSource.sync();
+                $("#gridPopUp").data("kendoGrid").dataSource.sync();
             }
         });
     $(".k-combobox").parent().on('mouseleave', function (send) {
@@ -46,9 +46,9 @@ function comboBoxUnidadMedida(container, options) {
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined && dataItem.ResultadosID != undefined) {
-                    options.model.PruebaID = dataItem.PruebaID;
-                    options.model.Prueba = dataItem.Nombre;
+                if (dataItem != undefined) {
+                    options.model.UnidadMedidaID = dataItem.UnidadMedidaID;
+                    options.model.UnidadMedida = dataItem.Nombre;
                 }
                 //$("#gridPopUp").data("kendoGrid").dataSource.sync();
             }

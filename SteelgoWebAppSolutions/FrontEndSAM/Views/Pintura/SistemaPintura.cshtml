@@ -52,24 +52,29 @@
     @*Controles Superior*@
     <div id="FieldSetView" class="row addedSectionInLineWithoutColor">
 
+        <input id="inputSistemaPinturaID" type="hidden" value="" />
 
         <div class="col-sm-3 col-md-3 col-lg-3">
             <label id="">Nombre</label>
-            <input id="inputNombre"  class="general-input item-select"  />
+            <input id="inputNombre" class="general-input item-select" />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
             <label id="">Color</label>
-            <input id="inputColor" class=""/>
+            <input id="inputColor" class="" />
         </div>
-        <div class="col-sm-3 col-d-3 col-lg-3">
+        <div class="col-sm-3 col-d-3 col-lg-3" id="divMultiselectProyecto">
             <label id="">Proyecto</label>
-            <input id="inputProyecto"  />
+            <input id="inputProyecto" />
+        </div>
+        <div class="col-sm-3 col-d-3 col-lg-3" style="display:none; " id="divComboProyecto">
+            <label id="">Proyecto</label>
+            <input id="comboProyecto"  />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
             <label id="">No pintable</label>
-            <input id="inputNoAplicable"  type="checkbox"/>
+            <input id="inputNoAplicable" type="checkbox" />
         </div>
-        
+
 
     </div>
     @*GRID*@
@@ -98,23 +103,23 @@
         </div>
         <div class="row col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-2 col-md-2 col-lg-2">
-                
+
             </div>
             <div class="col-sm-3 col-d-3 col-lg-3">
                 <label id="">&nbsp;</label>
-                <a class=" btn btn-primary " href="#" id="CerrarDetalleJunta">
+                <a class=" btn btn-primary " href="#" id="GuardarDetallePruebas">
                     <span id="botonGuardar">Guardar</span>
-                </a>    
+                </a>
             </div>
             <div class="col-sm-3 col-d-3 col-lg-3">
                 <label id="">&nbsp;</label>
-                <a class=" btn btn-primary " href="#" id="CerrarDetalleJunta">
+                <a class=" btn btn-primary " href="#" id="CerrarDetallePruebas">
                     <span id="botonGuardar">Cancelar</span>
                 </a>
             </div>
 
-            
-            
+
+
         </div>
 
     </div>
