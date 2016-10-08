@@ -32,7 +32,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
     }
 
     public class Captura{
-        public List<ListaElementos> listaDetalle { get; set; }
+        public List<string> Detalle { get; set; }
     }
 
     public class ListaElementos {

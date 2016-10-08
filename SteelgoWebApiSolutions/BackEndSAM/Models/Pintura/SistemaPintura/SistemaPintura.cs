@@ -107,4 +107,58 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
     {
         public int ProyectoID { get; set; }
     }
+
+    public class DetalleGuardarCaptura
+    {
+        public List<DetalleGuardar> Detalles { get; set; }
+    }
+
+    public class DetalleGuardar
+    {
+        public List<SPNuevo> ListaSPNuevo { get; set; }
+        public List<SPProyecto> ListaSPProyecto { get; set; }
+        public List<SPColor> ListaSPColor { get; set; }
+        public List<SPProyectoProceso> ListaSPProyectoProceso { get; set; }
+        
+    }
+
+    public class SPNuevo
+    {
+        public string Nombre { get; set; }
+        public int NoPintable { get; set; }
+        public int Accion { get; set; }
+    }
+
+    public class SPProyecto {
+        public int ProyectoID { get; set; }
+        public int Accion { get; set; }
+    }
+
+    public class SPColor
+    {
+        public int ColorID { get; set; }
+        public int Accion { get; set; }
+    }
+
+    public class SPProyectoProceso
+    {
+        public int Accion { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public double MetrosLote { get; set; }
+        public int NumeroPruebas { get; set; }
+        public int ProyectoID { get; set; }
+        public List<SPProyectoProcesoPrueba> ListadoPruebas { get; set; }
+    }
+
+    public class SPProyectoProcesoPrueba
+    {
+        public int ProyectoID { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public int UnidadMedidaID { get; set; }
+        public int UnidadMinima { get; set; }
+        public int UnidadMaxima { get; set; }
+        public int PruebaProcesoPinturaID { get; set; }
+        public int Accion { get; set; }
+    }
+
 }

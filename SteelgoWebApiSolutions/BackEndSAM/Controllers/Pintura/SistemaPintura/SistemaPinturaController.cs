@@ -1,6 +1,4 @@
 ﻿using BackEndSAM.DataAcces.Pintura.SistemaPintura;
-using BackEndSAM.Models.Pintura.SistemaPintura;
-using BackEndSAM.Utilities.ConvertirDataTable;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -13,6 +11,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.Models.Pintura.SistemaPintura;
 
 namespace BackEndSAM.Controllers.Pintura.SistemaPintura
 {
@@ -31,7 +30,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return SistemaPinturaBD.Instance.ObtenerSistemaPinturaNuevo(Lenguaje, SistemaPinturaID, ProyectoID);
+                return SistemaPinturaBD.Instance.ObtenerSistemaPinturaNuevo(Lenguaje,SistemaPinturaID,ProyectoID);
             }
             else
             {
@@ -71,40 +70,18 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
         }
 
         [HttpPost]
-        public object GuardarCaptura(Captura listaCaptura, string token, string lenguaje)
+        public object GuardarCaptura(DetalleGuardarCaptura Captura, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                DataTable dtDetallePruebasProcesos = null;
-                 
-
-                foreach (GuardarSistemaPintura item in listaCaptura.Detalles)
-                {
-                    if (item.ListadoPruebasProceso != null)
-                    {
-                        foreach (GuardarPruebasProceso index in item.ListadoPruebasProceso)
-                        {
-                            if (dtDetallePruebasProcesos == null)
-                                dtDetallePruebasProcesos = ToDataTable.Instance.toDataTable(item.ListadoPruebasProceso);
-                            else
-                                dtDetallePruebasProcesos.Merge(ToDataTable.Instance.toDataTable(item.ListadoPruebasProceso));
-                        }
-                    }
-                }
-
-                DataTable dtDetalleProcesos = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
-                dtDetalleProcesos.Columns.Remove("ListadoPruebasProceso");
-
-                return SistemaPinturaBD.Instance.InsertarCaptura(dtDetalleProcesos, usuario, lenguaje);
+                //DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
+                return null;// AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);
             }
             else
             {

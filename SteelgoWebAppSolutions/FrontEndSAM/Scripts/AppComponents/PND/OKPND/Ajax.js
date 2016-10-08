@@ -98,7 +98,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
 }
 
 function AjaxGuardadoMasivo(data) {
-    $OKPND.OKPND.create( datos = JSON.stringify(data), {lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    var xd = "";
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    Captura[0].Detalles = JSON.stringify(data);
+    $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             if (data.ReturnMessage[0] != undefined) {
                 if (tipoGuardado == 1) {
