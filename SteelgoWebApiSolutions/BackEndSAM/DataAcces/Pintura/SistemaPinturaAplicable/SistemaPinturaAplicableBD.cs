@@ -117,12 +117,13 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                             NumeroControl = item.NumeroControl,
                             Diametro = item.Diametro.GetValueOrDefault(),
                             SistemaPinturaID = item.SistemaPinturaID.GetValueOrDefault(),
-                            SistemaPintura = item.SistemaPintura!=null? item.SistemaPintura : "",
+                            SistemaPintura = item.SistemaPintura != null ? item.SistemaPintura : "",
                             SistemaPinturaColorID = item.SistemaPinturaColorID.GetValueOrDefault(),
                             ColorPinturaID = item.ColorID.GetValueOrDefault(),
-                            Color = item.Color!=null? item.Color : "",
+                            Color = item.Color != null ? item.Color : "",
                             EstatusCaptura = item.EstatusCaptura,
-                            ListaSistemPintura = (List<SistemaPinturaData>)SistemaPinturaAplicableBD.Instance.ObtieneListadoSistemaPintura(ProyectoID)
+                            ListaSistemPintura = (List<SistemaPinturaData>)SistemaPinturaAplicableBD.Instance.ObtieneListadoSistemaPintura(ProyectoID),
+                            ListaColorPintura = null
                         });
                     }
 

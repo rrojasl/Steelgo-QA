@@ -146,8 +146,15 @@ function eliminaCaptura(e) {
         ventanaConfirm.open().center();
 
         $("#yesButton").click(function () {
-
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            if(dataItem.Accion === 2){
+                dataItem.Accion = 3;
+            }else {
+                dataSource.remove(dataItem);
+            }
+            
             ventanaConfirm.close();
+            dataSource.sync();
         });
         $("#noButton").click(function () {
             ventanaConfirm.close();
@@ -217,4 +224,28 @@ function PlanchadoColor(tipoLlenado) {
     }
 
     $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function ValidaInformacionCapturada() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var filters = ds.filter();
+    var allData = ds.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    var contador = 0;
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].EstatusCaptura == 1) {
+                contador++;
+            }
+        }
+        if (contador > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }

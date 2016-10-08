@@ -41,8 +41,8 @@ namespace BackEndSAM.Controllers.Pintura.ListadoSistemaPintura
             }
         }
 
-        [HttpPut]
-        public object EliminaSistemaPintura(EliminaCaptura json, string token, int SistemaPinturaID)
+        [HttpGet]
+        public object EliminaSistemaPintura(string token, int SistemaPinturaID)
         {
             string payload = "";
             string newToken = "";
@@ -51,8 +51,7 @@ namespace BackEndSAM.Controllers.Pintura.ListadoSistemaPintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtSistemaPintura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(json.listaDetalleElimina);
-                return ListadoSistemaPinturaBD.Instance.EliminaSistemaPintura(dtSistemaPintura, SistemaPinturaID, usuario.UsuarioID);
+                return ListadoSistemaPinturaBD.Instance.EliminaSistemaPintura(SistemaPinturaID, usuario.UsuarioID);
             }
             else
             {

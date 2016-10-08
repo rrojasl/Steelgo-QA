@@ -9226,5 +9226,18 @@ _dictionary = {
         "es-MX": "El sistema de pintura no se puede eliminar porque tiene asignados spool",
         "en-US": "The paint system can't be deleted because it has assigned spool"
     },
+    "SistemaPinturaAplicableExcepcionGuardado": {
+        "es-MX": "No hay datos para guardar.",
+        "en-US": "No data to save."
+    },
+    "SistemaPinturaAplicableMensajeGuardadoExistoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "SistemaPinturaAplicableMensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    }
+
     // Finaliza Listado Sistema Pintura
 };

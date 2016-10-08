@@ -5,6 +5,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -148,18 +149,20 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
             }
         }
 
-        public object EliminaSistemaPintura(DataTable dtEliminaSistemaPintura, int SistemaPinturaID, int UsuarioID)
+        public object EliminaSistemaPintura(int SistemaPinturaID, int UsuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@SistemaPinturaID", SistemaPinturaID.ToString()}, { "@UsuarioID", UsuarioID.ToString() } };
-                    int resultSp = _SQL.EjecutaInsertUpdate(Stords.ELIMINASISTEMAPINTURA, dtEliminaSistemaPintura, "@Tabla", parametro);
+                    ObjectResult<int?> resultSp = ctx.Sam3_SP_EliminaSistemaPintura(SistemaPinturaID, UsuarioID);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+                    
+
                     TransactionalInformation result = new TransactionalInformation();
 
-                    if (resultSp > 0)
+                    if (valor > 0)
                     {
                         result.ReturnMessage.Add("Ok");
                         result.ReturnCode = 200;

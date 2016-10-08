@@ -16,6 +16,16 @@
                     options.model.SistemaPintura = dataItem.Nombre;
                     options.model.EstatusCaptura = 1;
 
+                    if (dataItem.SistemaPinturaID != 0) {
+                        AjaxCargarColorPinturaRender(dataItem.SistemaPinturaID, options);
+                    } else {
+                        options.model.ListaColorPintura = null;
+                        options.model.ColorPinturaID = 0;
+                        options.model.SistemaPinturaColorID = 0;
+                        options.model.Color = "";
+
+                    }
+
                 } else {
                     options.model.SistemaPintura = ObtenerSistemaPinturaCorrecto(options.model.ListaSistemPintura, options.model.SistemaPinturaID);
                 }
@@ -41,15 +51,19 @@ function comboBoxColor(container, options) {
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.ListaColor,
-            dataTextField: "Color",
-            dataValueField: "ColorID",
-            template: "<i class=\"fa fa-#=data.Color#\"></i> #=data.Color#",
+            dataSource: options.model.ListaColorPintura,
+            dataTextField: "Nombre",
+            dataValueField: "ColorPinturaID",
+            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined && dataItem.ColorID != undefined) {
-                    options.model.ColorID = dataItem.ColorID;
-                    options.model.Color = dataItem.Color;
+                if (dataItem != undefined) {
+                    options.model.ColorPinturaID = dataItem.ColorPinturaID;
+                    options.model.SistemaPinturaColorID = dataItem.SistemaPinturaColorID;
+                    options.model.Color = dataItem.Nombre;
+                    options.model.EstatusCaptura = 1;
+                } else {
+                    options.model.Color = ObtenerColorPinturaCorrecto(options.model.ListaColorPintura, options.model.ColorPinturaID);
                 }
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
@@ -78,6 +92,14 @@ function tieneClase(item) {
 function ObtenerSistemaPinturaCorrecto(lista, SistemaPinturaID) {
     for (var i = 0; i < lista.length; i++) {
         if (lista[i].SistemaPinturaID == SistemaPinturaID)
+            return lista[i].Nombre;
+    }
+    return "";
+}
+
+function ObtenerColorPinturaCorrecto(lista, ColorPinturaID) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].ColorPinturaID == ColorPinturaID)
             return lista[i].Nombre;
     }
     return "";
