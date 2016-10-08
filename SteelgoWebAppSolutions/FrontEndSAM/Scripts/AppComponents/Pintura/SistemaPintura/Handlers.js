@@ -10,7 +10,69 @@ function SuscribirEventos() {
     SuscribirEventoCerrarPopUpPruebas();
     suscribirEventoProyecto();
     SuscribirEventoComboProyecto();
+    suscribirEventoChangeAplicable();
 };
+
+function suscribirEventoChangeAplicable() {
+    $('#inputNoAplicable').change(function () {
+        if (($("#inputNoAplicable").is(':checked'))) {
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true,
+                animation: {
+                    close: false,
+                    open: false
+                }
+            }).data("kendoWindow");
+
+            ventanaConfirm.content("Se eliminaran los datos de los procesos y colores, ¿desea continuar?" +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+            ventanaConfirm.open().center();
+
+
+
+            $("#yesButton").click(function () {
+                LimpiarGrid();
+                ventanaConfirm.close();
+            });
+            $("#noButton").click(function () {
+                ventanaConfirm.close();
+                $("#inputNoAplicable").prop("checked", false);
+                
+            });
+
+            
+        }
+        else {
+            $("#inputColor").data("kendoMultiSelect").enable(true);
+        }
+
+    });
+   
+}
+
+function LimpiarGrid() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    for (var i = 0; i < ds._data.length; i++) {
+        if (ds._data[i].Agregar) {
+            ds._data[i].Agregar = false;
+            ds._data[i].MetrosLote = 0;
+            ds._data[i].NumeroPruebas = 0;
+            ds._data[i].listadoPruebasDetalle = [];
+            
+        }
+    }
+    ds.sync();
+    $("#inputColor").data("kendoMultiSelect").value([]);
+    $("#inputColor").data("kendoMultiSelect").enable(false);
+}
+
 
 
 function suscribirEventoProyecto() {
@@ -33,11 +95,18 @@ function GuardarDetallePruebas() {
         var ds = $("#gridPopUp").data("kendoGrid").dataSource;
 
         for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].UnidadMinima == "" || ds._data[i].UnidadMaxima == "" || ds._data[i].ProyectoProcesoPrueba == "" || ds._data[i].UnidadMedida == "") {
+                displayNotify("", "Todos los campos son mandatorios, revisar captura", 1);
+                return;
+            }
+            else if (parseInt(ds._data[i].UnidadMinima) >= parseInt(ds._data[i].UnidadMaxima)) {
+                displayNotify("", "La unidad maxima  debe ser mayor a la minima", 1);
+                return;
+            }
+            
             ds._data[i].SistemaPinturaProyectoProcesoID = ds._data[i].SistemaPinturaProyectoProcesoID == undefined ? 0 : ds._data[i].SistemaPinturaProyectoProcesoID;
             ds._data[i].ProyectoProcesoPruebaID = ds._data[i].ProyectoProcesoPruebaID == undefined ? 0 : ds._data[i].ProyectoProcesoPruebaID;
             ds._data[i].Accion = ds._data[i].ProyectoProcesoPruebaID == 0 ? 1 : 2;
-            
-            
         }
         modeloRenglon.listadoPruebasDetalle = ds._data;
         $("#windowGrid").data("kendoWindow").close();
@@ -52,12 +121,16 @@ function suscribirEventoDetallePruebas() {
 
     $(document).on('click', '.EnlaceDetallePruebas', function (e) {
         e.preventDefault();
+        if (!($("#inputNoAplicable").is(':checked'))) {
+            if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-        if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
-            var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-            LlenarGridPopUp(dataItem);
+                var grid = $("#grid").data("kendoGrid"),
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                if (dataItem.Agregar) {
+                    LlenarGridPopUp(dataItem);
+                }
+                
+            }
         }
     });
 }

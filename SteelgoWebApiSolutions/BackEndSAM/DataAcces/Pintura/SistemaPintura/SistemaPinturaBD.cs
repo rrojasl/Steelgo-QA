@@ -207,6 +207,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                         {
                             Nombre = item.Nombre,
                             SistemaPinturaID = item.SistemaPinturaID,
+                            NoPintable = item.NoPintable.GetValueOrDefault(),
                             listadoColor = (List<Color>)ObtenerColoresSistemaPintura(lenguaje, sistemaPinturaID),
                             listadoProyectos = (List<Proyectos>)ObtenerProyectosSistemaPintura(sistemaPinturaID)
 

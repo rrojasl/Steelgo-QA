@@ -65,6 +65,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
     {
         public string Nombre { get; set; }
         public int SistemaPinturaID { get; set; }
+        public bool NoPintable { get; set; }
         public List<Sam3General.Proyectos> listadoProyectos { get; set; }
         public List<Color> listadoColor { get; set; }
     }

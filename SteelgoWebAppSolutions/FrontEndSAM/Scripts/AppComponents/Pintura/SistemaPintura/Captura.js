@@ -8,11 +8,11 @@ function changeLanguageCall() {
     paramReq = paramReq == null ? "" : paramReq;
     $("#inputSistemaPinturaID").val(paramReq);
     setTimeout(function () { AjaxObtenerColor(); }, 100);
-    
+
     CargarGrid();
     CargarGridPopUp();
     document.title = "Sistema Pintura";
-    
+
 };
 
 function getParameterByName(name, url) {
@@ -85,7 +85,7 @@ function CargarGrid() {
         autoSync: true,
         edit: function (e) {
 
-            if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()] || ($("#inputNoAplicable").is(':checked'))) {
                 this.closeCell();
             }
         },
@@ -95,9 +95,9 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Agregar:{type: "boolean", editable: false},
+                        Agregar: { type: "boolean", editable: false },
                         Proceso: { type: "string", editable: false },
-                        MetrosPorLote: { type: "number", editable: true },
+                        MetrosLote: { type: "number", editable: true },
                         NumeroPruebas: { type: "number", editable: true },
                         Pruebas: { type: "string", editable: false }
                     }
@@ -122,7 +122,7 @@ function CargarGrid() {
         sortable: true,
         scrollable: true,
         selectable: true,
-        
+
         filterable: getGridFilterableMaftec(),
         columns: [
             {
@@ -153,47 +153,84 @@ function CargarGrid() {
     CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chk-agregar", function (e) {
-        if ($("#language").val() == "es-MX") {
-            if ($('#Guardar').text() != "Editar") {
-                var grid = $("#grid").data("kendoGrid")
-                dataItem = grid.dataItem($(e.target).closest("tr"));
-                if ($(this)[0].checked) {
-                    dataItem.Agregar = true;
+        if (!($("#inputNoAplicable").is(':checked'))) {
+            if ($("#language").val() == "es-MX") {
+                if ($('#Guardar').text() != "Editar") {
+                    var grid = $("#grid").data("kendoGrid")
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+                    if ($(this)[0].checked) {
+                        dataItem.Agregar = true;
+
+                    }
+                    else {
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                            visible: false, //the window will not appear before its .open method is called
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            }
+                        }).data("kendoWindow");
+
+                        ventanaConfirm.content("Se eliminaran los datos del proceso, ¿desea continuar?" +
+                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                        ventanaConfirm.open().center();
+
+
+
+                        $("#yesButton").click(function () {
+                            dataItem.Agregar = false;
+                            dataItem.MetrosLote = 0;
+                            dataItem.NumeroPruebas = 0;
+                            dataItem.listadoPruebasDetalle = [];
+                            ventanaConfirm.close();
+                            $("#grid").data("kendoGrid").dataSource.sync();
+                        });
+                        $("#noButton").click(function () {
+                            ventanaConfirm.close();
+                            dataItem.Agregar = true;
+                            $(this)[0].checked = true;
+                            $("#grid").data("kendoGrid").dataSource.sync();
+                        });
+
+
+                    }
+
                 }
                 else {
-                    dataItem.Agregar = false;
-                    
+                    if ($(this)[0].checked) {
+                        $(this)[0].checked = false;
+                    }
+                    else {
+                        $(this)[0].checked = true;
+                    }
                 }
-                $("#grid").data("kendoGrid").dataSource.sync();
             }
             else {
-                if ($(this)[0].checked) {
-                    $(this)[0].checked = false;
+                if ($('#Guardar').text() != "Edit") {
+                    var grid = $("#grid").data("kendoGrid")
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+                    if ($(this)[0].checked) {
+                        dataItem.Agregar = true;
+                    }
+                    else {
+                        dataItem.Agregar = false;
+
+                    }
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
-                    $(this)[0].checked = true;
-                }
-            }
-        }
-        else {
-            if ($('#Guardar').text() != "Edit") {
-                var grid = $("#grid").data("kendoGrid")
-                dataItem = grid.dataItem($(e.target).closest("tr"));
-                if ($(this)[0].checked) {
-                    dataItem.Agregar = true;
-                }
-                else {
-                    dataItem.Agregar = false;
-                    
-                }
-                $("#grid").data("kendoGrid").dataSource.sync();
-            }
-            else {
-                if ($(this)[0].checked) {
-                    $(this)[0].checked = false;
-                }
-                else {
-                    $(this)[0].checked = true;
+                    if ($(this)[0].checked) {
+                        $(this)[0].checked = false;
+                    }
+                    else {
+                        $(this)[0].checked = true;
+                    }
                 }
             }
         }
@@ -202,13 +239,13 @@ function CargarGrid() {
 };
 
 function isEditable(fieldName, model) {
-    if (fieldName === "MetrosPorLote") {
-        if (model.Proceso == "No aplica")
+    if (fieldName === "MetrosLote") {
+        if (!model.Agregar)
             return false;
-        
+
     }
     if (fieldName === "NumeroPruebas") {
-        if (model.Proceso == "No aplica")
+        if (!model.Agregar)
             return false;
 
     }
@@ -220,89 +257,42 @@ function isEditable(fieldName, model) {
 function cancelarCaptura(e) {
     e.preventDefault();
     var filterValue = $(e.currentTarget).val();
-    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    if ($("#language").val() == "es-MX") {
-        if ($('#Guardar').text().trim() != "Editar") {
-            windowTemplate = kendo.template($("#windowTemplate").html());
+    var dataItem = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
-
-            ventanaConfirm.content(_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-            ventanaConfirm.open().center();
-
-            $("#yesButton").click(function () {
-
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
-
-                if (dataItem.Accion == 1) {
-                    dataSource.remove(dataItem);
-                }
-                else {
-                    dataItem.Accion = 3;
-                }
-
-                $("#grid").data("kendoGrid").dataSource.sync();
-
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-            });
-
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        iframe: true,
+        title: "Peligro",
+        visible: false, //the window will not appear before its .open method is called
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: {
+            close: false,
+            open: false
         }
-    }
-    else {
-        if ($('#Guardar').text().trim() != "Edit") {
-            windowTemplate = kendo.template($("#windowTemplate").html());
+    }).data("kendoWindow");
 
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
+    ventanaConfirm.content("Esta seguro de eliminar la captura?"+//_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-            ventanaConfirm.content(_dictionary.CapturaInspeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+    ventanaConfirm.open().center();
 
-            ventanaConfirm.open().center();
+    $("#yesButton").click(function () {
 
-            $("#yesButton").click(function () {
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
-
-                if (dataItem.Accion == 1)
-                    dataSource.remove(dataItem);
-                else
-                    dataItem.Accion == 2;
-                dataSource.remove(dataItem);
-                $("#grid").data("kendoGrid").dataSource.sync();
-
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-            });
+        var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+        if (dataItem.Accion == 2) {
+            dataItem.Accion = 3;
         }
-    }
+        else {
+            dataSource.remove(dataItem);
+        }
+        $("#gridPopUp").data("kendoGrid").dataSource.sync();
+        ventanaConfirm.close();
+    });
+    $("#noButton").click(function () {
+        ventanaConfirm.close();
+    });
+
 
 }
 
@@ -310,36 +300,19 @@ function limpiarRenglon(e) {
     e.preventDefault();
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-        var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var itemToClean = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
         if (itemToClean.Accion == 2)
             itemToClean.Accion = 4;
 
+        itemToClean.ProyectoProcesoPrueba = "";
+        itemToClean.ProyectoProcesoPruebaID = 0;
+        itemToClean.UnidadMedida = "";
+        itemToClean.UnidadMedidaID = 0;
+        itemToClean.UnidadMinima = 0;
+        itemToClean.UnidadMaxima = 0;
 
-        if (itemToClean.TurnoLaboral != "") {
-            var JuntasAsignadasFinal = parseInt(itemToClean.JuntasAsignadas) - parseInt(itemToClean.CantidadJuntas);
-
-            if (!itemToClean.RequiereEquipo) {
-                setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(itemToClean.JuntasAsignadas) - parseInt(itemToClean.CantidadJuntas), itemToClean.CapacidadTurnoProveedorAnteriorID);
-                itemToClean.CapacidadTurnoProveedorID = 0;
-                itemToClean.CapacidadTurnoProveedorAnteriorID = 0;
-            }
-            else {
-                setJuntasAsignatdasCapacidadTurnoEquipo(parseInt(itemToClean.JuntasAsignadas) - parseInt(itemToClean.CantidadJuntas), itemToClean.CapacidadTurnoEquipoAnteriorID);
-                itemToClean.CapacidadTurnoEquipoID = 0;
-                itemToClean.CapacidadTurnoEquipoAnteriorID = 0;
-            }
-
-        }
-
-        itemToClean.TipoPruebaProveedorID = 0;
-        itemToClean.HerramientadePruebaID = 0;
-        itemToClean.TurnoLaboral = "";
-        itemToClean.Proveedor = "";
-        itemToClean.Equipo = "";
-        itemToClean.JuntasAsignadas = "";
-        itemToClean.Capacidad = "";
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
         dataSource.sync();
         //alert(itemToClean);
     }
@@ -364,6 +337,15 @@ function CargarGridPopUp() {
                     }
                 }
             },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: undefined},
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 4 }
+                ]
+            },
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
@@ -379,8 +361,8 @@ function CargarGridPopUp() {
             { field: "UnidadMedida", title: "U. medida", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxUnidadMedida },
             { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" }, format: "{0: }" },
             { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
         editable: true,
         navigatable: true,
