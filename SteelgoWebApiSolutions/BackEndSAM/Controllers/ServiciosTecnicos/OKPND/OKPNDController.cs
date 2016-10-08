@@ -41,7 +41,40 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.OKPND
         }
 
         [HttpPost]
-        public object Post(Captura datos, string lenguaje, string token)
+        public object Post(Captura listaElementos, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                DataTable dtDetalleCaptura = new DataTable();
+                if (listaElementos.Detalle != null)
+                {
+                    dtDetalleCaptura = ToDataTable(listaElementos.Detalle);
+                }
+
+                return OKPNDBD.Instance.InsertarOKPND(dtDetalleCaptura, lenguaje, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        [HttpPost]
+        public object Post(CapturaMasiva datos, string lenguaje, string token, int isGuardadoMasivo)
         {
             string payload = "";
             string newToken = "";
@@ -50,9 +83,15 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.OKPND
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                // ListaElementosMasivo elementos = serializer.Deserialize<ListaElementosMasivo>(datos);
+                ListaElementosMasivo elementos = serializer.Deserialize<ListaElementosMasivo>(datos.Detalle);
 
-                return null;// OKPNDBD.Instance.actualizarOKPND(datos, lenguaje, usuario);
+                //DataTable dtDetalleCaptura = new DataTable();
+                //if (elementos != null)
+                //{
+                //    dtDetalleCaptura = ToDataTable(elementos);
+                //}
+
+                return null; // OKPNDBD.Instance.actualizarOKPND(elementos, lenguaje, usuario);
             }
             else
             {

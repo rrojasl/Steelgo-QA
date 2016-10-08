@@ -32,7 +32,12 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
     }
 
     public class Captura{
-        public List<string> Detalle { get; set; }
+        public List<ListaElementos> Detalle { get; set; }
+    }
+
+    public class CapturaMasiva
+    {
+        public string Detalle { get; set; }
     }
 
     public class ListaElementos {
@@ -43,6 +48,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
     }
 
     public class ListaElementosMasivo
+    {
+        public List<ElementosMasivo> Elementos;
+    }
+
+    public class ElementosMasivo
     {
         public int ID { get; set; }
         public int NumeroControl { get; set; }
