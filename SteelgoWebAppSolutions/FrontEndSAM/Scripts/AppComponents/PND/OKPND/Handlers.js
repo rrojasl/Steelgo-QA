@@ -157,7 +157,7 @@ function suscribirEventoCarGaCSV(){
         if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
             displayMessage("ListadoCatalogos0007", "", '2');
         } else {
-            var data = null;
+            var data = [];
             var file = evt.target.files[0];
             if (tiposCSV.indexOf(file.type.toLowerCase()) == -1) {
                 this.value = null;
@@ -167,23 +167,26 @@ function suscribirEventoCarGaCSV(){
                 reader.readAsText(file);
                 reader.onload = function (event) {
                     var csvData = event.target.result;
-                    csvToJson(csvData, "NumeroControl").forEach(function (c) {
-                        var cedVal = cedulaValida(c);
-                        if (cedVal !== -2) {
-                            var modVal = validModelData(c);
-                            if (modVal && cedVal == 0) {
-                                checkMM(c);
-                            } else {
-                                if (modVal && cedVal == 1) {
-                                    checkMM(c);
-                                    c["advertencia"] = true;
-                                } else {
-                                    c["valido"] = false;
-                                }
-                            }
-                            $("#gridMasivo").data("kendoGrid").dataSource.insert(c).dirty = true;
-                        }
+                    csvToJson(csvData, "ID").forEach(function (c) {
+                        NumControlValido(c);
+                        data.push(c);
+                        //if (cedVal !== -2) {
+                        //    var modVal = validModelData(c);
+                        //    if (modVal && cedVal == 0) {
+                        //        checkMM(c);
+                        //    } else {
+                        //        if (modVal && cedVal == 1) {
+                        //            checkMM(c);
+                        //            c["advertencia"] = true;
+                        //        } else {
+                        //            c["valido"] = false;
+                        //        }
+                        //    }
+                        //    $("#gridMasivo").data("kendoGrid").dataSource.insert(c).dirty = true;
+                        //}
                     });
+
+                    AjaxGuardadoMasivo(data);
                 };
                 reader.onerror = function () {
                     alert('Unable to read ' + file.fileName);
@@ -230,7 +233,7 @@ function csvToJson(data, idField) {
     data = data.join("\n");
     data = data.split("\r").join("");
     var encabezados = Object.keys($("#gridMasivo").data("kendoGrid").options.dataSource.schema.model.fields);
-    encabezados.splice(encabezados.indexOf(idField), 1);
+    //encabezados.splice(encabezados.indexOf(idField), 1);
     var csv = [];
     try {
         data.split("\n").forEach(function (d, i) {

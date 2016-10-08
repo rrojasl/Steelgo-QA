@@ -96,3 +96,27 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
         }
     });
 }
+
+function AjaxGuardadoMasivo(data) {
+    $OKPND.OKPND.create( datos = JSON.stringify(data), {lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            if (data.ReturnMessage[0] != undefined) {
+                if (tipoGuardado == 1) {
+                    Limpiar();
+                    opcionHabilitarView(false, "FieldSetView");
+                }
+                else {
+                    $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                    opcionHabilitarView(true, "FieldSetView");
+                }
+
+                displayNotify("", "Datos guardados correctamente.", "0");
+            }
+        }
+        else {
+            opcionHabilitarView(false, "FieldSetView");
+            //mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
+            //displayNotify("", mensaje, '1');
+        }
+    });
+};

@@ -176,3 +176,19 @@ function aplicarPlanchado(arregloCaptura, value) {
         arregloCaptura[index].OkPND = value;
     }
 }
+
+function NumControlValido(c) {
+    c = convertNumControl(c);
+    if (c.NumeroControl == "") return -1;
+    if (c.OKPND == "") return -1;
+    //if (NumIsDuplicated(c)) return -2;
+    var datos = $("#gridMasivo").data("kendoGrid").dataSource.data().filter(function (m) { return m.dirty === false })
+}
+
+//Convert ced erasing "" to null
+function convertNumControl(c) {
+    for (var key in c) {
+        c[key] === "" ? c[key] = null : 0;
+    }
+    return c;
+}

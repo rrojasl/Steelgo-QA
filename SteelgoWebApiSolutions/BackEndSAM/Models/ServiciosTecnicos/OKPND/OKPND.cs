@@ -41,4 +41,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OkPND { get; set; }
     }
+
+    public class ListaElementosMasivo
+    {
+        public int ID { get; set; }
+        public int NumeroControl { get; set; }
+        public bool OkPND { get; set; }
+    }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
 {
@@ -47,7 +48,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                             NumeroControl = item.NumeroControl,
                             Cuadrante = item.Cuadrante,
                             Prioridad = item.Prioridad.GetValueOrDefault(),
-                            
+
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
@@ -98,6 +99,46 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
             }
             catch (Exception ex)
             {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object actualizarOKPND(string data, string lenguaje, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    object res = new object();
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = {
+                        { "@UsuarioID", usuario.UsuarioID.ToString()},
+                        { "@Lenguaje", lenguaje } };
+
+                    //_SQL.Ejecuta(Stords.OKPND, dtListadoOK, "@TTOKPND", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
