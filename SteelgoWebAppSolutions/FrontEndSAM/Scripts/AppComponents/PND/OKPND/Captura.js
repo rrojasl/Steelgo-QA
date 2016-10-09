@@ -119,7 +119,6 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        ID: { type: "number", editable: false, nullable: true },
                         NumeroControl: { type: "string", editable: false },
                         OKPND: { type: "boolean", editable: false }
                     }
@@ -145,7 +144,6 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "ID", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             {
                 field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {

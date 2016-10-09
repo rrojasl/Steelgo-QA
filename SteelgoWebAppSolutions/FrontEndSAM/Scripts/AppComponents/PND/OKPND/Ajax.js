@@ -104,16 +104,16 @@ function AjaxGuardadoMasivo(data) {
     $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), isGuardadoMasivo: 1 }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             if (data.ReturnMessage[0] != undefined) {
-                if (tipoGuardado == 1) {
-                    Limpiar();
-                    opcionHabilitarView(false, "FieldSetView");
-                }
-                else {
-                    $('input[name="Muestra"][value="Todos"]').prop('checked', true);
-                    opcionHabilitarView(true, "FieldSetView");
-                }
+                //if (tipoGuardado == 1) {
+                //    Limpiar();
+                //    opcionHabilitarView(false, "FieldSetView");
+                //}
+                //else {
+                //    $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                //    opcionHabilitarView(true, "FieldSetView");
+                //}
 
-                displayNotify("", "Datos guardados correctamente.", "0");
+                //displayNotify("", "Datos guardados correctamente.", "0");
             }
         }
         else {

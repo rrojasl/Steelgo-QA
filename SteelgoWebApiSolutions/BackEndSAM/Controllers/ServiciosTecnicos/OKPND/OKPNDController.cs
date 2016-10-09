@@ -83,15 +83,15 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.OKPND
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                ListaElementosMasivo elementos = serializer.Deserialize<ListaElementosMasivo>(datos.Detalle);
+                List<ElementosMasivo> elementos = serializer.Deserialize<List<ElementosMasivo>>(datos.Detalle);
 
-                //DataTable dtDetalleCaptura = new DataTable();
-                //if (elementos != null)
-                //{
-                //    dtDetalleCaptura = ToDataTable(elementos);
-                //}
+                DataTable dtDetalleCaptura = new DataTable();
+                if (elementos != null)
+                {
+                    dtDetalleCaptura = ToDataTable(elementos);
+                }
 
-                return null; // OKPNDBD.Instance.actualizarOKPND(elementos, lenguaje, usuario);
+                return OKPNDBD.Instance.actualizarOKPND(dtDetalleCaptura, lenguaje, usuario);
             }
             else
             {

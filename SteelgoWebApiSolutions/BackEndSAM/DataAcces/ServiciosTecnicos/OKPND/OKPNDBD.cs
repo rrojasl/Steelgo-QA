@@ -109,7 +109,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
             }
         }
 
-        public object actualizarOKPND(string data, string lenguaje, Sam3_Usuario usuario)
+        public object actualizarOKPND(DataTable data, string lenguaje, Sam3_Usuario usuario)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                         { "@UsuarioID", usuario.UsuarioID.ToString()},
                         { "@Lenguaje", lenguaje } };
 
-                    //_SQL.Ejecuta(Stords.OKPND, dtListadoOK, "@TTOKPND", parametro);
+                    _SQL.Ejecuta(Stords.OKPNDMASIVO, data, "@TTOKPND", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
