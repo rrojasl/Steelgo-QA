@@ -71,7 +71,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
             cont++;
         }
     }
-    
+
     Captura[0].listaDetalle = ListaCaptura;
 
     $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
@@ -104,22 +104,14 @@ function AjaxGuardadoMasivo(data) {
     $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), isGuardadoMasivo: 1 }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             if (data.ReturnMessage[0] != undefined) {
-                //if (tipoGuardado == 1) {
-                //    Limpiar();
-                //    opcionHabilitarView(false, "FieldSetView");
-                //}
-                //else {
-                //    $('input[name="Muestra"][value="Todos"]').prop('checked', true);
-                //    opcionHabilitarView(true, "FieldSetView");
-                //}
+                Limpiar();
+                opcionHabilitarView(false, "FieldSetView");
 
-                //displayNotify("", "Datos guardados correctamente.", "0");
+                displayNotify("", "Datos guardados correctamente.", "0");
             }
         }
         else {
             opcionHabilitarView(false, "FieldSetView");
-            //mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
-            //displayNotify("", mensaje, '1');
         }
     });
 };
