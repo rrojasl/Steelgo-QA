@@ -28,7 +28,19 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OkPND { get; set; }
+        public List<Detalle> ListaDetalle { get; set; }
         public string Detalle { get; set; }
+    }
+
+    public class Detalle
+    {
+        public int JuntaSpoolID { get; set; }
+        public string Etiqueta { get; set; }
+        public string Codigo { get; set; }
+        public string Cedula { get; set; }
+        public decimal Diametro { get; set; }
+        public decimal Espesor { get; set; }
+        public string Nombre { get; set; }
     }
 
     public class Captura{
@@ -56,5 +68,12 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
     {
         public string NumeroControl { get; set; }
         public int OKPND { get; set; }
+    }
+
+    public class ElementosMasivoResult
+    {
+        public string NumeroControl { get; set; }
+        public string OKPND { get; set; }
+        public string Actualizado { get; set; }
     }
 }

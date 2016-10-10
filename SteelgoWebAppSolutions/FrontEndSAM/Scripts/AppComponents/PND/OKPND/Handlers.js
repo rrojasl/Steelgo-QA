@@ -11,6 +11,7 @@ function SuscribirEventos() {
     SuscribirEventoAplicar();
     suscribirEventoCarGaCSV();
     suscribirEventoDescarGaCSV();
+    suscribirEventoElementosAsignados();
 }
 
 function suscribirEventoGuardar() {
@@ -249,4 +250,19 @@ function csvToJson(data, idField) {
         }
     }
     return csv;
+}
+
+function suscribirEventoElementosAsignados() {
+
+    $(document).on('click', '.EnlaceDetalleJunta', function (e) {
+        e.preventDefault();
+
+        if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            
+            LlenarGridPopUp(dataItem.ListaDetalle);
+        }
+    });
 }
