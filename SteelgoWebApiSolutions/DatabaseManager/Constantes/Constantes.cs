@@ -42,5 +42,6 @@
         public static string OKPNDMASIVO = "Sam3_ST_GuardaOKPND_Masivo";
         public static string GUARDACAPTURASISTEMAPINTURAAPLICABLE = "Sam3_SPA_GuardaCaptura";
         public static string ELIMINASISTEMAPINTURA = "Sam3_SP_EliminaSistemaPintura";
+        public static string GUARDACAPTURASISTEMAAPLICABLEMASIVO = "Sam3_SPA_GuardaCargaMasiva";
     }
 }
