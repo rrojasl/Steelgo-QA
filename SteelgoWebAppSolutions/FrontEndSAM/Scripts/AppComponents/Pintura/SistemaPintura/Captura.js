@@ -163,41 +163,45 @@ function CargarGrid() {
 
                     }
                     else {
-                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                            iframe: true,
-                            title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                            visible: false, //the window will not appear before its .open method is called
-                            width: "auto",
-                            height: "auto",
-                            modal: true,
-                            animation: {
-                                close: false,
-                                open: false
-                            }
-                        }).data("kendoWindow");
+                        if (!(dataItem.MetrosLote == 0 && dataItem.NumeroPruebas == 0 && dataItem.listadoPruebasDetalle.length == 0)) {
+                            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                                iframe: true,
+                                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                                visible: false, //the window will not appear before its .open method is called
+                                width: "auto",
+                                height: "auto",
+                                modal: true,
+                                animation: {
+                                    close: false,
+                                    open: false
+                                }
+                            }).data("kendoWindow");
 
-                        ventanaConfirm.content("Se eliminaran los datos del proceso, ¿desea continuar?" +
-                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                            ventanaConfirm.content("Se eliminaran los datos del proceso, ¿desea continuar?" +
+                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-                        ventanaConfirm.open().center();
+                            ventanaConfirm.open().center();
 
 
 
-                        $("#yesButton").click(function () {
+                            $("#yesButton").click(function () {
+                                dataItem.Agregar = false;
+                                dataItem.MetrosLote = 0;
+                                dataItem.NumeroPruebas = 0;
+                                dataItem.listadoPruebasDetalle = [];
+                                ventanaConfirm.close();
+                                $("#grid").data("kendoGrid").dataSource.sync();
+                            });
+                            $("#noButton").click(function () {
+                                ventanaConfirm.close();
+                                dataItem.Agregar = true;
+                                $(this)[0].checked = true;
+                                $("#grid").data("kendoGrid").dataSource.sync();
+                            });
+                        }
+                        else {
                             dataItem.Agregar = false;
-                            dataItem.MetrosLote = 0;
-                            dataItem.NumeroPruebas = 0;
-                            dataItem.listadoPruebasDetalle = [];
-                            ventanaConfirm.close();
-                            $("#grid").data("kendoGrid").dataSource.sync();
-                        });
-                        $("#noButton").click(function () {
-                            ventanaConfirm.close();
-                            dataItem.Agregar = true;
-                            $(this)[0].checked = true;
-                            $("#grid").data("kendoGrid").dataSource.sync();
-                        });
-
+                        }
 
                     }
 
@@ -234,6 +238,15 @@ function CargarGrid() {
                 }
             }
         }
+        else {
+            if ($(this)[0].checked) {
+                $(this)[0].checked = false;
+            }
+            else {
+                $(this)[0].checked = true;
+            }
+        }
+
     });
 
 };
