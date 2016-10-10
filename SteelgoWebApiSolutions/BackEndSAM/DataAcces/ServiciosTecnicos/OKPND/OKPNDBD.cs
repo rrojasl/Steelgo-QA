@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models.ServiciosTecnicos.OKPND;
+using BackEndSAM.Utilities.ConvertirDataTable;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -115,6 +116,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<ElementosMasivoResult> listaElementos = new List<ElementosMasivoResult>();
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     object res = new object();
 
@@ -123,15 +125,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                         { "@UsuarioID", usuario.UsuarioID.ToString()},
                         { "@Lenguaje", lenguaje } };
 
-                    _SQL.Ejecuta(Stords.OKPNDMASIVO, data, "@TTOKPND", parametro);
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                    DataTable OKPND = _SQL.EjecutaDataAdapter(Stords.OKPNDMASIVO, data, "@TTOKPND", parametro);
+                    return ToDataTable.table_to_csv(OKPND);
                 }
             }
             catch (Exception ex)
