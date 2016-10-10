@@ -15,41 +15,52 @@ function SuscribirEventos() {
 
 function suscribirEventoChangeAplicable() {
     $('#inputNoAplicable').change(function () {
-        if (($("#inputNoAplicable").is(':checked'))) {
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
 
-            ventanaConfirm.content("Se eliminaran los datos de los procesos y colores, ¿desea continuar?" +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-            ventanaConfirm.open().center();
-
-
-
-            $("#yesButton").click(function () {
-                LimpiarGrid();
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-                $("#inputNoAplicable").prop("checked", false);
-                
-            });
-
-            
+        var isEmptyGrid = false;
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Agregar) {
+                isEmptyGrid = true;
+            }
         }
-        else {
-            $("#inputColor").data("kendoMultiSelect").enable(true);
+
+        if (isEmptyGrid) {
+            if (($("#inputNoAplicable").is(':checked'))) {
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content("Se eliminaran los datos de los procesos y colores, ¿desea continuar?" +
+                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                ventanaConfirm.open().center();
+
+
+
+                $("#yesButton").click(function () {
+                    LimpiarGrid();
+                    ventanaConfirm.close();
+                });
+                $("#noButton").click(function () {
+                    ventanaConfirm.close();
+                    $("#inputNoAplicable").prop("checked", false);
+
+                });
+
+
+            }
+            else {
+                $("#inputColor").data("kendoMultiSelect").enable(true);
+            }
         }
 
     });
@@ -144,16 +155,6 @@ function SuscribirEventoCerrarPopUpPruebas() {
 }
 
 
-
-
-function suscribirEventoChangeRadio() {
-    $('input:radio[name=Muestra]:nth(0)').change(function () {
-        AjaxCargarRequisicionAsignacion();
-    });
-    $('input:radio[name=Muestra]:nth(1)').change(function () {
-        AjaxCargarRequisicionAsignacion();
-    });
-}
 
 
 function SuscribirEventoComboColor() {
