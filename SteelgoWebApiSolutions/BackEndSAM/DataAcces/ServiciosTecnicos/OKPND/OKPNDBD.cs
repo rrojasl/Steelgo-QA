@@ -116,7 +116,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ElementosMasivoResult> listaElementos = new List<ElementosMasivoResult>();
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     object res = new object();
 
