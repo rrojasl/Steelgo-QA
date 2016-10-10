@@ -8,6 +8,7 @@
     SuscribirEventoBusqueda();
     SuscribirEventoGuardar();
     SuscribirEventoContiene();
+    SuscribirEventoDescargarCsv();
 }
 
 function SuscribirEventoProyecto() {
@@ -261,16 +262,113 @@ function SuscribirEventoCargarCsv() {
             iframe: true,
             title: _dictionary.SPATituloCargarCsv[$("#language").data("kendoDropDownList").value()],
             visible: false,
-            width: "65%",
+            width: "40%",
             modal: true,
             animation: {
                 close: false,
                 open: false
+            },
+            close: function onClose(e) {
+                $("#lblRutaArchivo").text("");
             }
         }).data("kendoWindow");
 
-        windowLoadFile.open().center();
+        windowLoadFile.open().center();        
+    });
 
+    $("#btntFile").on('click', function () {
+        $("#inputFile").click();
+    });
+
+    $("#inputFile").on('change', function (e) {
+        $("#lblRutaArchivo").text("");
+        
+
+        if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+            displayNotify("ListadoCatalogos0007", "", '2');
+        } else {
+            if ($(this).val().substring($(this).val().lastIndexOf(".")) == ".csv") {
+                $("#lblRutaArchivo").text($(this).val());
+            } else {
+                displayNotify("", "El formato del archivo debe ser .CSV", '1');
+            }
+        }
+    });
+
+    $("#btnGuardarCarga").click(function (e) {
+        var tipoCarga  = $("input[name='TipoCarga']").val()=="spool"?1:2;
+        if ($("#inputFile").val() != "") {
+            var data = [];
+            var dt = $("#inputFile");
+            var reader = new FileReader();
+            reader.readAsText(dt[0].files[0]);
+            reader.onload = function (event) {
+                var csvData = event.target.result;
+                csvToJson(csvData, "Nombre").forEach(function (c) {
+                    //validaVacios(c);
+                    data.push(c);
+                });
+                if (data.length) {
+                    AjaxGuardaCargaMasiva(data, tipoCarga);
+                } else {
+                    displayNotify("SPAExcepcionArchivo", "", '2');
+                }
+            };
+            reader.onerror = function (event) {
+                displayNotify("SPAExcepcionArchivo1", "", '2');
+            };
+            
+        } else {
+            displayNotify("ListadoCatalogos0010", "", '2');
+        }
+    });
+
+    $("#btnCerrarPopup").click(function (e) {
+        $("#lblRutaArchivo").text("");
+        windowLoadFile.close();
+    });
+}
+
+function csvToJson(data, idField) {
+    data = data.split("\n");
+    data.shift();
+    data.pop();
+    data = data.join("\n");
+    data = data.split("\r").join("");
+
+    var encabezados= [];
+    encabezados[0] = "Nombre";
+    encabezados[1] = "NumeroControl";
+    encabezados[2] = "SistemaPintura";
+    encabezados[3] = "Color";
+
+    var csv = [];
+    try {
+        data.split("\n").forEach(function (d, i) {
+            if (d.substring(0, d.length).split(",").length === encabezados.length) {
+                var tmp = {};
+                tmp[idField] = null;
+                d.split(",").forEach(function (cell, z) {
+                    tmp[encabezados[z]] = cell;
+                });
+                csv.push(tmp);
+            } else {
+                throw -1;
+            }
+        })
+    } catch (e) {
+        if (e !== -1) {
+            throw e;
+        } else {
+            displayMessage("ListadoCatalogos0012", "", '2');
+        }
+    }
+    return csv;
+}
+
+function SuscribirEventoDescargarCsv() {
+    $("#btnDescargaCsv, #btnDescargaCsv").click(function (e) {
+        window.location.href = "/PlantillaSistemaPinturaAplicable.csv";
     });
 }
 
@@ -424,4 +522,13 @@ function LimpiarPantalla() {
 
     AjaxCargarCamposPredeterminados();
     AjaxCargaProyecto();
+}
+
+
+//Convert ced erasing "" to null
+function validaVacios(c) {
+    for (var key in c) {
+        c[key] === "" ? c[key] = null : 0;
+    }
+    return c;
 }

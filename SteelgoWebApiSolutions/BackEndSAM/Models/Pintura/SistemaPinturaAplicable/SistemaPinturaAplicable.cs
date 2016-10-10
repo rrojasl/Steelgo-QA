@@ -65,4 +65,17 @@ namespace BackEndSAM.Models.Pintura.SistemaPinturaAplicable
     {
        public List<DetalleGuardarJson> detalle { get; set; }
     }
+
+    public class CargaMasiva
+    {
+        public List<DetalleGuardaMasivoJson> detalle { get; set; }
+    }
+
+    public class DetalleGuardaMasivoJson
+    {
+        public string Nombre { get; set; }
+        public string NumeroControl { get; set; }
+        public string SistemaPintura { get; set; }
+        public string Color { get; set; }
+    }
 }
