@@ -1,10 +1,12 @@
 ﻿using BackEndSAM.Models.Pintura.SistemaPinturaAplicable;
+using BackEndSAM.Utilities.ConvertirDataTable;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -175,25 +177,18 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
             }
         }
 
-        public object InsertaCapturaSistemaPinturaAplicableMasivo(DataTable dtDetalleCaptura, int UsuarioID, int tipoCarga)
+        public object InsertaCapturaSistemaPinturaAplicableMasivo(DataTable dtDetalleCaptura, int UsuarioID, int TipoCarga, string Lenguaje)
         {
             try
             {
-                using (SamContext ctx = new SamContext())
-                {
+                using (SamContext ctx = new SamContext()) {
+
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", tipoCarga.ToString()} };
+                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", TipoCarga.ToString() }, { "@Lenguaje", Lenguaje.ToString() } };
 
-                    _SQL.Ejecuta(Stords.GUARDACAPTURASISTEMAAPLICABLEMASIVO, dtDetalleCaptura, "@Tabla", parametro);
+                    DataTable list = _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURASISTEMAAPLICABLEMASIVO, dtDetalleCaptura, "@TablaCargaMasiva", parametro);
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                    return ToDataTable.table_to_csv(list);
                 }
             }
             catch (Exception ex)

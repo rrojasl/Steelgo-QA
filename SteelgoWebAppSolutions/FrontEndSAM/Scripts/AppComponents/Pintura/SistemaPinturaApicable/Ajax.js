@@ -254,12 +254,10 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
 }
 
 function AjaxGuardaCargaMasiva(data, tipoCarga) {
-    $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga : tipoCarga }).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+    var Captura = {detalle: data}
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga: tipoCarga, Lenguaje: $("#language").val() }).done(function (data) {
             windowLoadFile.close();
+            download(data, "export.csv", "text/csv");
             displayNotify("SistemaPinturaAplicableMensajeGuardadoExistoso", "", '0');
-        } else {
-            displayNotify("SistemaPinturaAplicableMensajeGuardadoErroneo", "", '2');
-        }
     });
 }

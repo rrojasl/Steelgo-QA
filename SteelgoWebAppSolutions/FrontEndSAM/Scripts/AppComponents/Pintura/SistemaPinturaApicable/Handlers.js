@@ -337,7 +337,7 @@ function csvToJson(data, idField) {
     data = data.split("\r").join("");
 
     var encabezados= [];
-    encabezados[0] = "Nombre";
+    encabezados[0] = "NombreSpool";
     encabezados[1] = "NumeroControl";
     encabezados[2] = "SistemaPintura";
     encabezados[3] = "Color";
