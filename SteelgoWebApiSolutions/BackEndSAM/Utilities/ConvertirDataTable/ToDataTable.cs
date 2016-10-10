@@ -82,17 +82,17 @@ namespace BackEndSAM.Utilities.ConvertirDataTable
             string file = "";
 
             foreach (DataColumn col in table.Columns)
-                file = string.Concat(file, col.ColumnName, ";");
+                file = string.Concat(file, col.ColumnName, ",");
 
-            file = file.Remove(file.LastIndexOf(';'), 1);
+            file = file.Remove(file.LastIndexOf(','), 1);
             file = string.Concat(file, "\r\n");
 
             foreach (DataRow row in table.Rows)
             {
                 foreach (object item in row.ItemArray)
-                    file = string.Concat(file, item.ToString(), ";");
+                    file = string.Concat(file, item.ToString(), ",");
 
-                file = file.Remove(file.LastIndexOf(';'), 1);
+                file = file.Remove(file.LastIndexOf(','), 1);
                 file = string.Concat(file, "\r\n");
             }
 
