@@ -8548,6 +8548,14 @@ _dictionary = {
         "es-MX": "OK PND",
         "en-US": "OK PND"
     },
+    "msgGuardarCambios": {
+        "es-MX": "¿Está seguro guardar los cambios?",
+        "en-US": "Are you sure to save the changes?"
+    },
+    "guardarCambiosOKPND": {
+        "es-MX": "Guardar OK PND",
+        "en-US": "Save PND OK"
+    },
     //Finaliza Pantalla OKPND
 
     // Pantalla Entrega Placas-Graficas
