@@ -112,5 +112,45 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPinturaAplicable
                 return result;
             }
         }
+
+        [HttpPost]
+        public object GuardaCapturaSistemaPinturaAplicableMasivo(CargaMasiva captura, string token, int TipoCarga, string Lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+               
+                int posicion = 0;
+                while (captura.detalle.Count>0 && posicion < captura.detalle.Count)
+                {
+                    if (captura.detalle[posicion].Color == null && captura.detalle[posicion].NombreSpool == null && captura.detalle[posicion].NumeroControl == null && captura.detalle[posicion].SistemaPintura == null)
+                    {
+                        captura.detalle.RemoveAt(posicion);
+                        posicion--;
+                    }
+                    else
+                        posicion++;
+                }
+
+                DataTable dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.detalle);
+
+
+
+                return SistemaPinturaAplicableBD.Instance.InsertaCapturaSistemaPinturaAplicableMasivo(dtDetalleCaptura, usuario.UsuarioID, TipoCarga, Lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }

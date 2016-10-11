@@ -91,7 +91,7 @@ namespace BackEndSAM.Controllers.Pintura.CargaCarro
 
 
         [HttpGet]
-        public object ObtieneListadoSpool(int medioTransporteCargaID, int medioTransporteID, string token, int proyectoID, int todos)
+        public object ObtieneListadoSpool(int medioTransporteCargaID, int medioTransporteID, string token, int proyectoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -100,7 +100,7 @@ namespace BackEndSAM.Controllers.Pintura.CargaCarro
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CargaCarroBD.Instance.ObtenerListadoSpool(medioTransporteCargaID, medioTransporteID, proyectoID, todos);
+                return CargaCarroBD.Instance.ObtenerListadoSpool(medioTransporteCargaID, medioTransporteID, proyectoID, lenguaje);
             }
             else
             {

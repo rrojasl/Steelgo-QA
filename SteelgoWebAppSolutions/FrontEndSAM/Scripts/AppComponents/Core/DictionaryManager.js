@@ -7626,6 +7626,10 @@ _dictionary = {
         "es-MX": "Plantilla CSV",
         "en-US": "New"
     },
+    "botonSeleccionarArchivo": {
+        "es-MX": "Seleccionar Archivo",
+        "en-US": "Select File"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -9237,7 +9241,22 @@ _dictionary = {
     "SistemaPinturaAplicableMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
-    }
-
+    },    
+    "SPAlblSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },    
+    "SPAlblNc": {
+        "es-MX": "No. Control",
+        "en-US": "Control No."
+    },
+    "SPAExcepcionArchivo": {
+        "es-MX": "No hay datos en el archivo",
+        "en-US": "No data on file"
+    },
+    "SPAExcepcionArchivo1": {
+        "es-MX": "Imposible leer el archivo",
+        "en-US": "Unable to read file "
+    },
     // Finaliza Listado Sistema Pintura
 };

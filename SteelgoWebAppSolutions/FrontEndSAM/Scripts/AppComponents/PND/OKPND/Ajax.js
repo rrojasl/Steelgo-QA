@@ -48,7 +48,7 @@ function AjaxGetListaElementos(proyectoID, numControl) {
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
     Captura = [];
     Captura[0] = {
-        listaDetalle: ""
+        Detalle: ""
     };
     ListaCaptura = [];
 
@@ -72,7 +72,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
         }
     }
 
-    Captura[0].listaDetalle = ListaCaptura;
+    Captura[0].Detalle = ListaCaptura;
 
     $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
@@ -91,8 +91,6 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
         }
         else {
             opcionHabilitarView(false, "FieldSetView");
-            //mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
-            //displayNotify("", mensaje, '1');
         }
     });
 }
@@ -102,16 +100,7 @@ function AjaxGuardadoMasivo(data) {
     CapturaMasiva[0] = { Detalle: "" };
     CapturaMasiva[0].Detalle = JSON.stringify(data);
     $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), isGuardadoMasivo: 1 }).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            if (data.ReturnMessage[0] != undefined) {
-                Limpiar();
-                opcionHabilitarView(false, "FieldSetView");
-
-                displayNotify("", "Datos guardados correctamente.", "0");
-            }
-        }
-        else {
-            opcionHabilitarView(false, "FieldSetView");
-        }
+        download(data, "export.csv", "text/csv");
+        displayNotify("", "Datos guardados correctamente.", "0");
     });
 };

@@ -10,6 +10,8 @@ function SuscribirEventos() {
     SuscribirEventoBuscar();
     SuscribirEventoAplicar();
     suscribirEventoCarGaCSV();
+    suscribirEventoDescarGaCSV();
+    suscribirEventoElementosAsignados();
 }
 
 function suscribirEventoGuardar() {
@@ -144,6 +146,12 @@ function opcionHabilitarView(valor, name) {
     }
 }
 
+function suscribirEventoDescarGaCSV() {
+    $("#btnDescargaCsv, #btnDescargaCsv").click(function (e) {
+        window.location.href = "/TemplateOKPND.csv";
+    });
+}
+
 function suscribirEventoCarGaCSV(){
     $('#btnCargaCsv').click(function (e) {
         $("#files").click();
@@ -170,20 +178,6 @@ function suscribirEventoCarGaCSV(){
                     csvToJson(csvData, "ID").forEach(function (c) {
                         NumControlValido(c);
                         data.push(c);
-                        //if (cedVal !== -2) {
-                        //    var modVal = validModelData(c);
-                        //    if (modVal && cedVal == 0) {
-                        //        checkMM(c);
-                        //    } else {
-                        //        if (modVal && cedVal == 1) {
-                        //            checkMM(c);
-                        //            c["advertencia"] = true;
-                        //        } else {
-                        //            c["valido"] = false;
-                        //        }
-                        //    }
-                        //    $("#gridMasivo").data("kendoGrid").dataSource.insert(c).dirty = true;
-                        //}
                     });
 
                     AjaxGuardadoMasivo(data);
@@ -256,4 +250,19 @@ function csvToJson(data, idField) {
         }
     }
     return csv;
+}
+
+function suscribirEventoElementosAsignados() {
+
+    $(document).on('click', '.EnlaceDetalleJunta', function (e) {
+        e.preventDefault();
+
+        if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            var grid = $("#grid").data("kendoGrid"),
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            
+            LlenarGridPopUp(dataItem.ListaDetalle);
+        }
+    });
 }

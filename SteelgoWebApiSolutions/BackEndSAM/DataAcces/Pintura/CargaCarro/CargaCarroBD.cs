@@ -161,7 +161,7 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
             }
         }
 
-        public object ObtenerListadoSpool(int medioTransporteCargaID, int medioTransporteID, int proyectoID, int todos)
+        public object ObtenerListadoSpool(int medioTransporteCargaID, int medioTransporteID, int proyectoID, string lenguaje)
         {
             try
             {

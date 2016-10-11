@@ -77,5 +77,26 @@ namespace BackEndSAM.Utilities.ConvertirDataTable
                 return oType;
             }
         }
+        public static string table_to_csv(DataTable table)
+        {
+            string file = "";
+
+            foreach (DataColumn col in table.Columns)
+                file = string.Concat(file, col.ColumnName, ",");
+
+            file = file.Remove(file.LastIndexOf(','), 1);
+            file = string.Concat(file, "\r\n");
+
+            foreach (DataRow row in table.Rows)
+            {
+                foreach (object item in row.ItemArray)
+                    file = string.Concat(file, item.ToString(), ",");
+
+                file = file.Remove(file.LastIndexOf(','), 1);
+                file = string.Concat(file, "\r\n");
+            }
+
+            return file;
+        }
     }
 }

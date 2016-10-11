@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models.ServiciosTecnicos.OKPND;
+using BackEndSAM.Utilities.ConvertirDataTable;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -53,7 +54,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                             SpoolID = item.SpoolID,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             OkPND = item.OKPND.GetValueOrDefault(),
-                            Detalle = "Ver detalle"
+                            ListaDetalle = ObtenerDetalleElemento(lenguaje, item.SpoolID),
+                            Detalle = lenguaje == "es-MX" ? "Ver Detalle" : "See detail"
                         });
                     }
 
@@ -68,6 +70,39 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
+
+        public List<Detalle> ObtenerDetalleElemento(string lenguaje, int SpoolID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Detalle> listaDetalle = new List<Detalle>();
+                    List<Sam3_ST_OKPND_Get_DetalleElementos_Result> listaDetalleCTX = ctx.Sam3_ST_OKPND_Get_DetalleElementos(lenguaje, SpoolID).ToList();
+
+                    foreach (Sam3_ST_OKPND_Get_DetalleElementos_Result item in listaDetalleCTX)
+                    {
+                        listaDetalle.Add(new Detalle
+                        {
+                            JuntaSpoolID = item.JuntaSpoolID,
+                            Etiqueta = item.Etiqueta,
+                            Cedula = item.Cedula,
+                            Codigo = item.Codigo,
+                            Diametro = item.Diametro,
+                            Espesor = item.Espesor.GetValueOrDefault(),
+                            Nombre = item.Nombre
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                List<Detalle> result = null;
                 return result;
             }
         }
@@ -123,15 +158,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                         { "@UsuarioID", usuario.UsuarioID.ToString()},
                         { "@Lenguaje", lenguaje } };
 
-                    _SQL.Ejecuta(Stords.OKPNDMASIVO, data, "@TTOKPND", parametro);
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                    DataTable OKPND = _SQL.EjecutaDataAdapter(Stords.OKPNDMASIVO, data, "@TTOKPND", parametro);
+                    return ToDataTable.table_to_csv(OKPND);
                 }
             }
             catch (Exception ex)

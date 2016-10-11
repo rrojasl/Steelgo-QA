@@ -10,6 +10,7 @@ function changeLanguageCall() {
     //});
 
     CargarGrid();
+    CargarGridPopUp();
     $("#Proyecto").data("kendoComboBox").value("");
     $("#Proyecto").data("kendoComboBox").enable(true);
     $('#grid').data('kendoGrid').dataSource.read();
@@ -190,3 +191,88 @@ function convertNumControl(c) {
     }
     return c;
 }
+
+function CargarGridPopUp() {
+
+    $("#gridPopUp").kendoGrid({
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    fields: {
+                        JuntaSpoolID: { type: "int", editable: false },
+                        Etiqueta: { type: "string", editable: false },
+                        Cedula: { type: "string", editable: false },
+                        Codigo: { type: "string", editable: false },
+                        Diametro: { type: "number", editable: false },
+                        Espesor: { type: "number", editable: false },
+                        Nombre: { type: "string", editable: false },
+                    }
+                }
+            },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
+        },
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 25, 50, 100],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        selectable: true,
+        filterable: getGridFilterableMaftec(),
+
+        columns: [
+            { field: "Etiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Codigo", title: _dictionary.columnTipoJta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "112px" },
+            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
+            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
+            { field: "Nombre", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" }
+        ],
+        editable: false,
+        navigatable: true
+    });
+    CustomisaGrid($("#gridPopUp"));
+};
+
+function LlenarGridPopUp(data) {
+    $("#gridPopUp").data('kendoGrid').dataSource.data([]);
+    var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+    var array = data;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
+    VentanaModal();
+}
+
+function VentanaModal() {
+    var modalTitle = "";
+    modalTitle = _dictionary.lblDetalleJuntas[$("#language").data("kendoDropDownList").value()];
+    var window = $("#windowGrid");
+    var win = window.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "95%",
+        minWidth: 30,
+        position: {
+            top: "10px",
+            left: "10px"
+        },
+        actions: [
+            "Close"
+        ],
+        close: function onClose(e) {
+            var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+            gridDataSource.filter([]);
+        }
+    }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
+};
