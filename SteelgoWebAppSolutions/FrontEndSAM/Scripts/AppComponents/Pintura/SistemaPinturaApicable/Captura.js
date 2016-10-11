@@ -207,17 +207,21 @@ function PlanchadoColor(tipoLlenado) {
     var allData = ds.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
+    var itemColor = $("#inputColorPintura").data("kendoComboBox").dataItem($("#inputColorPintura").data("kendoComboBox").select());
 
     for (var i = 0; i < data.length; i++) {
         if (tipoLlenado === "Todos") {
-            data[i].Color = $("#inputColorPintura").data("kendoComboBox").text();
-            data[i].ColorID = $("#inputColorPintura").data("kendoComboBox").value();
+            data[i].Color = itemColor.Nombre;
+            data[i].ColorPinturaID = itemColor.ColorPinturaID;
+            data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
             data[i].EstatusCaptura = 1;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined) {
-                data[i].Color = $("#inputColorPintura").data("kendoComboBox").text();
-                data[i].ColorID = $("#inputColorPintura").data("kendoComboBox").value();
+
+                data[i].Color = itemColor.Nombre;
+                data[i].ColorPinturaID = itemColor.ColorPinturaID;
+                data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
                 data[i].EstatusCaptura = 1;
             }            
         }
