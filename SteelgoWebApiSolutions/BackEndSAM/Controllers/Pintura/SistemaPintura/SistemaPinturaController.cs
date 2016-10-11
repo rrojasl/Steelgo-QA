@@ -80,8 +80,28 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
             if (tokenValido)
             {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                //DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
-                return null;// AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);
+                DataTable dataTablePruebasProceso = null;
+                DataTable dtDetalleSPNuevo = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPNuevo);
+                DataTable dtDetalleSPColor = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPColor);
+                DataTable dtDetalleSPProyecto = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPProyecto);
+                DataTable dtDetalleProyectoProceso = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPProyectoProceso);
+
+                foreach (SPProyectoProceso item in Captura.Detalles[0].ListaSPProyectoProceso)
+                {
+                    if (item.ListadoPruebas != null)
+                    {
+                        if (dataTablePruebasProceso == null)
+                            dataTablePruebasProceso = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListadoPruebas);
+                        else
+                            dataTablePruebasProceso.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListadoPruebas));
+                    }
+                }
+
+                dtDetalleProyectoProceso.Columns.Remove("ListadoPruebas");
+
+                return SistemaPinturaBD.Instance.CrearNuevoSistemaPintura(dtDetalleSPNuevo, dtDetalleSPColor, dtDetalleSPProyecto, dtDetalleProyectoProceso, dataTablePruebasProceso, lenguaje, usuario.UsuarioID);
+
+                //null;// AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);
             }
             else
             {

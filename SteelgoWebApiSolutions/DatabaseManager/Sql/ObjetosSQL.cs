@@ -395,5 +395,40 @@ namespace DatabaseManager.Sam3
                 }
             }
         }
+
+        public int Ejecuta(string Stord, DataTable TablaSube1, String NombreTabla1, DataTable TablaSube2, String NombreTabla2, DataTable TablaSube3, String NombreTabla3, DataTable TablaSube4, String NombreTabla4, DataTable TablaSube5, String NombreTabla5, string[,] Parametros = null)
+        {
+
+            DataTable dt = new DataTable();
+            int lastRow = 0;
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
+            {
+                if (Parametros != null)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
+                        cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
+                cmd.Parameters.Add(new SqlParameter(NombreTabla1, TablaSube1));
+                cmd.Parameters.Add(new SqlParameter(NombreTabla2, TablaSube2));
+                cmd.Parameters.Add(new SqlParameter(NombreTabla3, TablaSube3));
+                cmd.Parameters.Add(new SqlParameter(NombreTabla4, TablaSube4));
+                cmd.Parameters.Add(new SqlParameter(NombreTabla5, TablaSube5));
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    cmd.CommandTimeout = 0;
+                    cmd.Connection.Open();
+                    lastRow = int.Parse(cmd.ExecuteScalar().ToString());
+                    cmd.Connection.Close();
+                    return lastRow;
+                }
+                catch (Exception e)
+                {
+                    cmd.Connection.Close();
+                    throw new Exception(e.Message);
+                }
+
+                
+               
+            }
+        }
     }
 }
