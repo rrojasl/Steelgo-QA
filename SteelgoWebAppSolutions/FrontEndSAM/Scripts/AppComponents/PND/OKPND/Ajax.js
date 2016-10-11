@@ -48,7 +48,7 @@ function AjaxGetListaElementos(proyectoID, numControl) {
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
     Captura = [];
     Captura[0] = {
-        listaDetalle: ""
+        Detalle: ""
     };
     ListaCaptura = [];
 
@@ -72,7 +72,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
         }
     }
 
-    Captura[0].listaDetalle = ListaCaptura;
+    Captura[0].Detalle = ListaCaptura;
 
     $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
