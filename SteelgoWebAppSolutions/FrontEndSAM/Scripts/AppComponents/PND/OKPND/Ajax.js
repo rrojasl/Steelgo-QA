@@ -100,10 +100,9 @@ function AjaxGuardadoMasivo(data) {
     CapturaMasiva[0] = { Detalle: "" };
     CapturaMasiva[0].Detalle = JSON.stringify(data);
     $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), isGuardadoMasivo: 1 }).done(function (data) {
-        if (data) {
+        //if (data) {
             download(data, "export.csv", "text/csv");
             displayNotify("", "Datos guardados correctamente.", "0");
-        }
-
+        //}
     });
 };

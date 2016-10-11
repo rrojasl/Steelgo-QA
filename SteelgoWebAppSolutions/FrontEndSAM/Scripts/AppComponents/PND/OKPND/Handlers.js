@@ -13,10 +13,12 @@ function SuscribirEventos() {
     suscribirEventoCarGaCSV();
     suscribirEventoDescarGaCSV();
     suscribirEventoElementosAsignados();
+    SuscribirEventoCerrarPopUpJuntas();
 }
 
 function suscribirEventoGuardar() {
     $('#BotonGuardar').click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 0);
@@ -26,6 +28,7 @@ function suscribirEventoGuardar() {
     });
 
     $('#BotonGuardar1').click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.sync();    
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 0);
@@ -35,6 +38,7 @@ function suscribirEventoGuardar() {
     });
 
     $('#BotonGuardar3').click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 0);
@@ -45,6 +49,7 @@ function suscribirEventoGuardar() {
     });
 
     $('#BotonGuardar4').click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 0);
@@ -54,6 +59,7 @@ function suscribirEventoGuardar() {
     });
 
     $('#BotonGuardarYNuevo').click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 1);
@@ -63,6 +69,7 @@ function suscribirEventoGuardar() {
     });
 
     $('#BotonGuardarYNuevo1').click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 1);
@@ -180,7 +187,8 @@ function suscribirEventoCarGaCSV() {
                     reader.onload = function (event) {
                         var csvData = event.target.result;
                         
-                        csvToJson(csvData,"").forEach(function (c) {
+                        csvToJson(csvData, "").forEach(function (c) {
+                            //NumControlValido(c);
                             data.push(c);
                         });
                         
@@ -241,5 +249,13 @@ function suscribirEventoElementosAsignados() {
 
             LlenarGridPopUp(dataItem.ListaDetalle);
         }
+    });
+}
+
+function SuscribirEventoCerrarPopUpJuntas() {
+    $("#CerrarDetalleJunta").click(function (e) {
+        e.preventDefault();
+
+        $("#windowGrid").data("kendoWindow").close();
     });
 }

@@ -8219,8 +8219,8 @@ _dictionary = {
         "en-US": "Visual Inspector"
     },
     "columnOkPND": {
-        "es-MX": "PND OK",
-        "en-US": "OK PND"
+        "es-MX": "OK PND",
+        "en-US": "PND OK"
     },
     "columnStatus": {
         "es-MX": "Estatus por Spool",
