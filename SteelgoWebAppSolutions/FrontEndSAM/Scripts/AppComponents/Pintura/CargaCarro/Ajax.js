@@ -156,7 +156,7 @@ function AjaxCargarSpoolBacklog(cargarSpoolsDespuesDeCargar, MedioTransporteID) 
         MedioTransporteCargaID = 0;
     }
 
-    $CargaCarro.CargaCarro.read({ medioTransporteCargaID: MedioTransporteCargaID, medioTransporteID: MedioTransporteID, token: Cookies.get("token"), proyectoID: $("#inputProyecto").data("kendoComboBox").value(), todos: 1 }).done(function (data) {
+    $CargaCarro.CargaCarro.read({ medioTransporteCargaID: MedioTransporteCargaID, medioTransporteID: MedioTransporteID, token: Cookies.get("token"), proyectoID: $("#inputProyecto").data("kendoComboBox").value(), lenguaje: $("#language").val() }).done(function (data) {
         $("#grid[name='grid-Escritorio']").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid[name='grid-Escritorio']").data("kendoGrid").dataSource;
         var array = data;
