@@ -24,7 +24,7 @@ function AjaxObtenerColor() {
             data.shift();
             $("#inputColor").data("kendoMultiSelect").dataSource.data(data);
 
-            if ($("#inputSistemaPinturaID").val() != "") {
+            if ($("#inputSistemaPinturaID").val() != "") {//muestro combobox
                 $("#divComboProyecto").css("display", "block");
                 $("#divMultiselectProyecto").css("display", "none");
                 AjaxCargarEdicionSistemaPintura();
@@ -185,32 +185,33 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListaSPNuevo[0].Accion = 1;
 
         var i = 0;
-        for (index = 0; index < arregloCaptura.length; index++) {
-            if (arregloCaptura[index].Agregar) {
-                ListaDetalles[i] = { Accion: "", ProcesoPinturaID: "", MetrosLote: "", NumeroPruebas: "", ProyectoID: "", ListadoPruebas: [], Estatus: 1 };
+        for (var k = 0; k < ListaProyectos.length; k++) {
+            for (index = 0; index < arregloCaptura.length; index++) {
+                if (arregloCaptura[index].Agregar) {
+                    ListaDetalles[i] = { Accion: "", ProcesoPinturaID: "", MetrosLote: "", NumeroPruebas: "", ProyectoID: "", ListadoPruebas: [], Estatus: 1 };
 
-                ListaDetalles[i].Accion = arregloCaptura[index].Accion;
-                ListaDetalles[i].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
-                ListaDetalles[i].MetrosLote = arregloCaptura[index].MetrosLote;
-                ListaDetalles[i].NumeroPruebas = arregloCaptura[index].NumeroPruebas;
-                ListaDetalles[i].ProyectoID = ;
+                    ListaDetalles[i].Accion = arregloCaptura[index].Accion;
+                    ListaDetalles[i].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
+                    ListaDetalles[i].MetrosLote = arregloCaptura[index].MetrosLote;
+                    ListaDetalles[i].NumeroPruebas = arregloCaptura[index].NumeroPruebas;
+                    ListaDetalles[i].ProyectoID = ListaProyectos[k].ProyectoID;
 
-                for (var j = 0; j < arregloCaptura[index].listadoPruebasDetalle.length; j++) {
-                    ListaDetalles[i].ListadoPruebas[j] = { Accion: "", ProyectoProcesoPruebaID: "", SistemaPinturaProyectoProcesoID: "", UnidadMedidaID: "", UnidadMinima: "", UnidadMaxima: "" };
-                    ListaDetalles[i].ListadoPruebas[j].Accion = arregloCaptura[index].listadoPruebasDetalle[j].Accion;
-                    ListaDetalles[i].ListadoPruebas[j].ProyectoProcesoPruebaID = arregloCaptura[index].listadoPruebasDetalle[j].ProyectoProcesoPruebaID;
-                    ListaDetalles[i].ListadoPruebas[j].SistemaPinturaProyectoProcesoID = arregloCaptura[index].SistemaPinturaProyectoProcesoID;
-                    ListaDetalles[i].ListadoPruebas[j].UnidadMedidaID = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMedidaID;
-                    ListaDetalles[i].ListadoPruebas[j].UnidadMinima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMinima;
-                    ListaDetalles[i].ListadoPruebas[j].UnidadMaxima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMaxima;
+                    for (var j = 0; j < arregloCaptura[index].listadoPruebasDetalle.length; j++) {
+                        ListaDetalles[i].ListadoPruebas[j] = { Accion: "", UnidadMedidaID: "", UnidadMinima: "", UnidadMaxima: "", ProyectoID: "", ProcesoPinturaID: "", PruebaProcesoPinturaID:"" };
+                        ListaDetalles[i].ListadoPruebas[j].Accion = arregloCaptura[index].listadoPruebasDetalle[j].Accion;
+                        ListaDetalles[i].ListadoPruebas[j].ProcesoPinturaID = ListaDetalles[i].ProcesoPinturaID;
+                        ListaDetalles[i].ListadoPruebas[j].ProyectoID = ListaProyectos[k].ProyectoID;
+                        ListaDetalles[i].ListadoPruebas[j].UnidadMedidaID = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMedidaID;
+                        ListaDetalles[i].ListadoPruebas[j].UnidadMinima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMinima;
+                        ListaDetalles[i].ListadoPruebas[j].UnidadMaxima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMaxima;
+                        ListaDetalles[i].ListadoPruebas[j].PruebaProcesoPinturaID = arregloCaptura[index].listadoPruebasDetalle[j].PruebaProcesoPinturaID;
+                    }
+                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == "" || arregloCaptura[index].NumeroPruebas == "")) {
+                        ListaDetalles[i].Estatus = 0;
+                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                    }
+                    i++;
                 }
-
-
-                if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == "" || arregloCaptura[index].NumeroPruebas == "")) {
-                    ListaDetalles[i].Estatus = 0;
-                    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                }
-                i++;
             }
         }
 
@@ -221,19 +222,21 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListasCaptura[0].ListaSPProyectoProceso = ListaDetalles;
         Captura[0].Detalles = ListasCaptura;
 
-
+        
         //if (!ExistRowEmpty(ListaDetalles)) {
                 loadingStart();
                 $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {                   
                     if (Error(data)) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                            if (tipo<add name="SqlServer" connectionString="server=LAPMAFTEC04;initial catalog=steelgo-sam3;User=sa;Password=maftec04;MultipleActiveResultSets=True;Connect Timeout=2000" /> == 1) {
+                            if (tipoGuardar == 1) {
                                 $("#grid").data("kendoGrid").dataSource.data([]);
                                 opcionHabilitarView(false, "FieldSetView");
                             }
                             else {
                                 $("#grid").data("kendoGrid").dataSource.data([]);
                                 opcionHabilitarView(true, "FieldSetView");
+                                $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
+                                AjaxObtenerColor();
                             }
                             displayNotify("MensajeGuardadoExistoso", "", "0");
                         }
