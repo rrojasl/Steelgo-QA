@@ -27,7 +27,7 @@ function suscribirEventoGuardar() {
             opcionHabilitarView(false, "FieldSetView");
     });
 
-    $('#BotonGuardar1').click(function (e) {
+    $('#BotonGuardar2').click(function (e) {
         $("#grid").data("kendoGrid").dataSource.sync();    
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
@@ -131,6 +131,7 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#Proyecto").data("kendoComboBox").enable(false);
+        $("#InputNumeroControl").addClass("k-state-disabled");
 
         //$("#Fecha").data("kendoDatePicker").enable(false);
         $('#BotonGuardar').text("Editar");
@@ -144,6 +145,7 @@ function opcionHabilitarView(valor, name) {
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#Proyecto").data("kendoComboBox").enable(true);
+        $("#InputNumeroControl").removeClass("k-state-disabled");
         $('#BotonGuardar').text("Guardar");
         $("#DetalleAvisoLlegada0017").text("Guardar");
 
