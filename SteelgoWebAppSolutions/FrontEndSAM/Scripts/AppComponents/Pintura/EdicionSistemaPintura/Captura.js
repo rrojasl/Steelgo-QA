@@ -146,7 +146,7 @@ function editaSistemaPintura(dataItem) {
     
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {        
         var SistemaPinturaID = dataItem.SistemaPinturaID;
-        var url = '/Pintura/SistemaPintura/?sistemaPinturaID=' + SistemaPinturaID
+        var url = '/Pintura/SistemaPintura?SistemaPinturaID=' + SistemaPinturaID
         window.location.href = url;
     }
 }
