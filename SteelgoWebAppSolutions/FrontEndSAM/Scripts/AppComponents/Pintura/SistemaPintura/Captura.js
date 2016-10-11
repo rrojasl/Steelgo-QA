@@ -137,8 +137,8 @@ function CargarGrid() {
                 }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
             },
             { field: "Proceso", title: "Proceso", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "MetrosLote", title: "Mts. Lote", filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { field: "NumeroPruebas", title: "Pbas. lote", filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "MetrosLote", title: "Mts. Lote", filterable: getGridFilterableCellNumberMaftec(), width: "130px", editor: RenderMetrosLote, attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "NumeroPruebas", title: "Pbas. lote", filterable: getGridFilterableCellNumberMaftec(), width: "100px",editor: RenderNumeroPruebas, attributes: { style: "text-align:right;" }, format: "{0: }" },
             { field: "Pruebas", title: "Pruebas", template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#/'  > <span>Detalle Pruebas</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
 
         ],
@@ -372,8 +372,8 @@ function CargarGridPopUp() {
         columns: [
             { field: "ProyectoProcesoPrueba", title: "Prueba", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
             { field: "UnidadMedida", title: "U. medida", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxUnidadMedida },
-            { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", editor: RenderUnidadMinima, attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", editor: RenderUnidadMaxima, attributes: { style: "text-align:right;" }, format: "{0: }" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
