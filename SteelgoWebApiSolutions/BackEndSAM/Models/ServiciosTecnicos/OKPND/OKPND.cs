@@ -67,7 +67,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
     public class ElementosMasivo
     {
         public string NumeroControl { get; set; }
-        public int OKPND { get; set; }
+        public string OKPND { get; set; }
     }
 
     public class ElementosMasivoResult

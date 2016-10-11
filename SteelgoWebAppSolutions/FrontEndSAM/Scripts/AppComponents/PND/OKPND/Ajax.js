@@ -89,8 +89,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
             title: modalTitle,
             resizable: false,
             visible: true,
-            width: "50%",
-            minWidth: 30,
+            width: "30%",
+            minWidth: 10,
             position: {
                 top: "1%",
                 left: "1%"
