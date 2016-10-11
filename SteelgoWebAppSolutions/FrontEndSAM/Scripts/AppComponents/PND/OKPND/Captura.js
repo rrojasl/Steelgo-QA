@@ -25,7 +25,7 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
-            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+            if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
         },
         dataSource: {
@@ -84,9 +84,9 @@ function CargarGrid() {
         ],
         dataBound: function (a) {
             $(".ob-paid").bind("change", function (e) {
-                if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-                    var grid = $("#grid").data("kendoGrid"),
-                        dataItem = grid.dataItem($(e.target).closest("tr"));
+                if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                    var grid = $("#grid").data("kendoGrid");
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
                     if (e.target.checked == true)
                         dataItem.OkPND = true;
                     else
@@ -112,7 +112,7 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
-            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+            if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
         },
         dataSource: {
