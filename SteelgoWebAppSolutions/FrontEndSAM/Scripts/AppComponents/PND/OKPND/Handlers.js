@@ -180,7 +180,7 @@ function suscribirEventoCarGaCSV() {
                     reader.onload = function (event) {
                         var csvData = event.target.result;
                         
-                        csvToJson(csvData).forEach(function (c) {
+                        csvToJson(csvData,"").forEach(function (c) {
                             data.push(c);
                         });
                         
@@ -197,7 +197,7 @@ function suscribirEventoCarGaCSV() {
     });
 }
 
-function csvToJson(data) {
+function csvToJson(data,field) {
     data = data.split("\n");
     data.shift();
     //data.pop();
@@ -217,11 +217,10 @@ function csvToJson(data) {
                 throw -1;
             }
         })
-        return 1;
     } catch (e) {
         if (e !== -1) {
-            throw e;
             error = 1;
+            throw e;
         } else {
             displayNotify("ListadoCatalogos0012", "", '2');
             error = 1;
