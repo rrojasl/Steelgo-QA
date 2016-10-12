@@ -83,36 +83,28 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
 
         var modalTitle = "";
         modalTitle = _dictionary.guardarCambiosOKPND[$("#language").data("kendoDropDownList").value()];
-        var ventanaConfirm = $("#ventanaConfirm");
-        var window = ventanaConfirm.kendoWindow({
+
+        var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            iframe: true,
+            title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+            visible: false,
+            width: 450,
+            height: 90,
+            draggable: false,
             modal: true,
-            title: modalTitle,
-            resizable: false,
-            visible: true,
-            width: "30%",
-            minWidth: 10,
-            position: {
-                top: "1%",
-                left: "1%"
+            animation: {
+                close: false,
+                open: false
             }
         }).data("kendoWindow");
 
-        window.content('<div id="ventanaConfirm" z-index: inherit">' +
-                            '<div class="col-sm-11 col-md-11 col-lg-11">' +
-                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                    '<center><span>' + _dictionary.msgGuardarCambios[$("#language").data("kendoDropDownList").value()] + '</span></center>' +
-                                '</div>' +
-                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                    '<center><button class="btn btn-blue" id="YesButton"> Guardar</button>&nbsp;<button class="btn btn-blue" id="NoButton"> Cancelar</button></center>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>');
+        ventanaConfirm.content("<center>" + _dictionary.msgGuardarCambios[$("#language").data("kendoDropDownList").value()] + "</center>" +
+            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
 
-        ventanaConfirm.data("kendoWindow").title(modalTitle);
-        ventanaConfirm.data("kendoWindow").center().open();
+        ventanaConfirm.open().center();
 
-        $("#YesButton").click(function (handler) {
-            window.close();
+        $("#yesButton").click(function (handler) {
+            ventanaConfirm.close();
             $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (data.ReturnMessage[0] != undefined) {
@@ -134,8 +126,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
             });
         });
 
-        $("#NoButton").click(function (handler) {
-            window.close();
+        $("#noButton").click(function (handler) {
+            ventanaConfirm.close();
         });
     }
     else {
