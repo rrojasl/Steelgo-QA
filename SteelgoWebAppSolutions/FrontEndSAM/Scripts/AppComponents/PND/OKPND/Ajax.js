@@ -89,7 +89,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
             title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
             visible: false,
             width: 450,
-            height: 70,
+            height: 90,
             draggable: false,
             modal: true,
             animation: {
@@ -98,13 +98,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
             }
         }).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+        ventanaConfirm.content("<center>" + _dictionary.msgGuardarCambios[$("#language").data("kendoDropDownList").value()] + "</center>" +
             "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
 
         ventanaConfirm.open().center();
 
         $("#yesButton").click(function (handler) {
-            window.close();
+            ventanaConfirm.close();
             $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (data.ReturnMessage[0] != undefined) {
@@ -127,7 +127,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
         });
 
         $("#noButton").click(function (handler) {
-            window.close();
+            ventanaConfirm.close();
         });
     }
     else {
