@@ -10,7 +10,7 @@
         <a href="#"><span id="lblPintura">Pintura</span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("AsignacionRequisicion", "PND")"><span id="">Sistema Pintura</span></a>
+        <a href="@Url.Action("SistemaPintura", "Pintura")"><span id="menuSistemaPintura"></span></a>
     </li>
 }
 <div id="FormAsignarRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -39,7 +39,8 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones" class="eliminarSistema">
-                            <li> <a href="#" class="eliminarSistema"><span>Eliminar</span></a></li>
+                            <li><a href="@Url.Action("SistemaPintura", "Pintura")"><span id="menuListadoSistemaPintura"></span></a></li>
+                            <li> <a href="#" class="eliminarSistema"><span id="botonAccionEliminar"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -53,23 +54,23 @@
         <input id="inputSistemaPinturaID" type="hidden" value="" />
 
         <div class="col-sm-3 col-md-3 col-lg-3">
-            <label id="">Nombre</label>
+            <label id="columnNombre"></label>
             <input id="inputNombre" class="general-input item-select" />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
-            <label id="">Color</label>
+            <label id="lblColor"></label>
             <input id="inputColor" class="" />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3" id="divMultiselectProyecto">
-            <label id="">Proyecto</label>
+            <label id="lblProyecto"></label>
             <input id="inputProyecto" />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3" style="display:none; " id="divComboProyecto">
-            <label id="">Proyecto</label>
+            <label id="columnProyecto"></label>
             <input id="comboProyecto"  />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
-            <label id="">No pintable</label>
+            <label id="lblNoPintable"></label>
             <input id="inputNoAplicable" type="checkbox" />
         </div>
 
@@ -106,13 +107,13 @@
             <div class="col-sm-3 col-d-3 col-lg-3">
                 <label id="">&nbsp;</label>
                 <a class=" btn btn-primary " href="#" id="GuardarDetallePruebas">
-                    <span id="botonGuardar">Guardar</span>
+                    <span id="botonGuardar">span>
                 </a>
             </div>
             <div class="col-sm-3 col-d-3 col-lg-3">
                 <label id="">&nbsp;</label>
                 <a class=" btn btn-primary " href="#" id="CerrarDetallePruebas">
-                    <span id="botonGuardar">Cancelar</span>
+                    <span id="botonCancelar"></span>
                 </a>
             </div>
 
@@ -146,7 +147,8 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li> <a href="#" class="eliminarSistema"><span>Eliminar</span></a></li>
+                            <li><a href="@Url.Action("SistemaPintura", "Pintura")"><span id="menuListadoSistemaPintura2"></span></a></li>
+                            <li> <a href="#" class="eliminarSistema"><span id="botonAccionEliminar2"></span></a></li>
                         </ul>
                     </div>
                 </div>

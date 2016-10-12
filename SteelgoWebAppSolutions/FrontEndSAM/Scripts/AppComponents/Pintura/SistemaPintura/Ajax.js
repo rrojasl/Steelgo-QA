@@ -144,12 +144,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         SistemaPinturaID = $("#inputSistemaPinturaID").val() == "" ? 0 : $("#inputSistemaPinturaID").val();
         Nombre = $("#inputNombre").val();
         if (Nombre == "") {
-            displayNotify("", "El campo nombre no puede ir vacio", 1);
+            displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
             return;
         }
 
         if ($("#inputColor").data("kendoMultiSelect")._values.length == 0 && necesitaColor) {
-            displayNotify("", "Selecciona al menos un color", 1);
+            displayNotify("SistemaPinturaMensajeErrorColor", "", 1);
             return;
         }
         else {
@@ -171,13 +171,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 
             }
             else {
-                displayNotify("", "Selecciona un proyecto", 1);
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", 1);
                 return;
             }
         }
         else {
             if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 0) {
-                displayNotify("", "Selecciona al menos un proyecto", 1);
+                displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", 1);
                 return;
             }
             else {

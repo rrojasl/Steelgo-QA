@@ -116,11 +116,11 @@ function GuardarDetallePruebas() {
 
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].UnidadMinima == "" || ds._data[i].UnidadMaxima == "" || ds._data[i].ProyectoProcesoPrueba == "" || ds._data[i].UnidadMedida == "") {
-                displayNotify("", "Todos los campos son mandatorios, revisar captura", 1);
+                displayNotify("SistemaPinturaMensajeCamposMandatorios", "", 1);
                 return;
             }
             else if (parseInt(ds._data[i].UnidadMinima) > parseInt(ds._data[i].UnidadMaxima)) {
-                displayNotify("", "La unidad maxima  debe ser mayor o igual a la minima", 1);
+                displayNotify("SistemaPinturaMensajeUnidadMedidaError", "", 1);
                 return;
             }
 
