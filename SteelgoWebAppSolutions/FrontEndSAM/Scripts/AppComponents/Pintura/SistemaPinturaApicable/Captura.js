@@ -5,6 +5,7 @@ function IniciarSistemaPinturaAplicable() {
 }
 
 function changeLanguageCall() {
+    $('input[value="spool"]').prop("checked", true);
     CargarGrid();
     AjaxCargarCamposPredeterminados();
     AjaxCargaProyecto();

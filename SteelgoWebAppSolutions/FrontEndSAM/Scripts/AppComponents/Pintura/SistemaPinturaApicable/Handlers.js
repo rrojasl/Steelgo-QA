@@ -259,7 +259,6 @@ function SuscribirEventoTipoBusqueda() {
 
 function SuscribirEventoCargarCsv() {
     $("#btnCargaCsv, #btnCargaCsv1").click(function (e) {
-        $("input[name='TipoCarga']").val()
         windowLoadFile = $("#windowLoadFile").kendoWindow({
             iframe: true,
             title: _dictionary.SPATituloCargarCsv[$("#language").data("kendoDropDownList").value()],
@@ -273,6 +272,8 @@ function SuscribirEventoCargarCsv() {
                 open: false
             },
             close: function onClose(e) {
+                $('input[value="spool"]').prop("checked", true);
+                $("#inputFile").val("");
                 $("#lblRutaArchivo").text("");
             }
         }).data("kendoWindow");
@@ -330,6 +331,8 @@ function SuscribirEventoCargarCsv() {
     });
 
     $("#btnCerrarPopup").click(function (e) {
+        $('input[value="spool"]').prop("checked", true);
+        $("#inputFile").val("");
         $("#lblRutaArchivo").text("");
         windowLoadFile.close();
     });
