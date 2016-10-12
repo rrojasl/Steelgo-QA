@@ -217,14 +217,17 @@ function csvToJson(data,field) {
     var csv = [];
     try {
         data.split("\n").forEach(function (d, i) {
-            if (d.substring(0, d.length).split(",").length === encabezados.length - (encabezados.length - $("#gridMasivo").data("kendoGrid").columns.length)) {
+            if (d.substring(0, d.length).split(",").length === encabezados.length) {
                 var tmp = {};
                 d.split(",").forEach(function (cell, z) {
                     tmp[encabezados[z]] = cell;
                 });
                 csv.push(tmp);
             } else {
-                throw -1;
+                if (d.substring(0, d.length).split(",").length != 1) {
+                    throw -1;
+                    csv = [];
+                }
             }
         })
     } catch (e) {
@@ -235,6 +238,7 @@ function csvToJson(data,field) {
             displayNotify("ListadoCatalogos0012", "", '2');
             error = 1;
         }
+        csv = [];
     }
     return csv;
 }
