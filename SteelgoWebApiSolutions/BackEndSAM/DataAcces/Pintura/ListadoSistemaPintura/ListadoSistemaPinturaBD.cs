@@ -73,10 +73,14 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                 {
                     string cadena = "";
                     List<Sam3_SPA_Get_ColorPintura_Result> result = ctx.Sam3_SPA_Get_ColorPintura(SistemaPinturaID, lenguaje).ToList();
-                    
+
+                    int posicion = 0;
                     foreach (Sam3_SPA_Get_ColorPintura_Result item in result)
                     {
-                        cadena = cadena + item.ColorPintura + ",";
+                        cadena += item.ColorPintura;
+                        if (posicion < result.Count - 1)
+                            cadena +=   " ,";
+                        posicion++;
                     }
 
                     return cadena;
@@ -109,14 +113,14 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             Accion = 1,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SistemaPintura = item.SistemaPintura,
-                            ProyectoProcesoShotblastID = item.ProyectoProcesoShotblastID,
+                            ProyectoProcesoShotblastID = item.ProyectoProcesoShotblastID.GetValueOrDefault(),
                             ProyectoProcesoPrimarioID = item.ProyectoProcesoPrimarioID.GetValueOrDefault(),
                             ProyectoProcesoIntermedioID = item.ProyectoProcesoIntermedioID.GetValueOrDefault(),
                             ProyectoProcesoAcabadoID = item.ProyectoProcesoAcabadoID.GetValueOrDefault(),
                             Proyecto = item.Proyecto,
                             Color = (string)ListadoSistemaPinturaBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID, lenguaje),
-                            PruebaPorLoteShotblast = item.PruebaPorLoteShotblast,
-                            MetrosPorLoteShotblast = item.MetrosPorLoteShotblast,
+                            PruebaPorLoteShotblast = item.PruebaPorLoteShotblast.GetValueOrDefault(),
+                            MetrosPorLoteShotblast = item.MetrosPorLoteShotblast.GetValueOrDefault(),
                             PruebaShotblast = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
                             PruebaPorLotePrimario = item.PruebaPorLotePrimario.GetValueOrDefault(),
                             MetrosPorLotePrimario = item.MetrosPorLotePrimario.GetValueOrDefault(),
@@ -127,7 +131,7 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             PruebaPorLoteAcabado = item.PruebaPorLoteAcabado.GetValueOrDefault(),
                             MetrosPorLoteAcabado = item.MetrosPorLoteAcabado.GetValueOrDefault(),
                             PruebaAcabado = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
-                            ListaPruebasSB = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoShotblastID, lenguaje),
+                            ListaPruebasSB = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoShotblastID.GetValueOrDefault(), lenguaje),
                             ListaPruebasP = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoPrimarioID.GetValueOrDefault(), lenguaje),
                             ListaPruebasI = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoIntermedioID.GetValueOrDefault(), lenguaje),
                             ListaPruebasA = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoAcabadoID.GetValueOrDefault(), lenguaje),
